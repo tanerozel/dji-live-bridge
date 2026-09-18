@@ -1,0 +1,25 @@
+{
+  "verifiedAt": "2026-09-18",
+  "tauri": {
+    "rust": "2.11.0",
+    "javascript": "2.11.1",
+    "cli": "2.11.4"
+  },
+  "rust": "1.98.1",
+  "mediamtx": "1.21.0",
+  "obsStudio": "32.2.2",
+  "obsWebSocketProtocol": "5.x / RPC 1 (runtime feature detection required)",
+  "ffmpeg": {
+    "supportedMinimum": "8.1.2",
+    "officialCurrent": "9.0.1",
+    "bundled": false,
+    "runtimeDetectedDuringDevelopment": "8.1"
+  },
+  "cameraExtension": {
+    "framework": "Core Media I/O",
+    "minimumMacOS": "13.0",
+    "format": "NV12 1080x1920 30fps video-only",
+    "bundleIdentifier": "com.djilivebridge.desktop.camera",
+    "appGroup": "group.com.djilivebridge.shared"
+  }
+}

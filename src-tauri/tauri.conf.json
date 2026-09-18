@@ -1,0 +1,46 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "DJI Live Bridge",
+  "version": "0.1.0",
+  "identifier": "com.djilivebridge.desktop",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://127.0.0.1:1420",
+    "beforeBuildCommand": "npm run build",
+    "beforeBundleCommand": "./scripts/build-camera-extension.sh",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "DJI Live Bridge",
+        "width": 1440,
+        "height": 920,
+        "minWidth": 1080,
+        "minHeight": 720,
+        "resizable": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' asset: http://asset.localhost data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' ipc: http://ipc.localhost http://127.0.0.1:8889; media-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["app", "dmg"],
+    "category": "Video",
+    "shortDescription": "Bridge DJI Fly RTMP streams to live destinations on macOS",
+    "longDescription": "A local DJI Fly RTMP ingest, preview and OBS-free FFmpeg production application with optional OBS integration.",
+    "externalBin": ["binaries/mediamtx"],
+    "macOS": {
+      "entitlements": "entitlements.plist",
+      "signingIdentity": "Developer ID Application: Taner Ozel (GXDXLCQ92M)",
+      "files": {
+        "Library/SystemExtensions/com.djilivebridge.desktop.camera.systemextension": "camera-extension/com.djilivebridge.desktop.camera.systemextension",
+        "embedded.provisionprofile": "embedded.provisionprofile"
+      },
+      "minimumSystemVersion": "13.0",
+      "infoPlist": "Info.plist"
+    }
+  }
+}

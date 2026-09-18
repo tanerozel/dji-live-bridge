@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>NSLocalNetworkUsageDescription</key>
+  <string>DJI RC 2 cihazından aynı yerel ağ üzerinden RTMP video akışını almak için yerel ağ erişimi gerekir.</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>Canlı yayına isteğe bağlı yorum mikrofonu eklemek için mikrofon erişimi gerekir.</string>
+</dict>
+</plist>

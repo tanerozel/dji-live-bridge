@@ -1,0 +1,33 @@
+logLevel: warn
+logDestinations: [stdout]
+logStructured: true
+api: true
+apiAddress: 127.0.0.1:9997
+apiAllowOrigins: []
+metrics: true
+metricsAddress: 127.0.0.1:9998
+metricsAllowOrigins: []
+pprof: false
+playback: false
+rtsp: true
+rtspTransports: [tcp]
+rtspAddress: 127.0.0.1:8554
+rtmp: true
+rtmpAddress: :1935
+hls: false
+webrtc: true
+webrtcAddress: 127.0.0.1:8889
+webrtcAllowOrigins: ["tauri://localhost", "http://tauri.localhost", "http://127.0.0.1:1420"]
+webrtcLocalUDPAddress: 127.0.0.1:8189
+webrtcLocalTCPAddress: 127.0.0.1:8189
+webrtcIPsFromInterfaces: false
+webrtcAdditionalHosts: [127.0.0.1]
+srt: false
+moq: false
+paths:
+  drone:
+    source: publisher
+  drone-preview:
+    source: publisher
+  production:
+    source: publisher
