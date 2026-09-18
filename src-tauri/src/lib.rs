@@ -1,5 +1,6 @@
 mod app;
 mod audio;
+mod bonjour;
 mod config;
 mod diagnostics;
 mod error;

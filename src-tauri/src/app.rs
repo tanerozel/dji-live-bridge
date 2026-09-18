@@ -8,7 +8,7 @@ use tauri::AppHandle;
 use tokio::sync::RwLock;
 
 use crate::{
-    audio,
+    audio, bonjour,
     config::{
         AppConfig, BroadcastDestination, ConfigStore, DestinationMode, FitMode, OutputLayout,
         ProductionEngine, validate_rtmp_destination,
@@ -270,18 +270,52 @@ impl AppState {
         let interfaces = network::discover_interfaces()?;
         let preferred = self.config.read().await.selected_interface.clone();
         let selected = network::select_interface(&interfaces, preferred.as_deref()).cloned();
-        let before = self.state.get().await.lan_ipv4;
+        let previous = self.state.get().await;
+        let before = previous.lan_ipv4;
         let selected_name = selected.as_ref().map(|value| value.name.clone());
         let selected_ip = selected.as_ref().map(|value| value.ipv4.clone());
         let rtmp_url = selected_ip
             .as_ref()
             .map(|address| format!("rtmp://{address}:1935/drone"));
+        let should_refresh_bonjour = selected_ip != before
+            || (selected_ip.is_some() && previous.bonjour_status != ServiceStatus::Ready);
+        let (bonjour_status, bonjour_detail) = if should_refresh_bonjour {
+            match selected_ip.as_deref() {
+                Some(address) => match bonjour::advertise(&self.supervisor, address).await {
+                    Ok(()) => (
+                        ServiceStatus::Ready,
+                        Some(format!(
+                            "{} resolves to {address} on the local network",
+                            bonjour::HOSTNAME
+                        )),
+                    ),
+                    Err(error) => (
+                        ServiceStatus::Failed,
+                        Some(format!("Bonjour advertisement failed: {error}")),
+                    ),
+                },
+                None => {
+                    bonjour::stop(&self.supervisor).await.ok();
+                    (
+                        ServiceStatus::Unavailable,
+                        Some("Waiting for an eligible LAN interface".into()),
+                    )
+                }
+            }
+        } else {
+            (previous.bonjour_status, previous.bonjour_detail)
+        };
+        let rtmp_domain_url =
+            (bonjour_status == ServiceStatus::Ready).then(|| bonjour::RTMP_URL.to_string());
         self.state
             .mutate(app, |snapshot| {
                 snapshot.interfaces = interfaces;
                 snapshot.selected_interface = selected_name;
                 snapshot.lan_ipv4 = selected_ip.clone();
                 snapshot.rtmp_url = rtmp_url;
+                snapshot.rtmp_domain_url = rtmp_domain_url;
+                snapshot.bonjour_status = bonjour_status;
+                snapshot.bonjour_detail = bonjour_detail;
                 snapshot.ip_change_warning =
                     detect_change && before.is_some() && before != selected_ip;
             })

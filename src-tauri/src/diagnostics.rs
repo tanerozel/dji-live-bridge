@@ -50,6 +50,32 @@ pub fn collect(snapshot: &BridgeSnapshot, ffmpeg: &FfmpegCapabilities) -> Vec<Di
             )
         },
     );
+    items.push(match snapshot.bonjour_status {
+        ServiceStatus::Ready => item(
+            "Local RTMP name",
+            DiagnosticLevel::Pass,
+            snapshot
+                .bonjour_detail
+                .clone()
+                .unwrap_or_else(|| "live.local is advertised with Bonjour".into()),
+            None,
+        ),
+        ServiceStatus::Starting => item(
+            "Local RTMP name",
+            DiagnosticLevel::Warning,
+            "Bonjour advertisement is starting".into(),
+            Some("Use the displayed IP fallback until live.local becomes ready."),
+        ),
+        ServiceStatus::Failed | ServiceStatus::Unavailable => item(
+            "Local RTMP name",
+            DiagnosticLevel::Warning,
+            snapshot
+                .bonjour_detail
+                .clone()
+                .unwrap_or_else(|| "live.local is unavailable".into()),
+            Some("Use the displayed IP fallback; both devices must be on the same hotspot."),
+        ),
+    });
     items.push(match snapshot.media_mtx {
         ServiceStatus::Ready => item(
             "MediaMTX",

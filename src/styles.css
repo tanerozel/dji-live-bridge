@@ -43,6 +43,8 @@ select:focus, input:focus { border-color: #39d58a; box-shadow: 0 0 0 3px rgba(57
 .url-box { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-top: 16px; padding: 13px; border: 1px solid #294038; border-radius: 12px; background: #091612; }
 .url-box span { grid-column: 1 / -1; color: #6e8179; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
 .url-box code { align-self: center; overflow: hidden; color: #74eba9; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+.url-box.secondary-url { margin-top: 8px; border-color: #23352f; background: #08130f; }
+.url-box.secondary-url code { color: #9aaba4; }
 button { border: 1px solid #2b3e37; border-radius: 9px; padding: 9px 13px; color: #c4d3cd; background: #13231e; transition: transform .15s ease, border-color .15s ease, background .15s ease; }
 button:hover:not(:disabled) { transform: translateY(-1px); border-color: #4a675c; }
 button.primary { border-color: #48dc91; color: #07110f; background: #48dc91; font-weight: 800; }

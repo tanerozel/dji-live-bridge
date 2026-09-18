@@ -122,6 +122,9 @@ export interface BridgeSnapshot {
   selectedInterface: string | null;
   lanIpv4: string | null;
   rtmpUrl: string | null;
+  rtmpDomainUrl: string | null;
+  bonjourStatus: ServiceStatus;
+  bonjourDetail: string | null;
   ipChangeWarning: boolean;
   mediaMtx: ServiceStatus;
   publisherPresent: boolean;

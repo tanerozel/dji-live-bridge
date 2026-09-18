@@ -22,6 +22,7 @@ Doğrulama tarihi: 2026-09-18.
 | macOS Camera Extension | Core Media I/O system extension contract | https://developer.apple.com/documentation/coremediaio/creating-a-camera-extension-with-core-media-i-o |
 | System Extensions | `OSSystemExtensionRequest` activation and user approval | https://developer.apple.com/documentation/systemextensions |
 | Swift compiler / macOS SDK | Xcode Command Line Tools; local extension build | https://developer.apple.com/xcode/resources/ |
+| Bonjour `dns-sd` | macOS system binary; `live.local` proxy registration | `man dns-sd` |
 | TikTok LIVE Studio | official page verified with macOS 12+ download on 2026-09-17 | https://www.tiktok.com/studio/download |
 
 ## MediaMTX provenance

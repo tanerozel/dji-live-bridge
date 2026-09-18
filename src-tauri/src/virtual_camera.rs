@@ -18,11 +18,21 @@ use crate::{
 static APP_HANDLE: OnceLock<AppHandle> = OnceLock::new();
 
 #[cfg(target_os = "macos")]
-extern "C" fn extension_event_callback(event: *const std::os::raw::c_char, message: *const std::os::raw::c_char) {
-    let event = unsafe { CStr::from_ptr(event) }.to_string_lossy().into_owned();
-    let message = unsafe { CStr::from_ptr(message) }.to_string_lossy().into_owned();
+extern "C" fn extension_event_callback(
+    event: *const std::os::raw::c_char,
+    message: *const std::os::raw::c_char,
+) {
+    let event = unsafe { CStr::from_ptr(event) }
+        .to_string_lossy()
+        .into_owned();
+    let message = unsafe { CStr::from_ptr(message) }
+        .to_string_lossy()
+        .into_owned();
     if let Some(app) = APP_HANDLE.get() {
-        let _ = app.emit("virtual-camera-extension-event", serde_json::json!({ "event": event, "message": message }));
+        let _ = app.emit(
+            "virtual-camera-extension-event",
+            serde_json::json!({ "event": event, "message": message }),
+        );
     }
 }
 
@@ -264,7 +274,9 @@ fn system_extension_build_version(line: &str) -> Option<&str> {
 #[cfg(target_os = "macos")]
 unsafe extern "C" {
     fn dji_request_camera_extension_activation();
-    fn dji_set_camera_extension_callback(callback: extern "C" fn(*const std::os::raw::c_char, *const std::os::raw::c_char));
+    fn dji_set_camera_extension_callback(
+        callback: extern "C" fn(*const std::os::raw::c_char, *const std::os::raw::c_char),
+    );
 }
 
 pub fn register_app_handle(app: AppHandle) {

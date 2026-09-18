@@ -85,16 +85,17 @@ function App() {
   }, [setUiError]);
 
   useEffect(() => {
-    if (!snapshot?.rtmpUrl) {
+    const preferredUrl = snapshot?.rtmpDomainUrl ?? snapshot?.rtmpUrl;
+    if (!preferredUrl) {
       setQrCode(undefined);
       return;
     }
-    void QRCode.toDataURL(snapshot.rtmpUrl, {
+    void QRCode.toDataURL(preferredUrl, {
       width: 220,
       margin: 1,
       color: { dark: "#07110fff", light: "#f1f7f3ff" },
     }).then(setQrCode);
-  }, [snapshot?.rtmpUrl]);
+  }, [snapshot?.rtmpDomainUrl, snapshot?.rtmpUrl]);
 
   useEffect(() => {
     if (!snapshot?.publisherPresent) {
@@ -184,7 +185,7 @@ function App() {
 
       {snapshot.ipChangeWarning && (
         <section className="warning-banner">
-          LAN IP changed. Update the RTMP address on DJI RC 2 before restarting DJI Fly livestream.
+          LAN IP changed. live.local was updated automatically; update DJI Fly only if you use the IP fallback URL.
         </section>
       )}
 
@@ -212,22 +213,34 @@ function App() {
           </select>
 
           <div className="url-box">
-            <span>DJI Fly RTMP URL</span>
+            <span>DJI Fly RTMP URL · Local domain</span>
+            <code>{snapshot.rtmpDomainUrl ?? "Bonjour name unavailable"}</code>
+            <button
+              disabled={!snapshot.rtmpDomainUrl}
+              onClick={() => snapshot.rtmpDomainUrl && void navigator.clipboard.writeText(snapshot.rtmpDomainUrl)}
+            >
+              Copy URL
+            </button>
+          </div>
+
+          <div className="url-box secondary-url">
+            <span>IP fallback URL</span>
             <code>{snapshot.rtmpUrl ?? "No eligible LAN interface"}</code>
             <button
               disabled={!snapshot.rtmpUrl}
               onClick={() => snapshot.rtmpUrl && void navigator.clipboard.writeText(snapshot.rtmpUrl)}
             >
-              Copy URL
+              Copy IP
             </button>
           </div>
+          {snapshot.bonjourDetail && <p className="inline-note">{snapshot.bonjourDetail}</p>}
 
           <div className="qr-row">
             <div className="qr-shell">{qrCode ? <img src={qrCode} alt="RTMP URL QR code" /> : <span>No URL</span>}</div>
             <div>
               <strong>DJI Fly path</strong>
               <p>GO FLY → Transmission → Live Streaming Platforms → RTMP</p>
-              <small>RC 2 may require its own attached microphone on DJI Fly 1.16+. This is separate from the Mac commentary microphone.</small>
+              <small>The QR code uses live.local when Bonjour is ready. If RC 2 cannot resolve it, use the IP fallback shown above.</small>
             </div>
           </div>
 

@@ -65,13 +65,16 @@ Fake `connected` durumu üretilmez. FFmpeg/ffprobe bulunamazsa özellik açıkç
 Bu akışta TikTok server URL veya stream key gerekmez:
 
 1. İmzalı `DJI Live Bridge.app` dosyasını `/Applications` klasörüne taşı ve oradan aç.
-2. DJI Fly yayınını başlat ya da uygulamadaki `Start Test Drone` ile görüntüyü doğrula.
-3. Destination bölümünde `LIVE Studio` seç ve bir kez `Enable virtual camera` düğmesine bas.
-4. macOS isterse **System Settings → Privacy & Security** altında sistem uzantısına izin ver. Durum `Ready` olunca `Start Virtual Camera` düğmesine bas.
-5. TikTok LIVE Studio içinde yeni bir Camera kaynağı ekleyip **DJI Live Bridge Camera** seç.
-6. Camera kaynağının `More settings → Audio capture` ayarını `None` yap.
-7. TikTok LIVE Studio ana mikrofon denetiminden yalnızca bir fiziksel mikrofon seç. Bu kamera bilerek yalnız video taşır; DJI Live Bridge bu modda ses yakalamaz veya TikTok'a ses göndermez.
-8. Yayın sesini dinleyeceksen hoparlör yerine kulaklık kullan; böylece mikrofonun hoparlör sesini yeniden alması engellenir.
+2. Mac ve DJI kumandayı aynı telefon hotspot'una bağla. DJI Fly yayın adresi olarak önce `rtmp://live.local/drone` kullan; kumanda bu adı çözemezse uygulamadaki IP fallback adresini kullan.
+3. DJI Fly yayınını başlat ya da uygulamadaki `Start Test Drone` ile görüntüyü doğrula.
+4. Destination bölümünde `LIVE Studio` seç ve bir kez `Enable virtual camera` düğmesine bas.
+5. macOS isterse **System Settings → Privacy & Security** altında sistem uzantısına izin ver. Durum `Ready` olunca `Start Virtual Camera` düğmesine bas.
+6. TikTok LIVE Studio içinde yeni bir Camera kaynağı ekleyip **DJI Live Bridge Camera** seç.
+7. Camera kaynağının `More settings → Audio capture` ayarını `None` yap.
+8. TikTok LIVE Studio ana mikrofon denetiminden yalnızca bir fiziksel mikrofon seç. Bu kamera bilerek yalnız video taşır; DJI Live Bridge bu modda ses yakalamaz veya TikTok'a ses göndermez.
+9. Yayın sesini dinleyeceksen hoparlör yerine kulaklık kullan; böylece mikrofonun hoparlör sesini yeniden alması engellenir.
+
+Uygulama macOS `dns-sd` ile `_rtmp._tcp.local` servisini ve `live.local` IPv4 kaydını yayınlar. Seçili LAN/hotspot IP'si değiştiğinde Bonjour kaydı otomatik yenilenir. IP tabanlı `rtmp://<LAN-IP>:1935/drone` adresi her zaman yedek olarak gösterilir.
 
 Görüntü yolu şöyledir:
 
