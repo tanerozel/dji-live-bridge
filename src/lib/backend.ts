@@ -112,13 +112,15 @@ export function normalizeError(error: unknown): ErrorPayload {
     const candidate = error as Partial<ErrorPayload>;
     return {
       code: candidate.code ?? "UNKNOWN",
-      message: candidate.message ?? "Unknown backend error",
-      action: candidate.action ?? "Open Diagnostics and retry.",
+      messageKey: candidate.messageKey ?? "errors.message.unknown",
+      detail: candidate.detail ?? "Unknown backend error",
+      actionKey: candidate.actionKey ?? "errors.action.unknown",
     };
   }
   return {
     code: "UNKNOWN",
-    message: error instanceof Error ? error.message : String(error),
-    action: "Open Diagnostics and retry.",
+    messageKey: "errors.message.unknown",
+    detail: error instanceof Error ? error.message : String(error),
+    actionKey: "errors.action.unknown",
   };
 }

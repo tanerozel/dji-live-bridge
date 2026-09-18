@@ -65,7 +65,7 @@ Fake `connected` durumu üretilmez. FFmpeg/ffprobe bulunamazsa özellik açıkç
 Bu akışta TikTok server URL veya stream key gerekmez:
 
 1. İmzalı `DJI Live Bridge.app` dosyasını `/Applications` klasörüne taşı ve oradan aç.
-2. Mac ve DJI kumandayı aynı telefon hotspot'una bağla. DJI Fly yayın adresi olarak önce `rtmp://live.local/drone` kullan; kumanda bu adı çözemezse uygulamadaki IP fallback adresini kullan.
+2. Mac ve DJI kumandayı aynı telefon hotspot'una bağla. DJI Fly yayın adresi olarak uygulamada gösterilen `rtmp://<hotspot-IP>:1935/drone` adresini kullan.
 3. DJI Fly yayınını başlat ya da uygulamadaki `Start Test Drone` ile görüntüyü doğrula.
 4. Destination bölümünde `LIVE Studio` seç ve bir kez `Enable virtual camera` düğmesine bas.
 5. macOS isterse **System Settings → Privacy & Security** altında sistem uzantısına izin ver. Durum `Ready` olunca `Start Virtual Camera` düğmesine bas.
@@ -73,8 +73,6 @@ Bu akışta TikTok server URL veya stream key gerekmez:
 7. Camera kaynağının `More settings → Audio capture` ayarını `None` yap.
 8. TikTok LIVE Studio ana mikrofon denetiminden yalnızca bir fiziksel mikrofon seç. Bu kamera bilerek yalnız video taşır; DJI Live Bridge bu modda ses yakalamaz veya TikTok'a ses göndermez.
 9. Yayın sesini dinleyeceksen hoparlör yerine kulaklık kullan; böylece mikrofonun hoparlör sesini yeniden alması engellenir.
-
-Uygulama macOS `dns-sd` ile `_rtmp._tcp.local` servisini ve `live.local` IPv4 kaydını yayınlar. Seçili LAN/hotspot IP'si değiştiğinde Bonjour kaydı otomatik yenilenir. IP tabanlı `rtmp://<LAN-IP>:1935/drone` adresi her zaman yedek olarak gösterilir.
 
 Görüntü yolu şöyledir:
 
@@ -85,6 +83,10 @@ DJI / Test Drone → MediaMTX /drone → FFmpeg NV12 1080×1920@30
 ```
 
 Kamera etkinleştirme macOS güvenlik modelinin parçasıdır; uygulamanın `/Applications` altında bulunması ve ilk kullanımda yönetici onayı gerekir. `Go Live` işlemi TikTok LIVE Studio içinde manuel kalır.
+
+## Dil desteği
+
+Uygulamanın varsayılan dili İngilizcedir. Üst menüdeki dil seçiciden `English` veya `Türkçe` seçilebilir; tercih yerel olarak saklanır ve uygulama yeniden açıldığında korunur. Arayüz, durumlar, tanılama sonuçları ve hata yönlendirmeleri aynı çeviri anahtarları üzerinden anında güncellenir. Teknik cihaz adları, kodekler, protokoller ve ham hata ayrıntıları teşhis doğruluğu için çevrilmez.
 
 ## Yerleşik production ve yayın davranışı
 

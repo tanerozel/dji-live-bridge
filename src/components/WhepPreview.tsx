@@ -6,9 +6,10 @@ interface Props {
   active: boolean;
   onConnected: () => void;
   onFailure: (reason: string) => void;
+  t: (key: string) => string;
 }
 
-export function WhepPreview({ endpoint, active, onConnected, onFailure }: Props) {
+export function WhepPreview({ endpoint, active, onConnected, onFailure, t }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [connecting, setConnecting] = useState(false);
 
@@ -49,8 +50,8 @@ export function WhepPreview({ endpoint, active, onConnected, onFailure }: Props)
   return (
     <div className="preview-stage">
       <video ref={videoRef} autoPlay muted playsInline />
-      {connecting && <div className="preview-overlay">Negotiating local WHEP…</div>}
-      {!active && <div className="preview-overlay">Waiting for /drone publisher</div>}
+      {connecting && <div className="preview-overlay">{t("preview.negotiating")}</div>}
+      {!active && <div className="preview-overlay">{t("preview.waiting")}</div>}
     </div>
   );
 }

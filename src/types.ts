@@ -14,8 +14,9 @@ export type PreviewMode = "Direct" | "Transcoded";
 
 export interface ErrorPayload {
   code: string;
-  message: string;
-  action: string;
+  messageKey: string;
+  detail: string;
+  actionKey: string;
 }
 
 export interface NetworkInterface {
@@ -42,6 +43,7 @@ export interface PreviewState {
   fallbackWhepUrl: string;
   mode: PreviewMode;
   status: ServiceStatus;
+  reasonKey: string | null;
   reason: string | null;
 }
 
@@ -86,6 +88,7 @@ export interface VirtualCameraState {
   width: number;
   height: number;
   fps: number;
+  detailKey: string;
   detail: string | null;
 }
 
@@ -122,9 +125,6 @@ export interface BridgeSnapshot {
   selectedInterface: string | null;
   lanIpv4: string | null;
   rtmpUrl: string | null;
-  rtmpDomainUrl: string | null;
-  bonjourStatus: ServiceStatus;
-  bonjourDetail: string | null;
   ipChangeWarning: boolean;
   mediaMtx: ServiceStatus;
   publisherPresent: boolean;
@@ -141,10 +141,12 @@ export interface BridgeSnapshot {
 }
 
 export interface DiagnosticItem {
-  name: string;
+  id: string;
+  nameKey: string;
   level: "Pass" | "Warning" | "Fail";
-  detail: string;
-  action: string | null;
+  detailKey: string;
+  actionKey: string | null;
+  technicalDetail: string;
 }
 
 export interface FfmpegCapabilities {

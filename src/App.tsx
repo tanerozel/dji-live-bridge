@@ -4,6 +4,7 @@ import QRCode from "qrcode";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { WhepPreview } from "./components/WhepPreview";
 import { StatusPill } from "./components/StatusPill";
+import { loadLanguage, saveLanguage, translate, type Language, type TranslationParams } from "./i18n";
 import {
   activatePreviewFallback,
   activateVirtualCameraExtension,
@@ -28,18 +29,6 @@ import {
 import { useBridgeStore } from "./store";
 import type { DiagnosticItem } from "./types";
 
-const workflowLabels: Record<string, string> = {
-  Idle: "Idle",
-  Preparing: "Preparing local bridge",
-  WaitingForDrone: "Waiting for drone",
-  DroneConnected: "Drone connected",
-  PreparingObs: "Preparing production",
-  Ready: "Production ready",
-  GoingLive: "Going live",
-  Live: "Live",
-  Stopping: "Stopping",
-};
-
 function App() {
   const { snapshot, uiError, initialized, initialize, setUiError, clearUiError } = useBridgeStore();
   const [qrCode, setQrCode] = useState<string>();
@@ -62,6 +51,13 @@ function App() {
   const [noiseSuppression, setNoiseSuppression] = useState(true);
   const [compressor, setCompressor] = useState(true);
   const [limiter, setLimiter] = useState(true);
+  const [language, setLanguage] = useState<Language>(loadLanguage);
+  const t = useCallback(
+    (key: string, params?: TranslationParams) => translate(language, key, params),
+    [language],
+  );
+
+  useEffect(() => saveLanguage(language), [language]);
 
   useEffect(() => {
     let cleanup: (() => void) | undefined;
@@ -77,7 +73,12 @@ function App() {
       "virtual-camera-extension-event",
       ({ payload }) => {
         if (payload.event === "failed" || payload.event === "debug") {
-          setUiError({ code: payload.event.toUpperCase(), message: payload.message, action: "" });
+          setUiError({
+            code: payload.event.toUpperCase(),
+            messageKey: "errors.message.virtualCamera",
+            detail: payload.message,
+            actionKey: "errors.action.virtualCamera",
+          });
         }
       }
     ).then((fn) => { unlisten = fn; });
@@ -85,17 +86,16 @@ function App() {
   }, [setUiError]);
 
   useEffect(() => {
-    const preferredUrl = snapshot?.rtmpDomainUrl ?? snapshot?.rtmpUrl;
-    if (!preferredUrl) {
+    if (!snapshot?.rtmpUrl) {
       setQrCode(undefined);
       return;
     }
-    void QRCode.toDataURL(preferredUrl, {
+    void QRCode.toDataURL(snapshot.rtmpUrl, {
       width: 220,
       margin: 1,
       color: { dark: "#07110fff", light: "#f1f7f3ff" },
     }).then(setQrCode);
-  }, [snapshot?.rtmpDomainUrl, snapshot?.rtmpUrl]);
+  }, [snapshot?.rtmpUrl]);
 
   useEffect(() => {
     if (!snapshot?.publisherPresent) {
@@ -141,15 +141,15 @@ function App() {
   const formatted = useMemo(() => {
     const metadata = snapshot?.metadata;
     return {
-      bitrate: formatBitrate(metadata?.bitrateCalculatedBps),
+      bitrate: formatBitrate(metadata?.bitrateCalculatedBps, t("common.unavailable")),
       bytes: formatBytes(metadata?.receivedBytes ?? 0),
-      uptime: formatDuration(metadata?.uptimeSeconds),
-      fps: metadata?.fps ? `${metadata.fps.toFixed(2)} fps` : "Unavailable",
+      uptime: formatDuration(metadata?.uptimeSeconds, t("common.unavailable")),
+      fps: metadata?.fps ? `${metadata.fps.toFixed(2)} fps` : t("common.unavailable"),
     };
-  }, [snapshot?.metadata]);
+  }, [snapshot?.metadata, t]);
 
   if (!initialized || !snapshot) {
-    return <main className="boot-screen">Starting the local production bridge…</main>;
+    return <main className="boot-screen">{t("workflow.Preparing")}</main>;
   }
 
   const mediaReady = snapshot.mediaMtx === "Ready";
@@ -160,14 +160,23 @@ function App() {
     <main className="app-shell">
       <header className="topbar">
         <div>
-          <p className="eyebrow">LOCAL PRODUCTION ROUTER</p>
+          <p className="eyebrow">{t("header.eyebrow")}</p>
           <h1>DJI Live Bridge</h1>
         </div>
-        <div className="header-status">
-          <span className={`pulse ${snapshot.publisherPresent ? "on" : ""}`} />
-          <div>
-            <strong>{workflowLabels[snapshot.workflow]}</strong>
-            <small>{snapshot.lanIpv4 ?? "No LAN IPv4"}</small>
+        <div className="header-tools">
+          <label className="language-picker">
+            <span>{t("language.label")}</span>
+            <select value={language} onChange={(event) => setLanguage(event.target.value as Language)}>
+              <option value="en">{t("language.en")}</option>
+              <option value="tr">{t("language.tr")}</option>
+            </select>
+          </label>
+          <div className="header-status">
+            <span className={`pulse ${snapshot.publisherPresent ? "on" : ""}`} />
+            <div>
+              <strong>{t(`workflow.${snapshot.workflow}`)}</strong>
+              <small>{snapshot.lanIpv4 ?? t("header.noLan")}</small>
+            </div>
           </div>
         </div>
       </header>
@@ -175,17 +184,20 @@ function App() {
       {(uiError || snapshot.lastError) && (
         <section className="error-banner" role="alert">
           <div>
-            <strong>{(uiError ?? snapshot.lastError)?.code}</strong>
-            <p>{(uiError ?? snapshot.lastError)?.message}</p>
-            <small>{(uiError ?? snapshot.lastError)?.action}</small>
+            <strong>{t((uiError ?? snapshot.lastError)!.messageKey)} · {(uiError ?? snapshot.lastError)!.code}</strong>
+            <p>{t((uiError ?? snapshot.lastError)!.actionKey)}</p>
+            <details className="technical-details">
+              <summary>{t("common.technicalDetails")}</summary>
+              <code>{(uiError ?? snapshot.lastError)!.detail}</code>
+            </details>
           </div>
-          {uiError && <button onClick={clearUiError}>Dismiss</button>}
+          {uiError && <button onClick={clearUiError}>{t("common.dismiss")}</button>}
         </section>
       )}
 
       {snapshot.ipChangeWarning && (
         <section className="warning-banner">
-          LAN IP changed. live.local was updated automatically; update DJI Fly only if you use the IP fallback URL.
+          {t("warning.ipChanged")}
         </section>
       )}
 
@@ -193,13 +205,13 @@ function App() {
         <article className="panel ingest-panel">
           <div className="section-heading">
             <div>
-              <p className="step">01 / INGEST</p>
-              <h2>RC 2 connection</h2>
+              <p className="step">{t("ingest.step")}</p>
+              <h2>{t("ingest.title")}</h2>
             </div>
-            <StatusPill label={mediaReady ? "MediaMTX ready" : snapshot.mediaMtx} tone={mediaReady ? "good" : "warn"} />
+            <StatusPill label={mediaReady ? t("ingest.mediaReady") : t(`common.${snapshot.mediaMtx.toLowerCase()}`)} tone={mediaReady ? "good" : "warn"} />
           </div>
 
-          <label className="field-label" htmlFor="interface">LAN interface</label>
+          <label className="field-label" htmlFor="interface">{t("ingest.interface")}</label>
           <select
             id="interface"
             value={snapshot.selectedInterface ?? ""}
@@ -207,40 +219,27 @@ function App() {
           >
             {snapshot.interfaces.map((item) => (
               <option key={item.name} value={item.name}>
-                {item.name} · {item.ipv4}{item.recommended ? " · default route" : ""}
+                {item.name} · {item.ipv4}{item.recommended ? ` · ${t("ingest.defaultRoute")}` : ""}
               </option>
             ))}
           </select>
 
           <div className="url-box">
-            <span>DJI Fly RTMP URL · Local domain</span>
-            <code>{snapshot.rtmpDomainUrl ?? "Bonjour name unavailable"}</code>
-            <button
-              disabled={!snapshot.rtmpDomainUrl}
-              onClick={() => snapshot.rtmpDomainUrl && void navigator.clipboard.writeText(snapshot.rtmpDomainUrl)}
-            >
-              Copy URL
-            </button>
-          </div>
-
-          <div className="url-box secondary-url">
-            <span>IP fallback URL</span>
-            <code>{snapshot.rtmpUrl ?? "No eligible LAN interface"}</code>
+            <span>{t("ingest.ipLabel")}</span>
+            <code>{snapshot.rtmpUrl ?? t("ingest.noInterface")}</code>
             <button
               disabled={!snapshot.rtmpUrl}
               onClick={() => snapshot.rtmpUrl && void navigator.clipboard.writeText(snapshot.rtmpUrl)}
             >
-              Copy IP
+              {t("ingest.copyIp")}
             </button>
           </div>
-          {snapshot.bonjourDetail && <p className="inline-note">{snapshot.bonjourDetail}</p>}
-
           <div className="qr-row">
-            <div className="qr-shell">{qrCode ? <img src={qrCode} alt="RTMP URL QR code" /> : <span>No URL</span>}</div>
+            <div className="qr-shell">{qrCode ? <img src={qrCode} alt={t("ingest.qrAlt")} /> : <span>{t("common.noUrl")}</span>}</div>
             <div>
-              <strong>DJI Fly path</strong>
-              <p>GO FLY → Transmission → Live Streaming Platforms → RTMP</p>
-              <small>The QR code uses live.local when Bonjour is ready. If RC 2 cannot resolve it, use the IP fallback shown above.</small>
+              <strong>{t("ingest.path")}</strong>
+              <p>{t("ingest.pathSteps")}</p>
+              <small>{t("ingest.qrHelp")}</small>
             </div>
           </div>
 
@@ -253,26 +252,26 @@ function App() {
                   const selected = await open({
                     multiple: false,
                     directory: false,
-                    filters: [{ name: "Video", extensions: ["mp4", "mov", "mkv", "m4v"] }],
+                    filters: [{ name: t("ingest.videoFilter"), extensions: ["mp4", "mov", "mkv", "m4v"] }],
                   });
                   if (typeof selected === "string") await startTestDrone(selected);
                 })
               }
             >
-              Start Test Drone
+              {t("ingest.startTest")}
             </button>
-            <button onClick={() => void act("stop-test", stopTestDrone)}>Stop Test Drone</button>
+            <button onClick={() => void act("stop-test", stopTestDrone)}>{t("ingest.stopTest")}</button>
           </div>
         </article>
 
         <article className="panel preview-panel">
           <div className="section-heading">
             <div>
-              <p className="step">02 / PREVIEW</p>
-              <h2>Local low-latency monitor</h2>
+              <p className="step">{t("preview.step")}</p>
+              <h2>{t("preview.title")}</h2>
             </div>
             <StatusPill
-              label={snapshot.preview.mode === "Transcoded" ? "Preview transcode" : "Direct WHEP"}
+              label={snapshot.preview.mode === "Transcoded" ? t("preview.transcode") : t("preview.direct")}
               tone={snapshot.publisherPresent ? "good" : "neutral"}
             />
           </div>
@@ -281,55 +280,60 @@ function App() {
             active={snapshot.publisherPresent}
             onConnected={handlePreviewConnected}
             onFailure={handlePreviewFailure}
+            t={t}
           />
           {previewError && (
             <div className="preview-error">
               <div>
-                <strong>Direct preview unavailable</strong>
-                <p>{previewError}</p>
+                <strong>{t("preview.unavailable")}</strong>
+                <p>{t("preview.reason.failed")}</p>
+                <details className="technical-details">
+                  <summary>{t("common.technicalDetails")}</summary>
+                  <code>{previewError}</code>
+                </details>
               </div>
               <button
                 className="primary"
                 disabled={busy === "fallback"}
                 onClick={() => void startFallback()}
               >
-                Start preview-only fallback
+                {t("preview.startFallback")}
               </button>
             </div>
           )}
           {!previewError && snapshot.preview.mode === "Direct" && snapshot.metadata.audioCodec === "AAC" && (
             <div className="preview-error audio-warning">
               <div>
-                <strong>Preview audio is unavailable</strong>
-                <p>MediaMTX is carrying direct H.264 video, but WebRTC does not accept the DJI AAC track.</p>
+                <strong>{t("preview.audioUnavailable")}</strong>
+                <p>{t("preview.aacExplanation")}</p>
               </div>
-              <button disabled={busy === "fallback"} onClick={() => void startFallback()}>Enable H.264 + Opus fallback</button>
+              <button disabled={busy === "fallback"} onClick={() => void startFallback()}>{t("preview.enableFallback")}</button>
             </div>
           )}
-          {snapshot.preview.reason && <p className="inline-note">{snapshot.preview.reason}</p>}
+          {snapshot.preview.reasonKey && <p className="inline-note">{t(snapshot.preview.reasonKey)}</p>}
         </article>
       </section>
 
       <section className="metrics-grid">
-        <Metric label="Input resolution" value={snapshot.metadata.resolution ?? "Detecting / unavailable"} note={snapshot.metadata.resolution === "1280x720" ? "Native RC 2 limit; production output may upscale" : "Reported by ffprobe"} />
-        <Metric label="Frame rate" value={formatted.fps} note="No assumed FPS" />
-        <Metric label="Codecs" value={`${snapshot.metadata.videoCodec ?? "—"} / ${snapshot.metadata.audioCodec ?? "—"}`} note="Video / audio" />
-        <Metric label="Input bitrate" value={formatted.bitrate} note="Calculated from byte delta" />
-        <Metric label="Received" value={formatted.bytes} note={`Uptime ${formatted.uptime}`} />
-        <Metric label="Latency / jitter" value="Unavailable" note="Not measured for RTMP; never estimated" />
+        <Metric label={t("metrics.resolution")} value={snapshot.metadata.resolution ?? t("common.detecting")} note={snapshot.metadata.resolution === "1280x720" ? t("metrics.resolutionNative") : t("metrics.reported")} />
+        <Metric label={t("metrics.frameRate")} value={formatted.fps} note={t("metrics.noAssumedFps")} />
+        <Metric label={t("metrics.codecs")} value={`${snapshot.metadata.videoCodec ?? "—"} / ${snapshot.metadata.audioCodec ?? "—"}`} note={t("metrics.videoAudio")} />
+        <Metric label={t("metrics.bitrate")} value={formatted.bitrate} note={t("metrics.calculated")} />
+        <Metric label={t("metrics.received")} value={formatted.bytes} note={t("metrics.uptime", { value: formatted.uptime })} />
+        <Metric label={t("metrics.latency")} value={t("common.unavailable")} note={t("metrics.latencyUnavailable")} />
       </section>
 
       <section className="production-grid">
         <article className="panel obs-panel">
           <div className="section-heading">
             <div>
-              <p className="step">03 / PRODUCTION</p>
-              <h2>{destinationMode === "TikTokLiveStudio" ? "TikTok LIVE Studio camera" : "Built-in FFmpeg production"}</h2>
+              <p className="step">{t("production.step")}</p>
+              <h2>{destinationMode === "TikTokLiveStudio" ? t("production.liveStudioTitle") : t("production.nativeTitle")}</h2>
             </div>
             <StatusPill
               label={destinationMode === "TikTokLiveStudio"
-                ? nativeVirtualActive ? "Video ready" : "Video stopped"
-                : snapshot.production.active ? `Live · ${snapshot.production.encoder ?? "H.264"}` : snapshot.production.prepared ? "Ready" : "Not prepared"}
+                ? nativeVirtualActive ? t("production.videoReady") : t("production.videoStopped")
+                : snapshot.production.active ? t("production.live", { encoder: snapshot.production.encoder ?? "H.264" }) : snapshot.production.prepared ? t("common.ready") : t("production.notPrepared")}
               tone={destinationMode === "TikTokLiveStudio"
                 ? nativeVirtualActive ? "good" : "neutral"
                 : snapshot.production.active || snapshot.production.prepared ? "good" : "neutral"}
@@ -338,43 +342,43 @@ function App() {
 
           {destinationMode === "TikTokLiveStudio" ? (
             <div className="hard-truth live-studio-audio-notice">
-              <strong>Audio is handled only by TikTok LIVE Studio</strong>
-              <p>DJI Live Bridge sends video only and never captures or forwards a microphone in this mode. In LIVE Studio, set the camera source's Audio capture to None, then select exactly one microphone from TikTok's main microphone control. Use headphones when monitoring to prevent speaker feedback.</p>
+              <strong>{t("audio.title")}</strong>
+              <p>{t("audio.liveStudioHelp")}</p>
             </div>
           ) : (
             <>
               <div className="segmented-row">
                 <div>
-                  <span className="field-label">Canvas</span>
+                  <span className="field-label">{t("production.canvas")}</span>
                   <div className="segmented">
                     <button className={layout === "Landscape" ? "active" : ""} onClick={() => setLayout("Landscape")}>1920 × 1080</button>
                     <button className={layout === "Portrait" ? "active" : ""} onClick={() => setLayout("Portrait")}>1080 × 1920</button>
                   </div>
                 </div>
                 <div>
-                  <span className="field-label">Framing</span>
+                  <span className="field-label">{t("production.framing")}</span>
                   <div className="segmented">
-                    <button className={fitMode === "Fit" ? "active" : ""} onClick={() => setFitMode("Fit")}>Fit · no crop</button>
-                    <button className={fitMode === "Fill" ? "active" : ""} onClick={() => setFitMode("Fill")}>Fill</button>
+                    <button className={fitMode === "Fit" ? "active" : ""} onClick={() => setFitMode("Fit")}>{t("production.fit")}</button>
+                    <button className={fitMode === "Fill" ? "active" : ""} onClick={() => setFitMode("Fill")}>{t("production.fill")}</button>
                   </div>
                 </div>
               </div>
 
               <div className="audio-controls">
-                <label>Commentary microphone
+                <label>{t("audio.commentary")}
                   <select value={microphone} onChange={(event) => setMicrophone(event.target.value)}>
-                    <option value="">Drone audio only</option>
+                    <option value="">{t("audio.droneOnly")}</option>
                     {snapshot.audioInputs.map((device) => <option key={device.name} value={device.name}>{device.name}</option>)}
                   </select>
                 </label>
-                <label>Mic volume (dB)<input type="number" min={-60} max={12} step={1} value={microphoneVolumeDb} onChange={(event) => setMicrophoneVolumeDb(Number(event.target.value))} /></label>
-                <label>Sync delay (ms)<input type="number" min={0} max={5000} value={microphoneSyncMs} onChange={(event) => setMicrophoneSyncMs(Math.max(0, Number(event.target.value)))} /></label>
+                <label>{t("audio.volume")}<input type="number" min={-60} max={12} step={1} value={microphoneVolumeDb} onChange={(event) => setMicrophoneVolumeDb(Number(event.target.value))} /></label>
+                <label>{t("audio.delay")}<input type="number" min={0} max={5000} value={microphoneSyncMs} onChange={(event) => setMicrophoneSyncMs(Math.max(0, Number(event.target.value)))} /></label>
               </div>
               <div className="checkbox-row">
-                <label><input type="checkbox" checked={microphoneMuted} onChange={(event) => setMicrophoneMuted(event.target.checked)} /> Mute mic</label>
-                <label><input type="checkbox" checked={noiseSuppression} onChange={(event) => setNoiseSuppression(event.target.checked)} /> Noise suppression</label>
-                <label><input type="checkbox" checked={compressor} onChange={(event) => setCompressor(event.target.checked)} /> Compressor</label>
-                <label><input type="checkbox" checked={limiter} onChange={(event) => setLimiter(event.target.checked)} /> Limiter</label>
+                <label><input type="checkbox" checked={microphoneMuted} onChange={(event) => setMicrophoneMuted(event.target.checked)} /> {t("audio.mute")}</label>
+                <label><input type="checkbox" checked={noiseSuppression} onChange={(event) => setNoiseSuppression(event.target.checked)} /> {t("audio.noiseSuppression")}</label>
+                <label><input type="checkbox" checked={compressor} onChange={(event) => setCompressor(event.target.checked)} /> {t("audio.compressor")}</label>
+                <label><input type="checkbox" checked={limiter} onChange={(event) => setLimiter(event.target.checked)} /> {t("audio.limiter")}</label>
               </div>
               <button
                 className="primary wide"
@@ -391,46 +395,46 @@ function App() {
                   limiter,
                 }))}
               >
-                Prepare built-in production
+                {t("production.prepare")}
               </button>
             </>
           )}
           <div className="virtual-cam-row">
             <div>
-              <strong>Native recording</strong>
-              <p>{snapshot.production.recordingPath ?? "Records the real /production mix when live, otherwise the direct /drone stream."}</p>
+              <strong>{t("recording.native")}</strong>
+              <p>{snapshot.production.recordingPath ?? t("recording.nativeHelp")}</p>
             </div>
             <button
               className={snapshot.production.recordingActive ? "danger" : "primary"}
               disabled={!snapshot.publisherPresent}
               onClick={() => void act("native-recording", () => setNativeRecording(!snapshot.production.recordingActive))}
             >
-              {snapshot.production.recordingActive ? "Stop Recording" : "Start Recording"}
+              {snapshot.production.recordingActive ? t("recording.stop") : t("recording.start")}
             </button>
           </div>
 
           <div className="destination-box">
             <div className="section-heading compact">
               <div>
-                <p className="step">DESTINATION</p>
-                <h2>{destinationMode === "TikTokLiveStudio" ? "Video-only camera" : "Built-in video + audio mix"}</h2>
+                <p className="step">{t("destination.step")}</p>
+                <h2>{destinationMode === "TikTokLiveStudio" ? t("destination.videoOnly") : t("destination.mix")}</h2>
               </div>
               <StatusPill
-                label={snapshot.production.active ? `Streaming · ${snapshot.production.forwardState ?? "starting"}` : "Stopped"}
+                label={snapshot.production.active ? t("destination.streaming", { state: snapshot.production.forwardState ?? t("common.starting") }) : t("common.stopped")}
                 tone={snapshot.production.active ? "good" : "neutral"}
               />
             </div>
             <div className="segmented destination-mode">
-              <button className={destinationMode === "TikTokLiveStudio" ? "active" : ""} onClick={() => setDestinationMode("TikTokLiveStudio")}>LIVE Studio</button>
-              <button className={destinationMode === "TikTokRtmp" ? "active" : ""} onClick={() => setDestinationMode("TikTokRtmp")}>TikTok RTMP</button>
-              <button className={destinationMode === "CustomRtmp" ? "active" : ""} onClick={() => setDestinationMode("CustomRtmp")}>Custom RTMP</button>
+              <button className={destinationMode === "TikTokLiveStudio" ? "active" : ""} onClick={() => setDestinationMode("TikTokLiveStudio")}>{t("destination.liveStudio")}</button>
+              <button className={destinationMode === "TikTokRtmp" ? "active" : ""} onClick={() => setDestinationMode("TikTokRtmp")}>{t("destination.tiktokRtmp")}</button>
+              <button className={destinationMode === "CustomRtmp" ? "active" : ""} onClick={() => setDestinationMode("CustomRtmp")}>{t("destination.customRtmp")}</button>
             </div>
             {destinationMode === "TikTokLiveStudio" ? (
               <>
                 <div className="hard-truth destination-notice">
                   <strong>{snapshot.virtualCamera.deviceName}</strong>
-                  <p>{snapshot.virtualCamera.detail ?? "Video-only Core Media I/O camera for TikTok LIVE Studio."}</p>
-                  <small>{snapshot.virtualCamera.width} × {snapshot.virtualCamera.height} · {snapshot.virtualCamera.fps} fps · video only. DJI Live Bridge audio is disabled; select one microphone only in LIVE Studio.</small>
+                  <p>{t(snapshot.virtualCamera.detailKey)}</p>
+                  <small>{t("camera.videoOnly", { width: snapshot.virtualCamera.width, height: snapshot.virtualCamera.height, fps: snapshot.virtualCamera.fps })}</small>
                 </div>
                 <div className="action-row live-actions">
                   {snapshot.virtualCamera.status !== "Ready" ? (
@@ -438,7 +442,7 @@ function App() {
                       disabled={!snapshot.virtualCamera.bundled || !snapshot.virtualCamera.appInstalled || busy === "enable-native-camera"}
                       onClick={() => void act("enable-native-camera", activateVirtualCameraExtension)}
                     >
-                      Enable virtual camera
+                      {t("camera.enable")}
                     </button>
                   ) : (
                     <button
@@ -446,52 +450,52 @@ function App() {
                       disabled={!snapshot.publisherPresent || busy === "native-camera"}
                       onClick={() => void act("native-camera", () => setNativeVirtualCamera(!nativeVirtualActive))}
                     >
-                      {nativeVirtualActive ? "Stop Virtual Camera" : "Start Virtual Camera"}
+                      {nativeVirtualActive ? t("camera.stop") : t("camera.start")}
                     </button>
                   )}
-                  <button className="primary" onClick={() => void act("open-live-studio", openTikTokLiveStudio)}>Open / download LIVE Studio</button>
+                  <button className="primary" onClick={() => void act("open-live-studio", openTikTokLiveStudio)}>{t("camera.openStudio")}</button>
                 </div>
-                <p className="inline-note">Choose “{snapshot.virtualCamera.deviceName}” as the Camera source, set that source's Audio capture to None, and choose one microphone from LIVE Studio's main audio control. Go Live remains manual.</p>
+                <p className="inline-note">{t("camera.liveStudioHelp", { device: snapshot.virtualCamera.deviceName })}</p>
               </>
             ) : (
               <>
                 <div className="destination-fields">
-                  <label>Server URL<input value={destinationServer} placeholder="rtmps://…" onChange={(event) => setDestinationServer(event.target.value)} /></label>
-                  <label>Stream key<input type="password" value={streamKey} placeholder="Stored only in Keychain" onChange={(event) => setStreamKey(event.target.value)} /></label>
+                  <label>{t("rtmp.server")}<input value={destinationServer} placeholder="rtmps://…" onChange={(event) => setDestinationServer(event.target.value)} /></label>
+                  <label>{t("rtmp.streamKey")}<input type="password" value={streamKey} placeholder={t("rtmp.keychainPlaceholder")} onChange={(event) => setStreamKey(event.target.value)} /></label>
                 </div>
                 <div className="action-row live-actions">
-                  <button onClick={() => void act("save-destination", () => configureDestination(destinationMode, destinationServer, streamKey))}>Save destination</button>
+                  <button onClick={() => void act("save-destination", () => configureDestination(destinationMode, destinationServer, streamKey))}>{t("rtmp.save")}</button>
                   {!snapshot.production.active ? (
-                    <button className="primary" disabled={snapshot.workflow !== "Ready" || snapshot.production.engine !== "NativeFfmpeg"} onClick={() => void act("start-live", startLive)}>START LIVE</button>
+                    <button className="primary" disabled={snapshot.workflow !== "Ready" || snapshot.production.engine !== "NativeFfmpeg"} onClick={() => void act("start-live", startLive)}>{t("rtmp.start")}</button>
                   ) : (
-                    <button className="danger" onClick={() => void act("stop-live", stopLive)}>STOP LIVE</button>
+                    <button className="danger" onClick={() => void act("stop-live", stopLive)}>{t("rtmp.stop")}</button>
                   )}
                 </div>
-                <p className="inline-note">The stream key stays in macOS Keychain. START LIVE creates a loopback-only MediaMTX forward; STOP LIVE removes it. The secret is never placed in FFmpeg process arguments.</p>
+                <p className="inline-note">{t("rtmp.securityHelp")}</p>
               </>
             )}
           </div>
 
           <details className="optional-obs">
-            <summary>Optional OBS integration</summary>
-            <p className="inline-note">Use OBS only when you need its scene system, filters, recording or Virtual Camera. It is not required for Direct RTMP.</p>
+            <summary>{t("obs.summary")}</summary>
+            <p className="inline-note">{t("obs.help")}</p>
             <div className="obs-fields">
-              <label>Host<input value={obsHost} onChange={(event) => setObsHost(event.target.value)} /></label>
-              <label>Port<input type="number" value={obsPort} onChange={(event) => setObsPort(Number(event.target.value))} /></label>
-              <label className="password-field">Password<input type="password" value={obsPassword} placeholder="Stored in macOS Keychain" onChange={(event) => setObsPassword(event.target.value)} /></label>
+              <label>{t("obs.host")}<input value={obsHost} onChange={(event) => setObsHost(event.target.value)} /></label>
+              <label>{t("obs.port")}<input type="number" value={obsPort} onChange={(event) => setObsPort(Number(event.target.value))} /></label>
+              <label className="password-field">{t("obs.password")}<input type="password" value={obsPassword} placeholder={t("rtmp.keychainPlaceholder")} onChange={(event) => setObsPassword(event.target.value)} /></label>
             </div>
             <div className="action-row">
-              <button onClick={() => void act("save-obs", () => saveObsConnection(obsHost, obsPort, obsPassword))}>Save connection</button>
-              <button onClick={() => void act("open-obs", openObs)}>{snapshot.obs.installed ? "Open OBS" : "Open official download"}</button>
-              <button disabled={!snapshot.publisherPresent || !snapshot.obs.connected} onClick={() => void act("prepare-obs", () => prepareObs(layout, fitMode))}>Prepare OBS scene</button>
+              <button onClick={() => void act("save-obs", () => saveObsConnection(obsHost, obsPort, obsPassword))}>{t("obs.save")}</button>
+              <button onClick={() => void act("open-obs", openObs)}>{snapshot.obs.installed ? t("obs.open") : t("obs.download")}</button>
+              <button disabled={!snapshot.publisherPresent || !snapshot.obs.connected} onClick={() => void act("prepare-obs", () => prepareObs(layout, fitMode))}>{t("obs.prepare")}</button>
             </div>
             <div className="virtual-cam-row">
-              <div><strong>OBS Virtual Camera</strong><p>Video only; destination audio must be selected separately.</p></div>
-              <button className={obsVirtualActive ? "danger" : "primary"} disabled={!snapshot.obs.connected || !snapshot.obs.sceneReady} onClick={() => void act("virtual-cam", () => setObsVirtualCamera(!obsVirtualActive))}>{obsVirtualActive ? "Stop Virtual Camera" : "Start Virtual Camera"}</button>
+              <div><strong>{t("obs.camera")}</strong><p>{t("obs.cameraHelp")}</p></div>
+              <button className={obsVirtualActive ? "danger" : "primary"} disabled={!snapshot.obs.connected || !snapshot.obs.sceneReady} onClick={() => void act("virtual-cam", () => setObsVirtualCamera(!obsVirtualActive))}>{obsVirtualActive ? t("camera.stop") : t("camera.start")}</button>
             </div>
             <div className="virtual-cam-row">
-              <div><strong>OBS Recording</strong><p>{snapshot.obs.lastRecordingPath ?? "Uses the active OBS profile output path."}</p></div>
-              <button className={snapshot.obs.recordingActive ? "danger" : "primary"} disabled={!snapshot.obs.connected || !snapshot.obs.sceneReady} onClick={() => void act("recording", () => setRecording(!snapshot.obs.recordingActive))}>{snapshot.obs.recordingActive ? "Stop OBS Recording" : "Start OBS Recording"}</button>
+              <div><strong>{t("obs.recording")}</strong><p>{snapshot.obs.lastRecordingPath ?? t("obs.recordingHelp")}</p></div>
+              <button className={snapshot.obs.recordingActive ? "danger" : "primary"} disabled={!snapshot.obs.connected || !snapshot.obs.sceneReady} onClick={() => void act("recording", () => setRecording(!snapshot.obs.recordingActive))}>{snapshot.obs.recordingActive ? t("obs.stopRecording") : t("obs.startRecording")}</button>
             </div>
           </details>
         </article>
@@ -499,26 +503,34 @@ function App() {
         <article className="panel diagnostics-panel">
           <div className="section-heading">
             <div>
-              <p className="step">SYSTEM</p>
-              <h2>Diagnostics</h2>
+              <p className="step">{t("diagnostics.step")}</p>
+              <h2>{t("diagnostics.title")}</h2>
             </div>
-            <button onClick={() => void act("diagnostics", async () => setDiagnostics(await getDiagnostics()))}>Run checks</button>
+            <button onClick={() => void act("diagnostics", async () => setDiagnostics(await getDiagnostics()))}>{t("diagnostics.run")}</button>
           </div>
           {diagnostics.length === 0 ? (
-            <div className="empty-diagnostics">Checks use current process, API and capability state—no simulated PASS results.</div>
+            <div className="empty-diagnostics">{t("diagnostics.empty")}</div>
           ) : (
             <div className="diagnostic-list">
               {diagnostics.map((item) => (
-                <div className="diagnostic-item" key={item.name}>
-                  <StatusPill label={item.level.toUpperCase()} tone={item.level === "Pass" ? "good" : item.level === "Warning" ? "warn" : "bad"} />
-                  <div><strong>{item.name}</strong><p>{item.detail}</p>{item.action && <small>{item.action}</small>}</div>
+                <div className="diagnostic-item" key={item.id}>
+                  <StatusPill label={t(`common.${item.level.toLowerCase()}`)} tone={item.level === "Pass" ? "good" : item.level === "Warning" ? "warn" : "bad"} />
+                  <div>
+                    <strong>{t(item.nameKey)}</strong>
+                    <p>{t(item.detailKey)}</p>
+                    <details className="technical-details diagnostic-technical">
+                      <summary>{t("common.technicalDetails")}</summary>
+                      <code>{item.technicalDetail}</code>
+                    </details>
+                    {item.actionKey && <small>{t(item.actionKey)}</small>}
+                  </div>
                 </div>
               ))}
             </div>
           )}
           <div className="hard-truth">
-            <strong>TikTok LIVE Studio on macOS</strong>
-            <p>The current official page offers a macOS 12+ build. App discovery/opening is supported; login and the Go Live click remain manual. No private API or bypass is used.</p>
+            <strong>{t("diagnostics.tiktokTitle")}</strong>
+            <p>{t("diagnostics.tiktokHelp")}</p>
           </div>
         </article>
       </section>
@@ -530,8 +542,8 @@ function Metric({ label, value, note }: { label: string; value: string; note: st
   return <article className="metric"><span>{label}</span><strong>{value}</strong><small>{note}</small></article>;
 }
 
-function formatBitrate(value?: number | null) {
-  if (value == null) return "Unavailable";
+function formatBitrate(value: number | null | undefined, unavailable: string) {
+  if (value == null) return unavailable;
   return value >= 1_000_000 ? `${(value / 1_000_000).toFixed(2)} Mbps` : `${Math.round(value / 1000)} kbps`;
 }
 
@@ -542,8 +554,8 @@ function formatBytes(value: number) {
   return `${(value / 1024 ** 3).toFixed(2)} GiB`;
 }
 
-function formatDuration(value?: number | null) {
-  if (value == null) return "Unavailable";
+function formatDuration(value: number | null | undefined, unavailable: string) {
+  if (value == null) return unavailable;
   const hours = Math.floor(value / 3600);
   const minutes = Math.floor((value % 3600) / 60);
   const seconds = value % 60;

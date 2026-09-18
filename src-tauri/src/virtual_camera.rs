@@ -56,6 +56,7 @@ pub struct VirtualCameraState {
     pub width: u32,
     pub height: u32,
     pub fps: u32,
+    pub detail_key: String,
     pub detail: Option<String>,
 }
 
@@ -70,6 +71,7 @@ impl Default for VirtualCameraState {
             width: FEED_WIDTH,
             height: FEED_HEIGHT,
             fps: FEED_FPS,
+            detail_key: "camera.detail.notInstalled".into(),
             detail: Some("The signed camera extension is not installed".into()),
         }
     }
@@ -114,9 +116,10 @@ pub fn inspect(feed_active: bool) -> VirtualCameraState {
         .iter()
         .any(|line| line.contains("activated waiting for user"));
 
-    let (status, detail) = if update_available {
+    let (status, detail_key, detail) = if update_available {
         (
             ServiceStatus::Unavailable,
+            "camera.detail.updateReady",
             Some(
                 "A camera extension update is ready. Enable it to replace the active version."
                     .into(),
@@ -125,26 +128,31 @@ pub fn inspect(feed_active: bool) -> VirtualCameraState {
     } else if active {
         (
             ServiceStatus::Ready,
+            "camera.detail.enabled",
             Some(format!("{DEVICE_NAME} is enabled by macOS")),
         )
     } else if awaiting_approval {
         (
             ServiceStatus::Starting,
+            "camera.detail.waitingApproval",
             Some("Camera extension activation is waiting for macOS approval".into()),
         )
     } else if !bundled {
         (
             ServiceStatus::Unavailable,
+            "camera.detail.notBundled",
             Some("This app bundle does not contain the camera extension".into()),
         )
     } else if !app_installed {
         (
             ServiceStatus::Unavailable,
+            "camera.detail.moveToApplications",
             Some("Move DJI Live Bridge.app to /Applications before enabling the camera".into()),
         )
     } else {
         (
             ServiceStatus::Unavailable,
+            "camera.detail.notEnabled",
             Some("Camera extension is bundled but not enabled".into()),
         )
     };
@@ -158,6 +166,7 @@ pub fn inspect(feed_active: bool) -> VirtualCameraState {
         width: FEED_WIDTH,
         height: FEED_HEIGHT,
         fps: FEED_FPS,
+        detail_key: detail_key.into(),
         detail,
     }
 }

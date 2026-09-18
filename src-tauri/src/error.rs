@@ -35,64 +35,74 @@ pub enum BridgeError {
 #[serde(rename_all = "camelCase")]
 pub struct ErrorPayload {
     pub code: &'static str,
-    pub message: String,
-    pub action: String,
+    pub message_key: &'static str,
+    pub detail: String,
+    pub action_key: &'static str,
 }
 
 impl From<BridgeError> for ErrorPayload {
     fn from(value: BridgeError) -> Self {
-        let (code, action) = match &value {
-            BridgeError::Config(_) => ("CONFIG", "Review the saved application settings."),
+        let (code, message_key, action_key) = match &value {
+            BridgeError::Config(_) => ("CONFIG", "errors.message.config", "errors.action.config"),
             BridgeError::Network(_) => (
                 "NETWORK",
-                "Select an active LAN interface and verify Local Network permission.",
+                "errors.message.network",
+                "errors.action.network",
             ),
             BridgeError::Process(_) => (
                 "PROCESS",
-                "Open Diagnostics and inspect the supervised process status.",
+                "errors.message.process",
+                "errors.action.process",
             ),
             BridgeError::MediaMtx(_) => (
                 "MEDIAMTX",
-                "Verify port availability and reinstall the pinned MediaMTX sidecar.",
+                "errors.message.mediamtx",
+                "errors.action.mediamtx",
             ),
             BridgeError::Ffmpeg(_) => (
                 "FFMPEG",
-                "Install a supported FFmpeg build and run Diagnostics again.",
+                "errors.message.ffmpeg",
+                "errors.action.ffmpeg",
             ),
             BridgeError::Obs(_) => (
                 "OBS",
-                "Start OBS, enable obs-websocket, and verify host, port, and password.",
+                "errors.message.obs",
+                "errors.action.obs",
             ),
             BridgeError::VirtualCamera(_) => (
                 "VIRTUAL_CAMERA",
-                "Install the app in /Applications, enable the camera in System Settings, then retry.",
+                "errors.message.virtualCamera",
+                "errors.action.virtualCamera",
             ),
             BridgeError::InvalidTransition(_) => (
                 "INVALID_TRANSITION",
-                "Return to the previous workflow step and retry.",
+                "errors.message.transition",
+                "errors.action.transition",
             ),
             BridgeError::UnsupportedAutomation(_) => (
                 "UNSUPPORTED_AUTOMATION",
-                "Complete this step manually in the destination application.",
+                "errors.message.unsupported",
+                "errors.action.unsupported",
             ),
-            BridgeError::Validation(_) => {
-                ("VALIDATION", "Correct the highlighted value and retry.")
-            }
-            BridgeError::Io(_) => ("IO", "Check file permissions and available disk space."),
+            BridgeError::Validation(_) => ("VALIDATION", "errors.message.validation", "errors.action.validation"),
+            BridgeError::Io(_) => ("IO", "errors.message.io", "errors.action.io"),
             BridgeError::Http(_) => (
                 "HTTP",
-                "Verify the local service is running and its loopback port is available.",
+                "errors.message.http",
+                "errors.action.http",
             ),
             BridgeError::Serialization(_) => (
                 "SERIALIZATION",
-                "Reset the affected local setting and retry.",
+                "errors.message.serialization",
+                "errors.action.serialization",
             ),
         };
 
         Self {
             code,
-            message: redact_secrets(&value.to_string()),
-            action: action.to_string(),
+            message_key,
+            detail: redact_secrets(&value.to_string()),
+            action_key,
         }
     }
 }

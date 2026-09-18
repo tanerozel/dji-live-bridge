@@ -77,6 +77,7 @@ pub struct PreviewState {
     pub fallback_whep_url: String,
     pub mode: PreviewMode,
     pub status: ServiceStatus,
+    pub reason_key: Option<String>,
     pub reason: Option<String>,
 }
 
@@ -138,9 +139,6 @@ pub struct BridgeSnapshot {
     pub selected_interface: Option<String>,
     pub lan_ipv4: Option<String>,
     pub rtmp_url: Option<String>,
-    pub rtmp_domain_url: Option<String>,
-    pub bonjour_status: ServiceStatus,
-    pub bonjour_detail: Option<String>,
     pub ip_change_warning: bool,
     pub media_mtx: ServiceStatus,
     pub publisher_present: bool,
@@ -164,9 +162,6 @@ impl Default for BridgeSnapshot {
             selected_interface: None,
             lan_ipv4: None,
             rtmp_url: None,
-            rtmp_domain_url: None,
-            bonjour_status: ServiceStatus::Unavailable,
-            bonjour_detail: Some("Waiting for an eligible LAN interface".into()),
             ip_change_warning: false,
             media_mtx: ServiceStatus::Unavailable,
             publisher_present: false,
@@ -175,6 +170,7 @@ impl Default for BridgeSnapshot {
             preview: PreviewState {
                 direct_whep_url: "http://127.0.0.1:8889/drone/whep".into(),
                 fallback_whep_url: "http://127.0.0.1:8889/drone-preview/whep".into(),
+                reason_key: None,
                 ..PreviewState::default()
             },
             obs: ObsState::default(),

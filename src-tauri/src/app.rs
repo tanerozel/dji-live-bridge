@@ -8,7 +8,7 @@ use tauri::AppHandle;
 use tokio::sync::RwLock;
 
 use crate::{
-    audio, bonjour,
+    audio,
     config::{
         AppConfig, BroadcastDestination, ConfigStore, DestinationMode, FitMode, OutputLayout,
         ProductionEngine, validate_rtmp_destination,
@@ -161,6 +161,7 @@ impl AppState {
                                 snapshot.workflow = WorkflowState::WaitingForDrone;
                                 snapshot.preview.status = ServiceStatus::Unavailable;
                                 snapshot.preview.mode = PreviewMode::Direct;
+                                snapshot.preview.reason_key = None;
                                 snapshot.preview.reason = None;
                                 snapshot.metadata = Default::default();
                                 snapshot.obs.stream_active = Some(false);
@@ -277,45 +278,12 @@ impl AppState {
         let rtmp_url = selected_ip
             .as_ref()
             .map(|address| format!("rtmp://{address}:1935/drone"));
-        let should_refresh_bonjour = selected_ip != before
-            || (selected_ip.is_some() && previous.bonjour_status != ServiceStatus::Ready);
-        let (bonjour_status, bonjour_detail) = if should_refresh_bonjour {
-            match selected_ip.as_deref() {
-                Some(address) => match bonjour::advertise(&self.supervisor, address).await {
-                    Ok(()) => (
-                        ServiceStatus::Ready,
-                        Some(format!(
-                            "{} resolves to {address} on the local network",
-                            bonjour::HOSTNAME
-                        )),
-                    ),
-                    Err(error) => (
-                        ServiceStatus::Failed,
-                        Some(format!("Bonjour advertisement failed: {error}")),
-                    ),
-                },
-                None => {
-                    bonjour::stop(&self.supervisor).await.ok();
-                    (
-                        ServiceStatus::Unavailable,
-                        Some("Waiting for an eligible LAN interface".into()),
-                    )
-                }
-            }
-        } else {
-            (previous.bonjour_status, previous.bonjour_detail)
-        };
-        let rtmp_domain_url =
-            (bonjour_status == ServiceStatus::Ready).then(|| bonjour::RTMP_URL.to_string());
         self.state
             .mutate(app, |snapshot| {
                 snapshot.interfaces = interfaces;
                 snapshot.selected_interface = selected_name;
                 snapshot.lan_ipv4 = selected_ip.clone();
                 snapshot.rtmp_url = rtmp_url;
-                snapshot.rtmp_domain_url = rtmp_domain_url;
-                snapshot.bonjour_status = bonjour_status;
-                snapshot.bonjour_detail = bonjour_detail;
                 snapshot.ip_change_warning =
                     detect_change && before.is_some() && before != selected_ip;
             })
@@ -353,6 +321,7 @@ impl AppState {
         self.state
             .mutate(app, |state| {
                 state.preview.status = ServiceStatus::Starting;
+                state.preview.reason_key = Some("preview.reason.preparingFallback".into());
                 state.preview.reason = Some(reason);
             })
             .await;
@@ -367,6 +336,7 @@ impl AppState {
                     self.state
                         .mutate(app, |state| {
                             state.preview.status = ServiceStatus::Failed;
+                            state.preview.reason_key = Some("preview.reason.failed".into());
                             state.preview.reason = Some(error.to_string());
                         })
                         .await;
@@ -376,6 +346,7 @@ impl AppState {
                     .mutate(app, |state| {
                         state.preview.mode = PreviewMode::Transcoded;
                         state.preview.status = ServiceStatus::Starting;
+                        state.preview.reason_key = Some("preview.reason.transcodeReady".into());
                         state.preview.reason = Some(format!(
                             "Preview-only transcode is ready with {encoder} + Opus; ingest and production remain independent"
                         ));
@@ -387,6 +358,7 @@ impl AppState {
                 self.state
                     .mutate(app, |state| {
                         state.preview.status = ServiceStatus::Failed;
+                        state.preview.reason_key = Some("preview.reason.failed".into());
                         state.preview.reason = Some(error.to_string());
                     })
                     .await;
@@ -410,6 +382,13 @@ impl AppState {
                     ServiceStatus::Ready
                 } else {
                     ServiceStatus::Failed
+                };
+                snapshot.preview.reason_key = if connected && aac_notice {
+                    Some("preview.reason.aacNotice".into())
+                } else if detail.is_some() {
+                    Some("preview.reason.failed".into())
+                } else {
+                    None
                 };
                 snapshot.preview.reason = if connected && aac_notice {
                     Some("Direct WHEP video is connected; AAC is not carried to WebRTC preview. Use preview-only H.264 + Opus fallback when preview audio is required.".into())
@@ -576,6 +555,7 @@ impl AppState {
         self.state
             .mutate(app, |snapshot| {
                 snapshot.virtual_camera.status = ServiceStatus::Starting;
+                snapshot.virtual_camera.detail_key = "camera.detail.activationRequested".into();
                 snapshot.virtual_camera.detail = Some(
                     "Activation requested. Approve DJI Live Bridge Camera in System Settings if macOS asks."
                         .into(),
@@ -605,6 +585,7 @@ impl AppState {
             self.state
                 .mutate(app, |snapshot| {
                     snapshot.virtual_camera.feed_active = true;
+                    snapshot.virtual_camera.detail_key = "camera.detail.feedReady".into();
                     snapshot.virtual_camera.detail = Some(
                         "Portrait video is ready. DJI Live Bridge audio is disabled; select one microphone only in TikTok LIVE Studio."
                             .into(),
@@ -616,6 +597,7 @@ impl AppState {
             self.state
                 .mutate(app, |snapshot| {
                     snapshot.virtual_camera.feed_active = false;
+                    snapshot.virtual_camera.detail_key = "camera.detail.feedStopped".into();
                     snapshot.virtual_camera.detail =
                         Some("Camera extension is enabled; the video feed is stopped".into());
                 })
@@ -804,7 +786,7 @@ impl AppState {
 
     pub async fn publish_error(&self, app: &AppHandle, error: BridgeError) {
         let payload: ErrorPayload = error.into();
-        tracing::error!(code = payload.code, message = %payload.message);
+        tracing::error!(code = payload.code, message = %payload.detail);
         self.state
             .mutate(app, |snapshot| snapshot.last_error = Some(payload))
             .await;

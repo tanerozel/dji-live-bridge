@@ -16,10 +16,12 @@ pub enum DiagnosticLevel {
 #[derive(Debug, Clone, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct DiagnosticItem {
-    pub name: String,
+    pub id: String,
+    pub name_key: String,
     pub level: DiagnosticLevel,
-    pub detail: String,
-    pub action: Option<String>,
+    pub detail_key: String,
+    pub action_key: Option<String>,
+    pub technical_detail: String,
 }
 
 pub fn collect(snapshot: &BridgeSnapshot, ffmpeg: &FfmpegCapabilities) -> Vec<DiagnosticItem> {
@@ -50,32 +52,6 @@ pub fn collect(snapshot: &BridgeSnapshot, ffmpeg: &FfmpegCapabilities) -> Vec<Di
             )
         },
     );
-    items.push(match snapshot.bonjour_status {
-        ServiceStatus::Ready => item(
-            "Local RTMP name",
-            DiagnosticLevel::Pass,
-            snapshot
-                .bonjour_detail
-                .clone()
-                .unwrap_or_else(|| "live.local is advertised with Bonjour".into()),
-            None,
-        ),
-        ServiceStatus::Starting => item(
-            "Local RTMP name",
-            DiagnosticLevel::Warning,
-            "Bonjour advertisement is starting".into(),
-            Some("Use the displayed IP fallback until live.local becomes ready."),
-        ),
-        ServiceStatus::Failed | ServiceStatus::Unavailable => item(
-            "Local RTMP name",
-            DiagnosticLevel::Warning,
-            snapshot
-                .bonjour_detail
-                .clone()
-                .unwrap_or_else(|| "live.local is unavailable".into()),
-            Some("Use the displayed IP fallback; both devices must be on the same hotspot."),
-        ),
-    });
     items.push(match snapshot.media_mtx {
         ServiceStatus::Ready => item(
             "MediaMTX",
@@ -304,10 +280,32 @@ fn item(
     detail: String,
     action: Option<&str>,
 ) -> DiagnosticItem {
+    let name = name.into();
+    let slug = match name.as_str() {
+        "macOS / architecture" => "system",
+        "LAN interface" => "lan",
+        "MediaMTX" => "mediamtx",
+        "/drone publisher" => "publisher",
+        "FFmpeg / ffprobe" => "ffmpeg",
+        "Built-in production" => "productionCapabilities",
+        "Production route" => "productionRoute",
+        "DJI Live Bridge Camera" => "camera",
+        "OBS WebSocket" => "obs",
+        "Commentary microphone" => "microphone",
+        "TikTok LIVE Studio" => "tiktok",
+        _ => "unknown",
+    };
+    let level_key = match level {
+        DiagnosticLevel::Pass => "pass",
+        DiagnosticLevel::Warning => "warning",
+        DiagnosticLevel::Fail => "fail",
+    };
     DiagnosticItem {
-        name: name.into(),
+        id: format!("{slug}.{level_key}"),
+        name_key: format!("diagnostics.name.{slug}"),
         level,
-        detail,
-        action: action.map(str::to_string),
+        detail_key: format!("diagnostics.detail.{slug}.{level_key}"),
+        action_key: action.map(|_| format!("diagnostics.action.{slug}")),
+        technical_detail: detail,
     }
 }
