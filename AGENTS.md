@@ -38,6 +38,18 @@ and staples both the `.app` and the `.dmg` using the notarytool keychain profile
 - Replacing `/Applications/DJI Live Bridge.app` makes macOS deactivate the old camera extension; the
   user must press Start Virtual Camera (which re-requests activation) and may need to approve or reboot.
 
+## Bundled FFmpeg
+
+The app ships its own FFmpeg and ffprobe so users install nothing. They are built by
+`./scripts/build-ffmpeg.sh` into `src-tauri/binaries/ffmpeg-<triple>` (not checked in) and
+`npm run build:mac` refuses to start if they are missing.
+
+- The build is **LGPL**: `--disable-gpl` and no external libraries. Never enable GPL or libx264;
+  `verify-bundle.sh` fails the build if `--enable-gpl` appears.
+- That means **no GPL-only filters** in the pipeline: use `gblur` (not `boxblur`), `colorlevels`
+  (not `eq`), and H.264 through `h264_videotoolbox`. A unit test enforces this.
+- FFmpeg's licence texts must stay in `Contents/Resources/licenses`; the build script copies them.
+
 ## Checks before finishing a change
 
 ```sh

@@ -8,6 +8,7 @@ set -euo pipefail
 APP_PATH="${1:?usage: verify-bundle.sh <path-to-app-bundle>}"
 MACOS_DIR="$APP_PATH/Contents/MacOS"
 SIDECAR="$MACOS_DIR/mediamtx"
+FFMPEG="$MACOS_DIR/ffmpeg"
 EXTENSION="$APP_PATH/Contents/Library/SystemExtensions/com.djilivebridge.desktop.camera.systemextension"
 failures=0
 
@@ -62,6 +63,26 @@ else
 fi
 
 # A Developer ID system extension is only activated when notarized.
+# FFmpeg ships inside the app so users need no Homebrew; it must run, and it
+# must not be a GPL build, which we are not allowed to redistribute this way.
+if [ -x "$FFMPEG" ]; then
+  if ffmpeg_version="$("$FFMPEG" -hide_banner -version 2>/dev/null | head -1)"; then
+    pass "bundled $ffmpeg_version"
+  else
+    fail "bundled ffmpeg cannot run"
+  fi
+  if "$FFMPEG" -hide_banner -version 2>/dev/null | grep -q -- "--enable-gpl"; then
+    fail "bundled ffmpeg is a GPL build and must not be shipped"
+  else
+    pass "bundled ffmpeg is an LGPL build"
+  fi
+  [ -f "$APP_PATH/Contents/Resources/licenses/FFmpeg-COPYING.LGPLv2.1.txt" ] \
+    && pass "FFmpeg licence texts are bundled" \
+    || fail "FFmpeg licence texts are missing from the bundle"
+else
+  fail "bundled ffmpeg is missing: $FFMPEG"
+fi
+
 if [ "${REQUIRE_NOTARIZED:-0}" = "1" ]; then
   if xcrun stapler validate "$APP_PATH" >/dev/null 2>&1; then
     pass "notarization ticket stapled"

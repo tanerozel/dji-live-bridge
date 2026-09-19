@@ -68,6 +68,12 @@ if [ ! -x "$SIDECAR" ]; then
   ./scripts/download-mediamtx.sh "${TARGET%%-*}"
 fi
 chmod 0755 "$SIDECAR"
+
+for tool in ffmpeg ffprobe; do
+  binary="src-tauri/binaries/$tool-$TARGET"
+  [ -x "$binary" ] || die "$binary missing. Build it once with: ./scripts/build-ffmpeg.sh ${TARGET%%-*}"
+  chmod 0755 "$binary"
+done
 if [ "$TARGET" = "${HOST_ARCH}-apple-darwin" ]; then
   "$SIDECAR" --version >/dev/null || die "MediaMTX sidecar does not run: $SIDECAR"
 fi

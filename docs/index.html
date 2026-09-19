@@ -127,7 +127,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
     <a class="btn primary" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Download for macOS</a>
     <a class="btn" href="https://github.com/tanerozel/dji-live-bridge">Source on GitHub</a>
   </div>
-  <p class="meta">Apple Silicon Mac · macOS 13 or newer · installs FFmpeg for you on first run</p>
+  <p class="meta">Apple Silicon Mac · macOS 13 or newer · nothing else to install</p>
   <div class="shot"><img src="img/go-live.png" alt="The Go live tab: connect your drone, choose destinations, then press START LIVE." width="1600" height="1260"></div>
   <p class="caption">One screen: connect the drone, add destinations, press START LIVE.</p>
 </div>
@@ -140,6 +140,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <div class="card"><h3>Several platforms at once</h3><p>Instagram, TikTok and any custom RTMP destination in the same broadcast. The picture is encoded once and forwarded to each one, so one failing destination does not stop the others.</p></div>
       <div class="card"><h3>No stream key for TikTok</h3><p>The built-in virtual camera appears in TikTok LIVE Studio as “DJI Live Bridge Camera”, so you can go live without RTMP access.</p></div>
       <div class="card"><h3>Made for vertical video</h3><p>1080×1920 at 30 fps, 6 Mbps CBR, H.264 High, 2-second keyframes. Empty space is filled with a blurred copy of the shot instead of black bars.</p></div>
+      <div class="card"><h3>Nothing else to install</h3><p>FFmpeg is built into the app — no Homebrew, no Terminal, no separate download. The bundle is signed and notarized by Apple.</p></div>
       <div class="card"><h3>Keys stay in the Keychain</h3><p>Every stream key lives in its own macOS Keychain entry, never in a config file, in process arguments or in logs.</p></div>
       <div class="card"><h3>Live preview and diagnostics</h3><p>A low-latency local preview, real stream metrics from the media server, recording, and system checks that never fake a passing result.</p></div>
       <div class="card"><h3>15 languages, 5 themes</h3><p>The interface follows your system language, and Arabic switches the whole layout to right-to-left.</p></div>
@@ -191,8 +192,8 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
     <h2>Install</h2>
     <ol class="steps">
       <li><div><strong>Download the DMG</strong><span>Grab the latest release and drag <strong>DJI Live Bridge</strong> into your Applications folder — the virtual camera only works from there.</span></div></li>
-      <li><div><strong>Let it install FFmpeg</strong><span>FFmpeg is not bundled. On first run the app tells you it is missing and installs it for you with one click through Homebrew — no Terminal needed. You can still run <code>brew install ffmpeg</code> yourself if you prefer.</span></div></li>
-      <li><div><strong>Open the app</strong><span>It is signed and notarized by Apple, so it opens without warnings.</span></div></li>
+      <li><div><strong>Open it</strong><span>That is the whole setup. FFmpeg ships inside the app, so there is no Homebrew, no Terminal and no second download.</span></div></li>
+      <li><div><strong>Go live</strong><span>The app is signed and notarized by Apple, so it opens without warnings.</span></div></li>
     </ol>
     <div class="cta" style="justify-content:flex-start;margin-top:26px">
       <a class="btn primary" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Download for macOS</a>
@@ -212,7 +213,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
     <h2>Questions</h2>
     <div class="faq">
       <details><summary>Which drones work?</summary><p>Any drone whose DJI Fly version offers RTMP under Live Streaming Platforms. The app receives a normal RTMP stream, so it does not talk to the drone itself. On the RC 2, DJI Fly may refuse to start streaming unless a microphone is connected to the controller.</p></details>
-      <details><summary>Do I have to install FFmpeg by hand?</summary><p>No. The app checks for FFmpeg when it starts and shows an “Install FFmpeg automatically” button that runs the Homebrew install for you, with the progress log in the window. Homebrew itself is the one thing it cannot install for you; if it is missing, the app links to brew.sh.</p></details>
+      <details><summary>Do I need to install FFmpeg?</summary><p>No. The app carries its own FFmpeg, built from source without any GPL component (LGPL, Apple VideoToolbox for H.264), so there is nothing to install and nothing to keep up to date. The licence texts and the exact build flags are inside the app under <code>Contents/Resources/licenses</code>.</p></details>
       <details><summary>Do I need OBS?</summary><p>No. OBS is optional and only useful if you want its scenes, filters or recording. Direct RTMP and the virtual camera work without it.</p></details>
       <details><summary>Does it work on Windows?</summary><p>Not yet — the app is macOS only, because the virtual camera uses Apple's Core Media I/O. On Windows you can build the same chain by hand with MediaMTX plus OBS Virtual Camera.</p></details>
       <details><summary>Where do my stream keys go?</summary><p>Into the macOS Keychain, one entry per destination. They are handed to the local media server over the loopback interface when you go live and removed when you stop. They never appear in the config file, in process arguments or in logs.</p></details>
@@ -231,7 +232,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <a href="https://www.linkedin.com/in/tanerozel">LinkedIn</a>
       <a href="https://github.com/tanerozel/dji-live-bridge/issues">Report an issue</a>
     </div>
-    <p class="note">Released under the MIT licence. DJI Live Bridge is an independent project and is not affiliated with DJI, Instagram, TikTok or Apple.
+    <p class="note">Released under the MIT licence; the bundled FFmpeg is LGPL. DJI Live Bridge is an independent project and is not affiliated with DJI, Instagram, TikTok or Apple.
       DJI, Instagram and TikTok are trademarks of their respective owners. FFmpeg is not bundled and is installed by the user.</p>
   </div>
 </footer>

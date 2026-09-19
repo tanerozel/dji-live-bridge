@@ -111,7 +111,7 @@ Beş tema vardır: Sistem (macOS'u izler), Açık, Koyu, Gece mavisi ve Kum.
 
 1. En son `.dmg` dosyasını [Releases](https://github.com/tanerozel/dji-live-bridge/releases) sayfasından indirin.
 2. **DJI Live Bridge**'i **Uygulamalar** klasörüne sürükleyin. Sanal kamera yalnızca oradan çalışır.
-3. FFmpeg uygulamayla gelmez. İlk açılışta uygulama eksik olduğunu görüp tek tıkla (Homebrew ile) kendisi kurar ve kurulum kaydını gösterir. Kendin kurmak istersen: `brew install ffmpeg`.
+3. Hepsi bu. FFmpeg uygulamanın içinde gelir, başka bir şey kurman gerekmez.
 
 Uygulama Apple tarafından imzalanıp notarize edilmiştir; uyarısız açılır.
 
@@ -187,6 +187,8 @@ FFmpeg bundle edilmediği için uygulama FFmpeg'i yeniden dağıtmaz. Kullanıc�
 ## Lisans
 
 MIT — bkz. [LICENSE](LICENSE).
+
+FFmpeg (LGPL, [scripts/build-ffmpeg.sh](scripts/build-ffmpeg.sh) ile derlenir) uygulamayla birlikte gelir; lisans metinleri uygulama içindeki `Contents/Resources/licenses` klasöründedir.
 
 ## Hakkında
 

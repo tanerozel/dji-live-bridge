@@ -30,6 +30,8 @@ pub struct FfmpegCapabilities {
     pub h264_videotoolbox_cbr: bool,
     pub libx264: bool,
     pub libopus: bool,
+    /// FFmpeg's own Opus encoder, used when libopus is absent.
+    pub opus: bool,
     pub avfoundation: bool,
     pub aac: bool,
     pub afftdn: bool,
@@ -78,6 +80,7 @@ pub async fn capabilities() -> FfmpegCapabilities {
         result.h264_videotoolbox = encoders.contains("h264_videotoolbox");
         result.libx264 = encoders.contains("libx264");
         result.libopus = encoders.contains("libopus");
+        result.opus = encoders.contains(" opus ");
         result.aac = encoders.contains(" AAC ") || encoders.contains(" aac ");
     }
     if let Ok(output) = Command::new(&ffmpeg)
@@ -157,7 +160,7 @@ fn production_video_filter(layout: OutputLayout, fit_mode: FitMode) -> String {
             let (small_width, small_height) = (width / 4, height / 4);
             format!(
                 "fps={OUTPUT_FPS},split=2[bgsrc][fgsrc];\
-                 [bgsrc]scale={small_width}:{small_height}:force_original_aspect_ratio=increase,crop={small_width}:{small_height},boxblur=10:2,eq=brightness=-0.08:saturation=0.9,scale={width}:{height}:flags=bicubic[bg];\
+                 [bgsrc]scale={small_width}:{small_height}:force_original_aspect_ratio=increase,crop={small_width}:{small_height},gblur=sigma=14:steps=2,colorlevels=romax=0.73:gomax=0.73:bomax=0.73,scale={width}:{height}:flags=bicubic[bg];\
                  [fgsrc]scale={width}:{height}:force_original_aspect_ratio=decrease:force_divisible_by=2:flags=lanczos[fg];\
                  [bg][fg]overlay=(W-w)/2:(H-h)/2:shortest=1,format=yuv420p"
             )
@@ -377,9 +380,22 @@ pub async fn start_production(
 }
 
 pub async fn start_test_drone(supervisor: &ProcessSupervisor, input: &Path) -> BridgeResult<()> {
-    let ffmpeg = locate("ffmpeg").ok_or_else(|| {
-        BridgeError::Ffmpeg("FFmpeg is not installed or not available on PATH".into())
-    })?;
+    let capabilities = capabilities().await;
+    let ffmpeg = capabilities
+        .ffmpeg_path
+        .as_deref()
+        .map(PathBuf::from)
+        .ok_or_else(|| BridgeError::Ffmpeg("FFmpeg is unavailable".into()))?;
+    // The bundled LGPL build has no libx264; VideoToolbox is always there.
+    let encoder = if capabilities.h264_videotoolbox {
+        "h264_videotoolbox"
+    } else if capabilities.libx264 {
+        "libx264"
+    } else {
+        return Err(BridgeError::Ffmpeg(
+            "No H.264 encoder is available for the test video".into(),
+        ));
+    };
     let input = fs::canonicalize(input)
         .map_err(|error| BridgeError::Validation(format!("test video: {error}")))?;
     if !input.is_file() {
@@ -423,11 +439,7 @@ pub async fn start_test_drone(supervisor: &ProcessSupervisor, input: &Path) -> B
             "-vf",
             "fps=30,scale='if(gte(iw,ih),min(1280,iw),-2)':'if(gte(iw,ih),-2,min(1280,ih))':flags=lanczos",
             "-c:v",
-            "libx264",
-            "-preset",
-            "veryfast",
-            "-tune",
-            "zerolatency",
+            encoder,
             "-pix_fmt",
             "yuv420p",
             "-profile:v",
@@ -475,11 +487,17 @@ pub async fn start_preview_fallback(supervisor: &ProcessSupervisor) -> BridgeRes
         .as_deref()
         .map(PathBuf::from)
         .ok_or_else(|| BridgeError::Ffmpeg("FFmpeg is unavailable".into()))?;
-    if !capabilities.libopus {
+    // WebRTC needs Opus. libopus is better, but the bundled LGPL build carries
+    // FFmpeg's native (experimental) Opus encoder instead.
+    let opus_encoder = if capabilities.libopus {
+        vec!["-c:a", "libopus"]
+    } else if capabilities.opus {
+        vec!["-c:a", "opus", "-strict", "-2"]
+    } else {
         return Err(BridgeError::Ffmpeg(
-            "Installed FFmpeg does not provide the libopus encoder".into(),
+            "This FFmpeg build has no Opus encoder for the browser preview".into(),
         ));
-    }
+    };
     let encoder = if capabilities.h264_videotoolbox {
         "h264_videotoolbox"
     } else if capabilities.libx264 {
@@ -525,8 +543,9 @@ pub async fn start_preview_fallback(supervisor: &ProcessSupervisor) -> BridgeRes
         "30",
         "-bf",
         "0",
-        "-c:a",
-        "libopus",
+    ]);
+    raw_args.extend(opus_encoder);
+    raw_args.extend([
         "-b:a",
         "96k",
         "-ar",
@@ -716,14 +735,21 @@ async fn emit_lines<R: tokio::io::AsyncRead + Unpin>(app: tauri::AppHandle, pipe
     }
 }
 
+/// The app ships its own LGPL FFmpeg next to the executable, so nothing has to
+/// be installed. A system copy is still accepted as a fallback (development
+/// runs, or a user who prefers their own build).
 pub(crate) fn locate(name: &str) -> Option<PathBuf> {
-    [
-        PathBuf::from("/opt/homebrew/bin").join(name),
-        PathBuf::from("/usr/local/bin").join(name),
-        PathBuf::from("/usr/bin").join(name),
-    ]
-    .into_iter()
-    .find(|candidate| candidate.is_file())
+    let bundled = std::env::current_exe()
+        .ok()
+        .and_then(|exe| exe.parent().map(|dir| dir.join(name)));
+    bundled
+        .into_iter()
+        .chain([
+            PathBuf::from("/opt/homebrew/bin").join(name),
+            PathBuf::from("/usr/local/bin").join(name),
+            PathBuf::from("/usr/bin").join(name),
+        ])
+        .find(|candidate| candidate.is_file())
 }
 
 fn parse_fraction(value: &str) -> Option<f64> {
@@ -750,9 +776,26 @@ mod tests {
     fn portrait_fit_uses_blurred_background_not_black_bars() {
         let filter = production_video_filter(OutputLayout::Portrait, FitMode::Fit);
         assert!(filter.starts_with("fps=30,"));
-        assert!(filter.contains("boxblur"));
+        assert!(filter.contains("gblur"));
         assert!(filter.contains("scale=1080:1920:force_original_aspect_ratio=decrease"));
         assert!(!filter.contains("pad="));
+    }
+
+    /// The bundled FFmpeg is built without --enable-gpl, so a GPL-only filter
+    /// would fail at runtime for every user.
+    #[test]
+    fn filters_stay_within_the_lgpl_build() {
+        for layout in [OutputLayout::Portrait, OutputLayout::Landscape] {
+            for fit in [FitMode::Fit, FitMode::Fill] {
+                let filter = production_video_filter(layout, fit);
+                for gpl_only in ["boxblur", "eq=", "geq", "hqdn3d", "smartblur", "delogo"] {
+                    assert!(
+                        !filter.contains(gpl_only),
+                        "{gpl_only} is GPL-only but appears in {filter}"
+                    );
+                }
+            }
+        }
     }
 
     #[test]

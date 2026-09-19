@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "DJI Live Bridge",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "identifier": "com.djilivebridge.desktop",
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -38,13 +38,16 @@
     "category": "Video",
     "shortDescription": "Bridge DJI Fly RTMP streams to live destinations on macOS",
     "longDescription": "A local DJI Fly RTMP ingest, preview and OBS-free FFmpeg production application with optional OBS integration.",
-    "externalBin": ["binaries/mediamtx"],
+    "externalBin": ["binaries/mediamtx", "binaries/ffmpeg", "binaries/ffprobe"],
     "macOS": {
       "entitlements": "entitlements.plist",
       "signingIdentity": "Developer ID Application: Taner Ozel (GXDXLCQ92M)",
       "files": {
         "Library/SystemExtensions/com.djilivebridge.desktop.camera.systemextension": "camera-extension/com.djilivebridge.desktop.camera.systemextension",
-        "embedded.provisionprofile": "embedded.provisionprofile"
+        "embedded.provisionprofile": "embedded.provisionprofile",
+        "Resources/licenses/FFmpeg-LICENSE.md": "licenses/FFmpeg-LICENSE.md",
+        "Resources/licenses/FFmpeg-COPYING.LGPLv2.1.txt": "licenses/FFmpeg-COPYING.LGPLv2.1.txt",
+        "Resources/licenses/FFmpeg-BUILD.txt": "licenses/FFmpeg-BUILD.txt"
       },
       "minimumSystemVersion": "13.0",
       "infoPlist": "Info.plist"

@@ -18,7 +18,7 @@ APP_PATH="${1:?usage: sign-sidecars.sh <path-to-app-bundle>}"
 IDENTITY="${APPLE_SIGNING_IDENTITY:-Developer ID Application: Taner Ozel (GXDXLCQ92M)}"
 SIDECAR_ENTITLEMENTS="$ROOT_DIR/src-tauri/entitlements-sidecar.plist"
 APP_ENTITLEMENTS="$ROOT_DIR/src-tauri/entitlements.plist"
-SIDECARS=(mediamtx)
+SIDECARS=(mediamtx ffmpeg ffprobe)
 
 [ -d "$APP_PATH" ] || { echo "error: app bundle not found: $APP_PATH" >&2; exit 1; }
 [ -f "$SIDECAR_ENTITLEMENTS" ] || { echo "error: missing $SIDECAR_ENTITLEMENTS" >&2; exit 1; }

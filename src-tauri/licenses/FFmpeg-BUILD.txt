@@ -1,0 +1,7 @@
+FFmpeg 9.0.2, built for aarch64-apple-darwin by scripts/build-ffmpeg.sh
+
+Configuration:
+built with Apple clang version 17.0.0 (clang-1700.0.13.5)
+
+Source: https://ffmpeg.org/releases/ffmpeg-9.0.2.tar.xz (sha256 8c3850283eb25fa026482078a04051e0be17347b09ef81a0849bec15a96e002e)
+This build is LGPL: no --enable-gpl, no external libraries.

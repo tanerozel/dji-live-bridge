@@ -24,7 +24,7 @@ RC 2 input can be 720p, and the UI shows the real ffprobe metadata. Choosing a 1
 
 1. Download the latest `.dmg` from [Releases](https://github.com/tanerozel/dji-live-bridge/releases).
 2. Drag **DJI Live Bridge** into **Applications**. The virtual camera only works from there.
-3. FFmpeg is not bundled. On first run the app detects it is missing and installs it for you with one click (through Homebrew), showing the progress log. To do it yourself instead: `brew install ffmpeg`.
+3. That is all. FFmpeg ships inside the app, so there is nothing else to install.
 
 The build is signed and notarized by Apple, so it opens without warnings.
 
@@ -173,6 +173,8 @@ FFmpeg is not bundled, so the app redistributes nothing; the in-app installer on
 ## Licence
 
 MIT — see [LICENSE](LICENSE).
+
+FFmpeg (LGPL, built by [scripts/build-ffmpeg.sh](scripts/build-ffmpeg.sh)) is bundled; its licence texts are in the app under `Contents/Resources/licenses`.
 
 ## About
 

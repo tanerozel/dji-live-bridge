@@ -8,7 +8,7 @@
 
 1. 到 [Releases](https://github.com/tanerozel/dji-live-bridge/releases) 下載最新的 `.dmg` 檔案。
 2. 把 **DJI Live Bridge** 拖到 **應用程式** 資料夾。虛擬攝影機只有放在該位置才能運作。
-3. FFmpeg 未隨應用程式附帶。首次啟動時，應用程式會發現缺少它，並透過 Homebrew 一鍵為你安裝，同時顯示安裝記錄。想自己安裝也可以：`brew install ffmpeg`。
+3. 就這樣。FFmpeg 已隨應用程式附帶，不需要再安裝其他東西。
 
 應用程式已由 Apple 簽署並完成公證，開啟時不會出現警告。
 
@@ -65,6 +65,8 @@
 ## 授權
 
 MIT — 見 [LICENSE](LICENSE)。
+
+隨附的 FFmpeg 為 LGPL 版本；授權文字位於應用程式內的 `Contents/Resources/licenses`。
 
 ## 開發
 

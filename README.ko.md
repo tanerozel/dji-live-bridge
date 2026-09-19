@@ -8,7 +8,7 @@
 
 1. [Releases](https://github.com/tanerozel/dji-live-bridge/releases)에서 최신 `.dmg`를 내려받으세요.
 2. **DJI Live Bridge**를 **응용 프로그램** 폴더로 끌어다 놓으세요. 가상 카메라는 이 위치에서만 동작합니다.
-3. FFmpeg는 앱에 포함되어 있지 않습니다. 처음 실행하면 앱이 이를 감지해 Homebrew로 한 번에 설치해 주고, 진행 로그도 함께 보여 줍니다. 직접 설치하려면 `brew install ffmpeg`.
+3. 이것으로 끝입니다. FFmpeg가 앱에 포함되어 있어 따로 설치할 것이 없습니다.
 
 앱은 Apple의 서명과 공증을 받았으므로 경고 없이 열립니다.
 
@@ -65,6 +65,8 @@
 ## 라이선스
 
 MIT — [LICENSE](LICENSE) 참고.
+
+포함된 FFmpeg는 LGPL 빌드입니다. 라이선스 문서는 앱 안의 `Contents/Resources/licenses`에 있습니다.
 
 ## 개발
 
