@@ -8,3 +8,5 @@
 !/src-tauri/binaries/.gitkeep
 .DS_Store
 *.log
+/native/windows/build
+/src-tauri/resources

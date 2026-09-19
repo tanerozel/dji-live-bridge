@@ -39,6 +39,13 @@ jobs:
       - name: Fetch the Windows sidecars (MediaMTX, FFmpeg, ffprobe)
         run: pwsh scripts/fetch-windows-sidecars.ps1
 
+      - name: Build the virtual camera filter
+        run: |
+          cmake -S native/windows -B native/windows/build -A x64
+          cmake --build native/windows/build --config Release
+          New-Item -ItemType Directory -Force -Path src-tauri/resources | Out-Null
+          Copy-Item native/windows/build/Release/dji_virtual_camera.dll src-tauri/resources/ -Force
+
       - name: Frontend checks
         run: |
           npm run typecheck
