@@ -38,6 +38,35 @@ pub enum DestinationMode {
 }
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub enum RtmpDestinationKind {
+    TikTok,
+    Instagram,
+    #[default]
+    Custom,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct RtmpDestinationConfig {
+    pub id: String,
+    pub name: String,
+    pub kind: RtmpDestinationKind,
+    pub server: String,
+    pub enabled: bool,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct RtmpDestinationInput {
+    pub id: Option<String>,
+    pub name: String,
+    pub kind: RtmpDestinationKind,
+    pub server: String,
+    pub key: Option<String>,
+    pub enabled: bool,
+}
+
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]
 pub enum ProductionEngine {
     #[default]
     NativeFfmpeg,
@@ -46,21 +75,31 @@ pub enum ProductionEngine {
 
 #[derive(Debug, Clone)]
 pub enum BroadcastDestination {
-    TikTokLiveStudio,
-    TikTokRtmp { server: String, key: String },
-    CustomRtmp { server: String, key: String },
+    TikTok { server: String, key: String },
+    Instagram { server: String, key: String },
+    Custom { server: String, key: String },
 }
 
 impl BroadcastDestination {
     pub fn rtmp_parts(&self) -> BridgeResult<(&str, &str)> {
         match self {
-            Self::TikTokRtmp { server, key } | Self::CustomRtmp { server, key } => {
+            Self::TikTok { server, key }
+            | Self::Instagram { server, key }
+            | Self::Custom { server, key } => {
                 validate_rtmp_destination(server, key)?;
                 Ok((server, key))
             }
-            Self::TikTokLiveStudio => Err(BridgeError::UnsupportedAutomation(
-                "TikTok LIVE Studio is available on macOS, but Go Live must be clicked manually. An OBS-free camera requires a signed and user-approved Core Media I/O Camera Extension; this build does not claim one is installed. OBS Virtual Camera remains an optional video-only route.".into(),
-            )),
+        }
+    }
+}
+
+impl BroadcastDestination {
+    pub fn from_rtmp(destination: &RtmpDestinationConfig, key: String) -> Self {
+        let server = destination.server.clone();
+        match destination.kind {
+            RtmpDestinationKind::TikTok => Self::TikTok { server, key },
+            RtmpDestinationKind::Instagram => Self::Instagram { server, key },
+            RtmpDestinationKind::Custom => Self::Custom { server, key },
         }
     }
 }
@@ -73,7 +112,10 @@ pub struct AppConfig {
     pub obs_port: u16,
     pub output_layout: OutputLayout,
     pub fit_mode: FitMode,
+    pub rtmp_destinations: Vec<RtmpDestinationConfig>,
+    #[serde(default, rename = "destinationMode", skip_serializing)]
     pub destination_mode: Option<DestinationMode>,
+    #[serde(default, rename = "destinationServer", skip_serializing)]
     pub destination_server: Option<String>,
     pub production_engine: ProductionEngine,
     pub selected_microphone: Option<String>,
@@ -93,7 +135,8 @@ impl Default for AppConfig {
             obs_port: 4455,
             output_layout: OutputLayout::Landscape,
             fit_mode: FitMode::Fit,
-            destination_mode: Some(DestinationMode::TikTokLiveStudio),
+            rtmp_destinations: Vec::new(),
+            destination_mode: None,
             destination_server: None,
             production_engine: ProductionEngine::NativeFfmpeg,
             selected_microphone: None,
@@ -158,12 +201,59 @@ impl ConfigStore {
                 "Microphone volume must be between -60 dB and +12 dB".into(),
             ));
         }
+        let mut ids = std::collections::HashSet::new();
+        for destination in &config.rtmp_destinations {
+            validate_rtmp_destination_config(destination)?;
+            if !ids.insert(destination.id.as_str()) {
+                return Err(BridgeError::Validation(
+                    "RTMP destination IDs must be unique".into(),
+                ));
+            }
+        }
         let temporary = self.app_support_dir.join("config.json.tmp");
         let final_path = self.app_support_dir.join("config.json");
         fs::write(&temporary, serde_json::to_vec_pretty(config)?)?;
         fs::rename(temporary, final_path)?;
         Ok(())
     }
+}
+
+pub fn validate_rtmp_destination_config(destination: &RtmpDestinationConfig) -> BridgeResult<()> {
+    let name = destination.name.trim();
+    if name.is_empty() || name.chars().count() > 64 {
+        return Err(BridgeError::Validation(
+            "Destination name must contain 1 to 64 characters".into(),
+        ));
+    }
+    if destination.id.is_empty()
+        || destination.id.len() > 96
+        || !destination
+            .id
+            .chars()
+            .all(|value| value.is_ascii_alphanumeric() || matches!(value, '-' | '_'))
+    {
+        return Err(BridgeError::Validation(
+            "RTMP destination ID is invalid".into(),
+        ));
+    }
+    let parsed = Url::parse(&destination.server)
+        .map_err(|_| BridgeError::Validation("RTMP server URL is invalid".into()))?;
+    if !matches!(parsed.scheme(), "rtmp" | "rtmps")
+        || parsed.host_str().is_none()
+        || parsed.username() != ""
+        || parsed.password().is_some()
+        || parsed.fragment().is_some()
+    {
+        return Err(BridgeError::Validation(
+            "RTMP server must be an rtmp:// or rtmps:// URL without credentials or a key fragment"
+                .into(),
+        ));
+    }
+    Ok(())
+}
+
+pub fn rtmp_keychain_account(id: &str) -> String {
+    format!("rtmp-stream-key:{id}")
 }
 
 pub fn validate_rtmp_destination(server: &str, key: &str) -> BridgeResult<()> {
@@ -191,4 +281,57 @@ pub fn validate_rtmp_destination(server: &str, key: &str) -> BridgeResult<()> {
         return Err(BridgeError::Validation("Stream key is invalid".into()));
     }
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn legacy_destination_fields_are_read_but_not_written() {
+        let mut value = serde_json::to_value(AppConfig::default()).unwrap();
+        value["destinationMode"] = serde_json::json!("CustomRtmp");
+        value["destinationServer"] = serde_json::json!("rtmps://example.test/live");
+        let config: AppConfig = serde_json::from_value(value).unwrap();
+        assert!(matches!(
+            config.destination_mode,
+            Some(DestinationMode::CustomRtmp)
+        ));
+        assert_eq!(
+            config.destination_server.as_deref(),
+            Some("rtmps://example.test/live")
+        );
+
+        let serialized = serde_json::to_value(config).unwrap();
+        assert!(serialized.get("destinationMode").is_none());
+        assert!(serialized.get("destinationServer").is_none());
+    }
+
+    #[test]
+    fn destination_config_never_contains_a_stream_key() {
+        let mut config = AppConfig::default();
+        config.rtmp_destinations.push(RtmpDestinationConfig {
+            id: "instagram-main".into(),
+            name: "Instagram".into(),
+            kind: RtmpDestinationKind::Instagram,
+            server: "rtmps://example.test/live".into(),
+            enabled: true,
+        });
+        let serialized = serde_json::to_string(&config).unwrap();
+        assert!(serialized.contains("instagram-main"));
+        assert!(!serialized.to_ascii_lowercase().contains("streamkey"));
+        assert!(!serialized.contains("secret"));
+    }
+
+    #[test]
+    fn destination_validation_rejects_key_fragments() {
+        let destination = RtmpDestinationConfig {
+            id: "target-1".into(),
+            name: "Target".into(),
+            kind: RtmpDestinationKind::Custom,
+            server: "rtmps://example.test/live#secret".into(),
+            enabled: true,
+        };
+        assert!(validate_rtmp_destination_config(&destination).is_err());
+    }
 }

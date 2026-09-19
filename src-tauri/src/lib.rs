@@ -19,7 +19,7 @@ use std::{
 };
 
 use app::AppState;
-use config::{DestinationMode, FitMode, OutputLayout};
+use config::{FitMode, OutputLayout, RtmpDestinationInput};
 use diagnostics::DiagnosticItem;
 use error::ErrorPayload;
 use ffmpeg::FfmpegCapabilities;
@@ -237,14 +237,38 @@ async fn set_native_recording(
 }
 
 #[tauri::command]
-async fn configure_destination(
+async fn upsert_rtmp_destination(
+    app: tauri::AppHandle,
     state: State<'_, Arc<AppState>>,
-    mode: DestinationMode,
-    server: Option<String>,
-    key: Option<String>,
+    destination: RtmpDestinationInput,
+) -> Result<String, ErrorPayload> {
+    state
+        .upsert_rtmp_destination(&app, destination)
+        .await
+        .map_err(Into::into)
+}
+
+#[tauri::command]
+async fn remove_rtmp_destination(
+    app: tauri::AppHandle,
+    state: State<'_, Arc<AppState>>,
+    id: String,
 ) -> Result<(), ErrorPayload> {
     state
-        .configure_destination(mode, server, key)
+        .remove_rtmp_destination(&app, id)
+        .await
+        .map_err(Into::into)
+}
+
+#[tauri::command]
+async fn set_rtmp_destination_enabled(
+    app: tauri::AppHandle,
+    state: State<'_, Arc<AppState>>,
+    id: String,
+    enabled: bool,
+) -> Result<(), ErrorPayload> {
+    state
+        .set_rtmp_destination_enabled(&app, id, enabled)
         .await
         .map_err(Into::into)
 }
@@ -316,7 +340,9 @@ pub fn run() {
             set_native_virtual_camera,
             set_recording,
             set_native_recording,
-            configure_destination,
+            upsert_rtmp_destination,
+            remove_rtmp_destination,
+            set_rtmp_destination_enabled,
             start_live,
             stop_live,
             get_ffmpeg_capabilities,

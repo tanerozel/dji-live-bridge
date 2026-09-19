@@ -136,10 +136,10 @@ pub fn collect(snapshot: &BridgeSnapshot, ffmpeg: &FfmpegCapabilities) -> Vec<Di
     items.push(if snapshot.production.active {
         item(
             "Production route",
-            if snapshot.production.forward_error.is_some() {
-                DiagnosticLevel::Fail
-            } else {
-                DiagnosticLevel::Pass
+            match snapshot.production.forward_state.as_deref() {
+                Some("partial") => DiagnosticLevel::Warning,
+                Some("error") => DiagnosticLevel::Fail,
+                _ => DiagnosticLevel::Pass,
             },
             format!(
                 "/production: {:?} · forward: {} · outbound: {} bytes{}",
@@ -161,7 +161,13 @@ pub fn collect(snapshot: &BridgeSnapshot, ffmpeg: &FfmpegCapabilities) -> Vec<Di
                 .production
                 .forward_error
                 .as_ref()
-                .map(|_| "Stop the live route, verify destination URL/key, then start again."),
+                .map(|_| {
+                    if snapshot.production.forward_state.as_deref() == Some("partial") {
+                        "At least one destination is still live. Verify only the destination reporting an error."
+                    } else {
+                        "Stop the live route, verify destination URL/key, then start again."
+                    }
+                }),
         )
     } else {
         item(

@@ -3,7 +3,8 @@
 - MediaMTX Control API, metrics, RTSP, WHEP ve ICE listener'ları loopback ile sınırlıdır. Yalnız RTMP ingest LAN'a açılır.
 - Shell interpolation kullanılmaz; process'ler executable + argv ile başlatılır.
 - RTMP destination URL'leri parse edilir, yalnız `rtmp` / `rtmps` şemaları ve geçerli host kabul edilir.
-- Stream key ve OBS WebSocket password macOS Keychain'de tutulur. Stream key yalnız loopback MediaMTX Control API'ye runtime forward olarak gönderilir ve stop/shutdown sırasında silinir; FFmpeg argv'sine yazılmaz.
+- Her RTMP hedefinin stream key'i hedefe özel ayrı bir macOS Keychain kaydında, OBS WebSocket password de Keychain'de tutulur. Stream key'ler yalnız loopback MediaMTX Control API'ye runtime forward listesi olarak gönderilir ve stop/shutdown sırasında aktif config'den silinir; config dosyasına veya FFmpeg argv'sine yazılmaz.
+- Bir RTMP hedefinin silinmesi onun Keychain kaydını da siler. Hedefi düzenlerken stream key boş bırakılırsa kayıtlı değer korunur.
 - Loglarda query-style secret'lara ek olarak RTMP URL fragment (`#stream-key`) redaction uygulanır; process arg snapshot'ı maskelenir.
 - Runtime MediaMTX config yalnız uygulama support dizinine yazılır ve process başlamadan `--validate-conf` ile doğrulanır.
 - Test Drone yalnız file picker'ın döndürdüğü mevcut regular file'ı kabul eder; kullanıcı girdisi path segmenti olarak birleştirilmez.

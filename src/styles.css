@@ -119,6 +119,27 @@ button.wide { width: 100%; margin-top: 18px; padding: 12px; }
 .destination-fields label { color: #778981; font-size: 11px; }
 .destination-fields input { margin-top: 6px; }
 .live-actions { justify-content: flex-end; }
+.destination-list { display: grid; gap: 9px; margin-top: 14px; }
+.destination-empty { padding: 16px; border: 1px dashed #2c3e37; border-radius: 11px; color: #778981; font-size: 11px; line-height: 1.5; text-align: center; }
+.destination-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px 14px; padding: 12px; border: 1px solid #263831; border-radius: 11px; background: #0a1713; }
+.destination-card.enabled { border-color: rgba(72, 220, 145, .25); }
+.destination-toggle { display: flex; min-width: 0; align-items: flex-start; gap: 9px; }
+.destination-toggle input, .destination-enabled input { width: auto; margin-top: 2px; accent-color: #48dc91; }
+.destination-toggle span { display: grid; min-width: 0; gap: 3px; }
+.destination-toggle strong { color: #dce9e3; font-size: 12px; }
+.destination-toggle small { overflow: hidden; color: #71847c; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.destination-card-status { display: flex; align-items: center; gap: 8px; }
+.destination-card-status > small { color: #71847c; font-size: 10px; }
+.destination-card-actions { display: flex; grid-column: 1 / -1; gap: 7px; justify-content: flex-end; }
+.destination-card-actions button { padding: 6px 9px; font-size: 10px; }
+button.danger-quiet { border-color: rgba(184, 78, 74, .35); color: #e49c98; background: transparent; }
+.destination-error { grid-column: 1 / -1; margin: 0; color: #ff9d97; font-size: 10px; overflow-wrap: anywhere; }
+.destination-editor { margin-top: 14px; padding: 13px; border: 1px solid #263831; border-radius: 11px; background: rgba(7, 17, 15, .62); }
+.destination-editor > strong { color: #b8c8c1; font-size: 12px; }
+.destination-editor-grid { display: grid; grid-template-columns: 1fr .72fr; gap: 10px; margin-top: 11px; }
+.destination-editor-grid label { color: #778981; font-size: 11px; }
+.destination-editor-grid input, .destination-editor-grid select { margin-top: 6px; }
+.destination-enabled { display: inline-flex; align-items: center; gap: 7px; margin-top: 11px; color: #8fa198; font-size: 11px; }
 .empty-diagnostics { min-height: 150px; display: grid; place-items: center; padding: 20px; border: 1px dashed #2c3e37; border-radius: 12px; color: #778981; text-align: center; font-size: 12px; line-height: 1.6; }
 .diagnostic-list { display: grid; gap: 8px; }
 .diagnostic-item { display: grid; grid-template-columns: auto 1fr; align-items: start; gap: 10px; padding: 10px; border-radius: 10px; background: #0a1713; }
@@ -167,4 +188,5 @@ button.wide { width: 100%; margin-top: 18px; padding: 12px; }
   .help-menu { grid-column: auto; justify-self: stretch; }
   .help-menu summary { width: 100%; }
   .help-menu[open] ol { position: static; width: 100%; margin-top: 8px; }
+  .destination-editor-grid { grid-template-columns: 1fr; }
 }

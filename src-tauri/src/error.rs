@@ -44,31 +44,19 @@ impl From<BridgeError> for ErrorPayload {
     fn from(value: BridgeError) -> Self {
         let (code, message_key, action_key) = match &value {
             BridgeError::Config(_) => ("CONFIG", "errors.message.config", "errors.action.config"),
-            BridgeError::Network(_) => (
-                "NETWORK",
-                "errors.message.network",
-                "errors.action.network",
-            ),
-            BridgeError::Process(_) => (
-                "PROCESS",
-                "errors.message.process",
-                "errors.action.process",
-            ),
+            BridgeError::Network(_) => {
+                ("NETWORK", "errors.message.network", "errors.action.network")
+            }
+            BridgeError::Process(_) => {
+                ("PROCESS", "errors.message.process", "errors.action.process")
+            }
             BridgeError::MediaMtx(_) => (
                 "MEDIAMTX",
                 "errors.message.mediamtx",
                 "errors.action.mediamtx",
             ),
-            BridgeError::Ffmpeg(_) => (
-                "FFMPEG",
-                "errors.message.ffmpeg",
-                "errors.action.ffmpeg",
-            ),
-            BridgeError::Obs(_) => (
-                "OBS",
-                "errors.message.obs",
-                "errors.action.obs",
-            ),
+            BridgeError::Ffmpeg(_) => ("FFMPEG", "errors.message.ffmpeg", "errors.action.ffmpeg"),
+            BridgeError::Obs(_) => ("OBS", "errors.message.obs", "errors.action.obs"),
             BridgeError::VirtualCamera(_) => (
                 "VIRTUAL_CAMERA",
                 "errors.message.virtualCamera",
@@ -84,13 +72,13 @@ impl From<BridgeError> for ErrorPayload {
                 "errors.message.unsupported",
                 "errors.action.unsupported",
             ),
-            BridgeError::Validation(_) => ("VALIDATION", "errors.message.validation", "errors.action.validation"),
-            BridgeError::Io(_) => ("IO", "errors.message.io", "errors.action.io"),
-            BridgeError::Http(_) => (
-                "HTTP",
-                "errors.message.http",
-                "errors.action.http",
+            BridgeError::Validation(_) => (
+                "VALIDATION",
+                "errors.message.validation",
+                "errors.action.validation",
             ),
+            BridgeError::Io(_) => ("IO", "errors.message.io", "errors.action.io"),
+            BridgeError::Http(_) => ("HTTP", "errors.message.http", "errors.action.http"),
             BridgeError::Serialization(_) => (
                 "SERIALIZATION",
                 "errors.message.serialization",

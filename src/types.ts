@@ -64,6 +64,18 @@ export interface ObsState {
 }
 
 export type ProductionEngine = "NativeFfmpeg" | "Obs";
+export type RtmpDestinationKind = "TikTok" | "Instagram" | "Custom";
+
+export interface RtmpDestinationState {
+  id: string;
+  name: string;
+  kind: RtmpDestinationKind;
+  server: string;
+  enabled: boolean;
+  state: string | null;
+  lastError: string | null;
+  outboundBytes: number;
+}
 
 export interface ProductionState {
   engine: ProductionEngine;
@@ -75,6 +87,7 @@ export interface ProductionState {
   forwardState: string | null;
   forwardError: string | null;
   outboundBytes: number;
+  destinations: RtmpDestinationState[];
   recordingActive: boolean;
   recordingPath: string | null;
 }

@@ -14,17 +14,21 @@ use crate::{
     audio,
     config::{
         AppConfig, BroadcastDestination, ConfigStore, DestinationMode, FitMode, OutputLayout,
-        ProductionEngine, validate_rtmp_destination,
+        ProductionEngine, RtmpDestinationConfig, RtmpDestinationInput, RtmpDestinationKind,
+        rtmp_keychain_account, validate_rtmp_destination, validate_rtmp_destination_config,
     },
     error::{BridgeError, BridgeResult, ErrorPayload},
     ffmpeg,
-    mediamtx::MediaMtxController,
+    mediamtx::{ForwardStatus, MediaMtxController},
     network,
     obs::ObsController,
     platform::macos,
     process::ProcessSupervisor,
     recording,
-    state::{BridgeSnapshot, PreviewMode, ServiceStatus, StateStore, WorkflowState},
+    state::{
+        BridgeSnapshot, PreviewMode, ProductionState, RtmpDestinationState, ServiceStatus,
+        StateStore, WorkflowState,
+    },
     virtual_camera,
 };
 
@@ -36,12 +40,14 @@ pub struct AppState {
     pub media_mtx: MediaMtxController,
     pub obs: ObsController,
     pub obs_monitoring: AtomicBool,
+    pub active_destination_ids: RwLock<Vec<String>>,
 }
 
 impl AppState {
     pub fn build() -> BridgeResult<Arc<Self>> {
         let config_store = ConfigStore::discover()?;
-        let config = config_store.load()?;
+        let mut config = config_store.load()?;
+        migrate_legacy_destination(&mut config, &config_store)?;
         let media_mtx = MediaMtxController::new(&config_store)?;
         Ok(Arc::new(Self {
             state: StateStore::new(),
@@ -51,6 +57,7 @@ impl AppState {
             media_mtx,
             obs: ObsController::default(),
             obs_monitoring: AtomicBool::new(false),
+            active_destination_ids: RwLock::new(Vec::new()),
         }))
     }
 
@@ -63,6 +70,7 @@ impl AppState {
 
     async fn run_bootstrap(&self, app: &AppHandle) -> BridgeResult<()> {
         self.state.transition(app, WorkflowState::Preparing).await?;
+        self.sync_destination_snapshot(app).await;
         self.refresh_network(app, false).await?;
         self.state
             .mutate(app, |snapshot| snapshot.media_mtx = ServiceStatus::Starting)
@@ -190,10 +198,16 @@ impl AppState {
                                     snapshot.production.prepared = false;
                                     snapshot.production.path_status = ServiceStatus::Unavailable;
                                     snapshot.production.forward_state = None;
+                                    snapshot.production.forward_error = None;
+                                    snapshot.production.outbound_bytes = 0;
+                                    clear_destination_runtime(
+                                        &mut snapshot.production.destinations,
+                                    );
                                     snapshot.production.recording_active = false;
                                     snapshot.virtual_camera.feed_active = false;
                                 })
                                 .await;
+                            self.active_destination_ids.write().await.clear();
                         }
 
                         if sample.present && metadata_check.elapsed() >= Duration::from_secs(30) {
@@ -232,13 +246,16 @@ impl AppState {
             if production_check.elapsed() >= Duration::from_secs(2) {
                 let current = self.state.get().await;
                 if current.production.active {
-                    match self.media_mtx.forward_status().await {
-                        Ok(status) => {
+                    let active_ids = self.active_destination_ids.read().await.clone();
+                    match self.media_mtx.forward_statuses().await {
+                        Ok(statuses) => {
                             self.state
                                 .mutate(&app, |snapshot| {
-                                    snapshot.production.forward_state = status.state;
-                                    snapshot.production.forward_error = status.last_error;
-                                    snapshot.production.outbound_bytes = status.outbound_bytes;
+                                    apply_forward_statuses(
+                                        &mut snapshot.production,
+                                        &active_ids,
+                                        &statuses,
+                                    );
                                 })
                                 .await;
                         }
@@ -584,36 +601,146 @@ impl AppState {
                 snapshot.production.forward_state = None;
                 snapshot.production.forward_error = None;
                 snapshot.production.outbound_bytes = 0;
+                clear_destination_runtime(&mut snapshot.production.destinations);
             })
             .await;
         self.state.transition(app, WorkflowState::Ready).await
     }
 
-    pub async fn configure_destination(
+    async fn sync_destination_snapshot(&self, app: &AppHandle) {
+        let destinations = self.config.read().await.rtmp_destinations.clone();
+        self.state
+            .mutate(app, |snapshot| {
+                let previous = std::mem::take(&mut snapshot.production.destinations);
+                snapshot.production.destinations = destinations
+                    .into_iter()
+                    .map(|destination| {
+                        previous
+                            .iter()
+                            .find(|item| item.id == destination.id)
+                            .cloned()
+                            .map(|mut item| {
+                                item.name = destination.name.clone();
+                                item.kind = destination.kind;
+                                item.server = destination.server.clone();
+                                item.enabled = destination.enabled;
+                                item
+                            })
+                            .unwrap_or_else(|| destination_state(&destination))
+                    })
+                    .collect();
+            })
+            .await;
+    }
+
+    pub async fn upsert_rtmp_destination(
         &self,
-        mode: DestinationMode,
-        server: Option<String>,
-        key: Option<String>,
-    ) -> BridgeResult<()> {
-        if matches!(mode, DestinationMode::TikTokLiveStudio) {
-            let mut config = self.config.write().await;
-            config.destination_mode = Some(mode);
-            config.destination_server = None;
-            return self.config_store.save(&config);
+        app: &AppHandle,
+        input: RtmpDestinationInput,
+    ) -> BridgeResult<String> {
+        if self.state.get().await.production.active {
+            return Err(BridgeError::InvalidTransition(
+                "Stop the live route before editing destinations".into(),
+            ));
         }
-        let server =
-            server.ok_or_else(|| BridgeError::Validation("RTMP server is required".into()))?;
-        let key = key.ok_or_else(|| BridgeError::Validation("Stream key is required".into()))?;
-        validate_rtmp_destination(&server, &key)?;
-        let entry = keyring::Entry::new("com.djilivebridge.app.destination", "rtmp-stream-key")
-            .map_err(|error| BridgeError::Config(format!("Keychain entry: {error}")))?;
-        entry
-            .set_password(&key)
-            .map_err(|error| BridgeError::Config(format!("Keychain save: {error}")))?;
+        let name = input.name.trim().to_string();
+        let server = input.server.trim().trim_end_matches('#').to_string();
         let mut config = self.config.write().await;
-        config.destination_mode = Some(mode);
-        config.destination_server = Some(server);
-        self.config_store.save(&config)
+        let destination_id = input.id.unwrap_or_else(|| {
+            format!(
+                "rtmp-{:x}-{}",
+                SystemTime::now()
+                    .duration_since(UNIX_EPOCH)
+                    .unwrap_or_default()
+                    .as_nanos(),
+                config.rtmp_destinations.len()
+            )
+        });
+        let existing = config
+            .rtmp_destinations
+            .iter()
+            .position(|destination| destination.id == destination_id);
+        let destination = RtmpDestinationConfig {
+            id: destination_id.clone(),
+            name,
+            kind: input.kind,
+            server,
+            enabled: input.enabled,
+        };
+        validate_rtmp_destination_config(&destination)?;
+        let key = input.key.filter(|value| !value.trim().is_empty());
+        let effective_key = if let Some(key) = key.as_deref() {
+            validate_rtmp_destination(&destination.server, key)?;
+            key.to_string()
+        } else if existing.is_some() {
+            load_destination_key(&destination.id)?
+        } else {
+            return Err(BridgeError::Validation(
+                "A stream key is required for a new destination".into(),
+            ));
+        };
+        store_destination_key(&destination.id, &effective_key)?;
+        if let Some(index) = existing {
+            config.rtmp_destinations[index] = destination;
+        } else {
+            config.rtmp_destinations.push(destination);
+        }
+        self.config_store.save(&config)?;
+        drop(config);
+        self.sync_destination_snapshot(app).await;
+        Ok(destination_id)
+    }
+
+    pub async fn remove_rtmp_destination(&self, app: &AppHandle, id: String) -> BridgeResult<()> {
+        if self.state.get().await.production.active {
+            return Err(BridgeError::InvalidTransition(
+                "Stop the live route before removing destinations".into(),
+            ));
+        }
+        let mut config = self.config.write().await;
+        let before = config.rtmp_destinations.len();
+        config
+            .rtmp_destinations
+            .retain(|destination| destination.id != id);
+        if config.rtmp_destinations.len() == before {
+            return Err(BridgeError::Validation(
+                "RTMP destination was not found".into(),
+            ));
+        }
+        self.config_store.save(&config)?;
+        drop(config);
+        if let Ok(entry) = keyring::Entry::new(
+            "com.djilivebridge.app.destination",
+            &rtmp_keychain_account(&id),
+        ) {
+            let _ = entry.delete_credential();
+        }
+        self.sync_destination_snapshot(app).await;
+        Ok(())
+    }
+
+    pub async fn set_rtmp_destination_enabled(
+        &self,
+        app: &AppHandle,
+        id: String,
+        enabled: bool,
+    ) -> BridgeResult<()> {
+        if self.state.get().await.production.active {
+            return Err(BridgeError::InvalidTransition(
+                "Stop the live route before changing active destinations".into(),
+            ));
+        }
+        let mut config = self.config.write().await;
+        let destination = config
+            .rtmp_destinations
+            .iter_mut()
+            .find(|destination| destination.id == id)
+            .ok_or_else(|| BridgeError::Validation("RTMP destination was not found".into()))?;
+        destination.enabled = enabled;
+        self.config_store.save(&config)?;
+        drop(config);
+        self.sync_destination_snapshot(app).await;
+        Ok(())
     }
 
     pub async fn activate_virtual_camera_extension(&self, app: &AppHandle) -> BridgeResult<()> {
@@ -647,11 +774,6 @@ impl AppState {
                 ));
             }
             virtual_camera::start_feed(&self.supervisor).await?;
-            {
-                let mut config = self.config.write().await;
-                config.destination_mode = Some(DestinationMode::TikTokLiveStudio);
-                self.config_store.save(&config)?;
-            }
             self.state
                 .mutate(app, |snapshot| {
                     snapshot.virtual_camera.feed_active = true;
@@ -683,50 +805,74 @@ impl AppState {
             ));
         }
         let config = self.config.read().await.clone();
-        let mode = config.destination_mode.ok_or_else(|| {
-            BridgeError::Validation(
-                "Configure a TikTok RTMP or Custom RTMP destination first".into(),
-            )
-        })?;
-        if matches!(mode, DestinationMode::TikTokLiveStudio) {
-            return BroadcastDestination::TikTokLiveStudio
-                .rtmp_parts()
-                .map(|_| ());
+        let enabled = config
+            .rtmp_destinations
+            .iter()
+            .filter(|destination| destination.enabled)
+            .cloned()
+            .collect::<Vec<_>>();
+        if enabled.is_empty() {
+            return Err(BridgeError::Validation(
+                "Enable at least one RTMP destination before starting".into(),
+            ));
         }
-        let server = config
-            .destination_server
-            .clone()
-            .ok_or_else(|| BridgeError::Validation("RTMP server is missing".into()))?;
-        let key = keyring::Entry::new("com.djilivebridge.app.destination", "rtmp-stream-key")
-            .map_err(|error| BridgeError::Config(format!("Keychain entry: {error}")))?
-            .get_password()
-            .map_err(|_| BridgeError::Config("Stream key is missing from Keychain".into()))?;
+        let mut destinations = Vec::with_capacity(enabled.len());
+        for destination in enabled {
+            let key = load_destination_key(&destination.id).map_err(|_| {
+                BridgeError::Config(format!(
+                    "Stream key is missing for destination '{}'",
+                    destination.name
+                ))
+            })?;
+            validate_rtmp_destination(&destination.server, &key)?;
+            destinations.push((destination, key));
+        }
+        if config.production_engine == ProductionEngine::Obs && destinations.len() > 1 {
+            return Err(BridgeError::Validation(
+                "OBS streaming supports one RTMP destination here; use built-in production for multi-stream"
+                    .into(),
+            ));
+        }
+        let active_ids = destinations
+            .iter()
+            .map(|(destination, _)| destination.id.clone())
+            .collect::<Vec<_>>();
         self.state.transition(app, WorkflowState::GoingLive).await?;
         let result = if config.production_engine == ProductionEngine::NativeFfmpeg {
-            self.start_native_live(&config, &server, &key).await
+            self.start_native_live(&config, &destinations).await
         } else {
-            let destination = match mode {
-                DestinationMode::TikTokRtmp => BroadcastDestination::TikTokRtmp { server, key },
-                DestinationMode::CustomRtmp => BroadcastDestination::CustomRtmp { server, key },
-                DestinationMode::TikTokLiveStudio => unreachable!("handled above"),
-            };
+            let (destination, key) = destinations
+                .first()
+                .expect("enabled destinations were checked above");
+            let destination = BroadcastDestination::from_rtmp(destination, key.clone());
             self.obs
                 .start_stream(&config.obs_host, config.obs_port, &destination)
                 .await
-                .map(|_| None)
+                .map(|_| {
+                    (
+                        None,
+                        vec![ForwardStatus {
+                            pos: 0,
+                            state: Some("forwarding".into()),
+                            last_error: None,
+                            outbound_bytes: 0,
+                        }],
+                    )
+                })
         };
         match result {
-            Ok(encoder) => {
+            Ok((encoder, statuses)) => {
+                *self.active_destination_ids.write().await = active_ids.clone();
                 self.state
                     .mutate(app, |snapshot| {
                         if config.production_engine == ProductionEngine::NativeFfmpeg {
                             snapshot.production.active = true;
                             snapshot.production.path_status = ServiceStatus::Ready;
                             snapshot.production.encoder = encoder;
-                            snapshot.production.forward_state = Some("forwarding".into());
                         } else {
                             snapshot.obs.stream_active = Some(true);
                         }
+                        apply_forward_statuses(&mut snapshot.production, &active_ids, &statuses);
                     })
                     .await;
                 self.state.transition(app, WorkflowState::Live).await
@@ -741,10 +887,13 @@ impl AppState {
     async fn start_native_live(
         &self,
         config: &AppConfig,
-        server: &str,
-        key: &str,
-    ) -> BridgeResult<Option<String>> {
-        self.media_mtx.configure_forward(server, key).await?;
+        destinations: &[(RtmpDestinationConfig, String)],
+    ) -> BridgeResult<(Option<String>, Vec<ForwardStatus>)> {
+        let forwards = destinations
+            .iter()
+            .map(|(destination, key)| (destination.server.clone(), key.clone()))
+            .collect::<Vec<_>>();
+        self.media_mtx.configure_forwards(&forwards).await?;
         let settings = ffmpeg::NativeProductionSettings {
             layout: config.output_layout,
             fit_mode: config.fit_mode,
@@ -774,16 +923,19 @@ impl AppState {
             self.media_mtx.clear_forward().await.ok();
             return Err(error);
         }
-        if let Err(error) = self
+        let statuses = match self
             .media_mtx
-            .wait_forwarding(Duration::from_secs(10))
+            .wait_forwards(destinations.len(), Duration::from_secs(10))
             .await
         {
-            self.supervisor.stop("native-production").await.ok();
-            self.media_mtx.clear_forward().await.ok();
-            return Err(error);
-        }
-        Ok(Some(encoder))
+            Ok(statuses) => statuses,
+            Err(error) => {
+                self.supervisor.stop("native-production").await.ok();
+                self.media_mtx.clear_forward().await.ok();
+                return Err(error);
+            }
+        };
+        Ok((Some(encoder), statuses))
     }
 
     pub async fn stop_live(&self, app: &AppHandle) -> BridgeResult<()> {
@@ -804,12 +956,16 @@ impl AppState {
         };
         match result {
             Ok(()) => {
+                self.active_destination_ids.write().await.clear();
                 self.state
                     .mutate(app, |snapshot| {
                         snapshot.obs.stream_active = Some(false);
                         snapshot.production.active = false;
                         snapshot.production.path_status = ServiceStatus::Unavailable;
                         snapshot.production.forward_state = None;
+                        snapshot.production.forward_error = None;
+                        snapshot.production.outbound_bytes = 0;
+                        clear_destination_runtime(&mut snapshot.production.destinations);
                     })
                     .await;
                 self.state.transition(app, WorkflowState::Ready).await
@@ -913,4 +1069,222 @@ fn now_ms() -> u64 {
         .duration_since(UNIX_EPOCH)
         .unwrap_or_default()
         .as_millis() as u64
+}
+
+fn destination_state(destination: &RtmpDestinationConfig) -> RtmpDestinationState {
+    RtmpDestinationState {
+        id: destination.id.clone(),
+        name: destination.name.clone(),
+        kind: destination.kind,
+        server: destination.server.clone(),
+        enabled: destination.enabled,
+        state: None,
+        last_error: None,
+        outbound_bytes: 0,
+    }
+}
+
+fn clear_destination_runtime(destinations: &mut [RtmpDestinationState]) {
+    for destination in destinations {
+        destination.state = None;
+        destination.last_error = None;
+        destination.outbound_bytes = 0;
+    }
+}
+
+fn apply_forward_statuses(
+    production: &mut ProductionState,
+    active_ids: &[String],
+    statuses: &[ForwardStatus],
+) {
+    clear_destination_runtime(&mut production.destinations);
+    for id in active_ids {
+        if let Some(destination) = production
+            .destinations
+            .iter_mut()
+            .find(|destination| &destination.id == id)
+        {
+            destination.state = Some("starting".into());
+        }
+    }
+    for (id, status) in active_ids.iter().zip(statuses) {
+        if let Some(destination) = production
+            .destinations
+            .iter_mut()
+            .find(|destination| &destination.id == id)
+        {
+            destination.state = status.state.clone();
+            destination.last_error = status.last_error.clone();
+            destination.outbound_bytes = status.outbound_bytes;
+        }
+    }
+
+    let active = production
+        .destinations
+        .iter()
+        .filter(|destination| active_ids.contains(&destination.id))
+        .collect::<Vec<_>>();
+    let forwarding = active
+        .iter()
+        .filter(|destination| destination.state.as_deref() == Some("forwarding"))
+        .count();
+    let failed = active
+        .iter()
+        .filter(|destination| destination.state.as_deref() == Some("error"))
+        .count();
+    production.forward_state = if active.is_empty() {
+        None
+    } else if forwarding == active.len() {
+        Some("forwarding".into())
+    } else if forwarding > 0 {
+        Some("partial".into())
+    } else if failed == active.len() {
+        Some("error".into())
+    } else {
+        Some("starting".into())
+    };
+    let errors = active
+        .iter()
+        .filter_map(|destination| {
+            destination
+                .last_error
+                .as_deref()
+                .map(|error| format!("{}: {error}", destination.name))
+        })
+        .collect::<Vec<_>>();
+    production.forward_error = (!errors.is_empty()).then(|| errors.join("; "));
+    production.outbound_bytes = active
+        .iter()
+        .map(|destination| destination.outbound_bytes)
+        .sum();
+}
+
+fn load_destination_key(id: &str) -> BridgeResult<String> {
+    keyring::Entry::new(
+        "com.djilivebridge.app.destination",
+        &rtmp_keychain_account(id),
+    )
+    .map_err(|error| BridgeError::Config(format!("Keychain entry: {error}")))?
+    .get_password()
+    .map_err(|_| BridgeError::Config("Stream key is missing from Keychain".into()))
+}
+
+fn store_destination_key(id: &str, key: &str) -> BridgeResult<()> {
+    keyring::Entry::new(
+        "com.djilivebridge.app.destination",
+        &rtmp_keychain_account(id),
+    )
+    .map_err(|error| BridgeError::Config(format!("Keychain entry: {error}")))?
+    .set_password(key)
+    .map_err(|error| BridgeError::Config(format!("Keychain save: {error}")))
+}
+
+fn migrate_legacy_destination(
+    config: &mut AppConfig,
+    config_store: &ConfigStore,
+) -> BridgeResult<()> {
+    let Some(mode) = config.destination_mode else {
+        return Ok(());
+    };
+    if config.rtmp_destinations.is_empty()
+        && let Some(server) = config.destination_server.clone()
+        && matches!(
+            mode,
+            DestinationMode::TikTokRtmp | DestinationMode::CustomRtmp
+        )
+    {
+        let (id, name, kind) = match mode {
+            DestinationMode::TikTokRtmp => (
+                "migrated-tiktok-rtmp".to_string(),
+                "TikTok".to_string(),
+                RtmpDestinationKind::TikTok,
+            ),
+            DestinationMode::CustomRtmp => (
+                "migrated-custom-rtmp".to_string(),
+                "Custom RTMP".to_string(),
+                RtmpDestinationKind::Custom,
+            ),
+            DestinationMode::TikTokLiveStudio => unreachable!(),
+        };
+        let destination = RtmpDestinationConfig {
+            id: id.clone(),
+            name,
+            kind,
+            server,
+            enabled: true,
+        };
+        validate_rtmp_destination_config(&destination)?;
+        if let Ok(entry) =
+            keyring::Entry::new("com.djilivebridge.app.destination", "rtmp-stream-key")
+            && let Ok(key) = entry.get_password()
+        {
+            store_destination_key(&id, &key)?;
+        }
+        config.rtmp_destinations.push(destination);
+    }
+    config.destination_mode = None;
+    config.destination_server = None;
+    config_store.save(config)?;
+    // The legacy single-key entry is copied above; remove it so no orphaned secret remains.
+    if let Ok(entry) = keyring::Entry::new("com.djilivebridge.app.destination", "rtmp-stream-key") {
+        let _ = entry.delete_credential();
+    }
+    Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn destination(id: &str, name: &str) -> RtmpDestinationState {
+        RtmpDestinationState {
+            id: id.into(),
+            name: name.into(),
+            kind: RtmpDestinationKind::Custom,
+            server: format!("rtmps://{id}.example.test/live"),
+            enabled: true,
+            state: None,
+            last_error: None,
+            outbound_bytes: 0,
+        }
+    }
+
+    #[test]
+    fn forward_failures_are_isolated_per_destination() {
+        let mut production = ProductionState {
+            destinations: vec![destination("one", "One"), destination("two", "Two")],
+            ..ProductionState::default()
+        };
+        let ids = vec!["one".to_string(), "two".to_string()];
+        let statuses = vec![
+            ForwardStatus {
+                pos: 0,
+                state: Some("forwarding".into()),
+                last_error: None,
+                outbound_bytes: 1_000,
+            },
+            ForwardStatus {
+                pos: 1,
+                state: Some("error".into()),
+                last_error: Some("connection refused".into()),
+                outbound_bytes: 0,
+            },
+        ];
+
+        apply_forward_statuses(&mut production, &ids, &statuses);
+
+        assert_eq!(production.forward_state.as_deref(), Some("partial"));
+        assert_eq!(production.outbound_bytes, 1_000);
+        assert_eq!(
+            production.destinations[0].state.as_deref(),
+            Some("forwarding")
+        );
+        assert_eq!(production.destinations[1].state.as_deref(), Some("error"));
+        assert!(
+            production
+                .forward_error
+                .as_deref()
+                .is_some_and(|error| error.contains("Two"))
+        );
+    }
 }

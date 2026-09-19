@@ -8,13 +8,13 @@ import { loadLanguage, saveLanguage, translate, type Language, type TranslationP
 import {
   activatePreviewFallback,
   activateVirtualCameraExtension,
-  configureDestination,
   getDiagnostics,
   openObs,
   openTikTokLiveStudio,
   prepareNativeProduction,
   prepareObs,
   reportPreviewStatus,
+  removeRtmpDestination,
   saveObsConnection,
   selectInterface,
   setNativeVirtualCamera,
@@ -22,13 +22,15 @@ import {
   setObsVirtualCamera,
   setRecording,
   setNativeRecording,
+  setRtmpDestinationEnabled,
   startLive,
   startTestDrone,
   stopTestDrone,
   stopLive,
+  upsertRtmpDestination,
 } from "./lib/backend";
 import { useBridgeStore } from "./store";
-import type { DiagnosticItem } from "./types";
+import type { DiagnosticItem, RtmpDestinationKind, RtmpDestinationState } from "./types";
 
 function App() {
   const { snapshot, uiError, initialized, initialize, setUiError, clearUiError } = useBridgeStore();
@@ -42,9 +44,12 @@ function App() {
   const [layout, setLayout] = useState<"Landscape" | "Portrait">("Landscape");
   const [fitMode, setFitMode] = useState<"Fit" | "Fill">("Fit");
   const [diagnostics, setDiagnostics] = useState<DiagnosticItem[]>([]);
-  const [destinationMode, setDestinationMode] = useState<"TikTokLiveStudio" | "TikTokRtmp" | "CustomRtmp">("TikTokLiveStudio");
+  const [editingDestinationId, setEditingDestinationId] = useState<string | null>(null);
+  const [destinationName, setDestinationName] = useState("");
+  const [destinationKind, setDestinationKind] = useState<RtmpDestinationKind>("Instagram");
   const [destinationServer, setDestinationServer] = useState("");
   const [streamKey, setStreamKey] = useState("");
+  const [destinationEnabled, setDestinationEnabled] = useState(true);
   const [microphone, setMicrophone] = useState("");
   const [microphoneMuted, setMicrophoneMuted] = useState(false);
   const [microphoneVolumeDb, setMicrophoneVolumeDb] = useState(0);
@@ -144,6 +149,48 @@ function App() {
         setPreviewError(undefined);
       }),
     [act],
+  );
+
+  const resetDestinationForm = useCallback(() => {
+    setEditingDestinationId(null);
+    setDestinationName("");
+    setDestinationKind("Instagram");
+    setDestinationServer("");
+    setStreamKey("");
+    setDestinationEnabled(true);
+  }, []);
+
+  const editDestination = useCallback((destination: RtmpDestinationState) => {
+    setEditingDestinationId(destination.id);
+    setDestinationName(destination.name);
+    setDestinationKind(destination.kind);
+    setDestinationServer(destination.server);
+    setStreamKey("");
+    setDestinationEnabled(destination.enabled);
+  }, []);
+
+  const saveDestination = useCallback(
+    () => act("save-destination", async () => {
+      await upsertRtmpDestination(
+        editingDestinationId,
+        destinationName,
+        destinationKind,
+        destinationServer,
+        streamKey.trim() ? streamKey : null,
+        destinationEnabled,
+      );
+      resetDestinationForm();
+    }),
+    [
+      act,
+      destinationEnabled,
+      destinationKind,
+      destinationName,
+      destinationServer,
+      editingDestinationId,
+      resetDestinationForm,
+      streamKey,
+    ],
   );
 
   const formatted = useMemo(() => {
@@ -417,77 +464,66 @@ function App() {
           <div className="section-heading">
             <div>
               <p className="step">{t("production.step")}</p>
-              <h2>{destinationMode === "TikTokLiveStudio" ? t("production.liveStudioTitle") : t("production.nativeTitle")}</h2>
+              <h2>{t("production.nativeTitle")}</h2>
             </div>
             <StatusPill
-              label={destinationMode === "TikTokLiveStudio"
-                ? nativeVirtualActive ? t("production.videoReady") : t("production.videoStopped")
-                : snapshot.production.active ? t("production.live", { encoder: snapshot.production.encoder ?? "H.264" }) : snapshot.production.prepared ? t("common.ready") : t("production.notPrepared")}
-              tone={destinationMode === "TikTokLiveStudio"
-                ? nativeVirtualActive ? "good" : "neutral"
-                : snapshot.production.active || snapshot.production.prepared ? "good" : "neutral"}
+              label={snapshot.production.active
+                ? t("production.live", { encoder: snapshot.production.encoder ?? "H.264" })
+                : snapshot.production.prepared ? t("common.ready") : t("production.notPrepared")}
+              tone={snapshot.production.active || snapshot.production.prepared ? "good" : "neutral"}
             />
           </div>
 
-          {destinationMode === "TikTokLiveStudio" ? (
-            <div className="hard-truth live-studio-audio-notice">
-              <strong>{t("audio.title")}</strong>
-              <p>{t("audio.liveStudioHelp")}</p>
+          <div className="segmented-row">
+            <div>
+              <span className="field-label">{t("production.canvas")}</span>
+              <div className="segmented">
+                <button className={layout === "Landscape" ? "active" : ""} onClick={() => setLayout("Landscape")}>1920 × 1080</button>
+                <button className={layout === "Portrait" ? "active" : ""} onClick={() => setLayout("Portrait")}>1080 × 1920</button>
+              </div>
             </div>
-          ) : (
-            <>
-              <div className="segmented-row">
-                <div>
-                  <span className="field-label">{t("production.canvas")}</span>
-                  <div className="segmented">
-                    <button className={layout === "Landscape" ? "active" : ""} onClick={() => setLayout("Landscape")}>1920 × 1080</button>
-                    <button className={layout === "Portrait" ? "active" : ""} onClick={() => setLayout("Portrait")}>1080 × 1920</button>
-                  </div>
-                </div>
-                <div>
-                  <span className="field-label">{t("production.framing")}</span>
-                  <div className="segmented">
-                    <button className={fitMode === "Fit" ? "active" : ""} onClick={() => setFitMode("Fit")}>{t("production.fit")}</button>
-                    <button className={fitMode === "Fill" ? "active" : ""} onClick={() => setFitMode("Fill")}>{t("production.fill")}</button>
-                  </div>
-                </div>
+            <div>
+              <span className="field-label">{t("production.framing")}</span>
+              <div className="segmented">
+                <button className={fitMode === "Fit" ? "active" : ""} onClick={() => setFitMode("Fit")}>{t("production.fit")}</button>
+                <button className={fitMode === "Fill" ? "active" : ""} onClick={() => setFitMode("Fill")}>{t("production.fill")}</button>
               </div>
+            </div>
+          </div>
 
-              <div className="audio-controls">
-                <label>{t("audio.commentary")}
-                  <select value={microphone} onChange={(event) => setMicrophone(event.target.value)}>
-                    <option value="">{t("audio.droneOnly")}</option>
-                    {snapshot.audioInputs.map((device) => <option key={device.name} value={device.name}>{device.name}</option>)}
-                  </select>
-                </label>
-                <label>{t("audio.volume")}<input type="number" min={-60} max={12} step={1} value={microphoneVolumeDb} onChange={(event) => setMicrophoneVolumeDb(Number(event.target.value))} /></label>
-                <label>{t("audio.delay")}<input type="number" min={0} max={5000} value={microphoneSyncMs} onChange={(event) => setMicrophoneSyncMs(Math.max(0, Number(event.target.value)))} /></label>
-              </div>
-              <div className="checkbox-row">
-                <label><input type="checkbox" checked={microphoneMuted} onChange={(event) => setMicrophoneMuted(event.target.checked)} /> {t("audio.mute")}</label>
-                <label><input type="checkbox" checked={noiseSuppression} onChange={(event) => setNoiseSuppression(event.target.checked)} /> {t("audio.noiseSuppression")}</label>
-                <label><input type="checkbox" checked={compressor} onChange={(event) => setCompressor(event.target.checked)} /> {t("audio.compressor")}</label>
-                <label><input type="checkbox" checked={limiter} onChange={(event) => setLimiter(event.target.checked)} /> {t("audio.limiter")}</label>
-              </div>
-              <button
-                className="primary wide"
-                disabled={!snapshot.publisherPresent || snapshot.production.active || busy === "prepare-native"}
-                onClick={() => void act("prepare-native", () => prepareNativeProduction({
-                  layout,
-                  fitMode,
-                  microphone: microphone || null,
-                  microphoneMuted,
-                  microphoneVolumeDb,
-                  microphoneSyncMs,
-                  noiseSuppression,
-                  compressor,
-                  limiter,
-                }))}
-              >
-                {t("production.prepare")}
-              </button>
-            </>
-          )}
+          <div className="audio-controls">
+            <label>{t("audio.commentary")}
+              <select value={microphone} onChange={(event) => setMicrophone(event.target.value)}>
+                <option value="">{t("audio.droneOnly")}</option>
+                {snapshot.audioInputs.map((device) => <option key={device.name} value={device.name}>{device.name}</option>)}
+              </select>
+            </label>
+            <label>{t("audio.volume")}<input type="number" min={-60} max={12} step={1} value={microphoneVolumeDb} onChange={(event) => setMicrophoneVolumeDb(Number(event.target.value))} /></label>
+            <label>{t("audio.delay")}<input type="number" min={0} max={5000} value={microphoneSyncMs} onChange={(event) => setMicrophoneSyncMs(Math.max(0, Number(event.target.value)))} /></label>
+          </div>
+          <div className="checkbox-row">
+            <label><input type="checkbox" checked={microphoneMuted} onChange={(event) => setMicrophoneMuted(event.target.checked)} /> {t("audio.mute")}</label>
+            <label><input type="checkbox" checked={noiseSuppression} onChange={(event) => setNoiseSuppression(event.target.checked)} /> {t("audio.noiseSuppression")}</label>
+            <label><input type="checkbox" checked={compressor} onChange={(event) => setCompressor(event.target.checked)} /> {t("audio.compressor")}</label>
+            <label><input type="checkbox" checked={limiter} onChange={(event) => setLimiter(event.target.checked)} /> {t("audio.limiter")}</label>
+          </div>
+          <button
+            className="primary wide"
+            disabled={!snapshot.publisherPresent || snapshot.production.active || busy === "prepare-native"}
+            onClick={() => void act("prepare-native", () => prepareNativeProduction({
+              layout,
+              fitMode,
+              microphone: microphone || null,
+              microphoneMuted,
+              microphoneVolumeDb,
+              microphoneSyncMs,
+              noiseSuppression,
+              compressor,
+              limiter,
+            }))}
+          >
+            {t("production.prepare")}
+          </button>
           <div className="virtual-cam-row">
             <div>
               <strong>{t("recording.native")}</strong>
@@ -506,41 +542,106 @@ function App() {
             <div className="section-heading compact">
               <div>
                 <p className="step">{t("destination.step")}</p>
-                <h2>{destinationMode === "TikTokLiveStudio" ? t("destination.videoOnly") : t("destination.mix")}</h2>
+                <h2>{t("destination.multiTitle")}</h2>
               </div>
               <StatusPill
-                label={snapshot.production.active ? t("destination.streaming", { state: snapshot.production.forwardState ?? t("common.starting") }) : t("common.stopped")}
-                tone={snapshot.production.active ? "good" : "neutral"}
+                label={snapshot.production.active
+                  ? t("destination.streaming", { state: t(`destination.state.${snapshot.production.forwardState ?? "starting"}`) })
+                  : t("common.stopped")}
+                tone={snapshot.production.forwardState === "partial" ? "warn" : snapshot.production.forwardState === "error" ? "bad" : snapshot.production.active ? "good" : "neutral"}
               />
             </div>
-            <div className="segmented destination-mode">
-              <button className={destinationMode === "TikTokLiveStudio" ? "active" : ""} onClick={() => setDestinationMode("TikTokLiveStudio")}>{t("destination.liveStudio")}</button>
-              <button className={destinationMode === "TikTokRtmp" ? "active" : ""} onClick={() => setDestinationMode("TikTokRtmp")}>{t("destination.tiktokRtmp")}</button>
-              <button className={destinationMode === "CustomRtmp" ? "active" : ""} onClick={() => setDestinationMode("CustomRtmp")}>{t("destination.customRtmp")}</button>
+            <p className="inline-note">{t("destination.multiHelp")}</p>
+            <div className="destination-list">
+              {snapshot.production.destinations.length === 0 ? (
+                <div className="destination-empty">{t("destination.empty")}</div>
+              ) : snapshot.production.destinations.map((destination) => (
+                <article className={`destination-card ${destination.enabled ? "enabled" : ""}`} key={destination.id}>
+                  <label className="destination-toggle">
+                    <input
+                      type="checkbox"
+                      checked={destination.enabled}
+                      disabled={snapshot.production.active}
+                      onChange={(event) => void act(`toggle-${destination.id}`, () => setRtmpDestinationEnabled(destination.id, event.target.checked))}
+                    />
+                    <span>
+                      <strong>{destination.name}</strong>
+                      <small>{t(`destination.kind.${destination.kind}`)} · {destination.server}</small>
+                    </span>
+                  </label>
+                  <div className="destination-card-status">
+                    <StatusPill
+                      label={!destination.enabled
+                        ? t("destination.state.disabled")
+                        : snapshot.production.active
+                          ? t(`destination.state.${destination.state ?? "starting"}`)
+                          : t("destination.state.ready")}
+                      tone={destination.state === "error" ? "bad" : destination.state === "forwarding" ? "good" : destination.enabled ? "neutral" : "warn"}
+                    />
+                    {destination.outboundBytes > 0 && <small>{formatBytes(destination.outboundBytes)}</small>}
+                  </div>
+                  {destination.lastError && <p className="destination-error">{destination.lastError}</p>}
+                  <div className="destination-card-actions">
+                    <button disabled={snapshot.production.active} onClick={() => editDestination(destination)}>{t("destination.edit")}</button>
+                    <button
+                      className="danger-quiet"
+                      disabled={snapshot.production.active}
+                      onClick={() => {
+                        if (window.confirm(t("destination.removeConfirm"))) {
+                          void act(`remove-${destination.id}`, async () => {
+                            await removeRtmpDestination(destination.id);
+                            if (editingDestinationId === destination.id) resetDestinationForm();
+                          });
+                        }
+                      }}
+                    >
+                      {t("destination.remove")}
+                    </button>
+                  </div>
+                </article>
+              ))}
             </div>
-            {destinationMode === "TikTokLiveStudio" ? (
-              <div className="hard-truth destination-notice">
-                <strong>{t("camera.controlAbove")}</strong>
-                <p>{t("camera.controlAboveHelp")}</p>
-                <small>{t("camera.videoOnly", { width: snapshot.virtualCamera.width, height: snapshot.virtualCamera.height, fps: snapshot.virtualCamera.fps })}</small>
+
+            <div className="destination-editor">
+              <strong>{editingDestinationId ? t("destination.editTitle") : t("destination.addTitle")}</strong>
+              <div className="destination-editor-grid">
+                <label>{t("destination.name")}<input value={destinationName} maxLength={64} placeholder={t("destination.namePlaceholder")} onChange={(event) => setDestinationName(event.target.value)} /></label>
+                <label>{t("destination.platform")}
+                  <select value={destinationKind} onChange={(event) => setDestinationKind(event.target.value as RtmpDestinationKind)}>
+                    <option value="Instagram">{t("destination.kind.Instagram")}</option>
+                    <option value="TikTok">{t("destination.kind.TikTok")}</option>
+                    <option value="Custom">{t("destination.kind.Custom")}</option>
+                  </select>
+                </label>
+                <label>{t("rtmp.server")}<input value={destinationServer} placeholder="rtmps://…" onChange={(event) => setDestinationServer(event.target.value)} /></label>
+                <label>{t("rtmp.streamKey")}<input type="password" value={streamKey} placeholder={editingDestinationId ? t("destination.keepKey") : t("rtmp.keychainPlaceholder")} onChange={(event) => setStreamKey(event.target.value)} /></label>
               </div>
-            ) : (
-              <>
-                <div className="destination-fields">
-                  <label>{t("rtmp.server")}<input value={destinationServer} placeholder="rtmps://…" onChange={(event) => setDestinationServer(event.target.value)} /></label>
-                  <label>{t("rtmp.streamKey")}<input type="password" value={streamKey} placeholder={t("rtmp.keychainPlaceholder")} onChange={(event) => setStreamKey(event.target.value)} /></label>
-                </div>
-                <div className="action-row live-actions">
-                  <button onClick={() => void act("save-destination", () => configureDestination(destinationMode, destinationServer, streamKey))}>{t("rtmp.save")}</button>
-                  {!snapshot.production.active ? (
-                    <button className="primary" disabled={snapshot.workflow !== "Ready" || snapshot.production.engine !== "NativeFfmpeg"} onClick={() => void act("start-live", startLive)}>{t("rtmp.start")}</button>
-                  ) : (
-                    <button className="danger" onClick={() => void act("stop-live", stopLive)}>{t("rtmp.stop")}</button>
-                  )}
-                </div>
-                <p className="inline-note">{t("rtmp.securityHelp")}</p>
-              </>
-            )}
+              <label className="destination-enabled"><input type="checkbox" checked={destinationEnabled} onChange={(event) => setDestinationEnabled(event.target.checked)} /> {t("destination.include")}</label>
+              <div className="action-row">
+                <button
+                  onClick={() => void saveDestination()}
+                  disabled={snapshot.production.active || !destinationName.trim() || !destinationServer.trim() || (!editingDestinationId && !streamKey.trim())}
+                >
+                  {editingDestinationId ? t("destination.update") : t("destination.add")}
+                </button>
+                {editingDestinationId && <button onClick={resetDestinationForm}>{t("destination.cancel")}</button>}
+              </div>
+            </div>
+
+            <div className="action-row live-actions">
+              {!snapshot.production.active ? (
+                <button
+                  className="primary"
+                  disabled={snapshot.workflow !== "Ready" || snapshot.production.engine !== "NativeFfmpeg" || !snapshot.production.destinations.some((destination) => destination.enabled)}
+                  onClick={() => void act("start-live", startLive)}
+                >
+                  {t("rtmp.startSelected")}
+                </button>
+              ) : (
+                <button className="danger" onClick={() => void act("stop-live", stopLive)}>{t("rtmp.stopAll")}</button>
+              )}
+            </div>
+            <p className="inline-note">{t("rtmp.securityHelpMulti")}</p>
           </div>
 
           <details className="optional-obs">
