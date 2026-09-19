@@ -500,15 +500,23 @@ mod tests {
     #[tokio::test]
     async fn supervisor_reports_a_process_killed_at_launch() {
         let supervisor = ProcessSupervisor::default();
-        supervisor
-            .start(ProcessSpec {
-                name: "doomed".into(),
-                executable: "/bin/sh".into(),
-                args: vec!["-c".into(), "kill -9 $$".into()],
-                restart_policy: RestartPolicy::Never,
-            })
-            .await
-            .unwrap();
+        // A process that dies immediately: killed by a signal on Unix, and a
+        // plain non-zero exit on Windows, which has no SIGKILL.
+        #[cfg(unix)]
+        let spec = ProcessSpec {
+            name: "doomed".into(),
+            executable: "/bin/sh".into(),
+            args: vec!["-c".into(), "kill -9 $$".into()],
+            restart_policy: RestartPolicy::Never,
+        };
+        #[cfg(windows)]
+        let spec = ProcessSpec {
+            name: "doomed".into(),
+            executable: "cmd".into(),
+            args: vec!["/C".into(), "exit 137".into()],
+            restart_policy: RestartPolicy::Never,
+        };
+        supervisor.start(spec).await.unwrap();
         let mut reason = None;
         for _ in 0..50 {
             reason = supervisor.exit_reason("doomed").await;
@@ -518,7 +526,10 @@ mod tests {
             tokio::time::sleep(Duration::from_millis(50)).await;
         }
         let reason = reason.expect("exit should be observed");
+        #[cfg(unix)]
         assert!(reason.contains("SIGKILL"), "{reason}");
+        #[cfg(windows)]
+        assert!(reason.contains("137"), "{reason}");
         assert!(supervisor.exit_reason("unknown").await.is_none());
     }
 }
