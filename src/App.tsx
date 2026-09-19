@@ -279,7 +279,7 @@ function DroneStep({ snapshot, busy, act, t }: { snapshot: BridgeSnapshot; busy?
       setQrCode(undefined);
       return;
     }
-    void QRCode.toDataURL(snapshot.rtmpUrl, { width: 240, margin: 1, color: { dark: "#0b0d17ff", light: "#ffffffff" } }).then(setQrCode);
+    void QRCode.toDataURL(snapshot.rtmpUrl, { width: 240, margin: 1, color: { dark: "#1d1d1fff", light: "#ffffffff" } }).then(setQrCode);
   }, [snapshot.rtmpUrl]);
 
   const copy = () => {
