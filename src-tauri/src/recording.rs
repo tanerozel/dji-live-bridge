@@ -8,9 +8,9 @@ use crate::{
 };
 
 pub fn default_recording_dir() -> BridgeResult<PathBuf> {
+    // Movies on macOS, Videos on Windows.
     let directory = dirs::video_dir()
-        .or_else(|| dirs::home_dir().map(|home| home.join("Movies")))
-        .ok_or_else(|| BridgeError::Config("Movies directory not found".into()))?
+        .ok_or_else(|| BridgeError::Config("Video directory not found".into()))?
         .join(APP_DIR_NAME);
     fs::create_dir_all(&directory)?;
     Ok(directory)

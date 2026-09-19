@@ -26,12 +26,18 @@ pub struct FfmpegCapabilities {
     pub ffprobe_path: Option<String>,
     pub version: Option<String>,
     pub h264_videotoolbox: bool,
+    /// Windows hardware encoders, in the order they are preferred.
+    pub h264_nvenc: bool,
+    pub h264_qsv: bool,
+    pub h264_amf: bool,
     /// VideoToolbox honours `-constant_bit_rate` (macOS 13+, not every GPU).
     pub h264_videotoolbox_cbr: bool,
     pub libx264: bool,
     pub libopus: bool,
     /// FFmpeg's own Opus encoder, used when libopus is absent.
     pub opus: bool,
+    /// The OS audio capture input FFmpeg needs for the commentary microphone:
+    /// avfoundation on macOS, dshow on Windows.
     pub avfoundation: bool,
     pub aac: bool,
     pub afftdn: bool,
@@ -78,6 +84,9 @@ pub async fn capabilities() -> FfmpegCapabilities {
     {
         let encoders = String::from_utf8_lossy(&output.stdout);
         result.h264_videotoolbox = encoders.contains("h264_videotoolbox");
+        result.h264_nvenc = encoders.contains("h264_nvenc");
+        result.h264_qsv = encoders.contains("h264_qsv");
+        result.h264_amf = encoders.contains("h264_amf");
         result.libx264 = encoders.contains("libx264");
         result.libopus = encoders.contains("libopus");
         result.opus = encoders.contains(" opus ");
@@ -93,7 +102,7 @@ pub async fn capabilities() -> FfmpegCapabilities {
             String::from_utf8_lossy(&output.stdout),
             String::from_utf8_lossy(&output.stderr)
         );
-        result.avfoundation = devices.contains("avfoundation");
+        result.avfoundation = devices.contains(AUDIO_INPUT_FORMAT);
     }
     if let Ok(output) = Command::new(&ffmpeg)
         .args(["-hide_banner", "-filters"])
@@ -133,6 +142,36 @@ pub async fn capabilities() -> FfmpegCapabilities {
             .is_ok_and(|output| output.status.success());
     }
     result
+}
+
+/// Picks the H.264 encoder: hardware first, because it leaves the CPU free for
+/// the RTSP reader. The bundled LGPL build has no libx264, so a system FFmpeg
+/// is the only way that fallback ever applies.
+pub fn select_h264_encoder(capabilities: &FfmpegCapabilities) -> Option<&'static str> {
+    [
+        ("h264_videotoolbox", capabilities.h264_videotoolbox),
+        ("h264_nvenc", capabilities.h264_nvenc),
+        ("h264_qsv", capabilities.h264_qsv),
+        ("h264_amf", capabilities.h264_amf),
+        ("libx264", capabilities.libx264),
+    ]
+    .into_iter()
+    .find_map(|(name, available)| available.then_some(name))
+}
+
+/// FFmpeg's capture input for the commentary microphone.
+#[cfg(target_os = "macos")]
+const AUDIO_INPUT_FORMAT: &str = "avfoundation";
+#[cfg(target_os = "windows")]
+const AUDIO_INPUT_FORMAT: &str = "dshow";
+
+/// avfoundation addresses devices as ":name"; dshow as "audio=name".
+fn audio_input_argument(microphone: &str) -> String {
+    if cfg!(target_os = "windows") {
+        format!("audio={microphone}")
+    } else {
+        format!(":{microphone}")
+    }
 }
 
 /// Output frame rate. Instagram and TikTok ingest cap at 30 fps; DJI and phone
@@ -189,6 +228,42 @@ fn production_encoder_args(encoder: &str, videotoolbox_cbr: bool) -> Vec<&'stati
             args.extend(["-constant_bit_rate", "1"]);
         }
         args.extend(["-bf", "0"]);
+    } else if encoder == "h264_nvenc" {
+        args.extend([
+            "h264_nvenc",
+            "-preset",
+            "p4",
+            "-tune",
+            "ll",
+            "-rc",
+            "cbr",
+            "-profile:v",
+            "high",
+            "-bf",
+            "0",
+        ]);
+    } else if encoder == "h264_qsv" {
+        args.extend([
+            "h264_qsv",
+            "-preset",
+            "veryfast",
+            "-profile:v",
+            "high",
+            "-bf",
+            "0",
+        ]);
+    } else if encoder == "h264_amf" {
+        args.extend([
+            "h264_amf",
+            "-quality",
+            "speed",
+            "-rc",
+            "cbr",
+            "-profile:v",
+            "high",
+            "-bf",
+            "0",
+        ]);
     } else {
         args.extend([
             "libx264",
@@ -243,9 +318,9 @@ pub async fn start_production(
         ));
     }
     if settings.microphone.is_some() && !capabilities.avfoundation {
-        return Err(BridgeError::Ffmpeg(
-            "Installed FFmpeg does not provide the AVFoundation input device".into(),
-        ));
+        return Err(BridgeError::Ffmpeg(format!(
+            "This FFmpeg build has no {AUDIO_INPUT_FORMAT} input device for the microphone"
+        )));
     }
     if settings.microphone.is_some()
         && (!capabilities.amix
@@ -257,15 +332,8 @@ pub async fn start_production(
             "Installed FFmpeg is missing a selected commentary audio filter".into(),
         ));
     }
-    let encoder = if capabilities.h264_videotoolbox {
-        "h264_videotoolbox"
-    } else if capabilities.libx264 {
-        "libx264"
-    } else {
-        return Err(BridgeError::Ffmpeg(
-            "No production H.264 encoder is available".into(),
-        ));
-    };
+    let encoder = select_h264_encoder(&capabilities)
+        .ok_or_else(|| BridgeError::Ffmpeg("No production H.264 encoder is available".into()))?;
 
     let video_filter = production_video_filter(settings.layout, settings.fit_mode);
 
@@ -287,11 +355,11 @@ pub async fn start_production(
 
     if let Some(microphone) = settings.microphone.as_deref() {
         args.extend(
-            ["-thread_queue_size", "1024", "-f", "avfoundation", "-i"]
+            ["-thread_queue_size", "1024", "-f", AUDIO_INPUT_FORMAT, "-i"]
                 .into_iter()
                 .map(OsString::from),
         );
-        args.push(OsString::from(format!(":{microphone}")));
+        args.push(OsString::from(audio_input_argument(microphone)));
     } else if !has_drone_audio {
         args.extend(
             [
@@ -387,15 +455,9 @@ pub async fn start_test_drone(supervisor: &ProcessSupervisor, input: &Path) -> B
         .map(PathBuf::from)
         .ok_or_else(|| BridgeError::Ffmpeg("FFmpeg is unavailable".into()))?;
     // The bundled LGPL build has no libx264; VideoToolbox is always there.
-    let encoder = if capabilities.h264_videotoolbox {
-        "h264_videotoolbox"
-    } else if capabilities.libx264 {
-        "libx264"
-    } else {
-        return Err(BridgeError::Ffmpeg(
-            "No H.264 encoder is available for the test video".into(),
-        ));
-    };
+    let encoder = select_h264_encoder(&capabilities).ok_or_else(|| {
+        BridgeError::Ffmpeg("No H.264 encoder is available for the test video".into())
+    })?;
     let input = fs::canonicalize(input)
         .map_err(|error| BridgeError::Validation(format!("test video: {error}")))?;
     if !input.is_file() {
@@ -498,15 +560,9 @@ pub async fn start_preview_fallback(supervisor: &ProcessSupervisor) -> BridgeRes
             "This FFmpeg build has no Opus encoder for the browser preview".into(),
         ));
     };
-    let encoder = if capabilities.h264_videotoolbox {
-        "h264_videotoolbox"
-    } else if capabilities.libx264 {
-        "libx264"
-    } else {
-        return Err(BridgeError::Ffmpeg(
-            "No browser-compatible H.264 encoder is available".into(),
-        ));
-    };
+    let encoder = select_h264_encoder(&capabilities).ok_or_else(|| {
+        BridgeError::Ffmpeg("No browser-compatible H.264 encoder is available".into())
+    })?;
 
     let mut raw_args = vec![
         "-hide_banner",
@@ -739,6 +795,8 @@ async fn emit_lines<R: tokio::io::AsyncRead + Unpin>(app: tauri::AppHandle, pipe
 /// be installed. A system copy is still accepted as a fallback (development
 /// runs, or a user who prefers their own build).
 pub(crate) fn locate(name: &str) -> Option<PathBuf> {
+    #[cfg(windows)]
+    let name = &format!("{name}.exe");
     let bundled = std::env::current_exe()
         .ok()
         .and_then(|exe| exe.parent().map(|dir| dir.join(name)));

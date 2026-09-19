@@ -7,7 +7,7 @@
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://127.0.0.1:1420",
     "beforeBuildCommand": "npm run build",
-    "beforeBundleCommand": "./scripts/build-camera-extension.sh",
+    "beforeBundleCommand": "node scripts/before-bundle.mjs",
     "frontendDist": "../dist"
   },
   "app": {
@@ -27,7 +27,12 @@
   },
   "bundle": {
     "active": true,
-    "targets": ["app", "dmg"],
+    "targets": [
+      "app",
+      "dmg",
+      "nsis",
+      "msi"
+    ],
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
@@ -38,7 +43,11 @@
     "category": "Video",
     "shortDescription": "Bridge DJI Fly RTMP streams to live destinations on macOS",
     "longDescription": "A local DJI Fly RTMP ingest, preview and OBS-free FFmpeg production application with optional OBS integration.",
-    "externalBin": ["binaries/mediamtx", "binaries/ffmpeg", "binaries/ffprobe"],
+    "externalBin": [
+      "binaries/mediamtx",
+      "binaries/ffmpeg",
+      "binaries/ffprobe"
+    ],
     "macOS": {
       "entitlements": "entitlements.plist",
       "signingIdentity": "Developer ID Application: Taner Ozel (GXDXLCQ92M)",
@@ -51,6 +60,11 @@
       },
       "minimumSystemVersion": "13.0",
       "infoPlist": "Info.plist"
+    },
+    "windows": {
+      "nsis": {
+        "installMode": "perMachine"
+      }
     }
   }
 }

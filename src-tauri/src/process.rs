@@ -7,7 +7,6 @@ use std::{
     time::{Duration, Instant},
 };
 
-use nix::{sys::signal, unistd::Pid};
 use serde::{Deserialize, Serialize};
 use tokio::{
     io::{AsyncBufReadExt, BufReader},
@@ -179,9 +178,7 @@ impl ProcessSupervisor {
         if let Some(process) = managed.as_mut() {
             process.stopping = true;
             if let Some(child) = process.child.as_mut() {
-                if let Some(pid) = child.id() {
-                    let _ = signal::kill(Pid::from_raw(pid as i32), signal::Signal::SIGTERM);
-                }
+                request_stop(child);
                 let deadline = Instant::now() + Duration::from_secs(3);
                 loop {
                     if child.try_wait()?.is_some() {
@@ -220,6 +217,19 @@ impl ProcessSupervisor {
             }
         }
     }
+}
+
+/// Ask a child to exit on its own. On Unix that is SIGTERM, which lets FFmpeg
+/// and MediaMTX flush and close cleanly; Windows has no such signal, so the
+/// caller's kill-after-timeout path does the work there.
+fn request_stop(child: &mut Child) {
+    #[cfg(unix)]
+    if let Some(pid) = child.id() {
+        use nix::{sys::signal, unistd::Pid};
+        let _ = signal::kill(Pid::from_raw(pid as i32), signal::Signal::SIGTERM);
+    }
+    #[cfg(windows)]
+    let _ = child;
 }
 
 fn spawn_child(spec: &ProcessSpec) -> BridgeResult<Child> {

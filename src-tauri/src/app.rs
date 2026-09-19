@@ -22,7 +22,7 @@ use crate::{
     mediamtx::{ForwardStatus, MediaMtxController},
     network,
     obs::ObsController,
-    platform::macos,
+    platform,
     process::ProcessSupervisor,
     recording,
     state::{
@@ -321,8 +321,8 @@ impl AppState {
                         obs_backoff = Duration::from_secs(5);
                     }
                     Err(error) => {
-                        let installed = macos::obs_installed();
-                        let running = macos::obs_running();
+                        let installed = platform::obs_installed();
+                        let running = platform::obs_running();
                         self.state
                             .mutate(&app, |snapshot| {
                                 snapshot.obs.installed = installed;

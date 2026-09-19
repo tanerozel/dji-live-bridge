@@ -1,0 +1,71 @@
+name: Windows build
+
+# The Windows app cannot be produced on macOS (WebView2, MSVC), so CI builds it.
+# Every push compiles and tests it; a tag also uploads the installers.
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install the pinned Rust toolchain
+        run: |
+          rustup toolchain install 1.98.1 --profile minimal --component clippy,rustfmt
+          rustup default 1.98.1
+          rustup target add x86_64-pc-windows-msvc
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - run: npm ci
+
+      - name: Fetch the Windows sidecars (MediaMTX, FFmpeg, ffprobe)
+        run: pwsh scripts/fetch-windows-sidecars.ps1
+
+      - name: Frontend checks
+        run: |
+          npm run typecheck
+          npm run lint
+          npm run build
+
+      - name: Rust checks
+        working-directory: src-tauri
+        run: |
+          cargo fmt --all -- --check
+          cargo clippy --locked --all-targets -- -D warnings
+          cargo test --locked
+
+      - name: Build the app
+        run: npx tauri build --target x86_64-pc-windows-msvc
+
+      - name: Collect installers
+        run: |
+          New-Item -ItemType Directory -Force -Path dist-windows | Out-Null
+          Get-ChildItem -Recurse -Path src-tauri/target/x86_64-pc-windows-msvc/release/bundle `
+            -Include *.exe, *.msi | Copy-Item -Destination dist-windows
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dji-live-bridge-windows
+          path: dist-windows/*
+          if-no-files-found: error
+
+      - name: Attach installers to the release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{ github.ref_name }} (Get-ChildItem dist-windows/*).FullName --clobber

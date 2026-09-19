@@ -142,12 +142,12 @@ fn open_about_link(target: String) -> Result<(), ErrorPayload> {
                 "unknown About link".to_string(),
             ))
         })?;
-    platform::macos::open_external(url).map_err(Into::into)
+    platform::open_external(url).map_err(Into::into)
 }
 
 #[tauri::command]
 fn open_tiktok_live_studio() -> Result<(), ErrorPayload> {
-    platform::macos::open_tiktok_live_studio_or_download().map_err(Into::into)
+    platform::open_tiktok_live_studio_or_download().map_err(Into::into)
 }
 
 #[tauri::command]

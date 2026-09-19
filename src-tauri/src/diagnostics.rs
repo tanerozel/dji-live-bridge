@@ -2,7 +2,7 @@ use serde::Serialize;
 
 use crate::{
     ffmpeg::FfmpegCapabilities,
-    platform::macos,
+    platform,
     state::{BridgeSnapshot, ServiceStatus},
 };
 
@@ -262,7 +262,7 @@ pub fn collect(snapshot: &BridgeSnapshot, ffmpeg: &FfmpegCapabilities) -> Vec<Di
             None,
         )
     });
-    items.push(if macos::tiktok_live_studio_installed() {
+    items.push(if platform::tiktok_live_studio_installed() {
         item(
             "TikTok LIVE Studio",
             DiagnosticLevel::Pass,

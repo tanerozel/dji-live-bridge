@@ -1,4 +1,5 @@
 fn main() {
+    // The Objective-C camera bridge is macOS-only; other platforms link nothing.
     #[cfg(target_os = "macos")]
     {
         use std::{env, path::PathBuf, process::Command};

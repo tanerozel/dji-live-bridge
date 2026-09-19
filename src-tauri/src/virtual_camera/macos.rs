@@ -5,9 +5,11 @@ use std::{
     sync::OnceLock,
 };
 
-use serde::{Deserialize, Serialize};
 use tauri::{AppHandle, Emitter};
 
+use super::{
+    DEVICE_NAME, FEED_FPS, FEED_HEIGHT, FEED_PROCESS_NAME, FEED_WIDTH, VirtualCameraState,
+};
 use crate::{
     error::{BridgeError, BridgeResult},
     ffmpeg,
@@ -36,46 +38,9 @@ extern "C" fn extension_event_callback(
     }
 }
 
-pub const DEVICE_NAME: &str = "DJI Live Bridge Camera";
 pub const EXTENSION_IDENTIFIER: &str = "com.djilivebridge.desktop.camera";
 const EXTENSION_BUNDLE_NAME: &str = "com.djilivebridge.desktop.camera.systemextension";
-pub const FEED_PROCESS_NAME: &str = "virtual-camera-feed";
-const FEED_WIDTH: u32 = 1080;
-const FEED_HEIGHT: u32 = 1920;
-const FEED_FPS: u32 = 30;
 const FEED_PORT: u16 = 49213;
-
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct VirtualCameraState {
-    pub device_name: String,
-    pub bundled: bool,
-    pub app_installed: bool,
-    pub status: ServiceStatus,
-    pub feed_active: bool,
-    pub width: u32,
-    pub height: u32,
-    pub fps: u32,
-    pub detail_key: String,
-    pub detail: Option<String>,
-}
-
-impl Default for VirtualCameraState {
-    fn default() -> Self {
-        Self {
-            device_name: DEVICE_NAME.into(),
-            bundled: false,
-            app_installed: false,
-            status: ServiceStatus::Unavailable,
-            feed_active: false,
-            width: FEED_WIDTH,
-            height: FEED_HEIGHT,
-            fps: FEED_FPS,
-            detail_key: "camera.detail.notInstalled".into(),
-            detail: Some("The signed camera extension is not installed".into()),
-        }
-    }
-}
 
 pub fn inspect(feed_active: bool) -> VirtualCameraState {
     let bundle_path = bundled_extension_path();

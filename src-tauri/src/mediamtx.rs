@@ -79,6 +79,7 @@ impl MediaMtxController {
     /// A MediaMTX left running by a crashed/force-quit previous instance keeps
     /// ports 9997/1935 and answers the API with stale state. Terminate it, but
     /// only when its command line proves it was started with OUR config file.
+    #[cfg(unix)]
     async fn reap_stale_sidecar(&self) {
         let Ok(listing) = Command::new("/usr/sbin/lsof")
             .args(["-nP", "-iTCP:9997", "-sTCP:LISTEN", "-t"])
@@ -117,6 +118,33 @@ impl MediaMtxController {
                 let _ = signal::kill(target, Signal::SIGKILL);
             }
         }
+    }
+
+    /// Windows has no lsof; match the sidecar by image name instead and let
+    /// taskkill end it. Only our own bundled executable name is touched.
+    #[cfg(windows)]
+    async fn reap_stale_sidecar(&self) {
+        let Some(image) = self
+            .binary
+            .file_name()
+            .map(|name| name.to_string_lossy().into_owned())
+        else {
+            return;
+        };
+        let listing = Command::new("tasklist")
+            .args(["/FI", &format!("IMAGENAME eq {image}"), "/NH"])
+            .output()
+            .await;
+        let Ok(listing) = listing else { return };
+        if !String::from_utf8_lossy(&listing.stdout).contains(&image) {
+            return;
+        }
+        tracing::warn!(%image, "terminating stale MediaMTX from a previous run");
+        let _ = Command::new("taskkill")
+            .args(["/IM", &image, "/F"])
+            .output()
+            .await;
+        tokio::time::sleep(Duration::from_millis(300)).await;
     }
 
     async fn wait_until_ready(

@@ -161,10 +161,21 @@ impl ConfigStore {
         let app_support_dir = dirs::config_dir()
             .ok_or_else(|| BridgeError::Config("Application Support directory not found".into()))?
             .join(APP_DIR_NAME);
-        let logs_dir = dirs::home_dir()
+        // macOS keeps logs in ~/Library/Logs; Windows has no such place, so they
+        // live beside the rest of the app's local data.
+        #[cfg(target_os = "macos")]
+        let logs_root = dirs::home_dir()
             .ok_or_else(|| BridgeError::Config("Home directory not found".into()))?
-            .join("Library/Logs")
+            .join("Library/Logs");
+        #[cfg(not(target_os = "macos"))]
+        let logs_root = dirs::data_local_dir()
+            .ok_or_else(|| BridgeError::Config("Local data directory not found".into()))?
             .join(APP_DIR_NAME);
+        let logs_dir = logs_root.join(if cfg!(target_os = "macos") {
+            APP_DIR_NAME
+        } else {
+            "logs"
+        });
         fs::create_dir_all(&app_support_dir)?;
         fs::create_dir_all(&logs_dir)?;
         Ok(Self {

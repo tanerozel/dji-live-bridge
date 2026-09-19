@@ -11,7 +11,7 @@ use uuid::Uuid;
 use crate::{
     config::{BroadcastDestination, FitMode, OutputLayout},
     error::{BridgeError, BridgeResult},
-    platform::macos,
+    platform,
     state::ObsState,
 };
 
@@ -212,10 +212,10 @@ impl ObsController {
     }
 
     pub fn open_or_download(&self) -> BridgeResult<()> {
-        if macos::obs_installed() {
-            macos::open_obs()
+        if platform::obs_installed() {
+            platform::open_obs()
         } else {
-            macos::open_url(OBS_DOWNLOAD_URL)
+            platform::open_url(OBS_DOWNLOAD_URL)
         }
     }
 
@@ -710,7 +710,7 @@ fn state_from_version(
     let mut available_requests: Vec<_> = requests.into_iter().collect();
     available_requests.sort();
     ObsState {
-        installed: macos::obs_installed(),
+        installed: platform::obs_installed(),
         running: true,
         connected: true,
         obs_version: version
