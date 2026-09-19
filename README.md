@@ -10,7 +10,7 @@ DJI Fly'ın RTMP yayınını aynı LAN'daki Mac'te karşılayan, MediaMTX üzeri
 4. `/drone` publisher durumunu MediaMTX Control API'den izler; reconnect için MediaMTX'i yeniden başlatmaz.
 5. Direct WHEP preview'ı dener. Codec/ICE sorunu veya AAC preview sesi gerektiğinde, yalnız `drone-preview` için H.264 + Opus FFmpeg fallback'i açabilir.
 6. Yerleşik production hattı FFmpeg capability probe sonucuna göre VideoToolbox/libx264 ile layout uygular; drone sesi ile isteğe bağlı AVFoundation mikrofonunu miksler ve `/production` yolunu üretir.
-7. Direct RTMP yalnız `START LIVE` ile başlar. Stream key Keychain'den belleğe alınır, loopback Control API üzerinden geçici MediaMTX forward'a verilir ve `STOP LIVE` ile silinir; FFmpeg argv'sine yazılmaz.
+7. Direct RTMP yalnız `START LIVE` ile başlar. Tek production çıktısı, etkinleştirilen birden fazla Instagram/TikTok/özel RTMP hedefine aynı anda iletilir. Her stream key Keychain'den belleğe alınır, loopback Control API üzerinden geçici MediaMTX forward listesine verilir ve `STOP LIVE` ile silinir; FFmpeg argv'sine yazılmaz.
 8. Yerleşik Core Media I/O Camera Extension, `/drone` videosunu `DJI Live Bridge Camera` adıyla 1080×1920/30 fps video-only kamera olarak sunar. TikTok LIVE Studio mikrofonu doğrudan kendi içinden seçer; OBS gerekmez.
 9. İsteğe bağlı OBS WebSocket 5.x entegrasyonu `GetVersion.availableRequests` ile runtime feature detection yapar; scene, recording ve OBS Virtual Camera özellikleri OBS kuruluysa kullanılabilir.
 
@@ -55,7 +55,7 @@ MediaMTX binary'si kaynak kontrolüne alınmaz; script resmi release archive'ın
 file → FFmpeg H.264/AAC 1280x720 → rtmp://127.0.0.1:1935/drone
      → MediaMTX → WHEP preview
      → FFmpeg layout/audio mix → rtsp://127.0.0.1:8554/production
-     → MediaMTX runtime forward → TikTok/custom RTMP
+     → MediaMTX runtime forwards → Instagram + TikTok + custom RTMP
 ```
 
 Fake `connected` durumu üretilmez. FFmpeg/ffprobe bulunamazsa özellik açıkça unavailable olur.
@@ -87,6 +87,22 @@ DJI / Test Drone → MediaMTX /drone → FFmpeg NV12 1080×1920@30
 
 Kamera etkinleştirme macOS güvenlik modelinin parçasıdır; uygulamanın `/Applications` altında bulunması ve ilk kullanımda yönetici onayı gerekir. `Go Live` işlemi TikTok LIVE Studio içinde manuel kalır.
 
+## Instagram + TikTok'a aynı anda Direct RTMP yayın
+
+Bu akışta `DJI Live Bridge Camera` ile Direct RTMP birbirinden bağımsızdır; sanal kamera açık kalırken aynı production görüntüsü birden fazla RTMP hedefine gönderilebilir.
+
+1. DJI veya `Test Drone` görüntüsünü bağla ve önizlemeyi doğrula.
+2. İstersen ana kamera kartından `DJI Live Bridge Camera` görüntü akışını başlat. Bu işlem RTMP hedeflerini değiştirmez.
+3. `Gelişmiş ayarlar ve tanılama` bölümünü aç.
+4. `Aynı anda RTMP hedefleri` bölümünde hedef adı, platform, RTMP server URL ve stream key girip hedefi ekle. Instagram ve TikTok için bunu ayrı ayrı yap.
+5. Yayına katılacak hedeflerin anahtarını açık bırak; geçici olarak istemediğin hedefi kapat. Hedefleri yalnız yayın durmuşken düzenleyebilirsin.
+6. Production ayarlarında yerleşik engine'i kullan ve görüntü yönü, mikrofon ve ses ayarlarını seç.
+7. `Seçili hedeflere yayını başlat` düğmesine bas. Uygulama production görüntüsünü bir kez encode eder ve tüm etkin hedeflere iletir.
+8. Her hedef kartında `Canlı`, `Bağlantı kuruluyor` veya `Bağlantı başarısız` durumu ayrı gösterilir. Bir hedef başarısız olsa bile diğer hedefin yayını devam eder; üst durum `Kısmen canlı` olur.
+9. Bitirdiğinde `Tüm yayınları durdur` düğmesine bas. Sanal kamera gerekiyorsa ayrıca kendi kartından durdurulur.
+
+Instagram ve TikTok'un verdiği RTMP server URL ile stream key değerlerini aynen kullan. Stream key alanı düzenleme sırasında boş bırakılırsa Keychain'deki mevcut değer korunur. Uygulama platform hesabına giriş yapmaz ve platformdaki yayın başlatma/onay ekranlarını otomatik geçmez.
+
 ## Dil desteği
 
 Uygulamanın varsayılan dili İngilizcedir. Üst menüdeki dil seçiciden `English` veya `Türkçe` seçilebilir; tercih yerel olarak saklanır ve uygulama yeniden açıldığında korunur. Arayüz, durumlar, tanılama sonuçları ve hata yönlendirmeleri aynı çeviri anahtarları üzerinden anında güncellenir. Teknik cihaz adları, kodekler, protokoller ve ham hata ayrıntıları teşhis doğruluğu için çevrilmez.
@@ -97,8 +113,9 @@ Uygulamanın varsayılan dili İngilizcedir. Üst menüdeki dil seçiciden `Engl
 - Mikrofon AVFoundation üzerinden yalnız kullanıcı seçerse capture edilir. Volume, non-negative sync delay, FFT noise reduction, compressor ve limiter capability probe ile uygulanır. macOS Microphone izni o zaman gerekir.
 - Drone ses track'i yoksa ve mic seçilmediyse geçerli AAC stereo silence üretilir. Mic seçiliyse drone sesiyle `amix` üzerinden karıştırılır.
 - Recording, yayın aktifse gerçek `/production` mix'ini; değilse `/drone` akışını stream-copy MKV olarak `~/Movies/DJI Live Bridge/` altına yazar.
-- TikTok/custom stream key yalnız macOS Keychain'de kalır. Uzak destination MediaMTX Control API ile runtime'da eklenir; config dosyasına ve child process argv'sine girmez.
-- MediaMTX forward `state`, `lastError` ve `outboundBytes` alanları gerçek Control API verisi olarak UI state'ine taşınır.
+- Her Instagram/TikTok/özel RTMP hedefinin stream key'i ayrı bir macOS Keychain kaydında kalır. Hedef listesi MediaMTX Control API ile runtime'da eklenir; anahtarlar config dosyasına ve child process argv'sine girmez.
+- Tek FFmpeg production encode'u MediaMTX tarafından etkin hedeflere ayrı ayrı forward edilir. Her hedefin `state`, `lastError` ve `outboundBytes` alanları gerçek Control API verisi olarak UI state'ine taşınır; tek hedef hatası diğer hedefi durdurmaz.
+- Çoklu hedef için yerleşik `NativeFfmpeg` engine kullanılır. İsteğe bağlı OBS engine bu uygulama içinden tek RTMP hedefiyle sınırlıdır.
 
 ## İsteğe bağlı OBS davranışı
 
@@ -142,7 +159,7 @@ npm run build
 npm run tauri -- build --target aarch64-apple-darwin
 ```
 
-Kullanıcının isteği doğrultusunda bu aşamada yeni unit/integration test dosyası eklenmedi; gerçek Test Drone hattı canlı çalıştırılarak doğrulandı.
+RTMP config serileştirme, secret ayrımı, URL doğrulama ve bir hedef çalışırken diğerinin hata vermesi senaryoları Rust unit testleriyle doğrulanır. Gerçek Instagram/TikTok hesabına yayın ayrıca geçerli platform anahtarlarıyla kullanıcı tarafından doğrulanmalıdır.
 
 ## Packaging, signing ve notarization
 

@@ -24,6 +24,7 @@ pub struct PublisherSample {
 
 #[derive(Debug, Clone, Default)]
 pub struct ForwardStatus {
+    pub pos: usize,
     pub state: Option<String>,
     pub last_error: Option<String>,
     pub outbound_bytes: u64,
@@ -172,12 +173,24 @@ impl MediaMtxController {
         }
     }
 
-    pub async fn configure_forward(&self, server: &str, key: &str) -> BridgeResult<()> {
-        crate::config::validate_rtmp_destination(server, key)?;
-        let destination = format!("{}#{}", server.trim_end_matches('#'), key);
+    pub async fn configure_forwards(&self, destinations: &[(String, String)]) -> BridgeResult<()> {
+        if destinations.is_empty() {
+            return Err(BridgeError::Validation(
+                "At least one enabled RTMP destination is required".into(),
+            ));
+        }
+        let forwards = destinations
+            .iter()
+            .map(|(server, key)| {
+                crate::config::validate_rtmp_destination(server, key)?;
+                Ok(serde_json::json!({
+                    "dest": format!("{}#{}", server.trim_end_matches('#'), key)
+                }))
+            })
+            .collect::<BridgeResult<Vec<_>>>()?;
         self.client
             .patch(format!("{API_ROOT}/config/paths/patch/production"))
-            .json(&serde_json::json!({ "forward": [{ "dest": destination }] }))
+            .json(&serde_json::json!({ "forward": forwards }))
             .send()
             .await?
             .error_for_status()?;
@@ -194,7 +207,7 @@ impl MediaMtxController {
         Ok(())
     }
 
-    pub async fn forward_status(&self) -> BridgeResult<ForwardStatus> {
+    pub async fn forward_statuses(&self) -> BridgeResult<Vec<ForwardStatus>> {
         let response = self
             .client
             .get(format!(
@@ -205,43 +218,74 @@ impl MediaMtxController {
             .error_for_status()?
             .json::<Value>()
             .await?;
-        let item = response
+        let items = response
             .get("items")
             .and_then(Value::as_array)
-            .and_then(|items| items.first());
-        Ok(ForwardStatus {
-            state: item
-                .and_then(|value| value.get("state"))
-                .and_then(Value::as_str)
-                .map(str::to_string),
-            last_error: item
-                .and_then(|value| value.get("lastError"))
-                .and_then(Value::as_str)
-                .filter(|value| !value.is_empty())
-                .map(crate::error::redact_secrets),
-            outbound_bytes: item
-                .and_then(|value| value.get("outboundBytes"))
-                .and_then(Value::as_u64)
-                .unwrap_or_default(),
-        })
+            .cloned()
+            .unwrap_or_default();
+        let mut statuses = items
+            .iter()
+            .map(|item| ForwardStatus {
+                pos: item.get("pos").and_then(Value::as_u64).unwrap_or_default() as usize,
+                state: item
+                    .get("state")
+                    .and_then(Value::as_str)
+                    .map(str::to_string),
+                last_error: item
+                    .get("lastError")
+                    .and_then(Value::as_str)
+                    .filter(|value| !value.is_empty())
+                    .map(crate::error::redact_secrets),
+                outbound_bytes: item
+                    .get("outboundBytes")
+                    .and_then(Value::as_u64)
+                    .unwrap_or_default(),
+            })
+            .collect::<Vec<_>>();
+        statuses.sort_by_key(|status| status.pos);
+        Ok(statuses)
     }
 
-    pub async fn wait_forwarding(&self, timeout: Duration) -> BridgeResult<ForwardStatus> {
+    pub async fn wait_forwards(
+        &self,
+        expected: usize,
+        timeout: Duration,
+    ) -> BridgeResult<Vec<ForwardStatus>> {
         let deadline = Instant::now() + timeout;
         loop {
-            let status = self.forward_status().await?;
-            if status.state.as_deref() == Some("forwarding") {
-                return Ok(status);
+            let statuses = self.forward_statuses().await?;
+            let forwarding = statuses
+                .iter()
+                .filter(|status| status.state.as_deref() == Some("forwarding"))
+                .count();
+            let settled = statuses.len() >= expected
+                && statuses
+                    .iter()
+                    .all(|status| matches!(status.state.as_deref(), Some("forwarding" | "error")));
+            if settled && forwarding > 0 {
+                return Ok(statuses);
             }
-            if status.state.as_deref() == Some("error") {
+            if settled {
+                let details = statuses
+                    .iter()
+                    .filter_map(|status| status.last_error.as_deref())
+                    .collect::<Vec<_>>()
+                    .join("; ");
                 return Err(BridgeError::MediaMtx(format!(
-                    "production forward failed: {}",
-                    status.last_error.as_deref().unwrap_or("unknown error")
+                    "all production destinations failed: {}",
+                    if details.is_empty() {
+                        "unknown error"
+                    } else {
+                        &details
+                    }
                 )));
             }
             if Instant::now() >= deadline {
+                if forwarding > 0 {
+                    return Ok(statuses);
+                }
                 return Err(BridgeError::MediaMtx(
-                    "production forward did not start within the readiness window".into(),
+                    "no production destination started within the readiness window".into(),
                 ));
             }
             tokio::time::sleep(Duration::from_millis(200)).await;

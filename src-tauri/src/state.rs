@@ -6,7 +6,7 @@ use tokio::sync::RwLock;
 
 use crate::{
     audio::AudioInputDevice,
-    config::ProductionEngine,
+    config::{ProductionEngine, RtmpDestinationKind},
     error::{BridgeError, BridgeResult, ErrorPayload},
     network::NetworkInterface,
     process::ProcessSnapshot,
@@ -127,8 +127,22 @@ pub struct ProductionState {
     pub forward_state: Option<String>,
     pub forward_error: Option<String>,
     pub outbound_bytes: u64,
+    pub destinations: Vec<RtmpDestinationState>,
     pub recording_active: bool,
     pub recording_path: Option<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct RtmpDestinationState {
+    pub id: String,
+    pub name: String,
+    pub kind: RtmpDestinationKind,
+    pub server: String,
+    pub enabled: bool,
+    pub state: Option<String>,
+    pub last_error: Option<String>,
+    pub outbound_bytes: u64,
 }
 
 #[derive(Debug, Clone, Serialize)]

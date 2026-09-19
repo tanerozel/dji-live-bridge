@@ -5,6 +5,7 @@ import type {
   ErrorPayload,
   FfmpegCapabilities,
   NativeProductionSettings,
+  RtmpDestinationKind,
 } from "../types";
 
 export function getSnapshot() {
@@ -82,12 +83,25 @@ export function setNativeRecording(active: boolean) {
   return invoke<string | null>("set_native_recording", { active });
 }
 
-export function configureDestination(
-  mode: "TikTokRtmp" | "CustomRtmp" | "TikTokLiveStudio",
-  server?: string,
-  key?: string,
+export function upsertRtmpDestination(
+  id: string | null,
+  name: string,
+  kind: RtmpDestinationKind,
+  server: string,
+  key: string | null,
+  enabled: boolean,
 ) {
-  return invoke<void>("configure_destination", { mode, server, key });
+  return invoke<string>("upsert_rtmp_destination", {
+    destination: { id, name, kind, server, key, enabled },
+  });
+}
+
+export function removeRtmpDestination(id: string) {
+  return invoke<void>("remove_rtmp_destination", { id });
+}
+
+export function setRtmpDestinationEnabled(id: string, enabled: boolean) {
+  return invoke<void>("set_rtmp_destination_enabled", { id, enabled });
 }
 
 export function startLive() {
