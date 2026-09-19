@@ -110,6 +110,8 @@ Uygulamanın varsayılan dili İngilizcedir. Üst menüdeki dil seçiciden `Engl
 - Drone ses track'i yoksa ve mic seçilmediyse geçerli AAC stereo silence üretilir. Mic seçiliyse drone sesiyle `amix` üzerinden karıştırılır.
 - Recording, yayın aktifse gerçek `/production` mix'ini; değilse `/drone` akışını stream-copy MKV olarak `~/Movies/DJI Live Bridge/` altına yazar.
 - Her Instagram/TikTok/özel RTMP hedefinin stream key'i ayrı bir macOS Keychain kaydında kalır. Hedef listesi MediaMTX Control API ile runtime'da eklenir; anahtarlar config dosyasına ve child process argv'sine girmez.
+- Görüntü kalitesi: çıkış sabit 30 fps, 6 Mbps CBR, H.264 High, 2 sn keyframe (Instagram/Facebook ingest gereksinimi). VideoToolbox donanım encoder'ı öncelikli (CPU'yu boş bırakır; RTSP okuyucusu geri kalmaz), yoksa libx264. `Tüm görüntü` kadrajı boş alanı siyah bant yerine videonun bulanık kopyasıyla doldurur; ölçeklemede lanczos kullanılır. MediaMTX okuyucu kuyruğu (`writeQueueSize`) kısa takılmalarda kare atmamak için 4096'dır.
+- Test Drone, videonun yönünü korur (uzun kenar 1280, 30 fps); dikey test videosu artık yatay çerçeveye sıkıştırılmaz.
 - Tek FFmpeg production encode'u MediaMTX tarafından etkin hedeflere ayrı ayrı forward edilir. Her hedefin `state`, `lastError` ve `outboundBytes` alanları gerçek Control API verisi olarak UI state'ine taşınır; tek hedef hatası diğer hedefi durdurmaz.
 - Çoklu hedef için yerleşik `NativeFfmpeg` engine kullanılır. İsteğe bağlı OBS engine bu uygulama içinden tek RTMP hedefiyle sınırlıdır.
 

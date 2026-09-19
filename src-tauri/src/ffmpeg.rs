@@ -24,6 +24,8 @@ pub struct FfmpegCapabilities {
     pub ffprobe_path: Option<String>,
     pub version: Option<String>,
     pub h264_videotoolbox: bool,
+    /// VideoToolbox honours `-constant_bit_rate` (macOS 13+, not every GPU).
+    pub h264_videotoolbox_cbr: bool,
     pub libx264: bool,
     pub libopus: bool,
     pub avfoundation: bool,
@@ -99,7 +101,119 @@ pub async fn capabilities() -> FfmpegCapabilities {
         result.limiter = filters.contains(" alimiter ");
         result.amix = filters.contains(" amix ");
     }
+    if result.h264_videotoolbox {
+        result.h264_videotoolbox_cbr = Command::new(&ffmpeg)
+            .args([
+                "-hide_banner",
+                "-loglevel",
+                "error",
+                "-f",
+                "lavfi",
+                "-i",
+                "color=size=320x240:rate=30",
+                "-frames:v",
+                "3",
+                "-c:v",
+                "h264_videotoolbox",
+                "-constant_bit_rate",
+                "1",
+                "-b:v",
+                "1M",
+                "-f",
+                "null",
+                "-",
+            ])
+            .output()
+            .await
+            .is_ok_and(|output| output.status.success());
+    }
     result
+}
+
+/// Output frame rate. Instagram and TikTok ingest cap at 30 fps; DJI and phone
+/// sources are often 60 fps, which only doubles encoder load.
+const OUTPUT_FPS: u32 = 30;
+/// Video bitrate for the single production encode (Mbps-level upload budget).
+const VIDEO_BITRATE: &str = "6000k";
+const VIDEO_BUFSIZE: &str = "12000k";
+/// 2-second keyframe interval, required by Instagram/Facebook live ingest.
+const KEYFRAME_INTERVAL: &str = "60";
+
+/// Scale the drone picture onto the output canvas.
+///
+/// `Fit` keeps the whole picture and fills the empty area with a blurred,
+/// darkened copy of the same video instead of black bars, so a 16:9 drone
+/// shot in a 9:16 story still fills the screen. `Fill` crops to the canvas.
+fn production_video_filter(layout: OutputLayout, fit_mode: FitMode) -> String {
+    let (width, height) = match layout {
+        OutputLayout::Landscape => (1920_u32, 1080_u32),
+        OutputLayout::Portrait => (1080_u32, 1920_u32),
+    };
+    match fit_mode {
+        FitMode::Fit => {
+            // Blur a quarter-size copy; it is invisible under the blur and 16x cheaper.
+            let (small_width, small_height) = (width / 4, height / 4);
+            format!(
+                "fps={OUTPUT_FPS},split=2[bgsrc][fgsrc];\
+                 [bgsrc]scale={small_width}:{small_height}:force_original_aspect_ratio=increase,crop={small_width}:{small_height},boxblur=10:2,eq=brightness=-0.08:saturation=0.9,scale={width}:{height}:flags=bicubic[bg];\
+                 [fgsrc]scale={width}:{height}:force_original_aspect_ratio=decrease:force_divisible_by=2:flags=lanczos[fg];\
+                 [bg][fg]overlay=(W-w)/2:(H-h)/2:shortest=1,format=yuv420p"
+            )
+        }
+        FitMode::Fill => format!(
+            "fps={OUTPUT_FPS},scale={width}:{height}:force_original_aspect_ratio=increase:flags=lanczos,crop={width}:{height},format=yuv420p"
+        ),
+    }
+}
+
+fn production_encoder_args(encoder: &str, videotoolbox_cbr: bool) -> Vec<&'static str> {
+    let mut args = vec!["-c:v"];
+    if encoder == "h264_videotoolbox" {
+        // Measured on 720p drone footage at 1080x1920 (VMAF): realtime/main
+        // scored 81.4 and undershot to ~4 Mbps; quality-priority CBR/high
+        // scored 82.5 at the full rate. Hardware encoding keeps CPU free, so
+        // the RTSP reader never falls behind and MediaMTX never drops frames.
+        args.extend([
+            "h264_videotoolbox",
+            "-prio_speed",
+            "0",
+            "-profile:v",
+            "high",
+        ]);
+        if videotoolbox_cbr {
+            args.extend(["-constant_bit_rate", "1"]);
+        }
+        args.extend(["-bf", "0"]);
+    } else {
+        args.extend([
+            "libx264",
+            "-preset",
+            "veryfast",
+            "-profile:v",
+            "high",
+            "-bf",
+            "2",
+            "-sc_threshold",
+            "0",
+            "-x264-params",
+            "nal-hrd=cbr",
+        ]);
+    }
+    args.extend([
+        "-pix_fmt",
+        "yuv420p",
+        "-b:v",
+        VIDEO_BITRATE,
+        "-maxrate",
+        VIDEO_BITRATE,
+        "-bufsize",
+        VIDEO_BUFSIZE,
+        "-g",
+        KEYFRAME_INTERVAL,
+        "-keyint_min",
+        KEYFRAME_INTERVAL,
+    ]);
+    args
 }
 
 pub async fn start_production(
@@ -148,23 +262,15 @@ pub async fn start_production(
         ));
     };
 
-    let (width, height) = match settings.layout {
-        OutputLayout::Landscape => (1920_u32, 1080_u32),
-        OutputLayout::Portrait => (1080_u32, 1920_u32),
-    };
-    let video_filter = match settings.fit_mode {
-        FitMode::Fit => format!(
-            "scale=w={width}:h={height}:force_original_aspect_ratio=decrease,pad={width}:{height}:(ow-iw)/2:(oh-ih)/2"
-        ),
-        FitMode::Fill => format!(
-            "scale=w={width}:h={height}:force_original_aspect_ratio=increase,crop={width}:{height}"
-        ),
-    };
+    let video_filter = production_video_filter(settings.layout, settings.fit_mode);
 
     let mut args: Vec<OsString> = [
         "-hide_banner",
         "-loglevel",
         "warning",
+        // Headroom so a short CPU stall does not back up the RTSP reader.
+        "-thread_queue_size",
+        "4096",
         "-rtsp_transport",
         "tcp",
         "-i",
@@ -233,36 +339,13 @@ pub async fn start_production(
         args.extend(["-map", "1:a:0"].into_iter().map(OsString::from));
     }
 
-    args.extend(["-c:v", encoder].into_iter().map(OsString::from));
-    if encoder == "h264_videotoolbox" {
-        args.extend(
-            ["-realtime", "1", "-allow_sw", "1"]
-                .into_iter()
-                .map(OsString::from),
-        );
-    } else {
-        args.extend(
-            ["-preset", "veryfast", "-tune", "zerolatency"]
-                .into_iter()
-                .map(OsString::from),
-        );
-    }
+    args.extend(
+        production_encoder_args(encoder, capabilities.h264_videotoolbox_cbr)
+            .into_iter()
+            .map(OsString::from),
+    );
     args.extend(
         [
-            "-pix_fmt",
-            "yuv420p",
-            "-profile:v",
-            "main",
-            "-b:v",
-            "5500k",
-            "-maxrate",
-            "6000k",
-            "-bufsize",
-            "3000k",
-            "-g",
-            "60",
-            "-bf",
-            "0",
             "-c:a",
             "aac",
             "-b:a",
@@ -302,6 +385,21 @@ pub async fn start_test_drone(supervisor: &ProcessSupervisor, input: &Path) -> B
             "Test Drone input must be a regular video file".into(),
         ));
     }
+    // Keep the file's own soundtrack; only synthesize silence for video-only files.
+    let audio_args: &[&str] = if file_has_audio(&input).await {
+        &["-map", "0:v:0", "-map", "0:a:0"]
+    } else {
+        &[
+            "-f",
+            "lavfi",
+            "-i",
+            "anullsrc=channel_layout=stereo:sample_rate=48000",
+            "-map",
+            "0:v:0",
+            "-map",
+            "1:a:0",
+        ]
+    };
     let args = [
         "-hide_banner",
         "-loglevel",
@@ -314,18 +412,14 @@ pub async fn start_test_drone(supervisor: &ProcessSupervisor, input: &Path) -> B
     .into_iter()
     .map(OsString::from)
     .chain([input.into_os_string()])
+    .chain(audio_args.iter().map(OsString::from))
     .chain(
         [
-            "-f",
-            "lavfi",
-            "-i",
-            "anullsrc=channel_layout=stereo:sample_rate=48000",
-            "-map",
-            "0:v:0",
-            "-map",
-            "1:a:0",
+            // Behave like the RC 2 (long side 1280, 30 fps) but keep the
+            // clip's own orientation: padding a portrait clip into 1280x720
+            // left a 405x720 strip that production then shrank even further.
             "-vf",
-            "scale=w=1280:h=720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2",
+            "fps=30,scale='if(gte(iw,ih),min(1280,iw),-2)':'if(gte(iw,ih),-2,min(1280,ih))':flags=lanczos",
             "-c:v",
             "libx264",
             "-preset",
@@ -335,9 +429,13 @@ pub async fn start_test_drone(supervisor: &ProcessSupervisor, input: &Path) -> B
             "-pix_fmt",
             "yuv420p",
             "-profile:v",
-            "main",
-            "-level:v",
-            "3.1",
+            "high",
+            "-b:v",
+            "8000k",
+            "-maxrate",
+            "8000k",
+            "-bufsize",
+            "16000k",
             "-g",
             "30",
             "-bf",
@@ -348,6 +446,8 @@ pub async fn start_test_drone(supervisor: &ProcessSupervisor, input: &Path) -> B
             "128k",
             "-ar",
             "48000",
+            "-ac",
+            "2",
             "-f",
             "flv",
             "rtmp://127.0.0.1:1935/drone",
@@ -511,6 +611,30 @@ pub async fn inspect_stream() -> BridgeResult<StreamMetadata> {
     })
 }
 
+async fn file_has_audio(input: &Path) -> bool {
+    let Some(ffprobe) = locate("ffprobe") else {
+        return false;
+    };
+    let child = Command::new(ffprobe)
+        .args([
+            "-v",
+            "error",
+            "-select_streams",
+            "a",
+            "-show_entries",
+            "stream=index",
+            "-of",
+            "csv=p=0",
+        ])
+        .arg(input)
+        .stdin(Stdio::null())
+        .output();
+    match tokio::time::timeout(Duration::from_secs(5), child).await {
+        Ok(Ok(output)) => output.status.success() && !output.stdout.trim_ascii().is_empty(),
+        _ => false,
+    }
+}
+
 pub(crate) fn locate(name: &str) -> Option<PathBuf> {
     [
         PathBuf::from("/opt/homebrew/bin").join(name),
@@ -535,4 +659,40 @@ fn parse_bitrate(stream: &Value) -> Option<u64> {
         .get("bit_rate")
         .and_then(Value::as_str)
         .and_then(|value| value.parse().ok())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn portrait_fit_uses_blurred_background_not_black_bars() {
+        let filter = production_video_filter(OutputLayout::Portrait, FitMode::Fit);
+        assert!(filter.starts_with("fps=30,"));
+        assert!(filter.contains("boxblur"));
+        assert!(filter.contains("scale=1080:1920:force_original_aspect_ratio=decrease"));
+        assert!(!filter.contains("pad="));
+    }
+
+    #[test]
+    fn fill_crops_to_the_canvas() {
+        let filter = production_video_filter(OutputLayout::Landscape, FitMode::Fill);
+        assert!(filter.contains("crop=1920:1080"));
+        assert!(filter.contains("flags=lanczos"));
+    }
+
+    #[test]
+    fn encoders_use_constant_rate_and_two_second_keyframes() {
+        for (encoder, cbr) in [("h264_videotoolbox", true), ("libx264", false)] {
+            let args = production_encoder_args(encoder, cbr);
+            let value = |flag: &str| args[args.iter().position(|arg| *arg == flag).unwrap() + 1];
+            assert_eq!(value("-b:v"), value("-maxrate"));
+            assert_eq!(value("-g"), "60");
+            assert_eq!(value("-profile:v"), "high");
+        }
+        assert!(production_encoder_args("h264_videotoolbox", true).contains(&"-constant_bit_rate"));
+        assert!(
+            !production_encoder_args("h264_videotoolbox", false).contains(&"-constant_bit_rate")
+        );
+    }
 }

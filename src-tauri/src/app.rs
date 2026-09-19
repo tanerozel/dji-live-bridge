@@ -169,7 +169,7 @@ impl AppState {
                             {
                                 tracing::warn!(%error, "publisher transition failed");
                             }
-                            metadata_check = Instant::now() - Duration::from_secs(10);
+                            metadata_check = Instant::now() - Duration::from_secs(28);
                         } else if became_disconnected {
                             if previous.workflow == WorkflowState::Live {
                                 let config = self.config.read().await.clone();
@@ -907,7 +907,15 @@ impl AppState {
             compressor: config.compressor,
             limiter: config.limiter,
         };
-        let has_drone_audio = self.state.get().await.metadata.audio_codec.is_some();
+        // The periodic probe runs ~20 s after the drone connects; going live
+        // before that must not replace the drone's audio with silence.
+        let has_drone_audio = match ffmpeg::inspect_stream().await {
+            Ok(metadata) => metadata.audio_codec.is_some(),
+            Err(error) => {
+                tracing::debug!(%error, "live-start probe failed; using cached metadata");
+                self.state.get().await.metadata.audio_codec.is_some()
+            }
+        };
         let encoder =
             match ffmpeg::start_production(&self.supervisor, &settings, has_drone_audio).await {
                 Ok(value) => value,

@@ -1,5 +1,8 @@
 logLevel: warn
 logDestinations: [stdout]
+# Per-reader buffer (default 512). Absorbs short stalls instead of dropping
+# frames, which showed up on air as corrupt, smeared video.
+writeQueueSize: 4096
 logStructured: true
 api: true
 apiAddress: 127.0.0.1:9997

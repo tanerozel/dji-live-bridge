@@ -352,6 +352,12 @@ const en = {
   "advanced.tabHelp": "Recording, stream metrics, OBS and system checks.",
   "common.saveFailed": "Could not save",
   "common.close": "Close",
+  "theme.label": "Theme",
+  "theme.system": "System",
+  "theme.light": "Light",
+  "theme.dark": "Dark",
+  "theme.midnight": "Midnight",
+  "theme.sand": "Sand",
 } as const;
 
 type TranslationKey = keyof typeof en;
@@ -707,6 +713,12 @@ const tr: Record<TranslationKey, string> = {
   "advanced.tabHelp": "Kayıt, yayın ölçümleri, OBS ve sistem kontrolleri.",
   "common.saveFailed": "Kaydedilemedi",
   "common.close": "Kapat",
+  "theme.label": "Tema",
+  "theme.system": "Sistem",
+  "theme.light": "Açık",
+  "theme.dark": "Koyu",
+  "theme.midnight": "Gece mavisi",
+  "theme.sand": "Kum",
 };
 
 const dictionaries: Record<Language, Record<string, string>> = { en, tr };

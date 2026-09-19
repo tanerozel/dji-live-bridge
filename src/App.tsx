@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react
 import { WhepPreview } from "./components/WhepPreview";
 import { StatusPill } from "./components/StatusPill";
 import { loadLanguage, saveLanguage, translate, type Language, type TranslationParams } from "./i18n";
+import { THEMES, applyTheme, loadTheme, saveTheme, watchSystemTheme, type Theme } from "./theme";
 import {
   activatePreviewFallback,
   activateVirtualCameraExtension,
@@ -71,6 +72,7 @@ function App() {
   const [tab, setTab] = useState<Tab>("live");
   const [settings, setSettings] = useState<NativeProductionSettings>(loadSettings);
   const [language, setLanguage] = useState<Language>(loadLanguage);
+  const [theme, setTheme] = useState<Theme>(loadTheme);
   const [liveSince, setLiveSince] = useState<number>();
   const live = snapshot?.production.active ?? false;
   const t = useCallback<Translate>(
@@ -79,6 +81,12 @@ function App() {
   );
 
   useEffect(() => saveLanguage(language), [language]);
+
+  useEffect(() => {
+    saveTheme(theme);
+    applyTheme(theme);
+    return watchSystemTheme(theme);
+  }, [theme]);
 
   // Kept here, not in the panel, so switching tabs does not reset the timer.
   useEffect(() => {
@@ -145,7 +153,7 @@ function App() {
       <header className="topbar">
         <div className="brand">
           <span className="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 16 0M7.5 12a4.5 4.5 0 0 1 9 0" /><circle cx="12" cy="12" r="1.8" /></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 12 7.5 8M12 12l4.5-4M12 12l-4.5 4M12 12l4.5 4" /><circle cx="7.5" cy="8" r="2.4" /><circle cx="16.5" cy="8" r="2.4" /><circle cx="7.5" cy="16" r="2.4" /><circle cx="16.5" cy="16" r="2.4" /><rect x="10" y="10" width="4" height="4" rx="1.2" className="fill" /></svg>
           </span>
           <div>
             <h1>DJI Live Bridge</h1>
@@ -163,7 +171,10 @@ function App() {
 
         <div className="header-tools">
           <HeaderStatus snapshot={snapshot} t={t} />
-          <select className="language-select" aria-label={t("language.label")} value={language} onChange={(event) => setLanguage(event.target.value as Language)}>
+          <select className="compact-select" aria-label={t("theme.label")} title={t("theme.label")} value={theme} onChange={(event) => setTheme(event.target.value as Theme)}>
+            {THEMES.map((item) => <option key={item} value={item}>{t(`theme.${item}`)}</option>)}
+          </select>
+          <select className="compact-select" aria-label={t("language.label")} value={language} onChange={(event) => setLanguage(event.target.value as Language)}>
             <option value="en">EN</option>
             <option value="tr">TR</option>
           </select>
