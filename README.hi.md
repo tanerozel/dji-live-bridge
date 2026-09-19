@@ -8,7 +8,7 @@
 
 1. [Releases](https://github.com/tanerozel/dji-live-bridge/releases) से नवीनतम `.dmg` डाउनलोड करें।
 2. **DJI Live Bridge** को **Applications** फ़ोल्डर में खींचें। वर्चुअल कैमरा वहीं से काम करता है।
-3. FFmpeg इंस्टॉल करें, जो ऐप के साथ नहीं आता: `brew install ffmpeg`।
+3. FFmpeg ऐप के साथ नहीं आता। पहली बार खोलने पर ऐप इसकी कमी पहचानकर Homebrew से एक क्लिक में इंस्टॉल कर देता है और प्रगति भी दिखाता है। खुद करना हो तो: `brew install ffmpeg`।
 
 ऐप Apple से हस्ताक्षरित और नोटराइज़्ड है, इसलिए बिना चेतावनी खुलता है।
 
@@ -61,6 +61,10 @@
 | 9998 | `127.0.0.1` | MediaMTX मेट्रिक्स |
 
 कॉन्फ़िग: `~/Library/Application Support/DJI Live Bridge/` · लॉग: `~/Library/Logs/DJI Live Bridge/` · गोपनीय जानकारी: macOS Keychain
+
+## लाइसेंस
+
+MIT — देखें [LICENSE](LICENSE)।
 
 ## डेवलपमेंट
 

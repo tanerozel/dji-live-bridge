@@ -8,7 +8,7 @@
 
 1. [Releases](https://github.com/tanerozel/dji-live-bridge/releases) から最新の `.dmg` をダウンロードします。
 2. **DJI Live Bridge** を **アプリケーション** フォルダへドラッグします。仮想カメラはこの場所からのみ動作します。
-3. 同梱されていない FFmpeg を入れます：`brew install ffmpeg`。
+3. FFmpeg は同梱されていません。初回起動時にアプリが不足を検知し、Homebrew を使ってワンクリックで導入します（進行状況もその場に表示）。自分で入れる場合は `brew install ffmpeg`。
 
 アプリは Apple の署名と公証を受けているため、警告なしで開きます。
 
@@ -61,6 +61,10 @@
 | 9998 | `127.0.0.1` | MediaMTX のメトリクス |
 
 設定：`~/Library/Application Support/DJI Live Bridge/` · ログ：`~/Library/Logs/DJI Live Bridge/` · 機密情報：macOS キーチェーン
+
+## ライセンス
+
+MIT — [LICENSE](LICENSE) を参照。
 
 ## 開発
 

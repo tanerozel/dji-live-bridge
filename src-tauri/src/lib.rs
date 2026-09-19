@@ -124,16 +124,17 @@ fn set_obs_monitoring(state: State<'_, Arc<AppState>>, active: bool) {
     state.obs_monitoring.store(active, Ordering::Relaxed);
 }
 
-/// The only external links the About card can open.
-const ABOUT_LINKS: [(&str, &str); 3] = [
+/// The only external links the app can open.
+const EXTERNAL_LINKS: [(&str, &str); 4] = [
     ("github", "https://github.com/tanerozel/dji-live-bridge"),
     ("linkedin", "https://www.linkedin.com/in/tanerozel"),
     ("email", "mailto:tanerozel47@gmail.com"),
+    ("homebrew", "https://brew.sh"),
 ];
 
 #[tauri::command]
 fn open_about_link(target: String) -> Result<(), ErrorPayload> {
-    let url = ABOUT_LINKS
+    let url = EXTERNAL_LINKS
         .iter()
         .find_map(|(name, url)| (*name == target).then_some(*url))
         .ok_or_else(|| {
@@ -314,6 +315,19 @@ async fn get_ffmpeg_capabilities() -> Result<FfmpegCapabilities, ErrorPayload> {
     Ok(ffmpeg::capabilities().await)
 }
 
+/// True when Homebrew is present, so the UI can offer a one-click install
+/// instead of telling the user to open Terminal.
+#[tauri::command]
+fn has_homebrew() -> bool {
+    ffmpeg::locate_homebrew().is_some()
+}
+
+#[tauri::command]
+async fn install_ffmpeg(app: tauri::AppHandle) -> Result<FfmpegCapabilities, ErrorPayload> {
+    ffmpeg::install_via_homebrew(&app).await?;
+    Ok(ffmpeg::capabilities().await)
+}
+
 #[tauri::command]
 async fn get_diagnostics(
     state: State<'_, Arc<AppState>>,
@@ -367,6 +381,8 @@ pub fn run() {
             start_live,
             stop_live,
             get_ffmpeg_capabilities,
+            has_homebrew,
+            install_ffmpeg,
             get_diagnostics,
             get_audio_routing_notice,
             get_recording_directory

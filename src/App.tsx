@@ -10,6 +10,9 @@ import {
   activatePreviewFallback,
   activateVirtualCameraExtension,
   getDiagnostics,
+  getFfmpegCapabilities,
+  hasHomebrew,
+  installFfmpeg,
   openAboutLink,
   openObs,
   openTikTokLiveStudio,
@@ -76,6 +79,7 @@ function App() {
   const [language, setLanguage] = useState<Language>(loadLanguage);
   const [theme, setTheme] = useState<Theme>(loadTheme);
   const [liveSince, setLiveSince] = useState<number>();
+  const [ffmpegMissing, setFfmpegMissing] = useState(false);
   const live = snapshot?.production.active ?? false;
   const t = useCallback<Translate>(
     (key, params) => translate(language, key, params),
@@ -83,6 +87,14 @@ function App() {
   );
 
   useEffect(() => saveLanguage(language), [language]);
+
+  // FFmpeg is an external dependency; tell the user up front instead of
+  // failing later when they press a button.
+  useEffect(() => {
+    void getFfmpegCapabilities()
+      .then((capabilities) => setFfmpegMissing(capabilities.ffmpegPath === null))
+      .catch(() => setFfmpegMissing(false));
+  }, []);
 
   useEffect(() => {
     saveTheme(theme);
@@ -208,12 +220,78 @@ function App() {
         </section>
       )}
 
+      {ffmpegMissing && <FfmpegSetup onReady={() => setFfmpegMissing(false)} act={act} t={t} busy={busy} />}
+
       {tab === "live" && (
         <LiveTab snapshot={snapshot} settings={settings} setSettings={setSettings} busy={busy} act={act} t={t} live={live} liveSince={liveSince} />
       )}
       {tab === "camera" && <CameraTab snapshot={snapshot} busy={busy} act={act} t={t} />}
       {tab === "advanced" && <AdvancedTab snapshot={snapshot} settings={settings} act={act} t={t} />}
     </main>
+  );
+}
+
+function FfmpegSetup({
+  onReady,
+  act,
+  t,
+  busy,
+}: {
+  onReady: () => void;
+  act: Act;
+  t: Translate;
+  busy?: string;
+}) {
+  const [brew, setBrew] = useState<boolean>();
+  const [log, setLog] = useState<string[]>([]);
+  const installing = busy === "install-ffmpeg";
+
+  useEffect(() => {
+    void hasHomebrew().then(setBrew).catch(() => setBrew(false));
+  }, []);
+
+  useEffect(() => {
+    let unlisten: (() => void) | undefined;
+    void listen<string>("ffmpeg-install-log", ({ payload }) => {
+      setLog((lines) => [...lines.slice(-60), payload]);
+    }).then((fn) => { unlisten = fn; });
+    return () => unlisten?.();
+  }, []);
+
+  const install = () =>
+    act("install-ffmpeg", async () => {
+      setLog([]);
+      const capabilities = await installFfmpeg();
+      if (capabilities.ffmpegPath) onReady();
+    });
+
+  return (
+    <section className="card ffmpeg-setup" role="status">
+      <header className="card-head">
+        <div>
+          <h2>{t("ffmpeg.title")}</h2>
+          <p className="hint">{t("ffmpeg.help")}</p>
+        </div>
+      </header>
+      {brew === false ? (
+        <>
+          <p className="hint note">{t("ffmpeg.needBrew")}</p>
+          <div className="row-start">
+            <button className="primary" onClick={() => void act("open-brew", () => openAboutLink("homebrew"))}>{t("ffmpeg.openBrew")}</button>
+          </div>
+        </>
+      ) : (
+        <div className="row-start">
+          <button className="primary" disabled={installing || brew === undefined} onClick={() => void install()}>
+            {installing ? <><span className="spinner" />{t("ffmpeg.installing")}</> : t("ffmpeg.install")}
+          </button>
+          <code className="ffmpeg-manual">brew install ffmpeg</code>
+        </div>
+      )}
+      {log.length > 0 && (
+        <pre className="ffmpeg-log">{log.join("\n")}</pre>
+      )}
+    </section>
   );
 }
 

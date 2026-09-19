@@ -247,5 +247,11 @@
   "about.title": "Hakkında",
   "about.developer": "Geliştirici",
   "about.email": "E-posta gönder",
-  "about.license": "DJI, Instagram veya TikTok ile bağlantısı yoktur."
+  "about.license": "DJI, Instagram veya TikTok ile bağlantısı yoktur.",
+  "ffmpeg.title": "FFmpeg gerekli",
+  "ffmpeg.help": "DJI Live Bridge yayını kodlamak için FFmpeg kullanır. Uygulamayla gelmez, bir kez kurulması gerekir.",
+  "ffmpeg.install": "FFmpeg'i otomatik kur",
+  "ffmpeg.installing": "Kuruluyor… birkaç dakika sürebilir",
+  "ffmpeg.needBrew": "Homebrew bulunamadı. FFmpeg Homebrew ile kurulur; önce onu kurup geri dön, gerisini bu düğme halleder.",
+  "ffmpeg.openBrew": "brew.sh adresini aç"
 }

@@ -247,5 +247,11 @@
   "about.title": "À propos",
   "about.developer": "Développeur",
   "about.email": "Envoyer un e-mail",
-  "about.license": "Sans lien avec DJI, Instagram ou TikTok."
+  "about.license": "Sans lien avec DJI, Instagram ou TikTok.",
+  "ffmpeg.title": "FFmpeg est nécessaire",
+  "ffmpeg.help": "DJI Live Bridge utilise FFmpeg pour encoder votre diffusion. Il n'est pas fourni : il faut l'installer une fois.",
+  "ffmpeg.install": "Installer FFmpeg automatiquement",
+  "ffmpeg.installing": "Installation… cela peut prendre quelques minutes",
+  "ffmpeg.needBrew": "Homebrew est introuvable. FFmpeg s'installe via Homebrew : installez-le puis revenez, ce bouton fera le reste.",
+  "ffmpeg.openBrew": "Ouvrir brew.sh"
 }

@@ -24,11 +24,11 @@ RC 2 input can be 720p, and the UI shows the real ffprobe metadata. Choosing a 1
 
 1. Download the latest `.dmg` from [Releases](https://github.com/tanerozel/dji-live-bridge/releases).
 2. Drag **DJI Live Bridge** into **Applications**. The virtual camera only works from there.
-3. Install FFmpeg, which is not bundled: `brew install ffmpeg`.
+3. FFmpeg is not bundled. On first run the app detects it is missing and installs it for you with one click (through Homebrew), showing the progress log. To do it yourself instead: `brew install ffmpeg`.
 
 The build is signed and notarized by Apple, so it opens without warnings.
 
-**Requirements:** Apple Silicon Mac (Intel build path is kept), macOS 13 or newer, FFmpeg/ffprobe 8.1.2 or newer on `PATH`.
+**Requirements:** Apple Silicon Mac (Intel build path is kept), macOS 13 or newer, and FFmpeg/ffprobe 8.1.2 or newer — installed for you on first run, or with `brew install ffmpeg`.
 
 ## Stream to Instagram / TikTok (Direct RTMP)
 
@@ -168,7 +168,11 @@ The sidecar signature is corrected by `scripts/sign-sidecars.sh` using the empty
 
 `beforeBundleCommand` compiles the Swift camera extension and places it under `Contents/Library/SystemExtensions/`. In production `APPLE_SIGNING_IDENTITY` overrides the Tauri setting and the extension uses the same identity. The production bundle must keep the System Extension + App Group entitlements from the app's `entitlements.plist` and the same App Group entitlement on the extension. After notarization, `codesign --verify --deep --strict` and a real user-approved activation test on macOS are still required.
 
-FFmpeg is not bundled, so the app redistributes nothing. The LGPL/GPL options and codec licences of the user's installed build belong to that build's distributor. If FFmpeg is ever bundled, binary provenance, configure flags, the source offer and the related LGPL/GPL obligations must be tracked per release.
+FFmpeg is not bundled, so the app redistributes nothing; the in-app installer only runs the user's own Homebrew. The LGPL/GPL options and codec licences of the user's installed build belong to that build's distributor. If FFmpeg is ever bundled, binary provenance, configure flags, the source offer and the related LGPL/GPL obligations must be tracked per release.
+
+## Licence
+
+MIT — see [LICENSE](LICENSE).
 
 ## About
 

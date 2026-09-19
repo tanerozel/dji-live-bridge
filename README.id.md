@@ -8,7 +8,7 @@ Aplikasi macOS yang menerima siaran RTMP dari DJI Fly di Mac pada jaringan yang 
 
 1. Unduh berkas `.dmg` terbaru dari [Releases](https://github.com/tanerozel/dji-live-bridge/releases).
 2. Seret **DJI Live Bridge** ke folder **Applications**. Kamera virtual hanya bekerja dari sana.
-3. Pasang FFmpeg yang tidak disertakan: `brew install ffmpeg`.
+3. FFmpeg tidak disertakan. Saat pertama dijalankan, aplikasi melihat bahwa FFmpeg belum ada dan memasangnya untuk Anda dengan sekali klik (lewat Homebrew), lengkap dengan catatan prosesnya. Jika ingin sendiri: `brew install ffmpeg`.
 
 Aplikasi sudah ditandatangani dan dinotarisasi oleh Apple, jadi terbuka tanpa peringatan.
 
@@ -65,6 +65,10 @@ Konfigurasi: `~/Library/Application Support/DJI Live Bridge/` · Log: `~/Library
 ## Pengembangan
 
 Rincian build, penandatanganan, dan notarisasi ada di [README bahasa Inggris](README.md#development).
+
+## Lisensi
+
+MIT — lihat [LICENSE](LICENSE).
 
 ## Tentang
 

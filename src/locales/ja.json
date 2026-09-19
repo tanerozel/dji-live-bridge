@@ -247,5 +247,11 @@
   "about.title": "このアプリについて",
   "about.developer": "開発者",
   "about.email": "メールを送る",
-  "about.license": "DJI、Instagram、TikTok とは無関係です。"
+  "about.license": "DJI、Instagram、TikTok とは無関係です。",
+  "ffmpeg.title": "FFmpeg が必要です",
+  "ffmpeg.help": "DJI Live Bridge は配信のエンコードに FFmpeg を使います。アプリには含まれていないため、一度インストールが必要です。",
+  "ffmpeg.install": "FFmpeg を自動でインストール",
+  "ffmpeg.installing": "インストール中… 数分かかることがあります",
+  "ffmpeg.needBrew": "Homebrew が見つかりません。FFmpeg は Homebrew で入れます。先に Homebrew を入れて戻れば、あとはこのボタンが行います。",
+  "ffmpeg.openBrew": "brew.sh を開く"
 }

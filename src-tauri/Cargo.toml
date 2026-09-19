@@ -1,9 +1,10 @@
 [package]
 name = "dji-live-bridge"
-version = "0.2.1"
+version = "0.2.2"
 description = "Local DJI RTMP to MediaMTX and OBS orchestration for macOS"
 authors = ["DJI Live Bridge contributors"]
 edition = "2024"
+license = "MIT"
 rust-version = "1.98.1"
 
 [lib]

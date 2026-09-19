@@ -8,7 +8,7 @@
 
 1. نزّل أحدث ملف `.dmg` من صفحة [Releases](https://github.com/tanerozel/dji-live-bridge/releases).
 2. اسحب **DJI Live Bridge** إلى مجلد **التطبيقات**. الكاميرا الافتراضية تعمل من هناك فقط.
-3. ثبّت FFmpeg غير المضمّن مع التطبيق: `brew install ffmpeg`.
+3. FFmpeg غير مضمّن مع التطبيق. عند أول تشغيل يكتشف التطبيق غيابه ويثبّته نيابة عنك بضغطة واحدة عبر Homebrew مع عرض سجل التثبيت. ولتثبيته بنفسك: `brew install ffmpeg`.
 
 التطبيق موقَّع وموثَّق (notarized) من Apple، لذلك يُفتح دون تحذيرات.
 
@@ -61,6 +61,10 @@
 | 9998 | `127.0.0.1` | مقاييس MediaMTX |
 
 الإعدادات: `~/Library/Application Support/DJI Live Bridge/` · السجلات: `~/Library/Logs/DJI Live Bridge/` · الأسرار: سلسلة مفاتيح macOS
+
+## الترخيص
+
+MIT — راجع [LICENSE](LICENSE).
 
 ## التطوير
 

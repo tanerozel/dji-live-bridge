@@ -111,7 +111,7 @@ Beş tema vardır: Sistem (macOS'u izler), Açık, Koyu, Gece mavisi ve Kum.
 
 1. En son `.dmg` dosyasını [Releases](https://github.com/tanerozel/dji-live-bridge/releases) sayfasından indirin.
 2. **DJI Live Bridge**'i **Uygulamalar** klasörüne sürükleyin. Sanal kamera yalnızca oradan çalışır.
-3. Uygulamayla gelmeyen FFmpeg'i kurun: `brew install ffmpeg`.
+3. FFmpeg uygulamayla gelmez. İlk açılışta uygulama eksik olduğunu görüp tek tıkla (Homebrew ile) kendisi kurar ve kurulum kaydını gösterir. Kendin kurmak istersen: `brew install ffmpeg`.
 
 Uygulama Apple tarafından imzalanıp notarize edilmiştir; uyarısız açılır.
 
@@ -183,6 +183,10 @@ Sidecar imzası `scripts/sign-sidecars.sh` ile `src-tauri/entitlements-sidecar.p
 `beforeBundleCommand`, Swift kamera uzantısını derleyip `Contents/Library/SystemExtensions/DJILiveBridgeCamera.systemextension` altına yerleştirir. Yerel build varsayılan olarak `signingIdentity: "-"` ile ad-hoc imzalanır. Üretimde `APPLE_SIGNING_IDENTITY` ortam değişkeni Tauri ayarının üzerine yazar ve uzantı da aynı kimliği kullanır. Üretim paketi ana uygulamanın `entitlements.plist` dosyasındaki System Extension + App Group yetkilerini ve uzantının aynı App Group yetkisini korumalıdır. Notarization sonrasında `codesign --verify --deep --strict` ve gerçek bir macOS kullanıcı-onaylı aktivasyon testi ayrıca yapılmalıdır.
 
 FFmpeg bundle edilmediği için uygulama FFmpeg'i yeniden dağıtmaz. Kullanıcının kurulu build'inin LGPL/GPL seçenekleri ve codec lisansları o build'in dağıtıcısına aittir. İleride bundle edilirse binary provenance, configure flags, kaynak teklifi ve ilgili LGPL/GPL yükümlülükleri release bazında ayrıca tutulmalıdır.
+
+## Lisans
+
+MIT — bkz. [LICENSE](LICENSE).
 
 ## Hakkında
 

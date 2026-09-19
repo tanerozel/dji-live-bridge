@@ -247,5 +247,11 @@
   "about.title": "關於",
   "about.developer": "開發者",
   "about.email": "寄送電子郵件",
-  "about.license": "與 DJI、Instagram、TikTok 無隸屬關係。"
+  "about.license": "與 DJI、Instagram、TikTok 無隸屬關係。",
+  "ffmpeg.title": "需要 FFmpeg",
+  "ffmpeg.help": "DJI Live Bridge 使用 FFmpeg 編碼你的直播畫面。它沒有隨應用程式附帶，需要安裝一次。",
+  "ffmpeg.install": "自動安裝 FFmpeg",
+  "ffmpeg.installing": "正在安裝…可能需要幾分鐘",
+  "ffmpeg.needBrew": "找不到 Homebrew。FFmpeg 透過 Homebrew 安裝，請先安裝 Homebrew 再回來，其餘交給這個按鈕。",
+  "ffmpeg.openBrew": "開啟 brew.sh"
 }

@@ -8,6 +8,8 @@ use std::{
 
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use tauri::Emitter;
+use tokio::io::AsyncBufReadExt;
 use tokio::process::Command;
 
 use crate::{
@@ -632,6 +634,85 @@ async fn file_has_audio(input: &Path) -> bool {
     match tokio::time::timeout(Duration::from_secs(5), child).await {
         Ok(Ok(output)) => output.status.success() && !output.stdout.trim_ascii().is_empty(),
         _ => false,
+    }
+}
+
+/// Homebrew's own binary, looked up by path: a GUI app's PATH does not
+/// include /opt/homebrew/bin.
+pub fn locate_homebrew() -> Option<PathBuf> {
+    [
+        PathBuf::from("/opt/homebrew/bin/brew"),
+        PathBuf::from("/usr/local/bin/brew"),
+    ]
+    .into_iter()
+    .find(|candidate| candidate.is_file())
+}
+
+/// Runs `brew install ffmpeg`, streaming each output line to the UI so the
+/// user can watch a multi-minute install instead of staring at a frozen button.
+pub async fn install_via_homebrew(app: &tauri::AppHandle) -> BridgeResult<()> {
+    let brew = locate_homebrew().ok_or_else(|| {
+        BridgeError::Ffmpeg(
+            "Homebrew was not found. Install Homebrew from brew.sh, then try again.".into(),
+        )
+    })?;
+    let mut child = Command::new(&brew)
+        .args(["install", "ffmpeg"])
+        .env("HOMEBREW_NO_AUTO_UPDATE", "1")
+        .env("HOMEBREW_NO_ANALYTICS", "1")
+        .env("HOMEBREW_NO_ENV_HINTS", "1")
+        .stdin(Stdio::null())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+        .map_err(|error| BridgeError::Ffmpeg(format!("brew install ffmpeg: {error}")))?;
+
+    let mut tasks = Vec::new();
+    for stream in [
+        child.stdout.take().map(Either::Out),
+        child.stderr.take().map(Either::Err),
+    ]
+    .into_iter()
+    .flatten()
+    {
+        let app = app.clone();
+        tasks.push(tauri::async_runtime::spawn(async move {
+            match stream {
+                Either::Out(pipe) => emit_lines(app, pipe).await,
+                Either::Err(pipe) => emit_lines(app, pipe).await,
+            }
+        }));
+    }
+    let status = child
+        .wait()
+        .await
+        .map_err(|error| BridgeError::Ffmpeg(format!("brew install ffmpeg: {error}")))?;
+    for task in tasks {
+        let _ = task.await;
+    }
+    if !status.success() {
+        return Err(BridgeError::Ffmpeg(format!(
+            "Homebrew could not install FFmpeg ({status}). See the log above."
+        )));
+    }
+    if locate("ffmpeg").is_none() {
+        return Err(BridgeError::Ffmpeg(
+            "Homebrew finished but FFmpeg is still not in /opt/homebrew/bin or /usr/local/bin."
+                .into(),
+        ));
+    }
+    Ok(())
+}
+
+enum Either {
+    Out(tokio::process::ChildStdout),
+    Err(tokio::process::ChildStderr),
+}
+
+async fn emit_lines<R: tokio::io::AsyncRead + Unpin>(app: tauri::AppHandle, pipe: R) {
+    let mut lines = tokio::io::BufReader::new(pipe).lines();
+    while let Ok(Some(line)) = lines.next_line().await {
+        let _ = app.emit("ffmpeg-install-log", line);
     }
 }
 

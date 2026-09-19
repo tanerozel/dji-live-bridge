@@ -470,3 +470,11 @@ input[type="checkbox"] { width: auto; accent-color: var(--accent); }
 .about-card { display: grid; }
 .about-name { font-size: 15px; font-weight: 600; }
 .about-card .about-version { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 11px; }
+
+.ffmpeg-setup { margin-bottom: 16px; border-color: var(--amber-border); background: var(--amber-soft); }
+.ffmpeg-setup h2 { color: var(--text); }
+.ffmpeg-setup .hint { color: var(--amber-text); }
+.ffmpeg-manual { align-self: center; color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px; }
+.ffmpeg-log { max-height: 190px; margin: 14px 0 0; padding: 12px; overflow: auto; border-radius: 10px;
+  background: var(--input-bg); color: var(--muted); font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
