@@ -156,14 +156,19 @@ cargo check --locked --manifest-path src-tauri/Cargo.toml
 npm run typecheck
 npm run lint
 npm run build
-npm run tauri -- build --target aarch64-apple-darwin
+cargo test --locked --manifest-path src-tauri/Cargo.toml
+npm run build:mac
 ```
+
+> **Build için tek geçerli komut `npm run build:mac`'tir.** Çıplak `tauri build` engellenmiştir (`scripts/tauri.sh`), çünkü Tauri, uygulamanın kısıtlı entitlement'larını (`system-extension.install`, `application-groups`) `mediamtx` sidecar'ına da uygular. Provisioning profile olmayan sidecar'ı macOS açılışta `SIGKILL` ile öldürür (exit 137); uygulama da `error sending request for url (http://127.0.0.1:9997/v3/paths/list)` hatasını verir. `build:mac` sidecar'ı boş entitlement ile yeniden imzalar, `.app` ve `.dmg` içindeki bundle'ı `scripts/verify-bundle.sh` ile doğrular ve doğrulanmamış bir build'i başarılı saymaz. Kurulu bir uygulamayı denetlemek için: `npm run verify:bundle -- "/Applications/DJI Live Bridge.app"`.
 
 RTMP config serileştirme, secret ayrımı, URL doğrulama ve bir hedef çalışırken diğerinin hata vermesi senaryoları Rust unit testleriyle doğrulanır. Gerçek Instagram/TikTok hesabına yayın ayrıca geçerli platform anahtarlarıyla kullanıcı tarafından doğrulanmalıdır.
 
 ## Packaging, signing ve notarization
 
 Tauri `externalBin` target-triple kuralı nedeniyle her hedef için doğru sidecar dosyası build öncesi bulunmalıdır. MediaMTX executable izni (`0755`) korunmalıdır. `.app` ve `.dmg` üretimi sidecar'ı içeri alır; dağıtılacak build'de Apple Developer ID signing ve notarization hem ana executable'ı hem sidecar'ı kapsamalıdır. Unsigned local build yalnız geliştirme/test içindir.
+
+Sidecar imzası `scripts/sign-sidecars.sh` ile `src-tauri/entitlements-sidecar.plist` (boş) kullanılarak düzeltilir; bu adım `npm run build:mac` içinde otomatik çalışır ve elle çağrılmamalıdır. DMG, Tauri'nin kendi DMG adımıyla değil, düzeltilmiş `.app`'ten `build:mac` tarafından üretilir; aksi halde DMG bozuk sidecar'ı taşırdı. Uygulama kapanırken (`RunEvent::Exit` dahil) tüm alt süreçleri durdurur ve başlarken kendi config dosyasıyla başlatılmış artık bir MediaMTX'i temizler.
 
 `beforeBundleCommand`, Swift kamera uzantısını derleyip `Contents/Library/SystemExtensions/DJILiveBridgeCamera.systemextension` altına yerleştirir. Yerel build varsayılan olarak `signingIdentity: "-"` ile ad-hoc imzalanır. Üretimde `APPLE_SIGNING_IDENTITY` ortam değişkeni Tauri ayarının üzerine yazar ve uzantı da aynı kimliği kullanır. Üretim paketi ana uygulamanın `entitlements.plist` dosyasındaki System Extension + App Group yetkilerini ve uzantının aynı App Group yetkisini korumalıdır. Notarization sonrasında `codesign --verify --deep --strict` ve gerçek bir macOS kullanıcı-onaylı aktivasyon testi ayrıca yapılmalıdır.
 

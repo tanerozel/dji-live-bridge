@@ -364,7 +364,12 @@ pub fn run() {
         .expect("error while building DJI Live Bridge");
 
     app.run(move |app_handle, event| {
-        if let tauri::RunEvent::ExitRequested { .. } = event {
+        // Quitting from the Dock/Cmd+Q/AppleScript on macOS emits Exit without
+        // ExitRequested; handling only the latter orphaned the MediaMTX sidecar.
+        if matches!(
+            event,
+            tauri::RunEvent::ExitRequested { .. } | tauri::RunEvent::Exit
+        ) {
             tauri::async_runtime::block_on(state.shutdown(app_handle));
         }
     });

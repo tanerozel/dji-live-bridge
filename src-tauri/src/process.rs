@@ -199,6 +199,19 @@ impl ProcessSupervisor {
         Ok(())
     }
 
+    /// Why a managed process is no longer running, if it has already exited.
+    pub async fn exit_reason(&self, name: &str) -> Option<String> {
+        let mut processes = self.processes.lock().await;
+        let process = processes.get_mut(name)?;
+        match process.child.as_mut() {
+            Some(child) => match child.try_wait() {
+                Ok(Some(status)) => Some(format!("process exited with {status}")),
+                _ => None,
+            },
+            None => process.snapshot.last_error.clone(),
+        }
+    }
+
     pub async fn shutdown_all(&self) {
         let names: Vec<_> = self.processes.lock().await.keys().cloned().collect();
         for name in names {

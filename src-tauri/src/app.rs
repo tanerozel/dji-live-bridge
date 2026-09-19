@@ -40,6 +40,7 @@ pub struct AppState {
     pub media_mtx: MediaMtxController,
     pub obs: ObsController,
     pub obs_monitoring: AtomicBool,
+    shutting_down: AtomicBool,
     pub active_destination_ids: RwLock<Vec<String>>,
 }
 
@@ -57,6 +58,7 @@ impl AppState {
             media_mtx,
             obs: ObsController::default(),
             obs_monitoring: AtomicBool::new(false),
+            shutting_down: AtomicBool::new(false),
             active_destination_ids: RwLock::new(Vec::new()),
         }))
     }
@@ -1019,6 +1021,10 @@ impl AppState {
     }
 
     pub async fn shutdown(&self, app: &AppHandle) {
+        // macOS delivers both ExitRequested and Exit; only clean up once.
+        if self.shutting_down.swap(true, Ordering::SeqCst) {
+            return;
+        }
         let current = self.state.get().await.workflow;
         if current.can_transition_to(WorkflowState::Stopping) {
             let _ = self.state.transition(app, WorkflowState::Stopping).await;
@@ -1036,6 +1042,9 @@ impl AppState {
                 tracing::warn!(%error, "failed to stop OBS stream and restore service");
             }
         }
+        // Children first: OBS restore is network-bound and must never keep
+        // MediaMTX/FFmpeg alive (orphans hold ports 1935/8554/9997).
+        self.supervisor.shutdown_all().await;
         let config = self.config.read().await.clone();
         if let Err(error) = self
             .obs
@@ -1044,7 +1053,6 @@ impl AppState {
         {
             tracing::debug!(%error, "OBS video settings were not restored");
         }
-        self.supervisor.shutdown_all().await;
     }
 }
 

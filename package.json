@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:mac": "./scripts/build-macos.sh",
+    "verify:bundle": "./scripts/verify-bundle.sh",
     "typecheck": "tsc -b --pretty false",
     "lint": "eslint . --max-warnings 0",
-    "tauri": "tauri"
+    "tauri": "./scripts/tauri.sh"
   },
   "dependencies": {
     "@tauri-apps/api": "2.11.1",

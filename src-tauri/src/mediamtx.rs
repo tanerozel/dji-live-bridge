@@ -3,7 +3,12 @@ use std::{
     time::{Duration, Instant, SystemTime, UNIX_EPOCH},
 };
 
+use nix::{
+    sys::signal::{self, Signal},
+    unistd::Pid,
+};
 use serde_json::Value;
+use tokio::process::Command;
 
 use crate::{
     config::ConfigStore,
@@ -57,6 +62,7 @@ impl MediaMtxController {
     }
 
     pub async fn start(&self, supervisor: &ProcessSupervisor) -> BridgeResult<()> {
+        self.reap_stale_sidecar().await;
         self.write_and_validate_config().await?;
         supervisor
             .start(ProcessSpec {
@@ -66,10 +72,58 @@ impl MediaMtxController {
                 restart_policy: RestartPolicy::OnFailure,
             })
             .await?;
-        self.wait_until_ready(Duration::from_secs(8)).await
+        self.wait_until_ready(supervisor, Duration::from_secs(8))
+            .await
     }
 
-    async fn wait_until_ready(&self, timeout: Duration) -> BridgeResult<()> {
+    /// A MediaMTX left running by a crashed/force-quit previous instance keeps
+    /// ports 9997/1935 and answers the API with stale state. Terminate it, but
+    /// only when its command line proves it was started with OUR config file.
+    async fn reap_stale_sidecar(&self) {
+        let Ok(listing) = Command::new("/usr/sbin/lsof")
+            .args(["-nP", "-iTCP:9997", "-sTCP:LISTEN", "-t"])
+            .output()
+            .await
+        else {
+            return;
+        };
+        let config = self.config_path.to_string_lossy().into_owned();
+        for pid in String::from_utf8_lossy(&listing.stdout)
+            .lines()
+            .filter_map(|line| line.trim().parse::<i32>().ok())
+        {
+            let Ok(ps) = Command::new("/bin/ps")
+                .args(["-p", &pid.to_string(), "-o", "args="])
+                .output()
+                .await
+            else {
+                continue;
+            };
+            if !String::from_utf8_lossy(&ps.stdout).contains(&config) {
+                continue;
+            }
+            tracing::warn!(pid, "terminating stale MediaMTX from a previous run");
+            let target = Pid::from_raw(pid);
+            let _ = signal::kill(target, Signal::SIGTERM);
+            let mut gone = false;
+            for _ in 0..30 {
+                tokio::time::sleep(Duration::from_millis(100)).await;
+                if signal::kill(target, None).is_err() {
+                    gone = true;
+                    break;
+                }
+            }
+            if !gone {
+                let _ = signal::kill(target, Signal::SIGKILL);
+            }
+        }
+    }
+
+    async fn wait_until_ready(
+        &self,
+        supervisor: &ProcessSupervisor,
+        timeout: Duration,
+    ) -> BridgeResult<()> {
         let deadline = Instant::now() + timeout;
         loop {
             if self
@@ -80,6 +134,9 @@ impl MediaMtxController {
                 .is_ok_and(|response| response.status().is_success())
             {
                 return Ok(());
+            }
+            if let Some(reason) = supervisor.exit_reason("mediamtx").await {
+                return Err(BridgeError::MediaMtx(sidecar_exit_message(&reason)));
             }
             if Instant::now() >= deadline {
                 return Err(BridgeError::MediaMtx(
@@ -335,6 +392,18 @@ fn resolve_sidecar_path() -> BridgeResult<PathBuf> {
     )))
 }
 
+/// A SIGKILL right at launch is macOS code-signing enforcement (AMFI), not a
+/// MediaMTX bug: the sidecar was signed with the app's restricted entitlements.
+fn sidecar_exit_message(reason: &str) -> String {
+    if reason.contains("SIGKILL") {
+        format!(
+            "MediaMTX was killed by macOS at launch ({reason}). The bundled sidecar has an invalid code signature or restricted entitlements. Rebuild with `npm run build:mac` (never a bare `tauri build`) and check with `npm run verify:bundle -- \"<app path>\"`."
+        )
+    } else {
+        format!("MediaMTX exited before its Control API became ready ({reason})")
+    }
+}
+
 fn metric_value(body: &str, metric: &str, path: &str) -> Option<u64> {
     body.lines().find_map(|line| {
         if !line.starts_with(metric) || !line.contains(&format!("name=\"{path}\"")) {
@@ -361,4 +430,48 @@ fn now_unix_ms() -> u64 {
         .duration_since(UNIX_EPOCH)
         .unwrap_or_default()
         .as_millis() as u64
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn sigkill_points_at_code_signing() {
+        let message = sidecar_exit_message("process exited with signal: 9 (SIGKILL)");
+        assert!(message.contains("npm run build:mac"));
+        assert!(message.contains("SIGKILL"));
+    }
+
+    #[test]
+    fn other_exits_are_reported_plainly() {
+        let message = sidecar_exit_message("process exited with exit status: 1");
+        assert!(message.contains("exit status: 1"));
+        assert!(!message.contains("build:mac"));
+    }
+
+    #[tokio::test]
+    async fn supervisor_reports_a_process_killed_at_launch() {
+        let supervisor = ProcessSupervisor::default();
+        supervisor
+            .start(ProcessSpec {
+                name: "doomed".into(),
+                executable: "/bin/sh".into(),
+                args: vec!["-c".into(), "kill -9 $$".into()],
+                restart_policy: RestartPolicy::Never,
+            })
+            .await
+            .unwrap();
+        let mut reason = None;
+        for _ in 0..50 {
+            reason = supervisor.exit_reason("doomed").await;
+            if reason.is_some() {
+                break;
+            }
+            tokio::time::sleep(Duration::from_millis(50)).await;
+        }
+        let reason = reason.expect("exit should be observed");
+        assert!(reason.contains("SIGKILL"), "{reason}");
+        assert!(supervisor.exit_reason("unknown").await.is_none());
+    }
 }
