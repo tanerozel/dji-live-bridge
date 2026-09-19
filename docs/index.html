@@ -125,9 +125,10 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
     platforms at once — or turns it into a virtual camera for TikTok LIVE Studio, where no stream key is needed.</p>
   <div class="cta">
     <a class="btn primary" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Download for macOS</a>
+    <a class="btn" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Windows (beta)</a>
     <a class="btn" href="https://github.com/tanerozel/dji-live-bridge">Source on GitHub</a>
   </div>
-  <p class="meta">Apple Silicon and Intel Macs · macOS 13 or newer · nothing else to install</p>
+  <p class="meta">Apple Silicon and Intel Macs · macOS 13 or newer · Windows 10/11 beta · nothing else to install</p>
   <div class="shot"><img src="img/go-live.png" alt="The Go live tab: connect your drone, choose destinations, then press START LIVE." width="1600" height="1260"></div>
   <p class="caption">One screen: connect the drone, add destinations, press START LIVE.</p>
 </div>
@@ -216,7 +217,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <details><summary>Do I need to install FFmpeg?</summary><p>No. The app carries its own FFmpeg, built from source without any GPL component (LGPL, Apple VideoToolbox for H.264), so there is nothing to install and nothing to keep up to date. The licence texts and the exact build flags are inside the app under <code>Contents/Resources/licenses</code>.</p></details>
       <details><summary>Do I need OBS?</summary><p>No. OBS is optional and only useful if you want its scenes, filters or recording. Direct RTMP and the virtual camera work without it.</p></details>
       <details><summary>Does it work on an Intel Mac?</summary><p>Yes. Every release ships two downloads: one for Apple Silicon and one for Intel, both signed and notarized, each with its own bundled FFmpeg. Pick the file that matches your Mac.</p></details>
-      <details><summary>Does it work on Windows?</summary><p>Not yet — the app is macOS only, because the virtual camera uses Apple's Core Media I/O. On Windows you can build the same chain by hand with MediaMTX plus OBS Virtual Camera.</p></details>
+      <details><summary>Does it work on Windows?</summary><p>There is a first Windows build (beta). Streaming to Instagram, TikTok and any RTMP destination works, as do the preview, recording and diagnostics. Two caveats: the built-in virtual camera is still macOS only, so for TikTok LIVE Studio on Windows you use OBS Virtual Camera through the optional OBS integration; and the installer is not code-signed yet, so Windows SmartScreen will warn you.</p></details>
       <details><summary>Where do my stream keys go?</summary><p>Into the macOS Keychain, one entry per destination. They are handed to the local media server over the loopback interface when you go live and removed when you stop. They never appear in the config file, in process arguments or in logs.</p></details>
       <details><summary>Why does Instagram ask for a new key every time?</summary><p>That is Instagram's own behaviour: it issues a fresh stream key for every broadcast. Use “Update key” on the destination card before you go live, and remember to press “Go live” on Instagram's side to make the broadcast public.</p></details>
       <details><summary>Why is my picture 720p?</summary><p>The DJI controller often sends 720p over RTMP. The app shows the real input resolution and does not pretend the upscaled output is native 1080p.</p></details>

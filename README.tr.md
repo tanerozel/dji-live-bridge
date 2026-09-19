@@ -23,6 +23,7 @@ RC 2 girdisi 720p olabilir ve UI gerçek ffprobe metadata'sını gösterir. 1080
 ## Gereksinimler
 
 - macOS 13 veya üzeri. Apple Silicon ve Intel için ayrı sürümler yayınlanır.
+- Windows 10/11 (beta): yayın, önizleme, kayıt ve tanılama çalışır. Yerleşik sanal kamera şimdilik yalnız macOS'tadır; Windows'ta TikTok LIVE Studio için OBS sanal kamerası kullanılır. Kurulum henüz imzalanmadığından SmartScreen uyarı verir.
 - Rust 1.98.1 (`rust-toolchain.toml`).
 - Node.js 22 ve npm.
 - OBS Studio 32.2.2 + obs-websocket 5.x yalnız isteğe bağlı advanced path içindir; varsayılan Direct RTMP hattında OBS gerekmez.
