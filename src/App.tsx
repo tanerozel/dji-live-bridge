@@ -4,7 +4,7 @@ import QRCode from "qrcode";
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { WhepPreview } from "./components/WhepPreview";
 import { StatusPill } from "./components/StatusPill";
-import { loadLanguage, saveLanguage, translate, type Language, type TranslationParams } from "./i18n";
+import { LANGUAGES, loadLanguage, saveLanguage, translate, type Language, type TranslationParams } from "./i18n";
 import { THEMES, applyTheme, loadTheme, saveTheme, watchSystemTheme, type Theme } from "./theme";
 import {
   activatePreviewFallback,
@@ -181,9 +181,8 @@ function App() {
           <select className="compact-select" aria-label={t("theme.label")} title={t("theme.label")} value={theme} onChange={(event) => setTheme(event.target.value as Theme)}>
             {THEMES.map((item) => <option key={item} value={item}>{t(`theme.${item}`)}</option>)}
           </select>
-          <select className="compact-select" aria-label={t("language.label")} value={language} onChange={(event) => setLanguage(event.target.value as Language)}>
-            <option value="en">EN</option>
-            <option value="tr">TR</option>
+          <select className="compact-select" aria-label={t("language.label")} title={t("language.label")} value={language} onChange={(event) => setLanguage(event.target.value as Language)}>
+            {LANGUAGES.map((item) => <option key={item.code} value={item.code}>{item.name}</option>)}
           </select>
         </div>
       </header>

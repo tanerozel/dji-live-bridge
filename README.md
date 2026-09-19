@@ -1,83 +1,63 @@
 # DJI Live Bridge
 
-DJI Fly'ın RTMP yayınını aynı LAN'daki Mac'te karşılayan, MediaMTX üzerinden yerel preview'a ve OBS gerektirmeyen yerleşik FFmpeg production hattına dağıtan macOS uygulaması. Rust yalnız süreç, durum, güvenlik ve orchestration yapar; video frame'leri Rust içinden geçmez. OBS isteğe bağlı gelişmiş entegrasyondur.
+**English** · [Türkçe](README.tr.md) · [Español](README.es.md) · [中文（简体）](README.zh.md) · [中文（繁體）](README.zh-Hant.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md)
 
-## Çalışan vertical slice
+A macOS app that receives the RTMP stream from DJI Fly on a Mac in the same LAN, shows a local preview through MediaMTX, and feeds a built-in FFmpeg production pipeline that needs no OBS. Rust only handles processes, state, security and orchestration; video frames never pass through Rust. OBS is an optional advanced integration.
 
-1. Uygulama aktif default-route IPv4 arayüzünü bulur; loopback, link-local ve `utun` benzeri arayüzleri varsayılan seçimden çıkarır.
-2. Paketlenmiş MediaMTX'i doğrular ve başlatır.
-3. DJI RC 2 için `rtmp://<LAN_IPV4>:1935/drone` adresini ve QR kodunu gösterir.
-4. `/drone` publisher durumunu MediaMTX Control API'den izler; reconnect için MediaMTX'i yeniden başlatmaz.
-5. Direct WHEP preview'ı dener. Codec/ICE sorunu veya AAC preview sesi gerektiğinde, yalnız `drone-preview` için H.264 + Opus FFmpeg fallback'i açabilir.
-6. Yerleşik production hattı FFmpeg capability probe sonucuna göre VideoToolbox/libx264 ile layout uygular; drone sesi ile isteğe bağlı AVFoundation mikrofonunu miksler ve `/production` yolunu üretir.
-7. Direct RTMP yalnız `START LIVE` ile başlar. Tek production çıktısı, etkinleştirilen birden fazla Instagram/TikTok/özel RTMP hedefine aynı anda iletilir. Her stream key Keychain'den belleğe alınır, loopback Control API üzerinden geçici MediaMTX forward listesine verilir ve `STOP LIVE` ile silinir; FFmpeg argv'sine yazılmaz.
-8. Yerleşik Core Media I/O Camera Extension, `/drone` videosunu `DJI Live Bridge Camera` adıyla 1080×1920/30 fps video-only kamera olarak sunar. TikTok LIVE Studio mikrofonu doğrudan kendi içinden seçer; OBS gerekmez.
-9. İsteğe bağlı OBS WebSocket 5.x entegrasyonu `GetVersion.availableRequests` ile runtime feature detection yapar; scene, recording ve OBS Virtual Camera özellikleri OBS kuruluysa kullanılabilir.
+## What it does
 
-DJI Fly yolu: **GO FLY → Transmission → Live Streaming Platforms → RTMP**. RC 2 / DJI Fly 1.16+ yayın başlatmak için RC 2'ye bağlı ayrı bir mikrofon isteyebilir. Bu mikrofon Mac/OBS commentary mikrofonu değildir.
+1. Finds the active default-route IPv4 interface; loopback, link-local and `utun`-style interfaces are excluded from the default choice.
+2. Verifies and starts the bundled MediaMTX.
+3. Shows `rtmp://<LAN_IPV4>:1935/drone` and a QR code for the DJI RC 2.
+4. Watches the `/drone` publisher through the MediaMTX Control API; it never restarts MediaMTX just to reconnect.
+5. Tries a direct WHEP preview. When a codec/ICE problem appears, or preview audio for AAC is required, it can start an H.264 + Opus FFmpeg fallback for `drone-preview` only.
+6. The built-in production pipeline applies the layout with VideoToolbox or libx264 based on an FFmpeg capability probe, mixes drone audio with an optional AVFoundation microphone, and produces the `/production` path.
+7. Direct RTMP starts only with `START LIVE`. One production encode is forwarded to several enabled Instagram/TikTok/custom RTMP destinations at once. Each stream key is read from the Keychain into memory, handed to a temporary MediaMTX forward list over the loopback Control API, and removed on `STOP LIVE`; it never appears in FFmpeg argv.
+8. The bundled Core Media I/O camera extension publishes `/drone` video as a 1080×1920/30 fps video-only camera named `DJI Live Bridge Camera`. TikTok LIVE Studio picks its microphone itself; OBS is not needed.
+9. The optional OBS WebSocket 5.x integration does runtime feature detection with `GetVersion.availableRequests`; scene, recording and OBS Virtual Camera features are available when OBS is installed.
 
-RC 2 girdisi 720p olabilir ve UI gerçek ffprobe metadata'sını gösterir. 1080p veya portrait production layout seçimi 720p girdiyi upscale eder; uygulama bunu native 1080p input olarak sunmaz.
+DJI Fly path: **GO FLY → Transmission → Live Streaming Platforms → RTMP**. RC 2 / DJI Fly 1.16+ may require a separate microphone connected to the RC 2 before it starts streaming. That microphone is not the Mac/OBS commentary microphone.
 
-## Gereksinimler
+RC 2 input can be 720p, and the UI shows the real ffprobe metadata. Choosing a 1080p or portrait production layout upscales the 720p input; the app never presents that as native 1080p input.
 
-- macOS 13 veya üzeri, arm64 öncelikli; Intel build yolu korunur.
-- Rust 1.98.1 (`rust-toolchain.toml`).
-- Node.js 22 ve npm.
-- OBS Studio 32.2.2 + obs-websocket 5.x yalnız isteğe bağlı advanced path içindir; varsayılan Direct RTMP hattında OBS gerekmez.
-- FFmpeg/ffprobe dış bağımlılık olarak PATH üzerinde. Minimum desteklenen sürüm 8.1.2; geliştirme doğrulaması 8.1 ile yapıldı. Binary bundle edilmez.
-- Native Camera Extension derlemesi için macOS SDK içeren Xcode Command Line Tools gerekir. Kullanılabilir dağıtım için ana uygulama ve uzantı aynı Apple Developer Team ile imzalanmalı; yerel ad-hoc imza yalnız derleme doğrulamasıdır.
+## Install (users)
 
-Sürüm kaydı [versions.lock.json](versions.lock.json) dosyasındadır. Değişken bağımlılık kaynakları ve checksum [docs/DEPENDENCIES.md](docs/DEPENDENCIES.md) içinde kayıtlıdır.
+1. Download the latest `.dmg` from [Releases](https://github.com/tanerozel/dji-live-bridge/releases).
+2. Drag **DJI Live Bridge** into **Applications**. The virtual camera only works from there.
+3. Install FFmpeg, which is not bundled: `brew install ffmpeg`.
 
-## Kurulum ve çalıştırma
+The build is signed and notarized by Apple, so it opens without warnings.
 
-```sh
-npm ci
-rustup toolchain install 1.98.1
-rustup target add aarch64-apple-darwin x86_64-apple-darwin --toolchain 1.98.1
-./scripts/download-mediamtx.sh arm64
-npm run tauri -- dev
-```
+**Requirements:** Apple Silicon Mac (Intel build path is kept), macOS 13 or newer, FFmpeg/ffprobe 8.1.2 or newer on `PATH`.
 
-Intel için sidecar:
+## Stream to Instagram / TikTok (Direct RTMP)
 
-```sh
-./scripts/download-mediamtx.sh x86_64
-```
+The `Go live` tab is a single screen with three steps:
 
-MediaMTX binary'si kaynak kontrolüne alınmaz; script resmi release archive'ını indirir, resmi SHA-256 listesiyle doğrular ve Tauri'nin zorunlu `mediamtx-<target-triple>` adına kurar.
+1. **Connect your drone** — paste the shown `rtmp://…/drone` address into DJI Fly (or use `Try with a video file`). The step turns green when video arrives.
+2. **Where do you want to stream?** — pick Instagram, TikTok or Custom RTMP and paste the server URL and stream key from the platform. On Instagram: instagram.com → Create (+) → Live video. Instagram issues a new key for every broadcast; refresh it with `Update key` on the destination card. When several destinations are enabled, the same picture goes to all of them at once.
+3. **Picture and sound** — `Vertical 9:16` (the default for Instagram and TikTok), framing, and an optional microphone. The choices are remembered.
 
-## Test Drone
+The `START LIVE` button on the right unlocks once three conditions are met (local server, drone video, a selected destination); it prepares the production pipeline and starts the stream in one click. While live you see the elapsed time, each destination's state (`Live` / `Connecting` / `Connection failed`) and the data sent; one failing destination does not stop the others. On Instagram you still have to press `Go live` there to make the broadcast public. Press `End stream` to finish.
 
-`Start Test Drone` ile yerel bir video seçildiğinde gerçek hat kullanılır:
+The app never signs in to a platform account and never clicks through the platform's own start/confirm screens.
 
-```text
-file → FFmpeg H.264/AAC 1280x720 → rtmp://127.0.0.1:1935/drone
-     → MediaMTX → WHEP preview
-     → FFmpeg layout/audio mix → rtsp://127.0.0.1:8554/production
-     → MediaMTX runtime forwards → Instagram + TikTok + custom RTMP
-```
+## TikTok LIVE Studio — without OBS
 
-Fake `connected` durumu üretilmez. FFmpeg/ffprobe bulunamazsa özellik açıkça unavailable olur.
+This flow needs no TikTok server URL or stream key:
 
-## TikTok LIVE Studio — OBS'siz kullanım
+1. Move the signed `DJI Live Bridge.app` to `/Applications` and open it from there.
+2. Connect the Mac and the DJI controller to the same phone hotspot. Use the `rtmp://<hotspot-IP>:1935/drone` address shown in the app as the DJI Fly streaming address.
+3. Start the DJI Fly stream, or verify the picture with `Try with a video file`.
+4. In the `TikTok LIVE Studio` tab, press `Enable Virtual Camera` once.
+5. If macOS asks, allow the system extension under **System Settings → General → Login Items & Extensions → Camera Extensions**. When the card reads `Ready to start`, press `Start Virtual Camera`.
+6. Open TikTok LIVE Studio with the `Open / download LIVE Studio` button.
+7. In TikTok LIVE Studio add a Camera source and select **DJI Live Bridge Camera**.
+8. Set that source's `More settings → Audio capture` to `None`.
+9. Select exactly one physical microphone in TikTok LIVE Studio's main microphone control. This camera deliberately carries video only; DJI Live Bridge captures no audio and sends none to TikTok in this mode.
+10. Use headphones if you monitor the stream, so the microphone does not pick the speakers up again.
 
-Bu akışta TikTok server URL veya stream key gerekmez:
-
-1. İmzalı `DJI Live Bridge.app` dosyasını `/Applications` klasörüne taşı ve oradan aç.
-2. Mac ve DJI kumandayı aynı telefon hotspot'una bağla. DJI Fly yayın adresi olarak uygulamada gösterilen `rtmp://<hotspot-IP>:1935/drone` adresini kullan.
-3. DJI Fly yayınını başlat ya da uygulamadaki `Start Test Drone` ile görüntüyü doğrula.
-4. Görüntü önizlemesinin altındaki ana karttan bir kez `Sanal Kamerayı Etkinleştir` düğmesine bas.
-5. macOS isterse **System Settings → Privacy & Security** altında sistem uzantısına izin ver. Kart `Başlatmaya hazır` durumuna gelince `Sanal Kamerayı Başlat` düğmesine bas.
-6. Aynı karttaki `LIVE Studio'yu aç / indir` düğmesiyle TikTok LIVE Studio'yu aç.
-7. TikTok LIVE Studio içinde yeni bir Camera kaynağı ekleyip **DJI Live Bridge Camera** seç.
-8. Camera kaynağının `More settings → Audio capture` ayarını `None` yap.
-9. TikTok LIVE Studio ana mikrofon denetiminden yalnızca bir fiziksel mikrofon seç. Bu kamera bilerek yalnız video taşır; DJI Live Bridge bu modda ses yakalamaz veya TikTok'a ses göndermez.
-10. Yayın sesini dinleyeceksen hoparlör yerine kulaklık kullan; böylece mikrofonun hoparlör sesini yeniden alması engellenir.
-
-Ana ekrandaki üç adımlı gösterge bağlantı, önizleme ve sanal kamera durumunu takip eder. RTMP hedefleri, OBS, kayıt, kodek metrikleri ve tanılama normal LIVE Studio akışını kalabalıklaştırmaması için `Gelişmiş ayarlar ve tanılama` altında bulunur.
-
-Görüntü yolu şöyledir:
+The picture path is:
 
 ```text
 DJI / Test Drone → MediaMTX /drone → FFmpeg NV12 1080×1920@30
@@ -85,89 +65,107 @@ DJI / Test Drone → MediaMTX /drone → FFmpeg NV12 1080×1920@30
                  → DJI Live Bridge Camera → TikTok LIVE Studio
 ```
 
-Kamera etkinleştirme macOS güvenlik modelinin parçasıdır; uygulamanın `/Applications` altında bulunması ve ilk kullanımda yönetici onayı gerekir. `Go Live` işlemi TikTok LIVE Studio içinde manuel kalır.
+Camera activation is part of the macOS security model: the app must live in `/Applications`, and the first use needs an administrator's approval. Replacing the app in `/Applications` makes macOS deactivate the extension, so press `Start Virtual Camera` again afterwards — the button re-requests activation itself. `Go Live` stays manual inside TikTok LIVE Studio.
 
-## Instagram / TikTok'a Direct RTMP yayın
+## Test Drone
 
-`Canlı yayın` sekmesi tek ekranlık üç adımlı akıştır:
+`Try with a video file` picks a local video and uses the real pipeline:
 
-1. **Drone'u bağla** — gösterilen `rtmp://…/drone` adresini DJI Fly'a yapıştır (veya `Bir video dosyasıyla dene`). Görüntü gelince adım yeşile döner.
-2. **Nereye yayın yapacaksın?** — Instagram, TikTok veya Özel RTMP seç; platformun verdiği sunucu URL'si ile yayın anahtarını yapıştırıp kaydet. Instagram'da: instagram.com → Oluştur (+) → Canlı video. Instagram her yayında yeni anahtar verir; hedef kartındaki `Anahtarı güncelle` ile yenile. Birden fazla hedef açıksa aynı görüntü hepsine aynı anda gider.
-3. **Görüntü ve ses** — Instagram/TikTok için `Dikey 9:16` (varsayılan), kadraj ve isteğe bağlı mikrofon. Seçimler hatırlanır.
+```text
+file → FFmpeg H.264/AAC (long side 1280, 30 fps) → rtmp://127.0.0.1:1935/drone
+     → MediaMTX → WHEP preview
+     → FFmpeg layout/audio mix → rtsp://127.0.0.1:8554/production
+     → MediaMTX runtime forwards → Instagram + TikTok + custom RTMP
+```
 
-Sağdaki `YAYINI BAŞLAT` düğmesi, üç ön koşul (yerel sunucu, drone görüntüsü, seçili hedef) sağlanınca açılır; production hattını hazırlayıp yayını tek tıkla başlatır. Yayın sırasında süre, her hedefin durumu (`Yayında` / `Bağlanıyor` / `Bağlantı başarısız`) ve gönderilen veri gösterilir; bir hedef hata verse bile diğeri devam eder. Instagram'da yayının herkese açılması için Instagram'daki `Canlı yayına geç` düğmesine ayrıca basılmalıdır. Bitirmek için `Yayını bitir`.
+No fake `connected` state is produced. If FFmpeg/ffprobe is missing, the feature is reported as unavailable.
 
-Uygulama platform hesabına giriş yapmaz ve platformdaki yayın başlatma/onay ekranlarını otomatik geçmez. TikTok LIVE Studio sanal kamerası ayrı sekmededir; kayıt, ölçümler, OBS ve tanılama `Gelişmiş` sekmesindedir.
+## Languages and themes
 
-## Dil desteği
+The app ships in English, Türkçe, Español, 中文 (Simplified and Traditional), العربية, हिन्दी, Português, Русский, Français, Deutsch, 日本語, 한국어, Bahasa Indonesia and Italiano. On first run it follows the system language and falls back to English. The picker sits in the header and the choice is stored locally. Arabic switches the whole layout to right-to-left, while technical values (URLs, ports, codecs) stay left-to-right. Device names, codecs, protocols and raw error details are never translated, so diagnostics stay accurate.
 
-Uygulamanın varsayılan dili İngilizcedir. Üst menüdeki dil seçiciden `English` veya `Türkçe` seçilebilir; tercih yerel olarak saklanır ve uygulama yeniden açıldığında korunur. Arayüz, durumlar, tanılama sonuçları ve hata yönlendirmeleri aynı çeviri anahtarları üzerinden anında güncellenir. Teknik cihaz adları, kodekler, protokoller ve ham hata ayrıntıları teşhis doğruluğu için çevrilmez.
+Five themes are available: System (follows macOS), Light, Dark, Midnight and Sand.
 
-## Yerleşik production ve yayın davranışı
+## Built-in production and streaming behaviour
 
-- Varsayılan engine `NativeFfmpeg`'dir. Landscape `1920x1080`, TikTok Portrait `1080x1920`; framing varsayılan `Fit` ve crop yoktur.
-- Mikrofon AVFoundation üzerinden yalnız kullanıcı seçerse capture edilir. Volume, non-negative sync delay, FFT noise reduction, compressor ve limiter capability probe ile uygulanır. macOS Microphone izni o zaman gerekir.
-- Drone ses track'i yoksa ve mic seçilmediyse geçerli AAC stereo silence üretilir. Mic seçiliyse drone sesiyle `amix` üzerinden karıştırılır.
-- Recording, yayın aktifse gerçek `/production` mix'ini; değilse `/drone` akışını stream-copy MKV olarak `~/Movies/DJI Live Bridge/` altına yazar.
-- Her Instagram/TikTok/özel RTMP hedefinin stream key'i ayrı bir macOS Keychain kaydında kalır. Hedef listesi MediaMTX Control API ile runtime'da eklenir; anahtarlar config dosyasına ve child process argv'sine girmez.
-- Görüntü kalitesi: çıkış sabit 30 fps, 6 Mbps CBR, H.264 High, 2 sn keyframe (Instagram/Facebook ingest gereksinimi). VideoToolbox donanım encoder'ı öncelikli (CPU'yu boş bırakır; RTSP okuyucusu geri kalmaz), yoksa libx264. `Tüm görüntü` kadrajı boş alanı siyah bant yerine videonun bulanık kopyasıyla doldurur; ölçeklemede lanczos kullanılır. MediaMTX okuyucu kuyruğu (`writeQueueSize`) kısa takılmalarda kare atmamak için 4096'dır.
-- Test Drone, videonun yönünü korur (uzun kenar 1280, 30 fps); dikey test videosu artık yatay çerçeveye sıkıştırılmaz.
-- Tek FFmpeg production encode'u MediaMTX tarafından etkin hedeflere ayrı ayrı forward edilir. Her hedefin `state`, `lastError` ve `outboundBytes` alanları gerçek Control API verisi olarak UI state'ine taşınır; tek hedef hatası diğer hedefi durdurmaz.
-- Çoklu hedef için yerleşik `NativeFfmpeg` engine kullanılır. İsteğe bağlı OBS engine bu uygulama içinden tek RTMP hedefiyle sınırlıdır.
+- The default engine is `NativeFfmpeg`. Landscape is `1920x1080`, portrait is `1080x1920`; framing defaults to `Fit` with no crop.
+- Picture quality: constant 30 fps output, 6 Mbps CBR, H.264 High, 2-second keyframes (required by Instagram/Facebook ingest). The VideoToolbox hardware encoder is preferred, which leaves the CPU free so the RTSP reader never falls behind; libx264 is the fallback. `Whole picture` fills the empty area with a blurred copy of the video instead of black bars, and scaling uses lanczos. The MediaMTX reader queue (`writeQueueSize`) is 4096 so a short stall does not drop frames.
+- Test Drone keeps the video's own orientation (long side 1280, 30 fps); a vertical test clip is no longer squeezed into a landscape frame.
+- The microphone is captured through AVFoundation only when the user selects one. Volume, non-negative sync delay, FFT noise reduction, compressor and limiter are applied subject to a capability probe. The macOS Microphone permission is requested only then.
+- When the drone has no audio track and no microphone is selected, valid AAC stereo silence is produced. With a microphone selected it is mixed with the drone audio through `amix`.
+- Recording writes the real `/production` mix while live, otherwise the `/drone` stream, as a stream-copy MKV under `~/Movies/DJI Live Bridge/`.
+- Each Instagram/TikTok/custom RTMP stream key lives in its own macOS Keychain entry. The destination list is added at runtime through the MediaMTX Control API; keys never reach the config file or a child process argv.
+- The single FFmpeg production encode is forwarded by MediaMTX to each enabled destination separately. Every destination's `state`, `lastError` and `outboundBytes` come from real Control API data; one failing destination does not stop another.
+- Multi-destination streaming uses the built-in `NativeFfmpeg` engine. The optional OBS engine is limited to one RTMP destination from inside this app.
 
-## İsteğe bağlı OBS davranışı
+## Optional OBS behaviour
 
-- Kaynak türü `ffmpeg_source`, OBS'nin `GetInputKindList` cevabında doğrulanır; varsayılan ayarlar `GetInputDefaultSettings` ile alınır.
-- OBS Media Source URL'si `rtsp://127.0.0.1:8554/drone` olur.
-- Virtual Camera yalnız video taşır ve FFmpeg beslemesi `-an` ile sesi açıkça kapatır. TikTok LIVE Studio Camera kaynağında `Audio capture = None` tutulur; kullanıcı tek mikrofonu LIVE Studio'nun ana ses denetiminden seçer. Uygulama sürücü veya virtual-audio device kurmaz.
-- CoreAudio input cihazları capture başlatmadan izlenir ve connect/disconnect değişimleri Tauri state event'iyle UI'a taşınır.
-- OBS engine açıkça hazırlanırsa Direct RTMP OBS video/audio mix'ini taşır; service snapshot/restore davranışı korunur.
-- Yayın aktifken stream service ayarı değiştirilmez. `START LIVE` öncesinde snapshot alınır; `STOP LIVE`, kaynak disconnect'i ve app kapanışı geri yüklemeyi dener.
-- OBS yoksa uygulama resmi download sayfasını açar. OBS testleri kurulumsuz ortamda başarılı gösterilmez.
-- Recording, OBS'nin runtime'da ilan ettiği `GetRecordStatus` / `StartRecord` / `StopRecord` çağrılarıyla idempotent yönetilir. Çıktı yolu OBS aktif profilindendir ve `StopRecord` cevabındaki gerçek `outputPath` gösterilir; undocumented profile anahtarlarıyla zorla değiştirilmez.
+- The source type `ffmpeg_source` is verified in the OBS `GetInputKindList` reply; defaults come from `GetInputDefaultSettings`.
+- The OBS media source URL is `rtsp://127.0.0.1:8554/drone`.
+- The Virtual Camera carries video only and the FFmpeg feed disables audio explicitly with `-an`. Keep `Audio capture = None` on the TikTok LIVE Studio camera source; the user picks a single microphone in LIVE Studio's main audio control. The app installs no driver and no virtual audio device.
+- CoreAudio input devices are watched without starting a capture, and connect/disconnect changes reach the UI through a Tauri state event.
+- If the OBS engine is explicitly prepared, Direct RTMP carries the OBS video/audio mix; snapshot/restore behaviour of the stream service is preserved.
+- The stream service settings are never changed while a stream is active. A snapshot is taken before `START LIVE`; `STOP LIVE`, a source disconnect and app shutdown all try to restore it.
+- If OBS is missing, the app opens the official download page. OBS checks are never reported as passing on a machine without it.
+- Recording is managed idempotently through the `GetRecordStatus` / `StartRecord` / `StopRecord` calls OBS advertises at runtime. The output path comes from the active OBS profile and the real `outputPath` from the `StopRecord` reply is shown; it is never forced through undocumented profile keys.
 
-TikTok LIVE Studio'nun güncel resmi indirme sayfası macOS 12+ build sunuyor. Uygulama `/Applications/TikTok LIVE Studio.app` keşfi yapar; yüklüyse açar, değilse resmi sayfaya yönlendirir. OBS'siz kamera bu repository'deki Core Media I/O Camera Extension ile sağlanır. İmzasız/ad-hoc build, Apple Developer Team yetkili dağıtım imzası yerine geçmez ve etkinleştirme başarısı olarak gösterilmez. TikTok login/private API/bypass/Go Live otomasyonu yoktur.
+TikTok LIVE Studio's current official download page offers a macOS 12+ build. The app discovers `/Applications/TikTok LIVE Studio.app`, opens it when present and points to the official page otherwise. The OBS-free camera comes from the Core Media I/O camera extension in this repository. An unsigned/ad-hoc build is no substitute for an Apple Developer Team distribution signature and is never reported as a successful activation. There is no TikTok login, private API, bypass or Go Live automation.
 
-## Güvenlik ve yerel portlar
+## Security and local ports
 
-| Port | Bind | Amaç |
+| Port | Bind | Purpose |
 | --- | --- | --- |
 | 1935 | LAN (`:1935`) | DJI Fly RTMP ingest |
-| 8554 | `127.0.0.1` | FFmpeg/OBS RTSP reader ve `/production` publisher |
+| 8554 | `127.0.0.1` | FFmpeg/OBS RTSP reader and `/production` publisher |
 | 8889 | `127.0.0.1` | WHEP preview |
 | 8189 | `127.0.0.1` | WebRTC ICE UDP/TCP |
 | 9997 | `127.0.0.1` | MediaMTX Control API |
 | 9998 | `127.0.0.1` | MediaMTX metrics |
 
-Tauri CSP yalnız gereken localhost WHEP adresine izin verir. Capability yalnız core ve video file picker ile sınırlıdır. `NSLocalNetworkUsageDescription` ve isteğe bağlı yerleşik commentary capture için `NSMicrophoneUsageDescription` vardır.
+The Tauri CSP allows only the localhost WHEP address it needs. Capabilities are limited to core and the video file picker. `NSLocalNetworkUsageDescription` is present, and `NSMicrophoneUsageDescription` for the optional built-in commentary capture.
 
-Non-secret config: `~/Library/Application Support/DJI Live Bridge/`  
-Log: `~/Library/Logs/DJI Live Bridge/`  
-Secret: macOS Keychain
+Non-secret config: `~/Library/Application Support/DJI Live Bridge/`
+Logs: `~/Library/Logs/DJI Live Bridge/`
+Secrets: macOS Keychain
 
-## Doğrulama ve üretim build
+## Development
+
+```sh
+npm ci
+rustup toolchain install 1.98.1
+rustup target add aarch64-apple-darwin x86_64-apple-darwin --toolchain 1.98.1
+./scripts/download-mediamtx.sh arm64        # x86_64 for the Intel sidecar
+npm run tauri -- dev
+```
+
+The MediaMTX binary is not checked in; the script downloads the official release archive, verifies it against the official SHA-256 list and installs it under the `mediamtx-<target-triple>` name Tauri requires.
+
+Toolchain versions are recorded in [versions.lock.json](versions.lock.json); variable dependency sources and checksums are in [docs/DEPENDENCIES.md](docs/DEPENDENCIES.md). Building the native camera extension needs the Xcode Command Line Tools with the macOS SDK. Agent-facing build rules live in [AGENTS.md](AGENTS.md).
+
+## Verification and production build
 
 ```sh
 cargo fmt --manifest-path src-tauri/Cargo.toml --all -- --check
 cargo clippy --locked --all-targets --manifest-path src-tauri/Cargo.toml -- -D warnings
-cargo check --locked --manifest-path src-tauri/Cargo.toml
+cargo test --locked --manifest-path src-tauri/Cargo.toml
 npm run typecheck
 npm run lint
 npm run build
-cargo test --locked --manifest-path src-tauri/Cargo.toml
 npm run build:mac
 ```
 
-> **Build için tek geçerli komut `npm run build:mac`'tir.** Çıplak `tauri build` engellenmiştir (`scripts/tauri.sh`), çünkü Tauri, uygulamanın kısıtlı entitlement'larını (`system-extension.install`, `application-groups`) `mediamtx` sidecar'ına da uygular. Provisioning profile olmayan sidecar'ı macOS açılışta `SIGKILL` ile öldürür (exit 137); uygulama da `error sending request for url (http://127.0.0.1:9997/v3/paths/list)` hatasını verir. `build:mac` sidecar'ı boş entitlement ile yeniden imzalar, `.app` ve `.dmg` içindeki bundle'ı `scripts/verify-bundle.sh` ile doğrular ve doğrulanmamış bir build'i başarılı saymaz. Kurulu bir uygulamayı denetlemek için: `npm run verify:bundle -- "/Applications/DJI Live Bridge.app"`.
+> **`npm run build:mac` is the only supported build command.** A bare `tauri build` is blocked (`scripts/tauri.sh`), because Tauri applies the app's restricted entitlements (`system-extension.install`, `application-groups`) to the `mediamtx` sidecar as well. Without a provisioning profile macOS kills that sidecar at launch with `SIGKILL` (exit 137), and the app then fails with `error sending request for url (http://127.0.0.1:9997/v3/paths/list)`. `build:mac` re-signs the sidecar with empty entitlements, verifies the bundle inside both the `.app` and the `.dmg` with `scripts/verify-bundle.sh`, and refuses to call an unverified build successful. To audit an installed app: `npm run verify:bundle -- "/Applications/DJI Live Bridge.app"`.
 
-RTMP config serileştirme, secret ayrımı, URL doğrulama ve bir hedef çalışırken diğerinin hata vermesi senaryoları Rust unit testleriyle doğrulanır. Gerçek Instagram/TikTok hesabına yayın ayrıca geçerli platform anahtarlarıyla kullanıcı tarafından doğrulanmalıdır.
+RTMP config serialization, secret separation, URL validation and the case where one destination fails while another keeps running are covered by Rust unit tests. Streaming to a real Instagram/TikTok account still has to be verified by a person with valid platform keys.
 
-## Packaging, signing ve notarization
+## Packaging, signing and notarization
 
-Tauri `externalBin` target-triple kuralı nedeniyle her hedef için doğru sidecar dosyası build öncesi bulunmalıdır. MediaMTX executable izni (`0755`) korunmalıdır. `.app` ve `.dmg` üretimi sidecar'ı içeri alır; dağıtılacak build'de Apple Developer ID signing ve notarization hem ana executable'ı hem sidecar'ı kapsamalıdır. Unsigned local build yalnız geliştirme/test içindir. `npm run build:mac` `.app` ve `.dmg`'yi notarytool keychain profili `dji-live-bridge` ile notarize edip staple eder; notarize edilmemiş Developer ID system extension'ı macOS etkinleştirmez (`code=8 … code signature invalid`), bu yüzden sanal kamera için notarization zorunludur.
+Because of Tauri's `externalBin` target-triple rule, the correct sidecar file must exist for each target before the build. The MediaMTX executable bit (`0755`) must be preserved. `.app` and `.dmg` generation pulls the sidecar in; a build meant for distribution needs Apple Developer ID signing and notarization covering both the main executable and the sidecar.
 
-Sidecar imzası `scripts/sign-sidecars.sh` ile `src-tauri/entitlements-sidecar.plist` (boş) kullanılarak düzeltilir; bu adım `npm run build:mac` içinde otomatik çalışır ve elle çağrılmamalıdır. DMG, Tauri'nin kendi DMG adımıyla değil, düzeltilmiş `.app`'ten `build:mac` tarafından üretilir; aksi halde DMG bozuk sidecar'ı taşırdı. Uygulama kapanırken (`RunEvent::Exit` dahil) tüm alt süreçleri durdurur ve başlarken kendi config dosyasıyla başlatılmış artık bir MediaMTX'i temizler.
+**Notarization is mandatory, not optional.** macOS only activates a Developer ID signed system extension when the app is notarized; otherwise the virtual camera fails with `code=8 domain=OSSystemExtensionErrorDomain desc=code signature invalid`. `npm run build:mac` notarizes and staples both the `.app` and the `.dmg` through the notarytool keychain profile `dji-live-bridge` (override with `NOTARY_PROFILE`). Create the profile once with `xcrun notarytool store-credentials`; never commit the `.p8` key. `NOTARIZE=0` is only for quick UI-only iteration.
 
-`beforeBundleCommand`, Swift kamera uzantısını derleyip `Contents/Library/SystemExtensions/DJILiveBridgeCamera.systemextension` altına yerleştirir. Yerel build varsayılan olarak `signingIdentity: "-"` ile ad-hoc imzalanır. Üretimde `APPLE_SIGNING_IDENTITY` ortam değişkeni Tauri ayarının üzerine yazar ve uzantı da aynı kimliği kullanır. Üretim paketi ana uygulamanın `entitlements.plist` dosyasındaki System Extension + App Group yetkilerini ve uzantının aynı App Group yetkisini korumalıdır. Notarization sonrasında `codesign --verify --deep --strict` ve gerçek bir macOS kullanıcı-onaylı aktivasyon testi ayrıca yapılmalıdır.
+The sidecar signature is corrected by `scripts/sign-sidecars.sh` using the empty `src-tauri/entitlements-sidecar.plist`; this runs inside `npm run build:mac` and should not be called by hand. The DMG is produced by `build:mac` from the fixed `.app` rather than by Tauri's own DMG step, which would otherwise ship the broken sidecar. On exit (including `RunEvent::Exit`) the app stops all child processes, and at startup it clears a leftover MediaMTX started with its own config file.
 
-FFmpeg bundle edilmediği için uygulama FFmpeg'i yeniden dağıtmaz. Kullanıcının kurulu build'inin LGPL/GPL seçenekleri ve codec lisansları o build'in dağıtıcısına aittir. İleride bundle edilirse binary provenance, configure flags, kaynak teklifi ve ilgili LGPL/GPL yükümlülükleri release bazında ayrıca tutulmalıdır.
+`beforeBundleCommand` compiles the Swift camera extension and places it under `Contents/Library/SystemExtensions/`. In production `APPLE_SIGNING_IDENTITY` overrides the Tauri setting and the extension uses the same identity. The production bundle must keep the System Extension + App Group entitlements from the app's `entitlements.plist` and the same App Group entitlement on the extension. After notarization, `codesign --verify --deep --strict` and a real user-approved activation test on macOS are still required.
+
+FFmpeg is not bundled, so the app redistributes nothing. The LGPL/GPL options and codec licences of the user's installed build belong to that build's distributor. If FFmpeg is ever bundled, binary provenance, configure flags, the source offer and the related LGPL/GPL obligations must be tracked per release.
