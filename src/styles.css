@@ -466,3 +466,7 @@ input[type="checkbox"] { width: auto; accent-color: var(--accent); }
 [dir="rtl"] .editor input,
 [dir="rtl"] .obs-grid input { direction: ltr; }
 [dir="rtl"] .qr { margin-inline: 0 auto; }
+
+.about-card { display: grid; }
+.about-name { font-size: 15px; font-weight: 600; }
+.about-card .about-version { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 11px; }

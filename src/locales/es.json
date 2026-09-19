@@ -243,5 +243,9 @@
   "theme.midnight": "Medianoche",
   "theme.sand": "Arena",
   "camera.rebootTitle": "macOS terminará de activar la cámara virtual después de reiniciar.",
-  "camera.rebootAction": "Reinicia el Mac, abre DJI Live Bridge y pulsa de nuevo Iniciar cámara virtual."
+  "camera.rebootAction": "Reinicia el Mac, abre DJI Live Bridge y pulsa de nuevo Iniciar cámara virtual.",
+  "about.title": "Acerca de",
+  "about.developer": "Desarrollador",
+  "about.email": "Enviar correo",
+  "about.license": "Sin relación con DJI, Instagram ni TikTok."
 }

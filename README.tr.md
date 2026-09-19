@@ -183,3 +183,13 @@ Sidecar imzası `scripts/sign-sidecars.sh` ile `src-tauri/entitlements-sidecar.p
 `beforeBundleCommand`, Swift kamera uzantısını derleyip `Contents/Library/SystemExtensions/DJILiveBridgeCamera.systemextension` altına yerleştirir. Yerel build varsayılan olarak `signingIdentity: "-"` ile ad-hoc imzalanır. Üretimde `APPLE_SIGNING_IDENTITY` ortam değişkeni Tauri ayarının üzerine yazar ve uzantı da aynı kimliği kullanır. Üretim paketi ana uygulamanın `entitlements.plist` dosyasındaki System Extension + App Group yetkilerini ve uzantının aynı App Group yetkisini korumalıdır. Notarization sonrasında `codesign --verify --deep --strict` ve gerçek bir macOS kullanıcı-onaylı aktivasyon testi ayrıca yapılmalıdır.
 
 FFmpeg bundle edilmediği için uygulama FFmpeg'i yeniden dağıtmaz. Kullanıcının kurulu build'inin LGPL/GPL seçenekleri ve codec lisansları o build'in dağıtıcısına aittir. İleride bundle edilirse binary provenance, configure flags, kaynak teklifi ve ilgili LGPL/GPL yükümlülükleri release bazında ayrıca tutulmalıdır.
+
+## Hakkında
+
+**Taner Özel** — Geliştirici
+
+- E-posta: [tanerozel47@gmail.com](mailto:tanerozel47@gmail.com)
+- GitHub: [github.com/tanerozel](https://github.com/tanerozel)
+- LinkedIn: [linkedin.com/in/tanerozel](https://www.linkedin.com/in/tanerozel)
+
+Bu proje DJI, Instagram veya TikTok ile bağlantılı değildir.

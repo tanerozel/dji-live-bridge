@@ -10,6 +10,7 @@ import {
   activatePreviewFallback,
   activateVirtualCameraExtension,
   getDiagnostics,
+  openAboutLink,
   openObs,
   openTikTokLiveStudio,
   prepareNativeProduction,
@@ -45,6 +46,7 @@ type Tab = "live" | "camera" | "advanced";
 
 const PLATFORMS: RtmpDestinationKind[] = ["Instagram", "TikTok", "Custom"];
 const SETTINGS_KEY = "dji-live-bridge.stream-settings";
+const APP_VERSION = __APP_VERSION__;
 const DEFAULT_SETTINGS: NativeProductionSettings = {
   layout: "Portrait",
   fitMode: "Fit",
@@ -895,8 +897,26 @@ function AdvancedTab({ snapshot, settings, act, t }: { snapshot: BridgeSnapshot;
             <button className={snapshot.obs.recordingActive ? "danger" : "soft"} disabled={!snapshot.obs.connected || !snapshot.obs.sceneReady} onClick={() => void act("recording", () => setRecording(!snapshot.obs.recordingActive))}>{snapshot.obs.recordingActive ? t("obs.stopRecording") : t("obs.startRecording")}</button>
           </div>
         </section>
+
+        <AboutCard act={act} t={t} />
       </div>
     </div>
+  );
+}
+
+function AboutCard({ act, t }: { act: Act; t: Translate }) {
+  return (
+    <section className="card about-card">
+      <header className="card-head"><h2>{t("about.title")}</h2></header>
+      <p className="about-name">Taner Özel</p>
+      <p className="hint">{t("about.developer")}</p>
+      <div className="row-start">
+        <button className="soft" onClick={() => void act("about-email", () => openAboutLink("email"))}>{t("about.email")}</button>
+        <button className="soft" onClick={() => void act("about-github", () => openAboutLink("github"))}>GitHub</button>
+        <button className="soft" onClick={() => void act("about-linkedin", () => openAboutLink("linkedin"))}>LinkedIn</button>
+      </div>
+      <p className="hint about-version">DJI Live Bridge {APP_VERSION} · {t("about.license")}</p>
+    </section>
   );
 }
 

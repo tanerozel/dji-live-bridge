@@ -243,5 +243,9 @@
   "theme.midnight": "मिडनाइट",
   "theme.sand": "रेत",
   "camera.rebootTitle": "macOS रीस्टार्ट के बाद वर्चुअल कैमरा चालू करना पूरा करेगा।",
-  "camera.rebootAction": "Mac रीस्टार्ट करें, DJI Live Bridge खोलें और दोबारा “वर्चुअल कैमरा शुरू करें” दबाएँ।"
+  "camera.rebootAction": "Mac रीस्टार्ट करें, DJI Live Bridge खोलें और दोबारा “वर्चुअल कैमरा शुरू करें” दबाएँ।",
+  "about.title": "परिचय",
+  "about.developer": "डेवलपर",
+  "about.email": "ईमेल भेजें",
+  "about.license": "DJI, Instagram या TikTok से कोई संबंध नहीं।"
 }

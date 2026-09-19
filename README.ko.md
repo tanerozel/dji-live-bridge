@@ -65,3 +65,13 @@
 ## 개발
 
 빌드, 서명, 공증에 대한 자세한 내용은 [영문 README](README.md#development)에 있습니다.
+
+## 프로젝트 정보
+
+**Taner Özel** — 개발자
+
+- 이메일: [tanerozel47@gmail.com](mailto:tanerozel47@gmail.com)
+- GitHub: [github.com/tanerozel](https://github.com/tanerozel)
+- LinkedIn: [linkedin.com/in/tanerozel](https://www.linkedin.com/in/tanerozel)
+
+이 프로젝트는 DJI, Instagram, TikTok과 제휴 관계가 없습니다.

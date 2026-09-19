@@ -65,3 +65,13 @@
 ## 開発
 
 ビルド、署名、公証の詳細は[英語版 README](README.md#development) にあります。
+
+## このプロジェクトについて
+
+**Taner Özel** — 開発者
+
+- メール: [tanerozel47@gmail.com](mailto:tanerozel47@gmail.com)
+- GitHub: [github.com/tanerozel](https://github.com/tanerozel)
+- LinkedIn: [linkedin.com/in/tanerozel](https://www.linkedin.com/in/tanerozel)
+
+本プロジェクトは DJI、Instagram、TikTok とは無関係です。

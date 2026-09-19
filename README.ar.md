@@ -65,3 +65,13 @@
 ## التطوير
 
 تفاصيل البناء والتوقيع والتوثيق موجودة في [ملف README الإنجليزي](README.md#development).
+
+## حول المشروع
+
+**Taner Özel** — المطوّر
+
+- البريد الإلكتروني: [tanerozel47@gmail.com](mailto:tanerozel47@gmail.com)
+- GitHub: [github.com/tanerozel](https://github.com/tanerozel)
+- LinkedIn: [linkedin.com/in/tanerozel](https://www.linkedin.com/in/tanerozel)
+
+هذا المشروع ليس تابعًا لـ DJI أو Instagram أو TikTok.

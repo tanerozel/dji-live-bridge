@@ -65,3 +65,13 @@ Konfigurasi: `~/Library/Application Support/DJI Live Bridge/` · Log: `~/Library
 ## Pengembangan
 
 Rincian build, penandatanganan, dan notarisasi ada di [README bahasa Inggris](README.md#development).
+
+## Tentang
+
+**Taner Özel** — Pengembang
+
+- Email: [tanerozel47@gmail.com](mailto:tanerozel47@gmail.com)
+- GitHub: [github.com/tanerozel](https://github.com/tanerozel)
+- LinkedIn: [linkedin.com/in/tanerozel](https://www.linkedin.com/in/tanerozel)
+
+Proyek ini tidak berafiliasi dengan DJI, Instagram, atau TikTok.

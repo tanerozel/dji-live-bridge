@@ -243,5 +243,9 @@
   "theme.midnight": "Gece mavisi",
   "theme.sand": "Kum",
   "camera.rebootTitle": "macOS sanal kamerayı yeniden başlatmadan sonra etkinleştirecek.",
-  "camera.rebootAction": "Mac'i yeniden başlat, DJI Live Bridge'i aç ve Sanal kamerayı başlat'a tekrar bas."
+  "camera.rebootAction": "Mac'i yeniden başlat, DJI Live Bridge'i aç ve Sanal kamerayı başlat'a tekrar bas.",
+  "about.title": "Hakkında",
+  "about.developer": "Geliştirici",
+  "about.email": "E-posta gönder",
+  "about.license": "DJI, Instagram veya TikTok ile bağlantısı yoktur."
 }

@@ -169,3 +169,13 @@ The sidecar signature is corrected by `scripts/sign-sidecars.sh` using the empty
 `beforeBundleCommand` compiles the Swift camera extension and places it under `Contents/Library/SystemExtensions/`. In production `APPLE_SIGNING_IDENTITY` overrides the Tauri setting and the extension uses the same identity. The production bundle must keep the System Extension + App Group entitlements from the app's `entitlements.plist` and the same App Group entitlement on the extension. After notarization, `codesign --verify --deep --strict` and a real user-approved activation test on macOS are still required.
 
 FFmpeg is not bundled, so the app redistributes nothing. The LGPL/GPL options and codec licences of the user's installed build belong to that build's distributor. If FFmpeg is ever bundled, binary provenance, configure flags, the source offer and the related LGPL/GPL obligations must be tracked per release.
+
+## About
+
+**Taner Özel** — Developer and maintainer
+
+- E-mail: [tanerozel47@gmail.com](mailto:tanerozel47@gmail.com)
+- GitHub: [github.com/tanerozel](https://github.com/tanerozel)
+- LinkedIn: [linkedin.com/in/tanerozel](https://www.linkedin.com/in/tanerozel)
+
+This project is not affiliated with DJI, Instagram or TikTok.

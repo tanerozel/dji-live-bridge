@@ -243,5 +243,9 @@
   "theme.midnight": "أزرق ليلي",
   "theme.sand": "رملي",
   "camera.rebootTitle": "سيكمل macOS تفعيل الكاميرا الافتراضية بعد إعادة التشغيل.",
-  "camera.rebootAction": "أعد تشغيل الـ Mac، وافتح DJI Live Bridge، ثم اضغط «تشغيل الكاميرا الافتراضية» مرة أخرى."
+  "camera.rebootAction": "أعد تشغيل الـ Mac، وافتح DJI Live Bridge، ثم اضغط «تشغيل الكاميرا الافتراضية» مرة أخرى.",
+  "about.title": "حول",
+  "about.developer": "المطوّر",
+  "about.email": "إرسال بريد إلكتروني",
+  "about.license": "لا علاقة للتطبيق بـ DJI أو Instagram أو TikTok."
 }

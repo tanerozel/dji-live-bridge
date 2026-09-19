@@ -243,5 +243,9 @@
   "theme.midnight": "午夜蓝",
   "theme.sand": "沙色",
   "camera.rebootTitle": "macOS 将在重新启动后完成虚拟摄像头的启用。",
-  "camera.rebootAction": "重启 Mac，打开 DJI Live Bridge，再次点击“启动虚拟摄像头”。"
+  "camera.rebootAction": "重启 Mac，打开 DJI Live Bridge，再次点击“启动虚拟摄像头”。",
+  "about.title": "关于",
+  "about.developer": "开发者",
+  "about.email": "发送邮件",
+  "about.license": "与 DJI、Instagram、TikTok 无隶属关系。"
 }

@@ -124,6 +124,26 @@ fn set_obs_monitoring(state: State<'_, Arc<AppState>>, active: bool) {
     state.obs_monitoring.store(active, Ordering::Relaxed);
 }
 
+/// The only external links the About card can open.
+const ABOUT_LINKS: [(&str, &str); 3] = [
+    ("github", "https://github.com/tanerozel/dji-live-bridge"),
+    ("linkedin", "https://www.linkedin.com/in/tanerozel"),
+    ("email", "mailto:tanerozel47@gmail.com"),
+];
+
+#[tauri::command]
+fn open_about_link(target: String) -> Result<(), ErrorPayload> {
+    let url = ABOUT_LINKS
+        .iter()
+        .find_map(|(name, url)| (*name == target).then_some(*url))
+        .ok_or_else(|| {
+            ErrorPayload::from(error::BridgeError::Validation(
+                "unknown About link".to_string(),
+            ))
+        })?;
+    platform::macos::open_external(url).map_err(Into::into)
+}
+
 #[tauri::command]
 fn open_tiktok_live_studio() -> Result<(), ErrorPayload> {
     platform::macos::open_tiktok_live_studio_or_download().map_err(Into::into)
@@ -333,6 +353,7 @@ pub fn run() {
             set_obs_monitoring,
             open_obs,
             open_tiktok_live_studio,
+            open_about_link,
             prepare_obs,
             prepare_native_production,
             set_obs_virtual_camera,

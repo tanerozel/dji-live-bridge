@@ -49,6 +49,21 @@ pub fn open_tiktok_live_studio_or_download() -> BridgeResult<()> {
     Ok(())
 }
 
+/// Opens an https:// or mailto: link from the fixed About list.
+pub fn open_external(url: &str) -> BridgeResult<()> {
+    if let Some(address) = url.strip_prefix("mailto:") {
+        if address.is_empty() || address.contains(['\n', '\r', ' ']) {
+            return Err(BridgeError::Validation("invalid e-mail address".into()));
+        }
+        let status = Command::new("/usr/bin/open").arg(url).status()?;
+        if !status.success() {
+            return Err(BridgeError::Process("macOS could not open the URL".into()));
+        }
+        return Ok(());
+    }
+    open_url(url)
+}
+
 pub fn open_url(url: &str) -> BridgeResult<()> {
     let parsed =
         url::Url::parse(url).map_err(|_| BridgeError::Validation("invalid external URL".into()))?;

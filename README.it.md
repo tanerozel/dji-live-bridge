@@ -65,3 +65,13 @@ Configurazione: `~/Library/Application Support/DJI Live Bridge/` · Log: `~/Libr
 ## Sviluppo
 
 I dettagli su build, firma e notarizzazione sono nel [README in inglese](README.md#development).
+
+## Informazioni
+
+**Taner Özel** — Sviluppatore
+
+- E-mail: [tanerozel47@gmail.com](mailto:tanerozel47@gmail.com)
+- GitHub: [github.com/tanerozel](https://github.com/tanerozel)
+- LinkedIn: [linkedin.com/in/tanerozel](https://www.linkedin.com/in/tanerozel)
+
+Questo progetto non è affiliato a DJI, Instagram o TikTok.

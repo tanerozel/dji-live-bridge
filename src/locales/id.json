@@ -243,5 +243,9 @@
   "theme.midnight": "Tengah malam",
   "theme.sand": "Pasir",
   "camera.rebootTitle": "macOS akan menyelesaikan aktivasi kamera virtual setelah dinyalakan ulang.",
-  "camera.rebootAction": "Nyalakan ulang Mac, buka DJI Live Bridge, lalu tekan Mulai kamera virtual sekali lagi."
+  "camera.rebootAction": "Nyalakan ulang Mac, buka DJI Live Bridge, lalu tekan Mulai kamera virtual sekali lagi.",
+  "about.title": "Tentang",
+  "about.developer": "Pengembang",
+  "about.email": "Kirim email",
+  "about.license": "Tidak berafiliasi dengan DJI, Instagram, atau TikTok."
 }

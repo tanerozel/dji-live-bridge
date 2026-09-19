@@ -243,5 +243,9 @@
   "theme.midnight": "Полночь",
   "theme.sand": "Песок",
   "camera.rebootTitle": "macOS завершит включение виртуальной камеры после перезагрузки.",
-  "camera.rebootAction": "Перезагрузите Mac, откройте DJI Live Bridge и снова нажмите «Запустить виртуальную камеру»."
+  "camera.rebootAction": "Перезагрузите Mac, откройте DJI Live Bridge и снова нажмите «Запустить виртуальную камеру».",
+  "about.title": "О приложении",
+  "about.developer": "Разработчик",
+  "about.email": "Написать письмо",
+  "about.license": "Не связано с DJI, Instagram или TikTok."
 }

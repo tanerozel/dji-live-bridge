@@ -243,5 +243,9 @@
   "theme.midnight": "미드나이트",
   "theme.sand": "샌드",
   "camera.rebootTitle": "macOS는 재시동 후에 가상 카메라 활성화를 마칩니다.",
-  "camera.rebootAction": "Mac을 재시동하고 DJI Live Bridge를 연 뒤 '가상 카메라 시작'을 다시 누르세요."
+  "camera.rebootAction": "Mac을 재시동하고 DJI Live Bridge를 연 뒤 '가상 카메라 시작'을 다시 누르세요.",
+  "about.title": "앱 정보",
+  "about.developer": "개발자",
+  "about.email": "이메일 보내기",
+  "about.license": "DJI, Instagram, TikTok과 제휴 관계가 없습니다."
 }

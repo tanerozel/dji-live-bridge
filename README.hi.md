@@ -65,3 +65,13 @@
 ## डेवलपमेंट
 
 बिल्ड, साइनिंग और नोटराइज़ेशन का विवरण [अंग्रेज़ी README](README.md#development) में है।
+
+## परिचय
+
+**Taner Özel** — डेवलपर
+
+- ईमेल: [tanerozel47@gmail.com](mailto:tanerozel47@gmail.com)
+- GitHub: [github.com/tanerozel](https://github.com/tanerozel)
+- LinkedIn: [linkedin.com/in/tanerozel](https://www.linkedin.com/in/tanerozel)
+
+यह प्रोजेक्ट DJI, Instagram या TikTok से संबद्ध नहीं है।

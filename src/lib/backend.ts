@@ -104,6 +104,10 @@ export function setRtmpDestinationEnabled(id: string, enabled: boolean) {
   return invoke<void>("set_rtmp_destination_enabled", { id, enabled });
 }
 
+export function openAboutLink(target: "github" | "linkedin" | "email") {
+  return invoke<void>("open_about_link", { target });
+}
+
 export function startLive() {
   return invoke<void>("start_live");
 }

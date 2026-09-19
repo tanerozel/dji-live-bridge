@@ -65,3 +65,13 @@
 ## 開發
 
 建置、簽署與公證的細節請見[英文 README](README.md#development)。
+
+## 關於
+
+**Taner Özel** — 開發者
+
+- 電子郵件: [tanerozel47@gmail.com](mailto:tanerozel47@gmail.com)
+- GitHub: [github.com/tanerozel](https://github.com/tanerozel)
+- LinkedIn: [linkedin.com/in/tanerozel](https://www.linkedin.com/in/tanerozel)
+
+本專案與 DJI、Instagram、TikTok 沒有隸屬關係。

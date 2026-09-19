@@ -65,3 +65,13 @@
 ## Разработка
 
 Подробности сборки, подписи и нотаризации — в [README на английском](README.md#development).
+
+## О проекте
+
+**Taner Özel** — Разработчик
+
+- Эл. почта: [tanerozel47@gmail.com](mailto:tanerozel47@gmail.com)
+- GitHub: [github.com/tanerozel](https://github.com/tanerozel)
+- LinkedIn: [linkedin.com/in/tanerozel](https://www.linkedin.com/in/tanerozel)
+
+Проект не связан с DJI, Instagram или TikTok.

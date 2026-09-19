@@ -243,5 +243,9 @@
   "theme.midnight": "ミッドナイト",
   "theme.sand": "サンド",
   "camera.rebootTitle": "macOS は再起動後に仮想カメラの有効化を完了します。",
-  "camera.rebootAction": "Mac を再起動し、DJI Live Bridge を開いて、もう一度「仮想カメラを開始」を押してください。"
+  "camera.rebootAction": "Mac を再起動し、DJI Live Bridge を開いて、もう一度「仮想カメラを開始」を押してください。",
+  "about.title": "このアプリについて",
+  "about.developer": "開発者",
+  "about.email": "メールを送る",
+  "about.license": "DJI、Instagram、TikTok とは無関係です。"
 }
