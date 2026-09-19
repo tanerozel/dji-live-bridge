@@ -1,7 +1,7 @@
 import { listen } from "@tauri-apps/api/event";
 import { open } from "@tauri-apps/plugin-dialog";
 import QRCode from "qrcode";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { WhepPreview } from "./components/WhepPreview";
 import { StatusPill } from "./components/StatusPill";
 import { loadLanguage, saveLanguage, translate, type Language, type TranslationParams } from "./i18n";
@@ -30,47 +30,68 @@ import {
   upsertRtmpDestination,
 } from "./lib/backend";
 import { useBridgeStore } from "./store";
-import type { DiagnosticItem, RtmpDestinationKind, RtmpDestinationState } from "./types";
+import type {
+  BridgeSnapshot,
+  DiagnosticItem,
+  NativeProductionSettings,
+  RtmpDestinationKind,
+  RtmpDestinationState,
+} from "./types";
+
+type Translate = (key: string, params?: TranslationParams) => string;
+type Act = (name: string, operation: () => Promise<unknown>) => Promise<void>;
+type Tab = "live" | "camera" | "advanced";
+
+const PLATFORMS: RtmpDestinationKind[] = ["Instagram", "TikTok", "Custom"];
+const SETTINGS_KEY = "dji-live-bridge.stream-settings";
+const DEFAULT_SETTINGS: NativeProductionSettings = {
+  layout: "Portrait",
+  fitMode: "Fit",
+  microphone: null,
+  microphoneMuted: false,
+  microphoneVolumeDb: 0,
+  microphoneSyncMs: 0,
+  noiseSuppression: true,
+  compressor: true,
+  limiter: true,
+};
+
+function loadSettings(): NativeProductionSettings {
+  try {
+    const stored = localStorage.getItem(SETTINGS_KEY);
+    return stored ? { ...DEFAULT_SETTINGS, ...JSON.parse(stored) } : DEFAULT_SETTINGS;
+  } catch {
+    return DEFAULT_SETTINGS;
+  }
+}
 
 function App() {
   const { snapshot, uiError, initialized, initialize, setUiError, clearUiError } = useBridgeStore();
-  const [qrCode, setQrCode] = useState<string>();
-  const [previewError, setPreviewError] = useState<string>();
-  const [previewEndpoint, setPreviewEndpoint] = useState("http://127.0.0.1:8889/drone/whep");
   const [busy, setBusy] = useState<string>();
-  const [obsHost, setObsHost] = useState("127.0.0.1");
-  const [obsPort, setObsPort] = useState(4455);
-  const [obsPassword, setObsPassword] = useState("");
-  const [layout, setLayout] = useState<"Landscape" | "Portrait">("Landscape");
-  const [fitMode, setFitMode] = useState<"Fit" | "Fill">("Fit");
-  const [diagnostics, setDiagnostics] = useState<DiagnosticItem[]>([]);
-  const [editingDestinationId, setEditingDestinationId] = useState<string | null>(null);
-  const [destinationName, setDestinationName] = useState("");
-  const [destinationKind, setDestinationKind] = useState<RtmpDestinationKind>("Instagram");
-  const [destinationServer, setDestinationServer] = useState("");
-  const [streamKey, setStreamKey] = useState("");
-  const [destinationEnabled, setDestinationEnabled] = useState(true);
-  const [microphone, setMicrophone] = useState("");
-  const [microphoneMuted, setMicrophoneMuted] = useState(false);
-  const [microphoneVolumeDb, setMicrophoneVolumeDb] = useState(0);
-  const [microphoneSyncMs, setMicrophoneSyncMs] = useState(0);
-  const [noiseSuppression, setNoiseSuppression] = useState(true);
-  const [compressor, setCompressor] = useState(true);
-  const [limiter, setLimiter] = useState(true);
+  const [tab, setTab] = useState<Tab>("live");
+  const [settings, setSettings] = useState<NativeProductionSettings>(loadSettings);
   const [language, setLanguage] = useState<Language>(loadLanguage);
-  const [documentVisible, setDocumentVisible] = useState(!document.hidden);
-  const t = useCallback(
-    (key: string, params?: TranslationParams) => translate(language, key, params),
+  const [liveSince, setLiveSince] = useState<number>();
+  const live = snapshot?.production.active ?? false;
+  const t = useCallback<Translate>(
+    (key, params) => translate(language, key, params),
     [language],
   );
 
   useEffect(() => saveLanguage(language), [language]);
 
+  // Kept here, not in the panel, so switching tabs does not reset the timer.
   useEffect(() => {
-    const handleVisibility = () => setDocumentVisible(!document.hidden);
-    document.addEventListener("visibilitychange", handleVisibility);
-    return () => document.removeEventListener("visibilitychange", handleVisibility);
-  }, []);
+    setLiveSince(live ? Date.now() : undefined);
+  }, [live]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+    } catch {
+      // Settings still apply for this session.
+    }
+  }, [settings]);
 
   useEffect(() => {
     let cleanup: (() => void) | undefined;
@@ -93,32 +114,13 @@ function App() {
             actionKey: "errors.action.virtualCamera",
           });
         }
-      }
+      },
     ).then((fn) => { unlisten = fn; });
     return () => unlisten?.();
   }, [setUiError]);
 
-  useEffect(() => {
-    if (!snapshot?.rtmpUrl) {
-      setQrCode(undefined);
-      return;
-    }
-    void QRCode.toDataURL(snapshot.rtmpUrl, {
-      width: 220,
-      margin: 1,
-      color: { dark: "#07110fff", light: "#f1f7f3ff" },
-    }).then(setQrCode);
-  }, [snapshot?.rtmpUrl]);
-
-  useEffect(() => {
-    if (!snapshot?.publisherPresent) {
-      setPreviewEndpoint(snapshot?.preview.directWhepUrl ?? "http://127.0.0.1:8889/drone/whep");
-      setPreviewError(undefined);
-    }
-  }, [snapshot?.preview.directWhepUrl, snapshot?.publisherPresent]);
-
-  const act = useCallback(
-    async (name: string, operation: () => Promise<unknown>) => {
+  const act = useCallback<Act>(
+    async (name, operation) => {
       setBusy(name);
       clearUiError();
       try {
@@ -132,403 +134,694 @@ function App() {
     [clearUiError, setUiError],
   );
 
-  const handlePreviewConnected = useCallback(() => {
-    setPreviewError(undefined);
-    void reportPreviewStatus(true);
-  }, []);
-  const handlePreviewFailure = useCallback((reason: string) => {
-    setPreviewError(reason);
-    void reportPreviewStatus(false, reason);
-  }, []);
-
-  const startFallback = useCallback(
-    () =>
-      act("fallback", async () => {
-        const endpoint = await activatePreviewFallback();
-        setPreviewEndpoint(endpoint);
-        setPreviewError(undefined);
-      }),
-    [act],
-  );
-
-  const resetDestinationForm = useCallback(() => {
-    setEditingDestinationId(null);
-    setDestinationName("");
-    setDestinationKind("Instagram");
-    setDestinationServer("");
-    setStreamKey("");
-    setDestinationEnabled(true);
-  }, []);
-
-  const editDestination = useCallback((destination: RtmpDestinationState) => {
-    setEditingDestinationId(destination.id);
-    setDestinationName(destination.name);
-    setDestinationKind(destination.kind);
-    setDestinationServer(destination.server);
-    setStreamKey("");
-    setDestinationEnabled(destination.enabled);
-  }, []);
-
-  const saveDestination = useCallback(
-    () => act("save-destination", async () => {
-      await upsertRtmpDestination(
-        editingDestinationId,
-        destinationName,
-        destinationKind,
-        destinationServer,
-        streamKey.trim() ? streamKey : null,
-        destinationEnabled,
-      );
-      resetDestinationForm();
-    }),
-    [
-      act,
-      destinationEnabled,
-      destinationKind,
-      destinationName,
-      destinationServer,
-      editingDestinationId,
-      resetDestinationForm,
-      streamKey,
-    ],
-  );
-
-  const formatted = useMemo(() => {
-    const metadata = snapshot?.metadata;
-    return {
-      bitrate: formatBitrate(metadata?.bitrateCalculatedBps, t("common.unavailable")),
-      bytes: formatBytes(metadata?.receivedBytes ?? 0),
-      uptime: formatDuration(metadata?.uptimeSeconds, t("common.unavailable")),
-      fps: metadata?.fps ? `${metadata.fps.toFixed(2)} fps` : t("common.unavailable"),
-    };
-  }, [snapshot?.metadata, t]);
-
   if (!initialized || !snapshot) {
-    return <main className="boot-screen">{t("workflow.Preparing")}</main>;
+    return <main className="boot-screen"><span className="spinner" />{t("status.starting")}</main>;
   }
 
-  const mediaReady = snapshot.mediaMtx === "Ready";
-  const obsVirtualActive = snapshot.obs.virtualCameraActive === true;
-  const nativeVirtualActive = snapshot.virtualCamera.feedActive;
-  const cameraReady = snapshot.virtualCamera.status === "Ready";
+  const error = uiError ?? snapshot.lastError;
 
   return (
     <main className="app-shell">
       <header className="topbar">
-        <div>
-          <p className="eyebrow">{t("header.eyebrow")}</p>
-          <h1>DJI Live Bridge</h1>
-        </div>
-        <div className="header-tools">
-          <label className="language-picker">
-            <span>{t("language.label")}</span>
-            <select value={language} onChange={(event) => setLanguage(event.target.value as Language)}>
-              <option value="en">{t("language.en")}</option>
-              <option value="tr">{t("language.tr")}</option>
-            </select>
-          </label>
-          <div className="header-status">
-            <span className={`pulse ${snapshot.publisherPresent ? "on" : ""}`} />
-            <div>
-              <strong>{t(`workflow.${snapshot.workflow}`)}</strong>
-              <small>{snapshot.lanIpv4 ?? t("header.noLan")}</small>
-            </div>
+        <div className="brand">
+          <span className="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 16 0M7.5 12a4.5 4.5 0 0 1 9 0" /><circle cx="12" cy="12" r="1.8" /></svg>
+          </span>
+          <div>
+            <h1>DJI Live Bridge</h1>
+            <small>{snapshot.lanIpv4 ?? t("header.noLan")}</small>
           </div>
+        </div>
+
+        <nav className="tabs" aria-label="Sections">
+          {(["live", "camera", "advanced"] as Tab[]).map((item) => (
+            <button key={item} className={tab === item ? "active" : ""} onClick={() => setTab(item)}>
+              {t(`nav.${item}`)}
+            </button>
+          ))}
+        </nav>
+
+        <div className="header-tools">
+          <HeaderStatus snapshot={snapshot} t={t} />
+          <select className="language-select" aria-label={t("language.label")} value={language} onChange={(event) => setLanguage(event.target.value as Language)}>
+            <option value="en">EN</option>
+            <option value="tr">TR</option>
+          </select>
         </div>
       </header>
 
-      <section className="workflow-guide" aria-label={t("guide.title")}>
-        <div className={`workflow-guide-step ${snapshot.publisherPresent ? "done" : "active"}`}>
-          <span>1</span>
-          <div><strong>{t("guide.connectTitle")}</strong><small>{t("guide.connectHelp")}</small></div>
-        </div>
-        <div className={`workflow-guide-step ${snapshot.preview.status === "Ready" ? "done" : snapshot.publisherPresent ? "active" : ""}`}>
-          <span>2</span>
-          <div><strong>{t("guide.previewTitle")}</strong><small>{t("guide.previewHelp")}</small></div>
-        </div>
-        <div className={`workflow-guide-step ${nativeVirtualActive ? "done" : snapshot.preview.status === "Ready" ? "active" : ""}`}>
-          <span>3</span>
-          <div><strong>{t("guide.cameraTitle")}</strong><small>{t("guide.cameraHelp")}</small></div>
-        </div>
-        <details className="help-menu">
-          <summary>{t("guide.howTo")}</summary>
-          <ol>
-            <li>{t("guide.step1")}</li>
-            <li>{t("guide.step2")}</li>
-            <li>{t("guide.step3")}</li>
-            <li>{t("guide.step4")}</li>
-            <li>{t("guide.step5")}</li>
-          </ol>
-        </details>
-      </section>
-
-      {(uiError || snapshot.lastError) && (
-        <section className="error-banner" role="alert">
+      {error && (
+        <section className="banner banner-error" role="alert">
+          <span className="banner-icon" aria-hidden="true">!</span>
           <div>
-            <strong>{t((uiError ?? snapshot.lastError)!.messageKey)} · {(uiError ?? snapshot.lastError)!.code}</strong>
-            <p>{t((uiError ?? snapshot.lastError)!.actionKey)}</p>
-            <details className="technical-details">
-              <summary>{t("common.technicalDetails")}</summary>
-              <code>{(uiError ?? snapshot.lastError)!.detail}</code>
-            </details>
+            <strong>{t(error.messageKey)}</strong>
+            {error.detail && <p className="banner-detail">{error.detail}</p>}
+            <p>{t(error.actionKey)}</p>
           </div>
-          {uiError && <button onClick={clearUiError}>{t("common.dismiss")}</button>}
+          {uiError && <button className="ghost" onClick={clearUiError}>{t("common.close")}</button>}
         </section>
       )}
 
       {snapshot.ipChangeWarning && (
-        <section className="warning-banner">
-          {t("warning.ipChanged")}
+        <section className="banner banner-warn">
+          <span className="banner-icon" aria-hidden="true">!</span>
+          <div><p>{t("warning.ipChanged")}</p></div>
         </section>
       )}
 
-      <section className="hero-grid">
-        <article className="panel ingest-panel">
-          <div className="section-heading">
-            <div>
-              <p className="step">{t("ingest.step")}</p>
-              <h2>{t("ingest.title")}</h2>
-            </div>
-            <StatusPill label={mediaReady ? t("ingest.mediaReady") : t(`common.${snapshot.mediaMtx.toLowerCase()}`)} tone={mediaReady ? "good" : "warn"} />
-          </div>
+      {tab === "live" && (
+        <LiveTab snapshot={snapshot} settings={settings} setSettings={setSettings} busy={busy} act={act} t={t} live={live} liveSince={liveSince} />
+      )}
+      {tab === "camera" && <CameraTab snapshot={snapshot} busy={busy} act={act} t={t} />}
+      {tab === "advanced" && <AdvancedTab snapshot={snapshot} settings={settings} act={act} t={t} />}
+    </main>
+  );
+}
 
-          <label className="field-label" htmlFor="interface">{t("ingest.interface")}</label>
-          <select
-            id="interface"
-            value={snapshot.selectedInterface ?? ""}
-            onChange={(event) => void act("interface", () => selectInterface(event.target.value))}
-          >
-            {snapshot.interfaces.map((item) => (
-              <option key={item.name} value={item.name}>
-                {item.name} · {item.ipv4}{item.recommended ? ` · ${t("ingest.defaultRoute")}` : ""}
-              </option>
+function HeaderStatus({ snapshot, t }: { snapshot: BridgeSnapshot; t: Translate }) {
+  if (snapshot.production.active) {
+    return <span className="header-status live"><span className="dot" />{t("status.live")}</span>;
+  }
+  if (snapshot.mediaMtx !== "Ready") {
+    return <span className="header-status"><span className="dot" />{t("status.starting")}</span>;
+  }
+  return snapshot.publisherPresent
+    ? <span className="header-status good"><span className="dot" />{t("status.droneConnected")}</span>
+    : <span className="header-status wait"><span className="dot" />{t("status.waitingDrone")}</span>;
+}
+
+/* ---------------------------------------------------------------- Live tab */
+
+function LiveTab({
+  snapshot,
+  settings,
+  setSettings,
+  busy,
+  act,
+  t,
+  live,
+  liveSince,
+}: {
+  snapshot: BridgeSnapshot;
+  settings: NativeProductionSettings;
+  setSettings: (update: (current: NativeProductionSettings) => NativeProductionSettings) => void;
+  busy?: string;
+  act: Act;
+  t: Translate;
+  live: boolean;
+  liveSince?: number;
+}) {
+  const destinations = snapshot.production.destinations;
+  const hasEnabled = destinations.some((destination) => destination.enabled);
+
+  return (
+    <div className="live-layout">
+      <div className="steps">
+        <StepCard n={1} tone="cyan" done={snapshot.publisherPresent} title={t("s1.title")}>
+          <DroneStep snapshot={snapshot} busy={busy} act={act} t={t} />
+        </StepCard>
+        <StepCard n={2} tone="pink" done={hasEnabled} title={t("s2.title")}>
+          <DestinationStep destinations={destinations} live={live} busy={busy} act={act} t={t} />
+        </StepCard>
+        <StepCard n={3} tone="amber" done title={t("s3.title")}>
+          <SettingsStep snapshot={snapshot} settings={settings} setSettings={setSettings} disabled={live} t={t} />
+        </StepCard>
+      </div>
+
+      <div className="stage">
+        <PreviewCard snapshot={snapshot} busy={busy} act={act} t={t} />
+        <GoLivePanel snapshot={snapshot} settings={settings} busy={busy} act={act} t={t} liveSince={liveSince} />
+      </div>
+    </div>
+  );
+}
+
+function StepCard({ n, tone, done, title, children }: { n: number; tone: string; done: boolean; title: string; children: ReactNode }) {
+  return (
+    <section className={`card step-card tone-${tone} ${done ? "done" : ""}`}>
+      <header className="step-head">
+        <span className="step-badge">{done && n !== 3 ? "✓" : n}</span>
+        <h2>{title}</h2>
+      </header>
+      {children}
+    </section>
+  );
+}
+
+function DroneStep({ snapshot, busy, act, t }: { snapshot: BridgeSnapshot; busy?: string; act: Act; t: Translate }) {
+  const [qrCode, setQrCode] = useState<string>();
+  const [showQr, setShowQr] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const testRunning = snapshot.processes.some((process) => process.name === "test-drone" && process.status === "Running");
+
+  useEffect(() => {
+    if (!snapshot.rtmpUrl) {
+      setQrCode(undefined);
+      return;
+    }
+    void QRCode.toDataURL(snapshot.rtmpUrl, { width: 240, margin: 1, color: { dark: "#0b0d17ff", light: "#ffffffff" } }).then(setQrCode);
+  }, [snapshot.rtmpUrl]);
+
+  const copy = () => {
+    if (!snapshot.rtmpUrl) return;
+    void navigator.clipboard.writeText(snapshot.rtmpUrl).then(() => {
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1600);
+    });
+  };
+
+  return (
+    <>
+      <div className={`connection-state ${snapshot.publisherPresent ? "on" : ""}`}>
+        <span className="dot" />
+        {snapshot.publisherPresent ? t("s1.connected") : t("s1.waiting")}
+      </div>
+      <div className="copy-field">
+        <code>{snapshot.rtmpUrl ?? t("ingest.noInterface")}</code>
+        <button className="soft" disabled={!snapshot.rtmpUrl} onClick={copy}>{copied ? t("s1.copied") : t("s1.copy")}</button>
+        <button className="soft" disabled={!qrCode} onClick={() => setShowQr((value) => !value)}>{t("s1.qr")}</button>
+      </div>
+      {showQr && qrCode && <img className="qr" src={qrCode} alt={t("ingest.qrAlt")} />}
+      <p className="hint">{t("s1.help")}</p>
+      <div className="row-between">
+        {snapshot.interfaces.length > 1 ? (
+          <label className="inline-select">
+            {t("s1.network")}
+            <select value={snapshot.selectedInterface ?? ""} onChange={(event) => void act("interface", () => selectInterface(event.target.value))}>
+              {snapshot.interfaces.map((item) => (
+                <option key={item.name} value={item.name}>{item.name} · {item.ipv4}</option>
+              ))}
+            </select>
+          </label>
+        ) : <span />}
+        <button
+          className="link"
+          disabled={snapshot.mediaMtx !== "Ready" || busy === "test-drone" || (snapshot.publisherPresent && !testRunning)}
+          onClick={() =>
+            void act("test-drone", async () => {
+              if (testRunning) {
+                await stopTestDrone();
+                return;
+              }
+              const selected = await open({
+                multiple: false,
+                directory: false,
+                filters: [{ name: t("ingest.videoFilter"), extensions: ["mp4", "mov", "mkv", "m4v"] }],
+              });
+              if (typeof selected === "string") await startTestDrone(selected);
+            })
+          }
+        >
+          {testRunning ? t("s1.stopTest") : t("s1.test")}
+        </button>
+      </div>
+    </>
+  );
+}
+
+function PlatformIcon({ kind }: { kind: RtmpDestinationKind }) {
+  return (
+    <span className={`platform-icon ${kind.toLowerCase()}`} aria-hidden="true">
+      {kind === "Instagram" && (
+        <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="5" /><circle cx="12" cy="12" r="3.6" /><circle cx="16.9" cy="7.1" r="1" className="fill" /></svg>
+      )}
+      {kind === "TikTok" && (
+        <svg viewBox="0 0 24 24"><path d="M14 4v10.5a3.5 3.5 0 1 1-3.5-3.5M14 4c.4 2.6 2 4.2 4.8 4.4" /></svg>
+      )}
+      {kind === "Custom" && (
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2" className="fill" /><path d="M7.8 7.8a6 6 0 0 0 0 8.4M16.2 7.8a6 6 0 0 1 0 8.4M5 5a10 10 0 0 0 0 14M19 5a10 10 0 0 1 0 14" /></svg>
+      )}
+    </span>
+  );
+}
+
+interface DraftDestination {
+  id: string | null;
+  kind: RtmpDestinationKind;
+  name: string;
+  server: string;
+  key: string;
+  enabled: boolean;
+}
+
+function DestinationStep({
+  destinations,
+  live,
+  busy,
+  act,
+  t,
+}: {
+  destinations: RtmpDestinationState[];
+  live: boolean;
+  busy?: string;
+  act: Act;
+  t: Translate;
+}) {
+  const [draft, setDraft] = useState<DraftDestination | null>(null);
+  const editorOpen = draft !== null || destinations.length === 0;
+  const current: DraftDestination = draft ?? { id: null, kind: "Instagram", name: "", server: "", key: "", enabled: true };
+  const update = (patch: Partial<DraftDestination>) => setDraft({ ...current, ...patch });
+
+  const save = () =>
+    act("save-destination", async () => {
+      await upsertRtmpDestination(
+        current.id,
+        current.name.trim() || t(`destination.kind.${current.kind}`),
+        current.kind,
+        current.server.trim(),
+        current.key.trim() ? current.key.trim() : null,
+        current.enabled,
+      );
+      setDraft(null);
+    });
+
+  const canSave = !live && current.server.trim() !== "" && (current.id !== null || current.key.trim() !== "");
+
+  return (
+    <>
+      {destinations.length > 0 && (
+        <div className="destinations">
+          {destinations.map((destination) => (
+            <article className={`destination ${destination.enabled ? "on" : ""} ${destination.state ?? ""}`} key={destination.id}>
+              <PlatformIcon kind={destination.kind} />
+              <div className="destination-text">
+                <strong>{destination.name}</strong>
+                <small>{destination.server}</small>
+                {destination.lastError && <small className="error-text">{destination.lastError}</small>}
+              </div>
+              {live && destination.enabled ? (
+                <DestinationLiveState destination={destination} t={t} />
+              ) : (
+                <label className="switch" title={t("s2.include")}>
+                  <input
+                    type="checkbox"
+                    checked={destination.enabled}
+                    disabled={live || busy === `toggle-${destination.id}`}
+                    onChange={(event) => void act(`toggle-${destination.id}`, () => setRtmpDestinationEnabled(destination.id, event.target.checked))}
+                  />
+                  <span />
+                </label>
+              )}
+              {!live && (
+                <div className="destination-actions">
+                  <button
+                    className="link"
+                    onClick={() => setDraft({ id: destination.id, kind: destination.kind, name: destination.name, server: destination.server, key: "", enabled: destination.enabled })}
+                  >
+                    {destination.kind === "Instagram" ? t("s2.newKey") : t("destination.edit")}
+                  </button>
+                  <button
+                    className="link danger-link"
+                    onClick={() => {
+                      if (window.confirm(t("destination.removeConfirm"))) {
+                        void act(`remove-${destination.id}`, async () => {
+                          await removeRtmpDestination(destination.id);
+                          if (draft?.id === destination.id) setDraft(null);
+                        });
+                      }
+                    }}
+                  >
+                    {t("destination.remove")}
+                  </button>
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+      )}
+
+      {editorOpen && !live ? (
+        <div className="editor">
+          <div className="platform-picker" role="radiogroup">
+            {PLATFORMS.map((kind) => (
+              <button
+                key={kind}
+                role="radio"
+                aria-checked={current.kind === kind}
+                className={`platform-choice ${kind.toLowerCase()} ${current.kind === kind ? "selected" : ""}`}
+                onClick={() => update({ kind })}
+              >
+                <PlatformIcon kind={kind} />
+                {t(`destination.kind.${kind}`)}
+              </button>
             ))}
-          </select>
-
-          <div className="url-box">
-            <span>{t("ingest.ipLabel")}</span>
-            <code>{snapshot.rtmpUrl ?? t("ingest.noInterface")}</code>
-            <button
-              disabled={!snapshot.rtmpUrl}
-              onClick={() => snapshot.rtmpUrl && void navigator.clipboard.writeText(snapshot.rtmpUrl)}
-            >
-              {t("ingest.copyIp")}
+          </div>
+          <p className="hint">{t(`s2.help.${current.kind}`)}</p>
+          <label className="field">
+            <span>{t("s2.server")}</span>
+            <input value={current.server} placeholder={t(`s2.placeholder.${current.kind}`)} spellCheck={false} autoCapitalize="off" onChange={(event) => update({ server: event.target.value })} />
+          </label>
+          <label className="field">
+            <span>{t("s2.key")}</span>
+            <input
+              type="password"
+              value={current.key}
+              placeholder={current.id ? t("s2.keyKeep") : t("s2.keyNew")}
+              autoFocus={current.id !== null}
+              onChange={(event) => update({ key: event.target.value })}
+            />
+          </label>
+          <details className="more">
+            <summary>{t("s2.name")}</summary>
+            <input value={current.name} maxLength={64} placeholder={t(`destination.kind.${current.kind}`)} onChange={(event) => update({ name: event.target.value })} />
+          </details>
+          <div className="row-end">
+            {(draft !== null && destinations.length > 0) && <button className="ghost" onClick={() => setDraft(null)}>{t("s2.cancel")}</button>}
+            <button className="primary" disabled={!canSave || busy === "save-destination"} onClick={() => void save()}>
+              {current.id ? t("s2.saveChanges") : t("s2.save")}
             </button>
           </div>
-          <div className="qr-row">
-            <div className="qr-shell">{qrCode ? <img src={qrCode} alt={t("ingest.qrAlt")} /> : <span>{t("common.noUrl")}</span>}</div>
-            <div>
-              <strong>{t("ingest.path")}</strong>
-              <p>{t("ingest.pathSteps")}</p>
-              <small>{t("ingest.qrHelp")}</small>
-            </div>
-          </div>
+        </div>
+      ) : (
+        !live && <button className="dashed" onClick={() => setDraft({ id: null, kind: "Instagram", name: "", server: "", key: "", enabled: true })}>+ {t("s2.add")}</button>
+      )}
+      {destinations.some((destination) => destination.kind === "Instagram") && !live && (
+        <p className="hint note">{t("s2.igKeyNote")}</p>
+      )}
+    </>
+  );
+}
 
-          <div className="action-row">
+function DestinationLiveState({ destination, t }: { destination: RtmpDestinationState; t: Translate }) {
+  const state = destination.state ?? "starting";
+  const tone = state === "forwarding" ? "good" : state === "error" ? "bad" : "warn";
+  return <StatusPill label={t(`destination.state.${state}`)} tone={tone} />;
+}
+
+function SettingsStep({
+  snapshot,
+  settings,
+  setSettings,
+  disabled,
+  t,
+}: {
+  snapshot: BridgeSnapshot;
+  settings: NativeProductionSettings;
+  setSettings: (update: (current: NativeProductionSettings) => NativeProductionSettings) => void;
+  disabled: boolean;
+  t: Translate;
+}) {
+  const set = (patch: Partial<NativeProductionSettings>) => setSettings((current) => ({ ...current, ...patch }));
+  return (
+    <fieldset className="settings" disabled={disabled}>
+      <div className="setting">
+        <span>{t("s3.orientation")}</span>
+        <div className="segmented">
+          <button className={settings.layout === "Portrait" ? "active" : ""} onClick={() => set({ layout: "Portrait" })}>
+            <span className="shape portrait" />{t("s3.portrait")}
+          </button>
+          <button className={settings.layout === "Landscape" ? "active" : ""} onClick={() => set({ layout: "Landscape" })}>
+            <span className="shape landscape" />{t("s3.landscape")}
+          </button>
+        </div>
+      </div>
+      {settings.layout === "Landscape" && <p className="hint note">{t("s3.portraitHint")}</p>}
+      <div className="setting">
+        <span>{t("s3.framing")}</span>
+        <div className="segmented">
+          <button className={settings.fitMode === "Fit" ? "active" : ""} onClick={() => set({ fitMode: "Fit" })}>{t("s3.fit")}</button>
+          <button className={settings.fitMode === "Fill" ? "active" : ""} onClick={() => set({ fitMode: "Fill" })}>{t("s3.fill")}</button>
+        </div>
+      </div>
+      <div className="setting">
+        <span>{t("s3.mic")}</span>
+        <div className="mic-row">
+          <select value={settings.microphone ?? ""} onChange={(event) => set({ microphone: event.target.value || null })}>
+            <option value="">{t("s3.noMic")}</option>
+            {snapshot.audioInputs.map((device) => <option key={device.name} value={device.name}>{device.name}</option>)}
+          </select>
+          {settings.microphone && (
+            <label className="check">
+              <input type="checkbox" checked={settings.microphoneMuted} onChange={(event) => set({ microphoneMuted: event.target.checked })} />
+              {t("s3.mute")}
+            </label>
+          )}
+        </div>
+      </div>
+      {settings.microphone && (
+        <details className="more">
+          <summary>{t("s3.moreAudio")}</summary>
+          <div className="audio-grid">
+            <label className="field"><span>{t("audio.volume")}</span><input type="number" min={-60} max={12} step={1} value={settings.microphoneVolumeDb} onChange={(event) => set({ microphoneVolumeDb: Number(event.target.value) })} /></label>
+            <label className="field"><span>{t("audio.delay")}</span><input type="number" min={0} max={5000} value={settings.microphoneSyncMs} onChange={(event) => set({ microphoneSyncMs: Math.max(0, Number(event.target.value)) })} /></label>
+          </div>
+          <div className="checks">
+            <label className="check"><input type="checkbox" checked={settings.noiseSuppression} onChange={(event) => set({ noiseSuppression: event.target.checked })} />{t("audio.noiseSuppression")}</label>
+            <label className="check"><input type="checkbox" checked={settings.compressor} onChange={(event) => set({ compressor: event.target.checked })} />{t("audio.compressor")}</label>
+            <label className="check"><input type="checkbox" checked={settings.limiter} onChange={(event) => set({ limiter: event.target.checked })} />{t("audio.limiter")}</label>
+          </div>
+        </details>
+      )}
+    </fieldset>
+  );
+}
+
+function PreviewCard({ snapshot, busy, act, t }: { snapshot: BridgeSnapshot; busy?: string; act: Act; t: Translate }) {
+  const [previewError, setPreviewError] = useState<string>();
+  const [endpoint, setEndpoint] = useState(snapshot.preview.directWhepUrl);
+  const [documentVisible, setDocumentVisible] = useState(!document.hidden);
+
+  useEffect(() => {
+    const handleVisibility = () => setDocumentVisible(!document.hidden);
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, []);
+
+  useEffect(() => {
+    if (!snapshot.publisherPresent) {
+      setEndpoint(snapshot.preview.directWhepUrl);
+      setPreviewError(undefined);
+    }
+  }, [snapshot.preview.directWhepUrl, snapshot.publisherPresent]);
+
+  const handleConnected = useCallback(() => {
+    setPreviewError(undefined);
+    void reportPreviewStatus(true);
+  }, []);
+  const handleFailure = useCallback((reason: string) => {
+    setPreviewError(reason);
+    void reportPreviewStatus(false, reason);
+  }, []);
+  const startFallback = () =>
+    act("fallback", async () => {
+      setEndpoint(await activatePreviewFallback());
+      setPreviewError(undefined);
+    });
+
+  return (
+    <section className={`card preview-card ${snapshot.production.active ? "is-live" : ""}`}>
+      <WhepPreview endpoint={endpoint} active={snapshot.publisherPresent && documentVisible} onConnected={handleConnected} onFailure={handleFailure} t={t} />
+      {snapshot.production.active && <span className="live-badge"><span className="dot" />{t("status.live")}</span>}
+      {previewError && (
+        <div className="preview-note">
+          <span>{t("preview.unavailable")}</span>
+          <button className="soft" disabled={busy === "fallback"} onClick={() => void startFallback()}>{t("preview.startFallback")}</button>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function GoLivePanel({
+  snapshot,
+  settings,
+  busy,
+  act,
+  t,
+  liveSince,
+}: {
+  snapshot: BridgeSnapshot;
+  settings: NativeProductionSettings;
+  busy?: string;
+  act: Act;
+  t: Translate;
+  liveSince?: number;
+}) {
+  const [phase, setPhase] = useState<"preparing" | "connecting">();
+  const [now, setNow] = useState(Date.now());
+  const live = snapshot.production.active;
+  const enabled = snapshot.production.destinations.filter((destination) => destination.enabled);
+  const targetNames = enabled.map((destination) => destination.name).join(" + ");
+
+  useEffect(() => {
+    if (!live) return;
+    const timer = window.setInterval(() => setNow(Date.now()), 1000);
+    return () => window.clearInterval(timer);
+  }, [live]);
+
+  const checks = [
+    { key: "server", ok: snapshot.mediaMtx === "Ready" },
+    { key: "drone", ok: snapshot.publisherPresent },
+    { key: "destination", ok: enabled.length > 0 },
+  ];
+  const workflowAllowsStart = snapshot.workflow === "DroneConnected" || snapshot.workflow === "Ready";
+  const canStart = checks.every((check) => check.ok) && workflowAllowsStart && !busy;
+
+  const goLive = () =>
+    act("go-live", async () => {
+      try {
+        setPhase("preparing");
+        await prepareNativeProduction(settings);
+        setPhase("connecting");
+        await startLive();
+      } finally {
+        setPhase(undefined);
+      }
+    });
+
+  if (live) {
+    const partial = snapshot.production.forwardState === "partial";
+    return (
+      <section className="card golive-card live">
+        <div className="live-head">
+          <span className="live-badge static"><span className="dot" />{t("status.live")}</span>
+          <strong className="live-timer">{formatDuration(liveSince ? Math.floor((now - liveSince) / 1000) : 0)}</strong>
+        </div>
+        <div className="live-targets">
+          {enabled.map((destination) => (
+            <div className="live-target" key={destination.id}>
+              <PlatformIcon kind={destination.kind} />
+              <div>
+                <strong>{destination.name}</strong>
+                <small>{t("go.sent", { bytes: formatBytes(destination.outboundBytes) })}</small>
+              </div>
+              <DestinationLiveState destination={destination} t={t} />
+            </div>
+          ))}
+        </div>
+        {partial && <p className="hint warn-text">{t("go.partial")}</p>}
+        {enabled.some((destination) => destination.kind === "Instagram") && <p className="callout">{t("go.igReminder")}</p>}
+        {enabled.some((destination) => destination.kind === "TikTok") && <p className="callout">{t("go.tiktokReminder")}</p>}
+        <button className="stop-button" disabled={busy === "stop-live"} onClick={() => void act("stop-live", stopLive)}>
+          {busy === "stop-live" ? t("go.stopping") : t("go.stop")}
+        </button>
+      </section>
+    );
+  }
+
+  const accent = enabled.length === 1 ? enabled[0].kind.toLowerCase() : "mixed";
+  return (
+    <section className="card golive-card">
+      <div className="golive-head">
+        <h2>{t("go.title")}</h2>
+        {enabled.length > 0 && (
+          <span className="target-chips">
+            {enabled.map((destination) => <PlatformIcon key={destination.id} kind={destination.kind} />)}
+            <small>{targetNames}</small>
+          </span>
+        )}
+      </div>
+      <ul className="checklist">
+        {checks.map((check) => (
+          <li key={check.key} className={check.ok ? "ok" : ""}>
+            <span className="check-mark">{check.ok ? "✓" : ""}</span>
+            {t(`go.check.${check.key}`)}
+          </li>
+        ))}
+      </ul>
+      <button className={`go-button ${accent}`} disabled={!canStart} onClick={() => void goLive()}>
+        {phase === "preparing" ? <><span className="spinner" />{t("go.preparing")}</>
+          : phase === "connecting" ? <><span className="spinner" />{t("go.connecting", { target: targetNames })}</>
+          : t("go.start")}
+      </button>
+      {canStart && <p className="hint center">{t("go.ready")}</p>}
+    </section>
+  );
+}
+
+/* -------------------------------------------------------------- Camera tab */
+
+function CameraTab({ snapshot, busy, act, t }: { snapshot: BridgeSnapshot; busy?: string; act: Act; t: Translate }) {
+  const active = snapshot.virtualCamera.feedActive;
+  const ready = snapshot.virtualCamera.status === "Ready";
+  return (
+    <div className="single-column">
+      <section className="card">
+        <header className="card-head">
+          <div>
+            <h2>{t("camera.primaryTitle")}</h2>
+            <p className="hint">{t("camera.tabHelp")}</p>
+          </div>
+          <StatusPill
+            label={active ? t("camera.statusActive") : ready ? t("camera.statusReady") : t("camera.statusSetup")}
+            tone={active ? "good" : ready ? "neutral" : "warn"}
+          />
+        </header>
+        <p className="body-text">{t(snapshot.virtualCamera.detailKey)}</p>
+        <div className="row-start">
+          {!ready ? (
             <button
               className="primary"
-              disabled={!mediaReady || busy === "test-drone"}
-              onClick={() =>
-                void act("test-drone", async () => {
-                  const selected = await open({
-                    multiple: false,
-                    directory: false,
-                    filters: [{ name: t("ingest.videoFilter"), extensions: ["mp4", "mov", "mkv", "m4v"] }],
-                  });
-                  if (typeof selected === "string") await startTestDrone(selected);
-                })
-              }
+              disabled={!snapshot.virtualCamera.bundled || !snapshot.virtualCamera.appInstalled || busy === "enable-native-camera"}
+              onClick={() => void act("enable-native-camera", activateVirtualCameraExtension)}
             >
-              {t("ingest.startTest")}
+              {snapshot.virtualCamera.status === "Starting" ? t("camera.waitingApproval") : t("camera.enableOnce")}
             </button>
-            <button onClick={() => void act("stop-test", stopTestDrone)}>{t("ingest.stopTest")}</button>
-          </div>
-        </article>
-
-        <article className="panel preview-panel">
-          <div className="section-heading">
-            <div>
-              <p className="step">{t("preview.step")}</p>
-              <h2>{t("preview.title")}</h2>
-            </div>
-            <StatusPill
-              label={snapshot.preview.mode === "Transcoded" ? t("preview.transcode") : t("preview.direct")}
-              tone={snapshot.publisherPresent ? "good" : "neutral"}
-            />
-          </div>
-          <WhepPreview
-            endpoint={previewEndpoint}
-            active={snapshot.publisherPresent && documentVisible}
-            onConnected={handlePreviewConnected}
-            onFailure={handlePreviewFailure}
-            t={t}
-          />
-          {previewError && (
-            <div className="preview-error">
-              <div>
-                <strong>{t("preview.unavailable")}</strong>
-                <p>{t("preview.reason.failed")}</p>
-                <details className="technical-details">
-                  <summary>{t("common.technicalDetails")}</summary>
-                  <code>{previewError}</code>
-                </details>
-              </div>
-              <button
-                className="primary"
-                disabled={busy === "fallback"}
-                onClick={() => void startFallback()}
-              >
-                {t("preview.startFallback")}
-              </button>
-            </div>
+          ) : !active ? (
+            <button className="primary" disabled={!snapshot.publisherPresent || busy === "native-camera"} onClick={() => void act("native-camera", () => setNativeVirtualCamera(true))}>
+              {snapshot.publisherPresent ? t("camera.start") : t("camera.waitingForVideo")}
+            </button>
+          ) : (
+            <>
+              <button className="primary" disabled={busy === "open-live-studio"} onClick={() => void act("open-live-studio", openTikTokLiveStudio)}>{t("camera.openStudio")}</button>
+              <button className="danger" disabled={busy === "native-camera"} onClick={() => void act("native-camera", () => setNativeVirtualCamera(false))}>{t("camera.stop")}</button>
+            </>
           )}
-          {!previewError && snapshot.preview.mode === "Direct" && snapshot.metadata.audioCodec === "AAC" && (
-            <div className="preview-error audio-warning">
-              <div>
-                <strong>{t("preview.audioUnavailable")}</strong>
-                <p>{t("preview.aacExplanation")}</p>
-              </div>
-              <button disabled={busy === "fallback"} onClick={() => void startFallback()}>{t("preview.enableFallback")}</button>
-            </div>
-          )}
-          {snapshot.preview.reasonKey && <p className="inline-note">{t(snapshot.preview.reasonKey)}</p>}
+        </div>
+        <ol className="how-to">
+          <li>{t("guide.step1")}</li>
+          <li>{t("guide.step2")}</li>
+          <li>{t("guide.step3")}</li>
+          <li>{t("guide.step4")}</li>
+          <li>{t("guide.step5")}</li>
+        </ol>
+        <p className="hint">{t("camera.liveStudioHelp", { device: snapshot.virtualCamera.deviceName })}</p>
+      </section>
+    </div>
+  );
+}
 
-          <section className={`camera-launchpad ${nativeVirtualActive ? "active" : ""}`}>
-            <div className="camera-launchpad-heading">
-              <div>
-                <p className="step">{t("camera.primaryStep")}</p>
-                <h2>{t("camera.primaryTitle")}</h2>
-              </div>
-              <StatusPill
-                label={nativeVirtualActive ? t("camera.statusActive") : cameraReady ? t("camera.statusReady") : t("camera.statusSetup")}
-                tone={nativeVirtualActive ? "good" : cameraReady ? "neutral" : "warn"}
-              />
-            </div>
-            <p className="camera-state-message">{t(snapshot.virtualCamera.detailKey)}</p>
-            <div className="camera-primary-actions">
-              {!cameraReady ? (
-                <button
-                  className="primary camera-main-button"
-                  disabled={!snapshot.virtualCamera.bundled || !snapshot.virtualCamera.appInstalled || busy === "enable-native-camera"}
-                  onClick={() => void act("enable-native-camera", activateVirtualCameraExtension)}
-                >
-                  {snapshot.virtualCamera.status === "Starting" ? t("camera.waitingApproval") : t("camera.enableOnce")}
-                </button>
-              ) : !nativeVirtualActive ? (
-                <button
-                  className="primary camera-main-button"
-                  disabled={!snapshot.publisherPresent || busy === "native-camera"}
-                  onClick={() => void act("native-camera", () => setNativeVirtualCamera(true))}
-                >
-                  {snapshot.publisherPresent ? t("camera.start") : t("camera.waitingForVideo")}
-                </button>
-              ) : (
-                <button
-                  className="primary camera-main-button"
-                  disabled={busy === "open-live-studio"}
-                  onClick={() => void act("open-live-studio", openTikTokLiveStudio)}
-                >
-                  {t("camera.openStudio")}
-                </button>
-              )}
-              {nativeVirtualActive && (
-                <button className="danger" disabled={busy === "native-camera"} onClick={() => void act("native-camera", () => setNativeVirtualCamera(false))}>
-                  {t("camera.stop")}
-                </button>
-              )}
-            </div>
-            <p className="camera-footnote">{t("camera.liveStudioHelp", { device: snapshot.virtualCamera.deviceName })}</p>
-          </section>
-        </article>
+/* ------------------------------------------------------------ Advanced tab */
+
+function AdvancedTab({ snapshot, settings, act, t }: { snapshot: BridgeSnapshot; settings: NativeProductionSettings; act: Act; t: Translate }) {
+  const [diagnostics, setDiagnostics] = useState<DiagnosticItem[]>([]);
+  const [obsHost, setObsHost] = useState("127.0.0.1");
+  const [obsPort, setObsPort] = useState(4455);
+  const [obsPassword, setObsPassword] = useState("");
+  const obsVirtualActive = snapshot.obs.virtualCameraActive === true;
+
+  useEffect(() => {
+    void setObsMonitoring(true);
+    return () => void setObsMonitoring(false);
+  }, []);
+
+  const formatted = useMemo(() => {
+    const metadata = snapshot.metadata;
+    return {
+      bitrate: formatBitrate(metadata.bitrateCalculatedBps, t("common.unavailable")),
+      bytes: formatBytes(metadata.receivedBytes),
+      uptime: metadata.uptimeSeconds == null ? t("common.unavailable") : formatDuration(metadata.uptimeSeconds),
+      fps: metadata.fps ? `${metadata.fps.toFixed(2)} fps` : t("common.unavailable"),
+    };
+  }, [snapshot.metadata, t]);
+
+  return (
+    <div className="advanced-layout">
+      <p className="hint">{t("advanced.tabHelp")}</p>
+      <section className="metrics">
+        <Metric label={t("metrics.resolution")} value={snapshot.metadata.resolution ?? "—"} />
+        <Metric label={t("metrics.frameRate")} value={formatted.fps} />
+        <Metric label={t("metrics.codecs")} value={`${snapshot.metadata.videoCodec ?? "—"} / ${snapshot.metadata.audioCodec ?? "—"}`} />
+        <Metric label={t("metrics.bitrate")} value={formatted.bitrate} />
+        <Metric label={t("metrics.received")} value={formatted.bytes} />
+        <Metric label={t("metrics.uptime", { value: "" }).trim()} value={formatted.uptime} />
       </section>
 
-      <details
-        className="advanced-workspace"
-        onToggle={(event) => void setObsMonitoring(event.currentTarget.open)}
-      >
-        <summary>
-          <span><strong>{t("advanced.title")}</strong><small>{t("advanced.help")}</small></span>
-          <span>{t("advanced.toggle")}</span>
-        </summary>
-      <section className="metrics-grid">
-        <Metric label={t("metrics.resolution")} value={snapshot.metadata.resolution ?? t("common.detecting")} note={snapshot.metadata.resolution === "1280x720" ? t("metrics.resolutionNative") : t("metrics.reported")} />
-        <Metric label={t("metrics.frameRate")} value={formatted.fps} note={t("metrics.noAssumedFps")} />
-        <Metric label={t("metrics.codecs")} value={`${snapshot.metadata.videoCodec ?? "—"} / ${snapshot.metadata.audioCodec ?? "—"}`} note={t("metrics.videoAudio")} />
-        <Metric label={t("metrics.bitrate")} value={formatted.bitrate} note={t("metrics.calculated")} />
-        <Metric label={t("metrics.received")} value={formatted.bytes} note={t("metrics.uptime", { value: formatted.uptime })} />
-        <Metric label={t("metrics.latency")} value={t("common.unavailable")} note={t("metrics.latencyUnavailable")} />
-      </section>
-
-      <section className="production-grid">
-        <article className="panel obs-panel">
-          <div className="section-heading">
-            <div>
-              <p className="step">{t("production.step")}</p>
-              <h2>{t("production.nativeTitle")}</h2>
-            </div>
-            <StatusPill
-              label={snapshot.production.active
-                ? t("production.live", { encoder: snapshot.production.encoder ?? "H.264" })
-                : snapshot.production.prepared ? t("common.ready") : t("production.notPrepared")}
-              tone={snapshot.production.active || snapshot.production.prepared ? "good" : "neutral"}
-            />
-          </div>
-
-          <div className="segmented-row">
-            <div>
-              <span className="field-label">{t("production.canvas")}</span>
-              <div className="segmented">
-                <button className={layout === "Landscape" ? "active" : ""} onClick={() => setLayout("Landscape")}>1920 × 1080</button>
-                <button className={layout === "Portrait" ? "active" : ""} onClick={() => setLayout("Portrait")}>1080 × 1920</button>
-              </div>
-            </div>
-            <div>
-              <span className="field-label">{t("production.framing")}</span>
-              <div className="segmented">
-                <button className={fitMode === "Fit" ? "active" : ""} onClick={() => setFitMode("Fit")}>{t("production.fit")}</button>
-                <button className={fitMode === "Fill" ? "active" : ""} onClick={() => setFitMode("Fill")}>{t("production.fill")}</button>
-              </div>
-            </div>
-          </div>
-
-          <div className="audio-controls">
-            <label>{t("audio.commentary")}
-              <select value={microphone} onChange={(event) => setMicrophone(event.target.value)}>
-                <option value="">{t("audio.droneOnly")}</option>
-                {snapshot.audioInputs.map((device) => <option key={device.name} value={device.name}>{device.name}</option>)}
-              </select>
-            </label>
-            <label>{t("audio.volume")}<input type="number" min={-60} max={12} step={1} value={microphoneVolumeDb} onChange={(event) => setMicrophoneVolumeDb(Number(event.target.value))} /></label>
-            <label>{t("audio.delay")}<input type="number" min={0} max={5000} value={microphoneSyncMs} onChange={(event) => setMicrophoneSyncMs(Math.max(0, Number(event.target.value)))} /></label>
-          </div>
-          <div className="checkbox-row">
-            <label><input type="checkbox" checked={microphoneMuted} onChange={(event) => setMicrophoneMuted(event.target.checked)} /> {t("audio.mute")}</label>
-            <label><input type="checkbox" checked={noiseSuppression} onChange={(event) => setNoiseSuppression(event.target.checked)} /> {t("audio.noiseSuppression")}</label>
-            <label><input type="checkbox" checked={compressor} onChange={(event) => setCompressor(event.target.checked)} /> {t("audio.compressor")}</label>
-            <label><input type="checkbox" checked={limiter} onChange={(event) => setLimiter(event.target.checked)} /> {t("audio.limiter")}</label>
-          </div>
-          <button
-            className="primary wide"
-            disabled={!snapshot.publisherPresent || snapshot.production.active || busy === "prepare-native"}
-            onClick={() => void act("prepare-native", () => prepareNativeProduction({
-              layout,
-              fitMode,
-              microphone: microphone || null,
-              microphoneMuted,
-              microphoneVolumeDb,
-              microphoneSyncMs,
-              noiseSuppression,
-              compressor,
-              limiter,
-            }))}
-          >
-            {t("production.prepare")}
-          </button>
-          <div className="virtual-cam-row">
-            <div>
-              <strong>{t("recording.native")}</strong>
-              <p>{snapshot.production.recordingPath ?? t("recording.nativeHelp")}</p>
-            </div>
+      <div className="advanced-grid">
+        <section className="card">
+          <header className="card-head"><h2>{t("recording.native")}</h2></header>
+          <p className="hint">{snapshot.production.recordingPath ?? t("recording.nativeHelp")}</p>
+          <div className="row-start">
             <button
               className={snapshot.production.recordingActive ? "danger" : "primary"}
               disabled={!snapshot.publisherPresent}
@@ -537,178 +830,61 @@ function App() {
               {snapshot.production.recordingActive ? t("recording.stop") : t("recording.start")}
             </button>
           </div>
+        </section>
 
-          <div className="destination-box">
-            <div className="section-heading compact">
-              <div>
-                <p className="step">{t("destination.step")}</p>
-                <h2>{t("destination.multiTitle")}</h2>
-              </div>
-              <StatusPill
-                label={snapshot.production.active
-                  ? t("destination.streaming", { state: t(`destination.state.${snapshot.production.forwardState ?? "starting"}`) })
-                  : t("common.stopped")}
-                tone={snapshot.production.forwardState === "partial" ? "warn" : snapshot.production.forwardState === "error" ? "bad" : snapshot.production.active ? "good" : "neutral"}
-              />
-            </div>
-            <p className="inline-note">{t("destination.multiHelp")}</p>
-            <div className="destination-list">
-              {snapshot.production.destinations.length === 0 ? (
-                <div className="destination-empty">{t("destination.empty")}</div>
-              ) : snapshot.production.destinations.map((destination) => (
-                <article className={`destination-card ${destination.enabled ? "enabled" : ""}`} key={destination.id}>
-                  <label className="destination-toggle">
-                    <input
-                      type="checkbox"
-                      checked={destination.enabled}
-                      disabled={snapshot.production.active}
-                      onChange={(event) => void act(`toggle-${destination.id}`, () => setRtmpDestinationEnabled(destination.id, event.target.checked))}
-                    />
-                    <span>
-                      <strong>{destination.name}</strong>
-                      <small>{t(`destination.kind.${destination.kind}`)} · {destination.server}</small>
-                    </span>
-                  </label>
-                  <div className="destination-card-status">
-                    <StatusPill
-                      label={!destination.enabled
-                        ? t("destination.state.disabled")
-                        : snapshot.production.active
-                          ? t(`destination.state.${destination.state ?? "starting"}`)
-                          : t("destination.state.ready")}
-                      tone={destination.state === "error" ? "bad" : destination.state === "forwarding" ? "good" : destination.enabled ? "neutral" : "warn"}
-                    />
-                    {destination.outboundBytes > 0 && <small>{formatBytes(destination.outboundBytes)}</small>}
-                  </div>
-                  {destination.lastError && <p className="destination-error">{destination.lastError}</p>}
-                  <div className="destination-card-actions">
-                    <button disabled={snapshot.production.active} onClick={() => editDestination(destination)}>{t("destination.edit")}</button>
-                    <button
-                      className="danger-quiet"
-                      disabled={snapshot.production.active}
-                      onClick={() => {
-                        if (window.confirm(t("destination.removeConfirm"))) {
-                          void act(`remove-${destination.id}`, async () => {
-                            await removeRtmpDestination(destination.id);
-                            if (editingDestinationId === destination.id) resetDestinationForm();
-                          });
-                        }
-                      }}
-                    >
-                      {t("destination.remove")}
-                    </button>
-                  </div>
-                </article>
-              ))}
-            </div>
-
-            <div className="destination-editor">
-              <strong>{editingDestinationId ? t("destination.editTitle") : t("destination.addTitle")}</strong>
-              <div className="destination-editor-grid">
-                <label>{t("destination.name")}<input value={destinationName} maxLength={64} placeholder={t("destination.namePlaceholder")} onChange={(event) => setDestinationName(event.target.value)} /></label>
-                <label>{t("destination.platform")}
-                  <select value={destinationKind} onChange={(event) => setDestinationKind(event.target.value as RtmpDestinationKind)}>
-                    <option value="Instagram">{t("destination.kind.Instagram")}</option>
-                    <option value="TikTok">{t("destination.kind.TikTok")}</option>
-                    <option value="Custom">{t("destination.kind.Custom")}</option>
-                  </select>
-                </label>
-                <label>{t("rtmp.server")}<input value={destinationServer} placeholder="rtmps://…" onChange={(event) => setDestinationServer(event.target.value)} /></label>
-                <label>{t("rtmp.streamKey")}<input type="password" value={streamKey} placeholder={editingDestinationId ? t("destination.keepKey") : t("rtmp.keychainPlaceholder")} onChange={(event) => setStreamKey(event.target.value)} /></label>
-              </div>
-              <label className="destination-enabled"><input type="checkbox" checked={destinationEnabled} onChange={(event) => setDestinationEnabled(event.target.checked)} /> {t("destination.include")}</label>
-              <div className="action-row">
-                <button
-                  onClick={() => void saveDestination()}
-                  disabled={snapshot.production.active || !destinationName.trim() || !destinationServer.trim() || (!editingDestinationId && !streamKey.trim())}
-                >
-                  {editingDestinationId ? t("destination.update") : t("destination.add")}
-                </button>
-                {editingDestinationId && <button onClick={resetDestinationForm}>{t("destination.cancel")}</button>}
-              </div>
-            </div>
-
-            <div className="action-row live-actions">
-              {!snapshot.production.active ? (
-                <button
-                  className="primary"
-                  disabled={snapshot.workflow !== "Ready" || snapshot.production.engine !== "NativeFfmpeg" || !snapshot.production.destinations.some((destination) => destination.enabled)}
-                  onClick={() => void act("start-live", startLive)}
-                >
-                  {t("rtmp.startSelected")}
-                </button>
-              ) : (
-                <button className="danger" onClick={() => void act("stop-live", stopLive)}>{t("rtmp.stopAll")}</button>
-              )}
-            </div>
-            <p className="inline-note">{t("rtmp.securityHelpMulti")}</p>
-          </div>
-
-          <details className="optional-obs">
-            <summary>{t("obs.summary")}</summary>
-            <p className="inline-note">{t("obs.help")}</p>
-            <div className="obs-fields">
-              <label>{t("obs.host")}<input value={obsHost} onChange={(event) => setObsHost(event.target.value)} /></label>
-              <label>{t("obs.port")}<input type="number" value={obsPort} onChange={(event) => setObsPort(Number(event.target.value))} /></label>
-              <label className="password-field">{t("obs.password")}<input type="password" value={obsPassword} placeholder={t("rtmp.keychainPlaceholder")} onChange={(event) => setObsPassword(event.target.value)} /></label>
-            </div>
-            <div className="action-row">
-              <button onClick={() => void act("save-obs", () => saveObsConnection(obsHost, obsPort, obsPassword))}>{t("obs.save")}</button>
-              <button onClick={() => void act("open-obs", openObs)}>{snapshot.obs.installed ? t("obs.open") : t("obs.download")}</button>
-              <button disabled={!snapshot.publisherPresent || !snapshot.obs.connected} onClick={() => void act("prepare-obs", () => prepareObs(layout, fitMode))}>{t("obs.prepare")}</button>
-            </div>
-            <div className="virtual-cam-row">
-              <div><strong>{t("obs.camera")}</strong><p>{t("obs.cameraHelp")}</p></div>
-              <button className={obsVirtualActive ? "danger" : "primary"} disabled={!snapshot.obs.connected || !snapshot.obs.sceneReady} onClick={() => void act("virtual-cam", () => setObsVirtualCamera(!obsVirtualActive))}>{obsVirtualActive ? t("camera.stop") : t("camera.start")}</button>
-            </div>
-            <div className="virtual-cam-row">
-              <div><strong>{t("obs.recording")}</strong><p>{snapshot.obs.lastRecordingPath ?? t("obs.recordingHelp")}</p></div>
-              <button className={snapshot.obs.recordingActive ? "danger" : "primary"} disabled={!snapshot.obs.connected || !snapshot.obs.sceneReady} onClick={() => void act("recording", () => setRecording(!snapshot.obs.recordingActive))}>{snapshot.obs.recordingActive ? t("obs.stopRecording") : t("obs.startRecording")}</button>
-            </div>
-          </details>
-        </article>
-
-        <article className="panel diagnostics-panel">
-          <div className="section-heading">
-            <div>
-              <p className="step">{t("diagnostics.step")}</p>
-              <h2>{t("diagnostics.title")}</h2>
-            </div>
-            <button onClick={() => void act("diagnostics", async () => setDiagnostics(await getDiagnostics()))}>{t("diagnostics.run")}</button>
-          </div>
+        <section className="card">
+          <header className="card-head">
+            <h2>{t("diagnostics.title")}</h2>
+            <button className="soft" onClick={() => void act("diagnostics", async () => setDiagnostics(await getDiagnostics()))}>{t("diagnostics.run")}</button>
+          </header>
           {diagnostics.length === 0 ? (
-            <div className="empty-diagnostics">{t("diagnostics.empty")}</div>
+            <p className="hint">{t("diagnostics.empty")}</p>
           ) : (
-            <div className="diagnostic-list">
+            <div className="diagnostics">
               {diagnostics.map((item) => (
-                <div className="diagnostic-item" key={item.id}>
+                <div className="diagnostic" key={item.id}>
                   <StatusPill label={t(`common.${item.level.toLowerCase()}`)} tone={item.level === "Pass" ? "good" : item.level === "Warning" ? "warn" : "bad"} />
                   <div>
                     <strong>{t(item.nameKey)}</strong>
                     <p>{t(item.detailKey)}</p>
-                    <details className="technical-details diagnostic-technical">
-                      <summary>{t("common.technicalDetails")}</summary>
-                      <code>{item.technicalDetail}</code>
-                    </details>
-                    {item.actionKey && <small>{t(item.actionKey)}</small>}
+                    {item.actionKey && <p className="warn-text">{t(item.actionKey)}</p>}
+                    <details><summary>{t("common.technicalDetails")}</summary><code>{item.technicalDetail}</code></details>
                   </div>
                 </div>
               ))}
             </div>
           )}
-          <div className="hard-truth">
-            <strong>{t("diagnostics.tiktokTitle")}</strong>
-            <p>{t("diagnostics.tiktokHelp")}</p>
+        </section>
+
+        <section className="card">
+          <header className="card-head"><h2>{t("obs.summary")}</h2></header>
+          <p className="hint">{t("obs.help")}</p>
+          <div className="obs-grid">
+            <label className="field"><span>{t("obs.host")}</span><input value={obsHost} onChange={(event) => setObsHost(event.target.value)} /></label>
+            <label className="field"><span>{t("obs.port")}</span><input type="number" value={obsPort} onChange={(event) => setObsPort(Number(event.target.value))} /></label>
+            <label className="field"><span>{t("obs.password")}</span><input type="password" value={obsPassword} onChange={(event) => setObsPassword(event.target.value)} /></label>
           </div>
-        </article>
-      </section>
-      </details>
-    </main>
+          <div className="row-start">
+            <button className="soft" onClick={() => void act("save-obs", () => saveObsConnection(obsHost, obsPort, obsPassword))}>{t("obs.save")}</button>
+            <button className="soft" onClick={() => void act("open-obs", openObs)}>{snapshot.obs.installed ? t("obs.open") : t("obs.download")}</button>
+            <button className="soft" disabled={!snapshot.publisherPresent || !snapshot.obs.connected} onClick={() => void act("prepare-obs", () => prepareObs(settings.layout, settings.fitMode))}>{t("obs.prepare")}</button>
+          </div>
+          <div className="row-between spaced">
+            <span className="hint">{t("obs.camera")}</span>
+            <button className={obsVirtualActive ? "danger" : "soft"} disabled={!snapshot.obs.connected || !snapshot.obs.sceneReady} onClick={() => void act("virtual-cam", () => setObsVirtualCamera(!obsVirtualActive))}>{obsVirtualActive ? t("camera.stop") : t("camera.start")}</button>
+          </div>
+          <div className="row-between spaced">
+            <span className="hint">{snapshot.obs.lastRecordingPath ?? t("obs.recording")}</span>
+            <button className={snapshot.obs.recordingActive ? "danger" : "soft"} disabled={!snapshot.obs.connected || !snapshot.obs.sceneReady} onClick={() => void act("recording", () => setRecording(!snapshot.obs.recordingActive))}>{snapshot.obs.recordingActive ? t("obs.stopRecording") : t("obs.startRecording")}</button>
+          </div>
+        </section>
+      </div>
+    </div>
   );
 }
 
-function Metric({ label, value, note }: { label: string; value: string; note: string }) {
-  return <article className="metric"><span>{label}</span><strong>{value}</strong><small>{note}</small></article>;
+function Metric({ label, value }: { label: string; value: string }) {
+  return <article className="metric"><span>{label}</span><strong>{value}</strong></article>;
 }
 
 function formatBitrate(value: number | null | undefined, unavailable: string) {
@@ -718,13 +894,12 @@ function formatBitrate(value: number | null | undefined, unavailable: string) {
 
 function formatBytes(value: number) {
   if (value < 1024) return `${value} B`;
-  if (value < 1024 ** 2) return `${(value / 1024).toFixed(1)} KiB`;
-  if (value < 1024 ** 3) return `${(value / 1024 ** 2).toFixed(1)} MiB`;
-  return `${(value / 1024 ** 3).toFixed(2)} GiB`;
+  if (value < 1024 ** 2) return `${(value / 1024).toFixed(1)} KB`;
+  if (value < 1024 ** 3) return `${(value / 1024 ** 2).toFixed(1)} MB`;
+  return `${(value / 1024 ** 3).toFixed(2)} GB`;
 }
 
-function formatDuration(value: number | null | undefined, unavailable: string) {
-  if (value == null) return unavailable;
+function formatDuration(value: number) {
   const hours = Math.floor(value / 3600);
   const minutes = Math.floor((value % 3600) / 60);
   const seconds = value % 60;

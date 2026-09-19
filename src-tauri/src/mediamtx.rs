@@ -240,9 +240,7 @@ impl MediaMtxController {
             .iter()
             .map(|(server, key)| {
                 crate::config::validate_rtmp_destination(server, key)?;
-                Ok(serde_json::json!({
-                    "dest": format!("{}#{}", server.trim_end_matches('#'), key)
-                }))
+                Ok(serde_json::json!({ "dest": forward_dest(server, key) }))
             })
             .collect::<BridgeResult<Vec<_>>>()?;
         self.client
@@ -392,6 +390,13 @@ fn resolve_sidecar_path() -> BridgeResult<PathBuf> {
     )))
 }
 
+/// MediaMTX joins `server#key` as `server + "/" + key`. Platforms hand out
+/// servers ending in `/` (Instagram: `rtmps://…:443/rtmp/`), which would make
+/// the stream path `rtmp//KEY`; trim so it becomes `rtmp/KEY` like OBS sends.
+fn forward_dest(server: &str, key: &str) -> String {
+    format!("{}#{}", server.trim_end_matches(['#', '/']), key)
+}
+
 /// A SIGKILL right at launch is macOS code-signing enforcement (AMFI), not a
 /// MediaMTX bug: the sidecar was signed with the app's restricted entitlements.
 fn sidecar_exit_message(reason: &str) -> String {
@@ -435,6 +440,19 @@ fn now_unix_ms() -> u64 {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn forward_dest_avoids_double_slash_and_keeps_query() {
+        let key = "IG123?s_bl=1&s_vt=ig&a=Ab";
+        assert_eq!(
+            forward_dest("rtmps://edgetee-upload.example:443/rtmp/", key),
+            "rtmps://edgetee-upload.example:443/rtmp#IG123?s_bl=1&s_vt=ig&a=Ab"
+        );
+        assert_eq!(
+            forward_dest("rtmp://push.example/live", "abc"),
+            "rtmp://push.example/live#abc"
+        );
+    }
 
     #[test]
     fn sigkill_points_at_code_signing() {

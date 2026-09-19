@@ -87,21 +87,17 @@ DJI / Test Drone → MediaMTX /drone → FFmpeg NV12 1080×1920@30
 
 Kamera etkinleştirme macOS güvenlik modelinin parçasıdır; uygulamanın `/Applications` altında bulunması ve ilk kullanımda yönetici onayı gerekir. `Go Live` işlemi TikTok LIVE Studio içinde manuel kalır.
 
-## Instagram + TikTok'a aynı anda Direct RTMP yayın
+## Instagram / TikTok'a Direct RTMP yayın
 
-Bu akışta `DJI Live Bridge Camera` ile Direct RTMP birbirinden bağımsızdır; sanal kamera açık kalırken aynı production görüntüsü birden fazla RTMP hedefine gönderilebilir.
+`Canlı yayın` sekmesi tek ekranlık üç adımlı akıştır:
 
-1. DJI veya `Test Drone` görüntüsünü bağla ve önizlemeyi doğrula.
-2. İstersen ana kamera kartından `DJI Live Bridge Camera` görüntü akışını başlat. Bu işlem RTMP hedeflerini değiştirmez.
-3. `Gelişmiş ayarlar ve tanılama` bölümünü aç.
-4. `Aynı anda RTMP hedefleri` bölümünde hedef adı, platform, RTMP server URL ve stream key girip hedefi ekle. Instagram ve TikTok için bunu ayrı ayrı yap.
-5. Yayına katılacak hedeflerin anahtarını açık bırak; geçici olarak istemediğin hedefi kapat. Hedefleri yalnız yayın durmuşken düzenleyebilirsin.
-6. Production ayarlarında yerleşik engine'i kullan ve görüntü yönü, mikrofon ve ses ayarlarını seç.
-7. `Seçili hedeflere yayını başlat` düğmesine bas. Uygulama production görüntüsünü bir kez encode eder ve tüm etkin hedeflere iletir.
-8. Her hedef kartında `Canlı`, `Bağlantı kuruluyor` veya `Bağlantı başarısız` durumu ayrı gösterilir. Bir hedef başarısız olsa bile diğer hedefin yayını devam eder; üst durum `Kısmen canlı` olur.
-9. Bitirdiğinde `Tüm yayınları durdur` düğmesine bas. Sanal kamera gerekiyorsa ayrıca kendi kartından durdurulur.
+1. **Drone'u bağla** — gösterilen `rtmp://…/drone` adresini DJI Fly'a yapıştır (veya `Bir video dosyasıyla dene`). Görüntü gelince adım yeşile döner.
+2. **Nereye yayın yapacaksın?** — Instagram, TikTok veya Özel RTMP seç; platformun verdiği sunucu URL'si ile yayın anahtarını yapıştırıp kaydet. Instagram'da: instagram.com → Oluştur (+) → Canlı video. Instagram her yayında yeni anahtar verir; hedef kartındaki `Anahtarı güncelle` ile yenile. Birden fazla hedef açıksa aynı görüntü hepsine aynı anda gider.
+3. **Görüntü ve ses** — Instagram/TikTok için `Dikey 9:16` (varsayılan), kadraj ve isteğe bağlı mikrofon. Seçimler hatırlanır.
 
-Instagram ve TikTok'un verdiği RTMP server URL ile stream key değerlerini aynen kullan. Stream key alanı düzenleme sırasında boş bırakılırsa Keychain'deki mevcut değer korunur. Uygulama platform hesabına giriş yapmaz ve platformdaki yayın başlatma/onay ekranlarını otomatik geçmez.
+Sağdaki `YAYINI BAŞLAT` düğmesi, üç ön koşul (yerel sunucu, drone görüntüsü, seçili hedef) sağlanınca açılır; production hattını hazırlayıp yayını tek tıkla başlatır. Yayın sırasında süre, her hedefin durumu (`Yayında` / `Bağlanıyor` / `Bağlantı başarısız`) ve gönderilen veri gösterilir; bir hedef hata verse bile diğeri devam eder. Instagram'da yayının herkese açılması için Instagram'daki `Canlı yayına geç` düğmesine ayrıca basılmalıdır. Bitirmek için `Yayını bitir`.
+
+Uygulama platform hesabına giriş yapmaz ve platformdaki yayın başlatma/onay ekranlarını otomatik geçmez. TikTok LIVE Studio sanal kamerası ayrı sekmededir; kayıt, ölçümler, OBS ve tanılama `Gelişmiş` sekmesindedir.
 
 ## Dil desteği
 
