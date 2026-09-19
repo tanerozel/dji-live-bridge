@@ -13,6 +13,9 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    # The default token is read-only, so uploading to a release returns 403.
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
