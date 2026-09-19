@@ -93,7 +93,7 @@ impl AppState {
         let mut obs_check = Instant::now();
         let mut audio_check = Instant::now() - Duration::from_secs(30);
         let mut production_check = Instant::now();
-        let mut virtual_camera_check = Instant::now() - Duration::from_secs(5);
+        let mut virtual_camera_check = Instant::now() - Duration::from_secs(60);
         let mut obs_backoff = Duration::from_secs(2);
         loop {
             tokio::time::sleep(Duration::from_secs(1)).await;
@@ -774,6 +774,27 @@ impl AppState {
                 return Err(BridgeError::VirtualCamera(
                     "Virtual camera requires an active DJI or Test Drone publisher".into(),
                 ));
+            }
+            // The cached status can be up to 30 s old, and macOS deactivates the
+            // extension whenever the app in /Applications is replaced. Check
+            // the live state; if it is not active, start activation instead of
+            // failing, and let the monitor flip it to Ready once approved.
+            let camera = tokio::task::spawn_blocking(|| virtual_camera::inspect(false))
+                .await
+                .map_err(|error| {
+                    BridgeError::VirtualCamera(format!("Camera status check failed: {error}"))
+                })?;
+            if camera.status != ServiceStatus::Ready {
+                let awaiting_approval = camera.status == ServiceStatus::Starting;
+                self.state
+                    .mutate(app, |snapshot| snapshot.virtual_camera = camera)
+                    .await;
+                if awaiting_approval {
+                    return Err(BridgeError::VirtualCamera(
+                        "macOS is waiting for you to allow DJI Live Bridge Camera in System Settings → General → Login Items & Extensions → Camera Extensions".into(),
+                    ));
+                }
+                return self.activate_virtual_camera_extension(app).await;
             }
             virtual_camera::start_feed(&self.supervisor).await?;
             self.state

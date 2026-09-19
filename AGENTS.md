@@ -23,7 +23,20 @@ Applies to Codex, Claude Code and any other coding agent working in this repo.
   MediaMTX that holds ports 1935/8554/9997.
 
 Signing details: identity `Developer ID Application: Taner Ozel (GXDXLCQ92M)` (override with
-`APPLE_SIGNING_IDENTITY`). Builds are not notarized; first launch needs right-click > Open.
+`APPLE_SIGNING_IDENTITY`).
+
+**Notarization is mandatory, not optional.** macOS only activates a Developer ID signed system
+extension when the app is notarized; otherwise the virtual camera fails with
+`code=8 domain=OSSystemExtensionErrorDomain desc=code signature invalid`. `build:mac` notarizes
+and staples both the `.app` and the `.dmg` using the notarytool keychain profile `dji-live-bridge`
+(override with `NOTARY_PROFILE`), and `verify-bundle.sh` fails if the ticket is missing.
+- If the profile is missing, create it once:
+  `xcrun notarytool store-credentials dji-live-bridge --key <AuthKey.p8> --key-id <id> --issuer <issuer>`.
+  Never commit the `.p8` key or put credentials in the repo.
+- `NOTARIZE=0 npm run build:mac` is only for UI-only iteration; that build's camera will not work.
+- After re-signing anything inside an already stapled app, the ticket is invalid: rebuild instead.
+- Replacing `/Applications/DJI Live Bridge.app` makes macOS deactivate the old camera extension; the
+  user must press Start Virtual Camera (which re-requests activation) and may need to approve or reboot.
 
 ## Checks before finishing a change
 

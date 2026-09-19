@@ -61,6 +61,20 @@ else
   fail "mediamtx cannot launch (exit $status; 137 = killed by macOS code-signing enforcement)"
 fi
 
+# A Developer ID system extension is only activated when notarized.
+if [ "${REQUIRE_NOTARIZED:-0}" = "1" ]; then
+  if xcrun stapler validate "$APP_PATH" >/dev/null 2>&1; then
+    pass "notarization ticket stapled"
+  else
+    fail "no stapled notarization ticket (the camera extension will fail with code=8)"
+  fi
+  if spctl -a -vv "$APP_PATH" 2>&1 | grep -q "Notarized Developer ID"; then
+    pass "Gatekeeper accepts the app as notarized"
+  else
+    fail "Gatekeeper does not accept the app as notarized"
+  fi
+fi
+
 if [ "$failures" -gt 0 ]; then
   echo "Bundle verification FAILED ($failures problem(s)). Do not ship or install this build." >&2
   exit 1

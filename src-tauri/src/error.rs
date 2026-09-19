@@ -42,6 +42,7 @@ pub struct ErrorPayload {
 
 impl From<BridgeError> for ErrorPayload {
     fn from(value: BridgeError) -> Self {
+        tracing::warn!(error = %redact_secrets(&value.to_string()), "command failed");
         let (code, message_key, action_key) = match &value {
             BridgeError::Config(_) => ("CONFIG", "errors.message.config", "errors.action.config"),
             BridgeError::Network(_) => {

@@ -7,6 +7,12 @@ set -euo pipefail
 # http://127.0.0.1:9997. This script builds, fixes signing, verifies the .app,
 # then builds the .dmg FROM the fixed app and verifies that too.
 #
+# It also notarizes. macOS refuses to activate a Developer ID signed system
+# extension that is not notarized ("code=8 OSSystemExtensionErrorDomain code
+# signature invalid"), so without notarization the virtual camera never works.
+# Credentials come from a notarytool keychain profile (default
+# "dji-live-bridge"); set NOTARIZE=0 only for quick UI-only builds.
+#
 # Usage: scripts/build-macos.sh [target-triple]   (default: this machine's arch)
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
@@ -22,9 +28,25 @@ APP="$BUNDLE_DIR/macos/$PRODUCT.app"
 VERSION="$(node -p "require('./package.json').version")"
 DMG_ARCH="${TARGET%%-*}"
 DMG="$BUNDLE_DIR/dmg/${PRODUCT}_${VERSION}_${DMG_ARCH}.dmg"
+NOTARIZE="${NOTARIZE:-1}"
+NOTARY_PROFILE="${NOTARY_PROFILE:-dji-live-bridge}"
 
 step() { printf '\n==> %s\n' "$*"; }
 die() { printf 'error: %s\n' "$*" >&2; exit 1; }
+
+# Submit a file, wait, and fail with Apple's log if it is not Accepted.
+notarize() {
+  local file="$1" result id status
+  result="$(xcrun notarytool submit "$file" --keychain-profile "$NOTARY_PROFILE" --wait --output-format json)" \
+    || die "notarytool submit failed for $file"
+  id="$(node -e 'console.log(JSON.parse(process.argv[1]).id)' "$result")"
+  status="$(node -e 'console.log(JSON.parse(process.argv[1]).status)' "$result")"
+  echo "notarization $id: $status"
+  if [ "$status" != "Accepted" ]; then
+    xcrun notarytool log "$id" --keychain-profile "$NOTARY_PROFILE" >&2 || true
+    die "notarization was not accepted for $file"
+  fi
+}
 
 step "Preflight"
 
@@ -54,6 +76,14 @@ if [ "$IDENTITY" != "-" ] && ! security find-identity -v -p codesigning | grep -
   die "signing identity not found in keychain: $IDENTITY (set APPLE_SIGNING_IDENTITY, or '-' for ad-hoc)"
 fi
 
+if [ "$NOTARIZE" = "1" ]; then
+  [ "$IDENTITY" != "-" ] || die "notarization needs a Developer ID identity (or set NOTARIZE=0)"
+  xcrun notarytool history --keychain-profile "$NOTARY_PROFILE" >/dev/null 2>&1 \
+    || die "notarytool keychain profile '$NOTARY_PROFILE' is missing or invalid. Create it once with:
+  xcrun notarytool store-credentials $NOTARY_PROFILE --key <AuthKey_XXXX.p8> --key-id <KEY_ID> --issuer <ISSUER_ID>
+(or set NOTARIZE=0 for a UI-only build; the virtual camera will NOT activate)"
+fi
+
 # A running instance would keep serving old code and hold ports 1935/8554/9997.
 if pgrep -f "$PRODUCT.app/Contents/MacOS/dji-live-bridge" >/dev/null 2>&1; then
   die "$PRODUCT is running; quit it before building"
@@ -74,6 +104,16 @@ step "Fixing sidecar signing"
 step "Verifying app bundle"
 ./scripts/verify-bundle.sh "$APP"
 
+if [ "$NOTARIZE" = "1" ]; then
+  step "Notarizing app (usually 1-5 minutes)"
+  zip="$(mktemp -d)/$PRODUCT.zip"
+  ditto -c -k --keepParent "$APP" "$zip"
+  notarize "$zip"
+  rm -f "$zip"
+  xcrun stapler staple "$APP"
+  REQUIRE_NOTARIZED=1 ./scripts/verify-bundle.sh "$APP"
+fi
+
 step "Creating DMG from the verified app"
 stage="$(mktemp -d)"
 mount_point=""
@@ -88,13 +128,22 @@ mkdir -p "$BUNDLE_DIR/dmg"
 rm -f "$DMG"
 hdiutil create -volname "$PRODUCT" -srcfolder "$stage" -ov -format UDZO "$DMG" >/dev/null
 codesign --force --sign "$IDENTITY" --timestamp "$DMG"
+if [ "$NOTARIZE" = "1" ]; then
+  step "Notarizing DMG"
+  notarize "$DMG"
+  xcrun stapler staple "$DMG"
+fi
 
 step "Verifying the app inside the DMG"
 mount_point="$(mktemp -d)"
 hdiutil attach "$DMG" -nobrowse -readonly -mountpoint "$mount_point" -quiet
-./scripts/verify-bundle.sh "$mount_point/$PRODUCT.app"
+REQUIRE_NOTARIZED="$NOTARIZE" ./scripts/verify-bundle.sh "$mount_point/$PRODUCT.app"
 
 step "Done"
 echo "App: $APP"
 echo "DMG: $DMG"
-echo "Not notarized: first launch needs right-click > Open. Notarize for distribution."
+if [ "$NOTARIZE" = "1" ]; then
+  echo "Notarized and stapled: opens without warnings; the camera extension can be activated."
+else
+  echo "WARNING: NOT notarized (NOTARIZE=0). The virtual camera extension will be rejected by macOS."
+fi

@@ -164,7 +164,7 @@ RTMP config serileştirme, secret ayrımı, URL doğrulama ve bir hedef çalış
 
 ## Packaging, signing ve notarization
 
-Tauri `externalBin` target-triple kuralı nedeniyle her hedef için doğru sidecar dosyası build öncesi bulunmalıdır. MediaMTX executable izni (`0755`) korunmalıdır. `.app` ve `.dmg` üretimi sidecar'ı içeri alır; dağıtılacak build'de Apple Developer ID signing ve notarization hem ana executable'ı hem sidecar'ı kapsamalıdır. Unsigned local build yalnız geliştirme/test içindir.
+Tauri `externalBin` target-triple kuralı nedeniyle her hedef için doğru sidecar dosyası build öncesi bulunmalıdır. MediaMTX executable izni (`0755`) korunmalıdır. `.app` ve `.dmg` üretimi sidecar'ı içeri alır; dağıtılacak build'de Apple Developer ID signing ve notarization hem ana executable'ı hem sidecar'ı kapsamalıdır. Unsigned local build yalnız geliştirme/test içindir. `npm run build:mac` `.app` ve `.dmg`'yi notarytool keychain profili `dji-live-bridge` ile notarize edip staple eder; notarize edilmemiş Developer ID system extension'ı macOS etkinleştirmez (`code=8 … code signature invalid`), bu yüzden sanal kamera için notarization zorunludur.
 
 Sidecar imzası `scripts/sign-sidecars.sh` ile `src-tauri/entitlements-sidecar.plist` (boş) kullanılarak düzeltilir; bu adım `npm run build:mac` içinde otomatik çalışır ve elle çağrılmamalıdır. DMG, Tauri'nin kendi DMG adımıyla değil, düzeltilmiş `.app`'ten `build:mac` tarafından üretilir; aksi halde DMG bozuk sidecar'ı taşırdı. Uygulama kapanırken (`RunEvent::Exit` dahil) tüm alt süreçleri durdurur ve başlarken kendi config dosyasıyla başlatılmış artık bir MediaMTX'i temizler.
 

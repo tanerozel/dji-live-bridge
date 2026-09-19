@@ -358,6 +358,8 @@ const en = {
   "theme.dark": "Dark",
   "theme.midnight": "Midnight",
   "theme.sand": "Sand",
+  "camera.rebootTitle": "macOS will finish enabling the virtual camera after a restart.",
+  "camera.rebootAction": "Restart the Mac, open DJI Live Bridge and press Start Virtual Camera again.",
 } as const;
 
 type TranslationKey = keyof typeof en;
@@ -719,6 +721,8 @@ const tr: Record<TranslationKey, string> = {
   "theme.dark": "Koyu",
   "theme.midnight": "Gece mavisi",
   "theme.sand": "Kum",
+  "camera.rebootTitle": "macOS sanal kamerayı yeniden başlatmadan sonra etkinleştirecek.",
+  "camera.rebootAction": "Mac'i yeniden başlat, DJI Live Bridge'i aç ve Sanal kamerayı başlat'a tekrar bas.",
 };
 
 const dictionaries: Record<Language, Record<string, string>> = { en, tr };

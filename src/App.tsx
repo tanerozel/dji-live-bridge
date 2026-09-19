@@ -121,6 +121,13 @@ function App() {
             detail: payload.message,
             actionKey: "errors.action.virtualCamera",
           });
+        } else if (payload.event === "needs_reboot") {
+          setUiError({
+            code: "REBOOT",
+            messageKey: "camera.rebootTitle",
+            detail: "",
+            actionKey: "camera.rebootAction",
+          });
         }
       },
     ).then((fn) => { unlisten = fn; });

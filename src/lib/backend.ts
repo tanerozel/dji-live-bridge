@@ -121,11 +121,12 @@ export function getFfmpegCapabilities() {
 }
 
 export function normalizeError(error: unknown): ErrorPayload {
+  // Backend commands reject with ErrorPayload ({ code, messageKey, detail, actionKey }).
   if (
     typeof error === "object" &&
     error !== null &&
-    "message" in error &&
-    "code" in error
+    "code" in error &&
+    ("messageKey" in error || "detail" in error)
   ) {
     const candidate = error as Partial<ErrorPayload>;
     return {
