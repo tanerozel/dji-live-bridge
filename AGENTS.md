@@ -40,6 +40,10 @@ and staples both the `.app` and the `.dmg` using the notarytool keychain profile
 
 ## Bundled FFmpeg
 
+Releases ship two architectures: `aarch64-apple-darwin` and `x86_64-apple-darwin`. Build each with
+`npm run build:mac <triple>`; the Intel one cross-compiles from an Apple Silicon Mac (build.rs picks
+the target architecture for the Objective-C bridge, and `build-ffmpeg.sh x86_64` needs `nasm`).
+
 The app ships its own FFmpeg and ffprobe so users install nothing. They are built by
 `./scripts/build-ffmpeg.sh` into `src-tauri/binaries/ffmpeg-<triple>` (not checked in) and
 `npm run build:mac` refuses to start if they are missing.

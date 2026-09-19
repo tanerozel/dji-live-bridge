@@ -127,7 +127,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
     <a class="btn primary" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Download for macOS</a>
     <a class="btn" href="https://github.com/tanerozel/dji-live-bridge">Source on GitHub</a>
   </div>
-  <p class="meta">Apple Silicon Mac · macOS 13 or newer · nothing else to install</p>
+  <p class="meta">Apple Silicon and Intel Macs · macOS 13 or newer · nothing else to install</p>
   <div class="shot"><img src="img/go-live.png" alt="The Go live tab: connect your drone, choose destinations, then press START LIVE." width="1600" height="1260"></div>
   <p class="caption">One screen: connect the drone, add destinations, press START LIVE.</p>
 </div>
@@ -191,7 +191,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
   <div class="wrap">
     <h2>Install</h2>
     <ol class="steps">
-      <li><div><strong>Download the DMG</strong><span>Grab the latest release and drag <strong>DJI Live Bridge</strong> into your Applications folder — the virtual camera only works from there.</span></div></li>
+      <li><div><strong>Download the DMG</strong><span>Take the <code>aarch64</code> file for an Apple Silicon Mac (M1 and newer) or the <code>x86_64</code> file for an Intel Mac, then drag <strong>DJI Live Bridge</strong> into your Applications folder — the virtual camera only works from there.</span></div></li>
       <li><div><strong>Open it</strong><span>That is the whole setup. FFmpeg ships inside the app, so there is no Homebrew, no Terminal and no second download.</span></div></li>
       <li><div><strong>Go live</strong><span>The app is signed and notarized by Apple, so it opens without warnings.</span></div></li>
     </ol>
@@ -215,6 +215,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <details><summary>Which drones work?</summary><p>Any drone whose DJI Fly version offers RTMP under Live Streaming Platforms. The app receives a normal RTMP stream, so it does not talk to the drone itself. On the RC 2, DJI Fly may refuse to start streaming unless a microphone is connected to the controller.</p></details>
       <details><summary>Do I need to install FFmpeg?</summary><p>No. The app carries its own FFmpeg, built from source without any GPL component (LGPL, Apple VideoToolbox for H.264), so there is nothing to install and nothing to keep up to date. The licence texts and the exact build flags are inside the app under <code>Contents/Resources/licenses</code>.</p></details>
       <details><summary>Do I need OBS?</summary><p>No. OBS is optional and only useful if you want its scenes, filters or recording. Direct RTMP and the virtual camera work without it.</p></details>
+      <details><summary>Does it work on an Intel Mac?</summary><p>Yes. Every release ships two downloads: one for Apple Silicon and one for Intel, both signed and notarized, each with its own bundled FFmpeg. Pick the file that matches your Mac.</p></details>
       <details><summary>Does it work on Windows?</summary><p>Not yet — the app is macOS only, because the virtual camera uses Apple's Core Media I/O. On Windows you can build the same chain by hand with MediaMTX plus OBS Virtual Camera.</p></details>
       <details><summary>Where do my stream keys go?</summary><p>Into the macOS Keychain, one entry per destination. They are handed to the local media server over the loopback interface when you go live and removed when you stop. They never appear in the config file, in process arguments or in logs.</p></details>
       <details><summary>Why does Instagram ask for a new key every time?</summary><p>That is Instagram's own behaviour: it issues a fresh stream key for every broadcast. Use “Update key” on the destination card before you go live, and remember to press “Go live” on Instagram's side to make the broadcast public.</p></details>

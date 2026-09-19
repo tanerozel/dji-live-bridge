@@ -22,11 +22,11 @@ RC 2 girdisi 720p olabilir ve UI gerçek ffprobe metadata'sını gösterir. 1080
 
 ## Gereksinimler
 
-- macOS 13 veya üzeri, arm64 öncelikli; Intel build yolu korunur.
+- macOS 13 veya üzeri. Apple Silicon ve Intel için ayrı sürümler yayınlanır.
 - Rust 1.98.1 (`rust-toolchain.toml`).
 - Node.js 22 ve npm.
 - OBS Studio 32.2.2 + obs-websocket 5.x yalnız isteğe bağlı advanced path içindir; varsayılan Direct RTMP hattında OBS gerekmez.
-- FFmpeg/ffprobe dış bağımlılık olarak PATH üzerinde. Minimum desteklenen sürüm 8.1.2; geliştirme doğrulaması 8.1 ile yapıldı. Binary bundle edilmez.
+- FFmpeg/ffprobe uygulamanın içinde gelir (LGPL, `scripts/build-ffmpeg.sh` ile derlenir); kullanıcının ayrıca kurmasına gerek yoktur.
 - Native Camera Extension derlemesi için macOS SDK içeren Xcode Command Line Tools gerekir. Kullanılabilir dağıtım için ana uygulama ve uzantı aynı Apple Developer Team ile imzalanmalı; yerel ad-hoc imza yalnız derleme doğrulamasıdır.
 
 Sürüm kaydı [versions.lock.json](versions.lock.json) dosyasındadır. Değişken bağımlılık kaynakları ve checksum [docs/DEPENDENCIES.md](docs/DEPENDENCIES.md) içinde kayıtlıdır.
@@ -109,7 +109,7 @@ Beş tema vardır: Sistem (macOS'u izler), Açık, Koyu, Gece mavisi ve Kum.
 
 ## Kurulum (kullanıcılar)
 
-1. En son `.dmg` dosyasını [Releases](https://github.com/tanerozel/dji-live-bridge/releases) sayfasından indirin.
+1. Mac'ine uygun `.dmg` dosyasını [Releases](https://github.com/tanerozel/dji-live-bridge/releases) sayfasından indir: Apple Silicon için `aarch64`, Intel için `x86_64`.
 2. **DJI Live Bridge**'i **Uygulamalar** klasörüne sürükleyin. Sanal kamera yalnızca oradan çalışır.
 3. Hepsi bu. FFmpeg uygulamanın içinde gelir, başka bir şey kurman gerekmez.
 

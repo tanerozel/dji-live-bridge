@@ -42,14 +42,25 @@ elif [ "$actual" != "$SHA256" ]; then
   actual   $actual"
 fi
 
-src="ffmpeg-$VERSION"
-[ -d "$src" ] || { step "Unpacking"; tar xf "$tarball"; }
+src="ffmpeg-$VERSION-$ARCH"
+[ -d "$src" ] || { step "Unpacking"; rm -rf "ffmpeg-$VERSION"; tar xf "$tarball"; mv "ffmpeg-$VERSION" "$src"; }
 cd "$src"
+
+# Building the Intel version on an Apple Silicon Mac (or the reverse) needs the
+# compiler pointed at the other architecture; configure must not try to run its
+# test binaries in that case.
+cross=()
+if [ "$ARCH" != "$(uname -m)" ]; then
+  cross=(--enable-cross-compile --target-os=darwin
+         --cc="clang -arch $ARCH" --extra-cflags="-arch $ARCH" --extra-ldflags="-arch $ARCH")
+  echo "cross-compiling for $ARCH on $(uname -m)"
+fi
 
 step "Configuring (LGPL, no external libraries)"
 ./configure \
   --prefix="$WORK/install" \
   --arch="$ARCH" \
+  "${cross[@]+"${cross[@]}"}" \
   --disable-gpl --disable-nonfree --disable-version3 \
   --disable-shared --enable-static \
   --disable-doc --disable-debug --disable-ffplay --disable-sdl2 \
@@ -78,6 +89,7 @@ cp -f LICENSE.md "$LICENSE_DIR/FFmpeg-LICENSE.md"
 } > "$LICENSE_DIR/FFmpeg-BUILD.txt"
 
 step "Verifying the result"
+file "$OUT/ffmpeg-$TRIPLE" | sed 's/.*: //'
 "$OUT/ffmpeg-$TRIPLE" -hide_banner -version | sed -n '1,2p'
 if "$OUT/ffmpeg-$TRIPLE" -hide_banner -version | grep -q -- "--enable-gpl"; then
   die "the build enabled GPL; it must not be shipped"

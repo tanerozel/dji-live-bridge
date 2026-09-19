@@ -5,8 +5,16 @@ fn main() {
 
         let object = PathBuf::from(env::var_os("OUT_DIR").expect("OUT_DIR is missing"))
             .join("virtual_camera.o");
+        // Compile for the Rust target, not the build machine: an Intel build on
+        // an Apple Silicon Mac would otherwise link an arm64 object and fail.
+        let arch = match env::var("CARGO_CFG_TARGET_ARCH").as_deref() {
+            Ok("x86_64") => "x86_64",
+            _ => "arm64",
+        };
         let status = Command::new("/usr/bin/clang")
             .args([
+                "-arch",
+                arch,
                 "-fobjc-arc",
                 "-fblocks",
                 "-mmacosx-version-min=13.0",

@@ -22,13 +22,13 @@ RC 2 input can be 720p, and the UI shows the real ffprobe metadata. Choosing a 1
 
 ## Install (users)
 
-1. Download the latest `.dmg` from [Releases](https://github.com/tanerozel/dji-live-bridge/releases).
+1. Download the latest `.dmg` for your Mac from [Releases](https://github.com/tanerozel/dji-live-bridge/releases) — `aarch64` for Apple Silicon, `x86_64` for Intel.
 2. Drag **DJI Live Bridge** into **Applications**. The virtual camera only works from there.
 3. That is all. FFmpeg ships inside the app, so there is nothing else to install.
 
 The build is signed and notarized by Apple, so it opens without warnings.
 
-**Requirements:** Apple Silicon Mac (Intel build path is kept), macOS 13 or newer, and FFmpeg/ffprobe 8.1.2 or newer — installed for you on first run, or with `brew install ffmpeg`.
+**Requirements:** Apple Silicon or Intel Mac, macOS 13 or newer. Nothing else: FFmpeg ships inside the app. Each release has an `aarch64` and an `x86_64` download.
 
 ## Stream to Instagram / TikTok (Direct RTMP)
 
