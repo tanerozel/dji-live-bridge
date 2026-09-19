@@ -4,7 +4,6 @@ use std::{
 };
 
 use serde_json::Value;
-use tokio::process::Command;
 
 use crate::{
     config::ConfigStore,

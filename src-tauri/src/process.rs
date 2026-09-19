@@ -17,7 +17,7 @@ use tokio::{
 
 use crate::error::{BridgeError, BridgeResult, redact_secrets};
 
-#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum RestartPolicy {
     Never,
     OnFailure,
@@ -34,7 +34,7 @@ pub enum ProcessStatus {
     CrashLoop,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ProcessSnapshot {
     pub name: String,

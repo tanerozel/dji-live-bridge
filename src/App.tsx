@@ -18,6 +18,7 @@ import {
   saveObsConnection,
   selectInterface,
   setNativeVirtualCamera,
+  setObsMonitoring,
   setObsVirtualCamera,
   setRecording,
   setNativeRecording,
@@ -52,12 +53,19 @@ function App() {
   const [compressor, setCompressor] = useState(true);
   const [limiter, setLimiter] = useState(true);
   const [language, setLanguage] = useState<Language>(loadLanguage);
+  const [documentVisible, setDocumentVisible] = useState(!document.hidden);
   const t = useCallback(
     (key: string, params?: TranslationParams) => translate(language, key, params),
     [language],
   );
 
   useEffect(() => saveLanguage(language), [language]);
+
+  useEffect(() => {
+    const handleVisibility = () => setDocumentVisible(!document.hidden);
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, []);
 
   useEffect(() => {
     let cleanup: (() => void) | undefined;
@@ -155,6 +163,7 @@ function App() {
   const mediaReady = snapshot.mediaMtx === "Ready";
   const obsVirtualActive = snapshot.obs.virtualCameraActive === true;
   const nativeVirtualActive = snapshot.virtualCamera.feedActive;
+  const cameraReady = snapshot.virtualCamera.status === "Ready";
 
   return (
     <main className="app-shell">
@@ -180,6 +189,31 @@ function App() {
           </div>
         </div>
       </header>
+
+      <section className="workflow-guide" aria-label={t("guide.title")}>
+        <div className={`workflow-guide-step ${snapshot.publisherPresent ? "done" : "active"}`}>
+          <span>1</span>
+          <div><strong>{t("guide.connectTitle")}</strong><small>{t("guide.connectHelp")}</small></div>
+        </div>
+        <div className={`workflow-guide-step ${snapshot.preview.status === "Ready" ? "done" : snapshot.publisherPresent ? "active" : ""}`}>
+          <span>2</span>
+          <div><strong>{t("guide.previewTitle")}</strong><small>{t("guide.previewHelp")}</small></div>
+        </div>
+        <div className={`workflow-guide-step ${nativeVirtualActive ? "done" : snapshot.preview.status === "Ready" ? "active" : ""}`}>
+          <span>3</span>
+          <div><strong>{t("guide.cameraTitle")}</strong><small>{t("guide.cameraHelp")}</small></div>
+        </div>
+        <details className="help-menu">
+          <summary>{t("guide.howTo")}</summary>
+          <ol>
+            <li>{t("guide.step1")}</li>
+            <li>{t("guide.step2")}</li>
+            <li>{t("guide.step3")}</li>
+            <li>{t("guide.step4")}</li>
+            <li>{t("guide.step5")}</li>
+          </ol>
+        </details>
+      </section>
 
       {(uiError || snapshot.lastError) && (
         <section className="error-banner" role="alert">
@@ -277,7 +311,7 @@ function App() {
           </div>
           <WhepPreview
             endpoint={previewEndpoint}
-            active={snapshot.publisherPresent}
+            active={snapshot.publisherPresent && documentVisible}
             onConnected={handlePreviewConnected}
             onFailure={handlePreviewFailure}
             t={t}
@@ -311,9 +345,64 @@ function App() {
             </div>
           )}
           {snapshot.preview.reasonKey && <p className="inline-note">{t(snapshot.preview.reasonKey)}</p>}
+
+          <section className={`camera-launchpad ${nativeVirtualActive ? "active" : ""}`}>
+            <div className="camera-launchpad-heading">
+              <div>
+                <p className="step">{t("camera.primaryStep")}</p>
+                <h2>{t("camera.primaryTitle")}</h2>
+              </div>
+              <StatusPill
+                label={nativeVirtualActive ? t("camera.statusActive") : cameraReady ? t("camera.statusReady") : t("camera.statusSetup")}
+                tone={nativeVirtualActive ? "good" : cameraReady ? "neutral" : "warn"}
+              />
+            </div>
+            <p className="camera-state-message">{t(snapshot.virtualCamera.detailKey)}</p>
+            <div className="camera-primary-actions">
+              {!cameraReady ? (
+                <button
+                  className="primary camera-main-button"
+                  disabled={!snapshot.virtualCamera.bundled || !snapshot.virtualCamera.appInstalled || busy === "enable-native-camera"}
+                  onClick={() => void act("enable-native-camera", activateVirtualCameraExtension)}
+                >
+                  {snapshot.virtualCamera.status === "Starting" ? t("camera.waitingApproval") : t("camera.enableOnce")}
+                </button>
+              ) : !nativeVirtualActive ? (
+                <button
+                  className="primary camera-main-button"
+                  disabled={!snapshot.publisherPresent || busy === "native-camera"}
+                  onClick={() => void act("native-camera", () => setNativeVirtualCamera(true))}
+                >
+                  {snapshot.publisherPresent ? t("camera.start") : t("camera.waitingForVideo")}
+                </button>
+              ) : (
+                <button
+                  className="primary camera-main-button"
+                  disabled={busy === "open-live-studio"}
+                  onClick={() => void act("open-live-studio", openTikTokLiveStudio)}
+                >
+                  {t("camera.openStudio")}
+                </button>
+              )}
+              {nativeVirtualActive && (
+                <button className="danger" disabled={busy === "native-camera"} onClick={() => void act("native-camera", () => setNativeVirtualCamera(false))}>
+                  {t("camera.stop")}
+                </button>
+              )}
+            </div>
+            <p className="camera-footnote">{t("camera.liveStudioHelp", { device: snapshot.virtualCamera.deviceName })}</p>
+          </section>
         </article>
       </section>
 
+      <details
+        className="advanced-workspace"
+        onToggle={(event) => void setObsMonitoring(event.currentTarget.open)}
+      >
+        <summary>
+          <span><strong>{t("advanced.title")}</strong><small>{t("advanced.help")}</small></span>
+          <span>{t("advanced.toggle")}</span>
+        </summary>
       <section className="metrics-grid">
         <Metric label={t("metrics.resolution")} value={snapshot.metadata.resolution ?? t("common.detecting")} note={snapshot.metadata.resolution === "1280x720" ? t("metrics.resolutionNative") : t("metrics.reported")} />
         <Metric label={t("metrics.frameRate")} value={formatted.fps} note={t("metrics.noAssumedFps")} />
@@ -430,33 +519,11 @@ function App() {
               <button className={destinationMode === "CustomRtmp" ? "active" : ""} onClick={() => setDestinationMode("CustomRtmp")}>{t("destination.customRtmp")}</button>
             </div>
             {destinationMode === "TikTokLiveStudio" ? (
-              <>
-                <div className="hard-truth destination-notice">
-                  <strong>{snapshot.virtualCamera.deviceName}</strong>
-                  <p>{t(snapshot.virtualCamera.detailKey)}</p>
-                  <small>{t("camera.videoOnly", { width: snapshot.virtualCamera.width, height: snapshot.virtualCamera.height, fps: snapshot.virtualCamera.fps })}</small>
-                </div>
-                <div className="action-row live-actions">
-                  {snapshot.virtualCamera.status !== "Ready" ? (
-                    <button
-                      disabled={!snapshot.virtualCamera.bundled || !snapshot.virtualCamera.appInstalled || busy === "enable-native-camera"}
-                      onClick={() => void act("enable-native-camera", activateVirtualCameraExtension)}
-                    >
-                      {t("camera.enable")}
-                    </button>
-                  ) : (
-                    <button
-                      className={nativeVirtualActive ? "danger" : "primary"}
-                      disabled={!snapshot.publisherPresent || busy === "native-camera"}
-                      onClick={() => void act("native-camera", () => setNativeVirtualCamera(!nativeVirtualActive))}
-                    >
-                      {nativeVirtualActive ? t("camera.stop") : t("camera.start")}
-                    </button>
-                  )}
-                  <button className="primary" onClick={() => void act("open-live-studio", openTikTokLiveStudio)}>{t("camera.openStudio")}</button>
-                </div>
-                <p className="inline-note">{t("camera.liveStudioHelp", { device: snapshot.virtualCamera.deviceName })}</p>
-              </>
+              <div className="hard-truth destination-notice">
+                <strong>{t("camera.controlAbove")}</strong>
+                <p>{t("camera.controlAboveHelp")}</p>
+                <small>{t("camera.videoOnly", { width: snapshot.virtualCamera.width, height: snapshot.virtualCamera.height, fps: snapshot.virtualCamera.fps })}</small>
+              </div>
             ) : (
               <>
                 <div className="destination-fields">
@@ -534,6 +601,7 @@ function App() {
           </div>
         </article>
       </section>
+      </details>
     </main>
   );
 }

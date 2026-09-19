@@ -45,7 +45,7 @@ const FEED_HEIGHT: u32 = 1920;
 const FEED_FPS: u32 = 30;
 const FEED_PORT: u16 = 49213;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct VirtualCameraState {
     pub device_name: String,

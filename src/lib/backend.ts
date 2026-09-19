@@ -62,6 +62,10 @@ export function setObsVirtualCamera(active: boolean) {
   return invoke<boolean>("set_obs_virtual_camera", { active });
 }
 
+export function setObsMonitoring(active: boolean) {
+  return invoke<void>("set_obs_monitoring", { active });
+}
+
 export function activateVirtualCameraExtension() {
   return invoke<void>("activate_virtual_camera_extension");
 }

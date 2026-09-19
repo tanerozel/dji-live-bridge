@@ -9,7 +9,7 @@
 }
 
 * { box-sizing: border-box; }
-body { margin: 0; min-width: 1080px; min-height: 100vh; background:
+body { margin: 0; min-width: 760px; min-height: 100vh; background:
   radial-gradient(circle at 15% -10%, rgba(47, 224, 143, .13), transparent 32%),
   radial-gradient(circle at 95% 20%, rgba(27, 130, 102, .10), transparent 30%), #07110f; }
 button, input, select { font: inherit; }
@@ -30,6 +30,22 @@ h2 { margin: 0; font-size: 19px; letter-spacing: -.02em; }
 .header-status small { color: #758780; }
 .pulse { width: 11px; height: 11px; border-radius: 50%; background: #68736f; box-shadow: 0 0 0 6px rgba(104,115,111,.1); }
 .pulse.on { background: #39e68e; box-shadow: 0 0 0 6px rgba(57,230,142,.12), 0 0 20px rgba(57,230,142,.4); }
+
+.workflow-guide { display: grid; grid-template-columns: repeat(3, 1fr) auto; align-items: stretch; gap: 10px; margin-bottom: 18px; }
+.workflow-guide-step { display: flex; align-items: center; gap: 11px; min-height: 66px; padding: 11px 13px; border: 1px solid #1e302a; border-radius: 13px; color: #657871; background: rgba(10, 23, 19, .68); }
+.workflow-guide-step > span { display: grid; flex: 0 0 28px; height: 28px; place-items: center; border: 1px solid #30443c; border-radius: 50%; color: #84968f; font-size: 11px; font-weight: 800; }
+.workflow-guide-step div { display: grid; gap: 3px; }
+.workflow-guide-step strong { color: #aab9b3; font-size: 12px; }
+.workflow-guide-step small { font-size: 10px; line-height: 1.35; }
+.workflow-guide-step.active { border-color: rgba(72, 220, 145, .42); background: rgba(38, 116, 76, .12); }
+.workflow-guide-step.active > span { border-color: #48dc91; color: #07110f; background: #48dc91; }
+.workflow-guide-step.active strong, .workflow-guide-step.done strong { color: #e2eee8; }
+.workflow-guide-step.done > span { border-color: rgba(72, 220, 145, .38); color: #48dc91; }
+.help-menu { position: relative; align-self: center; }
+.help-menu summary { min-width: 132px; padding: 12px 14px; border: 1px solid #2b3e37; border-radius: 10px; color: #c4d3cd; background: #13231e; cursor: pointer; list-style: none; font-size: 12px; font-weight: 700; text-align: center; }
+.help-menu summary::-webkit-details-marker { display: none; }
+.help-menu[open] ol { position: absolute; z-index: 5; top: calc(100% + 8px); right: 0; width: 390px; margin: 0; padding: 18px 18px 18px 38px; border: 1px solid #294038; border-radius: 13px; color: #b8c8c1; background: #0b1915; box-shadow: 0 22px 55px rgba(0,0,0,.42); font-size: 12px; line-height: 1.55; }
+.help-menu li + li { margin-top: 8px; }
 
 .panel { border: 1px solid #1e302a; border-radius: 18px; background: rgba(12, 25, 21, .84); box-shadow: 0 20px 50px rgba(0,0,0,.16); }
 .hero-grid { display: grid; grid-template-columns: minmax(390px, .84fr) minmax(560px, 1.42fr); gap: 18px; }
@@ -65,6 +81,14 @@ button.wide { width: 100%; margin-top: 18px; padding: 12px; }
 .preview-error p { margin: 4px 0 0; color: #b7a487; font-size: 12px; }
 .preview-error.audio-warning { border-color: rgba(74, 143, 183, .27); background: rgba(28, 78, 108, .12); }
 .inline-note { margin: 10px 0 0; }
+
+.camera-launchpad { margin-top: 18px; padding: 18px; border: 1px solid rgba(72, 220, 145, .26); border-radius: 15px; background: linear-gradient(135deg, rgba(25, 75, 53, .22), rgba(7, 17, 15, .84)); }
+.camera-launchpad.active { border-color: rgba(72, 220, 145, .58); box-shadow: 0 0 34px rgba(38, 174, 104, .08); }
+.camera-launchpad-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.camera-state-message { margin: 12px 0 0; color: #9db0a7; font-size: 12px; line-height: 1.45; }
+.camera-primary-actions { display: flex; gap: 9px; margin-top: 14px; }
+.camera-main-button { flex: 1; min-height: 46px; font-size: 13px; }
+.camera-footnote { margin: 11px 0 0; color: #71847c; font-size: 10px; line-height: 1.5; }
 
 .metrics-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin: 18px 0; }
 .metric { display: grid; min-height: 104px; align-content: space-between; padding: 14px; border: 1px solid #1e302a; border-radius: 13px; background: rgba(13, 26, 22, .72); }
@@ -112,6 +136,14 @@ button.wide { width: 100%; margin-top: 18px; padding: 12px; }
 .optional-obs summary { cursor: pointer; color: #9eb0a8; font-size: 12px; font-weight: 700; }
 .optional-obs .obs-fields { margin-top: 14px; }
 
+.advanced-workspace { margin-top: 18px; }
+.advanced-workspace > summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 15px 17px; border: 1px solid #263831; border-radius: 13px; color: #a8bab2; background: rgba(10, 23, 19, .7); cursor: pointer; list-style: none; }
+.advanced-workspace > summary::-webkit-details-marker { display: none; }
+.advanced-workspace > summary span:first-child { display: grid; gap: 4px; }
+.advanced-workspace > summary small { color: #6f827a; font-size: 10px; font-weight: 400; }
+.advanced-workspace > summary span:last-child { color: #48dc91; font-size: 11px; font-weight: 800; text-transform: uppercase; }
+.advanced-workspace[open] > summary { border-color: #365247; }
+
 .error-banner, .warning-banner { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 16px; padding: 13px 16px; border-radius: 12px; }
 .error-banner { border: 1px solid rgba(255,103,95,.3); background: rgba(141, 34, 29, .15); }
 .warning-banner { border: 1px solid rgba(239,181,78,.26); color: #dfbd7a; background: rgba(133,85,19,.13); font-size: 12px; }
@@ -121,4 +153,18 @@ button.wide { width: 100%; margin-top: 18px; padding: 12px; }
 @media (max-width: 1220px) {
   .metrics-grid { grid-template-columns: repeat(3, 1fr); }
   .hero-grid { grid-template-columns: .9fr 1.1fr; }
+  .workflow-guide { grid-template-columns: repeat(3, 1fr); }
+  .help-menu { grid-column: 1 / -1; justify-self: end; }
+}
+
+@media (max-width: 940px) {
+  .app-shell { padding: 22px 22px 48px; }
+  .hero-grid, .production-grid { grid-template-columns: 1fr; }
+  .topbar { align-items: flex-start; }
+  .header-tools { align-items: flex-end; flex-direction: column; gap: 10px; }
+  .header-status { min-width: 0; }
+  .workflow-guide { grid-template-columns: 1fr; }
+  .help-menu { grid-column: auto; justify-self: stretch; }
+  .help-menu summary { width: 100%; }
+  .help-menu[open] ol { position: static; width: 100%; margin-top: 8px; }
 }

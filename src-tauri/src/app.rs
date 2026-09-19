@@ -1,6 +1,9 @@
 use std::{
     path::PathBuf,
-    sync::Arc,
+    sync::{
+        Arc,
+        atomic::{AtomicBool, Ordering},
+    },
     time::{Duration, Instant, SystemTime, UNIX_EPOCH},
 };
 
@@ -32,6 +35,7 @@ pub struct AppState {
     pub supervisor: ProcessSupervisor,
     pub media_mtx: MediaMtxController,
     pub obs: ObsController,
+    pub obs_monitoring: AtomicBool,
 }
 
 impl AppState {
@@ -46,6 +50,7 @@ impl AppState {
             supervisor: ProcessSupervisor::default(),
             media_mtx,
             obs: ObsController::default(),
+            obs_monitoring: AtomicBool::new(false),
         }))
     }
 
@@ -73,6 +78,7 @@ impl AppState {
 
     async fn monitor(&self, app: AppHandle) {
         let mut network_check = Instant::now();
+        let mut publisher_check = Instant::now() - Duration::from_secs(2);
         let mut metadata_check = Instant::now();
         let mut obs_check = Instant::now();
         let mut audio_check = Instant::now() - Duration::from_secs(30);
@@ -83,7 +89,14 @@ impl AppState {
             tokio::time::sleep(Duration::from_secs(1)).await;
             let processes = self.supervisor.tick().await;
             self.state
-                .mutate(&app, |snapshot| snapshot.processes = processes)
+                .mutate_if_changed(&app, |snapshot| {
+                    if snapshot.processes == processes {
+                        false
+                    } else {
+                        snapshot.processes = processes;
+                        true
+                    }
+                })
                 .await;
 
             if network_check.elapsed() >= Duration::from_secs(5) {
@@ -97,7 +110,14 @@ impl AppState {
                 match tokio::task::spawn_blocking(audio::discover_input_devices).await {
                     Ok(Ok(devices)) => {
                         self.state
-                            .mutate(&app, |snapshot| snapshot.audio_inputs = devices)
+                            .mutate_if_changed(&app, |snapshot| {
+                                if snapshot.audio_inputs == devices {
+                                    false
+                                } else {
+                                    snapshot.audio_inputs = devices;
+                                    true
+                                }
+                            })
                             .await;
                     }
                     Ok(Err(error)) => tracing::debug!(%error, "audio device discovery failed"),
@@ -106,103 +126,107 @@ impl AppState {
                 audio_check = Instant::now();
             }
 
-            match self.media_mtx.publisher_sample().await {
-                Ok(sample) => {
-                    let previous = self.state.get().await;
-                    let became_connected = sample.present && !previous.publisher_present;
-                    let became_disconnected = !sample.present && previous.publisher_present;
-                    let since = sample.ready_since_unix_ms.or_else(|| {
-                        if sample.present {
-                            previous.publisher_since_unix_ms.or_else(|| Some(now_ms()))
-                        } else {
-                            None
-                        }
-                    });
-                    self.state
-                        .mutate(&app, |snapshot| {
-                            snapshot.media_mtx = ServiceStatus::Ready;
-                            snapshot.publisher_present = sample.present;
-                            snapshot.publisher_since_unix_ms = since;
-                            snapshot.metadata.received_bytes = sample.metadata.received_bytes;
-                            snapshot.metadata.bitrate_calculated_bps =
-                                sample.metadata.bitrate_calculated_bps;
-                            snapshot.metadata.uptime_seconds =
-                                since.map(|start| now_ms().saturating_sub(start) / 1000);
-                        })
-                        .await;
-                    if became_connected {
-                        if let Err(error) = self
-                            .state
-                            .transition(&app, WorkflowState::DroneConnected)
-                            .await
-                        {
-                            tracing::warn!(%error, "publisher transition failed");
-                        }
-                        metadata_check = Instant::now() - Duration::from_secs(10);
-                    } else if became_disconnected {
-                        if previous.workflow == WorkflowState::Live {
-                            let config = self.config.read().await.clone();
-                            if config.production_engine == ProductionEngine::NativeFfmpeg {
-                                self.media_mtx.clear_forward().await.ok();
-                                self.supervisor.stop("native-production").await.ok();
-                            } else if let Err(error) = self
-                                .obs
-                                .stop_stream_and_restore(&config.obs_host, config.obs_port)
-                                .await
-                            {
-                                tracing::warn!(%error, "failed to stop OBS after publisher disconnect");
+            if publisher_check.elapsed() >= Duration::from_secs(2) {
+                match self.media_mtx.publisher_sample().await {
+                    Ok(sample) => {
+                        let previous = self.state.get().await;
+                        let became_connected = sample.present && !previous.publisher_present;
+                        let became_disconnected = !sample.present && previous.publisher_present;
+                        let since = sample.ready_since_unix_ms.or_else(|| {
+                            if sample.present {
+                                previous.publisher_since_unix_ms.or_else(|| Some(now_ms()))
+                            } else {
+                                None
                             }
-                        }
-                        self.supervisor.stop("native-recording").await.ok();
-                        self.supervisor.stop("preview-transcode").await.ok();
-                        virtual_camera::stop_feed(&self.supervisor).await.ok();
+                        });
                         self.state
                             .mutate(&app, |snapshot| {
-                                snapshot.workflow = WorkflowState::WaitingForDrone;
-                                snapshot.preview.status = ServiceStatus::Unavailable;
-                                snapshot.preview.mode = PreviewMode::Direct;
-                                snapshot.preview.reason_key = None;
-                                snapshot.preview.reason = None;
-                                snapshot.metadata = Default::default();
-                                snapshot.obs.stream_active = Some(false);
-                                snapshot.production.active = false;
-                                snapshot.production.prepared = false;
-                                snapshot.production.path_status = ServiceStatus::Unavailable;
-                                snapshot.production.forward_state = None;
-                                snapshot.production.recording_active = false;
-                                snapshot.virtual_camera.feed_active = false;
+                                snapshot.media_mtx = ServiceStatus::Ready;
+                                snapshot.publisher_present = sample.present;
+                                snapshot.publisher_since_unix_ms = since;
+                                snapshot.metadata.received_bytes = sample.metadata.received_bytes;
+                                snapshot.metadata.bitrate_calculated_bps =
+                                    sample.metadata.bitrate_calculated_bps;
+                                snapshot.metadata.uptime_seconds =
+                                    since.map(|start| now_ms().saturating_sub(start) / 1000);
+                            })
+                            .await;
+                        if became_connected {
+                            if let Err(error) = self
+                                .state
+                                .transition(&app, WorkflowState::DroneConnected)
+                                .await
+                            {
+                                tracing::warn!(%error, "publisher transition failed");
+                            }
+                            metadata_check = Instant::now() - Duration::from_secs(10);
+                        } else if became_disconnected {
+                            if previous.workflow == WorkflowState::Live {
+                                let config = self.config.read().await.clone();
+                                if config.production_engine == ProductionEngine::NativeFfmpeg {
+                                    self.media_mtx.clear_forward().await.ok();
+                                    self.supervisor.stop("native-production").await.ok();
+                                } else if let Err(error) = self
+                                    .obs
+                                    .stop_stream_and_restore(&config.obs_host, config.obs_port)
+                                    .await
+                                {
+                                    tracing::warn!(%error, "failed to stop OBS after publisher disconnect");
+                                }
+                            }
+                            self.supervisor.stop("native-recording").await.ok();
+                            self.supervisor.stop("preview-transcode").await.ok();
+                            virtual_camera::stop_feed(&self.supervisor).await.ok();
+                            self.state
+                                .mutate(&app, |snapshot| {
+                                    snapshot.workflow = WorkflowState::WaitingForDrone;
+                                    snapshot.preview.status = ServiceStatus::Unavailable;
+                                    snapshot.preview.mode = PreviewMode::Direct;
+                                    snapshot.preview.reason_key = None;
+                                    snapshot.preview.reason = None;
+                                    snapshot.metadata = Default::default();
+                                    snapshot.obs.stream_active = Some(false);
+                                    snapshot.production.active = false;
+                                    snapshot.production.prepared = false;
+                                    snapshot.production.path_status = ServiceStatus::Unavailable;
+                                    snapshot.production.forward_state = None;
+                                    snapshot.production.recording_active = false;
+                                    snapshot.virtual_camera.feed_active = false;
+                                })
+                                .await;
+                        }
+
+                        if sample.present && metadata_check.elapsed() >= Duration::from_secs(30) {
+                            match ffmpeg::inspect_stream().await {
+                                Ok(metadata) => {
+                                    self.state
+                                        .mutate(&app, |snapshot| {
+                                            let received = snapshot.metadata.received_bytes;
+                                            let calculated =
+                                                snapshot.metadata.bitrate_calculated_bps;
+                                            let uptime = snapshot.metadata.uptime_seconds;
+                                            snapshot.metadata = metadata;
+                                            snapshot.metadata.received_bytes = received;
+                                            snapshot.metadata.bitrate_calculated_bps = calculated;
+                                            snapshot.metadata.uptime_seconds = uptime;
+                                        })
+                                        .await;
+                                }
+                                Err(error) => tracing::debug!(%error, "metadata probe pending"),
+                            }
+                            metadata_check = Instant::now();
+                        }
+                    }
+                    Err(error) => {
+                        self.state
+                            .mutate(&app, |snapshot| {
+                                snapshot.media_mtx = ServiceStatus::Failed;
+                                snapshot.last_error = Some(error.into());
                             })
                             .await;
                     }
-
-                    if sample.present && metadata_check.elapsed() >= Duration::from_secs(30) {
-                        match ffmpeg::inspect_stream().await {
-                            Ok(metadata) => {
-                                self.state
-                                    .mutate(&app, |snapshot| {
-                                        let received = snapshot.metadata.received_bytes;
-                                        let calculated = snapshot.metadata.bitrate_calculated_bps;
-                                        let uptime = snapshot.metadata.uptime_seconds;
-                                        snapshot.metadata = metadata;
-                                        snapshot.metadata.received_bytes = received;
-                                        snapshot.metadata.bitrate_calculated_bps = calculated;
-                                        snapshot.metadata.uptime_seconds = uptime;
-                                    })
-                                    .await;
-                            }
-                            Err(error) => tracing::debug!(%error, "metadata probe pending"),
-                        }
-                        metadata_check = Instant::now();
-                    }
                 }
-                Err(error) => {
-                    self.state
-                        .mutate(&app, |snapshot| {
-                            snapshot.media_mtx = ServiceStatus::Failed;
-                            snapshot.last_error = Some(error.into());
-                        })
-                        .await;
-                }
+                publisher_check = Instant::now();
             }
 
             if production_check.elapsed() >= Duration::from_secs(2) {
@@ -224,8 +248,15 @@ impl AppState {
                 production_check = Instant::now();
             }
 
-            if virtual_camera_check.elapsed() >= Duration::from_secs(2) {
-                let feed_active = self.state.get().await.processes.iter().any(|process| {
+            let camera_snapshot = self.state.get().await;
+            let camera_interval =
+                if camera_snapshot.virtual_camera.status == ServiceStatus::Starting {
+                    Duration::from_secs(2)
+                } else {
+                    Duration::from_secs(30)
+                };
+            if virtual_camera_check.elapsed() >= camera_interval {
+                let feed_active = camera_snapshot.processes.iter().any(|process| {
                     process.name == virtual_camera::FEED_PROCESS_NAME
                         && matches!(
                             process.status,
@@ -234,18 +265,40 @@ impl AppState {
                                 | crate::process::ProcessStatus::BackingOff
                         )
                 });
-                let camera = virtual_camera::inspect(feed_active);
-                self.state
-                    .mutate(&app, |snapshot| snapshot.virtual_camera = camera)
-                    .await;
+                match tokio::task::spawn_blocking(move || virtual_camera::inspect(feed_active))
+                    .await
+                {
+                    Ok(camera) => {
+                        self.state
+                            .mutate_if_changed(&app, |snapshot| {
+                                if snapshot.virtual_camera == camera {
+                                    false
+                                } else {
+                                    snapshot.virtual_camera = camera;
+                                    true
+                                }
+                            })
+                            .await;
+                    }
+                    Err(error) => tracing::debug!(%error, "virtual camera inspection task failed"),
+                }
                 virtual_camera_check = Instant::now();
             }
 
-            if obs_check.elapsed() >= obs_backoff {
+            if self.obs_monitoring.load(Ordering::Relaxed) && obs_check.elapsed() >= obs_backoff {
                 let config = self.config.read().await.clone();
                 match self.obs.inspect(&config.obs_host, config.obs_port).await {
                     Ok(obs) => {
-                        self.state.mutate(&app, |snapshot| snapshot.obs = obs).await;
+                        self.state
+                            .mutate_if_changed(&app, |snapshot| {
+                                if snapshot.obs == obs {
+                                    false
+                                } else {
+                                    snapshot.obs = obs;
+                                    true
+                                }
+                            })
+                            .await;
                         obs_backoff = Duration::from_secs(5);
                     }
                     Err(error) => {
@@ -268,7 +321,11 @@ impl AppState {
     }
 
     pub async fn refresh_network(&self, app: &AppHandle, detect_change: bool) -> BridgeResult<()> {
-        let interfaces = network::discover_interfaces()?;
+        let interfaces = tokio::task::spawn_blocking(network::discover_interfaces)
+            .await
+            .map_err(|error| {
+                BridgeError::Network(format!("Network discovery task failed: {error}"))
+            })??;
         let preferred = self.config.read().await.selected_interface.clone();
         let selected = network::select_interface(&interfaces, preferred.as_deref()).cloned();
         let previous = self.state.get().await;
@@ -279,13 +336,22 @@ impl AppState {
             .as_ref()
             .map(|address| format!("rtmp://{address}:1935/drone"));
         self.state
-            .mutate(app, |snapshot| {
+            .mutate_if_changed(app, |snapshot| {
+                let ip_change_warning = detect_change && before.is_some() && before != selected_ip;
+                let changed = snapshot.interfaces != interfaces
+                    || snapshot.selected_interface != selected_name
+                    || snapshot.lan_ipv4 != selected_ip
+                    || snapshot.rtmp_url != rtmp_url
+                    || snapshot.ip_change_warning != ip_change_warning;
+                if !changed {
+                    return false;
+                }
                 snapshot.interfaces = interfaces;
                 snapshot.selected_interface = selected_name;
                 snapshot.lan_ipv4 = selected_ip.clone();
                 snapshot.rtmp_url = rtmp_url;
-                snapshot.ip_change_warning =
-                    detect_change && before.is_some() && before != selected_ip;
+                snapshot.ip_change_warning = ip_change_warning;
+                true
             })
             .await;
         Ok(())
@@ -551,7 +617,11 @@ impl AppState {
     }
 
     pub async fn activate_virtual_camera_extension(&self, app: &AppHandle) -> BridgeResult<()> {
-        virtual_camera::request_activation()?;
+        tokio::task::spawn_blocking(virtual_camera::request_activation)
+            .await
+            .map_err(|error| {
+                BridgeError::VirtualCamera(format!("Camera activation task failed: {error}"))
+            })??;
         self.state
             .mutate(app, |snapshot| {
                 snapshot.virtual_camera.status = ServiceStatus::Starting;

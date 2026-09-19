@@ -56,7 +56,7 @@ impl WorkflowState {
     }
 }
 
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct StreamMetadata {
     pub resolution: Option<String>,
@@ -70,7 +70,7 @@ pub struct StreamMetadata {
     pub uptime_seconds: Option<u64>,
 }
 
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct PreviewState {
     pub direct_whep_url: String,
@@ -97,7 +97,7 @@ pub enum ServiceStatus {
     Failed,
 }
 
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ObsState {
     pub installed: bool,
@@ -210,6 +210,26 @@ impl StateStore {
             snapshot.clone()
         };
         if let Err(error) = app.emit(STATE_EVENT, cloned) {
+            tracing::warn!(%error, "failed to emit bridge state");
+        }
+    }
+
+    pub async fn mutate_if_changed<F>(&self, app: &AppHandle, update: F)
+    where
+        F: FnOnce(&mut BridgeSnapshot) -> bool,
+    {
+        let cloned = {
+            let mut snapshot = self.snapshot.write().await;
+            if update(&mut snapshot) {
+                snapshot.updated_at_unix_ms = now_ms();
+                Some(snapshot.clone())
+            } else {
+                None
+            }
+        };
+        if let Some(cloned) = cloned
+            && let Err(error) = app.emit(STATE_EVENT, cloned)
+        {
             tracing::warn!(%error, "failed to emit bridge state");
         }
     }

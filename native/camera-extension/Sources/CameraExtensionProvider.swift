@@ -76,6 +76,9 @@ final class CameraExtensionDeviceSource: NSObject, CMIOExtensionDeviceSource {
 final class CameraExtensionStreamSource: NSObject, CMIOExtensionStreamSource {
     private(set) var stream: CMIOExtensionStream!
     private let format: CMIOExtensionStreamFormat
+    private let videoFormatDescription: CMVideoFormatDescription
+    private let pixelBufferPool: CVPixelBufferPool
+    private let fallbackFrame: [UInt8]
     private let queue = DispatchQueue(label: "com.djilivebridge.camera.frames", qos: .userInteractive)
     private var running = false
     private var frameIndex: Int64 = 0
@@ -90,13 +93,37 @@ final class CameraExtensionStreamSource: NSObject, CMIOExtensionStreamSource {
             extensions: nil,
             formatDescriptionOut: &description
         )
+        videoFormatDescription = description!
         let duration = CMTime(value: 1, timescale: cameraFPS)
         format = CMIOExtensionStreamFormat(
-            formatDescription: description!,
+            formatDescription: videoFormatDescription,
             maxFrameDuration: duration,
             minFrameDuration: duration,
             validFrameDurations: nil
         )
+
+        let pixelAttributes: [CFString: Any] = [
+            kCVPixelBufferWidthKey: cameraWidth,
+            kCVPixelBufferHeightKey: cameraHeight,
+            kCVPixelBufferPixelFormatTypeKey: kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange,
+            kCVPixelBufferIOSurfacePropertiesKey: [:],
+            kCVPixelBufferMetalCompatibilityKey: true,
+        ]
+        var pool: CVPixelBufferPool?
+        CVPixelBufferPoolCreate(
+            kCFAllocatorDefault,
+            nil,
+            pixelAttributes as CFDictionary,
+            &pool
+        )
+        pixelBufferPool = pool!
+
+        var fallback = [UInt8](repeating: 16, count: frameSize)
+        fallback.withUnsafeMutableBytes { raw in
+            guard let base = raw.baseAddress else { return }
+            memset(base.advanced(by: cameraWidth * cameraHeight), 128, cameraWidth * cameraHeight / 2)
+        }
+        fallbackFrame = fallback
         super.init()
         stream = CMIOExtensionStream(
             localizedName: cameraName,
@@ -227,28 +254,16 @@ final class CameraExtensionStreamSource: NSObject, CMIOExtensionStreamSource {
     }
 
     private func sendFallbackFrame() {
-        var frame = [UInt8](repeating: 16, count: frameSize)
-        frame.withUnsafeMutableBytes { raw in
-            guard let base = raw.baseAddress else { return }
-            memset(base.advanced(by: cameraWidth * cameraHeight), 128, cameraWidth * cameraHeight / 2)
-        }
-        if let sampleBuffer = makeSampleBuffer(frame) {
+        if let sampleBuffer = makeSampleBuffer(fallbackFrame) {
             send(sampleBuffer)
         }
     }
 
     private func makeSampleBuffer(_ frame: [UInt8]) -> CMSampleBuffer? {
         var pixelBuffer: CVPixelBuffer?
-        let attributes: [CFString: Any] = [
-            kCVPixelBufferIOSurfacePropertiesKey: [:],
-            kCVPixelBufferMetalCompatibilityKey: true,
-        ]
-        guard CVPixelBufferCreate(
+        guard CVPixelBufferPoolCreatePixelBuffer(
             kCFAllocatorDefault,
-            cameraWidth,
-            cameraHeight,
-            kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange,
-            attributes as CFDictionary,
+            pixelBufferPool,
             &pixelBuffer
         ) == kCVReturnSuccess, let pixelBuffer else { return nil }
 
@@ -274,13 +289,6 @@ final class CameraExtensionStreamSource: NSObject, CMIOExtensionStreamSource {
             )
         }
 
-        var formatDescription: CMVideoFormatDescription?
-        guard CMVideoFormatDescriptionCreateForImageBuffer(
-            allocator: kCFAllocatorDefault,
-            imageBuffer: pixelBuffer,
-            formatDescriptionOut: &formatDescription
-        ) == noErr, let formatDescription else { return nil }
-
         let presentationTime = CMTime(value: frameIndex, timescale: cameraFPS)
         var timing = CMSampleTimingInfo(
             duration: CMTime(value: 1, timescale: cameraFPS),
@@ -291,7 +299,7 @@ final class CameraExtensionStreamSource: NSObject, CMIOExtensionStreamSource {
         guard CMSampleBufferCreateReadyWithImageBuffer(
             allocator: kCFAllocatorDefault,
             imageBuffer: pixelBuffer,
-            formatDescription: formatDescription,
+            formatDescription: videoFormatDescription,
             sampleTiming: &timing,
             sampleBufferOut: &sampleBuffer
         ) == noErr else { return nil }

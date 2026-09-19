@@ -13,7 +13,10 @@ mod recording;
 mod state;
 mod virtual_camera;
 
-use std::{path::PathBuf, sync::Arc};
+use std::{
+    path::PathBuf,
+    sync::{Arc, atomic::Ordering},
+};
 
 use app::AppState;
 use config::{DestinationMode, FitMode, OutputLayout};
@@ -96,6 +99,7 @@ async fn save_obs_connection(
     port: u16,
     password: String,
 ) -> Result<(), ErrorPayload> {
+    state.obs_monitoring.store(true, Ordering::Relaxed);
     if host.trim().is_empty() || port == 0 {
         return Err(error::BridgeError::Validation("OBS endpoint is invalid".into()).into());
     }
@@ -111,7 +115,13 @@ async fn save_obs_connection(
 
 #[tauri::command]
 async fn open_obs(state: State<'_, Arc<AppState>>) -> Result<(), ErrorPayload> {
+    state.obs_monitoring.store(true, Ordering::Relaxed);
     state.obs.open_or_download().map_err(Into::into)
+}
+
+#[tauri::command]
+fn set_obs_monitoring(state: State<'_, Arc<AppState>>, active: bool) {
+    state.obs_monitoring.store(active, Ordering::Relaxed);
 }
 
 #[tauri::command]
@@ -126,6 +136,7 @@ async fn prepare_obs(
     layout: OutputLayout,
     fit_mode: FitMode,
 ) -> Result<(), ErrorPayload> {
+    state.obs_monitoring.store(true, Ordering::Relaxed);
     state
         .prepare_obs(&app, layout, fit_mode)
         .await
@@ -295,6 +306,7 @@ pub fn run() {
             stop_preview_fallback,
             report_preview_status,
             save_obs_connection,
+            set_obs_monitoring,
             open_obs,
             open_tiktok_live_studio,
             prepare_obs,
