@@ -7,6 +7,8 @@ use serde::{Deserialize, Serialize};
 
 use crate::state::ServiceStatus;
 
+#[cfg(target_os = "windows")]
+mod frame_bridge;
 #[cfg(target_os = "macos")]
 mod macos;
 #[cfg(target_os = "windows")]

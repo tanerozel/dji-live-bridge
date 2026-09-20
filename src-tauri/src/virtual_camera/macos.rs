@@ -167,9 +167,7 @@ pub async fn start_feed(supervisor: &ProcessSupervisor) -> BridgeResult<()> {
     }
     let ffmpeg = ffmpeg::locate("ffmpeg")
         .ok_or_else(|| BridgeError::Ffmpeg("FFmpeg is unavailable".into()))?;
-    let filter = format!(
-        "fps={FEED_FPS},scale=w={FEED_WIDTH}:h={FEED_HEIGHT}:force_original_aspect_ratio=decrease,pad={FEED_WIDTH}:{FEED_HEIGHT}:(ow-iw)/2:(oh-ih)/2,format=nv12"
-    );
+    let filter = ffmpeg::virtual_camera_filter(FEED_WIDTH, FEED_HEIGHT, FEED_FPS);
     let output = format!("tcp://127.0.0.1:{FEED_PORT}?listen=1");
     let args = [
         "-hide_banner",

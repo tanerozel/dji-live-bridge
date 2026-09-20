@@ -19,7 +19,7 @@ use std::{
 use windows::{
     Win32::Foundation::{CloseHandle, HANDLE},
     Win32::System::Memory::{
-        CreateFileMappingW, FILE_MAP_ALL_ACCESS, MapViewOfFile, MEMORY_MAPPED_VIEW_ADDRESS,
+        CreateFileMappingW, FILE_MAP_ALL_ACCESS, MEMORY_MAPPED_VIEW_ADDRESS, MapViewOfFile,
         PAGE_READWRITE, UnmapViewOfFile,
     },
     core::w,

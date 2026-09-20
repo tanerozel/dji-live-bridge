@@ -144,6 +144,48 @@ pub async fn capabilities() -> FfmpegCapabilities {
     result
 }
 
+/// The filter that turns the drone stream into the virtual camera's frames.
+/// Both platforms use the same geometry so the picture matches.
+pub fn virtual_camera_filter(width: u32, height: u32, fps: u32) -> String {
+    format!(
+        "fps={fps},scale=w={width}:h={height}:force_original_aspect_ratio=decrease,\
+         pad={width}:{height}:(ow-iw)/2:(oh-ih)/2,format=nv12"
+    )
+}
+
+/// Windows feed: raw NV12 frames on stdout, which the app copies into the
+/// shared buffer the DirectShow filter reads.
+#[cfg(windows)]
+pub fn virtual_camera_feed_args() -> Vec<String> {
+    let filter = virtual_camera_filter(
+        crate::virtual_camera::FEED_WIDTH,
+        crate::virtual_camera::FEED_HEIGHT,
+        crate::virtual_camera::FEED_FPS,
+    );
+    [
+        "-hide_banner",
+        "-loglevel",
+        "warning",
+        "-rtsp_transport",
+        "tcp",
+        "-i",
+        "rtsp://127.0.0.1:8554/drone",
+        "-map",
+        "0:v:0",
+        "-an",
+        "-vf",
+        &filter,
+        "-pix_fmt",
+        "nv12",
+        "-f",
+        "rawvideo",
+        "-",
+    ]
+    .into_iter()
+    .map(str::to_string)
+    .collect()
+}
+
 /// Picks the H.264 encoder: hardware first, because it leaves the CPU free for
 /// the RTSP reader. The bundled LGPL build has no libx264, so a system FFmpeg
 /// is the only way that fallback ever applies.
