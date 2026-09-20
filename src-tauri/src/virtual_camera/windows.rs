@@ -24,10 +24,7 @@ use crate::{
     state::ServiceStatus,
 };
 
-use super::{
-    DEVICE_NAME, FEED_FPS, FEED_HEIGHT, FEED_PROCESS_NAME, FEED_WIDTH, VirtualCameraState,
-    frame_bridge,
-};
+use super::{DEVICE_NAME, FEED_FPS, FEED_HEIGHT, FEED_WIDTH, VirtualCameraState, frame_bridge};
 
 /// Where the DirectShow filter registers itself; the CLSID matches
 /// `CLSID_DjiLiveBridgeCamera` in the C++ source.
@@ -161,10 +158,6 @@ pub fn feed_running() -> bool {
 /// The macOS build keeps an app handle for system-extension callbacks; the
 /// Windows camera needs no such channel.
 pub fn register_app_handle(_app: tauri::AppHandle) {}
-
-/// Marks the feed process so the supervisor's naming stays consistent with
-/// the macOS path.
-pub const FEED_NAME: &str = FEED_PROCESS_NAME;
 
 struct BufferedChild(std::process::ChildStdout);
 

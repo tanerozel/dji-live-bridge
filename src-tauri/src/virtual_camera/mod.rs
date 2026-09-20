@@ -20,6 +20,9 @@ pub use macos::*;
 pub use windows::*;
 
 pub const DEVICE_NAME: &str = "DJI Live Bridge Camera";
+/// Only macOS runs the feed under the process supervisor, so only macOS
+/// needs a name for it.
+#[cfg(target_os = "macos")]
 pub const FEED_PROCESS_NAME: &str = "virtual-camera-feed";
 pub(crate) const FEED_WIDTH: u32 = 1080;
 pub(crate) const FEED_HEIGHT: u32 = 1920;
