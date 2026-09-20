@@ -398,18 +398,16 @@ fn resolve_sidecar_path() -> BridgeResult<PathBuf> {
         .parent()
         .map(Path::to_path_buf)
         .ok_or_else(|| BridgeError::MediaMtx("application executable directory missing".into()))?;
-    let packaged = executable_dir.join("mediamtx");
+    // Windows ships the sidecar as `mediamtx.exe`; macOS as `mediamtx`.
+    let suffix = std::env::consts::EXE_SUFFIX;
+    let packaged = executable_dir.join(format!("mediamtx{suffix}"));
     if packaged.is_file() {
         return Ok(packaged);
     }
-    let triple = if cfg!(target_arch = "aarch64") {
-        "aarch64-apple-darwin"
-    } else {
-        "x86_64-apple-darwin"
-    };
+    let triple = env!("BUILD_TARGET_TRIPLE");
     let development = Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("binaries")
-        .join(format!("mediamtx-{triple}"));
+        .join(format!("mediamtx-{triple}{suffix}"));
     if development.is_file() {
         return Ok(development);
     }

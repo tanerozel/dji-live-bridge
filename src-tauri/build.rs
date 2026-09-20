@@ -1,4 +1,10 @@
 fn main() {
+    // The development sidecar is named after the build target, so ask cargo for
+    // the triple instead of guessing it from cfg at runtime.
+    println!(
+        "cargo:rustc-env=BUILD_TARGET_TRIPLE={}",
+        std::env::var("TARGET").expect("TARGET is missing")
+    );
     // The Objective-C camera bridge is macOS-only; other platforms link nothing.
     #[cfg(target_os = "macos")]
     {
