@@ -96,6 +96,20 @@ pub async fn capabilities() -> FfmpegCapabilities {
         result.opus = encoders.contains(" opus ");
         result.aac = encoders.contains(" AAC ") || encoders.contains(" aac ");
     }
+    // Being listed only means the build contains the encoder, not that this
+    // machine can open it: a PC with an NVIDIA driver too old for the runtime
+    // lists h264_nvenc and then fails with "Cannot load cuMemAllocAsync", and
+    // h264_amf is listed on machines with no AMD GPU at all. Selecting one of
+    // those loses the stream, so each is tried for real before it counts.
+    for (available, encoder) in [
+        (&mut result.h264_nvenc, "h264_nvenc"),
+        (&mut result.h264_qsv, "h264_qsv"),
+        (&mut result.h264_amf, "h264_amf"),
+    ] {
+        if *available {
+            *available = encodes_a_frame(&ffmpeg, encoder).await;
+        }
+    }
     if let Ok(output) = crate::console::hide(&mut Command::new(&ffmpeg))
         .args(["-hide_banner", "-devices"])
         .output()
@@ -146,6 +160,31 @@ pub async fn capabilities() -> FfmpegCapabilities {
             .is_ok_and(|output| output.status.success());
     }
     result
+}
+
+/// Encodes three frames of a generated colour source. Cheap enough to run
+/// while probing, and the only way to learn that a driver is really there.
+async fn encodes_a_frame(ffmpeg: &Path, encoder: &str) -> bool {
+    crate::console::hide(&mut Command::new(ffmpeg))
+        .args([
+            "-hide_banner",
+            "-loglevel",
+            "error",
+            "-f",
+            "lavfi",
+            "-i",
+            "color=size=320x240:rate=30",
+            "-frames:v",
+            "3",
+            "-c:v",
+            encoder,
+            "-f",
+            "null",
+            "-",
+        ])
+        .output()
+        .await
+        .is_ok_and(|output| output.status.success())
 }
 
 /// The filter that turns the drone stream into the virtual camera's frames.
