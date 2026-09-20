@@ -275,15 +275,7 @@ impl AppState {
                     Duration::from_secs(30)
                 };
             if virtual_camera_check.elapsed() >= camera_interval {
-                let feed_active = camera_snapshot.processes.iter().any(|process| {
-                    process.name == virtual_camera::FEED_PROCESS_NAME
-                        && matches!(
-                            process.status,
-                            crate::process::ProcessStatus::Starting
-                                | crate::process::ProcessStatus::Running
-                                | crate::process::ProcessStatus::BackingOff
-                        )
-                });
+                let feed_active = virtual_camera::feed_active(&camera_snapshot.processes);
                 match tokio::task::spawn_blocking(move || virtual_camera::inspect(feed_active))
                     .await
                 {

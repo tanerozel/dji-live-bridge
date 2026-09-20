@@ -56,3 +56,23 @@ impl Default for VirtualCameraState {
         }
     }
 }
+
+/// Whether the camera is currently being fed. macOS runs the feed under the
+/// process supervisor; Windows owns the child directly.
+#[cfg(target_os = "macos")]
+pub fn feed_active(processes: &[crate::process::ProcessSnapshot]) -> bool {
+    processes.iter().any(|process| {
+        process.name == FEED_PROCESS_NAME
+            && matches!(
+                process.status,
+                crate::process::ProcessStatus::Starting
+                    | crate::process::ProcessStatus::Running
+                    | crate::process::ProcessStatus::BackingOff
+            )
+    })
+}
+
+#[cfg(target_os = "windows")]
+pub fn feed_active(_processes: &[crate::process::ProcessSnapshot]) -> bool {
+    windows::feed_running()
+}

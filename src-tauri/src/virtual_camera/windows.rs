@@ -10,9 +10,9 @@
 
 use std::{
     io::Read,
-    process::{Command, Stdio},
+    process::{Child, Command, Stdio},
     sync::{
-        Arc,
+        Mutex, OnceLock,
         atomic::{AtomicBool, Ordering},
     },
 };
@@ -35,6 +35,13 @@ const FILTER_CLSID: &str = "{6F1D9A0C-6B2E-4F0B-9E2E-2C8B3F5A7D41}";
 
 static FEED_RUNNING: AtomicBool = AtomicBool::new(false);
 
+/// The running FFmpeg feed, so stopping actually stops it rather than waiting
+/// for the pipe to close on its own.
+fn feed_child() -> &'static Mutex<Option<Child>> {
+    static CHILD: OnceLock<Mutex<Option<Child>>> = OnceLock::new();
+    CHILD.get_or_init(|| Mutex::new(None))
+}
+
 /// The camera filter is registered when its CLSID is in the registry.
 fn filter_registered() -> bool {
     Command::new("reg")
@@ -50,7 +57,7 @@ pub fn inspect(feed_active: bool) -> VirtualCameraState {
     let (status, detail_key, detail) = if registered {
         (
             ServiceStatus::Ready,
-            "camera.detail.enabled",
+            "camera.detail.windowsReady",
             Some(format!("{DEVICE_NAME} is registered with Windows")),
         )
     } else {
@@ -119,35 +126,31 @@ pub async fn start_feed(supervisor: &ProcessSupervisor) -> BridgeResult<()> {
         .ok_or_else(|| BridgeError::Ffmpeg("camera feed produced no output".into()))?;
 
     FEED_RUNNING.store(true, Ordering::Relaxed);
-    let running = Arc::new(AtomicBool::new(true));
-    let thread_running = running.clone();
-    // A blocking reader: FFmpeg writes ~93 MB/s, so it gets its own thread.
+    *feed_child().lock().expect("feed lock") = Some(child);
+
+    // A blocking reader: FFmpeg produces ~93 MB/s, so it gets its own thread.
+    // It stops when stop_feed clears the flag and kills the child.
     std::thread::spawn(move || {
-        let result = frame_bridge::pump_frames(BufferedChild(stdout), thread_running);
-        if let Err(error) = result {
+        if let Err(error) = frame_bridge::pump_frames(BufferedChild(stdout), &FEED_RUNNING) {
             tracing::warn!(%error, "virtual camera feed stopped");
         }
         FEED_RUNNING.store(false, Ordering::Relaxed);
-        let _ = child.kill();
-        let _ = child.wait();
+        if let Some(mut child) = feed_child().lock().expect("feed lock").take() {
+            let _ = child.kill();
+            let _ = child.wait();
+        }
     });
     Ok(())
 }
 
 pub async fn stop_feed(_supervisor: &ProcessSupervisor) -> BridgeResult<()> {
     FEED_RUNNING.store(false, Ordering::Relaxed);
-    // The feed thread owns the child and exits when the pipe closes.
-    let _ = Command::new("taskkill")
-        .args([
-            "/IM",
-            "ffmpeg.exe",
-            "/FI",
-            "WINDOWTITLE eq dji-camera-feed",
-            "/F",
-        ])
-        .stdout(Stdio::null())
-        .stderr(Stdio::null())
-        .status();
+    // Killing our own child ends the pipe, which ends the reader thread. Only
+    // this process's FFmpeg is touched, never another one on the machine.
+    if let Some(mut child) = feed_child().lock().expect("feed lock").take() {
+        let _ = child.kill();
+        let _ = child.wait();
+    }
     Ok(())
 }
 

@@ -39,12 +39,10 @@ jobs:
       - name: Fetch the Windows sidecars (MediaMTX, FFmpeg, ffprobe)
         run: pwsh scripts/fetch-windows-sidecars.ps1
 
+      # Fails fast, before the long Rust build. The bundler runs the same
+      # script again through beforeBundleCommand, which is a no-op rebuild.
       - name: Build the virtual camera filter
-        run: |
-          cmake -S native/windows -B native/windows/build -A x64
-          cmake --build native/windows/build --config Release
-          New-Item -ItemType Directory -Force -Path src-tauri/resources | Out-Null
-          Copy-Item native/windows/build/Release/dji_virtual_camera.dll src-tauri/resources/ -Force
+        run: pwsh scripts/build-windows-camera.ps1
 
       - name: Frontend checks
         run: |
@@ -66,7 +64,7 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force -Path dist-windows | Out-Null
           Get-ChildItem -Recurse -Path src-tauri/target/x86_64-pc-windows-msvc/release/bundle `
-            -Include *.exe, *.msi | Copy-Item -Destination dist-windows
+            -Include *.exe | Copy-Item -Destination dist-windows
 
       - uses: actions/upload-artifact@v4
         with:

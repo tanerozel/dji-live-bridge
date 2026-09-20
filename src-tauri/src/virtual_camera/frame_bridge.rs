@@ -10,10 +10,7 @@
 
 use std::{
     io::Read,
-    sync::{
-        Arc,
-        atomic::{AtomicBool, Ordering},
-    },
+    sync::atomic::{AtomicBool, Ordering},
 };
 
 use windows::{
@@ -129,7 +126,7 @@ impl Drop for FrameBridge {
 
 /// Reads NV12 frames from the FFmpeg pipe and publishes them until the pipe
 /// closes or `running` is cleared.
-pub fn pump_frames<R: Read>(mut source: R, running: Arc<AtomicBool>) -> BridgeResult<()> {
+pub fn pump_frames<R: Read>(mut source: R, running: &AtomicBool) -> BridgeResult<()> {
     let mut bridge = FrameBridge::create()?;
     let mut frame = vec![0u8; FRAME_BYTES];
     while running.load(Ordering::Relaxed) {
