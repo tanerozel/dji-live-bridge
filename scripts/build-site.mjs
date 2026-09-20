@@ -17,6 +17,8 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const BASE = "https://tanerozel.github.io/dji-live-bridge";
 const REPO = "https://github.com/tanerozel/dji-live-bridge";
 const RELEASES = `${REPO}/releases/latest`;
+// Google Analytics 4. Empty string removes the tag from every page.
+const ANALYTICS_ID = "G-2HCY063P0W";
 
 // dir: the writing direction. hreflang: what a search engine matches against,
 // which is not always the folder name (Simplified Chinese is zh-Hans).
@@ -49,6 +51,17 @@ const assetPrefix = (code) => (code === "en" ? "" : "../");
 const escapeHtml = (value) =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const stripTags = (value) => value.replace(/<[^>]+>/g, "");
+
+const analytics = () =>
+  ANALYTICS_ID
+    ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_ID}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '${ANALYTICS_ID}');
+</script>`
+    : "";
 
 function head(locale, content) {
   const url = urlFor(locale.code);
@@ -88,6 +101,7 @@ function head(locale, content) {
 
   return `<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+${analytics()}
 <title>${escapeHtml(content.meta.title)}</title>
 <meta name="description" content="${escapeHtml(stripTags(content.meta.description))}">
 <meta name="keywords" content="${escapeHtml(content.meta.keywords)}">

@@ -13,6 +13,8 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const BASE = "https://tanerozel.github.io/dji-live-bridge";
+// Keep in step with scripts/build-site.mjs.
+const ANALYTICS_ID = "G-2HCY063P0W";
 
 const LOCALES = [
   { code: "en", dir: "ltr", hreflang: "en" },
@@ -119,6 +121,16 @@ for (const locale of LOCALES) {
   }
 
   if (/undefined|\[object Object\]/.test(html)) fail(where, "rendered 'undefined' or '[object Object]'");
+
+  // The analytics tag is easy to lose in a template change and impossible to
+  // notice afterwards: the pages look identical, the numbers just stop.
+  if (ANALYTICS_ID) {
+    const loader = `<script async src="https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_ID}"></script>`;
+    if (!html.includes(loader)) fail(where, "the analytics tag is missing");
+    if (!html.includes(`gtag('config', '${ANALYTICS_ID}')`)) {
+      fail(where, "the analytics tag is not configured");
+    }
+  }
 
   // A page that still carries the English headline was never translated.
   if (locale.code !== "en" && title === englishTitle) fail(where, "title is still the English one");
