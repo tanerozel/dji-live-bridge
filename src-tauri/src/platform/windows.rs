@@ -62,9 +62,30 @@ pub fn open_obs() -> BridgeResult<()> {
     Ok(())
 }
 
+/// The installer puts a launcher at a stable path and the app itself inside a
+/// versioned directory next to it (`TikTok LIVE Studio\1.36.6\...`). Looking
+/// only for the plain executable therefore missed every current install, so
+/// prefer the launcher, which also picks the right version when started.
 fn tiktok_live_studio_executable() -> Option<PathBuf> {
-    program_files_candidates("TikTok LIVE Studio\\TikTok LIVE Studio.exe")
+    program_files_candidates("TikTok LIVE Studio\\TikTok LIVE Studio Launcher.exe")
         .into_iter()
+        .chain(program_files_candidates(
+            "TikTok LIVE Studio\\TikTok LIVE Studio.exe",
+        ))
+        .find(|path| path.is_file())
+        .or_else(versioned_tiktok_live_studio)
+}
+
+/// Older or repaired installs can lack the launcher. Any version directory
+/// that holds the executable proves the app is installed, which is all this
+/// fallback is for; picking between several is the launcher's job.
+fn versioned_tiktok_live_studio() -> Option<PathBuf> {
+    program_files_candidates("TikTok LIVE Studio")
+        .into_iter()
+        .filter_map(|root| std::fs::read_dir(root).ok())
+        .flatten()
+        .filter_map(|entry| entry.ok())
+        .map(|entry| entry.path().join("TikTok LIVE Studio.exe"))
         .find(|path| path.is_file())
 }
 

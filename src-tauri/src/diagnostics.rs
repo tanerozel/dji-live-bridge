@@ -27,9 +27,9 @@ pub struct DiagnosticItem {
 pub fn collect(snapshot: &BridgeSnapshot, ffmpeg: &FfmpegCapabilities) -> Vec<DiagnosticItem> {
     let mut items = Vec::new();
     items.push(item(
-        "macOS / architecture",
+        "Operating system / architecture",
         DiagnosticLevel::Pass,
-        format!("macOS {}", std::env::consts::ARCH),
+        format!("{} {}", os_name(), std::env::consts::ARCH),
         None,
     ));
     items.push(
@@ -201,8 +201,8 @@ pub fn collect(snapshot: &BridgeSnapshot, ffmpeg: &FfmpegCapabilities) -> Vec<Di
                 .virtual_camera
                 .detail
                 .clone()
-                .unwrap_or_else(|| "Waiting for macOS approval".into()),
-            Some("Allow the camera extension in System Settings > Privacy & Security."),
+                .unwrap_or_else(|| waiting_for_camera().into()),
+            Some(camera_pending_action()),
         ),
         ServiceStatus::Failed | ServiceStatus::Unavailable => item(
             "DJI Live Bridge Camera",
@@ -212,7 +212,7 @@ pub fn collect(snapshot: &BridgeSnapshot, ffmpeg: &FfmpegCapabilities) -> Vec<Di
                 .detail
                 .clone()
                 .unwrap_or_else(|| "Camera extension is unavailable".into()),
-            Some("Use a signed build from /Applications, then enable the virtual camera."),
+            Some(camera_unavailable_action()),
         ),
     });
     items.push(if snapshot.obs.connected {
@@ -246,8 +246,8 @@ pub fn collect(snapshot: &BridgeSnapshot, ffmpeg: &FfmpegCapabilities) -> Vec<Di
         item(
             "Commentary microphone",
             DiagnosticLevel::Warning,
-            "No CoreAudio input device is currently visible".into(),
-            Some("Connect or enable a microphone. macOS will request Microphone permission only when built-in commentary capture is used."),
+            "No audio input device is currently visible".into(),
+            Some(microphone_action()),
         )
     } else {
         item(
@@ -266,18 +266,68 @@ pub fn collect(snapshot: &BridgeSnapshot, ffmpeg: &FfmpegCapabilities) -> Vec<Di
         item(
             "TikTok LIVE Studio",
             DiagnosticLevel::Pass,
-            "macOS application found in /Applications".into(),
+            tiktok_found_detail(),
             None,
         )
     } else {
         item(
             "TikTok LIVE Studio",
             DiagnosticLevel::Warning,
-            "macOS application is not installed".into(),
+            "TikTok LIVE Studio is not installed".into(),
             Some("Open the current official TikTok download page from the destination panel."),
         )
     });
     items
+}
+
+/// The diagnostics list is shown on both platforms, so nothing in it may claim
+/// to be macOS when it is not.
+fn os_name() -> &'static str {
+    if cfg!(target_os = "windows") {
+        "Windows"
+    } else {
+        "macOS"
+    }
+}
+
+fn waiting_for_camera() -> &'static str {
+    if cfg!(target_os = "windows") {
+        "Waiting for the camera filter to register"
+    } else {
+        "Waiting for macOS approval"
+    }
+}
+
+fn camera_pending_action() -> &'static str {
+    if cfg!(target_os = "windows") {
+        "Start the app once as administrator so the camera filter can register."
+    } else {
+        "Allow the camera extension in System Settings > Privacy & Security."
+    }
+}
+
+fn camera_unavailable_action() -> &'static str {
+    if cfg!(target_os = "windows") {
+        "Reinstall the app, then enable the virtual camera."
+    } else {
+        "Use a signed build from /Applications, then enable the virtual camera."
+    }
+}
+
+fn microphone_action() -> &'static str {
+    if cfg!(target_os = "windows") {
+        "Connect or enable a microphone. Windows asks for Microphone permission only when built-in commentary capture is used."
+    } else {
+        "Connect or enable a microphone. macOS will request Microphone permission only when built-in commentary capture is used."
+    }
+}
+
+fn tiktok_found_detail() -> String {
+    if cfg!(target_os = "windows") {
+        "Application found in Program Files".into()
+    } else {
+        "Application found in /Applications".into()
+    }
 }
 
 fn item(
@@ -288,7 +338,7 @@ fn item(
 ) -> DiagnosticItem {
     let name = name.into();
     let slug = match name.as_str() {
-        "macOS / architecture" => "system",
+        "Operating system / architecture" => "system",
         "LAN interface" => "lan",
         "MediaMTX" => "mediamtx",
         "/drone publisher" => "publisher",
