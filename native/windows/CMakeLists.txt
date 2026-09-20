@@ -13,7 +13,7 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 file(GLOB BASECLASSES_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/baseclasses/*.cpp")
 add_library(strmbase STATIC ${BASECLASSES_SOURCES})
 target_include_directories(strmbase PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/baseclasses")
-target_compile_definitions(strmbase PUBLIC UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
+target_compile_definitions(strmbase PUBLIC UNICODE _UNICODE)
 # The 2001-era sources trip newer warnings; they are not ours to fix.
 target_compile_options(strmbase PRIVATE /w /wd4996)
 
@@ -23,5 +23,5 @@ add_library(dji_virtual_camera SHARED
 )
 target_link_libraries(dji_virtual_camera PRIVATE strmbase strmiids winmm ole32 oleaut32 uuid advapi32 user32 gdi32)
 target_include_directories(dji_virtual_camera PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
-target_compile_definitions(dji_virtual_camera PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
+target_compile_definitions(dji_virtual_camera PRIVATE UNICODE _UNICODE)
 set_target_properties(dji_virtual_camera PROPERTIES OUTPUT_NAME "dji_virtual_camera")
