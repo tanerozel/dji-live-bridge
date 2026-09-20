@@ -132,7 +132,7 @@ impl MediaMtxController {
         else {
             return;
         };
-        let listing = Command::new("tasklist")
+        let listing = crate::console::hide(&mut Command::new("tasklist"))
             .args(["/FI", &format!("IMAGENAME eq {image}"), "/NH"])
             .output()
             .await;
@@ -141,7 +141,7 @@ impl MediaMtxController {
             return;
         }
         tracing::warn!(%image, "terminating stale MediaMTX from a previous run");
-        let _ = Command::new("taskkill")
+        let _ = crate::console::hide(&mut Command::new("taskkill"))
             .args(["/IM", &image, "/F"])
             .output()
             .await;

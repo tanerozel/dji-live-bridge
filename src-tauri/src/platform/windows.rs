@@ -12,7 +12,7 @@ const TIKTOK_LIVE_STUDIO_DOWNLOAD_URL: &str = "https://www.tiktok.com/studio/dow
 
 /// `cmd /C start` is how a GUI app hands a URL or a document to the shell.
 fn shell_open(target: &str) -> BridgeResult<()> {
-    let status = Command::new("cmd")
+    let status = crate::console::hide_std(&mut Command::new("cmd"))
         .args(["/C", "start", "", target])
         .status()?;
     if !status.success() {
@@ -42,7 +42,7 @@ pub fn obs_installed() -> bool {
 }
 
 pub fn obs_running() -> bool {
-    Command::new("tasklist")
+    crate::console::hide_std(&mut Command::new("tasklist"))
         .args(["/FI", "IMAGENAME eq obs64.exe", "/NH"])
         .output()
         .is_ok_and(|output| String::from_utf8_lossy(&output.stdout).contains("obs64.exe"))

@@ -1,6 +1,7 @@
 mod app;
 mod audio;
 mod config;
+mod console;
 mod diagnostics;
 mod error;
 mod ffmpeg;

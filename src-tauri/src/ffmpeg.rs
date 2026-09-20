@@ -71,13 +71,17 @@ pub async fn capabilities() -> FfmpegCapabilities {
     let Some(ffmpeg) = ffmpeg else {
         return result;
     };
-    if let Ok(output) = Command::new(&ffmpeg).arg("-version").output().await {
+    if let Ok(output) = crate::console::hide(&mut Command::new(&ffmpeg))
+        .arg("-version")
+        .output()
+        .await
+    {
         result.version = String::from_utf8_lossy(&output.stdout)
             .lines()
             .next()
             .map(str::to_string);
     }
-    if let Ok(output) = Command::new(&ffmpeg)
+    if let Ok(output) = crate::console::hide(&mut Command::new(&ffmpeg))
         .args(["-hide_banner", "-encoders"])
         .output()
         .await
@@ -92,7 +96,7 @@ pub async fn capabilities() -> FfmpegCapabilities {
         result.opus = encoders.contains(" opus ");
         result.aac = encoders.contains(" AAC ") || encoders.contains(" aac ");
     }
-    if let Ok(output) = Command::new(&ffmpeg)
+    if let Ok(output) = crate::console::hide(&mut Command::new(&ffmpeg))
         .args(["-hide_banner", "-devices"])
         .output()
         .await
@@ -104,7 +108,7 @@ pub async fn capabilities() -> FfmpegCapabilities {
         );
         result.avfoundation = devices.contains(AUDIO_INPUT_FORMAT);
     }
-    if let Ok(output) = Command::new(&ffmpeg)
+    if let Ok(output) = crate::console::hide(&mut Command::new(&ffmpeg))
         .args(["-hide_banner", "-filters"])
         .output()
         .await
@@ -116,7 +120,7 @@ pub async fn capabilities() -> FfmpegCapabilities {
         result.amix = filters.contains(" amix ");
     }
     if result.h264_videotoolbox {
-        result.h264_videotoolbox_cbr = Command::new(&ffmpeg)
+        result.h264_videotoolbox_cbr = crate::console::hide(&mut Command::new(&ffmpeg))
             .args([
                 "-hide_banner",
                 "-loglevel",
@@ -670,7 +674,7 @@ pub async fn start_preview_fallback(supervisor: &ProcessSupervisor) -> BridgeRes
 pub async fn inspect_stream() -> BridgeResult<StreamMetadata> {
     let ffprobe =
         locate("ffprobe").ok_or_else(|| BridgeError::Ffmpeg("ffprobe is unavailable".into()))?;
-    let child = Command::new(ffprobe)
+    let child = crate::console::hide(&mut Command::new(ffprobe))
         .args([
             "-v",
             "error",
@@ -734,7 +738,7 @@ async fn file_has_audio(input: &Path) -> bool {
     let Some(ffprobe) = locate("ffprobe") else {
         return false;
     };
-    let child = Command::new(ffprobe)
+    let child = crate::console::hide(&mut Command::new(ffprobe))
         .args([
             "-v",
             "error",

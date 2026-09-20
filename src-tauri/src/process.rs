@@ -234,7 +234,7 @@ fn request_stop(child: &mut Child) {
 
 fn spawn_child(spec: &ProcessSpec) -> BridgeResult<Child> {
     let mut command = Command::new(&spec.executable);
-    command
+    crate::console::hide(&mut command)
         .args(&spec.args)
         .kill_on_drop(true)
         .stdin(Stdio::null())

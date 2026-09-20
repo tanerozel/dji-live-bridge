@@ -44,7 +44,7 @@ fn feed_child() -> &'static Mutex<Option<Child>> {
 
 /// The camera filter is registered when its CLSID is in the registry.
 fn filter_registered() -> bool {
-    Command::new("reg")
+    crate::console::hide_std(&mut Command::new("reg"))
         .args(["query", &format!("HKCR\\CLSID\\{FILTER_CLSID}"), "/ve"])
         .stdout(Stdio::null())
         .stderr(Stdio::null())
@@ -112,7 +112,7 @@ pub async fn start_feed(supervisor: &ProcessSupervisor) -> BridgeResult<()> {
     // Stop a previous feed before starting another writer.
     stop_feed(supervisor).await.ok();
 
-    let mut child = Command::new(ffmpeg_path)
+    let mut child = crate::console::hide_std(&mut Command::new(ffmpeg_path))
         .args(ffmpeg::virtual_camera_feed_args())
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
