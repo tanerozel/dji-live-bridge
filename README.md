@@ -2,6 +2,8 @@
 
 **English** · [Türkçe](README.tr.md) · [Español](README.es.md) · [中文（简体）](README.zh.md) · [中文（繁體）](README.zh-Hant.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md)
 
+**Website:** https://tanerozel.github.io/dji-live-bridge/
+
 A macOS app that receives the RTMP stream from DJI Fly on a Mac in the same LAN, shows a local preview through MediaMTX, and feeds a built-in FFmpeg production pipeline that needs no OBS. Rust only handles processes, state, security and orchestration; video frames never pass through Rust. OBS is an optional advanced integration.
 
 ## What it does

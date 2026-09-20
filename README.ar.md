@@ -2,6 +2,8 @@
 
 [English](README.md) · [Türkçe](README.tr.md) · [Español](README.es.md) · [中文（简体）](README.zh.md) · [中文（繁體）](README.zh-Hant.md) · **العربية** · [हिन्दी](README.hi.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md)
 
+**الموقع:** https://tanerozel.github.io/dji-live-bridge/ar/
+
 تطبيق macOS يستقبل بث DJI Fly عبر RTMP على جهاز Mac في الشبكة نفسها، ويعرض معاينة محلية عبر MediaMTX، ويغذّي مسار إنتاج مدمجًا يعتمد على FFmpeg بلا حاجة إلى OBS. من صورة واحدة يمكنك البث في الوقت نفسه إلى Instagram و TikTok وأي وجهة RTMP، أو استخدامها ككاميرا افتراضية في TikTok LIVE Studio.
 
 ## التثبيت

@@ -11,7 +11,9 @@
     "verify:bundle": "./scripts/verify-bundle.sh",
     "typecheck": "tsc -b --pretty false",
     "lint": "eslint . --max-warnings 0",
-    "tauri": "./scripts/tauri.sh"
+    "tauri": "./scripts/tauri.sh",
+    "build:site": "node scripts/build-site.mjs",
+    "check:site": "node scripts/build-site.mjs && node scripts/check-site.mjs"
   },
   "dependencies": {
     "@tauri-apps/api": "2.11.1",

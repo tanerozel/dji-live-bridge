@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "title": "DJI Live Bridge — drone ile Instagram ve TikTok yayını",
+    "description": "DJI Fly'dan gelen RTMP yayınını Instagram, TikTok ve her RTMP hedefine aynı anda gönderen ücretsiz uygulama. TikTok LIVE Studio için sanal kamera da var.",
+    "ogTitle": "DJI Live Bridge",
+    "ogDescription": "DJI drone'unuzdan Instagram, TikTok ve istediğiniz RTMP hedefine aynı anda canlı yayın yapın. Ücretsiz, açık kaynak, imzalı ve Apple onaylı.",
+    "keywords": "drone canlı yayın, DJI Fly RTMP ayarı, DJI drone ile canlı yayın, drone ile Instagram canlı yayın, drone ile TikTok yayını, sanal kamera, TikTok LIVE Studio, RTMP yayın aktarma"
+  },
+  "nav": {
+    "language": "Dil",
+    "features": "Özellikler",
+    "how": "Nasıl çalışır",
+    "tiktok": "TikTok",
+    "faq": "SSS",
+    "skip": "İçeriğe geç"
+  },
+  "hero": {
+    "pill": "Ücretsiz · Apple tarafından imzalı ve onaylı",
+    "h1": "DJI drone'unuzdan Instagram ve TikTok'ta canlı yayın",
+    "lead": "DJI Live Bridge, bilgisayarınızda DJI Fly'dan gelen RTMP yayınını alır ve birden fazla platforma aynı anda gönderir — ya da yayın anahtarı gerekmeyen TikTok LIVE Studio için sanal kameraya çevirir.",
+    "ctaMac": "macOS için indir",
+    "ctaWin": "Windows (beta)",
+    "ctaSource": "GitHub'da kaynak kodu",
+    "meta": "Apple Silicon ve Intel Mac'ler · macOS 13 veya üzeri · Windows 10/11 beta · başka hiçbir şey kurmanız gerekmez",
+    "shotAlt": "Canlı yayın sekmesi: drone'u bağlayın, hedefleri seçin, sonra YAYINI BAŞLAT'a basın.",
+    "caption": "Tek ekran: drone'u bağlayın, hedef ekleyin, YAYINI BAŞLAT'a basın."
+  },
+  "features": {
+    "h2": "Neler yapar",
+    "sub": "Her şey kendi bilgisayarınızda çalışır. Drone görüntüsü başkasının sunucusundan geçmez.",
+    "cards": [
+      {
+        "h": "Aynı anda birden fazla platform",
+        "p": "Instagram, TikTok ve istediğiniz özel RTMP hedefi tek yayında. Görüntü bir kez kodlanır ve her hedefe ayrı ayrı iletilir; bir hedef düşerse diğerleri durmaz."
+      },
+      {
+        "h": "TikTok için yayın anahtarı gerekmez",
+        "p": "Yerleşik sanal kamera TikTok LIVE Studio'da “DJI Live Bridge Camera” olarak görünür, böylece RTMP erişimi olmadan canlı yayın yapabilirsiniz."
+      },
+      {
+        "h": "Dikey video için yapıldı",
+        "p": "30 fps'de 1080×1920, 6 Mbps CBR, H.264 High, 2 saniyelik anahtar kareler. Boş alan siyah şeritler yerine görüntünün bulanık bir kopyasıyla doldurulur."
+      },
+      {
+        "h": "Başka hiçbir şey kurmanız gerekmez",
+        "p": "FFmpeg uygulamanın içinde gelir — Homebrew yok, Terminal yok, ayrı indirme yok. macOS paketi Apple tarafından imzalanmış ve onaylanmıştır."
+      },
+      {
+        "h": "Anahtarlar sistem kasasında kalır",
+        "p": "Her yayın anahtarı kendi Anahtar Zinciri kaydında durur; yapılandırma dosyasında, işlem argümanlarında veya günlüklerde asla yer almaz."
+      },
+      {
+        "h": "Canlı önizleme ve tanılama",
+        "p": "Düşük gecikmeli yerel önizleme, medya sunucusundan gelen gerçek yayın ölçümleri, kayıt ve asla sahte başarılı sonuç üretmeyen sistem kontrolleri."
+      },
+      {
+        "h": "15 dil, 5 tema",
+        "p": "Arayüz sistem dilinizi izler; Arapça'da ise tüm düzen sağdan sola döner."
+      }
+    ]
+  },
+  "how": {
+    "h2": "Nasıl çalışır",
+    "sub": "DJI Fly bilgisayarınıza RTMP gönderir; gerisini bilgisayar halleder.",
+    "steps": [
+      {
+        "t": "Drone'u bağlayın",
+        "d": "DJI Fly'da: GO FLY → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın ve uygulamanın gösterdiği adresi yapıştırın. Bilgisayar ile kumanda aynı Wi-Fi ağında veya aynı telefon hotspot'unda olmalı."
+      },
+      {
+        "t": "Nereye yayın yapacağınızı seçin",
+        "d": "Instagram, TikTok ya da herhangi bir RTMP sunucusunu, o platformdan aldığınız sunucu URL'si ve yayın anahtarıyla ekleyin. Anahtarlar sistem kasasında saklanır."
+      },
+      {
+        "t": "YAYINI BAŞLAT'a basın",
+        "d": "Düğme, yerel sunucu çalışırken, drone görüntüsü gelirken ve bir hedef seçiliyken açılır. Ardından geçen süreyi, her hedefin durumunu ve gönderilen veriyi görürsünüz."
+      }
+    ]
+  },
+  "tiktok": {
+    "h2": "Yayın anahtarı olmadan TikTok",
+    "sub": "TikTok RTMP anahtarlarını yalnızca bazı hesaplara veriyor. TikTok LIVE Studio'da böyle bir sınır yok, çünkü kendi hesabınızla giriş yapıyorsunuz — tek ihtiyacı bir kamera. DJI Live Bridge o kamerayı sağlıyor.",
+    "items": [
+      "Sanal kamerayı bir kez etkinleştirin; sistem ilk seferde izin ister.",
+      "TikTok LIVE Studio'da bir Kamera kaynağı ekleyip <strong>DJI Live Bridge Camera</strong>'yı seçin.",
+      "Bu kaynağın ses yakalamasını <em>None</em> yapın ve LIVE Studio'da tek bir mikrofon seçin.",
+      "TikTok LIVE Studio'da Go Live'a basın."
+    ],
+    "note": "Kamera bilerek yalnızca görüntü taşır: böylece sesi TikTok'un kendi işleyişi yönetir ve çift ses oluşmaz.",
+    "shotAlt": "Sanal kamerayı başlat düğmesi ve adım adım yönergelerle TikTok LIVE Studio sekmesi."
+  },
+  "details": {
+    "h2": "Ayrıntıya girmek isteyenlere",
+    "sub": "Kayıt, canlı yayın ölçümleri, isteğe bağlı OBS entegrasyonu ve sistem kontrolleri, ana akışı meşgul etmeden Gelişmiş sekmesinde durur.",
+    "shotAlt": "Yayın ölçümleri, kayıt, OBS entegrasyonu, tanılama ve Hakkında kartıyla Gelişmiş sekmesi."
+  },
+  "install": {
+    "h2": "Kurulum",
+    "steps": [
+      {
+        "t": "DMG'yi indirin",
+        "d": "Apple Silicon Mac (M1 ve sonrası) için <code>aarch64</code>, Intel Mac için <code>x86_64</code> dosyasını alın, sonra <strong>DJI Live Bridge</strong>'i Uygulamalar klasörüne sürükleyin — sanal kamera yalnızca oradan çalışır. Windows'ta <code>-setup.exe</code> kurulum dosyasını çalıştırın."
+      },
+      {
+        "t": "Açın",
+        "d": "Kurulumun tamamı bu kadar. FFmpeg uygulamanın içinde gelir; Homebrew, Terminal ya da ikinci bir indirme yok."
+      },
+      {
+        "t": "Yayına başlayın",
+        "d": "macOS uygulaması Apple tarafından imzalanıp onaylandığı için uyarı vermeden açılır."
+      }
+    ],
+    "cta": "macOS için indir",
+    "langsTitle": "Uygulama 15 dil konuşuyor"
+  },
+  "faq": {
+    "h2": "Sorular",
+    "items": [
+      {
+        "q": "Hangi drone'lar çalışır?",
+        "a": "DJI Fly sürümünde Canlı Yayın Platformları altında RTMP sunan her drone. Uygulama normal bir RTMP yayını aldığı için drone'un kendisiyle konuşmaz. RC 2'de, kumandaya bir mikrofon bağlı değilse DJI Fly yayını başlatmayı reddedebilir."
+      },
+      {
+        "q": "FFmpeg kurmam gerekir mi?",
+        "a": "Hayır. Uygulama kendi FFmpeg'ini taşır; kaynaktan, hiçbir GPL bileşeni olmadan derlenmiştir (LGPL, H.264 için Apple VideoToolbox). Yani kuracak bir şey ve güncel tutacak bir şey yok. Lisans metinleri ve derleme bayraklarının tamamı uygulamanın içinde <code>Contents/Resources/licenses</code> altında."
+      },
+      {
+        "q": "OBS gerekir mi?",
+        "a": "Hayır. OBS isteğe bağlıdır ve yalnızca sahnelerini, filtrelerini veya kaydını istiyorsanız işe yarar. Doğrudan RTMP ve sanal kamera OBS olmadan çalışır."
+      },
+      {
+        "q": "Intel Mac'te çalışır mı?",
+        "a": "Evet. Her sürüm iki indirmeyle gelir: biri Apple Silicon, biri Intel için; ikisi de imzalı ve onaylı, her biri kendi paketlenmiş FFmpeg'iyle. Mac'inize uyan dosyayı seçin."
+      },
+      {
+        "q": "Windows'ta çalışır mı?",
+        "a": "Beta aşamasında bir Windows sürümü var. Instagram, TikTok ve istediğiniz RTMP hedefine yayın çalışıyor; önizleme, kayıt ve tanılama da öyle. Yerleşik sanal kamera da dahil: kurulum dosyası, TikTok LIVE Studio, OBS ya da Zoom için bir “DJI Live Bridge Camera” cihazı kaydeder. macOS'takinden daha yeni olduğu için görünmezse, isteğe bağlı OBS entegrasyonu üzerinden OBS Virtual Camera hâlâ çalışır. Bir uyarı daha: kurulum dosyası henüz imzalı değil, bu yüzden Windows SmartScreen sizi uyaracak."
+      },
+      {
+        "q": "Yayın anahtarlarım nereye gidiyor?",
+        "a": "Sistem kasasına, her hedef için ayrı bir kayda. Yayına başladığınızda loopback arayüzü üzerinden yerel medya sunucusuna verilir, durdurduğunuzda silinir. Yapılandırma dosyasında, işlem argümanlarında veya günlüklerde asla görünmezler."
+      },
+      {
+        "q": "Instagram neden her seferinde yeni anahtar istiyor?",
+        "a": "Bu Instagram'ın kendi davranışı: her yayın için yeni bir yayın anahtarı üretiyor. Yayına başlamadan önce hedef kartındaki “Anahtarı güncelle”yi kullanın ve yayını herkese açmak için Instagram tarafında “Canlı yayına geç”e basmayı unutmayın."
+      },
+      {
+        "q": "Görüntüm neden 720p?",
+        "a": "DJI kumandası RTMP üzerinden çoğu zaman 720p gönderir. Uygulama gerçek giriş çözünürlüğünü gösterir ve büyütülmüş çıktıyı gerçek 1080p gibi sunmaz."
+      }
+    ]
+  },
+  "footer": {
+    "role": "geliştirici ve bakımcı",
+    "issue": "Sorun bildir",
+    "note": "MIT lisansıyla yayımlanmıştır; paketlenen FFmpeg LGPL'dir ve GPL bileşenleri olmadan kaynaktan derlenmiştir. DJI Live Bridge bağımsız bir projedir; DJI, Instagram, TikTok veya Apple ile bağlantısı yoktur. DJI, Instagram ve TikTok kendi sahiplerinin ticari markalarıdır."
+  }
+}

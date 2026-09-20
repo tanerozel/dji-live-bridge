@@ -2,6 +2,8 @@
 
 [English](README.md) · [Türkçe](README.tr.md) · [Español](README.es.md) · **中文（简体）** · [中文（繁體）](README.zh-Hant.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md)
 
+**网站：** https://tanerozel.github.io/dji-live-bridge/zh/
+
 一款 macOS 应用：在同一局域网的 Mac 上接收 DJI Fly 的 RTMP 推流，通过 MediaMTX 提供本地预览，并驱动无需 OBS 的内置 FFmpeg 制作流程。同一路画面可以同时推送到 Instagram、TikTok 和任意 RTMP 目标，也可以作为 TikTok LIVE Studio 的虚拟摄像头。
 
 ## 安装

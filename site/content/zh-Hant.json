@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "title": "DJI Live Bridge — 空拍機直播到 Instagram 與 TikTok",
+    "description": "免費軟體，接收 DJI Fly 送出的 RTMP 串流，同時直播到 Instagram、TikTok 和任何 RTMP 目的地；也能變成 TikTok LIVE Studio 的虛擬攝影機，不必串流金鑰。支援 macOS 與 Windows。",
+    "ogTitle": "DJI Live Bridge",
+    "ogDescription": "把 DJI 空拍機畫面同時直播到 Instagram、TikTok 和任何 RTMP 目的地。免費、開源，已簽章並公證。",
+    "keywords": "DJI 空拍機直播, DJI Fly RTMP 直播, 空拍機直播 Instagram, 空拍機 TikTok 直播, 虛擬攝影機, TikTok LIVE Studio 直播, RTMP 轉推, 多平台同時直播"
+  },
+  "nav": {
+    "language": "語言",
+    "features": "功能",
+    "how": "運作方式",
+    "tiktok": "TikTok",
+    "faq": "常見問題",
+    "skip": "跳到內容"
+  },
+  "hero": {
+    "pill": "免費 · 已由 Apple 簽章並公證",
+    "h1": "把 DJI 空拍機畫面直播到 Instagram 與 TikTok",
+    "lead": "DJI Live Bridge 接收電腦上 DJI Fly 傳來的 RTMP 串流，同時送往多個平台；也可以把它變成 TikTok LIVE Studio 的虛擬攝影機，在那裡不需要串流金鑰。",
+    "ctaMac": "下載 macOS 版",
+    "ctaWin": "Windows（測試版）",
+    "ctaSource": "GitHub 上的原始碼",
+    "meta": "Apple Silicon 與 Intel Mac · macOS 13 或更新版本 · Windows 10/11 測試版 · 不必安裝其他東西",
+    "shotAlt": "「開始直播」分頁：連接無人機、選擇直播目的地，然後按下開始直播。",
+    "caption": "一個畫面：連接無人機、加入直播目的地、按下開始直播。"
+  },
+  "features": {
+    "h2": "它能做什麼",
+    "sub": "一切都在你自己的電腦上執行。無人機畫面不會經過別人的伺服器。",
+    "cards": [
+      {
+        "h": "同時直播到多個平台",
+        "p": "在同一場直播中送往 Instagram、TikTok 和任何自訂 RTMP 目的地。畫面只編碼一次，再分送給每一個目的地，因此其中一個失敗不會影響其他。"
+      },
+      {
+        "h": "TikTok 不需要串流金鑰",
+        "p": "內建的虛擬攝影機會在 TikTok LIVE Studio 中顯示為「DJI Live Bridge Camera」，沒有 RTMP 權限也能開播。"
+      },
+      {
+        "h": "為直向影片而做",
+        "p": "1080×1920、30 fps、6 Mbps CBR、H.264 High、2 秒關鍵影格。空白處以模糊的畫面副本填滿，而不是黑邊。"
+      },
+      {
+        "h": "不必安裝其他東西",
+        "p": "FFmpeg 已內建在應用程式裡——不用 Homebrew，不用終端機，也不用另外下載。macOS 版本已由 Apple 簽章並公證。"
+      },
+      {
+        "h": "金鑰留在系統的金鑰保管庫",
+        "p": "每一組串流金鑰都存在各自的鑰匙圈項目裡，不會出現在設定檔、行程參數或記錄檔中。"
+      },
+      {
+        "h": "即時預覽與診斷",
+        "p": "低延遲的本機預覽、來自媒體伺服器的真實直播數據、錄影，以及絕不假造通過結果的系統檢查。"
+      },
+      {
+        "h": "15 種語言，5 種主題",
+        "p": "介面會跟隨系統語言，阿拉伯文則把整個版面切換成由右至左。"
+      }
+    ]
+  },
+  "how": {
+    "h2": "運作方式",
+    "sub": "DJI Fly 把 RTMP 送到你的電腦，其餘交給電腦處理。",
+    "steps": [
+      {
+        "t": "連接無人機",
+        "d": "在 DJI Fly 中：GO FLY → 圖傳 → 直播平台 → RTMP，貼上應用程式顯示的位址。電腦與遙控器要連在同一個 Wi-Fi 或手機熱點。"
+      },
+      {
+        "t": "選擇要直播到哪裡",
+        "d": "用平台提供的伺服器位址與串流金鑰，加入 Instagram、TikTok 或任何 RTMP 伺服器。金鑰會存在系統的金鑰保管庫中。"
+      },
+      {
+        "t": "按下開始直播",
+        "d": "本機伺服器已在運作、無人機畫面已進來、而且已選好直播目的地時，按鈕才會解鎖。接著你會看到已直播的時間、每個目的地的狀態與已傳送的資料量。"
+      }
+    ]
+  },
+  "tiktok": {
+    "h2": "TikTok 不必串流金鑰",
+    "sub": "TikTok 只開放部分帳號取得 RTMP 金鑰。TikTok LIVE Studio 沒有這個限制，因為你是用自己的帳號登入——它只需要一台攝影機。DJI Live Bridge 提供的就是這台攝影機。",
+    "items": [
+      "啟用一次虛擬攝影機；系統會在第一次時詢問是否允許。",
+      "在 TikTok LIVE Studio 中加入一個攝影機來源，選擇 <strong>DJI Live Bridge Camera</strong>。",
+      "把該來源的音訊擷取設為 <em>無</em>，並在 LIVE Studio 中選擇一個麥克風。",
+      "在 TikTok LIVE Studio 中按下 Go Live。"
+    ],
+    "note": "這台攝影機刻意只傳送影像：讓 TikTok 自己處理音訊，避免聲音重疊。",
+    "shotAlt": "TikTok LIVE Studio 分頁，有「啟動虛擬攝影機」按鈕與逐步說明。"
+  },
+  "details": {
+    "h2": "更多細節",
+    "sub": "錄影、直播數據、選用的 OBS 整合與系統檢查都放在「進階」分頁，不會打擾主要流程。",
+    "shotAlt": "「進階」分頁，包含直播數據、錄影、OBS 整合、診斷與關於卡片。"
+  },
+  "install": {
+    "h2": "安裝",
+    "steps": [
+      {
+        "t": "下載 DMG",
+        "d": "Apple Silicon Mac（M1 以後機型）選 <code>aarch64</code> 檔案，Intel Mac 選 <code>x86_64</code> 檔案，然後把 <strong>DJI Live Bridge</strong> 拖進「應用程式」資料夾——虛擬攝影機只有在那裡才能運作。在 Windows 上，執行 <code>-setup.exe</code> 安裝程式。"
+      },
+      {
+        "t": "打開它",
+        "d": "安裝就這樣而已。FFmpeg 隨應用程式一起提供，所以不用 Homebrew，不用終端機，也不用再下載別的東西。"
+      },
+      {
+        "t": "開始直播",
+        "d": "macOS 版應用程式已由 Apple 簽章並公證，開啟時不會出現警告。"
+      }
+    ],
+    "cta": "下載 macOS 版",
+    "langsTitle": "這個應用程式支援 15 種語言"
+  },
+  "faq": {
+    "h2": "問題與解答",
+    "items": [
+      {
+        "q": "哪些無人機可以用？",
+        "a": "只要該機型對應的 DJI Fly 版本在「直播平台」中提供 RTMP 就可以。應用程式收到的是一般的 RTMP 串流，因此不會直接與無人機溝通。在 RC 2 上，若遙控器沒有接麥克風，DJI Fly 可能會拒絕開始直播。"
+      },
+      {
+        "q": "我需要自己安裝 FFmpeg 嗎？",
+        "a": "不用。應用程式內建自行編譯的 FFmpeg，不含任何 GPL 元件（LGPL，H.264 使用 Apple VideoToolbox），所以沒有東西要安裝，也沒有東西要維護更新。授權條款全文與確切的編譯參數就在應用程式內的 <code>Contents/Resources/licenses</code>。"
+      },
+      {
+        "q": "我需要 OBS 嗎？",
+        "a": "不用。OBS 是選用的，只有在你想用它的場景、濾鏡或錄影時才有用。直接 RTMP 直播和虛擬攝影機不需要它。"
+      },
+      {
+        "q": "在 Intel Mac 上可以用嗎？",
+        "a": "可以。每個版本都提供兩個下載：一個給 Apple Silicon，一個給 Intel，兩者都已簽章並公證，各自內建 FFmpeg。挑選符合你 Mac 的檔案即可。"
+      },
+      {
+        "q": "在 Windows 上可以用嗎？",
+        "a": "Windows 版本目前是測試版。直播到 Instagram、TikTok 和任何 RTMP 目的地可以用，預覽、錄影與診斷也可以用。內建的虛擬攝影機同樣包含在內：安裝程式會為 TikTok LIVE Studio、OBS 或 Zoom 註冊一個「DJI Live Bridge Camera」裝置。它比 macOS 上的更新，所以如果沒有出現，透過選用的 OBS 整合使用 OBS Virtual Camera 仍然可行。還有一點：安裝程式尚未做程式碼簽章，因此 Windows SmartScreen 會跳出警告。"
+      },
+      {
+        "q": "我的串流金鑰會存到哪裡？",
+        "a": "存到系統的金鑰保管庫，每個目的地一筆。開播時透過回送介面交給本機媒體伺服器，停止後就移除。它們不會出現在設定檔、行程參數或記錄檔中。"
+      },
+      {
+        "q": "為什麼 Instagram 每次都要新的金鑰？",
+        "a": "這是 Instagram 自己的作法：它為每一場直播發新的串流金鑰。開播前請在目的地卡片上使用「更新金鑰」，並記得在 Instagram 那邊按下「開始直播」，直播才會公開。"
+      },
+      {
+        "q": "為什麼我的畫面是 720p？",
+        "a": "DJI 遙控器透過 RTMP 送出的往往就是 720p。應用程式會顯示真實的輸入解析度，不會把放大後的輸出假裝成原生 1080p。"
+      }
+    ]
+  },
+  "footer": {
+    "role": "開發者與維護者",
+    "issue": "回報問題",
+    "note": "以 MIT 授權釋出；內建的 FFmpeg 採用 LGPL，由原始碼編譯且不含 GPL 元件。DJI Live Bridge 是獨立專案，與 DJI、Instagram、TikTok 或 Apple 無隸屬關係。DJI、Instagram 與 TikTok 是各自所有者的商標。"
+  }
+}

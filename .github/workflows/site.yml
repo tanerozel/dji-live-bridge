@@ -1,0 +1,37 @@
+name: Site
+
+# docs/ is generated from site/. This job exists to catch the two mistakes that
+# a browser cannot show you: a page edited by hand in docs/ (which the next
+# build would silently overwrite) and a generated page whose SEO metadata is
+# wrong — a canonical URL pointing at the wrong language, a missing hreflang,
+# structured data that does not parse.
+
+on:
+  push:
+    branches: [main]
+    paths: ["site/**", "docs/**", "scripts/build-site.mjs", "scripts/check-site.mjs", ".github/workflows/site.yml"]
+  pull_request:
+    paths: ["site/**", "docs/**", "scripts/build-site.mjs", "scripts/check-site.mjs"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Rebuild the site
+        run: node scripts/build-site.mjs
+
+      - name: The committed pages must match the sources
+        run: |
+          if ! git diff --exit-code -- docs; then
+            echo "::error::docs/ is out of date. Edit site/content/*.json, run 'npm run build:site' and commit the result."
+            exit 1
+          fi
+
+      - name: Check the generated pages
+        run: node scripts/check-site.mjs

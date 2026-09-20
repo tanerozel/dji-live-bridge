@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "title": "DJI Live Bridge — siaran drone DJI ke Instagram & TikTok",
+    "description": "Aplikasi gratis yang menyiarkan aliran RTMP dari DJI Fly ke Instagram, TikTok, dan tujuan RTMP mana pun, atau menjadi kamera virtual untuk TikTok LIVE Studio.",
+    "ogTitle": "DJI Live Bridge",
+    "ogDescription": "Siarkan drone DJI Anda ke Instagram, TikTok, dan tujuan RTMP mana pun sekaligus. Gratis, sumber terbuka, bertanda tangan digital dan ternotarisasi.",
+    "keywords": "live streaming drone DJI, DJI Fly RTMP, drone ke Instagram Live, drone ke TikTok Live, kamera virtual, TikTok LIVE Studio, restream RTMP, aplikasi siaran drone"
+  },
+  "nav": {
+    "language": "Bahasa",
+    "features": "Fitur",
+    "how": "Cara kerja",
+    "tiktok": "TikTok",
+    "faq": "FAQ",
+    "skip": "Lompat ke konten"
+  },
+  "hero": {
+    "pill": "Gratis · Ditandatangani dan dinotarisasi oleh Apple",
+    "h1": "Siarkan drone DJI Anda ke Instagram dan TikTok",
+    "lead": "DJI Live Bridge mengambil aliran RTMP dari DJI Fly di komputer Anda lalu mengirimkannya ke beberapa platform sekaligus — atau mengubahnya menjadi kamera virtual untuk TikTok LIVE Studio, yang tidak memerlukan stream key.",
+    "ctaMac": "Unduh untuk macOS",
+    "ctaWin": "Windows (beta)",
+    "ctaSource": "Kode sumber di GitHub",
+    "meta": "Mac Apple Silicon dan Intel · macOS 13 atau lebih baru · Windows 10/11 beta · tidak ada yang perlu dipasang lagi",
+    "shotAlt": "Tab Siaran: hubungkan drone, pilih tujuan, lalu tekan MULAI SIARAN.",
+    "caption": "Satu layar: hubungkan drone, tambahkan tujuan, tekan MULAI SIARAN."
+  },
+  "features": {
+    "h2": "Apa yang dikerjakannya",
+    "sub": "Semuanya berjalan di komputer Anda sendiri. Video drone tidak pernah melewati server pihak lain.",
+    "cards": [
+      {
+        "h": "Beberapa platform sekaligus",
+        "p": "Instagram, TikTok, dan tujuan RTMP khusus mana pun dalam satu siaran. Gambar dienkode sekali lalu diteruskan ke tiap tujuan, jadi satu tujuan yang gagal tidak menghentikan yang lain."
+      },
+      {
+        "h": "Tanpa stream key untuk TikTok",
+        "p": "Kamera virtual bawaan muncul di TikTok LIVE Studio sebagai “DJI Live Bridge Camera”, jadi Anda bisa siaran tanpa akses RTMP."
+      },
+      {
+        "h": "Dibuat untuk video vertikal",
+        "p": "1080×1920 pada 30 fps, 6 Mbps CBR, H.264 High, keyframe tiap 2 detik. Ruang kosong diisi salinan gambar yang diburamkan, bukan bilah hitam."
+      },
+      {
+        "h": "Tidak ada yang perlu dipasang lagi",
+        "p": "FFmpeg sudah menyatu di dalam aplikasi — tanpa Homebrew, tanpa Terminal, tanpa unduhan terpisah. Paket macOS-nya ditandatangani dan dinotarisasi oleh Apple."
+      },
+      {
+        "h": "Kunci tetap di brankas sistem",
+        "p": "Setiap stream key berada di entri Keychain-nya sendiri, tidak pernah di berkas konfigurasi, di argumen proses, atau di log."
+      },
+      {
+        "h": "Pratinjau langsung dan diagnostik",
+        "p": "Pratinjau lokal berlatensi rendah, angka siaran yang sebenarnya dari server media, perekaman, dan pemeriksaan sistem yang tidak pernah memalsukan hasil lulus."
+      },
+      {
+        "h": "15 bahasa, 5 tema",
+        "p": "Antarmuka mengikuti bahasa sistem Anda, dan bahasa Arab mengubah seluruh tata letak menjadi kanan-ke-kiri."
+      }
+    ]
+  },
+  "how": {
+    "h2": "Cara kerjanya",
+    "sub": "DJI Fly mengirim RTMP ke komputer Anda; sisanya dikerjakan komputer.",
+    "steps": [
+      {
+        "t": "Hubungkan drone Anda",
+        "d": "Di DJI Fly: GO FLY → Transmission → Live Streaming Platforms → RTMP, lalu tempel alamat yang ditampilkan aplikasi. Komputer dan remote berada di Wi-Fi atau hotspot ponsel yang sama."
+      },
+      {
+        "t": "Pilih tujuan siaran",
+        "d": "Tambahkan Instagram, TikTok, atau server RTMP mana pun dengan alamat server dan stream key dari platform tersebut. Kunci disimpan di brankas sistem."
+      },
+      {
+        "t": "Tekan MULAI SIARAN",
+        "d": "Tombol terbuka saat server lokal berjalan, video drone sudah masuk, dan satu tujuan sudah dipilih. Setelah itu Anda melihat waktu berjalan, keadaan tiap tujuan, dan data yang terkirim."
+      }
+    ]
+  },
+  "tiktok": {
+    "h2": "TikTok tanpa stream key",
+    "sub": "TikTok hanya memberikan kunci RTMP kepada sebagian akun. TikTok LIVE Studio tidak punya batasan itu, karena Anda masuk dengan akun sendiri — yang dibutuhkannya hanya sebuah kamera. DJI Live Bridge menyediakan kamera itu.",
+    "items": [
+      "Aktifkan kamera virtual sekali saja; sistem Anda meminta izin pada kali pertama.",
+      "Di TikTok LIVE Studio tambahkan sumber Camera lalu pilih <strong>DJI Live Bridge Camera</strong>.",
+      "Atur audio capture sumber itu ke <em>None</em> dan pilih satu mikrofon di LIVE Studio.",
+      "Tekan Go Live di TikTok LIVE Studio."
+    ],
+    "note": "Kamera ini sengaja hanya membawa video: penanganan suara tetap diurus TikTok sendiri dan audio ganda terhindarkan.",
+    "shotAlt": "Tab TikTok LIVE Studio dengan tombol Mulai kamera virtual dan panduan langkah demi langkah."
+  },
+  "details": {
+    "h2": "Untuk yang lebih rinci",
+    "sub": "Perekaman, angka siaran langsung, integrasi OBS opsional, dan pemeriksaan sistem ada di tab Lanjutan, terpisah dari alur utama.",
+    "shotAlt": "Tab Lanjutan dengan angka siaran, perekaman, integrasi OBS, diagnostik, dan kartu Tentang."
+  },
+  "install": {
+    "h2": "Pemasangan",
+    "steps": [
+      {
+        "t": "Unduh berkas DMG",
+        "d": "Ambil berkas <code>aarch64</code> untuk Mac Apple Silicon (M1 dan lebih baru) atau berkas <code>x86_64</code> untuk Mac Intel, lalu seret <strong>DJI Live Bridge</strong> ke folder Applications — kamera virtual hanya bekerja dari sana. Di Windows, jalankan pemasang <code>-setup.exe</code>."
+      },
+      {
+        "t": "Buka aplikasinya",
+        "d": "Hanya itu pengaturannya. FFmpeg ikut di dalam aplikasi, jadi tidak ada Homebrew, tidak ada Terminal, dan tidak ada unduhan kedua."
+      },
+      {
+        "t": "Mulai siaran",
+        "d": "Aplikasi macOS ditandatangani dan dinotarisasi oleh Apple, jadi terbuka tanpa peringatan."
+      }
+    ],
+    "cta": "Unduh untuk macOS",
+    "langsTitle": "Aplikasi ini berbicara dalam 15 bahasa"
+  },
+  "faq": {
+    "h2": "Pertanyaan",
+    "items": [
+      {
+        "q": "Drone apa saja yang bisa dipakai?",
+        "a": "Drone mana pun yang versi DJI Fly-nya menyediakan RTMP di bawah Live Streaming Platforms. Aplikasi menerima aliran RTMP biasa, jadi ia tidak berkomunikasi dengan dronenya sendiri. Pada RC 2, DJI Fly kadang menolak memulai siaran kecuali ada mikrofon yang tersambung ke remote."
+      },
+      {
+        "q": "Apakah saya perlu memasang FFmpeg?",
+        "a": "Tidak. Aplikasi membawa FFmpeg-nya sendiri, dibangun dari sumber tanpa komponen GPL apa pun (LGPL, Apple VideoToolbox untuk H.264), jadi tidak ada yang perlu dipasang dan tidak ada yang perlu dijaga tetap mutakhir. Teks lisensi dan opsi build yang persis ada di dalam aplikasi pada <code>Contents/Resources/licenses</code>."
+      },
+      {
+        "q": "Apakah saya perlu OBS?",
+        "a": "Tidak. OBS bersifat opsional dan hanya berguna bila Anda ingin scene, filter, atau perekamannya. RTMP langsung dan kamera virtual bekerja tanpa OBS."
+      },
+      {
+        "q": "Apakah bisa jalan di Mac Intel?",
+        "a": "Bisa. Setiap rilis menyediakan dua unduhan: satu untuk Apple Silicon dan satu untuk Intel, keduanya ditandatangani dan dinotarisasi, masing-masing dengan FFmpeg bawaannya sendiri. Pilih berkas yang cocok dengan Mac Anda."
+      },
+      {
+        "q": "Apakah bisa jalan di Windows?",
+        "a": "Ada versi Windows dalam tahap beta. Siaran ke Instagram, TikTok, dan tujuan RTMP mana pun sudah berjalan, begitu pula pratinjau, perekaman, dan diagnostik. Kamera virtual bawaan juga ikut disertakan: pemasang mendaftarkan perangkat “DJI Live Bridge Camera” untuk TikTok LIVE Studio, OBS, atau Zoom. Kamera ini lebih baru daripada yang di macOS, jadi bila tidak muncul, OBS Virtual Camera lewat integrasi OBS opsional tetap bisa dipakai. Satu catatan lagi: pemasangnya belum ditandatangani secara digital, jadi Windows SmartScreen akan menampilkan peringatan."
+      },
+      {
+        "q": "Stream key saya disimpan di mana?",
+        "a": "Di brankas sistem, satu entri untuk tiap tujuan. Kunci diserahkan ke server media lokal lewat antarmuka loopback saat Anda mulai siaran, lalu dihapus saat siaran berhenti. Kunci tidak pernah muncul di berkas konfigurasi, di argumen proses, atau di log."
+      },
+      {
+        "q": "Kenapa Instagram selalu meminta kunci baru?",
+        "a": "Itu memang perilaku Instagram sendiri: kunci stream baru diterbitkan untuk setiap siaran. Gunakan “Perbarui kunci” di kartu tujuan sebelum mulai, dan jangan lupa menekan “Mulai live” di sisi Instagram agar siaran menjadi publik."
+      },
+      {
+        "q": "Kenapa gambar saya 720p?",
+        "a": "Remote DJI sering mengirim 720p lewat RTMP. Aplikasi menampilkan resolusi masukan yang sebenarnya dan tidak berpura-pura bahwa keluaran yang diperbesar adalah 1080p asli."
+      }
+    ]
+  },
+  "footer": {
+    "role": "pengembang dan pengelola",
+    "issue": "Laporkan masalah",
+    "note": "Dirilis di bawah lisensi MIT; FFmpeg bawaannya berlisensi LGPL, dibangun dari sumber tanpa komponen GPL. DJI Live Bridge adalah proyek independen dan tidak berafiliasi dengan DJI, Instagram, TikTok, atau Apple. DJI, Instagram, dan TikTok adalah merek dagang pemiliknya masing-masing."
+  }
+}

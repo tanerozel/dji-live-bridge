@@ -1,18 +1,64 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DJI Live Bridge — stream your DJI drone to Instagram and TikTok</title>
-<meta name="description" content="Free macOS app that takes the RTMP stream from DJI Fly and sends it live to Instagram, TikTok and any RTMP destination at once — or turns it into a virtual camera for TikTok LIVE Studio, with no stream key needed.">
+<meta name="description" content="Stream your DJI drone to Instagram, TikTok and any RTMP destination at once, or use it as a virtual camera in TikTok LIVE Studio. Free, macOS and Windows.">
+<meta name="keywords" content="DJI drone live stream, DJI Fly RTMP, drone to Instagram Live, drone to TikTok Live, virtual camera, TikTok LIVE Studio, RTMP restream">
+<meta name="author" content="Taner Özel">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161618" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://tanerozel.github.io/dji-live-bridge/">
+<link rel="alternate" hreflang="en" href="https://tanerozel.github.io/dji-live-bridge/">
+<link rel="alternate" hreflang="tr" href="https://tanerozel.github.io/dji-live-bridge/tr/">
+<link rel="alternate" hreflang="es" href="https://tanerozel.github.io/dji-live-bridge/es/">
+<link rel="alternate" hreflang="zh-Hans" href="https://tanerozel.github.io/dji-live-bridge/zh/">
+<link rel="alternate" hreflang="zh-Hant" href="https://tanerozel.github.io/dji-live-bridge/zh-Hant/">
+<link rel="alternate" hreflang="ar" href="https://tanerozel.github.io/dji-live-bridge/ar/">
+<link rel="alternate" hreflang="hi" href="https://tanerozel.github.io/dji-live-bridge/hi/">
+<link rel="alternate" hreflang="pt" href="https://tanerozel.github.io/dji-live-bridge/pt/">
+<link rel="alternate" hreflang="ru" href="https://tanerozel.github.io/dji-live-bridge/ru/">
+<link rel="alternate" hreflang="fr" href="https://tanerozel.github.io/dji-live-bridge/fr/">
+<link rel="alternate" hreflang="de" href="https://tanerozel.github.io/dji-live-bridge/de/">
+<link rel="alternate" hreflang="ja" href="https://tanerozel.github.io/dji-live-bridge/ja/">
+<link rel="alternate" hreflang="ko" href="https://tanerozel.github.io/dji-live-bridge/ko/">
+<link rel="alternate" hreflang="id" href="https://tanerozel.github.io/dji-live-bridge/id/">
+<link rel="alternate" hreflang="it" href="https://tanerozel.github.io/dji-live-bridge/it/">
+<link rel="alternate" hreflang="x-default" href="https://tanerozel.github.io/dji-live-bridge/">
 <link rel="icon" href="img/icon.png">
+<link rel="apple-touch-icon" href="img/icon.png">
+<meta property="og:site_name" content="DJI Live Bridge">
 <meta property="og:title" content="DJI Live Bridge">
-<meta property="og:description" content="Go live from your DJI drone to Instagram, TikTok and any RTMP destination at once. Free, signed and notarized macOS app.">
+<meta property="og:description" content="Go live from your DJI drone to Instagram, TikTok and any RTMP destination at once. Free, open source, signed and notarized.">
 <meta property="og:image" content="https://tanerozel.github.io/dji-live-bridge/img/go-live.png">
+<meta property="og:image:alt" content="The Go live tab: connect your drone, choose destinations, then press START LIVE.">
 <meta property="og:url" content="https://tanerozel.github.io/dji-live-bridge/">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="tr_TR">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:locale:alternate" content="zh_TW">
+<meta property="og:locale:alternate" content="ar_AR">
+<meta property="og:locale:alternate" content="hi_IN">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta property="og:locale:alternate" content="ru_RU">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta property="og:locale:alternate" content="id_ID">
+<meta property="og:locale:alternate" content="it_IT">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DJI Live Bridge">
+<meta name="twitter:description" content="Go live from your DJI drone to Instagram, TikTok and any RTMP destination at once. Free, open source, signed and notarized.">
+<meta name="twitter:image" content="https://tanerozel.github.io/dji-live-bridge/img/go-live.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"DJI Live Bridge","description":"Stream your DJI drone to Instagram, TikTok and any RTMP destination at once, or use it as a virtual camera in TikTok LIVE Studio. Free, macOS and Windows.","applicationCategory":"MultimediaApplication","operatingSystem":"macOS 13 or newer, Windows 10/11","softwareVersion":"0.2.6","url":"https://tanerozel.github.io/dji-live-bridge/","downloadUrl":"https://github.com/tanerozel/dji-live-bridge/releases/latest","inLanguage":"en","image":"https://tanerozel.github.io/dji-live-bridge/img/go-live.png","license":"https://opensource.org/licenses/MIT","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"en","mainEntity":[{"@type":"Question","name":"Which drones work?","acceptedAnswer":{"@type":"Answer","text":"Any drone whose DJI Fly version offers RTMP under Live Streaming Platforms. The app receives a normal RTMP stream, so it does not talk to the drone itself. On the RC 2, DJI Fly may refuse to start streaming unless a microphone is connected to the controller."}},{"@type":"Question","name":"Do I need to install FFmpeg?","acceptedAnswer":{"@type":"Answer","text":"No. The app carries its own FFmpeg, built from source without any GPL component (LGPL, Apple VideoToolbox for H.264), so there is nothing to install and nothing to keep up to date. The licence texts and the exact build flags are inside the app under Contents/Resources/licenses."}},{"@type":"Question","name":"Do I need OBS?","acceptedAnswer":{"@type":"Answer","text":"No. OBS is optional and only useful if you want its scenes, filters or recording. Direct RTMP and the virtual camera work without it."}},{"@type":"Question","name":"Does it work on an Intel Mac?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every release ships two downloads: one for Apple Silicon and one for Intel, both signed and notarized, each with its own bundled FFmpeg. Pick the file that matches your Mac."}},{"@type":"Question","name":"Does it work on Windows?","acceptedAnswer":{"@type":"Answer","text":"There is a Windows build in beta. Streaming to Instagram, TikTok and any RTMP destination works, as do the preview, recording and diagnostics. The built-in virtual camera is included too: the installer registers a “DJI Live Bridge Camera” device for TikTok LIVE Studio, OBS or Zoom. It is newer than the macOS one, so if it does not appear, OBS Virtual Camera through the optional OBS integration still works. One more caveat: the installer is not code-signed yet, so Windows SmartScreen will warn you."}},{"@type":"Question","name":"Where do my stream keys go?","acceptedAnswer":{"@type":"Answer","text":"Into the system vault, one entry per destination. They are handed to the local media server over the loopback interface when you go live and removed when you stop. They never appear in the config file, in process arguments or in logs."}},{"@type":"Question","name":"Why does Instagram ask for a new key every time?","acceptedAnswer":{"@type":"Answer","text":"That is Instagram's own behaviour: it issues a fresh stream key for every broadcast. Use “Update key” on the destination card before you go live, and remember to press “Go live” on Instagram's side to make the broadcast public."}},{"@type":"Question","name":"Why is my picture 720p?","acceptedAnswer":{"@type":"Answer","text":"The DJI controller often sends 720p over RTMP. The app shows the real input resolution and does not pretend the upscaled output is native 1080p."}}]}</script>
 <style>
+
 :root{
   color-scheme:light;
   --bg:#f5f5f7; --surface:#fff; --surface-2:#f2f2f5; --border:#e3e3e8; --border-strong:#d2d2d7;
@@ -90,10 +136,10 @@ h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.01em}
 ul.plain{margin:16px 0 0;padding-left:20px;color:var(--muted);font-size:15px}
 ul.plain li{margin:7px 0}
 .faq{display:grid;gap:12px;margin-top:26px}
-details{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:16px 18px}
-details[open]{background:var(--surface)}
-summary{cursor:pointer;font-weight:600;font-size:15.5px}
-details p{margin-top:10px;color:var(--muted);font-size:14.5px}
+.faq details{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:16px 18px}
+.faq details[open]{background:var(--surface)}
+.faq summary{cursor:pointer;font-weight:600;font-size:15.5px}
+.faq details p{margin-top:10px;color:var(--muted);font-size:14.5px}
 .langs{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
 .lang{padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);
   font-size:13.5px;color:var(--muted)}
@@ -101,48 +147,97 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 .foot-links{display:flex;flex-wrap:wrap;gap:16px;margin:14px 0 20px}
 .note{font-size:13px;color:var(--faint)}
 @media (max-width:820px){.split{grid-template-columns:1fr}nav a:not(.btn){display:none}}
+
+/* Language menu: a crawlable list of links, collapsed on small screens. */
+.langmenu{position:relative;display:inline-flex;flex-direction:column;align-self:center}
+.langmenu>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+  padding:7px 12px;border:1px solid var(--border-strong);border-radius:10px;background:var(--surface);
+  color:var(--text);font-size:14px;font-weight:600}
+.langmenu>summary::-webkit-details-marker{display:none}
+.langmenu[open]>summary{background:var(--surface-2)}
+.langmenu:not([open]) .sheet{display:none}
+.langmenu .sheet{position:absolute;right:0;top:calc(100% + 8px);z-index:20;display:grid;
+  grid-template-columns:repeat(2,minmax(150px,1fr));gap:2px;padding:8px;border:1px solid var(--border);
+  border-radius:12px;background:var(--surface);box-shadow:var(--shadow);max-height:60vh;overflow:auto}
+.langmenu .sheet a{padding:8px 10px;border-radius:8px;color:var(--text);font-size:14px;white-space:nowrap}
+.langmenu .sheet a:hover{background:var(--surface-2);text-decoration:none}
+.langmenu .sheet a[aria-current=true]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.langs a{padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);
+  font-size:13.5px;color:var(--muted)}
+.langs a:hover{color:var(--text);text-decoration:none}
+.langs a[aria-current=true]{border-color:var(--accent);color:var(--accent)}
+/* Hidden until focused. Pushing it off-screen with a negative offset would
+   widen the page by that offset in right-to-left languages, so it is clipped
+   in place instead. */
+.skip{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap}
+.skip:focus{position:fixed;width:auto;height:auto;margin:0;clip-path:none;
+  inset-inline-start:20px;top:10px;z-index:30;padding:10px 14px;background:var(--surface);
+  color:var(--text);border:1px solid var(--border-strong);border-radius:10px}
+[dir=rtl] .steps li{grid-template-columns:34px 1fr}
+[dir=rtl] .langmenu .sheet{right:auto;left:0}
+[dir=rtl] ul.plain{padding-left:0;padding-right:20px}
+
+/* Below ~520px the header runs out of room: the brand, the language menu and
+   the GitHub button together force the page wider than the screen, which cuts
+   every section off on the right. The language name and the GitHub button go
+   (the hero repeats that link anyway); the globe stays as the affordance. */
+@media (max-width:520px){
+  .bar{gap:10px}
+  .langname{display:none}
+  .langmenu>summary{padding:7px 11px;font-size:16px}
+  nav>.btn.small{display:none}
+  .langmenu .sheet{grid-template-columns:1fr;min-width:190px}
+}
 </style>
 </head>
 <body>
 
+<a class="skip" href="#main">Skip to content</a>
+
 <header>
   <div class="wrap bar">
-    <a class="brand" href="./"><img src="img/icon.png" alt="">DJI Live Bridge</a>
+    <a class="brand" href="https://tanerozel.github.io/dji-live-bridge/"><img src="img/icon.png" alt="" width="30" height="30">DJI Live Bridge</a>
     <nav>
       <a href="#features">Features</a>
       <a href="#how">How it works</a>
       <a href="#tiktok">TikTok</a>
       <a href="#faq">FAQ</a>
+      <details class="langmenu">
+        <summary aria-label="Language"><span aria-hidden="true">🌐</span><span class="langname">English</span></summary>
+        <div class="sheet"><a href="https://tanerozel.github.io/dji-live-bridge/" hreflang="en" lang="en" aria-current="true">English</a><a href="https://tanerozel.github.io/dji-live-bridge/tr/" hreflang="tr" lang="tr">Türkçe</a><a href="https://tanerozel.github.io/dji-live-bridge/es/" hreflang="es" lang="es">Español</a><a href="https://tanerozel.github.io/dji-live-bridge/zh/" hreflang="zh-Hans" lang="zh-Hans">中文（简体）</a><a href="https://tanerozel.github.io/dji-live-bridge/zh-Hant/" hreflang="zh-Hant" lang="zh-Hant">中文（繁體）</a><a href="https://tanerozel.github.io/dji-live-bridge/ar/" hreflang="ar" lang="ar">العربية</a><a href="https://tanerozel.github.io/dji-live-bridge/hi/" hreflang="hi" lang="hi">हिन्दी</a><a href="https://tanerozel.github.io/dji-live-bridge/pt/" hreflang="pt" lang="pt">Português</a><a href="https://tanerozel.github.io/dji-live-bridge/ru/" hreflang="ru" lang="ru">Русский</a><a href="https://tanerozel.github.io/dji-live-bridge/fr/" hreflang="fr" lang="fr">Français</a><a href="https://tanerozel.github.io/dji-live-bridge/de/" hreflang="de" lang="de">Deutsch</a><a href="https://tanerozel.github.io/dji-live-bridge/ja/" hreflang="ja" lang="ja">日本語</a><a href="https://tanerozel.github.io/dji-live-bridge/ko/" hreflang="ko" lang="ko">한국어</a><a href="https://tanerozel.github.io/dji-live-bridge/id/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="https://tanerozel.github.io/dji-live-bridge/it/" hreflang="it" lang="it">Italiano</a></div>
+      </details>
       <a class="btn small" href="https://github.com/tanerozel/dji-live-bridge">GitHub</a>
     </nav>
   </div>
 </header>
 
+<main id="main">
+
 <div class="wrap hero">
   <span class="pill"><span class="dot"></span>Free · Signed and notarized by Apple</span>
   <h1>Go live from your DJI drone to Instagram and TikTok</h1>
-  <p class="lead">DJI Live Bridge takes the RTMP stream from DJI Fly on your Mac and sends it to several
-    platforms at once — or turns it into a virtual camera for TikTok LIVE Studio, where no stream key is needed.</p>
+  <p class="lead">DJI Live Bridge takes the RTMP stream from DJI Fly on your computer and sends it to several platforms at once — or turns it into a virtual camera for TikTok LIVE Studio, where no stream key is needed.</p>
   <div class="cta">
     <a class="btn primary" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Download for macOS</a>
     <a class="btn" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Windows (beta)</a>
     <a class="btn" href="https://github.com/tanerozel/dji-live-bridge">Source on GitHub</a>
   </div>
   <p class="meta">Apple Silicon and Intel Macs · macOS 13 or newer · Windows 10/11 beta · nothing else to install</p>
-  <div class="shot"><img src="img/go-live.png" alt="The Go live tab: connect your drone, choose destinations, then press START LIVE." width="1600" height="1260"></div>
+  <div class="shot"><img src="img/go-live.png" alt="The Go live tab: connect your drone, choose destinations, then press START LIVE." width="1600" height="1260" fetchpriority="high"></div>
   <p class="caption">One screen: connect the drone, add destinations, press START LIVE.</p>
 </div>
 
 <section id="features">
   <div class="wrap">
     <h2>What it does</h2>
-    <p class="sub">Everything runs on your Mac. The drone feed never goes through anyone else's server.</p>
+    <p class="sub">Everything runs on your own computer. The drone feed never goes through anyone else's server.</p>
     <div class="grid">
       <div class="card"><h3>Several platforms at once</h3><p>Instagram, TikTok and any custom RTMP destination in the same broadcast. The picture is encoded once and forwarded to each one, so one failing destination does not stop the others.</p></div>
       <div class="card"><h3>No stream key for TikTok</h3><p>The built-in virtual camera appears in TikTok LIVE Studio as “DJI Live Bridge Camera”, so you can go live without RTMP access.</p></div>
       <div class="card"><h3>Made for vertical video</h3><p>1080×1920 at 30 fps, 6 Mbps CBR, H.264 High, 2-second keyframes. Empty space is filled with a blurred copy of the shot instead of black bars.</p></div>
-      <div class="card"><h3>Nothing else to install</h3><p>FFmpeg is built into the app — no Homebrew, no Terminal, no separate download. The bundle is signed and notarized by Apple.</p></div>
-      <div class="card"><h3>Keys stay in the Keychain</h3><p>Every stream key lives in its own macOS Keychain entry, never in a config file, in process arguments or in logs.</p></div>
+      <div class="card"><h3>Nothing else to install</h3><p>FFmpeg is built into the app — no Homebrew, no Terminal, no separate download. The macOS bundle is signed and notarized by Apple.</p></div>
+      <div class="card"><h3>Keys stay in the system vault</h3><p>Every stream key lives in its own Keychain entry, never in a config file, in process arguments or in logs.</p></div>
       <div class="card"><h3>Live preview and diagnostics</h3><p>A low-latency local preview, real stream metrics from the media server, recording, and system checks that never fake a passing result.</p></div>
       <div class="card"><h3>15 languages, 5 themes</h3><p>The interface follows your system language, and Arabic switches the whole layout to right-to-left.</p></div>
     </div>
@@ -152,10 +247,10 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 <section id="how">
   <div class="wrap">
     <h2>How it works</h2>
-    <p class="sub">DJI Fly sends RTMP to your Mac; the Mac does the rest.</p>
+    <p class="sub">DJI Fly sends RTMP to your computer; the computer does the rest.</p>
     <ol class="steps">
-      <li><div><strong>Connect your drone</strong><span>In DJI Fly: GO FLY → Transmission → Live Streaming Platforms → RTMP, and paste the address the app shows. The Mac and the controller share the same Wi-Fi or phone hotspot.</span></div></li>
-      <li><div><strong>Choose where to stream</strong><span>Add Instagram, TikTok or any RTMP server with the server URL and stream key from that platform. Keys are stored in the macOS Keychain.</span></div></li>
+      <li><div><strong>Connect your drone</strong><span>In DJI Fly: GO FLY → Transmission → Live Streaming Platforms → RTMP, and paste the address the app shows. The computer and the controller share the same Wi-Fi or phone hotspot.</span></div></li>
+      <li><div><strong>Choose where to stream</strong><span>Add Instagram, TikTok or any RTMP server with the server URL and stream key from that platform. Keys are stored in the system vault.</span></div></li>
       <li><div><strong>Press START LIVE</strong><span>The button unlocks when the local server is running, drone video is arriving and a destination is selected. You then see the elapsed time, each destination's state and the data sent.</span></div></li>
     </ol>
   </div>
@@ -168,7 +263,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
     <div class="split">
       <div>
         <ul class="plain">
-          <li>Enable the virtual camera once; macOS asks for approval the first time.</li>
+          <li>Enable the virtual camera once; your system asks for approval the first time.</li>
           <li>In TikTok LIVE Studio add a Camera source and pick <strong>DJI Live Bridge Camera</strong>.</li>
           <li>Set that source's audio capture to <em>None</em> and choose one microphone in LIVE Studio.</li>
           <li>Press Go Live in TikTok LIVE Studio.</li>
@@ -192,19 +287,30 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
   <div class="wrap">
     <h2>Install</h2>
     <ol class="steps">
-      <li><div><strong>Download the DMG</strong><span>Take the <code>aarch64</code> file for an Apple Silicon Mac (M1 and newer) or the <code>x86_64</code> file for an Intel Mac, then drag <strong>DJI Live Bridge</strong> into your Applications folder — the virtual camera only works from there.</span></div></li>
+      <li><div><strong>Download the DMG</strong><span>Take the <code>aarch64</code> file for an Apple Silicon Mac (M1 and newer) or the <code>x86_64</code> file for an Intel Mac, then drag <strong>DJI Live Bridge</strong> into your Applications folder — the virtual camera only works from there. On Windows, run the <code>-setup.exe</code> installer.</span></div></li>
       <li><div><strong>Open it</strong><span>That is the whole setup. FFmpeg ships inside the app, so there is no Homebrew, no Terminal and no second download.</span></div></li>
-      <li><div><strong>Go live</strong><span>The app is signed and notarized by Apple, so it opens without warnings.</span></div></li>
+      <li><div><strong>Go live</strong><span>The macOS app is signed and notarized by Apple, so it opens without warnings.</span></div></li>
     </ol>
     <div class="cta" style="justify-content:flex-start;margin-top:26px">
       <a class="btn primary" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Download for macOS</a>
     </div>
+    <h3 style="margin-top:34px;font-size:16px">The app speaks 15 languages</h3>
     <div class="langs">
-      <span class="lang">English</span><span class="lang">Türkçe</span><span class="lang">Español</span>
-      <span class="lang">中文（简体）</span><span class="lang">中文（繁體）</span><span class="lang">العربية</span>
-      <span class="lang">हिन्दी</span><span class="lang">Português</span><span class="lang">Русский</span>
-      <span class="lang">Français</span><span class="lang">Deutsch</span><span class="lang">日本語</span>
-      <span class="lang">한국어</span><span class="lang">Bahasa Indonesia</span><span class="lang">Italiano</span>
+      <a href="https://tanerozel.github.io/dji-live-bridge/" hreflang="en" lang="en" aria-current="true">English</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/tr/" hreflang="tr" lang="tr">Türkçe</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/es/" hreflang="es" lang="es">Español</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/zh/" hreflang="zh-Hans" lang="zh-Hans">中文（简体）</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/zh-Hant/" hreflang="zh-Hant" lang="zh-Hant">中文（繁體）</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/ar/" hreflang="ar" lang="ar">العربية</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/hi/" hreflang="hi" lang="hi">हिन्दी</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/pt/" hreflang="pt" lang="pt">Português</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/ru/" hreflang="ru" lang="ru">Русский</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/fr/" hreflang="fr" lang="fr">Français</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/de/" hreflang="de" lang="de">Deutsch</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/ja/" hreflang="ja" lang="ja">日本語</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/ko/" hreflang="ko" lang="ko">한국어</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/id/" hreflang="id" lang="id">Bahasa Indonesia</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/it/" hreflang="it" lang="it">Italiano</a>
     </div>
   </div>
 </section>
@@ -217,13 +323,15 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <details><summary>Do I need to install FFmpeg?</summary><p>No. The app carries its own FFmpeg, built from source without any GPL component (LGPL, Apple VideoToolbox for H.264), so there is nothing to install and nothing to keep up to date. The licence texts and the exact build flags are inside the app under <code>Contents/Resources/licenses</code>.</p></details>
       <details><summary>Do I need OBS?</summary><p>No. OBS is optional and only useful if you want its scenes, filters or recording. Direct RTMP and the virtual camera work without it.</p></details>
       <details><summary>Does it work on an Intel Mac?</summary><p>Yes. Every release ships two downloads: one for Apple Silicon and one for Intel, both signed and notarized, each with its own bundled FFmpeg. Pick the file that matches your Mac.</p></details>
-      <details><summary>Does it work on Windows?</summary><p>There is a first Windows build (beta). Streaming to Instagram, TikTok and any RTMP destination works, as do the preview, recording and diagnostics. The built-in virtual camera is included too: the installer registers a “DJI Live Bridge Camera” device for TikTok LIVE Studio, OBS or Zoom. It is newer than the macOS one, so if it does not appear, OBS Virtual Camera through the optional OBS integration still works. One more caveat: the installer is not code-signed yet, so Windows SmartScreen will warn you.</p></details>
-      <details><summary>Where do my stream keys go?</summary><p>Into the macOS Keychain, one entry per destination. They are handed to the local media server over the loopback interface when you go live and removed when you stop. They never appear in the config file, in process arguments or in logs.</p></details>
+      <details><summary>Does it work on Windows?</summary><p>There is a Windows build in beta. Streaming to Instagram, TikTok and any RTMP destination works, as do the preview, recording and diagnostics. The built-in virtual camera is included too: the installer registers a “DJI Live Bridge Camera” device for TikTok LIVE Studio, OBS or Zoom. It is newer than the macOS one, so if it does not appear, OBS Virtual Camera through the optional OBS integration still works. One more caveat: the installer is not code-signed yet, so Windows SmartScreen will warn you.</p></details>
+      <details><summary>Where do my stream keys go?</summary><p>Into the system vault, one entry per destination. They are handed to the local media server over the loopback interface when you go live and removed when you stop. They never appear in the config file, in process arguments or in logs.</p></details>
       <details><summary>Why does Instagram ask for a new key every time?</summary><p>That is Instagram's own behaviour: it issues a fresh stream key for every broadcast. Use “Update key” on the destination card before you go live, and remember to press “Go live” on Instagram's side to make the broadcast public.</p></details>
       <details><summary>Why is my picture 720p?</summary><p>The DJI controller often sends 720p over RTMP. The app shows the real input resolution and does not pretend the upscaled output is native 1080p.</p></details>
     </div>
   </div>
 </section>
+
+</main>
 
 <footer>
   <div class="wrap">
@@ -233,9 +341,9 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <a href="https://github.com/tanerozel">GitHub</a>
       <a href="https://www.linkedin.com/in/tanerozel">LinkedIn</a>
       <a href="https://github.com/tanerozel/dji-live-bridge/issues">Report an issue</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/llms.txt">llms.txt</a>
     </div>
-    <p class="note">Released under the MIT licence; the bundled FFmpeg is LGPL. DJI Live Bridge is an independent project and is not affiliated with DJI, Instagram, TikTok or Apple.
-      DJI, Instagram and TikTok are trademarks of their respective owners. FFmpeg is not bundled and is installed by the user.</p>
+    <p class="note">Released under the MIT licence; the bundled FFmpeg is LGPL, built from source without GPL components. DJI Live Bridge is an independent project and is not affiliated with DJI, Instagram, TikTok or Apple. DJI, Instagram and TikTok are trademarks of their respective owners.</p>
   </div>
 </footer>
 

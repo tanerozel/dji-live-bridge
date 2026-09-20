@@ -2,6 +2,8 @@
 
 [English](README.md) · [Türkçe](README.tr.md) · [Español](README.es.md) · [中文（简体）](README.zh.md) · **中文（繁體）** · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md)
 
+**網站：** https://tanerozel.github.io/dji-live-bridge/zh-Hant/
+
 一款 macOS 應用程式：在同一區域網路的 Mac 上接收 DJI Fly 的 RTMP 推流，透過 MediaMTX 提供本機預覽，並驅動不需要 OBS 的內建 FFmpeg 製作流程。同一個畫面可以同時推送到 Instagram、TikTok 與任何 RTMP 目的地，也能當成 TikTok LIVE Studio 的虛擬攝影機。
 
 ## 安裝

@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "title": "DJI Live Bridge: drone ao vivo no Instagram e no TikTok",
+    "description": "App gratuito que recebe a transmissão RTMP do DJI Fly e envia ao vivo para Instagram, TikTok e qualquer destino RTMP ao mesmo tempo, ou vira câmera virtual.",
+    "ogTitle": "DJI Live Bridge",
+    "ogDescription": "Transmita ao vivo do seu drone DJI para Instagram, TikTok e qualquer destino RTMP ao mesmo tempo. Gratuito, de código aberto, assinado e autenticado.",
+    "keywords": "transmitir drone ao vivo, DJI Fly RTMP, drone ao vivo no Instagram, live de drone no TikTok, câmera virtual, TikTok LIVE Studio, retransmissão RTMP, live com drone DJI"
+  },
+  "nav": {
+    "language": "Idioma",
+    "features": "Recursos",
+    "how": "Como funciona",
+    "tiktok": "TikTok",
+    "faq": "Perguntas",
+    "skip": "Ir para o conteúdo"
+  },
+  "hero": {
+    "pill": "Gratuito · Assinado e autenticado pela Apple",
+    "h1": "Transmita ao vivo do seu drone DJI para o Instagram e o TikTok",
+    "lead": "O DJI Live Bridge recebe a transmissão RTMP que o DJI Fly envia para o seu computador e a repassa para várias plataformas ao mesmo tempo — ou a transforma em uma câmera virtual para o TikTok LIVE Studio, onde nenhuma chave de transmissão é necessária.",
+    "ctaMac": "Baixar para macOS",
+    "ctaWin": "Windows (beta)",
+    "ctaSource": "Código no GitHub",
+    "meta": "Macs com Apple Silicon e Intel · macOS 13 ou mais recente · Windows 10/11 em beta · nada mais para instalar",
+    "shotAlt": "A aba Transmitir: conecte o drone, escolha os destinos e pressione INICIAR TRANSMISSÃO.",
+    "caption": "Uma tela só: conecte o drone, adicione destinos, pressione INICIAR TRANSMISSÃO."
+  },
+  "features": {
+    "h2": "O que ele faz",
+    "sub": "Tudo roda no seu próprio computador. O vídeo do drone nunca passa pelo servidor de outra pessoa.",
+    "cards": [
+      {
+        "h": "Várias plataformas ao mesmo tempo",
+        "p": "Instagram, TikTok e qualquer destino RTMP personalizado na mesma transmissão. A imagem é codificada uma vez e encaminhada para cada um, então um destino que falha não derruba os outros."
+      },
+      {
+        "h": "Sem chave de transmissão para o TikTok",
+        "p": "A câmera virtual integrada aparece no TikTok LIVE Studio como “DJI Live Bridge Camera”, então você consegue transmitir ao vivo sem acesso RTMP."
+      },
+      {
+        "h": "Feita para vídeo vertical",
+        "p": "1080×1920 a 30 fps, 6 Mbps CBR, H.264 High, quadros-chave a cada 2 segundos. O espaço vazio é preenchido com uma cópia desfocada da imagem, em vez de barras pretas."
+      },
+      {
+        "h": "Nada mais para instalar",
+        "p": "O FFmpeg já vem dentro do aplicativo — sem Homebrew, sem Terminal, sem download separado. O pacote do macOS é assinado e autenticado pela Apple."
+      },
+      {
+        "h": "As chaves ficam no cofre do sistema",
+        "p": "Cada chave de transmissão fica em uma entrada própria no Chaveiro, nunca em um arquivo de configuração, nos argumentos de processo ou nos logs."
+      },
+      {
+        "h": "Prévia ao vivo e diagnóstico",
+        "p": "Uma prévia local de baixa latência, métricas reais da transmissão vindas do servidor de mídia, gravação e verificações do sistema que nunca forjam um resultado aprovado."
+      },
+      {
+        "h": "15 idiomas, 5 temas",
+        "p": "A interface segue o idioma do sistema, e em árabe todo o layout passa a ser da direita para a esquerda."
+      }
+    ]
+  },
+  "how": {
+    "h2": "Como funciona",
+    "sub": "O DJI Fly envia RTMP para o seu computador; o computador faz o resto.",
+    "steps": [
+      {
+        "t": "Conecte seu drone",
+        "d": "No DJI Fly: GO FLY → Transmissão → Plataformas de transmissão → RTMP, e cole o endereço que o aplicativo mostra. O computador e o controle precisam estar na mesma rede Wi-Fi ou no mesmo ponto de acesso do celular."
+      },
+      {
+        "t": "Escolha para onde transmitir",
+        "d": "Adicione Instagram, TikTok ou qualquer servidor RTMP com a URL do servidor e a chave de transmissão daquela plataforma. As chaves ficam guardadas no cofre do sistema."
+      },
+      {
+        "t": "Pressione INICIAR TRANSMISSÃO",
+        "d": "O botão libera quando o servidor local está funcionando, o vídeo do drone está chegando e há um destino selecionado. A partir daí você vê o tempo decorrido, o estado de cada destino e os dados enviados."
+      }
+    ]
+  },
+  "tiktok": {
+    "h2": "TikTok sem chave de transmissão",
+    "sub": "O TikTok só libera chaves RTMP para algumas contas. O TikTok LIVE Studio não tem esse limite, porque você entra com a sua própria conta — ele só precisa de uma câmera. O DJI Live Bridge fornece essa câmera.",
+    "items": [
+      "Ative a câmera virtual uma vez; na primeira vez o sistema pede autorização.",
+      "No TikTok LIVE Studio adicione uma fonte de câmera e escolha <strong>DJI Live Bridge Camera</strong>.",
+      "Defina a captura de áudio dessa fonte como <em>Nenhum</em> e escolha um único microfone no LIVE Studio.",
+      "Pressione Go Live no TikTok LIVE Studio."
+    ],
+    "note": "A câmera leva apenas vídeo, de propósito: assim o áudio continua sob o controle do próprio TikTok e não sai duplicado.",
+    "shotAlt": "A aba do TikTok LIVE Studio com o botão Iniciar câmera virtual e as instruções passo a passo."
+  },
+  "details": {
+    "h2": "Para quem quer os detalhes",
+    "sub": "Gravação, métricas da transmissão, integração opcional com o OBS e verificações do sistema ficam na aba Avançado, fora do caminho principal.",
+    "shotAlt": "A aba Avançado com métricas de transmissão, gravação, integração com o OBS, diagnóstico e o cartão Sobre."
+  },
+  "install": {
+    "h2": "Instalação",
+    "steps": [
+      {
+        "t": "Baixe o DMG",
+        "d": "Pegue o arquivo <code>aarch64</code> para um Mac com Apple Silicon (M1 ou mais recente) ou o arquivo <code>x86_64</code> para um Mac com Intel e depois arraste o <strong>DJI Live Bridge</strong> para a pasta Aplicativos — a câmera virtual só funciona a partir dali. No Windows, execute o instalador <code>-setup.exe</code>."
+      },
+      {
+        "t": "Abra o aplicativo",
+        "d": "A instalação é só isso. O FFmpeg vem dentro do aplicativo, então não tem Homebrew, nem Terminal, nem um segundo download."
+      },
+      {
+        "t": "Transmita ao vivo",
+        "d": "O aplicativo de macOS é assinado e autenticado pela Apple, então abre sem avisos."
+      }
+    ],
+    "cta": "Baixar para macOS",
+    "langsTitle": "O aplicativo fala 15 idiomas"
+  },
+  "faq": {
+    "h2": "Perguntas",
+    "items": [
+      {
+        "q": "Quais drones funcionam?",
+        "a": "Qualquer drone cuja versão do DJI Fly ofereça RTMP em Plataformas de transmissão. O aplicativo recebe uma transmissão RTMP comum, então não conversa com o drone em si. No RC 2, o DJI Fly pode se recusar a iniciar a transmissão se não houver um microfone conectado ao controle."
+      },
+      {
+        "q": "Preciso instalar o FFmpeg?",
+        "a": "Não. O aplicativo traz o próprio FFmpeg, compilado a partir do código-fonte sem nenhum componente GPL (LGPL, Apple VideoToolbox para H.264), então não há nada para instalar nem para manter atualizado. Os textos das licenças e os parâmetros exatos de compilação estão dentro do aplicativo, em <code>Contents/Resources/licenses</code>."
+      },
+      {
+        "q": "Preciso do OBS?",
+        "a": "Não. O OBS é opcional e só serve se você quiser as cenas, os filtros ou a gravação dele. O RTMP direto e a câmera virtual funcionam sem ele."
+      },
+      {
+        "q": "Funciona em um Mac com Intel?",
+        "a": "Sim. Cada versão sai com dois downloads: um para Apple Silicon e outro para Intel, os dois assinados e autenticados, cada um com o próprio FFmpeg embutido. Escolha o arquivo que corresponde ao seu Mac."
+      },
+      {
+        "q": "Funciona no Windows?",
+        "a": "Existe uma versão para Windows em beta. A transmissão para Instagram, TikTok e qualquer destino RTMP funciona, assim como a prévia, a gravação e o diagnóstico. A câmera virtual integrada também está incluída: o instalador registra um dispositivo “DJI Live Bridge Camera” para TikTok LIVE Studio, OBS ou Zoom. Ela é mais nova que a do macOS, então, se não aparecer, o OBS Virtual Camera pela integração opcional com o OBS continua funcionando. Mais um aviso: o instalador ainda não é assinado, então o Windows SmartScreen vai exibir um alerta."
+      },
+      {
+        "q": "Para onde vão minhas chaves de transmissão?",
+        "a": "Para o cofre do sistema, uma entrada por destino. Elas são entregues ao servidor de mídia local pela interface de loopback quando você entra ao vivo e removidas quando você para. Nunca aparecem no arquivo de configuração, nos argumentos de processo ou nos logs."
+      },
+      {
+        "q": "Por que o Instagram pede uma chave nova toda vez?",
+        "a": "É o comportamento do próprio Instagram: ele gera uma chave de transmissão nova a cada transmissão. Use “Atualizar chave” no cartão do destino antes de começar e lembre-se de pressionar “Iniciar live” no Instagram para deixar a transmissão pública."
+      },
+      {
+        "q": "Por que minha imagem está em 720p?",
+        "a": "O controle da DJI costuma enviar 720p por RTMP. O aplicativo mostra a resolução real de entrada e não finge que a saída ampliada é um 1080p nativo."
+      }
+    ]
+  },
+  "footer": {
+    "role": "desenvolvedor e mantenedor",
+    "issue": "Relatar um problema",
+    "note": "Publicado sob a licença MIT; o FFmpeg embutido é LGPL, compilado a partir do código-fonte sem componentes GPL. O DJI Live Bridge é um projeto independente e não tem vínculo com DJI, Instagram, TikTok ou Apple. DJI, Instagram e TikTok são marcas de seus respectivos proprietários."
+  }
+}

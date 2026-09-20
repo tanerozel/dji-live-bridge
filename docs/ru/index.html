@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DJI Live Bridge — эфир с дрона DJI в Instagram и TikTok</title>
+<meta name="description" content="Бесплатное приложение принимает RTMP из DJI Fly и транслирует в Instagram, TikTok и любой RTMP-сервер или работает виртуальной камерой для TikTok LIVE Studio.">
+<meta name="keywords" content="трансляция с дрона DJI, DJI Fly RTMP, дрон в Instagram Live, дрон в TikTok Live, виртуальная камера для TikTok, TikTok LIVE Studio, рестрим RTMP, прямой эфир с квадрокоптера">
+<meta name="author" content="Taner Özel">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161618" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://tanerozel.github.io/dji-live-bridge/ru/">
+<link rel="alternate" hreflang="en" href="https://tanerozel.github.io/dji-live-bridge/">
+<link rel="alternate" hreflang="tr" href="https://tanerozel.github.io/dji-live-bridge/tr/">
+<link rel="alternate" hreflang="es" href="https://tanerozel.github.io/dji-live-bridge/es/">
+<link rel="alternate" hreflang="zh-Hans" href="https://tanerozel.github.io/dji-live-bridge/zh/">
+<link rel="alternate" hreflang="zh-Hant" href="https://tanerozel.github.io/dji-live-bridge/zh-Hant/">
+<link rel="alternate" hreflang="ar" href="https://tanerozel.github.io/dji-live-bridge/ar/">
+<link rel="alternate" hreflang="hi" href="https://tanerozel.github.io/dji-live-bridge/hi/">
+<link rel="alternate" hreflang="pt" href="https://tanerozel.github.io/dji-live-bridge/pt/">
+<link rel="alternate" hreflang="ru" href="https://tanerozel.github.io/dji-live-bridge/ru/">
+<link rel="alternate" hreflang="fr" href="https://tanerozel.github.io/dji-live-bridge/fr/">
+<link rel="alternate" hreflang="de" href="https://tanerozel.github.io/dji-live-bridge/de/">
+<link rel="alternate" hreflang="ja" href="https://tanerozel.github.io/dji-live-bridge/ja/">
+<link rel="alternate" hreflang="ko" href="https://tanerozel.github.io/dji-live-bridge/ko/">
+<link rel="alternate" hreflang="id" href="https://tanerozel.github.io/dji-live-bridge/id/">
+<link rel="alternate" hreflang="it" href="https://tanerozel.github.io/dji-live-bridge/it/">
+<link rel="alternate" hreflang="x-default" href="https://tanerozel.github.io/dji-live-bridge/">
+<link rel="icon" href="../img/icon.png">
+<link rel="apple-touch-icon" href="../img/icon.png">
+<meta property="og:site_name" content="DJI Live Bridge">
+<meta property="og:title" content="DJI Live Bridge">
+<meta property="og:description" content="Выходите в эфир с дрона DJI сразу в Instagram, TikTok и любое RTMP-направление. Бесплатно, открытый код, подпись и нотаризация Apple.">
+<meta property="og:image" content="https://tanerozel.github.io/dji-live-bridge/img/go-live.png">
+<meta property="og:image:alt" content="Вкладка «Трансляция»: подключите дрон, выберите направления и нажмите НАЧАТЬ ТРАНСЛЯЦИЮ.">
+<meta property="og:url" content="https://tanerozel.github.io/dji-live-bridge/ru/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="tr_TR">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:locale:alternate" content="zh_TW">
+<meta property="og:locale:alternate" content="ar_AR">
+<meta property="og:locale:alternate" content="hi_IN">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta property="og:locale:alternate" content="id_ID">
+<meta property="og:locale:alternate" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DJI Live Bridge">
+<meta name="twitter:description" content="Выходите в эфир с дрона DJI сразу в Instagram, TikTok и любое RTMP-направление. Бесплатно, открытый код, подпись и нотаризация Apple.">
+<meta name="twitter:image" content="https://tanerozel.github.io/dji-live-bridge/img/go-live.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"DJI Live Bridge","description":"Бесплатное приложение принимает RTMP из DJI Fly и транслирует в Instagram, TikTok и любой RTMP-сервер или работает виртуальной камерой для TikTok LIVE Studio.","applicationCategory":"MultimediaApplication","operatingSystem":"macOS 13 or newer, Windows 10/11","softwareVersion":"0.2.6","url":"https://tanerozel.github.io/dji-live-bridge/ru/","downloadUrl":"https://github.com/tanerozel/dji-live-bridge/releases/latest","inLanguage":"ru","image":"https://tanerozel.github.io/dji-live-bridge/img/go-live.png","license":"https://opensource.org/licenses/MIT","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"ru","mainEntity":[{"@type":"Question","name":"Какие дроны подходят?","acceptedAnswer":{"@type":"Answer","text":"Любой дрон, у которого версия DJI Fly предлагает RTMP в разделе Live Streaming Platforms. Приложение принимает обычный RTMP-поток, поэтому с самим дроном оно не общается. На RC 2 DJI Fly может отказаться начинать трансляцию, пока к пульту не подключён микрофон."}},{"@type":"Question","name":"Нужно ли устанавливать FFmpeg?","acceptedAnswer":{"@type":"Answer","text":"Нет. Приложение несёт собственный FFmpeg, собранный из исходников без компонентов GPL (LGPL, Apple VideoToolbox для H.264), поэтому ничего не нужно ни ставить, ни обновлять. Тексты лицензий и точные флаги сборки лежат внутри приложения в Contents/Resources/licenses."}},{"@type":"Question","name":"Нужен ли OBS?","acceptedAnswer":{"@type":"Answer","text":"Нет. OBS необязателен и полезен, только если нужны его сцены, фильтры или запись. Прямой RTMP и виртуальная камера работают без него."}},{"@type":"Question","name":"Работает ли на Mac с Intel?","acceptedAnswer":{"@type":"Answer","text":"Да. В каждом выпуске две загрузки: одна для Apple Silicon и одна для Intel, обе подписаны и нотаризованы, у каждой свой встроенный FFmpeg. Выберите файл, который подходит вашему Mac."}},{"@type":"Question","name":"Работает ли в Windows?","acceptedAnswer":{"@type":"Answer","text":"Сборка для Windows находится в бете. Трансляция в Instagram, TikTok и любое RTMP-направление работает, как и предпросмотр, запись и диагностика. Встроенная виртуальная камера тоже входит в сборку: установщик регистрирует устройство «DJI Live Bridge Camera» для TikTok LIVE Studio, OBS или Zoom. Она новее, чем на macOS, поэтому, если её не видно, остаётся OBS Virtual Camera через необязательную интеграцию с OBS. Ещё одна оговорка: установщик пока не подписан, поэтому Windows SmartScreen выдаст предупреждение."}},{"@type":"Question","name":"Куда попадают мои ключи трансляции?","acceptedAnswer":{"@type":"Answer","text":"В системное хранилище, по одной записи на направление. При выходе в эфир они передаются локальному медиасерверу через интерфейс обратной петли и удаляются, когда вы останавливаете трансляцию. В файле настроек, в аргументах процесса и в журналах они не появляются."}},{"@type":"Question","name":"Почему Instagram каждый раз просит новый ключ?","acceptedAnswer":{"@type":"Answer","text":"Так устроен сам Instagram: он выдаёт свежий ключ трансляции для каждого эфира. Перед выходом в эфир нажмите «Обновить ключ» на карточке направления и не забудьте нажать «Начать эфир» на стороне Instagram, чтобы трансляция стала публичной."}},{"@type":"Question","name":"Почему у меня картинка 720p?","acceptedAnswer":{"@type":"Answer","text":"Пульт DJI часто отдаёт по RTMP 720p. Приложение показывает реальное разрешение входа и не выдаёт растянутый результат за настоящие 1080p."}}]}</script>
+<style>
+
+:root{
+  color-scheme:light;
+  --bg:#f5f5f7; --surface:#fff; --surface-2:#f2f2f5; --border:#e3e3e8; --border-strong:#d2d2d7;
+  --text:#1d1d1f; --muted:#6e6e73; --faint:#8e8e93;
+  --accent:#0a84ff; --accent-hover:#0071e3; --accent-soft:#eaf3ff;
+  --green:#34c759; --green-text:#1f8a3b; --green-soft:#eaf8ee;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    color-scheme:dark;
+    --bg:#161618; --surface:#1f1f22; --surface-2:#27272b; --border:#2e2e33; --border-strong:#3e3e45;
+    --text:#f2f2f5; --muted:#a1a1a8; --faint:#76767e;
+    --accent:#0a84ff; --accent-hover:#339aff; --accent-soft:rgba(10,132,255,.16);
+    --green:#30d158; --green-text:#5ee08a; --green-soft:rgba(48,209,88,.15);
+    --shadow:0 1px 2px rgba(0,0,0,.3);
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,ui-sans-serif,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;line-height:1.55}
+h1,h2,h3,p{margin:0}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.92em;background:var(--surface-2);
+  padding:2px 6px;border-radius:6px}
+.wrap{width:min(1080px,100%);margin:0 auto;padding:0 20px}
+
+header{position:sticky;top:0;z-index:10;backdrop-filter:saturate(180%) blur(14px);
+  background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--border)}
+.bar{display:flex;align-items:center;gap:14px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--text)}
+.brand img{width:30px;height:30px;border-radius:8px}
+nav{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:14px}
+nav a{color:var(--muted)}
+nav a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;
+  padding:11px 20px;font-size:15px;font-weight:600;border:1px solid var(--border-strong);
+  background:var(--surface);color:var(--text);cursor:pointer;text-decoration:none}
+.btn:hover{text-decoration:none;background:var(--surface-2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent-hover)}
+.btn.small{padding:7px 14px;font-size:14px}
+
+.hero{padding:72px 0 40px;text-align:center}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;
+  background:var(--green-soft);color:var(--green-text);font-size:13px;font-weight:600}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+h1{margin:18px auto 0;max-width:15ch;font-size:clamp(30px,5vw,52px);line-height:1.1;letter-spacing:-.02em}
+.lead{margin:18px auto 0;max-width:640px;font-size:clamp(16px,2vw,19px);color:var(--muted)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:28px}
+.meta{margin-top:14px;font-size:13px;color:var(--faint)}
+.shot{margin:44px auto 0;border:1px solid var(--border);border-radius:16px;overflow:hidden;
+  box-shadow:var(--shadow);background:var(--surface)}
+.shot img{display:block;width:100%;height:auto}
+.caption{margin-top:12px;font-size:13px;color:var(--faint);text-align:center}
+
+section{padding:56px 0;border-top:1px solid var(--border)}
+h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.01em}
+.sub{margin-top:10px;color:var(--muted);max-width:640px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:30px}
+.card{padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
+.card h3{font-size:16px;margin-bottom:8px}
+.card p{color:var(--muted);font-size:14.5px}
+.steps{counter-reset:step;display:grid;gap:14px;margin-top:30px;padding:0;list-style:none}
+.steps li{counter-increment:step;display:grid;grid-template-columns:34px 1fr;gap:14px;align-items:start;
+  padding:18px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
+.steps li::before{content:counter(step);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;
+  background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:15px}
+.steps strong{display:block;margin-bottom:3px}
+.steps span{color:var(--muted);font-size:14.5px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;margin-top:30px}
+.split .shot{margin:0}
+ul.plain{margin:16px 0 0;padding-left:20px;color:var(--muted);font-size:15px}
+ul.plain li{margin:7px 0}
+.faq{display:grid;gap:12px;margin-top:26px}
+.faq details{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:16px 18px}
+.faq details[open]{background:var(--surface)}
+.faq summary{cursor:pointer;font-weight:600;font-size:15.5px}
+.faq details p{margin-top:10px;color:var(--muted);font-size:14.5px}
+.langs{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.lang{padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);
+  font-size:13.5px;color:var(--muted)}
+footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted);font-size:14px}
+.foot-links{display:flex;flex-wrap:wrap;gap:16px;margin:14px 0 20px}
+.note{font-size:13px;color:var(--faint)}
+@media (max-width:820px){.split{grid-template-columns:1fr}nav a:not(.btn){display:none}}
+
+/* Language menu: a crawlable list of links, collapsed on small screens. */
+.langmenu{position:relative;display:inline-flex;flex-direction:column;align-self:center}
+.langmenu>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+  padding:7px 12px;border:1px solid var(--border-strong);border-radius:10px;background:var(--surface);
+  color:var(--text);font-size:14px;font-weight:600}
+.langmenu>summary::-webkit-details-marker{display:none}
+.langmenu[open]>summary{background:var(--surface-2)}
+.langmenu:not([open]) .sheet{display:none}
+.langmenu .sheet{position:absolute;right:0;top:calc(100% + 8px);z-index:20;display:grid;
+  grid-template-columns:repeat(2,minmax(150px,1fr));gap:2px;padding:8px;border:1px solid var(--border);
+  border-radius:12px;background:var(--surface);box-shadow:var(--shadow);max-height:60vh;overflow:auto}
+.langmenu .sheet a{padding:8px 10px;border-radius:8px;color:var(--text);font-size:14px;white-space:nowrap}
+.langmenu .sheet a:hover{background:var(--surface-2);text-decoration:none}
+.langmenu .sheet a[aria-current=true]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.langs a{padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);
+  font-size:13.5px;color:var(--muted)}
+.langs a:hover{color:var(--text);text-decoration:none}
+.langs a[aria-current=true]{border-color:var(--accent);color:var(--accent)}
+/* Hidden until focused. Pushing it off-screen with a negative offset would
+   widen the page by that offset in right-to-left languages, so it is clipped
+   in place instead. */
+.skip{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap}
+.skip:focus{position:fixed;width:auto;height:auto;margin:0;clip-path:none;
+  inset-inline-start:20px;top:10px;z-index:30;padding:10px 14px;background:var(--surface);
+  color:var(--text);border:1px solid var(--border-strong);border-radius:10px}
+[dir=rtl] .steps li{grid-template-columns:34px 1fr}
+[dir=rtl] .langmenu .sheet{right:auto;left:0}
+[dir=rtl] ul.plain{padding-left:0;padding-right:20px}
+
+/* Below ~520px the header runs out of room: the brand, the language menu and
+   the GitHub button together force the page wider than the screen, which cuts
+   every section off on the right. The language name and the GitHub button go
+   (the hero repeats that link anyway); the globe stays as the affordance. */
+@media (max-width:520px){
+  .bar{gap:10px}
+  .langname{display:none}
+  .langmenu>summary{padding:7px 11px;font-size:16px}
+  nav>.btn.small{display:none}
+  .langmenu .sheet{grid-template-columns:1fr;min-width:190px}
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Перейти к содержимому</a>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="https://tanerozel.github.io/dji-live-bridge/ru/"><img src="../img/icon.png" alt="" width="30" height="30">DJI Live Bridge</a>
+    <nav>
+      <a href="#features">Возможности</a>
+      <a href="#how">Как это работает</a>
+      <a href="#tiktok">TikTok</a>
+      <a href="#faq">Вопросы</a>
+      <details class="langmenu">
+        <summary aria-label="Язык"><span aria-hidden="true">🌐</span><span class="langname">Русский</span></summary>
+        <div class="sheet"><a href="https://tanerozel.github.io/dji-live-bridge/" hreflang="en" lang="en">English</a><a href="https://tanerozel.github.io/dji-live-bridge/tr/" hreflang="tr" lang="tr">Türkçe</a><a href="https://tanerozel.github.io/dji-live-bridge/es/" hreflang="es" lang="es">Español</a><a href="https://tanerozel.github.io/dji-live-bridge/zh/" hreflang="zh-Hans" lang="zh-Hans">中文（简体）</a><a href="https://tanerozel.github.io/dji-live-bridge/zh-Hant/" hreflang="zh-Hant" lang="zh-Hant">中文（繁體）</a><a href="https://tanerozel.github.io/dji-live-bridge/ar/" hreflang="ar" lang="ar">العربية</a><a href="https://tanerozel.github.io/dji-live-bridge/hi/" hreflang="hi" lang="hi">हिन्दी</a><a href="https://tanerozel.github.io/dji-live-bridge/pt/" hreflang="pt" lang="pt">Português</a><a href="https://tanerozel.github.io/dji-live-bridge/ru/" hreflang="ru" lang="ru" aria-current="true">Русский</a><a href="https://tanerozel.github.io/dji-live-bridge/fr/" hreflang="fr" lang="fr">Français</a><a href="https://tanerozel.github.io/dji-live-bridge/de/" hreflang="de" lang="de">Deutsch</a><a href="https://tanerozel.github.io/dji-live-bridge/ja/" hreflang="ja" lang="ja">日本語</a><a href="https://tanerozel.github.io/dji-live-bridge/ko/" hreflang="ko" lang="ko">한국어</a><a href="https://tanerozel.github.io/dji-live-bridge/id/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="https://tanerozel.github.io/dji-live-bridge/it/" hreflang="it" lang="it">Italiano</a></div>
+      </details>
+      <a class="btn small" href="https://github.com/tanerozel/dji-live-bridge">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<div class="wrap hero">
+  <span class="pill"><span class="dot"></span>Бесплатно · Подписано и нотаризовано Apple</span>
+  <h1>Выходите в эфир с дрона DJI в Instagram и TikTok</h1>
+  <p class="lead">DJI Live Bridge принимает RTMP-поток из DJI Fly на вашем компьютере и отправляет его сразу на несколько платформ — или превращает его в виртуальную камеру для TikTok LIVE Studio, где ключ трансляции не нужен.</p>
+  <div class="cta">
+    <a class="btn primary" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Скачать для macOS</a>
+    <a class="btn" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Windows (бета)</a>
+    <a class="btn" href="https://github.com/tanerozel/dji-live-bridge">Исходный код на GitHub</a>
+  </div>
+  <p class="meta">Mac на Apple Silicon и Intel · macOS 13 или новее · бета для Windows 10/11 · больше ничего ставить не нужно</p>
+  <div class="shot"><img src="../img/go-live.png" alt="Вкладка «Трансляция»: подключите дрон, выберите направления и нажмите НАЧАТЬ ТРАНСЛЯЦИЮ." width="1600" height="1260" fetchpriority="high"></div>
+  <p class="caption">Один экран: подключить дрон, добавить направления, нажать НАЧАТЬ ТРАНСЛЯЦИЮ.</p>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <h2>Что он делает</h2>
+    <p class="sub">Всё работает на вашем компьютере. Видео с дрона не проходит через чужие серверы.</p>
+    <div class="grid">
+      <div class="card"><h3>Несколько платформ одновременно</h3><p>Instagram, TikTok и любое своё RTMP-направление в одном эфире. Картинка кодируется один раз и рассылается каждому, поэтому одно упавшее направление не останавливает остальные.</p></div>
+      <div class="card"><h3>Для TikTok не нужен ключ трансляции</h3><p>Встроенная виртуальная камера появляется в TikTok LIVE Studio как «DJI Live Bridge Camera», поэтому выйти в эфир можно без доступа к RTMP.</p></div>
+      <div class="card"><h3>Сделано для вертикального видео</h3><p>1080×1920 при 30 кадр/с, 6 Мбит/с CBR, H.264 High, ключевые кадры каждые 2 секунды. Пустое место заполняется размытой копией кадра, а не чёрными полосами.</p></div>
+      <div class="card"><h3>Больше ничего ставить не нужно</h3><p>FFmpeg встроен в приложение — ни Homebrew, ни Терминала, ни отдельной загрузки. Сборка для macOS подписана и нотаризована Apple.</p></div>
+      <div class="card"><h3>Ключи остаются в системном хранилище</h3><p>Каждый ключ трансляции лежит в отдельной записи связки ключей, а не в файле настроек, в аргументах процесса или в журналах.</p></div>
+      <div class="card"><h3>Живой предпросмотр и диагностика</h3><p>Локальный предпросмотр с малой задержкой, настоящие показатели трансляции с медиасервера, запись и проверки системы, которые не выдумывают успешный результат.</p></div>
+      <div class="card"><h3>15 языков, 5 тем</h3><p>Интерфейс следует языку системы, а арабский разворачивает всю раскладку справа налево.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>Как это работает</h2>
+    <p class="sub">DJI Fly отправляет RTMP на ваш компьютер; остальное компьютер делает сам.</p>
+    <ol class="steps">
+      <li><div><strong>Подключите дрон</strong><span>В DJI Fly: GO FLY → Передача → Платформы трансляций → RTMP, и вставьте адрес, который показывает приложение. Компьютер и пульт должны быть в одной сети Wi-Fi или в одной точке доступа телефона.</span></div></li>
+      <li><div><strong>Выберите, куда транслировать</strong><span>Добавьте Instagram, TikTok или любой RTMP-сервер, указав адрес сервера и ключ трансляции с этой платформы. Ключи хранятся в системном хранилище.</span></div></li>
+      <li><div><strong>Нажмите НАЧАТЬ ТРАНСЛЯЦИЮ</strong><span>Кнопка разблокируется, когда локальный сервер работает, видео с дрона поступает и выбрано направление. Дальше видно время эфира, состояние каждого направления и объём отправленных данных.</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="tiktok">
+  <div class="wrap">
+    <h2>TikTok без ключа трансляции</h2>
+    <p class="sub">TikTok выдаёт ключи RTMP только некоторым аккаунтам. У TikTok LIVE Studio такого ограничения нет, потому что вы входите под своим аккаунтом — ему нужна лишь камера. DJI Live Bridge даёт эту камеру.</p>
+    <div class="split">
+      <div>
+        <ul class="plain">
+          <li>Включите виртуальную камеру один раз; в первый раз система спросит разрешение.</li>
+          <li>В TikTok LIVE Studio добавьте источник Camera и выберите <strong>DJI Live Bridge Camera</strong>.</li>
+          <li>Установите захват звука этого источника в <em>None</em> и выберите один микрофон в LIVE Studio.</li>
+          <li>Нажмите Go Live в TikTok LIVE Studio.</li>
+        </ul>
+        <p class="note" style="margin-top:16px">Камера передаёт только видео, и это сделано намеренно: обработка звука остаётся за TikTok, и двойного звука не возникает.</p>
+      </div>
+      <div class="shot"><img src="../img/virtual-camera.png" alt="Вкладка TikTok LIVE Studio с кнопкой «Запустить виртуальную камеру» и пошаговой инструкцией." width="1600" height="576" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Для тех, кому нужны подробности</h2>
+    <p class="sub">Запись, показатели трансляции, необязательная интеграция с OBS и проверки системы находятся на вкладке «Дополнительно», в стороне от основного пути.</p>
+    <div class="shot" style="margin-top:28px"><img src="../img/advanced.png" alt="Вкладка «Дополнительно» с показателями трансляции, записью, интеграцией с OBS, диагностикой и карточкой «О приложении»." width="1600" height="1111" loading="lazy"></div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <h2>Установка</h2>
+    <ol class="steps">
+      <li><div><strong>Скачайте DMG</strong><span>Возьмите файл <code>aarch64</code> для Mac на Apple Silicon (M1 и новее) или файл <code>x86_64</code> для Mac на Intel, затем перетащите <strong>DJI Live Bridge</strong> в папку «Программы» — виртуальная камера работает только оттуда. В Windows запустите установщик <code>-setup.exe</code>.</span></div></li>
+      <li><div><strong>Откройте приложение</strong><span>На этом настройка заканчивается. FFmpeg поставляется внутри приложения, поэтому не нужны ни Homebrew, ни Терминал, ни вторая загрузка.</span></div></li>
+      <li><div><strong>Выходите в эфир</strong><span>Приложение для macOS подписано и нотаризовано Apple, поэтому открывается без предупреждений.</span></div></li>
+    </ol>
+    <div class="cta" style="justify-content:flex-start;margin-top:26px">
+      <a class="btn primary" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Скачать для macOS</a>
+    </div>
+    <h3 style="margin-top:34px;font-size:16px">Приложение говорит на 15 языках</h3>
+    <div class="langs">
+      <a href="https://tanerozel.github.io/dji-live-bridge/" hreflang="en" lang="en">English</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/tr/" hreflang="tr" lang="tr">Türkçe</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/es/" hreflang="es" lang="es">Español</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/zh/" hreflang="zh-Hans" lang="zh-Hans">中文（简体）</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/zh-Hant/" hreflang="zh-Hant" lang="zh-Hant">中文（繁體）</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/ar/" hreflang="ar" lang="ar">العربية</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/hi/" hreflang="hi" lang="hi">हिन्दी</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/pt/" hreflang="pt" lang="pt">Português</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/ru/" hreflang="ru" lang="ru" aria-current="true">Русский</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/fr/" hreflang="fr" lang="fr">Français</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/de/" hreflang="de" lang="de">Deutsch</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/ja/" hreflang="ja" lang="ja">日本語</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/ko/" hreflang="ko" lang="ko">한국어</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/id/" hreflang="id" lang="id">Bahasa Indonesia</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/it/" hreflang="it" lang="it">Italiano</a>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <h2>Вопросы</h2>
+    <div class="faq">
+      <details><summary>Какие дроны подходят?</summary><p>Любой дрон, у которого версия DJI Fly предлагает RTMP в разделе Live Streaming Platforms. Приложение принимает обычный RTMP-поток, поэтому с самим дроном оно не общается. На RC 2 DJI Fly может отказаться начинать трансляцию, пока к пульту не подключён микрофон.</p></details>
+      <details><summary>Нужно ли устанавливать FFmpeg?</summary><p>Нет. Приложение несёт собственный FFmpeg, собранный из исходников без компонентов GPL (LGPL, Apple VideoToolbox для H.264), поэтому ничего не нужно ни ставить, ни обновлять. Тексты лицензий и точные флаги сборки лежат внутри приложения в <code>Contents/Resources/licenses</code>.</p></details>
+      <details><summary>Нужен ли OBS?</summary><p>Нет. OBS необязателен и полезен, только если нужны его сцены, фильтры или запись. Прямой RTMP и виртуальная камера работают без него.</p></details>
+      <details><summary>Работает ли на Mac с Intel?</summary><p>Да. В каждом выпуске две загрузки: одна для Apple Silicon и одна для Intel, обе подписаны и нотаризованы, у каждой свой встроенный FFmpeg. Выберите файл, который подходит вашему Mac.</p></details>
+      <details><summary>Работает ли в Windows?</summary><p>Сборка для Windows находится в бете. Трансляция в Instagram, TikTok и любое RTMP-направление работает, как и предпросмотр, запись и диагностика. Встроенная виртуальная камера тоже входит в сборку: установщик регистрирует устройство «DJI Live Bridge Camera» для TikTok LIVE Studio, OBS или Zoom. Она новее, чем на macOS, поэтому, если её не видно, остаётся OBS Virtual Camera через необязательную интеграцию с OBS. Ещё одна оговорка: установщик пока не подписан, поэтому Windows SmartScreen выдаст предупреждение.</p></details>
+      <details><summary>Куда попадают мои ключи трансляции?</summary><p>В системное хранилище, по одной записи на направление. При выходе в эфир они передаются локальному медиасерверу через интерфейс обратной петли и удаляются, когда вы останавливаете трансляцию. В файле настроек, в аргументах процесса и в журналах они не появляются.</p></details>
+      <details><summary>Почему Instagram каждый раз просит новый ключ?</summary><p>Так устроен сам Instagram: он выдаёт свежий ключ трансляции для каждого эфира. Перед выходом в эфир нажмите «Обновить ключ» на карточке направления и не забудьте нажать «Начать эфир» на стороне Instagram, чтобы трансляция стала публичной.</p></details>
+      <details><summary>Почему у меня картинка 720p?</summary><p>Пульт DJI часто отдаёт по RTMP 720p. Приложение показывает реальное разрешение входа и не выдаёт растянутый результат за настоящие 1080p.</p></details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <strong style="color:var(--text)">Taner Özel</strong> — разработчик и сопровождающий
+    <div class="foot-links">
+      <a href="mailto:tanerozel47@gmail.com">tanerozel47@gmail.com</a>
+      <a href="https://github.com/tanerozel">GitHub</a>
+      <a href="https://www.linkedin.com/in/tanerozel">LinkedIn</a>
+      <a href="https://github.com/tanerozel/dji-live-bridge/issues">Сообщить о проблеме</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/llms.txt">llms.txt</a>
+    </div>
+    <p class="note">Опубликовано под лицензией MIT; встроенный FFmpeg распространяется по LGPL и собран из исходников без компонентов GPL. DJI Live Bridge — независимый проект, не связанный с DJI, Instagram, TikTok или Apple. DJI, Instagram и TikTok — товарные знаки соответствующих владельцев.</p>
+  </div>
+</footer>
+
+</body>
+</html>

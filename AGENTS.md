@@ -54,6 +54,19 @@ The app ships its own FFmpeg and ffprobe so users install nothing. They are buil
   (not `eq`), and H.264 through `h264_videotoolbox`. A unit test enforces this.
 - FFmpeg's licence texts must stay in `Contents/Resources/licenses`; the build script copies them.
 
+## The website (docs/)
+
+`docs/` is **generated** — never edit a file in it by hand, the next build overwrites it.
+
+- Sources: `site/content/<lang>.json` (one file per language, all with the same key shape) and
+  `site/styles.css`. The generator is `scripts/build-site.mjs`.
+- Rebuild with `npm run build:site`, verify with `npm run check:site` (the latter rebuilds first).
+- Every language gets its own URL (English at `/`, the rest at `/<code>/`) with its own canonical
+  link and a full set of `hreflang` alternates; `check-site.mjs` fails if any of that is wrong, if a
+  page is still in English, or if the JSON-LD does not parse.
+- `docs/sitemap.xml`, `docs/robots.txt`, `docs/llms.txt` and `docs/llms-full.txt` are generated too.
+- CI (`.github/workflows/site.yml`) rebuilds the site and fails if the committed `docs/` differs.
+
 ## Checks before finishing a change
 
 ```sh

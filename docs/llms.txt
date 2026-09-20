@@ -1,0 +1,48 @@
+# DJI Live Bridge
+
+> A free, open-source desktop app (macOS and Windows) that receives the RTMP stream DJI Fly sends
+> from a DJI drone and restreams it to Instagram, TikTok and any other RTMP destination at the same
+> time, or exposes it as a virtual camera named "DJI Live Bridge Camera" for TikTok LIVE Studio,
+> OBS and Zoom.
+
+Everything runs locally: the drone video never passes through a third-party server. FFmpeg and the
+media server are bundled, so nothing else has to be installed. Stream keys are kept in the operating
+system's credential vault. Version 0.2.6. MIT licence; the bundled FFmpeg is LGPL, built
+without GPL components.
+
+Key facts:
+- Platforms: macOS 13 or newer (Apple Silicon and Intel, signed and notarized), Windows 10/11 (beta, unsigned installer).
+- Output: 1080x1920 portrait, 30 fps, 6 Mbps CBR, H.264 High, 2-second keyframes; empty space filled with a blurred copy of the picture.
+- Input: whatever DJI Fly sends over RTMP, often 720p from the controller.
+- The virtual camera carries video only, so TikTok LIVE Studio keeps control of audio.
+- Not affiliated with DJI, Instagram, TikTok or Apple.
+
+## Documentation
+- [Home page](https://tanerozel.github.io/dji-live-bridge/): what the app does, how to set it up, FAQ.
+- [Full site text](https://tanerozel.github.io/dji-live-bridge/llms-full.txt): every section of the home page as plain text.
+- [README](https://github.com/tanerozel/dji-live-bridge/blob/main/README.md): installation, streaming guide, development notes.
+- [Turkish README](https://github.com/tanerozel/dji-live-bridge/blob/main/README.tr.md): the same document in Turkish; 13 further languages sit beside it.
+- [Releases](https://github.com/tanerozel/dji-live-bridge/releases/latest): downloads for macOS and Windows.
+- [Dependencies](https://tanerozel.github.io/dji-live-bridge/DEPENDENCIES.md): third-party components and their licences.
+- [Security policy](https://tanerozel.github.io/dji-live-bridge/SECURITY.md): how to report a vulnerability.
+
+## Languages
+- [English](https://tanerozel.github.io/dji-live-bridge/)
+- [Türkçe](https://tanerozel.github.io/dji-live-bridge/tr/)
+- [Español](https://tanerozel.github.io/dji-live-bridge/es/)
+- [中文（简体）](https://tanerozel.github.io/dji-live-bridge/zh/)
+- [中文（繁體）](https://tanerozel.github.io/dji-live-bridge/zh-Hant/)
+- [العربية](https://tanerozel.github.io/dji-live-bridge/ar/)
+- [हिन्दी](https://tanerozel.github.io/dji-live-bridge/hi/)
+- [Português](https://tanerozel.github.io/dji-live-bridge/pt/)
+- [Русский](https://tanerozel.github.io/dji-live-bridge/ru/)
+- [Français](https://tanerozel.github.io/dji-live-bridge/fr/)
+- [Deutsch](https://tanerozel.github.io/dji-live-bridge/de/)
+- [日本語](https://tanerozel.github.io/dji-live-bridge/ja/)
+- [한국어](https://tanerozel.github.io/dji-live-bridge/ko/)
+- [Bahasa Indonesia](https://tanerozel.github.io/dji-live-bridge/id/)
+- [Italiano](https://tanerozel.github.io/dji-live-bridge/it/)
+
+## Source
+- [Repository](https://github.com/tanerozel/dji-live-bridge)
+- [Issue tracker](https://github.com/tanerozel/dji-live-bridge/issues)

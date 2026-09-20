@@ -2,6 +2,8 @@
 
 [English](README.md) · [Türkçe](README.tr.md) · [Español](README.es.md) · [中文（简体）](README.zh.md) · [中文（繁體）](README.zh-Hant.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [日本語](README.ja.md) · **한국어** · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md)
 
+**웹사이트:** https://tanerozel.github.io/dji-live-bridge/ko/
+
 같은 네트워크의 Mac에서 DJI Fly의 RTMP 송출을 받아 MediaMTX로 로컬 미리보기를 보여주고, OBS 없이도 동작하는 내장 FFmpeg 방송 파이프라인에 전달하는 macOS 앱입니다. 하나의 화면으로 Instagram, TikTok, 임의의 RTMP 대상에 동시에 방송하거나, TikTok LIVE Studio의 가상 카메라로 사용할 수 있습니다.
 
 ## 설치
