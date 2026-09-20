@@ -31,9 +31,11 @@ The build is signed and notarized by Apple, so it opens without warnings.
 **Requirements:** Apple Silicon or Intel Mac, macOS 13 or newer. Nothing else: FFmpeg ships inside the app. Each release has an `aarch64` and an `x86_64` download.
 
 **Windows (beta):** every release also carries a Windows installer. Streaming, preview, recording and
-diagnostics work; the built-in virtual camera is macOS only for now, so TikTok LIVE Studio on Windows
-goes through OBS Virtual Camera via the optional OBS integration. The installer is not code-signed
-yet, so SmartScreen warns on first run.
+diagnostics work. The built-in virtual camera is now included as well — the installer registers a
+"DJI Live Bridge Camera" device that TikTok LIVE Studio, OBS and Zoom can select — but it is new and
+has had far less real-world use than the macOS one; if it does not show up, OBS Virtual Camera through
+the optional OBS integration is the fallback. The installer is not code-signed yet, so SmartScreen
+warns on first run.
 
 ## Stream to Instagram / TikTok (Direct RTMP)
 
