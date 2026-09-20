@@ -41,6 +41,11 @@ nix = { version = "=0.30.1", features = ["fs", "signal"] }
 [target.'cfg(windows)'.dependencies]
 windows = { version = "=0.62.0", features = [
   "Win32_Foundation",
+  # GetAdaptersAddresses enumerates the network interfaces. Its adapter struct
+  # is gated behind Ndis (link state) and WinSock (the sockaddrs it returns).
+  "Win32_NetworkManagement_IpHelper",
+  "Win32_NetworkManagement_Ndis",
+  "Win32_Networking_WinSock",
   # CreateFileMappingW takes SECURITY_ATTRIBUTES, so it lives behind this.
   "Win32_Security",
   "Win32_System_Memory",
