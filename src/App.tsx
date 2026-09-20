@@ -47,7 +47,7 @@ type Translate = (key: string, params?: TranslationParams) => string;
 type Act = (name: string, operation: () => Promise<unknown>) => Promise<void>;
 type Tab = "live" | "camera" | "advanced";
 
-const PLATFORMS: RtmpDestinationKind[] = ["Instagram", "TikTok", "Custom"];
+const PLATFORMS: RtmpDestinationKind[] = ["Instagram", "TikTok", "YouTube", "Facebook", "Custom"];
 const SETTINGS_KEY = "dji-live-bridge.stream-settings";
 const APP_VERSION = __APP_VERSION__;
 const DEFAULT_SETTINGS: NativeProductionSettings = {
@@ -445,6 +445,12 @@ function PlatformIcon({ kind }: { kind: RtmpDestinationKind }) {
       {kind === "TikTok" && (
         <svg viewBox="0 0 24 24"><path d="M14 4v10.5a3.5 3.5 0 1 1-3.5-3.5M14 4c.4 2.6 2 4.2 4.8 4.4" /></svg>
       )}
+      {kind === "YouTube" && (
+        <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3.6" /><path d="M11 10.2v3.6l3-1.8z" className="fill" /></svg>
+      )}
+      {kind === "Facebook" && (
+        <svg viewBox="0 0 24 24"><path d="M14.6 21v-7.3h2.4l.4-2.9h-2.8V8.9c0-.8.3-1.4 1.5-1.4h1.4V4.9c-.7-.1-1.5-.2-2.3-.2-2.3 0-3.9 1.4-3.9 4v2.1H8.7v2.9h2.6V21z" className="fill" /></svg>
+      )}
       {kind === "Custom" && (
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2" className="fill" /><path d="M7.8 7.8a6 6 0 0 0 0 8.4M16.2 7.8a6 6 0 0 1 0 8.4M5 5a10 10 0 0 0 0 14M19 5a10 10 0 0 1 0 14" /></svg>
       )}
@@ -789,6 +795,8 @@ function GoLivePanel({
         {partial && <p className="hint warn-text">{t("go.partial")}</p>}
         {enabled.some((destination) => destination.kind === "Instagram") && <p className="callout">{t("go.igReminder")}</p>}
         {enabled.some((destination) => destination.kind === "TikTok") && <p className="callout">{t("go.tiktokReminder")}</p>}
+        {enabled.some((destination) => destination.kind === "YouTube") && <p className="callout">{t("go.ytReminder")}</p>}
+        {enabled.some((destination) => destination.kind === "Facebook") && <p className="callout">{t("go.fbReminder")}</p>}
         <button className="stop-button" disabled={busy === "stop-live"} onClick={() => void act("stop-live", stopLive)}>
           {busy === "stop-live" ? t("go.stopping") : t("go.stop")}
         </button>

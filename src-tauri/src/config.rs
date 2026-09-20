@@ -41,6 +41,8 @@ pub enum DestinationMode {
 pub enum RtmpDestinationKind {
     TikTok,
     Instagram,
+    YouTube,
+    Facebook,
     #[default]
     Custom,
 }
@@ -77,6 +79,8 @@ pub enum ProductionEngine {
 pub enum BroadcastDestination {
     TikTok { server: String, key: String },
     Instagram { server: String, key: String },
+    YouTube { server: String, key: String },
+    Facebook { server: String, key: String },
     Custom { server: String, key: String },
 }
 
@@ -85,6 +89,8 @@ impl BroadcastDestination {
         match self {
             Self::TikTok { server, key }
             | Self::Instagram { server, key }
+            | Self::YouTube { server, key }
+            | Self::Facebook { server, key }
             | Self::Custom { server, key } => {
                 validate_rtmp_destination(server, key)?;
                 Ok((server, key))
@@ -99,6 +105,8 @@ impl BroadcastDestination {
         match destination.kind {
             RtmpDestinationKind::TikTok => Self::TikTok { server, key },
             RtmpDestinationKind::Instagram => Self::Instagram { server, key },
+            RtmpDestinationKind::YouTube => Self::YouTube { server, key },
+            RtmpDestinationKind::Facebook => Self::Facebook { server, key },
             RtmpDestinationKind::Custom => Self::Custom { server, key },
         }
     }

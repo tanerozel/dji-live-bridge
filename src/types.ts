@@ -64,7 +64,7 @@ export interface ObsState {
 }
 
 export type ProductionEngine = "NativeFfmpeg" | "Obs";
-export type RtmpDestinationKind = "TikTok" | "Instagram" | "Custom";
+export type RtmpDestinationKind = "TikTok" | "Instagram" | "YouTube" | "Facebook" | "Custom";
 
 export interface RtmpDestinationState {
   id: string;

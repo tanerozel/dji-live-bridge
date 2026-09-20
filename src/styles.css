@@ -330,6 +330,8 @@ input[type="checkbox"] { width: auto; accent-color: var(--accent); }
 .platform-icon.instagram { background: var(--instagram); }
 .platform-icon.tiktok { background: #000; }
 .platform-icon.tiktok svg { filter: drop-shadow(-1px -1px 0 #25f4ee) drop-shadow(1px 1px 0 #fe2c55); }
+.platform-icon.youtube { background: #ff0000; }
+.platform-icon.facebook { background: #1877f2; }
 
 .switch { position: relative; display: inline-block; width: 38px; height: 22px; cursor: pointer; }
 .switch input { position: absolute; opacity: 0; width: 0; height: 0; }
@@ -343,7 +345,7 @@ input[type="checkbox"] { width: auto; accent-color: var(--accent); }
 /* destination editor */
 .editor { margin-top: 12px; padding: 14px; border: 1px solid var(--border); border-radius: 11px; background: var(--surface-2); }
 .step-card .editor:first-child { margin-top: 0; }
-.platform-picker { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+.platform-picker { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 8px; margin-bottom: 12px; }
 .platform-choice { flex-direction: column; gap: 7px; padding: 12px 8px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--muted); font-size: 12px; }
 .platform-choice.selected { border-color: var(--accent); background: var(--accent-soft); color: var(--text); font-weight: 600; box-shadow: 0 0 0 1px var(--accent); }
 .field { display: grid; gap: 6px; margin-top: 12px; }
