@@ -40,3 +40,11 @@ typedef struct DjiFrameHeader {
 #pragma pack(pop)
 
 #define DJI_FRAME_MAPPING_BYTES (sizeof(DjiFrameHeader) + DJI_FRAME_BYTES)
+
+// The Rust writer hard-codes this header as 32 bytes (HEADER_BYTES in
+// src-tauri/src/virtual_camera/frame_bridge.rs). If a field is ever added
+// here, the two sides would read different offsets and the picture would be
+// garbage, so fail the build instead.
+#ifdef __cplusplus
+static_assert(sizeof(DjiFrameHeader) == 32, "shared frame header must stay 32 bytes");
+#endif

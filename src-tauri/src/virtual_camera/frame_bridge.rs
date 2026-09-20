@@ -31,6 +31,8 @@ pub const FRAME_FPS: u32 = 30;
 pub const FRAME_BYTES: usize = (FRAME_WIDTH as usize) * (FRAME_HEIGHT as usize) * 3 / 2;
 
 const MAGIC: u32 = 0x444A_4931; // "DJI1"
+/// Matches `sizeof(DjiFrameHeader)` in native/windows/shared_frame.h, which
+/// asserts the same number on the C++ side.
 const HEADER_BYTES: usize = 32;
 
 /// Shared memory the camera filter reads. Dropping it releases the mapping,
