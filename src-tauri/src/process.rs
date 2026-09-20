@@ -178,13 +178,15 @@ impl ProcessSupervisor {
         if let Some(process) = managed.as_mut() {
             process.stopping = true;
             if let Some(child) = process.child.as_mut() {
-                request_stop(child);
-                let deadline = Instant::now() + Duration::from_secs(3);
+                // Only grant a grace period when the child was actually asked
+                // to go. On Windows nothing was asked, so waiting would just
+                // add three seconds to every app exit before the same kill.
+                let deadline = request_stop(child).then(|| Instant::now() + Duration::from_secs(3));
                 loop {
                     if child.try_wait()?.is_some() {
                         break;
                     }
-                    if Instant::now() >= deadline {
+                    if deadline.is_none_or(|deadline| Instant::now() >= deadline) {
                         child.kill().await?;
                         let _ = child.wait().await;
                         break;
@@ -219,17 +221,25 @@ impl ProcessSupervisor {
     }
 }
 
-/// Ask a child to exit on its own. On Unix that is SIGTERM, which lets FFmpeg
-/// and MediaMTX flush and close cleanly; Windows has no such signal, so the
-/// caller's kill-after-timeout path does the work there.
-fn request_stop(child: &mut Child) {
+/// Asks a child to exit on its own and reports whether it could be asked. On
+/// Unix that is SIGTERM, which lets FFmpeg and MediaMTX flush and close
+/// cleanly. Windows has no equivalent for a child with no console of its own,
+/// so nothing is sent and the caller kills straight away.
+fn request_stop(child: &mut Child) -> bool {
     #[cfg(unix)]
-    if let Some(pid) = child.id() {
+    {
+        let Some(pid) = child.id() else {
+            return false;
+        };
         use nix::{sys::signal, unistd::Pid};
         let _ = signal::kill(Pid::from_raw(pid as i32), signal::Signal::SIGTERM);
+        true
     }
     #[cfg(windows)]
-    let _ = child;
+    {
+        let _ = child;
+        false
+    }
 }
 
 fn spawn_child(spec: &ProcessSpec) -> BridgeResult<Child> {
