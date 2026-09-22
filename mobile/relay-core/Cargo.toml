@@ -1,0 +1,22 @@
+[package]
+name = "dji-live-bridge-relay-core"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.93"
+publish = false
+
+[lib]
+name = "dji_relay_core"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+jni = "0.21.1"
+librtmp2 = { version = "0.8.1", default-features = false }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[profile.release]
+codegen-units = 1
+lto = "thin"
+strip = true
+

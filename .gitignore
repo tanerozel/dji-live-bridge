@@ -10,5 +10,12 @@
 *.log
 /native/windows/build
 /src-tauri/resources
+/mobile/android/.gradle
+/mobile/android/.idea
+/mobile/android/local.properties
+/mobile/android/**/build
+/mobile/android/.rust-target
+/mobile/android/*.iml
+/mobile/relay-core/target
 /marketing/launch-kit/*.md
 marketing/launch-kit/*.png
