@@ -10,3 +10,5 @@
 *.log
 /native/windows/build
 /src-tauri/resources
+/marketing/launch-kit/*.md
+marketing/launch-kit/*.png
