@@ -47,6 +47,11 @@ const titles = new Map();
 const descriptions = new Map();
 let englishTitle = "";
 
+const sourceCss = readFileSync(join(root, "site/styles.css"), "utf8");
+if (/nav\s+a:not\(\.btn\)\s*\{\s*display\s*:\s*none/.test(sourceCss)) {
+  fail("site/styles.css", "mobile navigation rule also hides the language menu links");
+}
+
 for (const locale of LOCALES) {
   const file = fileFor(locale.code);
   const where = locale.code;
