@@ -149,7 +149,7 @@ class RelayForegroundService : Service() {
 
     private fun startNativeRelay(destinationProfileId: String): String {
         if (destinationProfileId.isBlank()) {
-            throw DestinationProfileException("Aktif hedef profili seçilmedi")
+            return NativeRelay.nativeStartLocal()
         }
         val credentials = DestinationProfileStore(applicationContext)
             .credentials(destinationProfileId)
