@@ -3,7 +3,7 @@
 Native Android application for receiving an RTMP publish from DJI Fly on a DJI RC 2 and
 forwarding the stream to one external RTMP destination.
 
-The Android app does not use DJI SDK, Tauri, or a WebView. Phase 7 contains a secure,
+The Android app does not use DJI SDK, Tauri, or a WebView. Phase 8 contains a secure,
 reconnecting single-target stream-copy relay hosted by an Android foreground service:
 
 ```text
@@ -48,7 +48,7 @@ absent from the private profile file. Graceful stop released the service, wake l
 
 The physical-device pass also corrected Android 16 safe-area handling and made the profile editor
 scrollable/compact while the keyboard is visible. A longer RC 2 stream against a real external
-destination remains the final field test before release packaging.
+destination remains the final end-to-end field test.
 
 Moving the app to the background, switching apps or locking the screen no longer ties relay
 lifetime to `MainActivity`. While active, the service holds a six-hour partial wake lock so the
@@ -82,3 +82,35 @@ JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradle
 
 The Gradle build compiles and packages the native `arm64-v8a` RTMP library automatically. The
 debug APK is written to `app/build/outputs/apk/debug/app-debug.apk`.
+
+## Phase 8 release packaging
+
+The Android SDK/NDK and Rust/cargo-ndk versions are pinned, and CI runs Rust formatting, linting and
+tests together with Android lint plus debug APK, minified release APK and release AAB builds. CI
+artifacts are deliberately unsigned.
+
+Distribution builds are signed only from environment variables; passwords are never accepted as
+Gradle command-line properties or stored in the repository. Keep the release/upload keystore and
+its backup outside the checkout, then export these values locally:
+
+```sh
+export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
+export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+export DJI_ANDROID_KEYSTORE_PATH="/absolute/path/to/private-release-key.jks"
+export DJI_ANDROID_KEYSTORE_PASSWORD="..."
+export DJI_ANDROID_KEY_ALIAS="..."
+export DJI_ANDROID_KEY_PASSWORD="..."
+```
+
+Build and cryptographically verify both distributable formats with:
+
+```sh
+cd mobile/android
+./scripts/build-release.sh
+```
+
+The script produces `app/build/outputs/apk/release/app-release.apk` and
+`app/build/outputs/bundle/release/app-release.aab`, verifies both signatures and prints their
+SHA-256 digests. Never commit a keystore or its credentials. Losing the signing key prevents future
+updates outside Play App Signing, so creating and backing up the production key remains an explicit
+release-owner step.

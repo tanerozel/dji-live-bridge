@@ -3,8 +3,25 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
+val releaseSigningValues = mapOf(
+    "storeFile" to providers.environmentVariable("DJI_ANDROID_KEYSTORE_PATH").orNull,
+    "storePassword" to providers.environmentVariable("DJI_ANDROID_KEYSTORE_PASSWORD").orNull,
+    "keyAlias" to providers.environmentVariable("DJI_ANDROID_KEY_ALIAS").orNull,
+    "keyPassword" to providers.environmentVariable("DJI_ANDROID_KEY_PASSWORD").orNull,
+)
+val hasAnyReleaseSigningValue = releaseSigningValues.values.any { !it.isNullOrBlank() }
+val hasCompleteReleaseSigning = releaseSigningValues.values.all { !it.isNullOrBlank() }
+
+if (hasAnyReleaseSigningValue && !hasCompleteReleaseSigning) {
+    throw GradleException(
+        "Android release signing is incomplete. Set all DJI_ANDROID_KEYSTORE_* environment variables.",
+    )
+}
+
 android {
     namespace = "com.djilivebridge.android"
+    buildToolsVersion = "36.1.0"
+    ndkVersion = "28.2.13676358"
 
     compileSdk {
         version = release(36) {
@@ -24,10 +41,26 @@ android {
         }
     }
 
+    signingConfigs {
+        if (hasCompleteReleaseSigning) {
+            create("release") {
+                storeFile = rootProject.file(releaseSigningValues.getValue("storeFile")!!)
+                storePassword = releaseSigningValues.getValue("storePassword")
+                keyAlias = releaseSigningValues.getValue("keyAlias")
+                keyPassword = releaseSigningValues.getValue("keyPassword")
+                enableV1Signing = false
+                enableV2Signing = true
+                enableV3Signing = true
+                enableV4Signing = true
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
+            signingConfig = signingConfigs.findByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",

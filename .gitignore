@@ -13,6 +13,9 @@
 /mobile/android/.gradle
 /mobile/android/.idea
 /mobile/android/local.properties
+/mobile/android/*.jks
+/mobile/android/*.keystore
+/mobile/android/release-signing.properties
 /mobile/android/**/build
 /mobile/android/.rust-target
 /mobile/android/*.iml

@@ -1,0 +1,63 @@
+name: Android build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "mobile/android/**"
+      - "mobile/relay-core/**"
+      - "rust-toolchain.toml"
+      - ".github/workflows/android.yml"
+  pull_request:
+    paths:
+      - "mobile/android/**"
+      - "mobile/relay-core/**"
+      - "rust-toolchain.toml"
+      - ".github/workflows/android.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK and NDK
+        run: sdkmanager "platforms;android-36.1" "build-tools;36.1.0" "ndk;28.2.13676358"
+
+      - name: Install pinned Rust and cargo-ndk
+        run: |
+          rustup toolchain install 1.98.1 --profile minimal --component clippy,rustfmt
+          rustup target add aarch64-linux-android --toolchain 1.98.1
+          cargo +1.98.1 install cargo-ndk --version 4.1.2 --locked
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: mobile/relay-core
+
+      - name: Rust checks
+        run: |
+          cargo +1.98.1 fmt --manifest-path mobile/relay-core/Cargo.toml -- --check
+          cargo +1.98.1 clippy --locked --all-targets --manifest-path mobile/relay-core/Cargo.toml -- -D warnings
+          cargo +1.98.1 test --locked --manifest-path mobile/relay-core/Cargo.toml
+
+      - name: Android checks and packages
+        working-directory: mobile/android
+        run: ./gradlew lintDebug testDebugUnitTest assembleDebug assembleRelease bundleRelease
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dji-live-bridge-android-unsigned
+          path: |
+            mobile/android/app/build/outputs/apk/debug/app-debug.apk
+            mobile/android/app/build/outputs/apk/release/app-release-unsigned.apk
+            mobile/android/app/build/outputs/bundle/release/app-release.aab
+          if-no-files-found: error

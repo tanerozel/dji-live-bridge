@@ -229,7 +229,7 @@ private fun RelayScreen() {
             ) {
                 Text(
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
-                    text = "Faz 7 / 8  •  Cihaz ve ağ doğrulaması",
+                    text = "Faz 8 / 8  •  Yayına hazır",
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Medium,
