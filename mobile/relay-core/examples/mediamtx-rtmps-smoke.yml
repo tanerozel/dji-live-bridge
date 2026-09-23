@@ -1,0 +1,19 @@
+logLevel: warn
+logDestinations: [stdout]
+api: true
+apiAddress: 127.0.0.1:19997
+metrics: false
+pprof: false
+rtsp: false
+rtmp: true
+rtmpEncryption: strict
+rtmpsAddress: 127.0.0.1:12936
+rtmpServerCert: /tmp/dji-relay-rtmps-cert.pem
+rtmpServerKey: /tmp/dji-relay-rtmps-key.pem
+hls: false
+webrtc: false
+srt: false
+moq: false
+paths:
+  all_others:
+    source: publisher

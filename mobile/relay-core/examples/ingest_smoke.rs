@@ -7,15 +7,12 @@ fn main() -> ExitCode {
     let bind_address = std::env::args()
         .nth(1)
         .unwrap_or_else(|| "127.0.0.1:11935".to_owned());
-    let stream_key = std::env::args()
-        .nth(2)
-        .unwrap_or_else(|| "smoke-test-key-1234".to_owned());
     let timeout_seconds = std::env::args()
-        .nth(3)
+        .nth(2)
         .and_then(|value| value.parse::<u64>().ok())
         .unwrap_or(15);
 
-    if let Err(error) = start_server_on(&bind_address, &stream_key) {
+    if let Err(error) = start_server_on(&bind_address) {
         eprintln!("{error}");
         return ExitCode::from(1);
     }

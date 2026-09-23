@@ -1,0 +1,23 @@
+[package]
+name = "librtmp2"
+version = "0.8.1"
+edition = "2024"
+rust-version = "1.93"
+authors = ["OpenRTMP <info@openrtmp.org>", "AlexanderWagnerDev <info@alexanderwagnerdev.com>"]
+description = "librtmp2 RTMP/RTMPS protocol library"
+license = "MIT"
+repository = "https://github.com/OpenRTMP/librtmp2"
+
+[lib]
+name = "librtmp2"
+path = "src/lib.rs"
+
+[features]
+default = ["tls"]
+tls = ["openssl"]
+
+[dependencies]
+libc = "0.2"
+thiserror = "2"
+openssl = { version = "0.10.70", optional = true }
+parking_lot = "0.12"

@@ -70,6 +70,7 @@ val buildRustRelay = tasks.register<Exec>("buildRustRelay") {
         rootProject.file("../relay-core/Cargo.toml"),
         rootProject.file("../relay-core/Cargo.lock"),
         rootProject.fileTree("../relay-core/src"),
+        rootProject.fileTree("../relay-core/vendor/librtmp2/src"),
     )
     outputs.dir(layout.buildDirectory.dir("generated/rustJniLibs"))
 }
