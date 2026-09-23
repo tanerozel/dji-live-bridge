@@ -16,6 +16,7 @@ object NativeRelay {
         tlsCaFile: String,
     ): String
 
+    external fun nativeStartLocal(): String
     external fun nativeSnapshot(): String
     external fun nativeStop()
 }
@@ -37,6 +38,10 @@ data class RelaySnapshot(
     val droppedOutputFrames: Long = 0,
     val outputReconnectAttempts: Long = 0,
     val outputSecure: Boolean = false,
+    val virtualCameraStatus: String = "stopped",
+    val virtualCameraDetail: String = "Sanal kamera çıkışı kapalı",
+    val virtualCameraClients: Long = 0,
+    val droppedVirtualCameraFrames: Long = 0,
 ) {
     companion object {
         fun fromJson(raw: String): RelaySnapshot {
@@ -58,6 +63,13 @@ data class RelaySnapshot(
                 droppedOutputFrames = value.optLong("droppedOutputFrames"),
                 outputReconnectAttempts = value.optLong("outputReconnectAttempts"),
                 outputSecure = value.optBoolean("outputSecure"),
+                virtualCameraStatus = value.optString("virtualCameraStatus", "stopped"),
+                virtualCameraDetail = value.optString(
+                    "virtualCameraDetail",
+                    "Sanal kamera çıkışı kapalı",
+                ),
+                virtualCameraClients = value.optLong("virtualCameraClients"),
+                droppedVirtualCameraFrames = value.optLong("droppedVirtualCameraFrames"),
             )
         }
     }
