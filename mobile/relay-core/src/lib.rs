@@ -14,6 +14,10 @@ use std::time::{Duration, Instant};
 
 const DEFAULT_BIND_ADDRESS: &str = "0.0.0.0:1935";
 const EXPECTED_APP: &str = "drone";
+const VIRTUAL_CAMERA_BIND_ADDRESS: &str = "127.0.0.1:1936";
+const VIRTUAL_CAMERA_APP: &str = "vcam";
+const VIRTUAL_CAMERA_STREAM: &str = "live";
+const VIRTUAL_CAMERA_QUEUE_CAPACITY: usize = 256;
 const OUTBOUND_QUEUE_CAPACITY: usize = 256;
 const MAX_QUEUED_FRAME_BYTES: usize = 16 * 1024 * 1024;
 const OUTPUT_CONNECT_TIMEOUT: Duration = Duration::from_secs(3);
@@ -38,6 +42,10 @@ pub struct RelaySnapshot {
     pub dropped_output_frames: u64,
     pub output_reconnect_attempts: u64,
     pub output_secure: bool,
+    pub virtual_camera_status: String,
+    pub virtual_camera_detail: String,
+    pub virtual_camera_clients: u64,
+    pub dropped_virtual_camera_frames: u64,
 }
 
 impl RelaySnapshot {
@@ -59,6 +67,10 @@ impl RelaySnapshot {
             dropped_output_frames: 0,
             output_reconnect_attempts: 0,
             output_secure: false,
+            virtual_camera_status: "stopped".to_owned(),
+            virtual_camera_detail: "Sanal kamera çıkışı kapalı".to_owned(),
+            virtual_camera_clients: 0,
+            dropped_virtual_camera_frames: 0,
         }
     }
 }
@@ -76,6 +88,21 @@ struct OutboundSnapshot {
     detail: String,
 }
 
+#[derive(Clone)]
+struct VirtualCameraSnapshot {
+    status: String,
+    detail: String,
+}
+
+impl VirtualCameraSnapshot {
+    fn stopped() -> Self {
+        Self {
+            status: "stopped".to_owned(),
+            detail: "Sanal kamera çıkışı kapalı".to_owned(),
+        }
+    }
+}
+
 impl OutboundSnapshot {
     fn disabled() -> Self {
         Self {
@@ -85,6 +112,7 @@ impl OutboundSnapshot {
     }
 }
 
+#[derive(Clone)]
 enum OutboundMessage {
     Frame {
         frame_type: FrameType,
@@ -98,12 +126,15 @@ struct RuntimeControl {
     stop: Arc<AtomicBool>,
     server_thread: JoinHandle<()>,
     outbound_thread: Option<JoinHandle<()>>,
+    virtual_camera_thread: JoinHandle<()>,
 }
 
 static CONTROL: OnceLock<Mutex<Option<RuntimeControl>>> = OnceLock::new();
 static SNAPSHOT: OnceLock<RwLock<RelaySnapshot>> = OnceLock::new();
 static OUTBOUND_SNAPSHOT: OnceLock<RwLock<OutboundSnapshot>> = OnceLock::new();
 static OUTBOUND_SENDER: OnceLock<RwLock<Option<SyncSender<OutboundMessage>>>> = OnceLock::new();
+static VIRTUAL_CAMERA_SNAPSHOT: OnceLock<RwLock<VirtualCameraSnapshot>> = OnceLock::new();
+static VIRTUAL_CAMERA_SENDER: OnceLock<RwLock<Option<SyncSender<OutboundMessage>>>> = OnceLock::new();
 static VIDEO_FRAMES: AtomicU64 = AtomicU64::new(0);
 static AUDIO_FRAMES: AtomicU64 = AtomicU64::new(0);
 static REJECTED_PUBLISH_ATTEMPTS: AtomicU64 = AtomicU64::new(0);
@@ -112,6 +143,8 @@ static DROPPED_OUTPUT_FRAMES: AtomicU64 = AtomicU64::new(0);
 static OUTPUT_RECONNECT_ATTEMPTS: AtomicU64 = AtomicU64::new(0);
 static OUTBOUND_QUEUE_OVERFLOWED: AtomicBool = AtomicBool::new(false);
 static OUTPUT_SECURE: AtomicBool = AtomicBool::new(false);
+static VIRTUAL_CAMERA_CLIENTS: AtomicU64 = AtomicU64::new(0);
+static DROPPED_VIRTUAL_CAMERA_FRAMES: AtomicU64 = AtomicU64::new(0);
 
 fn control() -> &'static Mutex<Option<RuntimeControl>> {
     CONTROL.get_or_init(|| Mutex::new(None))
@@ -129,6 +162,14 @@ fn outbound_sender() -> &'static RwLock<Option<SyncSender<OutboundMessage>>> {
     OUTBOUND_SENDER.get_or_init(|| RwLock::new(None))
 }
 
+fn virtual_camera_snapshot() -> &'static RwLock<VirtualCameraSnapshot> {
+    VIRTUAL_CAMERA_SNAPSHOT.get_or_init(|| RwLock::new(VirtualCameraSnapshot::stopped()))
+}
+
+fn virtual_camera_sender() -> &'static RwLock<Option<SyncSender<OutboundMessage>>> {
+    VIRTUAL_CAMERA_SENDER.get_or_init(|| RwLock::new(None))
+}
+
 fn set_snapshot(value: RelaySnapshot) {
     if let Ok(mut current) = snapshot().write() {
         *current = value;
@@ -137,6 +178,13 @@ fn set_snapshot(value: RelaySnapshot) {
 
 fn set_output_status(status: &str, detail: &str) {
     if let Ok(mut current) = outbound_snapshot().write() {
+        current.status = status.to_owned();
+        current.detail = detail.to_owned();
+    }
+}
+
+fn set_virtual_camera_status(status: &str, detail: &str) {
+    if let Ok(mut current) = virtual_camera_snapshot().write() {
         current.status = status.to_owned();
         current.detail = detail.to_owned();
     }
@@ -151,6 +199,18 @@ fn apply_output_state(value: &mut RelaySnapshot) {
     value.dropped_output_frames = DROPPED_OUTPUT_FRAMES.load(Ordering::Relaxed);
     value.output_reconnect_attempts = OUTPUT_RECONNECT_ATTEMPTS.load(Ordering::Relaxed);
     value.output_secure = OUTPUT_SECURE.load(Ordering::Relaxed);
+    if let Ok(camera) = virtual_camera_snapshot().read() {
+        value.virtual_camera_status.clone_from(&camera.status);
+        value.virtual_camera_detail.clone_from(&camera.detail);
+    }
+    value.virtual_camera_clients = VIRTUAL_CAMERA_CLIENTS.load(Ordering::Relaxed);
+    value.dropped_virtual_camera_frames =
+        DROPPED_VIRTUAL_CAMERA_FRAMES.load(Ordering::Relaxed);
+    if value.virtual_camera_clients > 0 && value.virtual_camera_status != "error" {
+        value.virtual_camera_status = "streaming".to_owned();
+        value.virtual_camera_detail =
+            format!("{} sanal kamera istemcisi bağlı", value.virtual_camera_clients);
+    }
 }
 
 fn allow_publish(_conn_id: u64, app: &str, stream_name: &str) -> bool {
@@ -175,17 +235,20 @@ fn handle_frame(frame: &Frame) {
 
     if frame.size as usize > MAX_QUEUED_FRAME_BYTES || (frame.size > 0 && frame.data.is_null()) {
         DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
+        DROPPED_VIRTUAL_CAMERA_FRAMES.fetch_add(1, Ordering::Relaxed);
         OUTBOUND_QUEUE_OVERFLOWED.store(true, Ordering::Release);
         return;
     }
 
-    let sender = outbound_sender()
+    let outbound = outbound_sender().read().ok().and_then(|value| value.clone());
+    let virtual_camera = virtual_camera_sender()
         .read()
         .ok()
         .and_then(|value| value.clone());
-    let Some(sender) = sender else {
+    if outbound.is_none() && virtual_camera.is_none() {
         return;
-    };
+    }
+
     let payload = if frame.size == 0 {
         Vec::new()
     } else {
@@ -197,23 +260,131 @@ fn handle_frame(frame: &Frame) {
         timestamp: frame.timestamp,
         payload,
     };
-    match sender.try_send(message) {
-        Ok(()) => {}
-        Err(TrySendError::Full(_)) => {
-            DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
-            OUTBOUND_QUEUE_OVERFLOWED.store(true, Ordering::Release);
+
+    if let Some(sender) = outbound {
+        match sender.try_send(message.clone()) {
+            Ok(()) => {}
+            Err(TrySendError::Full(_)) => {
+                DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
+                OUTBOUND_QUEUE_OVERFLOWED.store(true, Ordering::Release);
+            }
+            Err(TrySendError::Disconnected(_)) => {}
         }
-        Err(TrySendError::Disconnected(_)) => {}
+    }
+
+    if let Some(sender) = virtual_camera {
+        match sender.try_send(message) {
+            Ok(()) => {}
+            Err(TrySendError::Full(_)) => {
+                DROPPED_VIRTUAL_CAMERA_FRAMES.fetch_add(1, Ordering::Relaxed);
+            }
+            Err(TrySendError::Disconnected(_)) => {}
+        }
     }
 }
 
 fn notify_source_ended() {
-    let sender = outbound_sender()
-        .read()
-        .ok()
-        .and_then(|value| value.clone());
-    if let Some(sender) = sender {
+    let senders = [
+        outbound_sender().read().ok().and_then(|value| value.clone()),
+        virtual_camera_sender()
+            .read()
+            .ok()
+            .and_then(|value| value.clone()),
+    ];
+    for sender in senders.into_iter().flatten() {
         let _ = sender.try_send(OutboundMessage::SourceEnded);
+    }
+}
+
+fn allow_virtual_camera_play(_conn_id: u64, app: &str, stream_name: &str) -> bool {
+    app == VIRTUAL_CAMERA_APP && stream_name == VIRTUAL_CAMERA_STREAM
+}
+
+fn build_virtual_camera_server() -> Result<Server, String> {
+    let config = ServerConfig {
+        max_connections: 8,
+        chunk_size: 4096,
+        tls_enabled: 0,
+        tls_cert_file: ptr::null(),
+        tls_key_file: ptr::null(),
+        tls_ca_file: ptr::null(),
+        tls_insecure: 0,
+        max_pending_tls_per_addr: 0,
+        max_connections_per_addr: 8,
+    };
+    let mut server = Server::new(config)
+        .map_err(|error| format!("Sanal kamera RTMP sunucusu oluşturulamadı: {error}"))?;
+    server.on_play_cb = Some(allow_virtual_camera_play);
+    server
+        .listen(VIRTUAL_CAMERA_BIND_ADDRESS)
+        .map_err(|error| format!("Sanal kamera çıkışı açılamadı: {error}"))?;
+    Ok(server)
+}
+
+fn run_virtual_camera_server(
+    mut server: Server,
+    receiver: Receiver<OutboundMessage>,
+    stop: Arc<AtomicBool>,
+) {
+    set_virtual_camera_status("ready", "Rootless sanal kamera bağlantısı bekleniyor");
+
+    while !stop.load(Ordering::Acquire) {
+        for message in receiver.try_iter().take(VIRTUAL_CAMERA_QUEUE_CAPACITY) {
+            match message {
+                OutboundMessage::Frame {
+                    frame_type,
+                    timestamp,
+                    payload,
+                } => {
+                    if server
+                        .inject_relay_frame(
+                            VIRTUAL_CAMERA_APP,
+                            VIRTUAL_CAMERA_STREAM,
+                            frame_type,
+                            timestamp,
+                            &payload,
+                        )
+                        .is_err()
+                    {
+                        DROPPED_VIRTUAL_CAMERA_FRAMES.fetch_add(1, Ordering::Relaxed);
+                    }
+                }
+                OutboundMessage::SourceEnded => {
+                    server.release_injected_route(VIRTUAL_CAMERA_APP, VIRTUAL_CAMERA_STREAM);
+                }
+            }
+        }
+
+        if let Err(error) = server.poll(10) {
+            set_virtual_camera_status(
+                "error",
+                &format!("Sanal kamera RTMP çıkışı durdu: {error}"),
+            );
+            break;
+        }
+
+        let clients = server
+            .connections
+            .iter()
+            .filter(|connection| {
+                connection
+                    .current_stream
+                    .as_ref()
+                    .is_some_and(|stream| stream.is_playing)
+            })
+            .count() as u64;
+        VIRTUAL_CAMERA_CLIENTS.store(clients, Ordering::Relaxed);
+    }
+
+    server.release_all_injected_routes();
+    server.stop();
+    VIRTUAL_CAMERA_CLIENTS.store(0, Ordering::Relaxed);
+    if virtual_camera_snapshot()
+        .read()
+        .map(|value| value.status != "error")
+        .unwrap_or(true)
+    {
+        set_virtual_camera_status("stopped", "Sanal kamera çıkışı kapalı");
     }
 }
 
@@ -321,6 +492,9 @@ fn start_runtime(bind_address: &str, destination: Option<Destination>) -> Result
     DROPPED_OUTPUT_FRAMES.store(0, Ordering::Relaxed);
     OUTPUT_RECONNECT_ATTEMPTS.store(0, Ordering::Relaxed);
     OUTBOUND_QUEUE_OVERFLOWED.store(false, Ordering::Relaxed);
+    VIRTUAL_CAMERA_CLIENTS.store(0, Ordering::Relaxed);
+    DROPPED_VIRTUAL_CAMERA_FRAMES.store(0, Ordering::Relaxed);
+    set_virtual_camera_status("starting", "Sanal kamera çıkışı hazırlanıyor");
     OUTPUT_SECURE.store(
         destination.as_ref().is_some_and(|value| value.secure),
         Ordering::Relaxed,
@@ -354,6 +528,52 @@ fn start_runtime(bind_address: &str, destination: Option<Destination>) -> Result
         None
     };
 
+    let virtual_camera_server = match build_virtual_camera_server() {
+        Ok(server) => server,
+        Err(error) => {
+            stop.store(true, Ordering::Release);
+            if let Ok(mut current) = outbound_sender().write() {
+                *current = None;
+            }
+            if let Some(thread) = outbound_thread {
+                let _ = thread.join();
+            }
+            set_virtual_camera_status("error", &error);
+            return Err(error);
+        }
+    };
+    let (virtual_camera_tx, virtual_camera_rx) = mpsc::sync_channel(VIRTUAL_CAMERA_QUEUE_CAPACITY);
+    if let Ok(mut current) = virtual_camera_sender().write() {
+        *current = Some(virtual_camera_tx);
+    }
+    let virtual_camera_stop = Arc::clone(&stop);
+    let virtual_camera_thread = match thread::Builder::new()
+        .name("dji-virtual-camera-output".to_owned())
+        .spawn(move || {
+            run_virtual_camera_server(
+                virtual_camera_server,
+                virtual_camera_rx,
+                virtual_camera_stop,
+            )
+        })
+    {
+        Ok(thread) => thread,
+        Err(error) => {
+            stop.store(true, Ordering::Release);
+            if let Ok(mut current) = virtual_camera_sender().write() {
+                *current = None;
+            }
+            if let Ok(mut current) = outbound_sender().write() {
+                *current = None;
+            }
+            if let Some(thread) = outbound_thread {
+                let _ = thread.join();
+            }
+            set_virtual_camera_status("error", "Sanal kamera iş parçacığı başlatılamadı");
+            return Err(format!("Sanal kamera iş parçacığı başlatılamadı: {error}"));
+        }
+    };
+
     let server_stop = Arc::clone(&stop);
     let bind_address = bind_address.to_owned();
     let server_thread = match thread::Builder::new()
@@ -366,9 +586,13 @@ fn start_runtime(bind_address: &str, destination: Option<Destination>) -> Result
             if let Ok(mut current) = outbound_sender().write() {
                 *current = None;
             }
+            if let Ok(mut current) = virtual_camera_sender().write() {
+                *current = None;
+            }
             if let Some(thread) = outbound_thread {
                 let _ = thread.join();
             }
+            let _ = virtual_camera_thread.join();
             return Err(format!("RTMP iş parçacığı başlatılamadı: {error}"));
         }
     };
@@ -377,6 +601,7 @@ fn start_runtime(bind_address: &str, destination: Option<Destination>) -> Result
         stop,
         server_thread,
         outbound_thread,
+        virtual_camera_thread,
     });
     Ok(())
 }
@@ -795,12 +1020,23 @@ pub fn stop_server() {
         if let Ok(mut sender) = outbound_sender().write() {
             *sender = None;
         }
+        if let Ok(mut sender) = virtual_camera_sender().write() {
+            *sender = None;
+        }
         let _ = runtime.server_thread.join();
         if let Some(thread) = runtime.outbound_thread {
             let _ = thread.join();
         }
-    } else if let Ok(mut sender) = outbound_sender().write() {
-        *sender = None;
+        let _ = runtime.virtual_camera_thread.join();
+        set_virtual_camera_status("stopped", "Sanal kamera çıkışı kapalı");
+    } else {
+        if let Ok(mut sender) = outbound_sender().write() {
+            *sender = None;
+        }
+        if let Ok(mut sender) = virtual_camera_sender().write() {
+            *sender = None;
+        }
+        set_virtual_camera_status("stopped", "Sanal kamera çıkışı kapalı");
     }
 }
 
@@ -845,6 +1081,15 @@ pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeStart(
     let result = start_bridge_with_tls_ca(&target_server_url, &target_stream_key, &tls_ca_file)
         .err()
         .unwrap_or_default();
+    java_string(env, &result)
+}
+
+#[no_mangle]
+pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeStartLocal(
+    env: JNIEnv<'_>,
+    _class: JClass<'_>,
+) -> jstring {
+    let result = start_server().err().unwrap_or_default();
     java_string(env, &result)
 }
 
@@ -929,5 +1174,14 @@ mod tests {
         assert!(parsed.get("receivedBytes").is_some());
         assert!(parsed.get("outputStatus").is_some());
         assert!(parsed.get("outboundBytes").is_some());
+        assert!(parsed.get("virtualCameraStatus").is_some());
+        assert!(parsed.get("virtualCameraClients").is_some());
+    }
+
+    #[test]
+    fn virtual_camera_play_route_is_local_and_fixed() {
+        assert!(allow_virtual_camera_play(1, "vcam", "live"));
+        assert!(!allow_virtual_camera_play(1, "drone", "live"));
+        assert!(!allow_virtual_camera_play(1, "vcam", "other"));
     }
 }
