@@ -112,6 +112,9 @@ viewfinder, and stays there while live:
 - A picture that stops coming is dimmed so it never looks live, and the screen waits 2.5 seconds
   before going back to the home screen, so a short drop does not flip screens. The screen stays on
   while the picture shows.
+- Everything is sized for a 360 dp wide phone, so four platform tiles fit in a row: 52 dp cards and
+  buttons, 22 dp icons, 11-16 sp text. Names shrink rather than being cut off at large font sizes,
+  and the DJI Fly address on the home screen stays on one line.
 
 "End broadcast" ends only the broadcast: the drone stays connected, ready to go live again.
 

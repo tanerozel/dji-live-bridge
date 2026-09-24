@@ -3,6 +3,7 @@ package com.djilivebridge.android
 import android.os.Build
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.BorderStroke
@@ -77,8 +78,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -115,6 +114,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
@@ -270,7 +270,7 @@ private fun Controls(
         )
     }
     val sideButtons: @Composable () -> Unit = {
-        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(GAP)) {
             val whole = pictureState.shownFit == PictureFit.WHOLE
             GlassIconButton(
                 icon = if (whole) Icons.Rounded.Fullscreen else Icons.Rounded.FullscreenExit,
@@ -320,17 +320,17 @@ private fun Controls(
         modifier = Modifier
             .fillMaxSize()
             .windowInsetsPadding(WindowInsets.safeDrawing)
-            .padding(16.dp),
+            .padding(horizontal = EDGE, vertical = GAP),
     ) {
         if (maxWidth > maxHeight) {
             // Sideways: the state along the top, the platforms and the buttons along the bottom.
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    deviceCard(Modifier.widthIn(max = 340.dp))
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(GAP)) {
+                Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(GAP)) {
+                    deviceCard(Modifier.widthIn(max = 280.dp))
                     chips()
                 }
-                Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    statusCard(Modifier.widthIn(max = 280.dp))
+                Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(GAP)) {
+                    statusCard(Modifier.widthIn(max = 220.dp))
                     sideButtons()
                 }
             }
@@ -339,20 +339,20 @@ private fun Controls(
                     .align(Alignment.BottomStart)
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.Bottom,
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(EDGE),
             ) {
                 Column(
                     modifier = Modifier
                         .weight(1f)
-                        .widthIn(max = 520.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                        .widthIn(max = 440.dp),
+                    verticalArrangement = Arrangement.spacedBy(GAP),
                     content = bottom,
                 )
                 actions(Modifier.width(LANDSCAPE_ACTIONS_WIDTH))
             }
         } else {
-            Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.Top) {
+            Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(GAP)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(GAP), verticalAlignment = Alignment.Top) {
                     deviceCard(Modifier.weight(1.15f))
                     statusCard(Modifier.weight(1f))
                 }
@@ -379,14 +379,14 @@ private fun Scrims() {
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .fillMaxWidth()
-                .height(220.dp)
+                .height(180.dp)
                 .background(Brush.verticalGradient(listOf(Color.Black.copy(alpha = 0.55f), Color.Transparent))),
         )
         Box(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .height(360.dp)
+                .height(300.dp)
                 .background(Brush.verticalGradient(listOf(Color.Transparent, Color.Black.copy(alpha = 0.7f)))),
         )
     }
@@ -402,37 +402,33 @@ private fun DeviceCard(phase: BridgePhase, testing: Boolean, onClick: () -> Unit
     }
     Row(
         modifier = modifier
-            .glass(RoundedCornerShape(20.dp))
+            .glass(CARD_SHAPE)
             .clickable(onClickLabel = stringResource(R.string.show_details), role = Role.Button, onClick = onClick)
-            .heightIn(min = 72.dp)
-            .padding(horizontal = 14.dp, vertical = 12.dp),
+            .heightIn(min = CARD_HEIGHT)
+            .padding(horizontal = 10.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         if (testing) {
-            Icon(Icons.Rounded.Movie, contentDescription = null, tint = Color.White, modifier = Modifier.size(34.dp))
+            Icon(Icons.Rounded.Movie, contentDescription = null, tint = Color.White, modifier = Modifier.size(ICON))
         } else {
-            Icon(painterResource(R.drawable.ic_drone), contentDescription = null, tint = Color.White, modifier = Modifier.size(34.dp))
+            Icon(painterResource(R.drawable.ic_drone), contentDescription = null, tint = Color.White, modifier = Modifier.size(ICON))
         }
-        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(
+        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(1.dp)) {
+            FittedText(
                 text = stringResource(if (testing) R.string.device_test_video else R.string.device_drone),
-                color = Color.White,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.titleSmall.copy(color = Color.White, fontWeight = FontWeight.SemiBold),
             )
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                 Box(
                     modifier = Modifier
-                        .size(8.dp)
+                        .size(6.dp)
                         .background(dot, CircleShape),
                 )
                 Text(
                     text = stringResource(state),
                     color = Color.White.copy(alpha = 0.8f),
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodySmall,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
@@ -442,6 +438,7 @@ private fun DeviceCard(phase: BridgePhase, testing: Boolean, onClick: () -> Unit
             imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
             contentDescription = null,
             tint = Color.White.copy(alpha = 0.7f),
+            modifier = Modifier.size(18.dp),
         )
     }
 }
@@ -492,7 +489,7 @@ private fun statusLook(
                 caption = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         liveSinceElapsedMillis?.let { since ->
-                            LiveTimer(since, color = Color.White, style = MaterialTheme.typography.bodySmall)
+                            LiveTimer(since, color = Color.White, style = MaterialTheme.typography.labelSmall)
                             StatusCaption(" · ")
                         }
                         StatusCaption(detail)
@@ -520,30 +517,30 @@ private fun StatusCard(look: StatusLook, modifier: Modifier = Modifier) {
     val locale = LocalConfiguration.current.locales[0]
     Row(
         modifier = modifier
-            .clip(RoundedCornerShape(20.dp))
+            .clip(CARD_SHAPE)
             .background(look.tone.tint.copy(alpha = 0.78f))
-            .border(1.5.dp, look.tone.accent.copy(alpha = 0.75f), RoundedCornerShape(20.dp))
-            .heightIn(min = 72.dp)
-            .padding(horizontal = 14.dp, vertical = 10.dp)
+            .border(1.dp, look.tone.accent.copy(alpha = 0.75f), CARD_SHAPE)
+            .heightIn(min = CARD_HEIGHT)
+            .padding(horizontal = 10.dp, vertical = 8.dp)
             .semantics(mergeDescendants = true) { liveRegion = LiveRegionMode.Polite },
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         when (look.leading) {
-            Leading.CHECK -> Icon(Icons.Rounded.CheckCircle, contentDescription = null, tint = look.tone.accent, modifier = Modifier.size(36.dp))
-            Leading.LIVE_DOT -> PulsingDot(color = look.tone.accent, size = 14.dp)
-            Leading.PROGRESS -> CircularProgressIndicator(modifier = Modifier.size(24.dp), color = Color.White, strokeWidth = 2.5.dp)
-            Leading.WARNING -> Icon(Icons.Rounded.WarningAmber, contentDescription = null, tint = look.tone.accent, modifier = Modifier.size(30.dp))
-            Leading.ERROR -> Icon(Icons.Rounded.ErrorOutline, contentDescription = null, tint = look.tone.accent, modifier = Modifier.size(30.dp))
+            Leading.CHECK -> Icon(Icons.Rounded.CheckCircle, contentDescription = null, tint = look.tone.accent, modifier = Modifier.size(ICON))
+            Leading.LIVE_DOT -> PulsingDot(color = look.tone.accent, size = 10.dp)
+            Leading.PROGRESS -> CircularProgressIndicator(modifier = Modifier.size(16.dp), color = Color.White, strokeWidth = 2.dp)
+            Leading.WARNING -> Icon(Icons.Rounded.WarningAmber, contentDescription = null, tint = look.tone.accent, modifier = Modifier.size(20.dp))
+            Leading.ERROR -> Icon(Icons.Rounded.ErrorOutline, contentDescription = null, tint = look.tone.accent, modifier = Modifier.size(20.dp))
         }
-        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Column(verticalArrangement = Arrangement.spacedBy(1.dp)) {
             look.headline?.let {
                 // One line that shrinks to fit: "RECONNECTING" is long in most languages.
                 BasicText(
                     text = it.uppercase(locale),
-                    style = MaterialTheme.typography.titleLarge.copy(color = look.tone.accent, fontWeight = FontWeight.Bold),
+                    style = MaterialTheme.typography.titleMedium.copy(color = look.tone.accent, fontWeight = FontWeight.Bold),
                     maxLines = 1,
-                    autoSize = TextAutoSize.StepBased(minFontSize = 11.sp, maxFontSize = 22.sp),
+                    autoSize = TextAutoSize.StepBased(minFontSize = 10.sp, maxFontSize = 16.sp),
                 )
             }
             look.caption?.invoke()
@@ -556,7 +553,7 @@ private fun StatusCaption(text: String) {
     Text(
         text = text,
         color = Color.White.copy(alpha = 0.9f),
-        style = MaterialTheme.typography.bodySmall,
+        style = MaterialTheme.typography.labelSmall,
         maxLines = 2,
         overflow = TextOverflow.Ellipsis,
     )
@@ -566,7 +563,7 @@ private fun StatusCaption(text: String) {
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun InfoChips(videoSize: String?, bitrateKbps: Double, lan: LanAddress?) {
-    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
         // Numbers read left to right in every language: "1280×720" must not turn into "720×1280".
         videoSize?.let { InfoChip(Icons.Rounded.Hd, it, numbers = true) }
         if (bitrateKbps > 0) InfoChip(Icons.Rounded.SignalCellularAlt, formatBitrate(bitrateKbps), numbers = true)
@@ -586,15 +583,15 @@ private fun InfoChip(icon: ImageVector, text: String, numbers: Boolean = false) 
     Row(
         modifier = Modifier
             .glass(CircleShape)
-            .padding(horizontal = 14.dp, vertical = 8.dp),
+            .padding(horizontal = 10.dp, vertical = 5.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(5.dp),
     ) {
-        Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(18.dp))
+        Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(14.dp))
         Text(
             text = text,
             color = Color.White,
-            style = MaterialTheme.typography.labelLarge.let { if (numbers) it.copy(textDirection = TextDirection.Ltr) else it },
+            style = MaterialTheme.typography.labelMedium.let { if (numbers) it.copy(textDirection = TextDirection.Ltr) else it },
             maxLines = 1,
         )
     }
@@ -646,26 +643,31 @@ private fun Banner(key: Any, title: String?, message: String?, icon: ImageVector
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .glass(RoundedCornerShape(20.dp))
-            .padding(start = 16.dp, top = 12.dp, bottom = 12.dp, end = 4.dp)
+            .glass(CARD_SHAPE)
+            .padding(start = 12.dp, top = 8.dp, bottom = 8.dp)
             .semantics(mergeDescendants = true) { liveRegion = LiveRegionMode.Polite },
         verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Icon(
             icon,
             contentDescription = null,
             tint = accent,
             modifier = Modifier
-                .padding(top = 2.dp)
-                .size(20.dp),
+                .padding(top = 1.dp)
+                .size(16.dp),
         )
-        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            title?.let { Text(text = it, color = Color.White, style = MaterialTheme.typography.titleSmall) }
+        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(1.dp)) {
+            title?.let { Text(text = it, color = Color.White, style = MaterialTheme.typography.labelLarge) }
             message?.let { Text(text = it, color = Color.White.copy(alpha = 0.85f), style = MaterialTheme.typography.bodySmall) }
         }
-        IconButton(onClick = { closed = true }) {
-            Icon(Icons.Rounded.Close, contentDescription = stringResource(R.string.close), tint = Color.White.copy(alpha = 0.8f))
+        IconButton(onClick = { closed = true }, modifier = Modifier.size(32.dp)) {
+            Icon(
+                Icons.Rounded.Close,
+                contentDescription = stringResource(R.string.close),
+                tint = Color.White.copy(alpha = 0.8f),
+                modifier = Modifier.size(16.dp),
+            )
         }
     }
 }
@@ -699,22 +701,22 @@ private fun StreamToCard(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .glass(RoundedCornerShape(24.dp))
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+            .glass(RoundedCornerShape(18.dp))
+            .padding(10.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(modifier = Modifier.padding(horizontal = 2.dp), verticalAlignment = Alignment.CenterVertically) {
             Text(
                 modifier = Modifier.weight(1f),
                 text = stringResource(R.string.platforms),
                 color = Color.White,
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.labelLarge,
                 fontWeight = FontWeight.SemiBold,
             )
             Text(
                 text = stringResource(R.string.platforms_active, shown.count { it in on }, shown.size),
                 color = Color.White.copy(alpha = 0.7f),
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.labelMedium,
             )
         }
         BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
@@ -758,9 +760,9 @@ private fun PlatformSwitch(
     val editLabel = stringResource(R.string.edit)
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(18.dp))
+            .clip(TILE_SHAPE)
             .background(Color.White.copy(alpha = if (checked) 0.12f else 0.05f))
-            .border(1.dp, if (checked) GoLiveStart.copy(alpha = 0.8f) else Color.White.copy(alpha = 0.12f), RoundedCornerShape(18.dp))
+            .border(1.dp, if (checked) GoLiveStart.copy(alpha = 0.8f) else Color.White.copy(alpha = 0.12f), TILE_SHAPE)
             .combinedClickable(
                 onLongClickLabel = if (saved) editLabel else null,
                 onLongClick = if (saved) onEdit else null,
@@ -772,42 +774,62 @@ private fun PlatformSwitch(
                 contentDescription = name
                 if (!saved) stateDescription = notAdded
             }
-            .padding(vertical = 12.dp),
+            .padding(vertical = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
         Box {
-            PlatformTile(kind = kind, size = 40.dp)
+            PlatformTile(kind = kind, size = TILE_ICON)
             state?.let {
                 Box(
                     modifier = Modifier
                         .align(Alignment.BottomEnd)
-                        .offset(x = 4.dp, y = 4.dp)
-                        .size(12.dp)
+                        .offset(x = 3.dp, y = 3.dp)
+                        .size(9.dp)
                         .background(it, CircleShape)
-                        .border(2.dp, Color.Black, CircleShape),
+                        .border(1.5.dp, Color.Black, CircleShape),
                 )
             }
         }
-        Text(
+        FittedText(
             text = name,
-            color = Color.White.copy(alpha = if (saved) 1f else 0.7f),
-            style = MaterialTheme.typography.labelMedium,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(horizontal = 6.dp),
+            style = MaterialTheme.typography.labelSmall.copy(color = Color.White.copy(alpha = if (saved) 1f else 0.7f)),
+            modifier = Modifier.padding(horizontal = 4.dp),
         )
-        Switch(
-            checked = checked,
-            onCheckedChange = null,
-            colors = SwitchDefaults.colors(
-                checkedThumbColor = Color.White,
-                checkedTrackColor = GoLiveStart,
-                checkedBorderColor = GoLiveStart,
-                uncheckedThumbColor = Color.White.copy(alpha = 0.85f),
-                uncheckedTrackColor = Color.White.copy(alpha = 0.18f),
-                uncheckedBorderColor = Color.White.copy(alpha = 0.3f),
-            ),
+        MiniSwitch(checked = checked)
+    }
+}
+
+/** One line that shrinks rather than cutting off a name at a large font size. */
+@Composable
+private fun FittedText(text: String, style: TextStyle, modifier: Modifier = Modifier) {
+    BasicText(
+        text = text,
+        modifier = modifier,
+        style = style,
+        maxLines = 1,
+        autoSize = TextAutoSize.StepBased(minFontSize = 8.sp, maxFontSize = style.fontSize),
+    )
+}
+
+/** A small switch that fits a platform tile; the whole tile is the control. */
+@Composable
+private fun MiniSwitch(checked: Boolean) {
+    val thumbOffset by animateDpAsState(if (checked) MINI_SWITCH_TRAVEL else 0.dp, label = "miniSwitch")
+    Box(
+        modifier = Modifier
+            .size(width = 32.dp, height = 18.dp)
+            .clip(CircleShape)
+            .background(if (checked) GoLiveStart else Color.White.copy(alpha = 0.18f))
+            .border(1.dp, if (checked) GoLiveStart else Color.White.copy(alpha = 0.3f), CircleShape)
+            .padding(3.dp),
+        contentAlignment = Alignment.CenterStart,
+    ) {
+        Box(
+            modifier = Modifier
+                .offset { IntOffset(thumbOffset.roundToPx(), 0) }
+                .size(12.dp)
+                .background(Color.White.copy(alpha = if (checked) 1f else 0.85f), CircleShape),
         )
     }
 }
@@ -817,28 +839,28 @@ private fun PlatformSwitch(
 private fun OtherPlatforms(onClick: () -> Unit, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(18.dp))
-            .border(1.dp, Color.White.copy(alpha = 0.12f), RoundedCornerShape(18.dp))
+            .clip(TILE_SHAPE)
+            .border(1.dp, Color.White.copy(alpha = 0.12f), TILE_SHAPE)
             .clickable(role = Role.Button, onClick = onClick)
-            .padding(vertical = 12.dp),
+            .padding(vertical = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
         Box(
             modifier = Modifier
-                .size(40.dp)
-                .border(1.5.dp, Color.White.copy(alpha = 0.5f), RoundedCornerShape(11.dp)),
+                .size(TILE_ICON)
+                .border(1.dp, Color.White.copy(alpha = 0.5f), RoundedCornerShape(8.dp)),
             contentAlignment = Alignment.Center,
         ) {
-            Icon(Icons.Rounded.Add, contentDescription = null, tint = Color.White)
+            Icon(Icons.Rounded.Add, contentDescription = null, tint = Color.White, modifier = Modifier.size(18.dp))
         }
         Text(
             text = stringResource(R.string.other_platforms),
             color = Color.White,
-            style = MaterialTheme.typography.labelMedium,
+            style = MaterialTheme.typography.labelSmall,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(horizontal = 6.dp),
+            modifier = Modifier.padding(horizontal = 4.dp),
         )
     }
 }
@@ -860,7 +882,7 @@ private fun ActionRow(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.spacedBy(14.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         SquareAction(icon = Icons.Rounded.Image, label = stringResource(R.string.preview_badge), onClick = onPictureOnly)
         if (live) {
@@ -893,26 +915,27 @@ private fun ActionRow(
 
 @Composable
 private fun SquareAction(icon: ImageVector, label: String, onClick: () -> Unit) {
+    // The label may be wider than the square ("Daha fazla"); the column grows a little for it.
     Column(
         modifier = Modifier
-            .width(SQUARE_ACTION_SIZE)
-            .clip(RoundedCornerShape(20.dp))
+            .widthIn(min = SQUARE_ACTION_SIZE, max = SQUARE_ACTION_MAX_WIDTH)
+            .clip(CARD_SHAPE)
             .clickable(role = Role.Button, onClick = onClick),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(6.dp),
+        verticalArrangement = Arrangement.spacedBy(3.dp),
     ) {
         Box(
             modifier = Modifier
                 .size(SQUARE_ACTION_SIZE)
-                .glass(RoundedCornerShape(20.dp)),
+                .glass(CARD_SHAPE),
             contentAlignment = Alignment.Center,
         ) {
-            Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(28.dp))
+            Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(ICON))
         }
         Text(
             text = label,
             color = Color.White,
-            style = MaterialTheme.typography.labelMedium,
+            style = MaterialTheme.typography.labelSmall,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
         )
@@ -936,17 +959,17 @@ private fun BigButton(
             .clip(CircleShape)
             .background(brush)
             .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
-            .padding(horizontal = 20.dp),
+            .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
-        Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(28.dp))
-        Spacer(Modifier.width(10.dp))
+        Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(ICON))
+        Spacer(Modifier.width(8.dp))
         BasicText(
             text = text,
-            style = TextStyle(color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.SemiBold),
+            style = TextStyle(color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.SemiBold),
             maxLines = 1,
-            autoSize = TextAutoSize.StepBased(minFontSize = 12.sp, maxFontSize = 20.sp),
+            autoSize = TextAutoSize.StepBased(minFontSize = 11.sp, maxFontSize = 16.sp),
         )
     }
 }
@@ -970,10 +993,10 @@ private fun ControlsHint(modifier: Modifier = Modifier) {
         Text(
             text = stringResource(R.string.controls_hint),
             color = Color.White,
-            style = MaterialTheme.typography.labelLarge,
+            style = MaterialTheme.typography.labelMedium,
             modifier = Modifier
                 .glass(CircleShape)
-                .padding(horizontal = 16.dp, vertical = 10.dp),
+                .padding(horizontal = 12.dp, vertical = 6.dp),
         )
     }
 }
@@ -1006,11 +1029,11 @@ private fun GlassIconButton(icon: ImageVector, description: String, onClick: () 
     IconButton(
         onClick = onClick,
         modifier = Modifier
-            .size(52.dp)
+            .size(40.dp)
             .border(BorderStroke(1.dp, Color.White.copy(alpha = 0.15f)), CircleShape),
         colors = IconButtonDefaults.iconButtonColors(containerColor = OverlayGlass, contentColor = Color.White),
     ) {
-        Icon(icon, contentDescription = description, modifier = Modifier.size(26.dp))
+        Icon(icon, contentDescription = description, modifier = Modifier.size(20.dp))
     }
 }
 
@@ -1075,9 +1098,19 @@ private val DangerColor = Color(0xFFF87171)
 private val GoLiveStart = Color(0xFFFF8A3D)
 private val GoLiveEnd = Color(0xFFEA580C)
 
+// Sized for a 360 dp wide phone at a larger font size: four platform tiles fit in a row.
+private val EDGE = 12.dp
+private val GAP = 8.dp
+private val ICON = 22.dp
+private val CARD_HEIGHT = 52.dp
+private val CARD_SHAPE = RoundedCornerShape(14.dp)
+private val TILE_SHAPE = RoundedCornerShape(12.dp)
+private val TILE_ICON = 30.dp
+private val MINI_SWITCH_TRAVEL = 14.dp
 private const val VISIBLE_TILES = 4
-private val TILE_SPACING = 8.dp
-private val MIN_TILE_WIDTH = 76.dp
-private val SQUARE_ACTION_SIZE = 64.dp
-private val LANDSCAPE_ACTIONS_WIDTH = 400.dp
+private val TILE_SPACING = 6.dp
+private val MIN_TILE_WIDTH = 62.dp
+private val SQUARE_ACTION_SIZE = 52.dp
+private val SQUARE_ACTION_MAX_WIDTH = 76.dp
+private val LANDSCAPE_ACTIONS_WIDTH = 320.dp
 private const val CONTROLS_HINT_MS = 2_500L

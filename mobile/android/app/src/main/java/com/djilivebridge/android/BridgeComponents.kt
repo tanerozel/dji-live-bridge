@@ -26,6 +26,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
@@ -37,6 +39,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -246,13 +249,17 @@ internal fun AddressField(address: String, onCopy: () -> Unit, modifier: Modifie
             verticalAlignment = Alignment.CenterVertically,
         ) {
             SelectionContainer(modifier = Modifier.weight(1f)) {
-                Text(
+                // On one line on any phone: a long LAN address shrinks instead of breaking at "/".
+                BasicText(
                     text = address,
-                    style = LocalTextStyle.current.copy(textDirection = TextDirection.Ltr),
-                    fontFamily = FontFamily.Monospace,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 16.sp,
-                    lineHeight = 22.sp,
+                    style = LocalTextStyle.current.copy(
+                        color = LocalContentColor.current,
+                        textDirection = TextDirection.Ltr,
+                        fontFamily = FontFamily.Monospace,
+                        fontWeight = FontWeight.SemiBold,
+                    ),
+                    maxLines = 1,
+                    autoSize = TextAutoSize.StepBased(minFontSize = 10.sp, maxFontSize = 16.sp),
                 )
             }
             IconButton(onClick = onCopy) {
