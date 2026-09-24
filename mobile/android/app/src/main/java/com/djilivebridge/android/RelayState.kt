@@ -1,5 +1,6 @@
 package com.djilivebridge.android
 
+import android.os.SystemClock
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -66,6 +67,11 @@ data class RelaySnapshot(
 data class RelayServiceUiState(
     val isActive: Boolean = false,
     val snapshot: RelaySnapshot = RelaySnapshot(),
+    /**
+     * [SystemClock.elapsedRealtime] when the current drone stream first reached the target.
+     * Target reconnects keep it; it resets when the drone stops publishing.
+     */
+    val liveSinceElapsedMillis: Long? = null,
 )
 
 object RelayServiceState {
@@ -85,7 +91,13 @@ object RelayServiceState {
     }
 
     fun running(snapshot: RelaySnapshot) {
-        value = value.copy(isActive = true, snapshot = snapshot)
+        val liveSince = when {
+            snapshot.status != "publishing" -> null
+            value.liveSinceElapsedMillis != null -> value.liveSinceElapsedMillis
+            snapshot.outputStatus == "forwarding" -> SystemClock.elapsedRealtime()
+            else -> null
+        }
+        value = value.copy(isActive = true, snapshot = snapshot, liveSinceElapsedMillis = liveSince)
     }
 
     fun stopped(snapshot: RelaySnapshot = RelaySnapshot()) {

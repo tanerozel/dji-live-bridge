@@ -238,7 +238,8 @@ class RelayForegroundService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.app_icon)
+            .setSmallIcon(R.drawable.ic_drone)
+            .setColor(ContextCompat.getColor(this, R.color.bridge_brand))
             .setContentTitle("DJI Live Bridge")
             .setContentText(text)
             .setContentIntent(openIntent)

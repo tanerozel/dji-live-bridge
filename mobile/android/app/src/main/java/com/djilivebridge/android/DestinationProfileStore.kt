@@ -309,7 +309,7 @@ private class AndroidKeystoreProfileCipher {
     }
 }
 
-private fun validateName(value: String): String {
+internal fun validateName(value: String): String {
     val normalized = value.trim()
     if (normalized.isEmpty() || normalized.length > 64 || normalized.any(Char::isISOControl)) {
         throw DestinationProfileException("Profil adı 1-64 karakter olmalı")
@@ -317,7 +317,7 @@ private fun validateName(value: String): String {
     return normalized
 }
 
-private fun validateServerUrl(value: String): String {
+internal fun validateServerUrl(value: String): String {
     val normalized = value.trim().trimEnd('/')
     val authorityAndApp = when {
         normalized.startsWith("rtmps://") -> normalized.removePrefix("rtmps://")
@@ -336,7 +336,7 @@ private fun validateServerUrl(value: String): String {
     return normalized
 }
 
-private fun validateStreamKey(value: String) {
+internal fun validateStreamKey(value: String) {
     val invalid = value.length !in 4..512 || value.any { character ->
         character.code > 127 || character.isWhitespace() || character.isISOControl() ||
             character == '/' || character == '#'

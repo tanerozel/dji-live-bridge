@@ -37,6 +37,26 @@ is available only while the user-started foreground service is running. The vend
 patch allows an explicitly authorized application-only RTMP route (`app=drone`, empty publish name),
 which is how clients such as FFmpeg encode the single-segment `/drone` URL.
 
+## User interface
+
+The home screen is a four-step checklist: add a destination, join the same network, start the
+bridge, then start the stream in DJI Fly. The next step is outlined, and its action is always the
+large button at the bottom. A three-page guide opens on first launch and again from the help button.
+While the bridge runs, the checklist is replaced by a status view: the RC 2 → phone → target
+pipeline, the DJI Fly menu path and the RTMP address to type on the RC 2, troubleshooting tips, the
+live duration, bitrate and codecs. The technical counters stay behind "Teknik ayrıntılar".
+
+The network step prefers the Wi-Fi client address, then the phone's own hotspot, and never offers
+mobile-data, VPN or 464XLAT addresses, which the RC 2 cannot reach. The address refreshes every few
+seconds while the app is visible.
+
+Colors match the desktop app and the website: one brand blue, neutrals tinted with it, and
+green/amber/red reserved for relay states. Light and dark themes follow the system setting, and their
+text/background pairs meet WCAG AA contrast. The destination editor is a full screen that sets
+`FLAG_SECURE` while it is open, so stream keys stay out of screenshots, screen recordings and the
+recents thumbnail. The launcher, themed and notification icons are vector versions of the desktop
+icon (`src-tauri/icons/source.svg`).
+
 ## Phase 7 device validation
 
 The debug build was exercised on a Samsung SM-S911B running Android 16 (API 36). The

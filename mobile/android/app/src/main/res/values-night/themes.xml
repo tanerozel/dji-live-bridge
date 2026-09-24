@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Only the window before Compose draws; system bars are handled by enableEdgeToEdge(). -->
-    <style name="Theme.DJILiveBridge" parent="android:style/Theme.Material.Light.NoActionBar">
+    <style name="Theme.DJILiveBridge" parent="android:style/Theme.Material.NoActionBar">
         <item name="android:fontFamily">sans</item>
         <item name="android:windowBackground">@color/bridge_background</item>
         <item name="android:windowActionModeOverlay">true</item>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Must match BridgeTheme.kt; used before Compose draws and by the notification. -->
+    <color name="bridge_background">#F4F6FB</color>
+    <color name="bridge_brand">#0A5CF0</color>
+</resources>
