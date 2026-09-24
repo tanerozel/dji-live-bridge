@@ -14,6 +14,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,24 +30,26 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.HelpOutline
-import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.PlayArrow
-import androidx.compose.material.icons.rounded.Wifi
+import androidx.compose.material.icons.rounded.Stop
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -58,11 +62,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -83,12 +90,17 @@ private sealed interface BridgeScreen {
 }
 
 @Composable
-internal fun RelayScreen(profileEditorViewModel: ProfileEditorViewModel) {
+internal fun RelayScreen(
+    profileEditorViewModel: ProfileEditorViewModel,
+    theme: ThemeChoice,
+    onThemeChange: (ThemeChoice) -> Unit,
+) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     val uiPreferences = remember(context.applicationContext) { UiPreferences(context.applicationContext) }
     var showGuide by rememberSaveable { mutableStateOf(!uiPreferences.guideCompleted) }
+    var showThemePicker by rememberSaveable { mutableStateOf(false) }
     var lan by remember { mutableStateOf(findLocalLanAddress()) }
     val profileStore = remember(context.applicationContext) {
         DestinationProfileStore(context.applicationContext)
@@ -104,8 +116,8 @@ internal fun RelayScreen(profileEditorViewModel: ProfileEditorViewModel) {
     val serviceState = RelayServiceState.value
     val phase = bridgePhase(serviceState)
 
-    // Keeps the network step and the DJI Fly address current: the user usually leaves the app to
-    // join a Wi-Fi network or turn the hotspot on and expects to see it when they come back.
+    // Keeps the DJI Fly address current: the user usually leaves the app to join a Wi-Fi network
+    // or turn the hotspot on and expects to see it when they come back.
     val lifecycleOwner = LocalLifecycleOwner.current
     LaunchedEffect(lifecycleOwner) {
         lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -138,10 +150,24 @@ internal fun RelayScreen(profileEditorViewModel: ProfileEditorViewModel) {
         }
     }
 
+    /** The saved destination a platform tile stands for: the selected one, else the first. */
+    fun profileFor(kind: DestinationKind): DestinationProfile? =
+        destinations.selectedProfile?.takeIf { it.kind == kind }
+            ?: destinations.profiles.firstOrNull { it.kind == kind }
+
+    fun onPlatformClick(kind: DestinationKind) {
+        val profile = profileFor(kind)
+        when {
+            profile == null -> profileEditorViewModel.open(null, kind)
+            profile.id == destinations.selectedProfileId -> profileEditorViewModel.open(profile, kind)
+            else -> updateProfiles { profileStore.select(profile.id) }
+        }
+    }
+
     fun startRelay() {
         val profile = destinations.selectedProfile
         if (profile == null) {
-            showMessage("Önce bir yayın hedefi ekle")
+            showMessage("Önce bir platform seç")
             return
         }
         val refreshedAddress = findLocalLanAddress()
@@ -159,7 +185,7 @@ internal fun RelayScreen(profileEditorViewModel: ProfileEditorViewModel) {
                 destinationProfileId = profile.id,
             )
         }.onFailure { error ->
-            val message = "Köprü başlatılamadı: ${error.message ?: "Bilinmeyen hata"}"
+            val message = "Yayın başlatılamadı: ${error.message ?: "Bilinmeyen hata"}"
             RelayServiceState.failed(message)
             showMessage(message)
         }
@@ -169,7 +195,7 @@ internal fun RelayScreen(profileEditorViewModel: ProfileEditorViewModel) {
         ActivityResultContracts.RequestPermission(),
     ) { granted ->
         if (!granted) {
-            showMessage("Bildirim izni verilmedi; köprüyü uygulamadan izleyebilirsin")
+            showMessage("Bildirim izni verilmedi; yayını uygulamadan izleyebilirsin")
         }
         startRelay()
     }
@@ -219,37 +245,44 @@ internal fun RelayScreen(profileEditorViewModel: ProfileEditorViewModel) {
                     showGuide = false
                 },
             )
-            is BridgeScreen.Editor -> DestinationProfileEditor(
-                state = target.state,
-                onDismiss = profileEditorViewModel::close,
-                onSave = { name, kind, serverUrl, targetStreamKey ->
-                    val wasEditing = target.state.profile != null
-                    updateProfiles(announce = false) {
-                        profileStore.save(
-                            existingId = target.state.profile?.id,
-                            name = name,
-                            kind = kind,
-                            serverUrl = serverUrl,
-                            streamKey = targetStreamKey,
-                        )
-                    }.also { error ->
-                        if (error == null) {
-                            profileEditorViewModel.close()
-                            showMessage(if (wasEditing) "Yayın hedefi güncellendi" else "Yayın hedefi eklendi")
-                        }
-                    }
-                },
-                onDelete = target.state.profile?.let { profile ->
-                    {
-                        updateProfiles(announce = false) { profileStore.delete(profile.id) }.also { error ->
+            is BridgeScreen.Editor -> {
+                val editing = target.state
+                DestinationProfileEditor(
+                    state = editing,
+                    onDismiss = profileEditorViewModel::close,
+                    onSave = { serverUrl, streamKey ->
+                        updateProfiles(announce = false) {
+                            val saved = profileStore.save(
+                                existingId = editing.profile?.id,
+                                name = editing.profile?.name ?: editing.kind.label,
+                                kind = editing.kind,
+                                serverUrl = serverUrl,
+                                streamKey = streamKey,
+                            )
+                            // A platform the user just added is where they mean to stream.
+                            val added = saved.profiles.lastOrNull { it.kind == editing.kind }
+                            if (editing.profile == null && added != null) profileStore.select(added.id) else saved
+                        }.also { error ->
                             if (error == null) {
                                 profileEditorViewModel.close()
-                                showMessage("${profile.name} silindi")
+                                showMessage(
+                                    if (editing.profile == null) "${editing.kind.label} eklendi" else "Kaydedildi",
+                                )
                             }
                         }
-                    }
-                },
-            )
+                    },
+                    onDelete = editing.profile?.let { profile ->
+                        {
+                            updateProfiles(announce = false) { profileStore.delete(profile.id) }.also { error ->
+                                if (error == null) {
+                                    profileEditorViewModel.close()
+                                    showMessage("${profile.kind.label} silindi")
+                                }
+                            }
+                        }
+                    },
+                )
+            }
             BridgeScreen.Home -> HomeScreen(
                 phase = phase,
                 serviceState = serviceState,
@@ -258,13 +291,12 @@ internal fun RelayScreen(profileEditorViewModel: ProfileEditorViewModel) {
                 lan = lan,
                 snackbarHostState = snackbarHostState,
                 onShowGuide = { showGuide = true },
-                onAddDestination = { kind -> profileEditorViewModel.open(null, kind) },
-                onSelectDestination = { profile ->
-                    if (updateProfiles { profileStore.select(profile.id) } == null) {
-                        showMessage("${profile.name} seçildi")
-                    }
+                onShowThemePicker = { showThemePicker = true },
+                onPlatformClick = ::onPlatformClick,
+                onPlatformLongClick = { kind -> profileFor(kind)?.let { profileEditorViewModel.open(it, kind) } },
+                onEditSelected = {
+                    destinations.selectedProfile?.let { profileEditorViewModel.open(it, it.kind) }
                 },
-                onEditDestination = { profile -> profileEditorViewModel.open(profile) },
                 onOpenWifiSettings = ::openWifiSettings,
                 onStart = ::requestStart,
                 onStop = { showStopConfirmation = true },
@@ -273,12 +305,21 @@ internal fun RelayScreen(profileEditorViewModel: ProfileEditorViewModel) {
         }
     }
 
+    if (showThemePicker) {
+        ThemePickerDialog(
+            current = theme,
+            onSelect = onThemeChange,
+            onDismiss = { showThemePicker = false },
+        )
+    }
+
     if (showStopConfirmation) {
         val streaming = phase.isStreaming
+        val colors = BridgeTheme.colors
         AlertDialog(
             onDismissRequest = { showStopConfirmation = false },
-            containerColor = BridgeTheme.colors.card,
-            title = { Text(if (streaming) "Yayın bitirilsin mi?" else "Köprü durdurulsun mu?") },
+            containerColor = colors.card,
+            title = { Text(if (streaming) "Yayın bitirilsin mi?" else "Durdurulsun mu?") },
             text = {
                 Text(
                     if (streaming) {
@@ -295,10 +336,7 @@ internal fun RelayScreen(profileEditorViewModel: ProfileEditorViewModel) {
                         RelayForegroundService.stop(context)
                     },
                 ) {
-                    Text(
-                        text = if (streaming) "Yayını bitir" else "Durdur",
-                        color = MaterialTheme.colorScheme.error,
-                    )
+                    Text(if (streaming) "Yayını bitir" else "Durdur", color = colors.dangerText)
                 }
             },
             dismissButton = {
@@ -319,27 +357,31 @@ private fun HomeScreen(
     lan: LanAddress?,
     snackbarHostState: SnackbarHostState,
     onShowGuide: () -> Unit,
-    onAddDestination: (DestinationKind) -> Unit,
-    onSelectDestination: (DestinationProfile) -> Unit,
-    onEditDestination: (DestinationProfile) -> Unit,
+    onShowThemePicker: () -> Unit,
+    onPlatformClick: (DestinationKind) -> Unit,
+    onPlatformLongClick: (DestinationKind) -> Unit,
+    onEditSelected: () -> Unit,
     onOpenWifiSettings: () -> Unit,
     onStart: () -> Unit,
     onStop: () -> Unit,
     onCopyAddress: (String) -> Unit,
 ) {
-    val selectedProfile = destinations.selectedProfile
-    val relayRunning = phase != BridgePhase.IDLE && phase != BridgePhase.START_FAILED
+    val colors = BridgeTheme.colors
+    val selected = destinations.selectedProfile
+    val running = phase != BridgePhase.IDLE && phase != BridgePhase.START_FAILED
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = colors.background,
         contentWindowInsets = WindowInsets.safeDrawing,
-        topBar = { HomeTopBar(onHelp = onShowGuide) },
+        topBar = { HomeTopBar(onTheme = onShowThemePicker, onHelp = onShowGuide) },
         bottomBar = {
-            HomeActionBar(
-                phase = phase,
-                destination = selectedProfile,
-                lan = lan,
-                onAddDestination = { onAddDestination(DestinationKind.CUSTOM) },
-                onOpenWifiSettings = onOpenWifiSettings,
+            HomeBottomBar(
+                running = running,
+                streaming = phase.isStreaming,
+                blocker = when {
+                    selected == null -> "Önce bir platform seç"
+                    lan == null -> "Önce telefonu Wi-Fi'a bağla"
+                    else -> null
+                },
                 onStart = onStart,
                 onStop = onStop,
             )
@@ -354,17 +396,17 @@ private fun HomeScreen(
         ) {
             Column(
                 modifier = Modifier
-                    .widthIn(max = 640.dp)
+                    .widthIn(max = 560.dp)
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                    .padding(horizontal = 16.dp, vertical = 4.dp),
             ) {
-                if (relayRunning) {
+                if (running) {
                     LiveContent(
                         phase = phase,
                         snapshot = serviceState.snapshot,
                         liveSinceElapsedMillis = serviceState.liveSinceElapsedMillis,
-                        destination = selectedProfile,
+                        destination = selected,
                         lan = lan,
                         onCopyAddress = onCopyAddress,
                     )
@@ -374,9 +416,11 @@ private fun HomeScreen(
                         profileError = profileError,
                         lan = lan,
                         startError = serviceState.snapshot.detail.takeIf { phase == BridgePhase.START_FAILED },
-                        onAddDestination = onAddDestination,
-                        onSelectDestination = onSelectDestination,
-                        onEditDestination = onEditDestination,
+                        onPlatformClick = onPlatformClick,
+                        onPlatformLongClick = onPlatformLongClick,
+                        onEditSelected = onEditSelected,
+                        onCopyAddress = onCopyAddress,
+                        onOpenWifiSettings = onOpenWifiSettings,
                     )
                 }
                 Spacer(Modifier.height(16.dp))
@@ -386,160 +430,182 @@ private fun HomeScreen(
 }
 
 @Composable
-private fun HomeTopBar(onHelp: () -> Unit) {
+private fun HomeTopBar(onTheme: () -> Unit, onHelp: () -> Unit) {
+    val colors = BridgeTheme.colors
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal))
-            .heightIn(min = 64.dp)
+            .heightIn(min = 60.dp)
             .padding(start = 20.dp, end = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        BrandMark(size = 40.dp)
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                modifier = Modifier.semantics { heading() },
-                text = "DJI Live Bridge",
-                style = MaterialTheme.typography.titleMedium,
-            )
-            Text(
-                text = "Drone'dan canlı yayına köprü",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
+        BrandMark(size = 30.dp)
+        Text(
+            modifier = Modifier
+                .weight(1f)
+                .semantics { heading() },
+            text = "DJI Live Bridge",
+            style = MaterialTheme.typography.titleMedium,
+        )
+        IconButton(onClick = onTheme) {
+            Icon(Icons.Rounded.Palette, contentDescription = "Tema", tint = colors.muted)
         }
         IconButton(onClick = onHelp) {
-            Icon(Icons.AutoMirrored.Rounded.HelpOutline, contentDescription = "Nasıl kullanılır?")
+            Icon(Icons.AutoMirrored.Rounded.HelpOutline, contentDescription = "Nasıl kullanılır?", tint = colors.muted)
         }
     }
 }
 
-/** The next action in the flow, always under the thumb; the caption says which step it is. */
 @Composable
-private fun HomeActionBar(
-    phase: BridgePhase,
-    destination: DestinationProfile?,
-    lan: LanAddress?,
-    onAddDestination: () -> Unit,
-    onOpenWifiSettings: () -> Unit,
+private fun HomeBottomBar(
+    running: Boolean,
+    streaming: Boolean,
+    blocker: String?,
     onStart: () -> Unit,
     onStop: () -> Unit,
 ) {
-    val colors = BridgeTheme.colors
-    val relayRunning = phase != BridgePhase.IDLE && phase != BridgePhase.START_FAILED
-    val caption = when {
-        relayRunning -> when (phase) {
-            BridgePhase.STARTING -> "Köprü açılıyor…"
-            BridgePhase.WAITING_FOR_DRONE, BridgePhase.DRONE_CONNECTED ->
-                "Köprü açık · kumandadan yayın bekleniyor"
-            BridgePhase.CONNECTING_TARGET -> "Görüntü geliyor · hedefe bağlanılıyor"
-            BridgePhase.LIVE -> destination?.let { "Canlı yayındasın · ${it.name}" } ?: "Canlı yayındasın"
-            BridgePhase.RECONNECTING -> "Hedefe yeniden bağlanılıyor"
-            else -> "Köprüyü durdurup yeniden başlat"
-        }
-        destination == null -> "Adım 1 / 4 · Yayının gideceği yeri ekle"
-        lan == null -> "Adım 2 / 4 · Telefonu Wi-Fi'a bağla ya da hotspot'u aç"
-        else -> "Adım 3 / 4 · Hazırsın, köprüyü başlat"
-    }
-    Surface(color = colors.card) {
-        Column {
-            HorizontalDivider(color = colors.cardBorder)
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .windowInsetsPadding(
-                        WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal),
-                    )
-                    .padding(horizontal = 20.dp, vertical = 12.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-            ) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal))
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        val buttonModifier = Modifier.widthIn(max = 560.dp)
+        if (running) {
+            StopButton(
+                modifier = buttonModifier,
+                text = if (streaming) "Yayını bitir" else "Durdur",
+                onClick = onStop,
+                icon = Icons.Rounded.Stop,
+            )
+        } else {
+            blocker?.let {
                 Text(
-                    text = caption,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    text = it,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = BridgeTheme.colors.muted,
                     textAlign = TextAlign.Center,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
                 )
-                val buttonModifier = Modifier.widthIn(max = 600.dp)
-                when {
-                    relayRunning -> StopActionButton(
-                        modifier = buttonModifier,
-                        text = if (phase.isStreaming) "Yayını bitir" else "Köprüyü durdur",
-                        onClick = onStop,
-                    )
-                    destination == null -> PrimaryActionButton(
-                        modifier = buttonModifier,
-                        text = "Yayın hedefi ekle",
-                        onClick = onAddDestination,
-                        icon = Icons.Rounded.Add,
-                    )
-                    lan == null -> PrimaryActionButton(
-                        modifier = buttonModifier,
-                        text = "Wi-Fi ayarlarını aç",
-                        onClick = onOpenWifiSettings,
-                        icon = Icons.Rounded.Wifi,
-                    )
-                    else -> PrimaryActionButton(
-                        modifier = buttonModifier,
-                        text = "Köprüyü başlat",
-                        onClick = onStart,
-                        icon = Icons.Rounded.PlayArrow,
-                    )
+            }
+            PrimaryButton(
+                modifier = buttonModifier,
+                text = "Yayını başlat",
+                onClick = onStart,
+                icon = Icons.Rounded.PlayArrow,
+                enabled = blocker == null,
+            )
+        }
+    }
+}
+
+@Composable
+private fun ThemePickerDialog(current: ThemeChoice, onSelect: (ThemeChoice) -> Unit, onDismiss: () -> Unit) {
+    val colors = BridgeTheme.colors
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        containerColor = colors.card,
+        title = { Text("Tema") },
+        text = {
+            Column(modifier = Modifier.selectableGroup()) {
+                ThemeChoice.entries.forEach { choice ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 52.dp)
+                            .clip(MaterialTheme.shapes.small)
+                            .selectable(selected = choice == current, role = Role.RadioButton, onClick = { onSelect(choice) })
+                            .padding(horizontal = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(14.dp),
+                    ) {
+                        ThemeSwatch(choice)
+                        Text(
+                            modifier = Modifier.weight(1f),
+                            text = choice.label,
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = colors.text,
+                        )
+                        RadioButton(selected = choice == current, onClick = null)
+                    }
                 }
             }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) { Text("Tamam") }
+        },
+    )
+}
+
+/** A small preview of a theme: its background with its accent in the middle. */
+@Composable
+private fun ThemeSwatch(choice: ThemeChoice) {
+    val systemDark = isSystemInDarkTheme()
+    val outline = BridgeTheme.colors.border
+    Canvas(modifier = Modifier.size(28.dp)) {
+        if (choice == ThemeChoice.SYSTEM) {
+            val light = paletteFor(ThemeChoice.LIGHT, systemDark = false)
+            val dark = paletteFor(ThemeChoice.DARK, systemDark = true)
+            drawArc(light.background, startAngle = 90f, sweepAngle = 180f, useCenter = true)
+            drawArc(dark.background, startAngle = -90f, sweepAngle = 180f, useCenter = true)
+            drawCircle(light.accent, radius = 5.dp.toPx())
+        } else {
+            val palette = paletteFor(choice, systemDark)
+            drawCircle(palette.background)
+            drawCircle(palette.accent, radius = 5.dp.toPx(), center = Offset(size.width / 2, size.height / 2))
         }
+        drawCircle(outline, style = Stroke(width = 1.dp.toPx()))
     }
 }
 
-private val PreviewProfile = DestinationProfile("1", "Ana TikTok", DestinationKind.TIKTOK, "rtmps://example/live")
+private val PreviewProfile = DestinationProfile(
+    "1",
+    "Instagram",
+    DestinationKind.INSTAGRAM,
+    "rtmps://live-upload.instagram.com:443/rtmp",
+)
 
-@Preview(name = "Kurulum", widthDp = 360, heightDp = 1100)
+@Preview(name = "Kurulum", widthDp = 360, heightDp = 760)
 @Composable
 private fun SetupPreview() {
-    DjiLiveBridgeTheme(darkTheme = false) {
-        Surface(color = MaterialTheme.colorScheme.background) {
-            SetupContent(
-                modifier = Modifier.padding(16.dp),
-                destinations = DestinationProfiles(listOf(PreviewProfile), PreviewProfile.id),
-                profileError = null,
-                lan = LanAddress("192.168.1.101", LanKind.WIFI),
-                startError = null,
-                onAddDestination = {},
-                onSelectDestination = {},
-                onEditDestination = {},
-            )
-        }
+    DjiLiveBridgeTheme(ThemeChoice.LIGHT) {
+        SetupContent(
+            modifier = Modifier.padding(16.dp),
+            destinations = DestinationProfiles(listOf(PreviewProfile), PreviewProfile.id),
+            profileError = null,
+            lan = LanAddress("192.168.1.101", LanKind.WIFI),
+            startError = null,
+            onPlatformClick = {},
+            onPlatformLongClick = {},
+            onEditSelected = {},
+            onCopyAddress = {},
+            onOpenWifiSettings = {},
+        )
     }
 }
 
-@Preview(name = "Canlı", widthDp = 360, heightDp = 1100)
+@Preview(name = "Canlı", widthDp = 360, heightDp = 760)
 @Composable
 private fun LivePreview() {
-    DjiLiveBridgeTheme(darkTheme = true) {
-        Surface(color = MaterialTheme.colorScheme.background) {
-            LiveContent(
-                modifier = Modifier.padding(16.dp),
-                phase = BridgePhase.LIVE,
-                snapshot = RelaySnapshot(
-                    status = "publishing",
-                    detail = "RC 2 yayını alınıyor",
-                    bitrateKbps = 6_200.0,
-                    videoCodec = "H.264",
-                    audioCodec = "AAC",
-                    outputStatus = "forwarding",
-                    outputDetail = "Yayın harici RTMP hedefine aktarılıyor",
-                    outboundBytes = 184_000_000,
-                ),
-                liveSinceElapsedMillis = null,
-                destination = PreviewProfile,
-                lan = LanAddress("192.168.1.101", LanKind.WIFI),
-                onCopyAddress = {},
-            )
-        }
+    DjiLiveBridgeTheme(ThemeChoice.SAND) {
+        LiveContent(
+            modifier = Modifier.padding(16.dp),
+            phase = BridgePhase.LIVE,
+            snapshot = RelaySnapshot(
+                status = "publishing",
+                bitrateKbps = 6_200.0,
+                videoCodec = "avc1",
+                audioCodec = "mp4a",
+                outputStatus = "forwarding",
+                outboundBytes = 184_000_000,
+            ),
+            liveSinceElapsedMillis = null,
+            destination = PreviewProfile,
+            lan = LanAddress("192.168.1.101", LanKind.WIFI),
+            onCopyAddress = {},
+        )
     }
 }

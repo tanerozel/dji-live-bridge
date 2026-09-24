@@ -21,98 +21,82 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.DeleteOutline
 import androidx.compose.material.icons.rounded.Visibility
 import androidx.compose.material.icons.rounded.VisibilityOff
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.SecureFlagPolicy
 
 /**
- * Full-screen, step-by-step destination editor. The window is FLAG_SECURE while it is open so
- * the stream key cannot end up in screenshots, screen recordings or the recents thumbnail.
+ * The stream key screen for one platform. The window is FLAG_SECURE while it is open so the key
+ * cannot end up in screenshots, screen recordings or the recents thumbnail.
  */
 @Composable
 internal fun DestinationProfileEditor(
     state: ProfileEditorState,
     onDismiss: () -> Unit,
-    onSave: (String, DestinationKind, String, String) -> String?,
+    onSave: (serverUrl: String, streamKey: String) -> String?,
     onDelete: (() -> String?)?,
 ) {
+    val colors = BridgeTheme.colors
     val focusManager = LocalFocusManager.current
+    val keyFocus = remember { FocusRequester() }
+    val serverFocus = remember { FocusRequester() }
     val profile = state.profile
-    val initialName = profile?.name.orEmpty()
-    val initialKind = profile?.kind ?: DestinationKind.CUSTOM
-    val initialServerUrl = profile?.serverUrl.orEmpty()
+    val kind = state.kind
 
-    var name by state::name
-    var kind by state::kind
     var serverUrl by state::serverUrl
-    var targetStreamKey by state::targetStreamKey
-    var passwordVisible by state::passwordVisible
-    var editorError by state::editorError
-    var nameTouched by state::nameTouched
+    var streamKey by state::streamKey
+    var keyVisible by state::keyVisible
+    var serverExpanded by state::serverExpanded
     var serverTouched by state::serverTouched
     var keyTouched by state::keyTouched
+    var editorError by state::editorError
     var showDiscardConfirmation by state::showDiscardConfirmation
     var showDeleteConfirmation by state::showDeleteConfirmation
-    var autoFilledName by state::autoFilledName
-    var autoFilledServerUrl by state::autoFilledServerUrl
 
-    // The name is optional: an empty one falls back to the platform name.
-    val effectiveName = name.ifBlank { kind.label }
-    val nameError = validationMessage { validateName(effectiveName) }
     val serverError = validationMessage { validateServerUrl(serverUrl) }
     val keyError = when {
-        targetStreamKey.isEmpty() && profile != null -> null
-        targetStreamKey.isEmpty() -> "Yayın anahtarını yapıştır"
-        else -> validationMessage { validateStreamKey(targetStreamKey) }
+        streamKey.isEmpty() && profile != null -> null
+        streamKey.isEmpty() -> "Yayın anahtarını yapıştır"
+        else -> validationMessage { validateStreamKey(streamKey) }
     }
-    val hasChanges = if (profile == null) {
-        targetStreamKey.isNotEmpty() ||
-            (name.isNotBlank() && name != autoFilledName) ||
-            (serverUrl.isNotBlank() && serverUrl != autoFilledServerUrl)
-    } else {
-        effectiveName.trim() != initialName.trim() ||
-            kind != initialKind ||
-            serverUrl.trim().trimEnd('/') != initialServerUrl.trim().trimEnd('/') ||
-            targetStreamKey.isNotEmpty()
-    }
+    val hasChanges = streamKey.isNotEmpty() || !sameServerUrl(serverUrl, state.initialServerUrl)
 
     fun requestDismiss() {
         focusManager.clearFocus()
@@ -126,43 +110,56 @@ internal fun DestinationProfileEditor(
 
     fun save() {
         focusManager.clearFocus()
-        nameTouched = true
         serverTouched = true
         keyTouched = true
-        if (nameError != null || serverError != null || keyError != null) return
-        editorError = onSave(effectiveName, kind, serverUrl, targetStreamKey)
+        if (serverError != null) serverExpanded = true
+        if (serverError != null || keyError != null) return
+        editorError = onSave(serverUrl, streamKey)
         if (editorError == null) state.clearSecret()
-    }
-
-    fun selectKind(selected: DestinationKind) {
-        if (selected == kind) return
-        if (name.isBlank() || name == autoFilledName) {
-            name = selected.label
-            autoFilledName = selected.label
-        }
-        val suggestedUrl = selected.defaultServerUrl.orEmpty()
-        if (serverUrl.isBlank() || serverUrl == autoFilledServerUrl) {
-            serverUrl = suggestedUrl
-            autoFilledServerUrl = suggestedUrl.takeIf(String::isNotEmpty)
-        }
-        kind = selected
-        editorError = null
     }
 
     SecureWindowEffect()
     BackHandler(onBack = ::requestDismiss)
+    // Most visits are only for a key, so the keyboard opens straight on it. Platforms without a
+    // published address start on the address instead; their field is always shown.
+    LaunchedEffect(state) {
+        if (kind.defaultServerUrl == null && serverUrl.isBlank()) serverFocus.requestFocus() else keyFocus.requestFocus()
+    }
 
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = colors.background,
         contentWindowInsets = WindowInsets.safeDrawing,
         topBar = {
-            EditorTopBar(
-                title = if (profile == null) "Yeni yayın hedefi" else "Hedefi düzenle",
-                onClose = ::requestDismiss,
-            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal))
+                    .heightIn(min = 56.dp)
+                    .padding(horizontal = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                IconButton(onClick = ::requestDismiss) {
+                    Icon(Icons.Rounded.Close, contentDescription = "Kapat", tint = colors.muted)
+                }
+            }
         },
         bottomBar = {
-            EditorSaveBar(enabled = profile == null || hasChanges, onSave = ::save)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .windowInsetsPadding(
+                        WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal),
+                    )
+                    .padding(horizontal = 20.dp, vertical = 12.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                PrimaryButton(
+                    modifier = Modifier.widthIn(max = 560.dp),
+                    text = "Kaydet",
+                    onClick = ::save,
+                    enabled = profile == null || hasChanges,
+                )
+            }
         },
     ) { contentPadding ->
         Box(
@@ -173,202 +170,131 @@ internal fun DestinationProfileEditor(
         ) {
             Column(
                 modifier = Modifier
-                    .widthIn(max = 640.dp)
+                    .widthIn(max = 560.dp)
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
+                    .padding(horizontal = 20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                Text(
-                    modifier = Modifier.padding(horizontal = 4.dp),
-                    text = if (profile == null) {
-                        "Yayının gideceği yeri kaydet. Bu bilgileri yalnızca bir kez girmen yeterli."
-                    } else {
-                        "Değiştirmek istediğin alanları güncelle."
-                    },
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-
-                BridgeCard {
-                    FieldHeader(number = 1, title = "Platformu seç")
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .selectableGroup(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        DestinationKind.entries.forEach { option ->
-                            PlatformChoice(
-                                kind = option,
-                                onClick = { selectKind(option) },
-                                modifier = Modifier.weight(1f),
-                                selected = kind == option,
-                                selectable = true,
-                            )
-                        }
-                    }
-                    TipBox(title = "Bilgileri nereden bulurum?", text = kind.helpText)
+                PlatformTile(kind = kind, size = 64.dp)
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
+                    Text(
+                        modifier = Modifier.semantics { heading() },
+                        text = if (kind == DestinationKind.CUSTOM) profile?.name ?: kind.label else kind.label,
+                        style = MaterialTheme.typography.headlineSmall,
+                    )
+                    Text(
+                        text = kind.keyHelp,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = colors.muted,
+                        textAlign = TextAlign.Center,
+                    )
                 }
 
-                BridgeCard {
-                    FieldHeader(number = 2, title = "Sunucu adresini yapıştır")
+                if (serverExpanded) {
                     OutlinedTextField(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .semantics {
-                                if (serverTouched && serverError != null) this.error(serverError)
-                            },
+                            .focusRequester(serverFocus)
+                            .semantics { if (serverTouched && serverError != null) this.error(serverError) },
                         value = serverUrl,
                         onValueChange = {
                             serverUrl = it
                             serverTouched = true
-                            autoFilledServerUrl = null
                             editorError = null
                         },
-                        label = { Text("Sunucu adresi (URL)") },
+                        label = { Text("Sunucu adresi") },
                         placeholder = { Text(kind.serverPlaceholder) },
                         singleLine = true,
                         isError = serverTouched && serverError != null,
-                        supportingText = {
-                            Text(
-                                if (serverTouched && serverError != null) {
-                                    serverError
-                                } else {
-                                    "rtmp:// ya da rtmps:// ile başlar."
-                                },
-                            )
+                        supportingText = if (serverTouched && serverError != null) {
+                            { Text(serverError) }
+                        } else {
+                            null
                         },
                         keyboardOptions = KeyboardOptions(
                             autoCorrectEnabled = false,
                             keyboardType = KeyboardType.Uri,
                             imeAction = ImeAction.Next,
                         ),
-                        keyboardActions = KeyboardActions(
-                            onNext = { focusManager.moveFocus(FocusDirection.Down) },
-                        ),
+                        keyboardActions = KeyboardActions(onNext = { keyFocus.requestFocus() }),
                         shape = MaterialTheme.shapes.small,
                     )
                 }
 
-                BridgeCard {
-                    FieldHeader(
-                        number = 3,
-                        title = if (profile == null) "Yayın anahtarını yapıştır" else "Yayın anahtarı",
-                    )
-                    OutlinedTextField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .semantics {
-                                if (keyTouched && keyError != null) this.error(keyError)
-                            },
-                        value = targetStreamKey,
-                        onValueChange = {
-                            targetStreamKey = it
-                            keyTouched = true
-                            editorError = null
-                        },
-                        label = { Text(if (profile == null) "Yayın anahtarı" else "Yeni yayın anahtarı") },
-                        placeholder = {
-                            Text(if (profile == null) "Anahtarı buraya yapıştır" else "Değişmeyecekse boş bırak")
-                        },
-                        visualTransformation = if (passwordVisible) {
-                            VisualTransformation.None
-                        } else {
-                            PasswordVisualTransformation()
-                        },
-                        trailingIcon = {
-                            IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                                Icon(
-                                    imageVector = if (passwordVisible) {
-                                        Icons.Rounded.VisibilityOff
-                                    } else {
-                                        Icons.Rounded.Visibility
-                                    },
-                                    contentDescription = if (passwordVisible) {
-                                        "Yayın anahtarını gizle"
-                                    } else {
-                                        "Yayın anahtarını göster"
-                                    },
-                                )
-                            }
-                        },
-                        singleLine = true,
-                        isError = keyTouched && keyError != null,
-                        supportingText = {
-                            Text(
-                                when {
-                                    keyTouched && keyError != null -> keyError
-                                    profile != null ->
-                                        "Boş bırakırsan kayıtlı anahtar korunur. Anahtar yalnızca bu " +
-                                            "telefonda şifreli saklanır."
-                                    else -> "Anahtar yalnızca bu telefonda, Android Keystore ile şifreli saklanır."
-                                },
+                OutlinedTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .focusRequester(keyFocus)
+                        .semantics { if (keyTouched && keyError != null) this.error(keyError) },
+                    value = streamKey,
+                    onValueChange = {
+                        streamKey = it
+                        keyTouched = true
+                        editorError = null
+                    },
+                    label = { Text(if (profile == null) "Yayın anahtarı" else "Yeni yayın anahtarı") },
+                    placeholder = { Text(if (profile == null) "Buraya yapıştır" else "Değişmeyecekse boş bırak") },
+                    visualTransformation = if (keyVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                    trailingIcon = {
+                        IconButton(onClick = { keyVisible = !keyVisible }) {
+                            Icon(
+                                imageVector = if (keyVisible) Icons.Rounded.VisibilityOff else Icons.Rounded.Visibility,
+                                contentDescription = if (keyVisible) "Anahtarı gizle" else "Anahtarı göster",
                             )
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            autoCorrectEnabled = false,
-                            keyboardType = KeyboardType.Password,
-                            imeAction = ImeAction.Next,
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onNext = { focusManager.moveFocus(FocusDirection.Down) },
-                        ),
-                        shape = MaterialTheme.shapes.small,
-                    )
-                }
+                        }
+                    },
+                    singleLine = true,
+                    isError = keyTouched && keyError != null,
+                    supportingText = {
+                        Text(
+                            when {
+                                keyTouched && keyError != null -> keyError
+                                profile != null -> "Boş bırakırsan kayıtlı anahtar korunur."
+                                else -> "Yalnızca bu telefonda şifreli saklanır."
+                            },
+                        )
+                    },
+                    keyboardOptions = KeyboardOptions(
+                        autoCorrectEnabled = false,
+                        keyboardType = KeyboardType.Password,
+                        imeAction = ImeAction.Done,
+                    ),
+                    keyboardActions = KeyboardActions(onDone = { save() }),
+                    shape = MaterialTheme.shapes.small,
+                )
 
-                BridgeCard {
-                    FieldHeader(number = 4, title = "Bir ad ver", subtitle = "İsteğe bağlı")
-                    OutlinedTextField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .semantics {
-                                if (nameTouched && nameError != null) this.error(nameError)
-                            },
-                        value = name,
-                        onValueChange = {
-                            name = it
-                            nameTouched = true
-                            autoFilledName = null
-                            editorError = null
-                        },
-                        label = { Text("Hedefin adı") },
-                        placeholder = { Text(kind.label) },
-                        singleLine = true,
-                        isError = nameTouched && nameError != null,
-                        supportingText = {
+                if (!serverExpanded) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(text = "Sunucu adresi", style = MaterialTheme.typography.labelMedium, color = colors.muted)
                             Text(
-                                if (nameTouched && nameError != null) {
-                                    nameError
-                                } else {
-                                    "Listede bu adla görünür. Boş bırakırsan platform adı kullanılır."
-                                },
+                                text = serverUrl,
+                                style = MaterialTheme.typography.bodySmall,
+                                fontFamily = FontFamily.Monospace,
+                                color = colors.muted,
                             )
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            capitalization = KeyboardCapitalization.Words,
-                            imeAction = ImeAction.Done,
-                        ),
-                        keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-                        shape = MaterialTheme.shapes.small,
-                    )
+                        }
+                        TextButton(onClick = { serverExpanded = true }) { Text("Değiştir") }
+                    }
                 }
 
                 editorError?.let { AlertBanner(title = "Kaydedilemedi", message = it) }
 
                 if (onDelete != null) {
                     TextButton(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .heightIn(min = 48.dp),
                         onClick = { showDeleteConfirmation = true },
-                        colors = ButtonDefaults.textButtonColors(
-                            contentColor = MaterialTheme.colorScheme.error,
-                        ),
+                        colors = ButtonDefaults.textButtonColors(contentColor = colors.dangerText),
                     ) {
-                        Icon(Icons.Rounded.DeleteOutline, contentDescription = null, modifier = Modifier.size(20.dp))
-                        Spacer(Modifier.width(8.dp))
+                        Icon(Icons.Rounded.DeleteOutline, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(Modifier.width(6.dp))
                         Text("Bu hedefi sil")
                     }
                 }
@@ -382,9 +308,9 @@ internal fun DestinationProfileEditor(
         AlertDialog(
             onDismissRequest = { showDiscardConfirmation = false },
             properties = secureDialogProperties,
-            containerColor = BridgeTheme.colors.card,
-            title = { Text("Değişiklikler kaydedilmedi") },
-            text = { Text("Bu ekranda yaptığın değişiklikler silinsin mi?") },
+            containerColor = colors.card,
+            title = { Text("Kaydedilmedi") },
+            text = { Text("Girdiğin bilgiler silinsin mi?") },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -393,13 +319,11 @@ internal fun DestinationProfileEditor(
                         onDismiss()
                     },
                 ) {
-                    Text("Değişiklikleri sil", color = MaterialTheme.colorScheme.error)
+                    Text("Sil", color = colors.dangerText)
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showDiscardConfirmation = false }) {
-                    Text("Düzenlemeye dön")
-                }
+                TextButton(onClick = { showDiscardConfirmation = false }) { Text("Geri dön") }
             },
         )
     }
@@ -408,11 +332,9 @@ internal fun DestinationProfileEditor(
         AlertDialog(
             onDismissRequest = { showDeleteConfirmation = false },
             properties = secureDialogProperties,
-            containerColor = BridgeTheme.colors.card,
-            title = { Text("Hedef silinsin mi?") },
-            text = {
-                Text("${profile.name} ve bu telefonda şifreli saklanan yayın anahtarı kalıcı olarak silinecek.")
-            },
+            containerColor = colors.card,
+            title = { Text("${kind.label} silinsin mi?") },
+            text = { Text("Bu telefonda şifreli saklanan yayın anahtarı da kalıcı olarak silinir.") },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -420,7 +342,7 @@ internal fun DestinationProfileEditor(
                         editorError = onDelete()
                     },
                 ) {
-                    Text("Sil", color = MaterialTheme.colorScheme.error)
+                    Text("Sil", color = colors.dangerText)
                 }
             },
             dismissButton = {
@@ -438,106 +360,6 @@ private fun SecureWindowEffect() {
         onDispose { window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE) }
     }
 }
-
-@Composable
-private fun EditorTopBar(title: String, onClose: () -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal))
-            .heightIn(min = 64.dp)
-            .padding(start = 4.dp, end = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
-    ) {
-        IconButton(onClick = onClose) {
-            Icon(Icons.Rounded.Close, contentDescription = "Kapat")
-        }
-        Text(
-            modifier = Modifier.semantics { heading() },
-            text = title,
-            style = MaterialTheme.typography.titleLarge,
-        )
-    }
-}
-
-@Composable
-private fun EditorSaveBar(enabled: Boolean, onSave: () -> Unit) {
-    val colors = BridgeTheme.colors
-    Surface(color = colors.card) {
-        Column {
-            HorizontalDivider(color = colors.cardBorder)
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .windowInsetsPadding(
-                        WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal),
-                    )
-                    .padding(horizontal = 20.dp, vertical = 12.dp),
-                contentAlignment = Alignment.Center,
-            ) {
-                PrimaryActionButton(
-                    modifier = Modifier.widthIn(max = 600.dp),
-                    text = "Kaydet",
-                    onClick = onSave,
-                    enabled = enabled,
-                    icon = Icons.Rounded.Check,
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun FieldHeader(number: Int, title: String, subtitle: String? = null) {
-    val scheme = MaterialTheme.colorScheme
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
-    ) {
-        Surface(
-            modifier = Modifier.size(26.dp),
-            shape = CircleShape,
-            color = scheme.primaryContainer,
-            contentColor = scheme.onPrimaryContainer,
-        ) {
-            Box(contentAlignment = Alignment.Center) {
-                Text(text = number.toString(), style = MaterialTheme.typography.labelLarge)
-            }
-        }
-        Column {
-            Text(
-                modifier = Modifier.semantics { heading() },
-                text = title,
-                style = MaterialTheme.typography.titleSmall,
-            )
-            subtitle?.let {
-                Text(text = it, style = MaterialTheme.typography.bodySmall, color = scheme.onSurfaceVariant)
-            }
-        }
-    }
-}
-
-private val DestinationKind.helpText: String
-    get() = when (this) {
-        DestinationKind.TIKTOK ->
-            "TikTok LIVE Center'da (ya da LIVE Studio'da) yayın anahtarı ekranını aç. Sunucu " +
-                "URL'sini ve yayın anahtarını kopyalayıp buraya yapıştır. Hesabının RTMP ile " +
-                "yayın izni olmalı."
-        DestinationKind.YOUTUBE ->
-            "YouTube Studio'da Oluştur → Canlı yayına geç → Yayın yazılımı bölümünü aç. Sunucu " +
-                "adresi hazır; yalnızca yayın anahtarını kopyalayıp yapıştır."
-        DestinationKind.CUSTOM ->
-            "Yayın yaptığın platformun verdiği RTMP ya da RTMPS sunucu adresini ve yayın " +
-                "anahtarını yapıştır."
-    }
-
-private val DestinationKind.serverPlaceholder: String
-    get() = when (this) {
-        DestinationKind.TIKTOK -> "rtmp://push-rtmp-….tiktokcdn.com/game"
-        DestinationKind.YOUTUBE -> "rtmps://a.rtmps.youtube.com/live2"
-        DestinationKind.CUSTOM -> "rtmp://sunucu.adresi/live"
-    }
 
 private inline fun validationMessage(block: () -> Unit): String? = try {
     block()

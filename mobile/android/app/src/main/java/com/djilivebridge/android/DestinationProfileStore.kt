@@ -15,10 +15,18 @@ import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 
-enum class DestinationKind(val storageValue: String, val label: String) {
-    TIKTOK("tiktok", "TikTok"),
-    YOUTUBE("youtube", "YouTube"),
-    CUSTOM("custom", "Özel RTMP");
+/**
+ * Supported platforms in display order. [defaultServerUrl] is each platform's published ingest
+ * address; TikTok and custom servers hand out their own address, so they have none.
+ */
+enum class DestinationKind(val storageValue: String, val label: String, val defaultServerUrl: String?) {
+    INSTAGRAM("instagram", "Instagram", "rtmps://live-upload.instagram.com:443/rtmp"),
+    TIKTOK("tiktok", "TikTok", null),
+    YOUTUBE("youtube", "YouTube", "rtmps://a.rtmps.youtube.com/live2"),
+    FACEBOOK("facebook", "Facebook", "rtmps://live-api-s.facebook.com:443/rtmp"),
+    TWITCH("twitch", "Twitch", "rtmp://live.twitch.tv/app"),
+    KICK("kick", "Kick", "rtmps://fa723fc1b171.global-contribute.live-video.net:443/app"),
+    CUSTOM("custom", "Özel RTMP", null);
 
     companion object {
         fun fromStorage(value: String): DestinationKind =

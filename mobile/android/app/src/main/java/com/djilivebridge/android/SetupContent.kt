@@ -1,298 +1,267 @@
 package com.djilivebridge.android
 
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.CheckCircle
-import androidx.compose.material.icons.rounded.Edit
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material.icons.rounded.Wifi
+import androidx.compose.material.icons.rounded.WifiOff
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
-/** The setup checklist shown while the bridge is off. */
+private const val GRID_COLUMNS = 4
+
+/** What the user sets up before starting: where to stream, and the address DJI Fly needs. */
 @Composable
 internal fun SetupContent(
     destinations: DestinationProfiles,
     profileError: String?,
     lan: LanAddress?,
     startError: String?,
-    onAddDestination: (DestinationKind) -> Unit,
-    onSelectDestination: (DestinationProfile) -> Unit,
-    onEditDestination: (DestinationProfile) -> Unit,
+    onPlatformClick: (DestinationKind) -> Unit,
+    onPlatformLongClick: (DestinationKind) -> Unit,
+    onEditSelected: () -> Unit,
+    onCopyAddress: (String) -> Unit,
+    onOpenWifiSettings: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val selected = destinations.selectedProfile
-    val destinationReady = selected != null
-    val networkReady = lan != null
-    var destinationsExpanded by rememberSaveable { mutableStateOf(false) }
-
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        SetupHeader(ready = destinationReady && networkReady)
-        startError?.let { AlertBanner(title = "Köprü başlatılamadı", message = it) }
+        startError?.let { AlertBanner(title = "Yayın başlatılamadı", message = it) }
+        profileError?.let { AlertBanner(title = "Hedef kaydı okunamadı", message = it) }
 
-        StepCard(
-            number = 1,
-            title = "Yayın hedefi",
-            state = if (destinationReady) StepState.DONE else StepState.CURRENT,
-            summary = selected?.let(::destinationSummary)
-                ?: "Görüntü nereye gidecek? Platformunu seç, bilgilerini bir kez kaydet.",
-            action = if (destinationReady) {
-                {
-                    TextButton(onClick = { destinationsExpanded = !destinationsExpanded }) {
-                        Text(if (destinationsExpanded) "Kapat" else "Değiştir")
-                    }
-                }
+        BridgeCard {
+            SectionHeader(title = "Nereye yayın yapacaksın?", step = 1, done = selected != null)
+            PlatformGrid(
+                destinations = destinations,
+                onClick = onPlatformClick,
+                onLongClick = onPlatformLongClick,
+            )
+            if (selected != null) {
+                HorizontalDivider(color = BridgeTheme.colors.border)
+                SelectedDestination(profile = selected, onEdit = onEditSelected)
             } else {
-                null
-            },
-            content = when {
-                !destinationReady -> {
-                    {
-                        PlatformPicker(onPick = onAddDestination)
-                        profileError?.let { AlertBanner(title = "Hedefler okunamadı", message = it) }
-                    }
-                }
-                destinationsExpanded || profileError != null -> {
-                    {
-                        DestinationList(
-                            destinations = destinations,
-                            onSelect = onSelectDestination,
-                            onEdit = onEditDestination,
-                            onAdd = { onAddDestination(DestinationKind.CUSTOM) },
-                        )
-                        profileError?.let { AlertBanner(title = "Hedef işlemi tamamlanamadı", message = it) }
-                    }
-                }
-                else -> null
-            },
-        )
+                Text(
+                    text = "Bir platforma dokun. Sunucu adresi hazır; yalnızca yayın anahtarını gireceksin.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = BridgeTheme.colors.muted,
+                )
+            }
+        }
 
-        StepCard(
-            number = 2,
-            title = "Ağ bağlantısı",
-            state = when {
-                networkReady -> StepState.DONE
-                destinationReady -> StepState.CURRENT
-                else -> StepState.UPCOMING
-            },
-            summary = lan?.let { "${it.kind.label} · ${it.address}" }
-                ?: "Telefon henüz bir Wi-Fi ağına bağlı değil.",
-            content = if (networkReady) {
-                { InfoNote(text = remoteNetworkHint(lan.kind)) }
-            } else if (destinationReady) {
-                {
-                    Text(
-                        text = "Telefonu kumandanın da bağlanacağı Wi-Fi ağına bağla ya da telefonun " +
-                            "hotspot'unu açıp kumandayı ona bağla.",
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(10.dp),
-                    ) {
-                        CircularProgressIndicator(modifier = Modifier.size(16.dp), strokeWidth = 2.dp)
-                        Text(
-                            text = "Bağlantı gelince bu adım kendiliğinden tamamlanır.",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        BridgeCard(verticalSpacing = 12.dp) {
+            // Stays a number: the app cannot know whether the address is in DJI Fly yet.
+            SectionHeader(title = "DJI Fly'a bu adresi gir", step = 2)
+            if (lan != null) {
+                AddressField(address = lan.publishUrl, onCopy = { onCopyAddress(lan.publishUrl) })
+                Text(
+                    text = DJI_FLY_PATH,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = BridgeTheme.colors.muted,
+                )
+                NetworkNote(lan)
+            } else {
+                NoNetwork(onOpenWifiSettings)
+            }
+        }
+    }
+}
+
+internal const val DJI_FLY_PATH = "DJI Fly → GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP"
+
+@Composable
+private fun PlatformGrid(
+    destinations: DestinationProfiles,
+    onClick: (DestinationKind) -> Unit,
+    onLongClick: (DestinationKind) -> Unit,
+) {
+    val selectedKind = destinations.selectedProfile?.kind
+    val configured = destinations.profiles.mapTo(mutableSetOf()) { it.kind }
+    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+        val cellWidth = maxWidth / GRID_COLUMNS
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            DestinationKind.entries.chunked(GRID_COLUMNS).forEach { row ->
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                    row.forEach { kind ->
+                        PlatformCell(
+                            kind = kind,
+                            configured = kind in configured,
+                            selected = kind == selectedKind,
+                            onClick = { onClick(kind) },
+                            onLongClick = { onLongClick(kind) },
+                            modifier = Modifier.width(cellWidth),
                         )
                     }
                 }
-            } else {
-                null
-            },
-        )
-
-        StepCard(
-            number = 3,
-            title = "Köprüyü başlat",
-            state = if (destinationReady && networkReady) StepState.CURRENT else StepState.UPCOMING,
-            summary = "Telefon, kumandadan gelecek görüntüyü bekler ve seçtiğin hedefe aktarır. " +
-                "Ekran kapansa da çalışmaya devam eder.",
-        )
-
-        StepCard(
-            number = 4,
-            title = "DJI Fly'da yayını aç",
-            state = StepState.UPCOMING,
-            summary = "Köprü çalışınca kumandaya yazacağın adres ve adımlar burada görünür.",
-        )
+            }
+        }
     }
 }
 
 @Composable
-private fun SetupHeader(ready: Boolean) {
+private fun PlatformCell(
+    kind: DestinationKind,
+    configured: Boolean,
+    selected: Boolean,
+    onClick: () -> Unit,
+    onLongClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val colors = BridgeTheme.colors
     Column(
-        modifier = Modifier.padding(start = 4.dp, top = 4.dp, end = 4.dp, bottom = 4.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
+        modifier = modifier
+            .clip(MaterialTheme.shapes.medium)
+            .combinedClickable(
+                onClickLabel = when {
+                    selected -> "Düzenle"
+                    configured -> "Seç"
+                    else -> "Ekle"
+                },
+                role = Role.Button,
+                onLongClickLabel = if (configured) "Düzenle" else null,
+                onLongClick = if (configured) onLongClick else null,
+                onClick = onClick,
+            )
+            .semantics {
+                this.selected = selected
+                stateDescription = if (configured) "Kayıtlı" else "Eklenmedi"
+            }
+            .padding(vertical = 6.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
+        Box(modifier = Modifier.size(64.dp), contentAlignment = Alignment.Center) {
+            if (selected) {
+                Box(
+                    modifier = Modifier
+                        .matchParentSize()
+                        .border(2.dp, colors.accent, RoundedCornerShape(20.dp)),
+                )
+            }
+            PlatformTile(kind = kind, size = 52.dp)
+            when {
+                selected -> Box(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .offset(x = 2.dp, y = (-2).dp)
+                        .size(20.dp)
+                        .background(colors.accent, CircleShape)
+                        .border(2.dp, colors.card, CircleShape),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(Icons.Rounded.Check, contentDescription = null, tint = Color.White, modifier = Modifier.size(12.dp))
+                }
+                // Saved but not selected: a quiet dot instead of a badge on every tile.
+                configured -> Box(
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .offset(x = (-1).dp, y = (-1).dp)
+                        .size(13.dp)
+                        .background(colors.success, CircleShape)
+                        .border(2.dp, colors.card, CircleShape),
+                )
+            }
+        }
         Text(
-            modifier = Modifier.semantics { heading() },
-            text = if (ready) "Her şey hazır" else "Yayına hazırlan",
-            style = MaterialTheme.typography.headlineSmall,
-        )
-        Text(
-            text = if (ready) {
-                "Köprüyü başlat, ardından kumandada DJI Fly'dan yayını aç."
-            } else {
-                "Adımları sırayla tamamla. Sıradaki adım mavi çerçeveyle gösterilir."
-            },
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            text = kind.label,
+            style = MaterialTheme.typography.labelMedium,
+            fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Medium,
+            color = if (configured) colors.text else colors.muted,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
         )
     }
 }
 
 @Composable
-private fun PlatformPicker(onPick: (DestinationKind) -> Unit) {
+private fun SelectedDestination(profile: DestinationProfile, onEdit: () -> Unit) {
+    val colors = BridgeTheme.colors
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = if (profile.kind == DestinationKind.CUSTOM) profile.name else "${profile.kind.label} seçili",
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Medium,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+            Text(
+                text = if (profile.kind.keyChangesEachStream) {
+                    "Her yayında yeni anahtar gerekir"
+                } else {
+                    "Yayın anahtarı kayıtlı"
+                },
+                style = MaterialTheme.typography.bodySmall,
+                color = colors.muted,
+            )
+        }
+        TextButton(onClick = onEdit) {
+            Text(if (profile.kind.keyChangesEachStream) "Anahtarı güncelle" else "Düzenle")
+        }
+    }
+}
+
+@Composable
+private fun NetworkNote(lan: LanAddress) {
+    val colors = BridgeTheme.colors
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        DestinationKind.entries.forEach { kind ->
-            PlatformChoice(
-                kind = kind,
-                onClick = { onPick(kind) },
-                modifier = Modifier.weight(1f),
-            )
-        }
+        Icon(Icons.Rounded.Wifi, contentDescription = null, tint = colors.successText, modifier = Modifier.size(16.dp))
+        Text(
+            text = when (lan.kind) {
+                LanKind.HOTSPOT -> "Hotspot açık · kumandayı bu telefona bağla"
+                LanKind.WIFI -> "Wi-Fi bağlı · kumanda da aynı ağda olmalı"
+                LanKind.WIRED, LanKind.OTHER -> "Yerel ağa bağlı · kumanda da aynı ağda olmalı"
+            },
+            style = MaterialTheme.typography.bodySmall,
+            color = colors.muted,
+        )
     }
 }
 
 @Composable
-private fun DestinationList(
-    destinations: DestinationProfiles,
-    onSelect: (DestinationProfile) -> Unit,
-    onEdit: (DestinationProfile) -> Unit,
-    onAdd: () -> Unit,
-) {
-    Column(
-        modifier = Modifier.selectableGroup(),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+private fun NoNetwork(onOpenWifiSettings: () -> Unit) {
+    val colors = BridgeTheme.colors
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        destinations.profiles.forEach { profile ->
-            DestinationRow(
-                profile = profile,
-                selected = profile.id == destinations.selectedProfileId,
-                onSelect = { onSelect(profile) },
-                onEdit = { onEdit(profile) },
-            )
-        }
+        Icon(Icons.Rounded.WifiOff, contentDescription = null, tint = colors.warningText, modifier = Modifier.size(20.dp))
+        Text(
+            modifier = Modifier.weight(1f),
+            text = "Telefon Wi-Fi'a bağlı değil. Wi-Fi'a bağlan ya da hotspot'u aç.",
+            style = MaterialTheme.typography.bodyMedium,
+        )
     }
-    OutlinedButton(
-        modifier = Modifier
-            .fillMaxWidth()
-            .heightIn(min = 48.dp),
-        onClick = onAdd,
-    ) {
-        Icon(Icons.Rounded.Add, contentDescription = null, modifier = Modifier.size(20.dp))
-        Spacer(Modifier.width(8.dp))
-        Text("Yeni hedef ekle")
-    }
-}
-
-@Composable
-private fun DestinationRow(
-    profile: DestinationProfile,
-    selected: Boolean,
-    onSelect: () -> Unit,
-    onEdit: () -> Unit,
-) {
-    val scheme = MaterialTheme.colorScheme
-    val shape = MaterialTheme.shapes.medium
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(shape)
-            .selectable(selected = selected, role = Role.RadioButton, onClick = onSelect),
-        shape = shape,
-        color = if (selected) scheme.primaryContainer else BridgeTheme.colors.card,
-        contentColor = if (selected) scheme.onPrimaryContainer else scheme.onSurface,
-        border = if (selected) {
-            BorderStroke(1.5.dp, scheme.primary)
-        } else {
-            BorderStroke(1.dp, scheme.outlineVariant)
-        },
-    ) {
-        Row(
-            modifier = Modifier.padding(start = 12.dp, top = 8.dp, end = 4.dp, bottom = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            PlatformAvatar(kind = profile.kind, size = 36.dp)
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = profile.name,
-                    style = MaterialTheme.typography.titleSmall,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                Text(
-                    text = profile.kind.label,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = if (selected) scheme.onPrimaryContainer else scheme.onSurfaceVariant,
-                )
-            }
-            if (selected) {
-                Icon(
-                    imageVector = Icons.Rounded.CheckCircle,
-                    contentDescription = "Seçili",
-                    tint = scheme.primary,
-                )
-            }
-            IconButton(onClick = onEdit) {
-                Icon(Icons.Rounded.Edit, contentDescription = "${profile.name} hedefini düzenle")
-            }
-        }
-    }
-}
-
-private fun destinationSummary(profile: DestinationProfile): String =
-    if (profile.name.equals(profile.kind.label, ignoreCase = true)) {
-        profile.name
-    } else {
-        "${profile.name} · ${profile.kind.label}"
-    }
-
-internal val LanKind.label: String
-    get() = when (this) {
-        LanKind.WIFI -> "Wi-Fi"
-        LanKind.HOTSPOT -> "Hotspot"
-        LanKind.WIRED -> "Kablolu ağ"
-        LanKind.OTHER -> "Yerel ağ"
-    }
-
-private fun remoteNetworkHint(kind: LanKind): String = when (kind) {
-    LanKind.HOTSPOT -> "DJI RC 2 kumandanı bu telefonun hotspot'una bağla."
-    LanKind.WIFI -> "DJI RC 2 kumandanı da aynı Wi-Fi ağına bağla."
-    LanKind.WIRED, LanKind.OTHER -> "DJI RC 2 kumandanı da bu ağa bağla."
+    TextButton(modifier = Modifier.padding(start = 20.dp), onClick = onOpenWifiSettings) { Text("Wi-Fi ayarları") }
 }

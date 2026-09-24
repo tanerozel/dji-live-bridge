@@ -17,13 +17,14 @@ Android platform trust roots, validates the full certificate chain and hostname,
 insecure bypass. The temporary public-CA bundle is stored only in the app's non-backed-up private
 directory while the service is active and is deleted on stop.
 
-TikTok, YouTube and custom RTMP destinations can be saved as profiles. Profile metadata plus the
-encrypted credential blob are written atomically to the app's non-backed-up private directory. Each
-stream key is encrypted with AES-256-GCM using a non-exportable Android Keystore key and a fresh,
-random IV; the profile ID is authenticated as additional data. Plaintext keys are never written to
-storage, logs, notifications or intent extras. The activity passes only the selected profile ID to
-the service, which decrypts the key immediately before starting the native relay. Editing a profile
-without entering a new key preserves the existing encrypted credential.
+Instagram, TikTok, YouTube, Facebook, Twitch, Kick and custom RTMP destinations can be saved as
+profiles. Profile metadata plus the encrypted credential blob are written atomically to the app's
+non-backed-up private directory. Each stream key is encrypted with AES-256-GCM using a
+non-exportable Android Keystore key and a fresh, random IV; the profile ID is authenticated as
+additional data. Plaintext keys are never written to storage, logs, notifications or intent extras.
+The activity passes only the selected profile ID to the service, which decrypts the key immediately
+before starting the native relay. Editing a profile without entering a new key preserves the
+existing encrypted credential.
 
 The service is started only by the user's button, uses a persistent status notification with a Stop
 action, and returns `START_NOT_STICKY` so Android cannot restart a stopped relay without a new user
@@ -39,23 +40,35 @@ which is how clients such as FFmpeg encode the single-segment `/drone` URL.
 
 ## User interface
 
-The home screen is a four-step checklist: add a destination, join the same network, start the
-bridge, then start the stream in DJI Fly. The next step is outlined, and its action is always the
-large button at the bottom. A three-page guide opens on first launch and again from the help button.
-While the bridge runs, the checklist is replaced by a status view: the RC 2 → phone → target
-pipeline, the DJI Fly menu path and the RTMP address to type on the RC 2, troubleshooting tips, the
-live duration, bitrate and codecs. The technical counters stay behind "Teknik ayrıntılar".
+The home screen is two cards and one button. The first card is the platform grid: Instagram,
+TikTok, YouTube, Facebook, Twitch, Kick and a custom RTMP server, drawn as the desktop app's brand
+tiles. Tapping a platform opens a key-only screen whose server address is prefilled with the
+platform's published ingest; TikTok and custom servers hand out their own address, so they ask for
+it. The prefilled address can still be changed:
 
-The network step prefers the Wi-Fi client address, then the phone's own hotspot, and never offers
+| Platform | Default server address |
+| --- | --- |
+| Instagram | `rtmps://live-upload.instagram.com:443/rtmp` |
+| YouTube | `rtmps://a.rtmps.youtube.com/live2` |
+| Facebook | `rtmps://live-api-s.facebook.com:443/rtmp` |
+| Twitch | `rtmp://live.twitch.tv/app` |
+| Kick | `rtmps://fa723fc1b171.global-contribute.live-video.net:443/app` (the dashboard value wins if it differs) |
+
+The second card shows the RTMP address to type into DJI Fly on the RC 2, with the DJI Fly menu path.
+While the bridge runs, the screen shows one status (waiting for the remote, live with a timer,
+reconnecting, error), the remote → phone → platform hops, bitrate, sent bytes and codecs, and the
+platform's own go-live reminder; the counters stay under "Teknik ayrıntılar". A three-page guide
+opens on first launch and again from the help button.
+
+The themes match the desktop app: Açık (the default), Koyu, Gece mavisi, Kum and Sistem, picked
+from the palette button and stored on the device. Every theme's text/background pairs meet WCAG AA
+contrast, and the status bar follows the chosen theme rather than the system setting.
+
+The network card prefers the Wi-Fi client address, then the phone's own hotspot, and never offers
 mobile-data, VPN or 464XLAT addresses, which the RC 2 cannot reach. The address refreshes every few
-seconds while the app is visible.
-
-Colors match the desktop app and the website: one brand blue, neutrals tinted with it, and
-green/amber/red reserved for relay states. Light and dark themes follow the system setting, and their
-text/background pairs meet WCAG AA contrast. The destination editor is a full screen that sets
-`FLAG_SECURE` while it is open, so stream keys stay out of screenshots, screen recordings and the
-recents thumbnail. The launcher, themed and notification icons are vector versions of the desktop
-icon (`src-tauri/icons/source.svg`).
+seconds while the app is visible. The key screen sets `FLAG_SECURE` while it is open, so stream
+keys stay out of screenshots, screen recordings and the recents thumbnail. The launcher, themed and
+notification icons are vector versions of the desktop icon (`src-tauri/icons/source.svg`).
 
 ## Phase 7 device validation
 
