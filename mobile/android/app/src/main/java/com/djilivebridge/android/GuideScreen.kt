@@ -27,7 +27,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ChevronRight
+import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material.icons.rounded.PhoneAndroid
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -43,6 +43,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
@@ -86,7 +87,7 @@ internal fun GuideScreen(onFinish: () -> Unit) {
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                if (!lastPage) TextButton(onClick = onFinish) { Text("Geç") }
+                if (!lastPage) TextButton(onClick = onFinish) { Text(stringResource(R.string.guide_skip)) }
             }
             HorizontalPager(
                 state = pagerState,
@@ -106,7 +107,7 @@ internal fun GuideScreen(onFinish: () -> Unit) {
             ) {
                 PageIndicator(count = GUIDE_PAGE_COUNT, current = pagerState.currentPage)
                 PrimaryButton(
-                    text = if (lastPage) "Başla" else "Devam",
+                    text = stringResource(if (lastPage) R.string.guide_start else R.string.guide_next),
                     onClick = {
                         if (lastPage) {
                             onFinish()
@@ -138,25 +139,22 @@ private fun GuidePage(page: Int) {
                 0 -> {
                     FlowIllustration()
                     PageText(
-                        title = "Drone'dan canlı yayına",
-                        body = "Kumandadaki DJI Fly görüntüyü bu telefona gönderir; telefon da seçtiğin " +
-                            "platforma iletir.",
+                        title = stringResource(R.string.guide_flow_title),
+                        body = stringResource(R.string.guide_flow_body),
                     )
                 }
                 1 -> {
                     AddressIllustration()
                     PageText(
-                        title = "Önce drone'u bağla",
-                        body = "Ekrandaki adresi DJI Fly'da RTMP alanına yaz. Drone'un görüntüsü hemen " +
-                            "telefonda görünür; henüz hiçbir yerde yayında değilsin.",
+                        title = stringResource(R.string.guide_connect_title),
+                        body = stringResource(R.string.guide_connect_body),
                     )
                 }
                 else -> {
                     PlatformsIllustration()
                     PageText(
-                        title = "Sonra yayına geç",
-                        body = "Platformunu seç, yayın anahtarını yapıştır ve Canlı yayını başlat'a bas. " +
-                            "Sunucu adresleri hazır.",
+                        title = stringResource(R.string.guide_live_title),
+                        body = stringResource(R.string.guide_live_body),
                     )
                 }
             }
@@ -224,7 +222,7 @@ private fun IllustrationCircle(icon: Painter) {
 @Composable
 private fun FlowArrow() {
     Icon(
-        imageVector = Icons.Rounded.ChevronRight,
+        imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
         contentDescription = null,
         tint = BridgeTheme.colors.faint,
         modifier = Modifier.size(22.dp),
@@ -269,8 +267,9 @@ private fun AddressIllustration() {
 @Composable
 private fun PageIndicator(count: Int, current: Int) {
     val colors = BridgeTheme.colors
+    val pageDescription = stringResource(R.string.guide_page, current + 1, count)
     Row(
-        modifier = Modifier.clearAndSetSemantics { contentDescription = "Sayfa ${current + 1} / $count" },
+        modifier = Modifier.clearAndSetSemantics { contentDescription = pageDescription },
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {

@@ -8,6 +8,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
+import android.content.res.Configuration
 import android.net.Uri
 import android.net.wifi.WifiManager
 import android.os.Build
@@ -41,15 +42,15 @@ class RelayForegroundService : Service() {
     @Volatile private var receiverListening = false
     @Volatile private var pollThread: Thread? = null
     @Volatile private var testVideoThread: Thread? = null
-    @Volatile private var liveProfileId: String? = null
+    /** The profiles the stream goes to. Touched on the main thread only. */
+    private val liveProfileIds = mutableListOf<String>()
     @Volatile private var tlsCaBundle: File? = null
     private var wakeLock: PowerManager.WakeLock? = null
     private var wifiLock: WifiManager.WifiLock? = null
     private var shownNotification: Pair<String, Boolean>? = null
 
     /** Set when the receiver stops because of a failure the user should see, not by request. */
-    @Volatile private var failureMessage: String? = null
-    private var stopReason = "Alıcı kapatıldı"
+    @Volatile private var failureMessage: UiText? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -61,16 +62,17 @@ class RelayForegroundService : Service() {
             ACTION_START_RECEIVER -> if (enterForeground()) {
                 if (intent.getBooleanExtra(EXTRA_RESTART, false)) restartReceiver() else startReceiver()
                 intent.data?.let { uri ->
-                    startTestVideo(uri, intent.getStringExtra(EXTRA_TEST_VIDEO_NAME) ?: "Test videosu")
+                    val durationMs = intent.getLongExtra(EXTRA_TEST_VIDEO_DURATION_MS, -1).takeIf { it >= 0 }
+                    startTestVideo(uri, testVideoLabel(intent.getStringExtra(EXTRA_TEST_VIDEO_NAME), durationMs))
                 }
             }
             ACTION_GO_LIVE -> if (enterForeground()) {
                 startReceiver()
-                goLive(intent.getStringExtra(EXTRA_DESTINATION_PROFILE_ID).orEmpty())
+                goLive(intent.getStringArrayExtra(EXTRA_DESTINATION_PROFILE_IDS).orEmpty().toList())
             }
-            ACTION_END_LIVE -> endLive()
+            ACTION_END_LIVE -> endLive(intent.getStringExtra(EXTRA_DESTINATION_PROFILE_ID))
             ACTION_STOP_TEST_VIDEO -> stopTestVideo()
-            ACTION_STOP -> requestStop("Alıcı kapatıldı")
+            ACTION_STOP -> requestStop()
         }
         // A stray end-live or stop-video command must not leave an idle service behind.
         if (!receiverStarted) stopSelf(startId)
@@ -80,14 +82,13 @@ class RelayForegroundService : Service() {
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onTimeout(startId: Int, fgsType: Int) {
-        val message = "Android arka plan veri aktarımı süre sınırına ulaştı"
-        failureMessage = message
-        requestStop(message)
+        failureMessage = uiText(R.string.error_background_limit)
+        requestStop()
     }
 
     /** Swiping the app away closes the receiver, but never a broadcast in progress. */
     override fun onTaskRemoved(rootIntent: Intent?) {
-        if (liveProfileId == null) requestStop("Uygulama kapatıldı")
+        if (liveProfileIds.isEmpty()) requestStop()
         super.onTaskRemoved(rootIntent)
     }
 
@@ -105,11 +106,11 @@ class RelayForegroundService : Service() {
     }
 
     private fun enterForeground(): Boolean = try {
-        val text = shownNotification?.first ?: "Drone bağlantısı bekleniyor"
+        val text = shownNotification?.first ?: getString(R.string.notification_waiting)
         ServiceCompat.startForeground(
             this,
             NOTIFICATION_ID,
-            buildNotification(text, live = liveProfileId != null),
+            buildNotification(text, live = liveProfileIds.isNotEmpty()),
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
             } else {
@@ -118,7 +119,7 @@ class RelayForegroundService : Service() {
         )
         true
     } catch (error: RuntimeException) {
-        RelayServiceState.failed("Arka plan servisi başlatılamadı: ${error.message}")
+        RelayServiceState.failed(withCause(R.string.error_service_start, error))
         stopSelf()
         false
     }
@@ -128,15 +129,13 @@ class RelayForegroundService : Service() {
         receiverStarted = true
         stopRequested.set(false)
         failureMessage = null
-        stopReason = "Alıcı kapatıldı"
         RelayServiceState.starting()
         acquireWifiLock()
         commands.execute {
-            val error = runCatching { NativeRelay.nativeStartReceiver() }
-                .getOrElse { error -> error.message ?: "RTMP çekirdeği başlatılamadı" }
+            val error = runCatching { NativeRelay.nativeStartReceiver() }.getOrDefault("jni_argument")
             if (error.isNotEmpty()) {
                 mainHandler.post {
-                    RelayServiceState.failed(error)
+                    RelayServiceState.failed(nativeError(error))
                     finishService()
                 }
             } else {
@@ -151,7 +150,7 @@ class RelayForegroundService : Service() {
             startReceiver()
             return
         }
-        if (liveProfileId != null) return
+        if (liveProfileIds.isNotEmpty()) return
         testVideoThread?.interrupt()
         testVideoThread = null
         RelayServiceState.starting()
@@ -164,7 +163,7 @@ class RelayForegroundService : Service() {
                 val snapshot = runCatching {
                     RelaySnapshot.fromJson(NativeRelay.nativeSnapshot())
                 }.getOrElse { error ->
-                    RelaySnapshot(status = "error", detail = "Durum okunamadı: ${error.message}")
+                    RelaySnapshot(status = "error", error = withCause(R.string.error_internal, error))
                 }
                 receiverListening = snapshot.status in LISTENING_STATUSES
                 mainHandler.post {
@@ -180,60 +179,81 @@ class RelayForegroundService : Service() {
         }
     }
 
-    private fun goLive(profileId: String) {
-        if (profileId.isBlank()) {
-            RelayServiceState.notLive(RelayNotice(GO_LIVE_FAILED, "Önce bir platform seç"))
+    /** Adds [profileIds] to the broadcast. A platform that fails is reported; the others go on. */
+    private fun goLive(profileIds: List<String>) {
+        if (profileIds.isEmpty()) {
+            RelayServiceState.notLive(emptyList(), RelayNotice(uiText(R.string.go_live_failed), uiText(R.string.pick_platform_first)))
             return
         }
-        liveProfileId = profileId
-        RelayServiceState.goingLive(profileId)
+        val added = profileIds.filterNot { it in liveProfileIds }
+        if (added.isEmpty()) return
+        liveProfileIds += added
+        RelayServiceState.goingLive(added)
         acquireWakeLock()
         showNotification(notificationText(RelayServiceState.value.snapshot))
         commands.execute {
-            val error = runCatching { attachDestination(profileId) }
-                .getOrElse { error -> error.message ?: "Canlı yayın başlatılamadı" }
-            if (error.isNotEmpty()) {
-                deleteTlsCaBundle()
-                mainHandler.post {
-                    if (liveProfileId == profileId) {
-                        liveProfileId = null
-                        releaseWakeLock()
-                        RelayServiceState.notLive(RelayNotice(GO_LIVE_FAILED, error))
-                        showNotification(notificationText(RelayServiceState.value.snapshot))
-                    }
-                }
+            val store = DestinationProfileStore(applicationContext)
+            val failures = added.mapNotNull { profileId ->
+                val error = try {
+                    attachDestination(store, profileId).takeIf(String::isNotEmpty)?.let(::nativeError)
+                } catch (failure: DestinationProfileException) {
+                    failure.text
+                } catch (_: Exception) {
+                    uiText(R.string.error_internal)
+                } ?: return@mapNotNull null
+                val kind = runCatching { store.load().profiles.firstOrNull { it.id == profileId }?.kind }.getOrNull()
+                profileId to (kind?.let { uiText(R.string.named_error, it.nameText, error) } ?: error)
             }
+            if (failures.isNotEmpty()) mainHandler.post { goLiveFailed(failures) }
         }
     }
 
-    private fun attachDestination(profileId: String): String {
-        val credentials = DestinationProfileStore(applicationContext).credentials(profileId)
-        deleteTlsCaBundle()
+    private fun goLiveFailed(failures: List<Pair<String, UiText>>) {
+        val failed = failures.map { it.first }.filter { it in liveProfileIds }
+        if (failed.isEmpty()) return
+        liveProfileIds.removeAll(failed)
+        val message = UiText.Raw(failures.joinToString("\n") { it.second.resolve(this) })
+        RelayServiceState.notLive(failed, RelayNotice(uiText(R.string.go_live_failed), message))
+        if (liveProfileIds.isEmpty()) {
+            releaseWakeLock()
+            commands.execute { deleteTlsCaBundle() }
+        }
+        showNotification(notificationText(RelayServiceState.value.snapshot))
+    }
+
+    private fun attachDestination(store: DestinationProfileStore, profileId: String): String {
+        val credentials = store.credentials(profileId)
         val tlsCaFile = if (credentials.serverUrl.startsWith("rtmps://")) {
             try {
-                createAndroidSystemCaBundle(this).also { file -> tlsCaBundle = file }.absolutePath
+                // One bundle for every RTMPS platform; it goes when the last one ends.
+                (tlsCaBundle?.takeIf(File::exists) ?: createAndroidSystemCaBundle(this))
+                    .also { file -> tlsCaBundle = file }
+                    .absolutePath
             } catch (_: Exception) {
-                throw DestinationProfileException("Android sistem sertifikaları hazırlanamadı")
+                throw DestinationProfileException(R.string.error_ca_bundle)
             }
         } else {
             ""
         }
-        return NativeRelay.nativeGoLive(credentials.serverUrl, credentials.streamKey, tlsCaFile)
+        return NativeRelay.nativeGoLive(profileId, credentials.serverUrl, credentials.streamKey, tlsCaFile)
     }
 
-    private fun endLive() {
-        if (liveProfileId == null) return
-        liveProfileId = null
-        RelayServiceState.notLive()
-        releaseWakeLock()
+    /** Ends the broadcast on [profileId], or on every platform when null; the drone stays connected. */
+    private fun endLive(profileId: String?) {
+        val ended = if (profileId == null) liveProfileIds.toList() else listOf(profileId).filter { it in liveProfileIds }
+        if (ended.isEmpty()) return
+        liveProfileIds.removeAll(ended)
+        RelayServiceState.notLive(ended)
+        val stillLive = liveProfileIds.isNotEmpty()
+        if (!stillLive) releaseWakeLock()
         showNotification(notificationText(RelayServiceState.value.snapshot))
         commands.execute {
-            NativeRelay.nativeEndLive()
-            deleteTlsCaBundle()
+            NativeRelay.nativeEndLive(if (stillLive) profileId.orEmpty() else "")
+            if (!stillLive) deleteTlsCaBundle()
         }
     }
 
-    private fun startTestVideo(uri: Uri, name: String) {
+    private fun startTestVideo(uri: Uri, name: UiText) {
         testVideoThread?.interrupt()
         RelayServiceState.testVideo(name)
         testVideoThread = thread(name = "dji-test-video") { runTestVideo(uri) }
@@ -249,7 +269,9 @@ class RelayForegroundService : Service() {
             // Stopping interrupts the pacing sleep.
         } catch (error: Exception) {
             if (self.isInterrupted || stopRequested.get()) return
-            val notice = RelayNotice("Test videosu durdu", error.message ?: "Bilinmeyen hata")
+            val detail = (error as? TestVideoException)?.text
+                ?: uiText(R.string.test_video_failed, error.message ?: error.javaClass.simpleName)
+            val notice = RelayNotice(uiText(R.string.test_video_stopped), detail)
             mainHandler.post {
                 if (testVideoThread === self) {
                     testVideoThread = null
@@ -262,7 +284,9 @@ class RelayForegroundService : Service() {
     private fun awaitReceiver() {
         val deadline = SystemClock.elapsedRealtime() + RECEIVER_START_TIMEOUT_MS
         while (!receiverListening) {
-            if (SystemClock.elapsedRealtime() > deadline) throw TestVideoException("alıcı hazır değil")
+            if (SystemClock.elapsedRealtime() > deadline) {
+                throw TestVideoException(uiText(R.string.test_video_receiver_not_ready))
+            }
             Thread.sleep(RECEIVER_START_POLL_MS)
         }
     }
@@ -273,10 +297,9 @@ class RelayForegroundService : Service() {
         RelayServiceState.testVideo(null)
     }
 
-    private fun requestStop(reason: String) {
-        stopReason = reason
+    private fun requestStop() {
         stopRequested.set(true)
-        liveProfileId = null
+        liveProfileIds.clear()
         testVideoThread?.interrupt()
         testVideoThread = null
         pollThread?.interrupt()
@@ -303,10 +326,8 @@ class RelayForegroundService : Service() {
         RelayServiceState.stopped(
             RelayServiceState.value.snapshot.copy(
                 status = "stopped",
-                detail = stopReason,
                 bitrateKbps = 0.0,
-                outputStatus = "disabled",
-                outputDetail = "Harici hedef yapılandırılmadı",
+                outputs = emptyList(),
             ),
         )
     }
@@ -372,15 +393,22 @@ class RelayForegroundService : Service() {
         wifiLock = null
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        // The app's language may have changed: the channel gets its new name now, and the next
+        // status poll reposts the notification in the new language.
+        createNotificationChannel()
+    }
+
     private fun createNotificationChannel() {
         val manager = getSystemService(NotificationManager::class.java)
         manager.createNotificationChannel(
             NotificationChannel(
                 CHANNEL_ID,
-                "Canlı RTMP aktarımı",
+                getString(R.string.notification_channel),
                 NotificationManager.IMPORTANCE_LOW,
             ).apply {
-                description = "DJI RC 2 yayın alımı ve harici RTMP aktarım durumu"
+                description = getString(R.string.notification_channel_description)
                 setShowBadge(false)
             },
         )
@@ -404,19 +432,19 @@ class RelayForegroundService : Service() {
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_drone)
             .setColor(ContextCompat.getColor(this, R.color.bridge_brand))
-            .setContentTitle("DJI Live Bridge")
+            .setContentTitle(getString(R.string.app_name))
             .setContentText(text)
             .setContentIntent(openIntent)
             .setOngoing(true)
             .setOnlyAlertOnce(true)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
-            .addAction(0, if (live) "Yayını bitir" else "Kapat", actionIntent)
+            .addAction(0, getString(if (live) R.string.end_broadcast else R.string.close), actionIntent)
             .build()
     }
 
     /** Posts only real changes; Android throttles apps that update notifications too often. */
     private fun showNotification(text: String) {
-        val next = text to (liveProfileId != null)
+        val next = text to liveProfileIds.isNotEmpty()
         if (next == shownNotification) return
         shownNotification = next
         getSystemService(NotificationManager::class.java)
@@ -426,20 +454,22 @@ class RelayForegroundService : Service() {
     private fun notificationText(snapshot: RelaySnapshot): String {
         val publishing = snapshot.status == "publishing"
         return when {
-            snapshot.status == "error" -> "RTMP alıcı hatası"
-            snapshot.status == "starting" -> "Alıcı hazırlanıyor"
-            liveProfileId != null -> when {
-                publishing && snapshot.outputStatus == "congested" -> "Canlı yayındasın · bağlantı yavaş"
-                publishing && snapshot.outputStatus == "forwarding" -> "Canlı yayındasın"
-                publishing && snapshot.outputStatus == "reconnecting" -> "Platforma yeniden bağlanıyor"
-                publishing -> "Platforma bağlanıyor"
-                snapshot.outputStatus == "holding" -> "Drone bağlantısı koptu · yayın açık tutuluyor"
-                else -> "Canlı yayın açık · drone bekleniyor"
+            snapshot.status == "error" -> getString(R.string.notification_receiver_error)
+            snapshot.status == "starting" -> getString(R.string.notification_starting)
+            liveProfileIds.isNotEmpty() -> when {
+                publishing && snapshot.outputStatus == "congested" -> getString(R.string.notification_live_slow)
+                publishing && snapshot.outputStatus == "forwarding" && liveProfileIds.size > 1 ->
+                    resources.getQuantityString(R.plurals.notification_live_many, liveProfileIds.size, liveProfileIds.size)
+                publishing && snapshot.outputStatus == "forwarding" -> getString(R.string.notification_live)
+                publishing && snapshot.outputStatus == "reconnecting" -> getString(R.string.notification_reconnecting)
+                publishing -> getString(R.string.notification_connecting)
+                snapshot.outputStatus == "holding" -> getString(R.string.notification_holding)
+                else -> getString(R.string.notification_live_waiting)
             }
-            publishing ->
-                if (RelayServiceState.value.testVideoName != null) "Test videosu alınıyor" else "Drone görüntüsü alınıyor"
-            snapshot.status == "connected" -> "Kumanda bağlandı"
-            else -> "Drone bağlantısı bekleniyor"
+            publishing && RelayServiceState.value.testVideoName != null -> getString(R.string.notification_test_video)
+            publishing -> getString(R.string.notification_drone)
+            snapshot.status == "connected" -> getString(R.string.notification_connected)
+            else -> getString(R.string.notification_waiting)
         }
     }
 
@@ -450,7 +480,9 @@ class RelayForegroundService : Service() {
         private const val ACTION_STOP_TEST_VIDEO = "com.djilivebridge.android.action.STOP_TEST_VIDEO"
         private const val ACTION_STOP = "com.djilivebridge.android.action.STOP_RELAY"
         private const val EXTRA_DESTINATION_PROFILE_ID = "destination_profile_id"
+        private const val EXTRA_DESTINATION_PROFILE_IDS = "destination_profile_ids"
         private const val EXTRA_TEST_VIDEO_NAME = "test_video_name"
+        private const val EXTRA_TEST_VIDEO_DURATION_MS = "test_video_duration_ms"
         private const val EXTRA_RESTART = "restart"
         private const val CHANNEL_ID = "relay_status"
         private const val NOTIFICATION_ID = 1935
@@ -459,7 +491,6 @@ class RelayForegroundService : Service() {
         private const val RECEIVER_START_POLL_MS = 50L
         private const val WAKE_LOCK_TIMEOUT_MS = 6L * 60L * 60L * 1_000L
         private val LISTENING_STATUSES = setOf("listening", "connected", "publishing")
-        private const val GO_LIVE_FAILED = "Canlı yayın başlatılamadı"
 
         /**
          * Opens the receiver; with [testVideo] the picked file plays in place of DJI Fly, and with
@@ -476,24 +507,32 @@ class RelayForegroundService : Service() {
             if (testVideo != null) {
                 intent.setData(testVideo.uri)
                     .putExtra(EXTRA_TEST_VIDEO_NAME, testVideo.displayName)
+                    .putExtra(EXTRA_TEST_VIDEO_DURATION_MS, testVideo.durationMs ?: -1)
                     .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             }
             ContextCompat.startForegroundService(context, intent)
         }
 
-        /** Sends the received stream to the destination saved as [destinationProfileId]. */
-        fun goLive(context: Context, destinationProfileId: String) {
+        /** Sends the received stream to every destination in [destinationProfileIds]. */
+        fun goLive(context: Context, destinationProfileIds: List<String>) {
             ContextCompat.startForegroundService(
                 context,
                 Intent(context, RelayForegroundService::class.java)
                     .setAction(ACTION_GO_LIVE)
-                    .putExtra(EXTRA_DESTINATION_PROFILE_ID, destinationProfileId),
+                    .putExtra(EXTRA_DESTINATION_PROFILE_IDS, destinationProfileIds.toTypedArray()),
             )
         }
 
-        /** Ends the broadcast; the drone stays connected and its picture keeps showing. */
-        fun endLive(context: Context) {
-            context.startService(Intent(context, RelayForegroundService::class.java).setAction(ACTION_END_LIVE))
+        /**
+         * Ends the broadcast on [destinationProfileId], or everywhere when null; the drone stays
+         * connected and its picture keeps showing.
+         */
+        fun endLive(context: Context, destinationProfileId: String? = null) {
+            context.startService(
+                Intent(context, RelayForegroundService::class.java)
+                    .setAction(ACTION_END_LIVE)
+                    .putExtra(EXTRA_DESTINATION_PROFILE_ID, destinationProfileId),
+            )
         }
 
         fun stopTestVideo(context: Context) {

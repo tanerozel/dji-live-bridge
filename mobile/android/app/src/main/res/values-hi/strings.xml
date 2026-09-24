@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App and errors from the relay core -->
+    <string name="error_with_detail">%1$s (%2$s)</string>
+    <string name="error_receiver_not_running">रिसीवर नहीं चल रहा है। इसे दोबारा चालू करें और फिर कोशिश करें।</string>
+    <string name="error_listen_failed">पोर्ट 1935 नहीं खुल सका; शायद कोई दूसरा ऐप इसे इस्तेमाल कर रहा है।</string>
+    <string name="error_receiver_failed">रिसीवर रुक गया।</string>
+    <string name="error_internal">ऐप में कुछ गड़बड़ हो गई। दोबारा कोशिश करें।</string>
+    <string name="error_destination_scheme">सर्वर पता rtmp:// या rtmps:// से शुरू होना चाहिए।</string>
+    <string name="error_destination_path">सर्वर पते में सर्वर और ऐप पाथ, दोनों होने चाहिए।</string>
+    <string name="error_destination_server">सर्वर पता मान्य नहीं है।</string>
+    <string name="error_stream_key">स्ट्रीम की मान्य नहीं है।</string>
+    <string name="error_ca_bundle">RTMPS के लिए Android के सर्टिफ़िकेट तैयार नहीं हो सके।</string>
+
+    <!-- Shared components -->
+    <string name="live_badge">लाइव</string>
+    <string name="step">चरण %1$d</string>
+    <string name="step_done">चरण %1$d, पूरा हुआ</string>
+    <string name="copy_address">पता कॉपी करें</string>
+    <string name="collapse">बंद करें</string>
+    <string name="expand">खोलें</string>
+    <string name="state_expanded">खुला</string>
+    <string name="state_collapsed">बंद</string>
+
+    <!-- Themes -->
+    <string name="theme_system">सिस्टम</string>
+    <string name="theme_light">हल्का</string>
+    <string name="theme_dark">गहरा</string>
+    <string name="theme_midnight">मिडनाइट ब्लू</string>
+    <string name="theme_sand">रेत</string>
+
+    <!-- Drone preview -->
+    <string name="drone_picture">ड्रोन की तस्वीर</string>
+    <string name="preview_waiting">तस्वीर की प्रतीक्षा…</string>
+    <string name="preview_unsupported">प्रीव्यू यह वीडियो फ़ॉर्मैट नहीं दिखा सकता</string>
+
+    <!-- Test video -->
+    <string name="test_video_default_name">वीडियो</string>
+    <string name="test_video_looping">लूप में</string>
+    <string name="test_video_no_avc_config">वीडियो की H.264 सेटिंग्स पढ़ी नहीं जा सकीं।</string>
+    <string name="test_video_no_frames">वीडियो में भेजने के लिए कोई फ़्रेम नहीं है।</string>
+    <string name="test_video_rewind_failed">वीडियो रिवाइंड नहीं हो सका।</string>
+    <string name="test_video_open_failed">वीडियो खुल नहीं सका। कोई दूसरा वीडियो आज़माएँ।</string>
+    <string name="test_video_hevc">यह वीडियो H.265 (HEVC) में रिकॉर्ड हुआ है। H.264 वाला वीडियो चुनें; DJI Fly भी H.264 ही भेजता है।</string>
+    <string name="test_video_unsupported">इस वीडियो का फ़ॉर्मैट समर्थित नहीं है। H.264 वाला वीडियो चुनें।</string>
+    <string name="test_video_no_video">चुनी गई फ़ाइल में वीडियो नहीं है।</string>
+    <string name="test_video_receiver_not_ready">रिसीवर तैयार नहीं है।</string>
+    <string name="test_video_unreadable">वीडियो पढ़ा नहीं जा सका।</string>
+    <string name="test_video_stopped">टेस्ट वीडियो रुक गया</string>
+    <string name="test_video_rotated">वर्टिकल शूट किए गए वीडियो स्ट्रीम में आड़े दिख सकते हैं</string>
+
+    <!-- Platforms. on_* and to_* are phrases for where the stream is and where it goes, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
+    <string name="platform_custom">कस्टम RTMP</string>
+    <string name="on_instagram">Instagram पर</string>
+    <string name="on_tiktok">TikTok पर</string>
+    <string name="on_youtube">YouTube पर</string>
+    <string name="on_facebook">Facebook पर</string>
+    <string name="on_twitch">Twitch पर</string>
+    <string name="on_kick">Kick पर</string>
+    <string name="on_custom">कस्टम सर्वर पर</string>
+    <string name="to_instagram">Instagram से</string>
+    <string name="to_tiktok">TikTok से</string>
+    <string name="to_youtube">YouTube से</string>
+    <string name="to_facebook">Facebook से</string>
+    <string name="to_twitch">Twitch से</string>
+    <string name="to_kick">Kick से</string>
+    <string name="to_custom">कस्टम सर्वर से</string>
+    <string name="key_help_instagram">instagram.com पर बनाएँ (+) → लाइव वीडियो खोलें और “स्ट्रीम की” कॉपी करें। Instagram हर प्रसारण के लिए नई की देता है।</string>
+    <string name="key_help_tiktok">TikTok LIVE Center में स्ट्रीम की वाली स्क्रीन खोलें और सर्वर पता व स्ट्रीम की कॉपी करें। आपके खाते में RTMP अनुमति होनी चाहिए; TikTok हर प्रसारण के लिए नई की देता है।</string>
+    <string name="key_help_youtube">YouTube Studio में बनाएँ → लाइव जाएँ → स्ट्रीमिंग सॉफ़्टवेयर खोलें और “स्ट्रीम कुंजी” कॉपी करें। जब तक आप रीसेट न करें, कुंजी वही रहती है।</string>
+    <string name="key_help_facebook">facebook.com पर लाइव वीडियो → स्ट्रीमिंग सॉफ़्टवेयर खोलें और “स्ट्रीम कुंजी” कॉपी करें। स्थायी कुंजी चालू न की हो तो Facebook हर प्रसारण के लिए नई कुंजी देता है।</string>
+    <string name="key_help_twitch">Twitch के Creator Dashboard में Settings → Stream खोलें और अपनी प्राइमरी स्ट्रीम की कॉपी करें।</string>
+    <string name="key_help_kick">Kick पर Creator Dashboard → Settings → Stream URL &amp; Key खोलें और स्ट्रीम की कॉपी करें। वहाँ कोई दूसरा Stream URL दिखे, तो सर्वर पते की जगह वही डालें।</string>
+    <string name="key_help_custom">अपने सर्वर से मिला RTMP या RTMPS पता और स्ट्रीम की चिपकाएँ।</string>
+    <string name="server_placeholder">rtmp://your.server/live</string>
+    <string name="live_reminder_instagram">अब Instagram में “Go live” दबाएँ; इसके बाद ही आपका लाइव सबके लिए दिखेगा।</string>
+    <string name="live_reminder_tiktok">TikTok LIVE Center देखें; शायद वहाँ भी लाइव शुरू करना पड़े।</string>
+    <string name="live_reminder_youtube">ऑटो-स्टार्ट बंद हो तो YouTube Studio में “लाइव जाएँ” दबाएँ।</string>
+    <string name="live_reminder_facebook">Facebook पहले प्रीव्यू दिखाता है; स्ट्रीम सार्वजनिक करने के लिए वहाँ “लाइव जाएँ” दबाएँ।</string>
+
+    <!-- Saved platforms -->
+    <string name="profile_error_not_found">वह प्लेटफ़ॉर्म नहीं मिला।</string>
+    <string name="profile_error_key_required">स्ट्रीम की ज़रूरी है।</string>
+    <string name="profile_error_key_encrypt">Android Keystore से स्ट्रीम की एन्क्रिप्ट नहीं हो सकी।</string>
+    <string name="profile_error_key_decrypt">Android Keystore से स्ट्रीम की खोली नहीं जा सकी। प्लेटफ़ॉर्म हटाकर दोबारा जोड़ें।</string>
+    <string name="profile_error_read">आपके सहेजे गए प्लेटफ़ॉर्म पढ़े नहीं जा सके।</string>
+    <string name="profile_error_version">आपके प्लेटफ़ॉर्म ऐप के नए संस्करण में सहेजे गए थे।</string>
+    <string name="profile_error_corrupt">सहेजी गई प्लेटफ़ॉर्म सूची खराब हो गई है।</string>
+    <string name="profile_error_write">आपके प्लेटफ़ॉर्म सहेजे नहीं जा सके।</string>
+    <string name="profile_error_name">नाम 1 से 64 अक्षरों का होना चाहिए।</string>
+    <string name="profile_error_generic">प्लेटफ़ॉर्म अपडेट नहीं हो सका।</string>
+    <string name="profile_list_unreadable">सहेजे गए प्लेटफ़ॉर्म पढ़े नहीं जा सके</string>
+
+    <!-- Background service and notification -->
+    <string name="notification_channel">लाइव RTMP रिले</string>
+    <string name="notification_channel_description">DJI RC 2 से स्ट्रीम लेना और उसे आपके प्लेटफ़ॉर्मों पर भेजना</string>
+    <string name="notification_receiver_error">रिसीवर में त्रुटि</string>
+    <string name="notification_starting">रिसीवर तैयार हो रहा है</string>
+    <string name="notification_live">आप लाइव हैं</string>
+    <string name="notification_live_slow">आप लाइव हैं · कनेक्शन धीमा</string>
+    <plurals name="notification_live_many">
+        <item quantity="one">आप %d प्लेटफ़ॉर्म पर लाइव हैं</item>
+        <item quantity="other">आप %d प्लेटफ़ॉर्मों पर लाइव हैं</item>
+    </plurals>
+    <string name="notification_reconnecting">प्लेटफ़ॉर्म से दोबारा जुड़ रहा है</string>
+    <string name="notification_connecting">प्लेटफ़ॉर्म से जुड़ रहा है</string>
+    <string name="notification_holding">ड्रोन का कनेक्शन टूटा · प्रसारण चालू है</string>
+    <string name="notification_live_waiting">प्रसारण चालू · ड्रोन की प्रतीक्षा</string>
+    <string name="notification_test_video">टेस्ट वीडियो आ रहा है</string>
+    <string name="notification_drone">ड्रोन की तस्वीर आ रही है</string>
+    <string name="notification_connected">रिमोट जुड़ गया</string>
+    <string name="notification_waiting">ड्रोन की प्रतीक्षा</string>
+    <string name="end_broadcast">लाइव बंद करें</string>
+    <string name="close">बंद करें</string>
+    <string name="error_background_limit">Android की बैकग्राउंड ट्रांसफ़र समय-सीमा पूरी हो गई।</string>
+    <string name="error_service_start">बैकग्राउंड सेवा शुरू नहीं हो सकी।</string>
+    <string name="go_live_failed">लाइव शुरू नहीं हो सका</string>
+    <string name="pick_platform_first">पहले एक प्लेटफ़ॉर्म चुनें</string>
+    <string name="named_error">%1$s: %2$s</string>
+    <string name="test_video_failed">टेस्ट वीडियो भेजा नहीं जा सका (%1$s)।</string>
+
+    <!-- Stream key editor -->
+    <string name="key_paste_prompt">स्ट्रीम की चिपकाएँ</string>
+    <string name="save">सहेजें</string>
+    <string name="server_address">सर्वर पता</string>
+    <string name="stream_key">स्ट्रीम की</string>
+    <string name="stream_key_new">नई स्ट्रीम की</string>
+    <string name="stream_key_paste_here">यहाँ चिपकाएँ</string>
+    <string name="stream_key_keep_hint">वही की रखने के लिए खाली छोड़ें</string>
+    <string name="key_hide">की छिपाएँ</string>
+    <string name="key_show">की दिखाएँ</string>
+    <string name="stream_key_kept">खाली छोड़ें तो सहेजी गई की बनी रहेगी।</string>
+    <string name="stream_key_stored_encrypted">सिर्फ़ इसी फ़ोन पर, एन्क्रिप्ट करके रखी जाती है।</string>
+    <string name="change">बदलें</string>
+    <string name="save_failed">सहेजा नहीं जा सका</string>
+    <string name="delete_platform">यह प्लेटफ़ॉर्म हटाएँ</string>
+    <string name="discard_title">सहेजा नहीं गया</string>
+    <string name="discard_message">डाली गई जानकारी हटा दें?</string>
+    <string name="delete">हटाएँ</string>
+    <string name="go_back">वापस जाएँ</string>
+    <string name="delete_platform_title">%1$s हटाएँ?</string>
+    <string name="delete_platform_message">इस फ़ोन पर एन्क्रिप्ट करके रखी गई स्ट्रीम की भी हमेशा के लिए हट जाएगी।</string>
+    <string name="cancel">रद्द करें</string>
+
+    <!-- First-run guide -->
+    <string name="guide_skip">छोड़ें</string>
+    <string name="guide_next">आगे</string>
+    <string name="guide_start">शुरू करें</string>
+    <string name="guide_page">%2$d में से पेज %1$d</string>
+    <string name="guide_flow_title">आपके ड्रोन से लाइव स्ट्रीम तक</string>
+    <string name="guide_flow_body">रिमोट पर चल रहा DJI Fly तस्वीर इस फ़ोन पर भेजता है, और फ़ोन उसे आपके चुने हुए प्लेटफ़ॉर्मों तक पहुँचाता है।</string>
+    <string name="guide_connect_title">पहले ड्रोन जोड़ें</string>
+    <string name="guide_connect_body">स्क्रीन पर दिखा पता DJI Fly के RTMP खाने में लिखें। ड्रोन की तस्वीर तुरंत फ़ोन पर दिखने लगेगी; आप अभी कहीं भी लाइव नहीं हैं।</string>
+    <string name="guide_live_title">फिर लाइव जाएँ</string>
+    <string name="guide_live_body">एक या ज़्यादा प्लेटफ़ॉर्म चुनें, स्ट्रीम की चिपकाएँ और “लाइव जाएँ” दबाएँ। सर्वर पते पहले से तैयार हैं।</string>
+
+    <!-- Home screen -->
+    <string name="where_to_stream">कहाँ लाइव जाना है?</string>
+    <string name="pick_platforms_hint">एक या ज़्यादा प्लेटफ़ॉर्म पर टैप करें; स्ट्रीम सभी पर एक साथ जाएगी। सर्वर पता पहले से तैयार है, आपको बस स्ट्रीम की डालनी है।</string>
+    <string name="connect_drone">ड्रोन जोड़ें</string>
+    <string name="preview_badge">प्रीव्यू</string>
+    <string name="preview_badge_test">टेस्ट वीडियो · प्रीव्यू</string>
+    <string name="preview_connected">रिमोट जुड़ गया; तस्वीर बस आने वाली है।</string>
+    <string name="preview_drone_status">ड्रोन जुड़ा · %1$s। आप अभी लाइव नहीं हैं।</string>
+    <string name="preview_test_status">टेस्ट वीडियो आ रहा है · %1$s। आप अभी लाइव नहीं हैं।</string>
+    <string name="stop_test_video">टेस्ट वीडियो रोकें</string>
+    <string name="receiver_starting">रिसीवर तैयार हो रहा है…</string>
+    <string name="receiver_off">रिसीवर बंद है; DJI Fly इस फ़ोन से नहीं जुड़ सकता।</string>
+    <string name="retry">दोबारा कोशिश करें</string>
+    <string name="open_receiver">रिसीवर चालू करें</string>
+    <string name="test_video_opening">टेस्ट वीडियो खुल रहा है…</string>
+    <string name="dji_fly_instructions">इसे DJI Fly में RTMP पते के तौर पर डालें और स्ट्रीम शुरू करें। तस्वीर यहाँ दिखेगी; प्लेटफ़ॉर्मों पर यह तभी जाएगी जब आप लाइव जाएँगे।</string>
+    <string name="dji_fly_path">DJI Fly → GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP</string>
+    <string name="try_test_video">ड्रोन नहीं है? टेस्ट वीडियो आज़माएँ</string>
+    <string name="deselect">चयन हटाएँ</string>
+    <string name="select">चुनें</string>
+    <string name="add">जोड़ें</string>
+    <string name="edit">बदलें</string>
+    <string name="state_saved">सहेजा गया</string>
+    <string name="state_not_added">जोड़ा नहीं गया</string>
+    <string name="platform_selected">%1$s चुना गया</string>
+    <string name="key_changes_each_stream">हर स्ट्रीम के लिए नई की चाहिए</string>
+    <string name="key_saved">स्ट्रीम की सहेजी हुई है</string>
+    <string name="update_key">की अपडेट करें</string>
+    <plurals name="upload_note">
+        <item quantity="one">%d प्लेटफ़ॉर्म चुना गया। हर प्लेटफ़ॉर्म के लिए ड्रोन की तस्वीर अलग से अपलोड होती है; अपलोड स्पीड कम पड़े तो कुछ फ़्रेम छूट जाते हैं।</item>
+        <item quantity="other">%d प्लेटफ़ॉर्म चुने गए। हर प्लेटफ़ॉर्म के लिए ड्रोन की तस्वीर अलग से अपलोड होती है; अपलोड स्पीड कम पड़े तो कुछ फ़्रेम छूट जाते हैं।</item>
+    </plurals>
+    <plurals name="upload_note_total">
+        <item quantity="one">%1$d प्लेटफ़ॉर्म चुना गया। हर प्लेटफ़ॉर्म के लिए ड्रोन की तस्वीर अलग से अपलोड होती है (अभी कुल लगभग %2$s); अपलोड स्पीड कम पड़े तो कुछ फ़्रेम छूट जाते हैं।</item>
+        <item quantity="other">%1$d प्लेटफ़ॉर्म चुने गए। हर प्लेटफ़ॉर्म के लिए ड्रोन की तस्वीर अलग से अपलोड होती है (अभी कुल लगभग %2$s); अपलोड स्पीड कम पड़े तो कुछ फ़्रेम छूट जाते हैं।</item>
+    </plurals>
+    <string name="network_hotspot">हॉटस्पॉट चालू · रिमोट को इस फ़ोन से जोड़ें</string>
+    <string name="network_wifi">Wi-Fi जुड़ा है · रिमोट भी इसी नेटवर्क पर होना चाहिए</string>
+    <string name="network_local">लोकल नेटवर्क पर · रिमोट भी इसी नेटवर्क पर होना चाहिए</string>
+    <string name="no_network">फ़ोन Wi-Fi से नहीं जुड़ा है। Wi-Fi से जुड़ें या हॉटस्पॉट चालू करें।</string>
+    <string name="wifi_settings">Wi-Fi सेटिंग्स</string>
+
+    <!-- Live screen. hero_*_one sentences take an on_* or to_* phrase as %1$s. -->
+    <string name="tip_check_key">ऐसा बार-बार हो तो स्ट्रीम की, सर्वर पता और यह जाँचें कि प्लेटफ़ॉर्म पर लाइव स्ट्रीमिंग चालू है।</string>
+    <string name="tip_receiver_error">लाइव बंद करें और रिसीवर दोबारा चालू करें। समस्या बनी रहे तो फ़ोन रीस्टार्ट करके देखें।</string>
+    <string name="tip_congested">अपलोड बहुत धीमा है; स्ट्रीम चल रही है, पर कुछ फ़्रेम छूट रहे हैं। ज़्यादा मज़बूत कनेक्शन पर जाएँ, कम प्लेटफ़ॉर्म इस्तेमाल करें या DJI Fly में स्ट्रीमिंग क्वालिटी घटाएँ।</string>
+    <plurals name="platform_count">
+        <item quantity="one">%d प्लेटफ़ॉर्म</item>
+        <item quantity="other">%d प्लेटफ़ॉर्म</item>
+    </plurals>
+    <string name="hero_test_video">टेस्ट वीडियो तैयार हो रहा है</string>
+    <string name="hero_test_video_subtitle">कुछ ही पल में वीडियो भेजा जाने लगेगा।</string>
+    <string name="hero_drone_lost">ड्रोन का कनेक्शन टूट गया</string>
+    <string name="hero_drone_lost_subtitle">प्रसारण चालू रखा गया है; रिमोट के दोबारा जुड़ते ही यह वहीं से आगे चलेगा।</string>
+    <string name="hero_starting">शुरू हो रहा है</string>
+    <string name="hero_starting_subtitle">ब्रिज कुछ ही सेकंड में तैयार हो जाएगा।</string>
+    <string name="hero_waiting">रिमोट की प्रतीक्षा</string>
+    <string name="hero_waiting_subtitle_one">DJI Fly में स्ट्रीम शुरू करें; तस्वीर आते ही यह अपने आप %1$s जुड़ जाएगा।</string>
+    <string name="hero_waiting_subtitle_many">DJI Fly में स्ट्रीम शुरू करें; तस्वीर आते ही यह अपने आप प्लेटफ़ॉर्मों से जुड़ जाएगा।</string>
+    <string name="hero_connected">रिमोट जुड़ गया</string>
+    <string name="hero_connected_subtitle">तस्वीर बस आने वाली है।</string>
+    <string name="hero_connecting_one">%1$s जुड़ रहा है</string>
+    <string name="hero_connecting_many">प्लेटफ़ॉर्मों से जुड़ रहा है</string>
+    <string name="hero_live_one">आप %1$s लाइव हैं</string>
+    <plurals name="hero_live_many">
+        <item quantity="one">आप %d प्लेटफ़ॉर्म पर लाइव हैं</item>
+        <item quantity="other">आप %d प्लेटफ़ॉर्मों पर लाइव हैं</item>
+    </plurals>
+    <string name="hero_connection_lost">कनेक्शन टूट गया</string>
+    <string name="hero_reconnecting_one">%1$s दोबारा जुड़ रहा है…</string>
+    <string name="hero_reconnecting_many">प्लेटफ़ॉर्मों से दोबारा जुड़ रहा है…</string>
+    <string name="hero_receiver_stopped">रिसीवर रुक गया</string>
+    <string name="hero_off">स्ट्रीम बंद</string>
+    <string name="stream_time">स्ट्रीम का समय %1$s</string>
+    <string name="hop_controller">रिमोट</string>
+    <string name="hop_test_video">टेस्ट वीडियो</string>
+    <string name="hop_phone">फ़ोन</string>
+    <string name="hop_waiting">प्रतीक्षा में</string>
+    <string name="hop_connected">जुड़ा हुआ</string>
+    <string name="hop_sending">भेज रहा है</string>
+    <string name="hop_not_connected">जुड़ा नहीं</string>
+    <string name="hop_starting">शुरू हो रहा है</string>
+    <string name="hop_error">त्रुटि</string>
+    <string name="hop_ready">तैयार</string>
+    <string name="hop_live">लाइव</string>
+    <string name="hop_connecting">जुड़ रहा है</string>
+    <string name="hop_reconnecting">दोबारा जुड़ रहा है</string>
+    <string name="hop_standing_by">स्टैंडबाय पर</string>
+    <string name="hop_description">%1$s: %2$s, %3$s: %4$s, %5$s: %6$s</string>
+    <string name="start_on_controller">रिमोट पर स्ट्रीम शुरू करें</string>
+    <string name="phone_offline">फ़ोन का नेटवर्क चला गया</string>
+    <string name="phone_offline_message">Wi-Fi से दोबारा जुड़ें या हॉटस्पॉट चालू करें; पता यहाँ फिर से दिखेगा।</string>
+    <string name="not_connecting">जुड़ नहीं रहा?</string>
+    <string name="not_connecting_same_network">रिमोट और फ़ोन एक ही Wi-Fi पर होने चाहिए, या रिमोट इस फ़ोन के हॉटस्पॉट से जुड़ा होना चाहिए।</string>
+    <string name="not_connecting_exact_address">पता हूबहू लिखें; इसके अंत में :1935/drone होना चाहिए।</string>
+    <string name="not_connecting_guest_vpn">गेस्ट नेटवर्क और फ़ोन पर चल रहा VPN डिवाइसों को एक-दूसरे को देखने से रोक सकते हैं।</string>
+    <string name="stat_bitrate">बिटरेट</string>
+    <string name="stat_sent">भेजा गया</string>
+    <string name="stat_codec">कोडेक</string>
+    <string name="platforms">प्लेटफ़ॉर्म</string>
+    <string name="end">बंद करें</string>
+    <string name="end_platform">%1$s पर लाइव बंद करें</string>
+    <string name="status_live">लाइव</string>
+    <string name="status_congested">धीमा कनेक्शन · फ़्रेम छूट रहे हैं</string>
+    <string name="status_connecting">जुड़ रहा है</string>
+    <string name="status_reconnecting">दोबारा जुड़ रहा है</string>
+    <string name="status_holding">ड्रोन की प्रतीक्षा · प्रसारण चालू</string>
+    <string name="status_stopped">रुका हुआ</string>
+    <string name="status_waiting_for_picture">ड्रोन की तस्वीर की प्रतीक्षा</string>
+    <string name="output_armed">ड्रोन की तस्वीर आते ही जुड़ जाएगा</string>
+    <string name="output_connecting">%1$s के ज़रिए प्लेटफ़ॉर्म से जुड़ रहा है</string>
+    <string name="output_ready">प्लेटफ़ॉर्म ने स्ट्रीम स्वीकार कर ली</string>
+    <string name="output_ready_secure">सर्टिफ़िकेट सत्यापित; प्लेटफ़ॉर्म ने स्ट्रीम स्वीकार कर ली</string>
+    <string name="output_forwarding">RTMP के ज़रिए प्लेटफ़ॉर्म पर भेज रहा है</string>
+    <string name="output_forwarding_secure">सत्यापित TLS के ज़रिए प्लेटफ़ॉर्म पर भेज रहा है</string>
+    <string name="output_congested">अपलोड बहुत धीमा; तस्वीर अगले कीफ़्रेम पर कूद रही है</string>
+    <string name="output_holding">ड्रोन का कनेक्शन टूटा; प्लेटफ़ॉर्म से कनेक्शन बना हुआ है</string>
+    <plurals name="output_retry">
+        <item quantity="one">%d सेकंड में दोबारा कोशिश होगी</item>
+        <item quantity="other">%d सेकंड में दोबारा कोशिश होगी</item>
+    </plurals>
+    <string name="output_stopped">भेजना रुक गया</string>
+    <string name="output_failure_tls">TLS सर्टिफ़िकेट सत्यापित नहीं हो सका या नेटवर्क तक पहुँच नहीं है</string>
+    <string name="output_failure_connect">कनेक्शन नहीं बन सका</string>
+    <string name="output_failure_rejected">प्लेटफ़ॉर्म ने स्ट्रीम स्वीकार नहीं की</string>
+    <string name="output_failure_send">भेजते समय कनेक्शन टूट गया</string>
+    <string name="output_failure_network">नेटवर्क त्रुटि</string>
+    <string name="output_failure_stalled">प्लेटफ़ॉर्म ने डेटा लेना बंद कर दिया</string>
+    <string name="technical_details">तकनीकी विवरण</string>
+    <string name="detail_source">स्रोत</string>
+    <string name="detail_source_waiting">कनेक्शन की प्रतीक्षा</string>
+    <string name="detail_received">प्राप्त डेटा</string>
+    <string name="detail_packets">वीडियो / ऑडियो पैकेट</string>
+    <string name="detail_rejected">अस्वीकृत पब्लिश प्रयास</string>
+    <string name="detail_forwarded">आगे भेजा गया</string>
+    <string name="detail_connection">कनेक्शन</string>
+    <string name="connection_rtmps_verified">RTMPS · सर्टिफ़िकेट सत्यापित</string>
+    <string name="connection_rtmps_pending">RTMPS · सत्यापन की प्रतीक्षा</string>
+    <string name="connection_rtmp">RTMP · बिना एन्क्रिप्शन</string>
+    <string name="detail_status">स्थिति</string>
+    <string name="detail_last_error">आखिरी त्रुटि</string>
+    <string name="detail_reconnects">दोबारा जुड़ने के प्रयास</string>
+    <string name="detail_dropped">छोड़े गए पैकेट</string>
+    <string name="background_note">आप स्क्रीन लॉक कर सकते हैं; स्ट्रीम बैकग्राउंड में चलती रहेगी। Android 15 और उसके बाद के संस्करण बैकग्राउंड ट्रांसफ़र को हर 24 घंटे में कुल 6 घंटे तक सीमित रखते हैं।</string>
+
+    <!-- Main screen, dialogs and messages -->
+    <string name="language">भाषा</string>
+    <string name="language_system">फ़ोन की भाषा</string>
+    <string name="theme">थीम</string>
+    <string name="how_to_use">इस्तेमाल कैसे करें</string>
+    <string name="ok">ठीक है</string>
+    <string name="go_live">लाइव जाएँ</string>
+    <plurals name="go_live_many">
+        <item quantity="one">%d प्लेटफ़ॉर्म पर लाइव जाएँ</item>
+        <item quantity="other">%d प्लेटफ़ॉर्मों पर लाइव जाएँ</item>
+    </plurals>
+    <string name="go_live_needs_picture">ड्रोन की तस्वीर आने पर आप लाइव जा सकते हैं</string>
+    <string name="keep_streaming">लाइव जारी रखें</string>
+    <string name="end_one_title">%1$s पर लाइव बंद करें?</string>
+    <string name="end_one_message">%1$s लाइव स्ट्रीम बंद हो जाएगी; बाकी प्लेटफ़ॉर्मों पर लाइव जारी रहेगा।</string>
+    <string name="end_all_title">लाइव बंद करें?</string>
+    <string name="end_all_drone">लाइव स्ट्रीम बंद हो जाएगी। ड्रोन जुड़ा रहेगा और उसकी तस्वीर फ़ोन पर दिखती रहेगी।</string>
+    <string name="end_all_drone_many">सभी प्लेटफ़ॉर्मों पर लाइव स्ट्रीम बंद हो जाएगी। ड्रोन जुड़ा रहेगा और उसकी तस्वीर फ़ोन पर दिखती रहेगी।</string>
+    <string name="end_all_test_video">लाइव स्ट्रीम बंद हो जाएगी। टेस्ट वीडियो फ़ोन पर चलता रहेगा।</string>
+    <string name="end_all_test_video_many">सभी प्लेटफ़ॉर्मों पर लाइव स्ट्रीम बंद हो जाएगी। टेस्ट वीडियो फ़ोन पर चलता रहेगा।</string>
+    <string name="notification_permission_denied">सूचनाएँ बंद हैं; आप ऐप में स्ट्रीम पर नज़र रख सकते हैं</string>
+    <string name="clip_address_label">DJI Fly RTMP पता</string>
+    <string name="address_copied">पता कॉपी हो गया</string>
+    <string name="wifi_settings_failed">Wi-Fi सेटिंग्स नहीं खुल सकीं</string>
+    <string name="platform_added">%1$s जोड़ा गया</string>
+    <string name="platform_deleted">%1$s हटाया गया</string>
+    <string name="saved">सहेजा गया</string>
+</resources>

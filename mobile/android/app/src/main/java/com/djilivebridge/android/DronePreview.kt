@@ -37,6 +37,7 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PathFillType
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
@@ -70,6 +71,7 @@ internal fun DronePreview(
     var unsupported by remember { mutableStateOf(false) }
     val lifecycle by LocalLifecycleOwner.current.lifecycle.currentStateAsState()
     val shape = RoundedCornerShape(PREVIEW_CORNER)
+    val pictureDescription = stringResource(R.string.drone_picture)
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -86,7 +88,7 @@ internal fun DronePreview(
                 }
                 drawPath(corners, cornerColor)
             }
-            .semantics { contentDescription = "Drone görüntüsü" },
+            .semantics { contentDescription = pictureDescription },
         contentAlignment = Alignment.Center,
     ) {
         if (lifecycle.isAtLeast(Lifecycle.State.STARTED)) {
@@ -119,7 +121,7 @@ internal fun DronePreview(
                     CircularProgressIndicator(modifier = Modifier.size(22.dp), color = Color.White, strokeWidth = 2.dp)
                 }
                 Text(
-                    text = if (unsupported) "Önizleme bu görüntü biçimini gösteremiyor" else "Görüntü bekleniyor…",
+                    text = stringResource(if (unsupported) R.string.preview_unsupported else R.string.preview_waiting),
                     style = MaterialTheme.typography.bodySmall,
                     color = Color.White.copy(alpha = 0.8f),
                     textAlign = TextAlign.Center,

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App and errors from the relay core -->
+    <string name="error_with_detail">%1$s (‎%2$s‎)</string>
+    <string name="error_receiver_not_running">المستقبِل لا يعمل. شغّله من جديد ثم أعد المحاولة.</string>
+    <string name="error_listen_failed">تعذّر فتح المنفذ 1935؛ ربما يستخدمه تطبيق آخر.</string>
+    <string name="error_receiver_failed">توقّف المستقبِل.</string>
+    <string name="error_internal">حدث خطأ ما داخل التطبيق. حاول مرة أخرى.</string>
+    <string name="error_destination_scheme">يجب أن يبدأ عنوان الخادم بـ rtmp://‎ أو rtmps://‎.</string>
+    <string name="error_destination_path">يجب أن يتضمن عنوان الخادم اسم الخادم ومسار التطبيق.</string>
+    <string name="error_destination_server">عنوان الخادم غير صالح.</string>
+    <string name="error_stream_key">مفتاح البث غير صالح.</string>
+    <string name="error_ca_bundle">تعذّر تجهيز شهادات Android الخاصة بـ RTMPS.</string>
+
+    <!-- Shared components -->
+    <string name="live_badge">مباشر</string>
+    <string name="step">الخطوة %1$d</string>
+    <string name="step_done">الخطوة %1$d، مكتملة</string>
+    <string name="copy_address">نسخ العنوان</string>
+    <string name="collapse">تصغير</string>
+    <string name="expand">توسيع</string>
+    <string name="state_expanded">موسَّع</string>
+    <string name="state_collapsed">مصغَّر</string>
+
+    <!-- Themes -->
+    <string name="theme_system">حسب النظام</string>
+    <string name="theme_light">فاتح</string>
+    <string name="theme_dark">داكن</string>
+    <string name="theme_midnight">أزرق ليلي</string>
+    <string name="theme_sand">رملي</string>
+
+    <!-- Drone preview -->
+    <string name="drone_picture">صورة الدرون</string>
+    <string name="preview_waiting">في انتظار الصورة…</string>
+    <string name="preview_unsupported">لا يمكن عرض تنسيق الفيديو هذا في المعاينة</string>
+
+    <!-- Test video -->
+    <string name="test_video_default_name">فيديو</string>
+    <string name="test_video_looping">متكرر</string>
+    <string name="test_video_no_avc_config">تعذّرت قراءة إعدادات H.264 الخاصة بالفيديو.</string>
+    <string name="test_video_no_frames">لا يحتوي الفيديو على إطارات لإرسالها.</string>
+    <string name="test_video_rewind_failed">تعذّرت إعادة الفيديو إلى البداية.</string>
+    <string name="test_video_open_failed">تعذّر فتح الفيديو. جرّب فيديو آخر.</string>
+    <string name="test_video_hevc">هذا الفيديو مسجّل بترميز H.265 (HEVC)‎. اختر فيديو بترميز H.264، فهذا ما يرسله DJI Fly.</string>
+    <string name="test_video_unsupported">تنسيق هذا الفيديو غير مدعوم. اختر فيديو بترميز H.264.</string>
+    <string name="test_video_no_video">الملف الذي اخترته لا يحتوي على فيديو.</string>
+    <string name="test_video_receiver_not_ready">المستقبِل غير جاهز.</string>
+    <string name="test_video_unreadable">تعذّرت قراءة الفيديو.</string>
+    <string name="test_video_stopped">توقّف فيديو الاختبار</string>
+    <string name="test_video_rotated">قد تظهر مقاطع الفيديو المصوّرة عموديًا مُدارة على جانبها في البث</string>
+
+    <!-- Platforms. on_* and to_* are phrases for where the stream is and where it goes, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
+    <string name="platform_custom">‏RTMP مخصص</string>
+    <string name="on_instagram">على Instagram</string>
+    <string name="on_tiktok">على TikTok</string>
+    <string name="on_youtube">على YouTube</string>
+    <string name="on_facebook">على Facebook</string>
+    <string name="on_twitch">على Twitch</string>
+    <string name="on_kick">على Kick</string>
+    <string name="on_custom">على خادمك المخصص</string>
+    <string name="to_instagram">بـ Instagram</string>
+    <string name="to_tiktok">بـ TikTok</string>
+    <string name="to_youtube">بـ YouTube</string>
+    <string name="to_facebook">بـ Facebook</string>
+    <string name="to_twitch">بـ Twitch</string>
+    <string name="to_kick">بـ Kick</string>
+    <string name="to_custom">بخادمك المخصص</string>
+    <string name="key_help_instagram">في instagram.com، افتح إنشاء (+) ← فيديو مباشر وانسخ «مفتاح البث». يمنح Instagram مفتاحًا جديدًا لكل بث.</string>
+    <string name="key_help_tiktok">في TikTok LIVE Center، افتح شاشة مفتاح البث وانسخ عنوان الخادم ومفتاح البث. يحتاج حسابك إلى صلاحية RTMP؛ ويمنح TikTok مفتاحًا جديدًا لكل بث.</string>
+    <string name="key_help_youtube">في YouTube Studio، افتح إنشاء ← بدء البث المباشر ← برنامج البث وانسخ «مفتاح البث». يبقى المفتاح كما هو إلى أن تعيد ضبطه.</string>
+    <string name="key_help_facebook">على facebook.com، افتح فيديو مباشر ← برنامج البث وانسخ «مفتاح البث». يمنح Facebook مفتاحًا جديدًا لكل بث ما لم تفعّل مفتاحًا دائمًا.</string>
+    <string name="key_help_twitch">في لوحة تحكم صانع المحتوى على Twitch، افتح الإعدادات ← البث وانسخ مفتاح البث الأساسي.</string>
+    <string name="key_help_kick">في Kick، افتح Creator Dashboard → Settings → Stream URL &amp; Key وانسخ المفتاح. إذا ظهر لك Stream URL مختلف، فاستخدمه بدلًا من عنوان الخادم الحالي.</string>
+    <string name="key_help_custom">الصق عنوان RTMP أو RTMPS ومفتاح البث اللذين يوفّرهما خادمك.</string>
+    <string name="server_placeholder">rtmp://your.server/live</string>
+    <string name="live_reminder_instagram">اضغط الآن «بدء البث» في Instagram؛ فلا يصبح البث علنيًا إلا بعد ذلك.</string>
+    <string name="live_reminder_tiktok">تحقق من TikTok LIVE Center؛ فقد تحتاج إلى بدء البث هناك أيضًا.</string>
+    <string name="live_reminder_youtube">إذا كان البدء التلقائي متوقفًا، فاضغط «بدء البث المباشر» في YouTube Studio.</string>
+    <string name="live_reminder_facebook">يعرض Facebook معاينة أولًا؛ اضغط «بدء البث المباشر» هناك ليصبح البث علنيًا.</string>
+
+    <!-- Saved platforms -->
+    <string name="profile_error_not_found">تعذّر العثور على هذه المنصة.</string>
+    <string name="profile_error_key_required">مفتاح البث مطلوب.</string>
+    <string name="profile_error_key_encrypt">تعذّر تشفير مفتاح البث باستخدام Android Keystore.</string>
+    <string name="profile_error_key_decrypt">تعذّر فك تشفير مفتاح البث باستخدام Android Keystore. احذف المنصات ثم أضفها من جديد.</string>
+    <string name="profile_error_read">تعذّرت قراءة منصاتك المحفوظة.</string>
+    <string name="profile_error_version">تم حفظ منصاتك بإصدار أحدث من التطبيق.</string>
+    <string name="profile_error_corrupt">قائمة المنصات المحفوظة تالفة.</string>
+    <string name="profile_error_write">تعذّر حفظ منصاتك.</string>
+    <string name="profile_error_name">يجب أن يتكون الاسم من 1 إلى 64 حرفًا.</string>
+    <string name="profile_error_generic">تعذّر تحديث المنصة.</string>
+    <string name="profile_list_unreadable">تعذّرت قراءة المنصات المحفوظة</string>
+
+    <!-- Background service and notification -->
+    <string name="notification_channel">نقل البث المباشر عبر RTMP</string>
+    <string name="notification_channel_description">استقبال البث من DJI RC 2 وإرساله إلى منصاتك</string>
+    <string name="notification_receiver_error">خطأ في المستقبِل</string>
+    <string name="notification_starting">جارٍ تجهيز المستقبِل</string>
+    <string name="notification_live">أنت تبث مباشرةً</string>
+    <string name="notification_live_slow">أنت تبث مباشرةً · الاتصال بطيء</string>
+    <plurals name="notification_live_many">
+        <item quantity="zero">أنت تبث مباشرةً على %d منصة</item>
+        <item quantity="one">أنت تبث مباشرةً على %d منصة</item>
+        <item quantity="two">أنت تبث مباشرةً على منصتين (%d)</item>
+        <item quantity="few">أنت تبث مباشرةً على %d منصات</item>
+        <item quantity="many">أنت تبث مباشرةً على %d منصة</item>
+        <item quantity="other">أنت تبث مباشرةً على %d منصة</item>
+    </plurals>
+    <string name="notification_reconnecting">جارٍ إعادة الاتصال بالمنصة</string>
+    <string name="notification_connecting">جارٍ الاتصال بالمنصة</string>
+    <string name="notification_holding">انقطع اتصال الدرون · البث ما زال مفتوحًا</string>
+    <string name="notification_live_waiting">البث يعمل · في انتظار الدرون</string>
+    <string name="notification_test_video">جارٍ استقبال فيديو الاختبار</string>
+    <string name="notification_drone">جارٍ استقبال صورة الدرون</string>
+    <string name="notification_connected">وحدة التحكم متصلة</string>
+    <string name="notification_waiting">في انتظار الدرون</string>
+    <string name="end_broadcast">إنهاء البث</string>
+    <string name="close">إغلاق</string>
+    <string name="error_background_limit">تم بلوغ الحد الذي يفرضه Android على النقل في الخلفية.</string>
+    <string name="error_service_start">تعذّر تشغيل الخدمة في الخلفية.</string>
+    <string name="go_live_failed">تعذّر بدء البث المباشر</string>
+    <string name="pick_platform_first">اختر منصة أولًا</string>
+    <string name="named_error">‏%1$s: %2$s</string>
+    <string name="test_video_failed">تعذّر إرسال فيديو الاختبار (‎%1$s‎).</string>
+
+    <!-- Stream key editor -->
+    <string name="key_paste_prompt">الصق مفتاح البث</string>
+    <string name="save">حفظ</string>
+    <string name="server_address">عنوان الخادم</string>
+    <string name="stream_key">مفتاح البث</string>
+    <string name="stream_key_new">مفتاح بث جديد</string>
+    <string name="stream_key_paste_here">الصقه هنا</string>
+    <string name="stream_key_keep_hint">اتركه فارغًا للاحتفاظ به</string>
+    <string name="key_hide">إخفاء المفتاح</string>
+    <string name="key_show">إظهار المفتاح</string>
+    <string name="stream_key_kept">إذا تركته فارغًا، يبقى المفتاح المحفوظ كما هو.</string>
+    <string name="stream_key_stored_encrypted">يُحفظ مشفّرًا على هذا الهاتف فقط.</string>
+    <string name="change">تغيير</string>
+    <string name="save_failed">تعذّر الحفظ</string>
+    <string name="delete_platform">حذف هذه المنصة</string>
+    <string name="discard_title">لم يتم الحفظ</string>
+    <string name="discard_message">هل تريد تجاهل ما أدخلته؟</string>
+    <string name="delete">حذف</string>
+    <string name="go_back">رجوع</string>
+    <string name="delete_platform_title">هل تريد حذف %1$s؟</string>
+    <string name="delete_platform_message">سيُحذف أيضًا مفتاح البث المحفوظ مشفّرًا على هذا الهاتف نهائيًا.</string>
+    <string name="cancel">إلغاء</string>
+
+    <!-- First-run guide -->
+    <string name="guide_skip">تخطٍّ</string>
+    <string name="guide_next">التالي</string>
+    <string name="guide_start">ابدأ</string>
+    <string name="guide_page">الصفحة %1$d من %2$d</string>
+    <string name="guide_flow_title">من الدرون إلى البث المباشر</string>
+    <string name="guide_flow_body">يرسل تطبيق DJI Fly على وحدة التحكم الصورة إلى هذا الهاتف، ثم يمررها الهاتف إلى المنصات التي تختارها.</string>
+    <string name="guide_connect_title">أولًا، وصّل الدرون</string>
+    <string name="guide_connect_body">اكتب العنوان الظاهر على الشاشة في حقل RTMP داخل DJI Fly. ستظهر صورة الدرون على الهاتف فورًا، لكنك لم تبدأ البث المباشر في أي مكان بعد.</string>
+    <string name="guide_live_title">ثم ابدأ البث المباشر</string>
+    <string name="guide_live_body">اختر منصة أو أكثر، والصق مفتاح البث، ثم اضغط «ابدأ البث المباشر». عناوين الخوادم جاهزة.</string>
+
+    <!-- Home screen -->
+    <string name="where_to_stream">إلى أين تريد البث؟</string>
+    <string name="pick_platforms_hint">انقر على منصة أو أكثر؛ وسيصل البث إليها جميعًا في الوقت نفسه. عنوان الخادم جاهز، وكل ما عليك هو إدخال مفتاح البث.</string>
+    <string name="connect_drone">وصّل الدرون</string>
+    <string name="preview_badge">معاينة</string>
+    <string name="preview_badge_test">فيديو الاختبار · معاينة</string>
+    <string name="preview_connected">وحدة التحكم متصلة؛ ستصل الصورة بعد لحظات.</string>
+    <string name="preview_drone_status">الدرون متصل · %1$s. لم تبدأ البث المباشر بعد.</string>
+    <string name="preview_test_status">فيديو الاختبار يصل الآن · %1$s. لم تبدأ البث المباشر بعد.</string>
+    <string name="stop_test_video">إيقاف فيديو الاختبار</string>
+    <string name="receiver_starting">جارٍ تجهيز المستقبِل…</string>
+    <string name="receiver_off">المستقبِل متوقف؛ لا يستطيع DJI Fly الاتصال بهذا الهاتف.</string>
+    <string name="retry">إعادة المحاولة</string>
+    <string name="open_receiver">تشغيل المستقبِل</string>
+    <string name="test_video_opening">جارٍ فتح فيديو الاختبار…</string>
+    <string name="dji_fly_instructions">أدخل هذا العنوان في DJI Fly كعنوان RTMP وابدأ البث. ستظهر الصورة هنا، ولن تصل إلى المنصات إلا عندما تبدأ البث المباشر.</string>
+    <string name="dji_fly_path">‏DJI Fly‏ ← GO FLY ← ••• ← الإرسال ← منصات البث المباشر ← RTMP</string>
+    <string name="try_test_video">ليس لديك درون؟ جرّب فيديو اختبار</string>
+    <string name="deselect">إلغاء الاختيار</string>
+    <string name="select">اختيار</string>
+    <string name="add">إضافة</string>
+    <string name="edit">تعديل</string>
+    <string name="state_saved">محفوظة</string>
+    <string name="state_not_added">غير مضافة</string>
+    <string name="platform_selected">تم اختيار %1$s</string>
+    <string name="key_changes_each_stream">يلزم مفتاح جديد لكل بث</string>
+    <string name="key_saved">مفتاح البث محفوظ</string>
+    <string name="update_key">تحديث المفتاح</string>
+    <plurals name="upload_note">
+        <item quantity="zero">تم اختيار %d منصة. تُرفع صورة الدرون إلى كل منصة على حدة؛ وإذا لم تكفِ سرعة الرفع، يتم تخطي بعض الإطارات.</item>
+        <item quantity="one">تم اختيار %d منصة. تُرفع صورة الدرون إلى كل منصة على حدة؛ وإذا لم تكفِ سرعة الرفع، يتم تخطي بعض الإطارات.</item>
+        <item quantity="two">تم اختيار منصتين (%d). تُرفع صورة الدرون إلى كل منصة على حدة؛ وإذا لم تكفِ سرعة الرفع، يتم تخطي بعض الإطارات.</item>
+        <item quantity="few">تم اختيار %d منصات. تُرفع صورة الدرون إلى كل منصة على حدة؛ وإذا لم تكفِ سرعة الرفع، يتم تخطي بعض الإطارات.</item>
+        <item quantity="many">تم اختيار %d منصة. تُرفع صورة الدرون إلى كل منصة على حدة؛ وإذا لم تكفِ سرعة الرفع، يتم تخطي بعض الإطارات.</item>
+        <item quantity="other">تم اختيار %d منصة. تُرفع صورة الدرون إلى كل منصة على حدة؛ وإذا لم تكفِ سرعة الرفع، يتم تخطي بعض الإطارات.</item>
+    </plurals>
+    <plurals name="upload_note_total">
+        <item quantity="zero">تم اختيار %1$d منصة. تُرفع صورة الدرون إلى كل منصة على حدة (نحو %2$s إجمالًا حاليًا)؛ وإذا لم تكفِ سرعة الرفع، يتم تخطي بعض الإطارات.</item>
+        <item quantity="one">تم اختيار %1$d منصة. تُرفع صورة الدرون إلى كل منصة على حدة (نحو %2$s إجمالًا حاليًا)؛ وإذا لم تكفِ سرعة الرفع، يتم تخطي بعض الإطارات.</item>
+        <item quantity="two">تم اختيار منصتين (%1$d). تُرفع صورة الدرون إلى كل منصة على حدة (نحو %2$s إجمالًا حاليًا)؛ وإذا لم تكفِ سرعة الرفع، يتم تخطي بعض الإطارات.</item>
+        <item quantity="few">تم اختيار %1$d منصات. تُرفع صورة الدرون إلى كل منصة على حدة (نحو %2$s إجمالًا حاليًا)؛ وإذا لم تكفِ سرعة الرفع، يتم تخطي بعض الإطارات.</item>
+        <item quantity="many">تم اختيار %1$d منصة. تُرفع صورة الدرون إلى كل منصة على حدة (نحو %2$s إجمالًا حاليًا)؛ وإذا لم تكفِ سرعة الرفع، يتم تخطي بعض الإطارات.</item>
+        <item quantity="other">تم اختيار %1$d منصة. تُرفع صورة الدرون إلى كل منصة على حدة (نحو %2$s إجمالًا حاليًا)؛ وإذا لم تكفِ سرعة الرفع، يتم تخطي بعض الإطارات.</item>
+    </plurals>
+    <string name="network_hotspot">نقطة الاتصال مفعّلة · وصّل وحدة التحكم بهذا الهاتف</string>
+    <string name="network_wifi">متصل بالشبكة اللاسلكية · يجب أن تكون وحدة التحكم على الشبكة نفسها</string>
+    <string name="network_local">متصل بشبكة محلية · يجب أن تكون وحدة التحكم على الشبكة نفسها</string>
+    <string name="no_network">الهاتف غير متصل بشبكة لاسلكية. اتصل بشبكة لاسلكية أو فعّل نقطة الاتصال.</string>
+    <string name="wifi_settings">إعدادات الشبكة اللاسلكية</string>
+
+    <!-- Live screen. hero_*_one sentences take an on_* or to_* phrase as %1$s. -->
+    <string name="tip_check_key">إذا تكرر ذلك، فتحقق من مفتاح البث وعنوان الخادم، ومن تفعيل البث المباشر على المنصة.</string>
+    <string name="tip_receiver_error">أنهِ البث ثم شغّل المستقبِل من جديد. إذا استمرت المشكلة، فجرّب إعادة تشغيل الهاتف.</string>
+    <string name="tip_congested">سرعة الرفع بطيئة جدًا؛ البث مستمر لكن يتم تخطي بعض الإطارات. انتقل إلى اتصال أقوى، أو قلّل عدد المنصات، أو اخفض جودة البث في DJI Fly.</string>
+    <plurals name="platform_count">
+        <item quantity="zero">%d منصة</item>
+        <item quantity="one">%d منصة</item>
+        <item quantity="two">منصتان (%d)</item>
+        <item quantity="few">%d منصات</item>
+        <item quantity="many">%d منصة</item>
+        <item quantity="other">%d منصة</item>
+    </plurals>
+    <string name="hero_test_video">جارٍ تجهيز فيديو الاختبار</string>
+    <string name="hero_test_video_subtitle">سيبدأ إرسال الفيديو بعد لحظات.</string>
+    <string name="hero_drone_lost">انقطع اتصال الدرون</string>
+    <string name="hero_drone_lost_subtitle">البث ما زال مفتوحًا، وسيُستأنف من حيث توقف عند إعادة اتصال وحدة التحكم.</string>
+    <string name="hero_starting">جارٍ البدء</string>
+    <string name="hero_starting_subtitle">سيكون كل شيء جاهزًا خلال بضع ثوانٍ.</string>
+    <string name="hero_waiting">في انتظار وحدة التحكم</string>
+    <string name="hero_waiting_subtitle_one">ابدأ البث في DJI Fly؛ وعند وصول الصورة سيتم الاتصال %1$s تلقائيًا.</string>
+    <string name="hero_waiting_subtitle_many">ابدأ البث في DJI Fly؛ وعند وصول الصورة سيتم الاتصال بالمنصات تلقائيًا.</string>
+    <string name="hero_connected">وحدة التحكم متصلة</string>
+    <string name="hero_connected_subtitle">ستصل الصورة بعد لحظات.</string>
+    <string name="hero_connecting_one">جارٍ الاتصال %1$s</string>
+    <string name="hero_connecting_many">جارٍ الاتصال بالمنصات</string>
+    <string name="hero_live_one">أنت تبث مباشرةً %1$s</string>
+    <plurals name="hero_live_many">
+        <item quantity="zero">أنت تبث مباشرةً على %d منصة</item>
+        <item quantity="one">أنت تبث مباشرةً على %d منصة</item>
+        <item quantity="two">أنت تبث مباشرةً على منصتين (%d)</item>
+        <item quantity="few">أنت تبث مباشرةً على %d منصات</item>
+        <item quantity="many">أنت تبث مباشرةً على %d منصة</item>
+        <item quantity="other">أنت تبث مباشرةً على %d منصة</item>
+    </plurals>
+    <string name="hero_connection_lost">انقطع الاتصال</string>
+    <string name="hero_reconnecting_one">جارٍ إعادة الاتصال %1$s…</string>
+    <string name="hero_reconnecting_many">جارٍ إعادة الاتصال بالمنصات…</string>
+    <string name="hero_receiver_stopped">توقّف المستقبِل</string>
+    <string name="hero_off">البث متوقف</string>
+    <string name="stream_time">مدة البث %1$s</string>
+    <string name="hop_controller">وحدة التحكم</string>
+    <string name="hop_test_video">فيديو الاختبار</string>
+    <string name="hop_phone">الهاتف</string>
+    <string name="hop_waiting">في الانتظار</string>
+    <string name="hop_connected">متصل</string>
+    <string name="hop_sending">جارٍ الإرسال</string>
+    <string name="hop_not_connected">غير متصل</string>
+    <string name="hop_starting">جارٍ البدء</string>
+    <string name="hop_error">خطأ</string>
+    <string name="hop_ready">جاهز</string>
+    <string name="hop_live">مباشر</string>
+    <string name="hop_connecting">جارٍ الاتصال</string>
+    <string name="hop_reconnecting">جارٍ إعادة الاتصال</string>
+    <string name="hop_standing_by">في وضع الاستعداد</string>
+    <string name="hop_description">%1$s: %2$s، %3$s: %4$s، %5$s: %6$s</string>
+    <string name="start_on_controller">ابدأ البث من وحدة التحكم</string>
+    <string name="phone_offline">انقطع اتصال الهاتف بالشبكة</string>
+    <string name="phone_offline_message">أعد الاتصال بالشبكة اللاسلكية أو فعّل نقطة الاتصال؛ وسيظهر العنوان هنا من جديد.</string>
+    <string name="not_connecting">هل يتعذّر الاتصال؟</string>
+    <string name="not_connecting_same_network">يجب أن تكون وحدة التحكم والهاتف على الشبكة اللاسلكية نفسها، أو أن تكون وحدة التحكم متصلة بنقطة الاتصال في هذا الهاتف.</string>
+    <string name="not_connecting_exact_address">اكتب العنوان كما هو تمامًا؛ يجب أن ينتهي بـ ‎:1935/drone.</string>
+    <string name="not_connecting_guest_vpn">قد تمنع شبكات الضيوف أو شبكة VPN على الهاتف الأجهزة من رؤية بعضها بعضًا.</string>
+    <string name="stat_bitrate">معدل البت</string>
+    <string name="stat_sent">المُرسَل</string>
+    <string name="stat_codec">الترميز</string>
+    <string name="platforms">المنصات</string>
+    <string name="end">إنهاء</string>
+    <string name="end_platform">إنهاء البث على %1$s</string>
+    <string name="status_live">مباشر</string>
+    <string name="status_congested">الاتصال بطيء · يتم تخطي بعض الإطارات</string>
+    <string name="status_connecting">جارٍ الاتصال</string>
+    <string name="status_reconnecting">جارٍ إعادة الاتصال</string>
+    <string name="status_holding">في انتظار الدرون · البث يعمل</string>
+    <string name="status_stopped">متوقف</string>
+    <string name="status_waiting_for_picture">في انتظار صورة الدرون</string>
+    <string name="output_armed">سيبدأ الاتصال عند وصول صورة الدرون</string>
+    <string name="output_connecting">جارٍ الاتصال بالمنصة عبر %1$s</string>
+    <string name="output_ready">قبلت المنصة البث</string>
+    <string name="output_ready_secure">تم التحقق من الشهادة؛ وقبلت المنصة البث</string>
+    <string name="output_forwarding">جارٍ الإرسال إلى المنصة عبر RTMP</string>
+    <string name="output_forwarding_secure">جارٍ الإرسال إلى المنصة عبر اتصال TLS موثّق</string>
+    <string name="output_congested">الرفع بطيء جدًا؛ تقفز الصورة إلى الإطار الرئيسي التالي</string>
+    <string name="output_holding">انقطع اتصال الدرون؛ والاتصال بالمنصة ما زال مفتوحًا</string>
+    <plurals name="output_retry">
+        <item quantity="zero">إعادة المحاولة خلال %d ثانية</item>
+        <item quantity="one">إعادة المحاولة خلال %d ثانية</item>
+        <item quantity="two">إعادة المحاولة خلال ثانيتين (%d)</item>
+        <item quantity="few">إعادة المحاولة خلال %d ثوانٍ</item>
+        <item quantity="many">إعادة المحاولة خلال %d ثانية</item>
+        <item quantity="other">إعادة المحاولة خلال %d ثانية</item>
+    </plurals>
+    <string name="output_stopped">توقّف الإرسال</string>
+    <string name="output_failure_tls">تعذّر التحقق من شهادة TLS أو تعذّر الوصول إلى الشبكة</string>
+    <string name="output_failure_connect">تعذّر الاتصال</string>
+    <string name="output_failure_rejected">لم تقبل المنصة البث</string>
+    <string name="output_failure_send">انقطع الاتصال أثناء الإرسال</string>
+    <string name="output_failure_network">خطأ في الشبكة</string>
+    <string name="output_failure_stalled">توقّفت المنصة عن استقبال البيانات</string>
+    <string name="technical_details">تفاصيل تقنية</string>
+    <string name="detail_source">المصدر</string>
+    <string name="detail_source_waiting">في انتظار الاتصال</string>
+    <string name="detail_received">البيانات المستلَمة</string>
+    <string name="detail_packets">حزم الفيديو / الصوت</string>
+    <string name="detail_rejected">محاولات البث المرفوضة</string>
+    <string name="detail_forwarded">البيانات المُمرَّرة</string>
+    <string name="detail_connection">الاتصال</string>
+    <string name="connection_rtmps_verified">‏RTMPS · الشهادة موثّقة</string>
+    <string name="connection_rtmps_pending">‏RTMPS · في انتظار التحقق</string>
+    <string name="connection_rtmp">‏RTMP · غير مشفّر</string>
+    <string name="detail_status">الحالة</string>
+    <string name="detail_last_error">آخر خطأ</string>
+    <string name="detail_reconnects">مرات إعادة الاتصال</string>
+    <string name="detail_dropped">الحزم المتخطّاة</string>
+    <string name="background_note">يمكنك قفل الشاشة؛ فالبث يستمر في الخلفية. يسمح Android 15 والإصدارات الأحدث بالنقل في الخلفية لمدة 6 ساعات إجمالًا كل 24 ساعة.</string>
+
+    <!-- Main screen, dialogs and messages -->
+    <string name="language">اللغة</string>
+    <string name="language_system">لغة الهاتف</string>
+    <string name="theme">المظهر</string>
+    <string name="how_to_use">طريقة الاستخدام</string>
+    <string name="ok">حسنًا</string>
+    <string name="go_live">ابدأ البث المباشر</string>
+    <plurals name="go_live_many">
+        <item quantity="zero">ابدأ البث المباشر على %d منصة</item>
+        <item quantity="one">ابدأ البث المباشر على %d منصة</item>
+        <item quantity="two">ابدأ البث المباشر على منصتين (%d)</item>
+        <item quantity="few">ابدأ البث المباشر على %d منصات</item>
+        <item quantity="many">ابدأ البث المباشر على %d منصة</item>
+        <item quantity="other">ابدأ البث المباشر على %d منصة</item>
+    </plurals>
+    <string name="go_live_needs_picture">يمكنك بدء البث المباشر بعد وصول صورة الدرون</string>
+    <string name="keep_streaming">متابعة البث</string>
+    <string name="end_one_title">هل تريد إنهاء البث على %1$s؟</string>
+    <string name="end_one_message">سينتهي البث المباشر %1$s، ويستمر على المنصات الأخرى.</string>
+    <string name="end_all_title">هل تريد إنهاء البث؟</string>
+    <string name="end_all_drone">سينتهي البث المباشر. سيبقى الدرون متصلًا وستظل صورته ظاهرة على الهاتف.</string>
+    <string name="end_all_drone_many">سينتهي البث المباشر على جميع المنصات. سيبقى الدرون متصلًا وستظل صورته ظاهرة على الهاتف.</string>
+    <string name="end_all_test_video">سينتهي البث المباشر. سيستمر تشغيل فيديو الاختبار على الهاتف.</string>
+    <string name="end_all_test_video_many">سينتهي البث المباشر على جميع المنصات. سيستمر تشغيل فيديو الاختبار على الهاتف.</string>
+    <string name="notification_permission_denied">الإشعارات متوقفة؛ يمكنك متابعة البث من التطبيق</string>
+    <string name="clip_address_label">عنوان RTMP لـ DJI Fly</string>
+    <string name="address_copied">تم نسخ العنوان</string>
+    <string name="wifi_settings_failed">تعذّر فتح إعدادات الشبكة اللاسلكية</string>
+    <string name="platform_added">تمت إضافة %1$s</string>
+    <string name="platform_deleted">تم حذف %1$s</string>
+    <string name="saved">تم الحفظ</string>
+</resources>

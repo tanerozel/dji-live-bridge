@@ -8,10 +8,11 @@ import android.os.SystemClock
 import android.provider.OpenableColumns
 import java.nio.ByteBuffer
 
-internal class TestVideoException(message: String) : Exception(message)
+/** A test video problem the user can act on, in words for the screen. */
+internal class TestVideoException(val text: UiText) : Exception()
 
 /** A video the user picked to stand in for the drone. */
-internal class TestVideoSelection(val uri: Uri, val displayName: String, val rotated: Boolean)
+internal class TestVideoSelection(val uri: Uri, val displayName: String?, val durationMs: Long?, val rotated: Boolean)
 
 private const val LOOPBACK_HOST = "127.0.0.1"
 private const val INGEST_PORT = 1935
@@ -35,7 +36,7 @@ internal fun inspectTestVideo(context: Context, uri: Uri): TestVideoSelection {
         val format = tracks.videoFormat
         val rotation = if (format.containsKey(MediaFormat.KEY_ROTATION)) format.getInteger(MediaFormat.KEY_ROTATION) else 0
         val durationMs = if (format.containsKey(MediaFormat.KEY_DURATION)) format.getLong(MediaFormat.KEY_DURATION) / 1_000 else null
-        return TestVideoSelection(uri, testVideoLabel(displayName(context, uri), durationMs), rotated = rotation % 180 != 0)
+        return TestVideoSelection(uri, displayName(context, uri), durationMs, rotated = rotation % 180 != 0)
     } finally {
         extractor.release()
     }
@@ -56,7 +57,7 @@ internal class TestVideoStreamer(private val context: Context, private val uri: 
             val videoFormat = tracks.videoFormat
             val configuration = avcConfigurationRecord(
                 *listOfNotNull(videoFormat.codecData("csd-0"), videoFormat.codecData("csd-1")).toTypedArray(),
-            ) ?: throw TestVideoException("Videonun H.264 ayarları okunamadı.")
+            ) ?: throw TestVideoException(uiText(R.string.test_video_no_avc_config))
             val audioConfig = tracks.audioFormat?.codecData("csd-0")
             val audioTrack = tracks.audio.takeIf { audioConfig != null }
 
@@ -88,7 +89,7 @@ internal class TestVideoStreamer(private val context: Context, private val uri: 
             last = maxOf(last, time)
             if (!extractor.advance()) break
         }
-        if (videoTimes.isEmpty()) throw TestVideoException("Videoda gönderilecek kare yok.")
+        if (videoTimes.isEmpty()) throw TestVideoException(uiText(R.string.test_video_no_frames))
         val decodeTimes = decodeTimestamps(videoTimes.toLongArray())
         val frameUs = if (videoTimes.size > 1) {
             ((videoTimes.max() - videoTimes.min()) / (videoTimes.size - 1)).coerceAtLeast(1_000)
@@ -112,7 +113,7 @@ internal class TestVideoStreamer(private val context: Context, private val uri: 
                 loop++
                 videoIndex = 0
                 extractor.seekTo(0, MediaExtractor.SEEK_TO_PREVIOUS_SYNC)
-                if (extractor.sampleTrackIndex < 0) throw TestVideoException("Video başa sarılamadı.")
+                if (extractor.sampleTrackIndex < 0) throw TestVideoException(uiText(R.string.test_video_rewind_failed))
                 continue
             }
             val presentationUs = extractor.sampleTime
@@ -159,7 +160,7 @@ private fun openVideo(extractor: MediaExtractor, context: Context, uri: Uri) {
     try {
         extractor.setDataSource(context, uri, null)
     } catch (_: Exception) {
-        throw TestVideoException("Video açılamadı. Başka bir video seçmeyi dene.")
+        throw TestVideoException(uiText(R.string.test_video_open_failed))
     }
 }
 
@@ -177,12 +178,13 @@ private fun findTracks(extractor: MediaExtractor): TestVideoTracks {
     }
     if (video == null) {
         throw TestVideoException(
-            when {
-                otherVideoMime == MediaFormat.MIMETYPE_VIDEO_HEVC ->
-                    "Bu video H.265 (HEVC) ile kaydedilmiş. DJI Fly gibi H.264 gönderebilmek için H.264 bir video seç."
-                otherVideoMime != null -> "Bu videonun biçimi desteklenmiyor. H.264 bir video seç."
-                else -> "Seçilen dosyada görüntü yok."
-            },
+            uiText(
+                when {
+                    otherVideoMime == MediaFormat.MIMETYPE_VIDEO_HEVC -> R.string.test_video_hevc
+                    otherVideoMime != null -> R.string.test_video_unsupported
+                    else -> R.string.test_video_no_video
+                },
+            ),
         )
     }
     return TestVideoTracks(
@@ -212,10 +214,16 @@ private fun displayName(context: Context, uri: Uri): String? = runCatching {
 }.getOrNull()
 
 /**
- * "drone.mp4 · 00:20 · döngüde". The photo picker hides real file names behind aliases such as
- * "43.mp4", which mean nothing to the user, so those give way to a plain "Video".
+ * "drone.mp4 · 00:20 · looping". The photo picker hides real file names behind aliases such as
+ * "43.mp4", which mean nothing to the user, so those give way to [fallbackName].
  */
-internal fun testVideoLabel(displayName: String?, durationMs: Long?): String {
-    val name = displayName?.takeUnless { it.substringBeforeLast('.').all(Char::isDigit) } ?: "Video"
-    return listOfNotNull(name, durationMs?.let(::formatDuration), "döngüde").joinToString(" · ")
+internal fun testVideoLabel(displayName: String?, durationMs: Long?): UiText {
+    val name = displayName?.takeUnless { it.substringBeforeLast('.').all(Char::isDigit) }
+    return UiText.Joined(
+        listOfNotNull(
+            name?.let(UiText::Raw) ?: uiText(R.string.test_video_default_name),
+            durationMs?.let { UiText.Raw(formatDuration(it)) },
+            uiText(R.string.test_video_looping),
+        ),
+    )
 }

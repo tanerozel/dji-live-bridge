@@ -10,6 +10,7 @@ import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -40,6 +41,7 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.HelpOutline
+import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Stop
@@ -66,7 +68,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -103,6 +108,7 @@ internal fun RelayScreen(
     val uiPreferences = remember(context.applicationContext) { UiPreferences(context.applicationContext) }
     var showGuide by rememberSaveable { mutableStateOf(!uiPreferences.guideCompleted) }
     var showThemePicker by rememberSaveable { mutableStateOf(false) }
+    var showLanguagePicker by rememberSaveable { mutableStateOf(false) }
     var lan by remember { mutableStateOf(findLocalLanAddress()) }
     val profileStore = remember(context.applicationContext) {
         DestinationProfileStore(context.applicationContext)
@@ -112,9 +118,11 @@ internal fun RelayScreen(
         mutableStateOf(initialProfiles.getOrDefault(DestinationProfiles()))
     }
     var profileError by remember(profileStore) {
-        mutableStateOf(initialProfiles.exceptionOrNull()?.message)
+        mutableStateOf(initialProfiles.exceptionOrNull()?.let(::profileErrorText))
     }
     var showEndLiveConfirmation by rememberSaveable { mutableStateOf(false) }
+    // The platform whose broadcast the dialog ends, or null for all of them.
+    var endLiveProfileId by rememberSaveable { mutableStateOf<String?>(null) }
     val serviceState = RelayServiceState.value
     val phase = bridgePhase(serviceState)
 
@@ -130,21 +138,21 @@ internal fun RelayScreen(
         }
     }
 
-    fun showMessage(message: String) {
+    fun showMessage(message: UiText) {
         scope.launch {
             snackbarHostState.currentSnackbarData?.dismiss()
-            snackbarHostState.showSnackbar(message)
+            snackbarHostState.showSnackbar(message.resolve(context))
         }
     }
 
     /** Runs a store action; the error is returned and, unless the editor shows it, announced. */
-    fun updateProfiles(announce: Boolean = true, action: () -> DestinationProfiles): String? = runCatching {
+    fun updateProfiles(announce: Boolean = true, action: () -> DestinationProfiles): UiText? = runCatching {
         action().also { updated ->
             destinations = updated
             profileError = null
         }
     }.exceptionOrNull()?.let { error ->
-        (error.message ?: "Hedef işlemi tamamlanamadı").also {
+        profileErrorText(error).also {
             if (announce) {
                 profileError = it
                 showMessage(it)
@@ -152,26 +160,25 @@ internal fun RelayScreen(
         }
     }
 
-    /** The saved destination a platform tile stands for: the selected one, else the first. */
+    /** The saved destination a platform tile stands for: a selected one, else the first. */
     fun profileFor(kind: DestinationKind): DestinationProfile? =
-        destinations.selectedProfile?.takeIf { it.kind == kind }
+        destinations.selectedProfiles.firstOrNull { it.kind == kind }
             ?: destinations.profiles.firstOrNull { it.kind == kind }
 
+    /** A saved platform goes in or out of the broadcast; a new one is set up first. */
     fun onPlatformClick(kind: DestinationKind) {
         val profile = profileFor(kind)
-        when {
-            profile == null -> profileEditorViewModel.open(null, kind)
-            profile.id == destinations.selectedProfileId -> profileEditorViewModel.open(profile, kind)
-            else -> updateProfiles { profileStore.select(profile.id) }
+        if (profile == null) {
+            profileEditorViewModel.open(null, kind)
+        } else {
+            updateProfiles { profileStore.setSelected(profile.id, !destinations.isSelected(profile.id)) }
         }
     }
 
     fun startReceiver(testVideo: TestVideoSelection? = null, restart: Boolean = false) {
         if (!RelayServiceState.value.isActive) RelayServiceState.starting()
         runCatching { RelayForegroundService.startReceiver(context, testVideo, restart) }
-            .onFailure { error ->
-                RelayServiceState.failed("Alıcı açılamadı: ${error.message ?: "Bilinmeyen hata"}")
-            }
+            .onFailure { error -> RelayServiceState.failed(serviceStartError(error)) }
     }
 
     // The receiver opens whenever the app is on screen, so DJI Fly can connect right away and
@@ -185,18 +192,16 @@ internal fun RelayScreen(
     }
 
     fun goLive() {
-        val profile = destinations.selectedProfile
-        if (profile == null) {
-            showMessage("Önce bir platform seç")
+        val profileIds = destinations.selectedProfiles.map { it.id }
+        if (profileIds.isEmpty()) {
+            showMessage(uiText(R.string.pick_platform_first))
             return
         }
         // Switch to the live screen now; the service confirms or reports a failure.
-        RelayServiceState.goingLive(profile.id)
-        runCatching { RelayForegroundService.goLive(context, profile.id) }
+        RelayServiceState.goingLive(profileIds)
+        runCatching { RelayForegroundService.goLive(context, profileIds) }
             .onFailure { error ->
-                RelayServiceState.notLive(
-                    RelayNotice("Canlı yayın başlatılamadı", error.message ?: "Bilinmeyen hata"),
-                )
+                RelayServiceState.notLive(profileIds, RelayNotice(uiText(R.string.go_live_failed), serviceStartError(error)))
             }
     }
 
@@ -204,7 +209,7 @@ internal fun RelayScreen(
         ActivityResultContracts.RequestPermission(),
     ) { granted ->
         if (!granted) {
-            showMessage("Bildirim izni verilmedi; yayını uygulamadan izleyebilirsin")
+            showMessage(uiText(R.string.notification_permission_denied))
         }
         goLive()
     }
@@ -228,23 +233,25 @@ internal fun RelayScreen(
         scope.launch {
             withContext(Dispatchers.IO) { runCatching { inspectTestVideo(context, uri) } }
                 .onSuccess { video ->
-                    if (video.rotated) showMessage("Dikey çekilmiş videolar yayında yan görünebilir")
+                    if (video.rotated) showMessage(uiText(R.string.test_video_rotated))
                     startReceiver(video)
                 }
-                .onFailure { error -> showMessage(error.message ?: "Video okunamadı") }
+                .onFailure { error -> showMessage((error as? TestVideoException)?.text ?: uiText(R.string.test_video_unreadable)) }
         }
     }
 
+    val clipLabel = stringResource(R.string.clip_address_label)
+
     fun copyAddress(url: String) {
         val clipboard = context.getSystemService(ClipboardManager::class.java)
-        clipboard.setPrimaryClip(ClipData.newPlainText("DJI Fly RTMP adresi", url))
+        clipboard.setPrimaryClip(ClipData.newPlainText(clipLabel, url))
         // Android 13+ confirms clipboard writes itself.
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) showMessage("Adres kopyalandı")
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) showMessage(uiText(R.string.address_copied))
     }
 
     fun openWifiSettings() {
         runCatching { context.startActivity(Intent(Settings.ACTION_WIFI_SETTINGS)) }
-            .onFailure { showMessage("Wi-Fi ayarları açılamadı") }
+            .onFailure { showMessage(uiText(R.string.wifi_settings_failed)) }
     }
 
     val editorState = profileEditorViewModel.state
@@ -272,22 +279,24 @@ internal fun RelayScreen(
                     state = editing,
                     onDismiss = profileEditorViewModel::close,
                     onSave = { serverUrl, streamKey ->
+                        // The store adds a new platform to the ones the broadcast goes to.
                         updateProfiles(announce = false) {
-                            val saved = profileStore.save(
+                            profileStore.save(
                                 existingId = editing.profile?.id,
-                                name = editing.profile?.name ?: editing.kind.label,
+                                name = editing.profile?.name ?: editing.kind.displayName(context),
                                 kind = editing.kind,
                                 serverUrl = serverUrl,
                                 streamKey = streamKey,
                             )
-                            // A platform the user just added is where they mean to stream.
-                            val added = saved.profiles.lastOrNull { it.kind == editing.kind }
-                            if (editing.profile == null && added != null) profileStore.select(added.id) else saved
                         }.also { error ->
                             if (error == null) {
                                 profileEditorViewModel.close()
                                 showMessage(
-                                    if (editing.profile == null) "${editing.kind.label} eklendi" else "Kaydedildi",
+                                    if (editing.profile == null) {
+                                        uiText(R.string.platform_added, editing.kind.displayName(context))
+                                    } else {
+                                        uiText(R.string.saved)
+                                    },
                                 )
                             }
                         }
@@ -297,7 +306,7 @@ internal fun RelayScreen(
                             updateProfiles(announce = false) { profileStore.delete(profile.id) }.also { error ->
                                 if (error == null) {
                                     profileEditorViewModel.close()
-                                    showMessage("${profile.kind.label} silindi")
+                                    showMessage(uiText(R.string.platform_deleted, profile.kind.displayName(context)))
                                 }
                             }
                         }
@@ -313,11 +322,10 @@ internal fun RelayScreen(
                 snackbarHostState = snackbarHostState,
                 onShowGuide = { showGuide = true },
                 onShowThemePicker = { showThemePicker = true },
+                onShowLanguagePicker = { showLanguagePicker = true },
                 onPlatformClick = ::onPlatformClick,
                 onPlatformLongClick = { kind -> profileFor(kind)?.let { profileEditorViewModel.open(it, kind) } },
-                onEditSelected = {
-                    destinations.selectedProfile?.let { profileEditorViewModel.open(it, it.kind) }
-                },
+                onEditProfile = { profile -> profileEditorViewModel.open(profile, profile.kind) },
                 onOpenWifiSettings = ::openWifiSettings,
                 onStartReceiver = { restart -> startReceiver(restart = restart) },
                 onTestVideo = {
@@ -325,7 +333,10 @@ internal fun RelayScreen(
                 },
                 onStopTestVideo = { RelayForegroundService.stopTestVideo(context) },
                 onGoLive = ::requestGoLive,
-                onEndLive = { showEndLiveConfirmation = true },
+                onEndLive = { profileId ->
+                    endLiveProfileId = profileId
+                    showEndLiveConfirmation = true
+                },
                 onCopyAddress = ::copyAddress,
             )
         }
@@ -339,18 +350,34 @@ internal fun RelayScreen(
         )
     }
 
+    if (showLanguagePicker && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        LanguagePickerDialog(onDismiss = { showLanguagePicker = false })
+    }
+
     if (showEndLiveConfirmation) {
         val colors = BridgeTheme.colors
+        val ending = endLiveProfileId?.let { id -> destinations.profiles.firstOrNull { it.id == id } }
+        val others = serviceState.liveProfileIds.size > 1
         AlertDialog(
             onDismissRequest = { showEndLiveConfirmation = false },
             containerColor = colors.card,
-            title = { Text("Yayın bitirilsin mi?") },
+            title = {
+                Text(
+                    if (ending != null) {
+                        stringResource(R.string.end_one_title, ending.kind.displayName())
+                    } else {
+                        stringResource(R.string.end_all_title)
+                    },
+                )
+            },
             text = {
                 Text(
-                    if (serviceState.testVideoName != null) {
-                        "Canlı yayın sona erer. Test videosu telefonda oynamaya devam eder."
-                    } else {
-                        "Canlı yayın sona erer. Drone bağlı kalır, görüntüsü telefonda görünmeye devam eder."
+                    when {
+                        ending != null ->
+                            stringResource(R.string.end_one_message, stringResource(ending.kind.onPlatform)).sentenceStart()
+                        serviceState.testVideoName != null ->
+                            stringResource(if (others) R.string.end_all_test_video_many else R.string.end_all_test_video)
+                        else -> stringResource(if (others) R.string.end_all_drone_many else R.string.end_all_drone)
                     },
                 )
             },
@@ -358,15 +385,16 @@ internal fun RelayScreen(
                 TextButton(
                     onClick = {
                         showEndLiveConfirmation = false
-                        RelayServiceState.notLive()
-                        RelayForegroundService.endLive(context)
+                        val profileId = endLiveProfileId
+                        RelayServiceState.notLive(profileId?.let(::listOf))
+                        RelayForegroundService.endLive(context, profileId)
                     },
                 ) {
-                    Text("Yayını bitir", color = colors.dangerText)
+                    Text(stringResource(R.string.end_broadcast), color = colors.dangerText)
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showEndLiveConfirmation = false }) { Text("Devam et") }
+                TextButton(onClick = { showEndLiveConfirmation = false }) { Text(stringResource(R.string.keep_streaming)) }
             },
         )
     }
@@ -377,39 +405,42 @@ private fun HomeScreen(
     phase: BridgePhase,
     serviceState: RelayServiceUiState,
     destinations: DestinationProfiles,
-    profileError: String?,
+    profileError: UiText?,
     lan: LanAddress?,
     snackbarHostState: SnackbarHostState,
     onShowGuide: () -> Unit,
     onShowThemePicker: () -> Unit,
+    onShowLanguagePicker: () -> Unit,
     onPlatformClick: (DestinationKind) -> Unit,
     onPlatformLongClick: (DestinationKind) -> Unit,
-    onEditSelected: () -> Unit,
+    onEditProfile: (DestinationProfile) -> Unit,
     onOpenWifiSettings: () -> Unit,
     onStartReceiver: (restart: Boolean) -> Unit,
     onTestVideo: () -> Unit,
     onStopTestVideo: () -> Unit,
     onGoLive: () -> Unit,
-    onEndLive: () -> Unit,
+    /** Ends the broadcast on one platform, or on all of them for null. */
+    onEndLive: (profileId: String?) -> Unit,
     onCopyAddress: (String) -> Unit,
 ) {
     val colors = BridgeTheme.colors
-    val selected = destinations.selectedProfile
+    val selected = destinations.selectedProfiles
     val live = serviceState.isLive
     Scaffold(
         containerColor = colors.background,
         contentWindowInsets = WindowInsets.safeDrawing,
-        topBar = { HomeTopBar(onTheme = onShowThemePicker, onHelp = onShowGuide) },
+        topBar = { HomeTopBar(onLanguage = onShowLanguagePicker, onTheme = onShowThemePicker, onHelp = onShowGuide) },
         bottomBar = {
             HomeBottomBar(
                 live = live,
+                platforms = selected.size,
                 blocker = when {
-                    !phase.hasPicture -> "Drone görüntüsü gelince yayını başlatabilirsin"
-                    selected == null -> "Önce bir platform seç"
+                    !phase.hasPicture -> stringResource(R.string.go_live_needs_picture)
+                    selected.isEmpty() -> stringResource(R.string.pick_platform_first)
                     else -> null
                 },
                 onGoLive = onGoLive,
-                onEndLive = onEndLive,
+                onEndLive = { onEndLive(null) },
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -433,9 +464,12 @@ private fun HomeScreen(
                         snapshot = serviceState.snapshot,
                         liveSinceElapsedMillis = serviceState.liveSinceElapsedMillis,
                         testVideoName = serviceState.testVideoName,
-                        destination = destinations.profiles.firstOrNull { it.id == serviceState.liveProfileId },
+                        destinations = serviceState.liveProfileIds.mapNotNull { id ->
+                            destinations.profiles.firstOrNull { it.id == id }
+                        },
                         lan = lan,
                         onCopyAddress = onCopyAddress,
+                        onEndPlatform = { profile -> onEndLive(profile.id) },
                     )
                 } else {
                     SetupContent(
@@ -451,7 +485,7 @@ private fun HomeScreen(
                         onStopTestVideo = onStopTestVideo,
                         onPlatformClick = onPlatformClick,
                         onPlatformLongClick = onPlatformLongClick,
-                        onEditSelected = onEditSelected,
+                        onEditProfile = onEditProfile,
                         onCopyAddress = onCopyAddress,
                         onOpenWifiSettings = onOpenWifiSettings,
                     )
@@ -463,7 +497,7 @@ private fun HomeScreen(
 }
 
 @Composable
-private fun HomeTopBar(onTheme: () -> Unit, onHelp: () -> Unit) {
+private fun HomeTopBar(onLanguage: () -> Unit, onTheme: () -> Unit, onHelp: () -> Unit) {
     val colors = BridgeTheme.colors
     Row(
         modifier = Modifier
@@ -479,20 +513,26 @@ private fun HomeTopBar(onTheme: () -> Unit, onHelp: () -> Unit) {
             modifier = Modifier
                 .weight(1f)
                 .semantics { heading() },
-            text = "DJI Live Bridge",
+            text = stringResource(R.string.app_name),
             style = MaterialTheme.typography.titleMedium,
         )
+        // Android 13 and later keep a language per app; older versions follow the phone.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            IconButton(onClick = onLanguage) {
+                Icon(Icons.Rounded.Language, contentDescription = stringResource(R.string.language), tint = colors.muted)
+            }
+        }
         IconButton(onClick = onTheme) {
-            Icon(Icons.Rounded.Palette, contentDescription = "Tema", tint = colors.muted)
+            Icon(Icons.Rounded.Palette, contentDescription = stringResource(R.string.theme), tint = colors.muted)
         }
         IconButton(onClick = onHelp) {
-            Icon(Icons.AutoMirrored.Rounded.HelpOutline, contentDescription = "Nasıl kullanılır?", tint = colors.muted)
+            Icon(Icons.AutoMirrored.Rounded.HelpOutline, contentDescription = stringResource(R.string.how_to_use), tint = colors.muted)
         }
     }
 }
 
 @Composable
-private fun HomeBottomBar(live: Boolean, blocker: String?, onGoLive: () -> Unit, onEndLive: () -> Unit) {
+private fun HomeBottomBar(live: Boolean, platforms: Int, blocker: String?, onGoLive: () -> Unit, onEndLive: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -503,7 +543,7 @@ private fun HomeBottomBar(live: Boolean, blocker: String?, onGoLive: () -> Unit,
     ) {
         val buttonModifier = Modifier.widthIn(max = 560.dp)
         if (live) {
-            StopButton(modifier = buttonModifier, text = "Yayını bitir", onClick = onEndLive, icon = Icons.Rounded.Stop)
+            StopButton(modifier = buttonModifier, text = stringResource(R.string.end_broadcast), onClick = onEndLive, icon = Icons.Rounded.Stop)
         } else {
             blocker?.let {
                 Text(
@@ -515,7 +555,11 @@ private fun HomeBottomBar(live: Boolean, blocker: String?, onGoLive: () -> Unit,
             }
             PrimaryButton(
                 modifier = buttonModifier,
-                text = "Canlı yayını başlat",
+                text = if (platforms > 1) {
+                    pluralStringResource(R.plurals.go_live_many, platforms, platforms)
+                } else {
+                    stringResource(R.string.go_live)
+                },
                 onClick = onGoLive,
                 icon = Icons.Rounded.PlayArrow,
                 enabled = blocker == null,
@@ -530,7 +574,7 @@ private fun ThemePickerDialog(current: ThemeChoice, onSelect: (ThemeChoice) -> U
     AlertDialog(
         onDismissRequest = onDismiss,
         containerColor = colors.card,
-        title = { Text("Tema") },
+        title = { Text(stringResource(R.string.theme)) },
         text = {
             Column(modifier = Modifier.selectableGroup()) {
                 ThemeChoice.entries.forEach { choice ->
@@ -547,7 +591,7 @@ private fun ThemePickerDialog(current: ThemeChoice, onSelect: (ThemeChoice) -> U
                         ThemeSwatch(choice)
                         Text(
                             modifier = Modifier.weight(1f),
-                            text = choice.label,
+                            text = stringResource(choice.label),
                             style = MaterialTheme.typography.bodyLarge,
                             color = colors.text,
                         )
@@ -557,7 +601,59 @@ private fun ThemePickerDialog(current: ThemeChoice, onSelect: (ThemeChoice) -> U
             }
         },
         confirmButton = {
-            TextButton(onClick = onDismiss) { Text("Tamam") }
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.ok)) }
+        },
+    )
+}
+
+/** The phone's language or one of the app's; the system applies it at once. */
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
+@Composable
+private fun LanguagePickerDialog(onDismiss: () -> Unit) {
+    val context = LocalContext.current
+    val colors = BridgeTheme.colors
+    // Read again after the system applies a choice and the configuration changes.
+    val current = remember(LocalConfiguration.current) { AppLanguageSetting.current(context) }
+    val options = listOf<AppLanguage?>(null) + APP_LANGUAGES
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        containerColor = colors.card,
+        title = { Text(stringResource(R.string.language)) },
+        text = {
+            Column(
+                modifier = Modifier
+                    .selectableGroup()
+                    .verticalScroll(rememberScrollState()),
+            ) {
+                options.forEach { language ->
+                    val selected = language == current
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 48.dp)
+                            .clip(MaterialTheme.shapes.small)
+                            .selectable(
+                                selected = selected,
+                                role = Role.RadioButton,
+                                onClick = { if (!selected) AppLanguageSetting.set(context, language) },
+                            )
+                            .padding(horizontal = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(14.dp),
+                    ) {
+                        Text(
+                            modifier = Modifier.weight(1f),
+                            text = language?.name ?: stringResource(R.string.language_system),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = colors.text,
+                        )
+                        RadioButton(selected = selected, onClick = null)
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.ok)) }
         },
     )
 }
@@ -583,6 +679,8 @@ private fun ThemeSwatch(choice: ThemeChoice) {
     }
 }
 
+private val PreviewTwitch = DestinationProfile("2", "Twitch", DestinationKind.TWITCH, "rtmp://live.twitch.tv/app")
+
 private val PreviewProfile = DestinationProfile(
     "1",
     "Instagram",
@@ -590,7 +688,7 @@ private val PreviewProfile = DestinationProfile(
     "rtmps://live-upload.instagram.com:443/rtmp",
 )
 
-@Preview(name = "Kurulum", widthDp = 360, heightDp = 760)
+@Preview(name = "Setup", widthDp = 360, heightDp = 760)
 @Composable
 private fun SetupPreview() {
     DjiLiveBridgeTheme(ThemeChoice.LIGHT) {
@@ -600,7 +698,7 @@ private fun SetupPreview() {
             snapshot = RelaySnapshot(status = "listening"),
             testVideoName = null,
             notice = null,
-            destinations = DestinationProfiles(listOf(PreviewProfile), PreviewProfile.id),
+            destinations = DestinationProfiles(listOf(PreviewProfile), listOf(PreviewProfile.id)),
             profileError = null,
             lan = LanAddress("192.168.1.101", LanKind.WIFI),
             onStartReceiver = {},
@@ -608,14 +706,14 @@ private fun SetupPreview() {
             onStopTestVideo = {},
             onPlatformClick = {},
             onPlatformLongClick = {},
-            onEditSelected = {},
+            onEditProfile = {},
             onCopyAddress = {},
             onOpenWifiSettings = {},
         )
     }
 }
 
-@Preview(name = "Canlı", widthDp = 360, heightDp = 760)
+@Preview(name = "Live", widthDp = 360, heightDp = 760)
 @Composable
 private fun LivePreview() {
     DjiLiveBridgeTheme(ThemeChoice.SAND) {
@@ -627,14 +725,26 @@ private fun LivePreview() {
                 bitrateKbps = 6_200.0,
                 videoCodec = "avc1",
                 audioCodec = "mp4a",
-                outputStatus = "forwarding",
-                outboundBytes = 184_000_000,
+                outputs = listOf(
+                    OutputSnapshot(PreviewProfile.id, status = "forwarding", outboundBytes = 184_000_000),
+                    OutputSnapshot(PreviewTwitch.id, status = "congested", outboundBytes = 150_000_000),
+                ),
             ),
             liveSinceElapsedMillis = null,
             testVideoName = null,
-            destination = PreviewProfile,
+            destinations = listOf(PreviewProfile, PreviewTwitch),
             lan = LanAddress("192.168.1.101", LanKind.WIFI),
             onCopyAddress = {},
+            onEndPlatform = {},
         )
     }
 }
+
+/** A saved-platforms failure in the app's words; an unexpected one keeps its technical cause. */
+private fun profileErrorText(error: Throwable): UiText = when (error) {
+    is DestinationProfileException -> error.text
+    else -> withCause(R.string.profile_error_generic, error)
+}
+
+/** The background service could not be started or reached. */
+private fun serviceStartError(error: Throwable): UiText = withCause(R.string.error_service_start, error)

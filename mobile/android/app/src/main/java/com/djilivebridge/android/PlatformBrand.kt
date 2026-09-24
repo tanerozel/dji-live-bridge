@@ -1,6 +1,8 @@
 package com.djilivebridge.android
 
+import android.content.Context
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
@@ -16,6 +18,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 
 // Tile colors match the desktop platform icons (src/styles.css .platform-icon.*).
@@ -81,67 +84,71 @@ internal fun PlatformTile(kind: DestinationKind, size: Dp, modifier: Modifier = 
 internal val DestinationKind.keyChangesEachStream: Boolean
     get() = this == DestinationKind.INSTAGRAM || this == DestinationKind.TIKTOK
 
-/** "Instagram'da" — the suffix depends on how the name is pronounced, so it is spelled out. */
-internal val DestinationKind.locative: String
+/** The platform as people call it; a custom server is named in the app's language. */
+internal fun DestinationKind.displayName(context: Context): String =
+    brandName ?: context.getString(R.string.platform_custom)
+
+@Composable
+internal fun DestinationKind.displayName(): String = brandName ?: stringResource(R.string.platform_custom)
+
+/** The name for a message that is put into words later, in the language shown then. */
+internal val DestinationKind.nameText: UiText
+    get() = brandName?.let(UiText::Raw) ?: uiText(R.string.platform_custom)
+
+/**
+ * "on Instagram": a phrase for where the stream is, spelled out per platform because some
+ * languages (Turkish: Instagram'da, TikTok'ta) change the ending by how the name is pronounced.
+ */
+@get:StringRes
+internal val DestinationKind.onPlatform: Int
     get() = when (this) {
-        DestinationKind.INSTAGRAM -> "Instagram'da"
-        DestinationKind.TIKTOK -> "TikTok'ta"
-        DestinationKind.YOUTUBE -> "YouTube'da"
-        DestinationKind.FACEBOOK -> "Facebook'ta"
-        DestinationKind.TWITCH -> "Twitch'te"
-        DestinationKind.KICK -> "Kick'te"
-        DestinationKind.CUSTOM -> "Özel sunucunda"
+        DestinationKind.INSTAGRAM -> R.string.on_instagram
+        DestinationKind.TIKTOK -> R.string.on_tiktok
+        DestinationKind.YOUTUBE -> R.string.on_youtube
+        DestinationKind.FACEBOOK -> R.string.on_facebook
+        DestinationKind.TWITCH -> R.string.on_twitch
+        DestinationKind.KICK -> R.string.on_kick
+        DestinationKind.CUSTOM -> R.string.on_custom
     }
 
-internal val DestinationKind.dative: String
+/** "to Instagram": where the stream is going, spelled out per platform like [onPlatform]. */
+@get:StringRes
+internal val DestinationKind.toPlatform: Int
     get() = when (this) {
-        DestinationKind.INSTAGRAM -> "Instagram'a"
-        DestinationKind.TIKTOK -> "TikTok'a"
-        DestinationKind.YOUTUBE -> "YouTube'a"
-        DestinationKind.FACEBOOK -> "Facebook'a"
-        DestinationKind.TWITCH -> "Twitch'e"
-        DestinationKind.KICK -> "Kick'e"
-        DestinationKind.CUSTOM -> "Özel sunucuna"
+        DestinationKind.INSTAGRAM -> R.string.to_instagram
+        DestinationKind.TIKTOK -> R.string.to_tiktok
+        DestinationKind.YOUTUBE -> R.string.to_youtube
+        DestinationKind.FACEBOOK -> R.string.to_facebook
+        DestinationKind.TWITCH -> R.string.to_twitch
+        DestinationKind.KICK -> R.string.to_kick
+        DestinationKind.CUSTOM -> R.string.to_custom
     }
 
-internal val DestinationKind.keyHelp: String
+@get:StringRes
+internal val DestinationKind.keyHelp: Int
     get() = when (this) {
-        DestinationKind.INSTAGRAM ->
-            "instagram.com'da Oluştur (+) → Canlı video'yu aç ve “Yayın anahtarı”nı kopyala. " +
-                "Instagram her yayında yeni bir anahtar verir."
-        DestinationKind.TIKTOK ->
-            "TikTok LIVE Center'da yayın anahtarı ekranını aç; Sunucu URL'sini ve Yayın anahtarını " +
-                "kopyala. Hesabının RTMP erişimi olmalı; TikTok her yayında yeni anahtar verir."
-        DestinationKind.YOUTUBE ->
-            "YouTube Studio'da Oluştur → Canlı yayına geç → Yayın yazılımı bölümünden “Yayın " +
-                "anahtarı”nı kopyala. Anahtar, sen sıfırlayana kadar aynı kalır."
-        DestinationKind.FACEBOOK ->
-            "facebook.com'da Canlı video → Yayın yazılımı bölümünden “Yayın anahtarı”nı kopyala. " +
-                "Kalıcı anahtarı açmadıysan Facebook her yayında yenisini verir."
-        DestinationKind.TWITCH ->
-            "Twitch Yayıncı Kontrol Paneli'nde Ayarlar → Yayın bölümünden birincil yayın " +
-                "anahtarını kopyala."
-        DestinationKind.KICK ->
-            "Kick'te Creator Dashboard → Settings → Stream URL & Key bölümünden anahtarı kopyala. " +
-                "Orada farklı bir Stream URL görürsen sunucu adresini onunla değiştir."
-        DestinationKind.CUSTOM ->
-            "Sunucunun verdiği RTMP ya da RTMPS adresini ve yayın anahtarını yapıştır."
+        DestinationKind.INSTAGRAM -> R.string.key_help_instagram
+        DestinationKind.TIKTOK -> R.string.key_help_tiktok
+        DestinationKind.YOUTUBE -> R.string.key_help_youtube
+        DestinationKind.FACEBOOK -> R.string.key_help_facebook
+        DestinationKind.TWITCH -> R.string.key_help_twitch
+        DestinationKind.KICK -> R.string.key_help_kick
+        DestinationKind.CUSTOM -> R.string.key_help_custom
     }
 
-internal val DestinationKind.serverPlaceholder: String
-    get() = defaultServerUrl ?: when (this) {
-        DestinationKind.TIKTOK -> "rtmp://push-rtmp-….tiktokcdn.com/game"
-        else -> "rtmp://sunucu.adresi/live"
-    }
+@Composable
+internal fun DestinationKind.serverPlaceholder(): String = defaultServerUrl ?: when (this) {
+    DestinationKind.TIKTOK -> "rtmp://push-rtmp-….tiktokcdn.com/game"
+    else -> stringResource(R.string.server_placeholder)
+}
 
 /** What to do on the platform once the stream arrives there. */
-internal val DestinationKind.liveReminder: String?
+@get:StringRes
+internal val DestinationKind.liveReminder: Int?
     get() = when (this) {
-        DestinationKind.INSTAGRAM ->
-            "Şimdi Instagram'da “Canlı yayına geç”e bas; yayın ancak ondan sonra herkese açılır."
-        DestinationKind.TIKTOK -> "TikTok LIVE Center'ı kontrol et; yayını orada da başlatman gerekebilir."
-        DestinationKind.YOUTUBE -> "Otomatik başlatma kapalıysa YouTube Studio'da “Canlı yayına geç”e bas."
-        DestinationKind.FACEBOOK ->
-            "Facebook önce önizleme gösterir; herkese açmak için orada “Canlı yayına geç”e bas."
+        DestinationKind.INSTAGRAM -> R.string.live_reminder_instagram
+        DestinationKind.TIKTOK -> R.string.live_reminder_tiktok
+        DestinationKind.YOUTUBE -> R.string.live_reminder_youtube
+        DestinationKind.FACEBOOK -> R.string.live_reminder_facebook
         DestinationKind.TWITCH, DestinationKind.KICK, DestinationKind.CUSTOM -> null
     }

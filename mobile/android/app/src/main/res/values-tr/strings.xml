@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App and errors from the relay core -->
+    <string name="error_with_detail">%1$s (%2$s)</string>
+    <string name="error_receiver_not_running">Alıcı çalışmıyor. Alıcıyı yeniden açıp tekrar dene.</string>
+    <string name="error_listen_failed">1935 portu açılamadı; başka bir uygulama kullanıyor olabilir.</string>
+    <string name="error_receiver_failed">Alıcı durdu.</string>
+    <string name="error_internal">Uygulamada bir şeyler ters gitti. Tekrar dene.</string>
+    <string name="error_destination_scheme">Sunucu adresi rtmp:// veya rtmps:// ile başlamalı.</string>
+    <string name="error_destination_path">Sunucu adresi sunucuyu ve uygulama yolunu içermeli.</string>
+    <string name="error_destination_server">Sunucu adresi geçersiz.</string>
+    <string name="error_stream_key">Yayın anahtarı geçersiz.</string>
+    <string name="error_ca_bundle">RTMPS için Android sertifikaları hazırlanamadı.</string>
+
+    <!-- Shared components -->
+    <string name="live_badge">CANLI</string>
+    <string name="step">Adım %1$d</string>
+    <string name="step_done">Adım %1$d tamamlandı</string>
+    <string name="copy_address">Adresi kopyala</string>
+    <string name="collapse">Kapat</string>
+    <string name="expand">Aç</string>
+    <string name="state_expanded">Açık</string>
+    <string name="state_collapsed">Kapalı</string>
+
+    <!-- Themes -->
+    <string name="theme_system">Sistem</string>
+    <string name="theme_light">Açık</string>
+    <string name="theme_dark">Koyu</string>
+    <string name="theme_midnight">Gece mavisi</string>
+    <string name="theme_sand">Kum</string>
+
+    <!-- Drone preview -->
+    <string name="drone_picture">Drone görüntüsü</string>
+    <string name="preview_waiting">Görüntü bekleniyor…</string>
+    <string name="preview_unsupported">Önizleme bu görüntü biçimini gösteremiyor</string>
+
+    <!-- Test video -->
+    <string name="test_video_default_name">Video</string>
+    <string name="test_video_looping">döngüde</string>
+    <string name="test_video_no_avc_config">Videonun H.264 ayarları okunamadı.</string>
+    <string name="test_video_no_frames">Videoda gönderilecek kare yok.</string>
+    <string name="test_video_rewind_failed">Video başa sarılamadı.</string>
+    <string name="test_video_open_failed">Video açılamadı. Başka bir video seçmeyi dene.</string>
+    <string name="test_video_hevc">Bu video H.265 (HEVC) ile kaydedilmiş. DJI Fly gibi H.264 gönderebilmek için H.264 bir video seç.</string>
+    <string name="test_video_unsupported">Bu videonun biçimi desteklenmiyor. H.264 bir video seç.</string>
+    <string name="test_video_no_video">Seçilen dosyada görüntü yok.</string>
+    <string name="test_video_receiver_not_ready">Alıcı hazır değil.</string>
+    <string name="test_video_unreadable">Video okunamadı.</string>
+    <string name="test_video_stopped">Test videosu durdu</string>
+    <string name="test_video_rotated">Dikey çekilmiş videolar yayında yan görünebilir</string>
+
+    <!-- Platforms. on_* and to_* are phrases for where the stream is and where it goes, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
+    <string name="platform_custom">Özel RTMP</string>
+    <string name="on_instagram">Instagram\'da</string>
+    <string name="on_tiktok">TikTok\'ta</string>
+    <string name="on_youtube">YouTube\'da</string>
+    <string name="on_facebook">Facebook\'ta</string>
+    <string name="on_twitch">Twitch\'te</string>
+    <string name="on_kick">Kick\'te</string>
+    <string name="on_custom">özel sunucunda</string>
+    <string name="to_instagram">Instagram\'a</string>
+    <string name="to_tiktok">TikTok\'a</string>
+    <string name="to_youtube">YouTube\'a</string>
+    <string name="to_facebook">Facebook\'a</string>
+    <string name="to_twitch">Twitch\'e</string>
+    <string name="to_kick">Kick\'e</string>
+    <string name="to_custom">özel sunucuna</string>
+    <string name="key_help_instagram">instagram.com\'da Oluştur (+) → Canlı video\'yu aç ve “Yayın anahtarı”nı kopyala. Instagram her yayında yeni bir anahtar verir.</string>
+    <string name="key_help_tiktok">TikTok LIVE Center\'da yayın anahtarı ekranını aç; Sunucu URL\'sini ve Yayın anahtarını kopyala. Hesabının RTMP erişimi olmalı; TikTok her yayında yeni anahtar verir.</string>
+    <string name="key_help_youtube">YouTube Studio\'da Oluştur → Canlı yayına geç → Yayın yazılımı bölümünden “Yayın anahtarı”nı kopyala. Anahtar, sen sıfırlayana kadar aynı kalır.</string>
+    <string name="key_help_facebook">facebook.com\'da Canlı video → Yayın yazılımı bölümünden “Yayın anahtarı”nı kopyala. Kalıcı anahtarı açmadıysan Facebook her yayında yenisini verir.</string>
+    <string name="key_help_twitch">Twitch Yayıncı Kontrol Paneli\'nde Ayarlar → Yayın bölümünden birincil yayın anahtarını kopyala.</string>
+    <string name="key_help_kick">Kick\'te Creator Dashboard → Settings → Stream URL &amp; Key bölümünden anahtarı kopyala. Orada farklı bir Stream URL görürsen sunucu adresini onunla değiştir.</string>
+    <string name="key_help_custom">Sunucunun verdiği RTMP ya da RTMPS adresini ve yayın anahtarını yapıştır.</string>
+    <string name="server_placeholder">rtmp://sunucu.adresi/live</string>
+    <string name="live_reminder_instagram">Şimdi Instagram\'da “Canlı yayına geç”e bas; yayın ancak ondan sonra herkese açılır.</string>
+    <string name="live_reminder_tiktok">TikTok LIVE Center\'ı kontrol et; yayını orada da başlatman gerekebilir.</string>
+    <string name="live_reminder_youtube">Otomatik başlatma kapalıysa YouTube Studio\'da “Canlı yayına geç”e bas.</string>
+    <string name="live_reminder_facebook">Facebook önce önizleme gösterir; herkese açmak için orada “Canlı yayına geç”e bas.</string>
+
+    <!-- Saved platforms -->
+    <string name="profile_error_not_found">Bu platform bulunamadı.</string>
+    <string name="profile_error_key_required">Yayın anahtarı gerekli.</string>
+    <string name="profile_error_key_encrypt">Yayın anahtarı Android Keystore ile şifrelenemedi.</string>
+    <string name="profile_error_key_decrypt">Yayın anahtarı Android Keystore ile açılamadı. Platformları silip yeniden ekle.</string>
+    <string name="profile_error_read">Kayıtlı platformlar okunamadı.</string>
+    <string name="profile_error_version">Platformların uygulamanın daha yeni bir sürümüyle kaydedilmiş.</string>
+    <string name="profile_error_corrupt">Kayıtlı platform listesi bozuk.</string>
+    <string name="profile_error_write">Platformlar kaydedilemedi.</string>
+    <string name="profile_error_name">Ad 1 ile 64 karakter arasında olmalı.</string>
+    <string name="profile_error_generic">Platform güncellenemedi.</string>
+    <string name="profile_list_unreadable">Kayıtlı platformlar okunamadı</string>
+
+    <!-- Background service and notification -->
+    <string name="notification_channel">Canlı RTMP aktarımı</string>
+    <string name="notification_channel_description">DJI RC 2 yayınının alınması ve platformlara aktarılması</string>
+    <string name="notification_receiver_error">RTMP alıcı hatası</string>
+    <string name="notification_starting">Alıcı hazırlanıyor</string>
+    <string name="notification_live">Canlı yayındasın</string>
+    <string name="notification_live_slow">Canlı yayındasın · bağlantı yavaş</string>
+    <plurals name="notification_live_many">
+        <item quantity="one">%d platformda canlı yayındasın</item>
+        <item quantity="other">%d platformda canlı yayındasın</item>
+    </plurals>
+    <string name="notification_reconnecting">Platforma yeniden bağlanıyor</string>
+    <string name="notification_connecting">Platforma bağlanıyor</string>
+    <string name="notification_holding">Drone bağlantısı koptu · yayın açık tutuluyor</string>
+    <string name="notification_live_waiting">Canlı yayın açık · drone bekleniyor</string>
+    <string name="notification_test_video">Test videosu alınıyor</string>
+    <string name="notification_drone">Drone görüntüsü alınıyor</string>
+    <string name="notification_connected">Kumanda bağlandı</string>
+    <string name="notification_waiting">Drone bağlantısı bekleniyor</string>
+    <string name="end_broadcast">Yayını bitir</string>
+    <string name="close">Kapat</string>
+    <string name="error_background_limit">Android\'in arka plan aktarım süre sınırına ulaşıldı.</string>
+    <string name="error_service_start">Arka plan servisi başlatılamadı.</string>
+    <string name="go_live_failed">Canlı yayın başlatılamadı</string>
+    <string name="pick_platform_first">Önce bir platform seç</string>
+    <string name="named_error">%1$s: %2$s</string>
+    <string name="test_video_failed">Test videosu gönderilemedi (%1$s).</string>
+
+    <!-- Stream key editor -->
+    <string name="key_paste_prompt">Yayın anahtarını yapıştır</string>
+    <string name="save">Kaydet</string>
+    <string name="server_address">Sunucu adresi</string>
+    <string name="stream_key">Yayın anahtarı</string>
+    <string name="stream_key_new">Yeni yayın anahtarı</string>
+    <string name="stream_key_paste_here">Buraya yapıştır</string>
+    <string name="stream_key_keep_hint">Değişmeyecekse boş bırak</string>
+    <string name="key_hide">Anahtarı gizle</string>
+    <string name="key_show">Anahtarı göster</string>
+    <string name="stream_key_kept">Boş bırakırsan kayıtlı anahtar korunur.</string>
+    <string name="stream_key_stored_encrypted">Yalnızca bu telefonda şifreli saklanır.</string>
+    <string name="change">Değiştir</string>
+    <string name="save_failed">Kaydedilemedi</string>
+    <string name="delete_platform">Bu hedefi sil</string>
+    <string name="discard_title">Kaydedilmedi</string>
+    <string name="discard_message">Girdiğin bilgiler silinsin mi?</string>
+    <string name="delete">Sil</string>
+    <string name="go_back">Geri dön</string>
+    <string name="delete_platform_title">%1$s silinsin mi?</string>
+    <string name="delete_platform_message">Bu telefonda şifreli saklanan yayın anahtarı da kalıcı olarak silinir.</string>
+    <string name="cancel">Vazgeç</string>
+
+    <!-- First-run guide -->
+    <string name="guide_skip">Geç</string>
+    <string name="guide_next">Devam</string>
+    <string name="guide_start">Başla</string>
+    <string name="guide_page">Sayfa %1$d / %2$d</string>
+    <string name="guide_flow_title">Drone\'dan canlı yayına</string>
+    <string name="guide_flow_body">Kumandadaki DJI Fly görüntüyü bu telefona gönderir; telefon da seçtiğin platformlara iletir.</string>
+    <string name="guide_connect_title">Önce drone\'u bağla</string>
+    <string name="guide_connect_body">Ekrandaki adresi DJI Fly\'da RTMP alanına yaz. Drone\'un görüntüsü hemen telefonda görünür; henüz hiçbir yerde yayında değilsin.</string>
+    <string name="guide_live_title">Sonra yayına geç</string>
+    <string name="guide_live_body">Bir ya da birkaç platform seç, yayın anahtarını yapıştır ve Canlı yayını başlat\'a bas. Sunucu adresleri hazır.</string>
+
+    <!-- Home screen -->
+    <string name="where_to_stream">Nereye yayın yapacaksın?</string>
+    <string name="pick_platforms_hint">Bir ya da birkaç platforma dokun; hepsine aynı anda yayın yapılır. Sunucu adresi hazır, yalnızca yayın anahtarını gireceksin.</string>
+    <string name="connect_drone">Drone\'u bağla</string>
+    <string name="preview_badge">Önizleme</string>
+    <string name="preview_badge_test">Test videosu · önizleme</string>
+    <string name="preview_connected">Kumanda bağlandı; görüntü birazdan gelir.</string>
+    <string name="preview_drone_status">Drone bağlı · %1$s. Henüz yayında değilsin.</string>
+    <string name="preview_test_status">Test videosu geliyor · %1$s. Henüz yayında değilsin.</string>
+    <string name="stop_test_video">Test videosunu durdur</string>
+    <string name="receiver_starting">Alıcı hazırlanıyor…</string>
+    <string name="receiver_off">Alıcı kapalı; DJI Fly bu telefona bağlanamaz.</string>
+    <string name="retry">Yeniden dene</string>
+    <string name="open_receiver">Alıcıyı aç</string>
+    <string name="test_video_opening">Test videosu açılıyor…</string>
+    <string name="dji_fly_instructions">DJI Fly\'da RTMP adresi olarak bunu yaz ve yayını başlat. Görüntü burada görünür; platforma sen başlatınca gider.</string>
+    <string name="dji_fly_path">DJI Fly → GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP</string>
+    <string name="try_test_video">Drone yok mu? Test videosuyla dene</string>
+    <string name="deselect">Seçimi kaldır</string>
+    <string name="select">Seç</string>
+    <string name="add">Ekle</string>
+    <string name="edit">Düzenle</string>
+    <string name="state_saved">Kayıtlı</string>
+    <string name="state_not_added">Eklenmedi</string>
+    <string name="platform_selected">%1$s seçili</string>
+    <string name="key_changes_each_stream">Her yayında yeni anahtar gerekir</string>
+    <string name="key_saved">Yayın anahtarı kayıtlı</string>
+    <string name="update_key">Anahtarı güncelle</string>
+    <plurals name="upload_note">
+        <item quantity="one">%d platform seçili. Her biri drone görüntüsünü ayrı yükler; yükleme hızı yetmezse görüntü kareleri atlanır.</item>
+        <item quantity="other">%d platform seçili. Her biri drone görüntüsünü ayrı yükler; yükleme hızı yetmezse görüntü kareleri atlanır.</item>
+    </plurals>
+    <plurals name="upload_note_total">
+        <item quantity="one">%1$d platform seçili. Her biri drone görüntüsünü ayrı yükler (şu an toplam ~%2$s); yükleme hızı yetmezse görüntü kareleri atlanır.</item>
+        <item quantity="other">%1$d platform seçili. Her biri drone görüntüsünü ayrı yükler (şu an toplam ~%2$s); yükleme hızı yetmezse görüntü kareleri atlanır.</item>
+    </plurals>
+    <string name="network_hotspot">Hotspot açık · kumandayı bu telefona bağla</string>
+    <string name="network_wifi">Wi-Fi bağlı · kumanda da aynı ağda olmalı</string>
+    <string name="network_local">Yerel ağa bağlı · kumanda da aynı ağda olmalı</string>
+    <string name="no_network">Telefon Wi-Fi\'a bağlı değil. Wi-Fi\'a bağlan ya da hotspot\'u aç.</string>
+    <string name="wifi_settings">Wi-Fi ayarları</string>
+
+    <!-- Live screen. hero_*_one sentences take an on_* or to_* phrase as %1$s. -->
+    <string name="tip_check_key">Sürekli tekrarlanıyorsa yayın anahtarını, sunucu adresini ve platformda canlı yayının açık olduğunu kontrol et.</string>
+    <string name="tip_receiver_error">Yayını bitirip alıcıyı yeniden aç. Sorun sürerse telefonu yeniden başlatmayı dene.</string>
+    <string name="tip_congested">Yükleme hızı yetmiyor; yayın sürüyor ama bazı görüntü kareleri atlanıyor. Daha güçlü bir bağlantıya geç, platform sayısını azalt ya da DJI Fly\'da yayın kalitesini düşür.</string>
+    <plurals name="platform_count">
+        <item quantity="one">%d platform</item>
+        <item quantity="other">%d platform</item>
+    </plurals>
+    <string name="hero_test_video">Test videosu hazırlanıyor</string>
+    <string name="hero_test_video_subtitle">Video birazdan gönderilmeye başlar.</string>
+    <string name="hero_drone_lost">Drone bağlantısı koptu</string>
+    <string name="hero_drone_lost_subtitle">Yayın açık tutuluyor; kumanda yeniden bağlanınca kaldığı yerden sürer.</string>
+    <string name="hero_starting">Başlatılıyor</string>
+    <string name="hero_starting_subtitle">Köprü birkaç saniye içinde hazır olur.</string>
+    <string name="hero_waiting">Kumanda bekleniyor</string>
+    <string name="hero_waiting_subtitle_one">DJI Fly\'da yayını başlat; görüntü gelince %1$s kendiliğinden bağlanır.</string>
+    <string name="hero_waiting_subtitle_many">DJI Fly\'da yayını başlat; görüntü gelince platformlara kendiliğinden bağlanır.</string>
+    <string name="hero_connected">Kumanda bağlandı</string>
+    <string name="hero_connected_subtitle">Görüntü birazdan gelir.</string>
+    <string name="hero_connecting_one">%1$s bağlanılıyor</string>
+    <string name="hero_connecting_many">Platformlara bağlanılıyor</string>
+    <string name="hero_live_one">%1$s yayındasın</string>
+    <plurals name="hero_live_many">
+        <item quantity="one">%d platformda yayındasın</item>
+        <item quantity="other">%d platformda yayındasın</item>
+    </plurals>
+    <string name="hero_connection_lost">Bağlantı koptu</string>
+    <string name="hero_reconnecting_one">%1$s yeniden bağlanılıyor…</string>
+    <string name="hero_reconnecting_many">Platformlara yeniden bağlanılıyor…</string>
+    <string name="hero_receiver_stopped">Alıcı durdu</string>
+    <string name="hero_off">Yayın kapalı</string>
+    <string name="stream_time">Yayın süresi %1$s</string>
+    <string name="hop_controller">Kumanda</string>
+    <string name="hop_test_video">Test videosu</string>
+    <string name="hop_phone">Telefon</string>
+    <string name="hop_waiting">bekleniyor</string>
+    <string name="hop_connected">bağlandı</string>
+    <string name="hop_sending">gönderiyor</string>
+    <string name="hop_not_connected">bağlı değil</string>
+    <string name="hop_starting">açılıyor</string>
+    <string name="hop_error">hata</string>
+    <string name="hop_ready">hazır</string>
+    <string name="hop_live">yayında</string>
+    <string name="hop_connecting">bağlanıyor</string>
+    <string name="hop_reconnecting">yeniden bağlanıyor</string>
+    <string name="hop_standing_by">beklemede</string>
+    <string name="hop_description">%1$s %2$s, %3$s %4$s, %5$s %6$s</string>
+    <string name="start_on_controller">Kumandada yayını başlat</string>
+    <string name="phone_offline">Telefon ağdan koptu</string>
+    <string name="phone_offline_message">Wi-Fi\'a yeniden bağlan ya da hotspot\'u aç; adres burada yeniden görünür.</string>
+    <string name="not_connecting">Bağlanmıyor mu?</string>
+    <string name="not_connecting_same_network">Kumanda ile telefon aynı Wi-Fi\'da olmalı ya da kumanda bu telefonun hotspot\'una bağlı olmalı.</string>
+    <string name="not_connecting_exact_address">Adresi harfi harfine yaz; sonu :1935/drone ile bitmeli.</string>
+    <string name="not_connecting_guest_vpn">Misafir ağları ve telefondaki VPN, cihazların birbirini görmesini engelleyebilir.</string>
+    <string name="stat_bitrate">Bit hızı</string>
+    <string name="stat_sent">Gönderilen</string>
+    <string name="stat_codec">Kodek</string>
+    <string name="platforms">Platformlar</string>
+    <string name="end">Bitir</string>
+    <string name="end_platform">%1$s yayınını bitir</string>
+    <string name="status_live">Yayında</string>
+    <string name="status_congested">Bağlantı yavaş · kareler atlanıyor</string>
+    <string name="status_connecting">Bağlanıyor</string>
+    <string name="status_reconnecting">Yeniden bağlanıyor</string>
+    <string name="status_holding">Drone bekleniyor · yayın açık</string>
+    <string name="status_stopped">Durdu</string>
+    <string name="status_waiting_for_picture">Drone görüntüsü bekleniyor</string>
+    <string name="output_armed">Kaynak yayın gelince hedefe bağlanacak</string>
+    <string name="output_connecting">Harici %1$s hedefine bağlanıyor</string>
+    <string name="output_ready">Harici RTMP hedefi yayını kabul etti</string>
+    <string name="output_ready_secure">TLS sertifikası doğrulandı; harici hedef yayını kabul etti</string>
+    <string name="output_forwarding">Yayın harici RTMP hedefine aktarılıyor</string>
+    <string name="output_forwarding_secure">Yayın doğrulanmış TLS üzerinden harici hedefe aktarılıyor</string>
+    <string name="output_congested">Yükleme hızı yetmiyor; görüntü bir sonraki anahtar kareye atlanıyor</string>
+    <string name="output_holding">Drone bağlantısı koptu; platform bağlantısı açık tutuluyor</string>
+    <plurals name="output_retry">
+        <item quantity="one">%d saniye içinde yeniden denenecek</item>
+        <item quantity="other">%d saniye içinde yeniden denenecek</item>
+    </plurals>
+    <string name="output_stopped">Aktarım durduruldu</string>
+    <string name="output_failure_tls">TLS sertifikası doğrulanamadı veya ağ bağlantısı kurulamadı</string>
+    <string name="output_failure_connect">Bağlantı kurulamadı</string>
+    <string name="output_failure_rejected">Yayın kabul edilmedi</string>
+    <string name="output_failure_send">Gönderirken bağlantı koptu</string>
+    <string name="output_failure_network">Ağ hatası</string>
+    <string name="output_failure_stalled">Hedef veri almayı bıraktı</string>
+    <string name="technical_details">Teknik ayrıntılar</string>
+    <string name="detail_source">Kaynak</string>
+    <string name="detail_source_waiting">Bağlantı bekleniyor</string>
+    <string name="detail_received">Alınan veri</string>
+    <string name="detail_packets">Video / ses paketleri</string>
+    <string name="detail_rejected">Reddedilen yayın</string>
+    <string name="detail_forwarded">İletilen</string>
+    <string name="detail_connection">Bağlantı</string>
+    <string name="connection_rtmps_verified">RTMPS · sertifika doğrulandı</string>
+    <string name="connection_rtmps_pending">RTMPS · doğrulama bekleniyor</string>
+    <string name="connection_rtmp">RTMP · şifresiz</string>
+    <string name="detail_status">Durum</string>
+    <string name="detail_last_error">Son hata</string>
+    <string name="detail_reconnects">Yeniden bağlanma</string>
+    <string name="detail_dropped">Atlanan paket</string>
+    <string name="background_note">Ekranı kilitleyebilirsin; yayın arka planda sürer. Android 15 ve üzeri arka plan aktarımını 24 saatte toplam 6 saatle sınırlar.</string>
+
+    <!-- Main screen, dialogs and messages -->
+    <string name="language">Dil</string>
+    <string name="language_system">Telefonun dili</string>
+    <string name="theme">Tema</string>
+    <string name="how_to_use">Nasıl kullanılır?</string>
+    <string name="ok">Tamam</string>
+    <string name="go_live">Canlı yayını başlat</string>
+    <plurals name="go_live_many">
+        <item quantity="one">%d platformda yayını başlat</item>
+        <item quantity="other">%d platformda yayını başlat</item>
+    </plurals>
+    <string name="go_live_needs_picture">Drone görüntüsü gelince yayını başlatabilirsin</string>
+    <string name="keep_streaming">Devam et</string>
+    <string name="end_one_title">%1$s yayını bitirilsin mi?</string>
+    <string name="end_one_message">%1$s canlı yayın sona erer; diğer platformlarda sürer.</string>
+    <string name="end_all_title">Yayın bitirilsin mi?</string>
+    <string name="end_all_drone">Canlı yayın sona erer. Drone bağlı kalır, görüntüsü telefonda görünmeye devam eder.</string>
+    <string name="end_all_drone_many">Canlı yayın tüm platformlarda sona erer. Drone bağlı kalır, görüntüsü telefonda görünmeye devam eder.</string>
+    <string name="end_all_test_video">Canlı yayın sona erer. Test videosu telefonda oynamaya devam eder.</string>
+    <string name="end_all_test_video_many">Canlı yayın tüm platformlarda sona erer. Test videosu telefonda oynamaya devam eder.</string>
+    <string name="notification_permission_denied">Bildirim izni verilmedi; yayını uygulamadan izleyebilirsin</string>
+    <string name="clip_address_label">DJI Fly RTMP adresi</string>
+    <string name="address_copied">Adres kopyalandı</string>
+    <string name="wifi_settings_failed">Wi-Fi ayarları açılamadı</string>
+    <string name="platform_added">%1$s eklendi</string>
+    <string name="platform_deleted">%1$s silindi</string>
+    <string name="saved">Kaydedildi</string>
+</resources>

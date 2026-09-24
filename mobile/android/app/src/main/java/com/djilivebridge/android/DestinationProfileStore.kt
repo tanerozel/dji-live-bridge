@@ -1,6 +1,7 @@
 package com.djilivebridge.android
 
 import android.content.Context
+import androidx.annotation.StringRes
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.AtomicFile
@@ -16,17 +17,18 @@ import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 
 /**
- * Supported platforms in display order. [defaultServerUrl] is each platform's published ingest
- * address; TikTok and custom servers hand out their own address, so they have none.
+ * Supported platforms in display order. [brandName] is null for a custom server, which is named
+ * in the app's language instead. [defaultServerUrl] is each platform's published ingest address;
+ * TikTok and custom servers hand out their own address, so they have none.
  */
-enum class DestinationKind(val storageValue: String, val label: String, val defaultServerUrl: String?) {
+enum class DestinationKind(val storageValue: String, val brandName: String?, val defaultServerUrl: String?) {
     INSTAGRAM("instagram", "Instagram", "rtmps://live-upload.instagram.com:443/rtmp"),
     TIKTOK("tiktok", "TikTok", null),
     YOUTUBE("youtube", "YouTube", "rtmps://a.rtmps.youtube.com/live2"),
     FACEBOOK("facebook", "Facebook", "rtmps://live-api-s.facebook.com:443/rtmp"),
     TWITCH("twitch", "Twitch", "rtmp://live.twitch.tv/app"),
     KICK("kick", "Kick", "rtmps://fa723fc1b171.global-contribute.live-video.net:443/app"),
-    CUSTOM("custom", "Özel RTMP", null);
+    CUSTOM("custom", null, null);
 
     companion object {
         fun fromStorage(value: String): DestinationKind =
@@ -43,10 +45,13 @@ data class DestinationProfile(
 
 data class DestinationProfiles(
     val profiles: List<DestinationProfile> = emptyList(),
-    val selectedProfileId: String? = null,
+    /** Where the next broadcast goes, in the order the user picked them. */
+    val selectedProfileIds: List<String> = emptyList(),
 ) {
-    val selectedProfile: DestinationProfile?
-        get() = profiles.firstOrNull { it.id == selectedProfileId }
+    val selectedProfiles: List<DestinationProfile>
+        get() = selectedProfileIds.mapNotNull { id -> profiles.firstOrNull { it.id == id } }
+
+    fun isSelected(profileId: String): Boolean = profileId in selectedProfileIds
 }
 
 data class DestinationCredentials(
@@ -74,7 +79,7 @@ class DestinationProfileStore(context: Context) {
         val current = readRecords()
         val recordIndex = existingId?.let { id -> current.profiles.indexOfFirst { it.id == id } } ?: -1
         if (existingId != null && recordIndex < 0) {
-            throw DestinationProfileException("Düzenlenecek hedef profili bulunamadı")
+            throw DestinationProfileException(R.string.profile_error_not_found)
         }
 
         val id = existingId ?: UUID.randomUUID().toString()
@@ -83,13 +88,11 @@ class DestinationProfileStore(context: Context) {
             try {
                 cipher.encrypt(id, streamKey)
             } catch (_: Exception) {
-                throw DestinationProfileException(
-                    "Yayın anahtarı Android Keystore ile şifrelenemedi",
-                )
+                throw DestinationProfileException(R.string.profile_error_key_encrypt)
             }
         } else {
             if (recordIndex < 0) {
-                throw DestinationProfileException("Hedef yayın anahtarı gerekli")
+                throw DestinationProfileException(R.string.profile_error_key_required)
             }
             current.profiles[recordIndex].encryptedSecret
         }
@@ -103,20 +106,23 @@ class DestinationProfileStore(context: Context) {
         val updatedProfiles = current.profiles.toMutableList().apply {
             if (recordIndex >= 0) set(recordIndex, updatedRecord) else add(updatedRecord)
         }
+        // A platform the user just added is one they mean to stream to.
         val updated = StoredProfiles(
             profiles = updatedProfiles,
-            selectedProfileId = current.selectedProfileId ?: id,
+            selectedProfileIds = if (recordIndex < 0) current.selectedProfileIds + id else current.selectedProfileIds,
         )
         writeRecords(updated)
         updated.toPublicState()
     }
 
-    fun select(profileId: String): DestinationProfiles = synchronized(STORE_LOCK) {
+    /** Adds [profileId] to the platforms the next broadcast goes to, or takes it out. */
+    fun setSelected(profileId: String, selected: Boolean): DestinationProfiles = synchronized(STORE_LOCK) {
         val current = readRecords()
         if (current.profiles.none { it.id == profileId }) {
-            throw DestinationProfileException("Seçilecek hedef profili bulunamadı")
+            throw DestinationProfileException(R.string.profile_error_not_found)
         }
-        val updated = current.copy(selectedProfileId = profileId)
+        val others = current.selectedProfileIds - profileId
+        val updated = current.copy(selectedProfileIds = if (selected) others + profileId else others)
         writeRecords(updated)
         updated.toPublicState()
     }
@@ -124,16 +130,12 @@ class DestinationProfileStore(context: Context) {
     fun delete(profileId: String): DestinationProfiles = synchronized(STORE_LOCK) {
         val current = readRecords()
         if (current.profiles.none { it.id == profileId }) {
-            throw DestinationProfileException("Silinecek hedef profili bulunamadı")
+            throw DestinationProfileException(R.string.profile_error_not_found)
         }
         val updatedProfiles = current.profiles.filterNot { it.id == profileId }
         val updated = StoredProfiles(
             profiles = updatedProfiles,
-            selectedProfileId = if (current.selectedProfileId == profileId) {
-                updatedProfiles.firstOrNull()?.id
-            } else {
-                current.selectedProfileId
-            },
+            selectedProfileIds = current.selectedProfileIds - profileId,
         )
         writeRecords(updated)
         if (updatedProfiles.isEmpty()) runCatching { cipher.deleteKey() }
@@ -142,13 +144,11 @@ class DestinationProfileStore(context: Context) {
 
     fun credentials(profileId: String): DestinationCredentials = synchronized(STORE_LOCK) {
         val profile = readRecords().profiles.firstOrNull { it.id == profileId }
-            ?: throw DestinationProfileException("Aktif hedef profili bulunamadı")
+            ?: throw DestinationProfileException(R.string.profile_error_not_found)
         val streamKey = try {
             cipher.decrypt(profile.id, profile.encryptedSecret)
         } catch (_: Exception) {
-            throw DestinationProfileException(
-                "Hedef yayın anahtarı Android Keystore ile açılamadı. Profilleri silip yeniden oluşturun.",
-            )
+            throw DestinationProfileException(R.string.profile_error_key_decrypt)
         }
         DestinationCredentials(profile.serverUrl, streamKey)
     }
@@ -158,12 +158,12 @@ class DestinationProfileStore(context: Context) {
         val raw = try {
             storage.openRead().bufferedReader(Charsets.UTF_8).use { it.readText() }
         } catch (_: Exception) {
-            throw DestinationProfileException("Hedef profilleri okunamadı")
+            throw DestinationProfileException(R.string.profile_error_read)
         }
         return try {
             val root = JSONObject(raw)
             if (root.optInt("version") != STORAGE_VERSION) {
-                throw DestinationProfileException("Hedef profili depolama sürümü desteklenmiyor")
+                throw DestinationProfileException(R.string.profile_error_version)
             }
             val values = root.getJSONArray("profiles")
             val profiles = buildList {
@@ -186,13 +186,15 @@ class DestinationProfileStore(context: Context) {
                     )
                 }
             }
-            val selectedId = root.optString("selectedProfileId").takeIf(String::isNotBlank)
-                ?.takeIf { id -> profiles.any { it.id == id } }
-            StoredProfiles(profiles, selectedId ?: profiles.firstOrNull()?.id)
+            // Files written before several platforms could be picked hold one selectedProfileId.
+            val selectedIds = root.optJSONArray("selectedProfileIds")
+                ?.let { ids -> List(ids.length()) { index -> ids.optString(index) } }
+                ?: listOfNotNull(root.optString("selectedProfileId").takeIf(String::isNotBlank))
+            StoredProfiles(profiles, selectedIds.distinct().filter { id -> profiles.any { it.id == id } })
         } catch (error: DestinationProfileException) {
             throw error
         } catch (_: Exception) {
-            throw DestinationProfileException("Hedef profili dosyası geçersiz veya bozuk")
+            throw DestinationProfileException(R.string.profile_error_corrupt)
         }
     }
 
@@ -214,21 +216,21 @@ class DestinationProfileStore(context: Context) {
         }
         val bytes = JSONObject()
             .put("version", STORAGE_VERSION)
-            .put("selectedProfileId", value.selectedProfileId ?: JSONObject.NULL)
+            .put("selectedProfileIds", JSONArray(value.selectedProfileIds))
             .put("profiles", profilesJson)
             .toString()
             .toByteArray(Charsets.UTF_8)
         val output = try {
             storage.startWrite()
         } catch (_: Exception) {
-            throw DestinationProfileException("Hedef profili depolaması açılamadı")
+            throw DestinationProfileException(R.string.profile_error_write)
         }
         try {
             output.write(bytes)
             storage.finishWrite(output)
         } catch (_: Exception) {
             storage.failWrite(output)
-            throw DestinationProfileException("Hedef profilleri güvenli biçimde kaydedilemedi")
+            throw DestinationProfileException(R.string.profile_error_write)
         }
     }
 
@@ -236,7 +238,7 @@ class DestinationProfileStore(context: Context) {
         profiles = profiles.map { profile ->
             DestinationProfile(profile.id, profile.name, profile.kind, profile.serverUrl)
         },
-        selectedProfileId = selectedProfileId,
+        selectedProfileIds = selectedProfileIds,
     )
 
     companion object {
@@ -246,11 +248,14 @@ class DestinationProfileStore(context: Context) {
     }
 }
 
-class DestinationProfileException(message: String) : Exception(message)
+/** A problem with the saved platforms, in words for the screen. */
+class DestinationProfileException(val text: UiText) : Exception() {
+    constructor(@StringRes id: Int) : this(uiText(id))
+}
 
 private data class StoredProfiles(
     val profiles: List<StoredProfile> = emptyList(),
-    val selectedProfileId: String? = null,
+    val selectedProfileIds: List<String> = emptyList(),
 )
 
 private data class StoredProfile(
@@ -320,7 +325,7 @@ private class AndroidKeystoreProfileCipher {
 internal fun validateName(value: String): String {
     val normalized = value.trim()
     if (normalized.isEmpty() || normalized.length > 64 || normalized.any(Char::isISOControl)) {
-        throw DestinationProfileException("Profil adı 1-64 karakter olmalı")
+        throw DestinationProfileException(R.string.profile_error_name)
     }
     return normalized
 }
@@ -330,7 +335,7 @@ internal fun validateServerUrl(value: String): String {
     val authorityAndApp = when {
         normalized.startsWith("rtmps://") -> normalized.removePrefix("rtmps://")
         normalized.startsWith("rtmp://") -> normalized.removePrefix("rtmp://")
-        else -> throw DestinationProfileException("Sunucu adresi rtmp:// veya rtmps:// ile başlamalı")
+        else -> throw DestinationProfileException(R.string.error_destination_scheme)
     }
     val separator = authorityAndApp.indexOf('/')
     val authority = authorityAndApp.take(separator.coerceAtLeast(0))
@@ -339,7 +344,7 @@ internal fun validateServerUrl(value: String): String {
         authority.isEmpty() || app.isEmpty() || authority.contains('@') ||
         normalized.contains('?') || normalized.contains('#') || normalized.any(Char::isWhitespace)
     ) {
-        throw DestinationProfileException("Hedef RTMP sunucu adresi geçersiz")
+        throw DestinationProfileException(R.string.error_destination_server)
     }
     return normalized
 }
@@ -349,5 +354,5 @@ internal fun validateStreamKey(value: String) {
         character.code > 127 || character.isWhitespace() || character.isISOControl() ||
             character == '/' || character == '#'
     }
-    if (invalid) throw DestinationProfileException("Hedef yayın anahtarı geçersiz")
+    if (invalid) throw DestinationProfileException(R.string.error_stream_key)
 }

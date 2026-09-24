@@ -77,9 +77,14 @@ class FlvMediaTest {
 
     @Test
     fun `test video label hides photo picker aliases`() {
-        assertEquals("Video · 00:20 · döngüde", testVideoLabel("43.mp4", 20_000))
-        assertEquals("drone-test.mp4 · 01:05 · döngüde", testVideoLabel("drone-test.mp4", 65_000))
-        assertEquals("Video · döngüde", testVideoLabel(null, null))
+        val video = uiText(R.string.test_video_default_name)
+        val looping = uiText(R.string.test_video_looping)
+        assertEquals(UiText.Joined(listOf(video, UiText.Raw("00:20"), looping)), testVideoLabel("43.mp4", 20_000))
+        assertEquals(
+            UiText.Joined(listOf(UiText.Raw("drone-test.mp4"), UiText.Raw("01:05"), looping)),
+            testVideoLabel("drone-test.mp4", 65_000),
+        )
+        assertEquals(UiText.Joined(listOf(video, looping)), testVideoLabel(null, null))
     }
 
     @Test

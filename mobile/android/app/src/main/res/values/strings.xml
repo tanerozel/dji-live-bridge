@@ -1,4 +1,331 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DJI Live Bridge</string>
+
+    <!-- App and errors from the relay core -->
+    <string name="app_name" translatable="false">DJI Live Bridge</string>
+    <string name="error_with_detail">%1$s (%2$s)</string>
+    <string name="error_receiver_not_running">The receiver is not running. Open it again and retry.</string>
+    <string name="error_listen_failed">Port 1935 could not be opened; another app may be using it.</string>
+    <string name="error_receiver_failed">The receiver stopped.</string>
+    <string name="error_internal">Something went wrong inside the app. Try again.</string>
+    <string name="error_destination_scheme">The server address must start with rtmp:// or rtmps://.</string>
+    <string name="error_destination_path">The server address must include the server and the app path.</string>
+    <string name="error_destination_server">The server address is not valid.</string>
+    <string name="error_stream_key">The stream key is not valid.</string>
+    <string name="error_ca_bundle">Android\'s certificates for RTMPS could not be prepared.</string>
+
+    <!-- Shared components -->
+    <string name="live_badge">LIVE</string>
+    <string name="step">Step %1$d</string>
+    <string name="step_done">Step %1$d, done</string>
+    <string name="copy_address">Copy address</string>
+    <string name="collapse">Collapse</string>
+    <string name="expand">Expand</string>
+    <string name="state_expanded">Expanded</string>
+    <string name="state_collapsed">Collapsed</string>
+
+    <!-- Themes -->
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_midnight">Midnight blue</string>
+    <string name="theme_sand">Sand</string>
+
+    <!-- Drone preview -->
+    <string name="drone_picture">Drone picture</string>
+    <string name="preview_waiting">Waiting for the picture…</string>
+    <string name="preview_unsupported">The preview cannot show this video format</string>
+
+    <!-- Test video -->
+    <string name="test_video_default_name">Video</string>
+    <string name="test_video_looping">looping</string>
+    <string name="test_video_no_avc_config">The video\'s H.264 settings could not be read.</string>
+    <string name="test_video_no_frames">The video has no frames to send.</string>
+    <string name="test_video_rewind_failed">The video could not be rewound.</string>
+    <string name="test_video_open_failed">The video could not be opened. Try another video.</string>
+    <string name="test_video_hevc">This video is recorded in H.265 (HEVC). Pick an H.264 video, which is what DJI Fly sends.</string>
+    <string name="test_video_unsupported">This video\'s format is not supported. Pick an H.264 video.</string>
+    <string name="test_video_no_video">The file you picked has no video.</string>
+    <string name="test_video_receiver_not_ready">The receiver is not ready.</string>
+    <string name="test_video_unreadable">The video could not be read.</string>
+    <string name="test_video_stopped">Test video stopped</string>
+    <string name="test_video_rotated">Videos shot in portrait may look sideways on the stream</string>
+
+    <!-- Platforms. on_* and to_* are phrases for where the stream is and where it goes, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
+    <string name="platform_custom">Custom RTMP</string>
+    <string name="on_instagram">on Instagram</string>
+    <string name="on_tiktok">on TikTok</string>
+    <string name="on_youtube">on YouTube</string>
+    <string name="on_facebook">on Facebook</string>
+    <string name="on_twitch">on Twitch</string>
+    <string name="on_kick">on Kick</string>
+    <string name="on_custom">on your custom server</string>
+    <string name="to_instagram">to Instagram</string>
+    <string name="to_tiktok">to TikTok</string>
+    <string name="to_youtube">to YouTube</string>
+    <string name="to_facebook">to Facebook</string>
+    <string name="to_twitch">to Twitch</string>
+    <string name="to_kick">to Kick</string>
+    <string name="to_custom">to your custom server</string>
+    <string name="key_help_instagram">On instagram.com, open Create (+) → Live video and copy the “Stream key”. Instagram gives a new key for every broadcast.</string>
+    <string name="key_help_tiktok">In TikTok LIVE Center, open the stream key screen and copy the Server URL and the Stream key. Your account needs RTMP access; TikTok gives a new key for every broadcast.</string>
+    <string name="key_help_youtube">In YouTube Studio, open Create → Go live → Streaming software and copy the “Stream key”. The key stays the same until you reset it.</string>
+    <string name="key_help_facebook">On facebook.com, open Live video → Streaming software and copy the “Stream key”. Unless you turned on a persistent key, Facebook gives a new one for every broadcast.</string>
+    <string name="key_help_twitch">In the Twitch Creator Dashboard, open Settings → Stream and copy your primary stream key.</string>
+    <string name="key_help_kick">On Kick, open Creator Dashboard → Settings → Stream URL &amp; Key and copy the key. If it shows a different Stream URL, replace the server address with it.</string>
+    <string name="key_help_custom">Paste the RTMP or RTMPS address and the stream key your server gives you.</string>
+    <string name="server_placeholder">rtmp://your.server/live</string>
+    <string name="live_reminder_instagram">Now press “Go live” in Instagram; the stream becomes public only after that.</string>
+    <string name="live_reminder_tiktok">Check TikTok LIVE Center; you may need to start the stream there too.</string>
+    <string name="live_reminder_youtube">If auto-start is off, press “Go live” in YouTube Studio.</string>
+    <string name="live_reminder_facebook">Facebook shows a preview first; press “Go live” there to make it public.</string>
+
+    <!-- Saved platforms -->
+    <string name="profile_error_not_found">That platform could not be found.</string>
+    <string name="profile_error_key_required">A stream key is required.</string>
+    <string name="profile_error_key_encrypt">The stream key could not be encrypted with the Android Keystore.</string>
+    <string name="profile_error_key_decrypt">The stream key could not be opened with the Android Keystore. Delete the platforms and add them again.</string>
+    <string name="profile_error_read">Your saved platforms could not be read.</string>
+    <string name="profile_error_version">Your platforms were saved by a newer version of the app.</string>
+    <string name="profile_error_corrupt">The saved platform list is damaged.</string>
+    <string name="profile_error_write">Your platforms could not be saved.</string>
+    <string name="profile_error_name">The name must be 1 to 64 characters.</string>
+    <string name="profile_error_generic">The platform could not be updated.</string>
+    <string name="profile_list_unreadable">Saved platforms could not be read</string>
+
+    <!-- Background service and notification -->
+    <string name="notification_channel">Live RTMP relay</string>
+    <string name="notification_channel_description">Receiving the DJI RC 2 stream and sending it to your platforms</string>
+    <string name="notification_receiver_error">Receiver error</string>
+    <string name="notification_starting">Preparing the receiver</string>
+    <string name="notification_live">You\'re live</string>
+    <string name="notification_live_slow">You\'re live · slow connection</string>
+    <plurals name="notification_live_many">
+        <item quantity="one">You\'re live on %d platform</item>
+        <item quantity="other">You\'re live on %d platforms</item>
+    </plurals>
+    <string name="notification_reconnecting">Reconnecting to the platform</string>
+    <string name="notification_connecting">Connecting to the platform</string>
+    <string name="notification_holding">Drone disconnected · broadcast kept open</string>
+    <string name="notification_live_waiting">Broadcast on · waiting for the drone</string>
+    <string name="notification_test_video">Receiving the test video</string>
+    <string name="notification_drone">Receiving the drone\'s picture</string>
+    <string name="notification_connected">Remote controller connected</string>
+    <string name="notification_waiting">Waiting for the drone</string>
+    <string name="end_broadcast">End broadcast</string>
+    <string name="close">Close</string>
+    <string name="error_background_limit">Android\'s limit for background transfers was reached.</string>
+    <string name="error_service_start">The background service could not start.</string>
+    <string name="go_live_failed">Could not go live</string>
+    <string name="pick_platform_first">Pick a platform first</string>
+    <string name="named_error">%1$s: %2$s</string>
+    <string name="test_video_failed">The test video could not be sent (%1$s).</string>
+
+    <!-- Stream key editor -->
+    <string name="key_paste_prompt">Paste the stream key</string>
+    <string name="save">Save</string>
+    <string name="server_address">Server address</string>
+    <string name="stream_key">Stream key</string>
+    <string name="stream_key_new">New stream key</string>
+    <string name="stream_key_paste_here">Paste it here</string>
+    <string name="stream_key_keep_hint">Leave empty to keep it</string>
+    <string name="key_hide">Hide key</string>
+    <string name="key_show">Show key</string>
+    <string name="stream_key_kept">If you leave it empty, the saved key is kept.</string>
+    <string name="stream_key_stored_encrypted">Stored only on this phone, encrypted.</string>
+    <string name="change">Change</string>
+    <string name="save_failed">Could not save</string>
+    <string name="delete_platform">Delete this platform</string>
+    <string name="discard_title">Not saved</string>
+    <string name="discard_message">Discard what you entered?</string>
+    <string name="delete">Delete</string>
+    <string name="go_back">Go back</string>
+    <string name="delete_platform_title">Delete %1$s?</string>
+    <string name="delete_platform_message">The stream key stored encrypted on this phone is deleted for good too.</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- First-run guide -->
+    <string name="guide_skip">Skip</string>
+    <string name="guide_next">Next</string>
+    <string name="guide_start">Start</string>
+    <string name="guide_page">Page %1$d of %2$d</string>
+    <string name="guide_flow_title">From your drone to a live stream</string>
+    <string name="guide_flow_body">DJI Fly on the remote controller sends the picture to this phone, and the phone passes it on to the platforms you pick.</string>
+    <string name="guide_connect_title">First, connect the drone</string>
+    <string name="guide_connect_body">Type the address on the screen into DJI Fly\'s RTMP field. The drone\'s picture shows on the phone right away; you are not live anywhere yet.</string>
+    <string name="guide_live_title">Then go live</string>
+    <string name="guide_live_body">Pick one or more platforms, paste the stream key and press Go live. The server addresses are ready.</string>
+
+    <!-- Home screen -->
+    <string name="where_to_stream">Where do you want to stream?</string>
+    <string name="pick_platforms_hint">Tap one or more platforms; the stream goes to all of them at once. The server address is ready, you only enter the stream key.</string>
+    <string name="connect_drone">Connect the drone</string>
+    <string name="preview_badge">Preview</string>
+    <string name="preview_badge_test">Test video · preview</string>
+    <string name="preview_connected">Controller connected; the picture arrives in a moment.</string>
+    <string name="preview_drone_status">Drone connected · %1$s. You\'re not live yet.</string>
+    <string name="preview_test_status">Test video coming in · %1$s. You\'re not live yet.</string>
+    <string name="stop_test_video">Stop the test video</string>
+    <string name="receiver_starting">Preparing the receiver…</string>
+    <string name="receiver_off">The receiver is off; DJI Fly cannot connect to this phone.</string>
+    <string name="retry">Try again</string>
+    <string name="open_receiver">Open the receiver</string>
+    <string name="test_video_opening">Opening the test video…</string>
+    <string name="dji_fly_instructions">Enter this as the RTMP address in DJI Fly and start the stream. The picture shows here; it goes to the platforms only when you start.</string>
+    <string name="dji_fly_path">DJI Fly → GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP</string>
+    <string name="try_test_video">No drone? Try a test video</string>
+    <string name="deselect">Deselect</string>
+    <string name="select">Select</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
+    <string name="state_saved">Saved</string>
+    <string name="state_not_added">Not added</string>
+    <string name="platform_selected">%1$s selected</string>
+    <string name="key_changes_each_stream">Needs a new key for every stream</string>
+    <string name="key_saved">Stream key saved</string>
+    <string name="update_key">Update key</string>
+    <plurals name="upload_note">
+        <item quantity="one">%d platform selected. Each one uploads the drone\'s picture separately; if the upload speed is not enough, frames are skipped.</item>
+        <item quantity="other">%d platforms selected. Each one uploads the drone\'s picture separately; if the upload speed is not enough, frames are skipped.</item>
+    </plurals>
+    <plurals name="upload_note_total">
+        <item quantity="one">%1$d platform selected. Each one uploads the drone\'s picture separately (about %2$s in total right now); if the upload speed is not enough, frames are skipped.</item>
+        <item quantity="other">%1$d platforms selected. Each one uploads the drone\'s picture separately (about %2$s in total right now); if the upload speed is not enough, frames are skipped.</item>
+    </plurals>
+    <string name="network_hotspot">Hotspot on · connect the controller to this phone</string>
+    <string name="network_wifi">Wi-Fi connected · the controller must be on the same network</string>
+    <string name="network_local">On a local network · the controller must be on the same network</string>
+    <string name="no_network">The phone is not on Wi-Fi. Connect to Wi-Fi or turn on the hotspot.</string>
+    <string name="wifi_settings">Wi-Fi settings</string>
+
+    <!-- Live screen. hero_*_one sentences take an on_* or to_* phrase as %1$s. -->
+    <string name="tip_check_key">If it keeps happening, check the stream key, the server address and that live streaming is turned on at the platform.</string>
+    <string name="tip_receiver_error">End the stream and open the receiver again. If the problem continues, try restarting the phone.</string>
+    <string name="tip_congested">The upload is too slow; the stream goes on but some frames are skipped. Move to a stronger connection, use fewer platforms or lower the stream quality in DJI Fly.</string>
+    <plurals name="platform_count">
+        <item quantity="one">%d platform</item>
+        <item quantity="other">%d platforms</item>
+    </plurals>
+    <string name="hero_test_video">Preparing the test video</string>
+    <string name="hero_test_video_subtitle">The video starts sending in a moment.</string>
+    <string name="hero_drone_lost">Drone disconnected</string>
+    <string name="hero_drone_lost_subtitle">The broadcast is kept open; it picks up where it left off when the controller reconnects.</string>
+    <string name="hero_starting">Starting</string>
+    <string name="hero_starting_subtitle">The bridge is ready in a few seconds.</string>
+    <string name="hero_waiting">Waiting for the controller</string>
+    <string name="hero_waiting_subtitle_one">Start the stream in DJI Fly; once the picture arrives, it connects %1$s by itself.</string>
+    <string name="hero_waiting_subtitle_many">Start the stream in DJI Fly; once the picture arrives, it connects to the platforms by itself.</string>
+    <string name="hero_connected">Controller connected</string>
+    <string name="hero_connected_subtitle">The picture arrives in a moment.</string>
+    <string name="hero_connecting_one">Connecting %1$s</string>
+    <string name="hero_connecting_many">Connecting to the platforms</string>
+    <string name="hero_live_one">You\'re live %1$s</string>
+    <plurals name="hero_live_many">
+        <item quantity="one">You\'re live on %d platform</item>
+        <item quantity="other">You\'re live on %d platforms</item>
+    </plurals>
+    <string name="hero_connection_lost">Connection lost</string>
+    <string name="hero_reconnecting_one">Reconnecting %1$s…</string>
+    <string name="hero_reconnecting_many">Reconnecting to the platforms…</string>
+    <string name="hero_receiver_stopped">Receiver stopped</string>
+    <string name="hero_off">Stream off</string>
+    <string name="stream_time">Stream time %1$s</string>
+    <string name="hop_controller">Controller</string>
+    <string name="hop_test_video">Test video</string>
+    <string name="hop_phone">Phone</string>
+    <string name="hop_waiting">waiting</string>
+    <string name="hop_connected">connected</string>
+    <string name="hop_sending">sending</string>
+    <string name="hop_not_connected">not connected</string>
+    <string name="hop_starting">starting</string>
+    <string name="hop_error">error</string>
+    <string name="hop_ready">ready</string>
+    <string name="hop_live">live</string>
+    <string name="hop_connecting">connecting</string>
+    <string name="hop_reconnecting">reconnecting</string>
+    <string name="hop_standing_by">standing by</string>
+    <string name="hop_description">%1$s: %2$s, %3$s: %4$s, %5$s: %6$s</string>
+    <string name="start_on_controller">Start the stream on the controller</string>
+    <string name="phone_offline">The phone lost its network</string>
+    <string name="phone_offline_message">Reconnect to Wi-Fi or turn on the hotspot; the address shows here again.</string>
+    <string name="not_connecting">Not connecting?</string>
+    <string name="not_connecting_same_network">The controller and the phone must be on the same Wi-Fi, or the controller must be connected to this phone\'s hotspot.</string>
+    <string name="not_connecting_exact_address">Type the address exactly; it must end with :1935/drone.</string>
+    <string name="not_connecting_guest_vpn">Guest networks and a VPN on the phone can stop the devices from seeing each other.</string>
+    <string name="stat_bitrate">Bitrate</string>
+    <string name="stat_sent">Sent</string>
+    <string name="stat_codec">Codec</string>
+    <string name="platforms">Platforms</string>
+    <string name="end">End</string>
+    <string name="end_platform">End the %1$s stream</string>
+    <string name="status_live">Live</string>
+    <string name="status_congested">Slow connection · skipping frames</string>
+    <string name="status_connecting">Connecting</string>
+    <string name="status_reconnecting">Reconnecting</string>
+    <string name="status_holding">Waiting for the drone · broadcast on</string>
+    <string name="status_stopped">Stopped</string>
+    <string name="status_waiting_for_picture">Waiting for the drone\'s picture</string>
+    <string name="output_armed">Connects once the drone\'s picture arrives</string>
+    <string name="output_connecting">Connecting to the platform over %1$s</string>
+    <string name="output_ready">The platform accepted the stream</string>
+    <string name="output_ready_secure">Certificate verified; the platform accepted the stream</string>
+    <string name="output_forwarding">Sending to the platform over RTMP</string>
+    <string name="output_forwarding_secure">Sending to the platform over verified TLS</string>
+    <string name="output_congested">Upload too slow; the picture skips to the next keyframe</string>
+    <string name="output_holding">Drone disconnected; the platform connection is kept open</string>
+    <plurals name="output_retry">
+        <item quantity="one">Retrying in %d second</item>
+        <item quantity="other">Retrying in %d seconds</item>
+    </plurals>
+    <string name="output_stopped">Forwarding stopped</string>
+    <string name="output_failure_tls">The TLS certificate could not be verified or the network is unreachable</string>
+    <string name="output_failure_connect">Could not connect</string>
+    <string name="output_failure_rejected">The platform did not accept the stream</string>
+    <string name="output_failure_send">The connection dropped while sending</string>
+    <string name="output_failure_network">Network error</string>
+    <string name="output_failure_stalled">The platform stopped taking data</string>
+    <string name="technical_details">Technical details</string>
+    <string name="detail_source">Source</string>
+    <string name="detail_source_waiting">Waiting for a connection</string>
+    <string name="detail_received">Data received</string>
+    <string name="detail_packets">Video / audio packets</string>
+    <string name="detail_rejected">Rejected publishes</string>
+    <string name="detail_forwarded">Forwarded</string>
+    <string name="detail_connection">Connection</string>
+    <string name="connection_rtmps_verified">RTMPS · certificate verified</string>
+    <string name="connection_rtmps_pending">RTMPS · awaiting verification</string>
+    <string name="connection_rtmp">RTMP · unencrypted</string>
+    <string name="detail_status">Status</string>
+    <string name="detail_last_error">Last error</string>
+    <string name="detail_reconnects">Reconnects</string>
+    <string name="detail_dropped">Skipped packets</string>
+    <string name="background_note">You can lock the screen; the stream goes on in the background. Android 15 and later limit background transfers to 6 hours in total every 24 hours.</string>
+
+    <!-- Main screen, dialogs and messages -->
+    <string name="language">Language</string>
+    <string name="language_system">Phone\'s language</string>
+    <string name="theme">Theme</string>
+    <string name="how_to_use">How to use</string>
+    <string name="ok">OK</string>
+    <string name="go_live">Go live</string>
+    <plurals name="go_live_many">
+        <item quantity="one">Go live on %d platform</item>
+        <item quantity="other">Go live on %d platforms</item>
+    </plurals>
+    <string name="go_live_needs_picture">You can go live once the drone\'s picture arrives</string>
+    <string name="keep_streaming">Keep streaming</string>
+    <string name="end_one_title">End the %1$s stream?</string>
+    <string name="end_one_message">The live stream %1$s ends; the other platforms stay live.</string>
+    <string name="end_all_title">End the stream?</string>
+    <string name="end_all_drone">The live stream ends. The drone stays connected and its picture keeps showing on the phone.</string>
+    <string name="end_all_drone_many">The live stream ends on all platforms. The drone stays connected and its picture keeps showing on the phone.</string>
+    <string name="end_all_test_video">The live stream ends. The test video keeps playing on the phone.</string>
+    <string name="end_all_test_video_many">The live stream ends on all platforms. The test video keeps playing on the phone.</string>
+    <string name="notification_permission_denied">Notifications are off; you can follow the stream in the app</string>
+    <string name="clip_address_label">DJI Fly RTMP address</string>
+    <string name="address_copied">Address copied</string>
+    <string name="wifi_settings_failed">Could not open Wi-Fi settings</string>
+    <string name="platform_added">%1$s added</string>
+    <string name="platform_deleted">%1$s deleted</string>
+    <string name="saved">Saved</string>
 </resources>

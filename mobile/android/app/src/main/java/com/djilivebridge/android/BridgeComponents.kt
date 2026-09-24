@@ -37,6 +37,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -51,6 +52,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -62,6 +64,7 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -142,7 +145,7 @@ internal fun LiveBadge(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.spacedBy(6.dp),
         ) {
             PulsingDot(color = Color.White, size = 7.dp)
-            Text(text = "CANLI", style = MaterialTheme.typography.labelLarge, letterSpacing = 1.sp)
+            Text(text = stringResource(R.string.live_badge), style = MaterialTheme.typography.labelLarge, letterSpacing = 1.sp)
         }
     }
 }
@@ -151,12 +154,14 @@ internal fun LiveBadge(modifier: Modifier = Modifier) {
 @Composable
 internal fun StepDot(number: Int, done: Boolean) {
     val colors = BridgeTheme.colors
+    val stepDone = stringResource(R.string.step_done, number)
+    val step = stringResource(R.string.step, number)
     Box(
         modifier = Modifier
             .size(24.dp)
             .background(if (done) colors.success else colors.accentSoft, CircleShape)
             .clearAndSetSemantics {
-                contentDescription = if (done) "Adım $number tamamlandı" else "Adım $number"
+                contentDescription = if (done) stepDone else step
             },
         contentAlignment = Alignment.Center,
     ) {
@@ -264,6 +269,7 @@ internal fun AddressField(address: String, onCopy: () -> Unit, modifier: Modifie
             SelectionContainer(modifier = Modifier.weight(1f)) {
                 Text(
                     text = address,
+                    style = LocalTextStyle.current.copy(textDirection = TextDirection.Ltr),
                     fontFamily = FontFamily.Monospace,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 16.sp,
@@ -271,7 +277,7 @@ internal fun AddressField(address: String, onCopy: () -> Unit, modifier: Modifie
                 )
             }
             IconButton(onClick = onCopy) {
-                Icon(Icons.Rounded.ContentCopy, contentDescription = "Adresi kopyala", tint = colors.link)
+                Icon(Icons.Rounded.ContentCopy, contentDescription = stringResource(R.string.copy_address), tint = colors.link)
             }
         }
     }
@@ -339,14 +345,18 @@ internal fun ExpandableSection(
 ) {
     val colors = BridgeTheme.colors
     val rotation by animateFloatAsState(if (expanded) 180f else 0f, label = "expandRotation")
+    val collapseLabel = stringResource(R.string.collapse)
+    val expandLabel = stringResource(R.string.expand)
+    val expandedState = stringResource(R.string.state_expanded)
+    val collapsedState = stringResource(R.string.state_collapsed)
     Column(modifier = modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(min = 44.dp)
                 .clip(MaterialTheme.shapes.small)
-                .clickable(onClickLabel = if (expanded) "Kapat" else "Aç", role = Role.Button, onClick = onToggle)
-                .semantics { stateDescription = if (expanded) "Açık" else "Kapalı" },
+                .clickable(onClickLabel = if (expanded) collapseLabel else expandLabel, role = Role.Button, onClick = onToggle)
+                .semantics { stateDescription = if (expanded) expandedState else collapsedState },
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(

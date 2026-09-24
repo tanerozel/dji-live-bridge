@@ -6,13 +6,17 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class BridgePhaseTest {
-    private fun receiving(status: String, outputStatus: String = "disabled") = RelayServiceUiState(
+    /** The receiver runs; each output status is one platform the stream goes to. */
+    private fun receiving(status: String, vararg outputs: String) = RelayServiceUiState(
         isActive = true,
-        snapshot = RelaySnapshot(status = status, outputStatus = outputStatus),
+        snapshot = RelaySnapshot(
+            status = status,
+            outputs = outputs.mapIndexed { index, output -> OutputSnapshot("platform-$index", status = output) },
+        ),
     )
 
-    private fun live(status: String, outputStatus: String = "armed") =
-        receiving(status, outputStatus).copy(liveProfileId = "profile-1")
+    private fun live(status: String, vararg outputs: String) =
+        receiving(status, *outputs).copy(liveProfileIds = outputs.indices.map { "platform-$it" }.ifEmpty { listOf("platform-0") })
 
     @Test
     fun `stopped receiver is idle`() {
@@ -23,7 +27,7 @@ class BridgePhaseTest {
     fun `failed start keeps the setup screen with an error`() {
         val state = RelayServiceUiState(
             isActive = false,
-            snapshot = RelaySnapshot(status = "error", detail = "0.0.0.0:1935 dinlenemedi"),
+            snapshot = RelaySnapshot(status = "error", error = nativeError("listen_failed: 0.0.0.0:1935: address in use")),
         )
         assertEquals(BridgePhase.START_FAILED, bridgePhase(state))
     }
@@ -37,14 +41,14 @@ class BridgePhaseTest {
     }
 
     @Test
-    fun `a stale output status never looks live after the stream ended`() {
+    fun `a stale output never looks live after the stream ended`() {
         // The snapshot lags "end live" by up to one poll.
         assertEquals(BridgePhase.PREVIEW, bridgePhase(receiving("publishing", "forwarding")))
     }
 
     @Test
     fun `going live follows the output pipeline`() {
-        assertEquals(BridgePhase.CONNECTING_TARGET, bridgePhase(live("publishing", "disabled")))
+        assertEquals(BridgePhase.CONNECTING_TARGET, bridgePhase(live("publishing")))
         assertEquals(BridgePhase.CONNECTING_TARGET, bridgePhase(live("publishing", "armed")))
         assertEquals(BridgePhase.CONNECTING_TARGET, bridgePhase(live("publishing", "connecting")))
         assertEquals(BridgePhase.CONNECTING_TARGET, bridgePhase(live("publishing", "ready")))
@@ -54,9 +58,20 @@ class BridgePhaseTest {
     }
 
     @Test
+    fun `several platforms are live while any of them receives the stream`() {
+        assertEquals(BridgePhase.LIVE, bridgePhase(live("publishing", "reconnecting", "forwarding")))
+        assertEquals(BridgePhase.LIVE, bridgePhase(live("publishing", "connecting", "congested", "armed")))
+        assertEquals(BridgePhase.CONNECTING_TARGET, bridgePhase(live("publishing", "reconnecting", "connecting")))
+        assertEquals(BridgePhase.RECONNECTING, bridgePhase(live("publishing", "reconnecting", "reconnecting")))
+        val snapshot = live("publishing", "forwarding", "congested").snapshot
+        assertEquals("forwarding", snapshot.outputStatus)
+        assertEquals("congested", snapshot.output("platform-1")?.status)
+    }
+
+    @Test
     fun `a live stream waits for the drone when it drops`() {
-        assertEquals(BridgePhase.WAITING_FOR_DRONE, bridgePhase(live("listening")))
-        assertEquals(BridgePhase.DRONE_CONNECTED, bridgePhase(live("connected")))
+        assertEquals(BridgePhase.WAITING_FOR_DRONE, bridgePhase(live("listening", "holding")))
+        assertEquals(BridgePhase.DRONE_CONNECTED, bridgePhase(live("connected", "holding")))
     }
 
     @Test

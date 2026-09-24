@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App and errors from the relay core -->
+    <string name="error_with_detail">%1$s（%2$s）</string>
+    <string name="error_receiver_not_running">受信サーバーが動作していません。もう一度起動してからやり直してください。</string>
+    <string name="error_listen_failed">ポート 1935 を開けませんでした。ほかのアプリが使用している可能性があります。</string>
+    <string name="error_receiver_failed">受信サーバーが停止しました。</string>
+    <string name="error_internal">アプリ内部で問題が発生しました。もう一度お試しください。</string>
+    <string name="error_destination_scheme">サーバーアドレスは rtmp:// または rtmps:// で始まる必要があります。</string>
+    <string name="error_destination_path">サーバーアドレスにはサーバー名とアプリケーションのパスを含めてください。</string>
+    <string name="error_destination_server">サーバーアドレスが正しくありません。</string>
+    <string name="error_stream_key">ストリームキーが正しくありません。</string>
+    <string name="error_ca_bundle">RTMPS 用の Android の証明書を準備できませんでした。</string>
+
+    <!-- Shared components -->
+    <string name="live_badge">配信中</string>
+    <string name="step">ステップ %1$d</string>
+    <string name="step_done">ステップ %1$d、完了</string>
+    <string name="copy_address">アドレスをコピー</string>
+    <string name="collapse">閉じる</string>
+    <string name="expand">開く</string>
+    <string name="state_expanded">開いています</string>
+    <string name="state_collapsed">閉じています</string>
+
+    <!-- Themes -->
+    <string name="theme_system">システムに合わせる</string>
+    <string name="theme_light">ライト</string>
+    <string name="theme_dark">ダーク</string>
+    <string name="theme_midnight">ミッドナイトブルー</string>
+    <string name="theme_sand">サンド</string>
+
+    <!-- Drone preview -->
+    <string name="drone_picture">ドローンの映像</string>
+    <string name="preview_waiting">映像を待っています…</string>
+    <string name="preview_unsupported">この映像形式はプレビューで表示できません</string>
+
+    <!-- Test video -->
+    <string name="test_video_default_name">動画</string>
+    <string name="test_video_looping">ループ再生</string>
+    <string name="test_video_no_avc_config">動画の H.264 設定を読み取れませんでした。</string>
+    <string name="test_video_no_frames">この動画には送信できるフレームがありません。</string>
+    <string name="test_video_rewind_failed">動画を先頭に戻せませんでした。</string>
+    <string name="test_video_open_failed">動画を開けませんでした。別の動画をお試しください。</string>
+    <string name="test_video_hevc">この動画は H.265 (HEVC) で記録されています。DJI Fly が送信するのと同じ H.264 の動画を選んでください。</string>
+    <string name="test_video_unsupported">この動画の形式には対応していません。H.264 の動画を選んでください。</string>
+    <string name="test_video_no_video">選択したファイルには映像がありません。</string>
+    <string name="test_video_receiver_not_ready">受信サーバーの準備ができていません。</string>
+    <string name="test_video_unreadable">動画を読み込めませんでした。</string>
+    <string name="test_video_stopped">テスト動画が停止しました</string>
+    <string name="test_video_rotated">縦向きで撮影した動画は、配信で横倒しに表示されることがあります</string>
+
+    <!-- Platforms. on_* and to_* are phrases for where the stream is and where it goes, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
+    <string name="platform_custom">カスタムRTMP</string>
+    <string name="on_instagram">Instagram で</string>
+    <string name="on_tiktok">TikTok で</string>
+    <string name="on_youtube">YouTube で</string>
+    <string name="on_facebook">Facebook で</string>
+    <string name="on_twitch">Twitch で</string>
+    <string name="on_kick">Kick で</string>
+    <string name="on_custom">カスタムサーバーで</string>
+    <string name="to_instagram">Instagram に</string>
+    <string name="to_tiktok">TikTok に</string>
+    <string name="to_youtube">YouTube に</string>
+    <string name="to_facebook">Facebook に</string>
+    <string name="to_twitch">Twitch に</string>
+    <string name="to_kick">Kick に</string>
+    <string name="to_custom">カスタムサーバーに</string>
+    <string name="key_help_instagram">instagram.com で「作成（＋）」→「ライブ動画」を開き、「ストリームキー」をコピーしてください。Instagram は配信ごとに新しいキーを発行します。</string>
+    <string name="key_help_tiktok">TikTok LIVE Center でストリームキーの画面を開き、サーバー URL とストリームキーをコピーしてください。アカウントに RTMP の利用権限が必要です。TikTok は配信ごとに新しいキーを発行します。</string>
+    <string name="key_help_youtube">YouTube Studio で「作成」→「ライブ配信を開始」→「ストリーミング ソフトウェア」を開き、「ストリームキー」をコピーしてください。キーはリセットするまで変わりません。</string>
+    <string name="key_help_facebook">facebook.com で「ライブ動画」→「配信ソフトウェア」を開き、「ストリームキー」をコピーしてください。固定キーを有効にしていない限り、Facebook は配信ごとに新しいキーを発行します。</string>
+    <string name="key_help_twitch">Twitch のクリエイターダッシュボードで「設定」→「配信」を開き、プライマリストリームキーをコピーしてください。</string>
+    <string name="key_help_kick">Kick で Creator Dashboard → Settings → Stream URL &amp; Key を開き、キーをコピーしてください。別の Stream URL が表示されている場合は、サーバーアドレスをそれに置き換えてください。</string>
+    <string name="key_help_custom">サーバーから提供された RTMP または RTMPS のアドレスとストリームキーを貼り付けてください。</string>
+    <string name="server_placeholder">rtmp://your.server/live</string>
+    <string name="live_reminder_instagram">次に Instagram で「ライブを開始」を押してください。これで初めて配信が公開されます。</string>
+    <string name="live_reminder_tiktok">TikTok LIVE Center を確認してください。そちらでも配信の開始が必要な場合があります。</string>
+    <string name="live_reminder_youtube">自動開始がオフの場合は、YouTube Studio で「ライブ配信を開始」を押してください。</string>
+    <string name="live_reminder_facebook">Facebook は先にプレビューを表示します。公開するにはそこで「ライブ配信を開始」を押してください。</string>
+
+    <!-- Saved platforms -->
+    <string name="profile_error_not_found">その配信先が見つかりません。</string>
+    <string name="profile_error_key_required">ストリームキーを入力してください。</string>
+    <string name="profile_error_key_encrypt">Android Keystore でストリームキーを暗号化できませんでした。</string>
+    <string name="profile_error_key_decrypt">Android Keystore でストリームキーを復号できませんでした。配信先を削除して、もう一度追加してください。</string>
+    <string name="profile_error_read">保存した配信先を読み込めませんでした。</string>
+    <string name="profile_error_version">配信先はより新しいバージョンのアプリで保存されています。</string>
+    <string name="profile_error_corrupt">保存された配信先のリストが破損しています。</string>
+    <string name="profile_error_write">配信先を保存できませんでした。</string>
+    <string name="profile_error_name">名前は 1 文字以上 64 文字以内で入力してください。</string>
+    <string name="profile_error_generic">配信先を更新できませんでした。</string>
+    <string name="profile_list_unreadable">保存した配信先を読み込めませんでした</string>
+
+    <!-- Background service and notification -->
+    <string name="notification_channel">ライブ RTMP 中継</string>
+    <string name="notification_channel_description">DJI RC 2 の映像を受信して配信先に中継します</string>
+    <string name="notification_receiver_error">受信サーバーでエラーが発生しました</string>
+    <string name="notification_starting">受信サーバーを準備中</string>
+    <string name="notification_live">ライブ配信中</string>
+    <string name="notification_live_slow">ライブ配信中 · 回線が低速</string>
+    <plurals name="notification_live_many">
+        <item quantity="other">%d 件の配信先でライブ配信中</item>
+    </plurals>
+    <string name="notification_reconnecting">配信先に再接続中</string>
+    <string name="notification_connecting">配信先に接続中</string>
+    <string name="notification_holding">ドローン切断 · 配信は維持中</string>
+    <string name="notification_live_waiting">配信中 · ドローンを待っています</string>
+    <string name="notification_test_video">テスト動画を受信中</string>
+    <string name="notification_drone">ドローンの映像を受信中</string>
+    <string name="notification_connected">送信機が接続されました</string>
+    <string name="notification_waiting">ドローンを待っています</string>
+    <string name="end_broadcast">配信を終了</string>
+    <string name="close">閉じる</string>
+    <string name="error_background_limit">Android のバックグラウンド転送の上限に達しました。</string>
+    <string name="error_service_start">バックグラウンドサービスを開始できませんでした。</string>
+    <string name="go_live_failed">配信を開始できませんでした</string>
+    <string name="pick_platform_first">先に配信先を選んでください</string>
+    <string name="named_error">%1$s: %2$s</string>
+    <string name="test_video_failed">テスト動画を送信できませんでした（%1$s）。</string>
+
+    <!-- Stream key editor -->
+    <string name="key_paste_prompt">ストリームキーを貼り付けてください</string>
+    <string name="save">保存</string>
+    <string name="server_address">サーバーアドレス</string>
+    <string name="stream_key">ストリームキー</string>
+    <string name="stream_key_new">新しいストリームキー</string>
+    <string name="stream_key_paste_here">ここに貼り付け</string>
+    <string name="stream_key_keep_hint">変更しない場合は空欄のまま</string>
+    <string name="key_hide">キーを隠す</string>
+    <string name="key_show">キーを表示</string>
+    <string name="stream_key_kept">空欄のままにすると、保存済みのキーがそのまま使われます。</string>
+    <string name="stream_key_stored_encrypted">このスマートフォンにのみ、暗号化して保存されます。</string>
+    <string name="change">変更</string>
+    <string name="save_failed">保存できませんでした</string>
+    <string name="delete_platform">この配信先を削除</string>
+    <string name="discard_title">保存されていません</string>
+    <string name="discard_message">入力した内容を破棄しますか？</string>
+    <string name="delete">削除</string>
+    <string name="go_back">戻る</string>
+    <string name="delete_platform_title">%1$s を削除しますか？</string>
+    <string name="delete_platform_message">このスマートフォンに暗号化して保存されているストリームキーも完全に削除されます。</string>
+    <string name="cancel">キャンセル</string>
+
+    <!-- First-run guide -->
+    <string name="guide_skip">スキップ</string>
+    <string name="guide_next">次へ</string>
+    <string name="guide_start">はじめる</string>
+    <string name="guide_page">%2$d ページ中 %1$d ページ目</string>
+    <string name="guide_flow_title">ドローンからライブ配信へ</string>
+    <string name="guide_flow_body">送信機の DJI Fly が映像をこのスマートフォンに送り、スマートフォンから選んだ配信先へ中継します。</string>
+    <string name="guide_connect_title">まずはドローンを接続</string>
+    <string name="guide_connect_body">画面に表示されたアドレスを DJI Fly の RTMP 欄に入力します。ドローンの映像はすぐにスマートフォンに表示されますが、まだどこにも配信されていません。</string>
+    <string name="guide_live_title">次に配信を開始</string>
+    <string name="guide_live_body">配信先を選び（複数可）、ストリームキーを貼り付けて「配信を開始」を押します。サーバーアドレスは入力済みです。</string>
+
+    <!-- Home screen -->
+    <string name="where_to_stream">どこへ配信しますか？</string>
+    <string name="pick_platforms_hint">配信先をタップして選んでください（複数選択可）。選んだすべての配信先に同時に配信されます。サーバーアドレスは入力済みなので、入力するのはストリームキーだけです。</string>
+    <string name="connect_drone">ドローンを接続</string>
+    <string name="preview_badge">プレビュー</string>
+    <string name="preview_badge_test">テスト動画 · プレビュー</string>
+    <string name="preview_connected">送信機が接続されました。まもなく映像が届きます。</string>
+    <string name="preview_drone_status">ドローン接続済み · %1$s。まだ配信は始まっていません。</string>
+    <string name="preview_test_status">テスト動画を受信中 · %1$s。まだ配信は始まっていません。</string>
+    <string name="stop_test_video">テスト動画を停止</string>
+    <string name="receiver_starting">受信サーバーを準備中…</string>
+    <string name="receiver_off">受信サーバーがオフのため、DJI Fly からこのスマートフォンに接続できません。</string>
+    <string name="retry">再試行</string>
+    <string name="open_receiver">受信サーバーを起動</string>
+    <string name="test_video_opening">テスト動画を開いています…</string>
+    <string name="dji_fly_instructions">下のアドレスを DJI Fly の RTMP アドレスとして入力し、配信を開始してください。映像はここに表示されます。配信先に送られるのは、このアプリで配信を開始したときだけです。</string>
+    <string name="dji_fly_path">DJI Fly → GO FLY → ••• → 伝送 → ライブ配信プラットフォーム → RTMP</string>
+    <string name="try_test_video">ドローンがなければテスト動画で試す</string>
+    <string name="deselect">選択を解除</string>
+    <string name="select">選択</string>
+    <string name="add">追加</string>
+    <string name="edit">編集</string>
+    <string name="state_saved">保存済み</string>
+    <string name="state_not_added">未追加</string>
+    <string name="platform_selected">%1$s を選択中</string>
+    <string name="key_changes_each_stream">配信ごとに新しいキーが必要です</string>
+    <string name="key_saved">ストリームキー保存済み</string>
+    <string name="update_key">キーを更新</string>
+    <plurals name="upload_note">
+        <item quantity="other">%d 件の配信先を選択中です。配信先ごとにドローンの映像を個別にアップロードします。アップロード速度が足りないとコマ落ちします。</item>
+    </plurals>
+    <plurals name="upload_note_total">
+        <item quantity="other">%1$d 件の配信先を選択中です。配信先ごとにドローンの映像を個別にアップロードします（現在の合計は約 %2$s）。アップロード速度が足りないとコマ落ちします。</item>
+    </plurals>
+    <string name="network_hotspot">テザリング中 · 送信機をこのスマートフォンに接続してください</string>
+    <string name="network_wifi">Wi-Fi に接続中 · 送信機も同じネットワークに接続してください</string>
+    <string name="network_local">ローカルネットワークに接続中 · 送信機も同じネットワークに接続してください</string>
+    <string name="no_network">スマートフォンが Wi-Fi に接続されていません。Wi-Fi に接続するか、テザリングをオンにしてください。</string>
+    <string name="wifi_settings">Wi-Fi 設定</string>
+
+    <!-- Live screen. hero_*_one sentences take an on_* or to_* phrase as %1$s. -->
+    <string name="tip_check_key">繰り返し発生する場合は、ストリームキーとサーバーアドレスが正しいか、配信先でライブ配信が有効になっているかを確認してください。</string>
+    <string name="tip_receiver_error">配信を終了して、受信サーバーをもう一度起動してください。問題が続く場合は、スマートフォンを再起動してみてください。</string>
+    <string name="tip_congested">アップロード速度が足りません。配信は続いていますが、コマ落ちが発生しています。電波の良い場所に移動するか、配信先を減らすか、DJI Fly で配信の画質を下げてください。</string>
+    <plurals name="platform_count">
+        <item quantity="other">配信先 %d 件</item>
+    </plurals>
+    <string name="hero_test_video">テスト動画を準備中</string>
+    <string name="hero_test_video_subtitle">まもなく動画の送信が始まります。</string>
+    <string name="hero_drone_lost">ドローンとの接続が切れました</string>
+    <string name="hero_drone_lost_subtitle">配信は維持されています。送信機が再接続すると、中断したところから再開します。</string>
+    <string name="hero_starting">起動中</string>
+    <string name="hero_starting_subtitle">数秒で準備が整います。</string>
+    <string name="hero_waiting">送信機を待っています</string>
+    <string name="hero_waiting_subtitle_one">DJI Fly で配信を開始してください。映像が届くと、%1$s自動で接続します。</string>
+    <string name="hero_waiting_subtitle_many">DJI Fly で配信を開始してください。映像が届くと、配信先に自動で接続します。</string>
+    <string name="hero_connected">送信機が接続されました</string>
+    <string name="hero_connected_subtitle">まもなく映像が届きます。</string>
+    <string name="hero_connecting_one">%1$s接続中</string>
+    <string name="hero_connecting_many">配信先に接続中</string>
+    <string name="hero_live_one">%1$sライブ配信中</string>
+    <plurals name="hero_live_many">
+        <item quantity="other">%d 件の配信先でライブ配信中</item>
+    </plurals>
+    <string name="hero_connection_lost">接続が切れました</string>
+    <string name="hero_reconnecting_one">%1$s再接続中…</string>
+    <string name="hero_reconnecting_many">配信先に再接続中…</string>
+    <string name="hero_receiver_stopped">受信サーバーが停止しました</string>
+    <string name="hero_off">配信停止中</string>
+    <string name="stream_time">配信時間 %1$s</string>
+    <string name="hop_controller">送信機</string>
+    <string name="hop_test_video">テスト動画</string>
+    <string name="hop_phone">スマホ</string>
+    <string name="hop_waiting">接続待ち</string>
+    <string name="hop_connected">接続済み</string>
+    <string name="hop_sending">送信中</string>
+    <string name="hop_not_connected">未接続</string>
+    <string name="hop_starting">起動中</string>
+    <string name="hop_error">エラー</string>
+    <string name="hop_ready">準備完了</string>
+    <string name="hop_live">配信中</string>
+    <string name="hop_connecting">接続中</string>
+    <string name="hop_reconnecting">再接続中</string>
+    <string name="hop_standing_by">待機中</string>
+    <string name="hop_description">%1$s: %2$s、%3$s: %4$s、%5$s: %6$s</string>
+    <string name="start_on_controller">送信機で配信を開始</string>
+    <string name="phone_offline">スマートフォンがネットワークから切断されました</string>
+    <string name="phone_offline_message">Wi-Fi に再接続するか、テザリングをオンにしてください。アドレスがここに再び表示されます。</string>
+    <string name="not_connecting">接続できない場合</string>
+    <string name="not_connecting_same_network">送信機とスマートフォンを同じ Wi-Fi に接続するか、送信機をこのスマートフォンのテザリングに接続してください。</string>
+    <string name="not_connecting_exact_address">アドレスは正確に入力してください。末尾は必ず :1935/drone です。</string>
+    <string name="not_connecting_guest_vpn">ゲストネットワークやスマートフォンの VPN が原因で、機器同士が互いに通信できないことがあります。</string>
+    <string name="stat_bitrate">ビットレート</string>
+    <string name="stat_sent">送信量</string>
+    <string name="stat_codec">コーデック</string>
+    <string name="platforms">配信先</string>
+    <string name="end">終了</string>
+    <string name="end_platform">%1$s の配信を終了</string>
+    <string name="status_live">配信中</string>
+    <string name="status_congested">回線が低速 · コマ落ち発生中</string>
+    <string name="status_connecting">接続中</string>
+    <string name="status_reconnecting">再接続中</string>
+    <string name="status_holding">ドローン待ち · 配信は継続中</string>
+    <string name="status_stopped">停止中</string>
+    <string name="status_waiting_for_picture">ドローンの映像待ち</string>
+    <string name="output_armed">ドローンの映像が届くと接続します</string>
+    <string name="output_connecting">%1$s で配信先に接続中</string>
+    <string name="output_ready">配信先がストリームを受け付けました</string>
+    <string name="output_ready_secure">証明書を検証済み。配信先がストリームを受け付けました</string>
+    <string name="output_forwarding">RTMP で配信先に送信中</string>
+    <string name="output_forwarding_secure">検証済みの TLS で配信先に送信中</string>
+    <string name="output_congested">アップロードが遅いため、映像を次のキーフレームまでスキップしています</string>
+    <string name="output_holding">ドローンとの接続が切れました。配信先との接続は維持しています</string>
+    <plurals name="output_retry">
+        <item quantity="other">%d 秒後に再試行します</item>
+    </plurals>
+    <string name="output_stopped">転送を停止しました</string>
+    <string name="output_failure_tls">TLS 証明書を検証できないか、ネットワークに接続できません</string>
+    <string name="output_failure_connect">接続できませんでした</string>
+    <string name="output_failure_rejected">配信先がストリームを受け付けませんでした</string>
+    <string name="output_failure_send">送信中に接続が切れました</string>
+    <string name="output_failure_network">ネットワークエラー</string>
+    <string name="output_failure_stalled">配信先がデータを受け取らなくなりました</string>
+    <string name="technical_details">技術的な詳細</string>
+    <string name="detail_source">配信元</string>
+    <string name="detail_source_waiting">接続を待っています</string>
+    <string name="detail_received">受信量</string>
+    <string name="detail_packets">映像 / 音声パケット</string>
+    <string name="detail_rejected">拒否された配信要求</string>
+    <string name="detail_forwarded">転送量</string>
+    <string name="detail_connection">接続</string>
+    <string name="connection_rtmps_verified">RTMPS · 証明書を検証済み</string>
+    <string name="connection_rtmps_pending">RTMPS · 検証待ち</string>
+    <string name="connection_rtmp">RTMP · 暗号化なし</string>
+    <string name="detail_status">状態</string>
+    <string name="detail_last_error">直近のエラー</string>
+    <string name="detail_reconnects">再接続回数</string>
+    <string name="detail_dropped">スキップしたパケット</string>
+    <string name="background_note">画面をロックしても、配信はバックグラウンドで続きます。Android 15 以降では、バックグラウンドでの転送は 24 時間ごとに合計 6 時間までに制限されます。</string>
+
+    <!-- Main screen, dialogs and messages -->
+    <string name="language">言語</string>
+    <string name="language_system">スマートフォンの言語</string>
+    <string name="theme">テーマ</string>
+    <string name="how_to_use">使い方</string>
+    <string name="ok">OK</string>
+    <string name="go_live">配信を開始</string>
+    <plurals name="go_live_many">
+        <item quantity="other">%d 件の配信先で配信を開始</item>
+    </plurals>
+    <string name="go_live_needs_picture">ドローンの映像が届くと配信を開始できます</string>
+    <string name="keep_streaming">配信を続ける</string>
+    <string name="end_one_title">%1$s の配信を終了しますか？</string>
+    <string name="end_one_message">%1$sのライブ配信が終了します。ほかの配信先では配信が続きます。</string>
+    <string name="end_all_title">配信を終了しますか？</string>
+    <string name="end_all_drone">ライブ配信が終了します。ドローンは接続されたままで、映像は引き続きスマートフォンに表示されます。</string>
+    <string name="end_all_drone_many">すべての配信先でライブ配信が終了します。ドローンは接続されたままで、映像は引き続きスマートフォンに表示されます。</string>
+    <string name="end_all_test_video">ライブ配信が終了します。テスト動画はスマートフォンで引き続き再生されます。</string>
+    <string name="end_all_test_video_many">すべての配信先でライブ配信が終了します。テスト動画はスマートフォンで引き続き再生されます。</string>
+    <string name="notification_permission_denied">通知がオフです。配信の状況はアプリで確認できます</string>
+    <string name="clip_address_label">DJI Fly 用 RTMP アドレス</string>
+    <string name="address_copied">アドレスをコピーしました</string>
+    <string name="wifi_settings_failed">Wi-Fi 設定を開けませんでした</string>
+    <string name="platform_added">%1$s を追加しました</string>
+    <string name="platform_deleted">%1$s を削除しました</string>
+    <string name="saved">保存しました</string>
+</resources>

@@ -33,6 +33,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -49,6 +50,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -58,6 +60,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.SecureFlagPolicy
@@ -70,8 +73,8 @@ import androidx.compose.ui.window.SecureFlagPolicy
 internal fun DestinationProfileEditor(
     state: ProfileEditorState,
     onDismiss: () -> Unit,
-    onSave: (serverUrl: String, streamKey: String) -> String?,
-    onDelete: (() -> String?)?,
+    onSave: (serverUrl: String, streamKey: String) -> UiText?,
+    onDelete: (() -> UiText?)?,
 ) {
     val colors = BridgeTheme.colors
     val focusManager = LocalFocusManager.current
@@ -90,11 +93,11 @@ internal fun DestinationProfileEditor(
     var showDiscardConfirmation by state::showDiscardConfirmation
     var showDeleteConfirmation by state::showDeleteConfirmation
 
-    val serverError = validationMessage { validateServerUrl(serverUrl) }
+    val serverError = validationMessage { validateServerUrl(serverUrl) }?.asString()
     val keyError = when {
         streamKey.isEmpty() && profile != null -> null
-        streamKey.isEmpty() -> "Yayın anahtarını yapıştır"
-        else -> validationMessage { validateStreamKey(streamKey) }
+        streamKey.isEmpty() -> stringResource(R.string.key_paste_prompt)
+        else -> validationMessage { validateStreamKey(streamKey) }?.asString()
     }
     val hasChanges = streamKey.isNotEmpty() || !sameServerUrl(serverUrl, state.initialServerUrl)
 
@@ -139,7 +142,7 @@ internal fun DestinationProfileEditor(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 IconButton(onClick = ::requestDismiss) {
-                    Icon(Icons.Rounded.Close, contentDescription = "Kapat", tint = colors.muted)
+                    Icon(Icons.Rounded.Close, contentDescription = stringResource(R.string.close), tint = colors.muted)
                 }
             }
         },
@@ -155,7 +158,7 @@ internal fun DestinationProfileEditor(
             ) {
                 PrimaryButton(
                     modifier = Modifier.widthIn(max = 560.dp),
-                    text = "Kaydet",
+                    text = stringResource(R.string.save),
                     onClick = ::save,
                     enabled = profile == null || hasChanges,
                 )
@@ -184,11 +187,11 @@ internal fun DestinationProfileEditor(
                 ) {
                     Text(
                         modifier = Modifier.semantics { heading() },
-                        text = if (kind == DestinationKind.CUSTOM) profile?.name ?: kind.label else kind.label,
+                        text = kind.displayName(),
                         style = MaterialTheme.typography.headlineSmall,
                     )
                     Text(
-                        text = kind.keyHelp,
+                        text = stringResource(kind.keyHelp),
                         style = MaterialTheme.typography.bodyMedium,
                         color = colors.muted,
                         textAlign = TextAlign.Center,
@@ -207,8 +210,10 @@ internal fun DestinationProfileEditor(
                             serverTouched = true
                             editorError = null
                         },
-                        label = { Text("Sunucu adresi") },
-                        placeholder = { Text(kind.serverPlaceholder) },
+                        label = { Text(stringResource(R.string.server_address)) },
+                        placeholder = { Text(kind.serverPlaceholder()) },
+                        // Addresses read left to right in every language, Arabic included.
+                        textStyle = LocalTextStyle.current.copy(textDirection = TextDirection.Ltr),
                         singleLine = true,
                         isError = serverTouched && serverError != null,
                         supportingText = if (serverTouched && serverError != null) {
@@ -237,14 +242,17 @@ internal fun DestinationProfileEditor(
                         keyTouched = true
                         editorError = null
                     },
-                    label = { Text(if (profile == null) "Yayın anahtarı" else "Yeni yayın anahtarı") },
-                    placeholder = { Text(if (profile == null) "Buraya yapıştır" else "Değişmeyecekse boş bırak") },
+                    label = { Text(stringResource(if (profile == null) R.string.stream_key else R.string.stream_key_new)) },
+                    placeholder = {
+                        Text(stringResource(if (profile == null) R.string.stream_key_paste_here else R.string.stream_key_keep_hint))
+                    },
                     visualTransformation = if (keyVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                    textStyle = LocalTextStyle.current.copy(textDirection = TextDirection.Ltr),
                     trailingIcon = {
                         IconButton(onClick = { keyVisible = !keyVisible }) {
                             Icon(
                                 imageVector = if (keyVisible) Icons.Rounded.VisibilityOff else Icons.Rounded.Visibility,
-                                contentDescription = if (keyVisible) "Anahtarı gizle" else "Anahtarı göster",
+                                contentDescription = stringResource(if (keyVisible) R.string.key_hide else R.string.key_show),
                             )
                         }
                     },
@@ -254,8 +262,8 @@ internal fun DestinationProfileEditor(
                         Text(
                             when {
                                 keyTouched && keyError != null -> keyError
-                                profile != null -> "Boş bırakırsan kayıtlı anahtar korunur."
-                                else -> "Yalnızca bu telefonda şifreli saklanır."
+                                profile != null -> stringResource(R.string.stream_key_kept)
+                                else -> stringResource(R.string.stream_key_stored_encrypted)
                             },
                         )
                     },
@@ -274,7 +282,11 @@ internal fun DestinationProfileEditor(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
-                            Text(text = "Sunucu adresi", style = MaterialTheme.typography.labelMedium, color = colors.muted)
+                            Text(
+                                text = stringResource(R.string.server_address),
+                                style = MaterialTheme.typography.labelMedium,
+                                color = colors.muted,
+                            )
                             Text(
                                 text = serverUrl,
                                 style = MaterialTheme.typography.bodySmall,
@@ -282,11 +294,11 @@ internal fun DestinationProfileEditor(
                                 color = colors.muted,
                             )
                         }
-                        TextButton(onClick = { serverExpanded = true }) { Text("Değiştir") }
+                        TextButton(onClick = { serverExpanded = true }) { Text(stringResource(R.string.change)) }
                     }
                 }
 
-                editorError?.let { AlertBanner(title = "Kaydedilemedi", message = it) }
+                editorError?.let { AlertBanner(title = stringResource(R.string.save_failed), message = it.asString()) }
 
                 if (onDelete != null) {
                     TextButton(
@@ -295,7 +307,7 @@ internal fun DestinationProfileEditor(
                     ) {
                         Icon(Icons.Rounded.DeleteOutline, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(Modifier.width(6.dp))
-                        Text("Bu hedefi sil")
+                        Text(stringResource(R.string.delete_platform))
                     }
                 }
             }
@@ -309,8 +321,8 @@ internal fun DestinationProfileEditor(
             onDismissRequest = { showDiscardConfirmation = false },
             properties = secureDialogProperties,
             containerColor = colors.card,
-            title = { Text("Kaydedilmedi") },
-            text = { Text("Girdiğin bilgiler silinsin mi?") },
+            title = { Text(stringResource(R.string.discard_title)) },
+            text = { Text(stringResource(R.string.discard_message)) },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -319,11 +331,11 @@ internal fun DestinationProfileEditor(
                         onDismiss()
                     },
                 ) {
-                    Text("Sil", color = colors.dangerText)
+                    Text(stringResource(R.string.delete), color = colors.dangerText)
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showDiscardConfirmation = false }) { Text("Geri dön") }
+                TextButton(onClick = { showDiscardConfirmation = false }) { Text(stringResource(R.string.go_back)) }
             },
         )
     }
@@ -333,8 +345,8 @@ internal fun DestinationProfileEditor(
             onDismissRequest = { showDeleteConfirmation = false },
             properties = secureDialogProperties,
             containerColor = colors.card,
-            title = { Text("${kind.label} silinsin mi?") },
-            text = { Text("Bu telefonda şifreli saklanan yayın anahtarı da kalıcı olarak silinir.") },
+            title = { Text(stringResource(R.string.delete_platform_title, kind.displayName())) },
+            text = { Text(stringResource(R.string.delete_platform_message)) },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -342,11 +354,11 @@ internal fun DestinationProfileEditor(
                         editorError = onDelete()
                     },
                 ) {
-                    Text("Sil", color = colors.dangerText)
+                    Text(stringResource(R.string.delete), color = colors.dangerText)
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showDeleteConfirmation = false }) { Text("Vazgeç") }
+                TextButton(onClick = { showDeleteConfirmation = false }) { Text(stringResource(R.string.cancel)) }
             },
         )
     }
@@ -361,9 +373,9 @@ private fun SecureWindowEffect() {
     }
 }
 
-private inline fun validationMessage(block: () -> Unit): String? = try {
+private inline fun validationMessage(block: () -> Unit): UiText? = try {
     block()
     null
 } catch (error: DestinationProfileException) {
-    error.message ?: "Geçersiz değer"
+    error.text
 }

@@ -33,6 +33,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
@@ -51,25 +53,25 @@ private const val GRID_COLUMNS = 4
 internal fun SetupContent(
     phase: BridgePhase,
     snapshot: RelaySnapshot,
-    testVideoName: String?,
+    testVideoName: UiText?,
     notice: RelayNotice?,
     destinations: DestinationProfiles,
-    profileError: String?,
+    profileError: UiText?,
     lan: LanAddress?,
     onStartReceiver: (restart: Boolean) -> Unit,
     onTestVideo: () -> Unit,
     onStopTestVideo: () -> Unit,
     onPlatformClick: (DestinationKind) -> Unit,
     onPlatformLongClick: (DestinationKind) -> Unit,
-    onEditSelected: () -> Unit,
+    onEditProfile: (DestinationProfile) -> Unit,
     onCopyAddress: (String) -> Unit,
     onOpenWifiSettings: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val selected = destinations.selectedProfile
+    val selected = destinations.selectedProfiles
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        notice?.let { AlertBanner(title = it.title, message = it.message) }
-        profileError?.let { AlertBanner(title = "Hedef kaydı okunamadı", message = it) }
+        notice?.let { AlertBanner(title = it.title.asString(), message = it.message.asString()) }
+        profileError?.let { AlertBanner(title = stringResource(R.string.profile_list_unreadable), message = it.asString()) }
 
         DroneCard(
             phase = phase,
@@ -84,18 +86,21 @@ internal fun SetupContent(
         )
 
         BridgeCard {
-            SectionHeader(title = "Nereye yayın yapacaksın?", step = 2, done = selected != null)
+            SectionHeader(title = stringResource(R.string.where_to_stream), step = 2, done = selected.isNotEmpty())
             PlatformGrid(
                 destinations = destinations,
                 onClick = onPlatformClick,
                 onLongClick = onPlatformLongClick,
             )
-            if (selected != null) {
+            if (selected.isNotEmpty()) {
                 HorizontalDivider(color = BridgeTheme.colors.border)
-                SelectedDestination(profile = selected, onEdit = onEditSelected)
+                selected.forEach { profile ->
+                    SelectedDestination(profile = profile, onEdit = { onEditProfile(profile) })
+                }
+                if (selected.size > 1) UploadNote(platforms = selected.size, bitrateKbps = snapshot.bitrateKbps)
             } else {
                 Text(
-                    text = "Bir platforma dokun. Sunucu adresi hazır; yalnızca yayın anahtarını gireceksin.",
+                    text = stringResource(R.string.pick_platforms_hint),
                     style = MaterialTheme.typography.bodySmall,
                     color = BridgeTheme.colors.muted,
                 )
@@ -109,7 +114,7 @@ internal fun SetupContent(
 private fun DroneCard(
     phase: BridgePhase,
     snapshot: RelaySnapshot,
-    testVideoName: String?,
+    testVideoName: UiText?,
     lan: LanAddress?,
     onStartReceiver: (restart: Boolean) -> Unit,
     onTestVideo: () -> Unit,
@@ -120,22 +125,19 @@ private fun DroneCard(
     val colors = BridgeTheme.colors
     val testing = testVideoName != null
     BridgeCard(verticalSpacing = 12.dp) {
-        SectionHeader(title = "Drone'u bağla", step = 1, done = phase.hasPicture)
+        SectionHeader(title = stringResource(R.string.connect_drone), step = 1, done = phase.hasPicture)
         when (phase) {
             BridgePhase.PREVIEW, BridgePhase.DRONE_CONNECTED -> {
                 DronePreview(cornerColor = colors.card) {
                     OverlayChip(modifier = Modifier.align(Alignment.TopStart).padding(12.dp)) {
-                        OverlayText(if (testing) "Test videosu · önizleme" else "Önizleme")
+                        OverlayText(stringResource(if (testing) R.string.preview_badge_test else R.string.preview_badge))
                     }
                 }
                 Text(
-                    text = if (phase == BridgePhase.PREVIEW) {
-                        listOf(
-                            if (testing) "Test videosu geliyor" else "Drone bağlı",
-                            formatBitrate(snapshot.bitrateKbps),
-                        ).joinToString(" · ") + ". Henüz yayında değilsin."
-                    } else {
-                        "Kumanda bağlandı; görüntü birazdan gelir."
+                    text = when {
+                        phase != BridgePhase.PREVIEW -> stringResource(R.string.preview_connected)
+                        testing -> stringResource(R.string.preview_test_status, formatBitrate(snapshot.bitrateKbps))
+                        else -> stringResource(R.string.preview_drone_status, formatBitrate(snapshot.bitrateKbps))
                     },
                     style = MaterialTheme.typography.bodySmall,
                     color = colors.muted,
@@ -144,7 +146,7 @@ private fun DroneCard(
                     TextButton(onClick = onStopTestVideo) {
                         Icon(Icons.Rounded.Stop, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(Modifier.width(8.dp))
-                        Text("Test videosunu durdur")
+                        Text(stringResource(R.string.stop_test_video))
                     }
                 }
             }
@@ -153,17 +155,17 @@ private fun DroneCard(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
-                Text("Alıcı hazırlanıyor…", style = MaterialTheme.typography.bodyMedium)
+                Text(stringResource(R.string.receiver_starting), style = MaterialTheme.typography.bodyMedium)
             }
             BridgePhase.IDLE, BridgePhase.START_FAILED, BridgePhase.RECEIVER_ERROR -> {
                 val failed = phase != BridgePhase.IDLE
                 Text(
-                    text = if (failed) snapshot.detail else "Alıcı kapalı; DJI Fly bu telefona bağlanamaz.",
+                    text = if (failed) snapshot.error?.asString().orEmpty() else stringResource(R.string.receiver_off),
                     style = MaterialTheme.typography.bodyMedium,
                     color = if (failed) colors.dangerText else colors.text,
                 )
                 TextButton(onClick = { onStartReceiver(phase == BridgePhase.RECEIVER_ERROR) }) {
-                    Text(if (failed) "Yeniden dene" else "Alıcıyı aç")
+                    Text(stringResource(if (failed) R.string.retry else R.string.open_receiver))
                 }
             }
             else -> {
@@ -173,16 +175,15 @@ private fun DroneCard(
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
                     ) {
                         CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
-                        Text("Test videosu açılıyor…", style = MaterialTheme.typography.bodyMedium)
+                        Text(stringResource(R.string.test_video_opening), style = MaterialTheme.typography.bodyMedium)
                     }
                 } else if (lan != null) {
                     Text(
-                        text = "DJI Fly'da RTMP adresi olarak bunu yaz ve yayını başlat. Görüntü burada görünür; " +
-                            "platforma sen başlatınca gider.",
+                        text = stringResource(R.string.dji_fly_instructions),
                         style = MaterialTheme.typography.bodyMedium,
                     )
                     AddressField(address = lan.publishUrl, onCopy = { onCopyAddress(lan.publishUrl) })
-                    Text(text = DJI_FLY_PATH, style = MaterialTheme.typography.bodySmall, color = colors.muted)
+                    Text(text = stringResource(R.string.dji_fly_path), style = MaterialTheme.typography.bodySmall, color = colors.muted)
                     NetworkNote(lan)
                 } else {
                     NoNetwork(onOpenWifiSettings)
@@ -191,7 +192,7 @@ private fun DroneCard(
                     TextButton(onClick = onTestVideo) {
                         Icon(Icons.Rounded.Movie, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(Modifier.width(8.dp))
-                        Text("Drone yok mu? Test videosuyla dene")
+                        Text(stringResource(R.string.try_test_video))
                     }
                 }
             }
@@ -199,15 +200,13 @@ private fun DroneCard(
     }
 }
 
-internal const val DJI_FLY_PATH = "DJI Fly → GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP"
-
 @Composable
 private fun PlatformGrid(
     destinations: DestinationProfiles,
     onClick: (DestinationKind) -> Unit,
     onLongClick: (DestinationKind) -> Unit,
 ) {
-    val selectedKind = destinations.selectedProfile?.kind
+    val selectedKinds = destinations.selectedProfiles.mapTo(mutableSetOf()) { it.kind }
     val configured = destinations.profiles.mapTo(mutableSetOf()) { it.kind }
     BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
         val cellWidth = maxWidth / GRID_COLUMNS
@@ -218,7 +217,7 @@ private fun PlatformGrid(
                         PlatformCell(
                             kind = kind,
                             configured = kind in configured,
-                            selected = kind == selectedKind,
+                            selected = kind in selectedKinds,
                             onClick = { onClick(kind) },
                             onLongClick = { onLongClick(kind) },
                             modifier = Modifier.width(cellWidth),
@@ -240,23 +239,28 @@ private fun PlatformCell(
     modifier: Modifier = Modifier,
 ) {
     val colors = BridgeTheme.colors
+    val editLabel = stringResource(R.string.edit)
+    val savedState = stringResource(R.string.state_saved)
+    val notAddedState = stringResource(R.string.state_not_added)
     Column(
         modifier = modifier
             .clip(MaterialTheme.shapes.medium)
             .combinedClickable(
-                onClickLabel = when {
-                    selected -> "Düzenle"
-                    configured -> "Seç"
-                    else -> "Ekle"
-                },
+                onClickLabel = stringResource(
+                    when {
+                        selected -> R.string.deselect
+                        configured -> R.string.select
+                        else -> R.string.add
+                    },
+                ),
                 role = Role.Button,
-                onLongClickLabel = if (configured) "Düzenle" else null,
+                onLongClickLabel = if (configured) editLabel else null,
                 onLongClick = if (configured) onLongClick else null,
                 onClick = onClick,
             )
             .semantics {
                 this.selected = selected
-                stateDescription = if (configured) "Kayıtlı" else "Eklenmedi"
+                stateDescription = if (configured) savedState else notAddedState
             }
             .padding(vertical = 6.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -295,7 +299,7 @@ private fun PlatformCell(
             }
         }
         Text(
-            text = kind.label,
+            text = kind.displayName(),
             style = MaterialTheme.typography.labelMedium,
             fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Medium,
             color = if (configured) colors.text else colors.muted,
@@ -308,10 +312,11 @@ private fun PlatformCell(
 @Composable
 private fun SelectedDestination(profile: DestinationProfile, onEdit: () -> Unit) {
     val colors = BridgeTheme.colors
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        PlatformTile(kind = profile.kind, size = 32.dp)
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = if (profile.kind == DestinationKind.CUSTOM) profile.name else "${profile.kind.label} seçili",
+                text = stringResource(R.string.platform_selected, profile.kind.displayName()),
                 style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Medium,
                 maxLines = 1,
@@ -319,18 +324,32 @@ private fun SelectedDestination(profile: DestinationProfile, onEdit: () -> Unit)
             )
             Text(
                 text = if (profile.kind.keyChangesEachStream) {
-                    "Her yayında yeni anahtar gerekir"
+                    stringResource(R.string.key_changes_each_stream)
                 } else {
-                    "Yayın anahtarı kayıtlı"
+                    stringResource(R.string.key_saved)
                 },
                 style = MaterialTheme.typography.bodySmall,
                 color = colors.muted,
             )
         }
         TextButton(onClick = onEdit) {
-            Text(if (profile.kind.keyChangesEachStream) "Anahtarı güncelle" else "Düzenle")
+            Text(stringResource(if (profile.kind.keyChangesEachStream) R.string.update_key else R.string.edit))
         }
     }
+}
+
+/** Several platforms each upload the whole stream, which the phone's uplink has to carry. */
+@Composable
+private fun UploadNote(platforms: Int, bitrateKbps: Double) {
+    Text(
+        text = if (bitrateKbps > 0) {
+            pluralStringResource(R.plurals.upload_note_total, platforms, platforms, formatBitrate(bitrateKbps * platforms))
+        } else {
+            pluralStringResource(R.plurals.upload_note, platforms, platforms)
+        },
+        style = MaterialTheme.typography.bodySmall,
+        color = BridgeTheme.colors.muted,
+    )
 }
 
 @Composable
@@ -343,9 +362,9 @@ private fun NetworkNote(lan: LanAddress) {
         Icon(Icons.Rounded.Wifi, contentDescription = null, tint = colors.successText, modifier = Modifier.size(16.dp))
         Text(
             text = when (lan.kind) {
-                LanKind.HOTSPOT -> "Hotspot açık · kumandayı bu telefona bağla"
-                LanKind.WIFI -> "Wi-Fi bağlı · kumanda da aynı ağda olmalı"
-                LanKind.WIRED, LanKind.OTHER -> "Yerel ağa bağlı · kumanda da aynı ağda olmalı"
+                LanKind.HOTSPOT -> stringResource(R.string.network_hotspot)
+                LanKind.WIFI -> stringResource(R.string.network_wifi)
+                LanKind.WIRED, LanKind.OTHER -> stringResource(R.string.network_local)
             },
             style = MaterialTheme.typography.bodySmall,
             color = colors.muted,
@@ -363,9 +382,9 @@ private fun NoNetwork(onOpenWifiSettings: () -> Unit) {
         Icon(Icons.Rounded.WifiOff, contentDescription = null, tint = colors.warningText, modifier = Modifier.size(20.dp))
         Text(
             modifier = Modifier.weight(1f),
-            text = "Telefon Wi-Fi'a bağlı değil. Wi-Fi'a bağlan ya da hotspot'u aç.",
+            text = stringResource(R.string.no_network),
             style = MaterialTheme.typography.bodyMedium,
         )
     }
-    TextButton(modifier = Modifier.padding(start = 20.dp), onClick = onOpenWifiSettings) { Text("Wi-Fi ayarları") }
+    TextButton(modifier = Modifier.padding(start = 20.dp), onClick = onOpenWifiSettings) { Text(stringResource(R.string.wifi_settings)) }
 }

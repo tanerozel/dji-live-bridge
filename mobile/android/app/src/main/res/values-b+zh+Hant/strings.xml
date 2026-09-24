@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App and errors from the relay core -->
+    <string name="error_with_detail">%1$s（%2$s）</string>
+    <string name="error_receiver_not_running">接收器未在執行。請重新開啟後再試一次。</string>
+    <string name="error_listen_failed">無法開啟 1935 連接埠；可能有其他應用程式正在使用。</string>
+    <string name="error_receiver_failed">接收器已停止。</string>
+    <string name="error_internal">應用程式內部發生錯誤。請再試一次。</string>
+    <string name="error_destination_scheme">伺服器位址必須以 rtmp:// 或 rtmps:// 開頭。</string>
+    <string name="error_destination_path">伺服器位址必須包含伺服器與應用程式路徑。</string>
+    <string name="error_destination_server">伺服器位址無效。</string>
+    <string name="error_stream_key">串流金鑰無效。</string>
+    <string name="error_ca_bundle">無法準備 RTMPS 所需的 Android 憑證。</string>
+
+    <!-- Shared components -->
+    <string name="live_badge">直播中</string>
+    <string name="step">步驟 %1$d</string>
+    <string name="step_done">步驟 %1$d，已完成</string>
+    <string name="copy_address">複製位址</string>
+    <string name="collapse">收合</string>
+    <string name="expand">展開</string>
+    <string name="state_expanded">已展開</string>
+    <string name="state_collapsed">已收合</string>
+
+    <!-- Themes -->
+    <string name="theme_system">跟隨系統</string>
+    <string name="theme_light">淺色</string>
+    <string name="theme_dark">深色</string>
+    <string name="theme_midnight">午夜藍</string>
+    <string name="theme_sand">沙色</string>
+
+    <!-- Drone preview -->
+    <string name="drone_picture">無人機畫面</string>
+    <string name="preview_waiting">正在等待畫面…</string>
+    <string name="preview_unsupported">預覽無法顯示這種影片格式</string>
+
+    <!-- Test video -->
+    <string name="test_video_default_name">影片</string>
+    <string name="test_video_looping">循環播放</string>
+    <string name="test_video_no_avc_config">無法讀取影片的 H.264 設定。</string>
+    <string name="test_video_no_frames">影片中沒有可傳送的影格。</string>
+    <string name="test_video_rewind_failed">無法將影片倒回開頭。</string>
+    <string name="test_video_open_failed">無法開啟影片。請改用其他影片。</string>
+    <string name="test_video_hevc">這部影片是以 H.265 (HEVC) 錄製的。請選擇 H.264 影片，也就是 DJI Fly 傳送的格式。</string>
+    <string name="test_video_unsupported">不支援這部影片的格式。請選擇 H.264 影片。</string>
+    <string name="test_video_no_video">所選的檔案沒有影像。</string>
+    <string name="test_video_receiver_not_ready">接收器尚未就緒。</string>
+    <string name="test_video_unreadable">無法讀取影片。</string>
+    <string name="test_video_stopped">測試影片已停止</string>
+    <string name="test_video_rotated">直向拍攝的影片在直播中可能會旋轉 90 度</string>
+
+    <!-- Platforms. on_* and to_* are phrases for where the stream is and where it goes, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
+    <string name="platform_custom">自訂 RTMP</string>
+    <string name="on_instagram">在 Instagram 上</string>
+    <string name="on_tiktok">在 TikTok 上</string>
+    <string name="on_youtube">在 YouTube 上</string>
+    <string name="on_facebook">在 Facebook 上</string>
+    <string name="on_twitch">在 Twitch 上</string>
+    <string name="on_kick">在 Kick 上</string>
+    <string name="on_custom">在自訂伺服器上</string>
+    <string name="to_instagram">到 Instagram</string>
+    <string name="to_tiktok">到 TikTok</string>
+    <string name="to_youtube">到 YouTube</string>
+    <string name="to_facebook">到 Facebook</string>
+    <string name="to_twitch">到 Twitch</string>
+    <string name="to_kick">到 Kick</string>
+    <string name="to_custom">到自訂伺服器</string>
+    <string name="key_help_instagram">在 instagram.com：建立 (+) → 直播影片，然後複製「串流金鑰」。Instagram 每次直播都會產生新的金鑰。</string>
+    <string name="key_help_tiktok">在 TikTok LIVE Center 開啟串流金鑰畫面，複製伺服器位址與串流金鑰。你的帳號需要有 RTMP 權限；TikTok 每次直播都會產生新的金鑰。</string>
+    <string name="key_help_youtube">在 YouTube 工作室中：建立 → 開始直播 → 直播軟體，然後複製「串流金鑰」。除非你重設，否則金鑰不會改變。</string>
+    <string name="key_help_facebook">在 facebook.com 上：直播視訊 → 直播軟體，然後複製「串流金鑰」。除非你啟用了固定金鑰，否則 Facebook 每場直播都會給新的金鑰。</string>
+    <string name="key_help_twitch">在 Twitch 創作者儀表板中：設定 → 直播，然後複製你的主要串流金鑰。</string>
+    <string name="key_help_kick">在 Kick 開啟 Creator Dashboard → Settings → Stream URL &amp; Key，然後複製金鑰。如果那裡顯示不同的 Stream URL，請用它取代伺服器位址。</string>
+    <string name="key_help_custom">貼上你的伺服器提供的 RTMP 或 RTMPS 位址與串流金鑰。</string>
+    <string name="server_placeholder">rtmp://your.server/live</string>
+    <string name="live_reminder_instagram">現在請在 Instagram 按下「開始直播」；之後直播才會公開。</string>
+    <string name="live_reminder_tiktok">請查看 TikTok LIVE Center；可能還需要在那裡開始直播。</string>
+    <string name="live_reminder_youtube">若未開啟自動開始，請在 YouTube 工作室中按「開始直播」。</string>
+    <string name="live_reminder_facebook">Facebook 會先顯示預覽；在那裡按「開始直播」後觀眾才看得到。</string>
+
+    <!-- Saved platforms -->
+    <string name="profile_error_not_found">找不到這個平台。</string>
+    <string name="profile_error_key_required">必須填寫串流金鑰。</string>
+    <string name="profile_error_key_encrypt">無法使用 Android Keystore 加密串流金鑰。</string>
+    <string name="profile_error_key_decrypt">無法使用 Android Keystore 解密串流金鑰。請刪除這些平台後重新新增。</string>
+    <string name="profile_error_read">無法讀取已儲存的平台。</string>
+    <string name="profile_error_version">這些平台設定是由較新版本的應用程式儲存的。</string>
+    <string name="profile_error_corrupt">已儲存的平台清單已損毀。</string>
+    <string name="profile_error_write">無法儲存平台設定。</string>
+    <string name="profile_error_name">名稱長度必須為 1 到 64 個字元。</string>
+    <string name="profile_error_generic">無法更新平台。</string>
+    <string name="profile_list_unreadable">無法讀取已儲存的平台</string>
+
+    <!-- Background service and notification -->
+    <string name="notification_channel">RTMP 直播轉送</string>
+    <string name="notification_channel_description">接收 DJI RC 2 的串流並轉送到你的平台</string>
+    <string name="notification_receiver_error">接收器錯誤</string>
+    <string name="notification_starting">正在準備接收器</string>
+    <string name="notification_live">你正在直播</string>
+    <string name="notification_live_slow">你正在直播 · 連線緩慢</string>
+    <plurals name="notification_live_many">
+        <item quantity="other">你正在 %d 個平台上直播</item>
+    </plurals>
+    <string name="notification_reconnecting">正在重新連線到平台</string>
+    <string name="notification_connecting">正在連線到平台</string>
+    <string name="notification_holding">無人機已中斷連線 · 直播仍保持開啟</string>
+    <string name="notification_live_waiting">直播仍開啟 · 等待無人機</string>
+    <string name="notification_test_video">正在接收測試影片</string>
+    <string name="notification_drone">正在接收無人機畫面</string>
+    <string name="notification_connected">遙控器已連線</string>
+    <string name="notification_waiting">等待無人機</string>
+    <string name="end_broadcast">結束直播</string>
+    <string name="close">關閉</string>
+    <string name="error_background_limit">已達到 Android 的背景傳輸時間上限。</string>
+    <string name="error_service_start">無法啟動背景服務。</string>
+    <string name="go_live_failed">無法開始直播</string>
+    <string name="pick_platform_first">請先選擇平台</string>
+    <string name="named_error">%1$s：%2$s</string>
+    <string name="test_video_failed">無法傳送測試影片（%1$s）。</string>
+
+    <!-- Stream key editor -->
+    <string name="key_paste_prompt">貼上串流金鑰</string>
+    <string name="save">儲存</string>
+    <string name="server_address">伺服器位址</string>
+    <string name="stream_key">串流金鑰</string>
+    <string name="stream_key_new">新的串流金鑰</string>
+    <string name="stream_key_paste_here">貼在這裡</string>
+    <string name="stream_key_keep_hint">如不變更請留空</string>
+    <string name="key_hide">隱藏金鑰</string>
+    <string name="key_show">顯示金鑰</string>
+    <string name="stream_key_kept">如果留空，會保留已儲存的金鑰。</string>
+    <string name="stream_key_stored_encrypted">只會加密儲存在這支手機上。</string>
+    <string name="change">變更</string>
+    <string name="save_failed">無法儲存</string>
+    <string name="delete_platform">刪除這個平台</string>
+    <string name="discard_title">尚未儲存</string>
+    <string name="discard_message">要刪除你輸入的內容嗎？</string>
+    <string name="delete">刪除</string>
+    <string name="go_back">返回</string>
+    <string name="delete_platform_title">要刪除「%1$s」嗎？</string>
+    <string name="delete_platform_message">加密儲存在這支手機上的串流金鑰也會一併永久刪除。</string>
+    <string name="cancel">取消</string>
+
+    <!-- First-run guide -->
+    <string name="guide_skip">略過</string>
+    <string name="guide_next">下一步</string>
+    <string name="guide_start">開始使用</string>
+    <string name="guide_page">第 %1$d 頁，共 %2$d 頁</string>
+    <string name="guide_flow_title">從無人機到直播</string>
+    <string name="guide_flow_body">遙控器上的 DJI Fly 會把畫面傳送到這支手機，再由手機轉送到你選擇的平台。</string>
+    <string name="guide_connect_title">首先，連接無人機</string>
+    <string name="guide_connect_body">把螢幕上顯示的位址輸入 DJI Fly 的 RTMP 欄位。無人機畫面會立刻出現在手機上；此時你還沒有在任何地方直播。</string>
+    <string name="guide_live_title">接著，開始直播</string>
+    <string name="guide_live_body">選擇一個或多個平台，貼上串流金鑰，再按「開始直播」。伺服器位址都已設定好。</string>
+
+    <!-- Home screen -->
+    <string name="where_to_stream">要直播到哪裡？</string>
+    <string name="pick_platforms_hint">點選一個或多個平台，直播會同時傳送到所有平台。伺服器位址已設定好，你只需要輸入串流金鑰。</string>
+    <string name="connect_drone">連接無人機</string>
+    <string name="preview_badge">預覽</string>
+    <string name="preview_badge_test">測試影片 · 預覽</string>
+    <string name="preview_connected">遙控器已連線，畫面即將出現。</string>
+    <string name="preview_drone_status">無人機已連線 · %1$s。你還沒開始直播。</string>
+    <string name="preview_test_status">正在接收測試影片 · %1$s。你還沒開始直播。</string>
+    <string name="stop_test_video">停止測試影片</string>
+    <string name="receiver_starting">正在準備接收器…</string>
+    <string name="receiver_off">接收器已關閉；DJI Fly 無法連線到這支手機。</string>
+    <string name="retry">再試一次</string>
+    <string name="open_receiver">開啟接收器</string>
+    <string name="test_video_opening">正在開啟測試影片…</string>
+    <string name="dji_fly_instructions">在 DJI Fly 中輸入這個 RTMP 位址並開始直播。畫面會顯示在這裡，要等你按下「開始直播」才會傳送到各平台。</string>
+    <string name="dji_fly_path">DJI Fly → GO FLY → ••• → 圖傳 → 直播平台 → RTMP</string>
+    <string name="try_test_video">沒有無人機？試試測試影片</string>
+    <string name="deselect">取消選取</string>
+    <string name="select">選取</string>
+    <string name="add">新增</string>
+    <string name="edit">編輯</string>
+    <string name="state_saved">已儲存</string>
+    <string name="state_not_added">尚未新增</string>
+    <string name="platform_selected">%1$s 已選取</string>
+    <string name="key_changes_each_stream">每次直播都需要新的金鑰</string>
+    <string name="key_saved">串流金鑰已儲存</string>
+    <string name="update_key">更新金鑰</string>
+    <plurals name="upload_note">
+        <item quantity="other">已選取 %d 個平台。每個平台都會各自上傳無人機畫面；上傳速度不足時會略過部分影格。</item>
+    </plurals>
+    <plurals name="upload_note_total">
+        <item quantity="other">已選取 %1$d 個平台。每個平台都會各自上傳無人機畫面（目前總計約 %2$s）；上傳速度不足時會略過部分影格。</item>
+    </plurals>
+    <string name="network_hotspot">熱點已開啟 · 請將遙控器連到這支手機</string>
+    <string name="network_wifi">已連上 Wi‑Fi · 遙控器也必須連到同一個網路</string>
+    <string name="network_local">已連上區域網路 · 遙控器也必須連到同一個網路</string>
+    <string name="no_network">手機未連上 Wi‑Fi。請連上 Wi‑Fi 或開啟熱點。</string>
+    <string name="wifi_settings">Wi‑Fi 設定</string>
+
+    <!-- Live screen. hero_*_one sentences take an on_* or to_* phrase as %1$s. -->
+    <string name="tip_check_key">如果持續發生，請檢查串流金鑰、伺服器位址，並確認平台已開啟直播功能。</string>
+    <string name="tip_receiver_error">請結束直播並重新開啟接收器。如果問題持續，請試著重新啟動手機。</string>
+    <string name="tip_congested">上傳速度太慢；直播仍會繼續，但會略過部分影格。請改用較強的網路連線、減少平台數量，或在 DJI Fly 調低直播畫質。</string>
+    <plurals name="platform_count">
+        <item quantity="other">%d 個平台</item>
+    </plurals>
+    <string name="hero_test_video">正在準備測試影片</string>
+    <string name="hero_test_video_subtitle">影片即將開始傳送。</string>
+    <string name="hero_drone_lost">無人機已中斷連線</string>
+    <string name="hero_drone_lost_subtitle">直播仍保持開啟；遙控器重新連線後，會從中斷處接續。</string>
+    <string name="hero_starting">啟動中</string>
+    <string name="hero_starting_subtitle">幾秒內即可就緒。</string>
+    <string name="hero_waiting">等待遙控器</string>
+    <string name="hero_waiting_subtitle_one">請在 DJI Fly 開始直播；收到畫面後就會自動連線%1$s。</string>
+    <string name="hero_waiting_subtitle_many">請在 DJI Fly 開始直播；收到畫面後就會自動連線到各平台。</string>
+    <string name="hero_connected">遙控器已連線</string>
+    <string name="hero_connected_subtitle">畫面即將出現。</string>
+    <string name="hero_connecting_one">正在連線%1$s</string>
+    <string name="hero_connecting_many">正在連線到各平台</string>
+    <string name="hero_live_one">你正%1$s直播</string>
+    <plurals name="hero_live_many">
+        <item quantity="other">你正在 %d 個平台上直播</item>
+    </plurals>
+    <string name="hero_connection_lost">連線中斷</string>
+    <string name="hero_reconnecting_one">正在重新連線%1$s…</string>
+    <string name="hero_reconnecting_many">正在重新連線到各平台…</string>
+    <string name="hero_receiver_stopped">接收器已停止</string>
+    <string name="hero_off">直播已關閉</string>
+    <string name="stream_time">直播時間 %1$s</string>
+    <string name="hop_controller">遙控器</string>
+    <string name="hop_test_video">測試影片</string>
+    <string name="hop_phone">手機</string>
+    <string name="hop_waiting">等待中</string>
+    <string name="hop_connected">已連線</string>
+    <string name="hop_sending">傳送中</string>
+    <string name="hop_not_connected">未連線</string>
+    <string name="hop_starting">啟動中</string>
+    <string name="hop_error">錯誤</string>
+    <string name="hop_ready">就緒</string>
+    <string name="hop_live">直播中</string>
+    <string name="hop_connecting">連線中</string>
+    <string name="hop_reconnecting">重新連線中</string>
+    <string name="hop_standing_by">待命中</string>
+    <string name="hop_description">%1$s：%2$s，%3$s：%4$s，%5$s：%6$s</string>
+    <string name="start_on_controller">在遙控器上開始直播</string>
+    <string name="phone_offline">手機網路已中斷</string>
+    <string name="phone_offline_message">請重新連上 Wi‑Fi 或開啟熱點；位址會再次顯示在這裡。</string>
+    <string name="not_connecting">無法連線？</string>
+    <string name="not_connecting_same_network">遙控器與手機必須連到同一個 Wi‑Fi，或是遙控器必須連上這支手機的熱點。</string>
+    <string name="not_connecting_exact_address">請一字不差地輸入位址；結尾必須是 :1935/drone。</string>
+    <string name="not_connecting_guest_vpn">訪客網路或手機上的 VPN 可能會讓裝置找不到彼此。</string>
+    <string name="stat_bitrate">位元率</string>
+    <string name="stat_sent">已傳送</string>
+    <string name="stat_codec">編解碼器</string>
+    <string name="platforms">平台</string>
+    <string name="end">結束</string>
+    <string name="end_platform">結束 %1$s 直播</string>
+    <string name="status_live">直播中</string>
+    <string name="status_congested">連線緩慢 · 正在略過影格</string>
+    <string name="status_connecting">連線中</string>
+    <string name="status_reconnecting">重新連線中</string>
+    <string name="status_holding">等待無人機 · 直播仍開啟</string>
+    <string name="status_stopped">已停止</string>
+    <string name="status_waiting_for_picture">等待無人機畫面</string>
+    <string name="output_armed">收到無人機畫面後就會連線</string>
+    <string name="output_connecting">正在透過 %1$s 連線到平台</string>
+    <string name="output_ready">平台已接受串流</string>
+    <string name="output_ready_secure">憑證已驗證；平台已接受串流</string>
+    <string name="output_forwarding">正在透過 RTMP 傳送到平台</string>
+    <string name="output_forwarding_secure">正在透過已驗證的 TLS 傳送到平台</string>
+    <string name="output_congested">上傳速度太慢；畫面會跳到下一個關鍵影格</string>
+    <string name="output_holding">無人機已中斷連線；與平台的連線仍保持開啟</string>
+    <plurals name="output_retry">
+        <item quantity="other">%d 秒後重試</item>
+    </plurals>
+    <string name="output_stopped">轉送已停止</string>
+    <string name="output_failure_tls">無法驗證 TLS 憑證，或無法連上網路</string>
+    <string name="output_failure_connect">無法連線</string>
+    <string name="output_failure_rejected">平台未接受串流</string>
+    <string name="output_failure_send">傳送時連線中斷</string>
+    <string name="output_failure_network">網路錯誤</string>
+    <string name="output_failure_stalled">平台已停止接收資料</string>
+    <string name="technical_details">技術細節</string>
+    <string name="detail_source">來源</string>
+    <string name="detail_source_waiting">等待連線</string>
+    <string name="detail_received">已接收資料</string>
+    <string name="detail_packets">影像 / 音訊封包</string>
+    <string name="detail_rejected">遭拒絕的推流</string>
+    <string name="detail_forwarded">已轉送</string>
+    <string name="detail_connection">連線</string>
+    <string name="connection_rtmps_verified">RTMPS · 憑證已驗證</string>
+    <string name="connection_rtmps_pending">RTMPS · 等待驗證</string>
+    <string name="connection_rtmp">RTMP · 未加密</string>
+    <string name="detail_status">狀態</string>
+    <string name="detail_last_error">最近一次錯誤</string>
+    <string name="detail_reconnects">重新連線次數</string>
+    <string name="detail_dropped">略過的封包</string>
+    <string name="background_note">你可以鎖定螢幕，直播會在背景繼續進行。Android 15 以上版本會將背景傳輸限制為每 24 小時合計 6 小時。</string>
+
+    <!-- Main screen, dialogs and messages -->
+    <string name="language">語言</string>
+    <string name="language_system">跟隨手機語言</string>
+    <string name="theme">主題</string>
+    <string name="how_to_use">使用說明</string>
+    <string name="ok">確定</string>
+    <string name="go_live">開始直播</string>
+    <plurals name="go_live_many">
+        <item quantity="other">在 %d 個平台開始直播</item>
+    </plurals>
+    <string name="go_live_needs_picture">收到無人機畫面後即可開始直播</string>
+    <string name="keep_streaming">繼續直播</string>
+    <string name="end_one_title">要結束「%1$s」的直播嗎？</string>
+    <string name="end_one_message">%1$s的直播將會結束，其他平台仍會繼續直播。</string>
+    <string name="end_all_title">要結束直播嗎？</string>
+    <string name="end_all_drone">直播將會結束。無人機會保持連線，畫面也會繼續顯示在手機上。</string>
+    <string name="end_all_drone_many">所有平台的直播都將結束。無人機會保持連線，畫面也會繼續顯示在手機上。</string>
+    <string name="end_all_test_video">直播將會結束。測試影片會繼續在手機上播放。</string>
+    <string name="end_all_test_video_many">所有平台的直播都將結束。測試影片會繼續在手機上播放。</string>
+    <string name="notification_permission_denied">通知已關閉；你可以在應用程式中查看直播狀態</string>
+    <string name="clip_address_label">DJI Fly RTMP 位址</string>
+    <string name="address_copied">已複製位址</string>
+    <string name="wifi_settings_failed">無法開啟 Wi‑Fi 設定</string>
+    <string name="platform_added">%1$s 已新增</string>
+    <string name="platform_deleted">%1$s 已刪除</string>
+    <string name="saved">已儲存</string>
+</resources>

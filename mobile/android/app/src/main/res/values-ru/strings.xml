@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App and errors from the relay core -->
+    <string name="error_with_detail">%1$s (%2$s)</string>
+    <string name="error_receiver_not_running">Приёмник не работает. Включите его снова и повторите попытку.</string>
+    <string name="error_listen_failed">Не удалось открыть порт 1935: возможно, его занимает другое приложение.</string>
+    <string name="error_receiver_failed">Приёмник остановился.</string>
+    <string name="error_internal">В приложении что-то пошло не так. Попробуйте ещё раз.</string>
+    <string name="error_destination_scheme">Адрес сервера должен начинаться с rtmp:// или rtmps://.</string>
+    <string name="error_destination_path">В адресе сервера должны быть указаны сервер и путь приложения.</string>
+    <string name="error_destination_server">Неверный адрес сервера.</string>
+    <string name="error_stream_key">Неверный ключ трансляции.</string>
+    <string name="error_ca_bundle">Не удалось подготовить сертификаты Android для RTMPS.</string>
+
+    <!-- Shared components -->
+    <string name="live_badge">В ЭФИРЕ</string>
+    <string name="step">Шаг %1$d</string>
+    <string name="step_done">Шаг %1$d выполнен</string>
+    <string name="copy_address">Копировать адрес</string>
+    <string name="collapse">Свернуть</string>
+    <string name="expand">Развернуть</string>
+    <string name="state_expanded">Развёрнуто</string>
+    <string name="state_collapsed">Свёрнуто</string>
+
+    <!-- Themes -->
+    <string name="theme_system">Системная</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_dark">Тёмная</string>
+    <string name="theme_midnight">Синяя полночь</string>
+    <string name="theme_sand">Песок</string>
+
+    <!-- Drone preview -->
+    <string name="drone_picture">Изображение с дрона</string>
+    <string name="preview_waiting">Ожидание изображения…</string>
+    <string name="preview_unsupported">Предпросмотр не поддерживает этот формат видео</string>
+
+    <!-- Test video -->
+    <string name="test_video_default_name">Видео</string>
+    <string name="test_video_looping">по кругу</string>
+    <string name="test_video_no_avc_config">Не удалось прочитать параметры H.264 этого видео.</string>
+    <string name="test_video_no_frames">В видео нет кадров для отправки.</string>
+    <string name="test_video_rewind_failed">Не удалось перемотать видео в начало.</string>
+    <string name="test_video_open_failed">Не удалось открыть видео. Выберите другое.</string>
+    <string name="test_video_hevc">Это видео записано в H.265 (HEVC). Выберите видео в H.264 — именно этот формат отправляет DJI Fly.</string>
+    <string name="test_video_unsupported">Формат этого видео не поддерживается. Выберите видео в H.264.</string>
+    <string name="test_video_no_video">В выбранном файле нет видео.</string>
+    <string name="test_video_receiver_not_ready">Приёмник не готов.</string>
+    <string name="test_video_unreadable">Не удалось прочитать видео.</string>
+    <string name="test_video_stopped">Тестовое видео остановлено</string>
+    <string name="test_video_rotated">Видео, снятое вертикально, в трансляции может оказаться повёрнутым набок</string>
+
+    <!-- Platforms. on_* and to_* are phrases for where the stream is and where it goes, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
+    <string name="platform_custom">Свой RTMP</string>
+    <string name="on_instagram">в Instagram</string>
+    <string name="on_tiktok">в TikTok</string>
+    <string name="on_youtube">на YouTube</string>
+    <string name="on_facebook">в Facebook</string>
+    <string name="on_twitch">на Twitch</string>
+    <string name="on_kick">на Kick</string>
+    <string name="on_custom">на вашем сервере</string>
+    <string name="to_instagram">к Instagram</string>
+    <string name="to_tiktok">к TikTok</string>
+    <string name="to_youtube">к YouTube</string>
+    <string name="to_facebook">к Facebook</string>
+    <string name="to_twitch">к Twitch</string>
+    <string name="to_kick">к Kick</string>
+    <string name="to_custom">к вашему серверу</string>
+    <string name="key_help_instagram">На instagram.com откройте Создать (+) → Прямой эфир и скопируйте «Ключ трансляции». Instagram выдаёт новый ключ для каждого эфира.</string>
+    <string name="key_help_tiktok">В TikTok LIVE Center откройте экран ключа трансляции и скопируйте адрес сервера и ключ трансляции. Вашему аккаунту нужен доступ к RTMP; TikTok выдаёт новый ключ для каждого эфира.</string>
+    <string name="key_help_youtube">В Творческой студии YouTube откройте Создать → Начать трансляцию → ПО для трансляций и скопируйте «Ключ трансляции». Ключ не меняется, пока вы его не сбросите.</string>
+    <string name="key_help_facebook">На facebook.com откройте Прямой эфир → ПО для трансляций и скопируйте «Ключ трансляции». Если вы не включили постоянный ключ, Facebook выдаёт новый для каждого эфира.</string>
+    <string name="key_help_twitch">В панели управления автора Twitch откройте Настройки → Трансляция и скопируйте основной ключ трансляции.</string>
+    <string name="key_help_kick">На Kick откройте Creator Dashboard → Settings → Stream URL &amp; Key и скопируйте ключ. Если там указан другой Stream URL, замените им адрес сервера.</string>
+    <string name="key_help_custom">Вставьте адрес RTMP или RTMPS и ключ трансляции, которые выдаёт ваш сервер.</string>
+    <string name="server_placeholder">rtmp://your.server/live</string>
+    <string name="live_reminder_instagram">Теперь нажмите «Начать эфир» в Instagram: только после этого трансляция станет публичной.</string>
+    <string name="live_reminder_tiktok">Проверьте TikTok LIVE Center: возможно, трансляцию нужно запустить и там.</string>
+    <string name="live_reminder_youtube">Если автозапуск выключен, нажмите «Начать трансляцию» в Творческой студии YouTube.</string>
+    <string name="live_reminder_facebook">Facebook сначала показывает предпросмотр; нажмите там «Начать эфир», чтобы трансляция стала публичной.</string>
+
+    <!-- Saved platforms -->
+    <string name="profile_error_not_found">Эта платформа не найдена.</string>
+    <string name="profile_error_key_required">Нужен ключ трансляции.</string>
+    <string name="profile_error_key_encrypt">Не удалось зашифровать ключ трансляции с помощью Android Keystore.</string>
+    <string name="profile_error_key_decrypt">Не удалось расшифровать ключ трансляции с помощью Android Keystore. Удалите платформы и добавьте их заново.</string>
+    <string name="profile_error_read">Не удалось прочитать сохранённые платформы.</string>
+    <string name="profile_error_version">Ваши платформы сохранены более новой версией приложения.</string>
+    <string name="profile_error_corrupt">Список сохранённых платформ повреждён.</string>
+    <string name="profile_error_write">Не удалось сохранить платформы.</string>
+    <string name="profile_error_name">Название должно содержать от 1 до 64 символов.</string>
+    <string name="profile_error_generic">Не удалось обновить платформу.</string>
+    <string name="profile_list_unreadable">Не удалось прочитать сохранённые платформы</string>
+
+    <!-- Background service and notification -->
+    <string name="notification_channel">Ретрансляция RTMP</string>
+    <string name="notification_channel_description">Приём видео с DJI RC 2 и отправка на ваши платформы</string>
+    <string name="notification_receiver_error">Ошибка приёмника</string>
+    <string name="notification_starting">Подготовка приёмника</string>
+    <string name="notification_live">Вы в эфире</string>
+    <string name="notification_live_slow">Вы в эфире · медленное соединение</string>
+    <plurals name="notification_live_many">
+        <item quantity="one">Вы в эфире на %d платформе</item>
+        <item quantity="few">Вы в эфире на %d платформах</item>
+        <item quantity="many">Вы в эфире на %d платформах</item>
+        <item quantity="other">Вы в эфире на %d платформы</item>
+    </plurals>
+    <string name="notification_reconnecting">Переподключение к платформе</string>
+    <string name="notification_connecting">Подключение к платформе</string>
+    <string name="notification_holding">Дрон отключился · трансляция не прервана</string>
+    <string name="notification_live_waiting">Эфир идёт · ожидание дрона</string>
+    <string name="notification_test_video">Приём тестового видео</string>
+    <string name="notification_drone">Приём изображения с дрона</string>
+    <string name="notification_connected">Пульт подключён</string>
+    <string name="notification_waiting">Ожидание дрона</string>
+    <string name="end_broadcast">Завершить трансляцию</string>
+    <string name="close">Закрыть</string>
+    <string name="error_background_limit">Достигнут лимит Android на фоновую передачу данных.</string>
+    <string name="error_service_start">Не удалось запустить фоновую службу.</string>
+    <string name="go_live_failed">Не удалось выйти в эфир</string>
+    <string name="pick_platform_first">Сначала выберите платформу</string>
+    <string name="named_error">%1$s: %2$s</string>
+    <string name="test_video_failed">Не удалось отправить тестовое видео (%1$s).</string>
+
+    <!-- Stream key editor -->
+    <string name="key_paste_prompt">Вставьте ключ трансляции</string>
+    <string name="save">Сохранить</string>
+    <string name="server_address">Адрес сервера</string>
+    <string name="stream_key">Ключ трансляции</string>
+    <string name="stream_key_new">Новый ключ трансляции</string>
+    <string name="stream_key_paste_here">Вставьте ключ сюда</string>
+    <string name="stream_key_keep_hint">Оставьте пустым, чтобы не менять</string>
+    <string name="key_hide">Скрыть ключ</string>
+    <string name="key_show">Показать ключ</string>
+    <string name="stream_key_kept">Если оставить поле пустым, сохранённый ключ не изменится.</string>
+    <string name="stream_key_stored_encrypted">Хранится только на этом телефоне в зашифрованном виде.</string>
+    <string name="change">Изменить</string>
+    <string name="save_failed">Не удалось сохранить</string>
+    <string name="delete_platform">Удалить эту платформу</string>
+    <string name="discard_title">Изменения не сохранены</string>
+    <string name="discard_message">Удалить введённые данные?</string>
+    <string name="delete">Удалить</string>
+    <string name="go_back">Вернуться</string>
+    <string name="delete_platform_title">Удалить %1$s?</string>
+    <string name="delete_platform_message">Зашифрованный ключ трансляции, сохранённый на этом телефоне, тоже будет удалён навсегда.</string>
+    <string name="cancel">Отмена</string>
+
+    <!-- First-run guide -->
+    <string name="guide_skip">Пропустить</string>
+    <string name="guide_next">Далее</string>
+    <string name="guide_start">Начать</string>
+    <string name="guide_page">Страница %1$d из %2$d</string>
+    <string name="guide_flow_title">С дрона — в прямой эфир</string>
+    <string name="guide_flow_body">DJI Fly на пульте передаёт изображение на этот телефон, а телефон отправляет его на выбранные вами платформы.</string>
+    <string name="guide_connect_title">Сначала подключите дрон</string>
+    <string name="guide_connect_body">Введите адрес с экрана в поле RTMP в DJI Fly. Изображение с дрона сразу появится на телефоне, но в эфир вы пока не выходите.</string>
+    <string name="guide_live_title">Затем выйдите в эфир</string>
+    <string name="guide_live_body">Выберите одну или несколько платформ, вставьте ключ трансляции и нажмите «Выйти в эфир». Адреса серверов уже заполнены.</string>
+
+    <!-- Home screen -->
+    <string name="where_to_stream">Куда транслировать?</string>
+    <string name="pick_platforms_hint">Нажмите на одну или несколько платформ — трансляция пойдёт на все сразу. Адрес сервера уже указан, остаётся только ввести ключ трансляции.</string>
+    <string name="connect_drone">Подключите дрон</string>
+    <string name="preview_badge">Предпросмотр</string>
+    <string name="preview_badge_test">Тестовое видео · предпросмотр</string>
+    <string name="preview_connected">Пульт подключён, изображение сейчас появится.</string>
+    <string name="preview_drone_status">Дрон подключён · %1$s. Вы ещё не в эфире.</string>
+    <string name="preview_test_status">Тестовое видео поступает · %1$s. Вы ещё не в эфире.</string>
+    <string name="stop_test_video">Остановить тестовое видео</string>
+    <string name="receiver_starting">Подготовка приёмника…</string>
+    <string name="receiver_off">Приёмник выключен: DJI Fly не может подключиться к этому телефону.</string>
+    <string name="retry">Повторить</string>
+    <string name="open_receiver">Включить приёмник</string>
+    <string name="test_video_opening">Открытие тестового видео…</string>
+    <string name="dji_fly_instructions">Введите в DJI Fly этот адрес RTMP и начните трансляцию. Изображение появится здесь, а на платформы попадёт, только когда вы выйдете в эфир.</string>
+    <string name="dji_fly_path">DJI Fly → GO FLY → ••• → Передача → Платформы трансляций → RTMP</string>
+    <string name="try_test_video">Нет дрона? Попробуйте тестовое видео</string>
+    <string name="deselect">Отменить выбор</string>
+    <string name="select">Выбрать</string>
+    <string name="add">Добавить</string>
+    <string name="edit">Изменить</string>
+    <string name="state_saved">Сохранено</string>
+    <string name="state_not_added">Не добавлено</string>
+    <string name="platform_selected">Выбрано: %1$s</string>
+    <string name="key_changes_each_stream">Для каждого эфира нужен новый ключ</string>
+    <string name="key_saved">Ключ трансляции сохранён</string>
+    <string name="update_key">Обновить ключ</string>
+    <plurals name="upload_note">
+        <item quantity="one">Выбрана %d платформа. Изображение с дрона отправляется на каждую отдельно; если скорости отдачи не хватает, часть кадров пропускается.</item>
+        <item quantity="few">Выбраны %d платформы. Изображение с дрона отправляется на каждую отдельно; если скорости отдачи не хватает, часть кадров пропускается.</item>
+        <item quantity="many">Выбрано %d платформ. Изображение с дрона отправляется на каждую отдельно; если скорости отдачи не хватает, часть кадров пропускается.</item>
+        <item quantity="other">Выбрано %d платформы. Изображение с дрона отправляется на каждую отдельно; если скорости отдачи не хватает, часть кадров пропускается.</item>
+    </plurals>
+    <plurals name="upload_note_total">
+        <item quantity="one">Выбрана %1$d платформа. Изображение с дрона отправляется на каждую отдельно (сейчас всего около %2$s); если скорости отдачи не хватает, часть кадров пропускается.</item>
+        <item quantity="few">Выбраны %1$d платформы. Изображение с дрона отправляется на каждую отдельно (сейчас всего около %2$s); если скорости отдачи не хватает, часть кадров пропускается.</item>
+        <item quantity="many">Выбрано %1$d платформ. Изображение с дрона отправляется на каждую отдельно (сейчас всего около %2$s); если скорости отдачи не хватает, часть кадров пропускается.</item>
+        <item quantity="other">Выбрано %1$d платформы. Изображение с дрона отправляется на каждую отдельно (сейчас всего около %2$s); если скорости отдачи не хватает, часть кадров пропускается.</item>
+    </plurals>
+    <string name="network_hotspot">Точка доступа включена · подключите пульт к этому телефону</string>
+    <string name="network_wifi">Подключено к Wi-Fi · пульт должен быть в той же сети</string>
+    <string name="network_local">Подключено к локальной сети · пульт должен быть в той же сети</string>
+    <string name="no_network">Телефон не подключён к Wi-Fi. Подключитесь к Wi-Fi или включите точку доступа.</string>
+    <string name="wifi_settings">Настройки Wi-Fi</string>
+
+    <!-- Live screen. hero_*_one sentences take an on_* or to_* phrase as %1$s. -->
+    <string name="tip_check_key">Если это повторяется, проверьте ключ трансляции и адрес сервера, а также убедитесь, что на платформе включены прямые трансляции.</string>
+    <string name="tip_receiver_error">Завершите трансляцию и снова включите приёмник. Если проблема не исчезнет, перезагрузите телефон.</string>
+    <string name="tip_congested">Скорость отдачи слишком низкая: трансляция идёт, но часть кадров пропускается. Подключитесь к более быстрой сети, уменьшите число платформ или снизьте качество трансляции в DJI Fly.</string>
+    <plurals name="platform_count">
+        <item quantity="one">%d платформа</item>
+        <item quantity="few">%d платформы</item>
+        <item quantity="many">%d платформ</item>
+        <item quantity="other">%d платформы</item>
+    </plurals>
+    <string name="hero_test_video">Подготовка тестового видео</string>
+    <string name="hero_test_video_subtitle">Отправка видео сейчас начнётся.</string>
+    <string name="hero_drone_lost">Дрон отключился</string>
+    <string name="hero_drone_lost_subtitle">Трансляция не прерывается: когда пульт снова подключится, она продолжится с того же места.</string>
+    <string name="hero_starting">Запуск</string>
+    <string name="hero_starting_subtitle">Через несколько секунд всё будет готово.</string>
+    <string name="hero_waiting">Ожидание пульта</string>
+    <string name="hero_waiting_subtitle_one">Начните трансляцию в DJI Fly: когда появится изображение, приложение само подключится %1$s.</string>
+    <string name="hero_waiting_subtitle_many">Начните трансляцию в DJI Fly: когда появится изображение, приложение само подключится к платформам.</string>
+    <string name="hero_connected">Пульт подключён</string>
+    <string name="hero_connected_subtitle">Изображение сейчас появится.</string>
+    <string name="hero_connecting_one">Подключение %1$s</string>
+    <string name="hero_connecting_many">Подключение к платформам</string>
+    <string name="hero_live_one">Вы в эфире %1$s</string>
+    <plurals name="hero_live_many">
+        <item quantity="one">Вы в эфире на %d платформе</item>
+        <item quantity="few">Вы в эфире на %d платформах</item>
+        <item quantity="many">Вы в эфире на %d платформах</item>
+        <item quantity="other">Вы в эфире на %d платформы</item>
+    </plurals>
+    <string name="hero_connection_lost">Соединение потеряно</string>
+    <string name="hero_reconnecting_one">Переподключение %1$s…</string>
+    <string name="hero_reconnecting_many">Переподключение к платформам…</string>
+    <string name="hero_receiver_stopped">Приёмник остановлен</string>
+    <string name="hero_off">Трансляция выключена</string>
+    <string name="stream_time">Время трансляции %1$s</string>
+    <string name="hop_controller">Пульт</string>
+    <string name="hop_test_video">Тестовое видео</string>
+    <string name="hop_phone">Телефон</string>
+    <string name="hop_waiting">ожидание</string>
+    <string name="hop_connected">подключено</string>
+    <string name="hop_sending">передача</string>
+    <string name="hop_not_connected">не подключено</string>
+    <string name="hop_starting">запуск</string>
+    <string name="hop_error">ошибка</string>
+    <string name="hop_ready">готово</string>
+    <string name="hop_live">в эфире</string>
+    <string name="hop_connecting">подключение</string>
+    <string name="hop_reconnecting">переподключение</string>
+    <string name="hop_standing_by">в режиме ожидания</string>
+    <string name="hop_description">%1$s: %2$s; %3$s: %4$s; %5$s: %6$s</string>
+    <string name="start_on_controller">Начните трансляцию на пульте</string>
+    <string name="phone_offline">Телефон отключился от сети</string>
+    <string name="phone_offline_message">Подключитесь к Wi-Fi или включите точку доступа, и адрес снова появится здесь.</string>
+    <string name="not_connecting">Не подключается?</string>
+    <string name="not_connecting_same_network">Пульт и телефон должны быть в одной сети Wi-Fi, либо пульт должен быть подключён к точке доступа этого телефона.</string>
+    <string name="not_connecting_exact_address">Введите адрес без ошибок: он должен заканчиваться на :1935/drone.</string>
+    <string name="not_connecting_guest_vpn">Гостевые сети и VPN на телефоне могут мешать устройствам видеть друг друга.</string>
+    <string name="stat_bitrate">Битрейт</string>
+    <string name="stat_sent">Отправлено</string>
+    <string name="stat_codec">Кодек</string>
+    <string name="platforms">Платформы</string>
+    <string name="end">Завершить</string>
+    <string name="end_platform">Завершить трансляцию: %1$s</string>
+    <string name="status_live">В эфире</string>
+    <string name="status_congested">Медленное соединение · пропуск кадров</string>
+    <string name="status_connecting">Подключение</string>
+    <string name="status_reconnecting">Переподключение</string>
+    <string name="status_holding">Ожидание дрона · эфир идёт</string>
+    <string name="status_stopped">Остановлено</string>
+    <string name="status_waiting_for_picture">Ожидание изображения с дрона</string>
+    <string name="output_armed">Подключится, когда появится изображение с дрона</string>
+    <string name="output_connecting">Подключение к платформе по %1$s</string>
+    <string name="output_ready">Платформа приняла трансляцию</string>
+    <string name="output_ready_secure">Сертификат проверен, платформа приняла трансляцию</string>
+    <string name="output_forwarding">Отправка на платформу по RTMP</string>
+    <string name="output_forwarding_secure">Отправка на платформу по проверенному соединению TLS</string>
+    <string name="output_congested">Низкая скорость отдачи; изображение перескакивает к следующему ключевому кадру</string>
+    <string name="output_holding">Дрон отключился; подключение к платформе сохраняется</string>
+    <plurals name="output_retry">
+        <item quantity="one">Повторная попытка через %d секунду</item>
+        <item quantity="few">Повторная попытка через %d секунды</item>
+        <item quantity="many">Повторная попытка через %d секунд</item>
+        <item quantity="other">Повторная попытка через %d секунды</item>
+    </plurals>
+    <string name="output_stopped">Передача остановлена</string>
+    <string name="output_failure_tls">Сертификат TLS не прошёл проверку, или сеть недоступна</string>
+    <string name="output_failure_connect">Не удалось подключиться</string>
+    <string name="output_failure_rejected">Платформа не приняла трансляцию</string>
+    <string name="output_failure_send">Соединение прервалось во время отправки</string>
+    <string name="output_failure_network">Ошибка сети</string>
+    <string name="output_failure_stalled">Платформа перестала принимать данные</string>
+    <string name="technical_details">Технические подробности</string>
+    <string name="detail_source">Источник</string>
+    <string name="detail_source_waiting">Ожидание подключения</string>
+    <string name="detail_received">Получено данных</string>
+    <string name="detail_packets">Пакеты видео / аудио</string>
+    <string name="detail_rejected">Отклонённые публикации</string>
+    <string name="detail_forwarded">Передано</string>
+    <string name="detail_connection">Соединение</string>
+    <string name="connection_rtmps_verified">RTMPS · сертификат проверен</string>
+    <string name="connection_rtmps_pending">RTMPS · ожидание проверки</string>
+    <string name="connection_rtmp">RTMP · без шифрования</string>
+    <string name="detail_status">Состояние</string>
+    <string name="detail_last_error">Последняя ошибка</string>
+    <string name="detail_reconnects">Переподключения</string>
+    <string name="detail_dropped">Пропущенные пакеты</string>
+    <string name="background_note">Экран можно заблокировать: трансляция продолжится в фоновом режиме. В Android 15 и новее фоновая передача данных ограничена 6 часами в сумме за каждые 24 часа.</string>
+
+    <!-- Main screen, dialogs and messages -->
+    <string name="language">Язык</string>
+    <string name="language_system">Язык телефона</string>
+    <string name="theme">Тема</string>
+    <string name="how_to_use">Как пользоваться</string>
+    <string name="ok">ОК</string>
+    <string name="go_live">Выйти в эфир</string>
+    <plurals name="go_live_many">
+        <item quantity="one">Выйти в эфир на %d платформе</item>
+        <item quantity="few">Выйти в эфир на %d платформах</item>
+        <item quantity="many">Выйти в эфир на %d платформах</item>
+        <item quantity="other">Выйти в эфир на %d платформы</item>
+    </plurals>
+    <string name="go_live_needs_picture">Выйти в эфир можно, когда появится изображение с дрона</string>
+    <string name="keep_streaming">Продолжить эфир</string>
+    <string name="end_one_title">%1$s: завершить трансляцию?</string>
+    <string name="end_one_message">Трансляция %1$s завершится; на остальных платформах эфир продолжится.</string>
+    <string name="end_all_title">Завершить трансляцию?</string>
+    <string name="end_all_drone">Трансляция завершится. Дрон останется подключённым, и его изображение по-прежнему будет видно на телефоне.</string>
+    <string name="end_all_drone_many">Трансляция завершится на всех платформах. Дрон останется подключённым, и его изображение по-прежнему будет видно на телефоне.</string>
+    <string name="end_all_test_video">Трансляция завершится. Тестовое видео продолжит воспроизводиться на телефоне.</string>
+    <string name="end_all_test_video_many">Трансляция завершится на всех платформах. Тестовое видео продолжит воспроизводиться на телефоне.</string>
+    <string name="notification_permission_denied">Уведомления отключены — следить за трансляцией можно в приложении</string>
+    <string name="clip_address_label">Адрес RTMP для DJI Fly</string>
+    <string name="address_copied">Адрес скопирован</string>
+    <string name="wifi_settings_failed">Не удалось открыть настройки Wi-Fi</string>
+    <string name="platform_added">Добавлено: %1$s</string>
+    <string name="platform_deleted">Удалено: %1$s</string>
+    <string name="saved">Сохранено</string>
+</resources>

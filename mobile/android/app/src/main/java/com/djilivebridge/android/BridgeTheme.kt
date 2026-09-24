@@ -1,5 +1,6 @@
 package com.djilivebridge.android
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ColorScheme
@@ -19,12 +20,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 /** The desktop app's themes (src/theme.ts); light is the default there too. */
-enum class ThemeChoice(val storageValue: String, val label: String) {
-    SYSTEM("system", "Sistem"),
-    LIGHT("light", "Açık"),
-    DARK("dark", "Koyu"),
-    MIDNIGHT("midnight", "Gece mavisi"),
-    SAND("sand", "Kum"),
+enum class ThemeChoice(val storageValue: String, @StringRes val label: Int) {
+    SYSTEM("system", R.string.theme_system),
+    LIGHT("light", R.string.theme_light),
+    DARK("dark", R.string.theme_dark),
+    MIDNIGHT("midnight", R.string.theme_midnight),
+    SAND("sand", R.string.theme_sand),
     ;
 
     companion object {

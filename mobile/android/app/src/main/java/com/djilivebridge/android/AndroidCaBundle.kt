@@ -16,11 +16,11 @@ internal fun createAndroidSystemCaBundle(context: Context): File {
     val trustManager = factory.trustManagers
         .filterIsInstance<X509TrustManager>()
         .firstOrNull()
-        ?: error("Android sistem güven deposu bulunamadı")
+        ?: error("Android system trust store not found")
     val certificates = trustManager.acceptedIssuers
         .filter { certificate -> certificate.basicConstraints >= 0 }
         .distinctBy { certificate -> certificate.encoded.contentHashCode() }
-    check(certificates.isNotEmpty()) { "Android sistem güven deposu boş" }
+    check(certificates.isNotEmpty()) { "Android system trust store is empty" }
 
     val output = File(context.noBackupFilesDir, CA_BUNDLE_FILE_NAME)
     val encoder = Base64.getMimeEncoder(64, byteArrayOf('\n'.code.toByte()))

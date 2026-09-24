@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App and errors from the relay core -->
+    <string name="error_with_detail">%1$s (%2$s)</string>
+    <string name="error_receiver_not_running">수신기가 실행 중이 아닙니다. 수신기를 켠 뒤 다시 시도하세요.</string>
+    <string name="error_listen_failed">1935 포트를 열 수 없습니다. 다른 앱이 사용 중일 수 있습니다.</string>
+    <string name="error_receiver_failed">수신기가 중지되었습니다.</string>
+    <string name="error_internal">앱 내부에서 문제가 발생했습니다. 다시 시도하세요.</string>
+    <string name="error_destination_scheme">서버 주소는 rtmp:// 또는 rtmps://로 시작해야 합니다.</string>
+    <string name="error_destination_path">서버 주소에 서버와 앱 경로가 모두 포함되어야 합니다.</string>
+    <string name="error_destination_server">서버 주소가 올바르지 않습니다.</string>
+    <string name="error_stream_key">스트림 키가 올바르지 않습니다.</string>
+    <string name="error_ca_bundle">RTMPS에 필요한 Android 인증서를 준비하지 못했습니다.</string>
+
+    <!-- Shared components -->
+    <string name="live_badge">방송 중</string>
+    <string name="step">%1$d단계</string>
+    <string name="step_done">%1$d단계 완료</string>
+    <string name="copy_address">주소 복사</string>
+    <string name="collapse">접기</string>
+    <string name="expand">펼치기</string>
+    <string name="state_expanded">펼쳐짐</string>
+    <string name="state_collapsed">접힘</string>
+
+    <!-- Themes -->
+    <string name="theme_system">시스템</string>
+    <string name="theme_light">밝게</string>
+    <string name="theme_dark">어둡게</string>
+    <string name="theme_midnight">미드나이트 블루</string>
+    <string name="theme_sand">샌드</string>
+
+    <!-- Drone preview -->
+    <string name="drone_picture">드론 영상</string>
+    <string name="preview_waiting">영상을 기다리는 중…</string>
+    <string name="preview_unsupported">이 영상 형식은 미리보기에서 표시할 수 없습니다</string>
+
+    <!-- Test video -->
+    <string name="test_video_default_name">동영상</string>
+    <string name="test_video_looping">반복 재생</string>
+    <string name="test_video_no_avc_config">동영상의 H.264 설정을 읽을 수 없습니다.</string>
+    <string name="test_video_no_frames">동영상에 보낼 프레임이 없습니다.</string>
+    <string name="test_video_rewind_failed">동영상을 처음으로 되감을 수 없습니다.</string>
+    <string name="test_video_open_failed">동영상을 열 수 없습니다. 다른 동영상을 선택해 보세요.</string>
+    <string name="test_video_hevc">이 동영상은 H.265 (HEVC)로 녹화되었습니다. DJI Fly가 보내는 형식인 H.264 동영상을 선택하세요.</string>
+    <string name="test_video_unsupported">지원하지 않는 동영상 형식입니다. H.264 동영상을 선택하세요.</string>
+    <string name="test_video_no_video">선택한 파일에 영상이 없습니다.</string>
+    <string name="test_video_receiver_not_ready">수신기가 준비되지 않았습니다.</string>
+    <string name="test_video_unreadable">동영상을 읽을 수 없습니다.</string>
+    <string name="test_video_stopped">테스트 영상 중지됨</string>
+    <string name="test_video_rotated">세로로 촬영한 동영상은 방송에서 옆으로 누워 보일 수 있습니다</string>
+
+    <!-- Platforms. on_* and to_* are phrases for where the stream is and where it goes, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
+    <string name="platform_custom">RTMP 서버</string>
+    <string name="on_instagram">Instagram에서</string>
+    <string name="on_tiktok">TikTok에서</string>
+    <string name="on_youtube">YouTube에서</string>
+    <string name="on_facebook">Facebook에서</string>
+    <string name="on_twitch">Twitch에서</string>
+    <string name="on_kick">Kick에서</string>
+    <string name="on_custom">RTMP 서버에서</string>
+    <string name="to_instagram">Instagram에</string>
+    <string name="to_tiktok">TikTok에</string>
+    <string name="to_youtube">YouTube에</string>
+    <string name="to_facebook">Facebook에</string>
+    <string name="to_twitch">Twitch에</string>
+    <string name="to_kick">Kick에</string>
+    <string name="to_custom">RTMP 서버에</string>
+    <string name="key_help_instagram">instagram.com에서 만들기(+) → 라이브 방송을 열고 “스트림 키”를 복사하세요. Instagram은 방송할 때마다 새 키를 발급합니다.</string>
+    <string name="key_help_tiktok">TikTok LIVE Center에서 스트림 키 화면을 열고 서버 URL과 스트림 키를 복사하세요. 계정에 RTMP 권한이 필요하며, TikTok은 방송할 때마다 새 키를 발급합니다.</string>
+    <string name="key_help_youtube">YouTube 스튜디오에서 만들기 → 실시간 스트리밍 시작 → 스트리밍 소프트웨어를 열고 “스트림 키”를 복사하세요. 키는 재설정하기 전까지 그대로입니다.</string>
+    <string name="key_help_facebook">facebook.com에서 라이브 동영상 → 스트리밍 소프트웨어를 열고 “스트림 키”를 복사하세요. 고정 키를 켜지 않았다면 Facebook은 방송할 때마다 새 키를 발급합니다.</string>
+    <string name="key_help_twitch">Twitch 크리에이터 대시보드에서 설정 → 방송을 열고 기본 스트림 키를 복사하세요.</string>
+    <string name="key_help_kick">Kick에서 Creator Dashboard → Settings → Stream URL &amp; Key를 열고 키를 복사하세요. 다른 Stream URL이 표시되면 서버 주소를 그 URL로 바꾸세요.</string>
+    <string name="key_help_custom">서버에서 받은 RTMP 또는 RTMPS 주소와 스트림 키를 붙여넣으세요.</string>
+    <string name="server_placeholder">rtmp://your.server/live</string>
+    <string name="live_reminder_instagram">이제 Instagram에서 “라이브 시작”을 누르세요. 그 후에야 방송이 공개됩니다.</string>
+    <string name="live_reminder_tiktok">TikTok LIVE Center를 확인하세요. 그곳에서도 방송을 시작해야 할 수 있습니다.</string>
+    <string name="live_reminder_youtube">자동 시작이 꺼져 있으면 YouTube 스튜디오에서 “실시간 스트리밍 시작”을 누르세요.</string>
+    <string name="live_reminder_facebook">Facebook은 먼저 미리보기를 보여 줍니다. 공개하려면 그곳에서 “라이브 방송 시작”을 누르세요.</string>
+
+    <!-- Saved platforms -->
+    <string name="profile_error_not_found">해당 플랫폼을 찾을 수 없습니다.</string>
+    <string name="profile_error_key_required">스트림 키가 필요합니다.</string>
+    <string name="profile_error_key_encrypt">Android Keystore로 스트림 키를 암호화하지 못했습니다.</string>
+    <string name="profile_error_key_decrypt">Android Keystore로 스트림 키를 복호화하지 못했습니다. 플랫폼을 삭제한 뒤 다시 추가하세요.</string>
+    <string name="profile_error_read">저장된 플랫폼을 읽을 수 없습니다.</string>
+    <string name="profile_error_version">플랫폼 정보가 더 최신 버전의 앱에서 저장되었습니다.</string>
+    <string name="profile_error_corrupt">저장된 플랫폼 목록이 손상되었습니다.</string>
+    <string name="profile_error_write">플랫폼 정보를 저장할 수 없습니다.</string>
+    <string name="profile_error_name">이름은 1~64자여야 합니다.</string>
+    <string name="profile_error_generic">플랫폼을 업데이트할 수 없습니다.</string>
+    <string name="profile_list_unreadable">저장된 플랫폼을 읽을 수 없습니다</string>
+
+    <!-- Background service and notification -->
+    <string name="notification_channel">라이브 RTMP 중계</string>
+    <string name="notification_channel_description">DJI RC 2의 영상을 받아 플랫폼으로 송출합니다</string>
+    <string name="notification_receiver_error">수신기 오류</string>
+    <string name="notification_starting">수신기 준비 중</string>
+    <string name="notification_live">방송 중</string>
+    <string name="notification_live_slow">방송 중 · 연결 느림</string>
+    <plurals name="notification_live_many">
+        <item quantity="other">%d개 플랫폼에서 방송 중</item>
+    </plurals>
+    <string name="notification_reconnecting">플랫폼에 다시 연결하는 중</string>
+    <string name="notification_connecting">플랫폼에 연결하는 중</string>
+    <string name="notification_holding">드론 연결 끊김 · 방송 유지 중</string>
+    <string name="notification_live_waiting">방송 켜짐 · 드론을 기다리는 중</string>
+    <string name="notification_test_video">테스트 영상 수신 중</string>
+    <string name="notification_drone">드론 영상 수신 중</string>
+    <string name="notification_connected">조종기 연결됨</string>
+    <string name="notification_waiting">드론을 기다리는 중</string>
+    <string name="end_broadcast">방송 종료</string>
+    <string name="close">닫기</string>
+    <string name="error_background_limit">Android의 백그라운드 전송 시간 제한에 도달했습니다.</string>
+    <string name="error_service_start">백그라운드 서비스를 시작할 수 없습니다.</string>
+    <string name="go_live_failed">방송을 시작할 수 없습니다</string>
+    <string name="pick_platform_first">먼저 플랫폼을 선택하세요</string>
+    <string name="named_error">%1$s: %2$s</string>
+    <string name="test_video_failed">테스트 영상을 보낼 수 없습니다(%1$s).</string>
+
+    <!-- Stream key editor -->
+    <string name="key_paste_prompt">스트림 키를 붙여넣으세요</string>
+    <string name="save">저장</string>
+    <string name="server_address">서버 주소</string>
+    <string name="stream_key">스트림 키</string>
+    <string name="stream_key_new">새 스트림 키</string>
+    <string name="stream_key_paste_here">여기에 붙여넣으세요</string>
+    <string name="stream_key_keep_hint">변경하지 않으려면 비워 두세요</string>
+    <string name="key_hide">키 숨기기</string>
+    <string name="key_show">키 표시</string>
+    <string name="stream_key_kept">비워 두면 저장된 키가 그대로 유지됩니다.</string>
+    <string name="stream_key_stored_encrypted">이 휴대폰에만 암호화되어 저장됩니다.</string>
+    <string name="change">변경</string>
+    <string name="save_failed">저장할 수 없습니다</string>
+    <string name="delete_platform">이 플랫폼 삭제</string>
+    <string name="discard_title">저장되지 않았습니다</string>
+    <string name="discard_message">입력한 내용을 삭제할까요?</string>
+    <string name="delete">삭제</string>
+    <string name="go_back">돌아가기</string>
+    <string name="delete_platform_title">%1$s 설정을 삭제할까요?</string>
+    <string name="delete_platform_message">이 휴대폰에 암호화되어 저장된 스트림 키도 영구적으로 삭제됩니다.</string>
+    <string name="cancel">취소</string>
+
+    <!-- First-run guide -->
+    <string name="guide_skip">건너뛰기</string>
+    <string name="guide_next">다음</string>
+    <string name="guide_start">시작하기</string>
+    <string name="guide_page">%2$d페이지 중 %1$d페이지</string>
+    <string name="guide_flow_title">드론에서 라이브 방송까지</string>
+    <string name="guide_flow_body">조종기의 DJI Fly가 이 휴대폰으로 영상을 보내면, 휴대폰이 선택한 플랫폼으로 영상을 전달합니다.</string>
+    <string name="guide_connect_title">먼저 드론을 연결하세요</string>
+    <string name="guide_connect_body">화면에 표시된 주소를 DJI Fly의 RTMP 주소 칸에 입력하세요. 드론 영상이 바로 휴대폰에 나타나며, 아직 어디에도 방송되지 않습니다.</string>
+    <string name="guide_live_title">그다음 방송을 시작하세요</string>
+    <string name="guide_live_body">플랫폼을 하나 이상 선택하고 스트림 키를 붙여넣은 뒤 방송 시작을 누르세요. 서버 주소는 이미 준비되어 있습니다.</string>
+
+    <!-- Home screen -->
+    <string name="where_to_stream">어디로 방송할까요?</string>
+    <string name="pick_platforms_hint">플랫폼을 하나 이상 누르세요. 선택한 모든 플랫폼에 동시에 방송됩니다. 서버 주소는 준비되어 있으니 스트림 키만 입력하면 됩니다.</string>
+    <string name="connect_drone">드론 연결</string>
+    <string name="preview_badge">미리보기</string>
+    <string name="preview_badge_test">테스트 영상 · 미리보기</string>
+    <string name="preview_connected">조종기가 연결되었습니다. 곧 영상이 들어옵니다.</string>
+    <string name="preview_drone_status">드론 연결됨 · %1$s. 아직 방송 중이 아닙니다.</string>
+    <string name="preview_test_status">테스트 영상 수신 중 · %1$s. 아직 방송 중이 아닙니다.</string>
+    <string name="stop_test_video">테스트 영상 중지</string>
+    <string name="receiver_starting">수신기를 준비하는 중…</string>
+    <string name="receiver_off">수신기가 꺼져 있어 DJI Fly가 이 휴대폰에 연결할 수 없습니다.</string>
+    <string name="retry">다시 시도</string>
+    <string name="open_receiver">수신기 켜기</string>
+    <string name="test_video_opening">테스트 영상을 여는 중…</string>
+    <string name="dji_fly_instructions">DJI Fly에 이 주소를 RTMP 주소로 입력하고 송출을 시작하세요. 영상은 여기에 표시되며, 방송을 시작해야 플랫폼으로 전송됩니다.</string>
+    <string name="dji_fly_path">DJI Fly → GO FLY → ••• → 전송 → 라이브 방송 플랫폼 → RTMP</string>
+    <string name="try_test_video">드론이 없나요? 테스트 영상으로 해 보세요</string>
+    <string name="deselect">선택 해제</string>
+    <string name="select">선택</string>
+    <string name="add">추가</string>
+    <string name="edit">편집</string>
+    <string name="state_saved">저장됨</string>
+    <string name="state_not_added">추가 안 됨</string>
+    <string name="platform_selected">%1$s 선택됨</string>
+    <string name="key_changes_each_stream">방송마다 새 키가 필요합니다</string>
+    <string name="key_saved">스트림 키 저장됨</string>
+    <string name="update_key">키 업데이트</string>
+    <plurals name="upload_note">
+        <item quantity="other">플랫폼 %d개를 선택했습니다. 플랫폼마다 드론 영상을 따로 업로드하므로 업로드 속도가 부족하면 일부 프레임을 건너뜁니다.</item>
+    </plurals>
+    <plurals name="upload_note_total">
+        <item quantity="other">플랫폼 %1$d개를 선택했습니다. 플랫폼마다 드론 영상을 따로 업로드합니다(현재 총 약 %2$s). 업로드 속도가 부족하면 일부 프레임을 건너뜁니다.</item>
+    </plurals>
+    <string name="network_hotspot">핫스팟 켜짐 · 조종기를 이 휴대폰에 연결하세요</string>
+    <string name="network_wifi">Wi-Fi 연결됨 · 조종기도 같은 네트워크에 있어야 합니다</string>
+    <string name="network_local">로컬 네트워크 연결됨 · 조종기도 같은 네트워크에 있어야 합니다</string>
+    <string name="no_network">휴대폰이 Wi-Fi에 연결되어 있지 않습니다. Wi-Fi에 연결하거나 핫스팟을 켜세요.</string>
+    <string name="wifi_settings">Wi-Fi 설정</string>
+
+    <!-- Live screen. hero_*_one sentences take an on_* or to_* phrase as %1$s. -->
+    <string name="tip_check_key">계속 반복되면 스트림 키와 서버 주소를 확인하고, 플랫폼에서 라이브 방송이 켜져 있는지도 확인하세요.</string>
+    <string name="tip_receiver_error">방송을 종료하고 수신기를 다시 켜세요. 문제가 계속되면 휴대폰을 다시 시작해 보세요.</string>
+    <string name="tip_congested">업로드 속도가 너무 느려 방송은 계속되지만 일부 프레임을 건너뜁니다. 연결 상태가 더 좋은 곳으로 옮기거나, 플랫폼 수를 줄이거나, DJI Fly에서 송출 화질을 낮추세요.</string>
+    <plurals name="platform_count">
+        <item quantity="other">플랫폼 %d개</item>
+    </plurals>
+    <string name="hero_test_video">테스트 영상 준비 중</string>
+    <string name="hero_test_video_subtitle">곧 영상 전송이 시작됩니다.</string>
+    <string name="hero_drone_lost">드론 연결 끊김</string>
+    <string name="hero_drone_lost_subtitle">방송은 유지됩니다. 조종기가 다시 연결되면 이어서 방송됩니다.</string>
+    <string name="hero_starting">시작 중</string>
+    <string name="hero_starting_subtitle">몇 초 안에 브리지가 준비됩니다.</string>
+    <string name="hero_waiting">조종기를 기다리는 중</string>
+    <string name="hero_waiting_subtitle_one">DJI Fly에서 송출을 시작하세요. 영상이 들어오면 %1$s 자동으로 연결됩니다.</string>
+    <string name="hero_waiting_subtitle_many">DJI Fly에서 송출을 시작하세요. 영상이 들어오면 플랫폼에 자동으로 연결됩니다.</string>
+    <string name="hero_connected">조종기 연결됨</string>
+    <string name="hero_connected_subtitle">곧 영상이 들어옵니다.</string>
+    <string name="hero_connecting_one">%1$s 연결하는 중</string>
+    <string name="hero_connecting_many">플랫폼에 연결하는 중</string>
+    <string name="hero_live_one">%1$s 방송 중</string>
+    <plurals name="hero_live_many">
+        <item quantity="other">%d개 플랫폼에서 방송 중</item>
+    </plurals>
+    <string name="hero_connection_lost">연결 끊김</string>
+    <string name="hero_reconnecting_one">%1$s 다시 연결하는 중…</string>
+    <string name="hero_reconnecting_many">플랫폼에 다시 연결하는 중…</string>
+    <string name="hero_receiver_stopped">수신기 중지됨</string>
+    <string name="hero_off">방송 꺼짐</string>
+    <string name="stream_time">방송 시간 %1$s</string>
+    <string name="hop_controller">조종기</string>
+    <string name="hop_test_video">테스트 영상</string>
+    <string name="hop_phone">휴대폰</string>
+    <string name="hop_waiting">기다리는 중</string>
+    <string name="hop_connected">연결됨</string>
+    <string name="hop_sending">전송 중</string>
+    <string name="hop_not_connected">연결 안 됨</string>
+    <string name="hop_starting">시작 중</string>
+    <string name="hop_error">오류</string>
+    <string name="hop_ready">준비됨</string>
+    <string name="hop_live">방송 중</string>
+    <string name="hop_connecting">연결 중</string>
+    <string name="hop_reconnecting">재연결 중</string>
+    <string name="hop_standing_by">대기 중</string>
+    <string name="hop_description">%1$s: %2$s, %3$s: %4$s, %5$s: %6$s</string>
+    <string name="start_on_controller">조종기에서 송출을 시작하세요</string>
+    <string name="phone_offline">휴대폰의 네트워크 연결이 끊겼습니다</string>
+    <string name="phone_offline_message">Wi-Fi에 다시 연결하거나 핫스팟을 켜세요. 그러면 주소가 여기에 다시 표시됩니다.</string>
+    <string name="not_connecting">연결되지 않나요?</string>
+    <string name="not_connecting_same_network">조종기와 휴대폰이 같은 Wi-Fi에 있거나, 조종기가 이 휴대폰의 핫스팟에 연결되어 있어야 합니다.</string>
+    <string name="not_connecting_exact_address">주소를 정확히 입력하세요. 주소는 :1935/drone으로 끝나야 합니다.</string>
+    <string name="not_connecting_guest_vpn">게스트 네트워크나 휴대폰의 VPN 때문에 기기끼리 서로 찾지 못할 수 있습니다.</string>
+    <string name="stat_bitrate">비트레이트</string>
+    <string name="stat_sent">전송량</string>
+    <string name="stat_codec">코덱</string>
+    <string name="platforms">플랫폼</string>
+    <string name="end">종료</string>
+    <string name="end_platform">%1$s 방송 종료</string>
+    <string name="status_live">방송 중</string>
+    <string name="status_congested">연결 느림 · 프레임 건너뛰는 중</string>
+    <string name="status_connecting">연결 중</string>
+    <string name="status_reconnecting">재연결 중</string>
+    <string name="status_holding">드론을 기다리는 중 · 방송 켜짐</string>
+    <string name="status_stopped">중지됨</string>
+    <string name="status_waiting_for_picture">드론 영상을 기다리는 중</string>
+    <string name="output_armed">드론 영상이 들어오면 연결됩니다</string>
+    <string name="output_connecting">%1$s로 플랫폼에 연결하는 중</string>
+    <string name="output_ready">플랫폼이 방송을 수락했습니다</string>
+    <string name="output_ready_secure">인증서가 검증되었고 플랫폼이 방송을 수락했습니다</string>
+    <string name="output_forwarding">RTMP로 플랫폼에 송출 중</string>
+    <string name="output_forwarding_secure">검증된 TLS로 플랫폼에 송출 중</string>
+    <string name="output_congested">업로드가 너무 느려 영상이 다음 키프레임으로 건너뜁니다</string>
+    <string name="output_holding">드론 연결이 끊겼지만 플랫폼 연결은 유지됩니다</string>
+    <plurals name="output_retry">
+        <item quantity="other">%d초 후 다시 시도합니다</item>
+    </plurals>
+    <string name="output_stopped">송출 중지됨</string>
+    <string name="output_failure_tls">TLS 인증서를 검증할 수 없거나 네트워크에 연결할 수 없습니다</string>
+    <string name="output_failure_connect">연결할 수 없습니다</string>
+    <string name="output_failure_rejected">플랫폼이 방송을 수락하지 않았습니다</string>
+    <string name="output_failure_send">전송 중에 연결이 끊겼습니다</string>
+    <string name="output_failure_network">네트워크 오류</string>
+    <string name="output_failure_stalled">플랫폼이 데이터를 더 이상 받지 않습니다</string>
+    <string name="technical_details">기술 정보</string>
+    <string name="detail_source">소스</string>
+    <string name="detail_source_waiting">연결을 기다리는 중</string>
+    <string name="detail_received">수신량</string>
+    <string name="detail_packets">비디오 / 오디오 패킷</string>
+    <string name="detail_rejected">거부된 송출 시도</string>
+    <string name="detail_forwarded">송출량</string>
+    <string name="detail_connection">연결</string>
+    <string name="connection_rtmps_verified">RTMPS · 인증서 검증됨</string>
+    <string name="connection_rtmps_pending">RTMPS · 검증 대기 중</string>
+    <string name="connection_rtmp">RTMP · 암호화 안 됨</string>
+    <string name="detail_status">상태</string>
+    <string name="detail_last_error">마지막 오류</string>
+    <string name="detail_reconnects">재연결 횟수</string>
+    <string name="detail_dropped">건너뛴 패킷</string>
+    <string name="background_note">화면을 잠가도 방송은 백그라운드에서 계속됩니다. Android 15 이상에서는 백그라운드 전송이 24시간마다 총 6시간으로 제한됩니다.</string>
+
+    <!-- Main screen, dialogs and messages -->
+    <string name="language">언어</string>
+    <string name="language_system">휴대폰 언어</string>
+    <string name="theme">테마</string>
+    <string name="how_to_use">사용 방법</string>
+    <string name="ok">확인</string>
+    <string name="go_live">방송 시작</string>
+    <plurals name="go_live_many">
+        <item quantity="other">%d개 플랫폼에서 방송 시작</item>
+    </plurals>
+    <string name="go_live_needs_picture">드론 영상이 들어오면 방송을 시작할 수 있습니다</string>
+    <string name="keep_streaming">계속 방송하기</string>
+    <string name="end_one_title">%1$s 방송을 종료할까요?</string>
+    <string name="end_one_message">%1$s 진행 중인 방송이 종료됩니다. 다른 플랫폼에서는 방송이 계속됩니다.</string>
+    <string name="end_all_title">방송을 종료할까요?</string>
+    <string name="end_all_drone">라이브 방송이 종료됩니다. 드론은 연결된 상태로 유지되며, 영상도 휴대폰에 계속 표시됩니다.</string>
+    <string name="end_all_drone_many">모든 플랫폼에서 라이브 방송이 종료됩니다. 드론은 연결된 상태로 유지되며, 영상도 휴대폰에 계속 표시됩니다.</string>
+    <string name="end_all_test_video">라이브 방송이 종료됩니다. 테스트 영상은 휴대폰에서 계속 재생됩니다.</string>
+    <string name="end_all_test_video_many">모든 플랫폼에서 라이브 방송이 종료됩니다. 테스트 영상은 휴대폰에서 계속 재생됩니다.</string>
+    <string name="notification_permission_denied">알림이 꺼져 있습니다. 방송 상태는 앱에서 확인할 수 있습니다</string>
+    <string name="clip_address_label">DJI Fly RTMP 주소</string>
+    <string name="address_copied">주소 복사됨</string>
+    <string name="wifi_settings_failed">Wi-Fi 설정을 열 수 없습니다</string>
+    <string name="platform_added">%1$s 추가됨</string>
+    <string name="platform_deleted">%1$s 삭제됨</string>
+    <string name="saved">저장됨</string>
+</resources>

@@ -43,7 +43,7 @@ internal class ProfileEditorState(
     )
     var serverTouched by mutableStateOf(false)
     var keyTouched by mutableStateOf(false)
-    var editorError by mutableStateOf<String?>(null)
+    var editorError by mutableStateOf<UiText?>(null)
     var showDiscardConfirmation by mutableStateOf(false)
     var showDeleteConfirmation by mutableStateOf(false)
 

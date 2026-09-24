@@ -17,6 +17,8 @@ mod preview;
 const DEFAULT_BIND_ADDRESS: &str = "0.0.0.0:1935";
 const EXPECTED_APP: &str = "drone";
 const OUTBOUND_QUEUE_CAPACITY: usize = 256;
+/// The output id of the single-destination `start_bridge*` entry points.
+const BRIDGE_OUTPUT_ID: &str = "bridge";
 const MAX_QUEUED_FRAME_BYTES: usize = 16 * 1024 * 1024;
 const OUTPUT_CONNECT_TIMEOUT: Duration = Duration::from_secs(3);
 const OUTPUT_RETRY_MAX_DELAY: Duration = Duration::from_secs(15);
@@ -40,7 +42,10 @@ const OUTPUT_THREAD_NICE: i32 = -8;
 #[serde(rename_all = "camelCase")]
 pub struct RelaySnapshot {
     pub status: String,
-    pub detail: String,
+    /// Why the receiver stopped, as a code the app turns into its own language.
+    pub error_code: Option<String>,
+    /// The technical cause behind [error_code], in English (e.g. the operating system's error).
+    pub error_detail: Option<String>,
     pub remote_address: Option<String>,
     pub received_bytes: u64,
     pub bitrate_kbps: f64,
@@ -49,19 +54,31 @@ pub struct RelaySnapshot {
     pub video_frames: u64,
     pub audio_frames: u64,
     pub rejected_publish_attempts: u64,
-    pub output_status: String,
-    pub output_detail: String,
+    /// One entry per platform the stream is going to.
+    pub outputs: Vec<OutputSnapshot>,
+}
+
+#[derive(Clone, Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct OutputSnapshot {
+    pub id: String,
+    pub status: String,
+    /// While reconnecting: why, as a code, with the technical cause and the wait before retrying.
+    pub reason: Option<String>,
+    pub reason_detail: Option<String>,
+    pub retry_in_seconds: Option<u64>,
     pub outbound_bytes: u64,
-    pub dropped_output_frames: u64,
-    pub output_reconnect_attempts: u64,
-    pub output_secure: bool,
+    pub dropped_frames: u64,
+    pub reconnect_attempts: u64,
+    pub secure: bool,
 }
 
 impl RelaySnapshot {
     fn stopped() -> Self {
         Self {
             status: "stopped".to_owned(),
-            detail: "RTMP alıcısı kapalı".to_owned(),
+            error_code: None,
+            error_detail: None,
             remote_address: None,
             received_bytes: 0,
             bitrate_kbps: 0.0,
@@ -70,12 +87,7 @@ impl RelaySnapshot {
             video_frames: 0,
             audio_frames: 0,
             rejected_publish_attempts: 0,
-            output_status: "disabled".to_owned(),
-            output_detail: "Harici hedef yapılandırılmadı".to_owned(),
-            outbound_bytes: 0,
-            dropped_output_frames: 0,
-            output_reconnect_attempts: 0,
-            output_secure: false,
+            outputs: Vec::new(),
         }
     }
 }
@@ -87,28 +99,116 @@ struct Destination {
     tls_ca_file: Option<String>,
 }
 
-#[derive(Clone)]
-struct OutboundSnapshot {
-    status: String,
+/// Why something failed: a code the app puts into words, and the technical cause in English.
+#[derive(Clone, Debug)]
+struct Failure {
+    reason: &'static str,
     detail: String,
 }
 
-impl OutboundSnapshot {
-    fn disabled() -> Self {
+impl Failure {
+    fn new(reason: &'static str, detail: impl ToString) -> Self {
         Self {
-            status: "disabled".to_owned(),
-            detail: "Harici hedef yapılandırılmadı".to_owned(),
+            reason,
+            detail: detail.to_string(),
         }
     }
 }
 
-/// A frame for the platform output, tagged with the source it belongs to, so a source change
-/// is noticed in order even when the queue overflowed.
+#[derive(Clone, Default)]
+struct OutputState {
+    status: String,
+    failure: Option<Failure>,
+    retry_in_seconds: Option<u64>,
+}
+
+/// One platform output: its own connection, retries, congestion state and counters.
+struct Output {
+    id: String,
+    secure: bool,
+    state: RwLock<OutputState>,
+    outbound_bytes: AtomicU64,
+    dropped_frames: AtomicU64,
+    reconnect_attempts: AtomicU64,
+    /// Frames for this output were lost before it could read them.
+    overflowed: AtomicBool,
+}
+
+impl Output {
+    fn new(id: &str, secure: bool) -> Self {
+        Self {
+            id: id.to_owned(),
+            secure,
+            state: RwLock::new(OutputState {
+                status: "armed".to_owned(),
+                ..OutputState::default()
+            }),
+            outbound_bytes: AtomicU64::new(0),
+            dropped_frames: AtomicU64::new(0),
+            reconnect_attempts: AtomicU64::new(0),
+            overflowed: AtomicBool::new(false),
+        }
+    }
+
+    fn set_status(&self, status: &str) {
+        if let Ok(mut current) = self.state.write() {
+            // A retry in progress still shows why the previous attempt failed.
+            let failure = if status == "reconnecting" {
+                current.failure.take()
+            } else {
+                None
+            };
+            *current = OutputState {
+                status: status.to_owned(),
+                failure,
+                retry_in_seconds: None,
+            };
+        }
+    }
+
+    fn set_reconnecting(&self, failure: Failure, delay: Duration) {
+        if let Ok(mut current) = self.state.write() {
+            *current = OutputState {
+                status: "reconnecting".to_owned(),
+                failure: Some(failure),
+                retry_in_seconds: Some(delay.as_secs()),
+            };
+        }
+    }
+
+    fn snapshot(&self) -> OutputSnapshot {
+        let state = self
+            .state
+            .read()
+            .map(|value| value.clone())
+            .unwrap_or_default();
+        OutputSnapshot {
+            id: self.id.clone(),
+            status: state.status,
+            reason: state
+                .failure
+                .as_ref()
+                .map(|failure| failure.reason.to_owned()),
+            reason_detail: state
+                .failure
+                .map(|failure| failure.detail)
+                .filter(|detail| !detail.is_empty()),
+            retry_in_seconds: state.retry_in_seconds,
+            outbound_bytes: self.outbound_bytes.load(Ordering::Relaxed),
+            dropped_frames: self.dropped_frames.load(Ordering::Relaxed),
+            reconnect_attempts: self.reconnect_attempts.load(Ordering::Relaxed),
+            secure: self.secure,
+        }
+    }
+}
+
+/// A frame for a platform output, tagged with the source it belongs to, so a source change is
+/// noticed in order even when the queue overflowed. Every output shares the same payload.
 struct OutboundFrame {
     source: u64,
     frame_type: FrameType,
     timestamp: u32,
-    payload: Vec<u8>,
+    payload: Arc<[u8]>,
 }
 
 struct RuntimeControl {
@@ -116,28 +216,23 @@ struct RuntimeControl {
     server_thread: JoinHandle<()>,
 }
 
-/// The platform output. It comes and goes while the ingest keeps the drone connected.
-struct OutboundControl {
+/// A running platform output. Outputs come and go while the ingest keeps the drone connected.
+struct OutputHandle {
+    output: Arc<Output>,
+    sender: SyncSender<OutboundFrame>,
     stop: Arc<AtomicBool>,
     thread: JoinHandle<()>,
 }
 
 static CONTROL: OnceLock<Mutex<Option<RuntimeControl>>> = OnceLock::new();
-static OUTBOUND_CONTROL: OnceLock<Mutex<Option<OutboundControl>>> = OnceLock::new();
+static OUTPUTS: OnceLock<RwLock<Vec<OutputHandle>>> = OnceLock::new();
 /// Codec headers and metadata of the current source, so an output attached mid-stream can
 /// start with them instead of waiting for a source restart.
 static SOURCE_BOOTSTRAP: OnceLock<Mutex<MediaBootstrap>> = OnceLock::new();
 static SNAPSHOT: OnceLock<RwLock<RelaySnapshot>> = OnceLock::new();
-static OUTBOUND_SNAPSHOT: OnceLock<RwLock<OutboundSnapshot>> = OnceLock::new();
-static OUTBOUND_SENDER: OnceLock<RwLock<Option<SyncSender<OutboundFrame>>>> = OnceLock::new();
 static VIDEO_FRAMES: AtomicU64 = AtomicU64::new(0);
 static AUDIO_FRAMES: AtomicU64 = AtomicU64::new(0);
 static REJECTED_PUBLISH_ATTEMPTS: AtomicU64 = AtomicU64::new(0);
-static OUTBOUND_BYTES: AtomicU64 = AtomicU64::new(0);
-static DROPPED_OUTPUT_FRAMES: AtomicU64 = AtomicU64::new(0);
-static OUTPUT_RECONNECT_ATTEMPTS: AtomicU64 = AtomicU64::new(0);
-static OUTBOUND_QUEUE_OVERFLOWED: AtomicBool = AtomicBool::new(false);
-static OUTPUT_SECURE: AtomicBool = AtomicBool::new(false);
 /// Grows whenever the source ends or another publisher takes over.
 static SOURCE_GENERATION: AtomicU64 = AtomicU64::new(0);
 /// A publisher is sending right now.
@@ -149,8 +244,8 @@ fn control() -> &'static Mutex<Option<RuntimeControl>> {
     CONTROL.get_or_init(|| Mutex::new(None))
 }
 
-fn outbound_control() -> &'static Mutex<Option<OutboundControl>> {
-    OUTBOUND_CONTROL.get_or_init(|| Mutex::new(None))
+fn outputs() -> &'static RwLock<Vec<OutputHandle>> {
+    OUTPUTS.get_or_init(|| RwLock::new(Vec::new()))
 }
 
 fn source_bootstrap() -> &'static Mutex<MediaBootstrap> {
@@ -167,36 +262,22 @@ fn snapshot() -> &'static RwLock<RelaySnapshot> {
     SNAPSHOT.get_or_init(|| RwLock::new(RelaySnapshot::stopped()))
 }
 
-fn outbound_snapshot() -> &'static RwLock<OutboundSnapshot> {
-    OUTBOUND_SNAPSHOT.get_or_init(|| RwLock::new(OutboundSnapshot::disabled()))
-}
-
-fn outbound_sender() -> &'static RwLock<Option<SyncSender<OutboundFrame>>> {
-    OUTBOUND_SENDER.get_or_init(|| RwLock::new(None))
-}
-
 fn set_snapshot(value: RelaySnapshot) {
     if let Ok(mut current) = snapshot().write() {
         *current = value;
     }
 }
 
-fn set_output_status(status: &str, detail: &str) {
-    if let Ok(mut current) = outbound_snapshot().write() {
-        current.status = status.to_owned();
-        current.detail = detail.to_owned();
-    }
-}
-
 fn apply_output_state(value: &mut RelaySnapshot) {
-    if let Ok(output) = outbound_snapshot().read() {
-        value.output_status.clone_from(&output.status);
-        value.output_detail.clone_from(&output.detail);
-    }
-    value.outbound_bytes = OUTBOUND_BYTES.load(Ordering::Relaxed);
-    value.dropped_output_frames = DROPPED_OUTPUT_FRAMES.load(Ordering::Relaxed);
-    value.output_reconnect_attempts = OUTPUT_RECONNECT_ATTEMPTS.load(Ordering::Relaxed);
-    value.output_secure = OUTPUT_SECURE.load(Ordering::Relaxed);
+    value.outputs = outputs()
+        .read()
+        .map(|handles| {
+            handles
+                .iter()
+                .map(|handle| handle.output.snapshot())
+                .collect()
+        })
+        .unwrap_or_default();
 }
 
 fn allow_publish(_conn_id: u64, app: &str, stream_name: &str) -> bool {
@@ -234,8 +315,12 @@ fn handle_frame(frame: &Frame) {
     }
 
     if frame.size as usize > MAX_QUEUED_FRAME_BYTES || (frame.size > 0 && frame.data.is_null()) {
-        DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
-        OUTBOUND_QUEUE_OVERFLOWED.store(true, Ordering::Release);
+        if let Ok(handles) = outputs().read() {
+            for handle in handles.iter() {
+                handle.output.dropped_frames.fetch_add(1, Ordering::Relaxed);
+                handle.output.overflowed.store(true, Ordering::Release);
+            }
+        }
         return;
     }
 
@@ -248,31 +333,35 @@ fn handle_frame(frame: &Frame) {
     if matches!(frame.frame_type, FrameType::Video) {
         preview::offer(frame.timestamp, payload);
     }
-    // Observed before the sender is read: see attach_destination.
+    // Observed before the outputs are read: see attach_destination.
     if let Ok(mut bootstrap) = source_bootstrap().lock() {
         bootstrap.observe(frame.frame_type, payload);
     }
 
-    let sender = outbound_sender()
-        .read()
-        .ok()
-        .and_then(|value| value.clone());
-    let Some(sender) = sender else {
+    let Ok(handles) = outputs().read() else {
         return;
     };
-    let message = OutboundFrame {
-        source: SOURCE_GENERATION.load(Ordering::Relaxed),
-        frame_type: frame.frame_type,
-        timestamp: frame.timestamp,
-        payload: payload.to_vec(),
-    };
-    match sender.try_send(message) {
-        Ok(()) => {}
-        Err(TrySendError::Full(_)) => {
-            DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
-            OUTBOUND_QUEUE_OVERFLOWED.store(true, Ordering::Release);
+    if handles.is_empty() {
+        return;
+    }
+    let source = SOURCE_GENERATION.load(Ordering::Relaxed);
+    let shared: Arc<[u8]> = Arc::from(payload);
+    for handle in handles.iter() {
+        let message = OutboundFrame {
+            source,
+            frame_type: frame.frame_type,
+            timestamp: frame.timestamp,
+            payload: Arc::clone(&shared),
+        };
+        match handle.sender.try_send(message) {
+            Ok(()) => {}
+            // A slow platform only loses its own frames; the others are unaffected.
+            Err(TrySendError::Full(_)) => {
+                handle.output.dropped_frames.fetch_add(1, Ordering::Relaxed);
+                handle.output.overflowed.store(true, Ordering::Release);
+            }
+            Err(TrySendError::Disconnected(_)) => {}
         }
-        Err(TrySendError::Disconnected(_)) => {}
     }
 }
 
@@ -314,10 +403,10 @@ fn build_destination(
     } else if let Some(value) = server_url.strip_prefix("rtmp://") {
         (value, false)
     } else {
-        return Err("Hedef adresi rtmp:// veya rtmps:// ile başlamalı".to_owned());
+        return Err("invalid_destination_scheme".to_owned());
     };
     let Some((authority, app)) = authority_and_app.split_once('/') else {
-        return Err("Hedef adresi sunucu ve uygulama yolunu içermeli".to_owned());
+        return Err("invalid_destination_path".to_owned());
     };
     if authority.is_empty()
         || app.is_empty()
@@ -325,7 +414,7 @@ fn build_destination(
         || server_url.contains(['?', '#'])
         || server_url.chars().any(char::is_whitespace)
     {
-        return Err("Hedef RTMP sunucu adresi geçersiz".to_owned());
+        return Err("invalid_destination_server".to_owned());
     }
     if !(4..=512).contains(&stream_key.len())
         || !stream_key.is_ascii()
@@ -333,11 +422,11 @@ fn build_destination(
             value.is_ascii_whitespace() || value.is_ascii_control() || matches!(value, b'/' | b'#')
         })
     {
-        return Err("Hedef yayın anahtarı geçersiz".to_owned());
+        return Err("invalid_stream_key".to_owned());
     }
     let tls_ca_file = tls_ca_file.trim();
     if secure && tls_ca_file.is_empty() {
-        return Err("Android sistem sertifikaları RTMPS için hazırlanamadı".to_owned());
+        return Err("missing_ca_bundle".to_owned());
     }
 
     Ok(Destination {
@@ -395,20 +484,27 @@ pub fn start_bridge_on_with_tls_ca(
     start_runtime(bind_address, Some(destination))
 }
 
-/// Starts sending the running ingest's stream to a platform. The drone stays connected, and a
-/// stream that is already arriving goes out from its next keyframe.
+/// Starts sending the running ingest's stream to one more platform, known by `output_id` (an
+/// output with the same id is replaced). The drone stays connected, other platforms are left
+/// alone, and a stream that is already arriving goes out from its next keyframe.
 pub fn set_destination_with_tls_ca(
+    output_id: &str,
     target_server_url: &str,
     target_stream_key: &str,
     tls_ca_file: &str,
 ) -> Result<(), String> {
     let destination = build_destination(target_server_url, target_stream_key, tls_ca_file)?;
-    attach_destination(destination)
+    attach_destination(output_id, destination)
 }
 
-/// Stops sending to the platform; the ingest keeps receiving the drone.
-pub fn clear_destination() {
-    detach_destination();
+/// Stops sending to one platform; the drone and the other platforms carry on.
+pub fn clear_destination(output_id: &str) {
+    detach_destination(output_id);
+}
+
+/// Stops sending to every platform; the ingest keeps receiving the drone.
+pub fn clear_destinations() {
+    detach_all_destinations();
 }
 
 fn start_runtime(bind_address: &str, destination: Option<Destination>) -> Result<(), String> {
@@ -416,12 +512,11 @@ fn start_runtime(bind_address: &str, destination: Option<Destination>) -> Result
     {
         let mut control_slot = control()
             .lock()
-            .map_err(|_| "RTMP çalışma durumu kilitlenemedi".to_owned())?;
+            .map_err(|_| "state_lock_failed".to_owned())?;
         VIDEO_FRAMES.store(0, Ordering::Relaxed);
         AUDIO_FRAMES.store(0, Ordering::Relaxed);
         REJECTED_PUBLISH_ATTEMPTS.store(0, Ordering::Relaxed);
         reset_source_bootstrap();
-        set_output_status("disabled", "Harici hedef yapılandırılmadı");
 
         let stop = Arc::new(AtomicBool::new(false));
         let server_stop = Arc::clone(&stop);
@@ -429,14 +524,14 @@ fn start_runtime(bind_address: &str, destination: Option<Destination>) -> Result
         let server_thread = thread::Builder::new()
             .name("dji-rtmp-ingest".to_owned())
             .spawn(move || run_server(&bind_address, server_stop))
-            .map_err(|error| format!("RTMP iş parçacığı başlatılamadı: {error}"))?;
+            .map_err(|error| format!("thread_failed: {error}"))?;
         *control_slot = Some(RuntimeControl {
             stop,
             server_thread,
         });
     }
     if let Some(destination) = destination {
-        if let Err(error) = attach_destination(destination) {
+        if let Err(error) = attach_destination(BRIDGE_OUTPUT_ID, destination) {
             stop_server();
             return Err(error);
         }
@@ -444,70 +539,82 @@ fn start_runtime(bind_address: &str, destination: Option<Destination>) -> Result
     Ok(())
 }
 
-fn attach_destination(destination: Destination) -> Result<(), String> {
+fn attach_destination(output_id: &str, destination: Destination) -> Result<(), String> {
     let receiving = control().lock().is_ok_and(|slot| slot.is_some());
     if !receiving {
-        return Err("RTMP alıcısı çalışmıyor".to_owned());
+        return Err("receiver_not_running".to_owned());
     }
-    detach_destination();
-    OUTBOUND_BYTES.store(0, Ordering::Relaxed);
-    DROPPED_OUTPUT_FRAMES.store(0, Ordering::Relaxed);
-    OUTPUT_RECONNECT_ATTEMPTS.store(0, Ordering::Relaxed);
-    OUTBOUND_QUEUE_OVERFLOWED.store(false, Ordering::Relaxed);
-    OUTPUT_SECURE.store(destination.secure, Ordering::Relaxed);
+    detach_destination(output_id);
 
+    let output = Arc::new(Output::new(output_id, destination.secure));
     let (sender, receiver) = mpsc::sync_channel(OUTBOUND_QUEUE_CAPACITY);
-    // handle_frame records a frame in the bootstrap before it reads the sender, so taking the
-    // snapshot and installing the sender under the bootstrap lock puts every frame in the
-    // snapshot, in the channel, or in both.
-    let (bootstrap, source) = {
-        let bootstrap = source_bootstrap()
-            .lock()
-            .map_err(|_| "RTMP çalışma durumu kilitlenemedi".to_owned())?;
-        if let Ok(mut current) = outbound_sender().write() {
-            *current = Some(sender);
-        }
-        (bootstrap.clone(), SOURCE_GENERATION.load(Ordering::Relaxed))
-    };
-    set_output_status("armed", "Kaynak yayın gelince hedefe bağlanacak");
-
     let stop = Arc::new(AtomicBool::new(false));
-    let outbound_stop = Arc::clone(&stop);
-    match thread::Builder::new()
-        .name("dji-rtmp-output".to_owned())
-        .spawn(move || run_outbound(destination, receiver, outbound_stop, bootstrap, source))
-    {
-        Ok(thread) => {
-            if let Ok(mut slot) = outbound_control().lock() {
-                *slot = Some(OutboundControl { stop, thread });
-            }
-            Ok(())
-        }
-        Err(error) => {
-            if let Ok(mut current) = outbound_sender().write() {
-                *current = None;
-            }
-            OUTPUT_SECURE.store(false, Ordering::Relaxed);
-            set_output_status("disabled", "Harici hedef başlatılamadı");
-            Err(format!("Hedef RTMP iş parçacığı başlatılamadı: {error}"))
-        }
+    // handle_frame records a frame in the bootstrap before it reads the outputs, so taking the
+    // snapshot and adding the output under the bootstrap lock puts every frame in the
+    // snapshot, in the channel, or in both.
+    let bootstrap = source_bootstrap()
+        .lock()
+        .map_err(|_| "state_lock_failed".to_owned())?;
+    let snapshot = bootstrap.clone();
+    let source = SOURCE_GENERATION.load(Ordering::Relaxed);
+    let thread = {
+        let output = Arc::clone(&output);
+        let stop = Arc::clone(&stop);
+        thread::Builder::new()
+            .name("dji-rtmp-output".to_owned())
+            .spawn(move || run_outbound(output, destination, receiver, stop, snapshot, source))
+            .map_err(|error| format!("thread_failed: {error}"))?
+    };
+    outputs()
+        .write()
+        .map_err(|_| "state_lock_failed".to_owned())?
+        .push(OutputHandle {
+            output,
+            sender,
+            stop,
+            thread,
+        });
+    drop(bootstrap);
+    Ok(())
+}
+
+fn detach_destination(output_id: &str) {
+    let removed = outputs().write().ok().and_then(|mut handles| {
+        let index = handles
+            .iter()
+            .position(|handle| handle.output.id == output_id)?;
+        Some(handles.remove(index))
+    });
+    if let Some(handle) = removed {
+        stop_output(handle);
     }
 }
 
-fn detach_destination() {
-    if let Ok(mut sender) = outbound_sender().write() {
-        *sender = None;
+fn detach_all_destinations() {
+    let removed = outputs()
+        .write()
+        .map(|mut handles| std::mem::take(&mut *handles))
+        .unwrap_or_default();
+    // Stopped together, so ending several platforms takes one flush, not one each.
+    for handle in &removed {
+        handle.stop.store(true, Ordering::Release);
     }
-    let current = outbound_control()
-        .lock()
-        .ok()
-        .and_then(|mut slot| slot.take());
-    if let Some(output) = current {
-        output.stop.store(true, Ordering::Release);
-        let _ = output.thread.join();
+    for handle in removed {
+        stop_output(handle);
     }
-    OUTPUT_SECURE.store(false, Ordering::Relaxed);
-    set_output_status("disabled", "Harici hedef yapılandırılmadı");
+}
+
+/// Dropping the sender and raising the stop flag ends the thread, which flushes and closes.
+fn stop_output(handle: OutputHandle) {
+    let OutputHandle {
+        sender,
+        stop,
+        thread,
+        ..
+    } = handle;
+    drop(sender);
+    stop.store(true, Ordering::Release);
+    let _ = thread.join();
 }
 
 fn run_server(bind_address: &str, stop: Arc<AtomicBool>) {
@@ -527,7 +634,7 @@ fn run_server(bind_address: &str, stop: Arc<AtomicBool>) {
     let mut server = match Server::new(config) {
         Ok(server) => server,
         Err(error) => {
-            set_ingest_error(format!("RTMP sunucusu oluşturulamadı: {error}"));
+            set_ingest_error("server_create_failed", error.to_string());
             return;
         }
     };
@@ -538,13 +645,12 @@ fn run_server(bind_address: &str, stop: Arc<AtomicBool>) {
     server.on_frame_cb = Some(handle_frame);
 
     if let Err(error) = server.listen(bind_address) {
-        set_ingest_error(format!("{bind_address} dinlenemedi: {error}"));
+        set_ingest_error("listen_failed", format!("{bind_address}: {error}"));
         return;
     }
 
     let mut initial = RelaySnapshot {
         status: "listening".to_owned(),
-        detail: "RC 2 yayını bekleniyor".to_owned(),
         ..RelaySnapshot::stopped()
     };
     apply_output_state(&mut initial);
@@ -558,7 +664,7 @@ fn run_server(bind_address: &str, stop: Arc<AtomicBool>) {
 
     while !stop.load(Ordering::Acquire) {
         if let Err(error) = server.poll(25) {
-            set_ingest_error(format!("RTMP alıcısı durdu: {error}"));
+            set_ingest_error("receiver_failed", error.to_string());
             server.stop();
             return;
         }
@@ -610,32 +716,29 @@ fn run_server(bind_address: &str, stop: Arc<AtomicBool>) {
             previous_sample = now;
         }
 
-        let (status, detail, remote_address, video_codec, audio_codec) =
-            if let Some(connection) = publisher {
-                (
-                    "publishing",
-                    "RC 2 yayını alınıyor",
-                    Some(connection.remote_addr.clone()),
-                    connection.detected_video_codec.clone(),
-                    connection.detected_audio_codec.clone(),
-                )
-            } else if let Some(connection) = server.connections.first() {
-                (
-                    "connected",
-                    "RTMP istemcisi bağlandı; yayın komutu bekleniyor",
-                    Some(connection.remote_addr.clone()),
-                    None,
-                    None,
-                )
-            } else {
-                bitrate_kbps = 0.0;
-                previous_bytes = 0;
-                ("listening", "RC 2 yayını bekleniyor", None, None, None)
-            };
+        let (status, remote_address, video_codec, audio_codec) = if let Some(connection) = publisher
+        {
+            (
+                "publishing",
+                Some(connection.remote_addr.clone()),
+                connection.detected_video_codec.clone(),
+                connection.detected_audio_codec.clone(),
+            )
+        } else if let Some(connection) = server.connections.first() {
+            (
+                "connected",
+                Some(connection.remote_addr.clone()),
+                None,
+                None,
+            )
+        } else {
+            bitrate_kbps = 0.0;
+            previous_bytes = 0;
+            ("listening", None, None, None)
+        };
 
         let mut next = RelaySnapshot {
             status: status.to_owned(),
-            detail: detail.to_owned(),
             remote_address,
             received_bytes,
             bitrate_kbps,
@@ -657,7 +760,6 @@ fn run_server(bind_address: &str, stop: Arc<AtomicBool>) {
     server.stop();
     let mut final_snapshot = current_snapshot();
     final_snapshot.status = "stopped".to_owned();
-    final_snapshot.detail = "RTMP alıcısı kapalı".to_owned();
     final_snapshot.bitrate_kbps = 0.0;
     final_snapshot.remote_address = None;
     apply_output_state(&mut final_snapshot);
@@ -691,7 +793,7 @@ impl MediaBootstrap {
         }
     }
 
-    fn send_to(&self, client: &mut Client) -> Result<u64, String> {
+    fn send_to(&self, client: &mut Client) -> Result<u64, Failure> {
         let frames = [
             (FrameType::Script, self.script.as_deref()),
             (FrameType::Metadata, self.metadata.as_deref()),
@@ -702,7 +804,7 @@ impl MediaBootstrap {
     }
 
     /// A new source on a running connection: its metadata and codec headers at `timestamp`.
-    fn send_codec_headers(&self, client: &mut Client, timestamp: u32) -> Result<u64, String> {
+    fn send_codec_headers(&self, client: &mut Client, timestamp: u32) -> Result<u64, Failure> {
         let frames = [
             (FrameType::Metadata, self.metadata.as_deref()),
             (FrameType::Video, self.video_sequence.as_deref()),
@@ -715,7 +817,7 @@ impl MediaBootstrap {
         client: &mut Client,
         frames: &[(FrameType, Option<&[u8]>)],
         timestamp: u32,
-    ) -> Result<u64, String> {
+    ) -> Result<u64, Failure> {
         let mut sent_bytes = 0u64;
         for &(frame_type, payload) in frames {
             if let Some(payload) = payload {
@@ -751,22 +853,23 @@ fn output_retry_delay(consecutive_failures: u32) -> Duration {
     Duration::from_secs(1u64 << exponent).min(OUTPUT_RETRY_MAX_DELAY)
 }
 
-fn connect_output(destination: &Destination) -> Result<Client, String> {
+fn connect_output(destination: &Destination) -> Result<Client, Failure> {
     let mut client = Client::new();
     client.set_connect_timeout(OUTPUT_CONNECT_TIMEOUT);
     if destination.secure {
         client.set_tls_client_config(destination.tls_ca_file.clone(), false);
     }
     client.connect(&destination.url).map_err(|error| {
-        if destination.secure {
-            format!("TLS sertifikası doğrulanamadı veya ağ bağlantısı kurulamadı: {error}")
+        let reason = if destination.secure {
+            "tls_or_network"
         } else {
-            format!("bağlantı kurulamadı: {error}")
-        }
+            "connect_failed"
+        };
+        Failure::new(reason, error)
     })?;
     client
         .publish()
-        .map_err(|error| format!("yayın kabul edilmedi: {error}"))?;
+        .map_err(|error| Failure::new("publish_rejected", error))?;
     Ok(client)
 }
 
@@ -775,18 +878,11 @@ fn send_output_frame(
     frame_type: FrameType,
     timestamp: u32,
     payload: &[u8],
-) -> Result<(), String> {
+) -> Result<(), Failure> {
     client
         .send_frame_payload(frame_type, timestamp, payload)
         .and_then(|()| client.poll(0))
-        .map_err(|error| error.to_string())
-}
-
-fn reconnect_detail(error: &str, delay: Duration) -> String {
-    format!(
-        "Harici hedef bağlantısı kesildi ({error}); {} saniye içinde yeniden denenecek",
-        delay.as_secs()
-    )
+        .map_err(|error| Failure::new("send_failed", error))
 }
 
 /// Estimates the stream's byte rate from what the source sends, to size the congestion limit.
@@ -908,6 +1004,7 @@ impl OutputClock {
 }
 
 fn run_outbound(
+    output: Arc<Output>,
     destination: Destination,
     receiver: Receiver<OutboundFrame>,
     stop: Arc<AtomicBool>,
@@ -929,10 +1026,9 @@ fn run_outbound(
     let mut skipping_video = false;
     let mut rate = RateMeter::new();
     let mut stall = StallWatch::default();
-    let transport_name = if destination.secure { "RTMPS" } else { "RTMP" };
 
     while !stop.load(Ordering::Acquire) {
-        if OUTBOUND_QUEUE_OVERFLOWED.swap(false, Ordering::AcqRel) && client.is_some() {
+        if output.overflowed.swap(false, Ordering::AcqRel) && client.is_some() {
             // Frames were lost on the way here; resume at a keyframe on the same connection.
             skipping_video = true;
         }
@@ -943,10 +1039,7 @@ fn run_outbound(
                 if client.is_some() {
                     if holding_since.is_none() && !SOURCE_ACTIVE.load(Ordering::Relaxed) {
                         holding_since = Some(Instant::now());
-                        set_output_status(
-                            "holding",
-                            "Drone bağlantısı koptu; platform bağlantısı açık tutuluyor",
-                        );
+                        output.set_status("holding");
                     }
                     if holding_since.is_some_and(|since| since.elapsed() >= SOURCE_HOLD) {
                         if let Some(mut active_client) = client.take() {
@@ -955,16 +1048,16 @@ fn run_outbound(
                         holding_since = None;
                         resume_pending = false;
                         clock.restart();
-                        set_output_status("armed", "Kaynak yayın gelince hedefe bağlanacak");
+                        output.set_status("armed");
                     }
                 }
                 if let Some(active_client) = client.as_mut() {
                     let result = active_client
                         .poll(0)
-                        .map_err(|error| error.to_string())
+                        .map_err(|error| Failure::new("network", error))
                         .and_then(|()| {
                             if stall.stalled(unsent_output_bytes(active_client), Instant::now()) {
-                                Err("hedef veri almayı bıraktı".to_owned())
+                                Err(Failure::new("stalled", ""))
                             } else {
                                 Ok(())
                             }
@@ -974,10 +1067,10 @@ fn run_outbound(
                         holding_since = None;
                         resume_pending = false;
                         consecutive_failures = consecutive_failures.saturating_add(1);
-                        OUTPUT_RECONNECT_ATTEMPTS.fetch_add(1, Ordering::Relaxed);
+                        output.reconnect_attempts.fetch_add(1, Ordering::Relaxed);
                         let delay = output_retry_delay(consecutive_failures);
                         next_retry_at = Instant::now() + delay;
-                        set_output_status("reconnecting", &reconnect_detail(&error, delay));
+                        output.set_reconnecting(error, delay);
                     }
                 }
                 continue;
@@ -1006,7 +1099,7 @@ fn run_outbound(
 
         if client.is_none() {
             if Instant::now() < next_retry_at {
-                DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
+                output.dropped_frames.fetch_add(1, Ordering::Relaxed);
                 continue;
             }
             let status = if consecutive_failures == 0 {
@@ -1014,14 +1107,11 @@ fn run_outbound(
             } else {
                 "reconnecting"
             };
-            set_output_status(
-                status,
-                &format!("Harici {transport_name} hedefine bağlanıyor"),
-            );
+            output.set_status(status);
             match connect_output(&destination) {
                 Ok(mut next_client) => match bootstrap.send_to(&mut next_client) {
                     Ok(bytes) => {
-                        OUTBOUND_BYTES.fetch_add(bytes, Ordering::Relaxed);
+                        output.outbound_bytes.fetch_add(bytes, Ordering::Relaxed);
                         client = Some(next_client);
                         consecutive_failures = 0;
                         stall = StallWatch::default();
@@ -1030,30 +1120,25 @@ fn run_outbound(
                         resume_pending = false;
                         holding_since = None;
                         skipping_video = false;
-                        let detail = if destination.secure {
-                            "TLS sertifikası doğrulandı; harici hedef yayını kabul etti"
-                        } else {
-                            "Harici RTMP hedefi yayını kabul etti"
-                        };
-                        set_output_status("ready", detail);
+                        output.set_status("ready");
                     }
                     Err(error) => {
                         consecutive_failures = consecutive_failures.saturating_add(1);
-                        OUTPUT_RECONNECT_ATTEMPTS.fetch_add(1, Ordering::Relaxed);
+                        output.reconnect_attempts.fetch_add(1, Ordering::Relaxed);
                         let delay = output_retry_delay(consecutive_failures);
                         next_retry_at = Instant::now() + delay;
-                        set_output_status("reconnecting", &reconnect_detail(&error, delay));
-                        DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
+                        output.set_reconnecting(error, delay);
+                        output.dropped_frames.fetch_add(1, Ordering::Relaxed);
                         continue;
                     }
                 },
                 Err(error) => {
                     consecutive_failures = consecutive_failures.saturating_add(1);
-                    OUTPUT_RECONNECT_ATTEMPTS.fetch_add(1, Ordering::Relaxed);
+                    output.reconnect_attempts.fetch_add(1, Ordering::Relaxed);
                     let delay = output_retry_delay(consecutive_failures);
                     next_retry_at = Instant::now() + delay;
-                    set_output_status("reconnecting", &reconnect_detail(&error, delay));
-                    DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
+                    output.set_reconnecting(error, delay);
+                    output.dropped_frames.fetch_add(1, Ordering::Relaxed);
                     continue;
                 }
             }
@@ -1065,7 +1150,7 @@ fn run_outbound(
         let mut headers_sent = Ok(0u64);
         if waiting_for_keyframe {
             if !is_video_keyframe(&payload) {
-                DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
+                output.dropped_frames.fetch_add(1, Ordering::Relaxed);
                 continue;
             }
             waiting_for_keyframe = false;
@@ -1101,15 +1186,12 @@ fn run_outbound(
             _ => false,
         };
         if drop_frame {
-            DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
-            set_output_status(
-                "congested",
-                "Yükleme hızı yetmiyor; görüntü bir sonraki anahtar kareye atlanıyor",
-            );
+            output.dropped_frames.fetch_add(1, Ordering::Relaxed);
+            output.set_status("congested");
             continue;
         }
         let Some(output_timestamp) = clock.map(timestamp) else {
-            DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
+            output.dropped_frames.fetch_add(1, Ordering::Relaxed);
             continue;
         };
 
@@ -1120,29 +1202,21 @@ fn run_outbound(
             })
             .and_then(|header_bytes| {
                 if stall.stalled(unsent_output_bytes(active_client), Instant::now()) {
-                    Err("hedef veri almayı bıraktı".to_owned())
+                    Err(Failure::new("stalled", ""))
                 } else {
                     Ok(header_bytes)
                 }
             });
         match send_result {
             Ok(header_bytes) => {
-                OUTBOUND_BYTES.fetch_add(
+                output.outbound_bytes.fetch_add(
                     header_bytes.saturating_add(payload.len() as u64),
                     Ordering::Relaxed,
                 );
                 if skipping_video {
-                    set_output_status(
-                        "congested",
-                        "Yükleme hızı yetmiyor; görüntü bir sonraki anahtar kareye atlanıyor",
-                    );
+                    output.set_status("congested");
                 } else {
-                    let detail = if destination.secure {
-                        "Yayın doğrulanmış TLS üzerinden harici hedefe aktarılıyor"
-                    } else {
-                        "Yayın harici RTMP hedefine aktarılıyor"
-                    };
-                    set_output_status("forwarding", detail);
+                    output.set_status("forwarding");
                 }
             }
             Err(error) => {
@@ -1150,18 +1224,18 @@ fn run_outbound(
                 holding_since = None;
                 resume_pending = false;
                 consecutive_failures = consecutive_failures.saturating_add(1);
-                OUTPUT_RECONNECT_ATTEMPTS.fetch_add(1, Ordering::Relaxed);
+                output.reconnect_attempts.fetch_add(1, Ordering::Relaxed);
                 let delay = output_retry_delay(consecutive_failures);
                 next_retry_at = Instant::now() + delay;
-                set_output_status("reconnecting", &reconnect_detail(&error, delay));
-                DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
+                output.set_reconnecting(error, delay);
+                output.dropped_frames.fetch_add(1, Ordering::Relaxed);
             }
         }
     }
     if let Some(mut active_client) = client.take() {
         flush_outbound_client(&mut active_client);
     }
-    set_output_status("stopped", "Harici RTMP aktarımı durduruldu");
+    output.set_status("stopped");
 }
 
 fn flush_outbound_client(client: &mut Client) {
@@ -1173,10 +1247,11 @@ fn flush_outbound_client(client: &mut Client) {
     }
 }
 
-fn set_ingest_error(detail: String) {
+fn set_ingest_error(code: &str, detail: String) {
     let mut value = current_snapshot();
     value.status = "error".to_owned();
-    value.detail = detail;
+    value.error_code = Some(code.to_owned());
+    value.error_detail = Some(detail);
     value.bitrate_kbps = 0.0;
     value.remote_address = None;
     apply_output_state(&mut value);
@@ -1184,7 +1259,7 @@ fn set_ingest_error(detail: String) {
 }
 
 pub fn stop_server() {
-    detach_destination();
+    detach_all_destinations();
     preview::source_ended();
     let current = control().lock().ok().and_then(|mut value| value.take());
     if let Some(runtime) = current {
@@ -1195,15 +1270,18 @@ pub fn stop_server() {
 }
 
 pub fn current_snapshot() -> RelaySnapshot {
-    snapshot()
+    let mut value = snapshot()
         .read()
         .map(|value| value.clone())
-        .unwrap_or_else(|_| RelaySnapshot::stopped())
+        .unwrap_or_else(|_| RelaySnapshot::stopped());
+    // Read live, so an output that was just added or ended shows at once.
+    apply_output_state(&mut value);
+    value
 }
 
 pub fn snapshot_json() -> String {
     serde_json::to_string(&current_snapshot())
-        .unwrap_or_else(|_| "{\"status\":\"error\",\"detail\":\"Durum okunamadı\"}".to_owned())
+        .unwrap_or_else(|_| "{\"status\":\"error\",\"errorCode\":\"snapshot_failed\"}".to_owned())
 }
 
 fn java_string(env: JNIEnv<'_>, value: &str) -> jstring {
@@ -1222,40 +1300,61 @@ pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeStartRec
     java_string(env, &result)
 }
 
-/// Starts sending the received stream to a platform; returns an error message or an empty string.
+/// Starts sending the received stream to one more platform, known by `output_id`; returns an
+/// error message or an empty string.
 #[no_mangle]
 pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeGoLive(
     mut env: JNIEnv<'_>,
     _class: JClass<'_>,
+    output_id: JString<'_>,
     target_server_url: JString<'_>,
     target_stream_key: JString<'_>,
     tls_ca_file: JString<'_>,
 ) -> jstring {
+    let output_id: String = match env.get_string(&output_id) {
+        Ok(value) => value.into(),
+        Err(_) => return java_string(env, "jni_argument"),
+    };
     let target_server_url: String = match env.get_string(&target_server_url) {
         Ok(value) => value.into(),
-        Err(error) => return java_string(env, &format!("Hedef adresi okunamadı: {error}")),
+        Err(error) => return java_string(env, &format!("jni_argument: {error}")),
     };
     let target_stream_key: String = match env.get_string(&target_stream_key) {
         Ok(value) => value.into(),
-        Err(_) => return java_string(env, "Hedef yayın anahtarı okunamadı"),
+        Err(_) => return java_string(env, "jni_argument"),
     };
     let tls_ca_file: String = match env.get_string(&tls_ca_file) {
         Ok(value) => value.into(),
-        Err(_) => return java_string(env, "Android sertifika deposu okunamadı"),
+        Err(_) => return java_string(env, "jni_argument"),
     };
-    let result = set_destination_with_tls_ca(&target_server_url, &target_stream_key, &tls_ca_file)
-        .err()
-        .unwrap_or_default();
+    let result = set_destination_with_tls_ca(
+        &output_id,
+        &target_server_url,
+        &target_stream_key,
+        &tls_ca_file,
+    )
+    .err()
+    .unwrap_or_default();
     java_string(env, &result)
 }
 
-/// Stops sending to the platform while the drone stays connected.
+/// Stops sending to the platform `output_id`, or to every platform when it is empty; the drone
+/// stays connected either way.
 #[no_mangle]
 pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeEndLive(
-    _env: JNIEnv<'_>,
+    mut env: JNIEnv<'_>,
     _class: JClass<'_>,
+    output_id: JString<'_>,
 ) {
-    clear_destination();
+    let output_id: String = env
+        .get_string(&output_id)
+        .map(Into::into)
+        .unwrap_or_default();
+    if output_id.is_empty() {
+        clear_destinations();
+    } else {
+        clear_destination(&output_id);
+    }
 }
 
 #[no_mangle]
@@ -1374,9 +1473,58 @@ mod tests {
     #[test]
     fn a_destination_needs_a_running_receiver() {
         assert_eq!(
-            set_destination_with_tls_ca("rtmp://127.0.0.1:9/live", "target-key-1234", ""),
-            Err("RTMP alıcısı çalışmıyor".to_owned())
+            set_destination_with_tls_ca(
+                "youtube",
+                "rtmp://127.0.0.1:9/live",
+                "target-key-1234",
+                ""
+            ),
+            Err("receiver_not_running".to_owned())
         );
+    }
+
+    #[test]
+    fn each_output_reports_its_own_state() {
+        let youtube = Output::new("youtube", true);
+        let twitch = Output::new("twitch", false);
+        youtube.set_status("forwarding");
+        youtube.outbound_bytes.fetch_add(1_000, Ordering::Relaxed);
+        twitch.reconnect_attempts.fetch_add(2, Ordering::Relaxed);
+
+        let youtube = youtube.snapshot();
+        let twitch = twitch.snapshot();
+        assert_eq!(
+            (youtube.id.as_str(), youtube.status.as_str()),
+            ("youtube", "forwarding")
+        );
+        assert_eq!((youtube.outbound_bytes, youtube.secure), (1_000, true));
+        assert_eq!(
+            (twitch.status.as_str(), twitch.reconnect_attempts),
+            ("armed", 2)
+        );
+        assert_eq!(twitch.outbound_bytes, 0);
+    }
+
+    #[test]
+    fn a_retry_keeps_the_reason_until_the_output_recovers() {
+        let output = Output::new("kick", false);
+        output.set_reconnecting(
+            Failure::new("connect_failed", "connection refused"),
+            Duration::from_secs(4),
+        );
+        let waiting = output.snapshot();
+        assert_eq!(waiting.reason.as_deref(), Some("connect_failed"));
+        assert_eq!(waiting.reason_detail.as_deref(), Some("connection refused"));
+        assert_eq!(waiting.retry_in_seconds, Some(4));
+
+        output.set_status("reconnecting");
+        let retrying = output.snapshot();
+        assert_eq!(retrying.reason.as_deref(), Some("connect_failed"));
+        assert_eq!(retrying.retry_in_seconds, None);
+
+        output.set_status("forwarding");
+        let recovered = output.snapshot();
+        assert_eq!((recovered.reason, recovered.reason_detail), (None, None));
     }
 
     #[test]
@@ -1441,7 +1589,8 @@ mod tests {
         let parsed: serde_json::Value = serde_json::from_str(&snapshot_json()).unwrap();
         assert!(parsed.get("status").is_some());
         assert!(parsed.get("receivedBytes").is_some());
-        assert!(parsed.get("outputStatus").is_some());
-        assert!(parsed.get("outboundBytes").is_some());
+        assert!(parsed
+            .get("outputs")
+            .is_some_and(serde_json::Value::is_array));
     }
 }

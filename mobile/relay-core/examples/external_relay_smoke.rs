@@ -26,14 +26,18 @@ fn main() -> ExitCode {
     let mut last_output_status = String::new();
     while Instant::now() < deadline {
         let snapshot = current_snapshot();
-        if snapshot.output_status != last_output_status {
+        let Some(output) = snapshot.outputs.first() else {
+            thread::sleep(Duration::from_millis(100));
+            continue;
+        };
+        if output.status != last_output_status {
             println!("{}", snapshot_json());
-            last_output_status.clone_from(&snapshot.output_status);
+            last_output_status.clone_from(&output.status);
         }
-        if snapshot.output_status == "error" {
+        if output.status == "error" {
             break;
         }
-        if snapshot.outbound_bytes > 0 && snapshot.output_status == "armed" {
+        if output.outbound_bytes > 0 && output.status == "armed" {
             break;
         }
         thread::sleep(Duration::from_millis(100));
@@ -41,7 +45,11 @@ fn main() -> ExitCode {
     let snapshot = current_snapshot();
     println!("{}", snapshot_json());
     stop_server();
-    if snapshot.outbound_bytes > 0 && snapshot.output_status != "error" {
+    let delivered = snapshot
+        .outputs
+        .first()
+        .is_some_and(|output| output.outbound_bytes > 0 && output.status != "error");
+    if delivered {
         ExitCode::SUCCESS
     } else {
         ExitCode::from(2)

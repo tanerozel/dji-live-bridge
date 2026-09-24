@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App and errors from the relay core -->
+    <string name="error_with_detail">%1$s (%2$s)</string>
+    <string name="error_receiver_not_running">Penerima tidak berjalan. Aktifkan kembali lalu coba lagi.</string>
+    <string name="error_listen_failed">Port 1935 tidak dapat dibuka; mungkin sedang dipakai aplikasi lain.</string>
+    <string name="error_receiver_failed">Penerima berhenti.</string>
+    <string name="error_internal">Terjadi kesalahan di dalam aplikasi. Coba lagi.</string>
+    <string name="error_destination_scheme">Alamat server harus diawali rtmp:// atau rtmps://.</string>
+    <string name="error_destination_path">Alamat server harus berisi server beserta jalur aplikasinya.</string>
+    <string name="error_destination_server">Alamat server tidak valid.</string>
+    <string name="error_stream_key">Stream key tidak valid.</string>
+    <string name="error_ca_bundle">Sertifikat Android untuk RTMPS tidak dapat disiapkan.</string>
+
+    <!-- Shared components -->
+    <string name="live_badge">SIARAN</string>
+    <string name="step">Langkah %1$d</string>
+    <string name="step_done">Langkah %1$d, selesai</string>
+    <string name="copy_address">Salin alamat</string>
+    <string name="collapse">Ciutkan</string>
+    <string name="expand">Luaskan</string>
+    <string name="state_expanded">Diluaskan</string>
+    <string name="state_collapsed">Diciutkan</string>
+
+    <!-- Themes -->
+    <string name="theme_system">Sistem</string>
+    <string name="theme_light">Terang</string>
+    <string name="theme_dark">Gelap</string>
+    <string name="theme_midnight">Biru tengah malam</string>
+    <string name="theme_sand">Pasir</string>
+
+    <!-- Drone preview -->
+    <string name="drone_picture">Gambar drone</string>
+    <string name="preview_waiting">Menunggu gambar…</string>
+    <string name="preview_unsupported">Pratinjau tidak dapat menampilkan format video ini</string>
+
+    <!-- Test video -->
+    <string name="test_video_default_name">Video</string>
+    <string name="test_video_looping">berulang</string>
+    <string name="test_video_no_avc_config">Pengaturan H.264 video ini tidak dapat dibaca.</string>
+    <string name="test_video_no_frames">Video ini tidak memiliki frame untuk dikirim.</string>
+    <string name="test_video_rewind_failed">Video tidak dapat dikembalikan ke awal.</string>
+    <string name="test_video_open_failed">Video tidak dapat dibuka. Coba video lain.</string>
+    <string name="test_video_hevc">Video ini direkam dalam H.265 (HEVC). Pilih video H.264, format yang dikirim DJI Fly.</string>
+    <string name="test_video_unsupported">Format video ini tidak didukung. Pilih video H.264.</string>
+    <string name="test_video_no_video">Berkas yang Anda pilih tidak berisi video.</string>
+    <string name="test_video_receiver_not_ready">Penerima belum siap.</string>
+    <string name="test_video_unreadable">Video tidak dapat dibaca.</string>
+    <string name="test_video_stopped">Video uji berhenti</string>
+    <string name="test_video_rotated">Video yang direkam vertikal bisa tampak menyamping di siaran</string>
+
+    <!-- Platforms. on_* and to_* are phrases for where the stream is and where it goes, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
+    <string name="platform_custom">RTMP khusus</string>
+    <string name="on_instagram">di Instagram</string>
+    <string name="on_tiktok">di TikTok</string>
+    <string name="on_youtube">di YouTube</string>
+    <string name="on_facebook">di Facebook</string>
+    <string name="on_twitch">di Twitch</string>
+    <string name="on_kick">di Kick</string>
+    <string name="on_custom">di server khusus Anda</string>
+    <string name="to_instagram">ke Instagram</string>
+    <string name="to_tiktok">ke TikTok</string>
+    <string name="to_youtube">ke YouTube</string>
+    <string name="to_facebook">ke Facebook</string>
+    <string name="to_twitch">ke Twitch</string>
+    <string name="to_kick">ke Kick</string>
+    <string name="to_custom">ke server khusus Anda</string>
+    <string name="key_help_instagram">Di instagram.com, buka Buat (+) → Video live lalu salin “Stream key”. Instagram memberi kunci baru untuk setiap siaran.</string>
+    <string name="key_help_tiktok">Di TikTok LIVE Center, buka layar stream key lalu salin “Server URL” dan “Stream key”. Akun Anda perlu akses RTMP; TikTok memberi kunci baru untuk setiap siaran.</string>
+    <string name="key_help_youtube">Di YouTube Studio, buka Buat → Mulai siaran langsung → Perangkat lunak streaming lalu salin “Kunci streaming”. Kunci ini tetap sama sampai Anda meresetnya.</string>
+    <string name="key_help_facebook">Di facebook.com, buka Video langsung → Perangkat lunak streaming lalu salin “Kunci streaming”. Kecuali Anda mengaktifkan kunci permanen, Facebook memberi kunci baru untuk setiap siaran.</string>
+    <string name="key_help_twitch">Di Twitch Creator Dashboard, buka Settings → Stream lalu salin stream key utama Anda.</string>
+    <string name="key_help_kick">Di Kick, buka Creator Dashboard → Settings → Stream URL &amp; Key lalu salin kuncinya. Jika tertera Stream URL yang berbeda, ganti alamat server dengan URL itu.</string>
+    <string name="key_help_custom">Tempel alamat RTMP atau RTMPS dan stream key yang diberikan server Anda.</string>
+    <string name="server_placeholder">rtmp://server.anda/live</string>
+    <string name="live_reminder_instagram">Sekarang tekan “Mulai live” di Instagram; siaran baru menjadi publik setelah itu.</string>
+    <string name="live_reminder_tiktok">Periksa TikTok LIVE Center; siaran mungkin perlu dimulai di sana juga.</string>
+    <string name="live_reminder_youtube">Jika mulai otomatis nonaktif, tekan “Mulai siaran langsung” di YouTube Studio.</string>
+    <string name="live_reminder_facebook">Facebook menampilkan pratinjau dulu; tekan “Mulai siaran langsung” di sana agar siarannya publik.</string>
+
+    <!-- Saved platforms -->
+    <string name="profile_error_not_found">Platform itu tidak ditemukan.</string>
+    <string name="profile_error_key_required">Stream key wajib diisi.</string>
+    <string name="profile_error_key_encrypt">Stream key tidak dapat dienkripsi dengan Android Keystore.</string>
+    <string name="profile_error_key_decrypt">Stream key tidak dapat dibuka dengan Android Keystore. Hapus platform yang tersimpan lalu tambahkan lagi.</string>
+    <string name="profile_error_read">Platform yang Anda simpan tidak dapat dibaca.</string>
+    <string name="profile_error_version">Platform Anda disimpan oleh versi aplikasi yang lebih baru.</string>
+    <string name="profile_error_corrupt">Daftar platform tersimpan rusak.</string>
+    <string name="profile_error_write">Platform Anda tidak dapat disimpan.</string>
+    <string name="profile_error_name">Nama harus terdiri dari 1 hingga 64 karakter.</string>
+    <string name="profile_error_generic">Platform tidak dapat diperbarui.</string>
+    <string name="profile_list_unreadable">Platform tersimpan tidak dapat dibaca</string>
+
+    <!-- Background service and notification -->
+    <string name="notification_channel">Penerusan siaran RTMP</string>
+    <string name="notification_channel_description">Menerima siaran DJI RC 2 dan meneruskannya ke platform Anda</string>
+    <string name="notification_receiver_error">Kesalahan penerima</string>
+    <string name="notification_starting">Menyiapkan penerima</string>
+    <string name="notification_live">Sedang siaran</string>
+    <string name="notification_live_slow">Sedang siaran · koneksi lambat</string>
+    <plurals name="notification_live_many">
+        <item quantity="other">Sedang siaran di %d platform</item>
+    </plurals>
+    <string name="notification_reconnecting">Menghubungkan kembali ke platform</string>
+    <string name="notification_connecting">Menghubungkan ke platform</string>
+    <string name="notification_holding">Drone terputus · siaran tetap aktif</string>
+    <string name="notification_live_waiting">Siaran aktif · menunggu drone</string>
+    <string name="notification_test_video">Menerima video uji</string>
+    <string name="notification_drone">Menerima gambar drone</string>
+    <string name="notification_connected">Remote terhubung</string>
+    <string name="notification_waiting">Menunggu drone</string>
+    <string name="end_broadcast">Akhiri siaran</string>
+    <string name="close">Tutup</string>
+    <string name="error_background_limit">Batas Android untuk transfer di latar belakang sudah tercapai.</string>
+    <string name="error_service_start">Layanan latar belakang tidak dapat dimulai.</string>
+    <string name="go_live_failed">Tidak dapat mulai siaran</string>
+    <string name="pick_platform_first">Pilih platform dulu</string>
+    <string name="named_error">%1$s: %2$s</string>
+    <string name="test_video_failed">Video uji tidak dapat dikirim (%1$s).</string>
+
+    <!-- Stream key editor -->
+    <string name="key_paste_prompt">Tempel stream key</string>
+    <string name="save">Simpan</string>
+    <string name="server_address">Alamat server</string>
+    <string name="stream_key">Stream key</string>
+    <string name="stream_key_new">Stream key baru</string>
+    <string name="stream_key_paste_here">Tempel di sini</string>
+    <string name="stream_key_keep_hint">Kosongkan untuk mempertahankannya</string>
+    <string name="key_hide">Sembunyikan kunci</string>
+    <string name="key_show">Tampilkan kunci</string>
+    <string name="stream_key_kept">Jika dikosongkan, kunci tersimpan tetap dipakai.</string>
+    <string name="stream_key_stored_encrypted">Disimpan terenkripsi, hanya di ponsel ini.</string>
+    <string name="change">Ganti</string>
+    <string name="save_failed">Tidak dapat menyimpan</string>
+    <string name="delete_platform">Hapus platform ini</string>
+    <string name="discard_title">Belum disimpan</string>
+    <string name="discard_message">Hapus yang sudah Anda isi?</string>
+    <string name="delete">Hapus</string>
+    <string name="go_back">Kembali</string>
+    <string name="delete_platform_title">Hapus %1$s?</string>
+    <string name="delete_platform_message">Stream key yang tersimpan terenkripsi di ponsel ini juga akan dihapus permanen.</string>
+    <string name="cancel">Batal</string>
+
+    <!-- First-run guide -->
+    <string name="guide_skip">Lewati</string>
+    <string name="guide_next">Lanjut</string>
+    <string name="guide_start">Mulai</string>
+    <string name="guide_page">Halaman %1$d dari %2$d</string>
+    <string name="guide_flow_title">Dari drone Anda ke siaran langsung</string>
+    <string name="guide_flow_body">DJI Fly di remote mengirim gambar ke ponsel ini, lalu ponsel meneruskannya ke platform yang Anda pilih.</string>
+    <string name="guide_connect_title">Pertama, hubungkan drone</string>
+    <string name="guide_connect_body">Ketik alamat di layar ke kolom RTMP di DJI Fly. Gambar drone langsung tampil di ponsel; Anda belum siaran di mana pun.</string>
+    <string name="guide_live_title">Lalu mulai siaran</string>
+    <string name="guide_live_body">Pilih satu atau beberapa platform, tempel stream key, lalu tekan Mulai siaran. Alamat server sudah siap.</string>
+
+    <!-- Home screen -->
+    <string name="where_to_stream">Mau siaran ke mana?</string>
+    <string name="pick_platforms_hint">Ketuk satu atau beberapa platform; siaran dikirim ke semuanya sekaligus. Alamat server sudah siap, Anda cukup memasukkan stream key.</string>
+    <string name="connect_drone">Hubungkan drone</string>
+    <string name="preview_badge">Pratinjau</string>
+    <string name="preview_badge_test">Video uji · pratinjau</string>
+    <string name="preview_connected">Remote terhubung; gambar segera masuk.</string>
+    <string name="preview_drone_status">Drone terhubung · %1$s. Anda belum siaran.</string>
+    <string name="preview_test_status">Video uji masuk · %1$s. Anda belum siaran.</string>
+    <string name="stop_test_video">Hentikan video uji</string>
+    <string name="receiver_starting">Menyiapkan penerima…</string>
+    <string name="receiver_off">Penerima nonaktif; DJI Fly tidak dapat terhubung ke ponsel ini.</string>
+    <string name="retry">Coba lagi</string>
+    <string name="open_receiver">Aktifkan penerima</string>
+    <string name="test_video_opening">Membuka video uji…</string>
+    <string name="dji_fly_instructions">Masukkan ini sebagai alamat RTMP di DJI Fly lalu mulai siaran. Gambar tampil di sini dan baru dikirim ke platform saat Anda memulai.</string>
+    <string name="dji_fly_path">DJI Fly → GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP</string>
+    <string name="try_test_video">Tidak ada drone? Coba video uji</string>
+    <string name="deselect">Batalkan pilihan</string>
+    <string name="select">Pilih</string>
+    <string name="add">Tambah</string>
+    <string name="edit">Ubah</string>
+    <string name="state_saved">Tersimpan</string>
+    <string name="state_not_added">Belum ditambahkan</string>
+    <string name="platform_selected">%1$s dipilih</string>
+    <string name="key_changes_each_stream">Perlu kunci baru untuk setiap siaran</string>
+    <string name="key_saved">Stream key tersimpan</string>
+    <string name="update_key">Perbarui kunci</string>
+    <plurals name="upload_note">
+        <item quantity="other">%d platform dipilih. Masing-masing mengunggah gambar drone secara terpisah; jika kecepatan unggah tidak cukup, sebagian frame dilewati.</item>
+    </plurals>
+    <plurals name="upload_note_total">
+        <item quantity="other">%1$d platform dipilih. Masing-masing mengunggah gambar drone secara terpisah (saat ini total sekitar %2$s); jika kecepatan unggah tidak cukup, sebagian frame dilewati.</item>
+    </plurals>
+    <string name="network_hotspot">Hotspot aktif · hubungkan remote ke ponsel ini</string>
+    <string name="network_wifi">Wi-Fi terhubung · remote harus berada di jaringan yang sama</string>
+    <string name="network_local">Terhubung ke jaringan lokal · remote harus berada di jaringan yang sama</string>
+    <string name="no_network">Ponsel tidak terhubung ke Wi-Fi. Hubungkan ke Wi-Fi atau aktifkan hotspot.</string>
+    <string name="wifi_settings">Pengaturan Wi-Fi</string>
+
+    <!-- Live screen. hero_*_one sentences take an on_* or to_* phrase as %1$s. -->
+    <string name="tip_check_key">Jika terus terjadi, periksa stream key, alamat server, dan pastikan siaran langsung sudah diaktifkan di platform.</string>
+    <string name="tip_receiver_error">Akhiri siaran lalu aktifkan penerima lagi. Jika masalah berlanjut, coba mulai ulang ponsel.</string>
+    <string name="tip_congested">Unggahan terlalu lambat; siaran tetap berjalan tetapi sebagian frame dilewati. Pindah ke koneksi yang lebih kuat, kurangi jumlah platform, atau turunkan kualitas siaran di DJI Fly.</string>
+    <plurals name="platform_count">
+        <item quantity="other">%d platform</item>
+    </plurals>
+    <string name="hero_test_video">Menyiapkan video uji</string>
+    <string name="hero_test_video_subtitle">Video segera mulai dikirim.</string>
+    <string name="hero_drone_lost">Drone terputus</string>
+    <string name="hero_drone_lost_subtitle">Siaran tetap aktif dan berlanjut dari titik terakhir saat remote terhubung kembali.</string>
+    <string name="hero_starting">Memulai</string>
+    <string name="hero_starting_subtitle">Semuanya siap dalam beberapa detik.</string>
+    <string name="hero_waiting">Menunggu remote</string>
+    <string name="hero_waiting_subtitle_one">Mulai siaran di DJI Fly; begitu gambar masuk, aplikasi otomatis terhubung %1$s.</string>
+    <string name="hero_waiting_subtitle_many">Mulai siaran di DJI Fly; begitu gambar masuk, aplikasi otomatis terhubung ke platform.</string>
+    <string name="hero_connected">Remote terhubung</string>
+    <string name="hero_connected_subtitle">Gambar segera masuk.</string>
+    <string name="hero_connecting_one">Menghubungkan %1$s</string>
+    <string name="hero_connecting_many">Menghubungkan ke platform</string>
+    <string name="hero_live_one">Sedang siaran %1$s</string>
+    <plurals name="hero_live_many">
+        <item quantity="other">Sedang siaran di %d platform</item>
+    </plurals>
+    <string name="hero_connection_lost">Koneksi terputus</string>
+    <string name="hero_reconnecting_one">Menghubungkan kembali %1$s…</string>
+    <string name="hero_reconnecting_many">Menghubungkan kembali ke platform…</string>
+    <string name="hero_receiver_stopped">Penerima berhenti</string>
+    <string name="hero_off">Siaran nonaktif</string>
+    <string name="stream_time">Durasi siaran %1$s</string>
+    <string name="hop_controller">Remote</string>
+    <string name="hop_test_video">Video uji</string>
+    <string name="hop_phone">Ponsel</string>
+    <string name="hop_waiting">menunggu</string>
+    <string name="hop_connected">terhubung</string>
+    <string name="hop_sending">mengirim</string>
+    <string name="hop_not_connected">tidak terhubung</string>
+    <string name="hop_starting">memulai</string>
+    <string name="hop_error">bermasalah</string>
+    <string name="hop_ready">siap</string>
+    <string name="hop_live">siaran</string>
+    <string name="hop_connecting">menghubungkan</string>
+    <string name="hop_reconnecting">menghubungkan kembali</string>
+    <string name="hop_standing_by">siaga</string>
+    <string name="hop_description">%1$s: %2$s, %3$s: %4$s, %5$s: %6$s</string>
+    <string name="start_on_controller">Mulai siaran di remote</string>
+    <string name="phone_offline">Ponsel kehilangan jaringan</string>
+    <string name="phone_offline_message">Hubungkan kembali ke Wi-Fi atau aktifkan hotspot; alamat akan tampil lagi di sini.</string>
+    <string name="not_connecting">Tidak bisa terhubung?</string>
+    <string name="not_connecting_same_network">Remote dan ponsel harus berada di Wi-Fi yang sama, atau remote harus terhubung ke hotspot ponsel ini.</string>
+    <string name="not_connecting_exact_address">Ketik alamatnya dengan tepat; harus diakhiri :1935/drone.</string>
+    <string name="not_connecting_guest_vpn">Jaringan tamu dan VPN di ponsel dapat membuat perangkat tidak bisa saling menemukan.</string>
+    <string name="stat_bitrate">Bitrate</string>
+    <string name="stat_sent">Terkirim</string>
+    <string name="stat_codec">Codec</string>
+    <string name="platforms">Platform</string>
+    <string name="end">Akhiri</string>
+    <string name="end_platform">Akhiri siaran %1$s</string>
+    <string name="status_live">Siaran</string>
+    <string name="status_congested">Koneksi lambat · frame dilewati</string>
+    <string name="status_connecting">Menghubungkan</string>
+    <string name="status_reconnecting">Menghubungkan kembali</string>
+    <string name="status_holding">Menunggu drone · siaran aktif</string>
+    <string name="status_stopped">Berhenti</string>
+    <string name="status_waiting_for_picture">Menunggu gambar drone</string>
+    <string name="output_armed">Terhubung begitu gambar drone masuk</string>
+    <string name="output_connecting">Menghubungkan ke platform lewat %1$s</string>
+    <string name="output_ready">Platform sudah menerima siaran</string>
+    <string name="output_ready_secure">Sertifikat terverifikasi; platform sudah menerima siaran</string>
+    <string name="output_forwarding">Mengirim ke platform lewat RTMP</string>
+    <string name="output_forwarding_secure">Mengirim ke platform lewat TLS terverifikasi</string>
+    <string name="output_congested">Unggahan terlalu lambat; gambar melompat ke keyframe berikutnya</string>
+    <string name="output_holding">Drone terputus; koneksi ke platform tetap dipertahankan</string>
+    <plurals name="output_retry">
+        <item quantity="other">Mencoba lagi dalam %d detik</item>
+    </plurals>
+    <string name="output_stopped">Penerusan dihentikan</string>
+    <string name="output_failure_tls">Sertifikat TLS tidak dapat diverifikasi atau jaringan tidak terjangkau</string>
+    <string name="output_failure_connect">Tidak dapat terhubung</string>
+    <string name="output_failure_rejected">Platform menolak siaran</string>
+    <string name="output_failure_send">Koneksi terputus saat mengirim</string>
+    <string name="output_failure_network">Kesalahan jaringan</string>
+    <string name="output_failure_stalled">Platform berhenti menerima data</string>
+    <string name="technical_details">Detail teknis</string>
+    <string name="detail_source">Sumber</string>
+    <string name="detail_source_waiting">Menunggu koneksi</string>
+    <string name="detail_received">Data diterima</string>
+    <string name="detail_packets">Paket video / audio</string>
+    <string name="detail_rejected">Siaran masuk ditolak</string>
+    <string name="detail_forwarded">Diteruskan</string>
+    <string name="detail_connection">Koneksi</string>
+    <string name="connection_rtmps_verified">RTMPS · sertifikat terverifikasi</string>
+    <string name="connection_rtmps_pending">RTMPS · menunggu verifikasi</string>
+    <string name="connection_rtmp">RTMP · tidak terenkripsi</string>
+    <string name="detail_status">Status</string>
+    <string name="detail_last_error">Kesalahan terakhir</string>
+    <string name="detail_reconnects">Koneksi ulang</string>
+    <string name="detail_dropped">Paket dilewati</string>
+    <string name="background_note">Anda bisa mengunci layar; siaran tetap berjalan di latar belakang. Android 15 dan yang lebih baru membatasi transfer latar belakang hingga total 6 jam setiap 24 jam.</string>
+
+    <!-- Main screen, dialogs and messages -->
+    <string name="language">Bahasa</string>
+    <string name="language_system">Bahasa ponsel</string>
+    <string name="theme">Tema</string>
+    <string name="how_to_use">Cara pakai</string>
+    <string name="ok">OK</string>
+    <string name="go_live">Mulai siaran</string>
+    <plurals name="go_live_many">
+        <item quantity="other">Mulai siaran di %d platform</item>
+    </plurals>
+    <string name="go_live_needs_picture">Anda bisa mulai siaran setelah gambar drone masuk</string>
+    <string name="keep_streaming">Lanjutkan siaran</string>
+    <string name="end_one_title">Akhiri siaran %1$s?</string>
+    <string name="end_one_message">Siaran langsung %1$s akan berakhir; platform lain tetap siaran.</string>
+    <string name="end_all_title">Akhiri siaran?</string>
+    <string name="end_all_drone">Siaran langsung akan berakhir. Drone tetap terhubung dan gambarnya tetap tampil di ponsel.</string>
+    <string name="end_all_drone_many">Siaran langsung di semua platform akan berakhir. Drone tetap terhubung dan gambarnya tetap tampil di ponsel.</string>
+    <string name="end_all_test_video">Siaran langsung akan berakhir. Video uji tetap diputar di ponsel.</string>
+    <string name="end_all_test_video_many">Siaran langsung di semua platform akan berakhir. Video uji tetap diputar di ponsel.</string>
+    <string name="notification_permission_denied">Notifikasi nonaktif; Anda bisa memantau siaran di aplikasi</string>
+    <string name="clip_address_label">Alamat RTMP DJI Fly</string>
+    <string name="address_copied">Alamat disalin</string>
+    <string name="wifi_settings_failed">Tidak dapat membuka pengaturan Wi-Fi</string>
+    <string name="platform_added">%1$s ditambahkan</string>
+    <string name="platform_deleted">%1$s dihapus</string>
+    <string name="saved">Disimpan</string>
+</resources>

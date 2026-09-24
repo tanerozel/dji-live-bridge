@@ -57,7 +57,7 @@ internal class RtmpPublisher(
         awaitResult(1.0)
         sendCommand(0, "createStream", 2.0, null)
         streamId = (awaitResult(2.0).getOrNull(3) as? Double)?.toInt()
-            ?: throw IOException("Yerel alıcı yayın akışı açmadı")
+            ?: throw IOException("the local receiver did not open a stream")
         sendCommand(streamId, "publish", 3.0, null, "", "live")
         awaitPublishStart()
 
@@ -95,7 +95,7 @@ internal class RtmpPublisher(
             output.flush()
         }
         val version = input.readUnsignedByte()
-        if (version != RTMP_VERSION) throw IOException("Beklenmeyen RTMP sürümü: $version")
+        if (version != RTMP_VERSION) throw IOException("unexpected RTMP version $version")
         val s1 = ByteArray(HANDSHAKE_SIZE).also(input::readFully)
         input.readFully(ByteArray(HANDSHAKE_SIZE))
         synchronized(writeLock) {
@@ -123,7 +123,7 @@ internal class RtmpPublisher(
             if (values.getOrNull(1) != transaction) continue
             when (values.firstOrNull()) {
                 "_result" -> return values
-                "_error" -> throw IOException("Yerel alıcı isteği reddetti: ${statusDescription(values)}")
+                "_error" -> throw IOException("the local receiver refused the request: ${statusDescription(values)}")
             }
         }
     }
@@ -137,7 +137,7 @@ internal class RtmpPublisher(
             when {
                 code == "NetStream.Publish.Start" -> return
                 info?.get("level") == "error" || code?.contains("Publish") == true ->
-                    throw IOException("Yerel alıcı test yayınını kabul etmedi: ${code ?: "bilinmeyen durum"}")
+                    throw IOException("the local receiver did not accept the test stream: ${code ?: "unknown status"}")
             }
         }
     }
@@ -161,7 +161,7 @@ internal class RtmpPublisher(
                 val values = Amf0.decode(message.payload)
                 val info = values.getOrNull(3) as? Map<*, *>
                 if (values.firstOrNull() == "onStatus" && info?.get("level") == "error") {
-                    failure = IOException("Yerel alıcı test yayınını durdurdu: ${info["code"]}")
+                    failure = IOException("the local receiver stopped the test stream: ${info["code"]}")
                 }
             }
         } catch (error: IOException) {
@@ -292,7 +292,7 @@ internal class RtmpChunkReader(private val input: DataInputStream) {
             }
             // skipBytes() may skip less than asked on a buffered stream; readInt() never does.
             if (stream.extended) input.readInt()
-            if (stream.length > MAX_MESSAGE_BYTES) throw IOException("RTMP mesajı çok büyük")
+            if (stream.length > MAX_MESSAGE_BYTES) throw IOException("RTMP message too large")
 
             val buffer = stream.buffer ?: ByteArray(stream.length).also {
                 stream.buffer = it
