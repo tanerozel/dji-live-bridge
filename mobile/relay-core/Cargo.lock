@@ -51,6 +51,7 @@ name = "dji-live-bridge-relay-core"
 version = "0.1.0"
 dependencies = [
  "jni",
+ "libc",
  "librtmp2",
  "openssl",
  "serde",

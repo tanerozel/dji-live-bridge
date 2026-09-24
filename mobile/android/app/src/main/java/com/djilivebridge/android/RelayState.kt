@@ -120,7 +120,7 @@ object RelayServiceState {
         val liveSince = when {
             !value.isLive || snapshot.status != "publishing" -> null
             value.liveSinceElapsedMillis != null -> value.liveSinceElapsedMillis
-            snapshot.outputStatus == "forwarding" -> SystemClock.elapsedRealtime()
+            snapshot.outputStatus in LIVE_OUTPUT_STATUSES -> SystemClock.elapsedRealtime()
             else -> null
         }
         value = value.copy(isActive = true, snapshot = snapshot, liveSinceElapsedMillis = liveSince)

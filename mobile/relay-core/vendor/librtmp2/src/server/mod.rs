@@ -1086,6 +1086,9 @@ impl Server {
                 let i = (self.next_listener_accept + offset) % listener_count;
                 match self.listeners[i].tcp.accept() {
                     Ok((stream, addr)) => {
+                        // Live media: send small control messages (acks, pings) at once
+                        // instead of letting Nagle hold them for the peer's delayed ACK.
+                        let _ = stream.set_nodelay(true);
                         accepted_any = true;
                         accepts_serviced += 1;
                         self.next_listener_accept = (i + 1) % listener_count;

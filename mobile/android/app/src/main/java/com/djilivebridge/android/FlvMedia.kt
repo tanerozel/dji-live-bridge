@@ -1,6 +1,7 @@
 package com.djilivebridge.android
 
 import java.io.ByteArrayOutputStream
+import java.nio.ByteBuffer
 
 // FLV tag bodies for H.264 + AAC, the stream DJI Fly itself sends over RTMP: built for the test
 // video, read back for the live preview.
@@ -177,18 +178,100 @@ internal fun withStartCodes(units: List<ByteArray>): ByteArray {
     return out.toByteArray()
 }
 
-/** Length-prefixed (AVCC) NAL units to Annex-B; stops at the first malformed length. */
-internal fun avccToAnnexB(data: ByteArray, nalLengthSize: Int): ByteArray {
-    val out = ByteArrayOutputStream(data.size + 16)
+/**
+ * Writes length-prefixed NAL units into [out] as Annex-B, straight into a decoder's input buffer.
+ * A malformed length ends the conversion; returns the bytes written, or -1 when they do not fit.
+ */
+internal fun putAnnexB(data: ByteArray, nalLengthSize: Int, out: ByteBuffer): Int {
+    out.clear()
     var position = 0
     while (position + nalLengthSize <= data.size) {
         var length = 0
         repeat(nalLengthSize) { index -> length = (length shl 8) or (data[position + index].toInt() and 0xFF) }
         position += nalLengthSize
         if (length <= 0 || position + length > data.size) break
-        out.write(START_CODE)
-        out.write(data, position, length)
+        if (out.remaining() < START_CODE.size + length) return -1
+        out.put(START_CODE)
+        out.put(data, position, length)
         position += length
     }
-    return out.toByteArray()
+    return out.position()
+}
+
+private val HIGH_PROFILES = setOf(100, 110, 122, 244, 44, 83, 86, 118, 128, 138, 139, 134, 135)
+
+/**
+ * True when the SPS makes decode order the display order (pic_order_cnt_type 2, which DJI Fly
+ * sends): a decoder may then hand every frame out at once instead of holding it for reordering.
+ */
+internal fun avcOutputsInDecodeOrder(sps: ByteArray): Boolean = runCatching {
+    val bits = RbspReader(sps, start = 1)
+    val profile = bits.bits(8)
+    bits.bits(16) // constraint flags and level
+    bits.ue() // seq_parameter_set_id
+    if (profile in HIGH_PROFILES) {
+        val chromaFormat = bits.ue()
+        if (chromaFormat == 3) bits.bits(1)
+        bits.ue() // bit_depth_luma_minus8
+        bits.ue() // bit_depth_chroma_minus8
+        bits.bits(1) // qpprime_y_zero_transform_bypass_flag
+        if (bits.bits(1) == 1) {
+            repeat(if (chromaFormat == 3) 12 else 8) { list ->
+                if (bits.bits(1) == 1) bits.skipScalingList(if (list < 6) 16 else 64)
+            }
+        }
+    }
+    bits.ue() // log2_max_frame_num_minus4
+    bits.ue() == 2
+}.getOrDefault(false)
+
+/** Reads an H.264 RBSP bit by bit, dropping emulation prevention bytes. */
+private class RbspReader(nal: ByteArray, start: Int) {
+    private val data: ByteArray
+    private var bit = 0
+
+    init {
+        val out = ByteArrayOutputStream(nal.size)
+        var zeros = 0
+        for (index in start until nal.size) {
+            val value = nal[index].toInt() and 0xFF
+            if (zeros >= 2 && value == 3) {
+                zeros = 0
+                continue
+            }
+            zeros = if (value == 0) zeros + 1 else 0
+            out.write(value)
+        }
+        data = out.toByteArray()
+    }
+
+    fun bits(count: Int): Int {
+        var value = 0
+        repeat(count) {
+            val byte = data[bit / 8].toInt()
+            value = (value shl 1) or ((byte shr (7 - bit % 8)) and 1)
+            bit++
+        }
+        return value
+    }
+
+    fun ue(): Int {
+        var zeros = 0
+        while (bits(1) == 0) zeros++
+        return (1 shl zeros) - 1 + bits(zeros)
+    }
+
+    private fun se(): Int {
+        val value = ue()
+        return if (value % 2 == 1) (value + 1) / 2 else -(value / 2)
+    }
+
+    fun skipScalingList(size: Int) {
+        var last = 8
+        var next = 8
+        repeat(size) {
+            if (next != 0) next = (last + se() + 256) % 256
+            if (next != 0) last = next
+        }
+    }
 }

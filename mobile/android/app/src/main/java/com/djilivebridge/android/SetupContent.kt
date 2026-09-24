@@ -123,7 +123,7 @@ private fun DroneCard(
         SectionHeader(title = "Drone'u bağla", step = 1, done = phase.hasPicture)
         when (phase) {
             BridgePhase.PREVIEW, BridgePhase.DRONE_CONNECTED -> {
-                DronePreview {
+                DronePreview(cornerColor = colors.card) {
                     OverlayChip(modifier = Modifier.align(Alignment.TopStart).padding(12.dp)) {
                         OverlayText(if (testing) "Test videosu · önizleme" else "Önizleme")
                     }

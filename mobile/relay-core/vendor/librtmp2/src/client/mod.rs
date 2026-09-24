@@ -371,6 +371,8 @@ impl Client {
         } else {
             ErrorCode::Io
         })?;
+        // Live media: small audio messages must not wait behind Nagle's algorithm.
+        let _ = stream.set_nodelay(true);
         let mut transport = if use_tls {
             let remaining = deadline.saturating_duration_since(Instant::now());
             Transport::connect_tls_with_timeout(
@@ -564,7 +566,13 @@ impl Client {
             if self.send_buffer.available() > 0 {
                 if let Some(t) = self.transport.as_ref() {
                     let again = send_poll_again.unwrap_or(2);
-                    poll_for_transport_direction(t.fd(), again, timeout_ms)?;
+                    // A socket that is not writable within the timeout (always the case for
+                    // poll(0) on a full send queue) only means the server reads slower than
+                    // we write; the bytes stay queued. A dead peer shows up as an I/O error.
+                    match poll_for_transport_direction(t.fd(), again, timeout_ms) {
+                        Ok(()) | Err(ErrorCode::Timeout) => {}
+                        Err(error) => return Err(error),
+                    }
                 }
                 self.try_flush_send_buffer()?;
             }
@@ -1730,6 +1738,34 @@ mod tests {
             .unwrap();
 
         assert_eq!(client.poll(0), Err(ErrorCode::Protocol));
+    }
+
+    #[test]
+    fn a_full_socket_while_publishing_is_not_an_error() {
+        use std::os::unix::io::{AsRawFd, IntoRawFd};
+        use std::os::unix::net::UnixStream;
+
+        // The server is slow: it never reads, so the socket fills and stays unwritable.
+        let (client_end, _server_end) = UnixStream::pair().unwrap();
+        client_end.set_nonblocking(true).unwrap();
+        let small: libc::c_int = 4096;
+        unsafe {
+            libc::setsockopt(
+                client_end.as_raw_fd(),
+                libc::SOL_SOCKET,
+                libc::SO_SNDBUF,
+                &small as *const libc::c_int as *const libc::c_void,
+                std::mem::size_of::<libc::c_int>() as libc::socklen_t,
+            );
+        }
+        let mut client = Client::new();
+        client.transport = Some(Transport::new_plain(client_end.into_raw_fd()));
+        client.state = ClientState::Publishing;
+        client.send_buffer.write(&vec![0u8; 1024 * 1024]).unwrap();
+
+        assert!(client.poll(0).is_ok());
+        assert!(client.send_buffer.available() > 0, "the rest must stay queued");
+        assert!(client.poll(0).is_ok());
     }
 
     #[test]

@@ -109,6 +109,49 @@ seconds while the app is visible. The key screen sets `FLAG_SECURE` while it is 
 keys stay out of screenshots, screen recordings and the recents thumbnail. The launcher, themed and
 notification icons are vector versions of the desktop icon (`src-tauri/icons/source.svg`).
 
+## Latency and continuity
+
+The preview aims for the lowest delay the phone allows:
+
+- The decoder is a hardware one, preferring a component that advertises low latency (some
+  Snapdragon phones list a separate `c2.qti.avc.decoder.low_latency`). It is tuned the way Moonlight's game-streaming
+  client does it: `KEY_LOW_LATENCY`, the vendor switches for Qualcomm, Exynos, HiSilicon and
+  Amlogic, and realtime priority. Qualcomm's decode-order output is only switched on when the SPS
+  rules out reordering (`pic_order_cnt_type` 2, which DJI Fly sends). A decoder that rejects
+  the tuning is started again without it.
+- Input and output run on separate threads. A decoded frame is shown at once, and when several
+  are ready only the newest is shown. Before this, a decoded frame waited for the next packet:
+  on the emulator with a 720p30 stream, arrival-to-render fell from 36–45 ms to 11–17 ms on
+  average (median 34 → 10 ms).
+- The picture is a SurfaceView (`AndroidExternalSurface`), which the system composites directly:
+  one frame less delay and no extra GPU copy compared with a TextureView. The rounded corners are
+  painted over it in the surrounding color.
+- The Rust tap keeps the current GOP (up to 300 frames or 16 MB). A preview that opens mid-stream
+  replays it at full decoder speed and skips frames more than 100 ms behind the newest input, so
+  the live picture appears in about half a second instead of after the next keyframe.
+- While the receiver runs, a low-latency Wi-Fi lock keeps the radio out of power save; otherwise
+  the access point would hold the remote's packets until the next beacon. Android honors it
+  while the app is on screen.
+- The ingest and output threads run at nice −8 and the decoder threads at `DISPLAY` and
+  `URGENT_DISPLAY` priority. RTMP sockets use `TCP_NODELAY`.
+
+The broadcast survives what a field session throws at it:
+
+- If the drone drops (DJI Fly usually reconnects within seconds after a Wi-Fi hiccup), the
+  platform connection stays open for up to 20 seconds. The new source's codec headers go out at
+  its first keyframe, and the platform's timeline continues across the gap.
+- DJI Fly sends `releaseStream` before `publish`. The receiver lets that take over the `/drone`
+  route from a stale connection and closes the old one, instead of refusing the reconnect until
+  the old one times out. Any device on the network can do the same, which is another reason to
+  use a trusted network.
+- A slow uplink no longer grows the delay or drops the connection. Unsent output is measured
+  including the kernel's TCP queue (`TIOCOUTQ`). Beyond about 1.5 seconds of stream, video skips
+  to the next keyframe while audio goes on, like OBS's frame dropping.
+- `librtmp2`'s client used to report a full socket during `poll(0)` as a timeout, which turned
+  every burst on a slow uplink into a reconnect (15 in 40 seconds on a 1.5 Mbps test link). That
+  is fixed. A platform that takes no data for 10 seconds is reconnected. A backlog in the
+  internal queue skips to the next keyframe instead of reconnecting.
+
 ## Phase 7 device validation
 
 The debug build was exercised on a Samsung SM-S911B running Android 16 (API 36). The
@@ -125,7 +168,7 @@ destination remains the final end-to-end field test.
 Moving the app to the background, switching apps or locking the screen no longer ties relay
 lifetime to `MainActivity`. While live, the service holds a six-hour partial wake lock so the CPU
 can continue handling the stream after screen lock; ending the broadcast and every stop/error/timeout
-path release it. The receiver alone holds none. On Android 15 and newer, the platform limits `dataSync` foreground services to a total of six
+path release it. The receiver alone holds none, only the Wi-Fi lock described above. On Android 15 and newer, the platform limits `dataSync` foreground services to a total of six
 background hours per 24-hour period; the service handles that timeout by stopping the native relay
 and releasing its sockets. Battery/vendor settings can still impose additional device-specific
 restrictions.

@@ -20,6 +20,21 @@ const OUTBOUND_QUEUE_CAPACITY: usize = 256;
 const MAX_QUEUED_FRAME_BYTES: usize = 16 * 1024 * 1024;
 const OUTPUT_CONNECT_TIMEOUT: Duration = Duration::from_secs(3);
 const OUTPUT_RETRY_MAX_DELAY: Duration = Duration::from_secs(15);
+/// How long the platform connection stays open while the drone reconnects. DJI Fly usually
+/// returns within a few seconds after a Wi-Fi drop; closing at once can end the broadcast.
+const SOURCE_HOLD: Duration = Duration::from_secs(20);
+/// Unsent output (ours plus the kernel's) beyond this much stream time means the uplink cannot
+/// keep up: video is skipped to the next keyframe so the delay cannot grow without bound.
+const CONGESTION_SECONDS: f64 = 1.5;
+/// Never below this, so one large keyframe on a slow stream does not count as congestion.
+const MIN_CONGESTION_BYTES: usize = 512 * 1024;
+/// A platform connection whose unsent output has not shrunk for this long is treated as dead.
+const OUTPUT_STALL_TIMEOUT: Duration = Duration::from_secs(10);
+/// How often the ingest rebuilds the status snapshot the app polls.
+const SNAPSHOT_INTERVAL: Duration = Duration::from_millis(250);
+/// Nice values for the media threads (Android's THREAD_PRIORITY_URGENT_DISPLAY is -8).
+const INGEST_THREAD_NICE: i32 = -8;
+const OUTPUT_THREAD_NICE: i32 = -8;
 
 #[derive(Clone, Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -87,13 +102,13 @@ impl OutboundSnapshot {
     }
 }
 
-enum OutboundMessage {
-    Frame {
-        frame_type: FrameType,
-        timestamp: u32,
-        payload: Vec<u8>,
-    },
-    SourceEnded,
+/// A frame for the platform output, tagged with the source it belongs to, so a source change
+/// is noticed in order even when the queue overflowed.
+struct OutboundFrame {
+    source: u64,
+    frame_type: FrameType,
+    timestamp: u32,
+    payload: Vec<u8>,
 }
 
 struct RuntimeControl {
@@ -114,7 +129,7 @@ static OUTBOUND_CONTROL: OnceLock<Mutex<Option<OutboundControl>>> = OnceLock::ne
 static SOURCE_BOOTSTRAP: OnceLock<Mutex<MediaBootstrap>> = OnceLock::new();
 static SNAPSHOT: OnceLock<RwLock<RelaySnapshot>> = OnceLock::new();
 static OUTBOUND_SNAPSHOT: OnceLock<RwLock<OutboundSnapshot>> = OnceLock::new();
-static OUTBOUND_SENDER: OnceLock<RwLock<Option<SyncSender<OutboundMessage>>>> = OnceLock::new();
+static OUTBOUND_SENDER: OnceLock<RwLock<Option<SyncSender<OutboundFrame>>>> = OnceLock::new();
 static VIDEO_FRAMES: AtomicU64 = AtomicU64::new(0);
 static AUDIO_FRAMES: AtomicU64 = AtomicU64::new(0);
 static REJECTED_PUBLISH_ATTEMPTS: AtomicU64 = AtomicU64::new(0);
@@ -123,6 +138,12 @@ static DROPPED_OUTPUT_FRAMES: AtomicU64 = AtomicU64::new(0);
 static OUTPUT_RECONNECT_ATTEMPTS: AtomicU64 = AtomicU64::new(0);
 static OUTBOUND_QUEUE_OVERFLOWED: AtomicBool = AtomicBool::new(false);
 static OUTPUT_SECURE: AtomicBool = AtomicBool::new(false);
+/// Grows whenever the source ends or another publisher takes over.
+static SOURCE_GENERATION: AtomicU64 = AtomicU64::new(0);
+/// A publisher is sending right now.
+static SOURCE_ACTIVE: AtomicBool = AtomicBool::new(false);
+/// The connection whose frames are relayed; frames of a connection it replaced are dropped.
+static CURRENT_PUBLISHER: AtomicU64 = AtomicU64::new(0);
 
 fn control() -> &'static Mutex<Option<RuntimeControl>> {
     CONTROL.get_or_init(|| Mutex::new(None))
@@ -150,7 +171,7 @@ fn outbound_snapshot() -> &'static RwLock<OutboundSnapshot> {
     OUTBOUND_SNAPSHOT.get_or_init(|| RwLock::new(OutboundSnapshot::disabled()))
 }
 
-fn outbound_sender() -> &'static RwLock<Option<SyncSender<OutboundMessage>>> {
+fn outbound_sender() -> &'static RwLock<Option<SyncSender<OutboundFrame>>> {
     OUTBOUND_SENDER.get_or_init(|| RwLock::new(None))
 }
 
@@ -188,6 +209,20 @@ fn allow_publish(_conn_id: u64, app: &str, stream_name: &str) -> bool {
 }
 
 fn handle_frame(frame: &Frame) {
+    // A connection that was taken over (see run_server) may still deliver a late frame; the
+    // first frame of a new publisher starts a new source for the preview and the output.
+    let publisher = frame.publisher_conn_id;
+    let current = CURRENT_PUBLISHER.load(Ordering::Relaxed);
+    if publisher < current {
+        return;
+    }
+    if publisher != current {
+        if current != 0 {
+            reset_source();
+        }
+        CURRENT_PUBLISHER.store(publisher, Ordering::Relaxed);
+    }
+
     match frame.frame_type {
         FrameType::Video => {
             VIDEO_FRAMES.fetch_add(1, Ordering::Relaxed);
@@ -225,7 +260,8 @@ fn handle_frame(frame: &Frame) {
     let Some(sender) = sender else {
         return;
     };
-    let message = OutboundMessage::Frame {
+    let message = OutboundFrame {
+        source: SOURCE_GENERATION.load(Ordering::Relaxed),
         frame_type: frame.frame_type,
         timestamp: frame.timestamp,
         payload: payload.to_vec(),
@@ -241,15 +277,30 @@ fn handle_frame(frame: &Frame) {
 }
 
 fn notify_source_ended() {
-    preview::source_ended();
-    reset_source_bootstrap();
-    let sender = outbound_sender()
-        .read()
-        .ok()
-        .and_then(|value| value.clone());
-    if let Some(sender) = sender {
-        let _ = sender.try_send(OutboundMessage::SourceEnded);
+    CURRENT_PUBLISHER.store(0, Ordering::Relaxed);
+    reset_source();
+}
+
+/// Forgets everything learned from the previous source before a new one can start.
+fn reset_source() {
+    // Under the bootstrap lock, so attach_destination sees headers and generation together.
+    if let Ok(mut bootstrap) = source_bootstrap().lock() {
+        SOURCE_GENERATION.fetch_add(1, Ordering::Relaxed);
+        *bootstrap = MediaBootstrap::default();
     }
+    preview::source_ended();
+}
+
+/// Raises the calling thread's scheduling priority; best effort, the default works too.
+fn raise_thread_priority(nice: i32) {
+    #[cfg(any(target_os = "android", target_os = "linux"))]
+    // SAFETY: setpriority only reads its arguments; on Linux, PRIO_PROCESS with 0 means the
+    // calling thread.
+    unsafe {
+        libc::setpriority(libc::PRIO_PROCESS, 0, nice);
+    }
+    #[cfg(not(any(target_os = "android", target_os = "linux")))]
+    let _ = nice;
 }
 
 fn build_destination(
@@ -409,14 +460,14 @@ fn attach_destination(destination: Destination) -> Result<(), String> {
     // handle_frame records a frame in the bootstrap before it reads the sender, so taking the
     // snapshot and installing the sender under the bootstrap lock puts every frame in the
     // snapshot, in the channel, or in both.
-    let bootstrap = {
+    let (bootstrap, source) = {
         let bootstrap = source_bootstrap()
             .lock()
             .map_err(|_| "RTMP çalışma durumu kilitlenemedi".to_owned())?;
         if let Ok(mut current) = outbound_sender().write() {
             *current = Some(sender);
         }
-        bootstrap.clone()
+        (bootstrap.clone(), SOURCE_GENERATION.load(Ordering::Relaxed))
     };
     set_output_status("armed", "Kaynak yayın gelince hedefe bağlanacak");
 
@@ -424,7 +475,7 @@ fn attach_destination(destination: Destination) -> Result<(), String> {
     let outbound_stop = Arc::clone(&stop);
     match thread::Builder::new()
         .name("dji-rtmp-output".to_owned())
-        .spawn(move || run_outbound(destination, receiver, outbound_stop, bootstrap))
+        .spawn(move || run_outbound(destination, receiver, outbound_stop, bootstrap, source))
     {
         Ok(thread) => {
             if let Ok(mut slot) = outbound_control().lock() {
@@ -460,6 +511,7 @@ fn detach_destination() {
 }
 
 fn run_server(bind_address: &str, stop: Arc<AtomicBool>) {
+    raise_thread_priority(INGEST_THREAD_NICE);
     let config = ServerConfig {
         max_connections: 4,
         chunk_size: 4096,
@@ -480,6 +532,9 @@ fn run_server(bind_address: &str, stop: Arc<AtomicBool>) {
         }
     };
     server.on_publish_cb = Some(allow_publish);
+    // DJI Fly sends releaseStream before publish; allowing it on the drone route lets a
+    // reconnect take over from its own stale connection instead of waiting for it to time out.
+    server.on_release_stream_cb = Some(allow_publish);
     server.on_frame_cb = Some(handle_frame);
 
     if let Err(error) = server.listen(bind_address) {
@@ -499,6 +554,7 @@ fn run_server(bind_address: &str, stop: Arc<AtomicBool>) {
     let mut previous_sample = Instant::now();
     let mut bitrate_kbps = 0.0;
     let mut source_was_publishing = false;
+    let mut next_snapshot_at = Instant::now();
 
     while !stop.load(Ordering::Acquire) {
         if let Err(error) = server.poll(25) {
@@ -507,22 +563,42 @@ fn run_server(bind_address: &str, stop: Arc<AtomicBool>) {
             return;
         }
 
-        let publisher = server.connections.iter().find(|connection| {
-            connection
-                .current_stream
-                .as_ref()
-                .is_some_and(|stream| stream.is_publishing)
+        // The newest publisher wins; one it replaced is closed so two never interleave.
+        let newest = server
+            .connections
+            .iter()
+            .filter(|connection| is_publishing(connection))
+            .map(|connection| connection.conn_id)
+            .max();
+        if let Some(newest) = newest {
+            for connection in server.connections.iter_mut() {
+                if connection.conn_id != newest && is_publishing(connection) {
+                    connection.disconnect_transport();
+                }
+            }
+        }
+        let publisher = newest.and_then(|id| {
+            server
+                .connections
+                .iter()
+                .find(|connection| connection.conn_id == id)
         });
         let source_is_publishing = publisher.is_some();
         if source_was_publishing && !source_is_publishing {
             notify_source_ended();
         }
         source_was_publishing = source_is_publishing;
+        SOURCE_ACTIVE.store(source_is_publishing, Ordering::Relaxed);
+
+        let now = Instant::now();
+        if now < next_snapshot_at {
+            continue;
+        }
+        next_snapshot_at = now + SNAPSHOT_INTERVAL;
 
         let received_bytes = publisher
             .map(|connection| connection.media_bytes_received)
             .unwrap_or(0);
-        let now = Instant::now();
         let elapsed = now.duration_since(previous_sample).as_secs_f64();
         if elapsed >= 0.5 {
             bitrate_kbps = if received_bytes >= previous_bytes {
@@ -577,6 +653,7 @@ fn run_server(bind_address: &str, stop: Arc<AtomicBool>) {
     if source_was_publishing {
         notify_source_ended();
     }
+    SOURCE_ACTIVE.store(false, Ordering::Relaxed);
     server.stop();
     let mut final_snapshot = current_snapshot();
     final_snapshot.status = "stopped".to_owned();
@@ -621,15 +698,40 @@ impl MediaBootstrap {
             (FrameType::Video, self.video_sequence.as_deref()),
             (FrameType::Audio, self.audio_sequence.as_deref()),
         ];
+        Self::send_frames(client, &frames, 0)
+    }
+
+    /// A new source on a running connection: its metadata and codec headers at `timestamp`.
+    fn send_codec_headers(&self, client: &mut Client, timestamp: u32) -> Result<u64, String> {
+        let frames = [
+            (FrameType::Metadata, self.metadata.as_deref()),
+            (FrameType::Video, self.video_sequence.as_deref()),
+            (FrameType::Audio, self.audio_sequence.as_deref()),
+        ];
+        Self::send_frames(client, &frames, timestamp)
+    }
+
+    fn send_frames(
+        client: &mut Client,
+        frames: &[(FrameType, Option<&[u8]>)],
+        timestamp: u32,
+    ) -> Result<u64, String> {
         let mut sent_bytes = 0u64;
-        for (frame_type, payload) in frames {
+        for &(frame_type, payload) in frames {
             if let Some(payload) = payload {
-                send_output_frame(client, frame_type, 0, payload)?;
+                send_output_frame(client, frame_type, timestamp, payload)?;
                 sent_bytes = sent_bytes.saturating_add(payload.len() as u64);
             }
         }
         Ok(sent_bytes)
     }
+}
+
+fn is_publishing(connection: &librtmp2::session::conn::Conn) -> bool {
+    connection
+        .current_stream
+        .as_ref()
+        .is_some_and(|stream| stream.is_publishing)
 }
 
 fn is_video_sequence_header(payload: &[u8]) -> bool {
@@ -687,161 +789,373 @@ fn reconnect_detail(error: &str, delay: Duration) -> String {
     )
 }
 
+/// Estimates the stream's byte rate from what the source sends, to size the congestion limit.
+struct RateMeter {
+    window_start: Instant,
+    window_bytes: usize,
+    bytes_per_second: f64,
+}
+
+impl RateMeter {
+    fn new() -> Self {
+        Self {
+            window_start: Instant::now(),
+            window_bytes: 0,
+            bytes_per_second: 0.0,
+        }
+    }
+
+    fn add(&mut self, bytes: usize) {
+        self.window_bytes += bytes;
+        let elapsed = self.window_start.elapsed().as_secs_f64();
+        if elapsed >= 1.0 {
+            let rate = self.window_bytes as f64 / elapsed;
+            self.bytes_per_second = if self.bytes_per_second == 0.0 {
+                rate
+            } else {
+                0.7 * self.bytes_per_second + 0.3 * rate
+            };
+            self.window_start = Instant::now();
+            self.window_bytes = 0;
+        }
+    }
+
+    fn congestion_limit(&self) -> usize {
+        ((self.bytes_per_second * CONGESTION_SECONDS) as usize).max(MIN_CONGESTION_BYTES)
+    }
+}
+
+/// Bytes the output has not delivered yet: its own buffer plus the TCP send queue.
+fn unsent_output_bytes(client: &Client) -> usize {
+    #[allow(unused_mut)]
+    let mut unsent = client.send_buffer.available();
+    #[cfg(any(target_os = "android", target_os = "linux"))]
+    if client.client_fd >= 0 {
+        let mut queued: libc::c_int = 0;
+        // SAFETY: TIOCOUTQ (SIOCOUTQ) writes one int: the bytes of the socket's send queue
+        // that the peer has not acknowledged yet.
+        let result = unsafe { libc::ioctl(client.client_fd, libc::TIOCOUTQ, &mut queued) };
+        if result == 0 && queued > 0 {
+            unsent += queued as usize;
+        }
+    }
+    unsent
+}
+
+/// Notices a platform that stopped taking data: a slow uplink still drains now and then, a
+/// dead connection never does.
+#[derive(Default)]
+struct StallWatch {
+    last_unsent: usize,
+    since: Option<Instant>,
+}
+
+impl StallWatch {
+    fn stalled(&mut self, unsent: usize, now: Instant) -> bool {
+        if unsent == 0 || unsent < self.last_unsent {
+            self.since = None;
+        } else if self.since.is_none() {
+            self.since = Some(now);
+        }
+        self.last_unsent = unsent;
+        self.since
+            .is_some_and(|since| now.duration_since(since) >= OUTPUT_STALL_TIMEOUT)
+    }
+}
+
+/// Output timestamps continue across source changes, so the platform sees one timeline.
+struct OutputClock {
+    /// Source timestamp that maps to `origin`.
+    base: Option<u32>,
+    origin: u32,
+    last: u32,
+}
+
+impl OutputClock {
+    fn new() -> Self {
+        Self {
+            base: None,
+            origin: 0,
+            last: 0,
+        }
+    }
+
+    /// Starts a fresh platform session at zero.
+    fn restart(&mut self) {
+        *self = Self::new();
+    }
+
+    /// Continues after `gap` without a source, starting at a new source timestamp.
+    fn resume(&mut self, source_timestamp: u32, gap: Duration) {
+        let gap_ms = u32::try_from(gap.as_millis()).unwrap_or(u32::MAX).max(1);
+        self.origin = self.last.wrapping_add(gap_ms);
+        self.base = Some(source_timestamp);
+    }
+
+    /// The platform timestamp of a source timestamp, or None for a frame older than the start.
+    fn map(&mut self, source_timestamp: u32) -> Option<u32> {
+        let base = *self.base.get_or_insert(source_timestamp);
+        let delta = source_timestamp.wrapping_sub(base) as i32;
+        if delta < 0 {
+            return None;
+        }
+        let output = self.origin.wrapping_add(delta as u32);
+        if output.wrapping_sub(self.last) as i32 > 0 || self.last == 0 {
+            self.last = output;
+        }
+        Some(output)
+    }
+}
+
 fn run_outbound(
     destination: Destination,
-    receiver: Receiver<OutboundMessage>,
+    receiver: Receiver<OutboundFrame>,
     stop: Arc<AtomicBool>,
     mut bootstrap: MediaBootstrap,
+    mut source: u64,
 ) {
+    raise_thread_priority(OUTPUT_THREAD_NICE);
     let mut client: Option<Client> = None;
     let mut consecutive_failures = 0u32;
     let mut next_retry_at = Instant::now();
-    let mut timestamp_base: Option<u32> = None;
+    let mut clock = OutputClock::new();
     let mut waiting_for_keyframe = false;
+    // The source changed under a live platform connection: send the new source's codec
+    // headers at its first keyframe and continue the timeline.
+    let mut resume_pending = false;
+    // Set while the platform connection is kept open without a source.
+    let mut holding_since: Option<Instant> = None;
+    // Congestion: video waits for a keyframe that finds the uplink caught up; audio goes on.
+    let mut skipping_video = false;
+    let mut rate = RateMeter::new();
+    let mut stall = StallWatch::default();
     let transport_name = if destination.secure { "RTMPS" } else { "RTMP" };
 
     while !stop.load(Ordering::Acquire) {
-        if OUTBOUND_QUEUE_OVERFLOWED.swap(false, Ordering::AcqRel) {
-            client = None;
-            consecutive_failures = consecutive_failures.saturating_add(1);
-            OUTPUT_RECONNECT_ATTEMPTS.fetch_add(1, Ordering::Relaxed);
-            let delay = output_retry_delay(consecutive_failures);
-            next_retry_at = Instant::now() + delay;
-            timestamp_base = None;
-            waiting_for_keyframe = bootstrap.video_seen;
-            set_output_status(
-                "reconnecting",
-                &reconnect_detail("çıkış tamponu doldu", delay),
-            );
+        if OUTBOUND_QUEUE_OVERFLOWED.swap(false, Ordering::AcqRel) && client.is_some() {
+            // Frames were lost on the way here; resume at a keyframe on the same connection.
+            skipping_video = true;
         }
 
-        match receiver.recv_timeout(Duration::from_millis(50)) {
-            Ok(OutboundMessage::Frame {
-                frame_type,
-                timestamp,
-                payload,
-            }) => {
-                bootstrap.observe(frame_type, &payload);
-
-                if client.is_none() {
-                    if Instant::now() < next_retry_at {
-                        DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
-                        continue;
-                    }
-                    let status = if consecutive_failures == 0 {
-                        "connecting"
-                    } else {
-                        "reconnecting"
-                    };
-                    set_output_status(
-                        status,
-                        &format!("Harici {transport_name} hedefine bağlanıyor"),
-                    );
-                    match connect_output(&destination) {
-                        Ok(mut next_client) => {
-                            match bootstrap.send_to(&mut next_client) {
-                                Ok(bytes) => {
-                                    OUTBOUND_BYTES.fetch_add(bytes, Ordering::Relaxed);
-                                }
-                                Err(error) => {
-                                    consecutive_failures = consecutive_failures.saturating_add(1);
-                                    OUTPUT_RECONNECT_ATTEMPTS.fetch_add(1, Ordering::Relaxed);
-                                    let delay = output_retry_delay(consecutive_failures);
-                                    next_retry_at = Instant::now() + delay;
-                                    set_output_status(
-                                        "reconnecting",
-                                        &reconnect_detail(&error, delay),
-                                    );
-                                    DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
-                                    continue;
-                                }
-                            }
-                            client = Some(next_client);
-                            consecutive_failures = 0;
-                            timestamp_base = None;
-                            waiting_for_keyframe = bootstrap.video_seen;
-                            let detail = if destination.secure {
-                                "TLS sertifikası doğrulandı; harici hedef yayını kabul etti"
-                            } else {
-                                "Harici RTMP hedefi yayını kabul etti"
-                            };
-                            set_output_status("ready", detail);
-                        }
-                        Err(error) => {
-                            consecutive_failures = consecutive_failures.saturating_add(1);
-                            OUTPUT_RECONNECT_ATTEMPTS.fetch_add(1, Ordering::Relaxed);
-                            let delay = output_retry_delay(consecutive_failures);
-                            next_retry_at = Instant::now() + delay;
-                            set_output_status("reconnecting", &reconnect_detail(&error, delay));
-                            DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
-                            continue;
-                        }
-                    }
-                }
-
-                if waiting_for_keyframe {
-                    if !is_video_keyframe(&payload) {
-                        DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
-                        continue;
-                    }
-                    waiting_for_keyframe = false;
-                    timestamp_base = Some(timestamp);
-                }
-                let output_timestamp =
-                    timestamp.wrapping_sub(*timestamp_base.get_or_insert(timestamp));
-                let send_result = client.as_mut().map(|active_client| {
-                    send_output_frame(active_client, frame_type, output_timestamp, &payload)
-                });
-                if let Some(Err(error)) = send_result {
-                    client = None;
-                    consecutive_failures = consecutive_failures.saturating_add(1);
-                    OUTPUT_RECONNECT_ATTEMPTS.fetch_add(1, Ordering::Relaxed);
-                    let delay = output_retry_delay(consecutive_failures);
-                    next_retry_at = Instant::now() + delay;
-                    timestamp_base = None;
-                    waiting_for_keyframe = bootstrap.video_seen;
-                    set_output_status("reconnecting", &reconnect_detail(&error, delay));
-                    DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
-                    continue;
-                }
-                OUTBOUND_BYTES.fetch_add(payload.len() as u64, Ordering::Relaxed);
-                let detail = if destination.secure {
-                    "Yayın doğrulanmış TLS üzerinden harici hedefe aktarılıyor"
-                } else {
-                    "Yayın harici RTMP hedefine aktarılıyor"
-                };
-                set_output_status("forwarding", detail);
-            }
-            Ok(OutboundMessage::SourceEnded) => {
-                if let Some(mut active_client) = client.take() {
-                    flush_outbound_client(&mut active_client);
-                }
-                bootstrap = MediaBootstrap::default();
-                consecutive_failures = 0;
-                next_retry_at = Instant::now();
-                timestamp_base = None;
-                waiting_for_keyframe = false;
-                OUTBOUND_QUEUE_OVERFLOWED.store(false, Ordering::Relaxed);
-                set_output_status("armed", "Kaynak yayın gelince hedefe bağlanacak");
-            }
+        let frame = match receiver.recv_timeout(Duration::from_millis(50)) {
+            Ok(frame) => frame,
             Err(mpsc::RecvTimeoutError::Timeout) => {
+                if client.is_some() {
+                    if holding_since.is_none() && !SOURCE_ACTIVE.load(Ordering::Relaxed) {
+                        holding_since = Some(Instant::now());
+                        set_output_status(
+                            "holding",
+                            "Drone bağlantısı koptu; platform bağlantısı açık tutuluyor",
+                        );
+                    }
+                    if holding_since.is_some_and(|since| since.elapsed() >= SOURCE_HOLD) {
+                        if let Some(mut active_client) = client.take() {
+                            flush_outbound_client(&mut active_client);
+                        }
+                        holding_since = None;
+                        resume_pending = false;
+                        clock.restart();
+                        set_output_status("armed", "Kaynak yayın gelince hedefe bağlanacak");
+                    }
+                }
                 if let Some(active_client) = client.as_mut() {
-                    if let Err(error) = active_client.poll(0) {
+                    let result = active_client
+                        .poll(0)
+                        .map_err(|error| error.to_string())
+                        .and_then(|()| {
+                            if stall.stalled(unsent_output_bytes(active_client), Instant::now()) {
+                                Err("hedef veri almayı bıraktı".to_owned())
+                            } else {
+                                Ok(())
+                            }
+                        });
+                    if let Err(error) = result {
                         client = None;
+                        holding_since = None;
+                        resume_pending = false;
                         consecutive_failures = consecutive_failures.saturating_add(1);
                         OUTPUT_RECONNECT_ATTEMPTS.fetch_add(1, Ordering::Relaxed);
                         let delay = output_retry_delay(consecutive_failures);
                         next_retry_at = Instant::now() + delay;
-                        timestamp_base = None;
-                        waiting_for_keyframe = bootstrap.video_seen;
-                        set_output_status(
-                            "reconnecting",
-                            &reconnect_detail(&error.to_string(), delay),
-                        );
+                        set_output_status("reconnecting", &reconnect_detail(&error, delay));
                     }
                 }
+                continue;
             }
             Err(mpsc::RecvTimeoutError::Disconnected) => break,
+        };
+        let OutboundFrame {
+            source: frame_source,
+            frame_type,
+            timestamp,
+            payload,
+        } = frame;
+
+        if frame_source != source {
+            source = frame_source;
+            bootstrap = MediaBootstrap::default();
+            skipping_video = false;
+            if client.is_some() {
+                holding_since.get_or_insert_with(Instant::now);
+                resume_pending = true;
+                waiting_for_keyframe = true;
+            }
+        }
+        bootstrap.observe(frame_type, &payload);
+        rate.add(payload.len());
+
+        if client.is_none() {
+            if Instant::now() < next_retry_at {
+                DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
+                continue;
+            }
+            let status = if consecutive_failures == 0 {
+                "connecting"
+            } else {
+                "reconnecting"
+            };
+            set_output_status(
+                status,
+                &format!("Harici {transport_name} hedefine bağlanıyor"),
+            );
+            match connect_output(&destination) {
+                Ok(mut next_client) => match bootstrap.send_to(&mut next_client) {
+                    Ok(bytes) => {
+                        OUTBOUND_BYTES.fetch_add(bytes, Ordering::Relaxed);
+                        client = Some(next_client);
+                        consecutive_failures = 0;
+                        stall = StallWatch::default();
+                        clock.restart();
+                        waiting_for_keyframe = bootstrap.video_seen;
+                        resume_pending = false;
+                        holding_since = None;
+                        skipping_video = false;
+                        let detail = if destination.secure {
+                            "TLS sertifikası doğrulandı; harici hedef yayını kabul etti"
+                        } else {
+                            "Harici RTMP hedefi yayını kabul etti"
+                        };
+                        set_output_status("ready", detail);
+                    }
+                    Err(error) => {
+                        consecutive_failures = consecutive_failures.saturating_add(1);
+                        OUTPUT_RECONNECT_ATTEMPTS.fetch_add(1, Ordering::Relaxed);
+                        let delay = output_retry_delay(consecutive_failures);
+                        next_retry_at = Instant::now() + delay;
+                        set_output_status("reconnecting", &reconnect_detail(&error, delay));
+                        DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
+                        continue;
+                    }
+                },
+                Err(error) => {
+                    consecutive_failures = consecutive_failures.saturating_add(1);
+                    OUTPUT_RECONNECT_ATTEMPTS.fetch_add(1, Ordering::Relaxed);
+                    let delay = output_retry_delay(consecutive_failures);
+                    next_retry_at = Instant::now() + delay;
+                    set_output_status("reconnecting", &reconnect_detail(&error, delay));
+                    DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
+                    continue;
+                }
+            }
+        }
+        let Some(active_client) = client.as_mut() else {
+            continue;
+        };
+
+        let mut headers_sent = Ok(0u64);
+        if waiting_for_keyframe {
+            if !is_video_keyframe(&payload) {
+                DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
+                continue;
+            }
+            waiting_for_keyframe = false;
+            if resume_pending {
+                let gap = holding_since
+                    .take()
+                    .map(|since| since.elapsed())
+                    .unwrap_or_default();
+                clock.resume(timestamp, gap);
+                resume_pending = false;
+                headers_sent = bootstrap.send_codec_headers(active_client, clock.origin);
+            }
+        }
+
+        let unsent = unsent_output_bytes(active_client);
+        let limit = rate.congestion_limit();
+        let drop_frame = match frame_type {
+            FrameType::Video if is_video_sequence_header(&payload) => false,
+            FrameType::Video if skipping_video => {
+                if is_video_keyframe(&payload) && unsent < limit {
+                    skipping_video = false;
+                    false
+                } else {
+                    true
+                }
+            }
+            FrameType::Video if unsent > limit => {
+                skipping_video = true;
+                true
+            }
+            // Audio goes on while video waits, unless the uplink is far behind.
+            FrameType::Audio => unsent > limit.saturating_mul(2),
+            _ => false,
+        };
+        if drop_frame {
+            DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
+            set_output_status(
+                "congested",
+                "Yükleme hızı yetmiyor; görüntü bir sonraki anahtar kareye atlanıyor",
+            );
+            continue;
+        }
+        let Some(output_timestamp) = clock.map(timestamp) else {
+            DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
+            continue;
+        };
+
+        let send_result = headers_sent
+            .and_then(|header_bytes| {
+                send_output_frame(active_client, frame_type, output_timestamp, &payload)
+                    .map(|()| header_bytes)
+            })
+            .and_then(|header_bytes| {
+                if stall.stalled(unsent_output_bytes(active_client), Instant::now()) {
+                    Err("hedef veri almayı bıraktı".to_owned())
+                } else {
+                    Ok(header_bytes)
+                }
+            });
+        match send_result {
+            Ok(header_bytes) => {
+                OUTBOUND_BYTES.fetch_add(
+                    header_bytes.saturating_add(payload.len() as u64),
+                    Ordering::Relaxed,
+                );
+                if skipping_video {
+                    set_output_status(
+                        "congested",
+                        "Yükleme hızı yetmiyor; görüntü bir sonraki anahtar kareye atlanıyor",
+                    );
+                } else {
+                    let detail = if destination.secure {
+                        "Yayın doğrulanmış TLS üzerinden harici hedefe aktarılıyor"
+                    } else {
+                        "Yayın harici RTMP hedefine aktarılıyor"
+                    };
+                    set_output_status("forwarding", detail);
+                }
+            }
+            Err(error) => {
+                client = None;
+                holding_since = None;
+                resume_pending = false;
+                consecutive_failures = consecutive_failures.saturating_add(1);
+                OUTPUT_RECONNECT_ATTEMPTS.fetch_add(1, Ordering::Relaxed);
+                let delay = output_retry_delay(consecutive_failures);
+                next_retry_at = Instant::now() + delay;
+                set_output_status("reconnecting", &reconnect_detail(&error, delay));
+                DROPPED_OUTPUT_FRAMES.fetch_add(1, Ordering::Relaxed);
+            }
         }
     }
     if let Some(mut active_client) = client.take() {
@@ -1081,6 +1395,45 @@ mod tests {
             snapshot.audio_sequence.as_deref(),
             Some(&[0xAF, 0x00, 0x12, 0x10][..])
         );
+    }
+
+    #[test]
+    fn the_platform_timeline_continues_across_a_drone_reconnect() {
+        let mut clock = OutputClock::new();
+        assert_eq!(clock.map(5_000), Some(0));
+        assert_eq!(clock.map(5_033), Some(33));
+        // An audio frame from before the first keyframe cannot go out before the start.
+        assert_eq!(clock.map(4_990), None);
+        // The drone is back after three seconds and its clock started over.
+        clock.resume(120, Duration::from_secs(3));
+        assert_eq!(clock.map(120), Some(3_033));
+        assert_eq!(clock.map(153), Some(3_066));
+        clock.restart();
+        assert_eq!(clock.map(40), Some(0));
+    }
+
+    #[test]
+    fn a_slow_uplink_is_not_a_dead_one() {
+        let start = Instant::now();
+        let mut watch = StallWatch::default();
+        // Unsent output grows, but drains now and then: never stalled.
+        for (second, unsent) in [(0, 100), (4, 900), (8, 600), (12, 1_200), (16, 800)] {
+            assert!(!watch.stalled(unsent, start + Duration::from_secs(second)));
+        }
+        // It stops draining.
+        assert!(!watch.stalled(900, start + Duration::from_secs(17)));
+        assert!(!watch.stalled(950, start + Duration::from_secs(26)));
+        assert!(watch.stalled(950, start + Duration::from_secs(27)));
+        // Everything delivered clears it.
+        assert!(!watch.stalled(0, start + Duration::from_secs(28)));
+    }
+
+    #[test]
+    fn congestion_allows_about_a_second_and_a_half_of_stream() {
+        let mut rate = RateMeter::new();
+        assert_eq!(rate.congestion_limit(), MIN_CONGESTION_BYTES);
+        rate.bytes_per_second = 1_000_000.0;
+        assert_eq!(rate.congestion_limit(), 1_500_000);
     }
 
     #[test]

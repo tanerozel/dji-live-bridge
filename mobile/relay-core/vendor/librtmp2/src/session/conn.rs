@@ -2150,20 +2150,19 @@ impl Conn {
                 let mut stream_name = [0u8; 256];
                 if command::read_release_stream(&mut buf, &mut stream_name).is_ok() {
                     if let Ok(name_str) = command::decode_route_amf_string(&stream_name) {
-                        if !name_str.is_empty() {
-                            // Force-releasing a route can evict a *different*,
-                            // still-live connection's active publish claim, so
-                            // this stays a safe no-op unless the host
-                            // explicitly authorizes it -- unlike
-                            // on_media_cb/on_publish_cb, there is no
-                            // permissive default here.
-                            let authorized = self
-                                .on_release_stream_cb
-                                .is_some_and(|cb| cb(self.conn_id, &self.app, &name_str));
-                            if authorized {
-                                if let Some(ref routes) = self.publish_routes {
-                                    routes.force_release(&self.app, &name_str);
-                                }
+                        // Force-releasing a route can evict a *different*, still-live
+                        // connection's active publish claim, so this stays a safe no-op
+                        // unless the host explicitly authorizes it -- unlike
+                        // on_media_cb/on_publish_cb, there is no permissive default here.
+                        // An empty name is the application-only route of a single-segment
+                        // URL such as rtmp://host/drone; as with publish, the callback
+                        // decides whether that route may be taken over.
+                        let authorized = self
+                            .on_release_stream_cb
+                            .is_some_and(|cb| cb(self.conn_id, &self.app, &name_str));
+                        if authorized {
+                            if let Some(ref routes) = self.publish_routes {
+                                routes.force_release(&self.app, &name_str);
                             }
                         }
                     }
@@ -2534,6 +2533,7 @@ impl Conn {
             size: self.frame_cb_scratch.len() as u32,
             data: self.frame_cb_scratch.as_ptr(),
             track_id,
+            publisher_conn_id: self.conn_id,
             ..Default::default()
         };
         populate_multitrack_frame(&mut frame, fourcc, packet_type, video_frame_type);
@@ -2555,6 +2555,7 @@ impl Conn {
             size: self.frame_cb_scratch.len() as u32,
             data: self.frame_cb_scratch.as_ptr(),
             track_id,
+            publisher_conn_id: self.conn_id,
             ..Default::default()
         };
         populate_av_frame(&mut frame, &self.frame_cb_scratch);
@@ -4136,6 +4137,35 @@ mod tests {
                 .as_ref()
                 .is_some_and(|stream| stream.is_publishing)
         );
+    }
+
+    #[test]
+    fn a_reconnecting_publisher_takes_its_route_over_from_a_stale_connection() {
+        // After a Wi-Fi drop, DJI Fly reconnects while its old connection still holds the
+        // application-only route; its releaseStream("") frees the route when the host allows.
+        let routes = std::sync::Arc::new(Mutex::new(HashMap::new()));
+        let registry = PublishRouteRegistry::new(std::sync::Arc::clone(&routes));
+        assert!(registry.claim(1, "drone", ""));
+        let route = ("drone".to_string(), String::new());
+
+        let mut refused = dji_fly_connection();
+        refused.conn_id = 2;
+        refused.publish_routes = Some(registry.clone());
+        refused.recv_buffer.write(&DJI_FLY_AFTER_CONNECT).unwrap();
+        let mut budget = MAX_MESSAGES_PER_RECV;
+        refused.read_messages(&mut budget);
+        assert!(!refused.current_stream.as_ref().unwrap().is_publishing);
+        assert_eq!(routes.lock().unwrap().get(&route), Some(&1));
+
+        let mut replacing = dji_fly_connection();
+        replacing.conn_id = 3;
+        replacing.publish_routes = Some(registry);
+        replacing.on_release_stream_cb = Some(|_, app, stream| app == "drone" && stream.is_empty());
+        replacing.recv_buffer.write(&DJI_FLY_AFTER_CONNECT).unwrap();
+        let mut budget = MAX_MESSAGES_PER_RECV;
+        assert_eq!(replacing.read_messages(&mut budget), 1);
+        assert!(replacing.current_stream.as_ref().unwrap().is_publishing);
+        assert_eq!(routes.lock().unwrap().get(&route), Some(&3));
     }
 
     #[test]

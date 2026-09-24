@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.net.Uri
+import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
@@ -43,6 +44,7 @@ class RelayForegroundService : Service() {
     @Volatile private var liveProfileId: String? = null
     @Volatile private var tlsCaBundle: File? = null
     private var wakeLock: PowerManager.WakeLock? = null
+    private var wifiLock: WifiManager.WifiLock? = null
     private var shownNotification: Pair<String, Boolean>? = null
 
     /** Set when the receiver stops because of a failure the user should see, not by request. */
@@ -97,6 +99,7 @@ class RelayForegroundService : Service() {
         NativeRelay.nativeStop()
         deleteTlsCaBundle()
         releaseWakeLock()
+        releaseWifiLock()
         if (RelayServiceState.value.isActive) publishStoppedState()
         super.onDestroy()
     }
@@ -127,6 +130,7 @@ class RelayForegroundService : Service() {
         failureMessage = null
         stopReason = "Alıcı kapatıldı"
         RelayServiceState.starting()
+        acquireWifiLock()
         commands.execute {
             val error = runCatching { NativeRelay.nativeStartReceiver() }
                 .getOrElse { error -> error.message ?: "RTMP çekirdeği başlatılamadı" }
@@ -311,6 +315,7 @@ class RelayForegroundService : Service() {
         receiverStarted = false
         deleteTlsCaBundle()
         releaseWakeLock()
+        releaseWifiLock()
         ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
         stopSelf()
     }
@@ -337,6 +342,34 @@ class RelayForegroundService : Service() {
             if (lock.isHeld) lock.release()
         }
         wakeLock = null
+    }
+
+    /**
+     * Keeps Wi-Fi out of power save while the receiver runs. In power save the access point holds
+     * the remote's packets until the phone wakes for a beacon, which arrives as stutter.
+     */
+    private fun acquireWifiLock() {
+        if (wifiLock?.isHeld == true) return
+        val manager = applicationContext.getSystemService(WifiManager::class.java) ?: return
+        val mode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            WifiManager.WIFI_MODE_FULL_LOW_LATENCY
+        } else {
+            @Suppress("DEPRECATION")
+            WifiManager.WIFI_MODE_FULL_HIGH_PERF
+        }
+        wifiLock = runCatching {
+            manager.createWifiLock(mode, "$packageName:rtmp-receiver").apply {
+                setReferenceCounted(false)
+                acquire()
+            }
+        }.getOrNull()
+    }
+
+    private fun releaseWifiLock() {
+        wifiLock?.let { lock ->
+            if (lock.isHeld) lock.release()
+        }
+        wifiLock = null
     }
 
     private fun createNotificationChannel() {
@@ -396,9 +429,11 @@ class RelayForegroundService : Service() {
             snapshot.status == "error" -> "RTMP alıcı hatası"
             snapshot.status == "starting" -> "Alıcı hazırlanıyor"
             liveProfileId != null -> when {
+                publishing && snapshot.outputStatus == "congested" -> "Canlı yayındasın · bağlantı yavaş"
                 publishing && snapshot.outputStatus == "forwarding" -> "Canlı yayındasın"
                 publishing && snapshot.outputStatus == "reconnecting" -> "Platforma yeniden bağlanıyor"
                 publishing -> "Platforma bağlanıyor"
+                snapshot.outputStatus == "holding" -> "Drone bağlantısı koptu · yayın açık tutuluyor"
                 else -> "Canlı yayın açık · drone bekleniyor"
             }
             publishing ->

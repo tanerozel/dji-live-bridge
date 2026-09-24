@@ -32,6 +32,9 @@ enum class BridgePhase {
         get() = this == PREVIEW || isStreaming
 }
 
+/** The output reaches the platform; "congested" still does, with video frames skipped. */
+internal val LIVE_OUTPUT_STATUSES = setOf("forwarding", "congested")
+
 fun bridgePhase(state: RelayServiceUiState): BridgePhase {
     val snapshot = state.snapshot
     if (!state.isActive) {
@@ -43,7 +46,7 @@ fun bridgePhase(state: RelayServiceUiState): BridgePhase {
         snapshot.status == "starting" -> BridgePhase.STARTING
         publishing && !state.isLive -> BridgePhase.PREVIEW
         publishing && snapshot.outputStatus == "reconnecting" -> BridgePhase.RECONNECTING
-        publishing && snapshot.outputStatus == "forwarding" -> BridgePhase.LIVE
+        publishing && snapshot.outputStatus in LIVE_OUTPUT_STATUSES -> BridgePhase.LIVE
         publishing -> BridgePhase.CONNECTING_TARGET
         snapshot.status == "connected" -> BridgePhase.DRONE_CONNECTED
         else -> BridgePhase.WAITING_FOR_DRONE

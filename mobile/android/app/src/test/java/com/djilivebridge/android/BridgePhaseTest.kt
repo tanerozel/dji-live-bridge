@@ -49,6 +49,8 @@ class BridgePhaseTest {
         assertEquals(BridgePhase.CONNECTING_TARGET, bridgePhase(live("publishing", "connecting")))
         assertEquals(BridgePhase.CONNECTING_TARGET, bridgePhase(live("publishing", "ready")))
         assertEquals(BridgePhase.LIVE, bridgePhase(live("publishing", "forwarding")))
+        // A slow uplink skips video frames but the broadcast goes on.
+        assertEquals(BridgePhase.LIVE, bridgePhase(live("publishing", "congested")))
     }
 
     @Test

@@ -95,6 +95,11 @@ internal fun LiveContent(
                 )
             phase == BridgePhase.RECEIVER_ERROR ->
                 TipBox("Yayını bitirip alıcıyı yeniden aç. Sorun sürerse telefonu yeniden başlatmayı dene.")
+            phase == BridgePhase.LIVE && snapshot.outputStatus == "congested" ->
+                TipBox(
+                    "Yükleme hızı yetmiyor; yayın sürüyor ama bazı görüntü kareleri atlanıyor. Daha güçlü " +
+                        "bir bağlantıya geç ya da DJI Fly'da yayın kalitesini düşür.",
+                )
             phase == BridgePhase.LIVE -> kind.liveReminder?.let { TipBox(it) }
         }
         TechnicalDetails(snapshot)
@@ -122,6 +127,13 @@ private fun StatusHero(
     val waitingForSource = phase == BridgePhase.WAITING_FOR_DRONE || phase == BridgePhase.DRONE_CONNECTED
     val look = if (testing && waitingForSource) {
         HeroLook(colors.accent, colors.accentSoft, "Test videosu hazırlanıyor", "Video birazdan gönderilmeye başlar.")
+    } else if (waitingForSource && snapshot.outputStatus == "holding") {
+        HeroLook(
+            colors.warningText,
+            colors.warningSoft,
+            "Drone bağlantısı koptu",
+            "Yayın açık tutuluyor; kumanda yeniden bağlanınca kaldığı yerden sürer.",
+        )
     } else when (phase) {
         BridgePhase.STARTING -> HeroLook(colors.accent, colors.accentSoft, "Başlatılıyor", "Köprü birkaç saniye içinde hazır olur.")
         BridgePhase.WAITING_FOR_DRONE -> HeroLook(
@@ -152,7 +164,7 @@ private fun StatusHero(
     ) {
         // Once the drone's video arrives, the picture itself is the status.
         if (phase.isStreaming) {
-            DronePreview(modifier = Modifier.padding(bottom = 4.dp)) {
+            DronePreview(cornerColor = colors.background, modifier = Modifier.padding(bottom = 4.dp)) {
                 PreviewOverlay(phase = phase, liveSinceElapsedMillis = liveSinceElapsedMillis)
             }
         } else StatusOrb(tone = look.tone, halo = look.halo, ping = look.ping) {

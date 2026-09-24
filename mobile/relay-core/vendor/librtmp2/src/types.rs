@@ -206,6 +206,9 @@ pub struct Frame {
     pub is_metadata: u8,
     /// E-RTMP multitrack id (0 = default track; 255 = not set / single-track).
     pub track_id: u8,
+    /// Server side: the id of the connection that published the frame (ids only grow), so a
+    /// host can tell a new publisher from the one it replaced. 0 elsewhere.
+    pub publisher_conn_id: u64,
 }
 
 impl Default for Frame {
@@ -226,6 +229,7 @@ impl Default for Frame {
             video_frame_type: 0,
             is_metadata: 0,
             track_id: u8::MAX,
+            publisher_conn_id: 0,
         }
     }
 }

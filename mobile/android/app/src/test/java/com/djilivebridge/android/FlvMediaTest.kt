@@ -2,8 +2,11 @@ package com.djilivebridge.android
 
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.nio.ByteBuffer
 
 class FlvMediaTest {
     private val sps = byteArrayOf(0x67, 0x64, 0x00, 0x1F, 0x11, 0x22)
@@ -132,14 +135,31 @@ class FlvMediaTest {
     fun `length prefixed units become annex b and a bad length stops conversion`() {
         val slice = byteArrayOf(0x65, 0x01)
         val avcc = byteArrayOf(0, 0, 0, 6) + sps + byteArrayOf(0, 0, 0, 2) + slice
-        assertArrayEquals(startCode + sps + startCode + slice, avccToAnnexB(avcc, 4))
-        assertArrayEquals(startCode + sps, avccToAnnexB(byteArrayOf(0, 0, 0, 6) + sps + byteArrayOf(0, 0, 0, 9, 1), 4))
+        assertArrayEquals(startCode + sps + startCode + slice, annexB(avcc))
+        assertArrayEquals(startCode + sps, annexB(byteArrayOf(0, 0, 0, 6) + sps + byteArrayOf(0, 0, 0, 9, 1)))
+        // A decoder input buffer that is too small takes nothing.
+        assertEquals(-1, putAnnexB(avcc, 4, ByteBuffer.allocate(8)))
     }
 
     @Test
     fun `decode timestamps equal presentation when there are no b frames`() {
         val presentation = longArrayOf(0, 33, 66, 99)
         assertArrayEquals(presentation, decodeTimestamps(presentation))
+    }
+
+    @Test
+    fun `decode order is display order only for pic order count type 2`() {
+        // DJI Fly's SPS (RC 2): High 3.1, pic_order_cnt_type 2, no reordering.
+        assertTrue(avcOutputsInDecodeOrder(hex("6764001facb402802dd2905060506d0a1350")))
+        // x264 with B-frames: pic_order_cnt_type 0.
+        assertFalse(avcOutputsInDecodeOrder(hex("6764001facd9405005bb0110000003001000000303c0f1831960")))
+        assertFalse(avcOutputsInDecodeOrder(byteArrayOf(0x67, 0x64)))
+    }
+
+    private fun annexB(avcc: ByteArray): ByteArray {
+        val buffer = ByteBuffer.allocate(avcc.size + 16)
+        val size = putAnnexB(avcc, 4, buffer)
+        return buffer.array().copyOf(size)
     }
 
     private fun hex(value: String): ByteArray =

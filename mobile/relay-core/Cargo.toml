@@ -11,6 +11,7 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 jni = "0.21.1"
+libc = "0.2"
 librtmp2 = { path = "vendor/librtmp2", default-features = false, features = ["tls"] }
 openssl = { version = "0.10.70", features = ["vendored"] }
 serde = { version = "1.0", features = ["derive"] }
