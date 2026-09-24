@@ -163,8 +163,6 @@
     <string name="preview_badge">Aperçu</string>
     <string name="preview_badge_test">Vidéo de test · aperçu</string>
     <string name="preview_connected">Radiocommande connectée ; l\'image arrive dans un instant.</string>
-    <string name="preview_drone_status">Drone connecté · %1$s. Vous n\'êtes pas encore en direct.</string>
-    <string name="preview_test_status">Vidéo de test reçue · %1$s. Vous n\'êtes pas encore en direct.</string>
     <string name="stop_test_video">Arrêter la vidéo de test</string>
     <string name="receiver_starting">Préparation du récepteur…</string>
     <string name="receiver_off">Le récepteur est désactivé ; DJI Fly ne peut pas se connecter à ce téléphone.</string>
@@ -234,24 +232,6 @@
     <string name="hero_receiver_stopped">Récepteur arrêté</string>
     <string name="hero_off">Diffusion arrêtée</string>
     <string name="stream_time">Durée du direct : %1$s</string>
-    <string name="hop_controller">Radiocommande</string>
-    <string name="hop_test_video">Vidéo de test</string>
-    <string name="hop_phone">Téléphone</string>
-    <string name="hop_waiting">en attente</string>
-    <string name="hop_connected">connectée</string>
-    <string name="hop_sending">envoi en cours</string>
-    <string name="hop_not_connected">non connectée</string>
-    <string name="hop_starting">démarrage en cours</string>
-    <string name="hop_error">erreur</string>
-    <string name="hop_ready">prêt</string>
-    <string name="hop_live">en direct</string>
-    <string name="hop_connecting">connexion en cours</string>
-    <string name="hop_reconnecting">reconnexion en cours</string>
-    <string name="hop_standing_by">en attente</string>
-    <string name="hop_description">%1$s : %2$s, %3$s : %4$s, %5$s : %6$s</string>
-    <string name="start_on_controller">Lancez la diffusion sur la radiocommande</string>
-    <string name="phone_offline">Le téléphone n\'a plus de réseau</string>
-    <string name="phone_offline_message">Reconnectez-vous au Wi-Fi ou activez le partage de connexion ; l\'adresse réapparaîtra ici.</string>
     <string name="not_connecting">Pas de connexion ?</string>
     <string name="not_connecting_same_network">La radiocommande et le téléphone doivent être sur le même Wi-Fi, ou la radiocommande doit être connectée au partage de connexion de ce téléphone.</string>
     <string name="not_connecting_exact_address">Saisissez l\'adresse à l\'identique ; elle doit se terminer par :1935/drone.</string>
@@ -264,8 +244,8 @@
     <string name="end_platform">Arrêter le direct sur %1$s</string>
     <string name="status_live">En direct</string>
     <string name="status_congested">Connexion lente · images sautées</string>
-    <string name="status_connecting">Connexion en cours</string>
-    <string name="status_reconnecting">Reconnexion en cours</string>
+    <string name="status_connecting">Connexion…</string>
+    <string name="status_reconnecting">Reconnexion…</string>
     <string name="status_holding">En attente du drone · diffusion active</string>
     <string name="status_stopped">Arrêté</string>
     <string name="status_waiting_for_picture">En attente de l\'image du drone</string>
@@ -314,9 +294,9 @@
     <string name="ok">OK</string>
     <string name="go_live">Passer en direct</string>
     <plurals name="go_live_many">
-        <item quantity="one">Passer en direct sur %d plateforme</item>
-        <item quantity="many">Passer en direct sur %d plateformes</item>
-        <item quantity="other">Passer en direct sur %d plateformes</item>
+        <item quantity="one">Diffuser sur %d plateforme</item>
+        <item quantity="many">Diffuser sur %d plateformes</item>
+        <item quantity="other">Diffuser sur %d plateformes</item>
     </plurals>
     <string name="go_live_needs_picture">Vous pourrez passer en direct dès que l\'image du drone arrivera</string>
     <string name="keep_streaming">Continuer</string>
@@ -334,4 +314,20 @@
     <string name="platform_added">%1$s ajouté</string>
     <string name="platform_deleted">%1$s supprimé</string>
     <string name="saved">Enregistré</string>
+
+    <!-- Drone screen: the picture over the whole screen once the drone connects -->
+    <string name="status_ready">Prêt</string>
+    <string name="status_not_live">Pas en direct</string>
+    <string name="preview_ready_title">Le drone et la caméra sont prêts.</string>
+    <string name="preview_ready_title_test">La vidéo de test est prête.</string>
+    <string name="net_wifi">Wi-Fi</string>
+    <string name="net_hotspot">Partage de connexion</string>
+    <string name="net_local">Réseau local</string>
+    <string name="no_platform">Aucune plateforme choisie</string>
+    <string name="choose_platform">Choisir une plateforme</string>
+    <string name="change_platforms">Modifier les plateformes</string>
+    <string name="show_details">Afficher les détails</string>
+    <string name="picture_fill">Remplir l\'écran</string>
+    <string name="picture_fit">Afficher l\'image entière</string>
+    <string name="more_options">Plus d\'options</string>
 </resources>

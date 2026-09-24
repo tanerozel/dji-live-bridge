@@ -314,27 +314,6 @@ internal fun PrimaryButton(
     }
 }
 
-/** Stopping is always confirmed, so the button stays calm instead of alarm red. */
-@Composable
-internal fun StopButton(text: String, onClick: () -> Unit, icon: ImageVector, modifier: Modifier = Modifier) {
-    val colors = BridgeTheme.colors
-    Button(
-        onClick = onClick,
-        modifier = modifier
-            .fillMaxWidth()
-            .heightIn(min = 54.dp),
-        shape = MaterialTheme.shapes.medium,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = colors.dangerSoft,
-            contentColor = colors.dangerText,
-        ),
-    ) {
-        Icon(icon, contentDescription = null, modifier = Modifier.size(20.dp))
-        Spacer(Modifier.width(8.dp))
-        Text(text = text, style = MaterialTheme.typography.titleMedium)
-    }
-}
-
 @Composable
 internal fun ExpandableSection(
     title: String,

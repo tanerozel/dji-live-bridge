@@ -20,8 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DJILiveBridge"
         tools:targetApi="tiramisu">
+        <!-- Rotating keeps the activity, so the drone's picture keeps decoding instead of restarting. -->
         <activity
             android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>

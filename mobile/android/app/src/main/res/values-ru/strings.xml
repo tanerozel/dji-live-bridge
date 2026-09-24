@@ -164,8 +164,6 @@
     <string name="preview_badge">Предпросмотр</string>
     <string name="preview_badge_test">Тестовое видео · предпросмотр</string>
     <string name="preview_connected">Пульт подключён, изображение сейчас появится.</string>
-    <string name="preview_drone_status">Дрон подключён · %1$s. Вы ещё не в эфире.</string>
-    <string name="preview_test_status">Тестовое видео поступает · %1$s. Вы ещё не в эфире.</string>
     <string name="stop_test_video">Остановить тестовое видео</string>
     <string name="receiver_starting">Подготовка приёмника…</string>
     <string name="receiver_off">Приёмник выключен: DJI Fly не может подключиться к этому телефону.</string>
@@ -239,24 +237,6 @@
     <string name="hero_receiver_stopped">Приёмник остановлен</string>
     <string name="hero_off">Трансляция выключена</string>
     <string name="stream_time">Время трансляции %1$s</string>
-    <string name="hop_controller">Пульт</string>
-    <string name="hop_test_video">Тестовое видео</string>
-    <string name="hop_phone">Телефон</string>
-    <string name="hop_waiting">ожидание</string>
-    <string name="hop_connected">подключено</string>
-    <string name="hop_sending">передача</string>
-    <string name="hop_not_connected">не подключено</string>
-    <string name="hop_starting">запуск</string>
-    <string name="hop_error">ошибка</string>
-    <string name="hop_ready">готово</string>
-    <string name="hop_live">в эфире</string>
-    <string name="hop_connecting">подключение</string>
-    <string name="hop_reconnecting">переподключение</string>
-    <string name="hop_standing_by">в режиме ожидания</string>
-    <string name="hop_description">%1$s: %2$s; %3$s: %4$s; %5$s: %6$s</string>
-    <string name="start_on_controller">Начните трансляцию на пульте</string>
-    <string name="phone_offline">Телефон отключился от сети</string>
-    <string name="phone_offline_message">Подключитесь к Wi-Fi или включите точку доступа, и адрес снова появится здесь.</string>
     <string name="not_connecting">Не подключается?</string>
     <string name="not_connecting_same_network">Пульт и телефон должны быть в одной сети Wi-Fi, либо пульт должен быть подключён к точке доступа этого телефона.</string>
     <string name="not_connecting_exact_address">Введите адрес без ошибок: он должен заканчиваться на :1935/drone.</string>
@@ -341,4 +321,20 @@
     <string name="platform_added">Добавлено: %1$s</string>
     <string name="platform_deleted">Удалено: %1$s</string>
     <string name="saved">Сохранено</string>
+
+    <!-- Drone screen: the picture over the whole screen once the drone connects -->
+    <string name="status_ready">Готово</string>
+    <string name="status_not_live">Не в эфире</string>
+    <string name="preview_ready_title">Дрон и камера готовы.</string>
+    <string name="preview_ready_title_test">Тестовое видео готово.</string>
+    <string name="net_wifi">Wi-Fi</string>
+    <string name="net_hotspot">Точка доступа</string>
+    <string name="net_local">Локальная сеть</string>
+    <string name="no_platform">Платформа не выбрана</string>
+    <string name="choose_platform">Выбрать платформу</string>
+    <string name="change_platforms">Изменить платформы</string>
+    <string name="show_details">Показать подробности</string>
+    <string name="picture_fill">Заполнить экран</string>
+    <string name="picture_fit">Показать всё изображение</string>
+    <string name="more_options">Другие параметры</string>
 </resources>

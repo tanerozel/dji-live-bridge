@@ -161,8 +161,6 @@
     <string name="preview_badge">預覽</string>
     <string name="preview_badge_test">測試影片 · 預覽</string>
     <string name="preview_connected">遙控器已連線，畫面即將出現。</string>
-    <string name="preview_drone_status">無人機已連線 · %1$s。你還沒開始直播。</string>
-    <string name="preview_test_status">正在接收測試影片 · %1$s。你還沒開始直播。</string>
     <string name="stop_test_video">停止測試影片</string>
     <string name="receiver_starting">正在準備接收器…</string>
     <string name="receiver_off">接收器已關閉；DJI Fly 無法連線到這支手機。</string>
@@ -224,24 +222,6 @@
     <string name="hero_receiver_stopped">接收器已停止</string>
     <string name="hero_off">直播已關閉</string>
     <string name="stream_time">直播時間 %1$s</string>
-    <string name="hop_controller">遙控器</string>
-    <string name="hop_test_video">測試影片</string>
-    <string name="hop_phone">手機</string>
-    <string name="hop_waiting">等待中</string>
-    <string name="hop_connected">已連線</string>
-    <string name="hop_sending">傳送中</string>
-    <string name="hop_not_connected">未連線</string>
-    <string name="hop_starting">啟動中</string>
-    <string name="hop_error">錯誤</string>
-    <string name="hop_ready">就緒</string>
-    <string name="hop_live">直播中</string>
-    <string name="hop_connecting">連線中</string>
-    <string name="hop_reconnecting">重新連線中</string>
-    <string name="hop_standing_by">待命中</string>
-    <string name="hop_description">%1$s：%2$s，%3$s：%4$s，%5$s：%6$s</string>
-    <string name="start_on_controller">在遙控器上開始直播</string>
-    <string name="phone_offline">手機網路已中斷</string>
-    <string name="phone_offline_message">請重新連上 Wi‑Fi 或開啟熱點；位址會再次顯示在這裡。</string>
     <string name="not_connecting">無法連線？</string>
     <string name="not_connecting_same_network">遙控器與手機必須連到同一個 Wi‑Fi，或是遙控器必須連上這支手機的熱點。</string>
     <string name="not_connecting_exact_address">請一字不差地輸入位址；結尾必須是 :1935/drone。</string>
@@ -320,4 +300,20 @@
     <string name="platform_added">%1$s 已新增</string>
     <string name="platform_deleted">%1$s 已刪除</string>
     <string name="saved">已儲存</string>
+
+    <!-- Drone screen: the picture over the whole screen once the drone connects -->
+    <string name="status_ready">就緒</string>
+    <string name="status_not_live">尚未直播</string>
+    <string name="preview_ready_title">無人機與相機已就緒。</string>
+    <string name="preview_ready_title_test">測試影片已就緒。</string>
+    <string name="net_wifi">Wi‑Fi</string>
+    <string name="net_hotspot">熱點</string>
+    <string name="net_local">區域網路</string>
+    <string name="no_platform">尚未選擇平台</string>
+    <string name="choose_platform">選擇平台</string>
+    <string name="change_platforms">變更平台</string>
+    <string name="show_details">顯示詳細資料</string>
+    <string name="picture_fill">填滿螢幕</string>
+    <string name="picture_fit">顯示完整畫面</string>
+    <string name="more_options">更多選項</string>
 </resources>

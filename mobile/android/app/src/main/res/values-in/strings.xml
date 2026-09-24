@@ -161,8 +161,6 @@
     <string name="preview_badge">Pratinjau</string>
     <string name="preview_badge_test">Video uji · pratinjau</string>
     <string name="preview_connected">Remote terhubung; gambar segera masuk.</string>
-    <string name="preview_drone_status">Drone terhubung · %1$s. Anda belum siaran.</string>
-    <string name="preview_test_status">Video uji masuk · %1$s. Anda belum siaran.</string>
     <string name="stop_test_video">Hentikan video uji</string>
     <string name="receiver_starting">Menyiapkan penerima…</string>
     <string name="receiver_off">Penerima nonaktif; DJI Fly tidak dapat terhubung ke ponsel ini.</string>
@@ -224,24 +222,6 @@
     <string name="hero_receiver_stopped">Penerima berhenti</string>
     <string name="hero_off">Siaran nonaktif</string>
     <string name="stream_time">Durasi siaran %1$s</string>
-    <string name="hop_controller">Remote</string>
-    <string name="hop_test_video">Video uji</string>
-    <string name="hop_phone">Ponsel</string>
-    <string name="hop_waiting">menunggu</string>
-    <string name="hop_connected">terhubung</string>
-    <string name="hop_sending">mengirim</string>
-    <string name="hop_not_connected">tidak terhubung</string>
-    <string name="hop_starting">memulai</string>
-    <string name="hop_error">bermasalah</string>
-    <string name="hop_ready">siap</string>
-    <string name="hop_live">siaran</string>
-    <string name="hop_connecting">menghubungkan</string>
-    <string name="hop_reconnecting">menghubungkan kembali</string>
-    <string name="hop_standing_by">siaga</string>
-    <string name="hop_description">%1$s: %2$s, %3$s: %4$s, %5$s: %6$s</string>
-    <string name="start_on_controller">Mulai siaran di remote</string>
-    <string name="phone_offline">Ponsel kehilangan jaringan</string>
-    <string name="phone_offline_message">Hubungkan kembali ke Wi-Fi atau aktifkan hotspot; alamat akan tampil lagi di sini.</string>
     <string name="not_connecting">Tidak bisa terhubung?</string>
     <string name="not_connecting_same_network">Remote dan ponsel harus berada di Wi-Fi yang sama, atau remote harus terhubung ke hotspot ponsel ini.</string>
     <string name="not_connecting_exact_address">Ketik alamatnya dengan tepat; harus diakhiri :1935/drone.</string>
@@ -320,4 +300,20 @@
     <string name="platform_added">%1$s ditambahkan</string>
     <string name="platform_deleted">%1$s dihapus</string>
     <string name="saved">Disimpan</string>
+
+    <!-- Drone screen: the picture over the whole screen once the drone connects -->
+    <string name="status_ready">Siap</string>
+    <string name="status_not_live">Belum siaran</string>
+    <string name="preview_ready_title">Drone dan kamera siap.</string>
+    <string name="preview_ready_title_test">Video uji siap.</string>
+    <string name="net_wifi">Wi-Fi</string>
+    <string name="net_hotspot">Hotspot</string>
+    <string name="net_local">Jaringan lokal</string>
+    <string name="no_platform">Platform belum dipilih</string>
+    <string name="choose_platform">Pilih platform</string>
+    <string name="change_platforms">Ganti platform</string>
+    <string name="show_details">Tampilkan detail</string>
+    <string name="picture_fill">Penuhi layar</string>
+    <string name="picture_fit">Tampilkan gambar utuh</string>
+    <string name="more_options">Opsi lainnya</string>
 </resources>

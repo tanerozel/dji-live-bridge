@@ -22,9 +22,11 @@ class MainActivity : ComponentActivity() {
         val preferences = UiPreferences(applicationContext)
         setContent {
             var theme by remember { mutableStateOf(preferences.theme) }
+            var droneScreen by remember { mutableStateOf(false) }
             DjiLiveBridgeTheme(theme) {
-                // The chosen theme, not the system setting, decides the status bar icon color.
-                val dark = BridgeTheme.colors.isDark
+                // The chosen theme, not the system setting, decides the status bar icon color; the
+                // drone's picture always needs light icons.
+                val dark = BridgeTheme.colors.isDark || droneScreen
                 LaunchedEffect(dark) {
                     val style = if (dark) {
                         SystemBarStyle.dark(Color.TRANSPARENT)
@@ -40,6 +42,7 @@ class MainActivity : ComponentActivity() {
                         theme = choice
                         preferences.theme = choice
                     },
+                    onDroneScreenChange = { droneScreen = it },
                 )
             }
         }

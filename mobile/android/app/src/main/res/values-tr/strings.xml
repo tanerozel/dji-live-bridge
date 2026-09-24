@@ -162,8 +162,6 @@
     <string name="preview_badge">Önizleme</string>
     <string name="preview_badge_test">Test videosu · önizleme</string>
     <string name="preview_connected">Kumanda bağlandı; görüntü birazdan gelir.</string>
-    <string name="preview_drone_status">Drone bağlı · %1$s. Henüz yayında değilsin.</string>
-    <string name="preview_test_status">Test videosu geliyor · %1$s. Henüz yayında değilsin.</string>
     <string name="stop_test_video">Test videosunu durdur</string>
     <string name="receiver_starting">Alıcı hazırlanıyor…</string>
     <string name="receiver_off">Alıcı kapalı; DJI Fly bu telefona bağlanamaz.</string>
@@ -229,24 +227,6 @@
     <string name="hero_receiver_stopped">Alıcı durdu</string>
     <string name="hero_off">Yayın kapalı</string>
     <string name="stream_time">Yayın süresi %1$s</string>
-    <string name="hop_controller">Kumanda</string>
-    <string name="hop_test_video">Test videosu</string>
-    <string name="hop_phone">Telefon</string>
-    <string name="hop_waiting">bekleniyor</string>
-    <string name="hop_connected">bağlandı</string>
-    <string name="hop_sending">gönderiyor</string>
-    <string name="hop_not_connected">bağlı değil</string>
-    <string name="hop_starting">açılıyor</string>
-    <string name="hop_error">hata</string>
-    <string name="hop_ready">hazır</string>
-    <string name="hop_live">yayında</string>
-    <string name="hop_connecting">bağlanıyor</string>
-    <string name="hop_reconnecting">yeniden bağlanıyor</string>
-    <string name="hop_standing_by">beklemede</string>
-    <string name="hop_description">%1$s %2$s, %3$s %4$s, %5$s %6$s</string>
-    <string name="start_on_controller">Kumandada yayını başlat</string>
-    <string name="phone_offline">Telefon ağdan koptu</string>
-    <string name="phone_offline_message">Wi-Fi\'a yeniden bağlan ya da hotspot\'u aç; adres burada yeniden görünür.</string>
     <string name="not_connecting">Bağlanmıyor mu?</string>
     <string name="not_connecting_same_network">Kumanda ile telefon aynı Wi-Fi\'da olmalı ya da kumanda bu telefonun hotspot\'una bağlı olmalı.</string>
     <string name="not_connecting_exact_address">Adresi harfi harfine yaz; sonu :1935/drone ile bitmeli.</string>
@@ -327,4 +307,20 @@
     <string name="platform_added">%1$s eklendi</string>
     <string name="platform_deleted">%1$s silindi</string>
     <string name="saved">Kaydedildi</string>
+
+    <!-- Drone screen: the picture over the whole screen once the drone connects -->
+    <string name="status_ready">Hazır</string>
+    <string name="status_not_live">Yayında değil</string>
+    <string name="preview_ready_title">Drone ve kamera hazır.</string>
+    <string name="preview_ready_title_test">Test videosu hazır.</string>
+    <string name="net_wifi">Wi-Fi</string>
+    <string name="net_hotspot">Hotspot</string>
+    <string name="net_local">Yerel ağ</string>
+    <string name="no_platform">Platform seçilmedi</string>
+    <string name="choose_platform">Platform seç</string>
+    <string name="change_platforms">Platformları değiştir</string>
+    <string name="show_details">Ayrıntıları göster</string>
+    <string name="picture_fill">Ekranı doldur</string>
+    <string name="picture_fit">Görüntünün tamamını göster</string>
+    <string name="more_options">Diğer seçenekler</string>
 </resources>

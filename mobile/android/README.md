@@ -58,10 +58,10 @@ server until they were fixed there (sessions captured from an RC 2 showed both):
 
 ## User interface
 
-The home screen follows the order of a flight: two numbered cards and one button. The first card,
-"Connect the drone", shows the RTMP address to type into DJI Fly on the RC 2 with the DJI Fly menu
-path; once the drone connects, the card becomes its live picture, marked as a preview, with the
-incoming bitrate. The second card is the platform grid: Instagram, TikTok, YouTube, Facebook, Twitch,
+Until the drone's picture arrives, the home screen follows the order of a flight: two numbered
+cards and one button. The first card, "Connect the drone", shows the RTMP address to type into DJI
+Fly on the RC 2 with the DJI Fly menu path, and folds away the usual reasons it does not connect
+under "Not connecting?". The second card is the platform grid: Instagram, TikTok, YouTube, Facebook, Twitch,
 Kick and a custom RTMP server, drawn as the desktop app's brand tiles. Tapping a platform opens a key-only screen whose server address is prefilled with the
 platform's published ingest; TikTok and custom servers hand out their own address, so they ask for
 it. The prefilled address can still be changed:
@@ -78,17 +78,37 @@ Tapping a saved platform adds it to the broadcast or takes it out, so one or sev
 a long press edits it. The broadcast goes to all of them at once. Each platform has its own
 connection with its own retries, congestion handling and 20-second hold, so a slow or failing one
 never holds up the others. Each one uploads the whole stream, which is why the card shows the
-combined upload once two or more are picked. "Go live" ("Go live on 2 platforms") becomes
-available when the drone's picture arrives and a platform is chosen. While several are live, a card
-lists each platform's state with its own "End", and "End broadcast" ends them all.
-While live, the screen shows one status (connecting, live with a timer, reconnecting, waiting for a
-remote that dropped, error), the remote → phone → platform hops, bitrate, sent bytes and codecs, and
-the platform's own go-live reminder; the counters stay under "Technical details". "End broadcast"
-ends only the broadcast: the drone stays connected and its picture returns to the home screen, ready
-to go live again. A three-page guide opens on first launch and again from the help button.
+combined upload once two or more are picked. A three-page guide opens on first launch and again
+from the help button.
 
-The drone's picture shows on the home screen before going live and at the top of the live screen,
-under the live badge and running time. The Rust core keeps a bounded tap of the ingest's video tags for it (about three
+### Drone screen
+
+Once the drone's picture arrives, it takes the whole screen, the way a camera app shows its
+viewfinder, and stays there while live:
+
+- Top: what the picture is ("Preview", or the live badge and running time) and the stream's state
+  ("Ready · Not broadcasting", "Live · 4.2 Mbps", "Reconnecting", "Waiting for the drone ·
+  broadcast on").
+- Bottom: a card that says what is going on ("Drone and camera are ready.", "You're live on
+  Instagram", "Drone disconnected") with the resolution, bitrate and network, the most useful tip
+  (such as Instagram's own "Go live" reminder), and the platforms' tiles, each with a state dot once
+  live. Next to it the one big button: "Go live" ("Go live on 2 platforms"), "Choose a platform" or
+  "End broadcast".
+- The platform tiles open a sheet: before going live the same platform grid as the home screen,
+  while live the bitrate, sent bytes and codecs, each platform with its own "End", and the technical
+  details. The ⋮ menu has the same sheets, language, theme and help.
+- The picture is shown whole by default, and the rest of the screen shows its colors, blurred and
+  dimmed (a 32×18 copy of the frame taken with `PixelCopy` every 0.7 s). A double tap or the
+  full-screen button fills the screen edge to edge instead, cutting off the picture's sides when the
+  phone is upright; the choice is remembered. Turning the phone sideways gives the picture the whole
+  screen; the activity handles the rotation itself, so the decoder keeps running.
+- A picture that stops coming is dimmed so it never looks live, and the screen waits 2.5 seconds
+  before going back to the home screen, so a short drop does not flip screens. The screen stays on
+  while the picture shows.
+
+"End broadcast" ends only the broadcast: the drone stays connected, ready to go live again.
+
+The Rust core keeps a bounded tap of the ingest's video tags for it (about three
 seconds); when the viewer falls behind, the tap drops its queue and restarts from the latest codec
 header and the next keyframe, so the preview can never slow the relay. Each viewer has a session
 number, so a closing view cannot stop its replacement. The phone's hardware decoder renders the
@@ -156,8 +176,9 @@ The preview aims for the lowest delay the phone allows:
   on the emulator with a 720p30 stream, arrival-to-render fell from 36–45 ms to 11–17 ms on
   average (median 34 → 10 ms).
 - The picture is a SurfaceView (`AndroidExternalSurface`), which the system composites directly:
-  one frame less delay and no extra GPU copy compared with a TextureView. The rounded corners are
-  painted over it in the surrounding color.
+  one frame less delay and no extra GPU copy compared with a TextureView. It stays in place while
+  the app is in the background: Android takes its surface away and gives it back on return, and
+  the decoder stops and starts with it.
 - The Rust tap keeps the current GOP (up to 300 frames or 16 MB). A preview that opens mid-stream
   replays it at full decoder speed and skips frames more than 100 ms behind the newest input, so
   the live picture appears in about half a second instead of after the next keyframe.

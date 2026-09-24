@@ -162,8 +162,6 @@
     <string name="preview_badge">प्रीव्यू</string>
     <string name="preview_badge_test">टेस्ट वीडियो · प्रीव्यू</string>
     <string name="preview_connected">रिमोट जुड़ गया; तस्वीर बस आने वाली है।</string>
-    <string name="preview_drone_status">ड्रोन जुड़ा · %1$s। आप अभी लाइव नहीं हैं।</string>
-    <string name="preview_test_status">टेस्ट वीडियो आ रहा है · %1$s। आप अभी लाइव नहीं हैं।</string>
     <string name="stop_test_video">टेस्ट वीडियो रोकें</string>
     <string name="receiver_starting">रिसीवर तैयार हो रहा है…</string>
     <string name="receiver_off">रिसीवर बंद है; DJI Fly इस फ़ोन से नहीं जुड़ सकता।</string>
@@ -229,24 +227,6 @@
     <string name="hero_receiver_stopped">रिसीवर रुक गया</string>
     <string name="hero_off">स्ट्रीम बंद</string>
     <string name="stream_time">स्ट्रीम का समय %1$s</string>
-    <string name="hop_controller">रिमोट</string>
-    <string name="hop_test_video">टेस्ट वीडियो</string>
-    <string name="hop_phone">फ़ोन</string>
-    <string name="hop_waiting">प्रतीक्षा में</string>
-    <string name="hop_connected">जुड़ा हुआ</string>
-    <string name="hop_sending">भेज रहा है</string>
-    <string name="hop_not_connected">जुड़ा नहीं</string>
-    <string name="hop_starting">शुरू हो रहा है</string>
-    <string name="hop_error">त्रुटि</string>
-    <string name="hop_ready">तैयार</string>
-    <string name="hop_live">लाइव</string>
-    <string name="hop_connecting">जुड़ रहा है</string>
-    <string name="hop_reconnecting">दोबारा जुड़ रहा है</string>
-    <string name="hop_standing_by">स्टैंडबाय पर</string>
-    <string name="hop_description">%1$s: %2$s, %3$s: %4$s, %5$s: %6$s</string>
-    <string name="start_on_controller">रिमोट पर स्ट्रीम शुरू करें</string>
-    <string name="phone_offline">फ़ोन का नेटवर्क चला गया</string>
-    <string name="phone_offline_message">Wi-Fi से दोबारा जुड़ें या हॉटस्पॉट चालू करें; पता यहाँ फिर से दिखेगा।</string>
     <string name="not_connecting">जुड़ नहीं रहा?</string>
     <string name="not_connecting_same_network">रिमोट और फ़ोन एक ही Wi-Fi पर होने चाहिए, या रिमोट इस फ़ोन के हॉटस्पॉट से जुड़ा होना चाहिए।</string>
     <string name="not_connecting_exact_address">पता हूबहू लिखें; इसके अंत में :1935/drone होना चाहिए।</string>
@@ -327,4 +307,20 @@
     <string name="platform_added">%1$s जोड़ा गया</string>
     <string name="platform_deleted">%1$s हटाया गया</string>
     <string name="saved">सहेजा गया</string>
+
+    <!-- Drone screen: the picture over the whole screen once the drone connects -->
+    <string name="status_ready">तैयार</string>
+    <string name="status_not_live">अभी लाइव नहीं</string>
+    <string name="preview_ready_title">ड्रोन और कैमरा तैयार हैं।</string>
+    <string name="preview_ready_title_test">टेस्ट वीडियो तैयार है।</string>
+    <string name="net_wifi">Wi-Fi</string>
+    <string name="net_hotspot">हॉटस्पॉट</string>
+    <string name="net_local">लोकल नेटवर्क</string>
+    <string name="no_platform">कोई प्लेटफ़ॉर्म नहीं चुना गया</string>
+    <string name="choose_platform">प्लेटफ़ॉर्म चुनें</string>
+    <string name="change_platforms">प्लेटफ़ॉर्म बदलें</string>
+    <string name="show_details">विवरण दिखाएँ</string>
+    <string name="picture_fill">स्क्रीन भरें</string>
+    <string name="picture_fit">पूरी तस्वीर दिखाएँ</string>
+    <string name="more_options">और विकल्प</string>
 </resources>

@@ -163,8 +163,6 @@
     <string name="preview_badge">Preview</string>
     <string name="preview_badge_test">Test video · preview</string>
     <string name="preview_connected">Controller connected; the picture arrives in a moment.</string>
-    <string name="preview_drone_status">Drone connected · %1$s. You\'re not live yet.</string>
-    <string name="preview_test_status">Test video coming in · %1$s. You\'re not live yet.</string>
     <string name="stop_test_video">Stop the test video</string>
     <string name="receiver_starting">Preparing the receiver…</string>
     <string name="receiver_off">The receiver is off; DJI Fly cannot connect to this phone.</string>
@@ -230,24 +228,6 @@
     <string name="hero_receiver_stopped">Receiver stopped</string>
     <string name="hero_off">Stream off</string>
     <string name="stream_time">Stream time %1$s</string>
-    <string name="hop_controller">Controller</string>
-    <string name="hop_test_video">Test video</string>
-    <string name="hop_phone">Phone</string>
-    <string name="hop_waiting">waiting</string>
-    <string name="hop_connected">connected</string>
-    <string name="hop_sending">sending</string>
-    <string name="hop_not_connected">not connected</string>
-    <string name="hop_starting">starting</string>
-    <string name="hop_error">error</string>
-    <string name="hop_ready">ready</string>
-    <string name="hop_live">live</string>
-    <string name="hop_connecting">connecting</string>
-    <string name="hop_reconnecting">reconnecting</string>
-    <string name="hop_standing_by">standing by</string>
-    <string name="hop_description">%1$s: %2$s, %3$s: %4$s, %5$s: %6$s</string>
-    <string name="start_on_controller">Start the stream on the controller</string>
-    <string name="phone_offline">The phone lost its network</string>
-    <string name="phone_offline_message">Reconnect to Wi-Fi or turn on the hotspot; the address shows here again.</string>
     <string name="not_connecting">Not connecting?</string>
     <string name="not_connecting_same_network">The controller and the phone must be on the same Wi-Fi, or the controller must be connected to this phone\'s hotspot.</string>
     <string name="not_connecting_exact_address">Type the address exactly; it must end with :1935/drone.</string>
@@ -328,4 +308,20 @@
     <string name="platform_added">%1$s added</string>
     <string name="platform_deleted">%1$s deleted</string>
     <string name="saved">Saved</string>
+
+    <!-- Drone screen: the picture over the whole screen once the drone connects -->
+    <string name="status_ready">Ready</string>
+    <string name="status_not_live">Not broadcasting</string>
+    <string name="preview_ready_title">Drone and camera are ready.</string>
+    <string name="preview_ready_title_test">The test video is ready.</string>
+    <string name="net_wifi">Wi-Fi</string>
+    <string name="net_hotspot">Hotspot</string>
+    <string name="net_local">Local network</string>
+    <string name="no_platform">No platform chosen</string>
+    <string name="choose_platform">Choose a platform</string>
+    <string name="change_platforms">Change platforms</string>
+    <string name="show_details">Show details</string>
+    <string name="picture_fill">Fill the screen</string>
+    <string name="picture_fit">Show the whole picture</string>
+    <string name="more_options">More options</string>
 </resources>

@@ -163,8 +163,6 @@
     <string name="preview_badge">Anteprima</string>
     <string name="preview_badge_test">Video di prova · anteprima</string>
     <string name="preview_connected">Radiocomando collegato: l\'immagine arriva tra un attimo.</string>
-    <string name="preview_drone_status">Drone collegato · %1$s. Non sei ancora in diretta.</string>
-    <string name="preview_test_status">Video di prova in arrivo · %1$s. Non sei ancora in diretta.</string>
     <string name="stop_test_video">Ferma il video di prova</string>
     <string name="receiver_starting">Preparazione del ricevitore…</string>
     <string name="receiver_off">Il ricevitore non è attivo: DJI Fly non può collegarsi a questo telefono.</string>
@@ -234,24 +232,6 @@
     <string name="hero_receiver_stopped">Ricevitore fermo</string>
     <string name="hero_off">Diretta non attiva</string>
     <string name="stream_time">Durata della diretta %1$s</string>
-    <string name="hop_controller">Radiocomando</string>
-    <string name="hop_test_video">Video di prova</string>
-    <string name="hop_phone">Telefono</string>
-    <string name="hop_waiting">in attesa</string>
-    <string name="hop_connected">collegato</string>
-    <string name="hop_sending">in trasmissione</string>
-    <string name="hop_not_connected">non collegato</string>
-    <string name="hop_starting">in avvio</string>
-    <string name="hop_error">errore</string>
-    <string name="hop_ready">pronto</string>
-    <string name="hop_live">in diretta</string>
-    <string name="hop_connecting">in connessione</string>
-    <string name="hop_reconnecting">in riconnessione</string>
-    <string name="hop_standing_by">in standby</string>
-    <string name="hop_description">%1$s: %2$s, %3$s: %4$s, %5$s: %6$s</string>
-    <string name="start_on_controller">Avvia la trasmissione sul radiocomando</string>
-    <string name="phone_offline">Il telefono ha perso la connessione</string>
-    <string name="phone_offline_message">Riconnettiti al Wi-Fi o attiva l\'hotspot: l\'indirizzo ricomparirà qui.</string>
     <string name="not_connecting">Non si collega?</string>
     <string name="not_connecting_same_network">Il radiocomando e il telefono devono essere sulla stessa rete Wi-Fi, oppure il radiocomando deve essere collegato all\'hotspot di questo telefono.</string>
     <string name="not_connecting_exact_address">Scrivi l\'indirizzo esattamente com\'è: deve terminare con :1935/drone.</string>
@@ -334,4 +314,20 @@
     <string name="platform_added">%1$s aggiunto</string>
     <string name="platform_deleted">%1$s eliminato</string>
     <string name="saved">Salvato</string>
+
+    <!-- Drone screen: the picture over the whole screen once the drone connects -->
+    <string name="status_ready">Pronto</string>
+    <string name="status_not_live">Non in diretta</string>
+    <string name="preview_ready_title">Drone e fotocamera sono pronti.</string>
+    <string name="preview_ready_title_test">Il video di prova è pronto.</string>
+    <string name="net_wifi">Wi-Fi</string>
+    <string name="net_hotspot">Hotspot</string>
+    <string name="net_local">Rete locale</string>
+    <string name="no_platform">Nessuna piattaforma scelta</string>
+    <string name="choose_platform">Scegli una piattaforma</string>
+    <string name="change_platforms">Cambia piattaforme</string>
+    <string name="show_details">Mostra dettagli</string>
+    <string name="picture_fill">Riempi lo schermo</string>
+    <string name="picture_fit">Mostra l\'immagine intera</string>
+    <string name="more_options">Altre opzioni</string>
 </resources>

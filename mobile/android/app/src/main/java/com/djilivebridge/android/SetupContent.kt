@@ -29,6 +29,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,8 +50,8 @@ import androidx.compose.ui.unit.dp
 private const val GRID_COLUMNS = 4
 
 /**
- * Before going live: the drone connects first and its picture shows here, then the user picks
- * where the stream goes.
+ * Before the drone's picture arrives: how to connect the drone, and where the stream will go.
+ * Once the picture comes, [DroneScreen] takes over the whole screen.
  */
 @Composable
 internal fun SetupContent(
@@ -68,7 +72,6 @@ internal fun SetupContent(
     onOpenWifiSettings: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val selected = destinations.selectedProfiles
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
         notice?.let { AlertBanner(title = it.title.asString(), message = it.message.asString()) }
         profileError?.let { AlertBanner(title = stringResource(R.string.profile_list_unreadable), message = it.asString()) }
@@ -86,30 +89,51 @@ internal fun SetupContent(
         )
 
         BridgeCard {
-            SectionHeader(title = stringResource(R.string.where_to_stream), step = 2, done = selected.isNotEmpty())
-            PlatformGrid(
+            PlatformPicker(
                 destinations = destinations,
-                onClick = onPlatformClick,
-                onLongClick = onPlatformLongClick,
+                bitrateKbps = snapshot.bitrateKbps,
+                onPlatformClick = onPlatformClick,
+                onPlatformLongClick = onPlatformLongClick,
+                onEditProfile = onEditProfile,
+                step = 2,
             )
-            if (selected.isNotEmpty()) {
-                HorizontalDivider(color = BridgeTheme.colors.border)
-                selected.forEach { profile ->
-                    SelectedDestination(profile = profile, onEdit = { onEditProfile(profile) })
-                }
-                if (selected.size > 1) UploadNote(platforms = selected.size, bitrateKbps = snapshot.bitrateKbps)
-            } else {
-                Text(
-                    text = stringResource(R.string.pick_platforms_hint),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = BridgeTheme.colors.muted,
-                )
-            }
         }
     }
 }
 
-/** Step one: the address for DJI Fly until the drone connects, then the drone's own picture. */
+/** The platform tiles and the chosen ones, here and in the drone screen's sheet. */
+@Composable
+internal fun PlatformPicker(
+    destinations: DestinationProfiles,
+    bitrateKbps: Double,
+    onPlatformClick: (DestinationKind) -> Unit,
+    onPlatformLongClick: (DestinationKind) -> Unit,
+    onEditProfile: (DestinationProfile) -> Unit,
+    step: Int? = null,
+) {
+    val selected = destinations.selectedProfiles
+    SectionHeader(title = stringResource(R.string.where_to_stream), step = step, done = selected.isNotEmpty())
+    PlatformGrid(
+        destinations = destinations,
+        onClick = onPlatformClick,
+        onLongClick = onPlatformLongClick,
+    )
+    if (selected.isNotEmpty()) {
+        HorizontalDivider(color = BridgeTheme.colors.border)
+        selected.forEach { profile ->
+            SelectedDestination(profile = profile, onEdit = { onEditProfile(profile) })
+        }
+        if (selected.size > 1) UploadNote(platforms = selected.size, bitrateKbps = bitrateKbps)
+    } else {
+        Text(
+            text = stringResource(R.string.pick_platforms_hint),
+            style = MaterialTheme.typography.bodySmall,
+            color = BridgeTheme.colors.muted,
+        )
+    }
+}
+
+/** Step one: the address for DJI Fly, until the drone's picture arrives. */
 @Composable
 private fun DroneCard(
     phase: BridgePhase,
@@ -127,21 +151,15 @@ private fun DroneCard(
     BridgeCard(verticalSpacing = 12.dp) {
         SectionHeader(title = stringResource(R.string.connect_drone), step = 1, done = phase.hasPicture)
         when (phase) {
+            // Only for a moment: the drone screen opens as soon as the picture comes.
             BridgePhase.PREVIEW, BridgePhase.DRONE_CONNECTED -> {
-                DronePreview(cornerColor = colors.card) {
-                    OverlayChip(modifier = Modifier.align(Alignment.TopStart).padding(12.dp)) {
-                        OverlayText(stringResource(if (testing) R.string.preview_badge_test else R.string.preview_badge))
-                    }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
+                    Text(stringResource(R.string.preview_connected), style = MaterialTheme.typography.bodyMedium)
                 }
-                Text(
-                    text = when {
-                        phase != BridgePhase.PREVIEW -> stringResource(R.string.preview_connected)
-                        testing -> stringResource(R.string.preview_test_status, formatBitrate(snapshot.bitrateKbps))
-                        else -> stringResource(R.string.preview_drone_status, formatBitrate(snapshot.bitrateKbps))
-                    },
-                    style = MaterialTheme.typography.bodySmall,
-                    color = colors.muted,
-                )
                 if (testing) {
                     TextButton(onClick = onStopTestVideo) {
                         Icon(Icons.Rounded.Stop, contentDescription = null, modifier = Modifier.size(18.dp))
@@ -185,6 +203,7 @@ private fun DroneCard(
                     AddressField(address = lan.publishUrl, onCopy = { onCopyAddress(lan.publishUrl) })
                     Text(text = stringResource(R.string.dji_fly_path), style = MaterialTheme.typography.bodySmall, color = colors.muted)
                     NetworkNote(lan)
+                    NotConnecting()
                 } else {
                     NoNetwork(onOpenWifiSettings)
                 }
@@ -369,6 +388,21 @@ private fun NetworkNote(lan: LanAddress) {
             style = MaterialTheme.typography.bodySmall,
             color = colors.muted,
         )
+    }
+}
+
+/** The usual reasons DJI Fly cannot reach the phone, folded away until asked for. */
+@Composable
+private fun NotConnecting() {
+    var open by rememberSaveable { mutableStateOf(false) }
+    ExpandableSection(
+        title = stringResource(R.string.not_connecting),
+        expanded = open,
+        onToggle = { open = !open },
+    ) {
+        BulletItem(stringResource(R.string.not_connecting_same_network))
+        BulletItem(stringResource(R.string.not_connecting_exact_address))
+        BulletItem(stringResource(R.string.not_connecting_guest_vpn))
     }
 }
 

@@ -1,134 +1,222 @@
 package com.djilivebridge.android
 
+import android.graphics.Bitmap
 import android.media.MediaCodec
 import android.media.MediaCodecInfo
 import android.media.MediaCodecList
 import android.media.MediaFormat
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.os.Process
+import android.view.PixelCopy
 import android.view.Surface
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.AndroidExternalSurface
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.geometry.RoundRect
-import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.draw.BlurredEdgeTreatment
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.PathFillType
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.lifecycle.compose.currentStateAsState
+import androidx.core.graphics.createBitmap
 import kotlinx.coroutines.awaitCancellation
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import java.nio.ByteBuffer
 import kotlin.concurrent.thread
+import kotlin.coroutines.resume
 
-private val PREVIEW_CORNER = 20.dp
+/** How the drone's picture sits on a screen of another shape. */
+internal enum class PictureFit(val storageValue: String) {
+    /** The whole picture; the rest of the screen shows its colors, blurred. */
+    WHOLE("whole"),
+
+    /** Edge to edge, like a camera app; the picture's sides (or top and bottom) are cut off. */
+    FILL("fill"),
+    ;
+
+    companion object {
+        fun fromStorage(value: String?): PictureFit = entries.firstOrNull { it.storageValue == value } ?: WHOLE
+    }
+}
+
+/** What the decoder found out about the picture, for the screen around it. */
+@Stable
+internal class DronePictureState {
+    /** The decoded picture's size, or null until the first frame. */
+    var videoSize by mutableStateOf<IntSize?>(null)
+        internal set
+    var unsupported by mutableStateOf(false)
+        internal set
+
+    /** A tiny copy of a recent frame, blurred into the space around a [PictureFit.WHOLE] picture. */
+    internal var backdrop by mutableStateOf<ImageBitmap?>(null)
+    internal var sampling = false
+}
+
+@Composable
+internal fun rememberDronePictureState(): DronePictureState = remember { DronePictureState() }
 
 /**
- * The drone's picture, decoded on the phone from the relay's preview tap. It only decodes while
- * the app is visible; the stream to the platform never waits for it.
+ * The drone's picture across the whole of [modifier]'s area, decoded on the phone from the relay's
+ * preview tap. It only decodes while the app is visible; the stream to the platform never waits
+ * for it.
  *
  * The picture is a SurfaceView, which the system composites directly: no extra GPU copy and one
- * frame less delay than a TextureView. Such a surface ignores clipping, so the rounded corners
- * are painted over it in [cornerColor], the color around the preview.
+ * frame less delay than a TextureView. It is sized to the video's shape, inside the area or, for
+ * [PictureFit.FILL], beyond it; the screen's edges cut off what sticks out, since such a surface
+ * ignores clipping.
  */
 @Composable
-internal fun DronePreview(
-    cornerColor: Color,
+internal fun DronePicture(
+    state: DronePictureState,
+    fit: PictureFit,
     modifier: Modifier = Modifier,
-    overlay: @Composable BoxScope.() -> Unit = {},
 ) {
-    var aspectRatio by remember { mutableFloatStateOf(16f / 9f) }
-    var showingPicture by remember { mutableStateOf(false) }
-    var unsupported by remember { mutableStateOf(false) }
-    val lifecycle by LocalLifecycleOwner.current.lifecycle.currentStateAsState()
-    val shape = RoundedCornerShape(PREVIEW_CORNER)
     val pictureDescription = stringResource(R.string.drone_picture)
+    var area by remember { mutableStateOf(IntSize.Zero) }
+    val density = LocalDensity.current
+    SideEffect { state.sampling = fit == PictureFit.WHOLE }
     Box(
         modifier = modifier
-            .fillMaxWidth()
-            .aspectRatio(aspectRatio.coerceIn(MIN_ASPECT_RATIO, MAX_ASPECT_RATIO))
-            .clip(shape)
             .background(Color.Black)
-            .drawWithContent {
-                drawContent()
-                val radius = PREVIEW_CORNER.toPx()
-                val corners = Path().apply {
-                    fillType = PathFillType.EvenOdd
-                    addRect(Rect(0f, 0f, size.width, size.height))
-                    addRoundRect(RoundRect(0f, 0f, size.width, size.height, CornerRadius(radius)))
-                }
-                drawPath(corners, cornerColor)
-            }
+            .onSizeChanged { area = it }
             .semantics { contentDescription = pictureDescription },
         contentAlignment = Alignment.Center,
     ) {
-        if (lifecycle.isAtLeast(Lifecycle.State.STARTED)) {
-            AndroidExternalSurface(modifier = Modifier.matchParentSize()) {
+        if (fit == PictureFit.WHOLE) AmbientBackdrop(state.backdrop)
+        val aspect = state.videoSize?.let { it.width.toFloat() / it.height }
+            ?.coerceIn(MIN_ASPECT_RATIO, MAX_ASPECT_RATIO)
+            ?: DEFAULT_ASPECT_RATIO
+        val (width, height) = pictureSize(area.width.toFloat(), area.height.toFloat(), aspect, fit)
+        // The surface goes away while the app is in the background and comes back with it; the
+        // decoder follows it. Removing the view instead would leave the new one's surface unplaced.
+        if (area != IntSize.Zero) {
+            val size = with(density) { Modifier.requiredSize(width.toDp(), height.toDp()) }
+            AndroidExternalSurface(modifier = size) {
                 onSurface { surface, _, _ ->
                     val decoder = DronePreviewDecoder(
                         surface = surface,
-                        onVideoSize = { width, height ->
-                            launch {
-                                aspectRatio = width.toFloat() / height
-                                showingPicture = true
-                            }
-                        },
-                        onUnsupported = { launch { unsupported = true } },
+                        onVideoSize = { videoWidth, videoHeight -> launch { state.videoSize = IntSize(videoWidth, videoHeight) } },
+                        onUnsupported = { launch { state.unsupported = true } },
                     )
+                    val sampler = launch { sampleBackdrop(surface, state) }
                     try {
                         awaitCancellation()
                     } finally {
+                        sampler.cancel()
                         decoder.stop()
                     }
                 }
             }
         }
-        if (!showingPicture) {
+        if (state.videoSize == null) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                if (!unsupported) {
+                if (!state.unsupported) {
                     CircularProgressIndicator(modifier = Modifier.size(22.dp), color = Color.White, strokeWidth = 2.dp)
                 }
                 Text(
-                    text = stringResource(if (unsupported) R.string.preview_unsupported else R.string.preview_waiting),
+                    text = stringResource(if (state.unsupported) R.string.preview_unsupported else R.string.preview_waiting),
                     style = MaterialTheme.typography.bodySmall,
                     color = Color.White.copy(alpha = 0.8f),
                     textAlign = TextAlign.Center,
                 )
             }
         }
-        overlay()
+    }
+}
+
+/**
+ * The picture's size in an area of [width] by [height] for a video of [aspect] (width / height):
+ * as large as fits for [PictureFit.WHOLE], as small as covers it for [PictureFit.FILL].
+ */
+internal fun pictureSize(width: Float, height: Float, aspect: Float, fit: PictureFit): Pair<Float, Float> {
+    val widerThanArea = aspect > width / height
+    val fullWidth = if (fit == PictureFit.WHOLE) widerThanArea else !widerThanArea
+    return if (fullWidth) width to width / aspect else height * aspect to height
+}
+
+/** The recent frame, blurred and dimmed, so the picture seems to fill the screen. */
+@Composable
+private fun AmbientBackdrop(frame: ImageBitmap?) {
+    Crossfade(targetState = frame, animationSpec = tween(BACKDROP_FADE_MS), label = "backdrop") { image ->
+        if (image != null) {
+            // A 32×18 copy stretched over the screen is already soft; the blur (Android 12+)
+            // smooths it further.
+            Image(
+                bitmap = image,
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .blur(BACKDROP_BLUR, BlurredEdgeTreatment.Rectangle),
+            )
+        }
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black.copy(alpha = BACKDROP_DIM)),
+    )
+}
+
+/** Copies a small version of the frame on screen every so often, while a backdrop is shown. */
+private suspend fun sampleBackdrop(surface: Surface, state: DronePictureState) {
+    val bitmap = createBitmap(BACKDROP_WIDTH, BACKDROP_HEIGHT)
+    val handler = Handler(Looper.getMainLooper())
+    while (true) {
+        delay(BACKDROP_INTERVAL_MS)
+        if (!state.sampling || state.videoSize == null || !surface.isValid) continue
+        val copied = suspendCancellableCoroutine { continuation ->
+            try {
+                PixelCopy.request(
+                    surface,
+                    bitmap,
+                    { result -> if (continuation.isActive) continuation.resume(result == PixelCopy.SUCCESS) },
+                    handler,
+                )
+            } catch (_: IllegalArgumentException) {
+                // The surface went away between the check and the copy.
+                continuation.resume(false)
+            }
+        }
+        if (copied) state.backdrop = bitmap.copy(Bitmap.Config.ARGB_8888, false).asImageBitmap()
     }
 }
 
@@ -137,8 +225,8 @@ internal fun DronePreview(
 internal fun OverlayChip(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     Box(
         modifier = modifier
-            .background(Color.Black.copy(alpha = 0.55f), RoundedCornerShape(8.dp))
-            .padding(horizontal = 10.dp, vertical = 5.dp),
+            .background(OverlayGlass, RoundedCornerShape(12.dp))
+            .padding(horizontal = 12.dp, vertical = 8.dp),
     ) {
         content()
     }
@@ -148,6 +236,9 @@ internal fun OverlayChip(modifier: Modifier = Modifier, content: @Composable () 
 internal fun OverlayText(text: String) {
     Text(text = text, color = Color.White, style = MaterialTheme.typography.labelLarge)
 }
+
+/** The see-through dark background of everything drawn over the picture. */
+internal val OverlayGlass = Color.Black.copy(alpha = 0.55f)
 
 /**
  * Decodes the relay's H.264 tags onto [surface] with as little delay as the phone allows: a
@@ -402,5 +493,13 @@ private fun tuneForLowLatency(format: MediaFormat, decoder: MediaCodecInfo?, dec
 
 private val SOFTWARE_DECODER_PREFIXES = listOf("omx.google.", "c2.android.", "c2.google.")
 
+private const val DEFAULT_ASPECT_RATIO = 16f / 9f
 private const val MIN_ASPECT_RATIO = 0.5f
 private const val MAX_ASPECT_RATIO = 2.4f
+
+private const val BACKDROP_WIDTH = 32
+private const val BACKDROP_HEIGHT = 18
+private const val BACKDROP_INTERVAL_MS = 700L
+private const val BACKDROP_FADE_MS = 500
+private const val BACKDROP_DIM = 0.45f
+private val BACKDROP_BLUR = 40.dp

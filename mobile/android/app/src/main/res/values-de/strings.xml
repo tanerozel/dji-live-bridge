@@ -162,8 +162,6 @@
     <string name="preview_badge">Vorschau</string>
     <string name="preview_badge_test">Testvideo · Vorschau</string>
     <string name="preview_connected">Fernsteuerung verbunden; das Bild kommt gleich.</string>
-    <string name="preview_drone_status">Drohne verbunden · %1$s. Du bist noch nicht live.</string>
-    <string name="preview_test_status">Testvideo kommt an · %1$s. Du bist noch nicht live.</string>
     <string name="stop_test_video">Testvideo stoppen</string>
     <string name="receiver_starting">Empfänger wird vorbereitet…</string>
     <string name="receiver_off">Der Empfänger ist aus; DJI Fly kann sich nicht mit diesem Handy verbinden.</string>
@@ -229,24 +227,6 @@
     <string name="hero_receiver_stopped">Empfänger gestoppt</string>
     <string name="hero_off">Stream aus</string>
     <string name="stream_time">Stream-Dauer %1$s</string>
-    <string name="hop_controller">Fernsteuerung</string>
-    <string name="hop_test_video">Testvideo</string>
-    <string name="hop_phone">Handy</string>
-    <string name="hop_waiting">wartet</string>
-    <string name="hop_connected">verbunden</string>
-    <string name="hop_sending">sendet</string>
-    <string name="hop_not_connected">nicht verbunden</string>
-    <string name="hop_starting">startet</string>
-    <string name="hop_error">Fehler</string>
-    <string name="hop_ready">bereit</string>
-    <string name="hop_live">live</string>
-    <string name="hop_connecting">wird verbunden</string>
-    <string name="hop_reconnecting">wird neu verbunden</string>
-    <string name="hop_standing_by">in Bereitschaft</string>
-    <string name="hop_description">%1$s: %2$s, %3$s: %4$s, %5$s: %6$s</string>
-    <string name="start_on_controller">Stream auf der Fernsteuerung starten</string>
-    <string name="phone_offline">Das Handy hat kein Netzwerk mehr</string>
-    <string name="phone_offline_message">Verbinde das Handy wieder mit dem WLAN oder schalte den Hotspot ein; dann erscheint die Adresse hier wieder.</string>
     <string name="not_connecting">Keine Verbindung?</string>
     <string name="not_connecting_same_network">Fernsteuerung und Handy müssen im selben WLAN sein, oder die Fernsteuerung muss mit dem Hotspot dieses Handys verbunden sein.</string>
     <string name="not_connecting_exact_address">Gib die Adresse exakt ein; sie muss auf :1935/drone enden.</string>
@@ -327,4 +307,20 @@
     <string name="platform_added">%1$s hinzugefügt</string>
     <string name="platform_deleted">%1$s gelöscht</string>
     <string name="saved">Gespeichert</string>
+
+    <!-- Drone screen: the picture over the whole screen once the drone connects -->
+    <string name="status_ready">Bereit</string>
+    <string name="status_not_live">Noch nicht live</string>
+    <string name="preview_ready_title">Drohne und Kamera sind bereit.</string>
+    <string name="preview_ready_title_test">Das Testvideo ist bereit.</string>
+    <string name="net_wifi">WLAN</string>
+    <string name="net_hotspot">Hotspot</string>
+    <string name="net_local">Lokales Netzwerk</string>
+    <string name="no_platform">Keine Plattform gewählt</string>
+    <string name="choose_platform">Plattform wählen</string>
+    <string name="change_platforms">Plattformen ändern</string>
+    <string name="show_details">Details anzeigen</string>
+    <string name="picture_fill">Bildschirm füllen</string>
+    <string name="picture_fit">Ganzes Bild anzeigen</string>
+    <string name="more_options">Weitere Optionen</string>
 </resources>

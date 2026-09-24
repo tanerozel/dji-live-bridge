@@ -161,8 +161,6 @@
     <string name="preview_badge">预览</string>
     <string name="preview_badge_test">测试视频 · 预览</string>
     <string name="preview_connected">遥控器已连接，画面马上就到。</string>
-    <string name="preview_drone_status">无人机已连接 · %1$s。你还没有开始直播。</string>
-    <string name="preview_test_status">正在接收测试视频 · %1$s。你还没有开始直播。</string>
     <string name="stop_test_video">停止测试视频</string>
     <string name="receiver_starting">正在准备接收器…</string>
     <string name="receiver_off">接收器已关闭，DJI Fly 无法连接到这部手机。</string>
@@ -224,24 +222,6 @@
     <string name="hero_receiver_stopped">接收器已停止</string>
     <string name="hero_off">直播已关闭</string>
     <string name="stream_time">直播时长 %1$s</string>
-    <string name="hop_controller">遥控器</string>
-    <string name="hop_test_video">测试视频</string>
-    <string name="hop_phone">手机</string>
-    <string name="hop_waiting">等待中</string>
-    <string name="hop_connected">已连接</string>
-    <string name="hop_sending">发送中</string>
-    <string name="hop_not_connected">未连接</string>
-    <string name="hop_starting">启动中</string>
-    <string name="hop_error">出错</string>
-    <string name="hop_ready">就绪</string>
-    <string name="hop_live">直播中</string>
-    <string name="hop_connecting">连接中</string>
-    <string name="hop_reconnecting">重新连接中</string>
-    <string name="hop_standing_by">待命</string>
-    <string name="hop_description">%1$s：%2$s，%3$s：%4$s，%5$s：%6$s</string>
-    <string name="start_on_controller">在遥控器上开始推流</string>
-    <string name="phone_offline">手机网络已断开</string>
-    <string name="phone_offline_message">请重新连接 Wi-Fi 或开启热点，地址会重新显示在这里。</string>
     <string name="not_connecting">连接不上？</string>
     <string name="not_connecting_same_network">遥控器和手机必须在同一个 Wi-Fi 下，或者遥控器必须连接这部手机的热点。</string>
     <string name="not_connecting_exact_address">请准确输入地址，结尾必须是 :1935/drone。</string>
@@ -320,4 +300,20 @@
     <string name="platform_added">已添加 %1$s</string>
     <string name="platform_deleted">已删除 %1$s</string>
     <string name="saved">已保存</string>
+
+    <!-- Drone screen: the picture over the whole screen once the drone connects -->
+    <string name="status_ready">就绪</string>
+    <string name="status_not_live">未在直播</string>
+    <string name="preview_ready_title">无人机和相机已就绪。</string>
+    <string name="preview_ready_title_test">测试视频已就绪。</string>
+    <string name="net_wifi">Wi-Fi</string>
+    <string name="net_hotspot">热点</string>
+    <string name="net_local">局域网</string>
+    <string name="no_platform">未选择平台</string>
+    <string name="choose_platform">选择平台</string>
+    <string name="change_platforms">更改平台</string>
+    <string name="show_details">显示详情</string>
+    <string name="picture_fill">填满屏幕</string>
+    <string name="picture_fit">显示完整画面</string>
+    <string name="more_options">更多选项</string>
 </resources>

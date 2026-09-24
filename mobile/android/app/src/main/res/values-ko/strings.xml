@@ -161,8 +161,6 @@
     <string name="preview_badge">미리보기</string>
     <string name="preview_badge_test">테스트 영상 · 미리보기</string>
     <string name="preview_connected">조종기가 연결되었습니다. 곧 영상이 들어옵니다.</string>
-    <string name="preview_drone_status">드론 연결됨 · %1$s. 아직 방송 중이 아닙니다.</string>
-    <string name="preview_test_status">테스트 영상 수신 중 · %1$s. 아직 방송 중이 아닙니다.</string>
     <string name="stop_test_video">테스트 영상 중지</string>
     <string name="receiver_starting">수신기를 준비하는 중…</string>
     <string name="receiver_off">수신기가 꺼져 있어 DJI Fly가 이 휴대폰에 연결할 수 없습니다.</string>
@@ -224,24 +222,6 @@
     <string name="hero_receiver_stopped">수신기 중지됨</string>
     <string name="hero_off">방송 꺼짐</string>
     <string name="stream_time">방송 시간 %1$s</string>
-    <string name="hop_controller">조종기</string>
-    <string name="hop_test_video">테스트 영상</string>
-    <string name="hop_phone">휴대폰</string>
-    <string name="hop_waiting">기다리는 중</string>
-    <string name="hop_connected">연결됨</string>
-    <string name="hop_sending">전송 중</string>
-    <string name="hop_not_connected">연결 안 됨</string>
-    <string name="hop_starting">시작 중</string>
-    <string name="hop_error">오류</string>
-    <string name="hop_ready">준비됨</string>
-    <string name="hop_live">방송 중</string>
-    <string name="hop_connecting">연결 중</string>
-    <string name="hop_reconnecting">재연결 중</string>
-    <string name="hop_standing_by">대기 중</string>
-    <string name="hop_description">%1$s: %2$s, %3$s: %4$s, %5$s: %6$s</string>
-    <string name="start_on_controller">조종기에서 송출을 시작하세요</string>
-    <string name="phone_offline">휴대폰의 네트워크 연결이 끊겼습니다</string>
-    <string name="phone_offline_message">Wi-Fi에 다시 연결하거나 핫스팟을 켜세요. 그러면 주소가 여기에 다시 표시됩니다.</string>
     <string name="not_connecting">연결되지 않나요?</string>
     <string name="not_connecting_same_network">조종기와 휴대폰이 같은 Wi-Fi에 있거나, 조종기가 이 휴대폰의 핫스팟에 연결되어 있어야 합니다.</string>
     <string name="not_connecting_exact_address">주소를 정확히 입력하세요. 주소는 :1935/drone으로 끝나야 합니다.</string>
@@ -320,4 +300,20 @@
     <string name="platform_added">%1$s 추가됨</string>
     <string name="platform_deleted">%1$s 삭제됨</string>
     <string name="saved">저장됨</string>
+
+    <!-- Drone screen: the picture over the whole screen once the drone connects -->
+    <string name="status_ready">준비됨</string>
+    <string name="status_not_live">방송 전</string>
+    <string name="preview_ready_title">드론과 카메라가 준비되었습니다.</string>
+    <string name="preview_ready_title_test">테스트 영상이 준비되었습니다.</string>
+    <string name="net_wifi">Wi-Fi</string>
+    <string name="net_hotspot">핫스팟</string>
+    <string name="net_local">로컬 네트워크</string>
+    <string name="no_platform">선택한 플랫폼 없음</string>
+    <string name="choose_platform">플랫폼 선택</string>
+    <string name="change_platforms">플랫폼 변경</string>
+    <string name="show_details">세부 정보 보기</string>
+    <string name="picture_fill">화면 채우기</string>
+    <string name="picture_fit">영상 전체 보기</string>
+    <string name="more_options">옵션 더보기</string>
 </resources>
