@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
@@ -31,6 +32,7 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
@@ -39,6 +41,7 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.HelpOutline
+import androidx.compose.material.icons.rounded.Movie
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Stop
@@ -164,25 +167,29 @@ internal fun RelayScreen(
         }
     }
 
-    fun startRelay() {
+    fun startRelay(testVideo: TestVideoSelection?) {
         val profile = destinations.selectedProfile
         if (profile == null) {
             showMessage("Önce bir platform seç")
             return
         }
-        val refreshedAddress = findLocalLanAddress()
-        lan = refreshedAddress
-        if (refreshedAddress == null) {
-            showMessage("Telefon bir Wi-Fi ağına bağlı değil")
-            return
+        // Only DJI Fly needs the local network; a test video plays over loopback.
+        if (testVideo == null) {
+            val refreshedAddress = findLocalLanAddress()
+            lan = refreshedAddress
+            if (refreshedAddress == null) {
+                showMessage("Telefon bir Wi-Fi ağına bağlı değil")
+                return
+            }
         }
         // Lock profile selection immediately. The service repeats this state transition after
         // entering foreground, but doing it here closes the short launch-time selection race.
-        RelayServiceState.starting()
+        RelayServiceState.starting(testVideo?.displayName)
         runCatching {
             RelayForegroundService.start(
                 context = context,
                 destinationProfileId = profile.id,
+                testVideo = testVideo,
             )
         }.onFailure { error ->
             val message = "Yayın başlatılamadı: ${error.message ?: "Bilinmeyen hata"}"
@@ -191,16 +198,20 @@ internal fun RelayScreen(
         }
     }
 
+    // A picked test video waits here while the notification permission prompt is open.
+    var pendingTestVideo by remember { mutableStateOf<TestVideoSelection?>(null) }
+
     val notificationPermissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission(),
     ) { granted ->
         if (!granted) {
             showMessage("Bildirim izni verilmedi; yayını uygulamadan izleyebilirsin")
         }
-        startRelay()
+        startRelay(pendingTestVideo)
+        pendingTestVideo = null
     }
 
-    fun requestStart() {
+    fun requestStart(testVideo: TestVideoSelection? = null) {
         val needsNotificationPermission =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
                 ContextCompat.checkSelfPermission(
@@ -208,9 +219,22 @@ internal fun RelayScreen(
                     Manifest.permission.POST_NOTIFICATIONS,
                 ) != PackageManager.PERMISSION_GRANTED
         if (needsNotificationPermission) {
+            pendingTestVideo = testVideo
             notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         } else {
-            startRelay()
+            startRelay(testVideo)
+        }
+    }
+
+    val testVideoPicker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        if (uri == null) return@rememberLauncherForActivityResult
+        scope.launch {
+            withContext(Dispatchers.IO) { runCatching { inspectTestVideo(context, uri) } }
+                .onSuccess { video ->
+                    if (video.rotated) showMessage("Dikey çekilmiş videolar yayında yan görünebilir")
+                    requestStart(video)
+                }
+                .onFailure { error -> showMessage(error.message ?: "Video okunamadı") }
         }
     }
 
@@ -298,7 +322,10 @@ internal fun RelayScreen(
                     destinations.selectedProfile?.let { profileEditorViewModel.open(it, it.kind) }
                 },
                 onOpenWifiSettings = ::openWifiSettings,
-                onStart = ::requestStart,
+                onStart = { requestStart() },
+                onTestVideo = {
+                    testVideoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly))
+                },
                 onStop = { showStopConfirmation = true },
                 onCopyAddress = ::copyAddress,
             )
@@ -321,11 +348,13 @@ internal fun RelayScreen(
             containerColor = colors.card,
             title = { Text(if (streaming) "Yayın bitirilsin mi?" else "Durdurulsun mu?") },
             text = {
+                val testing = serviceState.testVideoName != null
                 Text(
-                    if (streaming) {
-                        "Canlı yayın sona erer ve kumanda bağlantısı kapanır."
-                    } else {
-                        "Telefon kumandadan yayın beklemeyi bırakır."
+                    when {
+                        streaming && testing -> "Canlı yayın sona erer ve test videosu durur."
+                        streaming -> "Canlı yayın sona erer ve kumanda bağlantısı kapanır."
+                        testing -> "Test videosu durdurulur."
+                        else -> "Telefon kumandadan yayın beklemeyi bırakır."
                     },
                 )
             },
@@ -363,6 +392,7 @@ private fun HomeScreen(
     onEditSelected: () -> Unit,
     onOpenWifiSettings: () -> Unit,
     onStart: () -> Unit,
+    onTestVideo: () -> Unit,
     onStop: () -> Unit,
     onCopyAddress: (String) -> Unit,
 ) {
@@ -382,7 +412,9 @@ private fun HomeScreen(
                     lan == null -> "Önce telefonu Wi-Fi'a bağla"
                     else -> null
                 },
+                canTest = selected != null,
                 onStart = onStart,
+                onTestVideo = onTestVideo,
                 onStop = onStop,
             )
         },
@@ -406,6 +438,7 @@ private fun HomeScreen(
                         phase = phase,
                         snapshot = serviceState.snapshot,
                         liveSinceElapsedMillis = serviceState.liveSinceElapsedMillis,
+                        testVideoName = serviceState.testVideoName,
                         destination = selected,
                         lan = lan,
                         onCopyAddress = onCopyAddress,
@@ -463,7 +496,9 @@ private fun HomeBottomBar(
     running: Boolean,
     streaming: Boolean,
     blocker: String?,
+    canTest: Boolean,
     onStart: () -> Unit,
+    onTestVideo: () -> Unit,
     onStop: () -> Unit,
 ) {
     Column(
@@ -498,6 +533,12 @@ private fun HomeBottomBar(
                 icon = Icons.Rounded.PlayArrow,
                 enabled = blocker == null,
             )
+            // Stands in for the drone: goes live on the selected platform without DJI Fly.
+            TextButton(onClick = onTestVideo, enabled = canTest) {
+                Icon(Icons.Rounded.Movie, contentDescription = null, modifier = Modifier.size(18.dp))
+                Spacer(Modifier.width(8.dp))
+                Text("Test videosuyla dene")
+            }
         }
     }
 }
@@ -603,6 +644,7 @@ private fun LivePreview() {
                 outboundBytes = 184_000_000,
             ),
             liveSinceElapsedMillis = null,
+            testVideoName = null,
             destination = PreviewProfile,
             lan = LanAddress("192.168.1.101", LanKind.WIFI),
             onCopyAddress = {},

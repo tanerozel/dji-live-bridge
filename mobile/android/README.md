@@ -60,6 +60,15 @@ reconnecting, error), the remote → phone → platform hops, bitrate, sent byte
 platform's own go-live reminder; the counters stay under "Teknik ayrıntılar". A three-page guide
 opens on first launch and again from the help button.
 
+"Test videosuyla dene" goes live without a drone, like the desktop app's test video. The picked
+H.264/AAC video is published over loopback to the app's own `rtmp://127.0.0.1:1935/drone` ingest,
+exactly as DJI Fly would: legacy handshake, `connect`/`createStream`/`publish`, answers to
+librtmp2's pings, samples copied without re-encoding, paced in real time and looped. It therefore
+takes the same relay and destination path as a real flight and needs no Wi-Fi. B-frames work
+(decode timestamps are rebuilt from the sorted presentation times); H.265/HEVC files are refused
+with an explanation, because DJI Fly sends H.264. Phone videos shot in portrait may appear sideways,
+since FLV carries no rotation.
+
 The themes match the desktop app: Açık (the default), Koyu, Gece mavisi, Kum and Sistem, picked
 from the palette button and stored on the device. Every theme's text/background pairs meet WCAG AA
 contrast, and the status bar follows the chosen theme rather than the system setting.

@@ -72,15 +72,18 @@ data class RelayServiceUiState(
      * Target reconnects keep it; it resets when the drone stops publishing.
      */
     val liveSinceElapsedMillis: Long? = null,
+    /** Display name of the video playing in place of the drone, or null for a real flight. */
+    val testVideoName: String? = null,
 )
 
 object RelayServiceState {
     var value by mutableStateOf(RelayServiceUiState())
         private set
 
-    fun starting() {
+    fun starting(testVideoName: String? = null) {
         value = RelayServiceUiState(
             isActive = true,
+            testVideoName = testVideoName,
             snapshot = RelaySnapshot(
                 status = "starting",
                 detail = "Arka plan aktarım servisi hazırlanıyor",

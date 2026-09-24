@@ -23,6 +23,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ChevronRight
 import androidx.compose.material.icons.rounded.ErrorOutline
+import androidx.compose.material.icons.rounded.Movie
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -39,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -56,6 +58,7 @@ internal fun LiveContent(
     phase: BridgePhase,
     snapshot: RelaySnapshot,
     liveSinceElapsedMillis: Long?,
+    testVideoName: String?,
     destination: DestinationProfile?,
     lan: LanAddress?,
     onCopyAddress: (String) -> Unit,
@@ -67,11 +70,19 @@ internal fun LiveContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        StatusHero(phase = phase, snapshot = snapshot, liveSinceElapsedMillis = liveSinceElapsedMillis, kind = kind)
+        StatusHero(
+            phase = phase,
+            snapshot = snapshot,
+            liveSinceElapsedMillis = liveSinceElapsedMillis,
+            kind = kind,
+            testVideoName = testVideoName,
+        )
+        val waitingForSource = phase == BridgePhase.STARTING ||
+            phase == BridgePhase.WAITING_FOR_DRONE ||
+            phase == BridgePhase.DRONE_CONNECTED
         when {
-            phase == BridgePhase.STARTING ||
-                phase == BridgePhase.WAITING_FOR_DRONE ||
-                phase == BridgePhase.DRONE_CONNECTED -> DjiFlyCard(lan = lan, onCopyAddress = onCopyAddress)
+            // A test video connects by itself; DJI Fly instructions would only confuse.
+            waitingForSource && testVideoName == null -> DjiFlyCard(lan = lan, onCopyAddress = onCopyAddress)
             phase.isStreaming -> StatsCard(snapshot)
         }
         when {
@@ -102,9 +113,14 @@ private fun StatusHero(
     snapshot: RelaySnapshot,
     liveSinceElapsedMillis: Long?,
     kind: DestinationKind,
+    testVideoName: String?,
 ) {
     val colors = BridgeTheme.colors
-    val look = when (phase) {
+    val testing = testVideoName != null
+    val waitingForSource = phase == BridgePhase.WAITING_FOR_DRONE || phase == BridgePhase.DRONE_CONNECTED
+    val look = if (testing && waitingForSource) {
+        HeroLook(colors.accent, colors.accentSoft, "Test videosu hazırlanıyor", "Video birazdan gönderilmeye başlar.")
+    } else when (phase) {
         BridgePhase.STARTING -> HeroLook(colors.accent, colors.accentSoft, "Başlatılıyor", "Köprü birkaç saniye içinde hazır olur.")
         BridgePhase.WAITING_FOR_DRONE ->
             HeroLook(colors.warningText, colors.warningSoft, "Kumanda bekleniyor", "Şimdi DJI Fly'da yayını başlat.")
@@ -136,7 +152,7 @@ private fun StatusHero(
                     strokeWidth = 3.dp,
                 )
                 BridgePhase.WAITING_FOR_DRONE, BridgePhase.DRONE_CONNECTED -> Icon(
-                    painter = painterResource(R.drawable.ic_drone),
+                    painter = if (testing) rememberVectorPainter(Icons.Rounded.Movie) else painterResource(R.drawable.ic_drone),
                     contentDescription = null,
                     tint = look.tone,
                     modifier = Modifier.size(40.dp),
@@ -167,7 +183,22 @@ private fun StatusHero(
             color = colors.muted,
             textAlign = TextAlign.Center,
         )
-        HopLine(phase = phase, kind = kind)
+        HopLine(phase = phase, kind = kind, sourceLabel = if (testing) "Test videosu" else "Kumanda")
+        testVideoName?.let { name ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
+                Icon(Icons.Rounded.Movie, contentDescription = null, tint = colors.faint, modifier = Modifier.size(16.dp))
+                Text(
+                    text = name,
+                    style = MaterialTheme.typography.labelMedium,
+                    color = colors.muted,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+        }
     }
 }
 
@@ -230,9 +261,9 @@ private fun LiveTimer(sinceElapsedMillis: Long) {
     )
 }
 
-/** Remote → phone → platform in one line; each dot is colored by that hop's state. */
+/** Source → phone → platform in one line; each dot is colored by that hop's state. */
 @Composable
-private fun HopLine(phase: BridgePhase, kind: DestinationKind) {
+private fun HopLine(phase: BridgePhase, kind: DestinationKind, sourceLabel: String) {
     val colors = BridgeTheme.colors
     val (sourceColor, sourceState) = when (phase) {
         BridgePhase.WAITING_FOR_DRONE -> colors.warningText to "bekleniyor"
@@ -253,12 +284,12 @@ private fun HopLine(phase: BridgePhase, kind: DestinationKind) {
     }
     Row(
         modifier = Modifier.clearAndSetSemantics {
-            contentDescription = "Kumanda $sourceState, telefon $relayState, ${kind.label} $targetState"
+            contentDescription = "$sourceLabel $sourceState, telefon $relayState, ${kind.label} $targetState"
         },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {
-        Hop("Kumanda", sourceColor)
+        Hop(sourceLabel, sourceColor)
         HopArrow()
         Hop("Telefon", relayColor)
         HopArrow()
