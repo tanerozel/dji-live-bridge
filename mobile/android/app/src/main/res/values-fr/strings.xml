@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- App and errors from the relay core -->
     <string name="error_with_detail">%1$s (%2$s)</string>
@@ -14,7 +14,7 @@
     <string name="error_ca_bundle">Les certificats Android pour le RTMPS n\'ont pas pu être préparés.</string>
 
     <!-- Shared components -->
-    <string name="live_badge">EN DIRECT</string>
+    <string name="live_badge">DIRECT</string>
     <string name="step">Étape %1$d</string>
     <string name="step_done">Étape %1$d, terminée</string>
     <string name="copy_address">Copier l\'adresse</string>
@@ -50,7 +50,7 @@
     <string name="test_video_stopped">Vidéo de test arrêtée</string>
     <string name="test_video_rotated">Les vidéos filmées à la verticale peuvent apparaître tournées sur le côté dans le direct</string>
 
-    <!-- Platforms. on_* and to_* are phrases for where the stream is and where it goes, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
+    <!-- Platforms. on_* are phrases for where the stream is, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
     <string name="platform_custom">RTMP perso</string>
     <string name="on_instagram">sur Instagram</string>
     <string name="on_tiktok">sur TikTok</string>
@@ -59,13 +59,6 @@
     <string name="on_twitch">sur Twitch</string>
     <string name="on_kick">sur Kick</string>
     <string name="on_custom">sur votre serveur personnalisé</string>
-    <string name="to_instagram">à Instagram</string>
-    <string name="to_tiktok">à TikTok</string>
-    <string name="to_youtube">à YouTube</string>
-    <string name="to_facebook">à Facebook</string>
-    <string name="to_twitch">à Twitch</string>
-    <string name="to_kick">à Kick</string>
-    <string name="to_custom">à votre serveur personnalisé</string>
     <string name="key_help_instagram">Sur instagram.com, ouvrez Créer (+) → Vidéo en direct et copiez la « Clé de stream ». Instagram génère une nouvelle clé à chaque direct.</string>
     <string name="key_help_tiktok">Dans TikTok LIVE Center, ouvrez l\'écran de la clé de stream et copiez l\'adresse du serveur et la clé. Votre compte doit avoir accès au RTMP ; TikTok génère une nouvelle clé à chaque direct.</string>
     <string name="key_help_youtube">Dans YouTube Studio, ouvrez Créer → Passer en direct → Logiciel de diffusion et copiez la « Clé de flux ». La clé reste la même tant que vous ne la réinitialisez pas.</string>
@@ -161,7 +154,6 @@
     <string name="pick_platforms_hint">Appuyez sur une ou plusieurs plateformes : le direct est envoyé à toutes en même temps. L\'adresse du serveur est déjà renseignée, il ne reste qu\'à saisir la clé de stream.</string>
     <string name="connect_drone">Connectez le drone</string>
     <string name="preview_badge">Aperçu</string>
-    <string name="preview_badge_test">Vidéo de test · aperçu</string>
     <string name="preview_connected">Radiocommande connectée ; l\'image arrive dans un instant.</string>
     <string name="stop_test_video">Arrêter la vidéo de test</string>
     <string name="receiver_starting">Préparation du récepteur…</string>
@@ -207,30 +199,9 @@
         <item quantity="many">%d plateformes</item>
         <item quantity="other">%d plateformes</item>
     </plurals>
-    <string name="hero_test_video">Préparation de la vidéo de test</string>
-    <string name="hero_test_video_subtitle">L\'envoi de la vidéo commence dans un instant.</string>
     <string name="hero_drone_lost">Drone déconnecté</string>
     <string name="hero_drone_lost_subtitle">La diffusion est maintenue ; elle reprendra là où elle s\'était arrêtée dès que la radiocommande se reconnectera.</string>
-    <string name="hero_starting">Démarrage</string>
-    <string name="hero_starting_subtitle">Tout sera prêt dans quelques secondes.</string>
-    <string name="hero_waiting">En attente de la radiocommande</string>
-    <string name="hero_waiting_subtitle_one">Lancez la diffusion dans DJI Fly ; dès que l\'image arrive, la connexion %1$s se fait automatiquement.</string>
-    <string name="hero_waiting_subtitle_many">Lancez la diffusion dans DJI Fly ; dès que l\'image arrive, la connexion aux plateformes se fait automatiquement.</string>
-    <string name="hero_connected">Radiocommande connectée</string>
-    <string name="hero_connected_subtitle">L\'image arrive dans un instant.</string>
-    <string name="hero_connecting_one">Connexion %1$s</string>
-    <string name="hero_connecting_many">Connexion aux plateformes</string>
-    <string name="hero_live_one">Vous êtes en direct %1$s</string>
-    <plurals name="hero_live_many">
-        <item quantity="one">Vous êtes en direct sur %d plateforme</item>
-        <item quantity="many">Vous êtes en direct sur %d plateformes</item>
-        <item quantity="other">Vous êtes en direct sur %d plateformes</item>
-    </plurals>
-    <string name="hero_connection_lost">Connexion perdue</string>
-    <string name="hero_reconnecting_one">Reconnexion %1$s…</string>
-    <string name="hero_reconnecting_many">Reconnexion aux plateformes…</string>
     <string name="hero_receiver_stopped">Récepteur arrêté</string>
-    <string name="hero_off">Diffusion arrêtée</string>
     <string name="stream_time">Durée du direct : %1$s</string>
     <string name="not_connecting">Pas de connexion ?</string>
     <string name="not_connecting_same_network">La radiocommande et le téléphone doivent être sur le même Wi-Fi, ou la radiocommande doit être connectée au partage de connexion de ce téléphone.</string>
@@ -318,16 +289,21 @@
     <!-- Drone screen: the picture over the whole screen once the drone connects -->
     <string name="status_ready">Prêt</string>
     <string name="status_not_live">Pas en direct</string>
-    <string name="preview_ready_title">Le drone et la caméra sont prêts.</string>
-    <string name="preview_ready_title_test">La vidéo de test est prête.</string>
     <string name="net_wifi">Wi-Fi</string>
     <string name="net_hotspot">Partage de connexion</string>
     <string name="net_local">Réseau local</string>
-    <string name="no_platform">Aucune plateforme choisie</string>
-    <string name="choose_platform">Choisir une plateforme</string>
-    <string name="change_platforms">Modifier les plateformes</string>
     <string name="show_details">Afficher les détails</string>
     <string name="picture_fill">Remplir l\'écran</string>
     <string name="picture_fit">Afficher l\'image entière</string>
-    <string name="more_options">Plus d\'options</string>
+
+    <!-- Drone screen, second design: cards, chips and platform switches over the picture -->
+    <string name="device_drone">Drone</string>
+    <string name="device_test_video">Test vidéo</string>
+    <string name="device_connected">Connecté</string>
+    <string name="device_waiting">En attente</string>
+    <string name="platforms_active" tools:ignore="PluralsCandidate">Actives : %1$d/%2$d</string>
+    <string name="other_platforms">Autres</string>
+    <string name="more">Plus</string>
+    <string name="settings">Paramètres</string>
+    <string name="controls_hint">Appuyez pour afficher les commandes</string>
 </resources>

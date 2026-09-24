@@ -210,12 +210,9 @@ internal fun RelayScreen(
         }
     }
 
-    fun goLive() {
-        val profileIds = destinations.selectedProfiles.map { it.id }
-        if (profileIds.isEmpty()) {
-            showMessage(uiText(R.string.pick_platform_first))
-            return
-        }
+    /** Starts the broadcast on [profileIds]; while live, adds them to it. */
+    fun goLive(profileIds: List<String>) {
+        if (profileIds.isEmpty()) return
         // Switch to the live screen now; the service confirms or reports a failure.
         RelayServiceState.goingLive(profileIds)
         runCatching { RelayForegroundService.goLive(context, profileIds) }
@@ -224,16 +221,22 @@ internal fun RelayScreen(
             }
     }
 
+    // The platforms waiting for the notification permission answer.
+    var pendingGoLive by remember { mutableStateOf(emptyList<String>()) }
     val notificationPermissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission(),
     ) { granted ->
         if (!granted) {
             showMessage(uiText(R.string.notification_permission_denied))
         }
-        goLive()
+        goLive(pendingGoLive)
     }
 
-    fun requestGoLive() {
+    fun requestGoLive(profileIds: List<String> = destinations.selectedProfiles.map { it.id }) {
+        if (profileIds.isEmpty()) {
+            showMessage(uiText(R.string.pick_platform_first))
+            return
+        }
         val needsNotificationPermission =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
                 ContextCompat.checkSelfPermission(
@@ -241,9 +244,35 @@ internal fun RelayScreen(
                     Manifest.permission.POST_NOTIFICATIONS,
                 ) != PackageManager.PERMISSION_GRANTED
         if (needsNotificationPermission) {
+            pendingGoLive = profileIds
             notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         } else {
-            goLive()
+            goLive(profileIds)
+        }
+    }
+
+    /** Asks before ending; ending the last platform ends the whole broadcast. */
+    fun confirmEndLive(profileId: String?) {
+        endLiveProfileId = profileId?.takeIf { RelayServiceState.value.liveProfileIds.size > 1 }
+        showEndLiveConfirmation = true
+    }
+
+    /**
+     * A platform's switch on the drone screen. Before going live it chooses the platform; while
+     * live it adds the platform to the broadcast or ends the broadcast there.
+     */
+    fun onPlatformToggle(kind: DestinationKind) {
+        val state = RelayServiceState.value
+        if (!state.isLive) return onPlatformClick(kind)
+        val liveProfile = destinations.profiles.firstOrNull { it.kind == kind && it.id in state.liveProfileIds }
+        val profile = liveProfile ?: profileFor(kind)
+        when {
+            liveProfile != null -> confirmEndLive(liveProfile.id)
+            profile == null -> profileEditorViewModel.open(null, kind)
+            else -> {
+                if (!destinations.isSelected(profile.id)) updateProfiles { profileStore.setSelected(profile.id, true) }
+                requestGoLive(listOf(profile.id))
+            }
         }
     }
 
@@ -366,13 +395,10 @@ internal fun RelayScreen(
                     pictureFit = fit
                     uiPreferences.pictureFit = fit
                 },
-                onGoLive = ::requestGoLive,
-                onEndLive = { profileId ->
-                    endLiveProfileId = profileId
-                    showEndLiveConfirmation = true
-                },
-                onPlatformClick = ::onPlatformClick,
-                onPlatformLongClick = { kind -> profileFor(kind)?.let { profileEditorViewModel.open(it, kind) } },
+                onGoLive = { requestGoLive() },
+                onEndLive = ::confirmEndLive,
+                onPlatformToggle = ::onPlatformToggle,
+                onPlatformEdit = { kind -> profileFor(kind)?.let { profileEditorViewModel.open(it, kind) } },
                 onEditProfile = { profile -> profileEditorViewModel.open(profile, profile.kind) },
                 onStopTestVideo = {
                     // Back to the setup screen at once, without waiting out the grace period.
@@ -752,8 +778,8 @@ private fun LivePreview() {
             onPictureFitChange = {},
             onGoLive = {},
             onEndLive = {},
-            onPlatformClick = {},
-            onPlatformLongClick = {},
+            onPlatformToggle = {},
+            onPlatformEdit = {},
             onEditProfile = {},
             onStopTestVideo = {},
             onShowLanguagePicker = {},

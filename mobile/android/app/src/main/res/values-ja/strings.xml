@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- App and errors from the relay core -->
     <string name="error_with_detail">%1$s（%2$s）</string>
@@ -50,7 +50,7 @@
     <string name="test_video_stopped">テスト動画が停止しました</string>
     <string name="test_video_rotated">縦向きで撮影した動画は、配信で横倒しに表示されることがあります</string>
 
-    <!-- Platforms. on_* and to_* are phrases for where the stream is and where it goes, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
+    <!-- Platforms. on_* are phrases for where the stream is, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
     <string name="platform_custom">カスタムRTMP</string>
     <string name="on_instagram">Instagram で</string>
     <string name="on_tiktok">TikTok で</string>
@@ -59,13 +59,6 @@
     <string name="on_twitch">Twitch で</string>
     <string name="on_kick">Kick で</string>
     <string name="on_custom">カスタムサーバーで</string>
-    <string name="to_instagram">Instagram に</string>
-    <string name="to_tiktok">TikTok に</string>
-    <string name="to_youtube">YouTube に</string>
-    <string name="to_facebook">Facebook に</string>
-    <string name="to_twitch">Twitch に</string>
-    <string name="to_kick">Kick に</string>
-    <string name="to_custom">カスタムサーバーに</string>
     <string name="key_help_instagram">instagram.com で「作成（＋）」→「ライブ動画」を開き、「ストリームキー」をコピーしてください。Instagram は配信ごとに新しいキーを発行します。</string>
     <string name="key_help_tiktok">TikTok LIVE Center でストリームキーの画面を開き、サーバー URL とストリームキーをコピーしてください。アカウントに RTMP の利用権限が必要です。TikTok は配信ごとに新しいキーを発行します。</string>
     <string name="key_help_youtube">YouTube Studio で「作成」→「ライブ配信を開始」→「ストリーミング ソフトウェア」を開き、「ストリームキー」をコピーしてください。キーはリセットするまで変わりません。</string>
@@ -159,7 +152,6 @@
     <string name="pick_platforms_hint">配信先をタップして選んでください（複数選択可）。選んだすべての配信先に同時に配信されます。サーバーアドレスは入力済みなので、入力するのはストリームキーだけです。</string>
     <string name="connect_drone">ドローンを接続</string>
     <string name="preview_badge">プレビュー</string>
-    <string name="preview_badge_test">テスト動画 · プレビュー</string>
     <string name="preview_connected">送信機が接続されました。まもなく映像が届きます。</string>
     <string name="stop_test_video">テスト動画を停止</string>
     <string name="receiver_starting">受信サーバーを準備中…</string>
@@ -199,28 +191,9 @@
     <plurals name="platform_count">
         <item quantity="other">配信先 %d 件</item>
     </plurals>
-    <string name="hero_test_video">テスト動画を準備中</string>
-    <string name="hero_test_video_subtitle">まもなく動画の送信が始まります。</string>
     <string name="hero_drone_lost">ドローンとの接続が切れました</string>
     <string name="hero_drone_lost_subtitle">配信は維持されています。送信機が再接続すると、中断したところから再開します。</string>
-    <string name="hero_starting">起動中</string>
-    <string name="hero_starting_subtitle">数秒で準備が整います。</string>
-    <string name="hero_waiting">送信機を待っています</string>
-    <string name="hero_waiting_subtitle_one">DJI Fly で配信を開始してください。映像が届くと、%1$s自動で接続します。</string>
-    <string name="hero_waiting_subtitle_many">DJI Fly で配信を開始してください。映像が届くと、配信先に自動で接続します。</string>
-    <string name="hero_connected">送信機が接続されました</string>
-    <string name="hero_connected_subtitle">まもなく映像が届きます。</string>
-    <string name="hero_connecting_one">%1$s接続中</string>
-    <string name="hero_connecting_many">配信先に接続中</string>
-    <string name="hero_live_one">%1$sライブ配信中</string>
-    <plurals name="hero_live_many">
-        <item quantity="other">%d 件の配信先でライブ配信中</item>
-    </plurals>
-    <string name="hero_connection_lost">接続が切れました</string>
-    <string name="hero_reconnecting_one">%1$s再接続中…</string>
-    <string name="hero_reconnecting_many">配信先に再接続中…</string>
     <string name="hero_receiver_stopped">受信サーバーが停止しました</string>
-    <string name="hero_off">配信停止中</string>
     <string name="stream_time">配信時間 %1$s</string>
     <string name="not_connecting">接続できない場合</string>
     <string name="not_connecting_same_network">送信機とスマートフォンを同じ Wi-Fi に接続するか、送信機をこのスマートフォンのテザリングに接続してください。</string>
@@ -304,16 +277,21 @@
     <!-- Drone screen: the picture over the whole screen once the drone connects -->
     <string name="status_ready">準備完了</string>
     <string name="status_not_live">配信していません</string>
-    <string name="preview_ready_title">ドローンとカメラの準備ができました。</string>
-    <string name="preview_ready_title_test">テスト動画の準備ができました。</string>
     <string name="net_wifi">Wi-Fi</string>
     <string name="net_hotspot">テザリング</string>
     <string name="net_local">ローカルネットワーク</string>
-    <string name="no_platform">配信先が未選択</string>
-    <string name="choose_platform">配信先を選択</string>
-    <string name="change_platforms">配信先を変更</string>
     <string name="show_details">詳細を表示</string>
     <string name="picture_fill">画面いっぱいに表示</string>
     <string name="picture_fit">映像全体を表示</string>
-    <string name="more_options">その他のオプション</string>
+
+    <!-- Drone screen, second design: cards, chips and platform switches over the picture -->
+    <string name="device_drone">ドローン</string>
+    <string name="device_test_video">テスト動画</string>
+    <string name="device_connected">接続済み</string>
+    <string name="device_waiting">接続待ち</string>
+    <string name="platforms_active" tools:ignore="PluralsCandidate">有効 %1$d/%2$d</string>
+    <string name="other_platforms">その他</string>
+    <string name="more">メニュー</string>
+    <string name="settings">設定</string>
+    <string name="controls_hint">タップして操作ボタンを表示</string>
 </resources>

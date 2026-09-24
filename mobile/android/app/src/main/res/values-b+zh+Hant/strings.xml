@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- App and errors from the relay core -->
     <string name="error_with_detail">%1$s（%2$s）</string>
@@ -50,7 +50,7 @@
     <string name="test_video_stopped">測試影片已停止</string>
     <string name="test_video_rotated">直向拍攝的影片在直播中可能會旋轉 90 度</string>
 
-    <!-- Platforms. on_* and to_* are phrases for where the stream is and where it goes, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
+    <!-- Platforms. on_* are phrases for where the stream is, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
     <string name="platform_custom">自訂 RTMP</string>
     <string name="on_instagram">在 Instagram 上</string>
     <string name="on_tiktok">在 TikTok 上</string>
@@ -59,13 +59,6 @@
     <string name="on_twitch">在 Twitch 上</string>
     <string name="on_kick">在 Kick 上</string>
     <string name="on_custom">在自訂伺服器上</string>
-    <string name="to_instagram">到 Instagram</string>
-    <string name="to_tiktok">到 TikTok</string>
-    <string name="to_youtube">到 YouTube</string>
-    <string name="to_facebook">到 Facebook</string>
-    <string name="to_twitch">到 Twitch</string>
-    <string name="to_kick">到 Kick</string>
-    <string name="to_custom">到自訂伺服器</string>
     <string name="key_help_instagram">在 instagram.com：建立 (+) → 直播影片，然後複製「串流金鑰」。Instagram 每次直播都會產生新的金鑰。</string>
     <string name="key_help_tiktok">在 TikTok LIVE Center 開啟串流金鑰畫面，複製伺服器位址與串流金鑰。你的帳號需要有 RTMP 權限；TikTok 每次直播都會產生新的金鑰。</string>
     <string name="key_help_youtube">在 YouTube 工作室中：建立 → 開始直播 → 直播軟體，然後複製「串流金鑰」。除非你重設，否則金鑰不會改變。</string>
@@ -159,7 +152,6 @@
     <string name="pick_platforms_hint">點選一個或多個平台，直播會同時傳送到所有平台。伺服器位址已設定好，你只需要輸入串流金鑰。</string>
     <string name="connect_drone">連接無人機</string>
     <string name="preview_badge">預覽</string>
-    <string name="preview_badge_test">測試影片 · 預覽</string>
     <string name="preview_connected">遙控器已連線，畫面即將出現。</string>
     <string name="stop_test_video">停止測試影片</string>
     <string name="receiver_starting">正在準備接收器…</string>
@@ -199,28 +191,9 @@
     <plurals name="platform_count">
         <item quantity="other">%d 個平台</item>
     </plurals>
-    <string name="hero_test_video">正在準備測試影片</string>
-    <string name="hero_test_video_subtitle">影片即將開始傳送。</string>
     <string name="hero_drone_lost">無人機已中斷連線</string>
     <string name="hero_drone_lost_subtitle">直播仍保持開啟；遙控器重新連線後，會從中斷處接續。</string>
-    <string name="hero_starting">啟動中</string>
-    <string name="hero_starting_subtitle">幾秒內即可就緒。</string>
-    <string name="hero_waiting">等待遙控器</string>
-    <string name="hero_waiting_subtitle_one">請在 DJI Fly 開始直播；收到畫面後就會自動連線%1$s。</string>
-    <string name="hero_waiting_subtitle_many">請在 DJI Fly 開始直播；收到畫面後就會自動連線到各平台。</string>
-    <string name="hero_connected">遙控器已連線</string>
-    <string name="hero_connected_subtitle">畫面即將出現。</string>
-    <string name="hero_connecting_one">正在連線%1$s</string>
-    <string name="hero_connecting_many">正在連線到各平台</string>
-    <string name="hero_live_one">你正%1$s直播</string>
-    <plurals name="hero_live_many">
-        <item quantity="other">你正在 %d 個平台上直播</item>
-    </plurals>
-    <string name="hero_connection_lost">連線中斷</string>
-    <string name="hero_reconnecting_one">正在重新連線%1$s…</string>
-    <string name="hero_reconnecting_many">正在重新連線到各平台…</string>
     <string name="hero_receiver_stopped">接收器已停止</string>
-    <string name="hero_off">直播已關閉</string>
     <string name="stream_time">直播時間 %1$s</string>
     <string name="not_connecting">無法連線？</string>
     <string name="not_connecting_same_network">遙控器與手機必須連到同一個 Wi‑Fi，或是遙控器必須連上這支手機的熱點。</string>
@@ -304,16 +277,21 @@
     <!-- Drone screen: the picture over the whole screen once the drone connects -->
     <string name="status_ready">就緒</string>
     <string name="status_not_live">尚未直播</string>
-    <string name="preview_ready_title">無人機與相機已就緒。</string>
-    <string name="preview_ready_title_test">測試影片已就緒。</string>
     <string name="net_wifi">Wi‑Fi</string>
     <string name="net_hotspot">熱點</string>
     <string name="net_local">區域網路</string>
-    <string name="no_platform">尚未選擇平台</string>
-    <string name="choose_platform">選擇平台</string>
-    <string name="change_platforms">變更平台</string>
     <string name="show_details">顯示詳細資料</string>
     <string name="picture_fill">填滿螢幕</string>
     <string name="picture_fit">顯示完整畫面</string>
-    <string name="more_options">更多選項</string>
+
+    <!-- Drone screen, second design: cards, chips and platform switches over the picture -->
+    <string name="device_drone">無人機</string>
+    <string name="device_test_video">測試影片</string>
+    <string name="device_connected">已連線</string>
+    <string name="device_waiting">等待中</string>
+    <string name="platforms_active" tools:ignore="PluralsCandidate">%1$d/%2$d 已啟用</string>
+    <string name="other_platforms">其他</string>
+    <string name="more">更多</string>
+    <string name="settings">設定</string>
+    <string name="controls_hint">輕觸畫面即可顯示控制項</string>
 </resources>

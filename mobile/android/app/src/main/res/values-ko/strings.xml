@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- App and errors from the relay core -->
     <string name="error_with_detail">%1$s (%2$s)</string>
@@ -50,7 +50,7 @@
     <string name="test_video_stopped">테스트 영상 중지됨</string>
     <string name="test_video_rotated">세로로 촬영한 동영상은 방송에서 옆으로 누워 보일 수 있습니다</string>
 
-    <!-- Platforms. on_* and to_* are phrases for where the stream is and where it goes, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
+    <!-- Platforms. on_* are phrases for where the stream is, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
     <string name="platform_custom">RTMP 서버</string>
     <string name="on_instagram">Instagram에서</string>
     <string name="on_tiktok">TikTok에서</string>
@@ -59,13 +59,6 @@
     <string name="on_twitch">Twitch에서</string>
     <string name="on_kick">Kick에서</string>
     <string name="on_custom">RTMP 서버에서</string>
-    <string name="to_instagram">Instagram에</string>
-    <string name="to_tiktok">TikTok에</string>
-    <string name="to_youtube">YouTube에</string>
-    <string name="to_facebook">Facebook에</string>
-    <string name="to_twitch">Twitch에</string>
-    <string name="to_kick">Kick에</string>
-    <string name="to_custom">RTMP 서버에</string>
     <string name="key_help_instagram">instagram.com에서 만들기(+) → 라이브 방송을 열고 “스트림 키”를 복사하세요. Instagram은 방송할 때마다 새 키를 발급합니다.</string>
     <string name="key_help_tiktok">TikTok LIVE Center에서 스트림 키 화면을 열고 서버 URL과 스트림 키를 복사하세요. 계정에 RTMP 권한이 필요하며, TikTok은 방송할 때마다 새 키를 발급합니다.</string>
     <string name="key_help_youtube">YouTube 스튜디오에서 만들기 → 실시간 스트리밍 시작 → 스트리밍 소프트웨어를 열고 “스트림 키”를 복사하세요. 키는 재설정하기 전까지 그대로입니다.</string>
@@ -159,7 +152,6 @@
     <string name="pick_platforms_hint">플랫폼을 하나 이상 누르세요. 선택한 모든 플랫폼에 동시에 방송됩니다. 서버 주소는 준비되어 있으니 스트림 키만 입력하면 됩니다.</string>
     <string name="connect_drone">드론 연결</string>
     <string name="preview_badge">미리보기</string>
-    <string name="preview_badge_test">테스트 영상 · 미리보기</string>
     <string name="preview_connected">조종기가 연결되었습니다. 곧 영상이 들어옵니다.</string>
     <string name="stop_test_video">테스트 영상 중지</string>
     <string name="receiver_starting">수신기를 준비하는 중…</string>
@@ -199,28 +191,9 @@
     <plurals name="platform_count">
         <item quantity="other">플랫폼 %d개</item>
     </plurals>
-    <string name="hero_test_video">테스트 영상 준비 중</string>
-    <string name="hero_test_video_subtitle">곧 영상 전송이 시작됩니다.</string>
     <string name="hero_drone_lost">드론 연결 끊김</string>
     <string name="hero_drone_lost_subtitle">방송은 유지됩니다. 조종기가 다시 연결되면 이어서 방송됩니다.</string>
-    <string name="hero_starting">시작 중</string>
-    <string name="hero_starting_subtitle">몇 초 안에 브리지가 준비됩니다.</string>
-    <string name="hero_waiting">조종기를 기다리는 중</string>
-    <string name="hero_waiting_subtitle_one">DJI Fly에서 송출을 시작하세요. 영상이 들어오면 %1$s 자동으로 연결됩니다.</string>
-    <string name="hero_waiting_subtitle_many">DJI Fly에서 송출을 시작하세요. 영상이 들어오면 플랫폼에 자동으로 연결됩니다.</string>
-    <string name="hero_connected">조종기 연결됨</string>
-    <string name="hero_connected_subtitle">곧 영상이 들어옵니다.</string>
-    <string name="hero_connecting_one">%1$s 연결하는 중</string>
-    <string name="hero_connecting_many">플랫폼에 연결하는 중</string>
-    <string name="hero_live_one">%1$s 방송 중</string>
-    <plurals name="hero_live_many">
-        <item quantity="other">%d개 플랫폼에서 방송 중</item>
-    </plurals>
-    <string name="hero_connection_lost">연결 끊김</string>
-    <string name="hero_reconnecting_one">%1$s 다시 연결하는 중…</string>
-    <string name="hero_reconnecting_many">플랫폼에 다시 연결하는 중…</string>
     <string name="hero_receiver_stopped">수신기 중지됨</string>
-    <string name="hero_off">방송 꺼짐</string>
     <string name="stream_time">방송 시간 %1$s</string>
     <string name="not_connecting">연결되지 않나요?</string>
     <string name="not_connecting_same_network">조종기와 휴대폰이 같은 Wi-Fi에 있거나, 조종기가 이 휴대폰의 핫스팟에 연결되어 있어야 합니다.</string>
@@ -304,16 +277,21 @@
     <!-- Drone screen: the picture over the whole screen once the drone connects -->
     <string name="status_ready">준비됨</string>
     <string name="status_not_live">방송 전</string>
-    <string name="preview_ready_title">드론과 카메라가 준비되었습니다.</string>
-    <string name="preview_ready_title_test">테스트 영상이 준비되었습니다.</string>
     <string name="net_wifi">Wi-Fi</string>
     <string name="net_hotspot">핫스팟</string>
     <string name="net_local">로컬 네트워크</string>
-    <string name="no_platform">선택한 플랫폼 없음</string>
-    <string name="choose_platform">플랫폼 선택</string>
-    <string name="change_platforms">플랫폼 변경</string>
     <string name="show_details">세부 정보 보기</string>
     <string name="picture_fill">화면 채우기</string>
     <string name="picture_fit">영상 전체 보기</string>
-    <string name="more_options">옵션 더보기</string>
+
+    <!-- Drone screen, second design: cards, chips and platform switches over the picture -->
+    <string name="device_drone">드론</string>
+    <string name="device_test_video">테스트 영상</string>
+    <string name="device_connected">연결됨</string>
+    <string name="device_waiting">대기 중</string>
+    <string name="platforms_active" tools:ignore="PluralsCandidate">%1$d/%2$d 활성</string>
+    <string name="other_platforms">기타</string>
+    <string name="more">더보기</string>
+    <string name="settings">설정</string>
+    <string name="controls_hint">조작 버튼을 보려면 화면을 누르세요</string>
 </resources>

@@ -32,10 +32,26 @@ class DronePictureTest {
     }
 
     @Test
-    fun `the choice is stored by name and defaults to the whole picture`() {
+    fun `automatic fills the screen only when little is cut off`() {
+        // A vertical drone picture (DJI's vertical mode) on an upright phone: fill, cutting ~20%.
+        assertEquals(PictureFit.FILL, shownFit(412f, 915f, 720f / 1280f, PictureFit.AUTO))
+        // A wide picture on an upright phone would lose three quarters: show it whole.
+        assertEquals(PictureFit.WHOLE, shownFit(412f, 915f, wide, PictureFit.AUTO))
+        // The same wide picture with the phone turned sideways: fill.
+        assertEquals(PictureFit.FILL, shownFit(915f, 412f, wide, PictureFit.AUTO))
+        // A choice the user made is kept whatever the shape.
+        assertEquals(PictureFit.WHOLE, shownFit(915f, 412f, wide, PictureFit.WHOLE))
+        assertEquals(PictureFit.FILL, shownFit(412f, 915f, wide, PictureFit.FILL))
+        assertSize(1564.4f to 880f, pictureSize(400f, 880f, wide, PictureFit.FILL))
+        assertSize(400f to 225f, pictureSize(400f, 880f, wide, PictureFit.AUTO))
+    }
+
+    @Test
+    fun `the choice is stored by name and starts automatic`() {
         assertEquals(PictureFit.FILL, PictureFit.fromStorage("fill"))
         assertEquals(PictureFit.WHOLE, PictureFit.fromStorage("whole"))
-        assertEquals(PictureFit.WHOLE, PictureFit.fromStorage(null))
-        assertEquals(PictureFit.WHOLE, PictureFit.fromStorage("something else"))
+        assertEquals(PictureFit.AUTO, PictureFit.fromStorage("auto"))
+        assertEquals(PictureFit.AUTO, PictureFit.fromStorage(null))
+        assertEquals(PictureFit.AUTO, PictureFit.fromStorage("something else"))
     }
 }

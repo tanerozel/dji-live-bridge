@@ -86,22 +86,29 @@ from the help button.
 Once the drone's picture arrives, it takes the whole screen, the way a camera app shows its
 viewfinder, and stays there while live:
 
-- Top: what the picture is ("Preview", or the live badge and running time) and the stream's state
-  ("Ready · Not broadcasting", "Live · 4.2 Mbps", "Reconnecting", "Waiting for the drone ·
-  broadcast on").
-- Bottom: a card that says what is going on ("Drone and camera are ready.", "You're live on
-  Instagram", "Drone disconnected") with the resolution, bitrate and network, the most useful tip
-  (such as Instagram's own "Go live" reminder), and the platforms' tiles, each with a state dot once
-  live. Next to it the one big button: "Go live" ("Go live on 2 platforms"), "Choose a platform" or
-  "End broadcast".
-- The platform tiles open a sheet: before going live the same platform grid as the home screen,
-  while live the bitrate, sent bytes and codecs, each platform with its own "End", and the technical
-  details. The ⋮ menu has the same sheets, language, theme and help.
-- The picture is shown whole by default, and the rest of the screen shows its colors, blurred and
-  dimmed (a 32×18 copy of the frame taken with `PixelCopy` every 0.7 s). A double tap or the
-  full-screen button fills the screen edge to edge instead, cutting off the picture's sides when the
-  phone is upright; the choice is remembered. Turning the phone sideways gives the picture the whole
-  screen; the activity handles the rotation itself, so the decoder keeps running.
+- Top left, what sends the picture ("Drone" or "Test video", with a green "Connected" dot); tapping
+  it opens the connection details. DJI Fly does not tell the drone's model, so the card cannot name
+  it. Top right, the stream's state: "Ready · Not broadcasting" in green, "Live · 00:12 · 4.2 Mbps"
+  in red, "Reconnecting" or "Waiting for the drone · broadcast on" in amber. Its word shrinks to fit
+  in every language.
+- Under them, the picture's size, the incoming bitrate and the network as chips, and on the right
+  the full-screen and settings (language, theme, help) buttons.
+- At the bottom, a card with a switch per platform: the saved ones first, then Instagram, TikTok,
+  YouTube and Facebook, and "Other" for Twitch, Kick and custom servers. Before going live a
+  switch chooses the platform; while live it adds the platform to the running broadcast or ends it
+  there, after asking (the last one ends the broadcast). A platform without a stream key opens its
+  key screen; a long press edits the key. "1/4 active" counts the switched-on ones.
+- Under that, "Preview" hides everything but the picture until a tap, the orange "Go live" (red
+  "End broadcast" while live) and "More" (all platforms, technical details, stopping a test video).
+- One note at a time sits above the platforms: why going live failed, why the drone's picture is
+  gone while the broadcast is kept open, or the platform's own tip, such as pressing "Go live" in
+  Instagram too. Each can be closed.
+- By default the picture fills the screen when that cuts off little (a vertical picture from DJI's
+  vertical mode on an upright phone, a wide one on a phone turned sideways) and is shown whole
+  otherwise, with the rest of the screen in its colors, blurred and dimmed (a 32×18 copy of the
+  frame taken with `PixelCopy` every 0.7 s). A double tap or the full-screen button switches between
+  the two, and that choice is remembered. The activity handles rotation itself, so the decoder keeps
+  running when the phone is turned.
 - A picture that stops coming is dimmed so it never looks live, and the screen waits 2.5 seconds
   before going back to the home screen, so a short drop does not flip screens. The screen stays on
   while the picture shows.

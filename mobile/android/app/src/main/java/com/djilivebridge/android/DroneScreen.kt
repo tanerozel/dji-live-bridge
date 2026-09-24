@@ -2,14 +2,24 @@ package com.djilivebridge.android
 
 import android.os.Build
 import androidx.annotation.StringRes
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -27,6 +37,8 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.HelpOutline
@@ -38,18 +50,22 @@ import androidx.compose.material.icons.rounded.ErrorOutline
 import androidx.compose.material.icons.rounded.Fullscreen
 import androidx.compose.material.icons.rounded.FullscreenExit
 import androidx.compose.material.icons.rounded.GridView
+import androidx.compose.material.icons.rounded.Hd
+import androidx.compose.material.icons.rounded.Image
 import androidx.compose.material.icons.rounded.Info
+import androidx.compose.material.icons.rounded.Lan
 import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.Lightbulb
-import androidx.compose.material.icons.rounded.MoreVert
+import androidx.compose.material.icons.rounded.MoreHoriz
 import androidx.compose.material.icons.rounded.Movie
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.Sensors
+import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.material.icons.rounded.SignalCellularAlt
 import androidx.compose.material.icons.rounded.Stop
-import androidx.compose.material.icons.rounded.Videocam
 import androidx.compose.material.icons.rounded.WarningAmber
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material.icons.rounded.Wifi
+import androidx.compose.material.icons.rounded.WifiTethering
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -61,10 +77,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -72,33 +91,42 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.semantics.toggleableState
+import androidx.compose.ui.state.ToggleableState
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.delay
 
 /** Which sheet is open over the picture. */
 private enum class DroneSheet { PLATFORMS, DETAILS }
 
 /**
- * The drone's picture over the whole screen, once it arrives, the way a camera app shows its
- * viewfinder: what the picture is and the stream's state at the top, what is going on and the one
- * next action at the bottom. Platforms and details open in sheets, so nothing else covers the
- * picture. A double tap switches between the whole picture and a screen-filling one.
+ * The drone's picture over the whole screen once it arrives, with the controls around it like a
+ * camera app: what is connected and the stream's state at the top, the picture's numbers under
+ * them, a switch per platform and the one big button at the bottom. "Preview" hides everything
+ * but the picture; a double tap switches between the whole picture and a screen-filling one.
  */
 @Composable
 internal fun DroneScreen(
@@ -109,11 +137,13 @@ internal fun DroneScreen(
     pictureFit: PictureFit,
     snackbarHostState: SnackbarHostState,
     onPictureFitChange: (PictureFit) -> Unit,
+    /** Goes live on every chosen platform. */
     onGoLive: () -> Unit,
     /** Ends the broadcast on one platform, or on all of them for null. */
     onEndLive: (profileId: String?) -> Unit,
-    onPlatformClick: (DestinationKind) -> Unit,
-    onPlatformLongClick: (DestinationKind) -> Unit,
+    /** A platform's switch: choose it for the next broadcast, or while live start or end it there. */
+    onPlatformToggle: (DestinationKind) -> Unit,
+    onPlatformEdit: (DestinationKind) -> Unit,
     onEditProfile: (DestinationProfile) -> Unit,
     onStopTestVideo: () -> Unit,
     onShowLanguagePicker: () -> Unit,
@@ -121,11 +151,11 @@ internal fun DroneScreen(
     onShowGuide: () -> Unit,
 ) {
     val snapshot = serviceState.snapshot
-    val live = serviceState.isLive
     val liveDestinations = serviceState.liveProfileIds.mapNotNull { id -> destinations.profiles.firstOrNull { it.id == id } }
     val pictureState = rememberDronePictureState()
     var sheet by rememberSaveable { mutableStateOf<DroneSheet?>(null) }
-    val otherFit = if (pictureFit == PictureFit.WHOLE) PictureFit.FILL else PictureFit.WHOLE
+    var pictureOnly by rememberSaveable { mutableStateOf(false) }
+    val otherFit = if (pictureState.shownFit == PictureFit.WHOLE) PictureFit.FILL else PictureFit.WHOLE
     KeepScreenOn()
 
     Box(
@@ -139,103 +169,40 @@ internal fun DroneScreen(
                 .fillMaxSize()
                 // A picture that stopped coming must not look live.
                 .background(if (phase.hasPicture) Color.Transparent else Color.Black.copy(alpha = 0.55f))
-                .pointerInput(pictureFit) { detectTapGestures(onDoubleTap = { onPictureFitChange(otherFit) }) },
+                .pointerInput(otherFit, pictureOnly) {
+                    detectTapGestures(
+                        onDoubleTap = { onPictureFitChange(otherFit) },
+                        onTap = { if (pictureOnly) pictureOnly = false },
+                    )
+                },
         )
-        Scrims()
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .windowInsetsPadding(WindowInsets.safeDrawing)
-                .padding(16.dp),
-        ) {
-            Row(
-                modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.Top,
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                Box(modifier = Modifier.weight(1f)) {
-                    SourceChip(
-                        phase = phase,
-                        live = live,
-                        liveSinceElapsedMillis = serviceState.liveSinceElapsedMillis,
-                        testing = serviceState.testVideoName != null,
-                        onStopTestVideo = onStopTestVideo,
-                    )
-                }
-                Column(
-                    horizontalAlignment = Alignment.End,
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
-                ) {
-                    StatusChip(chipStatus(phase, snapshot, live, LiveTarget(liveDestinations)))
-                    GlassIconButton(
-                        icon = if (pictureFit == PictureFit.WHOLE) Icons.Rounded.Fullscreen else Icons.Rounded.FullscreenExit,
-                        description = stringResource(if (pictureFit == PictureFit.WHOLE) R.string.picture_fill else R.string.picture_fit),
-                        onClick = { onPictureFitChange(otherFit) },
-                    )
-                    DroneMenu(
-                        live = live,
-                        testing = serviceState.testVideoName != null,
-                        onPlatforms = { sheet = DroneSheet.PLATFORMS },
-                        onDetails = { sheet = DroneSheet.DETAILS },
-                        onStopTestVideo = onStopTestVideo,
-                        onLanguage = onShowLanguagePicker,
-                        onTheme = onShowThemePicker,
-                        onHelp = onShowGuide,
-                    )
-                }
-            }
-            Column(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                SnackbarHost(snackbarHostState)
-                serviceState.notice?.let { notice -> NoticeCard(notice) }
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.Bottom,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                ) {
-                    Box(modifier = Modifier.weight(1f)) {
-                        InfoCard(
-                            modifier = Modifier.widthIn(max = INFO_CARD_MAX_WIDTH),
-                            phase = phase,
-                            serviceState = serviceState,
-                            selected = destinations.selectedProfiles,
-                            liveDestinations = liveDestinations,
-                            videoSizeLabel = pictureState.videoSize?.let { "${it.width}×${it.height}" },
-                            lan = lan,
-                            onPlatforms = { sheet = if (live) DroneSheet.DETAILS else DroneSheet.PLATFORMS },
-                        )
-                    }
-                    when {
-                        live -> ActionPill(
-                            text = stringResource(R.string.end_broadcast),
-                            icon = Icons.Rounded.Stop,
-                            color = BridgeTheme.colors.live,
-                            onClick = { onEndLive(null) },
-                        )
-                        destinations.selectedProfiles.isEmpty() -> ActionPill(
-                            text = stringResource(R.string.choose_platform),
-                            icon = Icons.Rounded.Add,
-                            color = BridgeTheme.colors.action,
-                            onClick = { sheet = DroneSheet.PLATFORMS },
-                        )
-                        // The card shows where it goes, so the button stays short in every language.
-                        else -> ActionPill(
-                            text = stringResource(R.string.go_live),
-                            icon = Icons.Rounded.Sensors,
-                            color = BridgeTheme.colors.action,
-                            enabled = phase.hasPicture,
-                            onClick = onGoLive,
-                        )
-                    }
-                }
+        AnimatedVisibility(visible = !pictureOnly, enter = fadeIn(), exit = fadeOut()) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                Scrims()
+                Controls(
+                    phase = phase,
+                    serviceState = serviceState,
+                    destinations = destinations,
+                    liveDestinations = liveDestinations,
+                    lan = lan,
+                    pictureState = pictureState,
+                    snackbarHostState = snackbarHostState,
+                    onDetails = { sheet = DroneSheet.DETAILS },
+                    onPlatforms = { sheet = DroneSheet.PLATFORMS },
+                    onFitToggle = { onPictureFitChange(otherFit) },
+                    onPictureOnly = { pictureOnly = true },
+                    onGoLive = onGoLive,
+                    onEndLive = onEndLive,
+                    onPlatformToggle = onPlatformToggle,
+                    onPlatformEdit = onPlatformEdit,
+                    onStopTestVideo = onStopTestVideo,
+                    onShowLanguagePicker = onShowLanguagePicker,
+                    onShowThemePicker = onShowThemePicker,
+                    onShowGuide = onShowGuide,
+                )
             }
         }
+        if (pictureOnly) ControlsHint(modifier = Modifier.align(Alignment.BottomCenter))
     }
 
     when (sheet) {
@@ -243,8 +210,8 @@ internal fun DroneScreen(
             PlatformPicker(
                 destinations = destinations,
                 bitrateKbps = snapshot.bitrateKbps,
-                onPlatformClick = onPlatformClick,
-                onPlatformLongClick = onPlatformLongClick,
+                onPlatformClick = onPlatformToggle,
+                onPlatformLongClick = onPlatformEdit,
                 onEditProfile = onEditProfile,
             )
         }
@@ -260,7 +227,151 @@ internal fun DroneScreen(
     }
 }
 
-/** Darkens the top and bottom edges so the labels over the picture stay readable. */
+/** Everything over the picture, laid out for an upright phone or one turned sideways. */
+@Composable
+private fun Controls(
+    phase: BridgePhase,
+    serviceState: RelayServiceUiState,
+    destinations: DestinationProfiles,
+    liveDestinations: List<DestinationProfile>,
+    lan: LanAddress?,
+    pictureState: DronePictureState,
+    snackbarHostState: SnackbarHostState,
+    onDetails: () -> Unit,
+    onPlatforms: () -> Unit,
+    onFitToggle: () -> Unit,
+    onPictureOnly: () -> Unit,
+    onGoLive: () -> Unit,
+    onEndLive: (profileId: String?) -> Unit,
+    onPlatformToggle: (DestinationKind) -> Unit,
+    onPlatformEdit: (DestinationKind) -> Unit,
+    onStopTestVideo: () -> Unit,
+    onShowLanguagePicker: () -> Unit,
+    onShowThemePicker: () -> Unit,
+    onShowGuide: () -> Unit,
+) {
+    val snapshot = serviceState.snapshot
+    val live = serviceState.isLive
+    val testing = serviceState.testVideoName != null
+    val deviceCard: @Composable (Modifier) -> Unit = { modifier ->
+        DeviceCard(phase = phase, testing = testing, onClick = onDetails, modifier = modifier)
+    }
+    val statusCard: @Composable (Modifier) -> Unit = { modifier ->
+        StatusCard(
+            look = statusLook(phase, snapshot, live, serviceState.liveSinceElapsedMillis, LiveTarget(liveDestinations)),
+            modifier = modifier,
+        )
+    }
+    val chips: @Composable () -> Unit = {
+        InfoChips(
+            videoSize = pictureState.videoSize?.let { "${it.width}×${it.height}" },
+            bitrateKbps = snapshot.bitrateKbps,
+            lan = lan,
+        )
+    }
+    val sideButtons: @Composable () -> Unit = {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            val whole = pictureState.shownFit == PictureFit.WHOLE
+            GlassIconButton(
+                icon = if (whole) Icons.Rounded.Fullscreen else Icons.Rounded.FullscreenExit,
+                description = stringResource(if (whole) R.string.picture_fill else R.string.picture_fit),
+                onClick = onFitToggle,
+            )
+            MenuButton(
+                items = buildList {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        add(MenuEntry(R.string.language, Icons.Rounded.Language, onShowLanguagePicker))
+                    }
+                    add(MenuEntry(R.string.theme, Icons.Rounded.Palette, onShowThemePicker))
+                    add(MenuEntry(R.string.how_to_use, Icons.AutoMirrored.Rounded.HelpOutline, onShowGuide))
+                },
+            ) { open -> GlassIconButton(icon = Icons.Rounded.Settings, description = stringResource(R.string.settings), onClick = open) }
+        }
+    }
+    val bottom: @Composable ColumnScope.() -> Unit = {
+        SnackbarHost(snackbarHostState)
+        Message(phase = phase, serviceState = serviceState, liveDestinations = liveDestinations)
+        StreamToCard(
+            destinations = destinations,
+            liveDestinations = liveDestinations,
+            live = live,
+            snapshot = snapshot,
+            onToggle = onPlatformToggle,
+            onEdit = onPlatformEdit,
+            onMore = onPlatforms,
+        )
+    }
+    val actions: @Composable (Modifier) -> Unit = { modifier ->
+        ActionRow(
+            live = live,
+            canGoLive = phase.hasPicture,
+            testing = testing,
+            onPictureOnly = onPictureOnly,
+            onGoLive = onGoLive,
+            onEndLive = { onEndLive(null) },
+            onPlatforms = onPlatforms,
+            onDetails = onDetails,
+            onStopTestVideo = onStopTestVideo,
+            modifier = modifier,
+        )
+    }
+
+    BoxWithConstraints(
+        modifier = Modifier
+            .fillMaxSize()
+            .windowInsetsPadding(WindowInsets.safeDrawing)
+            .padding(16.dp),
+    ) {
+        if (maxWidth > maxHeight) {
+            // Sideways: the state along the top, the platforms and the buttons along the bottom.
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    deviceCard(Modifier.widthIn(max = 340.dp))
+                    chips()
+                }
+                Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    statusCard(Modifier.widthIn(max = 280.dp))
+                    sideButtons()
+                }
+            }
+            Row(
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .widthIn(max = 520.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    content = bottom,
+                )
+                actions(Modifier.width(LANDSCAPE_ACTIONS_WIDTH))
+            }
+        } else {
+            Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.Top) {
+                    deviceCard(Modifier.weight(1.15f))
+                    statusCard(Modifier.weight(1f))
+                }
+                chips()
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+                ) {
+                    Box(modifier = Modifier.align(Alignment.TopEnd)) { sideButtons() }
+                }
+                bottom()
+                actions(Modifier.fillMaxWidth())
+            }
+        }
+    }
+}
+
+/** Darkens the top and bottom edges so the controls over the picture stay readable. */
 @Composable
 private fun Scrims() {
     Box(modifier = Modifier.fillMaxSize()) {
@@ -268,154 +379,175 @@ private fun Scrims() {
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .fillMaxWidth()
-                .height(160.dp)
-                .background(Brush.verticalGradient(listOf(Color.Black.copy(alpha = 0.5f), Color.Transparent))),
+                .height(220.dp)
+                .background(Brush.verticalGradient(listOf(Color.Black.copy(alpha = 0.55f), Color.Transparent))),
         )
         Box(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .height(280.dp)
-                .background(Brush.verticalGradient(listOf(Color.Transparent, Color.Black.copy(alpha = 0.6f)))),
+                .height(360.dp)
+                .background(Brush.verticalGradient(listOf(Color.Transparent, Color.Black.copy(alpha = 0.7f)))),
         )
     }
 }
 
-/**
- * What the picture is: a preview before going live, the live badge and running time after. A
- * test video can be closed right here.
- */
+/** What sends the picture, and whether it is connected; opens the connection details. */
 @Composable
-private fun SourceChip(
-    phase: BridgePhase,
-    live: Boolean,
-    liveSinceElapsedMillis: Long?,
-    testing: Boolean,
-    onStopTestVideo: () -> Unit,
-) {
-    when {
-        live -> Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            if (phase == BridgePhase.LIVE) LiveBadge()
-            // A reconnect keeps the running time, so it stays up while the platform comes back.
-            liveSinceElapsedMillis?.let { since ->
-                OverlayChip { LiveTimer(since, color = Color.White, style = MaterialTheme.typography.labelLarge) }
-            }
+private fun DeviceCard(phase: BridgePhase, testing: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    val (dot, state) = when {
+        phase == BridgePhase.RECEIVER_ERROR -> DangerColor to R.string.hero_receiver_stopped
+        phase.hasPicture || phase == BridgePhase.DRONE_CONNECTED -> ReadyColor to R.string.device_connected
+        else -> WarningColor to R.string.device_waiting
+    }
+    Row(
+        modifier = modifier
+            .glass(RoundedCornerShape(20.dp))
+            .clickable(onClickLabel = stringResource(R.string.show_details), role = Role.Button, onClick = onClick)
+            .heightIn(min = 72.dp)
+            .padding(horizontal = 14.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        if (testing) {
+            Icon(Icons.Rounded.Movie, contentDescription = null, tint = Color.White, modifier = Modifier.size(34.dp))
+        } else {
+            Icon(painterResource(R.drawable.ic_drone), contentDescription = null, tint = Color.White, modifier = Modifier.size(34.dp))
         }
-        else -> Row(
-            modifier = Modifier
-                .background(OverlayGlass, RoundedCornerShape(12.dp))
-                .heightIn(min = 36.dp)
-                .padding(start = 12.dp, end = if (testing) 0.dp else 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            Icon(
-                imageVector = if (testing) Icons.Rounded.Movie else Icons.Rounded.Videocam,
-                contentDescription = null,
-                tint = Color.White,
-                modifier = Modifier.size(20.dp),
-            )
+        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Text(
-                modifier = Modifier.weight(1f, fill = false),
-                text = stringResource(if (testing) R.string.preview_badge_test else R.string.preview_badge),
+                text = stringResource(if (testing) R.string.device_test_video else R.string.device_drone),
                 color = Color.White,
-                style = MaterialTheme.typography.labelLarge,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
-            if (testing) {
-                IconButton(onClick = onStopTestVideo) {
-                    Icon(
-                        imageVector = Icons.Rounded.Close,
-                        contentDescription = stringResource(R.string.stop_test_video),
-                        tint = Color.White,
-                        modifier = Modifier.size(20.dp),
-                    )
-                }
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                Box(
+                    modifier = Modifier
+                        .size(8.dp)
+                        .background(dot, CircleShape),
+                )
+                Text(
+                    text = stringResource(state),
+                    color = Color.White.copy(alpha = 0.8f),
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
             }
         }
+        Icon(
+            imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
+            contentDescription = null,
+            tint = Color.White.copy(alpha = 0.7f),
+        )
     }
 }
 
-private class ChipStatus(
-    val icon: ImageVector?,
-    val tint: Color,
+/** The colors of a state: ready, live, working on it, a warning or an error. */
+private enum class Tone(val accent: Color, val tint: Color) {
+    READY(ReadyColor, Color(0xFF052E16)),
+    LIVE(Color(0xFFF87171), Color(0xFF450A0A)),
+    BUSY(Color.White, Color(0xFF111827)),
+    WARNING(WarningColor, Color(0xFF451A03)),
+    ERROR(DangerColor, Color(0xFF450A0A)),
+}
+
+private enum class Leading { CHECK, LIVE_DOT, PROGRESS, WARNING, ERROR }
+
+private class StatusLook(
+    val tone: Tone,
+    val leading: Leading,
     val headline: String?,
-    val caption: String?,
+    val caption: (@Composable () -> Unit)?,
 )
 
-/** The stream's state in a word or two, for the chip in the top corner. */
+/** The stream's state in a word, with a line under it, for the card in the top corner. */
 @Composable
-private fun chipStatus(phase: BridgePhase, snapshot: RelaySnapshot, live: Boolean, target: LiveTarget): ChipStatus {
-    val ok = Color(0xFF4ADE80)
-    val warning = Color(0xFFFBBF24)
-    val danger = Color(0xFFF87171)
+private fun statusLook(
+    phase: BridgePhase,
+    snapshot: RelaySnapshot,
+    live: Boolean,
+    liveSinceElapsedMillis: Long?,
+    target: LiveTarget,
+): StatusLook {
+    fun text(value: String): @Composable () -> Unit = { StatusCaption(value) }
     if (!live) {
         return if (phase.hasPicture) {
-            ChipStatus(Icons.Rounded.CheckCircle, ok, stringResource(R.string.status_ready), stringResource(R.string.status_not_live))
+            StatusLook(Tone.READY, Leading.CHECK, stringResource(R.string.status_ready), text(stringResource(R.string.status_not_live)))
         } else {
-            ChipStatus(null, Color.White, null, stringResource(R.string.status_waiting_for_picture))
+            StatusLook(Tone.BUSY, Leading.PROGRESS, null, text(stringResource(R.string.status_waiting_for_picture)))
         }
     }
     return when (phase) {
-        BridgePhase.LIVE -> if (snapshot.outputs.any { it.status == "congested" }) {
-            ChipStatus(Icons.Rounded.WarningAmber, warning, stringResource(R.string.status_live), stringResource(R.string.status_congested))
-        } else {
-            ChipStatus(Icons.Rounded.CheckCircle, ok, stringResource(R.string.status_live), formatBitrate(snapshot.bitrateKbps))
+        BridgePhase.LIVE -> {
+            val congested = snapshot.outputs.any { it.status == "congested" }
+            val detail = if (congested) stringResource(R.string.status_congested) else formatBitrate(snapshot.bitrateKbps)
+            StatusLook(
+                tone = if (congested) Tone.WARNING else Tone.LIVE,
+                leading = if (congested) Leading.WARNING else Leading.LIVE_DOT,
+                headline = stringResource(R.string.live_badge),
+                caption = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        liveSinceElapsedMillis?.let { since ->
+                            LiveTimer(since, color = Color.White, style = MaterialTheme.typography.bodySmall)
+                            StatusCaption(" · ")
+                        }
+                        StatusCaption(detail)
+                    }
+                },
+            )
         }
         BridgePhase.PREVIEW, BridgePhase.CONNECTING_TARGET ->
-            ChipStatus(null, Color.White, stringResource(R.string.status_connecting), target.label())
+            StatusLook(Tone.BUSY, Leading.PROGRESS, stringResource(R.string.status_connecting), text(target.label()))
         BridgePhase.RECONNECTING ->
-            ChipStatus(Icons.Rounded.WarningAmber, warning, stringResource(R.string.status_reconnecting), target.label())
+            StatusLook(Tone.WARNING, Leading.WARNING, stringResource(R.string.status_reconnecting), text(target.label()))
         BridgePhase.STARTING, BridgePhase.WAITING_FOR_DRONE, BridgePhase.DRONE_CONNECTED ->
             if (snapshot.outputStatus == "holding") {
-                ChipStatus(Icons.Rounded.WarningAmber, warning, null, stringResource(R.string.status_holding))
+                StatusLook(Tone.WARNING, Leading.WARNING, null, text(stringResource(R.string.status_holding)))
             } else {
-                ChipStatus(null, Color.White, null, stringResource(R.string.status_waiting_for_picture))
+                StatusLook(Tone.BUSY, Leading.PROGRESS, null, text(stringResource(R.string.status_waiting_for_picture)))
             }
-        BridgePhase.RECEIVER_ERROR -> ChipStatus(Icons.Rounded.ErrorOutline, danger, stringResource(R.string.hero_receiver_stopped), null)
-        BridgePhase.IDLE, BridgePhase.START_FAILED ->
-            ChipStatus(Icons.Rounded.ErrorOutline, danger, stringResource(R.string.status_stopped), null)
+        BridgePhase.RECEIVER_ERROR -> StatusLook(Tone.ERROR, Leading.ERROR, stringResource(R.string.hero_receiver_stopped), null)
+        BridgePhase.IDLE, BridgePhase.START_FAILED -> StatusLook(Tone.ERROR, Leading.ERROR, stringResource(R.string.status_stopped), null)
     }
 }
 
 @Composable
-private fun StatusChip(status: ChipStatus) {
+private fun StatusCard(look: StatusLook, modifier: Modifier = Modifier) {
     val locale = LocalConfiguration.current.locales[0]
-    Column(
-        modifier = Modifier
-            .widthIn(max = STATUS_CHIP_MAX_WIDTH)
-            .background(OverlayGlass, RoundedCornerShape(16.dp))
+    Row(
+        modifier = modifier
+            .clip(RoundedCornerShape(20.dp))
+            .background(look.tone.tint.copy(alpha = 0.78f))
+            .border(1.5.dp, look.tone.accent.copy(alpha = 0.75f), RoundedCornerShape(20.dp))
+            .heightIn(min = 72.dp)
             .padding(horizontal = 14.dp, vertical = 10.dp)
             .semantics(mergeDescendants = true) { liveRegion = LiveRegionMode.Polite },
-        horizontalAlignment = Alignment.End,
-        verticalArrangement = Arrangement.spacedBy(2.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            if (status.icon != null) {
-                Icon(status.icon, contentDescription = null, tint = status.tint, modifier = Modifier.size(18.dp))
-            } else {
-                CircularProgressIndicator(modifier = Modifier.size(14.dp), color = Color.White, strokeWidth = 2.dp)
-            }
-            if (status.headline != null) {
-                Text(
-                    modifier = Modifier.weight(1f, fill = false),
-                    text = status.headline.uppercase(locale),
-                    color = Color.White,
-                    style = MaterialTheme.typography.labelLarge,
-                    fontWeight = FontWeight.Bold,
-                    letterSpacing = 1.sp,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                )
-            } else {
-                status.caption?.let { StatusCaption(it) }
-            }
+        when (look.leading) {
+            Leading.CHECK -> Icon(Icons.Rounded.CheckCircle, contentDescription = null, tint = look.tone.accent, modifier = Modifier.size(36.dp))
+            Leading.LIVE_DOT -> PulsingDot(color = look.tone.accent, size = 14.dp)
+            Leading.PROGRESS -> CircularProgressIndicator(modifier = Modifier.size(24.dp), color = Color.White, strokeWidth = 2.5.dp)
+            Leading.WARNING -> Icon(Icons.Rounded.WarningAmber, contentDescription = null, tint = look.tone.accent, modifier = Modifier.size(30.dp))
+            Leading.ERROR -> Icon(Icons.Rounded.ErrorOutline, contentDescription = null, tint = look.tone.accent, modifier = Modifier.size(30.dp))
         }
-        if (status.headline != null) status.caption?.let { StatusCaption(it) }
+        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            look.headline?.let {
+                // One line that shrinks to fit: "RECONNECTING" is long in most languages.
+                BasicText(
+                    text = it.uppercase(locale),
+                    style = MaterialTheme.typography.titleLarge.copy(color = look.tone.accent, fontWeight = FontWeight.Bold),
+                    maxLines = 1,
+                    autoSize = TextAutoSize.StepBased(minFontSize = 11.sp, maxFontSize = 22.sp),
+                )
+            }
+            look.caption?.invoke()
+        }
     }
 }
 
@@ -423,257 +555,448 @@ private fun StatusChip(status: ChipStatus) {
 private fun StatusCaption(text: String) {
     Text(
         text = text,
-        color = Color.White.copy(alpha = 0.85f),
+        color = Color.White.copy(alpha = 0.9f),
         style = MaterialTheme.typography.bodySmall,
         maxLines = 2,
         overflow = TextOverflow.Ellipsis,
     )
 }
 
-/** What is going on, in a sentence, with the platforms the stream goes (or will go) to. */
+/** The picture's size, the incoming bitrate and how the phone is connected. */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun InfoCard(
-    phase: BridgePhase,
-    serviceState: RelayServiceUiState,
-    selected: List<DestinationProfile>,
-    liveDestinations: List<DestinationProfile>,
-    videoSizeLabel: String?,
-    lan: LanAddress?,
-    onPlatforms: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    val snapshot = serviceState.snapshot
-    val live = serviceState.isLive
-    val testVideo = serviceState.testVideoName
-    val target = LiveTarget(liveDestinations)
-    val colors = BridgeTheme.colors
-    val title: String
-    val subtitle: String?
-    if (!live && !phase.hasPicture) {
-        // The picture stopped; the home screen comes back unless it returns within moments.
-        title = stringResource(R.string.preview_waiting)
-        subtitle = null
-    } else if (!live) {
-        title = stringResource(if (testVideo != null) R.string.preview_ready_title_test else R.string.preview_ready_title)
-        subtitle = if (testVideo != null) {
-            testVideo.asString()
-        } else {
-            listOfNotNull(
-                videoSizeLabel,
-                snapshot.bitrateKbps.takeIf { it > 0 }?.let { formatBitrate(it) },
-                lan?.kind?.let { networkName(it) },
-            ).joinToString(" · ").ifEmpty { null }
-        }
-    } else {
-        val holding = snapshot.outputStatus == "holding"
-        val waiting = phase == BridgePhase.WAITING_FOR_DRONE || phase == BridgePhase.DRONE_CONNECTED
-        when {
-            waiting && holding -> {
-                title = stringResource(R.string.hero_drone_lost)
-                subtitle = stringResource(R.string.hero_drone_lost_subtitle)
+private fun InfoChips(videoSize: String?, bitrateKbps: Double, lan: LanAddress?) {
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        // Numbers read left to right in every language: "1280×720" must not turn into "720×1280".
+        videoSize?.let { InfoChip(Icons.Rounded.Hd, it, numbers = true) }
+        if (bitrateKbps > 0) InfoChip(Icons.Rounded.SignalCellularAlt, formatBitrate(bitrateKbps), numbers = true)
+        lan?.kind?.let { kind ->
+            val icon = when (kind) {
+                LanKind.WIFI -> Icons.Rounded.Wifi
+                LanKind.HOTSPOT -> Icons.Rounded.WifiTethering
+                LanKind.WIRED, LanKind.OTHER -> Icons.Rounded.Lan
             }
-            waiting && testVideo != null -> {
-                title = stringResource(R.string.hero_test_video)
-                subtitle = stringResource(R.string.hero_test_video_subtitle)
-            }
-            phase == BridgePhase.DRONE_CONNECTED -> {
-                title = stringResource(R.string.hero_connected)
-                subtitle = stringResource(R.string.hero_connected_subtitle)
-            }
-            phase == BridgePhase.WAITING_FOR_DRONE -> {
-                title = stringResource(R.string.hero_waiting)
-                subtitle = target.toSentence(R.string.hero_waiting_subtitle_one, R.string.hero_waiting_subtitle_many)
-            }
-            phase == BridgePhase.STARTING -> {
-                title = stringResource(R.string.hero_starting)
-                subtitle = stringResource(R.string.hero_starting_subtitle)
-            }
-            phase == BridgePhase.LIVE -> {
-                title = target.single?.let { stringResource(R.string.hero_live_one, stringResource(it.onPlatform)).sentenceStart() }
-                    ?: pluralStringResource(R.plurals.hero_live_many, target.count, target.count)
-                subtitle = null
-            }
-            phase == BridgePhase.RECONNECTING -> {
-                title = stringResource(R.string.hero_connection_lost)
-                subtitle = target.toSentence(R.string.hero_reconnecting_one, R.string.hero_reconnecting_many)
-            }
-            phase == BridgePhase.RECEIVER_ERROR -> {
-                title = stringResource(R.string.hero_receiver_stopped)
-                subtitle = snapshot.error?.asString()
-            }
-            phase == BridgePhase.IDLE || phase == BridgePhase.START_FAILED -> {
-                title = stringResource(R.string.hero_off)
-                subtitle = snapshot.error?.asString()
-            }
-            else -> {
-                title = target.toSentence(R.string.hero_connecting_one, R.string.hero_connecting_many)
-                subtitle = null
-            }
+            InfoChip(icon, networkName(kind))
         }
     }
-    val tip = liveTips(phase, snapshot, liveDestinations).firstOrNull()
-    Column(
-        modifier = modifier
-            .background(OverlayGlass, RoundedCornerShape(24.dp))
-            .padding(horizontal = 18.dp, vertical = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(6.dp),
+}
+
+@Composable
+private fun InfoChip(icon: ImageVector, text: String, numbers: Boolean = false) {
+    Row(
+        modifier = Modifier
+            .glass(CircleShape)
+            .padding(horizontal = 14.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
+        Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(18.dp))
         Text(
-            modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
-            text = title,
+            text = text,
             color = Color.White,
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.SemiBold,
+            style = MaterialTheme.typography.labelLarge.let { if (numbers) it.copy(textDirection = TextDirection.Ltr) else it },
+            maxLines = 1,
         )
-        subtitle?.let {
-            Text(text = it, color = Color.White.copy(alpha = 0.75f), style = MaterialTheme.typography.bodyMedium)
+    }
+}
+
+/**
+ * The one message worth reading now: why going live failed, why the drone's picture is gone, or
+ * the tip for the platform (such as pressing "Go live" in Instagram too).
+ */
+@Composable
+private fun Message(phase: BridgePhase, serviceState: RelayServiceUiState, liveDestinations: List<DestinationProfile>) {
+    val snapshot = serviceState.snapshot
+    val notice = serviceState.notice
+    val holding = serviceState.isLive && snapshot.outputStatus == "holding" &&
+        (phase == BridgePhase.WAITING_FOR_DRONE || phase == BridgePhase.DRONE_CONNECTED)
+    when {
+        notice != null -> Banner(
+            key = notice,
+            title = notice.title.asString(),
+            message = notice.message.asString(),
+            icon = Icons.Rounded.ErrorOutline,
+            accent = DangerColor,
+        )
+        holding -> Banner(
+            key = "holding",
+            title = stringResource(R.string.hero_drone_lost),
+            message = stringResource(R.string.hero_drone_lost_subtitle),
+            icon = Icons.Rounded.WarningAmber,
+            accent = WarningColor,
+        )
+        phase == BridgePhase.RECEIVER_ERROR -> Banner(
+            key = "receiver",
+            title = stringResource(R.string.hero_receiver_stopped),
+            message = snapshot.error?.asString(),
+            icon = Icons.Rounded.ErrorOutline,
+            accent = DangerColor,
+        )
+        else -> liveTips(phase, snapshot, liveDestinations).firstOrNull()?.let { tip ->
+            Banner(key = tip, title = null, message = tip, icon = Icons.Rounded.Lightbulb, accent = WarningColor)
         }
-        tip?.let {
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.Top) {
-                Icon(
-                    Icons.Rounded.Lightbulb,
-                    contentDescription = null,
-                    tint = Color(0xFFFBBF24),
-                    modifier = Modifier
-                        .padding(top = 2.dp)
-                        .size(16.dp),
-                )
-                Text(text = it, color = Color.White.copy(alpha = 0.9f), style = MaterialTheme.typography.bodySmall)
-            }
+    }
+}
+
+/** A note over the picture that can be closed; a different message shows again. */
+@Composable
+private fun Banner(key: Any, title: String?, message: String?, icon: ImageVector, accent: Color) {
+    var closed by remember(key) { mutableStateOf(false) }
+    if (closed) return
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .glass(RoundedCornerShape(20.dp))
+            .padding(start = 16.dp, top = 12.dp, bottom = 12.dp, end = 4.dp)
+            .semantics(mergeDescendants = true) { liveRegion = LiveRegionMode.Polite },
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        Icon(
+            icon,
+            contentDescription = null,
+            tint = accent,
+            modifier = Modifier
+                .padding(top = 2.dp)
+                .size(20.dp),
+        )
+        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            title?.let { Text(text = it, color = Color.White, style = MaterialTheme.typography.titleSmall) }
+            message?.let { Text(text = it, color = Color.White.copy(alpha = 0.85f), style = MaterialTheme.typography.bodySmall) }
         }
-        if (live) {
-            PlatformRow(
-                platforms = liveDestinations.map { profile ->
-                    profile.kind to outputLabel(snapshot.output(profile.id)?.status, colors).second
-                },
-                label = target.label(),
-                clickLabel = stringResource(R.string.show_details),
-                onClick = onPlatforms,
-            )
-        } else {
-            PlatformRow(
-                platforms = selected.map { it.kind to null },
-                label = selected.singleOrNull()?.kind?.displayName()
-                    ?: if (selected.isEmpty()) stringResource(R.string.no_platform) else pluralStringResource(R.plurals.platform_count, selected.size, selected.size),
-                clickLabel = stringResource(R.string.change_platforms),
-                onClick = onPlatforms,
-            )
+        IconButton(onClick = { closed = true }) {
+            Icon(Icons.Rounded.Close, contentDescription = stringResource(R.string.close), tint = Color.White.copy(alpha = 0.8f))
         }
     }
 }
 
 /**
- * The platforms' tiles, each with its state as a dot once live, and a way to see more. Several
- * tiles speak for themselves; their count is only read out.
+ * A switch per platform. Before going live it chooses where the broadcast goes; while live it
+ * starts or ends the broadcast on that platform. A platform without a stream key asks for one.
  */
 @Composable
-private fun PlatformRow(
-    platforms: List<Pair<DestinationKind, Color?>>,
-    label: String,
-    clickLabel: String,
-    onClick: () -> Unit,
+private fun StreamToCard(
+    destinations: DestinationProfiles,
+    liveDestinations: List<DestinationProfile>,
+    live: Boolean,
+    snapshot: RelaySnapshot,
+    onToggle: (DestinationKind) -> Unit,
+    onEdit: (DestinationKind) -> Unit,
+    onMore: () -> Unit,
 ) {
-    val several = platforms.size > 1
-    Row(
+    val saved = destinations.profiles.mapTo(mutableSetOf()) { it.kind }
+    // The user's own platforms first, then the four big ones; the others once they have a key.
+    // Switching one on or off never moves it.
+    val shown = DestinationKind.entries.filter { it in saved } +
+        DestinationKind.entries.filter { it in MAIN_PLATFORMS && it !in saved }
+    val hidden = DestinationKind.entries.size > shown.size
+    val on = if (live) {
+        liveDestinations.mapTo(mutableSetOf()) { it.kind }
+    } else {
+        destinations.selectedProfiles.mapTo(mutableSetOf()) { it.kind }
+    }
+    val colors = BridgeTheme.colors
+    Column(
         modifier = Modifier
-            .padding(top = 4.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .clickable(onClickLabel = clickLabel, role = Role.Button, onClick = onClick)
-            .semantics { if (several) contentDescription = label }
-            .heightIn(min = 40.dp)
-            .padding(end = 4.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
+            .fillMaxWidth()
+            .glass(RoundedCornerShape(24.dp))
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        if (platforms.isNotEmpty()) {
-            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                platforms.take(MAX_TILES).forEach { (kind, state) ->
-                    Box {
-                        PlatformTile(kind = kind, size = 28.dp)
-                        state?.let {
-                            Box(
-                                modifier = Modifier
-                                    .align(Alignment.BottomEnd)
-                                    .offset(x = 3.dp, y = 3.dp)
-                                    .size(11.dp)
-                                    .background(it, CircleShape)
-                                    .border(1.5.dp, Color.Black, CircleShape),
-                            )
-                        }
-                    }
-                }
-            }
-        }
-        if (!several) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                modifier = Modifier.weight(1f, fill = false),
-                text = label,
+                modifier = Modifier.weight(1f),
+                text = stringResource(R.string.platforms),
                 color = Color.White,
-                style = MaterialTheme.typography.labelLarge,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+            )
+            Text(
+                text = stringResource(R.string.platforms_active, shown.count { it in on }, shown.size),
+                color = Color.White.copy(alpha = 0.7f),
+                style = MaterialTheme.typography.bodyMedium,
             )
         }
-        Icon(
-            imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
-            contentDescription = null,
-            tint = Color.White.copy(alpha = 0.7f),
-            modifier = Modifier.size(20.dp),
+        BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+            val tileWidth = ((maxWidth - TILE_SPACING * (VISIBLE_TILES - 1)) / VISIBLE_TILES).coerceAtLeast(MIN_TILE_WIDTH)
+            Row(
+                modifier = Modifier.horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(TILE_SPACING),
+            ) {
+                shown.forEach { kind ->
+                    val liveProfile = liveDestinations.firstOrNull { it.kind == kind }
+                    PlatformSwitch(
+                        kind = kind,
+                        checked = kind in on,
+                        saved = kind in saved,
+                        state = liveProfile?.let { outputLabel(snapshot.output(it.id)?.status, colors).second },
+                        onToggle = { onToggle(kind) },
+                        onEdit = { onEdit(kind) },
+                        modifier = Modifier.width(tileWidth),
+                    )
+                }
+                if (hidden) OtherPlatforms(onClick = onMore, modifier = Modifier.width(tileWidth))
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun PlatformSwitch(
+    kind: DestinationKind,
+    checked: Boolean,
+    saved: Boolean,
+    /** The platform's state as a dot while live. */
+    state: Color?,
+    onToggle: () -> Unit,
+    onEdit: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val name = kind.displayName()
+    val notAdded = stringResource(R.string.state_not_added)
+    val editLabel = stringResource(R.string.edit)
+    Column(
+        modifier = modifier
+            .clip(RoundedCornerShape(18.dp))
+            .background(Color.White.copy(alpha = if (checked) 0.12f else 0.05f))
+            .border(1.dp, if (checked) GoLiveStart.copy(alpha = 0.8f) else Color.White.copy(alpha = 0.12f), RoundedCornerShape(18.dp))
+            .combinedClickable(
+                onLongClickLabel = if (saved) editLabel else null,
+                onLongClick = if (saved) onEdit else null,
+                onClick = onToggle,
+            )
+            .semantics(mergeDescendants = true) {
+                role = Role.Switch
+                toggleableState = ToggleableState(checked)
+                contentDescription = name
+                if (!saved) stateDescription = notAdded
+            }
+            .padding(vertical = 12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Box {
+            PlatformTile(kind = kind, size = 40.dp)
+            state?.let {
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .offset(x = 4.dp, y = 4.dp)
+                        .size(12.dp)
+                        .background(it, CircleShape)
+                        .border(2.dp, Color.Black, CircleShape),
+                )
+            }
+        }
+        Text(
+            text = name,
+            color = Color.White.copy(alpha = if (saved) 1f else 0.7f),
+            style = MaterialTheme.typography.labelMedium,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.padding(horizontal = 6.dp),
+        )
+        Switch(
+            checked = checked,
+            onCheckedChange = null,
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = Color.White,
+                checkedTrackColor = GoLiveStart,
+                checkedBorderColor = GoLiveStart,
+                uncheckedThumbColor = Color.White.copy(alpha = 0.85f),
+                uncheckedTrackColor = Color.White.copy(alpha = 0.18f),
+                uncheckedBorderColor = Color.White.copy(alpha = 0.3f),
+            ),
         )
     }
 }
 
-/** The one big button: go live, choose a platform first, or end the broadcast. */
+/** Twitch, Kick and custom servers, until they have a stream key. */
 @Composable
-private fun ActionPill(
-    text: String,
-    icon: ImageVector,
-    color: Color,
-    onClick: () -> Unit,
-    enabled: Boolean = true,
-) {
-    Button(
-        onClick = onClick,
-        enabled = enabled,
-        modifier = Modifier
-            .heightIn(min = 64.dp)
-            .widthIn(max = ACTION_MAX_WIDTH),
-        shape = RoundedCornerShape(percent = 50),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = color,
-            contentColor = Color.White,
-            disabledContainerColor = color.copy(alpha = 0.45f),
-            disabledContentColor = Color.White.copy(alpha = 0.7f),
-        ),
-        contentPadding = PaddingValues(horizontal = 22.dp, vertical = 12.dp),
+private fun OtherPlatforms(onClick: () -> Unit, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .clip(RoundedCornerShape(18.dp))
+            .border(1.dp, Color.White.copy(alpha = 0.12f), RoundedCornerShape(18.dp))
+            .clickable(role = Role.Button, onClick = onClick)
+            .padding(vertical = 12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Icon(icon, contentDescription = null, modifier = Modifier.size(26.dp))
-        Spacer(Modifier.width(10.dp))
-        Text(text = text, style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
+        Box(
+            modifier = Modifier
+                .size(40.dp)
+                .border(1.5.dp, Color.White.copy(alpha = 0.5f), RoundedCornerShape(11.dp)),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(Icons.Rounded.Add, contentDescription = null, tint = Color.White)
+        }
+        Text(
+            text = stringResource(R.string.other_platforms),
+            color = Color.White,
+            style = MaterialTheme.typography.labelMedium,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.padding(horizontal = 6.dp),
+        )
     }
 }
 
-/** Why going live or the test video failed, until the next attempt or until closed. */
+/** "Preview", the big button, and "More", like a camera app's shutter row. */
 @Composable
-private fun NoticeCard(notice: RelayNotice) {
-    var closed by remember(notice) { mutableStateOf(false) }
-    if (closed) return
+private fun ActionRow(
+    live: Boolean,
+    canGoLive: Boolean,
+    testing: Boolean,
+    onPictureOnly: () -> Unit,
+    onGoLive: () -> Unit,
+    onEndLive: () -> Unit,
+    onPlatforms: () -> Unit,
+    onDetails: () -> Unit,
+    onStopTestVideo: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color(0xE6431216), RoundedCornerShape(20.dp))
-            .padding(start = 16.dp, top = 12.dp, bottom = 12.dp, end = 4.dp)
-            .semantics(mergeDescendants = true) { liveRegion = LiveRegionMode.Assertive },
+        modifier = modifier,
         verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        horizontalArrangement = Arrangement.spacedBy(14.dp),
     ) {
-        Icon(Icons.Rounded.ErrorOutline, contentDescription = null, tint = Color(0xFFFCA5A5), modifier = Modifier.size(20.dp))
-        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(text = notice.title.asString(), color = Color.White, style = MaterialTheme.typography.titleSmall)
-            Text(text = notice.message.asString(), color = Color.White.copy(alpha = 0.85f), style = MaterialTheme.typography.bodySmall)
+        SquareAction(icon = Icons.Rounded.Image, label = stringResource(R.string.preview_badge), onClick = onPictureOnly)
+        if (live) {
+            BigButton(
+                text = stringResource(R.string.end_broadcast),
+                icon = Icons.Rounded.Stop,
+                brush = Brush.horizontalGradient(listOf(Color(0xFFEF4444), Color(0xFFDC2626))),
+                onClick = onEndLive,
+                modifier = Modifier.weight(1f),
+            )
+        } else {
+            BigButton(
+                text = stringResource(R.string.go_live),
+                icon = Icons.Rounded.Sensors,
+                brush = Brush.horizontalGradient(listOf(GoLiveStart, GoLiveEnd)),
+                enabled = canGoLive,
+                onClick = onGoLive,
+                modifier = Modifier.weight(1f),
+            )
         }
-        IconButton(onClick = { closed = true }) {
-            Icon(Icons.Rounded.Close, contentDescription = stringResource(R.string.close), tint = Color.White)
+        MenuButton(
+            items = buildList {
+                if (!live) add(MenuEntry(R.string.platforms, Icons.Rounded.GridView, onPlatforms))
+                add(MenuEntry(R.string.technical_details, Icons.Rounded.Info, onDetails))
+                if (testing) add(MenuEntry(R.string.stop_test_video, Icons.Rounded.Stop, onStopTestVideo))
+            },
+        ) { open -> SquareAction(icon = Icons.Rounded.MoreHoriz, label = stringResource(R.string.more), onClick = open) }
+    }
+}
+
+@Composable
+private fun SquareAction(icon: ImageVector, label: String, onClick: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .width(SQUARE_ACTION_SIZE)
+            .clip(RoundedCornerShape(20.dp))
+            .clickable(role = Role.Button, onClick = onClick),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
+        Box(
+            modifier = Modifier
+                .size(SQUARE_ACTION_SIZE)
+                .glass(RoundedCornerShape(20.dp)),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(28.dp))
+        }
+        Text(
+            text = label,
+            color = Color.White,
+            style = MaterialTheme.typography.labelMedium,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+    }
+}
+
+/** The broadcast button: orange to go live, red to end it. Its text shrinks to fit any language. */
+@Composable
+private fun BigButton(
+    text: String,
+    icon: ImageVector,
+    brush: Brush,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+) {
+    Row(
+        modifier = modifier
+            .height(SQUARE_ACTION_SIZE)
+            .alpha(if (enabled) 1f else 0.5f)
+            .clip(CircleShape)
+            .background(brush)
+            .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
+            .padding(horizontal = 20.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+    ) {
+        Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(28.dp))
+        Spacer(Modifier.width(10.dp))
+        BasicText(
+            text = text,
+            style = TextStyle(color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.SemiBold),
+            maxLines = 1,
+            autoSize = TextAutoSize.StepBased(minFontSize = 12.sp, maxFontSize = 20.sp),
+        )
+    }
+}
+
+/** The one line shown while only the picture is on screen. */
+@Composable
+private fun ControlsHint(modifier: Modifier = Modifier) {
+    var visible by remember { mutableStateOf(true) }
+    LaunchedEffect(Unit) {
+        delay(CONTROLS_HINT_MS)
+        visible = false
+    }
+    AnimatedVisibility(
+        visible = visible,
+        enter = fadeIn(),
+        exit = fadeOut(),
+        modifier = modifier
+            .windowInsetsPadding(WindowInsets.safeDrawing)
+            .padding(bottom = 24.dp),
+    ) {
+        Text(
+            text = stringResource(R.string.controls_hint),
+            color = Color.White,
+            style = MaterialTheme.typography.labelLarge,
+            modifier = Modifier
+                .glass(CircleShape)
+                .padding(horizontal = 16.dp, vertical = 10.dp),
+        )
+    }
+}
+
+private class MenuEntry(@StringRes val text: Int, val icon: ImageVector, val action: () -> Unit)
+
+/** A button that opens a short menu; [button] gets the function that opens it. */
+@Composable
+private fun MenuButton(items: List<MenuEntry>, button: @Composable (open: () -> Unit) -> Unit) {
+    var open by remember { mutableStateOf(false) }
+    Box {
+        button { open = true }
+        DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
+            items.forEach { item ->
+                DropdownMenuItem(
+                    text = { Text(stringResource(item.text)) },
+                    leadingIcon = { Icon(item.icon, contentDescription = null) },
+                    onClick = {
+                        open = false
+                        item.action()
+                    },
+                )
+            }
         }
     }
 }
@@ -682,52 +1005,20 @@ private fun NoticeCard(notice: RelayNotice) {
 private fun GlassIconButton(icon: ImageVector, description: String, onClick: () -> Unit) {
     IconButton(
         onClick = onClick,
+        modifier = Modifier
+            .size(52.dp)
+            .border(BorderStroke(1.dp, Color.White.copy(alpha = 0.15f)), CircleShape),
         colors = IconButtonDefaults.iconButtonColors(containerColor = OverlayGlass, contentColor = Color.White),
     ) {
-        Icon(icon, contentDescription = description)
+        Icon(icon, contentDescription = description, modifier = Modifier.size(26.dp))
     }
 }
 
-/** Everything that is not about the picture: sheets, settings and help. */
-@Composable
-private fun DroneMenu(
-    live: Boolean,
-    testing: Boolean,
-    onPlatforms: () -> Unit,
-    onDetails: () -> Unit,
-    onStopTestVideo: () -> Unit,
-    onLanguage: () -> Unit,
-    onTheme: () -> Unit,
-    onHelp: () -> Unit,
-) {
-    var open by remember { mutableStateOf(false) }
-    Box {
-        GlassIconButton(icon = Icons.Rounded.MoreVert, description = stringResource(R.string.more_options), onClick = { open = true })
-        DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
-            val closing: (() -> Unit) -> () -> Unit = { action ->
-                {
-                    open = false
-                    action()
-                }
-            }
-            if (!live) MenuItem(R.string.platforms, Icons.Rounded.GridView, closing(onPlatforms))
-            MenuItem(R.string.technical_details, Icons.Rounded.Info, closing(onDetails))
-            if (testing) MenuItem(R.string.stop_test_video, Icons.Rounded.Stop, closing(onStopTestVideo))
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) MenuItem(R.string.language, Icons.Rounded.Language, closing(onLanguage))
-            MenuItem(R.string.theme, Icons.Rounded.Palette, closing(onTheme))
-            MenuItem(R.string.how_to_use, Icons.AutoMirrored.Rounded.HelpOutline, closing(onHelp))
-        }
-    }
-}
-
-@Composable
-private fun MenuItem(@StringRes text: Int, icon: ImageVector, onClick: () -> Unit) {
-    DropdownMenuItem(
-        text = { Text(stringResource(text)) },
-        leadingIcon = { Icon(icon, contentDescription = null) },
-        onClick = onClick,
-    )
-}
+/** The see-through dark surface with a faint edge that everything over the picture uses. */
+private fun Modifier.glass(shape: Shape): Modifier =
+    clip(shape)
+        .background(OverlayGlass)
+        .border(1.dp, Color.White.copy(alpha = 0.15f), shape)
 
 /** A sheet in the app's own colors, scrolling when its content is long. */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -771,7 +1062,22 @@ private fun KeepScreenOn() {
     }
 }
 
-private val INFO_CARD_MAX_WIDTH = 420.dp
-private val STATUS_CHIP_MAX_WIDTH = 240.dp
-private val ACTION_MAX_WIDTH = 200.dp
-private const val MAX_TILES = 3
+private val MAIN_PLATFORMS = setOf(
+    DestinationKind.INSTAGRAM,
+    DestinationKind.TIKTOK,
+    DestinationKind.YOUTUBE,
+    DestinationKind.FACEBOOK,
+)
+
+private val ReadyColor = Color(0xFF4ADE80)
+private val WarningColor = Color(0xFFFBBF24)
+private val DangerColor = Color(0xFFF87171)
+private val GoLiveStart = Color(0xFFFF8A3D)
+private val GoLiveEnd = Color(0xFFEA580C)
+
+private const val VISIBLE_TILES = 4
+private val TILE_SPACING = 8.dp
+private val MIN_TILE_WIDTH = 76.dp
+private val SQUARE_ACTION_SIZE = 64.dp
+private val LANDSCAPE_ACTIONS_WIDTH = 400.dp
+private const val CONTROLS_HINT_MS = 2_500L

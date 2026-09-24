@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- App and errors from the relay core -->
     <string name="error_with_detail">%1$s (%2$s)</string>
@@ -50,7 +50,7 @@
     <string name="test_video_stopped">Тестовое видео остановлено</string>
     <string name="test_video_rotated">Видео, снятое вертикально, в трансляции может оказаться повёрнутым набок</string>
 
-    <!-- Platforms. on_* and to_* are phrases for where the stream is and where it goes, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
+    <!-- Platforms. on_* are phrases for where the stream is, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
     <string name="platform_custom">Свой RTMP</string>
     <string name="on_instagram">в Instagram</string>
     <string name="on_tiktok">в TikTok</string>
@@ -59,13 +59,6 @@
     <string name="on_twitch">на Twitch</string>
     <string name="on_kick">на Kick</string>
     <string name="on_custom">на вашем сервере</string>
-    <string name="to_instagram">к Instagram</string>
-    <string name="to_tiktok">к TikTok</string>
-    <string name="to_youtube">к YouTube</string>
-    <string name="to_facebook">к Facebook</string>
-    <string name="to_twitch">к Twitch</string>
-    <string name="to_kick">к Kick</string>
-    <string name="to_custom">к вашему серверу</string>
     <string name="key_help_instagram">На instagram.com откройте Создать (+) → Прямой эфир и скопируйте «Ключ трансляции». Instagram выдаёт новый ключ для каждого эфира.</string>
     <string name="key_help_tiktok">В TikTok LIVE Center откройте экран ключа трансляции и скопируйте адрес сервера и ключ трансляции. Вашему аккаунту нужен доступ к RTMP; TikTok выдаёт новый ключ для каждого эфира.</string>
     <string name="key_help_youtube">В Творческой студии YouTube откройте Создать → Начать трансляцию → ПО для трансляций и скопируйте «Ключ трансляции». Ключ не меняется, пока вы его не сбросите.</string>
@@ -162,7 +155,6 @@
     <string name="pick_platforms_hint">Нажмите на одну или несколько платформ — трансляция пойдёт на все сразу. Адрес сервера уже указан, остаётся только ввести ключ трансляции.</string>
     <string name="connect_drone">Подключите дрон</string>
     <string name="preview_badge">Предпросмотр</string>
-    <string name="preview_badge_test">Тестовое видео · предпросмотр</string>
     <string name="preview_connected">Пульт подключён, изображение сейчас появится.</string>
     <string name="stop_test_video">Остановить тестовое видео</string>
     <string name="receiver_starting">Подготовка приёмника…</string>
@@ -211,31 +203,9 @@
         <item quantity="many">%d платформ</item>
         <item quantity="other">%d платформы</item>
     </plurals>
-    <string name="hero_test_video">Подготовка тестового видео</string>
-    <string name="hero_test_video_subtitle">Отправка видео сейчас начнётся.</string>
     <string name="hero_drone_lost">Дрон отключился</string>
     <string name="hero_drone_lost_subtitle">Трансляция не прерывается: когда пульт снова подключится, она продолжится с того же места.</string>
-    <string name="hero_starting">Запуск</string>
-    <string name="hero_starting_subtitle">Через несколько секунд всё будет готово.</string>
-    <string name="hero_waiting">Ожидание пульта</string>
-    <string name="hero_waiting_subtitle_one">Начните трансляцию в DJI Fly: когда появится изображение, приложение само подключится %1$s.</string>
-    <string name="hero_waiting_subtitle_many">Начните трансляцию в DJI Fly: когда появится изображение, приложение само подключится к платформам.</string>
-    <string name="hero_connected">Пульт подключён</string>
-    <string name="hero_connected_subtitle">Изображение сейчас появится.</string>
-    <string name="hero_connecting_one">Подключение %1$s</string>
-    <string name="hero_connecting_many">Подключение к платформам</string>
-    <string name="hero_live_one">Вы в эфире %1$s</string>
-    <plurals name="hero_live_many">
-        <item quantity="one">Вы в эфире на %d платформе</item>
-        <item quantity="few">Вы в эфире на %d платформах</item>
-        <item quantity="many">Вы в эфире на %d платформах</item>
-        <item quantity="other">Вы в эфире на %d платформы</item>
-    </plurals>
-    <string name="hero_connection_lost">Соединение потеряно</string>
-    <string name="hero_reconnecting_one">Переподключение %1$s…</string>
-    <string name="hero_reconnecting_many">Переподключение к платформам…</string>
     <string name="hero_receiver_stopped">Приёмник остановлен</string>
-    <string name="hero_off">Трансляция выключена</string>
     <string name="stream_time">Время трансляции %1$s</string>
     <string name="not_connecting">Не подключается?</string>
     <string name="not_connecting_same_network">Пульт и телефон должны быть в одной сети Wi-Fi, либо пульт должен быть подключён к точке доступа этого телефона.</string>
@@ -325,16 +295,21 @@
     <!-- Drone screen: the picture over the whole screen once the drone connects -->
     <string name="status_ready">Готово</string>
     <string name="status_not_live">Не в эфире</string>
-    <string name="preview_ready_title">Дрон и камера готовы.</string>
-    <string name="preview_ready_title_test">Тестовое видео готово.</string>
     <string name="net_wifi">Wi-Fi</string>
     <string name="net_hotspot">Точка доступа</string>
     <string name="net_local">Локальная сеть</string>
-    <string name="no_platform">Платформа не выбрана</string>
-    <string name="choose_platform">Выбрать платформу</string>
-    <string name="change_platforms">Изменить платформы</string>
     <string name="show_details">Показать подробности</string>
     <string name="picture_fill">Заполнить экран</string>
     <string name="picture_fit">Показать всё изображение</string>
-    <string name="more_options">Другие параметры</string>
+
+    <!-- Drone screen, second design: cards, chips and platform switches over the picture -->
+    <string name="device_drone">Дрон</string>
+    <string name="device_test_video">Тестовое видео</string>
+    <string name="device_connected">Подключено</string>
+    <string name="device_waiting">Ожидание</string>
+    <string name="platforms_active" tools:ignore="PluralsCandidate">Активно: %1$d/%2$d</string>
+    <string name="other_platforms">Другие</string>
+    <string name="more">Ещё</string>
+    <string name="settings">Настройки</string>
+    <string name="controls_hint">Нажмите, чтобы показать элементы управления</string>
 </resources>

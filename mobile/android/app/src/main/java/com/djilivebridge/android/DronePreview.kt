@@ -20,10 +20,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -61,6 +59,12 @@ import kotlin.coroutines.resume
 
 /** How the drone's picture sits on a screen of another shape. */
 internal enum class PictureFit(val storageValue: String) {
+    /**
+     * Edge to edge when that cuts off little (a vertical picture on an upright phone, a wide one
+     * on a phone turned sideways), else the whole picture. Until the user picks one.
+     */
+    AUTO("auto"),
+
     /** The whole picture; the rest of the screen shows its colors, blurred. */
     WHOLE("whole"),
 
@@ -69,8 +73,20 @@ internal enum class PictureFit(val storageValue: String) {
     ;
 
     companion object {
-        fun fromStorage(value: String?): PictureFit = entries.firstOrNull { it.storageValue == value } ?: WHOLE
+        fun fromStorage(value: String?): PictureFit = entries.firstOrNull { it.storageValue == value } ?: AUTO
     }
+}
+
+/** [PictureFit.AUTO] fills the screen while at least this share of the picture stays in view. */
+private const val AUTO_FILL_MIN_VISIBLE = 0.75f
+
+/** What [fit] means for a picture of [aspect] (width / height) in an area of [width] by [height]. */
+internal fun shownFit(width: Float, height: Float, aspect: Float, fit: PictureFit): PictureFit {
+    if (fit != PictureFit.AUTO) return fit
+    if (width <= 0f || height <= 0f) return PictureFit.WHOLE
+    val areaAspect = width / height
+    val visible = if (aspect > areaAspect) areaAspect / aspect else aspect / areaAspect
+    return if (visible >= AUTO_FILL_MIN_VISIBLE) PictureFit.FILL else PictureFit.WHOLE
 }
 
 /** What the decoder found out about the picture, for the screen around it. */
@@ -80,6 +96,10 @@ internal class DronePictureState {
     var videoSize by mutableStateOf<IntSize?>(null)
         internal set
     var unsupported by mutableStateOf(false)
+        internal set
+
+    /** How the picture is shown right now: [PictureFit.AUTO] resolved for the screen's shape. */
+    var shownFit by mutableStateOf(PictureFit.WHOLE)
         internal set
 
     /** A tiny copy of a recent frame, blurred into the space around a [PictureFit.WHOLE] picture. */
@@ -109,7 +129,14 @@ internal fun DronePicture(
     val pictureDescription = stringResource(R.string.drone_picture)
     var area by remember { mutableStateOf(IntSize.Zero) }
     val density = LocalDensity.current
-    SideEffect { state.sampling = fit == PictureFit.WHOLE }
+    val aspect = state.videoSize?.let { it.width.toFloat() / it.height }
+        ?.coerceIn(MIN_ASPECT_RATIO, MAX_ASPECT_RATIO)
+        ?: DEFAULT_ASPECT_RATIO
+    val shown = shownFit(area.width.toFloat(), area.height.toFloat(), aspect, fit)
+    SideEffect {
+        state.shownFit = shown
+        state.sampling = shown == PictureFit.WHOLE
+    }
     Box(
         modifier = modifier
             .background(Color.Black)
@@ -117,11 +144,8 @@ internal fun DronePicture(
             .semantics { contentDescription = pictureDescription },
         contentAlignment = Alignment.Center,
     ) {
-        if (fit == PictureFit.WHOLE) AmbientBackdrop(state.backdrop)
-        val aspect = state.videoSize?.let { it.width.toFloat() / it.height }
-            ?.coerceIn(MIN_ASPECT_RATIO, MAX_ASPECT_RATIO)
-            ?: DEFAULT_ASPECT_RATIO
-        val (width, height) = pictureSize(area.width.toFloat(), area.height.toFloat(), aspect, fit)
+        if (shown == PictureFit.WHOLE) AmbientBackdrop(state.backdrop)
+        val (width, height) = pictureSize(area.width.toFloat(), area.height.toFloat(), aspect, shown)
         // The surface goes away while the app is in the background and comes back with it; the
         // decoder follows it. Removing the view instead would leave the new one's surface unplaced.
         if (area != IntSize.Zero) {
@@ -168,7 +192,7 @@ internal fun DronePicture(
  */
 internal fun pictureSize(width: Float, height: Float, aspect: Float, fit: PictureFit): Pair<Float, Float> {
     val widerThanArea = aspect > width / height
-    val fullWidth = if (fit == PictureFit.WHOLE) widerThanArea else !widerThanArea
+    val fullWidth = if (shownFit(width, height, aspect, fit) == PictureFit.WHOLE) widerThanArea else !widerThanArea
     return if (fullWidth) width to width / aspect else height * aspect to height
 }
 
@@ -218,23 +242,6 @@ private suspend fun sampleBackdrop(surface: Surface, state: DronePictureState) {
         }
         if (copied) state.backdrop = bitmap.copy(Bitmap.Config.ARGB_8888, false).asImageBitmap()
     }
-}
-
-/** A dark label that stays readable over any picture. */
-@Composable
-internal fun OverlayChip(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
-    Box(
-        modifier = modifier
-            .background(OverlayGlass, RoundedCornerShape(12.dp))
-            .padding(horizontal = 12.dp, vertical = 8.dp),
-    ) {
-        content()
-    }
-}
-
-@Composable
-internal fun OverlayText(text: String) {
-    Text(text = text, color = Color.White, style = MaterialTheme.typography.labelLarge)
 }
 
 /** The see-through dark background of everything drawn over the picture. */

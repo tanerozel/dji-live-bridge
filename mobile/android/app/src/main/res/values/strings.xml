@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- App and errors from the relay core -->
     <string name="app_name" translatable="false">DJI Live Bridge</string>
@@ -51,7 +51,7 @@
     <string name="test_video_stopped">Test video stopped</string>
     <string name="test_video_rotated">Videos shot in portrait may look sideways on the stream</string>
 
-    <!-- Platforms. on_* and to_* are phrases for where the stream is and where it goes, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
+    <!-- Platforms. on_* are phrases for where the stream is, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
     <string name="platform_custom">Custom RTMP</string>
     <string name="on_instagram">on Instagram</string>
     <string name="on_tiktok">on TikTok</string>
@@ -60,13 +60,6 @@
     <string name="on_twitch">on Twitch</string>
     <string name="on_kick">on Kick</string>
     <string name="on_custom">on your custom server</string>
-    <string name="to_instagram">to Instagram</string>
-    <string name="to_tiktok">to TikTok</string>
-    <string name="to_youtube">to YouTube</string>
-    <string name="to_facebook">to Facebook</string>
-    <string name="to_twitch">to Twitch</string>
-    <string name="to_kick">to Kick</string>
-    <string name="to_custom">to your custom server</string>
     <string name="key_help_instagram">On instagram.com, open Create (+) → Live video and copy the “Stream key”. Instagram gives a new key for every broadcast.</string>
     <string name="key_help_tiktok">In TikTok LIVE Center, open the stream key screen and copy the Server URL and the Stream key. Your account needs RTMP access; TikTok gives a new key for every broadcast.</string>
     <string name="key_help_youtube">In YouTube Studio, open Create → Go live → Streaming software and copy the “Stream key”. The key stays the same until you reset it.</string>
@@ -161,7 +154,6 @@
     <string name="pick_platforms_hint">Tap one or more platforms; the stream goes to all of them at once. The server address is ready, you only enter the stream key.</string>
     <string name="connect_drone">Connect the drone</string>
     <string name="preview_badge">Preview</string>
-    <string name="preview_badge_test">Test video · preview</string>
     <string name="preview_connected">Controller connected; the picture arrives in a moment.</string>
     <string name="stop_test_video">Stop the test video</string>
     <string name="receiver_starting">Preparing the receiver…</string>
@@ -204,29 +196,9 @@
         <item quantity="one">%d platform</item>
         <item quantity="other">%d platforms</item>
     </plurals>
-    <string name="hero_test_video">Preparing the test video</string>
-    <string name="hero_test_video_subtitle">The video starts sending in a moment.</string>
     <string name="hero_drone_lost">Drone disconnected</string>
     <string name="hero_drone_lost_subtitle">The broadcast is kept open; it picks up where it left off when the controller reconnects.</string>
-    <string name="hero_starting">Starting</string>
-    <string name="hero_starting_subtitle">The bridge is ready in a few seconds.</string>
-    <string name="hero_waiting">Waiting for the controller</string>
-    <string name="hero_waiting_subtitle_one">Start the stream in DJI Fly; once the picture arrives, it connects %1$s by itself.</string>
-    <string name="hero_waiting_subtitle_many">Start the stream in DJI Fly; once the picture arrives, it connects to the platforms by itself.</string>
-    <string name="hero_connected">Controller connected</string>
-    <string name="hero_connected_subtitle">The picture arrives in a moment.</string>
-    <string name="hero_connecting_one">Connecting %1$s</string>
-    <string name="hero_connecting_many">Connecting to the platforms</string>
-    <string name="hero_live_one">You\'re live %1$s</string>
-    <plurals name="hero_live_many">
-        <item quantity="one">You\'re live on %d platform</item>
-        <item quantity="other">You\'re live on %d platforms</item>
-    </plurals>
-    <string name="hero_connection_lost">Connection lost</string>
-    <string name="hero_reconnecting_one">Reconnecting %1$s…</string>
-    <string name="hero_reconnecting_many">Reconnecting to the platforms…</string>
     <string name="hero_receiver_stopped">Receiver stopped</string>
-    <string name="hero_off">Stream off</string>
     <string name="stream_time">Stream time %1$s</string>
     <string name="not_connecting">Not connecting?</string>
     <string name="not_connecting_same_network">The controller and the phone must be on the same Wi-Fi, or the controller must be connected to this phone\'s hotspot.</string>
@@ -312,16 +284,21 @@
     <!-- Drone screen: the picture over the whole screen once the drone connects -->
     <string name="status_ready">Ready</string>
     <string name="status_not_live">Not broadcasting</string>
-    <string name="preview_ready_title">Drone and camera are ready.</string>
-    <string name="preview_ready_title_test">The test video is ready.</string>
     <string name="net_wifi">Wi-Fi</string>
     <string name="net_hotspot">Hotspot</string>
     <string name="net_local">Local network</string>
-    <string name="no_platform">No platform chosen</string>
-    <string name="choose_platform">Choose a platform</string>
-    <string name="change_platforms">Change platforms</string>
     <string name="show_details">Show details</string>
     <string name="picture_fill">Fill the screen</string>
     <string name="picture_fit">Show the whole picture</string>
-    <string name="more_options">More options</string>
+
+    <!-- Drone screen, second design: cards, chips and platform switches over the picture -->
+    <string name="device_drone">Drone</string>
+    <string name="device_test_video">Test video</string>
+    <string name="device_connected">Connected</string>
+    <string name="device_waiting">Waiting</string>
+    <string name="platforms_active" tools:ignore="PluralsCandidate">%1$d/%2$d active</string>
+    <string name="other_platforms">Other</string>
+    <string name="more">More</string>
+    <string name="settings">Settings</string>
+    <string name="controls_hint">Tap to show the controls</string>
 </resources>

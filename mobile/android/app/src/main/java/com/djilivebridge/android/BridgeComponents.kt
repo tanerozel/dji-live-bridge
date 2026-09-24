@@ -129,27 +129,6 @@ internal fun PulsingDot(color: Color, modifier: Modifier = Modifier, size: Dp = 
     )
 }
 
-/** The red badge streaming apps use; only shown while the stream really reaches the platform. */
-@Composable
-internal fun LiveBadge(modifier: Modifier = Modifier) {
-    val colors = BridgeTheme.colors
-    Surface(
-        modifier = modifier,
-        shape = RoundedCornerShape(8.dp),
-        color = colors.live,
-        contentColor = Color.White,
-    ) {
-        Row(
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(6.dp),
-        ) {
-            PulsingDot(color = Color.White, size = 7.dp)
-            Text(text = stringResource(R.string.live_badge), style = MaterialTheme.typography.labelLarge, letterSpacing = 1.sp)
-        }
-    }
-}
-
 /** A step number that turns into a green check once the step is done (desktop .step-badge). */
 @Composable
 internal fun StepDot(number: Int, done: Boolean) {

@@ -111,19 +111,6 @@ internal val DestinationKind.onPlatform: Int
         DestinationKind.CUSTOM -> R.string.on_custom
     }
 
-/** "to Instagram": where the stream is going, spelled out per platform like [onPlatform]. */
-@get:StringRes
-internal val DestinationKind.toPlatform: Int
-    get() = when (this) {
-        DestinationKind.INSTAGRAM -> R.string.to_instagram
-        DestinationKind.TIKTOK -> R.string.to_tiktok
-        DestinationKind.YOUTUBE -> R.string.to_youtube
-        DestinationKind.FACEBOOK -> R.string.to_facebook
-        DestinationKind.TWITCH -> R.string.to_twitch
-        DestinationKind.KICK -> R.string.to_kick
-        DestinationKind.CUSTOM -> R.string.to_custom
-    }
-
 @get:StringRes
 internal val DestinationKind.keyHelp: Int
     get() = when (this) {

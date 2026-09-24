@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- App and errors from the relay core -->
     <string name="error_with_detail">%1$s (%2$s)</string>
@@ -50,7 +50,7 @@
     <string name="test_video_stopped">Testvideo gestoppt</string>
     <string name="test_video_rotated">Im Hochformat aufgenommene Videos können im Stream seitlich gekippt aussehen</string>
 
-    <!-- Platforms. on_* and to_* are phrases for where the stream is and where it goes, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
+    <!-- Platforms. on_* are phrases for where the stream is, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
     <string name="platform_custom">Eigenes RTMP</string>
     <string name="on_instagram">auf Instagram</string>
     <string name="on_tiktok">auf TikTok</string>
@@ -59,13 +59,6 @@
     <string name="on_twitch">auf Twitch</string>
     <string name="on_kick">auf Kick</string>
     <string name="on_custom">auf deinem eigenen Server</string>
-    <string name="to_instagram">zu Instagram</string>
-    <string name="to_tiktok">zu TikTok</string>
-    <string name="to_youtube">zu YouTube</string>
-    <string name="to_facebook">zu Facebook</string>
-    <string name="to_twitch">zu Twitch</string>
-    <string name="to_kick">zu Kick</string>
-    <string name="to_custom">zu deinem eigenen Server</string>
     <string name="key_help_instagram">Öffne auf instagram.com Erstellen (+) → Live-Video und kopiere den „Stream-Schlüssel“. Instagram vergibt für jeden Livestream einen neuen Schlüssel.</string>
     <string name="key_help_tiktok">Öffne in TikTok LIVE Center die Seite mit dem Stream-Schlüssel und kopiere die Server-URL und den Stream-Schlüssel. Dein Konto braucht RTMP-Zugang; TikTok vergibt für jeden Livestream einen neuen Schlüssel.</string>
     <string name="key_help_youtube">Öffne im YouTube Studio Erstellen → Livestream starten → Streaming-Software und kopiere den „Streamschlüssel“. Der Schlüssel bleibt gleich, bis du ihn zurücksetzt.</string>
@@ -160,7 +153,6 @@
     <string name="pick_platforms_hint">Tippe auf eine oder mehrere Plattformen; der Stream geht an alle gleichzeitig. Die Server-Adresse ist schon eingetragen, du gibst nur den Stream-Schlüssel ein.</string>
     <string name="connect_drone">Drohne verbinden</string>
     <string name="preview_badge">Vorschau</string>
-    <string name="preview_badge_test">Testvideo · Vorschau</string>
     <string name="preview_connected">Fernsteuerung verbunden; das Bild kommt gleich.</string>
     <string name="stop_test_video">Testvideo stoppen</string>
     <string name="receiver_starting">Empfänger wird vorbereitet…</string>
@@ -203,29 +195,9 @@
         <item quantity="one">%d Plattform</item>
         <item quantity="other">%d Plattformen</item>
     </plurals>
-    <string name="hero_test_video">Testvideo wird vorbereitet</string>
-    <string name="hero_test_video_subtitle">Das Video wird gleich gesendet.</string>
     <string name="hero_drone_lost">Drohne getrennt</string>
     <string name="hero_drone_lost_subtitle">Der Stream bleibt offen; sobald sich die Fernsteuerung wieder verbindet, geht es dort weiter, wo es aufgehört hat.</string>
-    <string name="hero_starting">Wird gestartet</string>
-    <string name="hero_starting_subtitle">In wenigen Sekunden ist alles bereit.</string>
-    <string name="hero_waiting">Warte auf die Fernsteuerung</string>
-    <string name="hero_waiting_subtitle_one">Starte den Stream in DJI Fly; sobald das Bild ankommt, wird die Verbindung %1$s automatisch aufgebaut.</string>
-    <string name="hero_waiting_subtitle_many">Starte den Stream in DJI Fly; sobald das Bild ankommt, wird die Verbindung zu den Plattformen automatisch aufgebaut.</string>
-    <string name="hero_connected">Fernsteuerung verbunden</string>
-    <string name="hero_connected_subtitle">Das Bild kommt gleich.</string>
-    <string name="hero_connecting_one">Verbindung %1$s wird aufgebaut</string>
-    <string name="hero_connecting_many">Verbindung zu den Plattformen wird aufgebaut</string>
-    <string name="hero_live_one">Du bist live %1$s</string>
-    <plurals name="hero_live_many">
-        <item quantity="one">Du bist live auf %d Plattform</item>
-        <item quantity="other">Du bist live auf %d Plattformen</item>
-    </plurals>
-    <string name="hero_connection_lost">Verbindung unterbrochen</string>
-    <string name="hero_reconnecting_one">Verbindung %1$s wird neu aufgebaut…</string>
-    <string name="hero_reconnecting_many">Verbindung zu den Plattformen wird neu aufgebaut…</string>
     <string name="hero_receiver_stopped">Empfänger gestoppt</string>
-    <string name="hero_off">Stream aus</string>
     <string name="stream_time">Stream-Dauer %1$s</string>
     <string name="not_connecting">Keine Verbindung?</string>
     <string name="not_connecting_same_network">Fernsteuerung und Handy müssen im selben WLAN sein, oder die Fernsteuerung muss mit dem Hotspot dieses Handys verbunden sein.</string>
@@ -311,16 +283,21 @@
     <!-- Drone screen: the picture over the whole screen once the drone connects -->
     <string name="status_ready">Bereit</string>
     <string name="status_not_live">Noch nicht live</string>
-    <string name="preview_ready_title">Drohne und Kamera sind bereit.</string>
-    <string name="preview_ready_title_test">Das Testvideo ist bereit.</string>
     <string name="net_wifi">WLAN</string>
     <string name="net_hotspot">Hotspot</string>
     <string name="net_local">Lokales Netzwerk</string>
-    <string name="no_platform">Keine Plattform gewählt</string>
-    <string name="choose_platform">Plattform wählen</string>
-    <string name="change_platforms">Plattformen ändern</string>
     <string name="show_details">Details anzeigen</string>
     <string name="picture_fill">Bildschirm füllen</string>
     <string name="picture_fit">Ganzes Bild anzeigen</string>
-    <string name="more_options">Weitere Optionen</string>
+
+    <!-- Drone screen, second design: cards, chips and platform switches over the picture -->
+    <string name="device_drone">Drohne</string>
+    <string name="device_test_video">Testvideo</string>
+    <string name="device_connected">Verbunden</string>
+    <string name="device_waiting">Wartet</string>
+    <string name="platforms_active" tools:ignore="PluralsCandidate">%1$d/%2$d aktiv</string>
+    <string name="other_platforms">Weitere</string>
+    <string name="more">Mehr</string>
+    <string name="settings">Einstellungen</string>
+    <string name="controls_hint">Tippe, um die Bedienelemente einzublenden</string>
 </resources>

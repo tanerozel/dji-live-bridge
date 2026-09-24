@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- App and errors from the relay core -->
     <string name="error_with_detail">%1$s (‎%2$s‎)</string>
@@ -50,7 +50,7 @@
     <string name="test_video_stopped">توقّف فيديو الاختبار</string>
     <string name="test_video_rotated">قد تظهر مقاطع الفيديو المصوّرة عموديًا مُدارة على جانبها في البث</string>
 
-    <!-- Platforms. on_* and to_* are phrases for where the stream is and where it goes, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
+    <!-- Platforms. on_* are phrases for where the stream is, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
     <string name="platform_custom">‏RTMP مخصص</string>
     <string name="on_instagram">على Instagram</string>
     <string name="on_tiktok">على TikTok</string>
@@ -59,13 +59,6 @@
     <string name="on_twitch">على Twitch</string>
     <string name="on_kick">على Kick</string>
     <string name="on_custom">على خادمك المخصص</string>
-    <string name="to_instagram">بـ Instagram</string>
-    <string name="to_tiktok">بـ TikTok</string>
-    <string name="to_youtube">بـ YouTube</string>
-    <string name="to_facebook">بـ Facebook</string>
-    <string name="to_twitch">بـ Twitch</string>
-    <string name="to_kick">بـ Kick</string>
-    <string name="to_custom">بخادمك المخصص</string>
     <string name="key_help_instagram">في instagram.com، افتح إنشاء (+) ← فيديو مباشر وانسخ «مفتاح البث». يمنح Instagram مفتاحًا جديدًا لكل بث.</string>
     <string name="key_help_tiktok">في TikTok LIVE Center، افتح شاشة مفتاح البث وانسخ عنوان الخادم ومفتاح البث. يحتاج حسابك إلى صلاحية RTMP؛ ويمنح TikTok مفتاحًا جديدًا لكل بث.</string>
     <string name="key_help_youtube">في YouTube Studio، افتح إنشاء ← بدء البث المباشر ← برنامج البث وانسخ «مفتاح البث». يبقى المفتاح كما هو إلى أن تعيد ضبطه.</string>
@@ -164,7 +157,6 @@
     <string name="pick_platforms_hint">انقر على منصة أو أكثر؛ وسيصل البث إليها جميعًا في الوقت نفسه. عنوان الخادم جاهز، وكل ما عليك هو إدخال مفتاح البث.</string>
     <string name="connect_drone">وصّل الدرون</string>
     <string name="preview_badge">معاينة</string>
-    <string name="preview_badge_test">فيديو الاختبار · معاينة</string>
     <string name="preview_connected">وحدة التحكم متصلة؛ ستصل الصورة بعد لحظات.</string>
     <string name="stop_test_video">إيقاف فيديو الاختبار</string>
     <string name="receiver_starting">جارٍ تجهيز المستقبِل…</string>
@@ -219,33 +211,9 @@
         <item quantity="many">%d منصة</item>
         <item quantity="other">%d منصة</item>
     </plurals>
-    <string name="hero_test_video">جارٍ تجهيز فيديو الاختبار</string>
-    <string name="hero_test_video_subtitle">سيبدأ إرسال الفيديو بعد لحظات.</string>
     <string name="hero_drone_lost">انقطع اتصال الدرون</string>
     <string name="hero_drone_lost_subtitle">البث ما زال مفتوحًا، وسيُستأنف من حيث توقف عند إعادة اتصال وحدة التحكم.</string>
-    <string name="hero_starting">جارٍ البدء</string>
-    <string name="hero_starting_subtitle">سيكون كل شيء جاهزًا خلال بضع ثوانٍ.</string>
-    <string name="hero_waiting">في انتظار وحدة التحكم</string>
-    <string name="hero_waiting_subtitle_one">ابدأ البث في DJI Fly؛ وعند وصول الصورة سيتم الاتصال %1$s تلقائيًا.</string>
-    <string name="hero_waiting_subtitle_many">ابدأ البث في DJI Fly؛ وعند وصول الصورة سيتم الاتصال بالمنصات تلقائيًا.</string>
-    <string name="hero_connected">وحدة التحكم متصلة</string>
-    <string name="hero_connected_subtitle">ستصل الصورة بعد لحظات.</string>
-    <string name="hero_connecting_one">جارٍ الاتصال %1$s</string>
-    <string name="hero_connecting_many">جارٍ الاتصال بالمنصات</string>
-    <string name="hero_live_one">أنت تبث مباشرةً %1$s</string>
-    <plurals name="hero_live_many">
-        <item quantity="zero">أنت تبث مباشرةً على %d منصة</item>
-        <item quantity="one">أنت تبث مباشرةً على %d منصة</item>
-        <item quantity="two">أنت تبث مباشرةً على منصتين (%d)</item>
-        <item quantity="few">أنت تبث مباشرةً على %d منصات</item>
-        <item quantity="many">أنت تبث مباشرةً على %d منصة</item>
-        <item quantity="other">أنت تبث مباشرةً على %d منصة</item>
-    </plurals>
-    <string name="hero_connection_lost">انقطع الاتصال</string>
-    <string name="hero_reconnecting_one">جارٍ إعادة الاتصال %1$s…</string>
-    <string name="hero_reconnecting_many">جارٍ إعادة الاتصال بالمنصات…</string>
     <string name="hero_receiver_stopped">توقّف المستقبِل</string>
-    <string name="hero_off">البث متوقف</string>
     <string name="stream_time">مدة البث %1$s</string>
     <string name="not_connecting">هل يتعذّر الاتصال؟</string>
     <string name="not_connecting_same_network">يجب أن تكون وحدة التحكم والهاتف على الشبكة اللاسلكية نفسها، أو أن تكون وحدة التحكم متصلة بنقطة الاتصال في هذا الهاتف.</string>
@@ -339,16 +307,21 @@
     <!-- Drone screen: the picture over the whole screen once the drone connects -->
     <string name="status_ready">جاهز</string>
     <string name="status_not_live">لم يبدأ البث المباشر</string>
-    <string name="preview_ready_title">الدرون والكاميرا جاهزان.</string>
-    <string name="preview_ready_title_test">فيديو الاختبار جاهز.</string>
     <string name="net_wifi">الشبكة اللاسلكية</string>
     <string name="net_hotspot">نقطة الاتصال</string>
     <string name="net_local">شبكة محلية</string>
-    <string name="no_platform">لم يتم اختيار منصة</string>
-    <string name="choose_platform">اختر منصة</string>
-    <string name="change_platforms">تغيير المنصات</string>
     <string name="show_details">عرض التفاصيل</string>
     <string name="picture_fill">ملء الشاشة</string>
     <string name="picture_fit">عرض الصورة كاملة</string>
-    <string name="more_options">المزيد من الخيارات</string>
+
+    <!-- Drone screen, second design: cards, chips and platform switches over the picture -->
+    <string name="device_drone">الدرون</string>
+    <string name="device_test_video">فيديو الاختبار</string>
+    <string name="device_connected">متصل</string>
+    <string name="device_waiting">في الانتظار</string>
+    <string name="platforms_active" tools:ignore="PluralsCandidate">%1$d/%2$d مفعّلة</string>
+    <string name="other_platforms">أخرى</string>
+    <string name="more">المزيد</string>
+    <string name="settings">الإعدادات</string>
+    <string name="controls_hint">انقر لإظهار عناصر التحكم</string>
 </resources>

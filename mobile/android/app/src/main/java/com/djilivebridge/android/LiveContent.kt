@@ -1,7 +1,6 @@
 package com.djilivebridge.android
 
 import android.os.SystemClock
-import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -87,10 +86,6 @@ internal class LiveTarget(destinations: List<DestinationProfile>) {
 @Composable
 internal fun LiveTarget.label(): String = single?.displayName() ?: pluralStringResource(R.plurals.platform_count, count, count)
 
-/** A sentence about going to the one platform ("to Instagram"), or its version for several. */
-@Composable
-internal fun LiveTarget.toSentence(@StringRes one: Int, @StringRes many: Int): String =
-    single?.let { stringResource(one, stringResource(it.toPlatform)).sentenceStart() } ?: stringResource(many)
 
 @Composable
 internal fun LiveTimer(
