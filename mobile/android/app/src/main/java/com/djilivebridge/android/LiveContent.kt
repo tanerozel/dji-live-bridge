@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ChevronRight
 import androidx.compose.material.icons.rounded.ErrorOutline
@@ -47,6 +48,7 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -92,7 +94,7 @@ internal fun LiveContent(
                         "açık olduğunu kontrol et.",
                 )
             phase == BridgePhase.RECEIVER_ERROR ->
-                TipBox("Yayını durdurup yeniden başlat. Sorun sürerse telefonu yeniden başlatmayı dene.")
+                TipBox("Yayını bitirip alıcıyı yeniden aç. Sorun sürerse telefonu yeniden başlatmayı dene.")
             phase == BridgePhase.LIVE -> kind.liveReminder?.let { TipBox(it) }
         }
         TechnicalDetails(snapshot)
@@ -122,13 +124,18 @@ private fun StatusHero(
         HeroLook(colors.accent, colors.accentSoft, "Test videosu hazırlanıyor", "Video birazdan gönderilmeye başlar.")
     } else when (phase) {
         BridgePhase.STARTING -> HeroLook(colors.accent, colors.accentSoft, "Başlatılıyor", "Köprü birkaç saniye içinde hazır olur.")
-        BridgePhase.WAITING_FOR_DRONE ->
-            HeroLook(colors.warningText, colors.warningSoft, "Kumanda bekleniyor", "Şimdi DJI Fly'da yayını başlat.")
+        BridgePhase.WAITING_FOR_DRONE -> HeroLook(
+            colors.warningText,
+            colors.warningSoft,
+            "Kumanda bekleniyor",
+            "DJI Fly'da yayını başlat; görüntü gelince ${kind.dative} kendiliğinden bağlanır.",
+        )
         BridgePhase.DRONE_CONNECTED ->
             HeroLook(colors.accent, colors.accentSoft, "Kumanda bağlandı", "Görüntü birazdan gelir.")
-        BridgePhase.CONNECTING_TARGET ->
-            HeroLook(colors.accent, colors.accentSoft, "${kind.dative} bağlanılıyor", "Görüntü geliyor.")
-        BridgePhase.LIVE -> HeroLook(colors.live, colors.dangerSoft, "", "${kind.locative} yayındasın")
+        // Only for a moment: the live screen shows once the stream is sent somewhere.
+        BridgePhase.PREVIEW, BridgePhase.CONNECTING_TARGET ->
+            HeroLook(colors.accent, colors.accentSoft, "${kind.dative} bağlanılıyor", "")
+        BridgePhase.LIVE -> HeroLook(colors.live, colors.dangerSoft, "${kind.locative} yayındasın", "")
         BridgePhase.RECONNECTING ->
             HeroLook(colors.warningText, colors.warningSoft, "Bağlantı koptu", "${kind.dative} yeniden bağlanılıyor…")
         BridgePhase.RECEIVER_ERROR ->
@@ -139,12 +146,16 @@ private fun StatusHero(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 8.dp)
-            .semantics(mergeDescendants = true) { liveRegion = LiveRegionMode.Polite },
+            .padding(top = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        StatusOrb(tone = look.tone, halo = look.halo, ping = look.ping) {
+        // Once the drone's video arrives, the picture itself is the status.
+        if (phase.isStreaming) {
+            DronePreview(modifier = Modifier.padding(bottom = 4.dp)) {
+                PreviewOverlay(phase = phase, liveSinceElapsedMillis = liveSinceElapsedMillis)
+            }
+        } else StatusOrb(tone = look.tone, halo = look.halo, ping = look.ping) {
             when (phase) {
                 BridgePhase.STARTING -> CircularProgressIndicator(
                     modifier = Modifier.size(32.dp),
@@ -166,23 +177,21 @@ private fun StatusHero(
                 else -> PlatformTile(kind = kind, size = 52.dp)
             }
         }
-        if (phase == BridgePhase.LIVE) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                LiveBadge()
-                liveSinceElapsedMillis?.let { LiveTimer(it) }
-            }
-        } else {
-            Text(text = look.title, style = MaterialTheme.typography.titleLarge, textAlign = TextAlign.Center)
-        }
+        // Only the status line is announced; the ticking timer would talk every second.
         Text(
-            text = look.subtitle,
-            style = MaterialTheme.typography.bodyMedium,
-            color = colors.muted,
+            modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
+            text = look.title,
+            style = if (phase.isStreaming) MaterialTheme.typography.titleMedium else MaterialTheme.typography.titleLarge,
             textAlign = TextAlign.Center,
         )
+        if (look.subtitle.isNotEmpty()) {
+            Text(
+                text = look.subtitle,
+                style = MaterialTheme.typography.bodyMedium,
+                color = colors.muted,
+                textAlign = TextAlign.Center,
+            )
+        }
         HopLine(phase = phase, kind = kind, sourceLabel = if (testing) "Test videosu" else "Kumanda")
         testVideoName?.let { name ->
             Row(
@@ -246,8 +255,36 @@ private fun StatusOrb(tone: Color, halo: Color, ping: Boolean, content: @Composa
     }
 }
 
+/** Live badge and running time over the top-left corner of the picture. */
 @Composable
-private fun LiveTimer(sinceElapsedMillis: Long) {
+private fun BoxScope.PreviewOverlay(phase: BridgePhase, liveSinceElapsedMillis: Long?) {
+    Row(
+        modifier = Modifier
+            .align(Alignment.TopStart)
+            .padding(12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        when (phase) {
+            BridgePhase.LIVE -> {
+                LiveBadge()
+                liveSinceElapsedMillis?.let { since ->
+                    OverlayChip { LiveTimer(since, color = Color.White, style = MaterialTheme.typography.labelLarge) }
+                }
+            }
+            BridgePhase.CONNECTING_TARGET -> OverlayChip { OverlayText("Bağlanıyor") }
+            BridgePhase.RECONNECTING -> OverlayChip { OverlayText("Yeniden bağlanıyor") }
+            else -> Unit
+        }
+    }
+}
+
+@Composable
+private fun LiveTimer(
+    sinceElapsedMillis: Long,
+    color: Color = Color.Unspecified,
+    style: TextStyle = MaterialTheme.typography.titleLarge,
+) {
     val now by produceState(SystemClock.elapsedRealtime(), sinceElapsedMillis) {
         while (true) {
             value = SystemClock.elapsedRealtime()
@@ -257,7 +294,8 @@ private fun LiveTimer(sinceElapsedMillis: Long) {
     Text(
         modifier = Modifier.semantics { contentDescription = "Yayın süresi ${formatDuration(now - sinceElapsedMillis)}" },
         text = formatDuration(now - sinceElapsedMillis),
-        style = MaterialTheme.typography.titleLarge.copy(fontFeatureSettings = "tnum"),
+        color = color,
+        style = style.copy(fontFeatureSettings = "tnum"),
     )
 }
 
@@ -268,7 +306,8 @@ private fun HopLine(phase: BridgePhase, kind: DestinationKind, sourceLabel: Stri
     val (sourceColor, sourceState) = when (phase) {
         BridgePhase.WAITING_FOR_DRONE -> colors.warningText to "bekleniyor"
         BridgePhase.DRONE_CONNECTED -> colors.accent to "bağlandı"
-        BridgePhase.CONNECTING_TARGET, BridgePhase.LIVE, BridgePhase.RECONNECTING -> colors.success to "gönderiyor"
+        BridgePhase.PREVIEW, BridgePhase.CONNECTING_TARGET, BridgePhase.LIVE, BridgePhase.RECONNECTING ->
+            colors.success to "gönderiyor"
         else -> colors.faint to "bağlı değil"
     }
     val (relayColor, relayState) = when (phase) {

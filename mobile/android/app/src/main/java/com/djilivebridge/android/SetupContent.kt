@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -17,8 +18,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material.icons.rounded.Movie
+import androidx.compose.material.icons.rounded.Stop
 import androidx.compose.material.icons.rounded.Wifi
 import androidx.compose.material.icons.rounded.WifiOff
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -39,13 +43,22 @@ import androidx.compose.ui.unit.dp
 
 private const val GRID_COLUMNS = 4
 
-/** What the user sets up before starting: where to stream, and the address DJI Fly needs. */
+/**
+ * Before going live: the drone connects first and its picture shows here, then the user picks
+ * where the stream goes.
+ */
 @Composable
 internal fun SetupContent(
+    phase: BridgePhase,
+    snapshot: RelaySnapshot,
+    testVideoName: String?,
+    notice: RelayNotice?,
     destinations: DestinationProfiles,
     profileError: String?,
     lan: LanAddress?,
-    startError: String?,
+    onStartReceiver: (restart: Boolean) -> Unit,
+    onTestVideo: () -> Unit,
+    onStopTestVideo: () -> Unit,
     onPlatformClick: (DestinationKind) -> Unit,
     onPlatformLongClick: (DestinationKind) -> Unit,
     onEditSelected: () -> Unit,
@@ -55,11 +68,23 @@ internal fun SetupContent(
 ) {
     val selected = destinations.selectedProfile
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        startError?.let { AlertBanner(title = "Yayın başlatılamadı", message = it) }
+        notice?.let { AlertBanner(title = it.title, message = it.message) }
         profileError?.let { AlertBanner(title = "Hedef kaydı okunamadı", message = it) }
 
+        DroneCard(
+            phase = phase,
+            snapshot = snapshot,
+            testVideoName = testVideoName,
+            lan = lan,
+            onStartReceiver = onStartReceiver,
+            onTestVideo = onTestVideo,
+            onStopTestVideo = onStopTestVideo,
+            onCopyAddress = onCopyAddress,
+            onOpenWifiSettings = onOpenWifiSettings,
+        )
+
         BridgeCard {
-            SectionHeader(title = "Nereye yayın yapacaksın?", step = 1, done = selected != null)
+            SectionHeader(title = "Nereye yayın yapacaksın?", step = 2, done = selected != null)
             PlatformGrid(
                 destinations = destinations,
                 onClick = onPlatformClick,
@@ -76,20 +101,99 @@ internal fun SetupContent(
                 )
             }
         }
+    }
+}
 
-        BridgeCard(verticalSpacing = 12.dp) {
-            // Stays a number: the app cannot know whether the address is in DJI Fly yet.
-            SectionHeader(title = "DJI Fly'a bu adresi gir", step = 2)
-            if (lan != null) {
-                AddressField(address = lan.publishUrl, onCopy = { onCopyAddress(lan.publishUrl) })
+/** Step one: the address for DJI Fly until the drone connects, then the drone's own picture. */
+@Composable
+private fun DroneCard(
+    phase: BridgePhase,
+    snapshot: RelaySnapshot,
+    testVideoName: String?,
+    lan: LanAddress?,
+    onStartReceiver: (restart: Boolean) -> Unit,
+    onTestVideo: () -> Unit,
+    onStopTestVideo: () -> Unit,
+    onCopyAddress: (String) -> Unit,
+    onOpenWifiSettings: () -> Unit,
+) {
+    val colors = BridgeTheme.colors
+    val testing = testVideoName != null
+    BridgeCard(verticalSpacing = 12.dp) {
+        SectionHeader(title = "Drone'u bağla", step = 1, done = phase.hasPicture)
+        when (phase) {
+            BridgePhase.PREVIEW, BridgePhase.DRONE_CONNECTED -> {
+                DronePreview {
+                    OverlayChip(modifier = Modifier.align(Alignment.TopStart).padding(12.dp)) {
+                        OverlayText(if (testing) "Test videosu · önizleme" else "Önizleme")
+                    }
+                }
                 Text(
-                    text = DJI_FLY_PATH,
+                    text = if (phase == BridgePhase.PREVIEW) {
+                        listOf(
+                            if (testing) "Test videosu geliyor" else "Drone bağlı",
+                            formatBitrate(snapshot.bitrateKbps),
+                        ).joinToString(" · ") + ". Henüz yayında değilsin."
+                    } else {
+                        "Kumanda bağlandı; görüntü birazdan gelir."
+                    },
                     style = MaterialTheme.typography.bodySmall,
-                    color = BridgeTheme.colors.muted,
+                    color = colors.muted,
                 )
-                NetworkNote(lan)
-            } else {
-                NoNetwork(onOpenWifiSettings)
+                if (testing) {
+                    TextButton(onClick = onStopTestVideo) {
+                        Icon(Icons.Rounded.Stop, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(Modifier.width(8.dp))
+                        Text("Test videosunu durdur")
+                    }
+                }
+            }
+            BridgePhase.STARTING -> Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
+                Text("Alıcı hazırlanıyor…", style = MaterialTheme.typography.bodyMedium)
+            }
+            BridgePhase.IDLE, BridgePhase.START_FAILED, BridgePhase.RECEIVER_ERROR -> {
+                val failed = phase != BridgePhase.IDLE
+                Text(
+                    text = if (failed) snapshot.detail else "Alıcı kapalı; DJI Fly bu telefona bağlanamaz.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = if (failed) colors.dangerText else colors.text,
+                )
+                TextButton(onClick = { onStartReceiver(phase == BridgePhase.RECEIVER_ERROR) }) {
+                    Text(if (failed) "Yeniden dene" else "Alıcıyı aç")
+                }
+            }
+            else -> {
+                if (testing) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    ) {
+                        CircularProgressIndicator(modifier = Modifier.size(20.dp), strokeWidth = 2.dp)
+                        Text("Test videosu açılıyor…", style = MaterialTheme.typography.bodyMedium)
+                    }
+                } else if (lan != null) {
+                    Text(
+                        text = "DJI Fly'da RTMP adresi olarak bunu yaz ve yayını başlat. Görüntü burada görünür; " +
+                            "platforma sen başlatınca gider.",
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    AddressField(address = lan.publishUrl, onCopy = { onCopyAddress(lan.publishUrl) })
+                    Text(text = DJI_FLY_PATH, style = MaterialTheme.typography.bodySmall, color = colors.muted)
+                    NetworkNote(lan)
+                } else {
+                    NoNetwork(onOpenWifiSettings)
+                }
+                if (!testing) {
+                    TextButton(onClick = onTestVideo) {
+                        Icon(Icons.Rounded.Movie, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(Modifier.width(8.dp))
+                        Text("Drone yok mu? Test videosuyla dene")
+                    }
+                }
             }
         }
     }

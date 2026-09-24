@@ -26,23 +26,43 @@ The activity passes only the selected profile ID to the service, which decrypts 
 before starting the native relay. Editing a profile without entering a new key preserves the
 existing encrypted credential.
 
-The service is started only by the user's button, uses a persistent status notification with a Stop
-action, and returns `START_NOT_STICKY` so Android cannot restart a stopped relay without a new user
-action. Profile selection and editing are locked while a relay is active. The storage file is
-excluded from cloud backup and device transfer; if the Keystore key is unavailable or invalidated,
-the app reports the condition instead of replacing or exposing the saved ciphertext.
+The receiver opens whenever the app is on screen, so DJI Fly can connect and its picture shows on
+the phone before anything goes anywhere; the stream reaches a platform only between the user's
+"Canlı yayını başlat" and "Yayını bitir". Both run in a foreground service with a status
+notification whose action ends the broadcast while live and closes the receiver otherwise. Swiping
+the app away closes the receiver unless a broadcast is on, and `START_NOT_STICKY` keeps Android
+from restarting a stopped receiver on its own. The storage file is excluded from cloud backup and
+device transfer; if the Keystore key is unavailable or invalidated, the app reports the condition
+instead of replacing or exposing the saved ciphertext.
 
 The DJI Fly ingress URL deliberately matches the desktop product's fixed `/drone` path. It has no
-separate inbound password, so the listener should only be used on a trusted local Wi-Fi network and
-is available only while the user-started foreground service is running. The vendored `librtmp2`
-patch allows an explicitly authorized application-only RTMP route (`app=drone`, empty publish name),
-which is how clients such as FFmpeg encode the single-segment `/drone` URL.
+separate inbound password, so the listener should only be used on a trusted local Wi-Fi network; it
+is open only while the receiver's foreground service runs. The vendored `librtmp2` patch allows an
+explicitly authorized application-only RTMP route (`app=drone`, empty publish name), which is how
+clients such as FFmpeg and DJI Fly encode the single-segment `/drone` URL.
+
+### DJI Fly compatibility
+
+DJI Fly's RTMP client behaves like librtmp, and two of its habits broke the vendored `librtmp2`
+server until they were fixed there (sessions captured from an RC 2 showed both):
+
+- It answers the server's ping on chunk stream 2 with a type 1 header, although nothing was sent on
+  that stream before. The reader now opens an unknown chunk stream from a type 1 header (message
+  stream 0), as nginx-rtmp and SRS do; type 2 and 3 headers there are still protocol errors.
+- It never sends Set Chunk Size, so every message it sends stays in 128-byte chunks. The server
+  used to apply its own announced size (4096) to what it read as well, which cut the first
+  keyframe apart and closed the connection a second after publishing. Only our own chunks change
+  size now; the peer's change only when it announces one.
+
+`librtmp2`'s tests replay those captured bytes, and CI runs them.
 
 ## User interface
 
-The home screen is two cards and one button. The first card is the platform grid: Instagram,
-TikTok, YouTube, Facebook, Twitch, Kick and a custom RTMP server, drawn as the desktop app's brand
-tiles. Tapping a platform opens a key-only screen whose server address is prefilled with the
+The home screen follows the order of a flight: two numbered cards and one button. The first card,
+"Drone'u bağla", shows the RTMP address to type into DJI Fly on the RC 2 with the DJI Fly menu
+path; once the drone connects, the card becomes its live picture, marked as a preview, with the
+incoming bitrate. The second card is the platform grid: Instagram, TikTok, YouTube, Facebook, Twitch,
+Kick and a custom RTMP server, drawn as the desktop app's brand tiles. Tapping a platform opens a key-only screen whose server address is prefilled with the
 platform's published ingest; TikTok and custom servers hand out their own address, so they ask for
 it. The prefilled address can still be changed:
 
@@ -54,14 +74,24 @@ it. The prefilled address can still be changed:
 | Twitch | `rtmp://live.twitch.tv/app` |
 | Kick | `rtmps://fa723fc1b171.global-contribute.live-video.net:443/app` (the dashboard value wins if it differs) |
 
-The second card shows the RTMP address to type into DJI Fly on the RC 2, with the DJI Fly menu path.
-While the bridge runs, the screen shows one status (waiting for the remote, live with a timer,
-reconnecting, error), the remote → phone → platform hops, bitrate, sent bytes and codecs, and the
-platform's own go-live reminder; the counters stay under "Teknik ayrıntılar". A three-page guide
-opens on first launch and again from the help button.
+"Canlı yayını başlat" becomes available when the drone's picture arrives and a platform is chosen.
+While live, the screen shows one status (connecting, live with a timer, reconnecting, waiting for a
+remote that dropped, error), the remote → phone → platform hops, bitrate, sent bytes and codecs, and
+the platform's own go-live reminder; the counters stay under "Teknik ayrıntılar". "Yayını bitir"
+ends only the broadcast: the drone stays connected and its picture returns to the home screen, ready
+to go live again. A three-page guide opens on first launch and again from the help button.
 
-"Test videosuyla dene" goes live without a drone, like the desktop app's test video. The picked
-H.264/AAC video is published over loopback to the app's own `rtmp://127.0.0.1:1935/drone` ingest,
+The drone's picture shows on the home screen before going live and at the top of the live screen,
+under the live badge and running time. The Rust core keeps a bounded tap of the ingest's video tags for it (about three
+seconds); when the viewer falls behind, the tap drops its queue and restarts from the latest codec
+header and the next keyframe, so the preview can never slow the relay. Each viewer has a session
+number, so a closing view cannot stop its replacement. The phone's hardware decoder renders the
+H.264 (legacy AVC, which DJI Fly sends) onto a TextureView-backed surface, only while the app is
+visible.
+
+"Drone yok mu? Test videosuyla dene" stands in for the drone, like the desktop app's test video:
+its picture shows as the drone's would, and going live works the same way. The picked H.264/AAC
+video is published over loopback to the app's own `rtmp://127.0.0.1:1935/drone` ingest,
 exactly as DJI Fly would: legacy handshake, `connect`/`createStream`/`publish`, answers to
 librtmp2's pings, samples copied without re-encoding, paced in real time and looped. It therefore
 takes the same relay and destination path as a real flight and needs no Wi-Fi. B-frames work
@@ -93,9 +123,9 @@ scrollable/compact while the keyboard is visible. A longer RC 2 stream against a
 destination remains the final end-to-end field test.
 
 Moving the app to the background, switching apps or locking the screen no longer ties relay
-lifetime to `MainActivity`. While active, the service holds a six-hour partial wake lock so the
-CPU can continue handling the live stream after screen lock; every stop/error/timeout path releases
-it. On Android 15 and newer, the platform limits `dataSync` foreground services to a total of six
+lifetime to `MainActivity`. While live, the service holds a six-hour partial wake lock so the CPU
+can continue handling the stream after screen lock; ending the broadcast and every stop/error/timeout
+path release it. The receiver alone holds none. On Android 15 and newer, the platform limits `dataSync` foreground services to a total of six
 background hours per 24-hour period; the service handles that timeout by stopping the native relay
 and releasing its sockets. Battery/vendor settings can still impose additional device-specific
 restrictions.
@@ -104,7 +134,9 @@ When the destination connection drops, the relay retries with bounded exponentia
 (1, 2, 4, 8, then 15 seconds). It caches only public codec/metadata headers, waits for the next
 video keyframe after reconnect, rebases timestamps for the new RTMP session and exposes reconnect
 and dropped-packet counters in the UI. A source restart is no longer required after a temporary
-target or Wi-Fi interruption.
+target or Wi-Fi interruption. The same cache lets a broadcast start while the drone is already
+streaming: the platform gets the codec headers and metadata first, then the stream from the next
+keyframe.
 
 ## Toolchain
 

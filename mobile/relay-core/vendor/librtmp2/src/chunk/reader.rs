@@ -83,8 +83,11 @@ pub fn chunk_read(
     }
 
     // Compressed headers (fmt 1/2/3) inherit fields from prior stream state.
-    // A compressed chunk on an unknown CSID is a protocol error.
-    if fmt != 0 && reg.get(csid).is_none() {
+    // fmt 1 carries everything except the message stream id, and librtmp-based
+    // publishers (DJI Fly among them) open CSID 2 with a fmt 1 ping response,
+    // so an unknown CSID starts from zeroed state there (stream id 0), as in
+    // nginx-rtmp and SRS. fmt 2/3 lack the length and type: a protocol error.
+    if fmt >= 2 && reg.get(csid).is_none() {
         return Err(ErrorCode::Chunk);
     }
 
@@ -569,6 +572,42 @@ mod tests {
             out_msg.timestamp, 1099,
             "fmt=3 new-message start must repeat the previous delta"
         );
+    }
+
+    #[test]
+    fn fmt1_can_open_an_unknown_chunk_stream() {
+        // DJI Fly's (librtmp's) first message on CSID 2: a ping response with a fmt 1 header.
+        let mut reg = ChunkRegistry::new();
+        let mut wire = Buffer::new();
+        wire.write(&[0x42, 0, 0, 0, 0, 0, 6, 0x04, 0, 7, 0, 0, 0, 1])
+            .unwrap();
+
+        let mut out_msg = ChunkMessage::default();
+        let mut ptr = std::ptr::null();
+        let mut len = 0;
+        let result = chunk_read(&mut wire, &mut reg, None, &mut out_msg, &mut ptr, &mut len);
+
+        assert_eq!(result.unwrap(), 1);
+        assert!(out_msg.is_complete);
+        assert_eq!(out_msg.csid, 2);
+        assert_eq!(out_msg.msg_type_id, 0x04);
+        assert_eq!(out_msg.msg_stream_id, 0);
+        assert_eq!(len, 6);
+    }
+
+    #[test]
+    fn fmt2_and_fmt3_on_an_unknown_chunk_stream_are_rejected() {
+        for first in [2 << 6 | 6, 3 << 6 | 6] {
+            let mut reg = ChunkRegistry::new();
+            let mut wire = Buffer::new();
+            wire.write(&[first, 0, 0, 1, 0xAA]).unwrap();
+
+            let mut out_msg = ChunkMessage::default();
+            let mut ptr = std::ptr::null();
+            let mut len = 0;
+            let result = chunk_read(&mut wire, &mut reg, None, &mut out_msg, &mut ptr, &mut len);
+            assert!(matches!(result, Err(ErrorCode::Chunk)));
+        }
     }
 
     #[test]

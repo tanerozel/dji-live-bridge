@@ -144,17 +144,19 @@ private fun GuidePage(page: Int) {
                     )
                 }
                 1 -> {
-                    PlatformsIllustration()
+                    AddressIllustration()
                     PageText(
-                        title = "Platformunu seç",
-                        body = "Sunucu adresleri hazır; yalnızca yayın anahtarını yapıştırırsın.",
+                        title = "Önce drone'u bağla",
+                        body = "Ekrandaki adresi DJI Fly'da RTMP alanına yaz. Drone'un görüntüsü hemen " +
+                            "telefonda görünür; henüz hiçbir yerde yayında değilsin.",
                     )
                 }
                 else -> {
-                    AddressIllustration()
+                    PlatformsIllustration()
                     PageText(
-                        title = "Başlat ve bağlan",
-                        body = "Yayını başlat'a bas, ekrandaki adresi DJI Fly'da RTMP alanına yaz. Hepsi bu.",
+                        title = "Sonra yayına geç",
+                        body = "Platformunu seç, yayın anahtarını yapıştır ve Canlı yayını başlat'a bas. " +
+                            "Sunucu adresleri hazır.",
                     )
                 }
             }

@@ -48,6 +48,8 @@ jobs:
           cargo +1.98.1 fmt --manifest-path mobile/relay-core/Cargo.toml -- --check
           cargo +1.98.1 clippy --locked --all-targets --manifest-path mobile/relay-core/Cargo.toml -- -D warnings
           cargo +1.98.1 test --locked --manifest-path mobile/relay-core/Cargo.toml
+          # The vendored RTMP library carries its own tests, including DJI Fly's captured publish.
+          cargo +1.98.1 test --locked --manifest-path mobile/relay-core/Cargo.toml -p librtmp2
 
       - name: Android checks and packages
         working-directory: mobile/android

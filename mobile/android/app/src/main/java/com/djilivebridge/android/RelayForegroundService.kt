@@ -10,28 +10,44 @@ import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import android.os.PowerManager
+import android.os.SystemClock
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import androidx.core.content.ContextCompat
 import java.io.File
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.concurrent.thread
 
+/**
+ * Keeps the receiver open so DJI Fly can connect and its picture shows on the phone, and sends
+ * the stream to a platform only between "go live" and "end live".
+ */
 class RelayForegroundService : Service() {
-    private val stopRequested = AtomicBoolean(false)
-    private val mainHandler = android.os.Handler(Looper.getMainLooper())
-    private var workerThread: Thread? = null
-    @Volatile private var testVideoThread: Thread? = null
-    private var wakeLock: PowerManager.WakeLock? = null
-    @Volatile private var tlsCaBundle: File? = null
-    @Volatile private var testMode = false
+    private val mainHandler = Handler(Looper.getMainLooper())
 
-    /** Set when the relay stops because of a failure the user should see, not by request. */
+    /** Native start, go-live, end-live and stop calls run here, one at a time and in order. */
+    private val commands: ExecutorService = Executors.newSingleThreadExecutor { task ->
+        Thread(task, "dji-relay-commands")
+    }
+    private val stopRequested = AtomicBoolean(false)
+    private var receiverStarted = false
+    @Volatile private var receiverListening = false
+    @Volatile private var pollThread: Thread? = null
+    @Volatile private var testVideoThread: Thread? = null
+    @Volatile private var liveProfileId: String? = null
+    @Volatile private var tlsCaBundle: File? = null
+    private var wakeLock: PowerManager.WakeLock? = null
+    private var shownNotification: Pair<String, Boolean>? = null
+
+    /** Set when the receiver stops because of a failure the user should see, not by request. */
     @Volatile private var failureMessage: String? = null
-    private var stopReason = "RTMP aktarımı durduruldu"
+    private var stopReason = "Alıcı kapatıldı"
 
     override fun onCreate() {
         super.onCreate()
@@ -40,9 +56,22 @@ class RelayForegroundService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
-            ACTION_STOP -> requestStop("RTMP aktarımı kullanıcı tarafından durduruldu")
-            ACTION_START -> startRelay(intent)
+            ACTION_START_RECEIVER -> if (enterForeground()) {
+                if (intent.getBooleanExtra(EXTRA_RESTART, false)) restartReceiver() else startReceiver()
+                intent.data?.let { uri ->
+                    startTestVideo(uri, intent.getStringExtra(EXTRA_TEST_VIDEO_NAME) ?: "Test videosu")
+                }
+            }
+            ACTION_GO_LIVE -> if (enterForeground()) {
+                startReceiver()
+                goLive(intent.getStringExtra(EXTRA_DESTINATION_PROFILE_ID).orEmpty())
+            }
+            ACTION_END_LIVE -> endLive()
+            ACTION_STOP_TEST_VIDEO -> stopTestVideo()
+            ACTION_STOP -> requestStop("Alıcı kapatıldı")
         }
+        // A stray end-live or stop-video command must not leave an idle service behind.
+        if (!receiverStarted) stopSelf(startId)
         return START_NOT_STICKY
     }
 
@@ -51,96 +80,212 @@ class RelayForegroundService : Service() {
     override fun onTimeout(startId: Int, fgsType: Int) {
         val message = "Android arka plan veri aktarımı süre sınırına ulaştı"
         failureMessage = message
-        RelayServiceState.failed(message)
-        updateNotification(message)
         requestStop(message)
+    }
+
+    /** Swiping the app away closes the receiver, but never a broadcast in progress. */
+    override fun onTaskRemoved(rootIntent: Intent?) {
+        if (liveProfileId == null) requestStop("Uygulama kapatıldı")
+        super.onTaskRemoved(rootIntent)
     }
 
     override fun onDestroy() {
         stopRequested.set(true)
-        workerThread?.interrupt()
+        pollThread?.interrupt()
         testVideoThread?.interrupt()
+        commands.shutdown()
         NativeRelay.nativeStop()
         deleteTlsCaBundle()
         releaseWakeLock()
-        workerThread = null
         if (RelayServiceState.value.isActive) publishStoppedState()
         super.onDestroy()
     }
 
-    private fun startRelay(intent: Intent) {
-        if (workerThread?.isAlive == true) return
+    private fun enterForeground(): Boolean = try {
+        val text = shownNotification?.first ?: "Drone bağlantısı bekleniyor"
+        ServiceCompat.startForeground(
+            this,
+            NOTIFICATION_ID,
+            buildNotification(text, live = liveProfileId != null),
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
+            } else {
+                0
+            },
+        )
+        true
+    } catch (error: RuntimeException) {
+        RelayServiceState.failed("Arka plan servisi başlatılamadı: ${error.message}")
+        stopSelf()
+        false
+    }
 
-        val destinationProfileId = intent.getStringExtra(EXTRA_DESTINATION_PROFILE_ID).orEmpty()
-        intent.removeExtra(EXTRA_DESTINATION_PROFILE_ID)
-        val testVideo = intent.data
-        val testVideoName = testVideo?.let { intent.getStringExtra(EXTRA_TEST_VIDEO_NAME) ?: "Test videosu" }
+    private fun startReceiver() {
+        if (receiverStarted) return
+        receiverStarted = true
+        stopRequested.set(false)
+        failureMessage = null
+        stopReason = "Alıcı kapatıldı"
+        RelayServiceState.starting()
+        commands.execute {
+            val error = runCatching { NativeRelay.nativeStartReceiver() }
+                .getOrElse { error -> error.message ?: "RTMP çekirdeği başlatılamadı" }
+            if (error.isNotEmpty()) {
+                mainHandler.post {
+                    RelayServiceState.failed(error)
+                    finishService()
+                }
+            } else {
+                pollThread = thread(name = "dji-relay-status") { pollSnapshots() }
+            }
+        }
+    }
 
-        try {
-            ServiceCompat.startForeground(
-                this,
-                NOTIFICATION_ID,
-                buildNotification("RTMP aktarımı hazırlanıyor"),
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
-                } else {
-                    0
-                },
-            )
-        } catch (error: RuntimeException) {
-            RelayServiceState.failed("Arka plan servisi başlatılamadı: ${error.message}")
-            stopSelf()
+    /** Opens the receiver again after it failed; never while a broadcast is on. */
+    private fun restartReceiver() {
+        if (!receiverStarted) {
+            startReceiver()
             return
         }
+        if (liveProfileId != null) return
+        testVideoThread?.interrupt()
+        testVideoThread = null
+        RelayServiceState.starting()
+        commands.execute { NativeRelay.nativeStartReceiver() }
+    }
 
-        acquireWakeLock()
-        RelayServiceState.starting(testVideoName)
-        stopRequested.set(false)
-        testMode = testVideo != null
-        failureMessage = null
-        stopReason = "RTMP aktarımı durduruldu"
-        workerThread = thread(name = "dji-relay-service") {
-            val startError = runCatching {
-                startNativeRelay(destinationProfileId)
-            }.getOrElse { error ->
-                error.message ?: "RTMP çekirdeği başlatılamadı"
-            }
-
-            if (startError.isNotEmpty()) {
-                mainHandler.post {
-                    RelayServiceState.failed(startError)
-                    updateNotification("RTMP başlatma hatası")
-                    finishService()
+    private fun pollSnapshots() {
+        try {
+            while (!stopRequested.get()) {
+                val snapshot = runCatching {
+                    RelaySnapshot.fromJson(NativeRelay.nativeSnapshot())
+                }.getOrElse { error ->
+                    RelaySnapshot(status = "error", detail = "Durum okunamadı: ${error.message}")
                 }
-                return@thread
-            }
-
-            if (testVideo != null) {
-                testVideoThread = thread(name = "dji-test-video") { runTestVideo(testVideo) }
-            }
-
-            try {
-                while (!stopRequested.get()) {
-                    val snapshot = runCatching {
-                        RelaySnapshot.fromJson(NativeRelay.nativeSnapshot())
-                    }.getOrElse { error ->
-                        RelaySnapshot(status = "error", detail = "Durum okunamadı: ${error.message}")
-                    }
-                    mainHandler.post {
+                receiverListening = snapshot.status in LISTENING_STATUSES
+                mainHandler.post {
+                    if (!stopRequested.get()) {
                         RelayServiceState.running(snapshot)
-                        updateNotification(notificationText(snapshot))
+                        showNotification(notificationText(snapshot))
                     }
-                    Thread.sleep(SNAPSHOT_INTERVAL_MS)
                 }
-            } catch (_: InterruptedException) {
-                // Stop requests interrupt the sleep so native resources close immediately.
-            } finally {
-                testVideoThread?.interrupt()
-                NativeRelay.nativeStop()
+                Thread.sleep(SNAPSHOT_INTERVAL_MS)
+            }
+        } catch (_: InterruptedException) {
+            // Stopping interrupts the sleep.
+        }
+    }
+
+    private fun goLive(profileId: String) {
+        if (profileId.isBlank()) {
+            RelayServiceState.notLive(RelayNotice(GO_LIVE_FAILED, "Önce bir platform seç"))
+            return
+        }
+        liveProfileId = profileId
+        RelayServiceState.goingLive(profileId)
+        acquireWakeLock()
+        showNotification(notificationText(RelayServiceState.value.snapshot))
+        commands.execute {
+            val error = runCatching { attachDestination(profileId) }
+                .getOrElse { error -> error.message ?: "Canlı yayın başlatılamadı" }
+            if (error.isNotEmpty()) {
+                deleteTlsCaBundle()
                 mainHandler.post {
-                    publishStoppedState()
-                    finishService()
+                    if (liveProfileId == profileId) {
+                        liveProfileId = null
+                        releaseWakeLock()
+                        RelayServiceState.notLive(RelayNotice(GO_LIVE_FAILED, error))
+                        showNotification(notificationText(RelayServiceState.value.snapshot))
+                    }
                 }
+            }
+        }
+    }
+
+    private fun attachDestination(profileId: String): String {
+        val credentials = DestinationProfileStore(applicationContext).credentials(profileId)
+        deleteTlsCaBundle()
+        val tlsCaFile = if (credentials.serverUrl.startsWith("rtmps://")) {
+            try {
+                createAndroidSystemCaBundle(this).also { file -> tlsCaBundle = file }.absolutePath
+            } catch (_: Exception) {
+                throw DestinationProfileException("Android sistem sertifikaları hazırlanamadı")
+            }
+        } else {
+            ""
+        }
+        return NativeRelay.nativeGoLive(credentials.serverUrl, credentials.streamKey, tlsCaFile)
+    }
+
+    private fun endLive() {
+        if (liveProfileId == null) return
+        liveProfileId = null
+        RelayServiceState.notLive()
+        releaseWakeLock()
+        showNotification(notificationText(RelayServiceState.value.snapshot))
+        commands.execute {
+            NativeRelay.nativeEndLive()
+            deleteTlsCaBundle()
+        }
+    }
+
+    private fun startTestVideo(uri: Uri, name: String) {
+        testVideoThread?.interrupt()
+        RelayServiceState.testVideo(name)
+        testVideoThread = thread(name = "dji-test-video") { runTestVideo(uri) }
+    }
+
+    /** Plays the picked video into the receiver, standing in for DJI Fly. */
+    private fun runTestVideo(uri: Uri) {
+        val self = Thread.currentThread()
+        try {
+            awaitReceiver()
+            TestVideoStreamer(applicationContext, uri).run()
+        } catch (_: InterruptedException) {
+            // Stopping interrupts the pacing sleep.
+        } catch (error: Exception) {
+            if (self.isInterrupted || stopRequested.get()) return
+            val notice = RelayNotice("Test videosu durdu", error.message ?: "Bilinmeyen hata")
+            mainHandler.post {
+                if (testVideoThread === self) {
+                    testVideoThread = null
+                    RelayServiceState.testVideo(null, notice)
+                }
+            }
+        }
+    }
+
+    private fun awaitReceiver() {
+        val deadline = SystemClock.elapsedRealtime() + RECEIVER_START_TIMEOUT_MS
+        while (!receiverListening) {
+            if (SystemClock.elapsedRealtime() > deadline) throw TestVideoException("alıcı hazır değil")
+            Thread.sleep(RECEIVER_START_POLL_MS)
+        }
+    }
+
+    private fun stopTestVideo() {
+        testVideoThread?.interrupt()
+        testVideoThread = null
+        RelayServiceState.testVideo(null)
+    }
+
+    private fun requestStop(reason: String) {
+        stopReason = reason
+        stopRequested.set(true)
+        liveProfileId = null
+        testVideoThread?.interrupt()
+        testVideoThread = null
+        pollThread?.interrupt()
+        if (!receiverStarted) {
+            finishService()
+            return
+        }
+        commands.execute {
+            NativeRelay.nativeStop()
+            deleteTlsCaBundle()
+            mainHandler.post {
+                publishStoppedState()
+                finishService()
             }
         }
     }
@@ -156,59 +301,14 @@ class RelayForegroundService : Service() {
                 status = "stopped",
                 detail = stopReason,
                 bitrateKbps = 0.0,
-                outputStatus = "stopped",
-                outputDetail = stopReason,
+                outputStatus = "disabled",
+                outputDetail = "Harici hedef yapılandırılmadı",
             ),
         )
     }
 
-    /** Plays the picked video into the relay's own ingest, standing in for DJI Fly. */
-    private fun runTestVideo(uri: Uri) {
-        try {
-            TestVideoStreamer(applicationContext, uri).run()
-        } catch (_: InterruptedException) {
-            // Stopping interrupts the pacing sleep.
-        } catch (error: Exception) {
-            if (stopRequested.get()) return
-            val message = "Test videosu durdu: ${error.message ?: "bilinmeyen hata"}"
-            failureMessage = message
-            mainHandler.post { requestStop(message) }
-        }
-    }
-
-    private fun startNativeRelay(destinationProfileId: String): String {
-        if (destinationProfileId.isBlank()) {
-            throw DestinationProfileException("Aktif hedef profili seçilmedi")
-        }
-        val credentials = DestinationProfileStore(applicationContext)
-            .credentials(destinationProfileId)
-        val tlsCaFile = if (credentials.serverUrl.startsWith("rtmps://")) {
-            try {
-                createAndroidSystemCaBundle(this).also { file -> tlsCaBundle = file }.absolutePath
-            } catch (_: Exception) {
-                throw DestinationProfileException("Android sistem sertifikaları hazırlanamadı")
-            }
-        } else {
-            ""
-        }
-        return NativeRelay.nativeStart(
-            credentials.serverUrl,
-            credentials.streamKey,
-            tlsCaFile,
-        )
-    }
-
-    private fun requestStop(reason: String) {
-        stopReason = reason
-        stopRequested.set(true)
-        workerThread?.interrupt()
-        testVideoThread?.interrupt()
-        if (workerThread?.isAlive != true) {
-            finishService()
-        }
-    }
-
     private fun finishService() {
+        receiverStarted = false
         deleteTlsCaBundle()
         releaseWakeLock()
         ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
@@ -220,15 +320,16 @@ class RelayForegroundService : Service() {
         tlsCaBundle = null
     }
 
+    /** Held only while live: a broadcast must survive a locked screen, a preview need not. */
     private fun acquireWakeLock() {
-        val lock = getSystemService(PowerManager::class.java).newWakeLock(
+        if (wakeLock?.isHeld == true) return
+        wakeLock = getSystemService(PowerManager::class.java).newWakeLock(
             PowerManager.PARTIAL_WAKE_LOCK,
             "$packageName:rtmp-relay",
         ).apply {
             setReferenceCounted(false)
             acquire(WAKE_LOCK_TIMEOUT_MS)
         }
-        wakeLock = lock
     }
 
     private fun releaseWakeLock() {
@@ -252,7 +353,7 @@ class RelayForegroundService : Service() {
         )
     }
 
-    private fun buildNotification(text: String): Notification {
+    private fun buildNotification(text: String, live: Boolean): Notification {
         val openIntent = PendingIntent.getActivity(
             this,
             0,
@@ -261,10 +362,10 @@ class RelayForegroundService : Service() {
             },
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
-        val stopIntent = PendingIntent.getService(
+        val actionIntent = PendingIntent.getService(
             this,
             1,
-            Intent(this, RelayForegroundService::class.java).setAction(ACTION_STOP),
+            Intent(this, RelayForegroundService::class.java).setAction(if (live) ACTION_END_LIVE else ACTION_STOP),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
         return NotificationCompat.Builder(this, CHANNEL_ID)
@@ -276,45 +377,67 @@ class RelayForegroundService : Service() {
             .setOngoing(true)
             .setOnlyAlertOnce(true)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
-            .addAction(0, "Durdur", stopIntent)
+            .addAction(0, if (live) "Yayını bitir" else "Kapat", actionIntent)
             .build()
     }
 
-    private fun updateNotification(text: String) {
+    /** Posts only real changes; Android throttles apps that update notifications too often. */
+    private fun showNotification(text: String) {
+        val next = text to (liveProfileId != null)
+        if (next == shownNotification) return
+        shownNotification = next
         getSystemService(NotificationManager::class.java)
-            .notify(NOTIFICATION_ID, buildNotification(text))
+            .notify(NOTIFICATION_ID, buildNotification(next.first, next.second))
     }
 
-    private fun notificationText(snapshot: RelaySnapshot): String = when {
-        snapshot.outputStatus == "error" -> "Harici hedef aktarım hatası"
-        snapshot.outputStatus == "reconnecting" -> "Harici hedefe yeniden bağlanıyor"
-        snapshot.status == "publishing" && snapshot.outputStatus == "forwarding" ->
-            if (testMode) "Test videosu hedefe aktarılıyor" else "Yayın alınıyor ve hedefe aktarılıyor"
-        snapshot.status == "publishing" -> if (testMode) "Test videosu gönderiliyor" else "DJI RC 2 yayını alınıyor"
-        snapshot.status == "connected" -> "DJI RC 2 bağlandı"
-        snapshot.status == "error" -> "RTMP alıcı hatası"
-        else -> if (testMode) "Test videosu hazırlanıyor" else "DJI RC 2 yayını bekleniyor"
+    private fun notificationText(snapshot: RelaySnapshot): String {
+        val publishing = snapshot.status == "publishing"
+        return when {
+            snapshot.status == "error" -> "RTMP alıcı hatası"
+            snapshot.status == "starting" -> "Alıcı hazırlanıyor"
+            liveProfileId != null -> when {
+                publishing && snapshot.outputStatus == "forwarding" -> "Canlı yayındasın"
+                publishing && snapshot.outputStatus == "reconnecting" -> "Platforma yeniden bağlanıyor"
+                publishing -> "Platforma bağlanıyor"
+                else -> "Canlı yayın açık · drone bekleniyor"
+            }
+            publishing ->
+                if (RelayServiceState.value.testVideoName != null) "Test videosu alınıyor" else "Drone görüntüsü alınıyor"
+            snapshot.status == "connected" -> "Kumanda bağlandı"
+            else -> "Drone bağlantısı bekleniyor"
+        }
     }
 
     companion object {
-        private const val ACTION_START = "com.djilivebridge.android.action.START_RELAY"
+        private const val ACTION_START_RECEIVER = "com.djilivebridge.android.action.START_RECEIVER"
+        private const val ACTION_GO_LIVE = "com.djilivebridge.android.action.GO_LIVE"
+        private const val ACTION_END_LIVE = "com.djilivebridge.android.action.END_LIVE"
+        private const val ACTION_STOP_TEST_VIDEO = "com.djilivebridge.android.action.STOP_TEST_VIDEO"
         private const val ACTION_STOP = "com.djilivebridge.android.action.STOP_RELAY"
         private const val EXTRA_DESTINATION_PROFILE_ID = "destination_profile_id"
         private const val EXTRA_TEST_VIDEO_NAME = "test_video_name"
+        private const val EXTRA_RESTART = "restart"
         private const val CHANNEL_ID = "relay_status"
         private const val NOTIFICATION_ID = 1935
         private const val SNAPSHOT_INTERVAL_MS = 500L
+        private const val RECEIVER_START_TIMEOUT_MS = 5_000L
+        private const val RECEIVER_START_POLL_MS = 50L
         private const val WAKE_LOCK_TIMEOUT_MS = 6L * 60L * 60L * 1_000L
+        private val LISTENING_STATUSES = setOf("listening", "connected", "publishing")
+        private const val GO_LIVE_FAILED = "Canlı yayın başlatılamadı"
 
-        /** Starts the relay; with [testVideo] the picked file plays in place of DJI Fly. */
-        internal fun start(
+        /**
+         * Opens the receiver; with [testVideo] the picked file plays in place of DJI Fly, and with
+         * [restart] a receiver that stopped on an error opens again.
+         */
+        internal fun startReceiver(
             context: Context,
-            destinationProfileId: String,
             testVideo: TestVideoSelection? = null,
+            restart: Boolean = false,
         ) {
             val intent = Intent(context, RelayForegroundService::class.java)
-                .setAction(ACTION_START)
-                .putExtra(EXTRA_DESTINATION_PROFILE_ID, destinationProfileId)
+                .setAction(ACTION_START_RECEIVER)
+                .putExtra(EXTRA_RESTART, restart)
             if (testVideo != null) {
                 intent.setData(testVideo.uri)
                     .putExtra(EXTRA_TEST_VIDEO_NAME, testVideo.displayName)
@@ -323,10 +446,27 @@ class RelayForegroundService : Service() {
             ContextCompat.startForegroundService(context, intent)
         }
 
-        fun stop(context: Context) {
-            context.startService(
-                Intent(context, RelayForegroundService::class.java).setAction(ACTION_STOP),
+        /** Sends the received stream to the destination saved as [destinationProfileId]. */
+        fun goLive(context: Context, destinationProfileId: String) {
+            ContextCompat.startForegroundService(
+                context,
+                Intent(context, RelayForegroundService::class.java)
+                    .setAction(ACTION_GO_LIVE)
+                    .putExtra(EXTRA_DESTINATION_PROFILE_ID, destinationProfileId),
             )
+        }
+
+        /** Ends the broadcast; the drone stays connected and its picture keeps showing. */
+        fun endLive(context: Context) {
+            context.startService(Intent(context, RelayForegroundService::class.java).setAction(ACTION_END_LIVE))
+        }
+
+        fun stopTestVideo(context: Context) {
+            context.startService(Intent(context, RelayForegroundService::class.java).setAction(ACTION_STOP_TEST_VIDEO))
+        }
+
+        fun stop(context: Context) {
+            context.startService(Intent(context, RelayForegroundService::class.java).setAction(ACTION_STOP))
         }
     }
 }

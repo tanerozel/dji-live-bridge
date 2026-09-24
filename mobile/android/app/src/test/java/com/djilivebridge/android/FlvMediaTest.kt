@@ -5,7 +5,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
 
-class TestVideoMediaTest {
+class FlvMediaTest {
     private val sps = byteArrayOf(0x67, 0x64, 0x00, 0x1F, 0x11, 0x22)
     private val pps = byteArrayOf(0x68, 0x33, 0x44)
     private val startCode = byteArrayOf(0, 0, 0, 1)
@@ -80,8 +80,68 @@ class TestVideoMediaTest {
     }
 
     @Test
+    fun `the preview reads back the configuration record the test video writes`() {
+        val record = avcConfigurationRecord(startCode + sps, startCode + pps)!!
+        val config = parseAvcConfigurationRecord(record)!!
+        assertEquals(4, config.nalLengthSize)
+        assertArrayEquals(sps, config.sps.single())
+        assertArrayEquals(pps, config.pps.single())
+        assertArrayEquals(startCode + sps, withStartCodes(config.sps))
+    }
+
+    @Test
+    fun `the preview reads DJI Fly's configuration record`() {
+        // The video sequence header an RC 2 sent: H.264 High 3.1, 1280x720.
+        val record = hex("0164001fffe100126764001facb402802dd2905060506d0a135001000568ee06f2c0")
+        val config = parseAvcConfigurationRecord(record)!!
+        assertEquals(4, config.nalLengthSize)
+        assertArrayEquals(hex("6764001facb402802dd2905060506d0a1350"), config.sps.single())
+        assertArrayEquals(hex("68ee06f2c0"), config.pps.single())
+    }
+
+    @Test
+    fun `truncated configuration records are rejected`() {
+        val record = avcConfigurationRecord(startCode + sps, startCode + pps)!!
+        assertNull(parseAvcConfigurationRecord(record.copyOf(record.size - 1)))
+        assertNull(parseAvcConfigurationRecord(byteArrayOf(0, 1, 2, 3, 4, 5, 6)))
+    }
+
+    @Test
+    fun `flv video tags parse into config, pictures and unsupported codecs`() {
+        val config = parseFlvVideoTag(flvAvcSequenceHeader(byteArrayOf(1, 2, 3)))
+        assertArrayEquals(byteArrayOf(1, 2, 3), (config as FlvVideoTag.Config).record)
+
+        val picture = parseFlvVideoTag(byteArrayOf(9, 9) + flvAvcFrame(byteArrayOf(7), keyframe = true, compositionTimeMs = 66), offset = 2)
+        picture as FlvVideoTag.Picture
+        assertEquals(true, picture.keyframe)
+        assertEquals(66, picture.compositionTimeMs)
+        assertArrayEquals(byteArrayOf(7), picture.data)
+
+        // Composition time is a signed 24-bit value.
+        val negative = parseFlvVideoTag(byteArrayOf(0x27, 0x01, 0xFF.toByte(), 0xFF.toByte(), 0xDF.toByte(), 1))
+        assertEquals(-33, (negative as FlvVideoTag.Picture).compositionTimeMs)
+        assertEquals(false, negative.keyframe)
+
+        assertEquals(FlvVideoTag.Unsupported, parseFlvVideoTag(byteArrayOf(0x1C, 0x01, 0, 0, 0))) // legacy HEVC id
+        assertEquals(FlvVideoTag.Unsupported, parseFlvVideoTag(byteArrayOf(0x90.toByte(), 0x68, 0x76, 0x63, 0x31))) // E-RTMP
+        assertNull(parseFlvVideoTag(byteArrayOf(0x17, 0x01, 0)))
+        assertNull(parseFlvVideoTag(byteArrayOf(0x17, 0x02, 0, 0, 0))) // end of sequence
+    }
+
+    @Test
+    fun `length prefixed units become annex b and a bad length stops conversion`() {
+        val slice = byteArrayOf(0x65, 0x01)
+        val avcc = byteArrayOf(0, 0, 0, 6) + sps + byteArrayOf(0, 0, 0, 2) + slice
+        assertArrayEquals(startCode + sps + startCode + slice, avccToAnnexB(avcc, 4))
+        assertArrayEquals(startCode + sps, avccToAnnexB(byteArrayOf(0, 0, 0, 6) + sps + byteArrayOf(0, 0, 0, 9, 1), 4))
+    }
+
+    @Test
     fun `decode timestamps equal presentation when there are no b frames`() {
         val presentation = longArrayOf(0, 33, 66, 99)
         assertArrayEquals(presentation, decodeTimestamps(presentation))
     }
+
+    private fun hex(value: String): ByteArray =
+        value.chunked(2).map { it.toInt(16).toByte() }.toByteArray()
 }

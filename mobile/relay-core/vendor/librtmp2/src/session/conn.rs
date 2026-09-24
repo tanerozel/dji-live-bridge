@@ -1635,8 +1635,10 @@ impl Conn {
     }
 
     fn activate_announced_chunk_size(&mut self) {
+        // Only our own chunks change size. The peer keeps sending 128-byte chunks until it
+        // announces a size of its own (handle_control); librtmp-based publishers such as DJI
+        // Fly never do, so reading them at our size splits their first large frame wrongly.
         self.active_chunk_size = self.chunk_size;
-        self.chunk_reg.set_all_chunk_size(self.chunk_size);
     }
 
     fn handle_user_control(&mut self, payload: &[u8]) -> Result<()> {
@@ -2269,8 +2271,8 @@ impl Conn {
         self.send_control(0x06, &bw)?;
         let cs = self.chunk_size.to_be_bytes();
         self.send_control(0x01, &cs)?;
-        // Negotiation complete: subsequent server chunks and client sends use
-        // the announced size (connect AMF above was still at 128).
+        // Negotiation complete: subsequent server chunks use the announced size
+        // (connect AMF above was still at 128).
         self.activate_announced_chunk_size();
         let mut amf_buf = Buffer::with_capacity(512);
         crate::amf::amf0::write_string(&mut amf_buf, "_result")?;
@@ -4092,6 +4094,74 @@ mod tests {
         conn.handle_media_frame(99, FrameType::Video, 0, &payload, None)
             .unwrap();
         assert!(conn.pending_relay.is_empty());
+    }
+
+    /// Captured from DJI Fly on an RC 2 right after its `connect`: releaseStream, FCPublish,
+    /// createStream (fmt 3), a ping response that opens CSID 2 with a fmt 1 header, then
+    /// publish("", "live") on CSID 4.
+    const DJI_FLY_AFTER_CONNECT: [u8; 152] = [
+        0x43, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1D, 0x14, 0x02, 0x00, 0x0D, 0x72, 0x65, 0x6C, 0x65,
+        0x61, 0x73, 0x65, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6D, 0x00, 0x40, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x05, 0x02, 0x00, 0x00, 0x43, 0x00, 0x00, 0x00, 0x00, 0x00, 0x19, 0x14,
+        0x02, 0x00, 0x09, 0x46, 0x43, 0x50, 0x75, 0x62, 0x6C, 0x69, 0x73, 0x68, 0x00, 0x40, 0x08,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x05, 0x02, 0x00, 0x00, 0xC3, 0x02, 0x00, 0x0C, 0x63,
+        0x72, 0x65, 0x61, 0x74, 0x65, 0x53, 0x74, 0x72, 0x65, 0x61, 0x6D, 0x00, 0x40, 0x10, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x05, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x04, 0x00,
+        0x07, 0x00, 0x00, 0x00, 0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1E, 0x14, 0x01, 0x00,
+        0x00, 0x00, 0x02, 0x00, 0x07, 0x70, 0x75, 0x62, 0x6C, 0x69, 0x73, 0x68, 0x00, 0x40, 0x14,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x05, 0x02, 0x00, 0x00, 0x02, 0x00, 0x04, 0x6C, 0x69,
+        0x76, 0x65,
+    ];
+
+    /// A connection that has answered DJI Fly's `connect` the way the server does.
+    fn dji_fly_connection() -> Conn {
+        let mut conn = Conn::new();
+        conn.chunk_size = 4096;
+        conn.state = ConnState::AppConnected;
+        conn.app = "drone".to_string();
+        conn.on_publish_cb = Some(|_, app, stream| app == "drone" && stream.is_empty());
+        conn.send_connect_response(1.0, None).unwrap();
+        conn
+    }
+
+    #[test]
+    fn dji_fly_publish_sequence_reaches_publishing() {
+        let mut conn = dji_fly_connection();
+        conn.recv_buffer.write(&DJI_FLY_AFTER_CONNECT).unwrap();
+
+        let mut budget = MAX_MESSAGES_PER_RECV;
+        assert_eq!(conn.read_messages(&mut budget), 1);
+        assert!(
+            conn.current_stream
+                .as_ref()
+                .is_some_and(|stream| stream.is_publishing)
+        );
+    }
+
+    #[test]
+    fn a_publisher_that_never_announces_a_chunk_size_keeps_128_byte_chunks() {
+        // Our connect response announced 4096 for our own chunks, but DJI Fly never sends Set
+        // Chunk Size: its first keyframe still arrives as 128-byte chunks (fmt 1, then 0xC4
+        // continuations on CSID 4), exactly as captured from the RC 2.
+        let mut conn = dji_fly_connection();
+        assert_eq!(conn.active_chunk_size, 4096);
+        assert_eq!(conn.chunk_reg.default_chunk_size, DEFAULT_CHUNK_SIZE);
+        conn.recv_buffer.write(&DJI_FLY_AFTER_CONNECT).unwrap();
+
+        let mut keyframe = vec![0u8; 1000];
+        keyframe[..2].copy_from_slice(&[0x17, 0x01]);
+        let mut wire = vec![0x44, 0x00, 0x00, 0x00, 0x00, 0x03, 0xE8, 0x09];
+        for (index, chunk) in keyframe.chunks(128).enumerate() {
+            if index > 0 {
+                wire.push(0xC4);
+            }
+            wire.extend_from_slice(chunk);
+        }
+        conn.recv_buffer.write(&wire).unwrap();
+
+        let mut budget = MAX_MESSAGES_PER_RECV;
+        assert_eq!(conn.read_messages(&mut budget), 1);
+        assert_eq!(conn.media_bytes_received, 1000);
     }
 
     #[test]

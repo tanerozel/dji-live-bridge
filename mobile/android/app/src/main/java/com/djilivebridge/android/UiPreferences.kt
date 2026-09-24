@@ -19,7 +19,7 @@ internal class UiPreferences(context: Context) {
         const val FILE_NAME = "ui_preferences"
 
         // Bumped when the guide changes so everyone sees the new one once.
-        const val KEY_GUIDE_COMPLETED = "guide_completed_v2"
+        const val KEY_GUIDE_COMPLETED = "guide_completed_v3"
         const val KEY_THEME = "theme"
     }
 }

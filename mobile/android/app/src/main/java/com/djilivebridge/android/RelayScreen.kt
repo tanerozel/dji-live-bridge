@@ -32,7 +32,6 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
@@ -41,7 +40,6 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.HelpOutline
-import androidx.compose.material.icons.rounded.Movie
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Stop
@@ -80,6 +78,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -115,7 +114,7 @@ internal fun RelayScreen(
     var profileError by remember(profileStore) {
         mutableStateOf(initialProfiles.exceptionOrNull()?.message)
     }
-    var showStopConfirmation by rememberSaveable { mutableStateOf(false) }
+    var showEndLiveConfirmation by rememberSaveable { mutableStateOf(false) }
     val serviceState = RelayServiceState.value
     val phase = bridgePhase(serviceState)
 
@@ -167,39 +166,39 @@ internal fun RelayScreen(
         }
     }
 
-    fun startRelay(testVideo: TestVideoSelection?) {
+    fun startReceiver(testVideo: TestVideoSelection? = null, restart: Boolean = false) {
+        if (!RelayServiceState.value.isActive) RelayServiceState.starting()
+        runCatching { RelayForegroundService.startReceiver(context, testVideo, restart) }
+            .onFailure { error ->
+                RelayServiceState.failed("Alıcı açılamadı: ${error.message ?: "Bilinmeyen hata"}")
+            }
+    }
+
+    // The receiver opens whenever the app is on screen, so DJI Fly can connect right away and
+    // its picture shows before anything goes to a platform.
+    LaunchedEffect(lifecycleOwner, showGuide) {
+        if (showGuide) return@LaunchedEffect
+        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            if (!RelayServiceState.value.isActive) startReceiver()
+            awaitCancellation()
+        }
+    }
+
+    fun goLive() {
         val profile = destinations.selectedProfile
         if (profile == null) {
             showMessage("Önce bir platform seç")
             return
         }
-        // Only DJI Fly needs the local network; a test video plays over loopback.
-        if (testVideo == null) {
-            val refreshedAddress = findLocalLanAddress()
-            lan = refreshedAddress
-            if (refreshedAddress == null) {
-                showMessage("Telefon bir Wi-Fi ağına bağlı değil")
-                return
+        // Switch to the live screen now; the service confirms or reports a failure.
+        RelayServiceState.goingLive(profile.id)
+        runCatching { RelayForegroundService.goLive(context, profile.id) }
+            .onFailure { error ->
+                RelayServiceState.notLive(
+                    RelayNotice("Canlı yayın başlatılamadı", error.message ?: "Bilinmeyen hata"),
+                )
             }
-        }
-        // Lock profile selection immediately. The service repeats this state transition after
-        // entering foreground, but doing it here closes the short launch-time selection race.
-        RelayServiceState.starting(testVideo?.displayName)
-        runCatching {
-            RelayForegroundService.start(
-                context = context,
-                destinationProfileId = profile.id,
-                testVideo = testVideo,
-            )
-        }.onFailure { error ->
-            val message = "Yayın başlatılamadı: ${error.message ?: "Bilinmeyen hata"}"
-            RelayServiceState.failed(message)
-            showMessage(message)
-        }
     }
-
-    // A picked test video waits here while the notification permission prompt is open.
-    var pendingTestVideo by remember { mutableStateOf<TestVideoSelection?>(null) }
 
     val notificationPermissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission(),
@@ -207,11 +206,10 @@ internal fun RelayScreen(
         if (!granted) {
             showMessage("Bildirim izni verilmedi; yayını uygulamadan izleyebilirsin")
         }
-        startRelay(pendingTestVideo)
-        pendingTestVideo = null
+        goLive()
     }
 
-    fun requestStart(testVideo: TestVideoSelection? = null) {
+    fun requestGoLive() {
         val needsNotificationPermission =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
                 ContextCompat.checkSelfPermission(
@@ -219,10 +217,9 @@ internal fun RelayScreen(
                     Manifest.permission.POST_NOTIFICATIONS,
                 ) != PackageManager.PERMISSION_GRANTED
         if (needsNotificationPermission) {
-            pendingTestVideo = testVideo
             notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         } else {
-            startRelay(testVideo)
+            goLive()
         }
     }
 
@@ -232,7 +229,7 @@ internal fun RelayScreen(
             withContext(Dispatchers.IO) { runCatching { inspectTestVideo(context, uri) } }
                 .onSuccess { video ->
                     if (video.rotated) showMessage("Dikey çekilmiş videolar yayında yan görünebilir")
-                    requestStart(video)
+                    startReceiver(video)
                 }
                 .onFailure { error -> showMessage(error.message ?: "Video okunamadı") }
         }
@@ -322,11 +319,13 @@ internal fun RelayScreen(
                     destinations.selectedProfile?.let { profileEditorViewModel.open(it, it.kind) }
                 },
                 onOpenWifiSettings = ::openWifiSettings,
-                onStart = { requestStart() },
+                onStartReceiver = { restart -> startReceiver(restart = restart) },
                 onTestVideo = {
                     testVideoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly))
                 },
-                onStop = { showStopConfirmation = true },
+                onStopTestVideo = { RelayForegroundService.stopTestVideo(context) },
+                onGoLive = ::requestGoLive,
+                onEndLive = { showEndLiveConfirmation = true },
                 onCopyAddress = ::copyAddress,
             )
         }
@@ -340,38 +339,34 @@ internal fun RelayScreen(
         )
     }
 
-    if (showStopConfirmation) {
-        val streaming = phase.isStreaming
+    if (showEndLiveConfirmation) {
         val colors = BridgeTheme.colors
         AlertDialog(
-            onDismissRequest = { showStopConfirmation = false },
+            onDismissRequest = { showEndLiveConfirmation = false },
             containerColor = colors.card,
-            title = { Text(if (streaming) "Yayın bitirilsin mi?" else "Durdurulsun mu?") },
+            title = { Text("Yayın bitirilsin mi?") },
             text = {
-                val testing = serviceState.testVideoName != null
                 Text(
-                    when {
-                        streaming && testing -> "Canlı yayın sona erer ve test videosu durur."
-                        streaming -> "Canlı yayın sona erer ve kumanda bağlantısı kapanır."
-                        testing -> "Test videosu durdurulur."
-                        else -> "Telefon kumandadan yayın beklemeyi bırakır."
+                    if (serviceState.testVideoName != null) {
+                        "Canlı yayın sona erer. Test videosu telefonda oynamaya devam eder."
+                    } else {
+                        "Canlı yayın sona erer. Drone bağlı kalır, görüntüsü telefonda görünmeye devam eder."
                     },
                 )
             },
             confirmButton = {
                 TextButton(
                     onClick = {
-                        showStopConfirmation = false
-                        RelayForegroundService.stop(context)
+                        showEndLiveConfirmation = false
+                        RelayServiceState.notLive()
+                        RelayForegroundService.endLive(context)
                     },
                 ) {
-                    Text(if (streaming) "Yayını bitir" else "Durdur", color = colors.dangerText)
+                    Text("Yayını bitir", color = colors.dangerText)
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showStopConfirmation = false }) {
-                    Text(if (streaming) "Devam et" else "Vazgeç")
-                }
+                TextButton(onClick = { showEndLiveConfirmation = false }) { Text("Devam et") }
             },
         )
     }
@@ -391,31 +386,30 @@ private fun HomeScreen(
     onPlatformLongClick: (DestinationKind) -> Unit,
     onEditSelected: () -> Unit,
     onOpenWifiSettings: () -> Unit,
-    onStart: () -> Unit,
+    onStartReceiver: (restart: Boolean) -> Unit,
     onTestVideo: () -> Unit,
-    onStop: () -> Unit,
+    onStopTestVideo: () -> Unit,
+    onGoLive: () -> Unit,
+    onEndLive: () -> Unit,
     onCopyAddress: (String) -> Unit,
 ) {
     val colors = BridgeTheme.colors
     val selected = destinations.selectedProfile
-    val running = phase != BridgePhase.IDLE && phase != BridgePhase.START_FAILED
+    val live = serviceState.isLive
     Scaffold(
         containerColor = colors.background,
         contentWindowInsets = WindowInsets.safeDrawing,
         topBar = { HomeTopBar(onTheme = onShowThemePicker, onHelp = onShowGuide) },
         bottomBar = {
             HomeBottomBar(
-                running = running,
-                streaming = phase.isStreaming,
+                live = live,
                 blocker = when {
+                    !phase.hasPicture -> "Drone görüntüsü gelince yayını başlatabilirsin"
                     selected == null -> "Önce bir platform seç"
-                    lan == null -> "Önce telefonu Wi-Fi'a bağla"
                     else -> null
                 },
-                canTest = selected != null,
-                onStart = onStart,
-                onTestVideo = onTestVideo,
-                onStop = onStop,
+                onGoLive = onGoLive,
+                onEndLive = onEndLive,
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -433,22 +427,28 @@ private fun HomeScreen(
                     .verticalScroll(rememberScrollState())
                     .padding(horizontal = 16.dp, vertical = 4.dp),
             ) {
-                if (running) {
+                if (live) {
                     LiveContent(
                         phase = phase,
                         snapshot = serviceState.snapshot,
                         liveSinceElapsedMillis = serviceState.liveSinceElapsedMillis,
                         testVideoName = serviceState.testVideoName,
-                        destination = selected,
+                        destination = destinations.profiles.firstOrNull { it.id == serviceState.liveProfileId },
                         lan = lan,
                         onCopyAddress = onCopyAddress,
                     )
                 } else {
                     SetupContent(
+                        phase = phase,
+                        snapshot = serviceState.snapshot,
+                        testVideoName = serviceState.testVideoName,
+                        notice = serviceState.notice,
                         destinations = destinations,
                         profileError = profileError,
                         lan = lan,
-                        startError = serviceState.snapshot.detail.takeIf { phase == BridgePhase.START_FAILED },
+                        onStartReceiver = onStartReceiver,
+                        onTestVideo = onTestVideo,
+                        onStopTestVideo = onStopTestVideo,
                         onPlatformClick = onPlatformClick,
                         onPlatformLongClick = onPlatformLongClick,
                         onEditSelected = onEditSelected,
@@ -492,15 +492,7 @@ private fun HomeTopBar(onTheme: () -> Unit, onHelp: () -> Unit) {
 }
 
 @Composable
-private fun HomeBottomBar(
-    running: Boolean,
-    streaming: Boolean,
-    blocker: String?,
-    canTest: Boolean,
-    onStart: () -> Unit,
-    onTestVideo: () -> Unit,
-    onStop: () -> Unit,
-) {
+private fun HomeBottomBar(live: Boolean, blocker: String?, onGoLive: () -> Unit, onEndLive: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -510,13 +502,8 @@ private fun HomeBottomBar(
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         val buttonModifier = Modifier.widthIn(max = 560.dp)
-        if (running) {
-            StopButton(
-                modifier = buttonModifier,
-                text = if (streaming) "Yayını bitir" else "Durdur",
-                onClick = onStop,
-                icon = Icons.Rounded.Stop,
-            )
+        if (live) {
+            StopButton(modifier = buttonModifier, text = "Yayını bitir", onClick = onEndLive, icon = Icons.Rounded.Stop)
         } else {
             blocker?.let {
                 Text(
@@ -528,17 +515,11 @@ private fun HomeBottomBar(
             }
             PrimaryButton(
                 modifier = buttonModifier,
-                text = "Yayını başlat",
-                onClick = onStart,
+                text = "Canlı yayını başlat",
+                onClick = onGoLive,
                 icon = Icons.Rounded.PlayArrow,
                 enabled = blocker == null,
             )
-            // Stands in for the drone: goes live on the selected platform without DJI Fly.
-            TextButton(onClick = onTestVideo, enabled = canTest) {
-                Icon(Icons.Rounded.Movie, contentDescription = null, modifier = Modifier.size(18.dp))
-                Spacer(Modifier.width(8.dp))
-                Text("Test videosuyla dene")
-            }
         }
     }
 }
@@ -615,10 +596,16 @@ private fun SetupPreview() {
     DjiLiveBridgeTheme(ThemeChoice.LIGHT) {
         SetupContent(
             modifier = Modifier.padding(16.dp),
+            phase = BridgePhase.WAITING_FOR_DRONE,
+            snapshot = RelaySnapshot(status = "listening"),
+            testVideoName = null,
+            notice = null,
             destinations = DestinationProfiles(listOf(PreviewProfile), PreviewProfile.id),
             profileError = null,
             lan = LanAddress("192.168.1.101", LanKind.WIFI),
-            startError = null,
+            onStartReceiver = {},
+            onTestVideo = {},
+            onStopTestVideo = {},
             onPlatformClick = {},
             onPlatformLongClick = {},
             onEditSelected = {},

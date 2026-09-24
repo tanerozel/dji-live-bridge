@@ -2,10 +2,13 @@ package com.djilivebridge.android
 
 import java.io.ByteArrayOutputStream
 
-// FLV tag bodies for H.264 + AAC, the stream DJI Fly itself sends over RTMP.
+// FLV tag bodies for H.264 + AAC, the stream DJI Fly itself sends over RTMP: built for the test
+// video, read back for the live preview.
 
 private const val NAL_TYPE_SPS = 7
 private const val NAL_TYPE_PPS = 8
+private const val AVC_CODEC_ID = 7
+private val START_CODE = byteArrayOf(0, 0, 0, 1)
 
 /**
  * True when [length] bytes of [data] start with a 4-byte Annex-B start code, which is what
@@ -113,4 +116,79 @@ internal fun decodeTimestamps(presentationTimesUs: LongArray): LongArray {
     var delay = 0L
     for (index in sorted.indices) delay = maxOf(delay, sorted[index] - presentationTimesUs[index])
     return LongArray(sorted.size) { sorted[it] - delay }
+}
+
+/** What the preview needs from one FLV video tag body. */
+internal sealed interface FlvVideoTag {
+    class Config(val record: ByteArray) : FlvVideoTag
+
+    class Picture(val keyframe: Boolean, val compositionTimeMs: Int, val data: ByteArray) : FlvVideoTag
+
+    /** Enhanced-RTMP or non-AVC video; DJI Fly sends legacy AVC, which is all the preview shows. */
+    data object Unsupported : FlvVideoTag
+}
+
+/** Reads the tag body starting at [offset]; null for tags the preview can skip. */
+internal fun parseFlvVideoTag(bytes: ByteArray, offset: Int = 0): FlvVideoTag? {
+    if (bytes.size - offset < 2) return null
+    val header = bytes[offset].toInt() and 0xFF
+    if ((header and 0x80) != 0 || (header and 0x0F) != AVC_CODEC_ID) return FlvVideoTag.Unsupported
+    if (bytes.size - offset < 5) return null
+    val body = bytes.copyOfRange(offset + 5, bytes.size)
+    return when (bytes[offset + 1].toInt()) {
+        0 -> FlvVideoTag.Config(body)
+        1 -> {
+            val raw = ((bytes[offset + 2].toInt() and 0xFF) shl 16) or
+                ((bytes[offset + 3].toInt() and 0xFF) shl 8) or
+                (bytes[offset + 4].toInt() and 0xFF)
+            // Sign-extend the 24-bit composition time.
+            FlvVideoTag.Picture(keyframe = (header ushr 4) == 1, compositionTimeMs = (raw shl 8) shr 8, data = body)
+        }
+        else -> null // end of sequence
+    }
+}
+
+internal class AvcDecoderConfig(val sps: List<ByteArray>, val pps: List<ByteArray>, val nalLengthSize: Int)
+
+internal fun parseAvcConfigurationRecord(record: ByteArray): AvcDecoderConfig? {
+    if (record.size < 7 || record[0].toInt() != 1) return null
+    var position = 5
+    fun readParameterSets(count: Int): List<ByteArray>? = List(count) {
+        if (position + 2 > record.size) return null
+        val length = ((record[position].toInt() and 0xFF) shl 8) or (record[position + 1].toInt() and 0xFF)
+        position += 2
+        if (position + length > record.size) return null
+        record.copyOfRange(position, position + length).also { position += length }
+    }
+    val sps = readParameterSets(record[position++].toInt() and 0x1F) ?: return null
+    if (position >= record.size) return null
+    val pps = readParameterSets(record[position++].toInt() and 0xFF) ?: return null
+    if (sps.isEmpty() || pps.isEmpty()) return null
+    return AvcDecoderConfig(sps, pps, nalLengthSize = (record[4].toInt() and 0x03) + 1)
+}
+
+/** NAL units joined with Annex-B start codes, the form MediaCodec takes. */
+internal fun withStartCodes(units: List<ByteArray>): ByteArray {
+    val out = ByteArrayOutputStream()
+    units.forEach { unit ->
+        out.write(START_CODE)
+        out.write(unit)
+    }
+    return out.toByteArray()
+}
+
+/** Length-prefixed (AVCC) NAL units to Annex-B; stops at the first malformed length. */
+internal fun avccToAnnexB(data: ByteArray, nalLengthSize: Int): ByteArray {
+    val out = ByteArrayOutputStream(data.size + 16)
+    var position = 0
+    while (position + nalLengthSize <= data.size) {
+        var length = 0
+        repeat(nalLengthSize) { index -> length = (length shl 8) or (data[position + index].toInt() and 0xFF) }
+        position += nalLengthSize
+        if (length <= 0 || position + length > data.size) break
+        out.write(START_CODE)
+        out.write(data, position, length)
+        position += length
+    }
+    return out.toByteArray()
 }

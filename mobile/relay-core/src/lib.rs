@@ -1,5 +1,5 @@
 use jni::objects::{JClass, JString};
-use jni::sys::jstring;
+use jni::sys::{jbyteArray, jint, jlong, jstring};
 use jni::JNIEnv;
 use librtmp2::client::Client;
 use librtmp2::server::Server;
@@ -11,6 +11,8 @@ use std::sync::mpsc::{self, Receiver, SyncSender, TrySendError};
 use std::sync::{Arc, Mutex, OnceLock, RwLock};
 use std::thread::{self, JoinHandle};
 use std::time::{Duration, Instant};
+
+mod preview;
 
 const DEFAULT_BIND_ADDRESS: &str = "0.0.0.0:1935";
 const EXPECTED_APP: &str = "drone";
@@ -97,10 +99,19 @@ enum OutboundMessage {
 struct RuntimeControl {
     stop: Arc<AtomicBool>,
     server_thread: JoinHandle<()>,
-    outbound_thread: Option<JoinHandle<()>>,
+}
+
+/// The platform output. It comes and goes while the ingest keeps the drone connected.
+struct OutboundControl {
+    stop: Arc<AtomicBool>,
+    thread: JoinHandle<()>,
 }
 
 static CONTROL: OnceLock<Mutex<Option<RuntimeControl>>> = OnceLock::new();
+static OUTBOUND_CONTROL: OnceLock<Mutex<Option<OutboundControl>>> = OnceLock::new();
+/// Codec headers and metadata of the current source, so an output attached mid-stream can
+/// start with them instead of waiting for a source restart.
+static SOURCE_BOOTSTRAP: OnceLock<Mutex<MediaBootstrap>> = OnceLock::new();
 static SNAPSHOT: OnceLock<RwLock<RelaySnapshot>> = OnceLock::new();
 static OUTBOUND_SNAPSHOT: OnceLock<RwLock<OutboundSnapshot>> = OnceLock::new();
 static OUTBOUND_SENDER: OnceLock<RwLock<Option<SyncSender<OutboundMessage>>>> = OnceLock::new();
@@ -115,6 +126,20 @@ static OUTPUT_SECURE: AtomicBool = AtomicBool::new(false);
 
 fn control() -> &'static Mutex<Option<RuntimeControl>> {
     CONTROL.get_or_init(|| Mutex::new(None))
+}
+
+fn outbound_control() -> &'static Mutex<Option<OutboundControl>> {
+    OUTBOUND_CONTROL.get_or_init(|| Mutex::new(None))
+}
+
+fn source_bootstrap() -> &'static Mutex<MediaBootstrap> {
+    SOURCE_BOOTSTRAP.get_or_init(|| Mutex::new(MediaBootstrap::default()))
+}
+
+fn reset_source_bootstrap() {
+    if let Ok(mut bootstrap) = source_bootstrap().lock() {
+        *bootstrap = MediaBootstrap::default();
+    }
 }
 
 fn snapshot() -> &'static RwLock<RelaySnapshot> {
@@ -179,6 +204,20 @@ fn handle_frame(frame: &Frame) {
         return;
     }
 
+    let payload: &[u8] = if frame.size == 0 {
+        &[]
+    } else {
+        // librtmp2 guarantees Frame.data remains valid for the duration of this callback.
+        unsafe { std::slice::from_raw_parts(frame.data, frame.size as usize) }
+    };
+    if matches!(frame.frame_type, FrameType::Video) {
+        preview::offer(frame.timestamp, payload);
+    }
+    // Observed before the sender is read: see attach_destination.
+    if let Ok(mut bootstrap) = source_bootstrap().lock() {
+        bootstrap.observe(frame.frame_type, payload);
+    }
+
     let sender = outbound_sender()
         .read()
         .ok()
@@ -186,16 +225,10 @@ fn handle_frame(frame: &Frame) {
     let Some(sender) = sender else {
         return;
     };
-    let payload = if frame.size == 0 {
-        Vec::new()
-    } else {
-        // librtmp2 guarantees Frame.data remains valid for the duration of this callback.
-        unsafe { std::slice::from_raw_parts(frame.data, frame.size as usize) }.to_vec()
-    };
     let message = OutboundMessage::Frame {
         frame_type: frame.frame_type,
         timestamp: frame.timestamp,
-        payload,
+        payload: payload.to_vec(),
     };
     match sender.try_send(message) {
         Ok(()) => {}
@@ -208,6 +241,8 @@ fn handle_frame(frame: &Frame) {
 }
 
 fn notify_source_ended() {
+    preview::source_ended();
+    reset_source_bootstrap();
     let sender = outbound_sender()
         .read()
         .ok()
@@ -309,76 +344,119 @@ pub fn start_bridge_on_with_tls_ca(
     start_runtime(bind_address, Some(destination))
 }
 
+/// Starts sending the running ingest's stream to a platform. The drone stays connected, and a
+/// stream that is already arriving goes out from its next keyframe.
+pub fn set_destination_with_tls_ca(
+    target_server_url: &str,
+    target_stream_key: &str,
+    tls_ca_file: &str,
+) -> Result<(), String> {
+    let destination = build_destination(target_server_url, target_stream_key, tls_ca_file)?;
+    attach_destination(destination)
+}
+
+/// Stops sending to the platform; the ingest keeps receiving the drone.
+pub fn clear_destination() {
+    detach_destination();
+}
+
 fn start_runtime(bind_address: &str, destination: Option<Destination>) -> Result<(), String> {
     stop_server();
-    let mut control_slot = control()
-        .lock()
-        .map_err(|_| "RTMP çalışma durumu kilitlenemedi".to_owned())?;
-    VIDEO_FRAMES.store(0, Ordering::Relaxed);
-    AUDIO_FRAMES.store(0, Ordering::Relaxed);
-    REJECTED_PUBLISH_ATTEMPTS.store(0, Ordering::Relaxed);
+    {
+        let mut control_slot = control()
+            .lock()
+            .map_err(|_| "RTMP çalışma durumu kilitlenemedi".to_owned())?;
+        VIDEO_FRAMES.store(0, Ordering::Relaxed);
+        AUDIO_FRAMES.store(0, Ordering::Relaxed);
+        REJECTED_PUBLISH_ATTEMPTS.store(0, Ordering::Relaxed);
+        reset_source_bootstrap();
+        set_output_status("disabled", "Harici hedef yapılandırılmadı");
+
+        let stop = Arc::new(AtomicBool::new(false));
+        let server_stop = Arc::clone(&stop);
+        let bind_address = bind_address.to_owned();
+        let server_thread = thread::Builder::new()
+            .name("dji-rtmp-ingest".to_owned())
+            .spawn(move || run_server(&bind_address, server_stop))
+            .map_err(|error| format!("RTMP iş parçacığı başlatılamadı: {error}"))?;
+        *control_slot = Some(RuntimeControl {
+            stop,
+            server_thread,
+        });
+    }
+    if let Some(destination) = destination {
+        if let Err(error) = attach_destination(destination) {
+            stop_server();
+            return Err(error);
+        }
+    }
+    Ok(())
+}
+
+fn attach_destination(destination: Destination) -> Result<(), String> {
+    let receiving = control().lock().is_ok_and(|slot| slot.is_some());
+    if !receiving {
+        return Err("RTMP alıcısı çalışmıyor".to_owned());
+    }
+    detach_destination();
     OUTBOUND_BYTES.store(0, Ordering::Relaxed);
     DROPPED_OUTPUT_FRAMES.store(0, Ordering::Relaxed);
     OUTPUT_RECONNECT_ATTEMPTS.store(0, Ordering::Relaxed);
     OUTBOUND_QUEUE_OVERFLOWED.store(false, Ordering::Relaxed);
-    OUTPUT_SECURE.store(
-        destination.as_ref().is_some_and(|value| value.secure),
-        Ordering::Relaxed,
-    );
-    let stop = Arc::new(AtomicBool::new(false));
-    let outbound_thread = if let Some(destination) = destination {
-        let (sender, receiver) = mpsc::sync_channel(OUTBOUND_QUEUE_CAPACITY);
+    OUTPUT_SECURE.store(destination.secure, Ordering::Relaxed);
+
+    let (sender, receiver) = mpsc::sync_channel(OUTBOUND_QUEUE_CAPACITY);
+    // handle_frame records a frame in the bootstrap before it reads the sender, so taking the
+    // snapshot and installing the sender under the bootstrap lock puts every frame in the
+    // snapshot, in the channel, or in both.
+    let bootstrap = {
+        let bootstrap = source_bootstrap()
+            .lock()
+            .map_err(|_| "RTMP çalışma durumu kilitlenemedi".to_owned())?;
         if let Ok(mut current) = outbound_sender().write() {
             *current = Some(sender);
         }
-        set_output_status("armed", "Kaynak yayın gelince hedefe bağlanacak");
-        let outbound_stop = Arc::clone(&stop);
-        match thread::Builder::new()
-            .name("dji-rtmp-output".to_owned())
-            .spawn(move || run_outbound(destination, receiver, outbound_stop))
-        {
-            Ok(thread) => Some(thread),
-            Err(error) => {
-                if let Ok(mut current) = outbound_sender().write() {
-                    *current = None;
-                }
-                set_output_status("disabled", "Harici hedef başlatılamadı");
-                return Err(format!("Hedef RTMP iş parçacığı başlatılamadı: {error}"));
-            }
-        }
-    } else {
-        if let Ok(mut current) = outbound_sender().write() {
-            *current = None;
-        }
-        set_output_status("disabled", "Harici hedef yapılandırılmadı");
-        None
+        bootstrap.clone()
     };
+    set_output_status("armed", "Kaynak yayın gelince hedefe bağlanacak");
 
-    let server_stop = Arc::clone(&stop);
-    let bind_address = bind_address.to_owned();
-    let server_thread = match thread::Builder::new()
-        .name("dji-rtmp-ingest".to_owned())
-        .spawn(move || run_server(&bind_address, server_stop))
+    let stop = Arc::new(AtomicBool::new(false));
+    let outbound_stop = Arc::clone(&stop);
+    match thread::Builder::new()
+        .name("dji-rtmp-output".to_owned())
+        .spawn(move || run_outbound(destination, receiver, outbound_stop, bootstrap))
     {
-        Ok(thread) => thread,
+        Ok(thread) => {
+            if let Ok(mut slot) = outbound_control().lock() {
+                *slot = Some(OutboundControl { stop, thread });
+            }
+            Ok(())
+        }
         Err(error) => {
-            stop.store(true, Ordering::Release);
             if let Ok(mut current) = outbound_sender().write() {
                 *current = None;
             }
-            if let Some(thread) = outbound_thread {
-                let _ = thread.join();
-            }
-            return Err(format!("RTMP iş parçacığı başlatılamadı: {error}"));
+            OUTPUT_SECURE.store(false, Ordering::Relaxed);
+            set_output_status("disabled", "Harici hedef başlatılamadı");
+            Err(format!("Hedef RTMP iş parçacığı başlatılamadı: {error}"))
         }
-    };
+    }
+}
 
-    *control_slot = Some(RuntimeControl {
-        stop,
-        server_thread,
-        outbound_thread,
-    });
-    Ok(())
+fn detach_destination() {
+    if let Ok(mut sender) = outbound_sender().write() {
+        *sender = None;
+    }
+    let current = outbound_control()
+        .lock()
+        .ok()
+        .and_then(|mut slot| slot.take());
+    if let Some(output) = current {
+        output.stop.store(true, Ordering::Release);
+        let _ = output.thread.join();
+    }
+    OUTPUT_SECURE.store(false, Ordering::Relaxed);
+    set_output_status("disabled", "Harici hedef yapılandırılmadı");
 }
 
 fn run_server(bind_address: &str, stop: Arc<AtomicBool>) {
@@ -509,7 +587,7 @@ fn run_server(bind_address: &str, stop: Arc<AtomicBool>) {
     set_snapshot(final_snapshot);
 }
 
-#[derive(Default)]
+#[derive(Clone, Default)]
 struct MediaBootstrap {
     script: Option<Vec<u8>>,
     metadata: Option<Vec<u8>>,
@@ -613,9 +691,9 @@ fn run_outbound(
     destination: Destination,
     receiver: Receiver<OutboundMessage>,
     stop: Arc<AtomicBool>,
+    mut bootstrap: MediaBootstrap,
 ) {
     let mut client: Option<Client> = None;
-    let mut bootstrap = MediaBootstrap::default();
     let mut consecutive_failures = 0u32;
     let mut next_retry_at = Instant::now();
     let mut timestamp_base: Option<u32> = None;
@@ -766,6 +844,9 @@ fn run_outbound(
             Err(mpsc::RecvTimeoutError::Disconnected) => break,
         }
     }
+    if let Some(mut active_client) = client.take() {
+        flush_outbound_client(&mut active_client);
+    }
     set_output_status("stopped", "Harici RTMP aktarımı durduruldu");
 }
 
@@ -789,19 +870,14 @@ fn set_ingest_error(detail: String) {
 }
 
 pub fn stop_server() {
+    detach_destination();
+    preview::source_ended();
     let current = control().lock().ok().and_then(|mut value| value.take());
     if let Some(runtime) = current {
         runtime.stop.store(true, Ordering::Release);
-        if let Ok(mut sender) = outbound_sender().write() {
-            *sender = None;
-        }
         let _ = runtime.server_thread.join();
-        if let Some(thread) = runtime.outbound_thread {
-            let _ = thread.join();
-        }
-    } else if let Ok(mut sender) = outbound_sender().write() {
-        *sender = None;
     }
+    reset_source_bootstrap();
 }
 
 pub fn current_snapshot() -> RelaySnapshot {
@@ -822,8 +898,19 @@ fn java_string(env: JNIEnv<'_>, value: &str) -> jstring {
         .unwrap_or(ptr::null_mut())
 }
 
+/// Starts receiving DJI Fly without a platform; returns an error message or an empty string.
 #[no_mangle]
-pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeStart(
+pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeStartReceiver(
+    env: JNIEnv<'_>,
+    _class: JClass<'_>,
+) -> jstring {
+    let result = start_server().err().unwrap_or_default();
+    java_string(env, &result)
+}
+
+/// Starts sending the received stream to a platform; returns an error message or an empty string.
+#[no_mangle]
+pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeGoLive(
     mut env: JNIEnv<'_>,
     _class: JClass<'_>,
     target_server_url: JString<'_>,
@@ -842,10 +929,19 @@ pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeStart(
         Ok(value) => value.into(),
         Err(_) => return java_string(env, "Android sertifika deposu okunamadı"),
     };
-    let result = start_bridge_with_tls_ca(&target_server_url, &target_stream_key, &tls_ca_file)
+    let result = set_destination_with_tls_ca(&target_server_url, &target_stream_key, &tls_ca_file)
         .err()
         .unwrap_or_default();
     java_string(env, &result)
+}
+
+/// Stops sending to the platform while the drone stays connected.
+#[no_mangle]
+pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeEndLive(
+    _env: JNIEnv<'_>,
+    _class: JClass<'_>,
+) {
+    clear_destination();
 }
 
 #[no_mangle]
@@ -862,6 +958,45 @@ pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeStop(
     _class: JClass<'_>,
 ) {
     stop_server();
+}
+
+/// Starts an in-app preview session and returns its number for the calls below.
+#[no_mangle]
+pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativePreviewStart(
+    _env: JNIEnv<'_>,
+    _class: JClass<'_>,
+) -> jlong {
+    preview::start() as jlong
+}
+
+/// Waits up to `timeout_ms` for the next video tag of `session`: a 4-byte big-endian RTMP
+/// timestamp followed by the FLV video tag body, or null when nothing arrived.
+#[no_mangle]
+pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativePreviewNext(
+    env: JNIEnv<'_>,
+    _class: JClass<'_>,
+    session: jlong,
+    timeout_ms: jint,
+) -> jbyteArray {
+    let timeout = Duration::from_millis(u64::try_from(timeout_ms).unwrap_or(0));
+    let Some((timestamp, payload)) = preview::next(session as u64, timeout) else {
+        return ptr::null_mut();
+    };
+    let mut packet = Vec::with_capacity(4 + payload.len());
+    packet.extend_from_slice(&timestamp.to_be_bytes());
+    packet.extend_from_slice(&payload);
+    env.byte_array_from_slice(&packet)
+        .map(|array| array.into_raw())
+        .unwrap_or(ptr::null_mut())
+}
+
+#[no_mangle]
+pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativePreviewStop(
+    _env: JNIEnv<'_>,
+    _class: JClass<'_>,
+    session: jlong,
+) {
+    preview::stop(session as u64);
 }
 
 #[cfg(test)]
@@ -920,6 +1055,32 @@ mod tests {
         assert!(!is_video_keyframe(&[0x27, 0x01, 0x00]));
         assert!(is_audio_sequence_header(&[0xAF, 0x00, 0x12]));
         assert!(!is_audio_sequence_header(&[0xAF, 0x01, 0x12]));
+    }
+
+    #[test]
+    fn a_destination_needs_a_running_receiver() {
+        assert_eq!(
+            set_destination_with_tls_ca("rtmp://127.0.0.1:9/live", "target-key-1234", ""),
+            Err("RTMP alıcısı çalışmıyor".to_owned())
+        );
+    }
+
+    #[test]
+    fn a_mid_stream_output_starts_from_the_cached_headers() {
+        let mut bootstrap = MediaBootstrap::default();
+        bootstrap.observe(FrameType::Video, &[0x17, 0x00, 0x00, 0x00, 0x00, 0x01]);
+        bootstrap.observe(FrameType::Audio, &[0xAF, 0x00, 0x12, 0x10]);
+        bootstrap.observe(FrameType::Video, &[0x27, 0x01, 0x00, 0x00, 0x00]);
+        let snapshot = bootstrap.clone();
+        assert!(snapshot.video_seen);
+        assert_eq!(
+            snapshot.video_sequence.as_deref(),
+            Some(&[0x17, 0x00, 0x00, 0x00, 0x00, 0x01][..])
+        );
+        assert_eq!(
+            snapshot.audio_sequence.as_deref(),
+            Some(&[0xAF, 0x00, 0x12, 0x10][..])
+        );
     }
 
     #[test]
