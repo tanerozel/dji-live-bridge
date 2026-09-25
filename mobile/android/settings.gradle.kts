@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "DJI Live Bridge Android"
+rootProject.name = "StreamMyDrone Android"
 include(":app")

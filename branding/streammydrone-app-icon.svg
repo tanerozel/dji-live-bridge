@@ -2,23 +2,37 @@
   <title>StreamMyDrone app icon</title>
   <rect x="64" y="64" width="896" height="896" rx="224" fill="#061B44"/>
   <rect x="68" y="68" width="888" height="888" rx="220" fill="none" stroke="#12366F" stroke-width="8"/>
+
   <g fill="none" stroke="#20D7F1" stroke-linecap="round">
     <path d="M350 294 C438 206 586 206 674 294" stroke-width="52"/>
     <path d="M405 350 C466 289 558 289 619 350" stroke-width="50"/>
     <path d="M462 403 C490 375 534 375 562 403" stroke-width="48"/>
   </g>
+
   <g fill="#F8FBFF">
-    <circle cx="512" cy="456" r="34"/><rect x="496" y="476" width="32" height="76" rx="16"/>
-    <rect x="150" y="474" width="154" height="34" rx="17"/><rect x="320" y="474" width="150" height="34" rx="17"/>
-    <rect x="288" y="446" width="38" height="104" rx="19"/><rect x="264" y="518" width="88" height="86" rx="32"/>
-    <rect x="554" y="474" width="150" height="34" rx="17"/><rect x="720" y="474" width="154" height="34" rx="17"/>
-    <rect x="698" y="446" width="38" height="104" rx="19"/><rect x="672" y="518" width="88" height="86" rx="32"/>
-    <rect x="286" y="526" width="452" height="130" rx="56"/><rect x="486" y="630" width="52" height="88" rx="24"/>
+    <circle cx="512" cy="456" r="34"/>
+    <rect x="496" y="476" width="32" height="76" rx="16"/>
+
+    <rect x="150" y="474" width="154" height="34" rx="17"/>
+    <rect x="320" y="474" width="150" height="34" rx="17"/>
+    <rect x="288" y="446" width="38" height="104" rx="19"/>
+    <rect x="264" y="518" width="88" height="86" rx="32"/>
+
+    <rect x="554" y="474" width="150" height="34" rx="17"/>
+    <rect x="720" y="474" width="154" height="34" rx="17"/>
+    <rect x="698" y="446" width="38" height="104" rx="19"/>
+    <rect x="672" y="518" width="88" height="86" rx="32"/>
+
+    <rect x="286" y="526" width="452" height="130" rx="56"/>
+    <rect x="486" y="630" width="52" height="88" rx="24"/>
     <rect x="378" y="694" width="268" height="202" rx="46"/>
   </g>
+
   <g fill="none" stroke="#F8FBFF" stroke-linecap="round" stroke-width="34">
-    <path d="M362 628 C312 676 302 745 302 818"/><path d="M662 628 C712 676 722 745 722 818"/>
+    <path d="M362 628 C312 676 302 745 302 818"/>
+    <path d="M662 628 C712 676 722 745 722 818"/>
   </g>
+
   <circle cx="512" cy="796" r="76" fill="#061B44"/>
   <path d="M490 752 L490 840 L562 796 Z" fill="#F8FBFF"/>
   <circle cx="596" cy="738" r="20" fill="#FF5A52"/>

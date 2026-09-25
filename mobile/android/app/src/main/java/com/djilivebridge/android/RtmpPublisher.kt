@@ -50,7 +50,7 @@ internal class RtmpPublisher(
         val connect = mapOf(
             "app" to app,
             "type" to "nonprivate",
-            "flashVer" to "FMLE/3.0 (compatible; DJI Live Bridge)",
+            "flashVer" to "FMLE/3.0 (compatible; StreamMyDrone)",
             "tcUrl" to "rtmp://$host:$port/$app",
         )
         sendCommand(0, "connect", 1.0, connect)

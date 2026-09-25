@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
-  <title>StreamMyDrone app icon</title>
-  <rect x="64" y="64" width="896" height="896" rx="224" fill="#061B44"/>
-  <rect x="68" y="68" width="888" height="888" rx="220" fill="none" stroke="#12366F" stroke-width="8"/>
+  <title>StreamMyDrone Google Play icon</title>
+  <rect width="1024" height="1024" fill="#061B44"/>
   <g fill="none" stroke="#20D7F1" stroke-linecap="round">
     <path d="M350 294 C438 206 586 206 674 294" stroke-width="52"/>
     <path d="M405 350 C466 289 558 289 619 350" stroke-width="50"/>

@@ -160,7 +160,7 @@ internal class TestVideoStreamer(private val context: Context, private val uri: 
             entries["audiosamplerate"] = audio.getInteger(MediaFormat.KEY_SAMPLE_RATE).toDouble()
             entries["stereo"] = audio.getInteger(MediaFormat.KEY_CHANNEL_COUNT) > 1
         }
-        entries["encoder"] = "DJI Live Bridge test video"
+        entries["encoder"] = "StreamMyDrone test video"
         return AmfEcmaArray(entries)
     }
 }

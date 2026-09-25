@@ -1,4 +1,4 @@
-# DJI Live Bridge for Android
+# StreamMyDrone for Android
 
 Native Android application for receiving an RTMP publish from DJI Fly on a DJI RC 2 and
 forwarding the stream to one or more external RTMP destinations at the same time.
@@ -172,7 +172,7 @@ The app has the desktop app's 15 languages: English (the default), Español, 中
 العربية, हिन्दी, Português, Русский, Français, Deutsch, 日本語, 한국어, Bahasa Indonesia, Italiano and
 Türkçe. It follows the phone's language. On Android 13 and later the globe button in the top bar
 picks another one, stored by Android as the app's own language (the same choice as Settings → Apps
-→ DJI Live Bridge → Language, which `res/xml/locales_config.xml` feeds); it applies at once,
+→ StreamMyDrone → Language, which `res/xml/locales_config.xml` feeds); it applies at once,
 including to the notification. Arabic is laid out right to left, and arrows that show a direction
 are mirrored.
 
