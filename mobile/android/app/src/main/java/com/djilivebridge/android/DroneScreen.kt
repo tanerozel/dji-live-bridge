@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.BorderStroke
@@ -24,6 +25,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -40,6 +42,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.TextAutoSize
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.HelpOutline
@@ -47,35 +50,42 @@ import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.ContentCopy
 import androidx.compose.material.icons.rounded.ErrorOutline
+import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.Fullscreen
 import androidx.compose.material.icons.rounded.FullscreenExit
 import androidx.compose.material.icons.rounded.GridView
 import androidx.compose.material.icons.rounded.Hd
 import androidx.compose.material.icons.rounded.Image
 import androidx.compose.material.icons.rounded.Info
+import androidx.compose.material.icons.rounded.Key
 import androidx.compose.material.icons.rounded.Lan
 import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.Lightbulb
 import androidx.compose.material.icons.rounded.MoreHoriz
 import androidx.compose.material.icons.rounded.Movie
 import androidx.compose.material.icons.rounded.Palette
+import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Sensors
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.SignalCellularAlt
 import androidx.compose.material.icons.rounded.Stop
 import androidx.compose.material.icons.rounded.WarningAmber
 import androidx.compose.material.icons.rounded.Wifi
+import androidx.compose.material.icons.rounded.WifiOff
 import androidx.compose.material.icons.rounded.WifiTethering
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -86,20 +96,24 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.Role
@@ -111,6 +125,7 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.toggleableState
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.style.TextOverflow
@@ -118,21 +133,27 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /** Which sheet is open over the picture. */
 private enum class DroneSheet { PLATFORMS, DETAILS }
 
 /**
- * The drone's picture over the whole screen once it arrives, with the controls around it like a
- * camera app: what is connected and the stream's state at the top, the picture's numbers under
- * them, a switch per platform and the one big button at the bottom. "Preview" hides everything
- * but the picture; a double tap switches between the whole picture and a screen-filling one.
+ * The app's one screen, laid out like a camera app: what is connected and the stream's state at
+ * the top, a switch per platform and the one big button at the bottom. Until the drone's picture
+ * comes, a small card in the middle says how to connect DJI Fly; then the picture fills the screen.
+ * "Preview" hides everything but the picture; a double tap switches between the whole picture and
+ * a screen-filling one.
  */
 @Composable
 internal fun DroneScreen(
     phase: BridgePhase,
     serviceState: RelayServiceUiState,
+    /** The picture is up (or was, moments ago); otherwise the connect card takes its place. */
+    showPicture: Boolean,
     destinations: DestinationProfiles,
+    /** Why the saved platforms could not be read, if they could not. */
+    profileError: UiText?,
     lan: LanAddress?,
     pictureFit: PictureFit,
     snackbarHostState: SnackbarHostState,
@@ -145,7 +166,11 @@ internal fun DroneScreen(
     onPlatformToggle: (DestinationKind) -> Unit,
     onPlatformEdit: (DestinationKind) -> Unit,
     onEditProfile: (DestinationProfile) -> Unit,
+    onStartReceiver: (restart: Boolean) -> Unit,
+    onTestVideo: () -> Unit,
     onStopTestVideo: () -> Unit,
+    onCopyAddress: (String) -> Unit,
+    onOpenWifiSettings: () -> Unit,
     onShowLanguagePicker: () -> Unit,
     onShowThemePicker: () -> Unit,
     onShowGuide: () -> Unit,
@@ -155,35 +180,40 @@ internal fun DroneScreen(
     val pictureState = rememberDronePictureState()
     var sheet by rememberSaveable { mutableStateOf<DroneSheet?>(null) }
     var pictureOnly by rememberSaveable { mutableStateOf(false) }
+    if (!showPicture) pictureOnly = false
     val otherFit = if (pictureState.shownFit == PictureFit.WHOLE) PictureFit.FILL else PictureFit.WHOLE
-    KeepScreenOn()
+    if (showPicture) KeepScreenOn()
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black),
+            .background(if (showPicture) SolidColor(Color.Black) else WaitingBackground),
     ) {
-        DronePicture(state = pictureState, fit = pictureFit, modifier = Modifier.fillMaxSize())
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                // A picture that stopped coming must not look live.
-                .background(if (phase.hasPicture) Color.Transparent else Color.Black.copy(alpha = 0.55f))
-                .pointerInput(otherFit, pictureOnly) {
-                    detectTapGestures(
-                        onDoubleTap = { onPictureFitChange(otherFit) },
-                        onTap = { if (pictureOnly) pictureOnly = false },
-                    )
-                },
-        )
+        if (showPicture) {
+            DronePicture(state = pictureState, fit = pictureFit, modifier = Modifier.fillMaxSize())
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    // A picture that stopped coming must not look live.
+                    .background(if (phase.hasPicture) Color.Transparent else Color.Black.copy(alpha = 0.55f))
+                    .pointerInput(otherFit, pictureOnly) {
+                        detectTapGestures(
+                            onDoubleTap = { onPictureFitChange(otherFit) },
+                            onTap = { if (pictureOnly) pictureOnly = false },
+                        )
+                    },
+            )
+        }
         AnimatedVisibility(visible = !pictureOnly, enter = fadeIn(), exit = fadeOut()) {
             Box(modifier = Modifier.fillMaxSize()) {
-                Scrims()
+                if (showPicture) Scrims()
                 Controls(
                     phase = phase,
                     serviceState = serviceState,
+                    showPicture = showPicture,
                     destinations = destinations,
                     liveDestinations = liveDestinations,
+                    profileError = profileError,
                     lan = lan,
                     pictureState = pictureState,
                     snackbarHostState = snackbarHostState,
@@ -195,7 +225,11 @@ internal fun DroneScreen(
                     onEndLive = onEndLive,
                     onPlatformToggle = onPlatformToggle,
                     onPlatformEdit = onPlatformEdit,
+                    onStartReceiver = onStartReceiver,
+                    onTestVideo = onTestVideo,
                     onStopTestVideo = onStopTestVideo,
+                    onCopyAddress = onCopyAddress,
+                    onOpenWifiSettings = onOpenWifiSettings,
                     onShowLanguagePicker = onShowLanguagePicker,
                     onShowThemePicker = onShowThemePicker,
                     onShowGuide = onShowGuide,
@@ -207,11 +241,13 @@ internal fun DroneScreen(
 
     when (sheet) {
         DroneSheet.PLATFORMS -> BridgeSheet(onDismiss = { sheet = null }) {
-            PlatformPicker(
+            PlatformsSheet(
                 destinations = destinations,
-                bitrateKbps = snapshot.bitrateKbps,
-                onPlatformClick = onPlatformToggle,
-                onPlatformLongClick = onPlatformEdit,
+                liveDestinations = liveDestinations,
+                live = serviceState.isLive,
+                snapshot = snapshot,
+                onToggle = onPlatformToggle,
+                onEdit = onPlatformEdit,
                 onEditProfile = onEditProfile,
             )
         }
@@ -232,8 +268,10 @@ internal fun DroneScreen(
 private fun Controls(
     phase: BridgePhase,
     serviceState: RelayServiceUiState,
+    showPicture: Boolean,
     destinations: DestinationProfiles,
     liveDestinations: List<DestinationProfile>,
+    profileError: UiText?,
     lan: LanAddress?,
     pictureState: DronePictureState,
     snackbarHostState: SnackbarHostState,
@@ -245,7 +283,11 @@ private fun Controls(
     onEndLive: (profileId: String?) -> Unit,
     onPlatformToggle: (DestinationKind) -> Unit,
     onPlatformEdit: (DestinationKind) -> Unit,
+    onStartReceiver: (restart: Boolean) -> Unit,
+    onTestVideo: () -> Unit,
     onStopTestVideo: () -> Unit,
+    onCopyAddress: (String) -> Unit,
+    onOpenWifiSettings: () -> Unit,
     onShowLanguagePicker: () -> Unit,
     onShowThemePicker: () -> Unit,
     onShowGuide: () -> Unit,
@@ -264,19 +306,36 @@ private fun Controls(
     }
     val chips: @Composable () -> Unit = {
         InfoChips(
-            videoSize = pictureState.videoSize?.let { "${it.width}×${it.height}" },
+            videoSize = pictureState.videoSize?.takeIf { showPicture }?.let { "${it.width}×${it.height}" },
             bitrateKbps = snapshot.bitrateKbps,
             lan = lan,
         )
     }
+    val connect: @Composable (Modifier) -> Unit = { modifier ->
+        if (!showPicture) {
+            ConnectPanel(
+                phase = phase,
+                snapshot = snapshot,
+                testing = testing,
+                lan = lan,
+                onStartReceiver = onStartReceiver,
+                onTestVideo = onTestVideo,
+                onCopyAddress = onCopyAddress,
+                onOpenWifiSettings = onOpenWifiSettings,
+                modifier = modifier,
+            )
+        }
+    }
     val sideButtons: @Composable () -> Unit = {
         Column(verticalArrangement = Arrangement.spacedBy(GAP)) {
             val whole = pictureState.shownFit == PictureFit.WHOLE
-            GlassIconButton(
-                icon = if (whole) Icons.Rounded.Fullscreen else Icons.Rounded.FullscreenExit,
-                description = stringResource(if (whole) R.string.picture_fill else R.string.picture_fit),
-                onClick = onFitToggle,
-            )
+            if (showPicture) {
+                GlassIconButton(
+                    icon = if (whole) Icons.Rounded.Fullscreen else Icons.Rounded.FullscreenExit,
+                    description = stringResource(if (whole) R.string.picture_fill else R.string.picture_fit),
+                    onClick = onFitToggle,
+                )
+            }
             MenuButton(
                 items = buildList {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -289,8 +348,22 @@ private fun Controls(
         }
     }
     val bottom: @Composable ColumnScope.() -> Unit = {
-        SnackbarHost(snackbarHostState)
-        Message(phase = phase, serviceState = serviceState, liveDestinations = liveDestinations)
+        SnackbarHost(snackbarHostState) { data ->
+            Snackbar(
+                snackbarData = data,
+                shape = CARD_SHAPE,
+                containerColor = SheetColor,
+                contentColor = Color.White,
+                actionColor = GoLiveStart,
+            )
+        }
+        Message(
+            phase = phase,
+            serviceState = serviceState,
+            showPicture = showPicture,
+            profileError = profileError,
+            liveDestinations = liveDestinations,
+        )
         StreamToCard(
             destinations = destinations,
             liveDestinations = liveDestinations,
@@ -305,7 +378,9 @@ private fun Controls(
         ActionRow(
             live = live,
             canGoLive = phase.hasPicture,
+            showPicture = showPicture,
             testing = testing,
+            snackbarHostState = snackbarHostState,
             onPictureOnly = onPictureOnly,
             onGoLive = onGoLive,
             onEndLive = { onEndLive(null) },
@@ -322,33 +397,70 @@ private fun Controls(
             .windowInsetsPadding(WindowInsets.safeDrawing)
             .padding(horizontal = EDGE, vertical = GAP),
     ) {
-        if (maxWidth > maxHeight) {
-            // Sideways: the state along the top, the platforms and the buttons along the bottom.
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(GAP)) {
-                Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(GAP)) {
-                    deviceCard(Modifier.widthIn(max = 280.dp))
-                    chips()
-                }
-                Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(GAP)) {
-                    statusCard(Modifier.widthIn(max = 220.dp))
-                    sideButtons()
-                }
-            }
-            Row(
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.Bottom,
-                horizontalArrangement = Arrangement.spacedBy(EDGE),
-            ) {
+        if (maxWidth > maxHeight && !showPicture) {
+            // Sideways without a picture: the connect card beside the platforms, not squeezed
+            // between the top and bottom rows.
+            Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(EDGE)) {
                 Column(
                     modifier = Modifier
                         .weight(1f)
-                        .widthIn(max = 440.dp),
+                        .fillMaxHeight(),
                     verticalArrangement = Arrangement.spacedBy(GAP),
-                    content = bottom,
-                )
-                actions(Modifier.width(LANDSCAPE_ACTIONS_WIDTH))
+                ) {
+                    deviceCard(Modifier.fillMaxWidth())
+                    chips()
+                    Spacer(modifier = Modifier.weight(1f))
+                    bottom()
+                }
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight(),
+                    verticalArrangement = Arrangement.spacedBy(GAP),
+                ) {
+                    Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(GAP)) {
+                        statusCard(Modifier.weight(1f))
+                        sideButtons()
+                    }
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        connect(Modifier.verticalScroll(rememberScrollState()))
+                    }
+                    actions(Modifier.fillMaxWidth())
+                }
+            }
+        } else if (maxWidth > maxHeight) {
+            // Sideways: the state along the top, the platforms and the buttons along the bottom.
+            Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(GAP)) {
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(GAP)) {
+                    Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(GAP)) {
+                        deviceCard(Modifier.widthIn(max = 280.dp))
+                        chips()
+                    }
+                    Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(GAP)) {
+                        statusCard(Modifier.widthIn(max = 220.dp))
+                        sideButtons()
+                    }
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.spacedBy(EDGE),
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .widthIn(max = 440.dp),
+                        verticalArrangement = Arrangement.spacedBy(GAP),
+                        content = bottom,
+                    )
+                    actions(Modifier.width(LANDSCAPE_ACTIONS_WIDTH))
+                }
             }
         } else {
             Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(GAP)) {
@@ -361,7 +473,14 @@ private fun Controls(
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxWidth(),
+                    contentAlignment = Alignment.Center,
                 ) {
+                    // The card takes the middle; the settings button sits above its corner.
+                    connect(
+                        Modifier
+                            .padding(top = SIDE_BUTTON + GAP)
+                            .verticalScroll(rememberScrollState()),
+                    )
                     Box(modifier = Modifier.align(Alignment.TopEnd)) { sideButtons() }
                 }
                 bottom()
@@ -396,7 +515,8 @@ private fun Scrims() {
 @Composable
 private fun DeviceCard(phase: BridgePhase, testing: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
     val (dot, state) = when {
-        phase == BridgePhase.RECEIVER_ERROR -> DangerColor to R.string.hero_receiver_stopped
+        phase == BridgePhase.RECEIVER_ERROR || phase == BridgePhase.START_FAILED ->
+            DangerColor to R.string.hero_receiver_stopped
         phase.hasPicture || phase == BridgePhase.DRONE_CONNECTED -> ReadyColor to R.string.device_connected
         else -> WarningColor to R.string.device_waiting
     }
@@ -472,10 +592,13 @@ private fun statusLook(
 ): StatusLook {
     fun text(value: String): @Composable () -> Unit = { StatusCaption(value) }
     if (!live) {
-        return if (phase.hasPicture) {
-            StatusLook(Tone.READY, Leading.CHECK, stringResource(R.string.status_ready), text(stringResource(R.string.status_not_live)))
-        } else {
-            StatusLook(Tone.BUSY, Leading.PROGRESS, null, text(stringResource(R.string.status_waiting_for_picture)))
+        return when (phase) {
+            BridgePhase.PREVIEW ->
+                StatusLook(Tone.READY, Leading.CHECK, stringResource(R.string.status_ready), text(stringResource(R.string.status_not_live)))
+            BridgePhase.IDLE, BridgePhase.START_FAILED, BridgePhase.RECEIVER_ERROR ->
+                StatusLook(Tone.ERROR, Leading.ERROR, stringResource(R.string.hero_receiver_stopped), null)
+            BridgePhase.STARTING -> StatusLook(Tone.BUSY, Leading.PROGRESS, null, text(stringResource(R.string.receiver_starting)))
+            else -> StatusLook(Tone.BUSY, Leading.PROGRESS, null, text(stringResource(R.string.status_waiting_for_picture)))
         }
     }
     return when (phase) {
@@ -602,7 +725,13 @@ private fun InfoChip(icon: ImageVector, text: String, numbers: Boolean = false) 
  * the tip for the platform (such as pressing "Go live" in Instagram too).
  */
 @Composable
-private fun Message(phase: BridgePhase, serviceState: RelayServiceUiState, liveDestinations: List<DestinationProfile>) {
+private fun Message(
+    phase: BridgePhase,
+    serviceState: RelayServiceUiState,
+    showPicture: Boolean,
+    profileError: UiText?,
+    liveDestinations: List<DestinationProfile>,
+) {
     val snapshot = serviceState.snapshot
     val notice = serviceState.notice
     val holding = serviceState.isLive && snapshot.outputStatus == "holding" &&
@@ -615,6 +744,13 @@ private fun Message(phase: BridgePhase, serviceState: RelayServiceUiState, liveD
             icon = Icons.Rounded.ErrorOutline,
             accent = DangerColor,
         )
+        profileError != null -> Banner(
+            key = profileError,
+            title = stringResource(R.string.profile_list_unreadable),
+            message = profileError.asString(),
+            icon = Icons.Rounded.ErrorOutline,
+            accent = DangerColor,
+        )
         holding -> Banner(
             key = "holding",
             title = stringResource(R.string.hero_drone_lost),
@@ -622,7 +758,7 @@ private fun Message(phase: BridgePhase, serviceState: RelayServiceUiState, liveD
             icon = Icons.Rounded.WarningAmber,
             accent = WarningColor,
         )
-        phase == BridgePhase.RECEIVER_ERROR -> Banner(
+        phase == BridgePhase.RECEIVER_ERROR && showPicture -> Banner(
             key = "receiver",
             title = stringResource(R.string.hero_receiver_stopped),
             message = snapshot.error?.asString(),
@@ -865,12 +1001,316 @@ private fun OtherPlatforms(onClick: () -> Unit, modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * The middle of the screen until the drone's picture comes: the address to type into DJI Fly, or
+ * what keeps DJI Fly from connecting (the receiver is off, the phone is not on Wi-Fi).
+ */
+@Composable
+private fun ConnectPanel(
+    phase: BridgePhase,
+    snapshot: RelaySnapshot,
+    testing: Boolean,
+    lan: LanAddress?,
+    onStartReceiver: (restart: Boolean) -> Unit,
+    onTestVideo: () -> Unit,
+    onCopyAddress: (String) -> Unit,
+    onOpenWifiSettings: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier
+            .widthIn(max = 420.dp)
+            .glass(PANEL_SHAPE)
+            .padding(14.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        when {
+            phase == BridgePhase.STARTING -> PanelWaiting(stringResource(R.string.receiver_starting))
+            phase == BridgePhase.IDLE || phase == BridgePhase.START_FAILED || phase == BridgePhase.RECEIVER_ERROR -> {
+                val failed = phase != BridgePhase.IDLE
+                PanelText(
+                    text = if (failed) snapshot.error?.asString().orEmpty() else stringResource(R.string.receiver_off),
+                    color = if (failed) DangerColor else Color.White.copy(alpha = 0.85f),
+                )
+                PanelButton(
+                    text = stringResource(if (failed) R.string.retry else R.string.open_receiver),
+                    icon = Icons.Rounded.Refresh,
+                    onClick = { onStartReceiver(phase == BridgePhase.RECEIVER_ERROR) },
+                )
+            }
+            phase == BridgePhase.DRONE_CONNECTED || phase == BridgePhase.PREVIEW ->
+                PanelWaiting(stringResource(R.string.preview_connected))
+            testing -> PanelWaiting(stringResource(R.string.test_video_opening))
+            lan == null -> {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Icon(Icons.Rounded.WifiOff, contentDescription = null, tint = WarningColor, modifier = Modifier.size(18.dp))
+                    PanelText(stringResource(R.string.no_network), modifier = Modifier.weight(1f))
+                }
+                PanelButton(text = stringResource(R.string.wifi_settings), icon = Icons.Rounded.Wifi, onClick = onOpenWifiSettings)
+            }
+            else -> {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Icon(painterResource(R.drawable.ic_drone), contentDescription = null, tint = Color.White, modifier = Modifier.size(20.dp))
+                    Text(
+                        text = stringResource(R.string.connect_drone),
+                        color = Color.White,
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.SemiBold,
+                    )
+                }
+                PanelText(stringResource(R.string.dji_fly_instructions))
+                AddressRow(address = lan.publishUrl, onCopy = { onCopyAddress(lan.publishUrl) })
+                Text(
+                    text = stringResource(R.string.dji_fly_path),
+                    color = Color.White.copy(alpha = 0.6f),
+                    style = MaterialTheme.typography.labelSmall,
+                )
+                NotConnecting()
+                PanelButton(text = stringResource(R.string.try_test_video), icon = Icons.Rounded.Movie, onClick = onTestVideo)
+            }
+        }
+    }
+}
+
+@Composable
+private fun PanelText(text: String, modifier: Modifier = Modifier, color: Color = Color.White.copy(alpha = 0.85f)) {
+    Text(text = text, color = color, style = MaterialTheme.typography.bodySmall, modifier = modifier)
+}
+
+@Composable
+private fun PanelWaiting(text: String) {
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+        CircularProgressIndicator(modifier = Modifier.size(16.dp), color = Color.White, strokeWidth = 2.dp)
+        PanelText(text)
+    }
+}
+
+/** A quiet orange text button, the only kind of button inside the connect card. */
+@Composable
+private fun PanelButton(text: String, icon: ImageVector, onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .clip(RoundedCornerShape(8.dp))
+            .clickable(role = Role.Button, onClick = onClick)
+            .heightIn(min = 36.dp)
+            .padding(horizontal = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
+        Icon(icon, contentDescription = null, tint = GoLiveStart, modifier = Modifier.size(16.dp))
+        Text(text = text, color = GoLiveStart, style = MaterialTheme.typography.labelLarge)
+    }
+}
+
+/**
+ * The RTMP address typed into DJI Fly on the remote controller, on one line on any phone and left
+ * to right in every language; copying only helps when DJI Fly runs on this phone.
+ */
+@Composable
+private fun AddressRow(address: String, onCopy: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(10.dp))
+            .background(Color.White.copy(alpha = 0.08f))
+            .border(1.dp, Color.White.copy(alpha = 0.12f), RoundedCornerShape(10.dp))
+            .padding(start = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        SelectionContainer(modifier = Modifier.weight(1f)) {
+            BasicText(
+                text = address,
+                style = TextStyle(
+                    color = Color.White,
+                    fontFamily = FontFamily.Monospace,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 15.sp,
+                    textDirection = TextDirection.Ltr,
+                ),
+                maxLines = 1,
+                autoSize = TextAutoSize.StepBased(minFontSize = 9.sp, maxFontSize = 15.sp),
+            )
+        }
+        IconButton(onClick = onCopy) {
+            Icon(
+                Icons.Rounded.ContentCopy,
+                contentDescription = stringResource(R.string.copy_address),
+                tint = GoLiveStart,
+                modifier = Modifier.size(18.dp),
+            )
+        }
+    }
+}
+
+/** The usual reasons DJI Fly cannot reach the phone, folded away until asked for. */
+@Composable
+private fun NotConnecting() {
+    var open by rememberSaveable { mutableStateOf(false) }
+    val rotation by animateFloatAsState(if (open) 180f else 0f, label = "notConnecting")
+    val expandLabel = stringResource(if (open) R.string.collapse else R.string.expand)
+    val state = stringResource(if (open) R.string.state_expanded else R.string.state_collapsed)
+    Column {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .clickable(onClickLabel = expandLabel, role = Role.Button) { open = !open }
+                .semantics { stateDescription = state }
+                .heightIn(min = 32.dp)
+                .padding(horizontal = 4.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                modifier = Modifier.weight(1f),
+                text = stringResource(R.string.not_connecting),
+                color = Color.White.copy(alpha = 0.85f),
+                style = MaterialTheme.typography.labelLarge,
+            )
+            Icon(
+                Icons.Rounded.ExpandMore,
+                contentDescription = null,
+                tint = Color.White.copy(alpha = 0.7f),
+                modifier = Modifier
+                    .size(18.dp)
+                    .rotate(rotation),
+            )
+        }
+        AnimatedVisibility(visible = open) {
+            Column(
+                modifier = Modifier.padding(start = 4.dp, top = 4.dp),
+                verticalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
+                listOf(
+                    R.string.not_connecting_same_network,
+                    R.string.not_connecting_exact_address,
+                    R.string.not_connecting_guest_vpn,
+                ).forEach { tip ->
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Box(
+                            modifier = Modifier
+                                .padding(top = 6.dp)
+                                .size(4.dp)
+                                .background(Color.White.copy(alpha = 0.5f), CircleShape),
+                        )
+                        PanelText(stringResource(tip), color = Color.White.copy(alpha = 0.7f))
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Where the stream goes, in the style of the screen: every platform with its switch, then the saved
+ * ones with their stream keys. Instagram and TikTok need a new key for every broadcast.
+ */
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun PlatformsSheet(
+    destinations: DestinationProfiles,
+    liveDestinations: List<DestinationProfile>,
+    live: Boolean,
+    snapshot: RelaySnapshot,
+    onToggle: (DestinationKind) -> Unit,
+    onEdit: (DestinationKind) -> Unit,
+    onEditProfile: (DestinationProfile) -> Unit,
+) {
+    val saved = destinations.profiles.mapTo(mutableSetOf()) { it.kind }
+    val on = if (live) {
+        liveDestinations.mapTo(mutableSetOf()) { it.kind }
+    } else {
+        destinations.selectedProfiles.mapTo(mutableSetOf()) { it.kind }
+    }
+    val colors = BridgeTheme.colors
+    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Text(
+            text = stringResource(R.string.where_to_stream),
+            color = Color.White,
+            style = MaterialTheme.typography.titleSmall,
+            fontWeight = FontWeight.SemiBold,
+        )
+        Text(
+            text = stringResource(R.string.pick_platforms_hint),
+            color = Color.White.copy(alpha = 0.6f),
+            style = MaterialTheme.typography.bodySmall,
+        )
+    }
+    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+        val tileWidth = (maxWidth - TILE_SPACING * (VISIBLE_TILES - 1)) / VISIBLE_TILES
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(TILE_SPACING),
+            verticalArrangement = Arrangement.spacedBy(TILE_SPACING),
+        ) {
+            DestinationKind.entries.forEach { kind ->
+                val liveProfile = liveDestinations.firstOrNull { it.kind == kind }
+                PlatformSwitch(
+                    kind = kind,
+                    checked = kind in on,
+                    saved = kind in saved,
+                    state = liveProfile?.let { outputLabel(snapshot.output(it.id)?.status, colors).second },
+                    onToggle = { onToggle(kind) },
+                    onEdit = { onEdit(kind) },
+                    modifier = Modifier.width(tileWidth),
+                )
+            }
+        }
+    }
+    if (destinations.profiles.isNotEmpty()) {
+        HorizontalDivider(color = Color.White.copy(alpha = 0.1f))
+        destinations.profiles.forEach { profile ->
+            SavedPlatform(profile = profile, onEdit = { onEditProfile(profile) })
+        }
+    }
+    val selected = destinations.selectedProfiles.size
+    if (!live && selected > 1) {
+        Text(
+            text = if (snapshot.bitrateKbps > 0) {
+                pluralStringResource(R.plurals.upload_note_total, selected, selected, formatBitrate(snapshot.bitrateKbps * selected))
+            } else {
+                pluralStringResource(R.plurals.upload_note, selected, selected)
+            },
+            color = Color.White.copy(alpha = 0.6f),
+            style = MaterialTheme.typography.bodySmall,
+        )
+    }
+}
+
+/** A saved platform with the state of its stream key and the way to change it. */
+@Composable
+private fun SavedPlatform(profile: DestinationProfile, onEdit: () -> Unit) {
+    val renewKey = profile.kind.keyChangesEachStream
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+        PlatformTile(kind = profile.kind, size = 28.dp)
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = profile.kind.displayName(),
+                color = Color.White,
+                style = MaterialTheme.typography.labelLarge,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+            Text(
+                text = stringResource(if (renewKey) R.string.key_changes_each_stream else R.string.key_saved),
+                color = if (renewKey) WarningColor else Color.White.copy(alpha = 0.6f),
+                style = MaterialTheme.typography.labelSmall,
+            )
+        }
+        PanelButton(
+            text = stringResource(if (renewKey) R.string.update_key else R.string.edit),
+            icon = Icons.Rounded.Key,
+            onClick = onEdit,
+        )
+    }
+}
+
 /** "Preview", the big button, and "More", like a camera app's shutter row. */
 @Composable
 private fun ActionRow(
     live: Boolean,
     canGoLive: Boolean,
+    showPicture: Boolean,
     testing: Boolean,
+    snackbarHostState: SnackbarHostState,
     onPictureOnly: () -> Unit,
     onGoLive: () -> Unit,
     onEndLive: () -> Unit,
@@ -884,7 +1324,12 @@ private fun ActionRow(
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        SquareAction(icon = Icons.Rounded.Image, label = stringResource(R.string.preview_badge), onClick = onPictureOnly)
+        SquareAction(
+            icon = Icons.Rounded.Image,
+            label = stringResource(R.string.preview_badge),
+            onClick = onPictureOnly,
+            enabled = showPicture,
+        )
         if (live) {
             BigButton(
                 text = stringResource(R.string.end_broadcast),
@@ -894,12 +1339,20 @@ private fun ActionRow(
                 modifier = Modifier.weight(1f),
             )
         } else {
+            val scope = rememberCoroutineScope()
+            val needsPicture = stringResource(R.string.go_live_needs_picture)
             BigButton(
                 text = stringResource(R.string.go_live),
                 icon = Icons.Rounded.Sensors,
                 brush = Brush.horizontalGradient(listOf(GoLiveStart, GoLiveEnd)),
                 enabled = canGoLive,
                 onClick = onGoLive,
+                onDisabledClick = {
+                    scope.launch {
+                        snackbarHostState.currentSnackbarData?.dismiss()
+                        snackbarHostState.showSnackbar(needsPicture)
+                    }
+                },
                 modifier = Modifier.weight(1f),
             )
         }
@@ -914,13 +1367,14 @@ private fun ActionRow(
 }
 
 @Composable
-private fun SquareAction(icon: ImageVector, label: String, onClick: () -> Unit) {
+private fun SquareAction(icon: ImageVector, label: String, onClick: () -> Unit, enabled: Boolean = true) {
     // The label may be wider than the square ("Daha fazla"); the column grows a little for it.
     Column(
         modifier = Modifier
             .widthIn(min = SQUARE_ACTION_SIZE, max = SQUARE_ACTION_MAX_WIDTH)
+            .alpha(if (enabled) 1f else 0.4f)
             .clip(CARD_SHAPE)
-            .clickable(role = Role.Button, onClick = onClick),
+            .clickable(enabled = enabled, role = Role.Button, onClick = onClick),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(3.dp),
     ) {
@@ -951,6 +1405,8 @@ private fun BigButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    /** Says why nothing happens, rather than ignoring the tap. */
+    onDisabledClick: () -> Unit = {},
 ) {
     Row(
         modifier = modifier
@@ -958,7 +1414,7 @@ private fun BigButton(
             .alpha(if (enabled) 1f else 0.5f)
             .clip(CircleShape)
             .background(brush)
-            .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
+            .clickable(role = Role.Button, onClick = if (enabled) onClick else onDisabledClick)
             .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
@@ -1029,7 +1485,7 @@ private fun GlassIconButton(icon: ImageVector, description: String, onClick: () 
     IconButton(
         onClick = onClick,
         modifier = Modifier
-            .size(40.dp)
+            .size(SIDE_BUTTON)
             .border(BorderStroke(1.dp, Color.White.copy(alpha = 0.15f)), CircleShape),
         colors = IconButtonDefaults.iconButtonColors(containerColor = OverlayGlass, contentColor = Color.White),
     ) {
@@ -1043,25 +1499,27 @@ private fun Modifier.glass(shape: Shape): Modifier =
         .background(OverlayGlass)
         .border(1.dp, Color.White.copy(alpha = 0.15f), shape)
 
-/** A sheet in the app's own colors, scrolling when its content is long. */
+/** A dark sheet like the screen under it, scrolling when its content is long. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun BridgeSheet(onDismiss: () -> Unit, content: @Composable () -> Unit) {
-    val colors = BridgeTheme.colors
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
-        containerColor = colors.background,
-        contentColor = colors.text,
+        containerColor = SheetColor,
+        contentColor = Color.White,
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
-                .padding(start = 16.dp, end = 16.dp, bottom = 24.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            content()
+        // The cards inside use the app's dark theme, whatever theme the user picked.
+        DjiLiveBridgeTheme(ThemeChoice.DARK) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
+                    .padding(start = EDGE, end = EDGE, bottom = 24.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                content()
+            }
         }
     }
 }
@@ -1092,6 +1550,9 @@ private val MAIN_PLATFORMS = setOf(
     DestinationKind.FACEBOOK,
 )
 
+/** Behind the connect card until the picture comes: the brand's blue, nearly black. */
+private val WaitingBackground = Brush.verticalGradient(listOf(Color(0xFF101A2A), Color(0xFF05070B)))
+private val SheetColor = Color(0xFF14171C)
 private val ReadyColor = Color(0xFF4ADE80)
 private val WarningColor = Color(0xFFFBBF24)
 private val DangerColor = Color(0xFFF87171)
@@ -1104,6 +1565,8 @@ private val GAP = 8.dp
 private val ICON = 22.dp
 private val CARD_HEIGHT = 52.dp
 private val CARD_SHAPE = RoundedCornerShape(14.dp)
+private val PANEL_SHAPE = RoundedCornerShape(18.dp)
+private val SIDE_BUTTON = 40.dp
 private val TILE_SHAPE = RoundedCornerShape(12.dp)
 private val TILE_ICON = 30.dp
 private val MINI_SWITCH_TRAVEL = 14.dp

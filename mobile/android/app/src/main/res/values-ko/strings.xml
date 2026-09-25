@@ -15,8 +15,6 @@
 
     <!-- Shared components -->
     <string name="live_badge">방송 중</string>
-    <string name="step">%1$d단계</string>
-    <string name="step_done">%1$d단계 완료</string>
     <string name="copy_address">주소 복사</string>
     <string name="collapse">접기</string>
     <string name="expand">펼치기</string>
@@ -162,13 +160,8 @@
     <string name="dji_fly_instructions">DJI Fly에 이 주소를 RTMP 주소로 입력하고 송출을 시작하세요. 영상은 여기에 표시되며, 방송을 시작해야 플랫폼으로 전송됩니다.</string>
     <string name="dji_fly_path">DJI Fly → GO FLY → ••• → 전송 → 라이브 방송 플랫폼 → RTMP</string>
     <string name="try_test_video">드론이 없나요? 테스트 영상으로 해 보세요</string>
-    <string name="deselect">선택 해제</string>
-    <string name="select">선택</string>
-    <string name="add">추가</string>
     <string name="edit">편집</string>
-    <string name="state_saved">저장됨</string>
     <string name="state_not_added">추가 안 됨</string>
-    <string name="platform_selected">%1$s 선택됨</string>
     <string name="key_changes_each_stream">방송마다 새 키가 필요합니다</string>
     <string name="key_saved">스트림 키 저장됨</string>
     <string name="update_key">키 업데이트</string>
@@ -178,9 +171,6 @@
     <plurals name="upload_note_total">
         <item quantity="other">플랫폼 %1$d개를 선택했습니다. 플랫폼마다 드론 영상을 따로 업로드합니다(현재 총 약 %2$s). 업로드 속도가 부족하면 일부 프레임을 건너뜁니다.</item>
     </plurals>
-    <string name="network_hotspot">핫스팟 켜짐 · 조종기를 이 휴대폰에 연결하세요</string>
-    <string name="network_wifi">Wi-Fi 연결됨 · 조종기도 같은 네트워크에 있어야 합니다</string>
-    <string name="network_local">로컬 네트워크 연결됨 · 조종기도 같은 네트워크에 있어야 합니다</string>
     <string name="no_network">휴대폰이 Wi-Fi에 연결되어 있지 않습니다. Wi-Fi에 연결하거나 핫스팟을 켜세요.</string>
     <string name="wifi_settings">Wi-Fi 설정</string>
 
@@ -254,9 +244,6 @@
     <string name="how_to_use">사용 방법</string>
     <string name="ok">확인</string>
     <string name="go_live">방송 시작</string>
-    <plurals name="go_live_many">
-        <item quantity="other">%d개 플랫폼에서 방송 시작</item>
-    </plurals>
     <string name="go_live_needs_picture">드론 영상이 들어오면 방송을 시작할 수 있습니다</string>
     <string name="keep_streaming">계속 방송하기</string>
     <string name="end_one_title">%1$s 방송을 종료할까요?</string>

@@ -19,39 +19,23 @@ import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.HelpOutline
-import androidx.compose.material.icons.rounded.Language
-import androidx.compose.material.icons.rounded.Palette
-import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -70,12 +54,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.heading
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -94,10 +74,8 @@ private const val NETWORK_REFRESH_INTERVAL_MS = 3_000L
 private const val PICTURE_GRACE_MS = 2_500L
 
 private sealed interface BridgeScreen {
+    /** The one dark screen: how to connect DJI Fly, then the drone's picture. */
     data object Home : BridgeScreen
-
-    /** The drone's picture over the whole screen. */
-    data object Drone : BridgeScreen
     data object Guide : BridgeScreen
     data class Editor(val state: ProfileEditorState) : BridgeScreen
 }
@@ -107,7 +85,7 @@ internal fun RelayScreen(
     profileEditorViewModel: ProfileEditorViewModel,
     theme: ThemeChoice,
     onThemeChange: (ThemeChoice) -> Unit,
-    /** True while the drone screen shows, whose dark picture needs light system bar icons. */
+    /** True while the dark main screen shows, which needs light system bar icons. */
     onDroneScreenChange: (Boolean) -> Unit,
 ) {
     val context = LocalContext.current
@@ -184,13 +162,29 @@ internal fun RelayScreen(
         destinations.selectedProfiles.firstOrNull { it.kind == kind }
             ?: destinations.profiles.firstOrNull { it.kind == kind }
 
+    val newKeyEachStream = stringResource(R.string.key_changes_each_stream)
+    val updateKey = stringResource(R.string.update_key)
+
     /** A saved platform goes in or out of the broadcast; a new one is set up first. */
     fun onPlatformClick(kind: DestinationKind) {
         val profile = profileFor(kind)
         if (profile == null) {
             profileEditorViewModel.open(null, kind)
-        } else {
-            updateProfiles { profileStore.setSelected(profile.id, !destinations.isSelected(profile.id)) }
+            return
+        }
+        val select = !destinations.isSelected(profile.id)
+        updateProfiles { profileStore.setSelected(profile.id, select) }
+        // Instagram and TikTok hand out a new key for every broadcast: offer to paste it now.
+        if (select && kind.keyChangesEachStream) {
+            scope.launch {
+                snackbarHostState.currentSnackbarData?.dismiss()
+                val result = snackbarHostState.showSnackbar(
+                    message = uiText(R.string.named_error, kind.nameText, newKeyEachStream).resolve(context),
+                    actionLabel = updateKey,
+                    duration = SnackbarDuration.Long,
+                )
+                if (result == SnackbarResult.ActionPerformed) profileEditorViewModel.open(profile, kind)
+            }
         }
     }
 
@@ -306,10 +300,9 @@ internal fun RelayScreen(
     val screen = when {
         editorState != null -> BridgeScreen.Editor(editorState)
         showGuide -> BridgeScreen.Guide
-        serviceState.isLive || showingPicture -> BridgeScreen.Drone
         else -> BridgeScreen.Home
     }
-    SideEffect { onDroneScreenChange(screen == BridgeScreen.Drone) }
+    SideEffect { onDroneScreenChange(screen == BridgeScreen.Home) }
 
     AnimatedContent(
         targetState = screen,
@@ -363,31 +356,12 @@ internal fun RelayScreen(
                     },
                 )
             }
-            BridgeScreen.Home -> HomeScreen(
+            BridgeScreen.Home -> DroneScreen(
                 phase = phase,
                 serviceState = serviceState,
+                showPicture = serviceState.isLive || showingPicture,
                 destinations = destinations,
                 profileError = profileError,
-                lan = lan,
-                snackbarHostState = snackbarHostState,
-                onShowGuide = { showGuide = true },
-                onShowThemePicker = { showThemePicker = true },
-                onShowLanguagePicker = { showLanguagePicker = true },
-                onPlatformClick = ::onPlatformClick,
-                onPlatformLongClick = { kind -> profileFor(kind)?.let { profileEditorViewModel.open(it, kind) } },
-                onEditProfile = { profile -> profileEditorViewModel.open(profile, profile.kind) },
-                onOpenWifiSettings = ::openWifiSettings,
-                onStartReceiver = { restart -> startReceiver(restart = restart) },
-                onTestVideo = {
-                    testVideoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly))
-                },
-                onStopTestVideo = { RelayForegroundService.stopTestVideo(context) },
-                onCopyAddress = ::copyAddress,
-            )
-            BridgeScreen.Drone -> DroneScreen(
-                phase = phase,
-                serviceState = serviceState,
-                destinations = destinations,
                 lan = lan,
                 pictureFit = pictureFit,
                 snackbarHostState = snackbarHostState,
@@ -400,11 +374,17 @@ internal fun RelayScreen(
                 onPlatformToggle = ::onPlatformToggle,
                 onPlatformEdit = { kind -> profileFor(kind)?.let { profileEditorViewModel.open(it, kind) } },
                 onEditProfile = { profile -> profileEditorViewModel.open(profile, profile.kind) },
+                onStartReceiver = { restart -> startReceiver(restart = restart) },
+                onTestVideo = {
+                    testVideoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly))
+                },
                 onStopTestVideo = {
-                    // Back to the setup screen at once, without waiting out the grace period.
+                    // Back to the connect card at once, without waiting out the grace period.
                     if (!serviceState.isLive) showingPicture = false
                     RelayForegroundService.stopTestVideo(context)
                 },
+                onCopyAddress = ::copyAddress,
+                onOpenWifiSettings = ::openWifiSettings,
                 onShowLanguagePicker = { showLanguagePicker = true },
                 onShowThemePicker = { showThemePicker = true },
                 onShowGuide = { showGuide = true },
@@ -466,142 +446,6 @@ internal fun RelayScreen(
             dismissButton = {
                 TextButton(onClick = { showEndLiveConfirmation = false }) { Text(stringResource(R.string.keep_streaming)) }
             },
-        )
-    }
-}
-
-@Composable
-private fun HomeScreen(
-    phase: BridgePhase,
-    serviceState: RelayServiceUiState,
-    destinations: DestinationProfiles,
-    profileError: UiText?,
-    lan: LanAddress?,
-    snackbarHostState: SnackbarHostState,
-    onShowGuide: () -> Unit,
-    onShowThemePicker: () -> Unit,
-    onShowLanguagePicker: () -> Unit,
-    onPlatformClick: (DestinationKind) -> Unit,
-    onPlatformLongClick: (DestinationKind) -> Unit,
-    onEditProfile: (DestinationProfile) -> Unit,
-    onOpenWifiSettings: () -> Unit,
-    onStartReceiver: (restart: Boolean) -> Unit,
-    onTestVideo: () -> Unit,
-    onStopTestVideo: () -> Unit,
-    onCopyAddress: (String) -> Unit,
-) {
-    val colors = BridgeTheme.colors
-    val selected = destinations.selectedProfiles
-    Scaffold(
-        containerColor = colors.background,
-        contentWindowInsets = WindowInsets.safeDrawing,
-        topBar = { HomeTopBar(onLanguage = onShowLanguagePicker, onTheme = onShowThemePicker, onHelp = onShowGuide) },
-        bottomBar = {
-            // Going live happens on the drone screen; here the button shows what comes next.
-            HomeBottomBar(
-                platforms = selected.size,
-                hint = stringResource(if (selected.isEmpty()) R.string.pick_platform_first else R.string.go_live_needs_picture),
-            )
-        },
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-    ) { contentPadding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(contentPadding),
-            contentAlignment = Alignment.TopCenter,
-        ) {
-            Column(
-                modifier = Modifier
-                    .widthIn(max = 560.dp)
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
-                    .padding(horizontal = 16.dp, vertical = 4.dp),
-            ) {
-                SetupContent(
-                    phase = phase,
-                    snapshot = serviceState.snapshot,
-                    testVideoName = serviceState.testVideoName,
-                    notice = serviceState.notice,
-                    destinations = destinations,
-                    profileError = profileError,
-                    lan = lan,
-                    onStartReceiver = onStartReceiver,
-                    onTestVideo = onTestVideo,
-                    onStopTestVideo = onStopTestVideo,
-                    onPlatformClick = onPlatformClick,
-                    onPlatformLongClick = onPlatformLongClick,
-                    onEditProfile = onEditProfile,
-                    onCopyAddress = onCopyAddress,
-                    onOpenWifiSettings = onOpenWifiSettings,
-                )
-                Spacer(Modifier.height(16.dp))
-            }
-        }
-    }
-}
-
-@Composable
-private fun HomeTopBar(onLanguage: () -> Unit, onTheme: () -> Unit, onHelp: () -> Unit) {
-    val colors = BridgeTheme.colors
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal))
-            .heightIn(min = 60.dp)
-            .padding(start = 20.dp, end = 4.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
-    ) {
-        BrandMark(size = 30.dp)
-        Text(
-            modifier = Modifier
-                .weight(1f)
-                .semantics { heading() },
-            text = stringResource(R.string.app_name),
-            style = MaterialTheme.typography.titleMedium,
-        )
-        // Android 13 and later keep a language per app; older versions follow the phone.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            IconButton(onClick = onLanguage) {
-                Icon(Icons.Rounded.Language, contentDescription = stringResource(R.string.language), tint = colors.muted)
-            }
-        }
-        IconButton(onClick = onTheme) {
-            Icon(Icons.Rounded.Palette, contentDescription = stringResource(R.string.theme), tint = colors.muted)
-        }
-        IconButton(onClick = onHelp) {
-            Icon(Icons.AutoMirrored.Rounded.HelpOutline, contentDescription = stringResource(R.string.how_to_use), tint = colors.muted)
-        }
-    }
-}
-
-@Composable
-private fun HomeBottomBar(platforms: Int, hint: String) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal))
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        Text(
-            text = hint,
-            style = MaterialTheme.typography.bodySmall,
-            color = BridgeTheme.colors.muted,
-            textAlign = TextAlign.Center,
-        )
-        PrimaryButton(
-            modifier = Modifier.widthIn(max = 560.dp),
-            text = if (platforms > 1) {
-                pluralStringResource(R.plurals.go_live_many, platforms, platforms)
-            } else {
-                stringResource(R.string.go_live)
-            },
-            onClick = {},
-            icon = Icons.Rounded.PlayArrow,
-            enabled = false,
         )
     }
 }
@@ -726,27 +570,33 @@ private val PreviewProfile = DestinationProfile(
     "rtmps://live-upload.instagram.com:443/rtmp",
 )
 
-@Preview(name = "Setup", widthDp = 360, heightDp = 760)
+@Preview(name = "Waiting for the drone", widthDp = 360, heightDp = 760)
 @Composable
 private fun SetupPreview() {
     DjiLiveBridgeTheme(ThemeChoice.LIGHT) {
-        SetupContent(
-            modifier = Modifier.padding(16.dp),
+        DroneScreen(
             phase = BridgePhase.WAITING_FOR_DRONE,
-            snapshot = RelaySnapshot(status = "listening"),
-            testVideoName = null,
-            notice = null,
+            serviceState = RelayServiceUiState(isActive = true, snapshot = RelaySnapshot(status = "listening")),
+            showPicture = false,
             destinations = DestinationProfiles(listOf(PreviewProfile), listOf(PreviewProfile.id)),
             profileError = null,
             lan = LanAddress("192.168.1.101", LanKind.WIFI),
+            pictureFit = PictureFit.AUTO,
+            snackbarHostState = remember { SnackbarHostState() },
+            onPictureFitChange = {},
+            onGoLive = {},
+            onEndLive = {},
+            onPlatformToggle = {},
+            onPlatformEdit = {},
+            onEditProfile = {},
             onStartReceiver = {},
             onTestVideo = {},
             onStopTestVideo = {},
-            onPlatformClick = {},
-            onPlatformLongClick = {},
-            onEditProfile = {},
             onCopyAddress = {},
             onOpenWifiSettings = {},
+            onShowLanguagePicker = {},
+            onShowThemePicker = {},
+            onShowGuide = {},
         )
     }
 }
@@ -771,7 +621,9 @@ private fun LivePreview() {
                 ),
                 liveProfileIds = listOf(PreviewProfile.id, PreviewTwitch.id),
             ),
+            showPicture = true,
             destinations = DestinationProfiles(listOf(PreviewProfile, PreviewTwitch), listOf(PreviewProfile.id, PreviewTwitch.id)),
+            profileError = null,
             lan = LanAddress("192.168.1.101", LanKind.WIFI),
             pictureFit = PictureFit.WHOLE,
             snackbarHostState = remember { SnackbarHostState() },
@@ -781,7 +633,11 @@ private fun LivePreview() {
             onPlatformToggle = {},
             onPlatformEdit = {},
             onEditProfile = {},
+            onStartReceiver = {},
+            onTestVideo = {},
             onStopTestVideo = {},
+            onCopyAddress = {},
+            onOpenWifiSettings = {},
             onShowLanguagePicker = {},
             onShowThemePicker = {},
             onShowGuide = {},

@@ -15,8 +15,6 @@
 
     <!-- Shared components -->
     <string name="live_badge">直播中</string>
-    <string name="step">第 %1$d 步</string>
-    <string name="step_done">第 %1$d 步，已完成</string>
     <string name="copy_address">复制地址</string>
     <string name="collapse">收起</string>
     <string name="expand">展开</string>
@@ -162,13 +160,8 @@
     <string name="dji_fly_instructions">在 DJI Fly 中把它填作 RTMP 地址，然后开始推流。画面会显示在这里；只有在你开始直播后，画面才会发送到平台。</string>
     <string name="dji_fly_path">DJI Fly → GO FLY → ••• → 图传 → 直播平台 → RTMP</string>
     <string name="try_test_video">没有无人机？试试测试视频</string>
-    <string name="deselect">取消选择</string>
-    <string name="select">选择</string>
-    <string name="add">添加</string>
     <string name="edit">编辑</string>
-    <string name="state_saved">已保存</string>
     <string name="state_not_added">未添加</string>
-    <string name="platform_selected">已选择 %1$s</string>
     <string name="key_changes_each_stream">每次直播都需要新密钥</string>
     <string name="key_saved">推流密钥已保存</string>
     <string name="update_key">更新密钥</string>
@@ -178,9 +171,6 @@
     <plurals name="upload_note_total">
         <item quantity="other">已选择 %1$d 个平台。每个平台都会单独上传无人机画面（目前总计约 %2$s）；如果上传速度不够，会跳过部分帧。</item>
     </plurals>
-    <string name="network_hotspot">热点已开启 · 请把遥控器连到这部手机</string>
-    <string name="network_wifi">Wi-Fi 已连接 · 遥控器必须在同一网络中</string>
-    <string name="network_local">已连接局域网 · 遥控器必须在同一网络中</string>
     <string name="no_network">手机未连接 Wi-Fi。请连接 Wi-Fi 或开启热点。</string>
     <string name="wifi_settings">Wi-Fi 设置</string>
 
@@ -254,9 +244,6 @@
     <string name="how_to_use">使用说明</string>
     <string name="ok">确定</string>
     <string name="go_live">开始直播</string>
-    <plurals name="go_live_many">
-        <item quantity="other">在 %d 个平台开始直播</item>
-    </plurals>
     <string name="go_live_needs_picture">收到无人机画面后即可开始直播</string>
     <string name="keep_streaming">继续直播</string>
     <string name="end_one_title">要结束 %1$s 的直播吗？</string>

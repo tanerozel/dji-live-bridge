@@ -15,8 +15,6 @@
 
     <!-- Shared components -->
     <string name="live_badge">مباشر</string>
-    <string name="step">الخطوة %1$d</string>
-    <string name="step_done">الخطوة %1$d، مكتملة</string>
     <string name="copy_address">نسخ العنوان</string>
     <string name="collapse">تصغير</string>
     <string name="expand">توسيع</string>
@@ -167,13 +165,8 @@
     <string name="dji_fly_instructions">أدخل هذا العنوان في DJI Fly كعنوان RTMP وابدأ البث. ستظهر الصورة هنا، ولن تصل إلى المنصات إلا عندما تبدأ البث المباشر.</string>
     <string name="dji_fly_path">‏DJI Fly‏ ← GO FLY ← ••• ← الإرسال ← منصات البث المباشر ← RTMP</string>
     <string name="try_test_video">ليس لديك درون؟ جرّب فيديو اختبار</string>
-    <string name="deselect">إلغاء الاختيار</string>
-    <string name="select">اختيار</string>
-    <string name="add">إضافة</string>
     <string name="edit">تعديل</string>
-    <string name="state_saved">محفوظة</string>
     <string name="state_not_added">غير مضافة</string>
-    <string name="platform_selected">تم اختيار %1$s</string>
     <string name="key_changes_each_stream">يلزم مفتاح جديد لكل بث</string>
     <string name="key_saved">مفتاح البث محفوظ</string>
     <string name="update_key">تحديث المفتاح</string>
@@ -193,9 +186,6 @@
         <item quantity="many">تم اختيار %1$d منصة. تُرفع صورة الدرون إلى كل منصة على حدة (نحو %2$s إجمالًا حاليًا)؛ وإذا لم تكفِ سرعة الرفع، يتم تخطي بعض الإطارات.</item>
         <item quantity="other">تم اختيار %1$d منصة. تُرفع صورة الدرون إلى كل منصة على حدة (نحو %2$s إجمالًا حاليًا)؛ وإذا لم تكفِ سرعة الرفع، يتم تخطي بعض الإطارات.</item>
     </plurals>
-    <string name="network_hotspot">نقطة الاتصال مفعّلة · وصّل وحدة التحكم بهذا الهاتف</string>
-    <string name="network_wifi">متصل بالشبكة اللاسلكية · يجب أن تكون وحدة التحكم على الشبكة نفسها</string>
-    <string name="network_local">متصل بشبكة محلية · يجب أن تكون وحدة التحكم على الشبكة نفسها</string>
     <string name="no_network">الهاتف غير متصل بشبكة لاسلكية. اتصل بشبكة لاسلكية أو فعّل نقطة الاتصال.</string>
     <string name="wifi_settings">إعدادات الشبكة اللاسلكية</string>
 
@@ -279,14 +269,6 @@
     <string name="how_to_use">طريقة الاستخدام</string>
     <string name="ok">حسنًا</string>
     <string name="go_live">ابدأ البث المباشر</string>
-    <plurals name="go_live_many">
-        <item quantity="zero">ابدأ البث المباشر على %d منصة</item>
-        <item quantity="one">ابدأ البث المباشر على %d منصة</item>
-        <item quantity="two">ابدأ البث المباشر على منصتين (%d)</item>
-        <item quantity="few">ابدأ البث المباشر على %d منصات</item>
-        <item quantity="many">ابدأ البث المباشر على %d منصة</item>
-        <item quantity="other">ابدأ البث المباشر على %d منصة</item>
-    </plurals>
     <string name="go_live_needs_picture">يمكنك بدء البث المباشر بعد وصول صورة الدرون</string>
     <string name="keep_streaming">متابعة البث</string>
     <string name="end_one_title">هل تريد إنهاء البث على %1$s؟</string>

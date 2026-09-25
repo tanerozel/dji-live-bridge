@@ -16,8 +16,6 @@
 
     <!-- Shared components -->
     <string name="live_badge">LIVE</string>
-    <string name="step">Step %1$d</string>
-    <string name="step_done">Step %1$d, done</string>
     <string name="copy_address">Copy address</string>
     <string name="collapse">Collapse</string>
     <string name="expand">Expand</string>
@@ -164,13 +162,8 @@
     <string name="dji_fly_instructions">Enter this as the RTMP address in DJI Fly and start the stream. The picture shows here; it goes to the platforms only when you start.</string>
     <string name="dji_fly_path">DJI Fly → GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP</string>
     <string name="try_test_video">No drone? Try a test video</string>
-    <string name="deselect">Deselect</string>
-    <string name="select">Select</string>
-    <string name="add">Add</string>
     <string name="edit">Edit</string>
-    <string name="state_saved">Saved</string>
     <string name="state_not_added">Not added</string>
-    <string name="platform_selected">%1$s selected</string>
     <string name="key_changes_each_stream">Needs a new key for every stream</string>
     <string name="key_saved">Stream key saved</string>
     <string name="update_key">Update key</string>
@@ -182,9 +175,6 @@
         <item quantity="one">%1$d platform selected. Each one uploads the drone\'s picture separately (about %2$s in total right now); if the upload speed is not enough, frames are skipped.</item>
         <item quantity="other">%1$d platforms selected. Each one uploads the drone\'s picture separately (about %2$s in total right now); if the upload speed is not enough, frames are skipped.</item>
     </plurals>
-    <string name="network_hotspot">Hotspot on · connect the controller to this phone</string>
-    <string name="network_wifi">Wi-Fi connected · the controller must be on the same network</string>
-    <string name="network_local">On a local network · the controller must be on the same network</string>
     <string name="no_network">The phone is not on Wi-Fi. Connect to Wi-Fi or turn on the hotspot.</string>
     <string name="wifi_settings">Wi-Fi settings</string>
 
@@ -260,10 +250,6 @@
     <string name="how_to_use">How to use</string>
     <string name="ok">OK</string>
     <string name="go_live">Go live</string>
-    <plurals name="go_live_many">
-        <item quantity="one">Go live on %d platform</item>
-        <item quantity="other">Go live on %d platforms</item>
-    </plurals>
     <string name="go_live_needs_picture">You can go live once the drone\'s picture arrives</string>
     <string name="keep_streaming">Keep streaming</string>
     <string name="end_one_title">End the %1$s stream?</string>

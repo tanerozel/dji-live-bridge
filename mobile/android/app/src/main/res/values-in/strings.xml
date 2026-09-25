@@ -15,8 +15,6 @@
 
     <!-- Shared components -->
     <string name="live_badge">SIARAN</string>
-    <string name="step">Langkah %1$d</string>
-    <string name="step_done">Langkah %1$d, selesai</string>
     <string name="copy_address">Salin alamat</string>
     <string name="collapse">Ciutkan</string>
     <string name="expand">Luaskan</string>
@@ -162,13 +160,8 @@
     <string name="dji_fly_instructions">Masukkan ini sebagai alamat RTMP di DJI Fly lalu mulai siaran. Gambar tampil di sini dan baru dikirim ke platform saat Anda memulai.</string>
     <string name="dji_fly_path">DJI Fly → GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP</string>
     <string name="try_test_video">Tidak ada drone? Coba video uji</string>
-    <string name="deselect">Batalkan pilihan</string>
-    <string name="select">Pilih</string>
-    <string name="add">Tambah</string>
     <string name="edit">Ubah</string>
-    <string name="state_saved">Tersimpan</string>
     <string name="state_not_added">Belum ditambahkan</string>
-    <string name="platform_selected">%1$s dipilih</string>
     <string name="key_changes_each_stream">Perlu kunci baru untuk setiap siaran</string>
     <string name="key_saved">Stream key tersimpan</string>
     <string name="update_key">Perbarui kunci</string>
@@ -178,9 +171,6 @@
     <plurals name="upload_note_total">
         <item quantity="other">%1$d platform dipilih. Masing-masing mengunggah gambar drone secara terpisah (saat ini total sekitar %2$s); jika kecepatan unggah tidak cukup, sebagian frame dilewati.</item>
     </plurals>
-    <string name="network_hotspot">Hotspot aktif · hubungkan remote ke ponsel ini</string>
-    <string name="network_wifi">Wi-Fi terhubung · remote harus berada di jaringan yang sama</string>
-    <string name="network_local">Terhubung ke jaringan lokal · remote harus berada di jaringan yang sama</string>
     <string name="no_network">Ponsel tidak terhubung ke Wi-Fi. Hubungkan ke Wi-Fi atau aktifkan hotspot.</string>
     <string name="wifi_settings">Pengaturan Wi-Fi</string>
 
@@ -254,9 +244,6 @@
     <string name="how_to_use">Cara pakai</string>
     <string name="ok">OK</string>
     <string name="go_live">Mulai siaran</string>
-    <plurals name="go_live_many">
-        <item quantity="other">Mulai siaran di %d platform</item>
-    </plurals>
     <string name="go_live_needs_picture">Anda bisa mulai siaran setelah gambar drone masuk</string>
     <string name="keep_streaming">Lanjutkan siaran</string>
     <string name="end_one_title">Akhiri siaran %1$s?</string>

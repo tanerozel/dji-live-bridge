@@ -1,16 +1,12 @@
 package com.djilivebridge.android
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,26 +17,15 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicText
-import androidx.compose.foundation.text.TextAutoSize
-import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Check
-import androidx.compose.material.icons.rounded.ContentCopy
 import androidx.compose.material.icons.rounded.ErrorOutline
-import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.Lightbulb
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -48,29 +33,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.stateDescription
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 internal fun BridgeCard(
@@ -95,27 +68,6 @@ internal fun BridgeCard(
     }
 }
 
-/** The launcher icon drawn in-app: brand gradient with the white drone glyph. */
-@Composable
-internal fun BrandMark(size: Dp, modifier: Modifier = Modifier) {
-    val colors = BridgeTheme.colors
-    Box(
-        modifier = modifier
-            .size(size)
-            .clip(RoundedCornerShape(size * 0.28f))
-            .background(Brush.verticalGradient(listOf(colors.brandStart, colors.brandEnd))),
-        contentAlignment = Alignment.Center,
-    ) {
-        // The adaptive-icon foreground keeps an 18dp margin around its 108dp canvas; drawing it
-        // at 1.5x lets the visible 72dp fill this box the way a launcher mask does.
-        Image(
-            painter = painterResource(R.drawable.ic_launcher_foreground),
-            contentDescription = null,
-            modifier = Modifier.requiredSize(size * 1.5f),
-        )
-    }
-}
-
 @Composable
 internal fun PulsingDot(color: Color, modifier: Modifier = Modifier, size: Dp = 8.dp) {
     val alpha = rememberInfiniteTransition(label = "pulse").animateFloat(
@@ -132,40 +84,10 @@ internal fun PulsingDot(color: Color, modifier: Modifier = Modifier, size: Dp = 
     )
 }
 
-/** A step number that turns into a green check once the step is done (desktop .step-badge). */
-@Composable
-internal fun StepDot(number: Int, done: Boolean) {
-    val colors = BridgeTheme.colors
-    val stepDone = stringResource(R.string.step_done, number)
-    val step = stringResource(R.string.step, number)
-    Box(
-        modifier = Modifier
-            .size(24.dp)
-            .background(if (done) colors.success else colors.accentSoft, CircleShape)
-            .clearAndSetSemantics {
-                contentDescription = if (done) stepDone else step
-            },
-        contentAlignment = Alignment.Center,
-    ) {
-        if (done) {
-            Icon(Icons.Rounded.Check, contentDescription = null, tint = Color.White, modifier = Modifier.size(16.dp))
-        } else {
-            Text(
-                text = number.toString(),
-                color = colors.link,
-                style = MaterialTheme.typography.labelMedium,
-                fontWeight = FontWeight.Bold,
-            )
-        }
-    }
-}
-
 @Composable
 internal fun SectionHeader(
     title: String,
     modifier: Modifier = Modifier,
-    step: Int? = null,
-    done: Boolean = false,
     trailing: (@Composable () -> Unit)? = null,
 ) {
     Row(
@@ -173,7 +95,6 @@ internal fun SectionHeader(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        step?.let { StepDot(number = it, done = done) }
         Text(
             modifier = Modifier
                 .weight(1f)
@@ -231,44 +152,6 @@ internal fun AlertBanner(title: String, modifier: Modifier = Modifier, message: 
     }
 }
 
-/**
- * The RTMP address typed into DJI Fly on the RC 2. It is large and monospaced because it is
- * read on one screen and typed on another; copying only helps when DJI Fly runs on this phone.
- */
-@Composable
-internal fun AddressField(address: String, onCopy: () -> Unit, modifier: Modifier = Modifier) {
-    val colors = BridgeTheme.colors
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        shape = MaterialTheme.shapes.small,
-        color = colors.field,
-        contentColor = colors.text,
-    ) {
-        Row(
-            modifier = Modifier.padding(start = 14.dp, top = 6.dp, end = 2.dp, bottom = 6.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            SelectionContainer(modifier = Modifier.weight(1f)) {
-                // On one line on any phone: a long LAN address shrinks instead of breaking at "/".
-                BasicText(
-                    text = address,
-                    style = LocalTextStyle.current.copy(
-                        color = LocalContentColor.current,
-                        textDirection = TextDirection.Ltr,
-                        fontFamily = FontFamily.Monospace,
-                        fontWeight = FontWeight.SemiBold,
-                    ),
-                    maxLines = 1,
-                    autoSize = TextAutoSize.StepBased(minFontSize = 10.sp, maxFontSize = 16.sp),
-                )
-            }
-            IconButton(onClick = onCopy) {
-                Icon(Icons.Rounded.ContentCopy, contentDescription = stringResource(R.string.copy_address), tint = colors.link)
-            }
-        }
-    }
-}
-
 @Composable
 internal fun PrimaryButton(
     text: String,
@@ -297,67 +180,6 @@ internal fun PrimaryButton(
             Spacer(Modifier.width(8.dp))
         }
         Text(text = text, style = MaterialTheme.typography.titleMedium)
-    }
-}
-
-@Composable
-internal fun ExpandableSection(
-    title: String,
-    expanded: Boolean,
-    onToggle: () -> Unit,
-    modifier: Modifier = Modifier,
-    content: @Composable ColumnScope.() -> Unit,
-) {
-    val colors = BridgeTheme.colors
-    val rotation by animateFloatAsState(if (expanded) 180f else 0f, label = "expandRotation")
-    val collapseLabel = stringResource(R.string.collapse)
-    val expandLabel = stringResource(R.string.expand)
-    val expandedState = stringResource(R.string.state_expanded)
-    val collapsedState = stringResource(R.string.state_collapsed)
-    Column(modifier = modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = 44.dp)
-                .clip(MaterialTheme.shapes.small)
-                .clickable(onClickLabel = if (expanded) collapseLabel else expandLabel, role = Role.Button, onClick = onToggle)
-                .semantics { stateDescription = if (expanded) expandedState else collapsedState },
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                modifier = Modifier.weight(1f),
-                text = title,
-                style = MaterialTheme.typography.labelLarge,
-                color = colors.link,
-            )
-            Icon(
-                imageVector = Icons.Rounded.ExpandMore,
-                contentDescription = null,
-                tint = colors.link,
-                modifier = Modifier.rotate(rotation),
-            )
-        }
-        AnimatedVisibility(visible = expanded) {
-            Column(
-                modifier = Modifier.padding(top = 4.dp, bottom = 4.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                content = content,
-            )
-        }
-    }
-}
-
-@Composable
-internal fun BulletItem(text: String) {
-    val colors = BridgeTheme.colors
-    Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.Top) {
-        Box(
-            modifier = Modifier
-                .padding(top = 8.dp)
-                .size(5.dp)
-                .background(colors.faint, CircleShape),
-        )
-        Text(text = text, style = MaterialTheme.typography.bodyMedium, color = colors.muted)
     }
 }
 

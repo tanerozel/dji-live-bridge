@@ -15,8 +15,6 @@
 
     <!-- Shared components -->
     <string name="live_badge">लाइव</string>
-    <string name="step">चरण %1$d</string>
-    <string name="step_done">चरण %1$d, पूरा हुआ</string>
     <string name="copy_address">पता कॉपी करें</string>
     <string name="collapse">बंद करें</string>
     <string name="expand">खोलें</string>
@@ -163,13 +161,8 @@
     <string name="dji_fly_instructions">इसे DJI Fly में RTMP पते के तौर पर डालें और स्ट्रीम शुरू करें। तस्वीर यहाँ दिखेगी; प्लेटफ़ॉर्मों पर यह तभी जाएगी जब आप लाइव जाएँगे।</string>
     <string name="dji_fly_path">DJI Fly → GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP</string>
     <string name="try_test_video">ड्रोन नहीं है? टेस्ट वीडियो आज़माएँ</string>
-    <string name="deselect">चयन हटाएँ</string>
-    <string name="select">चुनें</string>
-    <string name="add">जोड़ें</string>
     <string name="edit">बदलें</string>
-    <string name="state_saved">सहेजा गया</string>
     <string name="state_not_added">जोड़ा नहीं गया</string>
-    <string name="platform_selected">%1$s चुना गया</string>
     <string name="key_changes_each_stream">हर स्ट्रीम के लिए नई की चाहिए</string>
     <string name="key_saved">स्ट्रीम की सहेजी हुई है</string>
     <string name="update_key">की अपडेट करें</string>
@@ -181,9 +174,6 @@
         <item quantity="one">%1$d प्लेटफ़ॉर्म चुना गया। हर प्लेटफ़ॉर्म के लिए ड्रोन की तस्वीर अलग से अपलोड होती है (अभी कुल लगभग %2$s); अपलोड स्पीड कम पड़े तो कुछ फ़्रेम छूट जाते हैं।</item>
         <item quantity="other">%1$d प्लेटफ़ॉर्म चुने गए। हर प्लेटफ़ॉर्म के लिए ड्रोन की तस्वीर अलग से अपलोड होती है (अभी कुल लगभग %2$s); अपलोड स्पीड कम पड़े तो कुछ फ़्रेम छूट जाते हैं।</item>
     </plurals>
-    <string name="network_hotspot">हॉटस्पॉट चालू · रिमोट को इस फ़ोन से जोड़ें</string>
-    <string name="network_wifi">Wi-Fi जुड़ा है · रिमोट भी इसी नेटवर्क पर होना चाहिए</string>
-    <string name="network_local">लोकल नेटवर्क पर · रिमोट भी इसी नेटवर्क पर होना चाहिए</string>
     <string name="no_network">फ़ोन Wi-Fi से नहीं जुड़ा है। Wi-Fi से जुड़ें या हॉटस्पॉट चालू करें।</string>
     <string name="wifi_settings">Wi-Fi सेटिंग्स</string>
 
@@ -259,10 +249,6 @@
     <string name="how_to_use">इस्तेमाल कैसे करें</string>
     <string name="ok">ठीक है</string>
     <string name="go_live">लाइव जाएँ</string>
-    <plurals name="go_live_many">
-        <item quantity="one">%d प्लेटफ़ॉर्म पर लाइव जाएँ</item>
-        <item quantity="other">%d प्लेटफ़ॉर्मों पर लाइव जाएँ</item>
-    </plurals>
     <string name="go_live_needs_picture">ड्रोन की तस्वीर आने पर आप लाइव जा सकते हैं</string>
     <string name="keep_streaming">लाइव जारी रखें</string>
     <string name="end_one_title">%1$s पर लाइव बंद करें?</string>

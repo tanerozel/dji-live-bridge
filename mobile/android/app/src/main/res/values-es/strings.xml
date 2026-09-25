@@ -15,8 +15,6 @@
 
     <!-- Shared components -->
     <string name="live_badge">EN DIRECTO</string>
-    <string name="step">Paso %1$d</string>
-    <string name="step_done">Paso %1$d, completado</string>
     <string name="copy_address">Copiar dirección</string>
     <string name="collapse">Contraer</string>
     <string name="expand">Expandir</string>
@@ -164,13 +162,8 @@
     <string name="dji_fly_instructions">Introduce esta dirección RTMP en DJI Fly e inicia la transmisión. Verás la imagen aquí; solo llegará a las plataformas cuando inicies el directo.</string>
     <string name="dji_fly_path">DJI Fly → GO FLY → ••• → Transmisión → Plataformas de streaming → RTMP</string>
     <string name="try_test_video">¿Sin dron? Usa un vídeo de prueba</string>
-    <string name="deselect">Quitar selección</string>
-    <string name="select">Seleccionar</string>
-    <string name="add">Añadir</string>
     <string name="edit">Editar</string>
-    <string name="state_saved">Guardado</string>
     <string name="state_not_added">No añadido</string>
-    <string name="platform_selected">%1$s seleccionado</string>
     <string name="key_changes_each_stream">Necesita una clave nueva en cada transmisión</string>
     <string name="key_saved">Clave de transmisión guardada</string>
     <string name="update_key">Actualizar clave</string>
@@ -184,9 +177,6 @@
         <item quantity="many">%1$d plataformas seleccionadas. La imagen del dron se sube por separado a cada una (ahora mismo, unos %2$s en total); si la velocidad de subida no basta, se saltan fotogramas.</item>
         <item quantity="other">%1$d plataformas seleccionadas. La imagen del dron se sube por separado a cada una (ahora mismo, unos %2$s en total); si la velocidad de subida no basta, se saltan fotogramas.</item>
     </plurals>
-    <string name="network_hotspot">Punto de acceso activado · conecta el control a este teléfono</string>
-    <string name="network_wifi">Conectado a Wi-Fi · el control debe estar en la misma red</string>
-    <string name="network_local">En una red local · el control debe estar en la misma red</string>
     <string name="no_network">El teléfono no tiene Wi-Fi. Conéctate a una red Wi-Fi o activa el punto de acceso.</string>
     <string name="wifi_settings">Ajustes de Wi-Fi</string>
 
@@ -264,11 +254,6 @@
     <string name="how_to_use">Cómo se usa</string>
     <string name="ok">Aceptar</string>
     <string name="go_live">Transmitir en directo</string>
-    <plurals name="go_live_many">
-        <item quantity="one">Transmitir en %d plataforma</item>
-        <item quantity="many">Transmitir en %d plataformas</item>
-        <item quantity="other">Transmitir en %d plataformas</item>
-    </plurals>
     <string name="go_live_needs_picture">Podrás transmitir en directo cuando llegue la imagen del dron</string>
     <string name="keep_streaming">Seguir transmitiendo</string>
     <string name="end_one_title">¿Finalizar la transmisión en %1$s?</string>

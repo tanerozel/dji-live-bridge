@@ -58,13 +58,20 @@ server until they were fixed there (sessions captured from an RC 2 showed both):
 
 ## User interface
 
-Until the drone's picture arrives, the home screen follows the order of a flight: two numbered
-cards and one button. The first card, "Connect the drone", shows the RTMP address to type into DJI
-Fly on the RC 2 with the DJI Fly menu path, and folds away the usual reasons it does not connect
-under "Not connecting?". The second card is the platform grid: Instagram, TikTok, YouTube, Facebook, Twitch,
-Kick and a custom RTMP server, drawn as the desktop app's brand tiles. Tapping a platform opens a key-only screen whose server address is prefilled with the
-platform's published ingest; TikTok and custom servers hand out their own address, so they ask for
-it. The prefilled address can still be changed:
+The app is one dark screen, laid out like a camera app, from the first launch to the end of a
+broadcast. Until the drone's picture arrives, a small card sits where the picture will be: "Connect
+the drone" with the RTMP address to type into DJI Fly on the RC 2 (on one line, with a copy
+button), the DJI Fly menu path, the usual reasons it does not connect folded under "Not
+connecting?", and "No drone? Try a test video". When the receiver is off, the phone is not on
+Wi-Fi or the test video is starting, the card says so instead. Once the picture comes, it takes the
+card's place; everything around it stays where it was. A three-page guide opens on first launch and
+again from the settings button.
+
+The platforms are Instagram, TikTok, YouTube, Facebook, Twitch, Kick and a custom RTMP server,
+drawn as the desktop app's brand tiles. Switching on a platform without a stream key opens a
+key-only screen whose server address is prefilled with the platform's published ingest; TikTok and
+custom servers hand out their own address, so they ask for it. The prefilled address can still be
+changed:
 
 | Platform | Default server address |
 | --- | --- |
@@ -74,17 +81,15 @@ it. The prefilled address can still be changed:
 | Twitch | `rtmp://live.twitch.tv/app` |
 | Kick | `rtmps://fa723fc1b171.global-contribute.live-video.net:443/app` (the dashboard value wins if it differs) |
 
-Tapping a saved platform adds it to the broadcast or takes it out, so one or several can be picked;
-a long press edits it. The broadcast goes to all of them at once. Each platform has its own
-connection with its own retries, congestion handling and 20-second hold, so a slow or failing one
-never holds up the others. Each one uploads the whole stream, which is why the card shows the
-combined upload once two or more are picked. A three-page guide opens on first launch and again
-from the help button.
+One or several platforms can be switched on; the broadcast goes to all of them at once. Each
+platform has its own connection with its own retries, congestion handling and 20-second hold, so a
+slow or failing one never holds up the others. Each one uploads the whole stream, which is why the
+platforms sheet shows the combined upload once two or more are on. Instagram and TikTok hand out a
+new key for every broadcast, so switching one of them on offers "Update key" right away.
 
-### Drone screen
+### The screen
 
-Once the drone's picture arrives, it takes the whole screen, the way a camera app shows its
-viewfinder, and stays there while live:
+Around the connect card or the picture, and while live:
 
 - Top left, what sends the picture ("Drone" or "Test video", with a green "Connected" dot); tapping
   it opens the connection details. DJI Fly does not tell the drone's model, so the card cannot name
@@ -99,7 +104,9 @@ viewfinder, and stays there while live:
   there, after asking (the last one ends the broadcast). A platform without a stream key opens its
   key screen; a long press edits the key. "1/4 active" counts the switched-on ones.
 - Under that, "Preview" hides everything but the picture until a tap, the orange "Go live" (red
-  "End broadcast" while live) and "More" (all platforms, technical details, stopping a test video).
+  "End broadcast" while live; before the picture comes it says why it waits) and "More" (the
+  platforms sheet, technical details, stopping a test video). The platforms sheet, dark like the
+  screen, has every platform with its switch and the saved ones with their stream keys.
 - One note at a time sits above the platforms: why going live failed, why the drone's picture is
   gone while the broadcast is kept open, or the platform's own tip, such as pressing "Go live" in
   Instagram too. Each can be closed.
@@ -110,11 +117,11 @@ viewfinder, and stays there while live:
   the two, and that choice is remembered. The activity handles rotation itself, so the decoder keeps
   running when the phone is turned.
 - A picture that stops coming is dimmed so it never looks live, and the screen waits 2.5 seconds
-  before going back to the home screen, so a short drop does not flip screens. The screen stays on
+  before the connect card comes back, so a short drop does not flip the screen. The screen stays on
   while the picture shows.
 - Everything is sized for a 360 dp wide phone, so four platform tiles fit in a row: 52 dp cards and
   buttons, 22 dp icons, 11-16 sp text. Names shrink rather than being cut off at large font sizes,
-  and the DJI Fly address on the home screen stays on one line.
+  and the DJI Fly address stays on one line.
 
 "End broadcast" ends only the broadcast: the drone stays connected, ready to go live again.
 
@@ -136,10 +143,11 @@ with an explanation, because DJI Fly sends H.264. Phone videos shot in portrait 
 since FLV carries no rotation.
 
 The themes match the desktop app: Light (the default), Dark, Midnight blue, Sand and System, picked
-from the palette button and stored on the device. Every theme's text/background pairs meet WCAG AA
-contrast, and the status bar follows the chosen theme rather than the system setting.
+from the settings button and stored on the device. They color the guide, the key screen and the
+dialogs; the main screen and its sheets stay dark, like a camera app. Every theme's
+text/background pairs meet WCAG AA contrast.
 
-The network card prefers the Wi-Fi client address, then the phone's own hotspot, and never offers
+The connect card prefers the Wi-Fi client address, then the phone's own hotspot, and never offers
 mobile-data, VPN or 464XLAT addresses, which the RC 2 cannot reach. The address refreshes every few
 seconds while the app is visible. The key screen sets `FLAG_SECURE` while it is open, so stream
 keys stay out of screenshots, screen recordings and the recents thumbnail. The launcher, themed and

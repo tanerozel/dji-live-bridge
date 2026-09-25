@@ -15,8 +15,6 @@
 
     <!-- Shared components -->
     <string name="live_badge">配信中</string>
-    <string name="step">ステップ %1$d</string>
-    <string name="step_done">ステップ %1$d、完了</string>
     <string name="copy_address">アドレスをコピー</string>
     <string name="collapse">閉じる</string>
     <string name="expand">開く</string>
@@ -162,13 +160,8 @@
     <string name="dji_fly_instructions">下のアドレスを DJI Fly の RTMP アドレスとして入力し、配信を開始してください。映像はここに表示されます。配信先に送られるのは、このアプリで配信を開始したときだけです。</string>
     <string name="dji_fly_path">DJI Fly → GO FLY → ••• → 伝送 → ライブ配信プラットフォーム → RTMP</string>
     <string name="try_test_video">ドローンがなければテスト動画で試す</string>
-    <string name="deselect">選択を解除</string>
-    <string name="select">選択</string>
-    <string name="add">追加</string>
     <string name="edit">編集</string>
-    <string name="state_saved">保存済み</string>
     <string name="state_not_added">未追加</string>
-    <string name="platform_selected">%1$s を選択中</string>
     <string name="key_changes_each_stream">配信ごとに新しいキーが必要です</string>
     <string name="key_saved">ストリームキー保存済み</string>
     <string name="update_key">キーを更新</string>
@@ -178,9 +171,6 @@
     <plurals name="upload_note_total">
         <item quantity="other">%1$d 件の配信先を選択中です。配信先ごとにドローンの映像を個別にアップロードします（現在の合計は約 %2$s）。アップロード速度が足りないとコマ落ちします。</item>
     </plurals>
-    <string name="network_hotspot">テザリング中 · 送信機をこのスマートフォンに接続してください</string>
-    <string name="network_wifi">Wi-Fi に接続中 · 送信機も同じネットワークに接続してください</string>
-    <string name="network_local">ローカルネットワークに接続中 · 送信機も同じネットワークに接続してください</string>
     <string name="no_network">スマートフォンが Wi-Fi に接続されていません。Wi-Fi に接続するか、テザリングをオンにしてください。</string>
     <string name="wifi_settings">Wi-Fi 設定</string>
 
@@ -254,9 +244,6 @@
     <string name="how_to_use">使い方</string>
     <string name="ok">OK</string>
     <string name="go_live">配信を開始</string>
-    <plurals name="go_live_many">
-        <item quantity="other">%d 件の配信先で配信を開始</item>
-    </plurals>
     <string name="go_live_needs_picture">ドローンの映像が届くと配信を開始できます</string>
     <string name="keep_streaming">配信を続ける</string>
     <string name="end_one_title">%1$s の配信を終了しますか？</string>

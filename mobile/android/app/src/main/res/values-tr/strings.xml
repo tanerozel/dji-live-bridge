@@ -15,8 +15,6 @@
 
     <!-- Shared components -->
     <string name="live_badge">CANLI</string>
-    <string name="step">Adım %1$d</string>
-    <string name="step_done">Adım %1$d tamamlandı</string>
     <string name="copy_address">Adresi kopyala</string>
     <string name="collapse">Kapat</string>
     <string name="expand">Aç</string>
@@ -163,13 +161,8 @@
     <string name="dji_fly_instructions">DJI Fly\'da RTMP adresi olarak bunu yaz ve yayını başlat. Görüntü burada görünür; platforma sen başlatınca gider.</string>
     <string name="dji_fly_path">DJI Fly → GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP</string>
     <string name="try_test_video">Drone yok mu? Test videosuyla dene</string>
-    <string name="deselect">Seçimi kaldır</string>
-    <string name="select">Seç</string>
-    <string name="add">Ekle</string>
     <string name="edit">Düzenle</string>
-    <string name="state_saved">Kayıtlı</string>
     <string name="state_not_added">Eklenmedi</string>
-    <string name="platform_selected">%1$s seçili</string>
     <string name="key_changes_each_stream">Her yayında yeni anahtar gerekir</string>
     <string name="key_saved">Yayın anahtarı kayıtlı</string>
     <string name="update_key">Anahtarı güncelle</string>
@@ -181,9 +174,6 @@
         <item quantity="one">%1$d platform seçili. Her biri drone görüntüsünü ayrı yükler (şu an toplam ~%2$s); yükleme hızı yetmezse görüntü kareleri atlanır.</item>
         <item quantity="other">%1$d platform seçili. Her biri drone görüntüsünü ayrı yükler (şu an toplam ~%2$s); yükleme hızı yetmezse görüntü kareleri atlanır.</item>
     </plurals>
-    <string name="network_hotspot">Hotspot açık · kumandayı bu telefona bağla</string>
-    <string name="network_wifi">Wi-Fi bağlı · kumanda da aynı ağda olmalı</string>
-    <string name="network_local">Yerel ağa bağlı · kumanda da aynı ağda olmalı</string>
     <string name="no_network">Telefon Wi-Fi\'a bağlı değil. Wi-Fi\'a bağlan ya da hotspot\'u aç.</string>
     <string name="wifi_settings">Wi-Fi ayarları</string>
 
@@ -259,10 +249,6 @@
     <string name="how_to_use">Nasıl kullanılır?</string>
     <string name="ok">Tamam</string>
     <string name="go_live">Canlı yayını başlat</string>
-    <plurals name="go_live_many">
-        <item quantity="one">%d platformda yayını başlat</item>
-        <item quantity="other">%d platformda yayını başlat</item>
-    </plurals>
     <string name="go_live_needs_picture">Drone görüntüsü gelince yayını başlatabilirsin</string>
     <string name="keep_streaming">Devam et</string>
     <string name="end_one_title">%1$s yayını bitirilsin mi?</string>

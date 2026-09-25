@@ -15,8 +15,6 @@
 
     <!-- Shared components -->
     <string name="live_badge">AO VIVO</string>
-    <string name="step">Etapa %1$d</string>
-    <string name="step_done">Etapa %1$d, concluída</string>
     <string name="copy_address">Copiar endereço</string>
     <string name="collapse">Recolher</string>
     <string name="expand">Expandir</string>
@@ -164,13 +162,8 @@
     <string name="dji_fly_instructions">Digite este endereço RTMP no DJI Fly e inicie a transmissão. A imagem aparece aqui e só vai para as plataformas quando você começar.</string>
     <string name="dji_fly_path">DJI Fly → GO FLY → ••• → Transmissão → Plataformas de transmissão → RTMP</string>
     <string name="try_test_video">Sem drone? Teste com um vídeo</string>
-    <string name="deselect">Desmarcar</string>
-    <string name="select">Selecionar</string>
-    <string name="add">Adicionar</string>
     <string name="edit">Editar</string>
-    <string name="state_saved">Salvo</string>
     <string name="state_not_added">Não adicionado</string>
-    <string name="platform_selected">%1$s selecionado</string>
     <string name="key_changes_each_stream">Precisa de uma chave nova a cada transmissão</string>
     <string name="key_saved">Chave de transmissão salva</string>
     <string name="update_key">Nova chave</string>
@@ -184,9 +177,6 @@
         <item quantity="many">%1$d plataformas selecionadas. Cada uma envia a imagem do drone separadamente (no momento, cerca de %2$s no total); se a velocidade de upload não for suficiente, alguns quadros são pulados.</item>
         <item quantity="other">%1$d plataformas selecionadas. Cada uma envia a imagem do drone separadamente (no momento, cerca de %2$s no total); se a velocidade de upload não for suficiente, alguns quadros são pulados.</item>
     </plurals>
-    <string name="network_hotspot">Ponto de acesso ativado · conecte o controle a este celular</string>
-    <string name="network_wifi">Wi-Fi conectado · o controle precisa estar na mesma rede</string>
-    <string name="network_local">Em uma rede local · o controle precisa estar na mesma rede</string>
     <string name="no_network">O celular não está conectado ao Wi-Fi. Conecte-se ao Wi-Fi ou ative o ponto de acesso.</string>
     <string name="wifi_settings">Configurações de Wi-Fi</string>
 
@@ -264,11 +254,6 @@
     <string name="how_to_use">Como usar</string>
     <string name="ok">OK</string>
     <string name="go_live">Transmitir ao vivo</string>
-    <plurals name="go_live_many">
-        <item quantity="one">Transmitir em %d plataforma</item>
-        <item quantity="many">Transmitir em %d plataformas</item>
-        <item quantity="other">Transmitir em %d plataformas</item>
-    </plurals>
     <string name="go_live_needs_picture">Você pode transmitir ao vivo quando a imagem do drone chegar</string>
     <string name="keep_streaming">Continuar ao vivo</string>
     <string name="end_one_title">Encerrar a transmissão em %1$s?</string>

@@ -15,8 +15,6 @@
 
     <!-- Shared components -->
     <string name="live_badge">В ЭФИРЕ</string>
-    <string name="step">Шаг %1$d</string>
-    <string name="step_done">Шаг %1$d выполнен</string>
     <string name="copy_address">Копировать адрес</string>
     <string name="collapse">Свернуть</string>
     <string name="expand">Развернуть</string>
@@ -165,13 +163,8 @@
     <string name="dji_fly_instructions">Введите в DJI Fly этот адрес RTMP и начните трансляцию. Изображение появится здесь, а на платформы попадёт, только когда вы выйдете в эфир.</string>
     <string name="dji_fly_path">DJI Fly → GO FLY → ••• → Передача → Платформы трансляций → RTMP</string>
     <string name="try_test_video">Нет дрона? Попробуйте тестовое видео</string>
-    <string name="deselect">Отменить выбор</string>
-    <string name="select">Выбрать</string>
-    <string name="add">Добавить</string>
     <string name="edit">Изменить</string>
-    <string name="state_saved">Сохранено</string>
     <string name="state_not_added">Не добавлено</string>
-    <string name="platform_selected">Выбрано: %1$s</string>
     <string name="key_changes_each_stream">Для каждого эфира нужен новый ключ</string>
     <string name="key_saved">Ключ трансляции сохранён</string>
     <string name="update_key">Обновить ключ</string>
@@ -187,9 +180,6 @@
         <item quantity="many">Выбрано %1$d платформ. Изображение с дрона отправляется на каждую отдельно (сейчас всего около %2$s); если скорости отдачи не хватает, часть кадров пропускается.</item>
         <item quantity="other">Выбрано %1$d платформы. Изображение с дрона отправляется на каждую отдельно (сейчас всего около %2$s); если скорости отдачи не хватает, часть кадров пропускается.</item>
     </plurals>
-    <string name="network_hotspot">Точка доступа включена · подключите пульт к этому телефону</string>
-    <string name="network_wifi">Подключено к Wi-Fi · пульт должен быть в той же сети</string>
-    <string name="network_local">Подключено к локальной сети · пульт должен быть в той же сети</string>
     <string name="no_network">Телефон не подключён к Wi-Fi. Подключитесь к Wi-Fi или включите точку доступа.</string>
     <string name="wifi_settings">Настройки Wi-Fi</string>
 
@@ -269,12 +259,6 @@
     <string name="how_to_use">Как пользоваться</string>
     <string name="ok">ОК</string>
     <string name="go_live">Выйти в эфир</string>
-    <plurals name="go_live_many">
-        <item quantity="one">Выйти в эфир на %d платформе</item>
-        <item quantity="few">Выйти в эфир на %d платформах</item>
-        <item quantity="many">Выйти в эфир на %d платформах</item>
-        <item quantity="other">Выйти в эфир на %d платформы</item>
-    </plurals>
     <string name="go_live_needs_picture">Выйти в эфир можно, когда появится изображение с дрона</string>
     <string name="keep_streaming">Продолжить эфир</string>
     <string name="end_one_title">%1$s: завершить трансляцию?</string>

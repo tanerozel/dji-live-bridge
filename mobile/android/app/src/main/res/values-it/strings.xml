@@ -15,8 +15,6 @@
 
     <!-- Shared components -->
     <string name="live_badge">IN DIRETTA</string>
-    <string name="step">Passaggio %1$d</string>
-    <string name="step_done">Passaggio %1$d, completato</string>
     <string name="copy_address">Copia indirizzo</string>
     <string name="collapse">Comprimi</string>
     <string name="expand">Espandi</string>
@@ -164,13 +162,8 @@
     <string name="dji_fly_instructions">In DJI Fly inserisci questo indirizzo RTMP e avvia la trasmissione. L\'immagine compare qui e arriva alle piattaforme solo quando avvii la diretta.</string>
     <string name="dji_fly_path">DJI Fly → GO FLY → ••• → Trasmissione → Piattaforme di streaming → RTMP</string>
     <string name="try_test_video">Niente drone? Usa un video di prova</string>
-    <string name="deselect">Deseleziona</string>
-    <string name="select">Seleziona</string>
-    <string name="add">Aggiungi</string>
     <string name="edit">Modifica</string>
-    <string name="state_saved">Salvato</string>
     <string name="state_not_added">Non aggiunto</string>
-    <string name="platform_selected">%1$s selezionato</string>
     <string name="key_changes_each_stream">Serve una chiave nuova per ogni diretta</string>
     <string name="key_saved">Chiave di streaming salvata</string>
     <string name="update_key">Aggiorna chiave</string>
@@ -184,9 +177,6 @@
         <item quantity="many">%1$d piattaforme selezionate. Il telefono invia l\'immagine del drone a ciascuna separatamente (ora circa %2$s in totale); se la velocità di upload non basta, alcuni fotogrammi vengono saltati.</item>
         <item quantity="other">%1$d piattaforme selezionate. Il telefono invia l\'immagine del drone a ciascuna separatamente (ora circa %2$s in totale); se la velocità di upload non basta, alcuni fotogrammi vengono saltati.</item>
     </plurals>
-    <string name="network_hotspot">Hotspot attivo · collega il radiocomando a questo telefono</string>
-    <string name="network_wifi">Wi-Fi connesso · il radiocomando deve essere sulla stessa rete</string>
-    <string name="network_local">Connesso a una rete locale · il radiocomando deve essere sulla stessa rete</string>
     <string name="no_network">Il telefono non è connesso al Wi-Fi. Connettiti a una rete Wi-Fi o attiva l\'hotspot.</string>
     <string name="wifi_settings">Impostazioni Wi-Fi</string>
 
@@ -264,11 +254,6 @@
     <string name="how_to_use">Come si usa</string>
     <string name="ok">OK</string>
     <string name="go_live">Vai in diretta</string>
-    <plurals name="go_live_many">
-        <item quantity="one">Vai in diretta su %d piattaforma</item>
-        <item quantity="many">Vai in diretta su %d piattaforme</item>
-        <item quantity="other">Vai in diretta su %d piattaforme</item>
-    </plurals>
     <string name="go_live_needs_picture">Potrai andare in diretta appena arriva l\'immagine del drone</string>
     <string name="keep_streaming">Continua la diretta</string>
     <string name="end_one_title">Terminare la diretta su %1$s?</string>
