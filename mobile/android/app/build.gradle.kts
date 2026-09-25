@@ -19,7 +19,7 @@ if (hasAnyReleaseSigningValue && !hasCompleteReleaseSigning) {
 }
 
 android {
-    namespace = "com.djilivebridge.android"
+    namespace = "com.streammydrone.app"
     buildToolsVersion = "36.1.0"
     ndkVersion = "28.2.13676358"
 
@@ -30,7 +30,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.djilivebridge.android"
+        applicationId = "com.streammydrone.app"
         minSdk = 28
         targetSdk = 36
         versionCode = 1

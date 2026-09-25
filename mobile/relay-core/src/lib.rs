@@ -1388,7 +1388,7 @@ fn java_string(env: JNIEnv<'_>, value: &str) -> jstring {
 
 /// Starts receiving DJI Fly without a platform; returns an error message or an empty string.
 #[no_mangle]
-pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeStartReceiver(
+pub extern "system" fn Java_com_streammydrone_app_NativeRelay_nativeStartReceiver(
     env: JNIEnv<'_>,
     _class: JClass<'_>,
 ) -> jstring {
@@ -1399,7 +1399,7 @@ pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeStartRec
 /// Starts sending the received stream to one more platform, known by `output_id`; returns an
 /// error message or an empty string.
 #[no_mangle]
-pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeGoLive(
+pub extern "system" fn Java_com_streammydrone_app_NativeRelay_nativeGoLive(
     mut env: JNIEnv<'_>,
     _class: JClass<'_>,
     output_id: JString<'_>,
@@ -1437,7 +1437,7 @@ pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeGoLive(
 /// Stops sending to the platform `output_id`, or to every platform when it is empty; the drone
 /// stays connected either way.
 #[no_mangle]
-pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeEndLive(
+pub extern "system" fn Java_com_streammydrone_app_NativeRelay_nativeEndLive(
     mut env: JNIEnv<'_>,
     _class: JClass<'_>,
     output_id: JString<'_>,
@@ -1454,7 +1454,7 @@ pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeEndLive(
 }
 
 #[no_mangle]
-pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeSnapshot(
+pub extern "system" fn Java_com_streammydrone_app_NativeRelay_nativeSnapshot(
     env: JNIEnv<'_>,
     _class: JClass<'_>,
 ) -> jstring {
@@ -1462,7 +1462,7 @@ pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeSnapshot
 }
 
 #[no_mangle]
-pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeStop(
+pub extern "system" fn Java_com_streammydrone_app_NativeRelay_nativeStop(
     _env: JNIEnv<'_>,
     _class: JClass<'_>,
 ) {
@@ -1471,7 +1471,7 @@ pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativeStop(
 
 /// Starts an in-app preview session and returns its number for the calls below.
 #[no_mangle]
-pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativePreviewStart(
+pub extern "system" fn Java_com_streammydrone_app_NativeRelay_nativePreviewStart(
     _env: JNIEnv<'_>,
     _class: JClass<'_>,
 ) -> jlong {
@@ -1481,7 +1481,7 @@ pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativePreviewS
 /// Waits up to `timeout_ms` for the next video tag of `session`: a 4-byte big-endian RTMP
 /// timestamp followed by the FLV video tag body, or null when nothing arrived.
 #[no_mangle]
-pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativePreviewNext(
+pub extern "system" fn Java_com_streammydrone_app_NativeRelay_nativePreviewNext(
     env: JNIEnv<'_>,
     _class: JClass<'_>,
     session: jlong,
@@ -1500,7 +1500,7 @@ pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativePreviewN
 }
 
 #[no_mangle]
-pub extern "system" fn Java_com_djilivebridge_android_NativeRelay_nativePreviewStop(
+pub extern "system" fn Java_com_streammydrone_app_NativeRelay_nativePreviewStop(
     _env: JNIEnv<'_>,
     _class: JClass<'_>,
     session: jlong,

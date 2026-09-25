@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- App and errors from the relay core -->
-    <string name="app_name" translatable="false">StreamMyDrone: Live Stream</string>
+    <string name="app_name" translatable="false">Stream My Drone</string>
     <string name="error_with_detail">%1$s (%2$s)</string>
     <string name="error_receiver_not_running">The receiver is not running. Open it again and retry.</string>
     <string name="error_listen_failed">Port 1935 could not be opened; another app may be using it.</string>
