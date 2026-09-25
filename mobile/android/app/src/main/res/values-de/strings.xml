@@ -230,6 +230,11 @@
     <string name="detail_source_waiting">Warte auf eine Verbindung</string>
     <string name="detail_received">Empfangene Daten</string>
     <string name="detail_packets">Video-/Audiopakete</string>
+    <string name="detail_stalls">Bildaussetzer</string>
+    <string name="detail_stalls_value">%1$d (max. %2$s s)</string>
+    <string name="detail_source_reconnects">Neuverbindungen der Fernsteuerung</string>
+    <string name="detail_phone_wifi">Handy-WLAN</string>
+    <string name="detail_phone_wifi_hotspot">Hotspot dieses Handys</string>
     <string name="detail_rejected">Abgelehnte Sendeversuche</string>
     <string name="detail_forwarded">Weitergeleitet</string>
     <string name="detail_connection">Verbindung</string>
@@ -286,4 +291,9 @@
     <string name="more">Mehr</string>
     <string name="settings">Einstellungen</string>
     <string name="controls_hint">Tippe, um die Bedienelemente einzublenden</string>
+
+    <!-- Drone screen: a note when the picture keeps freezing -->
+    <string name="weak_link_title">Das Bild friert immer wieder ein</string>
+    <string name="weak_link_tip">Meist liegt es am WLAN zwischen Fernsteuerung und diesem Handy. Verbinde die Fernsteuerung mit dem Hotspot dieses Handys (5 GHz, falls verfügbar) und halte beide nah beieinander. Friert auch der Bildschirm der Fernsteuerung ein, ist das Signal der Drohne schwach.</string>
+    <string name="weak_link_tip_hotspot">Meist liegt es am WLAN zwischen Fernsteuerung und diesem Handy. Halte beide nah beieinander, ohne Hindernisse dazwischen, und stelle den Hotspot auf 5 GHz, falls verfügbar. Friert auch der Bildschirm der Fernsteuerung ein, ist das Signal der Drohne schwach.</string>
 </resources>

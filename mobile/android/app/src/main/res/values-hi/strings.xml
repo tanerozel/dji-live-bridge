@@ -230,6 +230,11 @@
     <string name="detail_source_waiting">कनेक्शन की प्रतीक्षा</string>
     <string name="detail_received">प्राप्त डेटा</string>
     <string name="detail_packets">वीडियो / ऑडियो पैकेट</string>
+    <string name="detail_stalls">तस्वीर का अटकना</string>
+    <string name="detail_stalls_value">%1$d (अधिकतम %2$s से॰)</string>
+    <string name="detail_source_reconnects">रिमोट का दोबारा जुड़ना</string>
+    <string name="detail_phone_wifi">फ़ोन का Wi-Fi</string>
+    <string name="detail_phone_wifi_hotspot">इस फ़ोन का हॉटस्पॉट</string>
     <string name="detail_rejected">अस्वीकृत पब्लिश प्रयास</string>
     <string name="detail_forwarded">आगे भेजा गया</string>
     <string name="detail_connection">कनेक्शन</string>
@@ -286,4 +291,9 @@
     <string name="more">और</string>
     <string name="settings">सेटिंग्स</string>
     <string name="controls_hint">कंट्रोल दिखाने के लिए टैप करें</string>
+
+    <!-- Drone screen: a note when the picture keeps freezing -->
+    <string name="weak_link_title">तस्वीर बार-बार अटक रही है</string>
+    <string name="weak_link_tip">आम तौर पर समस्या रिमोट और इस फ़ोन के बीच के Wi-Fi में होती है। रिमोट को इस फ़ोन के हॉटस्पॉट से जोड़ें (विकल्प हो तो 5 GHz) और दोनों को पास-पास रखें। रिमोट की स्क्रीन भी अटके, तो ड्रोन का सिग्नल कमज़ोर है।</string>
+    <string name="weak_link_tip_hotspot">आम तौर पर समस्या रिमोट और इस फ़ोन के बीच के Wi-Fi में होती है। दोनों को पास-पास रखें, बीच में कोई रुकावट न हो, और विकल्प हो तो हॉटस्पॉट 5 GHz पर सेट करें। रिमोट की स्क्रीन भी अटके, तो ड्रोन का सिग्नल कमज़ोर है।</string>
 </resources>

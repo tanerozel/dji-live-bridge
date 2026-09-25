@@ -14,6 +14,27 @@ internal fun formatBytes(bytes: Long, locale: Locale = Locale.getDefault()): Str
     else -> "$bytes B"
 }
 
+/** Seconds with one decimal, for how long the picture paused. */
+internal fun formatSeconds(millis: Long, locale: Locale = Locale.getDefault()): String =
+    String.format(locale, "%.1f", millis / 1_000.0)
+
+/**
+ * The phone's Wi-Fi as the technical details show it: "-58 dBm · 5 GHz · 866 Mbps". A number
+ * keeps its unit on the same line.
+ */
+internal fun formatWifiLink(link: WifiLink, locale: Locale = Locale.getDefault()): String =
+    listOfNotNull(
+        String.format(locale, "%d\u00A0dBm", link.rssiDbm),
+        wifiBand(link.frequencyMhz, locale),
+        link.linkSpeedMbps.takeIf { it > 0 }?.let { String.format(locale, "%d\u00A0Mbps", it) },
+    ).joinToString(" · ")
+
+internal fun wifiBand(frequencyMhz: Int, locale: Locale = Locale.getDefault()): String = when {
+    frequencyMhz >= 5_925 -> "6\u00A0GHz"
+    frequencyMhz >= 4_900 -> "5\u00A0GHz"
+    else -> String.format(locale, "%.1f\u00A0GHz", 2.4)
+}
+
 /** The relay reports codecs as FourCC labels ("avc1", "mp4a"); show the names people know. */
 internal fun friendlyCodecName(label: String): String = when (label.trim().lowercase(Locale.ROOT)) {
     "avc1" -> "H.264"

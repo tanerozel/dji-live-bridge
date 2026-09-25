@@ -250,6 +250,11 @@
     <string name="detail_source_waiting">في انتظار الاتصال</string>
     <string name="detail_received">البيانات المستلَمة</string>
     <string name="detail_packets">حزم الفيديو / الصوت</string>
+    <string name="detail_stalls">تجمّد الصورة</string>
+    <string name="detail_stalls_value">%1$d (أطولها %2$s ث)</string>
+    <string name="detail_source_reconnects">إعادة اتصال وحدة التحكم</string>
+    <string name="detail_phone_wifi">شبكة الهاتف اللاسلكية</string>
+    <string name="detail_phone_wifi_hotspot">نقطة الاتصال في هذا الهاتف</string>
     <string name="detail_rejected">محاولات البث المرفوضة</string>
     <string name="detail_forwarded">البيانات المُمرَّرة</string>
     <string name="detail_connection">الاتصال</string>
@@ -306,4 +311,9 @@
     <string name="more">المزيد</string>
     <string name="settings">الإعدادات</string>
     <string name="controls_hint">انقر لإظهار عناصر التحكم</string>
+
+    <!-- Drone screen: a note when the picture keeps freezing -->
+    <string name="weak_link_title">الصورة تتجمّد مرارًا</string>
+    <string name="weak_link_tip">السبب عادةً هو الشبكة اللاسلكية بين وحدة التحكم وهذا الهاتف. وصّل وحدة التحكم بنقطة الاتصال في هذا الهاتف (بنطاق ‎5 GHz إن توفّر) وأبقِهما متقاربين. وإذا تجمّدت شاشة وحدة التحكم أيضًا، فإشارة الدرون ضعيفة.</string>
+    <string name="weak_link_tip_hotspot">السبب عادةً هو الشبكة اللاسلكية بين وحدة التحكم وهذا الهاتف. أبقِهما متقاربين دون عوائق بينهما، واضبط نقطة الاتصال على نطاق ‎5 GHz إن توفّر. وإذا تجمّدت شاشة وحدة التحكم أيضًا، فإشارة الدرون ضعيفة.</string>
 </resources>

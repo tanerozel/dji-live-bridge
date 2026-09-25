@@ -17,6 +17,7 @@ import android.os.IBinder
 import android.os.Looper
 import android.os.PowerManager
 import android.os.SystemClock
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import androidx.core.content.ContextCompat
@@ -158,6 +159,7 @@ class RelayForegroundService : Service() {
     }
 
     private fun pollSnapshots() {
+        var previous = RelaySnapshot()
         try {
             while (!stopRequested.get()) {
                 val snapshot = runCatching {
@@ -165,6 +167,8 @@ class RelayForegroundService : Service() {
                 }.getOrElse { error ->
                     RelaySnapshot(status = "error", error = withCause(R.string.error_internal, error))
                 }
+                logInterruptions(previous, snapshot)
+                previous = snapshot
                 receiverListening = snapshot.status in LISTENING_STATUSES
                 mainHandler.post {
                     if (!stopRequested.get()) {
@@ -176,6 +180,20 @@ class RelayForegroundService : Service() {
             }
         } catch (_: InterruptedException) {
             // Stopping interrupts the sleep.
+        }
+    }
+
+    /** Leaves a line in logcat for each pause or reconnect of the drone's stream. */
+    private fun logInterruptions(previous: RelaySnapshot, snapshot: RelaySnapshot) {
+        if (snapshot.stalls > previous.stalls) {
+            Log.i(
+                LOG_TAG,
+                "Drone video paused (${snapshot.stalls} so far, longest ${snapshot.longestStallMs} ms, " +
+                    "${snapshot.recentInterruptions} in the last minute)",
+            )
+        }
+        if (snapshot.sourceReconnects > previous.sourceReconnects) {
+            Log.i(LOG_TAG, "DJI Fly reconnected (${snapshot.sourceReconnects} so far)")
         }
     }
 

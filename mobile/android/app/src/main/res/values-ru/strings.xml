@@ -240,6 +240,11 @@
     <string name="detail_source_waiting">Ожидание подключения</string>
     <string name="detail_received">Получено данных</string>
     <string name="detail_packets">Пакеты видео / аудио</string>
+    <string name="detail_stalls">Зависания изображения</string>
+    <string name="detail_stalls_value">%1$d (макс. %2$s с)</string>
+    <string name="detail_source_reconnects">Переподключения пульта</string>
+    <string name="detail_phone_wifi">Wi-Fi телефона</string>
+    <string name="detail_phone_wifi_hotspot">Точка доступа этого телефона</string>
     <string name="detail_rejected">Отклонённые публикации</string>
     <string name="detail_forwarded">Передано</string>
     <string name="detail_connection">Соединение</string>
@@ -296,4 +301,9 @@
     <string name="more">Ещё</string>
     <string name="settings">Настройки</string>
     <string name="controls_hint">Нажмите, чтобы показать элементы управления</string>
+
+    <!-- Drone screen: a note when the picture keeps freezing -->
+    <string name="weak_link_title">Изображение часто зависает</string>
+    <string name="weak_link_tip">Обычно дело в Wi-Fi между пультом и этим телефоном. Подключите пульт к точке доступа этого телефона (по возможности на 5 ГГц) и держите их рядом. Если изображение зависает и на экране пульта, значит, сигнал дрона слабый.</string>
+    <string name="weak_link_tip_hotspot">Обычно дело в Wi-Fi между пультом и этим телефоном. Держите их рядом, без препятствий между ними, и по возможности переключите точку доступа на 5 ГГц. Если изображение зависает и на экране пульта, значит, сигнал дрона слабый.</string>
 </resources>

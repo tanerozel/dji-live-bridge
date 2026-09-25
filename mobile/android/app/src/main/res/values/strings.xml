@@ -231,6 +231,11 @@
     <string name="detail_source_waiting">Waiting for a connection</string>
     <string name="detail_received">Data received</string>
     <string name="detail_packets">Video / audio packets</string>
+    <string name="detail_stalls">Picture freezes</string>
+    <string name="detail_stalls_value">%1$d (longest %2$s s)</string>
+    <string name="detail_source_reconnects">Controller reconnects</string>
+    <string name="detail_phone_wifi">Phone Wi-Fi</string>
+    <string name="detail_phone_wifi_hotspot">This phone\'s hotspot</string>
     <string name="detail_rejected">Rejected publishes</string>
     <string name="detail_forwarded">Forwarded</string>
     <string name="detail_connection">Connection</string>
@@ -287,4 +292,9 @@
     <string name="more">More</string>
     <string name="settings">Settings</string>
     <string name="controls_hint">Tap to show the controls</string>
+
+    <!-- Drone screen: a note when the picture keeps freezing -->
+    <string name="weak_link_title">The picture keeps freezing</string>
+    <string name="weak_link_tip">Usually it\'s the Wi-Fi between the controller and this phone. Connect the controller to this phone\'s hotspot (5 GHz if offered) and keep the two close. If the controller\'s screen freezes too, the drone\'s signal is weak.</string>
+    <string name="weak_link_tip_hotspot">Usually it\'s the Wi-Fi between the controller and this phone. Keep the two close with nothing in between, and set the hotspot to 5 GHz if offered. If the controller\'s screen freezes too, the drone\'s signal is weak.</string>
 </resources>

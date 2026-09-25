@@ -200,6 +200,10 @@ The preview aims for the lowest delay the phone allows:
 - The Rust tap keeps the current GOP (up to 300 frames or 16 MB). A preview that opens mid-stream
   replays it at full decoder speed and skips frames more than 100 ms behind the newest input, so
   the live picture appears in about half a second instead of after the next keyframe.
+- When the decoder has no free input buffer, which happens for a moment with the burst after a
+  Wi-Fi hiccup, the feeder waits for one for up to a second. It used to skip the frame after
+  100 ms, and a skipped frame freezes the picture until the next keyframe, a second or two with
+  DJI Fly. The relay queues the frames meanwhile, and the renderer skips the late ones.
 - While the receiver runs, a low-latency Wi-Fi lock keeps the radio out of power save; otherwise
   the access point would hold the remote's packets until the next beacon. Android honors it
   while the app is on screen.
@@ -224,6 +228,22 @@ The broadcast survives what a field session throws at it:
   every burst on a slow uplink into a reconnect (15 in 40 seconds on a 1.5 Mbps test link). That
   is fixed. A platform that takes no data for 10 seconds is reconnected. A backlog in the
   internal queue skips to the next keyframe instead of reconnecting.
+
+Short drops can be traced:
+
+- The relay counts each pause of 0.7 seconds or more in the drone's video and each time DJI Fly
+  starts publishing again. The technical details show both counts, the longest pause, and the
+  phone's Wi-Fi signal, band and link speed (or that the phone is the hotspot).
+- After three pauses or reconnects within a minute, a note over the picture says what usually
+  causes them. The advice differs for a shared Wi-Fi and for the phone's own hotspot. It is not
+  shown for a test video.
+- `adb logcat -s DJIBridge` prints a line for each pause, each reconnect, and each time the
+  preview had to wait for a keyframe.
+- A picture that stops is dimmed only after a second, so a reconnect that is over at once does
+  not flash the screen.
+- If the controller's own screen freezes too, the drone's radio link is the cause. Otherwise it
+  is the Wi-Fi between the controller and the phone. A router adds a second Wi-Fi hop, and on
+  2.4 GHz it shares the air with the drone's link. The phone's hotspot on 5 GHz avoids both.
 
 ## Phase 7 device validation
 

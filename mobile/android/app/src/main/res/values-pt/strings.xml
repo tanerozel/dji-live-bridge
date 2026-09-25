@@ -235,6 +235,11 @@
     <string name="detail_source_waiting">Aguardando conexão</string>
     <string name="detail_received">Dados recebidos</string>
     <string name="detail_packets">Pacotes de vídeo / áudio</string>
+    <string name="detail_stalls">Travamentos da imagem</string>
+    <string name="detail_stalls_value">%1$d (máx. %2$s s)</string>
+    <string name="detail_source_reconnects">Reconexões do controle</string>
+    <string name="detail_phone_wifi">Wi-Fi do celular</string>
+    <string name="detail_phone_wifi_hotspot">Ponto de acesso deste celular</string>
     <string name="detail_rejected">Publicações recusadas</string>
     <string name="detail_forwarded">Encaminhado</string>
     <string name="detail_connection">Conexão</string>
@@ -291,4 +296,9 @@
     <string name="more">Mais</string>
     <string name="settings">Configurações</string>
     <string name="controls_hint">Toque para mostrar os botões</string>
+
+    <!-- Drone screen: a note when the picture keeps freezing -->
+    <string name="weak_link_title">A imagem continua travando</string>
+    <string name="weak_link_tip">Geralmente o problema é o Wi-Fi entre o controle e este celular. Conecte o controle ao ponto de acesso deste celular (5 GHz, se disponível) e mantenha os dois próximos. Se a tela do controle também travar, o sinal do drone está fraco.</string>
+    <string name="weak_link_tip_hotspot">Geralmente o problema é o Wi-Fi entre o controle e este celular. Mantenha os dois próximos, sem nada entre eles, e configure o ponto de acesso para 5 GHz, se disponível. Se a tela do controle também travar, o sinal do drone está fraco.</string>
 </resources>

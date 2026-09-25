@@ -95,6 +95,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -183,6 +184,17 @@ internal fun DroneScreen(
     if (!showPicture) pictureOnly = false
     val otherFit = if (pictureState.shownFit == PictureFit.WHOLE) PictureFit.FILL else PictureFit.WHOLE
     if (showPicture) KeepScreenOn()
+    // A picture that stopped coming must not look live, but a gap of a moment, such as DJI Fly
+    // reconnecting at once, should not flash the screen.
+    val stopped by produceState(initialValue = !phase.hasPicture, phase.hasPicture) {
+        if (phase.hasPicture) {
+            value = false
+        } else {
+            delay(DIM_DELAY_MS)
+            value = true
+        }
+    }
+    val dim by animateFloatAsState(if (stopped) DIM_ALPHA else 0f, label = "dim")
 
     Box(
         modifier = Modifier
@@ -194,8 +206,7 @@ internal fun DroneScreen(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    // A picture that stopped coming must not look live.
-                    .background(if (phase.hasPicture) Color.Transparent else Color.Black.copy(alpha = 0.55f))
+                    .background(Color.Black.copy(alpha = dim))
                     .pointerInput(otherFit, pictureOnly) {
                         detectTapGestures(
                             onDoubleTap = { onPictureFitChange(otherFit) },
@@ -256,6 +267,7 @@ internal fun DroneScreen(
                 phase = phase,
                 snapshot = snapshot,
                 destinations = liveDestinations,
+                lan = lan,
                 onEndPlatform = { profile -> onEndLive(profile.id) },
             )
         }
@@ -363,6 +375,7 @@ private fun Controls(
             showPicture = showPicture,
             profileError = profileError,
             liveDestinations = liveDestinations,
+            lan = lan,
         )
         StreamToCard(
             destinations = destinations,
@@ -731,11 +744,15 @@ private fun Message(
     showPicture: Boolean,
     profileError: UiText?,
     liveDestinations: List<DestinationProfile>,
+    lan: LanAddress?,
 ) {
     val snapshot = serviceState.snapshot
     val notice = serviceState.notice
     val holding = serviceState.isLive && snapshot.outputStatus == "holding" &&
         (phase == BridgePhase.WAITING_FOR_DRONE || phase == BridgePhase.DRONE_CONNECTED)
+    // A test video starting and stopping counts as reconnects; only a flight says anything.
+    val weakLink = showPicture && serviceState.testVideoName == null &&
+        snapshot.recentInterruptions >= WEAK_LINK_INTERRUPTIONS
     when {
         notice != null -> Banner(
             key = notice,
@@ -764,6 +781,15 @@ private fun Message(
             message = snapshot.error?.asString(),
             icon = Icons.Rounded.ErrorOutline,
             accent = DangerColor,
+        )
+        weakLink -> Banner(
+            key = "weak_link",
+            title = stringResource(R.string.weak_link_title),
+            message = stringResource(
+                if (lan?.kind == LanKind.HOTSPOT) R.string.weak_link_tip_hotspot else R.string.weak_link_tip,
+            ),
+            icon = Icons.Rounded.WifiOff,
+            accent = WarningColor,
         )
         else -> liveTips(phase, snapshot, liveDestinations).firstOrNull()?.let { tip ->
             Banner(key = tip, title = null, message = tip, icon = Icons.Rounded.Lightbulb, accent = WarningColor)
@@ -1577,3 +1603,8 @@ private val SQUARE_ACTION_SIZE = 52.dp
 private val SQUARE_ACTION_MAX_WIDTH = 76.dp
 private val LANDSCAPE_ACTIONS_WIDTH = 320.dp
 private const val CONTROLS_HINT_MS = 2_500L
+private const val DIM_DELAY_MS = 1_000L
+private const val DIM_ALPHA = 0.55f
+
+/** Pauses and reconnects of the drone's stream within a minute before the screen says why. */
+private const val WEAK_LINK_INTERRUPTIONS = 3

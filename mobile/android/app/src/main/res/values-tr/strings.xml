@@ -230,6 +230,11 @@
     <string name="detail_source_waiting">Bağlantı bekleniyor</string>
     <string name="detail_received">Alınan veri</string>
     <string name="detail_packets">Video / ses paketleri</string>
+    <string name="detail_stalls">Görüntü takılması</string>
+    <string name="detail_stalls_value">%1$d (en uzun %2$s sn)</string>
+    <string name="detail_source_reconnects">Kumandanın yeniden bağlanması</string>
+    <string name="detail_phone_wifi">Telefonun Wi-Fi\'ı</string>
+    <string name="detail_phone_wifi_hotspot">Bu telefonun hotspot\'u</string>
     <string name="detail_rejected">Reddedilen yayın</string>
     <string name="detail_forwarded">İletilen</string>
     <string name="detail_connection">Bağlantı</string>
@@ -286,4 +291,9 @@
     <string name="more">Daha fazla</string>
     <string name="settings">Ayarlar</string>
     <string name="controls_hint">Kontrolleri görmek için dokun</string>
+
+    <!-- Drone screen: a note when the picture keeps freezing -->
+    <string name="weak_link_title">Görüntü sürekli takılıyor</string>
+    <string name="weak_link_tip">Genelde sebep kumanda ile bu telefon arasındaki Wi-Fi\'dır. Kumandayı bu telefonun hotspot\'una bağla (varsa 5 GHz) ve ikisini yakın tut. Kumandanın ekranı da takılıyorsa drone\'un sinyali zayıftır.</string>
+    <string name="weak_link_tip_hotspot">Genelde sebep kumanda ile bu telefon arasındaki Wi-Fi\'dır. İkisini arada engel olmadan yakın tut, varsa hotspot\'u 5 GHz\'e al. Kumandanın ekranı da takılıyorsa drone\'un sinyali zayıftır.</string>
 </resources>

@@ -23,6 +23,22 @@ class BridgeFormatTest {
     }
 
     @Test
+    fun `a pause is shown in seconds with one decimal`() {
+        assertEquals("0.7", formatSeconds(700, Locale.US))
+        assertEquals("1,8", formatSeconds(1_750, turkish))
+        assertEquals("12.0", formatSeconds(12_000, Locale.US))
+    }
+
+    @Test
+    fun `the phone's wi-fi shows its signal, band and speed`() {
+        // Each number keeps its unit on the same line.
+        assertEquals("-58\u00A0dBm · 5\u00A0GHz · 866\u00A0Mbps", formatWifiLink(WifiLink(-58, 5_180, 866), Locale.US))
+        assertEquals("-71\u00A0dBm · 2,4\u00A0GHz · 72\u00A0Mbps", formatWifiLink(WifiLink(-71, 2_437, 72), turkish))
+        // A speed the phone does not know is left out.
+        assertEquals("-49\u00A0dBm · 6\u00A0GHz", formatWifiLink(WifiLink(-49, 5_955, -1), Locale.US))
+    }
+
+    @Test
     fun `relay fourcc labels become familiar codec names`() {
         assertEquals("H.264", friendlyCodecName("avc1"))
         assertEquals("H.265", friendlyCodecName("hvc1"))

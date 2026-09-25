@@ -1,5 +1,7 @@
 package com.djilivebridge.android
 
+import android.content.Context
+import android.net.wifi.WifiManager
 import java.net.Inet4Address
 import java.net.NetworkInterface
 
@@ -32,6 +34,24 @@ internal fun preferredLanAddress(candidates: List<Pair<String, String>>): LanAdd
     candidates
         .mapNotNull { (name, address) -> lanKind(name)?.let { kind -> LanAddress(address, kind) } }
         .minByOrNull { it.kind.ordinal }
+
+/** The phone's own connection to a Wi-Fi network, for the technical details. */
+data class WifiLink(val rssiDbm: Int, val frequencyMhz: Int, val linkSpeedMbps: Int)
+
+/**
+ * The phone's Wi-Fi connection, or null without one (the phone may be the hotspot instead).
+ * The deprecated call still reports signal, band and speed on every Android version the app
+ * supports, and needs no location access for them.
+ */
+@Suppress("DEPRECATION")
+fun currentWifiLink(context: Context): WifiLink? = runCatching {
+    context.applicationContext.getSystemService(WifiManager::class.java)?.connectionInfo
+        ?.takeIf { info -> info.rssi > NO_SIGNAL_DBM && info.frequency > 0 }
+        ?.let { info -> WifiLink(info.rssi, info.frequency, info.linkSpeed) }
+}.getOrNull()
+
+/** What Android reports as the signal of a Wi-Fi that is not connected. */
+private const val NO_SIGNAL_DBM = -127
 
 internal fun lanKind(interfaceName: String): LanKind? {
     val name = interfaceName.lowercase()

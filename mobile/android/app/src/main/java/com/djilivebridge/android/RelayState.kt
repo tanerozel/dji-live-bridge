@@ -6,6 +6,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import org.json.JSONObject
 
+/** The tag of the app's log lines: `adb logcat -s DJIBridge` shows how the stream is doing. */
+internal const val LOG_TAG = "DJIBridge"
+
 object NativeRelay {
     init {
         System.loadLibrary("dji_relay_core")
@@ -55,6 +58,13 @@ data class RelaySnapshot(
     val videoFrames: Long = 0,
     val audioFrames: Long = 0,
     val rejectedPublishAttempts: Long = 0,
+    /** Pauses of 0.7 s or more in the drone's video since the receiver started, and the longest. */
+    val stalls: Long = 0,
+    val longestStallMs: Long = 0,
+    /** Times DJI Fly started publishing again after its stream ended. */
+    val sourceReconnects: Long = 0,
+    /** Stalls and reconnects within the last minute. */
+    val recentInterruptions: Long = 0,
     /** One entry per platform the stream is going to. */
     val outputs: List<OutputSnapshot> = emptyList(),
 ) {
@@ -83,6 +93,10 @@ data class RelaySnapshot(
                 videoFrames = value.optLong("videoFrames"),
                 audioFrames = value.optLong("audioFrames"),
                 rejectedPublishAttempts = value.optLong("rejectedPublishAttempts"),
+                stalls = value.optLong("stalls"),
+                longestStallMs = value.optLong("longestStallMs"),
+                sourceReconnects = value.optLong("sourceReconnects"),
+                recentInterruptions = value.optLong("recentInterruptions"),
                 outputs = value.optJSONArray("outputs")?.let { outputs ->
                     List(outputs.length()) { index ->
                         val output = outputs.getJSONObject(index)

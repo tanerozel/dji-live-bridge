@@ -5,6 +5,7 @@ use librtmp2::client::Client;
 use librtmp2::server::Server;
 use librtmp2::types::{Frame, FrameType, ServerConfig};
 use serde::Serialize;
+use std::collections::VecDeque;
 use std::ptr;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::mpsc::{self, Receiver, SyncSender, TrySendError};
@@ -54,6 +55,13 @@ pub struct RelaySnapshot {
     pub video_frames: u64,
     pub audio_frames: u64,
     pub rejected_publish_attempts: u64,
+    /// Gaps of at least [STALL_THRESHOLD] in the drone's video: the picture froze that long.
+    pub stalls: u64,
+    pub longest_stall_ms: u64,
+    /// Times DJI Fly reconnected since the receiver opened.
+    pub source_reconnects: u64,
+    /// Stalls and reconnects in the last minute, for the app's weak-link tip.
+    pub recent_interruptions: u64,
     /// One entry per platform the stream is going to.
     pub outputs: Vec<OutputSnapshot>,
 }
@@ -87,8 +95,72 @@ impl RelaySnapshot {
             video_frames: 0,
             audio_frames: 0,
             rejected_publish_attempts: 0,
+            stalls: 0,
+            longest_stall_ms: 0,
+            source_reconnects: 0,
+            recent_interruptions: 0,
             outputs: Vec::new(),
         }
+    }
+}
+
+/// A gap this long between two video frames of one source is a freeze the viewer notices.
+const STALL_THRESHOLD: Duration = Duration::from_millis(700);
+/// Stalls and reconnects this recent count toward the app's weak-link tip.
+const RECENT_INTERRUPTION_WINDOW: Duration = Duration::from_secs(60);
+
+/// How smoothly the drone's stream arrives: gaps in its video, and DJI Fly reconnecting. Both
+/// come from the Wi-Fi between the remote controller and the phone (or the drone's own link),
+/// so they tell a weak link apart from a problem on the phone.
+#[derive(Default)]
+struct IngestHealth {
+    last_video_at: Option<Instant>,
+    stalls: u64,
+    longest_stall: Duration,
+    sources: u64,
+    recent: VecDeque<Instant>,
+}
+
+impl IngestHealth {
+    fn video_arrived(&mut self, now: Instant) {
+        if let Some(last) = self.last_video_at {
+            let gap = now.saturating_duration_since(last);
+            if gap >= STALL_THRESHOLD {
+                self.stalls += 1;
+                self.longest_stall = self.longest_stall.max(gap);
+                self.recent.push_back(now);
+            }
+        }
+        self.last_video_at = Some(now);
+    }
+
+    /// A publisher started sending: the receiver's first, or DJI Fly reconnecting.
+    fn source_started(&mut self, now: Instant) {
+        self.sources += 1;
+        if self.sources > 1 {
+            self.recent.push_back(now);
+        }
+        // The gap across a reconnect is the reconnect, not a stall.
+        self.last_video_at = None;
+    }
+
+    fn source_ended(&mut self) {
+        self.last_video_at = None;
+    }
+
+    fn source_reconnects(&self) -> u64 {
+        self.sources.saturating_sub(1)
+    }
+
+    fn recent_interruptions(&mut self, now: Instant) -> u64 {
+        while self
+            .recent
+            .front()
+            .is_some_and(|at| now.saturating_duration_since(*at) > RECENT_INTERRUPTION_WINDOW)
+        {
+            self.recent.pop_front();
+        }
+        self.recent.len() as u64
     }
 }
 
@@ -230,6 +302,7 @@ static OUTPUTS: OnceLock<RwLock<Vec<OutputHandle>>> = OnceLock::new();
 /// start with them instead of waiting for a source restart.
 static SOURCE_BOOTSTRAP: OnceLock<Mutex<MediaBootstrap>> = OnceLock::new();
 static SNAPSHOT: OnceLock<RwLock<RelaySnapshot>> = OnceLock::new();
+static INGEST_HEALTH: OnceLock<Mutex<IngestHealth>> = OnceLock::new();
 static VIDEO_FRAMES: AtomicU64 = AtomicU64::new(0);
 static AUDIO_FRAMES: AtomicU64 = AtomicU64::new(0);
 static REJECTED_PUBLISH_ATTEMPTS: AtomicU64 = AtomicU64::new(0);
@@ -242,6 +315,10 @@ static CURRENT_PUBLISHER: AtomicU64 = AtomicU64::new(0);
 
 fn control() -> &'static Mutex<Option<RuntimeControl>> {
     CONTROL.get_or_init(|| Mutex::new(None))
+}
+
+fn ingest_health() -> &'static Mutex<IngestHealth> {
+    INGEST_HEALTH.get_or_init(|| Mutex::new(IngestHealth::default()))
 }
 
 fn outputs() -> &'static RwLock<Vec<OutputHandle>> {
@@ -302,11 +379,17 @@ fn handle_frame(frame: &Frame) {
             reset_source();
         }
         CURRENT_PUBLISHER.store(publisher, Ordering::Relaxed);
+        if let Ok(mut health) = ingest_health().lock() {
+            health.source_started(Instant::now());
+        }
     }
 
     match frame.frame_type {
         FrameType::Video => {
             VIDEO_FRAMES.fetch_add(1, Ordering::Relaxed);
+            if let Ok(mut health) = ingest_health().lock() {
+                health.video_arrived(Instant::now());
+            }
         }
         FrameType::Audio => {
             AUDIO_FRAMES.fetch_add(1, Ordering::Relaxed);
@@ -368,6 +451,9 @@ fn handle_frame(frame: &Frame) {
 fn notify_source_ended() {
     CURRENT_PUBLISHER.store(0, Ordering::Relaxed);
     reset_source();
+    if let Ok(mut health) = ingest_health().lock() {
+        health.source_ended();
+    }
 }
 
 /// Forgets everything learned from the previous source before a new one can start.
@@ -516,6 +602,9 @@ fn start_runtime(bind_address: &str, destination: Option<Destination>) -> Result
         VIDEO_FRAMES.store(0, Ordering::Relaxed);
         AUDIO_FRAMES.store(0, Ordering::Relaxed);
         REJECTED_PUBLISH_ATTEMPTS.store(0, Ordering::Relaxed);
+        if let Ok(mut health) = ingest_health().lock() {
+            *health = IngestHealth::default();
+        }
         reset_source_bootstrap();
 
         let stop = Arc::new(AtomicBool::new(false));
@@ -749,6 +838,13 @@ fn run_server(bind_address: &str, stop: Arc<AtomicBool>) {
             rejected_publish_attempts: REJECTED_PUBLISH_ATTEMPTS.load(Ordering::Relaxed),
             ..RelaySnapshot::stopped()
         };
+        if let Ok(mut health) = ingest_health().lock() {
+            next.stalls = health.stalls;
+            next.longest_stall_ms =
+                u64::try_from(health.longest_stall.as_millis()).unwrap_or(u64::MAX);
+            next.source_reconnects = health.source_reconnects();
+            next.recent_interruptions = health.recent_interruptions(now);
+        }
         apply_output_state(&mut next);
         set_snapshot(next);
     }
@@ -1503,6 +1599,47 @@ mod tests {
             ("armed", 2)
         );
         assert_eq!(twitch.outbound_bytes, 0);
+    }
+
+    #[test]
+    fn gaps_in_the_drone_video_count_as_stalls() {
+        let start = Instant::now();
+        let mut health = IngestHealth::default();
+        health.source_started(start);
+        health.video_arrived(start);
+        health.video_arrived(start + Duration::from_millis(33));
+        // Ordinary Wi-Fi jitter is not a stall.
+        health.video_arrived(start + Duration::from_millis(400));
+        assert_eq!(health.stalls, 0);
+        health.video_arrived(start + Duration::from_millis(1_600));
+        health.video_arrived(start + Duration::from_millis(1_633));
+        health.video_arrived(start + Duration::from_millis(2_500));
+        assert_eq!(health.stalls, 2);
+        assert_eq!(health.longest_stall, Duration::from_millis(1_200));
+        assert_eq!(
+            health.recent_interruptions(start + Duration::from_secs(3)),
+            2
+        );
+        // A minute later they no longer count as recent.
+        assert_eq!(
+            health.recent_interruptions(start + Duration::from_secs(70)),
+            0
+        );
+        assert_eq!(health.stalls, 2);
+    }
+
+    #[test]
+    fn a_reconnect_is_counted_once_and_not_as_a_stall() {
+        let start = Instant::now();
+        let mut health = IngestHealth::default();
+        health.source_started(start);
+        health.video_arrived(start);
+        health.source_ended();
+        let back = start + Duration::from_secs(3);
+        health.source_started(back);
+        health.video_arrived(back);
+        assert_eq!((health.source_reconnects(), health.stalls), (1, 0));
+        assert_eq!(health.recent_interruptions(back), 1);
     }
 
     #[test]

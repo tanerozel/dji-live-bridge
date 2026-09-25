@@ -225,6 +225,11 @@
     <string name="detail_source_waiting">等待連線</string>
     <string name="detail_received">已接收資料</string>
     <string name="detail_packets">影像 / 音訊封包</string>
+    <string name="detail_stalls">畫面停格次數</string>
+    <string name="detail_stalls_value">%1$d（最長 %2$s 秒）</string>
+    <string name="detail_source_reconnects">遙控器重新連線次數</string>
+    <string name="detail_phone_wifi">手機 Wi‑Fi</string>
+    <string name="detail_phone_wifi_hotspot">這支手機的熱點</string>
     <string name="detail_rejected">遭拒絕的推流</string>
     <string name="detail_forwarded">已轉送</string>
     <string name="detail_connection">連線</string>
@@ -281,4 +286,9 @@
     <string name="more">更多</string>
     <string name="settings">設定</string>
     <string name="controls_hint">輕觸畫面即可顯示控制項</string>
+
+    <!-- Drone screen: a note when the picture keeps freezing -->
+    <string name="weak_link_title">畫面經常停格</string>
+    <string name="weak_link_tip">問題通常出在遙控器與這支手機之間的 Wi‑Fi。請將遙控器連到這支手機的熱點（可以的話用 5 GHz），並讓兩者靠近。若遙控器的畫面也會停格，表示無人機的訊號太弱。</string>
+    <string name="weak_link_tip_hotspot">問題通常出在遙控器與這支手機之間的 Wi‑Fi。請讓兩者靠近、中間不要有遮擋，可以的話把熱點設為 5 GHz。若遙控器的畫面也會停格，表示無人機的訊號太弱。</string>
 </resources>

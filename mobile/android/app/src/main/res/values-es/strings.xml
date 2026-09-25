@@ -235,6 +235,11 @@
     <string name="detail_source_waiting">Esperando una conexión</string>
     <string name="detail_received">Datos recibidos</string>
     <string name="detail_packets">Paquetes de vídeo / audio</string>
+    <string name="detail_stalls">Congelaciones de imagen</string>
+    <string name="detail_stalls_value">%1$d (máx. %2$s s)</string>
+    <string name="detail_source_reconnects">Reconexiones del control</string>
+    <string name="detail_phone_wifi">Wi-Fi del teléfono</string>
+    <string name="detail_phone_wifi_hotspot">Punto de acceso propio</string>
     <string name="detail_rejected">Emisiones rechazadas</string>
     <string name="detail_forwarded">Reenviado</string>
     <string name="detail_connection">Conexión</string>
@@ -291,4 +296,9 @@
     <string name="more">Más</string>
     <string name="settings">Ajustes</string>
     <string name="controls_hint">Toca para mostrar los botones</string>
+
+    <!-- Drone screen: a note when the picture keeps freezing -->
+    <string name="weak_link_title">La imagen se congela a menudo</string>
+    <string name="weak_link_tip">Suele ser la conexión Wi-Fi entre el control y este teléfono. Conecta el control al punto de acceso de este teléfono (5 GHz si está disponible) y mantenlos cerca. Si la pantalla del control también se congela, la señal del dron es débil.</string>
+    <string name="weak_link_tip_hotspot">Suele ser la conexión Wi-Fi entre el control y este teléfono. Mantenlos cerca y sin obstáculos entre ellos, y pon el punto de acceso en 5 GHz si está disponible. Si la pantalla del control también se congela, la señal del dron es débil.</string>
 </resources>

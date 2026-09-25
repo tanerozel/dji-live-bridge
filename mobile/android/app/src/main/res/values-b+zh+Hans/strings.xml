@@ -225,6 +225,11 @@
     <string name="detail_source_waiting">等待连接</string>
     <string name="detail_received">已接收数据</string>
     <string name="detail_packets">视频 / 音频数据包</string>
+    <string name="detail_stalls">画面卡顿</string>
+    <string name="detail_stalls_value">%1$d（最长 %2$s 秒）</string>
+    <string name="detail_source_reconnects">遥控器重连次数</string>
+    <string name="detail_phone_wifi">手机 Wi-Fi</string>
+    <string name="detail_phone_wifi_hotspot">这部手机的热点</string>
     <string name="detail_rejected">被拒绝的推流</string>
     <string name="detail_forwarded">已转发</string>
     <string name="detail_connection">连接</string>
@@ -281,4 +286,9 @@
     <string name="more">更多</string>
     <string name="settings">设置</string>
     <string name="controls_hint">点击屏幕显示控制按钮</string>
+
+    <!-- Drone screen: a note when the picture keeps freezing -->
+    <string name="weak_link_title">画面频繁卡顿</string>
+    <string name="weak_link_tip">通常是遥控器和这部手机之间的 Wi-Fi 造成的。请把遥控器连到这部手机的热点（可以的话选 5 GHz），并让两者靠近。如果遥控器屏幕也卡顿，说明无人机信号弱。</string>
+    <string name="weak_link_tip_hotspot">通常是遥控器和这部手机之间的 Wi-Fi 造成的。请让两者靠近且中间无遮挡，可以的话把热点设为 5 GHz。如果遥控器屏幕也卡顿，说明无人机信号弱。</string>
 </resources>

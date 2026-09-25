@@ -225,6 +225,11 @@
     <string name="detail_source_waiting">Menunggu koneksi</string>
     <string name="detail_received">Data diterima</string>
     <string name="detail_packets">Paket video / audio</string>
+    <string name="detail_stalls">Gambar macet</string>
+    <string name="detail_stalls_value">%1$d (terlama %2$s dtk)</string>
+    <string name="detail_source_reconnects">Koneksi ulang remote</string>
+    <string name="detail_phone_wifi">Wi-Fi ponsel</string>
+    <string name="detail_phone_wifi_hotspot">Hotspot ponsel ini</string>
     <string name="detail_rejected">Siaran masuk ditolak</string>
     <string name="detail_forwarded">Diteruskan</string>
     <string name="detail_connection">Koneksi</string>
@@ -281,4 +286,9 @@
     <string name="more">Opsi</string>
     <string name="settings">Pengaturan</string>
     <string name="controls_hint">Ketuk untuk menampilkan kontrol</string>
+
+    <!-- Drone screen: a note when the picture keeps freezing -->
+    <string name="weak_link_title">Gambar sering macet</string>
+    <string name="weak_link_tip">Biasanya penyebabnya Wi-Fi antara remote dan ponsel ini. Hubungkan remote ke hotspot ponsel ini (5 GHz jika tersedia) dan dekatkan keduanya. Jika layar remote juga macet, sinyal drone lemah.</string>
+    <string name="weak_link_tip_hotspot">Biasanya penyebabnya Wi-Fi antara remote dan ponsel ini. Dekatkan keduanya tanpa penghalang di antaranya, dan atur hotspot ke 5 GHz jika tersedia. Jika layar remote juga macet, sinyal drone lemah.</string>
 </resources>

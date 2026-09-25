@@ -24,6 +24,7 @@ import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
@@ -31,7 +32,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 
 /**
  * Everything about the stream that does not fit over the picture: the numbers, each platform
@@ -43,6 +46,7 @@ internal fun LiveDetails(
     snapshot: RelaySnapshot,
     /** The platforms the stream goes to; empty while the phone only receives. */
     destinations: List<DestinationProfile>,
+    lan: LanAddress?,
     onEndPlatform: (DestinationProfile) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -52,7 +56,7 @@ internal fun LiveDetails(
         liveTips(phase, snapshot, destinations).forEach { TipBox(it) }
         BridgeCard(verticalSpacing = 8.dp) {
             SectionHeader(title = stringResource(R.string.technical_details))
-            TechnicalDetailRows(snapshot, destinations)
+            TechnicalDetailRows(snapshot, destinations, lan)
         }
     }
 }
@@ -235,10 +239,21 @@ private fun outputFailureText(output: OutputSnapshot): String? {
 }
 
 @Composable
-private fun TechnicalDetailRows(snapshot: RelaySnapshot, destinations: List<DestinationProfile>) {
+private fun TechnicalDetailRows(snapshot: RelaySnapshot, destinations: List<DestinationProfile>, lan: LanAddress?) {
     DetailRow(stringResource(R.string.detail_source), snapshot.remoteAddress ?: stringResource(R.string.detail_source_waiting))
     DetailRow(stringResource(R.string.detail_received), formatBytes(snapshot.receivedBytes))
     DetailRow(stringResource(R.string.detail_packets), "${snapshot.videoFrames} / ${snapshot.audioFrames}")
+    // Where short drops come from: pauses in what arrives, DJI Fly starting over, the phone's Wi-Fi.
+    DetailRow(
+        stringResource(R.string.detail_stalls),
+        if (snapshot.stalls > 0) {
+            stringResource(R.string.detail_stalls_value, snapshot.stalls, formatSeconds(snapshot.longestStallMs))
+        } else {
+            "0"
+        },
+    )
+    DetailRow(stringResource(R.string.detail_source_reconnects), snapshot.sourceReconnects.toString())
+    PhoneWifiRow(lan)
     if (snapshot.rejectedPublishAttempts > 0) {
         DetailRow(stringResource(R.string.detail_rejected), snapshot.rejectedPublishAttempts.toString())
     }
@@ -278,4 +293,21 @@ private fun TechnicalDetailRows(snapshot: RelaySnapshot, destinations: List<Dest
     )
 }
 
+/** The phone's end of the Wi-Fi the picture comes over, refreshed while it shows. */
+@Composable
+private fun PhoneWifiRow(lan: LanAddress?) {
+    val context = LocalContext.current
+    val link by produceState<WifiLink?>(initialValue = null, context) {
+        while (true) {
+            value = withContext(Dispatchers.IO) { currentWifiLink(context) }
+            delay(WIFI_REFRESH_MS)
+        }
+    }
+    val value = link?.let { formatWifiLink(it) }
+        ?: stringResource(R.string.detail_phone_wifi_hotspot).takeIf { lan?.kind == LanKind.HOTSPOT }
+        ?: return
+    DetailRow(stringResource(R.string.detail_phone_wifi), value)
+}
+
 private const val RECONNECT_HINT_THRESHOLD = 3
+private const val WIFI_REFRESH_MS = 2_000L

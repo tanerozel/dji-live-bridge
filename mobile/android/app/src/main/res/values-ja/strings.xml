@@ -225,6 +225,11 @@
     <string name="detail_source_waiting">接続を待っています</string>
     <string name="detail_received">受信量</string>
     <string name="detail_packets">映像 / 音声パケット</string>
+    <string name="detail_stalls">映像のフリーズ回数</string>
+    <string name="detail_stalls_value">%1$d（最長 %2$s 秒）</string>
+    <string name="detail_source_reconnects">送信機の再接続回数</string>
+    <string name="detail_phone_wifi">スマートフォンの Wi-Fi</string>
+    <string name="detail_phone_wifi_hotspot">テザリング中</string>
     <string name="detail_rejected">拒否された配信要求</string>
     <string name="detail_forwarded">転送量</string>
     <string name="detail_connection">接続</string>
@@ -281,4 +286,9 @@
     <string name="more">メニュー</string>
     <string name="settings">設定</string>
     <string name="controls_hint">タップして操作ボタンを表示</string>
+
+    <!-- Drone screen: a note when the picture keeps freezing -->
+    <string name="weak_link_title">映像が何度もフリーズしています</string>
+    <string name="weak_link_tip">多くの場合、原因は送信機とこのスマートフォンの間の Wi-Fi です。送信機をこのスマートフォンのテザリング（選べる場合は 5 GHz）に接続し、2 台を近づけてください。送信機の画面もフリーズする場合は、ドローンの信号が弱くなっています。</string>
+    <string name="weak_link_tip_hotspot">多くの場合、原因は送信機とこのスマートフォンの間の Wi-Fi です。間に障害物を置かずに 2 台を近づけ、選べる場合はテザリングを 5 GHz にしてください。送信機の画面もフリーズする場合は、ドローンの信号が弱くなっています。</string>
 </resources>

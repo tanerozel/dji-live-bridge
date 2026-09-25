@@ -235,6 +235,11 @@
     <string name="detail_source_waiting">In attesa di connessione</string>
     <string name="detail_received">Dati ricevuti</string>
     <string name="detail_packets">Pacchetti video / audio</string>
+    <string name="detail_stalls">Blocchi immagine</string>
+    <string name="detail_stalls_value">%1$d (max %2$s s)</string>
+    <string name="detail_source_reconnects">Riconnessioni radiocomando</string>
+    <string name="detail_phone_wifi">Wi-Fi del telefono</string>
+    <string name="detail_phone_wifi_hotspot">Hotspot del telefono</string>
     <string name="detail_rejected">Trasmissioni rifiutate</string>
     <string name="detail_forwarded">Dati inoltrati</string>
     <string name="detail_connection">Connessione</string>
@@ -291,4 +296,9 @@
     <string name="more">Altro</string>
     <string name="settings">Impostazioni</string>
     <string name="controls_hint">Tocca per mostrare i comandi</string>
+
+    <!-- Drone screen: a note when the picture keeps freezing -->
+    <string name="weak_link_title">L\'immagine si blocca spesso</string>
+    <string name="weak_link_tip">Di solito dipende dal Wi-Fi tra radiocomando e telefono. Collega il radiocomando all\'hotspot di questo telefono (a 5 GHz, se disponibile) e tienili vicini. Se si blocca anche lo schermo del radiocomando, il segnale del drone è debole.</string>
+    <string name="weak_link_tip_hotspot">Di solito dipende dal Wi-Fi tra radiocomando e telefono. Tienili vicini, senza ostacoli in mezzo, e imposta l\'hotspot a 5 GHz, se disponibile. Se si blocca anche lo schermo del radiocomando, il segnale del drone è debole.</string>
 </resources>

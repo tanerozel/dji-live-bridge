@@ -235,6 +235,11 @@
     <string name="detail_source_waiting">En attente de connexion</string>
     <string name="detail_received">Données reçues</string>
     <string name="detail_packets">Paquets vidéo / audio</string>
+    <string name="detail_stalls">Gels d\'image</string>
+    <string name="detail_stalls_value">%1$d (max. %2$s s)</string>
+    <string name="detail_source_reconnects">Reconnexions de la radiocommande</string>
+    <string name="detail_phone_wifi">Wi-Fi du téléphone</string>
+    <string name="detail_phone_wifi_hotspot">Partage de connexion</string>
     <string name="detail_rejected">Publications refusées</string>
     <string name="detail_forwarded">Transmis</string>
     <string name="detail_connection">Connexion</string>
@@ -291,4 +296,9 @@
     <string name="more">Plus</string>
     <string name="settings">Paramètres</string>
     <string name="controls_hint">Appuyez pour afficher les commandes</string>
+
+    <!-- Drone screen: a note when the picture keeps freezing -->
+    <string name="weak_link_title">L\'image se fige souvent</string>
+    <string name="weak_link_tip">En général, c\'est le Wi-Fi entre la radiocommande et ce téléphone. Connectez-la au partage de connexion de ce téléphone (5 GHz si disponible) et rapprochez les deux. Si l\'écran de la radiocommande se fige aussi, le signal du drone est faible.</string>
+    <string name="weak_link_tip_hotspot">En général, c\'est le Wi-Fi entre la radiocommande et ce téléphone. Rapprochez les deux, sans obstacle entre eux, et réglez le partage de connexion sur 5 GHz si disponible. Si l\'écran de la radiocommande se fige aussi, le signal du drone est faible.</string>
 </resources>

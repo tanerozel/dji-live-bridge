@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.os.Process
+import android.util.Log
 import android.view.PixelCopy
 import android.view.Surface
 import androidx.compose.animation.Crossfade
@@ -300,6 +301,9 @@ internal class DronePreviewDecoder(
                         if (waitingForKeyframe && !tag.keyframe) continue
                         try {
                             waitingForKeyframe = !queue(current.codec, tag, currentConfig.nalLengthSize, timestampMs)
+                            if (waitingForKeyframe && running) {
+                                Log.w(LOG_TAG, "Preview skipped a frame; it resumes at the next keyframe")
+                            }
                         } catch (_: IllegalStateException) {
                             // Includes CodecException: a fresh decoder resumes at the next keyframe.
                             current.close()
@@ -325,7 +329,7 @@ internal class DronePreviewDecoder(
 
     /** Returns false when the frame had to be skipped. */
     private fun queue(codec: MediaCodec, picture: FlvVideoTag.Picture, nalLengthSize: Int, timestampMs: Long): Boolean {
-        val index = codec.dequeueInputBuffer(INPUT_TIMEOUT_US)
+        val index = freeInputBuffer(codec)
         if (index < 0) return false
         val size = codec.getInputBuffer(index)?.let { buffer -> putAnnexB(picture.data, nalLengthSize, buffer) } ?: -1
         if (size <= 0) {
@@ -337,6 +341,21 @@ internal class DronePreviewDecoder(
         newestInputUs = presentationUs
         codec.queueInputBuffer(index, 0, size, presentationUs, 0)
         return true
+    }
+
+    /**
+     * Waits for the decoder to take more input. Skipping a frame costs the rest of the GOP (the
+     * picture freezes until the next keyframe, a second or two with DJI Fly), so a decoder that is
+     * only busy for a moment, say with the burst that follows a Wi-Fi hiccup, is waited for. The
+     * relay queues the frames meanwhile, and the renderer skips the late ones.
+     */
+    private fun freeInputBuffer(codec: MediaCodec): Int {
+        val deadline = System.nanoTime() + INPUT_WAIT_NS
+        while (running) {
+            val index = codec.dequeueInputBuffer(INPUT_TIMEOUT_US)
+            if (index >= 0 || System.nanoTime() >= deadline) return index
+        }
+        return -1
     }
 
     private fun createDecoder(config: AvcDecoderConfig): MediaCodec {
@@ -428,6 +447,7 @@ internal class DronePreviewDecoder(
         const val POLL_TIMEOUT_MS = 100
         const val STOP_TIMEOUT_MS = 500L
         const val INPUT_TIMEOUT_US = 100_000L
+        const val INPUT_WAIT_NS = 1_000_000_000L
         const val OUTPUT_TIMEOUT_US = 10_000L
         const val LATE_FRAME_US = 100_000L
         const val UNSUPPORTED_REPORT_AFTER = 30
