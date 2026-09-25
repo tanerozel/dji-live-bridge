@@ -11,8 +11,11 @@ import java.nio.ByteBuffer
 /** A test video problem the user can act on, in words for the screen. */
 internal class TestVideoException(val text: UiText) : Exception()
 
-/** A video the user picked to stand in for the drone. */
-internal class TestVideoSelection(val uri: Uri, val displayName: String?, val durationMs: Long?, val rotated: Boolean)
+/**
+ * A video the user picked to stand in for the drone. With [convert] it is first turned into what
+ * DJI Fly sends ([TestVideoConverter]); [durationMs] is how much of it plays.
+ */
+internal class TestVideoSelection(val uri: Uri, val displayName: String?, val durationMs: Long?, val convert: Boolean)
 
 private const val LOOPBACK_HOST = "127.0.0.1"
 private const val INGEST_PORT = 1935
@@ -27,16 +30,22 @@ private class TestVideoTracks(
     val audioFormat: MediaFormat?,
 )
 
-/** Checks a picked video before the bridge starts, so a bad file is reported right away. */
+/**
+ * Checks a picked video before the bridge starts, so a file without a picture is reported right
+ * away, and decides whether it must be converted first.
+ */
 internal fun inspectTestVideo(context: Context, uri: Uri): TestVideoSelection {
     val extractor = MediaExtractor()
     try {
         openVideo(extractor, context, uri)
-        val tracks = findTracks(extractor)
-        val format = tracks.videoFormat
-        val rotation = if (format.containsKey(MediaFormat.KEY_ROTATION)) format.getInteger(MediaFormat.KEY_ROTATION) else 0
+        val formats = (0 until extractor.trackCount).map(extractor::getTrackFormat)
+        fun firstOf(kind: String) = formats.firstOrNull { it.getString(MediaFormat.KEY_MIME).orEmpty().startsWith(kind) }
+        val format = firstOf("video/") ?: throw TestVideoException(uiText(R.string.test_video_no_video))
         val durationMs = if (format.containsKey(MediaFormat.KEY_DURATION)) format.getLong(MediaFormat.KEY_DURATION) / 1_000 else null
-        return TestVideoSelection(uri, displayName(context, uri), durationMs, rotated = rotation % 180 != 0)
+        val audioMime = firstOf("audio/")?.getString(MediaFormat.KEY_MIME)
+        val convert = needsConversion(videoFileInfo(format, averageBitrate(fileSize(context, uri), durationMs), audioMime))
+        val playedMs = if (convert) durationMs?.coerceAtMost(DroneLikeVideo.MAX_DURATION_MS) else durationMs
+        return TestVideoSelection(uri, displayName(context, uri), playedMs, convert)
     } finally {
         extractor.release()
     }
@@ -164,34 +173,39 @@ private fun openVideo(extractor: MediaExtractor, context: Context, uri: Uri) {
     }
 }
 
+/** The H.264 picture and AAC sound to send; a video in any other format is converted first. */
 private fun findTracks(extractor: MediaExtractor): TestVideoTracks {
     var video: Int? = null
     var audio: Int? = null
-    var otherVideoMime: String? = null
     for (index in 0 until extractor.trackCount) {
         val mime = extractor.getTrackFormat(index).getString(MediaFormat.KEY_MIME).orEmpty()
         when {
             mime == MediaFormat.MIMETYPE_VIDEO_AVC && video == null -> video = index
-            mime.startsWith("video/") && otherVideoMime == null -> otherVideoMime = mime
             mime == MediaFormat.MIMETYPE_AUDIO_AAC && audio == null -> audio = index
         }
     }
-    if (video == null) {
-        throw TestVideoException(
-            uiText(
-                when {
-                    otherVideoMime == MediaFormat.MIMETYPE_VIDEO_HEVC -> R.string.test_video_hevc
-                    otherVideoMime != null -> R.string.test_video_unsupported
-                    else -> R.string.test_video_no_video
-                },
-            ),
-        )
-    }
+    if (video == null) throw TestVideoException(uiText(R.string.test_video_unsupported))
     return TestVideoTracks(
         video = video,
         videoFormat = extractor.getTrackFormat(video),
         audio = audio,
         audioFormat = audio?.let(extractor::getTrackFormat),
+    )
+}
+
+private fun videoFileInfo(format: MediaFormat, fileBitrate: Long?, audioMime: String?): VideoFileInfo {
+    // A key stored with another type means nothing to this check, not a broken file.
+    fun integer(key: String) = if (format.containsKey(key)) runCatching { format.getInteger(key) }.getOrNull() else null
+    val transfer = integer(MediaFormat.KEY_COLOR_TRANSFER)
+    return VideoFileInfo(
+        mime = format.getString(MediaFormat.KEY_MIME).orEmpty(),
+        width = integer(MediaFormat.KEY_WIDTH) ?: 0,
+        height = integer(MediaFormat.KEY_HEIGHT) ?: 0,
+        rotationDegrees = integer(MediaFormat.KEY_ROTATION) ?: 0,
+        frameRate = format.frameRate()?.toFloat(),
+        bitrate = integer(MediaFormat.KEY_BIT_RATE)?.toLong()?.takeIf { it > 0 } ?: fileBitrate,
+        hdr = transfer == MediaFormat.COLOR_TRANSFER_ST2084 || transfer == MediaFormat.COLOR_TRANSFER_HLG,
+        audioMime = audioMime,
     )
 }
 
@@ -206,6 +220,13 @@ private fun MediaFormat.frameRate(): Double? {
     return runCatching { getInteger(MediaFormat.KEY_FRAME_RATE).toDouble() }.getOrNull()
         ?: runCatching { getFloat(MediaFormat.KEY_FRAME_RATE).toDouble() }.getOrNull()
 }
+
+/** The file's size in bytes, or null when the provider does not say. */
+internal fun fileSize(context: Context, uri: Uri): Long? = runCatching {
+    context.contentResolver.query(uri, arrayOf(OpenableColumns.SIZE), null, null, null)?.use { cursor ->
+        if (cursor.moveToFirst() && !cursor.isNull(0)) cursor.getLong(0).takeIf { it > 0 } else null
+    }
+}.getOrNull()
 
 private fun displayName(context: Context, uri: Uri): String? = runCatching {
     context.contentResolver.query(uri, arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null)?.use { cursor ->

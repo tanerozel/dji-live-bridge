@@ -40,13 +40,13 @@
     <string name="test_video_no_frames">该视频没有可发送的帧。</string>
     <string name="test_video_rewind_failed">无法将视频倒回开头。</string>
     <string name="test_video_open_failed">无法打开该视频。请换一个视频试试。</string>
-    <string name="test_video_hevc">此视频采用 H.265 (HEVC) 录制。请选择 H.264 视频，这正是 DJI Fly 发送的格式。</string>
-    <string name="test_video_unsupported">不支持此视频的格式。请选择 H.264 视频。</string>
+    <string name="test_video_unsupported">不支持此视频的格式。请换一个视频试试。</string>
+    <string name="test_video_converting">正在将视频转换为 720p，与 DJI Fly 的推流一致…</string>
+    <string name="test_video_convert_failed">无法转换此视频。请换一个视频试试。</string>
     <string name="test_video_no_video">所选文件中没有视频。</string>
     <string name="test_video_receiver_not_ready">接收器尚未就绪。</string>
     <string name="test_video_unreadable">无法读取该视频。</string>
     <string name="test_video_stopped">测试视频已停止</string>
-    <string name="test_video_rotated">竖屏拍摄的视频在直播中可能会横着显示</string>
 
     <!-- Platforms. on_* are phrases for where the stream is, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
     <string name="platform_custom">自定义 RTMP</string>

@@ -150,6 +150,8 @@ data class RelayServiceUiState(
     val liveSinceElapsedMillis: Long? = null,
     /** Display name of the video playing in place of the drone, or null for a real flight. */
     val testVideoName: UiText? = null,
+    /** How far the test video's conversion to DJI Fly's format is, in percent; null when not converting. */
+    val testVideoConverting: Int? = null,
     /** Why the last attempt to go live or play a test video failed; cleared by the next one. */
     val notice: RelayNotice? = null,
 ) {
@@ -198,7 +200,11 @@ object RelayServiceState {
     }
 
     fun testVideo(name: UiText?, notice: RelayNotice? = null) {
-        value = value.copy(testVideoName = name, notice = notice)
+        value = value.copy(testVideoName = name, testVideoConverting = null, notice = notice)
+    }
+
+    fun testVideoConverting(percent: Int?) {
+        value = value.copy(testVideoConverting = percent)
     }
 
     fun stopped(snapshot: RelaySnapshot = RelaySnapshot()) {

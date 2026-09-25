@@ -41,13 +41,13 @@
     <string name="test_video_no_frames">The video has no frames to send.</string>
     <string name="test_video_rewind_failed">The video could not be rewound.</string>
     <string name="test_video_open_failed">The video could not be opened. Try another video.</string>
-    <string name="test_video_hevc">This video is recorded in H.265 (HEVC). Pick an H.264 video, which is what DJI Fly sends.</string>
-    <string name="test_video_unsupported">This video\'s format is not supported. Pick an H.264 video.</string>
+    <string name="test_video_unsupported">This video\'s format is not supported. Try another video.</string>
+    <string name="test_video_converting">Converting the video to 720p, like DJI Fly\'s stream…</string>
+    <string name="test_video_convert_failed">This video could not be converted. Try another video.</string>
     <string name="test_video_no_video">The file you picked has no video.</string>
     <string name="test_video_receiver_not_ready">The receiver is not ready.</string>
     <string name="test_video_unreadable">The video could not be read.</string>
     <string name="test_video_stopped">Test video stopped</string>
-    <string name="test_video_rotated">Videos shot in portrait may look sideways on the stream</string>
 
     <!-- Platforms. on_* are phrases for where the stream is, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
     <string name="platform_custom">Custom RTMP</string>

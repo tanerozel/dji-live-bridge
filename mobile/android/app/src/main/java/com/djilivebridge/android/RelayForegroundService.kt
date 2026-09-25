@@ -43,6 +43,8 @@ class RelayForegroundService : Service() {
     @Volatile private var receiverListening = false
     @Volatile private var pollThread: Thread? = null
     @Volatile private var testVideoThread: Thread? = null
+    /** Turns a heavy test video into DJI Fly's format before it plays. Main thread only. */
+    private var testVideoConverter: TestVideoConverter? = null
     /** The profiles the stream goes to. Touched on the main thread only. */
     private val liveProfileIds = mutableListOf<String>()
     @Volatile private var tlsCaBundle: File? = null
@@ -64,7 +66,11 @@ class RelayForegroundService : Service() {
                 if (intent.getBooleanExtra(EXTRA_RESTART, false)) restartReceiver() else startReceiver()
                 intent.data?.let { uri ->
                     val durationMs = intent.getLongExtra(EXTRA_TEST_VIDEO_DURATION_MS, -1).takeIf { it >= 0 }
-                    startTestVideo(uri, testVideoLabel(intent.getStringExtra(EXTRA_TEST_VIDEO_NAME), durationMs))
+                    startTestVideo(
+                        uri,
+                        testVideoLabel(intent.getStringExtra(EXTRA_TEST_VIDEO_NAME), durationMs),
+                        convert = intent.getBooleanExtra(EXTRA_TEST_VIDEO_CONVERT, false),
+                    )
                 }
             }
             ACTION_GO_LIVE -> if (enterForeground()) {
@@ -96,7 +102,7 @@ class RelayForegroundService : Service() {
     override fun onDestroy() {
         stopRequested.set(true)
         pollThread?.interrupt()
-        testVideoThread?.interrupt()
+        stopTestVideoWork()
         commands.shutdown()
         NativeRelay.nativeStop()
         deleteTlsCaBundle()
@@ -152,8 +158,7 @@ class RelayForegroundService : Service() {
             return
         }
         if (liveProfileIds.isNotEmpty()) return
-        testVideoThread?.interrupt()
-        testVideoThread = null
+        stopTestVideoWork()
         RelayServiceState.starting()
         commands.execute { NativeRelay.nativeStartReceiver() }
     }
@@ -183,7 +188,11 @@ class RelayForegroundService : Service() {
         }
     }
 
-    /** Leaves a line in logcat for each pause or reconnect of the drone's stream. */
+    /**
+     * Leaves a line in logcat for each pause or reconnect of the drone's stream and each change
+     * of a platform's state, so a capture shows which side a gap in the broadcast came from.
+     * Only codes and counts: never an address or a key.
+     */
     private fun logInterruptions(previous: RelaySnapshot, snapshot: RelaySnapshot) {
         if (snapshot.stalls > previous.stalls) {
             Log.i(
@@ -194,6 +203,17 @@ class RelayForegroundService : Service() {
         }
         if (snapshot.sourceReconnects > previous.sourceReconnects) {
             Log.i(LOG_TAG, "DJI Fly reconnected (${snapshot.sourceReconnects} so far)")
+        }
+        snapshot.outputs.forEach { output ->
+            val before = previous.output(output.id)?.status
+            if (output.status != before) {
+                Log.i(
+                    LOG_TAG,
+                    "Platform ${output.id.take(8)}: ${before ?: "added"} -> ${output.status}" +
+                        (output.reason?.let { " ($it)" }.orEmpty()) +
+                        ", ${output.droppedFrames} frames skipped so far",
+                )
+            }
         }
     }
 
@@ -271,10 +291,42 @@ class RelayForegroundService : Service() {
         }
     }
 
-    private fun startTestVideo(uri: Uri, name: UiText) {
-        testVideoThread?.interrupt()
+    /** Plays [uri] in place of DJI Fly, converted first to what DJI Fly sends when [convert]. */
+    private fun startTestVideo(uri: Uri, name: UiText, convert: Boolean) {
+        stopTestVideoWork()
         RelayServiceState.testVideo(name)
+        if (!convert) {
+            playTestVideo(uri)
+            return
+        }
+        RelayServiceState.testVideoConverting(0)
+        testVideoConverter = TestVideoConverter(
+            applicationContext,
+            onProgress = RelayServiceState::testVideoConverting,
+            onFinished = { result ->
+                testVideoConverter = null
+                result
+                    .onSuccess(::playTestVideo)
+                    .onFailure { error ->
+                        Log.w(LOG_TAG, "The test video could not be converted", error)
+                        val notice = RelayNotice(uiText(R.string.test_video_stopped), uiText(R.string.test_video_convert_failed))
+                        RelayServiceState.testVideo(null, notice)
+                    }
+            },
+        ).also { it.start(uri) }
+    }
+
+    private fun playTestVideo(uri: Uri) {
+        RelayServiceState.testVideoConverting(null)
         testVideoThread = thread(name = "dji-test-video") { runTestVideo(uri) }
+    }
+
+    /** Ends what the test video is doing, converting or playing. */
+    private fun stopTestVideoWork() {
+        testVideoConverter?.cancel()
+        testVideoConverter = null
+        testVideoThread?.interrupt()
+        testVideoThread = null
     }
 
     /** Plays the picked video into the receiver, standing in for DJI Fly. */
@@ -310,16 +362,14 @@ class RelayForegroundService : Service() {
     }
 
     private fun stopTestVideo() {
-        testVideoThread?.interrupt()
-        testVideoThread = null
+        stopTestVideoWork()
         RelayServiceState.testVideo(null)
     }
 
     private fun requestStop() {
         stopRequested.set(true)
         liveProfileIds.clear()
-        testVideoThread?.interrupt()
-        testVideoThread = null
+        stopTestVideoWork()
         pollThread?.interrupt()
         if (!receiverStarted) {
             finishService()
@@ -501,6 +551,7 @@ class RelayForegroundService : Service() {
         private const val EXTRA_DESTINATION_PROFILE_IDS = "destination_profile_ids"
         private const val EXTRA_TEST_VIDEO_NAME = "test_video_name"
         private const val EXTRA_TEST_VIDEO_DURATION_MS = "test_video_duration_ms"
+        private const val EXTRA_TEST_VIDEO_CONVERT = "test_video_convert"
         private const val EXTRA_RESTART = "restart"
         private const val CHANNEL_ID = "relay_status"
         private const val NOTIFICATION_ID = 1935
@@ -526,6 +577,7 @@ class RelayForegroundService : Service() {
                 intent.setData(testVideo.uri)
                     .putExtra(EXTRA_TEST_VIDEO_NAME, testVideo.displayName)
                     .putExtra(EXTRA_TEST_VIDEO_DURATION_MS, testVideo.durationMs ?: -1)
+                    .putExtra(EXTRA_TEST_VIDEO_CONVERT, testVideo.convert)
                     .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             }
             ContextCompat.startForegroundService(context, intent)

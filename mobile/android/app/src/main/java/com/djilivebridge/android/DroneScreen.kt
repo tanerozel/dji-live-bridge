@@ -83,6 +83,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Snackbar
@@ -329,6 +330,7 @@ private fun Controls(
                 phase = phase,
                 snapshot = snapshot,
                 testing = testing,
+                converting = serviceState.testVideoConverting,
                 lan = lan,
                 onStartReceiver = onStartReceiver,
                 onTestVideo = onTestVideo,
@@ -1036,6 +1038,8 @@ private fun ConnectPanel(
     phase: BridgePhase,
     snapshot: RelaySnapshot,
     testing: Boolean,
+    /** How far the test video's conversion is, in percent, while it runs. */
+    converting: Int?,
     lan: LanAddress?,
     onStartReceiver: (restart: Boolean) -> Unit,
     onTestVideo: () -> Unit,
@@ -1066,6 +1070,7 @@ private fun ConnectPanel(
             }
             phase == BridgePhase.DRONE_CONNECTED || phase == BridgePhase.PREVIEW ->
                 PanelWaiting(stringResource(R.string.preview_connected))
+            testing && converting != null -> PanelConverting(converting)
             testing -> PanelWaiting(stringResource(R.string.test_video_opening))
             lan == null -> {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -1108,6 +1113,20 @@ private fun PanelWaiting(text: String) {
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
         CircularProgressIndicator(modifier = Modifier.size(16.dp), color = Color.White, strokeWidth = 2.dp)
         PanelText(text)
+    }
+}
+
+/** A heavy test video being turned into what DJI Fly sends, with how far it got. */
+@Composable
+private fun PanelConverting(percent: Int) {
+    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        PanelWaiting(stringResource(R.string.test_video_converting))
+        LinearProgressIndicator(
+            progress = { percent / 100f },
+            modifier = Modifier.fillMaxWidth(),
+            color = GoLiveStart,
+            trackColor = Color.White.copy(alpha = 0.15f),
+        )
     }
 }
 

@@ -133,14 +133,27 @@ H.264 (legacy AVC, which DJI Fly sends) onto a SurfaceView, only while the app i
 [Latency and continuity](#latency-and-continuity)).
 
 "No drone? Try a test video" stands in for the drone, like the desktop app's test video:
-its picture shows as the drone's would, and going live works the same way. The picked H.264/AAC
-video is published over loopback to the app's own `rtmp://127.0.0.1:1935/drone` ingest,
-exactly as DJI Fly would: legacy handshake, `connect`/`createStream`/`publish`, answers to
-librtmp2's pings, samples copied without re-encoding, paced in real time and looped. It therefore
-takes the same relay and destination path as a real flight and needs no Wi-Fi. B-frames work
-(decode timestamps are rebuilt from the sorted presentation times); H.265/HEVC files are refused
-with an explanation, because DJI Fly sends H.264. Phone videos shot in portrait may appear sideways,
-since FLV carries no rotation.
+its picture shows as the drone's would, and going live works the same way. The picked video is
+published over loopback to the app's own `rtmp://127.0.0.1:1935/drone` ingest, exactly as DJI Fly
+would: legacy handshake, `connect`/`createStream`/`publish`, answers to librtmp2's pings, samples
+copied without re-encoding, paced in real time and looped. It therefore takes the same relay and
+destination path as a real flight and needs no Wi-Fi. B-frames work (decode timestamps are rebuilt
+from the sorted presentation times).
+
+A video that DJI Fly could not have sent is converted first, with Media3 Transformer, into what
+DJI Fly sends: H.264 High at level 4.0 with a 720-pixel short side, 30 fps, 4 Mbps and a keyframe
+every second, with AAC sound, from its first 60 seconds. Left alone, Media3 asks for the
+encoder's highest level (6.0 on a Galaxy S23). A progress bar shows meanwhile, and the result is cached, so the same video
+starts at once the next time. Conversion covers:
+- phone recordings, which are often 4K at 50–100 Mbps. One stalled a live test: more than the
+  uplink or any platform takes, and the relay does not re-encode;
+- videos without AAC sound, which get a silent track. Drone footage is usually silent, and
+  Instagram showed nothing of such a stream while YouTube played it;
+- H.265/HEVC and HDR videos (HDR is tone mapped);
+- videos displayed rotated, which are encoded standing up because FLV carries no rotation.
+
+A video already like DJI Fly's goes out as it is: H.264 with AAC sound, at most 720p, 31 fps and
+5 Mbps, upright and SDR.
 
 The themes match the desktop app: Light (the default), Dark, Midnight blue, Sand and System, picked
 from the settings button and stored on the device. They color the guide, the key screen and the
@@ -224,6 +237,11 @@ The broadcast survives what a field session throws at it:
 - A slow uplink no longer grows the delay or drops the connection. Unsent output is measured
   including the kernel's TCP queue (`TIOCOUTQ`). Beyond about 1.5 seconds of stream, video skips
   to the next keyframe while audio goes on, like OBS's frame dropping.
+- `librtmp2`'s client waited on the socket for the rest of a command it had already
+  buffered, when the command was split across chunks. YouTube's `_result` to `connect` is
+  240 bytes at the default 128-byte chunk size, and YouTube then waits for the client. So
+  going live on YouTube failed with `connect_failed` after exactly the 3-second connect timeout,
+  and connects to other platforms were slow. A test now replays YouTube's captured reply.
 - `librtmp2`'s client used to report a full socket during `poll(0)` as a timeout, which turned
   every burst on a slow uplink into a reconnect (15 in 40 seconds on a 1.5 Mbps test link). That
   is fixed. A platform that takes no data for 10 seconds is reconnected. A backlog in the
@@ -237,8 +255,10 @@ Short drops can be traced:
 - After three pauses or reconnects within a minute, a note over the picture says what usually
   causes them. The advice differs for a shared Wi-Fi and for the phone's own hotspot. It is not
   shown for a test video.
-- `adb logcat -s DJIBridge` prints a line for each pause, each reconnect, and each time the
-  preview had to wait for a keyframe.
+- `adb logcat -s DJIBridge` prints a line for each pause, each reconnect, each time the
+  preview had to wait for a keyframe, and each change of a platform's state (for example
+  `forwarding -> congested`) with the frames skipped for it so far. A platform that warns about
+  too little video while nothing was skipped for it only got less from the drone.
 - A picture that stops is dimmed only after a second, so a reconnect that is over at once does
   not flash the screen.
 - If the controller's own screen freezes too, the drone's radio link is the cause. Otherwise it

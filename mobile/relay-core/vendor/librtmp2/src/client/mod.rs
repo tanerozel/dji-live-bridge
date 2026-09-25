@@ -1273,6 +1273,7 @@ impl Client {
                 }
             }
             let mut msg = ChunkMessage::default();
+            let before = self.recv_buffer.available();
             match chunk_read_owned(&mut self.recv_buffer, &mut self.chunk_reg, &mut msg) {
                 Ok((1, payload)) if msg.is_complete => {
                     if msg.msg_type_id == msg_dispatch::RTMP_MSG_SET_CHUNK_SIZE {
@@ -1287,6 +1288,12 @@ impl Client {
                     }
                     return Ok((msg, payload));
                 }
+                // As in drain_ready_messages, Ok(0) also means "consumed a non-final
+                // fragment": the rest of a command split across chunks (YouTube's
+                // `_result` to connect is longer than the 128-byte default chunk) may
+                // already be buffered, and the server sends nothing more until this side
+                // answers, so reading the socket first would wait out the deadline.
+                Ok(_) if self.recv_buffer.available() < before => continue,
                 Ok(_) => {}
                 Err(_) => return Err(ErrorCode::Chunk),
             }
@@ -1511,6 +1518,49 @@ impl Drop for Client {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// YouTube's reply to `connect`, captured from a.rtmp.youtube.com on 2026-09-25: Window
+    /// Acknowledgement Size, Set Peer Bandwidth (type 1 header), a 240-byte `_result` split at
+    /// the 128-byte default chunk size, and `onBWDone`, all in one TCP segment.
+    const YOUTUBE_CONNECT_REPLY: &str = concat!(
+        "020000000000040500000000002625a042000000000005060390000002030000000000f014000000000200075f726573756c",
+        "74003ff0000000000000030006666d7356657202000d464d532f332c352c332c383234000c6361706162696c697469657300",
+        "405fc0000000000000046d6f6465003ff00000000000000000090300056c6576656c0200067374617475730004636f646502",
+        "001d4e6574436f6e6e656374696f6e2e436f6ec36e6563742e53756363657373000b6465736372697074696f6e020015436f",
+        "6e6e656374696f6e207375636365656465642e000e6f626a656374456e636f64696e67000000000000000000000464617461",
+        "0800000001000776657273696f6e020009332c352c332c38323400000900000943000000000015140200086f6e4257446f6e",
+        "6500000000000000000005",
+    );
+
+    #[test]
+    fn a_command_split_across_chunks_is_read_from_the_buffer() {
+        use std::io::Write;
+        use std::os::unix::io::IntoRawFd;
+        use std::os::unix::net::UnixStream;
+
+        let reply: Vec<u8> = (0..YOUTUBE_CONNECT_REPLY.len())
+            .step_by(2)
+            .map(|i| u8::from_str_radix(&YOUTUBE_CONNECT_REPLY[i..i + 2], 16).unwrap())
+            .collect();
+        let (client_end, mut server_end) = UnixStream::pair().unwrap();
+        client_end.set_nonblocking(true).unwrap();
+        server_end.write_all(&reply).unwrap();
+
+        let mut client = Client::new();
+        client.transport = Some(Transport::new_plain(client_end.into_raw_fd()));
+        client.state = ClientState::Connected;
+        // The server stays silent after this reply, like YouTube waiting for createStream.
+        let started = Instant::now();
+        let deadline = started + Duration::from_secs(2);
+        let result = client.wait_for_command("_result", Some(deadline));
+        assert!(result.is_ok(), "_result not found: {:?}", result.err());
+        assert!(
+            started.elapsed() < Duration::from_millis(500),
+            "waited {:?} for bytes that were already buffered",
+            started.elapsed()
+        );
+        drop(server_end);
+    }
 
     fn dns_job(host: &str) -> DnsJob {
         let (reply, _rx) = mpsc::channel();

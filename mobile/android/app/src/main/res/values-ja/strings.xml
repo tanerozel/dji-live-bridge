@@ -40,13 +40,13 @@
     <string name="test_video_no_frames">この動画には送信できるフレームがありません。</string>
     <string name="test_video_rewind_failed">動画を先頭に戻せませんでした。</string>
     <string name="test_video_open_failed">動画を開けませんでした。別の動画をお試しください。</string>
-    <string name="test_video_hevc">この動画は H.265 (HEVC) で記録されています。DJI Fly が送信するのと同じ H.264 の動画を選んでください。</string>
-    <string name="test_video_unsupported">この動画の形式には対応していません。H.264 の動画を選んでください。</string>
+    <string name="test_video_unsupported">この動画の形式には対応していません。別の動画をお試しください。</string>
+    <string name="test_video_converting">動画を DJI Fly の配信と同じ 720p に変換中…</string>
+    <string name="test_video_convert_failed">この動画を変換できませんでした。別の動画をお試しください。</string>
     <string name="test_video_no_video">選択したファイルには映像がありません。</string>
     <string name="test_video_receiver_not_ready">受信サーバーの準備ができていません。</string>
     <string name="test_video_unreadable">動画を読み込めませんでした。</string>
     <string name="test_video_stopped">テスト動画が停止しました</string>
-    <string name="test_video_rotated">縦向きで撮影した動画は、配信で横倒しに表示されることがあります</string>
 
     <!-- Platforms. on_* are phrases for where the stream is, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
     <string name="platform_custom">カスタムRTMP</string>

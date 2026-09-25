@@ -274,10 +274,7 @@ internal fun RelayScreen(
         if (uri == null) return@rememberLauncherForActivityResult
         scope.launch {
             withContext(Dispatchers.IO) { runCatching { inspectTestVideo(context, uri) } }
-                .onSuccess { video ->
-                    if (video.rotated) showMessage(uiText(R.string.test_video_rotated))
-                    startReceiver(video)
-                }
+                .onSuccess { video -> startReceiver(video) }
                 .onFailure { error -> showMessage((error as? TestVideoException)?.text ?: uiText(R.string.test_video_unreadable)) }
         }
     }

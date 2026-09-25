@@ -40,13 +40,13 @@
     <string name="test_video_no_frames">동영상에 보낼 프레임이 없습니다.</string>
     <string name="test_video_rewind_failed">동영상을 처음으로 되감을 수 없습니다.</string>
     <string name="test_video_open_failed">동영상을 열 수 없습니다. 다른 동영상을 선택해 보세요.</string>
-    <string name="test_video_hevc">이 동영상은 H.265 (HEVC)로 녹화되었습니다. DJI Fly가 보내는 형식인 H.264 동영상을 선택하세요.</string>
-    <string name="test_video_unsupported">지원하지 않는 동영상 형식입니다. H.264 동영상을 선택하세요.</string>
+    <string name="test_video_unsupported">지원하지 않는 동영상 형식입니다. 다른 동영상을 선택해 보세요.</string>
+    <string name="test_video_converting">DJI Fly 송출과 같은 720p로 동영상을 변환하는 중…</string>
+    <string name="test_video_convert_failed">이 동영상을 변환할 수 없습니다. 다른 동영상을 선택해 보세요.</string>
     <string name="test_video_no_video">선택한 파일에 영상이 없습니다.</string>
     <string name="test_video_receiver_not_ready">수신기가 준비되지 않았습니다.</string>
     <string name="test_video_unreadable">동영상을 읽을 수 없습니다.</string>
     <string name="test_video_stopped">테스트 영상 중지됨</string>
-    <string name="test_video_rotated">세로로 촬영한 동영상은 방송에서 옆으로 누워 보일 수 있습니다</string>
 
     <!-- Platforms. on_* are phrases for where the stream is, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
     <string name="platform_custom">RTMP 서버</string>

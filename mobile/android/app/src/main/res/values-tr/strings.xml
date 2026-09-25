@@ -40,13 +40,13 @@
     <string name="test_video_no_frames">Videoda gönderilecek kare yok.</string>
     <string name="test_video_rewind_failed">Video başa sarılamadı.</string>
     <string name="test_video_open_failed">Video açılamadı. Başka bir video seçmeyi dene.</string>
-    <string name="test_video_hevc">Bu video H.265 (HEVC) ile kaydedilmiş. DJI Fly gibi H.264 gönderebilmek için H.264 bir video seç.</string>
-    <string name="test_video_unsupported">Bu videonun biçimi desteklenmiyor. H.264 bir video seç.</string>
+    <string name="test_video_unsupported">Bu videonun biçimi desteklenmiyor. Başka bir video dene.</string>
+    <string name="test_video_converting">Video, DJI Fly\'ın yayını gibi 720p\'ye dönüştürülüyor…</string>
+    <string name="test_video_convert_failed">Bu video dönüştürülemedi. Başka bir video dene.</string>
     <string name="test_video_no_video">Seçilen dosyada görüntü yok.</string>
     <string name="test_video_receiver_not_ready">Alıcı hazır değil.</string>
     <string name="test_video_unreadable">Video okunamadı.</string>
     <string name="test_video_stopped">Test videosu durdu</string>
-    <string name="test_video_rotated">Dikey çekilmiş videolar yayında yan görünebilir</string>
 
     <!-- Platforms. on_* are phrases for where the stream is, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
     <string name="platform_custom">Özel RTMP</string>

@@ -122,6 +122,10 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.core:core-ktx:1.18.0")
+    // Turns a heavy test video into what DJI Fly sends (see TestVideoConverter).
+    implementation("androidx.media3:media3-common:1.11.1")
+    implementation("androidx.media3:media3-effect:1.11.1")
+    implementation("androidx.media3:media3-transformer:1.11.1")
 
     testImplementation("junit:junit:4.13.2")
 

@@ -40,13 +40,13 @@
     <string name="test_video_no_frames">لا يحتوي الفيديو على إطارات لإرسالها.</string>
     <string name="test_video_rewind_failed">تعذّرت إعادة الفيديو إلى البداية.</string>
     <string name="test_video_open_failed">تعذّر فتح الفيديو. جرّب فيديو آخر.</string>
-    <string name="test_video_hevc">هذا الفيديو مسجّل بترميز H.265 (HEVC)‎. اختر فيديو بترميز H.264، فهذا ما يرسله DJI Fly.</string>
-    <string name="test_video_unsupported">تنسيق هذا الفيديو غير مدعوم. اختر فيديو بترميز H.264.</string>
+    <string name="test_video_unsupported">تنسيق هذا الفيديو غير مدعوم. جرّب فيديو آخر.</string>
+    <string name="test_video_converting">جارٍ تحويل الفيديو إلى 720p ليطابق بث DJI Fly…</string>
+    <string name="test_video_convert_failed">تعذّر تحويل هذا الفيديو. جرّب فيديو آخر.</string>
     <string name="test_video_no_video">الملف الذي اخترته لا يحتوي على فيديو.</string>
     <string name="test_video_receiver_not_ready">المستقبِل غير جاهز.</string>
     <string name="test_video_unreadable">تعذّرت قراءة الفيديو.</string>
     <string name="test_video_stopped">توقّف فيديو الاختبار</string>
-    <string name="test_video_rotated">قد تظهر مقاطع الفيديو المصوّرة عموديًا مُدارة على جانبها في البث</string>
 
     <!-- Platforms. on_* are phrases for where the stream is, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
     <string name="platform_custom">‏RTMP مخصص</string>

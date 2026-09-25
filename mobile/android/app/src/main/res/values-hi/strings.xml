@@ -40,13 +40,13 @@
     <string name="test_video_no_frames">वीडियो में भेजने के लिए कोई फ़्रेम नहीं है।</string>
     <string name="test_video_rewind_failed">वीडियो रिवाइंड नहीं हो सका।</string>
     <string name="test_video_open_failed">वीडियो खुल नहीं सका। कोई दूसरा वीडियो आज़माएँ।</string>
-    <string name="test_video_hevc">यह वीडियो H.265 (HEVC) में रिकॉर्ड हुआ है। H.264 वाला वीडियो चुनें; DJI Fly भी H.264 ही भेजता है।</string>
-    <string name="test_video_unsupported">इस वीडियो का फ़ॉर्मैट समर्थित नहीं है। H.264 वाला वीडियो चुनें।</string>
+    <string name="test_video_unsupported">इस वीडियो का फ़ॉर्मैट समर्थित नहीं है। कोई दूसरा वीडियो आज़माएँ।</string>
+    <string name="test_video_converting">वीडियो DJI Fly जैसी 720p स्ट्रीम में कन्वर्ट हो रहा है…</string>
+    <string name="test_video_convert_failed">यह वीडियो कन्वर्ट नहीं हो सका। कोई दूसरा वीडियो आज़माएँ।</string>
     <string name="test_video_no_video">चुनी गई फ़ाइल में वीडियो नहीं है।</string>
     <string name="test_video_receiver_not_ready">रिसीवर तैयार नहीं है।</string>
     <string name="test_video_unreadable">वीडियो पढ़ा नहीं जा सका।</string>
     <string name="test_video_stopped">टेस्ट वीडियो रुक गया</string>
-    <string name="test_video_rotated">वर्टिकल शूट किए गए वीडियो स्ट्रीम में आड़े दिख सकते हैं</string>
 
     <!-- Platforms. on_* are phrases for where the stream is, written for the middle of a sentence; the app capitalizes a sentence that starts with one. -->
     <string name="platform_custom">कस्टम RTMP</string>
