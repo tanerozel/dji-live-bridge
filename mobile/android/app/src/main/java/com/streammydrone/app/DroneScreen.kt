@@ -359,6 +359,20 @@ private fun Controls(
                     add(MenuEntry(R.string.how_to_use, Icons.AutoMirrored.Rounded.HelpOutline, onShowGuide))
                 },
             ) { open -> GlassIconButton(icon = Icons.Rounded.Settings, description = stringResource(R.string.settings), onClick = open) }
+            if (showPicture) {
+                GlassIconButton(
+                    icon = Icons.Rounded.Image,
+                    description = stringResource(R.string.preview_badge),
+                    onClick = onPictureOnly,
+                )
+            }
+            if (testing) {
+                GlassIconButton(
+                    icon = Icons.Rounded.Stop,
+                    description = stringResource(R.string.stop_test_video),
+                    onClick = onStopTestVideo,
+                )
+            }
         }
     }
     val bottom: @Composable ColumnScope.() -> Unit = {
@@ -393,15 +407,11 @@ private fun Controls(
         ActionRow(
             live = live,
             canGoLive = phase.hasPicture,
-            showPicture = showPicture,
-            testing = testing,
             snackbarHostState = snackbarHostState,
-            onPictureOnly = onPictureOnly,
             onGoLive = onGoLive,
             onEndLive = { onEndLive(null) },
             onPlatforms = onPlatforms,
             onDetails = onDetails,
-            onStopTestVideo = onStopTestVideo,
             modifier = modifier,
         )
     }
@@ -1348,20 +1358,16 @@ private fun SavedPlatform(profile: DestinationProfile, onEdit: () -> Unit) {
     }
 }
 
-/** "Preview", the big button, and "More", like a camera app's shutter row. */
+/** The big button and "More", like a camera app's shutter row. */
 @Composable
 private fun ActionRow(
     live: Boolean,
     canGoLive: Boolean,
-    showPicture: Boolean,
-    testing: Boolean,
     snackbarHostState: SnackbarHostState,
-    onPictureOnly: () -> Unit,
     onGoLive: () -> Unit,
     onEndLive: () -> Unit,
     onPlatforms: () -> Unit,
     onDetails: () -> Unit,
-    onStopTestVideo: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -1369,12 +1375,6 @@ private fun ActionRow(
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        SquareAction(
-            icon = Icons.Rounded.Image,
-            label = stringResource(R.string.preview_badge),
-            onClick = onPictureOnly,
-            enabled = showPicture,
-        )
         if (live) {
             BigButton(
                 text = stringResource(R.string.end_broadcast),
@@ -1405,21 +1405,19 @@ private fun ActionRow(
             items = buildList {
                 if (!live) add(MenuEntry(R.string.platforms, Icons.Rounded.GridView, onPlatforms))
                 add(MenuEntry(R.string.technical_details, Icons.Rounded.Info, onDetails))
-                if (testing) add(MenuEntry(R.string.stop_test_video, Icons.Rounded.Stop, onStopTestVideo))
             },
         ) { open -> SquareAction(icon = Icons.Rounded.MoreHoriz, label = stringResource(R.string.more), onClick = open) }
     }
 }
 
 @Composable
-private fun SquareAction(icon: ImageVector, label: String, onClick: () -> Unit, enabled: Boolean = true) {
+private fun SquareAction(icon: ImageVector, label: String, onClick: () -> Unit) {
     // The label may be wider than the square ("Daha fazla"); the column grows a little for it.
     Column(
         modifier = Modifier
             .widthIn(min = SQUARE_ACTION_SIZE, max = SQUARE_ACTION_MAX_WIDTH)
-            .alpha(if (enabled) 1f else 0.4f)
             .clip(CARD_SHAPE)
-            .clickable(enabled = enabled, role = Role.Button, onClick = onClick),
+            .clickable(role = Role.Button, onClick = onClick),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(3.dp),
     ) {
