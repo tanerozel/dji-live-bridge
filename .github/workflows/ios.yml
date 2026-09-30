@@ -1,0 +1,62 @@
+name: iOS build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "mobile/ios/**"
+      - "mobile/relay-core/**"
+      - "mobile/android/app/src/main/res/values*/strings.xml"
+      - "rust-toolchain.toml"
+      - ".github/workflows/ios.yml"
+  pull_request:
+    paths:
+      - "mobile/ios/**"
+      - "mobile/relay-core/**"
+      - "mobile/android/app/src/main/res/values*/strings.xml"
+      - "rust-toolchain.toml"
+      - ".github/workflows/ios.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # The iOS strings are generated from the Android ones; a changed Android string needs
+      # `node mobile/ios/scripts/import-android-strings.mjs` in the same commit.
+      - name: The iOS strings must match the Android ones
+        run: node mobile/ios/scripts/import-android-strings.mjs --check
+
+      - name: Install pinned Rust with the iOS targets
+        run: |
+          rustup toolchain install 1.98.1 --profile minimal --component clippy,rustfmt
+          rustup target add --toolchain 1.98.1 aarch64-apple-ios aarch64-apple-ios-sim
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: mobile/relay-core
+
+      # RTMPS on iOS is verified with Security.framework; macOS runs the same code.
+      - name: Rust tests on an Apple system
+        run: cargo +1.98.1 test --locked --manifest-path mobile/relay-core/Cargo.toml
+
+      - name: Unit tests on the simulator
+        working-directory: mobile/ios
+        run: |
+          device=$(xcrun simctl list devices available -j | python3 -c 'import json,sys; d=json.load(sys.stdin)["devices"]; print(next(x["udid"] for k,v in d.items() if "iOS" in k for x in v if x["name"].startswith("iPhone")))')
+          xcodebuild test -project StreamMyDrone.xcodeproj -scheme StreamMyDrone \
+            -destination "id=$device" CODE_SIGNING_ALLOWED=NO | tail -40
+          test "${PIPESTATUS[0]}" -eq 0
+
+      - name: Device build without signing
+        working-directory: mobile/ios
+        run: |
+          xcodebuild build -project StreamMyDrone.xcodeproj -scheme StreamMyDrone -configuration Release \
+            -destination "generic/platform=iOS" CODE_SIGNING_ALLOWED=NO | tail -20
+          test "${PIPESTATUS[0]}" -eq 0

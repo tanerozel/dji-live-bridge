@@ -1,0 +1,6 @@
+module RelayCore {
+    header "relay_core.h"
+    link "dji_relay_core"
+    link framework "Security"
+    export *
+}

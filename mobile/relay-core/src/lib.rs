@@ -13,6 +13,9 @@ use std::sync::{Arc, Mutex, OnceLock, RwLock};
 use std::thread::{self, JoinHandle};
 use std::time::{Duration, Instant};
 
+#[cfg(target_vendor = "apple")]
+mod apple_trust;
+pub mod ffi;
 mod preview;
 
 const DEFAULT_BIND_ADDRESS: &str = "0.0.0.0:1935";
@@ -474,8 +477,19 @@ fn raise_thread_priority(nice: i32) {
     unsafe {
         libc::setpriority(libc::PRIO_PROCESS, 0, nice);
     }
-    #[cfg(not(any(target_os = "android", target_os = "linux")))]
+    // Apple systems schedule by quality of service; user-interactive is what the display uses.
+    #[cfg(target_vendor = "apple")]
+    // SAFETY: only changes the calling thread's own QoS class.
+    unsafe {
+        libc::pthread_set_qos_class_self_np(libc::qos_class_t::QOS_CLASS_USER_INTERACTIVE, 0);
+    }
     let _ = nice;
+}
+
+/// Whether RTMPS can be verified without a CA file: Apple systems check the chain themselves
+/// (see `apple_trust`); elsewhere the app passes its system CAs as a file.
+fn platform_trust() -> bool {
+    cfg!(target_vendor = "apple")
 }
 
 fn build_destination(
@@ -511,14 +525,14 @@ fn build_destination(
         return Err("invalid_stream_key".to_owned());
     }
     let tls_ca_file = tls_ca_file.trim();
-    if secure && tls_ca_file.is_empty() {
+    if secure && tls_ca_file.is_empty() && !platform_trust() {
         return Err("missing_ca_bundle".to_owned());
     }
 
     Ok(Destination {
         url: format!("{server_url}/{stream_key}"),
         secure,
-        tls_ca_file: secure.then(|| tls_ca_file.to_owned()),
+        tls_ca_file: (secure && !tls_ca_file.is_empty()).then(|| tls_ca_file.to_owned()),
     })
 }
 
@@ -595,6 +609,8 @@ pub fn clear_destinations() {
 
 fn start_runtime(bind_address: &str, destination: Option<Destination>) -> Result<(), String> {
     stop_server();
+    #[cfg(target_vendor = "apple")]
+    apple_trust::install();
     {
         let mut control_slot = control()
             .lock()
@@ -1027,6 +1043,25 @@ fn unsent_output_bytes(client: &Client) -> usize {
         // SAFETY: TIOCOUTQ (SIOCOUTQ) writes one int: the bytes of the socket's send queue
         // that the peer has not acknowledged yet.
         let result = unsafe { libc::ioctl(client.client_fd, libc::TIOCOUTQ, &mut queued) };
+        if result == 0 && queued > 0 {
+            unsent += queued as usize;
+        }
+    }
+    #[cfg(target_vendor = "apple")]
+    if client.client_fd >= 0 {
+        let mut queued: libc::c_int = 0;
+        let mut length = std::mem::size_of::<libc::c_int>() as libc::socklen_t;
+        // SAFETY: SO_NWRITE writes one int: the bytes in the socket's send buffer, sent or not,
+        // that the peer has not acknowledged yet.
+        let result = unsafe {
+            libc::getsockopt(
+                client.client_fd,
+                libc::SOL_SOCKET,
+                libc::SO_NWRITE,
+                (&mut queued as *mut libc::c_int).cast(),
+                &mut length,
+            )
+        };
         if result == 0 && queued > 0 {
             unsent += queued as usize;
         }
@@ -1535,7 +1570,13 @@ mod tests {
             "/tmp/system-cas.pem"
         )
         .is_ok_and(|destination| destination.secure));
-        assert!(build_destination("rtmps://example.com/live", "target-key-1234", "").is_err());
+        // Apple systems verify with their own trust store instead of a file.
+        let without_file = build_destination("rtmps://example.com/live", "target-key-1234", "");
+        if platform_trust() {
+            assert!(without_file.is_ok_and(|destination| destination.tls_ca_file.is_none()));
+        } else {
+            assert_eq!(without_file.err().as_deref(), Some("missing_ca_bundle"));
+        }
     }
 
     #[test]

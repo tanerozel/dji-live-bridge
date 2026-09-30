@@ -24,6 +24,27 @@ use std::time::{Duration, Instant};
 #[cfg(feature = "tls")]
 const TLS_ACCEPT_TIMEOUT_SECS: u64 = 10;
 
+/// Verifies a TLS server's certificate chain (DER, leaf first, as the server sent it) for
+/// `host` with a trust store OpenSSL cannot read, such as the one iOS keeps to itself.
+#[cfg(feature = "tls")]
+pub type PeerChainVerifier = fn(host: &str, chain: &[Vec<u8>]) -> bool;
+
+#[cfg(feature = "tls")]
+static PEER_CHAIN_VERIFIER: std::sync::OnceLock<PeerChainVerifier> = std::sync::OnceLock::new();
+
+/// Installs the verifier used by client connections that were given no CA file. Without one
+/// they use OpenSSL's default verify paths. Returns false when one was installed already.
+#[cfg(feature = "tls")]
+pub fn set_peer_chain_verifier(verifier: PeerChainVerifier) -> bool {
+    PEER_CHAIN_VERIFIER.set(verifier).is_ok()
+}
+
+/// Whether client connections without a CA file are verified by the installed verifier.
+#[cfg(feature = "tls")]
+pub fn has_peer_chain_verifier() -> bool {
+    PEER_CHAIN_VERIFIER.get().is_some()
+}
+
 enum TransportInner {
     Plain(i32),
     #[cfg(feature = "tls")]
@@ -228,7 +249,13 @@ impl Transport {
         // unwritten bytes are still present at the front, which holds here
         // since Buffer only ever appends after its unread portion.
         ctx.set_mode(SslMode::ACCEPT_MOVING_WRITE_BUFFER);
-        if insecure {
+        // Verified after the handshake, before any RTMP byte (and so the stream key) is sent.
+        let platform_verifier = if insecure || ca_file.is_some() {
+            None
+        } else {
+            PEER_CHAIN_VERIFIER.get().copied()
+        };
+        if insecure || platform_verifier.is_some() {
             // Verification is disabled outright, so don't touch the system
             // verify-path configuration at all: a minimal host without a
             // usable default CA store must still be able to connect.
@@ -268,8 +295,22 @@ impl Transport {
         }
         ssl.set_hostname(host).map_err(|_| ErrorCode::Internal)?;
 
+        let finish = |ssl_stream: SslStream<TcpStream>| match platform_verifier {
+            Some(verify) => {
+                let chain: Vec<Vec<u8>> = ssl_stream
+                    .ssl()
+                    .peer_cert_chain()
+                    .map(|certs| certs.iter().filter_map(|cert| cert.to_der().ok()).collect())
+                    .unwrap_or_default();
+                if chain.is_empty() || !verify(host, &chain) {
+                    return Err(ErrorCode::Handshake);
+                }
+                Transport::new_tls(ssl_stream)
+            }
+            None => Transport::new_tls(ssl_stream),
+        };
         let mut pending = match ssl.connect(stream) {
-            Ok(ssl_stream) => return Transport::new_tls(ssl_stream),
+            Ok(ssl_stream) => return finish(ssl_stream),
             Err(HandshakeError::WouldBlock(mid)) => mid,
             Err(_) => return Err(ErrorCode::Handshake),
         };
@@ -308,7 +349,7 @@ impl Transport {
                 return Err(ErrorCode::Io);
             }
             match pending.handshake() {
-                Ok(ssl_stream) => return Transport::new_tls(ssl_stream),
+                Ok(ssl_stream) => return finish(ssl_stream),
                 Err(HandshakeError::WouldBlock(mid)) => pending = mid,
                 Err(_) => return Err(ErrorCode::Handshake),
             }

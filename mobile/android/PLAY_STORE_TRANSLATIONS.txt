@@ -1,0 +1,659 @@
+=== en-US | English (United States) ===
+
+App name:
+Stream My Drone
+
+Short description:
+Stream DJI Fly video live to multiple RTMP and RTMPS destinations.
+
+Full description:
+Stream your drone footage live—directly from DJI Fly to the platforms you choose.
+
+Stream My Drone turns your Android phone into a local RTMP bridge. It receives the Custom RTMP feed from a compatible DJI controller, displays a live preview, and forwards the same H.264/AAC stream to one or more RTMP or RTMPS destinations.
+
+HOW IT WORKS
+1. Connect your phone and DJI controller to the same trusted Wi-Fi network, or use your phone's hotspot.
+2. Enter the RTMP address shown by the app in DJI Fly.
+3. Add your destination server address and stream key.
+4. Preview the feed, choose your platforms, and tap Go live.
+
+KEY FEATURES
+• Send one live feed to multiple destinations at the same time
+• Profiles for YouTube, Instagram, TikTok, Facebook, Twitch, Kick, and custom RTMP servers
+• Secure RTMPS support with certificate and hostname validation
+• Live preview with resolution, bitrate, codec, packet, and connection details
+• Automatic destination reconnection after temporary network interruptions
+• Test-video mode to check the complete streaming path before flying
+• Continue broadcasting while using another app or locking the screen, subject to Android system limits
+• Interface available in 15 languages
+• Light, dark, midnight blue, sand, and system themes
+
+PRIVACY AND SECURITY
+Stream keys are encrypted on the device using Android Keystore. They are not written to logs, cloud backups, or our servers. Stream My Drone does not run a developer-operated relay server; video is sent from your phone directly to the destinations you configure. RTMP is unencrypted, so use RTMPS whenever your platform supports it.
+
+BEFORE YOU BUY
+• Live drone use requires a compatible DJI controller or app with Custom RTMP publishing
+• Each platform may require account eligibility and may issue a new stream key for each broadcast
+• Upload bandwidth is used separately for every active destination
+• Use only a trusted local network for the DJI-to-phone connection
+• Stream My Drone is a streaming bridge, not a drone flight-control app
+
+One-time purchase. No subscription.
+
+Stream My Drone is an independent product and is not affiliated with, endorsed by, or sponsored by DJI or any listed streaming platform. DJI and the platform names are trademarks of their respective owners.
+
+
+=== es-ES | Español ===
+
+App name:
+Stream My Drone
+
+Short description:
+Transmite vídeo de DJI Fly a varios destinos RTMP y RTMPS.
+
+Full description:
+Transmite en directo las imágenes de tu dron desde DJI Fly a las plataformas que elijas.
+
+Stream My Drone convierte tu teléfono Android en un puente RTMP local. Recibe la señal RTMP personalizada de un controlador DJI compatible, muestra una vista previa en directo y reenvía la misma transmisión H.264/AAC a uno o varios destinos RTMP o RTMPS.
+
+CÓMO FUNCIONA
+1. Conecta el teléfono y el controlador DJI a la misma red Wi-Fi de confianza, o utiliza el punto de acceso del teléfono.
+2. Introduce en DJI Fly la dirección RTMP que muestra la aplicación.
+3. Añade la dirección del servidor de destino y la clave de transmisión.
+4. Previsualiza la señal, elige las plataformas y toca Emitir en directo.
+
+FUNCIONES PRINCIPALES
+• Envía una señal en directo a varios destinos simultáneamente
+• Perfiles para YouTube, Instagram, TikTok, Facebook, Twitch, Kick y servidores RTMP personalizados
+• RTMPS seguro con validación del certificado y del nombre de host
+• Vista previa con resolución, tasa de bits, códec, paquetes y estado de conexión
+• Reconexión automática tras interrupciones temporales de la red
+• Vídeo de prueba para comprobar todo el recorrido antes de volar
+• Emisión en segundo plano o con la pantalla bloqueada, sujeta a los límites de Android
+• Interfaz disponible en 15 idiomas y varios temas
+
+PRIVACIDAD Y SEGURIDAD
+Las claves de transmisión se cifran en el dispositivo mediante Android Keystore. No se guardan en registros, copias de seguridad en la nube ni en nuestros servidores. Stream My Drone no utiliza un servidor de retransmisión operado por el desarrollador: el vídeo se envía directamente desde tu teléfono a los destinos configurados. RTMP no está cifrado; utiliza RTMPS siempre que la plataforma lo admita.
+
+ANTES DE COMPRAR
+• El uso con un dron requiere un controlador o aplicación DJI compatible con la publicación RTMP personalizada
+• Cada plataforma puede exigir una cuenta apta y proporcionar una clave nueva para cada emisión
+• Cada destino activo utiliza su propio ancho de banda de subida
+• Utiliza una red local de confianza para la conexión entre DJI y el teléfono
+• Stream My Drone no controla el vuelo del dron
+
+Compra única. Sin suscripción.
+
+Stream My Drone es un producto independiente y no está afiliado, patrocinado ni respaldado por DJI ni por las plataformas mencionadas. DJI y los nombres de las plataformas son marcas de sus respectivos propietarios.
+
+
+=== zh-CN | 中文（简体） ===
+
+App name:
+Stream My Drone
+
+Short description:
+将 DJI Fly 视频直播到多个 RTMP 和 RTMPS 目标。
+
+Full description:
+将无人机画面从 DJI Fly 直播到您选择的平台。
+
+Stream My Drone 可将 Android 手机变为本地 RTMP 转发桥。它接收兼容 DJI 遥控器发送的自定义 RTMP 视频流，在手机上显示实时预览，并将同一 H.264/AAC 视频流转发到一个或多个 RTMP 或 RTMPS 目标。
+
+使用方法
+1. 将手机和 DJI 遥控器连接到同一个可信 Wi-Fi 网络，或使用手机热点。
+2. 在 DJI Fly 中输入应用显示的 RTMP 地址。
+3. 添加目标服务器地址和推流密钥。
+4. 预览画面、选择平台，然后点按“开始直播”。
+
+主要功能
+• 将一个直播流同时发送到多个目标
+• 支持 YouTube、Instagram、TikTok、Facebook、Twitch、Kick 和自定义 RTMP 服务器配置
+• 安全的 RTMPS，并验证证书链和主机名
+• 显示分辨率、码率、编解码器、数据包和连接状态
+• 网络暂时中断后自动重新连接目标平台
+• 通过测试视频在飞行前检查完整直播路径
+• 可在使用其他应用或锁屏时继续直播，但受 Android 系统限制
+• 提供 15 种界面语言和多种主题
+
+隐私与安全
+推流密钥使用 Android Keystore 在设备上加密，不会写入日志、云备份或我们的服务器。Stream My Drone 不使用开发者运营的中继服务器；视频会从您的手机直接发送到您配置的目标。RTMP 不加密，请在平台支持时优先使用 RTMPS。
+
+购买前须知
+• 无人机直播需要支持自定义 RTMP 推流的兼容 DJI 遥控器或应用
+• 各平台可能要求账号具备直播资格，并可能为每次直播提供新的密钥
+• 每个启用的目标都会单独占用上传带宽
+• DJI 与手机之间请仅使用可信的本地网络
+• Stream My Drone 是直播转发工具，不是无人机飞行控制应用
+
+一次购买，无需订阅。
+
+Stream My Drone 是独立产品，与 DJI 或所列直播平台不存在隶属、认可或赞助关系。DJI 及各平台名称均为其各自所有者的商标。
+
+
+=== zh-TW | 中文（繁體） ===
+
+App name:
+Stream My Drone
+
+Short description:
+將 DJI Fly 影片直播到多個 RTMP 與 RTMPS 目的地。
+
+Full description:
+將無人機畫面從 DJI Fly 直播到您選擇的平台。
+
+Stream My Drone 可將 Android 手機變成本機 RTMP 轉送橋接器。它會接收相容 DJI 遙控器傳送的自訂 RTMP 串流、在手機上顯示即時預覽，並將同一個 H.264/AAC 串流轉送到一個或多個 RTMP 或 RTMPS 目的地。
+
+使用方式
+1. 將手機和 DJI 遙控器連上同一個受信任的 Wi-Fi 網路，或使用手機的行動熱點。
+2. 在 DJI Fly 中輸入應用程式顯示的 RTMP 位址。
+3. 新增目的地伺服器位址和串流金鑰。
+4. 預覽畫面、選擇平台，然後點選「開始直播」。
+
+主要功能
+• 將一個直播串流同時傳送到多個目的地
+• 支援 YouTube、Instagram、TikTok、Facebook、Twitch、Kick 與自訂 RTMP 伺服器設定檔
+• 安全的 RTMPS，並驗證憑證鏈與主機名稱
+• 顯示解析度、位元率、編解碼器、封包與連線狀態
+• 網路暫時中斷後自動重新連線至目的地
+• 使用測試影片在飛行前檢查完整直播流程
+• 使用其他應用程式或鎖定螢幕時可繼續直播，但仍受 Android 系統限制
+• 提供 15 種介面語言與多種佈景主題
+
+隱私權與安全性
+串流金鑰會透過 Android Keystore 在裝置上加密，不會寫入記錄、雲端備份或我們的伺服器。Stream My Drone 不使用由開發者營運的中繼伺服器；影片會直接從您的手機傳送到您設定的目的地。RTMP 未加密，平台支援時請優先使用 RTMPS。
+
+購買前須知
+• 無人機直播需要支援自訂 RTMP 推流的相容 DJI 遙控器或應用程式
+• 各平台可能要求帳號具備直播資格，並可能為每次直播提供新的金鑰
+• 每個啟用的目的地都會個別使用上傳頻寬
+• DJI 與手機之間請僅使用受信任的本機網路
+• Stream My Drone 是直播轉送工具，不是無人機飛行控制應用程式
+
+一次購買，無須訂閱。
+
+Stream My Drone 是獨立產品，與 DJI 或所列直播平台不存在隸屬、認可或贊助關係。DJI 及各平台名稱均為其各自所有者的商標。
+
+
+=== ar | العربية ===
+
+App name:
+Stream My Drone
+
+Short description:
+بث فيديو DJI Fly مباشرة إلى وجهات RTMP وRTMPS متعددة.
+
+Full description:
+انقل لقطات طائرتك المسيّرة مباشرة من DJI Fly إلى المنصات التي تختارها.
+
+يحوّل Stream My Drone هاتف Android إلى جسر RTMP محلي. يستقبل بث RTMP المخصص من وحدة تحكم DJI متوافقة، ويعرض معاينة مباشرة على الهاتف، ثم يعيد توجيه بث H.264/AAC نفسه إلى وجهة واحدة أو عدة وجهات RTMP أو RTMPS.
+
+طريقة الاستخدام
+1. صِل الهاتف ووحدة تحكم DJI بشبكة Wi-Fi موثوقة واحدة، أو استخدم نقطة اتصال الهاتف.
+2. أدخل عنوان RTMP الذي يعرضه التطبيق في DJI Fly.
+3. أضف عنوان خادم الوجهة ومفتاح البث.
+4. عاين الصورة واختر المنصات واضغط على بدء البث المباشر.
+
+الميزات الرئيسية
+• إرسال بث مباشر واحد إلى عدة وجهات في الوقت نفسه
+• ملفات تعريف لـ YouTube وInstagram وTikTok وFacebook وTwitch وKick وخوادم RTMP المخصصة
+• دعم RTMPS الآمن مع التحقق من الشهادة واسم المضيف
+• معاينة مباشرة تعرض الدقة ومعدل البت وبرنامج الترميز والحزم وحالة الاتصال
+• إعادة الاتصال تلقائيًا بعد انقطاعات الشبكة المؤقتة
+• وضع فيديو تجريبي لفحص مسار البث كاملًا قبل الطيران
+• متابعة البث عند استخدام تطبيق آخر أو قفل الشاشة، وفق حدود نظام Android
+• واجهة متوفرة بـ 15 لغة وسمات متعددة
+
+الخصوصية والأمان
+تُشفّر مفاتيح البث على الجهاز باستخدام Android Keystore، ولا تُكتب في السجلات أو النسخ الاحتياطية السحابية أو خوادمنا. لا يستخدم Stream My Drone خادم ترحيل يديره المطور؛ يُرسل الفيديو مباشرة من هاتفك إلى الوجهات التي تضبطها. بروتوكول RTMP غير مشفّر، لذا استخدم RTMPS كلما كانت المنصة تدعمه.
+
+قبل الشراء
+• يتطلب استخدام الطائرة المسيّرة وحدة تحكم أو تطبيق DJI متوافقًا يدعم نشر RTMP المخصص
+• قد تشترط كل منصة أهلية الحساب وقد تصدر مفتاحًا جديدًا لكل بث
+• تستهلك كل وجهة نشطة نطاق رفع مستقلًا
+• استخدم شبكة محلية موثوقة فقط للاتصال بين DJI والهاتف
+• Stream My Drone جسر للبث وليس تطبيقًا للتحكم في طيران الطائرة المسيّرة
+
+عملية شراء لمرة واحدة. لا يوجد اشتراك.
+
+Stream My Drone منتج مستقل وغير تابع لـ DJI أو لأي منصة بث مذكورة، ولا يحظى بتأييدها أو رعايتها. DJI وأسماء المنصات علامات تجارية تخص مالكيها.
+
+
+=== hi-IN | हिन्दी ===
+
+App name:
+Stream My Drone
+
+Short description:
+DJI Fly वीडियो को कई RTMP और RTMPS गंतव्यों पर लाइव स्ट्रीम करें।
+
+Full description:
+अपने ड्रोन की फुटेज को DJI Fly से अपनी पसंद के प्लेटफ़ॉर्म पर लाइव स्ट्रीम करें।
+
+Stream My Drone आपके Android फ़ोन को एक स्थानीय RTMP ब्रिज में बदल देता है। यह संगत DJI कंट्रोलर से Custom RTMP स्ट्रीम प्राप्त करता है, फ़ोन पर लाइव प्रीव्यू दिखाता है और उसी H.264/AAC स्ट्रीम को एक या अधिक RTMP या RTMPS गंतव्यों पर भेजता है।
+
+यह कैसे काम करता है
+1. फ़ोन और DJI कंट्रोलर को एक ही भरोसेमंद Wi-Fi नेटवर्क से जोड़ें या फ़ोन के हॉटस्पॉट का उपयोग करें।
+2. ऐप में दिखाया गया RTMP पता DJI Fly में दर्ज करें।
+3. गंतव्य सर्वर पता और स्ट्रीम कुंजी जोड़ें।
+4. वीडियो का प्रीव्यू देखें, प्लेटफ़ॉर्म चुनें और Go live पर टैप करें।
+
+मुख्य सुविधाएँ
+• एक लाइव स्ट्रीम को एक ही समय में कई गंतव्यों पर भेजें
+• YouTube, Instagram, TikTok, Facebook, Twitch, Kick और कस्टम RTMP सर्वर के लिए प्रोफ़ाइल
+• प्रमाणपत्र और होस्टनाम सत्यापन के साथ सुरक्षित RTMPS
+• रिज़ॉल्यूशन, बिटरेट, कोडेक, पैकेट और कनेक्शन स्थिति वाला लाइव प्रीव्यू
+• अस्थायी नेटवर्क रुकावट के बाद स्वचालित पुनः कनेक्शन
+• उड़ान से पहले पूरे स्ट्रीमिंग मार्ग को जाँचने के लिए टेस्ट वीडियो
+• Android की सीमाओं के अधीन, दूसरे ऐप का उपयोग करते या स्क्रीन लॉक करते समय भी प्रसारण जारी रखें
+• 15 भाषाओं और कई थीम में इंटरफ़ेस
+
+गोपनीयता और सुरक्षा
+स्ट्रीम कुंजियाँ Android Keystore से डिवाइस पर एन्क्रिप्ट होती हैं। वे लॉग, क्लाउड बैकअप या हमारे सर्वर पर नहीं लिखी जातीं। Stream My Drone डेवलपर द्वारा चलाया गया रिले सर्वर उपयोग नहीं करता; वीडियो आपके फ़ोन से सीधे आपके द्वारा चुने गए गंतव्यों पर भेजा जाता है। RTMP एन्क्रिप्टेड नहीं है, इसलिए उपलब्ध होने पर RTMPS का उपयोग करें।
+
+खरीदने से पहले
+• ड्रोन के साथ उपयोग के लिए Custom RTMP प्रकाशन वाला संगत DJI कंट्रोलर या ऐप आवश्यक है
+• प्रत्येक प्लेटफ़ॉर्म खाते की पात्रता माँग सकता है और हर प्रसारण के लिए नई कुंजी दे सकता है
+• प्रत्येक सक्रिय गंतव्य अलग अपलोड बैंडविड्थ उपयोग करता है
+• DJI से फ़ोन कनेक्शन के लिए केवल भरोसेमंद स्थानीय नेटवर्क उपयोग करें
+• Stream My Drone स्ट्रीमिंग ब्रिज है, ड्रोन उड़ान नियंत्रण ऐप नहीं
+
+एक बार खरीदें। कोई सदस्यता नहीं।
+
+Stream My Drone एक स्वतंत्र उत्पाद है और DJI या सूचीबद्ध स्ट्रीमिंग प्लेटफ़ॉर्म से संबद्ध, समर्थित या प्रायोजित नहीं है। DJI और प्लेटफ़ॉर्म के नाम उनके संबंधित स्वामियों के ट्रेडमार्क हैं।
+
+
+=== pt-BR | Português ===
+
+App name:
+Stream My Drone
+
+Short description:
+Transmita vídeo do DJI Fly para vários destinos RTMP e RTMPS.
+
+Full description:
+Transmita as imagens do seu drone ao vivo do DJI Fly para as plataformas que você escolher.
+
+O Stream My Drone transforma seu telefone Android em uma ponte RTMP local. Ele recebe a transmissão RTMP personalizada de um controle DJI compatível, mostra uma prévia ao vivo no telefone e encaminha o mesmo fluxo H.264/AAC para um ou mais destinos RTMP ou RTMPS.
+
+COMO FUNCIONA
+1. Conecte o telefone e o controle DJI à mesma rede Wi-Fi confiável ou use o ponto de acesso do telefone.
+2. Digite no DJI Fly o endereço RTMP exibido pelo aplicativo.
+3. Adicione o endereço do servidor de destino e a chave de transmissão.
+4. Confira a prévia, escolha as plataformas e toque em Iniciar transmissão.
+
+PRINCIPAIS RECURSOS
+• Envie uma transmissão ao vivo para vários destinos ao mesmo tempo
+• Perfis para YouTube, Instagram, TikTok, Facebook, Twitch, Kick e servidores RTMP personalizados
+• RTMPS seguro com validação de certificado e nome do host
+• Prévia ao vivo com resolução, taxa de bits, codec, pacotes e estado da conexão
+• Reconexão automática após interrupções temporárias da rede
+• Vídeo de teste para verificar todo o caminho antes do voo
+• Continue transmitindo ao usar outro aplicativo ou bloquear a tela, sujeito aos limites do Android
+• Interface em 15 idiomas e vários temas
+
+PRIVACIDADE E SEGURANÇA
+As chaves de transmissão são criptografadas no dispositivo com o Android Keystore. Elas não são gravadas em registros, backups na nuvem nem em nossos servidores. O Stream My Drone não usa um servidor de retransmissão operado pelo desenvolvedor; o vídeo é enviado diretamente do telefone aos destinos configurados. RTMP não é criptografado, portanto use RTMPS sempre que a plataforma oferecer suporte.
+
+ANTES DE COMPRAR
+• O uso com drone exige um controle ou aplicativo DJI compatível com publicação RTMP personalizada
+• Cada plataforma pode exigir uma conta qualificada e fornecer uma nova chave para cada transmissão
+• Cada destino ativo utiliza largura de banda de upload separadamente
+• Use apenas uma rede local confiável entre o DJI e o telefone
+• O Stream My Drone é uma ponte de streaming, não um aplicativo de controle de voo
+
+Compra única. Sem assinatura.
+
+O Stream My Drone é um produto independente e não é afiliado, endossado ou patrocinado pela DJI nem pelas plataformas citadas. DJI e os nomes das plataformas são marcas comerciais de seus respectivos proprietários.
+
+
+=== ru-RU | Русский ===
+
+App name:
+Stream My Drone
+
+Short description:
+Транслируйте видео DJI Fly в несколько точек RTMP и RTMPS.
+
+Full description:
+Передавайте видео с дрона прямо из DJI Fly на выбранные платформы.
+
+Stream My Drone превращает Android-телефон в локальный RTMP-мост. Приложение принимает пользовательский RTMP-поток от совместимого пульта DJI, показывает прямой эфир на телефоне и перенаправляет тот же поток H.264/AAC в одну или несколько точек RTMP или RTMPS.
+
+КАК ЭТО РАБОТАЕТ
+1. Подключите телефон и пульт DJI к одной доверенной сети Wi-Fi или используйте точку доступа телефона.
+2. Введите в DJI Fly адрес RTMP, показанный приложением.
+3. Добавьте адрес сервера назначения и ключ трансляции.
+4. Проверьте видео, выберите платформы и нажмите «Начать эфир».
+
+ОСНОВНЫЕ ВОЗМОЖНОСТИ
+• Одновременная передача одного эфира в несколько точек
+• Профили для YouTube, Instagram, TikTok, Facebook, Twitch, Kick и пользовательских RTMP-серверов
+• Защищённый RTMPS с проверкой сертификата и имени хоста
+• Просмотр разрешения, битрейта, кодека, пакетов и состояния подключения
+• Автоматическое переподключение после временных сбоев сети
+• Тестовое видео для проверки всего пути трансляции до полёта
+• Продолжение эфира при использовании другого приложения или блокировке экрана с учётом ограничений Android
+• Интерфейс на 15 языках и несколько тем
+
+КОНФИДЕНЦИАЛЬНОСТЬ И БЕЗОПАСНОСТЬ
+Ключи трансляции шифруются на устройстве с помощью Android Keystore. Они не записываются в журналы, облачные резервные копии или на наши серверы. Stream My Drone не использует сервер ретрансляции разработчика: видео отправляется с телефона прямо в настроенные точки. RTMP не шифруется, поэтому используйте RTMPS, когда платформа его поддерживает.
+
+ПЕРЕД ПОКУПКОЙ
+• Для работы с дроном нужен совместимый пульт или приложение DJI с пользовательской публикацией RTMP
+• Платформа может требовать право на прямые эфиры и выдавать новый ключ для каждой трансляции
+• Каждая активная точка отдельно использует исходящую пропускную способность
+• Для связи DJI с телефоном используйте только доверенную локальную сеть
+• Stream My Drone — мост для трансляции, а не приложение управления полётом
+
+Разовая покупка. Без подписки.
+
+Stream My Drone — независимый продукт, не связанный с DJI или указанными платформами и не одобренный и не спонсируемый ими. DJI и названия платформ являются товарными знаками соответствующих владельцев.
+
+
+=== fr-FR | Français ===
+
+App name:
+Stream My Drone
+
+Short description:
+Diffusez DJI Fly en direct vers plusieurs destinations RTMP et RTMPS.
+
+Full description:
+Diffusez les images de votre drone en direct de DJI Fly vers les plateformes de votre choix.
+
+Stream My Drone transforme votre téléphone Android en passerelle RTMP locale. L'application reçoit le flux RTMP personnalisé d'une radiocommande DJI compatible, affiche un aperçu en direct et transfère le même flux H.264/AAC vers une ou plusieurs destinations RTMP ou RTMPS.
+
+FONCTIONNEMENT
+1. Connectez le téléphone et la radiocommande DJI au même réseau Wi-Fi de confiance, ou utilisez le point d'accès du téléphone.
+2. Saisissez dans DJI Fly l'adresse RTMP affichée par l'application.
+3. Ajoutez l'adresse du serveur de destination et la clé de diffusion.
+4. Vérifiez l'aperçu, choisissez les plateformes et appuyez sur Démarrer le direct.
+
+FONCTIONNALITÉS PRINCIPALES
+• Envoyez un même direct vers plusieurs destinations simultanément
+• Profils pour YouTube, Instagram, TikTok, Facebook, Twitch, Kick et les serveurs RTMP personnalisés
+• RTMPS sécurisé avec validation du certificat et du nom d'hôte
+• Aperçu avec résolution, débit, codec, paquets et état de la connexion
+• Reconnexion automatique après une interruption temporaire du réseau
+• Vidéo de test pour vérifier tout le parcours avant le vol
+• Poursuite de la diffusion pendant l'utilisation d'une autre application ou le verrouillage de l'écran, dans les limites d'Android
+• Interface disponible en 15 langues et plusieurs thèmes
+
+CONFIDENTIALITÉ ET SÉCURITÉ
+Les clés de diffusion sont chiffrées sur l'appareil avec Android Keystore. Elles ne sont enregistrées ni dans les journaux, ni dans les sauvegardes cloud, ni sur nos serveurs. Stream My Drone n'utilise aucun serveur relais exploité par le développeur : la vidéo est envoyée directement du téléphone vers les destinations configurées. RTMP n'est pas chiffré ; utilisez RTMPS lorsque la plateforme le permet.
+
+AVANT L'ACHAT
+• L'utilisation avec un drone nécessite une radiocommande ou une application DJI compatible avec la publication RTMP personnalisée
+• Chaque plateforme peut exiger un compte autorisé et fournir une nouvelle clé à chaque direct
+• Chaque destination active utilise séparément la bande passante montante
+• Utilisez uniquement un réseau local de confiance entre DJI et le téléphone
+• Stream My Drone est une passerelle de diffusion, pas une application de pilotage
+
+Achat unique. Aucun abonnement.
+
+Stream My Drone est un produit indépendant, sans affiliation, approbation ni parrainage de DJI ou des plateformes citées. DJI et les noms des plateformes sont des marques appartenant à leurs propriétaires respectifs.
+
+
+=== de-DE | Deutsch ===
+
+App name:
+Stream My Drone
+
+Short description:
+DJI Fly live an mehrere RTMP- und RTMPS-Ziele streamen.
+
+Full description:
+Streame die Aufnahmen deiner Drohne direkt aus DJI Fly zu den gewünschten Plattformen.
+
+Stream My Drone macht dein Android-Smartphone zu einer lokalen RTMP-Bridge. Die App empfängt den benutzerdefinierten RTMP-Stream einer kompatiblen DJI-Fernsteuerung, zeigt eine Live-Vorschau und leitet denselben H.264/AAC-Stream an ein oder mehrere RTMP- oder RTMPS-Ziele weiter.
+
+SO FUNKTIONIERT ES
+1. Verbinde Smartphone und DJI-Fernsteuerung mit demselben vertrauenswürdigen WLAN oder nutze den Hotspot des Smartphones.
+2. Gib die in der App angezeigte RTMP-Adresse in DJI Fly ein.
+3. Füge die Zielserver-Adresse und den Stream-Schlüssel hinzu.
+4. Prüfe die Vorschau, wähle die Plattformen und tippe auf Live starten.
+
+WICHTIGE FUNKTIONEN
+• Einen Live-Stream gleichzeitig an mehrere Ziele senden
+• Profile für YouTube, Instagram, TikTok, Facebook, Twitch, Kick und eigene RTMP-Server
+• Sicheres RTMPS mit Zertifikats- und Hostnamenprüfung
+• Live-Vorschau mit Auflösung, Bitrate, Codec, Paketen und Verbindungsstatus
+• Automatische Neuverbindung nach vorübergehenden Netzwerkunterbrechungen
+• Testvideo zum Prüfen des vollständigen Streamingwegs vor dem Flug
+• Übertragung bei Nutzung einer anderen App oder gesperrtem Bildschirm im Rahmen der Android-Systemgrenzen fortsetzen
+• Benutzeroberfläche in 15 Sprachen und mehrere Designs
+
+DATENSCHUTZ UND SICHERHEIT
+Stream-Schlüssel werden mit dem Android Keystore auf dem Gerät verschlüsselt. Sie werden weder in Protokolle noch in Cloud-Backups oder auf unsere Server geschrieben. Stream My Drone verwendet keinen vom Entwickler betriebenen Relay-Server; das Video wird direkt vom Smartphone an die eingerichteten Ziele gesendet. RTMP ist unverschlüsselt. Verwende RTMPS, wenn die Plattform es unterstützt.
+
+VOR DEM KAUF
+• Für den Drohnenbetrieb ist eine kompatible DJI-Fernsteuerung oder App mit benutzerdefinierter RTMP-Ausgabe erforderlich
+• Plattformen können eine Livestream-Berechtigung verlangen und für jede Übertragung einen neuen Schlüssel ausgeben
+• Jedes aktive Ziel benötigt eigene Upload-Bandbreite
+• Nutze für die Verbindung zwischen DJI und Smartphone nur ein vertrauenswürdiges lokales Netzwerk
+• Stream My Drone ist eine Streaming-Bridge und keine Flugsteuerungs-App
+
+Einmaliger Kauf. Kein Abonnement.
+
+Stream My Drone ist ein unabhängiges Produkt und steht in keiner Verbindung zu DJI oder den genannten Streaming-Plattformen und wird von ihnen weder unterstützt noch gesponsert. DJI und die Plattformnamen sind Marken ihrer jeweiligen Eigentümer.
+
+
+=== ja-JP | 日本語 ===
+
+App name:
+Stream My Drone
+
+Short description:
+DJI Flyの映像を複数のRTMP／RTMPS配信先へライブ配信。
+
+Full description:
+DJI Flyから、選択したプラットフォームへドローン映像をライブ配信できます。
+
+Stream My Droneは、AndroidスマートフォンをローカルRTMPブリッジに変えるアプリです。対応するDJIコントローラーからカスタムRTMPストリームを受信し、スマートフォンにライブプレビューを表示しながら、同じH.264/AACストリームを1つ以上のRTMPまたはRTMPS配信先へ転送します。
+
+使い方
+1. スマートフォンとDJIコントローラーを同じ信頼できるWi-Fiに接続するか、スマートフォンのテザリングを使用します。
+2. アプリに表示されたRTMPアドレスをDJI Flyに入力します。
+3. 配信先サーバーのアドレスとストリームキーを追加します。
+4. 映像を確認し、プラットフォームを選択して「ライブ開始」をタップします。
+
+主な機能
+• 1つのライブ映像を複数の配信先へ同時送信
+• YouTube、Instagram、TikTok、Facebook、Twitch、Kick、カスタムRTMPサーバーのプロファイル
+• 証明書とホスト名を検証する安全なRTMPS
+• 解像度、ビットレート、コーデック、パケット、接続状態を確認できるライブプレビュー
+• 一時的なネットワーク切断後の自動再接続
+• 飛行前に配信経路全体を確認できるテスト動画モード
+• Androidのシステム制限内で、他のアプリ使用中や画面ロック中も配信を継続
+• 15言語のインターフェースと複数のテーマ
+
+プライバシーとセキュリティ
+ストリームキーはAndroid Keystoreを使用して端末上で暗号化され、ログ、クラウドバックアップ、当社のサーバーには保存されません。Stream My Droneは開発者運営の中継サーバーを使用せず、映像はスマートフォンから設定した配信先へ直接送信されます。RTMPは暗号化されないため、対応している場合はRTMPSを使用してください。
+
+購入前に
+• ドローンでの利用には、カスタムRTMP配信に対応するDJIコントローラーまたはアプリが必要です
+• 各プラットフォームでライブ配信資格が必要な場合や、配信ごとに新しいキーが発行される場合があります
+• 有効な配信先ごとにアップロード帯域を使用します
+• DJIとスマートフォンの接続には信頼できるローカルネットワークのみを使用してください
+• Stream My Droneは配信ブリッジであり、ドローン操縦アプリではありません
+
+買い切り。サブスクリプションなし。
+
+Stream My Droneは独立した製品であり、DJIおよび記載された配信プラットフォームとの提携、承認、スポンサー関係はありません。DJIおよび各プラットフォーム名は、それぞれの所有者の商標です。
+
+
+=== ko-KR | 한국어 ===
+
+App name:
+Stream My Drone
+
+Short description:
+DJI Fly 영상을 여러 RTMP 및 RTMPS 대상으로 실시간 송출하세요.
+
+Full description:
+DJI Fly의 드론 영상을 원하는 플랫폼으로 실시간 송출하세요.
+
+Stream My Drone은 Android 휴대전화를 로컬 RTMP 브리지로 바꿔 줍니다. 호환되는 DJI 조종기의 사용자 지정 RTMP 스트림을 수신하고 휴대전화에 실시간 미리보기를 표시한 뒤, 동일한 H.264/AAC 스트림을 하나 이상의 RTMP 또는 RTMPS 대상으로 전달합니다.
+
+사용 방법
+1. 휴대전화와 DJI 조종기를 동일한 신뢰할 수 있는 Wi-Fi에 연결하거나 휴대전화 핫스팟을 사용합니다.
+2. 앱에 표시된 RTMP 주소를 DJI Fly에 입력합니다.
+3. 대상 서버 주소와 스트림 키를 추가합니다.
+4. 영상을 미리 확인하고 플랫폼을 선택한 다음 라이브 시작을 누릅니다.
+
+주요 기능
+• 하나의 라이브 스트림을 여러 대상으로 동시에 전송
+• YouTube, Instagram, TikTok, Facebook, Twitch, Kick 및 사용자 지정 RTMP 서버 프로필
+• 인증서와 호스트 이름을 확인하는 안전한 RTMPS
+• 해상도, 비트 전송률, 코덱, 패킷 및 연결 상태를 보여 주는 실시간 미리보기
+• 일시적인 네트워크 중단 후 자동 재연결
+• 비행 전에 전체 스트리밍 경로를 확인하는 테스트 동영상 모드
+• Android 시스템 제한 내에서 다른 앱을 사용하거나 화면을 잠가도 송출 계속
+• 15개 언어의 인터페이스와 여러 테마
+
+개인정보 보호 및 보안
+스트림 키는 Android Keystore를 사용해 기기에서 암호화되며 로그, 클라우드 백업 또는 당사 서버에 저장되지 않습니다. Stream My Drone은 개발자가 운영하는 중계 서버를 사용하지 않습니다. 영상은 휴대전화에서 설정한 대상으로 직접 전송됩니다. RTMP는 암호화되지 않으므로 플랫폼에서 지원하는 경우 RTMPS를 사용하세요.
+
+구매 전 확인 사항
+• 드론과 함께 사용하려면 사용자 지정 RTMP 송출을 지원하는 호환 DJI 조종기 또는 앱이 필요합니다
+• 플랫폼에 따라 라이브 권한이 필요하거나 방송마다 새 스트림 키가 발급될 수 있습니다
+• 활성화된 대상마다 별도의 업로드 대역폭을 사용합니다
+• DJI와 휴대전화 연결에는 신뢰할 수 있는 로컬 네트워크만 사용하세요
+• Stream My Drone은 스트리밍 브리지이며 드론 비행 제어 앱이 아닙니다
+
+일회성 구매. 구독 없음.
+
+Stream My Drone은 독립 제품이며 DJI 또는 명시된 스트리밍 플랫폼과 제휴하거나 이들의 승인 또는 후원을 받지 않습니다. DJI 및 플랫폼 이름은 각 소유자의 상표입니다.
+
+
+=== id-ID | Bahasa Indonesia ===
+
+App name:
+Stream My Drone
+
+Short description:
+Streaming video DJI Fly ke beberapa tujuan RTMP dan RTMPS.
+
+Full description:
+Streaming rekaman drone secara langsung dari DJI Fly ke platform pilihan Anda.
+
+Stream My Drone mengubah ponsel Android menjadi jembatan RTMP lokal. Aplikasi menerima streaming RTMP khusus dari pengendali DJI yang kompatibel, menampilkan pratinjau langsung di ponsel, lalu meneruskan streaming H.264/AAC yang sama ke satu atau beberapa tujuan RTMP atau RTMPS.
+
+CARA KERJA
+1. Hubungkan ponsel dan pengendali DJI ke jaringan Wi-Fi tepercaya yang sama, atau gunakan hotspot ponsel.
+2. Masukkan alamat RTMP yang ditampilkan aplikasi ke DJI Fly.
+3. Tambahkan alamat server tujuan dan kunci streaming.
+4. Periksa pratinjau, pilih platform, lalu ketuk Mulai live.
+
+FITUR UTAMA
+• Kirim satu streaming langsung ke beberapa tujuan secara bersamaan
+• Profil untuk YouTube, Instagram, TikTok, Facebook, Twitch, Kick, dan server RTMP khusus
+• RTMPS aman dengan validasi sertifikat dan nama host
+• Pratinjau langsung dengan resolusi, bitrate, codec, paket, dan status koneksi
+• Tersambung kembali secara otomatis setelah gangguan jaringan sementara
+• Mode video uji untuk memeriksa seluruh jalur streaming sebelum terbang
+• Teruskan siaran saat memakai aplikasi lain atau mengunci layar, sesuai batas sistem Android
+• Antarmuka dalam 15 bahasa dan beberapa tema
+
+PRIVASI DAN KEAMANAN
+Kunci streaming dienkripsi di perangkat menggunakan Android Keystore. Kunci tidak ditulis ke log, cadangan cloud, atau server kami. Stream My Drone tidak menggunakan server relai yang dioperasikan pengembang; video dikirim langsung dari ponsel ke tujuan yang Anda atur. RTMP tidak terenkripsi, jadi gunakan RTMPS jika didukung platform.
+
+SEBELUM MEMBELI
+• Penggunaan dengan drone memerlukan pengendali atau aplikasi DJI kompatibel yang mendukung publikasi RTMP khusus
+• Setiap platform mungkin mensyaratkan kelayakan akun dan memberikan kunci baru untuk setiap siaran
+• Setiap tujuan aktif menggunakan bandwidth upload secara terpisah
+• Gunakan hanya jaringan lokal tepercaya untuk koneksi antara DJI dan ponsel
+• Stream My Drone adalah jembatan streaming, bukan aplikasi kendali terbang drone
+
+Pembelian satu kali. Tanpa langganan.
+
+Stream My Drone adalah produk independen dan tidak berafiliasi, didukung, atau disponsori oleh DJI maupun platform streaming yang disebutkan. DJI dan nama platform adalah merek dagang milik pemiliknya masing-masing.
+
+
+=== it-IT | Italiano ===
+
+App name:
+Stream My Drone
+
+Short description:
+Trasmetti DJI Fly in diretta verso più destinazioni RTMP e RTMPS.
+
+Full description:
+Trasmetti in diretta le riprese del drone da DJI Fly alle piattaforme che preferisci.
+
+Stream My Drone trasforma il tuo telefono Android in un bridge RTMP locale. Riceve il flusso RTMP personalizzato da un radiocomando DJI compatibile, mostra un'anteprima in diretta sul telefono e inoltra lo stesso flusso H.264/AAC a una o più destinazioni RTMP o RTMPS.
+
+COME FUNZIONA
+1. Collega il telefono e il radiocomando DJI alla stessa rete Wi-Fi attendibile oppure usa l'hotspot del telefono.
+2. Inserisci in DJI Fly l'indirizzo RTMP mostrato dall'app.
+3. Aggiungi l'indirizzo del server di destinazione e la chiave stream.
+4. Controlla l'anteprima, scegli le piattaforme e tocca Avvia diretta.
+
+FUNZIONI PRINCIPALI
+• Invia un unico flusso in diretta a più destinazioni contemporaneamente
+• Profili per YouTube, Instagram, TikTok, Facebook, Twitch, Kick e server RTMP personalizzati
+• RTMPS sicuro con convalida del certificato e del nome host
+• Anteprima con risoluzione, bitrate, codec, pacchetti e stato della connessione
+• Riconnessione automatica dopo interruzioni temporanee della rete
+• Video di prova per verificare l'intero percorso prima del volo
+• Continua a trasmettere mentre usi un'altra app o blocchi lo schermo, entro i limiti di Android
+• Interfaccia in 15 lingue e diversi temi
+
+PRIVACY E SICUREZZA
+Le chiavi stream vengono crittografate sul dispositivo tramite Android Keystore. Non vengono scritte nei log, nei backup cloud o sui nostri server. Stream My Drone non utilizza un server relay gestito dallo sviluppatore: il video viene inviato direttamente dal telefono alle destinazioni configurate. RTMP non è crittografato; usa RTMPS quando la piattaforma lo supporta.
+
+PRIMA DELL'ACQUISTO
+• L'uso con il drone richiede un radiocomando o un'app DJI compatibile con la pubblicazione RTMP personalizzata
+• Ogni piattaforma può richiedere l'idoneità dell'account e fornire una nuova chiave per ogni diretta
+• Ogni destinazione attiva utilizza separatamente la banda in upload
+• Usa solo una rete locale attendibile tra DJI e il telefono
+• Stream My Drone è un bridge di streaming, non un'app di controllo del volo
+
+Acquisto una tantum. Nessun abbonamento.
+
+Stream My Drone è un prodotto indipendente e non è affiliato, approvato o sponsorizzato da DJI o dalle piattaforme citate. DJI e i nomi delle piattaforme sono marchi dei rispettivi proprietari.
+
+
+=== tr-TR | Türkçe ===
+
+App name:
+Stream My Drone
+
+Short description:
+DJI Fly görüntüsünü birden fazla RTMP ve RTMPS hedefine canlı yayınlayın.
+
+Full description:
+Drone görüntünüzü DJI Fly'dan seçtiğiniz platformlara canlı yayınlayın.
+
+Stream My Drone, Android telefonunuzu yerel bir RTMP köprüsüne dönüştürür. Uyumlu bir DJI kumandasından Özel RTMP akışını alır, telefonda canlı önizleme gösterir ve aynı H.264/AAC akışını bir veya daha fazla RTMP ya da RTMPS hedefine iletir.
+
+NASIL ÇALIŞIR?
+1. Telefonu ve DJI kumandasını aynı güvenilir Wi-Fi ağına bağlayın veya telefonun erişim noktasını kullanın.
+2. Uygulamanın gösterdiği RTMP adresini DJI Fly'a girin.
+3. Hedef sunucu adresini ve yayın anahtarını ekleyin.
+4. Görüntüyü önizleyin, platformları seçin ve Canlı yayına başla düğmesine dokunun.
+
+TEMEL ÖZELLİKLER
+• Tek bir canlı akışı aynı anda birden fazla hedefe gönderme
+• YouTube, Instagram, TikTok, Facebook, Twitch, Kick ve özel RTMP sunucuları için profiller
+• Sertifika ve ana bilgisayar adı doğrulamalı güvenli RTMPS
+• Çözünürlük, bit hızı, codec, paket ve bağlantı bilgileri içeren canlı önizleme
+• Geçici ağ kesintilerinden sonra otomatik yeniden bağlanma
+• Uçuştan önce tüm yayın yolunu kontrol etmek için test videosu modu
+• Android sistem sınırları dahilinde başka bir uygulama kullanırken veya ekran kilitliyken yayına devam etme
+• 15 dilde arayüz ve farklı temalar
+
+GİZLİLİK VE GÜVENLİK
+Yayın anahtarları Android Keystore kullanılarak cihazda şifrelenir. Günlüklere, bulut yedeklerine veya sunucularımıza yazılmaz. Stream My Drone, geliştirici tarafından işletilen bir aktarma sunucusu kullanmaz; video telefonunuzdan doğrudan yapılandırdığınız hedeflere gönderilir. RTMP şifreli değildir; platform destekliyorsa RTMPS kullanın.
+
+SATIN ALMADAN ÖNCE
+• Drone ile kullanım için Özel RTMP yayını destekleyen uyumlu bir DJI kumandası veya uygulaması gerekir
+• Her platform hesap uygunluğu isteyebilir ve her yayın için yeni bir anahtar verebilir
+• Her etkin hedef ayrı yükleme bant genişliği kullanır
+• DJI ile telefon arasındaki bağlantıda yalnızca güvenilir bir yerel ağ kullanın
+• Stream My Drone bir yayın köprüsüdür; drone uçuş kontrol uygulaması değildir
+
+Tek seferlik satın alma. Abonelik yoktur.
+
+Stream My Drone bağımsız bir üründür; DJI veya adı geçen yayın platformlarıyla bağlantılı değildir ve bu kuruluşlar tarafından desteklenmez ya da sponsor olunmaz. DJI ve platform adları ilgili sahiplerinin ticari markalarıdır.

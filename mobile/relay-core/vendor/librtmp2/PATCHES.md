@@ -12,3 +12,13 @@ The local patch in `src/session/conn.rs` permits an empty publish name only when
 embedding server installed an authorization callback. The app callback then accepts only
 the exact `(app="drone", stream_name="")` route. Empty names remain rejected for servers
 without an authorization callback.
+
+## Platform certificate verification (iOS)
+
+iOS keeps its trust store to itself, so OpenSSL has no CA file to verify RTMPS servers with.
+`transport::set_peer_chain_verifier` installs a function that receives the chain the server
+sent (DER, leaf first) and the host name. A client connection given no CA file then lets OpenSSL
+finish the handshake without its own verification and calls that function before returning the
+transport; a chain it rejects fails the connect with `ErrorCode::Handshake`, before any RTMP
+byte is sent. The relay installs a verifier on Apple systems only (`SecTrustEvaluateWithError`
+with an SSL policy for the host name). A CA file, `insecure` and servers are unaffected.

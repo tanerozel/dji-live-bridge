@@ -21,4 +21,6 @@
 /mobile/android/*.iml
 /mobile/relay-core/target
 /marketing/launch-kit/*.md
-marketing/launch-kit/*.png
+/marketing/launch-kit/*.png
+/marketing/launch-kit/*.jpg
+mobile/android/store-assets/*
