@@ -90,7 +90,7 @@
 "key_changes_each_stream" = "Serve una chiave nuova per ogni diretta";
 "key_help_custom" = "Incolla l'indirizzo RTMP o RTMPS e la chiave di streaming forniti dal tuo server.";
 "key_help_facebook" = "Su facebook.com apri Video in diretta → Software di streaming e copia la “Chiave per lo streaming”. Se non hai attivato una chiave permanente, Facebook ne genera una nuova a ogni diretta.";
-"key_help_instagram" = "Su instagram.com apri Crea (+) → Video in diretta e copia la chiave di streaming. Instagram genera una chiave nuova a ogni diretta.";
+"key_help_instagram" = "Su instagram.com apri Crea (+) → Video in diretta e copia l'URL di streaming e la chiave di streaming. Instagram genera una chiave nuova a ogni diretta.";
 "key_help_kick" = "Su Kick apri Creator Dashboard → Settings → Stream URL & Key e copia la chiave. Se lì compare uno Stream URL diverso, inseriscilo al posto dell'indirizzo del server.";
 "key_help_tiktok" = "In TikTok LIVE Center apri la schermata della chiave di streaming e copia l'URL del server e la chiave. Il tuo account deve avere l'accesso RTMP; TikTok genera una chiave nuova a ogni diretta.";
 "key_help_twitch" = "Nella Dashboard autore di Twitch apri Impostazioni → Stream e copia il “Codice streaming principale”.";

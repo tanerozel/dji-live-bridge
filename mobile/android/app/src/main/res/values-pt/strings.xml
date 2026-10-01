@@ -57,7 +57,7 @@
     <string name="on_twitch">na Twitch</string>
     <string name="on_kick">na Kick</string>
     <string name="on_custom">no seu servidor RTMP</string>
-    <string name="key_help_instagram">No instagram.com, abra Criar (+) → Vídeo ao vivo e copie a “Chave de transmissão”. O Instagram gera uma chave nova a cada transmissão.</string>
+    <string name="key_help_instagram">No instagram.com, abra Criar (+) → Vídeo ao vivo e copie a “URL de transmissão” e a “Chave de transmissão”. O Instagram gera uma chave nova a cada transmissão.</string>
     <string name="key_help_tiktok">No TikTok LIVE Center, abra a tela da chave de transmissão e copie a URL do servidor e a chave. Sua conta precisa de acesso RTMP; o TikTok gera uma chave nova a cada transmissão.</string>
     <string name="key_help_youtube">No YouTube Studio, abra Criar → Transmitir ao vivo → Software de transmissão e copie a “Chave de transmissão”. A chave não muda até você redefini-la.</string>
     <string name="key_help_facebook">No facebook.com, abra Vídeo ao vivo → Software de transmissão e copie a “Chave de transmissão”. A menos que você tenha ativado uma chave persistente, o Facebook gera uma nova a cada transmissão.</string>

@@ -90,7 +90,7 @@
 "key_changes_each_stream" = "يلزم مفتاح جديد لكل بث";
 "key_help_custom" = "الصق عنوان RTMP أو RTMPS ومفتاح البث اللذين يوفّرهما خادمك.";
 "key_help_facebook" = "على facebook.com، افتح فيديو مباشر ← برنامج البث وانسخ «مفتاح البث». يمنح Facebook مفتاحًا جديدًا لكل بث ما لم تفعّل مفتاحًا دائمًا.";
-"key_help_instagram" = "في instagram.com، افتح إنشاء (+) ← فيديو مباشر وانسخ «مفتاح البث». يمنح Instagram مفتاحًا جديدًا لكل بث.";
+"key_help_instagram" = "في instagram.com، افتح إنشاء (+) ← فيديو مباشر وانسخ «عنوان URL للبث» و«مفتاح البث». يمنح Instagram مفتاحًا جديدًا لكل بث.";
 "key_help_kick" = "في Kick، افتح Creator Dashboard → Settings → Stream URL & Key وانسخ المفتاح. إذا ظهر لك Stream URL مختلف، فاستخدمه بدلًا من عنوان الخادم الحالي.";
 "key_help_tiktok" = "في TikTok LIVE Center، افتح شاشة مفتاح البث وانسخ عنوان الخادم ومفتاح البث. يحتاج حسابك إلى صلاحية RTMP؛ ويمنح TikTok مفتاحًا جديدًا لكل بث.";
 "key_help_twitch" = "في لوحة تحكم صانع المحتوى على Twitch، افتح الإعدادات ← البث وانسخ مفتاح البث الأساسي.";

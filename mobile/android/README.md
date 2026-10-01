@@ -70,12 +70,12 @@ again from the settings button.
 The platforms are Instagram, TikTok, YouTube, Facebook, Twitch, Kick and a custom RTMP server,
 drawn as the desktop app's brand tiles. Switching on a platform without a stream key opens a
 key-only screen whose server address is prefilled with the platform's published ingest; TikTok and
-custom servers hand out their own address, so they ask for it. The prefilled address can still be
+custom servers hand out their own address, so they ask for it. Instagram does too: Live Producer
+shows a regional `rtmps://edgetee-upload-<region>.xx.fbcdn.net:443/rtmp/` host (for example `ist1-2`). The prefilled address can still be
 changed:
 
 | Platform | Default server address |
 | --- | --- |
-| Instagram | `rtmps://live-upload.instagram.com:443/rtmp` |
 | YouTube | `rtmps://a.rtmps.youtube.com/live2` |
 | Facebook | `rtmps://live-api-s.facebook.com:443/rtmp` |
 | Twitch | `rtmp://live.twitch.tv/app` |

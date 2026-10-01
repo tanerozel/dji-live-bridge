@@ -57,7 +57,7 @@
     <string name="on_twitch">Twitch\'te</string>
     <string name="on_kick">Kick\'te</string>
     <string name="on_custom">özel sunucunda</string>
-    <string name="key_help_instagram">instagram.com\'da Oluştur (+) → Canlı video\'yu aç ve “Yayın anahtarı”nı kopyala. Instagram her yayında yeni bir anahtar verir.</string>
+    <string name="key_help_instagram">instagram.com\'da Oluştur (+) → Canlı video\'yu aç; “Yayın URL\'si”ni ve “Yayın anahtarı”nı kopyala. Instagram her yayında yeni bir anahtar verir.</string>
     <string name="key_help_tiktok">TikTok LIVE Center\'da yayın anahtarı ekranını aç; Sunucu URL\'sini ve Yayın anahtarını kopyala. Hesabının RTMP erişimi olmalı; TikTok her yayında yeni anahtar verir.</string>
     <string name="key_help_youtube">YouTube Studio\'da Oluştur → Canlı yayına geç → Yayın yazılımı bölümünden “Yayın anahtarı”nı kopyala. Anahtar, sen sıfırlayana kadar aynı kalır.</string>
     <string name="key_help_facebook">facebook.com\'da Canlı video → Yayın yazılımı bölümünden “Yayın anahtarı”nı kopyala. Kalıcı anahtarı açmadıysan Facebook her yayında yenisini verir.</string>

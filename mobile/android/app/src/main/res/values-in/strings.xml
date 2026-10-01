@@ -57,7 +57,7 @@
     <string name="on_twitch">di Twitch</string>
     <string name="on_kick">di Kick</string>
     <string name="on_custom">di server khusus Anda</string>
-    <string name="key_help_instagram">Di instagram.com, buka Buat (+) → Video live lalu salin “Stream key”. Instagram memberi kunci baru untuk setiap siaran.</string>
+    <string name="key_help_instagram">Di instagram.com, buka Buat (+) → Video live lalu salin “Stream URL” dan “Stream key”. Instagram memberi kunci baru untuk setiap siaran.</string>
     <string name="key_help_tiktok">Di TikTok LIVE Center, buka layar stream key lalu salin “Server URL” dan “Stream key”. Akun Anda perlu akses RTMP; TikTok memberi kunci baru untuk setiap siaran.</string>
     <string name="key_help_youtube">Di YouTube Studio, buka Buat → Mulai siaran langsung → Perangkat lunak streaming lalu salin “Kunci streaming”. Kunci ini tetap sama sampai Anda meresetnya.</string>
     <string name="key_help_facebook">Di facebook.com, buka Video langsung → Perangkat lunak streaming lalu salin “Kunci streaming”. Kecuali Anda mengaktifkan kunci permanen, Facebook memberi kunci baru untuk setiap siaran.</string>

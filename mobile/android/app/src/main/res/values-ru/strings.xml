@@ -57,7 +57,7 @@
     <string name="on_twitch">на Twitch</string>
     <string name="on_kick">на Kick</string>
     <string name="on_custom">на вашем сервере</string>
-    <string name="key_help_instagram">На instagram.com откройте Создать (+) → Прямой эфир и скопируйте «Ключ трансляции». Instagram выдаёт новый ключ для каждого эфира.</string>
+    <string name="key_help_instagram">На instagram.com откройте Создать (+) → Прямой эфир и скопируйте «URL трансляции» и «Ключ трансляции». Instagram выдаёт новый ключ для каждого эфира.</string>
     <string name="key_help_tiktok">В TikTok LIVE Center откройте экран ключа трансляции и скопируйте адрес сервера и ключ трансляции. Вашему аккаунту нужен доступ к RTMP; TikTok выдаёт новый ключ для каждого эфира.</string>
     <string name="key_help_youtube">В Творческой студии YouTube откройте Создать → Начать трансляцию → ПО для трансляций и скопируйте «Ключ трансляции». Ключ не меняется, пока вы его не сбросите.</string>
     <string name="key_help_facebook">На facebook.com откройте Прямой эфир → ПО для трансляций и скопируйте «Ключ трансляции». Если вы не включили постоянный ключ, Facebook выдаёт новый для каждого эфира.</string>

@@ -19,7 +19,12 @@ extension DestinationKind {
     var keyHelpKey: String { "key_help_\(rawValue)" }
 
     var serverPlaceholder: String {
-        defaultServerUrl ?? (self == .tiktok ? "rtmp://push-rtmp-….tiktokcdn.com/game" : tr("server_placeholder"))
+        if let defaultServerUrl { return defaultServerUrl }
+        switch self {
+        case .instagram: return "rtmps://edgetee-upload-….fbcdn.net:443/rtmp"
+        case .tiktok: return "rtmp://push-rtmp-….tiktokcdn.com/game"
+        default: return tr("server_placeholder")
+        }
     }
 
     /// What to do on the platform once the stream arrives there.

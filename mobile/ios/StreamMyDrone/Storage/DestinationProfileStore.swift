@@ -25,12 +25,11 @@ enum DestinationKind: String, CaseIterable, Identifiable {
 
     var defaultServerUrl: String? {
         switch self {
-        case .instagram: "rtmps://live-upload.instagram.com:443/rtmp"
         case .youtube: "rtmps://a.rtmps.youtube.com/live2"
         case .facebook: "rtmps://live-api-s.facebook.com:443/rtmp"
         case .twitch: "rtmp://live.twitch.tv/app"
         case .kick: "rtmps://fa723fc1b171.global-contribute.live-video.net:443/app"
-        case .tiktok, .custom: nil
+        case .instagram, .tiktok, .custom: nil
         }
     }
 

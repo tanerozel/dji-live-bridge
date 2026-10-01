@@ -90,7 +90,7 @@
 "key_changes_each_stream" = "방송마다 새 키가 필요합니다";
 "key_help_custom" = "서버에서 받은 RTMP 또는 RTMPS 주소와 스트림 키를 붙여넣으세요.";
 "key_help_facebook" = "facebook.com에서 라이브 동영상 → 스트리밍 소프트웨어를 열고 “스트림 키”를 복사하세요. 고정 키를 켜지 않았다면 Facebook은 방송할 때마다 새 키를 발급합니다.";
-"key_help_instagram" = "instagram.com에서 만들기(+) → 라이브 방송을 열고 “스트림 키”를 복사하세요. Instagram은 방송할 때마다 새 키를 발급합니다.";
+"key_help_instagram" = "instagram.com에서 만들기(+) → 라이브 방송을 열고 “스트림 URL”과 “스트림 키”를 복사하세요. Instagram은 방송할 때마다 새 키를 발급합니다.";
 "key_help_kick" = "Kick에서 Creator Dashboard → Settings → Stream URL & Key를 열고 키를 복사하세요. 다른 Stream URL이 표시되면 서버 주소를 그 URL로 바꾸세요.";
 "key_help_tiktok" = "TikTok LIVE Center에서 스트림 키 화면을 열고 서버 URL과 스트림 키를 복사하세요. 계정에 RTMP 권한이 필요하며, TikTok은 방송할 때마다 새 키를 발급합니다.";
 "key_help_twitch" = "Twitch 크리에이터 대시보드에서 설정 → 방송을 열고 기본 스트림 키를 복사하세요.";

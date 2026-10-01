@@ -125,6 +125,7 @@ internal val DestinationKind.keyHelp: Int
 
 @Composable
 internal fun DestinationKind.serverPlaceholder(): String = defaultServerUrl ?: when (this) {
+    DestinationKind.INSTAGRAM -> "rtmps://edgetee-upload-….fbcdn.net:443/rtmp"
     DestinationKind.TIKTOK -> "rtmp://push-rtmp-….tiktokcdn.com/game"
     else -> stringResource(R.string.server_placeholder)
 }

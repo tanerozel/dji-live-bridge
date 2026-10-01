@@ -57,7 +57,7 @@
     <string name="on_twitch">en Twitch</string>
     <string name="on_kick">en Kick</string>
     <string name="on_custom">en tu servidor propio</string>
-    <string name="key_help_instagram">En instagram.com, abre Crear (+) → Vídeo en directo y copia la «Clave de transmisión». Instagram genera una clave nueva en cada directo.</string>
+    <string name="key_help_instagram">En instagram.com, abre Crear (+) → Vídeo en directo y copia la «URL de transmisión» y la «Clave de transmisión». Instagram genera una clave nueva en cada directo.</string>
     <string name="key_help_tiktok">En TikTok LIVE Center, abre la pantalla de la clave de transmisión y copia la URL del servidor y la clave. Tu cuenta necesita acceso RTMP; TikTok genera una clave nueva en cada directo.</string>
     <string name="key_help_youtube">En YouTube Studio, abre Crear → Emitir en directo → Software de emisión y copia la «Clave de emisión». La clave no cambia hasta que la restablezcas.</string>
     <string name="key_help_facebook">En facebook.com, abre Vídeo en directo → Software de transmisión y copia la «Clave de streaming». Salvo que hayas activado una clave permanente, Facebook genera una nueva en cada directo.</string>

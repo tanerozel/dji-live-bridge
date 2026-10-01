@@ -57,7 +57,7 @@
     <string name="on_twitch">auf Twitch</string>
     <string name="on_kick">auf Kick</string>
     <string name="on_custom">auf deinem eigenen Server</string>
-    <string name="key_help_instagram">Öffne auf instagram.com Erstellen (+) → Live-Video und kopiere den „Stream-Schlüssel“. Instagram vergibt für jeden Livestream einen neuen Schlüssel.</string>
+    <string name="key_help_instagram">Öffne auf instagram.com Erstellen (+) → Live-Video und kopiere die „Stream-URL“ und den „Stream-Schlüssel“. Instagram vergibt für jeden Livestream einen neuen Schlüssel.</string>
     <string name="key_help_tiktok">Öffne in TikTok LIVE Center die Seite mit dem Stream-Schlüssel und kopiere die Server-URL und den Stream-Schlüssel. Dein Konto braucht RTMP-Zugang; TikTok vergibt für jeden Livestream einen neuen Schlüssel.</string>
     <string name="key_help_youtube">Öffne im YouTube Studio Erstellen → Livestream starten → Streaming-Software und kopiere den „Streamschlüssel“. Der Schlüssel bleibt gleich, bis du ihn zurücksetzt.</string>
     <string name="key_help_facebook">Öffne auf facebook.com Live-Video → Streaming-Software und kopiere den „Streamschlüssel“. Sofern du keinen dauerhaften Schlüssel aktiviert hast, vergibt Facebook für jeden Livestream einen neuen.</string>

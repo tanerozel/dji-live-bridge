@@ -14,6 +14,7 @@ class DestinationKindTest {
 
     @Test
     fun `platforms that hand out their own address have no default`() {
+        assertNull(DestinationKind.INSTAGRAM.defaultServerUrl)
         assertNull(DestinationKind.TIKTOK.defaultServerUrl)
         assertNull(DestinationKind.CUSTOM.defaultServerUrl)
     }

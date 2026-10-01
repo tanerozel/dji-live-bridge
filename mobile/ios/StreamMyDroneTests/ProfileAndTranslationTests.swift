@@ -90,7 +90,7 @@ final class DestinationProfileStoreTests: XCTestCase {
 
 final class ValidationTests: XCTestCase {
     func testServerAddressesNeedTheSchemeServerAndApp() throws {
-        XCTAssertEqual(try validateServerUrl(" rtmps://live-upload.instagram.com:443/rtmp/ "), "rtmps://live-upload.instagram.com:443/rtmp")
+        XCTAssertEqual(try validateServerUrl(" rtmps://edgetee-upload-ist1-2.xx.fbcdn.net:443/rtmp/ "), "rtmps://edgetee-upload-ist1-2.xx.fbcdn.net:443/rtmp")
         XCTAssertThrowsError(try validateServerUrl("https://example.com/live"))
         XCTAssertThrowsError(try validateServerUrl("rtmp://example.com"))
         XCTAssertThrowsError(try validateServerUrl("rtmp://user@example.com/live"))

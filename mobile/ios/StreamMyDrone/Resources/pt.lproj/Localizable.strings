@@ -90,7 +90,7 @@
 "key_changes_each_stream" = "Precisa de uma chave nova a cada transmissão";
 "key_help_custom" = "Cole o endereço RTMP ou RTMPS e a chave de transmissão fornecidos pelo seu servidor.";
 "key_help_facebook" = "No facebook.com, abra Vídeo ao vivo → Software de transmissão e copie a “Chave de transmissão”. A menos que você tenha ativado uma chave persistente, o Facebook gera uma nova a cada transmissão.";
-"key_help_instagram" = "No instagram.com, abra Criar (+) → Vídeo ao vivo e copie a “Chave de transmissão”. O Instagram gera uma chave nova a cada transmissão.";
+"key_help_instagram" = "No instagram.com, abra Criar (+) → Vídeo ao vivo e copie a “URL de transmissão” e a “Chave de transmissão”. O Instagram gera uma chave nova a cada transmissão.";
 "key_help_kick" = "Na Kick, abra Creator Dashboard → Settings → Stream URL & Key e copie a chave. Se aparecer uma Stream URL diferente, substitua o endereço do servidor por ela.";
 "key_help_tiktok" = "No TikTok LIVE Center, abra a tela da chave de transmissão e copie a URL do servidor e a chave. Sua conta precisa de acesso RTMP; o TikTok gera uma chave nova a cada transmissão.";
 "key_help_twitch" = "No Painel do Criador da Twitch, abra Configurações → Transmissão e copie sua chave de transmissão primária.";

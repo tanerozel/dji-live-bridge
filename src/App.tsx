@@ -48,6 +48,12 @@ type Act = (name: string, operation: () => Promise<unknown>) => Promise<void>;
 type Tab = "live" | "camera" | "advanced";
 
 const PLATFORMS: RtmpDestinationKind[] = ["Instagram", "TikTok", "YouTube", "Facebook", "Custom"];
+/** Each platform's published ingest address; Instagram (a regional edgetee-upload host), TikTok and custom servers hand out their own. */
+const DEFAULT_SERVERS: Partial<Record<RtmpDestinationKind, string>> = {
+  YouTube: "rtmps://a.rtmps.youtube.com:443/live2",
+  Facebook: "rtmps://live-api-s.facebook.com:443/rtmp/",
+};
+const newDraft = (): DraftDestination => ({ id: null, kind: "Instagram", name: "", server: "", key: "", enabled: true });
 const SETTINGS_KEY = "dji-live-bridge.stream-settings";
 const APP_VERSION = __APP_VERSION__;
 const DEFAULT_SETTINGS: NativeProductionSettings = {
@@ -482,7 +488,7 @@ function DestinationStep({
 }) {
   const [draft, setDraft] = useState<DraftDestination | null>(null);
   const editorOpen = draft !== null || destinations.length === 0;
-  const current: DraftDestination = draft ?? { id: null, kind: "Instagram", name: "", server: "", key: "", enabled: true };
+  const current: DraftDestination = draft ?? newDraft();
   const update = (patch: Partial<DraftDestination>) => setDraft({ ...current, ...patch });
 
   const save = () =>
@@ -562,7 +568,13 @@ function DestinationStep({
                 role="radio"
                 aria-checked={current.kind === kind}
                 className={`platform-choice ${kind.toLowerCase()} ${current.kind === kind ? "selected" : ""}`}
-                onClick={() => update({ kind })}
+                onClick={() =>
+                  update({
+                    kind,
+                    // Swap in the new platform's address unless the user typed their own.
+                    server: !current.server.trim() || current.server === DEFAULT_SERVERS[current.kind] ? (DEFAULT_SERVERS[kind] ?? "") : current.server,
+                  })
+                }
               >
                 <PlatformIcon kind={kind} />
                 {t(`destination.kind.${kind}`)}
@@ -596,7 +608,7 @@ function DestinationStep({
           </div>
         </div>
       ) : (
-        !live && <button className="dashed" onClick={() => setDraft({ id: null, kind: "Instagram", name: "", server: "", key: "", enabled: true })}>+ {t("s2.add")}</button>
+        !live && <button className="dashed" onClick={() => setDraft(newDraft())}>+ {t("s2.add")}</button>
       )}
       {destinations.some((destination) => destination.kind === "Instagram") && !live && (
         <p className="hint note">{t("s2.igKeyNote")}</p>

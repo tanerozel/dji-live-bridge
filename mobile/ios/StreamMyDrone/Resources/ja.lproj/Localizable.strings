@@ -90,7 +90,7 @@
 "key_changes_each_stream" = "配信ごとに新しいキーが必要です";
 "key_help_custom" = "サーバーから提供された RTMP または RTMPS のアドレスとストリームキーを貼り付けてください。";
 "key_help_facebook" = "facebook.com で「ライブ動画」→「配信ソフトウェア」を開き、「ストリームキー」をコピーしてください。固定キーを有効にしていない限り、Facebook は配信ごとに新しいキーを発行します。";
-"key_help_instagram" = "instagram.com で「作成（＋）」→「ライブ動画」を開き、「ストリームキー」をコピーしてください。Instagram は配信ごとに新しいキーを発行します。";
+"key_help_instagram" = "instagram.com で「作成（＋）」→「ライブ動画」を開き、「ストリームURL」と「ストリームキー」をコピーしてください。Instagram は配信ごとに新しいキーを発行します。";
 "key_help_kick" = "Kick で Creator Dashboard → Settings → Stream URL & Key を開き、キーをコピーしてください。別の Stream URL が表示されている場合は、サーバーアドレスをそれに置き換えてください。";
 "key_help_tiktok" = "TikTok LIVE Center でストリームキーの画面を開き、サーバー URL とストリームキーをコピーしてください。アカウントに RTMP の利用権限が必要です。TikTok は配信ごとに新しいキーを発行します。";
 "key_help_twitch" = "Twitch のクリエイターダッシュボードで「設定」→「配信」を開き、プライマリストリームキーをコピーしてください。";

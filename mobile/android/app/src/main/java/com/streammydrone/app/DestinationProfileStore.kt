@@ -19,10 +19,11 @@ import javax.crypto.spec.GCMParameterSpec
 /**
  * Supported platforms in display order. [brandName] is null for a custom server, which is named
  * in the app's language instead. [defaultServerUrl] is each platform's published ingest address;
- * TikTok and custom servers hand out their own address, so they have none.
+ * Instagram (a regional edgetee-upload host), TikTok and custom servers hand out their own address,
+ * so they have none.
  */
 enum class DestinationKind(val storageValue: String, val brandName: String?, val defaultServerUrl: String?) {
-    INSTAGRAM("instagram", "Instagram", "rtmps://live-upload.instagram.com:443/rtmp"),
+    INSTAGRAM("instagram", "Instagram", null),
     TIKTOK("tiktok", "TikTok", null),
     YOUTUBE("youtube", "YouTube", "rtmps://a.rtmps.youtube.com/live2"),
     FACEBOOK("facebook", "Facebook", "rtmps://live-api-s.facebook.com:443/rtmp"),

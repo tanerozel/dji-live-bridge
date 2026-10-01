@@ -90,7 +90,7 @@
 "key_changes_each_stream" = "Perlu kunci baru untuk setiap siaran";
 "key_help_custom" = "Tempel alamat RTMP atau RTMPS dan stream key yang diberikan server Anda.";
 "key_help_facebook" = "Di facebook.com, buka Video langsung → Perangkat lunak streaming lalu salin “Kunci streaming”. Kecuali Anda mengaktifkan kunci permanen, Facebook memberi kunci baru untuk setiap siaran.";
-"key_help_instagram" = "Di instagram.com, buka Buat (+) → Video live lalu salin “Stream key”. Instagram memberi kunci baru untuk setiap siaran.";
+"key_help_instagram" = "Di instagram.com, buka Buat (+) → Video live lalu salin “Stream URL” dan “Stream key”. Instagram memberi kunci baru untuk setiap siaran.";
 "key_help_kick" = "Di Kick, buka Creator Dashboard → Settings → Stream URL & Key lalu salin kuncinya. Jika tertera Stream URL yang berbeda, ganti alamat server dengan URL itu.";
 "key_help_tiktok" = "Di TikTok LIVE Center, buka layar stream key lalu salin “Server URL” dan “Stream key”. Akun Anda perlu akses RTMP; TikTok memberi kunci baru untuk setiap siaran.";
 "key_help_twitch" = "Di Twitch Creator Dashboard, buka Settings → Stream lalu salin stream key utama Anda.";

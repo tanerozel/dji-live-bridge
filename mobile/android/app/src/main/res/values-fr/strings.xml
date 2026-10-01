@@ -57,7 +57,7 @@
     <string name="on_twitch">sur Twitch</string>
     <string name="on_kick">sur Kick</string>
     <string name="on_custom">sur votre serveur personnalisé</string>
-    <string name="key_help_instagram">Sur instagram.com, ouvrez Créer (+) → Vidéo en direct et copiez la « Clé de stream ». Instagram génère une nouvelle clé à chaque direct.</string>
+    <string name="key_help_instagram">Sur instagram.com, ouvrez Créer (+) → Vidéo en direct et copiez l\'« URL de stream » et la « Clé de stream ». Instagram génère une nouvelle clé à chaque direct.</string>
     <string name="key_help_tiktok">Dans TikTok LIVE Center, ouvrez l\'écran de la clé de stream et copiez l\'adresse du serveur et la clé. Votre compte doit avoir accès au RTMP ; TikTok génère une nouvelle clé à chaque direct.</string>
     <string name="key_help_youtube">Dans YouTube Studio, ouvrez Créer → Passer en direct → Logiciel de diffusion et copiez la « Clé de flux ». La clé reste la même tant que vous ne la réinitialisez pas.</string>
     <string name="key_help_facebook">Sur facebook.com, ouvrez Vidéo en direct → Logiciel de diffusion et copiez la « Clé de flux ». Sauf si vous avez activé une clé permanente, Facebook en génère une nouvelle à chaque direct.</string>

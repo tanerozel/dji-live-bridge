@@ -58,7 +58,7 @@
     <string name="on_twitch">on Twitch</string>
     <string name="on_kick">on Kick</string>
     <string name="on_custom">on your custom server</string>
-    <string name="key_help_instagram">On instagram.com, open Create (+) → Live video and copy the “Stream key”. Instagram gives a new key for every broadcast.</string>
+    <string name="key_help_instagram">On instagram.com, open Create (+) → Live video and copy the “Stream URL” and the “Stream key”. Instagram gives a new key for every broadcast.</string>
     <string name="key_help_tiktok">In TikTok LIVE Center, open the stream key screen and copy the Server URL and the Stream key. Your account needs RTMP access; TikTok gives a new key for every broadcast.</string>
     <string name="key_help_youtube">In YouTube Studio, open Create → Go live → Streaming software and copy the “Stream key”. The key stays the same until you reset it.</string>
     <string name="key_help_facebook">On facebook.com, open Live video → Streaming software and copy the “Stream key”. Unless you turned on a persistent key, Facebook gives a new one for every broadcast.</string>

@@ -90,7 +90,7 @@
 "key_changes_each_stream" = "Jeder Stream braucht einen neuen Schlüssel";
 "key_help_custom" = "Füge die RTMP- oder RTMPS-Adresse und den Stream-Schlüssel ein, die du von deinem Server bekommst.";
 "key_help_facebook" = "Öffne auf facebook.com Live-Video → Streaming-Software und kopiere den „Streamschlüssel“. Sofern du keinen dauerhaften Schlüssel aktiviert hast, vergibt Facebook für jeden Livestream einen neuen.";
-"key_help_instagram" = "Öffne auf instagram.com Erstellen (+) → Live-Video und kopiere den „Stream-Schlüssel“. Instagram vergibt für jeden Livestream einen neuen Schlüssel.";
+"key_help_instagram" = "Öffne auf instagram.com Erstellen (+) → Live-Video und kopiere die „Stream-URL“ und den „Stream-Schlüssel“. Instagram vergibt für jeden Livestream einen neuen Schlüssel.";
 "key_help_kick" = "Öffne auf Kick Creator Dashboard → Settings → Stream URL & Key und kopiere den Schlüssel. Zeigt Kick dort eine andere Stream URL an, ersetze die Server-Adresse damit.";
 "key_help_tiktok" = "Öffne in TikTok LIVE Center die Seite mit dem Stream-Schlüssel und kopiere die Server-URL und den Stream-Schlüssel. Dein Konto braucht RTMP-Zugang; TikTok vergibt für jeden Livestream einen neuen Schlüssel.";
 "key_help_twitch" = "Öffne im Twitch Creator-Dashboard Einstellungen → Stream und kopiere deinen primären Stream-Schlüssel.";

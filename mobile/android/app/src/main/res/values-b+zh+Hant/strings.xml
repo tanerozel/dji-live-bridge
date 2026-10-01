@@ -57,7 +57,7 @@
     <string name="on_twitch">在 Twitch 上</string>
     <string name="on_kick">在 Kick 上</string>
     <string name="on_custom">在自訂伺服器上</string>
-    <string name="key_help_instagram">在 instagram.com：建立 (+) → 直播影片，然後複製「串流金鑰」。Instagram 每次直播都會產生新的金鑰。</string>
+    <string name="key_help_instagram">在 instagram.com：建立 (+) → 直播影片，然後複製「串流網址」和「串流金鑰」。Instagram 每次直播都會產生新的金鑰。</string>
     <string name="key_help_tiktok">在 TikTok LIVE Center 開啟串流金鑰畫面，複製伺服器位址與串流金鑰。你的帳號需要有 RTMP 權限；TikTok 每次直播都會產生新的金鑰。</string>
     <string name="key_help_youtube">在 YouTube 工作室中：建立 → 開始直播 → 直播軟體，然後複製「串流金鑰」。除非你重設，否則金鑰不會改變。</string>
     <string name="key_help_facebook">在 facebook.com 上：直播視訊 → 直播軟體，然後複製「串流金鑰」。除非你啟用了固定金鑰，否則 Facebook 每場直播都會給新的金鑰。</string>

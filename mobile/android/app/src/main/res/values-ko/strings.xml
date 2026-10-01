@@ -57,7 +57,7 @@
     <string name="on_twitch">Twitch에서</string>
     <string name="on_kick">Kick에서</string>
     <string name="on_custom">RTMP 서버에서</string>
-    <string name="key_help_instagram">instagram.com에서 만들기(+) → 라이브 방송을 열고 “스트림 키”를 복사하세요. Instagram은 방송할 때마다 새 키를 발급합니다.</string>
+    <string name="key_help_instagram">instagram.com에서 만들기(+) → 라이브 방송을 열고 “스트림 URL”과 “스트림 키”를 복사하세요. Instagram은 방송할 때마다 새 키를 발급합니다.</string>
     <string name="key_help_tiktok">TikTok LIVE Center에서 스트림 키 화면을 열고 서버 URL과 스트림 키를 복사하세요. 계정에 RTMP 권한이 필요하며, TikTok은 방송할 때마다 새 키를 발급합니다.</string>
     <string name="key_help_youtube">YouTube 스튜디오에서 만들기 → 실시간 스트리밍 시작 → 스트리밍 소프트웨어를 열고 “스트림 키”를 복사하세요. 키는 재설정하기 전까지 그대로입니다.</string>
     <string name="key_help_facebook">facebook.com에서 라이브 동영상 → 스트리밍 소프트웨어를 열고 “스트림 키”를 복사하세요. 고정 키를 켜지 않았다면 Facebook은 방송할 때마다 새 키를 발급합니다.</string>

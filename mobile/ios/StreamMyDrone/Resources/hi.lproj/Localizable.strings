@@ -90,7 +90,7 @@
 "key_changes_each_stream" = "हर स्ट्रीम के लिए नई की चाहिए";
 "key_help_custom" = "अपने सर्वर से मिला RTMP या RTMPS पता और स्ट्रीम की चिपकाएँ।";
 "key_help_facebook" = "facebook.com पर लाइव वीडियो → स्ट्रीमिंग सॉफ़्टवेयर खोलें और “स्ट्रीम कुंजी” कॉपी करें। स्थायी कुंजी चालू न की हो तो Facebook हर प्रसारण के लिए नई कुंजी देता है।";
-"key_help_instagram" = "instagram.com पर बनाएँ (+) → लाइव वीडियो खोलें और “स्ट्रीम की” कॉपी करें। Instagram हर प्रसारण के लिए नई की देता है।";
+"key_help_instagram" = "instagram.com पर बनाएँ (+) → लाइव वीडियो खोलें और “स्ट्रीम URL” व “स्ट्रीम की” कॉपी करें। Instagram हर प्रसारण के लिए नई की देता है।";
 "key_help_kick" = "Kick पर Creator Dashboard → Settings → Stream URL & Key खोलें और स्ट्रीम की कॉपी करें। वहाँ कोई दूसरा Stream URL दिखे, तो सर्वर पते की जगह वही डालें।";
 "key_help_tiktok" = "TikTok LIVE Center में स्ट्रीम की वाली स्क्रीन खोलें और सर्वर पता व स्ट्रीम की कॉपी करें। आपके खाते में RTMP अनुमति होनी चाहिए; TikTok हर प्रसारण के लिए नई की देता है।";
 "key_help_twitch" = "Twitch के Creator Dashboard में Settings → Stream खोलें और अपनी प्राइमरी स्ट्रीम की कॉपी करें।";

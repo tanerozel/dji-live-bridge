@@ -57,7 +57,7 @@
     <string name="on_twitch">Twitch で</string>
     <string name="on_kick">Kick で</string>
     <string name="on_custom">カスタムサーバーで</string>
-    <string name="key_help_instagram">instagram.com で「作成（＋）」→「ライブ動画」を開き、「ストリームキー」をコピーしてください。Instagram は配信ごとに新しいキーを発行します。</string>
+    <string name="key_help_instagram">instagram.com で「作成（＋）」→「ライブ動画」を開き、「ストリームURL」と「ストリームキー」をコピーしてください。Instagram は配信ごとに新しいキーを発行します。</string>
     <string name="key_help_tiktok">TikTok LIVE Center でストリームキーの画面を開き、サーバー URL とストリームキーをコピーしてください。アカウントに RTMP の利用権限が必要です。TikTok は配信ごとに新しいキーを発行します。</string>
     <string name="key_help_youtube">YouTube Studio で「作成」→「ライブ配信を開始」→「ストリーミング ソフトウェア」を開き、「ストリームキー」をコピーしてください。キーはリセットするまで変わりません。</string>
     <string name="key_help_facebook">facebook.com で「ライブ動画」→「配信ソフトウェア」を開き、「ストリームキー」をコピーしてください。固定キーを有効にしていない限り、Facebook は配信ごとに新しいキーを発行します。</string>

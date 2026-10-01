@@ -90,7 +90,7 @@
 "key_changes_each_stream" = "每次直播都需要新的金鑰";
 "key_help_custom" = "貼上你的伺服器提供的 RTMP 或 RTMPS 位址與串流金鑰。";
 "key_help_facebook" = "在 facebook.com 上：直播視訊 → 直播軟體，然後複製「串流金鑰」。除非你啟用了固定金鑰，否則 Facebook 每場直播都會給新的金鑰。";
-"key_help_instagram" = "在 instagram.com：建立 (+) → 直播影片，然後複製「串流金鑰」。Instagram 每次直播都會產生新的金鑰。";
+"key_help_instagram" = "在 instagram.com：建立 (+) → 直播影片，然後複製「串流網址」和「串流金鑰」。Instagram 每次直播都會產生新的金鑰。";
 "key_help_kick" = "在 Kick 開啟 Creator Dashboard → Settings → Stream URL & Key，然後複製金鑰。如果那裡顯示不同的 Stream URL，請用它取代伺服器位址。";
 "key_help_tiktok" = "在 TikTok LIVE Center 開啟串流金鑰畫面，複製伺服器位址與串流金鑰。你的帳號需要有 RTMP 權限；TikTok 每次直播都會產生新的金鑰。";
 "key_help_twitch" = "在 Twitch 創作者儀表板中：設定 → 直播，然後複製你的主要串流金鑰。";

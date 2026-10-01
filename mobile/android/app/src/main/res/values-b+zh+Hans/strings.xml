@@ -57,7 +57,7 @@
     <string name="on_twitch">在 Twitch 上</string>
     <string name="on_kick">在 Kick 上</string>
     <string name="on_custom">在自定义服务器上</string>
-    <string name="key_help_instagram">在 instagram.com 上打开 创建 (+) → 直播视频，复制“推流密钥”。Instagram 每次直播都会生成新密钥。</string>
+    <string name="key_help_instagram">在 instagram.com 上打开 创建 (+) → 直播视频，复制“推流网址”和“推流密钥”。Instagram 每次直播都会生成新密钥。</string>
     <string name="key_help_tiktok">在 TikTok LIVE Center 中打开推流密钥页面，复制服务器地址和推流密钥。你的账号需要有 RTMP 权限；TikTok 每次直播都会生成新密钥。</string>
     <string name="key_help_youtube">在 YouTube 工作室中打开 创建 → 开始直播 → 直播软件，复制“串流密钥”。除非你重置，密钥不会改变。</string>
     <string name="key_help_facebook">在 facebook.com 上打开 直播视频 → 直播软件，复制“串流密钥”。除非你启用了固定密钥，否则 Facebook 每次直播都会给出新密钥。</string>

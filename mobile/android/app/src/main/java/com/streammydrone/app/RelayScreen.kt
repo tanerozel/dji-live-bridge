@@ -564,7 +564,7 @@ private val PreviewProfile = DestinationProfile(
     "1",
     "Instagram",
     DestinationKind.INSTAGRAM,
-    "rtmps://live-upload.instagram.com:443/rtmp",
+    "rtmps://edgetee-upload-ist1-2.xx.fbcdn.net:443/rtmp",
 )
 
 @Preview(name = "Waiting for the drone", widthDp = 360, heightDp = 760)
