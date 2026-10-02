@@ -1,0 +1,124 @@
+{
+  "slug": "drone-u-bilgisayarin-harici-kamerasi-yapin",
+  "platform": "Sanal kamera",
+  "title": "Drone'unuzu bilgisayarınızın harici kamerası yapın (sanal kamera)",
+  "description": "DJI Live Bridge sanal kamerasıyla DJI drone'unuzu TikTok LIVE Studio, OBS, Zoom, Google Meet ve Teams için webcam olarak kullanın. Kurulum, fikirler ve çözümler.",
+  "h1": "Drone'unuzu bilgisayarınızın harici kamerası yapın",
+  "lead": "DJI Live Bridge yalnızca yayını platformlara iletmez. <strong>Sanal kamerası</strong>, DJI Fly'dan gelen canlı görüntüyü bilgisayarınıza <strong>DJI Live Bridge Camera</strong> adında sıradan bir kamera olarak verir. Böylece kamera menüsü olan her uygulama — TikTok LIVE Studio, OBS, Zoom, Google Meet, Microsoft Teams — drone'unuzun gördüğünü gösterebilir. Yayın anahtarı ya da yayın hesabı gerekmez.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "DJI Live Bridge bilgisayarınıza drone'unuzun canlı görüntüsünü gösteren <strong>DJI Live Bridge Camera</strong> adlı bir kamera ekler.",
+    "Kamera seçmenize izin veren her uygulama onu kullanabilir: TikTok LIVE Studio, OBS, Zoom, Google Meet, Microsoft Teams ya da tarayıcı tabanlı bir stüdyo.",
+    "Yayın anahtarı ya da platform hesabı gerekmez; drone düpedüz bir kameraya dönüşür.",
+    "Kamera dikeydir, 30 fps'de 1080×1920'dir ve yalnızca görüntü taşır; mikrofonu kamerayı kullanan uygulamada seçersiniz.",
+    "Yatay görüntülü görüşmeler için drone'u yatay 16:9 düzeniyle OBS üzerinden geçirin ve OBS Sanal Kamera'yı kullanın."
+  ],
+  "sections": [
+    {
+      "id": "what",
+      "h2": "Sanal kamera ne yapar?",
+      "blocks": [
+        { "p": "Drone'un canlı görüntüsü normalde bir yayın platformuna gider. Sanal kamera başka bir yol izler: DJI Fly görüntüyü RTMP ile bilgisayarınızdaki DJI Live Bridge'e gönderir, uygulama da onu işletim sistemine bir kamera olarak verir. Diğer bütün uygulamalar için drone'unuz bilgisayara takılı bir webcam gibi görünür." },
+        { "p": "Yani diğer uygulamanın yayın anahtarına, yayın hesabına ya da RTMP desteğine ihtiyacı yoktur. Kamera menüsü varsa drone da o menüde olabilir." },
+        { "list": [
+          "<strong>Adı:</strong> DJI Live Bridge Camera.",
+          "<strong>Görüntü:</strong> 30 fps'de dikey 1080×1920. Yatay drone görüntüsü karenin ortasına yerleşir, üstünde ve altında siyah alan kalır; hiçbir yer kırpılmaz.",
+          "<strong>Ses:</strong> bilerek yok. Mikrofonu kamerayı kullanan uygulamada seçersiniz, böylece sesi asla iki kez duymazsınız.",
+          "<strong>Sistemler:</strong> macOS 13 veya üzeri (uygulama Uygulamalar klasöründe olmalı) ve beta olarak Windows 10/11."
+        ] }
+      ]
+    },
+    {
+      "id": "uses",
+      "h2": "Onunla neler yapabilirsiniz?",
+      "blocks": [
+        { "p": "Birkaç fikir: webcam kabul eden her şey drone'unuzun gördüğünü gösterebilir." },
+        { "list": [
+          "<strong>Yayın anahtarı olmadan TikTok'ta canlı yayın yapın.</strong> Kamerayı TikTok LIVE Studio'da seçin ve yayını oradan başlatın. Adım adım anlatım <a href=\"../drone-ile-tiktok-canli-yayin-nasil-yapilir/\">TikTok rehberinde</a>.",
+          "<strong>OBS'de bir yayın kurgulayın.</strong> Kamerayı video kaynağı olarak ekleyin; havadan görüntünün üzerine yazı, logo, harita ya da kendi yüz kameranızı koyun, sonra OBS'den yayın yapın veya kaydedin.",
+          "<strong>Görüntülü görüşmede bir alanı gösterin.</strong> Müşterinizin, ekibinizin ya da sigortacınızın bir çatıyı, şantiyeyi, güneş santralini veya tarlayı Zoom, Google Meet ya da Microsoft Teams'te canlı izlemesini sağlayın; sonradan fotoğraf göndermeye gerek kalmaz.",
+          "<strong>Sanal tur yapın.</strong> İzleyicileri bir mülkün, kamp alanının, mekânın ya da güzergâhın üzerinden havadan gezdirirken anlatın.",
+          "<strong>Ders verin, sunum yapın.</strong> Havadan görüntüyü coğrafya, tarım, haritacılık ya da uçuşun kendisiyle ilgili bir derste, webinarda veya sunumda kullanın.",
+          "<strong>Tarayıcı stüdyosuna katılın.</strong> StreamYard veya Restream Studio gibi tarayıcı tabanlı stüdyolar kamerayı genellikle diğer webcam'ler gibi seçebilir; böylece drone çok kameralı bir yayının konuklarından biri olur."
+        ] },
+        { "note": "DJI Live Bridge açık olduğu ve DJI Fly görüntü gönderdiği sürece kamera drone görüntüsünü gösterir. Görüntü gelmediğinde kamera siyahtır." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Drone'unuzu webcam'e nasıl dönüştürürsünüz?",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Uygulamayı doğru yere kurun", "d": "Mac'te <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a>'i Uygulamalar klasörüne sürükleyin; macOS kamera uzantısına yalnızca oradan izin verir. Windows'ta kamerayı yükleyici kaydeder." },
+          { "t": "Drone görüntüsünü bilgisayara gönderin", "d": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın ve uygulamanın Canlı yayın sekmesinde gösterdiği adresi yapıştırın. Kumanda ile bilgisayar aynı Wi-Fi ağında veya hotspot'ta olmalı. Ayrıntılar <a href=\"../dji-fly-rtmp-canli-yayin-ayarlari/\">DJI Fly RTMP rehberinde</a>." },
+          { "t": "Kamerayı bir kez etkinleştirin", "d": "TikTok LIVE Studio sekmesinde <em>Sanal Kamerayı Etkinleştir — Bir Kez</em> düğmesine basın. macOS bir kez onay ister: Sistem Ayarları → Genel → Giriş Öğeleri ve Uzantılar → Kamera Uzantıları." },
+          { "t": "Kamerayı başlatın", "d": "Kartta <em>Başlatmaya hazır</em> yazdığında <em>Sanal kamerayı başlat</em> düğmesine basın." },
+          { "t": "Uygulamanızda seçin", "d": "TikTok LIVE Studio, OBS, Zoom, Meet veya Teams'te kamera menüsünü açın ve <strong>DJI Live Bridge Camera</strong>'yı seçin. Mikrofonunuzu da orada seçin." }
+        ] },
+        { "img": "virtual-camera.png", "alt": "DJI Live Bridge'in sanal kameranın etkinleştirilip başlatıldığı TikTok LIVE Studio sekmesi." },
+        { "note": "Yakında drone yok mu? Canlı yayın sekmesindeki <em>Bir video dosyasıyla dene</em>, kaydedilmiş bir klibi aynı yoldan gönderir; böylece uçuştan önce kamerayı uygulamanızda ayarlayabilirsiniz." }
+      ]
+    },
+    {
+      "id": "landscape",
+      "h2": "Yatay görüntülü görüşmeler: OBS üzerinden geçin",
+      "blocks": [
+        { "p": "Yerleşik kamera dikeydir, çünkü TikTok LIVE Studio ve telefon öncelikli platformlar dikeydir. Zoom, Meet ve Teams ise yatay kameralara göre tasarlanmıştır; uygulamaya ve düzene göre uzun kareyi geniş boşluklarla gösterir ya da kırpar, drone görüntüsü de küçük kalır. Yatay bir görüşme için isteğe bağlı OBS entegrasyonunu kullanın: OBS'ye drone'un tam görüntüsünü 1920×1080'lik bir tuvalde verir." },
+        { "steps": [
+          { "t": "OBS WebSocket'i açın", "d": "OBS'de Araçlar → WebSocket Sunucu Ayarları'nı açın ve sunucuyu etkinleştirin (varsayılan port 4455)." },
+          { "t": "DJI Live Bridge'i OBS'ye bağlayın", "d": "Gelişmiş sekmesinde, <em>İsteğe bağlı OBS entegrasyonu</em> altında sunucu, port ve parolayı girin, ardından <em>Bağlantıyı kaydet</em>'e basın." },
+          { "t": "Yatay düzeni seçin", "d": "Canlı yayın sekmesinde, <em>Görüntü ve ses</em> altında yönü <em>Yatay 16:9</em> yapın." },
+          { "t": "Sahneyi hazırlayın", "d": "Drone görüntüsü gelirken <em>OBS sahnesini hazırla</em>'ya basın. Uygulama <strong>DJI LIVE</strong> adında bir sahne oluşturur, OBS tuvalini 1920×1080 yapar ve drone görüntüsünü içine yerleştirir." },
+          { "t": "OBS Sanal Kamera'yı başlatın", "d": "Aynı kartta <em>OBS Sanal Kamera</em>'nın yanındaki <em>Sanal kamerayı başlat</em>'a basın, sonra Zoom, Meet veya Teams'te <strong>OBS Virtual Camera</strong>'yı seçin." }
+        ] },
+        { "table": {
+          "head": ["", "DJI Live Bridge Camera", "OBS Sanal Kamera"],
+          "rows": [
+            ["Biçim", "Dikey 1080×1920", "Düzene göre: 1920×1080 veya 1080×1920"],
+            ["OBS gerekir mi?", "Hayır", "Evet, WebSocket açık olmalı"],
+            ["Katmanlar ve sahneler", "Yok", "Var, OBS'nin sunduğu her şey"],
+            ["En uygun olduğu yer", "TikTok LIVE Studio, dikey yayınlar", "Zoom, Meet, Teams, yatay yayınlar"]
+          ]
+        } },
+        { "img": "advanced.png", "alt": "DJI Live Bridge'in isteğe bağlı OBS entegrasyonu, OBS sahnesini hazırla düğmesi ve OBS Sanal Kamera'nın bulunduğu Gelişmiş sekmesi." }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "Temiz bir görüntü için ipuçları",
+      "blocks": [
+        { "list": [
+          "<strong>Mikrofonu kamerayı kullanan uygulamada seçin</strong>, yalnızca bir tane. Drone kamerasında ses olmadığı için kapatmanız gereken bir şey yoktur.",
+          "<strong>Kısa bir gecikme olur.</strong> Görüntü drone'dan kumandaya, Wi-Fi üzerinden bilgisayara ve oradan kameraya gider; bu yüzden gerçek zamanın biraz gerisinden gelir. Bir yeri göstermek için sorun değildir, tam zamanlama gerektiren işler için uygun değildir.",
+          "<strong>Sağlam bir ağ kullanın.</strong> Kumanda ile bilgisayar arasındaki zayıf bağlantı takılma olarak görünür. Bilgisayarın hemen yanındaki bir telefon hotspot'u çoğu zaman uzaktaki bir modemden iyidir.",
+          "<strong>720p normaldir.</strong> Kumanda çoğu zaman 720p gönderir; kamera onu kareye ölçekler ve yerel 1080p'ymiş gibi göstermez.",
+          "<strong>Uygulamayı açık tutun.</strong> DJI Live Bridge'i kapatmak kamerayı da durdurur."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Kamera görünmezse",
+      "blocks": [
+        { "list": [
+          "<strong>Kamera listesinde yok:</strong> önce sanal kamerayı başlatın, sonra onu kullanacak uygulamayı kapatıp yeniden açın; birçok uygulama kamera listesini yalnızca açılışta okur.",
+          "<strong>macOS hiç onay istemedi:</strong> DJI Live Bridge'in Uygulamalar klasöründen çalıştığından emin olun, sonra Sistem Ayarları → Genel → Giriş Öğeleri ve Uzantılar → Kamera Uzantıları'na bakın.",
+          "<strong>Güncellemeden sonra durdu:</strong> uygulamayı değiştirmek macOS'un eski kamerayı kapatmasına yol açar. <em>Sanal kamerayı başlat</em>'a yeniden basın; etkinleştirmeyi kendisi ister. macOS isterse Mac'i yeniden başlatın.",
+          "<strong>Görüntü siyah:</strong> drone görüntüsü gelmiyor. Canlı yayın sekmesindeki önizlemeyi ve DJI Fly'daki RTMP adresini kontrol edin.",
+          "<strong>Tarayıcı göstermiyor:</strong> siteye kamera erişimi izni verin ve sayfayı yenileyin.",
+          "<strong>Windows:</strong> yerleşik kamera beta aşamasında. Bir uygulama onu listelemiyorsa yukarıdaki OBS yolunu kullanın."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI drone'umu webcam olarak kullanabilir miyim?", "a": "Evet. DJI Live Bridge çalışırken ve DJI Fly ona RTMP gönderirken drone, kamera seçmenize izin veren her uygulamada DJI Live Bridge Camera adlı bir kamera olarak görünür." },
+    { "q": "Zoom, Google Meet ve Microsoft Teams'te çalışır mı?", "a": "Bu uygulamalar kamerayı diğer webcam'ler gibi seçebilir. Yerleşik kamera dikey olduğundan yatay bir görüşme OBS üzerinden daha iyi görünür: OBS sahnesini yatay 16:9 düzeniyle hazırlayın ve görüşmede OBS Virtual Camera'yı seçin." },
+    { "q": "Yayın anahtarına ya da yayın hesabına ihtiyacım var mı?", "a": "Hayır. Sanal kamera bilgisayarınızda kalır ve hiçbir platforma bir şey göndermez. Yayın anahtarı yalnızca DJI Live Bridge'in kendisi RTMP ile yayın yaptığında gerekir." },
+    { "q": "Sanal kamera ses taşır mı?", "a": "Hayır, yalnızca görüntü taşır. Mikrofonunuzu kamerayı kullanan uygulamada seçin." },
+    { "q": "Hangi drone'lar çalışır?", "a": "DJI Fly sürümünde Canlı Yayın Platformları altında RTMP bulunan her DJI drone. Uygulama drone'la hiçbir zaman doğrudan konuşmaz; yalnızca RTMP yayınını alır." },
+    { "q": "Ücretsiz mi?", "a": "Evet. DJI Live Bridge MIT lisansıyla ücretsiz ve açık kaynaktır; DJI, Zoom, Google veya Microsoft ile bağlantılı değildir." }
+  ]
+}

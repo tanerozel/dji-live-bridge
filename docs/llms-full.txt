@@ -118,6 +118,85 @@ On the DJI RC 2, some DJI Fly versions refuse to start streaming until a microph
 
 **Is the video sent to a third-party server?** No. DJI Live Bridge runs entirely on your computer and sends the stream only to the destinations you add.
 
+## Turn your DJI drone into your computer's webcam
+Source: https://tanerozel.github.io/dji-live-bridge/blog/use-your-dji-drone-as-a-webcam/ (updated 2026-10-02)
+
+DJI Live Bridge does more than restream. Its virtual camera hands the live picture from DJI Fly to your computer as an ordinary camera called DJI Live Bridge Camera, so any app with a camera menu — TikTok LIVE Studio, OBS, Zoom, Google Meet, Microsoft Teams — can show what your drone sees. No stream key, no streaming account.
+
+- DJI Live Bridge adds a camera called DJI Live Bridge Camera to your computer that shows your drone's live picture.
+- Any app that lets you choose a camera can use it: TikTok LIVE Studio, OBS, Zoom, Google Meet, Microsoft Teams or a browser-based studio.
+- No stream key and no platform account are needed — the drone simply becomes a camera.
+- The camera is vertical, 1080×1920 at 30 fps, and carries video only; you choose the microphone in the app that uses it.
+- For landscape video calls, send the drone through OBS with the horizontal 16:9 layout and use OBS Virtual Camera.
+
+### What the virtual camera does
+Normally a drone's live picture goes to a streaming platform. The virtual camera takes another route: DJI Fly sends the picture over RTMP to DJI Live Bridge on your computer, and the app hands it to the operating system as a camera. To every other app, your drone looks like a webcam plugged into the computer.
+So the other app needs no stream key, no streaming account and no RTMP support. If it has a camera menu, the drone can be in it.
+- Name: DJI Live Bridge Camera.
+- Picture: vertical 1080×1920 at 30 fps. A landscape drone picture sits in the middle of the frame with black above and below; nothing is cropped.
+- Sound: none, on purpose. You pick a microphone in the app that uses the camera, so you never hear the audio twice.
+- Systems: macOS 13 or newer (the app must be in the Applications folder), and Windows 10/11 in beta.
+
+### What you can do with it
+A few ideas — anything that accepts a webcam can show the view from your drone.
+- Go live on TikTok without a stream key. Pick the camera in TikTok LIVE Studio and broadcast from there. The full walkthrough is in the TikTok guide.
+- Build a show in OBS. Add the camera as a video source and put text, a logo, a map or your own face cam over the aerial shot, then stream or record from OBS.
+- Show a site on a video call. Let a client, your team or an insurer watch a roof, a building site, a solar farm or a field live on Zoom, Google Meet or Microsoft Teams, instead of sending photos afterwards.
+- Give a virtual tour. Take viewers over a property, a campsite, a venue or a route from the air while you talk them through it.
+- Teach and present. Use the aerial view in a lesson, a webinar or a presentation about geography, farming, surveying or flying itself.
+- Join a browser studio. Browser-based studios such as StreamYard or Restream Studio can usually pick the camera like any other webcam, so the drone can be one of the guests in a multi-camera show.
+The camera shows the drone's picture as long as DJI Live Bridge is open and DJI Fly is sending. When no picture arrives, the camera is black.
+
+### How to turn your drone into a webcam
+1. **Install the app in the right place** On a Mac, drag DJI Live Bridge into the Applications folder; macOS only allows a camera extension from there. On Windows, the installer registers the camera.
+2. **Send the drone's picture to the computer** In DJI Fly open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP and paste the address shown on the app's Go live tab. The controller and the computer must be on the same Wi-Fi or hotspot. The details are in the DJI Fly RTMP guide.
+3. **Enable the camera once** In the TikTok LIVE Studio tab press Enable Virtual Camera — One Time. macOS asks for approval once, under System Settings → General → Login Items &amp; Extensions → Camera Extensions.
+4. **Start the camera** When the card reads Ready to start, press Start Virtual Camera.
+5. **Choose it in your app** In TikTok LIVE Studio, OBS, Zoom, Meet or Teams, open the camera menu and pick DJI Live Bridge Camera. Choose your microphone there as well.
+No drone nearby? Try with a video file on the Go live tab sends a recorded clip along the same path, so you can set up the camera in your app before the flight.
+
+### Landscape video calls: go through OBS
+The built-in camera is vertical, because TikTok LIVE Studio and phone-first platforms are. Zoom, Meet and Teams are built around landscape cameras, so depending on the app and layout they show the tall frame with wide bars or crop it, and the drone picture ends up small. For a landscape call, use the optional OBS integration: it gives OBS the drone's full picture on a 1920×1080 canvas.
+1. **Turn on OBS WebSocket** In OBS open Tools → WebSocket Server Settings and enable the server (port 4455 by default).
+2. **Connect DJI Live Bridge to OBS** In the Advanced tab, under Optional OBS integration, enter the host, port and password, then press Save connection.
+3. **Choose the horizontal layout** On the Go live tab, under Picture and sound, set the orientation to Horizontal 16:9.
+4. **Prepare the scene** With drone video arriving, press Prepare OBS scene. The app creates a scene named DJI LIVE, sets the OBS canvas to 1920×1080 and fits the drone picture into it.
+5. **Start OBS Virtual Camera** Press Start Virtual Camera next to OBS Virtual Camera in the same card, then pick OBS Virtual Camera in Zoom, Meet or Teams.
+|  | DJI Live Bridge Camera | OBS Virtual Camera |
+| --- | --- | --- |
+| Shape | Vertical 1080×1920 | Follows the layout: 1920×1080 or 1080×1920 |
+| Needs OBS | No | Yes, with WebSocket enabled |
+| Overlays and scenes | No | Yes, everything OBS offers |
+| Best for | TikTok LIVE Studio, vertical shows | Zoom, Meet, Teams, landscape shows |
+
+### Tips for a clean picture
+- Pick one microphone in the app that uses the camera. The drone camera has no sound, so there is nothing to mute.
+- Expect a short delay. The picture travels from the drone to the controller, over Wi-Fi to the computer and then into the camera, so it runs a little behind real time. That is fine for showing a place, not for anything that needs exact timing.
+- Use a steady network. A weak link between the controller and the computer shows up as stutter. A phone hotspot right next to the computer often beats a distant router.
+- 720p is normal. The controller often sends 720p; the camera scales it into the frame and does not pretend it is native 1080p.
+- Keep the app open. Quitting DJI Live Bridge stops the camera.
+
+### When the camera does not show up
+- It is not in the camera list: start the virtual camera first, then quit and reopen the app that should use it — many apps read the camera list only at launch.
+- macOS never asked for approval: make sure DJI Live Bridge runs from the Applications folder, then look under System Settings → General → Login Items &amp; Extensions → Camera Extensions.
+- It stopped after an update: replacing the app makes macOS switch the old camera off. Press Start Virtual Camera again; it requests activation itself. If macOS asks for it, restart the Mac.
+- The picture is black: no drone video is arriving. Check the preview on the Go live tab and the RTMP address in DJI Fly.
+- A browser does not show it: allow camera access for the site and reload the page.
+- Windows: the built-in camera is in beta. If an app does not list it, use the OBS route above.
+
+### FAQ
+**Can I use my DJI drone as a webcam?** Yes. With DJI Live Bridge running and DJI Fly sending RTMP to it, the drone appears as a camera named DJI Live Bridge Camera in any app that lets you choose a camera.
+
+**Does it work in Zoom, Google Meet and Microsoft Teams?** They can select the camera like any webcam. Because the built-in camera is vertical, a landscape call looks better through OBS: prepare the OBS scene with the horizontal 16:9 layout and choose OBS Virtual Camera in the call.
+
+**Do I need a stream key or a streaming account?** No. The virtual camera stays on your computer and sends nothing to a platform. A stream key is only needed when DJI Live Bridge itself streams over RTMP.
+
+**Does the virtual camera carry sound?** No, it carries video only. Choose your microphone in the app that uses the camera.
+
+**Which drones work?** Any DJI drone whose DJI Fly version offers RTMP under Live Streaming Platforms. The app never talks to the drone itself; it only receives the RTMP stream.
+
+**Is it free?** Yes. DJI Live Bridge is free and open source under the MIT licence, and is not affiliated with DJI, Zoom, Google or Microsoft.
+
 ## How to go live on TikTok with a DJI drone
 Source: https://tanerozel.github.io/dji-live-bridge/blog/how-to-go-live-on-tiktok-with-a-dji-drone/ (updated 2026-10-02)
 
