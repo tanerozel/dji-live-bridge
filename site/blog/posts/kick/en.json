@@ -1,0 +1,65 @@
+{
+  "slug": "how-to-stream-a-dji-drone-on-kick",
+  "platform": "Kick",
+  "title": "How to stream a DJI drone on Kick (stream URL and key)",
+  "description": "Stream a DJI drone live on Kick: copy the stream URL and key from the Kick dashboard, add them as a custom RTMP destination in DJI Live Bridge, and go live.",
+  "h1": "How to stream a DJI drone on Kick",
+  "lead": "In the Kick creator dashboard open <strong>Settings → Stream URL &amp; Key</strong>, copy both into a <strong>Custom RTMP</strong> destination in DJI Live Bridge, send the drone's picture from DJI Fly to the app, and press START LIVE. Kick uses an encrypted RTMPS address, which the app supports.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Kick is added as a Custom RTMP destination with the Stream URL and Stream key from the Kick dashboard.",
+    "Kick's stream URL is an rtmps:// address; always copy it from your own dashboard.",
+    "Kick may ask you to turn on two-factor authentication before it shows the key.",
+    "Use Horizontal 16:9 for a 1920×1080 stream at 30 fps and 6 Mbps.",
+    "The same picture can go to Kick and other platforms at once."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Stream to Kick, step by step",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Connect the drone", "d": "In DJI Fly open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP and enter the address DJI Live Bridge shows." },
+          { "t": "Copy the stream URL and key", "d": "On kick.com open the creator dashboard → Settings → Stream URL &amp; Key. Copy the <em>Stream URL</em> (it starts with <code>rtmps://</code> and ends in <code>/app</code>) and the <em>Stream key</em>." },
+          { "t": "Add a Custom RTMP destination", "d": "In DJI Live Bridge choose Custom RTMP, name it Kick and paste both values." },
+          { "t": "Choose Horizontal 16:9", "d": "Under <em>Picture and sound</em> pick <em>Horizontal 16:9</em>." },
+          { "t": "Press START LIVE", "d": "The channel goes live when Kick receives the stream. Set the title and category in the dashboard; press <em>End stream</em> in the app to finish." }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Kick settings",
+      "blocks": [
+        { "table": {
+          "head": ["Setting", "Value"],
+          "rows": [
+            ["Stream URL", "From the Kick dashboard, <code>rtmps://…/app</code>"],
+            ["Resolution", "1920×1080, horizontal"],
+            ["Frame rate", "30 fps"],
+            ["Video", "H.264, 6 Mbps CBR, keyframe every 2 seconds"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Common problems",
+      "blocks": [
+        { "list": [
+          "<strong>The key is hidden:</strong> turn on two-factor authentication in your Kick account settings, then reopen the page.",
+          "<strong>Connection failed:</strong> copy the stream URL again including <code>rtmps://</code>, the port and <code>/app</code>.",
+          "<strong>The key was shared by mistake:</strong> reset it on Kick and update it in the app."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Can I stream a DJI drone on Kick?", "a": "Yes. Send DJI Fly's RTMP stream to DJI Live Bridge and add Kick as a Custom RTMP destination with the stream URL and key from your Kick dashboard." },
+    { "q": "Does Kick support RTMPS?", "a": "Yes, Kick's stream URL is an rtmps:// address, and DJI Live Bridge accepts rtmps:// destinations." },
+    { "q": "Can I stream to Kick and Twitch at the same time?", "a": "DJI Live Bridge can send to both at once. Check each platform's current rules on simulcasting first." },
+    { "q": "Is DJI Live Bridge affiliated with Kick?", "a": "No. It is an independent, free and open-source app." }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "slug": "drone-ile-youtube-canli-yayin-nasil-yapilir",
+  "platform": "YouTube",
+  "title": "Drone ile YouTube'da canlı yayın nasıl yapılır? (RTMP rehberi)",
+  "description": "Drone ile YouTube'da canlı yayın: canlı yayını etkinleştirin, YouTube Studio'dan yayın anahtarını alın, DJI Fly'ın RTMP yayınını DJI Live Bridge ile gönderin.",
+  "h1": "Drone ile YouTube'da canlı yayın nasıl yapılır?",
+  "lead": "DJI drone ile YouTube'da canlı yayın yapmak için YouTube Studio'da <strong>Oluştur → Canlı yayın başlat → Yayın yazılımı</strong> yolunu açın ve yayın URL'sini ve yayın anahtarını kopyalayın. Bunları DJI Live Bridge'e bir YouTube hedefi olarak ekleyin, drone'un görüntüsünü DJI Fly'dan RTMP ile uygulamaya gönderin ve YAYINI BAŞLAT'a basın. YouTube'un anahtarı siz sıfırlayana kadar değişmez, yani ayarı bir kez yaparsınız.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "İlk seferde kanalda canlı yayının etkinleştirilmesi gerekir; YouTube'a göre bu 24 saate kadar sürebilir.",
+    "Yayın URL'si: rtmps://a.rtmps.youtube.com:443/live2 — anahtar ise YouTube Studio'dan alınır.",
+    "Klasik bir YouTube yayını için Yatay 16:9'u seçin; dikey de çalışır.",
+    "Uygulama 1080p, 30 fps, 6 Mbps ve 2 saniyelik anahtar karelerle H.264 gönderir; bu, YouTube'un önerileriyle örtüşür.",
+    "Aynı yayın aynı anda Facebook'a, Twitch'e veya herhangi bir RTMP sunucusuna da gidebilir."
+  ],
+  "sections": [
+    {
+      "id": "enable",
+      "h2": "İlk yayından önce: canlı yayını etkinleştirin",
+      "blocks": [
+        {
+          "p": "YouTube Studio'yu açın ve <em>Oluştur → Canlı yayın başlat</em>'ı seçin. Kanal daha önce hiç yayın yapmadıysa YouTube sizden kanalı bir telefon numarasıyla doğrulamanızı ister ve canlı yayını etkinleştirir; ilk etkinleştirme 24 saate kadar sürebilir. Sonrasında canlı yayına geçmek anında olur."
+        }
+      ]
+    },
+    {
+      "id": "steps",
+      "h2": "Adım adım YouTube'da canlı yayın",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Drone'u bağlayın",
+              "d": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın ve DJI Live Bridge'in gösterdiği adresi girin."
+            },
+            {
+              "t": "Anahtarı YouTube Studio'dan kopyalayın",
+              "d": "Oluştur → Canlı yayın başlat → Yayın yazılımı. <em>Yayın URL'si</em>ni (<code>rtmps://a.rtmps.youtube.com:443/live2</code>) ve <em>Yayın anahtarı</em>nı kopyalayın."
+            },
+            {
+              "t": "Bir YouTube hedefi ekleyin",
+              "d": "DJI Live Bridge'de YouTube'u seçin ve iki değeri de yapıştırın. Anahtar, sistem kasasında saklanır."
+            },
+            {
+              "t": "Yönü seçin",
+              "d": "Normal bir yayın için <em>Yatay 16:9</em>'u (1920×1080), telefon ekranı biçiminde bir yayın istiyorsanız <em>Dikey 9:16</em>'yı seçin."
+            },
+            {
+              "t": "YAYINI BAŞLAT'a basın",
+              "d": "Birkaç saniye sonra YouTube Studio yayının alındığını gösterir. Ayarlarınıza bağlı olarak yayın ya otomatik olarak herkese açılır ya da Studio'daki “Canlı yayına geç” düğmesine bastığınızda açılır."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "YouTube ayarları",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Ayar",
+              "Değer"
+            ],
+            "rows": [
+              [
+                "Yayın URL'si",
+                "<code>rtmps://a.rtmps.youtube.com:443/live2</code>"
+              ],
+              [
+                "Çözünürlük",
+                "1920×1080 yatay veya 1080×1920 dikey"
+              ],
+              [
+                "Kare hızı",
+                "30 fps"
+              ],
+              [
+                "Bit hızı",
+                "6 Mbps CBR"
+              ],
+              [
+                "Anahtar kareler",
+                "2 saniyede bir"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "YouTube Studio'da gecikmeyi seçebilirsiniz. <em>Normal</em> en kararlı görüntüyü verir; uçarken sohbete yanıt veriyorsanız <em>Düşük</em> ya da <em>Ultra düşük</em> işinize yarar."
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Sık karşılaşılan sorunlar",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Canlı yayın başlat seçeneği yok:</strong> canlı yayın henüz etkinleştirilmemiş ya da kanalda bir canlı yayın kısıtlaması var.",
+            "<strong>Studio “Veri yok” diyor:</strong> önce uygulamanın önizlemesine bakın; drone orada görünüyorsa anahtarı yeniden kopyalayın.",
+            "<strong>Yayın izleyicilerde takılıyor:</strong> yükleme hızınız yetersiz. Her hedef için yaklaşık 10 Mbps'lik kararlı bir yükleme hızı gerekir."
+          ]
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "DJI drone doğrudan YouTube'a yayın yapabilir mi?",
+      "a": "DJI Fly, RTMP yayınını doğrudan YouTube'un adresine gönderebilir; ama o zaman önizleme olmaz, biçim üzerinde kontrolünüz olmaz ve yalnızca tek bir hedefe yayın yaparsınız. Yayını önce DJI Live Bridge'e göndermek, aynı YouTube yayın anahtarıyla bu üçünü de size kazandırır."
+    },
+    {
+      "q": "YouTube'da yayın yapmak için 50 abone gerekiyor mu?",
+      "a": "Bu sınır, YouTube mobil uygulamasından canlı yayına geçmek için geçerlidir. DJI Live Bridge gibi yayın yazılımları için canlı yayını etkinleştirilmiş bir kanal yeterlidir."
+    },
+    {
+      "q": "YouTube yayın anahtarı değişir mi?",
+      "a": "Hayır. Siz YouTube Studio'da sıfırlayana kadar aynı kalır, yani ayarı bir kez yaparsınız."
+    },
+    {
+      "q": "YouTube'a dikey video yayınlayabilir miyim?",
+      "a": "Evet. Uygulamada Dikey 9:16'yı seçin; klasik bir yayın için Yatay 16:9'u seçin."
+    },
+    {
+      "q": "RTMPS kullanılıyor mu?",
+      "a": "Evet. YouTube'un yayın URL'si rtmps:// ile başlar, bu yüzden yayın YouTube'a giderken şifrelenir."
+    }
+  ]
+}

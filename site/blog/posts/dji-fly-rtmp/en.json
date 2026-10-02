@@ -1,0 +1,86 @@
+{
+  "slug": "dji-fly-rtmp-live-streaming-setup",
+  "platform": "DJI Fly RTMP",
+  "title": "DJI Fly RTMP live streaming: step-by-step setup guide",
+  "description": "How to set up RTMP live streaming in DJI Fly: where the setting is, which address to enter, how to network the controller and computer, and how to fix it.",
+  "h1": "DJI Fly RTMP live streaming: the complete setup",
+  "lead": "DJI Fly can send the drone's live picture to any RTMP address: <strong>GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP</strong>. Point it at a computer running DJI Live Bridge on the same network, and from there the picture can go to TikTok, Instagram, YouTube, Facebook, Twitch, Kick or several of them at once.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "The RTMP option sits under GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP in DJI Fly.",
+    "DJI Fly needs an address like rtmp://192.168.1.20:1935/drone; DJI Live Bridge shows the right one for your computer, with a QR code.",
+    "The controller and the computer must be on the same Wi-Fi or the same phone hotspot.",
+    "The controller usually sends 720p H.264 with AAC audio; the app turns it into a clean 1080p vertical or horizontal stream.",
+    "Guest Wi-Fi networks often block devices from reaching each other — use a normal network or a hotspot."
+  ],
+  "sections": [
+    {
+      "id": "how-it-works",
+      "h2": "How DJI Fly RTMP streaming works",
+      "blocks": [
+        { "p": "RTMP is the protocol live platforms use to receive video. DJI Fly includes an RTMP client: it pushes the picture the controller receives from the drone to whatever address you type in. Platforms are picky about that stream — orientation, keyframes, bitrate — and many of them hand out a different address for every broadcast, so typing a platform's address straight into DJI Fly rarely works well." },
+        { "p": "DJI Live Bridge sits in between. It runs a small RTMP server on your Mac or PC, receives DJI Fly's stream there, shows a preview, and re-encodes it into what each platform expects. Everything stays on your computer; the video does not pass through anyone else's server." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Set up RTMP in DJI Fly",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Put both devices on one network", "d": "Connect the DJI controller and the computer to the same Wi-Fi, or turn on your phone's hotspot and join both to it." },
+          { "t": "Open DJI Live Bridge", "d": "The <em>Connect your drone</em> step shows an address such as <code>rtmp://192.168.1.20:1935/drone</code> and a QR code. The number is your computer's address on that network." },
+          { "t": "Open the RTMP screen in DJI Fly", "d": "Tap GO FLY, then ••• (the three dots), then Transmission → Live Streaming Platforms → RTMP." },
+          { "t": "Enter the address", "d": "Type the address exactly as shown, or scan the QR code if your DJI Fly version offers it." },
+          { "t": "Start streaming", "d": "Start the stream in DJI Fly. In DJI Live Bridge the first step turns green and the preview appears within a few seconds." }
+        ] },
+        { "img": "go-live.png", "alt": "The Go live tab of DJI Live Bridge: the RTMP address for DJI Fly, destinations and the START LIVE button." }
+      ]
+    },
+    {
+      "id": "networks",
+      "h2": "Which network to use",
+      "blocks": [
+        { "table": {
+          "head": ["Setup", "Works?", "Notes"],
+          "rows": [
+            ["Home or office Wi-Fi", "Yes", "Best for practice. The upload to the platforms uses your internet line."],
+            ["Phone hotspot", "Yes", "Best in the field. Controller and computer both join it; the upload uses mobile data."],
+            ["Guest Wi-Fi", "Often not", "Guest networks usually isolate devices, so DJI Fly cannot reach the computer."],
+            ["Controller on mobile data, computer elsewhere", "No", "The computer's local address is not reachable from outside its network."]
+          ]
+        } },
+        { "p": "The link from the controller to the computer carries the full stream, so keep the computer close to the router or hotspot. The upload to the platforms needs about 10 Mbps of steady bandwidth per destination." }
+      ]
+    },
+    {
+      "id": "drones",
+      "h2": "Which drones support RTMP",
+      "blocks": [
+        { "p": "It depends on the drone, the controller and the DJI Fly version, not on DJI Live Bridge. If DJI Fly shows <em>RTMP</em> under <em>Live Streaming Platforms</em>, it will work: the app receives an ordinary RTMP stream and never talks to the drone itself. DJI adds and removes the option between versions, so check your own controller." },
+        { "note": "On the DJI RC 2, some DJI Fly versions refuse to start streaming until a microphone is connected to the controller." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Troubleshooting",
+      "blocks": [
+        { "list": [
+          "<strong>DJI Fly says it cannot connect:</strong> check that both devices are on the same network and that the address matches the one in the app, including <code>:1935/drone</code>.",
+          "<strong>It worked yesterday but not today:</strong> the computer may have a new network address. Copy the address from the app again.",
+          "<strong>A firewall asks for permission:</strong> allow DJI Live Bridge to accept incoming connections on private networks.",
+          "<strong>The picture stutters:</strong> move the computer closer to the Wi-Fi, or switch to a 5 GHz network. Wi-Fi that hops between bands causes short drops.",
+          "<strong>The preview says 720p:</strong> that is what the controller sends. The app shows the real input and does not pretend it is native 1080p."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Where is the RTMP setting in DJI Fly?", "a": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. If you do not see RTMP there, your drone, controller or DJI Fly version does not offer it." },
+    { "q": "What RTMP address do I enter in DJI Fly?", "a": "The one DJI Live Bridge shows, in the form rtmp://<computer address>:1935/drone. It changes when the computer joins another network." },
+    { "q": "Can DJI Fly stream straight to YouTube or Facebook?", "a": "DJI Fly can push RTMP to any address, but platforms expect specific settings, and some need a new key for every broadcast. Sending to DJI Live Bridge first gives you a preview, the right format, several destinations at once and automatic handling of each platform's quirks." },
+    { "q": "Does it need an internet connection?", "a": "The link from DJI Fly to the computer is local. Only the stream from the computer to the platforms uses the internet." },
+    { "q": "Is the video sent to a third-party server?", "a": "No. DJI Live Bridge runs entirely on your computer and sends the stream only to the destinations you add." }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "slug": "drone-ile-twitch-yayini-nasil-yapilir",
+  "platform": "Twitch",
+  "title": "Drone ile Twitch'te yayın nasıl yapılır? (RTMP kurulumu)",
+  "description": "Drone ile Twitch'te yayın: yayın anahtarını Twitch kontrol panelinden kopyalayın, Twitch'i DJI Live Bridge'e Özel RTMP hedefi olarak ekleyin ve yayına geçin.",
+  "h1": "Drone ile Twitch'te yayın nasıl yapılır?",
+  "lead": "Birincil yayın anahtarınızı Twitch'te <strong>İçerik Üreticisi Kontrol Paneli → Ayarlar → Yayın</strong> (Creator Dashboard → Settings → Stream) bölümünden kopyalayın, DJI Live Bridge'de <code>rtmp://live.twitch.tv/app</code> sunucusu ve bu anahtarla bir <strong>Özel RTMP</strong> hedefi ekleyin, drone görüntüsünü DJI Fly'dan uygulamaya gönderin ve YAYINI BAŞLAT'a basın. Twitch, yayını alır almaz kanalınızı canlıya alır.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Twitch, Özel RTMP hedefi olarak eklenir: rtmp://live.twitch.tv/app sunucusu ve yayın anahtarınız.",
+    "Yayın anahtarı İçerik Üreticisi Kontrol Paneli → Ayarlar → Yayın altındadır ve siz sıfırlayana kadar değişmez.",
+    "Yatay 16:9 kullanın: Twitch izleyicileri çoğunlukla yatay izler.",
+    "1080p30'da 6 Mbps ve 2 saniyelik ana kareler Twitch'in önerilerine uyar.",
+    "Twitch, yayın gelir gelmez canlıya geçer; ayrı bir yayına geç düğmesi yoktur."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Adım adım Twitch'te yayın",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Drone'u bağlayın", "d": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın ve DJI Live Bridge'in gösterdiği adresi girin." },
+          { "t": "Yayın anahtarını kopyalayın", "d": "twitch.tv'de İçerik Üreticisi Kontrol Paneli → Ayarlar → Yayın bölümünü açın ve <em>Birincil Yayın anahtarı</em>'nı kopyalayın." },
+          { "t": "Özel RTMP hedefi ekleyin", "d": "DJI Live Bridge'de Özel RTMP'yi seçin, adını Twitch koyun, sunucu URL'si olarak <code>rtmp://live.twitch.tv/app</code> girin ve anahtarı yapıştırın." },
+          { "t": "Yatay 16:9'u seçin", "d": "1920×1080 yayın için <em>Görüntü ve ses</em> altında <em>Yatay 16:9</em>'u seçin." },
+          { "t": "YAYINI BAŞLAT'a basın", "d": "Kanalınız birkaç saniye içinde canlıya geçer. Başlığı ve kategoriyi İçerik Üreticisi Kontrol Paneli'nden ayarlayın; bitirmek için uygulamada <em>Yayını bitir</em>'e basın." }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Twitch ayarları",
+      "blocks": [
+        { "table": {
+          "head": ["Ayar", "Değer"],
+          "rows": [
+            ["Sunucu URL'si", "<code>rtmp://live.twitch.tv/app</code> (Twitch en yakın sunucuyu seçer)"],
+            ["Çözünürlük", "1920×1080, yatay"],
+            ["Kare hızı", "30 fps"],
+            ["Bit hızı", "6 Mbps CBR"],
+            ["Ana kareler", "Her 2 saniyede bir"]
+          ]
+        } },
+        { "p": "Twitch, her bölgenin yayın sunucusunu yardım sayfalarında da listeler. Otomatik adres yavaş bir bağlantı veriyorsa yerine size yakın bir bölgesel sunucu girin." }
+      ]
+    },
+    {
+      "id": "simulcast",
+      "h2": "Twitch ve diğer platformlarda aynı anda yayın",
+      "blocks": [
+        { "p": "DJI Live Bridge aynı görüntüyü Twitch, YouTube ve diğer platformlara aynı anda gönderebilir. Twitch'in eş zamanlı yayın kuralları yıllar içinde değişti ve Affiliate ile Partner'lar için farklı olabilir; birden fazla platformda yayın yapmadan önce güncel sözleşmenizi kontrol edin." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Sık karşılaşılan sorunlar",
+      "blocks": [
+        { "list": [
+          "<strong>Bağlantı başarısız:</strong> sunucu URL'sinin tam olarak <code>rtmp://live.twitch.tv/app</code> olduğunu ve anahtarda fazladan boşluk bulunmadığını kontrol edin.",
+          "<strong>İzleyiciler takılma yaşıyor:</strong> yükleme hızınız yeterince istikrarlı değil. Diğer yüklemeleri kapatın ya da bilgisayarı kablolu bağlantıya geçirin.",
+          "<strong>Anahtar sızdı:</strong> İçerik Üreticisi Kontrol Paneli'nden sıfırlayın ve uygulamada güncelleyin."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI drone ile Twitch'te yayın yapabilir miyim?", "a": "Evet. DJI Fly'ın RTMP yayınını DJI Live Bridge'e gönderin ve Twitch'i rtmp://live.twitch.tv/app adresi ile yayın anahtarınızı kullanarak Özel RTMP hedefi olarak ekleyin." },
+    { "q": "Twitch yayın anahtarımı nerede bulurum?", "a": "twitch.tv'de: İçerik Üreticisi Kontrol Paneli → Ayarlar → Yayın → Birincil Yayın anahtarı." },
+    { "q": "Twitch'e dikey video mu göndermeliyim?", "a": "Genellikle hayır. Twitch çoğunlukla yatay izlenir; bu yüzden Yatay 16:9'u seçin." },
+    { "q": "Twitch anahtarı değişir mi?", "a": "Hayır, yalnızca siz sıfırladığınızda değişir; yani bir kez ayarlamanız yeterli." },
+    { "q": "Twitch için OBS gerekli mi?", "a": "Hayır. DJI Live Bridge yayını doğrudan gönderir. Sahne veya kaplama eklemek isterseniz OBS'yi isteğe bağlı olarak kullanabilirsiniz." }
+  ]
+}

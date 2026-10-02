@@ -65,6 +65,10 @@ The app ships its own FFmpeg and ffprobe so users install nothing. They are buil
   link and a full set of `hreflang` alternates; `check-site.mjs` fails if any of that is wrong, if a
   page is still in English, or if the JSON-LD does not parse.
 - `docs/sitemap.xml`, `docs/robots.txt`, `docs/llms.txt` and `docs/llms-full.txt` are generated too.
+- Blog: `site/blog/<lang>.json` (labels; a language without one has no blog), `site/blog/posts.json` (order)
+  and `site/blog/posts/<id>/<lang>.json` (one post). English is required; every translation must have the
+  same shape as `en.json` (same sections, blocks and steps) and its own slug. Posts are in English and
+  Turkish today; adding a language means adding its labels file and post files, nothing in the generator.
 - CI (`.github/workflows/site.yml`) rebuilds the site and fails if the committed `docs/` differs.
 
 ## Checks before finishing a change

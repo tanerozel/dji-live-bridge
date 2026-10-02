@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "title": "DJI drone live streaming guides — DJI Live Bridge blog",
+    "description": "Step-by-step guides for streaming a DJI drone live from DJI Fly to TikTok, Instagram, YouTube, Facebook, Twitch, Kick or several platforms at once."
+  },
+  "h1": "Drone live streaming guides",
+  "lead": "How to take the live picture from DJI Fly to the platform you use — the settings each one needs, where to find its stream key, and what to do when it does not work.",
+  "language": "Language",
+  "skip": "Skip to content",
+  "home": "Home",
+  "blog": "Blog",
+  "download": "Download",
+  "breadcrumb": "Breadcrumb",
+  "by": "By",
+  "updated": "Updated",
+  "keyFacts": "In short",
+  "toc": "On this page",
+  "faq": "Questions",
+  "related": "More guides",
+  "cta": {
+    "h": "Try it with your drone",
+    "p": "DJI Live Bridge is free and open source, for macOS and Windows. FFmpeg is built in, so there is nothing else to install.",
+    "button": "Download DJI Live Bridge",
+    "more": "How the app works"
+  },
+  "guides": {
+    "h2": "Guides",
+    "sub": "Step-by-step instructions for each platform.",
+    "all": "All guides"
+  }
+}

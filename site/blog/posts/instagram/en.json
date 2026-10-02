@@ -1,0 +1,81 @@
+{
+  "slug": "how-to-go-live-on-instagram-with-a-dji-drone",
+  "platform": "Instagram",
+  "title": "How to go live on Instagram with a DJI drone (step by step)",
+  "description": "Go live on Instagram from a DJI drone: get the stream URL and key on instagram.com, send DJI Fly's RTMP stream through DJI Live Bridge, then press Go live.",
+  "h1": "How to go live on Instagram with a DJI drone",
+  "lead": "Instagram Live accepts streams from streaming software. Open <strong>instagram.com → Create (+) → Live video</strong>, copy the stream URL and stream key into DJI Live Bridge, send the drone's picture from DJI Fly to the app, press START LIVE, and finally press <strong>Go live</strong> on Instagram. Instagram gives a new key for every broadcast.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Instagram's stream URL and key come from instagram.com on a computer: Create (+) → Live video.",
+    "The key is single-use: update it before every broadcast with “Update key” on the destination card.",
+    "Instagram expects vertical video; the app sends 1080×1920, 30 fps, H.264 with 2-second keyframes.",
+    "The broadcast is public only after you press Go live on Instagram itself.",
+    "You can send the same picture to TikTok, YouTube or Facebook at the same time."
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "What you need",
+      "blocks": [
+        { "list": [
+          "A DJI drone whose DJI Fly app offers RTMP under Live Streaming Platforms.",
+          "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> on a Mac or Windows PC, on the same Wi-Fi or hotspot as the controller.",
+          "An Instagram account that shows <em>Live video</em> under Create on instagram.com. If it does not, Instagram has not given that account the option yet."
+        ] }
+      ]
+    },
+    {
+      "id": "steps",
+      "h2": "Go live on Instagram, step by step",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Connect the drone", "d": "In DJI Fly open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, enter the address DJI Live Bridge shows and start. The preview appears in the app." },
+          { "t": "Create the live video on Instagram", "d": "On instagram.com click Create (+) → Live video, give it a title, choose the audience and continue." },
+          { "t": "Copy the stream URL and key", "d": "Instagram shows a <em>Stream URL</em> (like <code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code>) and a <em>Stream key</em>. Paste both into an Instagram destination in DJI Live Bridge." },
+          { "t": "Press START LIVE", "d": "Leave <em>Vertical 9:16</em> on. Within a few seconds Instagram's window shows the drone's picture as a preview." },
+          { "t": "Press Go live on Instagram", "d": "Only now do your followers see the broadcast. To finish, end it on Instagram and press <em>End stream</em> in the app." }
+        ] },
+        { "note": "Next time, open a new live video on Instagram and use <em>Update key</em> on the destination card: the old key no longer works." }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Settings Instagram expects",
+      "blocks": [
+        { "table": {
+          "head": ["Setting", "DJI Live Bridge"],
+          "rows": [
+            ["Resolution", "1080×1920 (vertical 9:16)"],
+            ["Frame rate", "30 fps"],
+            ["Video", "H.264 High, 6 Mbps CBR"],
+            ["Keyframes", "Every 2 seconds"],
+            ["Protocol", "RTMPS (encrypted)"]
+          ]
+        } },
+        { "p": "The drone films in landscape. <em>Whole picture</em> keeps the full frame and fills the space above and below with a blurred copy of it; <em>Fill screen</em> crops the sides to fill the phone screen." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Common problems",
+      "blocks": [
+        { "list": [
+          "<strong>Connection failed right away:</strong> the key was already used. Open a new live video on Instagram and update the key.",
+          "<strong>Instagram's preview stays black:</strong> wait a few seconds after START LIVE; if it stays black, check that the app's preview shows the drone.",
+          "<strong>Followers cannot see the live:</strong> press Go live on Instagram — receiving the stream is not the same as publishing it.",
+          "<strong>No Live video under Create:</strong> the account does not have the option on the web yet; this is decided by Instagram."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Can I go live on Instagram from a DJI drone?", "a": "Yes. DJI Fly sends RTMP to DJI Live Bridge on your computer, and the app forwards it to Instagram with the stream URL and key from instagram.com." },
+    { "q": "Why does Instagram ask for a new stream key every time?", "a": "Instagram issues a fresh key for each live video. Update it in the app with Update key before every broadcast." },
+    { "q": "Can I stream to Instagram and TikTok at the same time?", "a": "Yes. Enable both destinations; the picture is encoded once and sent to each. Both expect vertical video, so one setting suits both." },
+    { "q": "Do I need OBS?", "a": "No. DJI Live Bridge sends the stream to Instagram directly; OBS is optional." },
+    { "q": "Is the drone's sound included?", "a": "By default the audio DJI Fly sends is passed on. You can also pick a microphone on the computer for commentary, or mute the stream." }
+  ]
+}

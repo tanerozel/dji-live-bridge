@@ -1,0 +1,80 @@
+{
+  "slug": "stream-a-dji-drone-to-multiple-platforms-at-once",
+  "platform": "Multistream",
+  "title": "Stream a DJI drone to several platforms at once (multistream)",
+  "description": "Send one DJI drone live stream to TikTok, Instagram, YouTube, Facebook, Twitch and Kick at the same time with DJI Live Bridge — free, local, no restream service.",
+  "h1": "Stream a DJI drone to several platforms at once",
+  "lead": "DJI Fly sends one RTMP stream. DJI Live Bridge receives it on your computer, <strong>encodes the picture once and forwards it to every destination you enable</strong> — TikTok, Instagram, YouTube, Facebook, Twitch, Kick or any RTMP server — without a paid restream service. If one destination fails, the others keep running.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Add one destination per platform and switch on “Stream here” for each one you want.",
+    "The picture is encoded once, so more destinations do not need more processing power — only more upload bandwidth.",
+    "Plan about 10 Mbps of steady upload per destination (6 Mbps video plus headroom).",
+    "All destinations share one orientation: vertical for TikTok/Instagram, horizontal for YouTube/Twitch/Kick.",
+    "Everything runs locally; there is no third-party restream server and no monthly fee."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Set up a multistream",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Connect the drone", "d": "In DJI Fly open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP and enter the address DJI Live Bridge shows." },
+          { "t": "Add each platform", "d": "Under <em>Where do you want to stream?</em> use <em>Add another destination</em> for every platform: TikTok, Instagram, YouTube and Facebook have their own type; Twitch, Kick and others are Custom RTMP." },
+          { "t": "Refresh single-use keys", "d": "Instagram (and Facebook without a persistent key) need a new key for every broadcast. Use <em>Update key</em> on those cards." },
+          { "t": "Pick the orientation for your main audience", "d": "One encode feeds every destination, so choose <em>Vertical 9:16</em> or <em>Horizontal 16:9</em> for the platform that matters most." },
+          { "t": "Press START LIVE", "d": "Each destination card shows its own state — <em>Live</em>, <em>Connecting</em> or <em>Connection failed</em> — and one failure does not stop the rest. Press Go live on the platforms that need it (Instagram, Facebook)." }
+        ] }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Platform cheat sheet",
+      "blocks": [
+        { "table": {
+          "head": ["Platform", "Where the key is", "Key changes?", "Best orientation"],
+          "rows": [
+            ["<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok</a>", "LIVE Center / LIVE Studio (eligible accounts)", "Can change", "Vertical"],
+            ["<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram</a>", "instagram.com → Create → Live video", "Every broadcast", "Vertical"],
+            ["<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube</a>", "YouTube Studio → Go live → Streaming software", "Only when reset", "Horizontal or vertical"],
+            ["<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Facebook</a>", "Live video → Streaming software", "Every session, unless persistent", "Either"],
+            ["<a href=\"../how-to-stream-a-dji-drone-on-twitch/\">Twitch</a>", "Creator Dashboard → Settings → Stream", "Only when reset", "Horizontal"],
+            ["<a href=\"../how-to-stream-a-dji-drone-on-kick/\">Kick</a>", "Dashboard → Settings → Stream URL &amp; Key", "Only when reset", "Horizontal"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "bandwidth",
+      "h2": "How much upload you need",
+      "blocks": [
+        { "table": {
+          "head": ["Destinations", "Video sent", "Steady upload to plan for"],
+          "rows": [
+            ["1", "6 Mbps", "10 Mbps"],
+            ["2", "12 Mbps", "20 Mbps"],
+            ["3", "18 Mbps", "30 Mbps"],
+            ["4", "24 Mbps", "40 Mbps"]
+          ]
+        } },
+        { "p": "On a phone hotspot in the field, two destinations are usually the practical limit. Test the connection with <em>Try with a video file</em> before you take off." }
+      ]
+    },
+    {
+      "id": "rules",
+      "h2": "Check the platforms' rules",
+      "blocks": [
+        { "p": "Some platforms limit simulcasting for partners or in their terms; Twitch in particular has changed its rules over time. DJI Live Bridge only sends the video you tell it to — it never signs in to an account or presses Go live for you." }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Can I stream my DJI drone to TikTok and YouTube at the same time?", "a": "Yes. Add both as destinations and press START LIVE. Because both share one orientation, choose the one that suits your main audience." },
+    { "q": "Do I need a restream service?", "a": "No. DJI Live Bridge does the multistreaming on your own computer, for free; it only needs enough upload bandwidth." },
+    { "q": "What happens if one platform drops?", "a": "Only that destination shows Connection failed. The others keep streaming." },
+    { "q": "Does each extra platform need more CPU?", "a": "Hardly. The picture is encoded once and the same data is sent to every destination." },
+    { "q": "Does multistream work in OBS mode?", "a": "No. Several destinations are a feature of direct streaming; in OBS mode, OBS decides where the stream goes." }
+  ]
+}

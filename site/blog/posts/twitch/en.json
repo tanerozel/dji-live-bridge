@@ -1,0 +1,75 @@
+{
+  "slug": "how-to-stream-a-dji-drone-on-twitch",
+  "platform": "Twitch",
+  "title": "How to stream a DJI drone on Twitch (RTMP setup)",
+  "description": "Stream a DJI drone live on Twitch: copy your stream key from the Creator Dashboard, add Twitch as a custom RTMP destination in DJI Live Bridge and go live.",
+  "h1": "How to stream a DJI drone on Twitch",
+  "lead": "Copy your primary stream key from the Twitch <strong>Creator Dashboard → Settings → Stream</strong>, add a <strong>Custom RTMP</strong> destination in DJI Live Bridge with the server <code>rtmp://live.twitch.tv/app</code> and that key, send the drone's picture from DJI Fly to the app, and press START LIVE. Twitch goes live as soon as it receives the stream.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Twitch is added as a Custom RTMP destination: server rtmp://live.twitch.tv/app plus your stream key.",
+    "The stream key is under Creator Dashboard → Settings → Stream and stays the same until you reset it.",
+    "Use Horizontal 16:9: Twitch viewers mostly watch in landscape.",
+    "6 Mbps at 1080p30 with 2-second keyframes fits Twitch's guidance.",
+    "Twitch starts the broadcast as soon as the stream arrives — there is no separate Go live button."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Stream to Twitch, step by step",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Connect the drone", "d": "In DJI Fly open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP and enter the address DJI Live Bridge shows." },
+          { "t": "Copy the stream key", "d": "On twitch.tv open Creator Dashboard → Settings → Stream and copy the <em>Primary Stream key</em>." },
+          { "t": "Add a Custom RTMP destination", "d": "In DJI Live Bridge choose Custom RTMP, name it Twitch, enter <code>rtmp://live.twitch.tv/app</code> as the server URL and paste the key." },
+          { "t": "Choose Horizontal 16:9", "d": "Under <em>Picture and sound</em> pick <em>Horizontal 16:9</em> for a 1920×1080 stream." },
+          { "t": "Press START LIVE", "d": "Your channel goes live within a few seconds. Set the title and category in the Creator Dashboard; press <em>End stream</em> in the app to finish." }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Twitch settings",
+      "blocks": [
+        { "table": {
+          "head": ["Setting", "Value"],
+          "rows": [
+            ["Server URL", "<code>rtmp://live.twitch.tv/app</code> (Twitch picks the nearest server)"],
+            ["Resolution", "1920×1080, horizontal"],
+            ["Frame rate", "30 fps"],
+            ["Bitrate", "6 Mbps CBR"],
+            ["Keyframes", "Every 2 seconds"]
+          ]
+        } },
+        { "p": "Twitch also lists the stream server for each region in its help pages. If the automatic address gives you a slow connection, enter a nearby regional server instead." }
+      ]
+    },
+    {
+      "id": "simulcast",
+      "h2": "Streaming to Twitch and other platforms at once",
+      "blocks": [
+        { "p": "DJI Live Bridge can send the same picture to Twitch, YouTube and others at the same time. Twitch's rules on simulcasting have changed over the years and can differ for Affiliates and Partners, so check your current agreement before you stream to several platforms." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Common problems",
+      "blocks": [
+        { "list": [
+          "<strong>Connection failed:</strong> check that the server URL is exactly <code>rtmp://live.twitch.tv/app</code> and the key has no extra spaces.",
+          "<strong>Viewers see buffering:</strong> the upload is not steady enough. Close other uploads or use a wired connection for the computer.",
+          "<strong>The key was leaked:</strong> reset it in the Creator Dashboard and update it in the app."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Can I stream a DJI drone on Twitch?", "a": "Yes. Send DJI Fly's RTMP stream to DJI Live Bridge and add Twitch as a Custom RTMP destination with rtmp://live.twitch.tv/app and your stream key." },
+    { "q": "Where do I find my Twitch stream key?", "a": "On twitch.tv: Creator Dashboard → Settings → Stream → Primary Stream key." },
+    { "q": "Should I stream vertical video to Twitch?", "a": "Usually not. Twitch is mostly watched in landscape, so choose Horizontal 16:9." },
+    { "q": "Does the Twitch key change?", "a": "No, only when you reset it, so you set it up once." },
+    { "q": "Do I need OBS for Twitch?", "a": "No. DJI Live Bridge sends the stream directly. OBS is optional if you want scenes or overlays." }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "slug": "drone-ile-tiktok-canli-yayin-nasil-yapilir",
+  "platform": "TikTok",
+  "title": "Drone ile TikTok'ta canlı yayın nasıl yapılır? (2026 DJI rehberi)",
+  "description": "Drone ile TikTok'ta canlı yayın: DJI Fly'dan TikTok yayın anahtarıyla ya da anahtarsız, TikTok LIVE Studio ve sanal kamerayla. Ayarlar ve çözümler.",
+  "h1": "DJI drone ile TikTok'ta canlı yayın nasıl yapılır",
+  "lead": "DJI Fly tek başına TikTok'a yayın yapamaz, ama bir bilgisayara RTMP gönderebilir. DJI Live Bridge bu yayını alır ve TikTok'a iki yoldan biriyle ulaştırır: hesabınızda varsa <strong>doğrudan TikTok sunucu URL'si ve yayın anahtarıyla</strong> ya da drone'un bir kamera olarak göründüğü ve yayın anahtarı gerekmeyen <strong>TikTok LIVE Studio üzerinden</strong>.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "DJI Fly uygulamasında Canlı Yayın Platformları altında RTMP sunan bir DJI drone'a ve kumandayla aynı Wi-Fi ağında ya da hotspot'ta olan bir Mac veya Windows PC'ye ihtiyacınız var.",
+    "Yayın anahtarıyla: DJI Live Bridge'de bir TikTok hedefi ekleyin ve YAYINI BAŞLAT'a basın.",
+    "Yayın anahtarı olmadan: TikTok LIVE Studio'da kamera kaynağı olarak “DJI Live Bridge Camera”yı seçin ve yayını oradan başlatın.",
+    "TikTok dikey video bekler; uygulama 30 fps'de 1080×1920 gönderir ve boş alanı görüntünün bulanık bir kopyasıyla doldurur.",
+    "Kimin LIVE yayın yapabileceğine ve kimin yayın anahtarı alacağına TikTok karar verir; şartlar hesabınıza ve bölgenize göre değişir."
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "Neye ihtiyacınız var",
+      "blocks": [
+        { "list": [
+          "DJI Fly'ın <em>Canlı Yayın Platformları</em> altında <strong>RTMP</strong> gösterdiği bir DJI drone ve kumanda. DJI Fly sürümünüzde bu seçenek varsa drone'unuz çalışır; uygulama drone'un kendisiyle hiç konuşmaz.",
+          "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> kurulu bir Mac (macOS 13 veya üzeri, Apple Silicon ya da Intel) veya Windows 10/11 PC.",
+          "Aynı Wi-Fi ağında ya da ikisi de telefonunuzun hotspot'unda olan kumanda ve bilgisayar.",
+          "LIVE yayın yapabilen bir TikTok hesabı. Doğrudan yöntem için ayrıca RTMP erişimi (sunucu URL'si ve yayın anahtarı) gerekir; LIVE Studio yöntemi için TikTok LIVE Studio erişimi gerekir."
+        ] }
+      ]
+    },
+    {
+      "id": "connect",
+      "h2": "1. adım: drone'un görüntüsünü bilgisayarınıza gönderin",
+      "blocks": [
+        { "steps": [
+          { "t": "DJI Live Bridge'i açın", "d": "<em>Canlı yayın</em> sekmesinde <code>rtmp://192.168.1.20:1935/drone</code> gibi bir adres ve bir QR kod görünür." },
+          { "t": "DJI Fly'da RTMP ekranını açın", "d": "GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP." },
+          { "t": "Adresi yapıştırın ve başlatın", "d": "Görüntü geldiğinde uygulamadaki ilk adım yeşile döner ve canlı önizleme görünür." }
+        ] },
+        { "note": "Yanınızda drone yok mu? Kayıtlı bir klip ile tüm akışın provasını yapmak için uygulamadaki <em>Bir video dosyasıyla dene</em> seçeneğini kullanın." }
+      ]
+    },
+    {
+      "id": "stream-key",
+      "h2": "A yöntemi: yayın anahtarıyla TikTok'ta canlı yayın",
+      "howto": true,
+      "blocks": [
+        { "p": "TikTok size bir sunucu URL'si ve yayın anahtarı gösteriyorsa bu yöntemi kullanın. Her hesap bunu almaz; bulamıyorsanız B yöntemini kullanın." },
+        { "steps": [
+          { "t": "Sunucu URL'sini ve yayın anahtarını TikTok'tan kopyalayın", "d": "TikTok LIVE Center'da veya TikTok LIVE Studio'da yayın anahtarı ekranını açın; <em>Server URL</em> değerini (<code>rtmp://push-rtmp-….tiktokcdn.com/game/</code> gibi görünür) ve <em>Stream key</em> değerini kopyalayın." },
+          { "t": "Bir TikTok hedefi ekleyin", "d": "DJI Live Bridge'de <em>Nereye yayın yapacaksın?</em> altında TikTok'u seçin ve iki değeri de yapıştırın. Anahtar bir dosyada değil, sistem kasasında saklanır." },
+          { "t": "Görüntüyü dikey tutun", "d": "<em>Görüntü ve ses</em> altında <em>Dikey 9:16</em> açık kalsın. <em>Tüm görüntü</em> boş alanı çekimin bulanık bir kopyasıyla doldurur; <em>Ekranı doldur (kırp)</em> ise görüntüyü kırpar." },
+          { "t": "YAYINI BAŞLAT'a basın", "d": "Düğme; yerel sunucu çalıştığında, drone videosu geldiğinde ve bir hedef seçildiğinde etkinleşir. Ardından hedef kartında <em>Yayında</em> yazar." },
+          { "t": "Yayını TikTok'ta kontrol edin", "d": "Yayının alındığını ve herkese açık olduğunu TikTok'ta doğrulayın. İşiniz bitince uygulamada <em>Yayını bitir</em>'e basın." }
+        ] }
+      ]
+    },
+    {
+      "id": "live-studio",
+      "h2": "B yöntemi: yayın anahtarı olmadan TikTok LIVE Studio",
+      "blocks": [
+        { "p": "TikTok LIVE Studio, TikTok'un kendi masaüstü uygulamasıdır. TikTok hesabınızla giriş yaptığınız için RTMP erişimine ihtiyaç duymaz; yalnızca bir kamera ister. DJI Live Bridge bunun için <strong>DJI Live Bridge Camera</strong> adlı bir kamera sağlar." },
+        { "steps": [
+          { "t": "Sanal kamerayı etkinleştirin", "d": "TikTok LIVE Studio sekmesinde <em>Sanal Kamerayı Etkinleştir</em>'e basın. Mac'te uygulamanın Uygulamalar klasöründe olması gerekir ve macOS bir kez Sistem Ayarları → Genel → Giriş Öğeleri ve Uzantılar → Kamera Uzantıları altında onay ister." },
+          { "t": "Kamerayı başlatın", "d": "Kartta <em>Başlatmaya hazır</em> yazdığında <em>Sanal kamerayı başlat</em>'a basın." },
+          { "t": "Kamerayı LIVE Studio'ya ekleyin", "d": "Bir Camera kaynağı ekleyin ve <strong>DJI Live Bridge Camera</strong>'yı seçin." },
+          { "t": "Sesi ayarlayın", "d": "Bu kaynağın ses yakalama ayarını (Audio capture) <em>None</em> yapın ve LIVE Studio'da tek bir mikrofon seçin. Kamera yalnızca görüntü taşır; böylece ses asla iki kez gelmez." },
+          { "t": "Yayına başlayın", "d": "TikTok LIVE Studio'da Go Live'a basın. Yayını başlatma kararı her zaman sizde kalır." }
+        ] },
+        { "img": "virtual-camera.png", "alt": "DJI Live Bridge'in TikTok LIVE Studio sekmesi ve Sanal kamerayı başlat düğmesi." },
+        { "note": "Windows'ta sanal kamera yeni ve beta aşamasında. LIVE Studio'da görünmezse isteğe bağlı OBS entegrasyonu ve OBS Virtual Camera yine de çalışır." }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "TikTok için önerilen ayarlar",
+      "blocks": [
+        { "table": {
+          "head": ["Ayar", "Değer", "Neden"],
+          "rows": [
+            ["Yön", "Dikey 9:16, 1080×1920", "TikTok telefonlarda dikey olarak izlenir."],
+            ["Kare hızı", "30 fps", "Akıcıdır ve yükleme bant genişliğini zorlamaz."],
+            ["Bit hızı", "6 Mbps CBR", "Sabit bit hızı, yayını alan sunucuyu sorunsuz tutar."],
+            ["Video kodeki", "H.264 High, 2 saniyelik ana kareler", "Canlı yayın sunucularının beklediği budur."],
+            ["Kadraj", "Tüm görüntü", "Siyah şerit yok, kenarlardan kayıp yok."]
+          ]
+        } },
+        { "p": "Uygulama bu değerleri otomatik kullanır; siz yalnızca yönü ve kadrajı seçersiniz. Her hedef için en az 10 Mbps sabit yükleme hızı hesaplayın." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Çalışmadığında",
+      "blocks": [
+        { "list": [
+          "<strong>Önizleme boş kalıyor:</strong> kumanda ve bilgisayar büyük ihtimalle farklı ağlarda. İkisini aynı Wi-Fi ağına ya da hotspot'a bağlayın ve DJI Fly'daki adresi kontrol edin.",
+          "<strong>DJI Fly, RC 2'de yayını başlatmıyor:</strong> bazı DJI Fly sürümleri önce kumandaya bir mikrofon bağlanmasını ister.",
+          "<strong>TikTok kartında Bağlantı başarısız yazıyor:</strong> sunucu URL'sini ve anahtarı yeniden kopyalayın; anahtarın süresi dolmuş ya da sıfırlanmış olabilir.",
+          "<strong>LIVE Studio'da kamera görünmüyor:</strong> önce sanal kamerayı başlatın, sonra kameraları yeniden listelemesi için LIVE Studio'yu yeniden başlatın.",
+          "<strong>Görüntü 720p:</strong> kumanda çoğu zaman 720p gönderir. Uygulama gerçek giriş çözünürlüğünü gösterir ve onu yerel 1080p'ymiş gibi göstermez."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI drone ile yayın anahtarı olmadan TikTok'ta canlı yayın yapabilir miyim?", "a": "Evet. TikTok LIVE Studio'yu kullanın ve kamera kaynağı olarak DJI Live Bridge Camera'yı seçin. LIVE Studio'ya kendi hesabınızla giriş yaptığınız için sunucu URL'si ya da yayın anahtarı gerekmez." },
+    { "q": "Neden TikTok yayın anahtarım yok?", "a": "TikTok RTMP yayın anahtarlarını yalnızca bazı hesaplara verir; kurallar bölgeye göre değişir ve zamanla güncellenir. Anahtarınız yoksa alternatif TikTok LIVE Studio'dur." },
+    { "q": "Aynı anda hem TikTok'ta hem Instagram'da yayın yapabilir miyim?", "a": "Evet, ikisi için de yayın anahtarınız varsa. DJI Live Bridge görüntüyü bir kez kodlar ve etkin olan her hedefe gönderir; bir hedefin başarısız olması diğerlerini durdurmaz." },
+    { "q": "DJI Live Bridge TikTok hesabıma giriş yapar mı?", "a": "Hayır. Hiçbir platforma giriş yapmaz ve sizin yerinize asla Go Live'a basmaz; yalnızca videoyu verdiğiniz adrese gönderir ya da LIVE Studio'ya bir kamera sağlar." },
+    { "q": "DJI Live Bridge ücretsiz mi?", "a": "Evet. MIT lisansıyla ücretsiz ve açık kaynaktır; DJI veya TikTok ile bir bağlantısı yoktur." }
+  ]
+}

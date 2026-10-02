@@ -1,0 +1,86 @@
+{
+  "slug": "dji-fly-rtmp-canli-yayin-ayarlari",
+  "platform": "DJI Fly RTMP",
+  "title": "DJI Fly RTMP canlı yayın ayarları: adım adım kurulum rehberi",
+  "description": "DJI Fly RTMP canlı yayın ayarları: ayar nerede, hangi adres girilir, kumanda ve bilgisayar aynı ağa nasıl bağlanır ve sorunlar nasıl çözülür.",
+  "h1": "DJI Fly RTMP canlı yayın ayarları: eksiksiz kurulum",
+  "lead": "DJI Fly, drone'un canlı görüntüsünü herhangi bir RTMP adresine gönderebilir: <strong>GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP</strong>. Bu adresi aynı ağdaki, DJI Live Bridge çalışan bir bilgisayara yönlendirin; görüntü oradan TikTok, Instagram, YouTube, Facebook, Twitch, Kick'e ya da aynı anda birkaçına gidebilir.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "RTMP seçeneği DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP altında bulunur.",
+    "DJI Fly, rtmp://192.168.1.20:1935/drone gibi bir adres ister; DJI Live Bridge bilgisayarınız için doğru adresi bir QR kodla birlikte gösterir.",
+    "Kumanda ve bilgisayar aynı Wi-Fi ağında ya da aynı telefon hotspot'unda olmalıdır.",
+    "Kumanda genellikle AAC sesli 720p H.264 gönderir; uygulama bunu temiz bir 1080p dikey veya yatay yayına dönüştürür.",
+    "Misafir Wi-Fi ağları çoğu zaman cihazların birbirine erişmesini engeller; normal bir ağ ya da hotspot kullanın."
+  ],
+  "sections": [
+    {
+      "id": "how-it-works",
+      "h2": "DJI Fly RTMP yayını nasıl çalışır",
+      "blocks": [
+        { "p": "RTMP, canlı yayın platformlarının video almak için kullandığı protokoldür. DJI Fly'ın içinde bir RTMP istemcisi vardır: kumandanın drone'dan aldığı görüntüyü, yazdığınız adrese iletir. Platformlar bu yayın konusunda seçicidir (yön, ana kareler, bit hızı) ve birçoğu her yayın için farklı bir adres verir. Bu yüzden bir platformun adresini doğrudan DJI Fly'a yazmak nadiren iyi sonuç verir." },
+        { "p": "DJI Live Bridge araya girer. Mac'inizde veya PC'nizde küçük bir RTMP sunucusu çalıştırır, DJI Fly'ın yayınını orada alır, bir önizleme gösterir ve görüntüyü her platformun beklediği biçime yeniden kodlar. Her şey bilgisayarınızda kalır; video başka birinin sunucusundan geçmez." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "DJI Fly'da RTMP'yi kurun",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "İki cihazı da aynı ağa bağlayın", "d": "DJI kumandayı ve bilgisayarı aynı Wi-Fi ağına bağlayın ya da telefonunuzun hotspot'unu açıp ikisini de ona bağlayın." },
+          { "t": "DJI Live Bridge'i açın", "d": "<em>Drone'u bağla</em> adımında <code>rtmp://192.168.1.20:1935/drone</code> gibi bir adres ve bir QR kod görünür. Buradaki sayı, bilgisayarınızın o ağdaki adresidir." },
+          { "t": "DJI Fly'da RTMP ekranını açın", "d": "GO FLY'a, ardından ••• (üç nokta) simgesine dokunun, sonra Aktarım → Canlı Yayın Platformları → RTMP'yi seçin." },
+          { "t": "Adresi girin", "d": "Adresi tam olarak gösterildiği gibi yazın ya da DJI Fly sürümünüz destekliyorsa QR kodu okutun." },
+          { "t": "Yayını başlatın", "d": "Yayını DJI Fly'da başlatın. DJI Live Bridge'de ilk adım yeşile döner ve önizleme birkaç saniye içinde görünür." }
+        ] },
+        { "img": "go-live.png", "alt": "DJI Live Bridge'in Canlı yayın sekmesi: DJI Fly için RTMP adresi, yayın hedefleri ve YAYINI BAŞLAT düğmesi." }
+      ]
+    },
+    {
+      "id": "networks",
+      "h2": "Hangi ağı kullanmalısınız",
+      "blocks": [
+        { "table": {
+          "head": ["Kurulum", "Çalışır mı?", "Notlar"],
+          "rows": [
+            ["Ev veya ofis Wi-Fi'ı", "Evet", "Pratik yapmak için en iyisi. Platformlara gönderim internet hattınızı kullanır."],
+            ["Telefon hotspot'u", "Evet", "Sahada en iyisi. Kumanda ve bilgisayar ikisi de ona bağlanır; gönderim mobil veriyi kullanır."],
+            ["Misafir Wi-Fi'ı", "Çoğu zaman hayır", "Misafir ağları genellikle cihazları birbirinden yalıtır; bu yüzden DJI Fly bilgisayara ulaşamaz."],
+            ["Kumanda mobil veride, bilgisayar başka bir ağda", "Hayır", "Bilgisayarın yerel adresine kendi ağının dışından ulaşılamaz."]
+          ]
+        } },
+        { "p": "Kumandadan bilgisayara giden bağlantı yayının tamamını taşır; bu yüzden bilgisayarı modeme veya hotspot'a yakın tutun. Platformlara gönderim için her hedef başına yaklaşık 10 Mbps sabit bant genişliği gerekir." }
+      ]
+    },
+    {
+      "id": "drones",
+      "h2": "Hangi drone'lar RTMP'yi destekler",
+      "blocks": [
+        { "p": "Bu, DJI Live Bridge'e değil; drone'a, kumandaya ve DJI Fly sürümüne bağlıdır. DJI Fly <em>Canlı Yayın Platformları</em> altında <em>RTMP</em> gösteriyorsa çalışır: uygulama sıradan bir RTMP yayını alır ve drone'un kendisiyle hiç konuşmaz. DJI bu seçeneği sürümden sürüme ekleyip kaldırabiliyor; bu yüzden kendi kumandanızı kontrol edin." },
+        { "note": "DJI RC 2'de bazı DJI Fly sürümleri, kumandaya bir mikrofon bağlanmadan yayını başlatmaz." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Sorun giderme",
+      "blocks": [
+        { "list": [
+          "<strong>DJI Fly bağlanamadığını söylüyor:</strong> iki cihazın da aynı ağda olduğunu ve adresin, <code>:1935/drone</code> kısmı dahil, uygulamadakiyle aynı olduğunu kontrol edin.",
+          "<strong>Dün çalışıyordu ama bugün çalışmıyor:</strong> bilgisayarın ağ adresi değişmiş olabilir. Adresi uygulamadan yeniden kopyalayın.",
+          "<strong>Güvenlik duvarı izin istiyor:</strong> DJI Live Bridge'in özel ağlarda gelen bağlantıları kabul etmesine izin verin.",
+          "<strong>Görüntü takılıyor:</strong> bilgisayarı Wi-Fi'a yaklaştırın ya da 5 GHz bir ağa geçin. Bantlar arasında geçiş yapan Wi-Fi kısa kopmalara yol açar.",
+          "<strong>Önizlemede 720p yazıyor:</strong> kumandanın gönderdiği budur. Uygulama gerçek girişi gösterir ve onu yerel 1080p'ymiş gibi göstermez."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI Fly'da RTMP ayarı nerede?", "a": "GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP. Orada RTMP'yi görmüyorsanız drone'unuz, kumandanız veya DJI Fly sürümünüz bu seçeneği sunmuyor demektir." },
+    { "q": "DJI Fly'a hangi RTMP adresini girmeliyim?", "a": "DJI Live Bridge'in gösterdiği adresi; biçimi rtmp://<bilgisayar adresi>:1935/drone şeklindedir. Bilgisayar başka bir ağa bağlandığında bu adres değişir." },
+    { "q": "DJI Fly doğrudan YouTube'a veya Facebook'a yayın yapabilir mi?", "a": "DJI Fly herhangi bir adrese RTMP gönderebilir, ancak platformlar belirli ayarlar bekler ve bazıları her yayın için yeni bir anahtar ister. Yayını önce DJI Live Bridge'e göndermek size önizleme, doğru biçim, aynı anda birden fazla hedef ve her platformun tuhaflıklarının otomatik olarak ele alınmasını sağlar." },
+    { "q": "İnternet bağlantısı gerekir mi?", "a": "DJI Fly'dan bilgisayara giden bağlantı yereldir. İnterneti yalnızca bilgisayardan platformlara giden yayın kullanır." },
+    { "q": "Video üçüncü taraf bir sunucuya gönderiliyor mu?", "a": "Hayır. DJI Live Bridge tamamen bilgisayarınızda çalışır ve yayını yalnızca sizin eklediğiniz hedeflere gönderir." }
+  ]
+}

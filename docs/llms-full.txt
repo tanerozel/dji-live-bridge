@@ -56,6 +56,410 @@ That is Instagram's own behaviour: it issues a fresh stream key for every broadc
 ### Why is my picture 720p?
 The DJI controller often sends 720p over RTMP. The app shows the real input resolution and does not pretend the upscaled output is native 1080p.
 
+## DJI Fly RTMP live streaming: the complete setup
+Source: https://tanerozel.github.io/dji-live-bridge/blog/dji-fly-rtmp-live-streaming-setup/ (updated 2026-10-02)
+
+DJI Fly can send the drone's live picture to any RTMP address: GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Point it at a computer running DJI Live Bridge on the same network, and from there the picture can go to TikTok, Instagram, YouTube, Facebook, Twitch, Kick or several of them at once.
+
+- The RTMP option sits under GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP in DJI Fly.
+- DJI Fly needs an address like rtmp://192.168.1.20:1935/drone; DJI Live Bridge shows the right one for your computer, with a QR code.
+- The controller and the computer must be on the same Wi-Fi or the same phone hotspot.
+- The controller usually sends 720p H.264 with AAC audio; the app turns it into a clean 1080p vertical or horizontal stream.
+- Guest Wi-Fi networks often block devices from reaching each other — use a normal network or a hotspot.
+
+### How DJI Fly RTMP streaming works
+RTMP is the protocol live platforms use to receive video. DJI Fly includes an RTMP client: it pushes the picture the controller receives from the drone to whatever address you type in. Platforms are picky about that stream — orientation, keyframes, bitrate — and many of them hand out a different address for every broadcast, so typing a platform's address straight into DJI Fly rarely works well.
+DJI Live Bridge sits in between. It runs a small RTMP server on your Mac or PC, receives DJI Fly's stream there, shows a preview, and re-encodes it into what each platform expects. Everything stays on your computer; the video does not pass through anyone else's server.
+
+### Set up RTMP in DJI Fly
+1. **Put both devices on one network** Connect the DJI controller and the computer to the same Wi-Fi, or turn on your phone's hotspot and join both to it.
+2. **Open DJI Live Bridge** The Connect your drone step shows an address such as rtmp://192.168.1.20:1935/drone and a QR code. The number is your computer's address on that network.
+3. **Open the RTMP screen in DJI Fly** Tap GO FLY, then ••• (the three dots), then Transmission → Live Streaming Platforms → RTMP.
+4. **Enter the address** Type the address exactly as shown, or scan the QR code if your DJI Fly version offers it.
+5. **Start streaming** Start the stream in DJI Fly. In DJI Live Bridge the first step turns green and the preview appears within a few seconds.
+
+### Which network to use
+| Setup | Works? | Notes |
+| --- | --- | --- |
+| Home or office Wi-Fi | Yes | Best for practice. The upload to the platforms uses your internet line. |
+| Phone hotspot | Yes | Best in the field. Controller and computer both join it; the upload uses mobile data. |
+| Guest Wi-Fi | Often not | Guest networks usually isolate devices, so DJI Fly cannot reach the computer. |
+| Controller on mobile data, computer elsewhere | No | The computer's local address is not reachable from outside its network. |
+The link from the controller to the computer carries the full stream, so keep the computer close to the router or hotspot. The upload to the platforms needs about 10 Mbps of steady bandwidth per destination.
+
+### Which drones support RTMP
+It depends on the drone, the controller and the DJI Fly version, not on DJI Live Bridge. If DJI Fly shows RTMP under Live Streaming Platforms, it will work: the app receives an ordinary RTMP stream and never talks to the drone itself. DJI adds and removes the option between versions, so check your own controller.
+On the DJI RC 2, some DJI Fly versions refuse to start streaming until a microphone is connected to the controller.
+
+### Troubleshooting
+- DJI Fly says it cannot connect: check that both devices are on the same network and that the address matches the one in the app, including :1935/drone.
+- It worked yesterday but not today: the computer may have a new network address. Copy the address from the app again.
+- A firewall asks for permission: allow DJI Live Bridge to accept incoming connections on private networks.
+- The picture stutters: move the computer closer to the Wi-Fi, or switch to a 5 GHz network. Wi-Fi that hops between bands causes short drops.
+- The preview says 720p: that is what the controller sends. The app shows the real input and does not pretend it is native 1080p.
+
+### FAQ
+**Where is the RTMP setting in DJI Fly?** GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. If you do not see RTMP there, your drone, controller or DJI Fly version does not offer it.
+
+**What RTMP address do I enter in DJI Fly?** The one DJI Live Bridge shows, in the form rtmp://:1935/drone. It changes when the computer joins another network.
+
+**Can DJI Fly stream straight to YouTube or Facebook?** DJI Fly can push RTMP to any address, but platforms expect specific settings, and some need a new key for every broadcast. Sending to DJI Live Bridge first gives you a preview, the right format, several destinations at once and automatic handling of each platform's quirks.
+
+**Does it need an internet connection?** The link from DJI Fly to the computer is local. Only the stream from the computer to the platforms uses the internet.
+
+**Is the video sent to a third-party server?** No. DJI Live Bridge runs entirely on your computer and sends the stream only to the destinations you add.
+
+## How to go live on TikTok with a DJI drone
+Source: https://tanerozel.github.io/dji-live-bridge/blog/how-to-go-live-on-tiktok-with-a-dji-drone/ (updated 2026-10-02)
+
+DJI Fly cannot stream to TikTok by itself, but it can send RTMP to a computer. DJI Live Bridge receives that stream and gets it to TikTok in one of two ways: directly with a TikTok server URL and stream key, if your account has one, or through TikTok LIVE Studio, where the drone appears as a camera and no stream key is needed.
+
+- You need a DJI drone whose DJI Fly app offers RTMP under Live Streaming Platforms, and a Mac or Windows PC on the same Wi-Fi or hotspot as the controller.
+- With a stream key: add a TikTok destination in DJI Live Bridge and press START LIVE.
+- Without a stream key: select “DJI Live Bridge Camera” as a camera source in TikTok LIVE Studio and go live from there.
+- TikTok expects vertical video; the app sends 1080×1920 at 30 fps and fills the empty space with a blurred copy of the picture.
+- TikTok decides who may go LIVE and who gets a stream key; the requirements depend on your account and region.
+
+### What you need
+- A DJI drone and controller where DJI Fly shows RTMP under Live Streaming Platforms. If your DJI Fly version has it, the drone works — the app never talks to the drone itself.
+- A Mac (macOS 13 or newer, Apple Silicon or Intel) or a Windows 10/11 PC with DJI Live Bridge installed.
+- The controller and the computer on the same Wi-Fi network, or both on your phone's hotspot.
+- A TikTok account that can go LIVE. For the direct method it also needs RTMP access (a server URL and stream key); for the LIVE Studio method it needs access to TikTok LIVE Studio.
+
+### Step 1: send the drone's picture to your computer
+1. **Open DJI Live Bridge** The Go live tab shows an address such as rtmp://192.168.1.20:1935/drone and a QR code.
+2. **Open the RTMP screen in DJI Fly** GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP.
+3. **Paste the address and start** When the picture arrives, the first step in the app turns green and the live preview appears.
+No drone at hand? Use Try with a video file in the app to rehearse the whole path with a recorded clip.
+
+### Method A: go live on TikTok with a stream key
+Use this method if TikTok shows you a server URL and stream key. Not every account gets one; if you cannot find it, use Method B.
+1. **Copy the server URL and stream key from TikTok** Open the stream key screen in TikTok LIVE Center or TikTok LIVE Studio and copy the Server URL (it looks like rtmp://push-rtmp-….tiktokcdn.com/game/) and the Stream key.
+2. **Add a TikTok destination** In DJI Live Bridge, under Where do you want to stream?, choose TikTok and paste both values. The key is stored in your system's credential vault, not in a file.
+3. **Keep the picture vertical** Under Picture and sound leave Vertical 9:16 on. Whole picture fills the empty space with a blurred copy of the shot; Fill screen crops instead.
+4. **Press START LIVE** The button unlocks once the local server runs, drone video is arriving and a destination is selected. The destination card then shows Live.
+5. **Check the stream on TikTok** Confirm in TikTok that the stream is being received and is public. Press End stream in the app when you are done.
+
+### Method B: TikTok LIVE Studio without a stream key
+TikTok LIVE Studio is TikTok's own desktop app. You sign in with your TikTok account, so it does not need RTMP access — it only needs a camera. DJI Live Bridge provides one called DJI Live Bridge Camera.
+1. **Enable the virtual camera** In the TikTok LIVE Studio tab press Enable Virtual Camera. On a Mac the app must be in the Applications folder, and macOS asks once for approval under System Settings → General → Login Items &amp; Extensions → Camera Extensions.
+2. **Start the camera** When the card reads Ready to start, press Start Virtual Camera.
+3. **Add the camera in LIVE Studio** Add a Camera source and pick DJI Live Bridge Camera.
+4. **Set up the sound** Set that source's audio capture to None and choose one microphone in LIVE Studio. The camera carries video only, so you never get double audio.
+5. **Go live** Press Go Live in TikTok LIVE Studio. Going live always stays in your hands.
+On Windows the virtual camera is new and in beta. If it does not appear in LIVE Studio, the optional OBS integration and OBS Virtual Camera still work.
+
+### Recommended settings for TikTok
+| Setting | Value | Why |
+| --- | --- | --- |
+| Orientation | Vertical 9:16, 1080×1920 | TikTok is watched on phones in portrait. |
+| Frame rate | 30 fps | Smooth, and light on upload bandwidth. |
+| Bitrate | 6 Mbps CBR | A constant rate keeps the ingest server happy. |
+| Video codec | H.264 High, 2-second keyframes | What live ingest servers expect. |
+| Framing | Whole picture | No black bars and no lost edges. |
+The app uses these values automatically; you only choose the orientation and framing. Plan for at least 10 Mbps of steady upload per destination.
+
+### When it does not work
+- The preview stays empty: the controller and the computer are probably on different networks. Put both on the same Wi-Fi or hotspot and check the address in DJI Fly.
+- DJI Fly will not start streaming on the RC 2: some DJI Fly versions want a microphone connected to the controller first.
+- The TikTok card says Connection failed: copy the server URL and key again — a key can expire or be reset.
+- The camera is missing in LIVE Studio: start the virtual camera first, then restart LIVE Studio so it lists cameras again.
+- The picture is 720p: the controller often sends 720p. The app shows the real input resolution and does not pretend it is native 1080p.
+
+### FAQ
+**Can I go live on TikTok from a DJI drone without a stream key?** Yes. Use TikTok LIVE Studio and pick DJI Live Bridge Camera as its camera source. You sign in to LIVE Studio with your own account, so no server URL or stream key is needed.
+
+**Why don't I have a TikTok stream key?** TikTok gives RTMP stream keys only to some accounts, and the rules vary by region and change over time. TikTok LIVE Studio is the alternative when you have none.
+
+**Can I stream to TikTok and Instagram at the same time?** Yes, with stream keys for both. DJI Live Bridge encodes the picture once and sends it to every enabled destination; one failing destination does not stop the others.
+
+**Does DJI Live Bridge sign in to my TikTok account?** No. It never signs in to a platform and never presses Go Live for you; it only sends video to the address you give it, or provides a camera to LIVE Studio.
+
+**Is DJI Live Bridge free?** Yes. It is free and open source under the MIT licence, and is not affiliated with DJI or TikTok.
+
+## How to go live on Instagram with a DJI drone
+Source: https://tanerozel.github.io/dji-live-bridge/blog/how-to-go-live-on-instagram-with-a-dji-drone/ (updated 2026-10-02)
+
+Instagram Live accepts streams from streaming software. Open instagram.com → Create (+) → Live video, copy the stream URL and stream key into DJI Live Bridge, send the drone's picture from DJI Fly to the app, press START LIVE, and finally press Go live on Instagram. Instagram gives a new key for every broadcast.
+
+- Instagram's stream URL and key come from instagram.com on a computer: Create (+) → Live video.
+- The key is single-use: update it before every broadcast with “Update key” on the destination card.
+- Instagram expects vertical video; the app sends 1080×1920, 30 fps, H.264 with 2-second keyframes.
+- The broadcast is public only after you press Go live on Instagram itself.
+- You can send the same picture to TikTok, YouTube or Facebook at the same time.
+
+### What you need
+- A DJI drone whose DJI Fly app offers RTMP under Live Streaming Platforms.
+- DJI Live Bridge on a Mac or Windows PC, on the same Wi-Fi or hotspot as the controller.
+- An Instagram account that shows Live video under Create on instagram.com. If it does not, Instagram has not given that account the option yet.
+
+### Go live on Instagram, step by step
+1. **Connect the drone** In DJI Fly open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, enter the address DJI Live Bridge shows and start. The preview appears in the app.
+2. **Create the live video on Instagram** On instagram.com click Create (+) → Live video, give it a title, choose the audience and continue.
+3. **Copy the stream URL and key** Instagram shows a Stream URL (like rtmps://edgetee-upload-….fbcdn.net:443/rtmp/) and a Stream key. Paste both into an Instagram destination in DJI Live Bridge.
+4. **Press START LIVE** Leave Vertical 9:16 on. Within a few seconds Instagram's window shows the drone's picture as a preview.
+5. **Press Go live on Instagram** Only now do your followers see the broadcast. To finish, end it on Instagram and press End stream in the app.
+Next time, open a new live video on Instagram and use Update key on the destination card: the old key no longer works.
+
+### Settings Instagram expects
+| Setting | DJI Live Bridge |
+| --- | --- |
+| Resolution | 1080×1920 (vertical 9:16) |
+| Frame rate | 30 fps |
+| Video | H.264 High, 6 Mbps CBR |
+| Keyframes | Every 2 seconds |
+| Protocol | RTMPS (encrypted) |
+The drone films in landscape. Whole picture keeps the full frame and fills the space above and below with a blurred copy of it; Fill screen crops the sides to fill the phone screen.
+
+### Common problems
+- Connection failed right away: the key was already used. Open a new live video on Instagram and update the key.
+- Instagram's preview stays black: wait a few seconds after START LIVE; if it stays black, check that the app's preview shows the drone.
+- Followers cannot see the live: press Go live on Instagram — receiving the stream is not the same as publishing it.
+- No Live video under Create: the account does not have the option on the web yet; this is decided by Instagram.
+
+### FAQ
+**Can I go live on Instagram from a DJI drone?** Yes. DJI Fly sends RTMP to DJI Live Bridge on your computer, and the app forwards it to Instagram with the stream URL and key from instagram.com.
+
+**Why does Instagram ask for a new stream key every time?** Instagram issues a fresh key for each live video. Update it in the app with Update key before every broadcast.
+
+**Can I stream to Instagram and TikTok at the same time?** Yes. Enable both destinations; the picture is encoded once and sent to each. Both expect vertical video, so one setting suits both.
+
+**Do I need OBS?** No. DJI Live Bridge sends the stream to Instagram directly; OBS is optional.
+
+**Is the drone's sound included?** By default the audio DJI Fly sends is passed on. You can also pick a microphone on the computer for commentary, or mute the stream.
+
+## How to live stream a DJI drone to YouTube
+Source: https://tanerozel.github.io/dji-live-bridge/blog/how-to-live-stream-a-dji-drone-to-youtube/ (updated 2026-10-02)
+
+In YouTube Studio choose Create → Go live → Streaming software and copy the stream URL and stream key. Add them as a YouTube destination in DJI Live Bridge, send the drone's picture from DJI Fly to the app over RTMP, and press START LIVE. YouTube's key stays the same until you reset it, so you set it up once.
+
+- The first time, live streaming must be enabled on the channel; YouTube says this can take up to 24 hours.
+- Stream URL: rtmps://a.rtmps.youtube.com:443/live2 — the key comes from YouTube Studio.
+- Choose Horizontal 16:9 for a classic YouTube broadcast; vertical works too.
+- The app sends 1080p at 30 fps, 6 Mbps, H.264 with 2-second keyframes, which matches YouTube's recommendations.
+- The same broadcast can also go to Facebook, Twitch or any RTMP server at once.
+
+### Before your first stream: enable live streaming
+Open YouTube Studio and choose Create → Go live. If the channel has never streamed, YouTube asks you to verify it with a phone number and enables live streaming; the first activation can take up to 24 hours. After that, going live is instant.
+
+### Stream to YouTube, step by step
+1. **Connect the drone** In DJI Fly open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP and enter the address DJI Live Bridge shows.
+2. **Copy the key from YouTube Studio** Create → Go live → Streaming software. Copy the Stream URL (rtmps://a.rtmps.youtube.com:443/live2) and the Stream key.
+3. **Add a YouTube destination** In DJI Live Bridge choose YouTube and paste both values. The key is saved in the system's credential vault.
+4. **Choose the orientation** Pick Horizontal 16:9 for a normal broadcast (1920×1080), or Vertical 9:16 if you want a phone-shaped stream.
+5. **Press START LIVE** YouTube Studio shows the stream as received after a few seconds. Depending on your settings it goes public automatically or after you press Go live in Studio.
+
+### YouTube settings
+| Setting | Value |
+| --- | --- |
+| Stream URL | rtmps://a.rtmps.youtube.com:443/live2 |
+| Resolution | 1920×1080 horizontal or 1080×1920 vertical |
+| Frame rate | 30 fps |
+| Bitrate | 6 Mbps CBR |
+| Keyframes | Every 2 seconds |
+In YouTube Studio you can choose the latency. Normal gives the steadiest picture; Low or Ultra-low help when you answer chat while flying.
+
+### Common problems
+- No Go live option: live streaming is not enabled yet, or the channel has a live streaming restriction.
+- Studio says “No data”: check the app's preview first; if the drone is visible there, copy the key again.
+- The stream buffers for viewers: the upload is too slow. Each destination needs about 10 Mbps of steady upload.
+
+### FAQ
+**Can a DJI drone stream straight to YouTube?** DJI Fly can push RTMP to YouTube's address directly, but you get no preview, no control over the format and only one destination. Sending the stream to DJI Live Bridge first gives you all three, with the same YouTube stream key.
+
+**Do I need 50 subscribers to stream to YouTube?** That limit applies to going live from the YouTube mobile app. Streaming software, which is what DJI Live Bridge is, needs a channel with live streaming enabled.
+
+**Does the YouTube stream key change?** No. It stays the same until you reset it in YouTube Studio, so you set it up once.
+
+**Can I stream vertical video to YouTube?** Yes. Choose Vertical 9:16 in the app; for a classic broadcast choose Horizontal 16:9.
+
+**Does it use RTMPS?** Yes. YouTube's stream URL starts with rtmps://, so the stream is encrypted on its way to YouTube.
+
+## How to go live on Facebook with a DJI drone
+Source: https://tanerozel.github.io/dji-live-bridge/blog/how-to-go-live-on-facebook-with-a-dji-drone/ (updated 2026-10-02)
+
+On facebook.com open Live video → Streaming software (Facebook's Live Producer), copy the server URL and stream key into a Facebook destination in DJI Live Bridge, send the drone's picture from DJI Fly to the app, press START LIVE, then press Go live in Live Producer. Facebook only accepts encrypted RTMPS, which the app handles.
+
+- The server URL and key come from Live Producer: Live video → Streaming software.
+- Server URL: rtmps://live-api-s.facebook.com:443/rtmp/ — Facebook requires RTMPS.
+- Facebook issues a new key per session unless you turn on a persistent stream key.
+- Facebook needs a keyframe every 2 seconds; DJI Live Bridge always sends that.
+- You can post to your profile, a Page or a group, and stream to other platforms at the same time.
+
+### Go live on Facebook, step by step
+1. **Connect the drone** In DJI Fly open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP and enter the address DJI Live Bridge shows. The preview appears in the app.
+2. **Open Live Producer** On facebook.com choose Live video, pick where to post (your profile, a Page or a group) and select Streaming software.
+3. **Copy the server URL and key** Copy the Server URL (rtmps://live-api-s.facebook.com:443/rtmp/) and the Stream key into a Facebook destination in DJI Live Bridge.
+4. **Press START LIVE** Choose the orientation first: Horizontal 16:9 suits viewers on computers, Vertical 9:16 suits the phone feed. Live Producer shows the preview after a few seconds.
+5. **Press Go live on Facebook** Add a title and description in Live Producer and press Go live. To finish, end the video there and press End stream in the app.
+
+### Use a persistent stream key
+By default Facebook creates a new stream key for every session, so you would have to update it in the app each time. Live Producer has an option to use a persistent stream key. Turn it on, save the key once in DJI Live Bridge, and it keeps working for future broadcasts to the same place.
+Treat a persistent key like a password: anyone who has it can broadcast to your page. DJI Live Bridge keeps it in the system's credential vault and never writes it to a file or a log.
+
+### Facebook settings
+| Setting | Value |
+| --- | --- |
+| Server URL | rtmps://live-api-s.facebook.com:443/rtmp/ |
+| Protocol | RTMPS (required by Facebook) |
+| Resolution | 1920×1080 or 1080×1920 |
+| Frame rate | 30 fps |
+| Video | H.264, 6 Mbps CBR, keyframe every 2 seconds |
+
+### Common problems
+- Connection failed: the session key expired. Copy a new one from Live Producer, or switch to a persistent key.
+- The address starts with rtmp://: Facebook does not accept unencrypted RTMP; use the rtmps:// address from Live Producer.
+- Live Producer receives the stream but nobody sees it: you still have to press Go live in Live Producer.
+
+### FAQ
+**Can I go live on Facebook from a DJI drone?** Yes. DJI Fly sends RTMP to DJI Live Bridge on your computer, and the app forwards it to Facebook over RTMPS with the key from Live Producer.
+
+**Can I stream to a Facebook Page or group?** Yes. Choose where to post in Live Producer before you copy the key; the key belongs to that destination.
+
+**Why does my Facebook stream key stop working?** Facebook issues a key per session. Turn on the persistent stream key in Live Producer if you stream regularly to the same place.
+
+**Can I stream to Facebook and Instagram at the same time?** Yes, as two destinations in DJI Live Bridge. Both receive the same picture, so pick the orientation that suits your main audience.
+
+**Is it free?** Yes. DJI Live Bridge is free and open source, and is not affiliated with DJI or Meta.
+
+## How to stream a DJI drone on Twitch
+Source: https://tanerozel.github.io/dji-live-bridge/blog/how-to-stream-a-dji-drone-on-twitch/ (updated 2026-10-02)
+
+Copy your primary stream key from the Twitch Creator Dashboard → Settings → Stream, add a Custom RTMP destination in DJI Live Bridge with the server rtmp://live.twitch.tv/app and that key, send the drone's picture from DJI Fly to the app, and press START LIVE. Twitch goes live as soon as it receives the stream.
+
+- Twitch is added as a Custom RTMP destination: server rtmp://live.twitch.tv/app plus your stream key.
+- The stream key is under Creator Dashboard → Settings → Stream and stays the same until you reset it.
+- Use Horizontal 16:9: Twitch viewers mostly watch in landscape.
+- 6 Mbps at 1080p30 with 2-second keyframes fits Twitch's guidance.
+- Twitch starts the broadcast as soon as the stream arrives — there is no separate Go live button.
+
+### Stream to Twitch, step by step
+1. **Connect the drone** In DJI Fly open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP and enter the address DJI Live Bridge shows.
+2. **Copy the stream key** On twitch.tv open Creator Dashboard → Settings → Stream and copy the Primary Stream key.
+3. **Add a Custom RTMP destination** In DJI Live Bridge choose Custom RTMP, name it Twitch, enter rtmp://live.twitch.tv/app as the server URL and paste the key.
+4. **Choose Horizontal 16:9** Under Picture and sound pick Horizontal 16:9 for a 1920×1080 stream.
+5. **Press START LIVE** Your channel goes live within a few seconds. Set the title and category in the Creator Dashboard; press End stream in the app to finish.
+
+### Twitch settings
+| Setting | Value |
+| --- | --- |
+| Server URL | rtmp://live.twitch.tv/app (Twitch picks the nearest server) |
+| Resolution | 1920×1080, horizontal |
+| Frame rate | 30 fps |
+| Bitrate | 6 Mbps CBR |
+| Keyframes | Every 2 seconds |
+Twitch also lists the stream server for each region in its help pages. If the automatic address gives you a slow connection, enter a nearby regional server instead.
+
+### Streaming to Twitch and other platforms at once
+DJI Live Bridge can send the same picture to Twitch, YouTube and others at the same time. Twitch's rules on simulcasting have changed over the years and can differ for Affiliates and Partners, so check your current agreement before you stream to several platforms.
+
+### Common problems
+- Connection failed: check that the server URL is exactly rtmp://live.twitch.tv/app and the key has no extra spaces.
+- Viewers see buffering: the upload is not steady enough. Close other uploads or use a wired connection for the computer.
+- The key was leaked: reset it in the Creator Dashboard and update it in the app.
+
+### FAQ
+**Can I stream a DJI drone on Twitch?** Yes. Send DJI Fly's RTMP stream to DJI Live Bridge and add Twitch as a Custom RTMP destination with rtmp://live.twitch.tv/app and your stream key.
+
+**Where do I find my Twitch stream key?** On twitch.tv: Creator Dashboard → Settings → Stream → Primary Stream key.
+
+**Should I stream vertical video to Twitch?** Usually not. Twitch is mostly watched in landscape, so choose Horizontal 16:9.
+
+**Does the Twitch key change?** No, only when you reset it, so you set it up once.
+
+**Do I need OBS for Twitch?** No. DJI Live Bridge sends the stream directly. OBS is optional if you want scenes or overlays.
+
+## How to stream a DJI drone on Kick
+Source: https://tanerozel.github.io/dji-live-bridge/blog/how-to-stream-a-dji-drone-on-kick/ (updated 2026-10-02)
+
+In the Kick creator dashboard open Settings → Stream URL &amp; Key, copy both into a Custom RTMP destination in DJI Live Bridge, send the drone's picture from DJI Fly to the app, and press START LIVE. Kick uses an encrypted RTMPS address, which the app supports.
+
+- Kick is added as a Custom RTMP destination with the Stream URL and Stream key from the Kick dashboard.
+- Kick's stream URL is an rtmps:// address; always copy it from your own dashboard.
+- Kick may ask you to turn on two-factor authentication before it shows the key.
+- Use Horizontal 16:9 for a 1920×1080 stream at 30 fps and 6 Mbps.
+- The same picture can go to Kick and other platforms at once.
+
+### Stream to Kick, step by step
+1. **Connect the drone** In DJI Fly open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP and enter the address DJI Live Bridge shows.
+2. **Copy the stream URL and key** On kick.com open the creator dashboard → Settings → Stream URL &amp; Key. Copy the Stream URL (it starts with rtmps:// and ends in /app) and the Stream key.
+3. **Add a Custom RTMP destination** In DJI Live Bridge choose Custom RTMP, name it Kick and paste both values.
+4. **Choose Horizontal 16:9** Under Picture and sound pick Horizontal 16:9.
+5. **Press START LIVE** The channel goes live when Kick receives the stream. Set the title and category in the dashboard; press End stream in the app to finish.
+
+### Kick settings
+| Setting | Value |
+| --- | --- |
+| Stream URL | From the Kick dashboard, rtmps://…/app |
+| Resolution | 1920×1080, horizontal |
+| Frame rate | 30 fps |
+| Video | H.264, 6 Mbps CBR, keyframe every 2 seconds |
+
+### Common problems
+- The key is hidden: turn on two-factor authentication in your Kick account settings, then reopen the page.
+- Connection failed: copy the stream URL again including rtmps://, the port and /app.
+- The key was shared by mistake: reset it on Kick and update it in the app.
+
+### FAQ
+**Can I stream a DJI drone on Kick?** Yes. Send DJI Fly's RTMP stream to DJI Live Bridge and add Kick as a Custom RTMP destination with the stream URL and key from your Kick dashboard.
+
+**Does Kick support RTMPS?** Yes, Kick's stream URL is an rtmps:// address, and DJI Live Bridge accepts rtmps:// destinations.
+
+**Can I stream to Kick and Twitch at the same time?** DJI Live Bridge can send to both at once. Check each platform's current rules on simulcasting first.
+
+**Is DJI Live Bridge affiliated with Kick?** No. It is an independent, free and open-source app.
+
+## Stream a DJI drone to several platforms at once
+Source: https://tanerozel.github.io/dji-live-bridge/blog/stream-a-dji-drone-to-multiple-platforms-at-once/ (updated 2026-10-02)
+
+DJI Fly sends one RTMP stream. DJI Live Bridge receives it on your computer, encodes the picture once and forwards it to every destination you enable — TikTok, Instagram, YouTube, Facebook, Twitch, Kick or any RTMP server — without a paid restream service. If one destination fails, the others keep running.
+
+- Add one destination per platform and switch on “Stream here” for each one you want.
+- The picture is encoded once, so more destinations do not need more processing power — only more upload bandwidth.
+- Plan about 10 Mbps of steady upload per destination (6 Mbps video plus headroom).
+- All destinations share one orientation: vertical for TikTok/Instagram, horizontal for YouTube/Twitch/Kick.
+- Everything runs locally; there is no third-party restream server and no monthly fee.
+
+### Set up a multistream
+1. **Connect the drone** In DJI Fly open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP and enter the address DJI Live Bridge shows.
+2. **Add each platform** Under Where do you want to stream? use Add another destination for every platform: TikTok, Instagram, YouTube and Facebook have their own type; Twitch, Kick and others are Custom RTMP.
+3. **Refresh single-use keys** Instagram (and Facebook without a persistent key) need a new key for every broadcast. Use Update key on those cards.
+4. **Pick the orientation for your main audience** One encode feeds every destination, so choose Vertical 9:16 or Horizontal 16:9 for the platform that matters most.
+5. **Press START LIVE** Each destination card shows its own state — Live, Connecting or Connection failed — and one failure does not stop the rest. Press Go live on the platforms that need it (Instagram, Facebook).
+
+### Platform cheat sheet
+| Platform | Where the key is | Key changes? | Best orientation |
+| --- | --- | --- | --- |
+| TikTok | LIVE Center / LIVE Studio (eligible accounts) | Can change | Vertical |
+| Instagram | instagram.com → Create → Live video | Every broadcast | Vertical |
+| YouTube | YouTube Studio → Go live → Streaming software | Only when reset | Horizontal or vertical |
+| Facebook | Live video → Streaming software | Every session, unless persistent | Either |
+| Twitch | Creator Dashboard → Settings → Stream | Only when reset | Horizontal |
+| Kick | Dashboard → Settings → Stream URL &amp; Key | Only when reset | Horizontal |
+
+### How much upload you need
+| Destinations | Video sent | Steady upload to plan for |
+| --- | --- | --- |
+| 1 | 6 Mbps | 10 Mbps |
+| 2 | 12 Mbps | 20 Mbps |
+| 3 | 18 Mbps | 30 Mbps |
+| 4 | 24 Mbps | 40 Mbps |
+On a phone hotspot in the field, two destinations are usually the practical limit. Test the connection with Try with a video file before you take off.
+
+### Check the platforms' rules
+Some platforms limit simulcasting for partners or in their terms; Twitch in particular has changed its rules over time. DJI Live Bridge only sends the video you tell it to — it never signs in to an account or presses Go live for you.
+
+### FAQ
+**Can I stream my DJI drone to TikTok and YouTube at the same time?** Yes. Add both as destinations and press START LIVE. Because both share one orientation, choose the one that suits your main audience.
+
+**Do I need a restream service?** No. DJI Live Bridge does the multistreaming on your own computer, for free; it only needs enough upload bandwidth.
+
+**What happens if one platform drops?** Only that destination shows Connection failed. The others keep streaming.
+
+**Does each extra platform need more CPU?** Hardly. The picture is encoded once and the same data is sent to every destination.
+
+**Does multistream work in OBS mode?** No. Several destinations are a feature of direct streaming; in OBS mode, OBS decides where the stream goes.
+
 ---
 Taner Özel — developer and maintainer · https://github.com/tanerozel/dji-live-bridge
 Released under the MIT licence; the bundled FFmpeg is LGPL, built from source without GPL components. DJI Live Bridge is an independent project and is not affiliated with DJI, Instagram, TikTok or Apple. DJI, Instagram and TikTok are trademarks of their respective owners.

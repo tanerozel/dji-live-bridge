@@ -1,0 +1,133 @@
+{
+  "slug": "how-to-live-stream-a-dji-drone-to-youtube",
+  "platform": "YouTube",
+  "title": "How to live stream a DJI drone to YouTube (RTMP guide)",
+  "description": "Stream a DJI drone live to YouTube: enable live streaming, copy the stream key from YouTube Studio, send DJI Fly's RTMP through DJI Live Bridge. Settings and tips.",
+  "h1": "How to live stream a DJI drone to YouTube",
+  "lead": "In YouTube Studio choose <strong>Create → Go live → Streaming software</strong> and copy the stream URL and stream key. Add them as a YouTube destination in DJI Live Bridge, send the drone's picture from DJI Fly to the app over RTMP, and press START LIVE. YouTube's key stays the same until you reset it, so you set it up once.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "The first time, live streaming must be enabled on the channel; YouTube says this can take up to 24 hours.",
+    "Stream URL: rtmps://a.rtmps.youtube.com:443/live2 — the key comes from YouTube Studio.",
+    "Choose Horizontal 16:9 for a classic YouTube broadcast; vertical works too.",
+    "The app sends 1080p at 30 fps, 6 Mbps, H.264 with 2-second keyframes, which matches YouTube's recommendations.",
+    "The same broadcast can also go to Facebook, Twitch or any RTMP server at once."
+  ],
+  "sections": [
+    {
+      "id": "enable",
+      "h2": "Before your first stream: enable live streaming",
+      "blocks": [
+        {
+          "p": "Open YouTube Studio and choose <em>Create → Go live</em>. If the channel has never streamed, YouTube asks you to verify it with a phone number and enables live streaming; the first activation can take up to 24 hours. After that, going live is instant."
+        }
+      ]
+    },
+    {
+      "id": "steps",
+      "h2": "Stream to YouTube, step by step",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Connect the drone",
+              "d": "In DJI Fly open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP and enter the address DJI Live Bridge shows."
+            },
+            {
+              "t": "Copy the key from YouTube Studio",
+              "d": "Create → Go live → Streaming software. Copy the <em>Stream URL</em> (<code>rtmps://a.rtmps.youtube.com:443/live2</code>) and the <em>Stream key</em>."
+            },
+            {
+              "t": "Add a YouTube destination",
+              "d": "In DJI Live Bridge choose YouTube and paste both values. The key is saved in the system's credential vault."
+            },
+            {
+              "t": "Choose the orientation",
+              "d": "Pick <em>Horizontal 16:9</em> for a normal broadcast (1920×1080), or <em>Vertical 9:16</em> if you want a phone-shaped stream."
+            },
+            {
+              "t": "Press START LIVE",
+              "d": "YouTube Studio shows the stream as received after a few seconds. Depending on your settings it goes public automatically or after you press Go live in Studio."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "YouTube settings",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Setting",
+              "Value"
+            ],
+            "rows": [
+              [
+                "Stream URL",
+                "<code>rtmps://a.rtmps.youtube.com:443/live2</code>"
+              ],
+              [
+                "Resolution",
+                "1920×1080 horizontal or 1080×1920 vertical"
+              ],
+              [
+                "Frame rate",
+                "30 fps"
+              ],
+              [
+                "Bitrate",
+                "6 Mbps CBR"
+              ],
+              [
+                "Keyframes",
+                "Every 2 seconds"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "In YouTube Studio you can choose the latency. <em>Normal</em> gives the steadiest picture; <em>Low</em> or <em>Ultra-low</em> help when you answer chat while flying."
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Common problems",
+      "blocks": [
+        {
+          "list": [
+            "<strong>No Go live option:</strong> live streaming is not enabled yet, or the channel has a live streaming restriction.",
+            "<strong>Studio says “No data”:</strong> check the app's preview first; if the drone is visible there, copy the key again.",
+            "<strong>The stream buffers for viewers:</strong> the upload is too slow. Each destination needs about 10 Mbps of steady upload."
+          ]
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Can a DJI drone stream straight to YouTube?",
+      "a": "DJI Fly can push RTMP to YouTube's address directly, but you get no preview, no control over the format and only one destination. Sending the stream to DJI Live Bridge first gives you all three, with the same YouTube stream key."
+    },
+    {
+      "q": "Do I need 50 subscribers to stream to YouTube?",
+      "a": "That limit applies to going live from the YouTube mobile app. Streaming software, which is what DJI Live Bridge is, needs a channel with live streaming enabled."
+    },
+    {
+      "q": "Does the YouTube stream key change?",
+      "a": "No. It stays the same until you reset it in YouTube Studio, so you set it up once."
+    },
+    {
+      "q": "Can I stream vertical video to YouTube?",
+      "a": "Yes. Choose Vertical 9:16 in the app; for a classic broadcast choose Horizontal 16:9."
+    },
+    {
+      "q": "Does it use RTMPS?",
+      "a": "Yes. YouTube's stream URL starts with rtmps://, so the stream is encrypted on its way to YouTube."
+    }
+  ]
+}

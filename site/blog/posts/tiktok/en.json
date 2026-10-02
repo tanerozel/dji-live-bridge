@@ -1,0 +1,111 @@
+{
+  "slug": "how-to-go-live-on-tiktok-with-a-dji-drone",
+  "platform": "TikTok",
+  "title": "How to go live on TikTok with a DJI drone (2026 guide)",
+  "description": "Stream a DJI drone live on TikTok from DJI Fly: with a TikTok stream key, or without one through TikTok LIVE Studio and a virtual camera. Settings and fixes.",
+  "h1": "How to go live on TikTok with a DJI drone",
+  "lead": "DJI Fly cannot stream to TikTok by itself, but it can send RTMP to a computer. DJI Live Bridge receives that stream and gets it to TikTok in one of two ways: <strong>directly with a TikTok server URL and stream key</strong>, if your account has one, or <strong>through TikTok LIVE Studio</strong>, where the drone appears as a camera and no stream key is needed.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "You need a DJI drone whose DJI Fly app offers RTMP under Live Streaming Platforms, and a Mac or Windows PC on the same Wi-Fi or hotspot as the controller.",
+    "With a stream key: add a TikTok destination in DJI Live Bridge and press START LIVE.",
+    "Without a stream key: select “DJI Live Bridge Camera” as a camera source in TikTok LIVE Studio and go live from there.",
+    "TikTok expects vertical video; the app sends 1080×1920 at 30 fps and fills the empty space with a blurred copy of the picture.",
+    "TikTok decides who may go LIVE and who gets a stream key; the requirements depend on your account and region."
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "What you need",
+      "blocks": [
+        { "list": [
+          "A DJI drone and controller where DJI Fly shows <strong>RTMP</strong> under <em>Live Streaming Platforms</em>. If your DJI Fly version has it, the drone works — the app never talks to the drone itself.",
+          "A Mac (macOS 13 or newer, Apple Silicon or Intel) or a Windows 10/11 PC with <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> installed.",
+          "The controller and the computer on the same Wi-Fi network, or both on your phone's hotspot.",
+          "A TikTok account that can go LIVE. For the direct method it also needs RTMP access (a server URL and stream key); for the LIVE Studio method it needs access to TikTok LIVE Studio."
+        ] }
+      ]
+    },
+    {
+      "id": "connect",
+      "h2": "Step 1: send the drone's picture to your computer",
+      "blocks": [
+        { "steps": [
+          { "t": "Open DJI Live Bridge", "d": "The Go live tab shows an address such as <code>rtmp://192.168.1.20:1935/drone</code> and a QR code." },
+          { "t": "Open the RTMP screen in DJI Fly", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP." },
+          { "t": "Paste the address and start", "d": "When the picture arrives, the first step in the app turns green and the live preview appears." }
+        ] },
+        { "note": "No drone at hand? Use <em>Try with a video file</em> in the app to rehearse the whole path with a recorded clip." }
+      ]
+    },
+    {
+      "id": "stream-key",
+      "h2": "Method A: go live on TikTok with a stream key",
+      "howto": true,
+      "blocks": [
+        { "p": "Use this method if TikTok shows you a server URL and stream key. Not every account gets one; if you cannot find it, use Method B." },
+        { "steps": [
+          { "t": "Copy the server URL and stream key from TikTok", "d": "Open the stream key screen in TikTok LIVE Center or TikTok LIVE Studio and copy the <em>Server URL</em> (it looks like <code>rtmp://push-rtmp-….tiktokcdn.com/game/</code>) and the <em>Stream key</em>." },
+          { "t": "Add a TikTok destination", "d": "In DJI Live Bridge, under <em>Where do you want to stream?</em>, choose TikTok and paste both values. The key is stored in your system's credential vault, not in a file." },
+          { "t": "Keep the picture vertical", "d": "Under <em>Picture and sound</em> leave <em>Vertical 9:16</em> on. <em>Whole picture</em> fills the empty space with a blurred copy of the shot; <em>Fill screen</em> crops instead." },
+          { "t": "Press START LIVE", "d": "The button unlocks once the local server runs, drone video is arriving and a destination is selected. The destination card then shows <em>Live</em>." },
+          { "t": "Check the stream on TikTok", "d": "Confirm in TikTok that the stream is being received and is public. Press <em>End stream</em> in the app when you are done." }
+        ] }
+      ]
+    },
+    {
+      "id": "live-studio",
+      "h2": "Method B: TikTok LIVE Studio without a stream key",
+      "blocks": [
+        { "p": "TikTok LIVE Studio is TikTok's own desktop app. You sign in with your TikTok account, so it does not need RTMP access — it only needs a camera. DJI Live Bridge provides one called <strong>DJI Live Bridge Camera</strong>." },
+        { "steps": [
+          { "t": "Enable the virtual camera", "d": "In the TikTok LIVE Studio tab press <em>Enable Virtual Camera</em>. On a Mac the app must be in the Applications folder, and macOS asks once for approval under System Settings → General → Login Items &amp; Extensions → Camera Extensions." },
+          { "t": "Start the camera", "d": "When the card reads <em>Ready to start</em>, press <em>Start Virtual Camera</em>." },
+          { "t": "Add the camera in LIVE Studio", "d": "Add a Camera source and pick <strong>DJI Live Bridge Camera</strong>." },
+          { "t": "Set up the sound", "d": "Set that source's audio capture to <em>None</em> and choose one microphone in LIVE Studio. The camera carries video only, so you never get double audio." },
+          { "t": "Go live", "d": "Press Go Live in TikTok LIVE Studio. Going live always stays in your hands." }
+        ] },
+        { "img": "virtual-camera.png", "alt": "The TikTok LIVE Studio tab of DJI Live Bridge with the Start Virtual Camera button." },
+        { "note": "On Windows the virtual camera is new and in beta. If it does not appear in LIVE Studio, the optional OBS integration and OBS Virtual Camera still work." }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Recommended settings for TikTok",
+      "blocks": [
+        { "table": {
+          "head": ["Setting", "Value", "Why"],
+          "rows": [
+            ["Orientation", "Vertical 9:16, 1080×1920", "TikTok is watched on phones in portrait."],
+            ["Frame rate", "30 fps", "Smooth, and light on upload bandwidth."],
+            ["Bitrate", "6 Mbps CBR", "A constant rate keeps the ingest server happy."],
+            ["Video codec", "H.264 High, 2-second keyframes", "What live ingest servers expect."],
+            ["Framing", "Whole picture", "No black bars and no lost edges."]
+          ]
+        } },
+        { "p": "The app uses these values automatically; you only choose the orientation and framing. Plan for at least 10 Mbps of steady upload per destination." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "When it does not work",
+      "blocks": [
+        { "list": [
+          "<strong>The preview stays empty:</strong> the controller and the computer are probably on different networks. Put both on the same Wi-Fi or hotspot and check the address in DJI Fly.",
+          "<strong>DJI Fly will not start streaming on the RC 2:</strong> some DJI Fly versions want a microphone connected to the controller first.",
+          "<strong>The TikTok card says Connection failed:</strong> copy the server URL and key again — a key can expire or be reset.",
+          "<strong>The camera is missing in LIVE Studio:</strong> start the virtual camera first, then restart LIVE Studio so it lists cameras again.",
+          "<strong>The picture is 720p:</strong> the controller often sends 720p. The app shows the real input resolution and does not pretend it is native 1080p."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Can I go live on TikTok from a DJI drone without a stream key?", "a": "Yes. Use TikTok LIVE Studio and pick DJI Live Bridge Camera as its camera source. You sign in to LIVE Studio with your own account, so no server URL or stream key is needed." },
+    { "q": "Why don't I have a TikTok stream key?", "a": "TikTok gives RTMP stream keys only to some accounts, and the rules vary by region and change over time. TikTok LIVE Studio is the alternative when you have none." },
+    { "q": "Can I stream to TikTok and Instagram at the same time?", "a": "Yes, with stream keys for both. DJI Live Bridge encodes the picture once and sends it to every enabled destination; one failing destination does not stop the others." },
+    { "q": "Does DJI Live Bridge sign in to my TikTok account?", "a": "No. It never signs in to a platform and never presses Go Live for you; it only sends video to the address you give it, or provides a camera to LIVE Studio." },
+    { "q": "Is DJI Live Bridge free?", "a": "Yes. It is free and open source under the MIT licence, and is not affiliated with DJI or TikTok." }
+  ]
+}

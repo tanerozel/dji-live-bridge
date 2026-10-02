@@ -1,0 +1,75 @@
+{
+  "slug": "how-to-go-live-on-facebook-with-a-dji-drone",
+  "platform": "Facebook",
+  "title": "How to go live on Facebook with a DJI drone (Live Producer)",
+  "description": "Stream a DJI drone live on Facebook: get the RTMPS server URL and stream key from Live Producer, send DJI Fly's stream through DJI Live Bridge, and go live.",
+  "h1": "How to go live on Facebook with a DJI drone",
+  "lead": "On facebook.com open <strong>Live video → Streaming software</strong> (Facebook's Live Producer), copy the server URL and stream key into a Facebook destination in DJI Live Bridge, send the drone's picture from DJI Fly to the app, press START LIVE, then press <strong>Go live</strong> in Live Producer. Facebook only accepts encrypted RTMPS, which the app handles.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "The server URL and key come from Live Producer: Live video → Streaming software.",
+    "Server URL: rtmps://live-api-s.facebook.com:443/rtmp/ — Facebook requires RTMPS.",
+    "Facebook issues a new key per session unless you turn on a persistent stream key.",
+    "Facebook needs a keyframe every 2 seconds; DJI Live Bridge always sends that.",
+    "You can post to your profile, a Page or a group, and stream to other platforms at the same time."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Go live on Facebook, step by step",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Connect the drone", "d": "In DJI Fly open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP and enter the address DJI Live Bridge shows. The preview appears in the app." },
+          { "t": "Open Live Producer", "d": "On facebook.com choose Live video, pick where to post (your profile, a Page or a group) and select <em>Streaming software</em>." },
+          { "t": "Copy the server URL and key", "d": "Copy the <em>Server URL</em> (<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>) and the <em>Stream key</em> into a Facebook destination in DJI Live Bridge." },
+          { "t": "Press START LIVE", "d": "Choose the orientation first: <em>Horizontal 16:9</em> suits viewers on computers, <em>Vertical 9:16</em> suits the phone feed. Live Producer shows the preview after a few seconds." },
+          { "t": "Press Go live on Facebook", "d": "Add a title and description in Live Producer and press Go live. To finish, end the video there and press <em>End stream</em> in the app." }
+        ] }
+      ]
+    },
+    {
+      "id": "persistent-key",
+      "h2": "Use a persistent stream key",
+      "blocks": [
+        { "p": "By default Facebook creates a new stream key for every session, so you would have to update it in the app each time. Live Producer has an option to <em>use a persistent stream key</em>. Turn it on, save the key once in DJI Live Bridge, and it keeps working for future broadcasts to the same place." },
+        { "note": "Treat a persistent key like a password: anyone who has it can broadcast to your page. DJI Live Bridge keeps it in the system's credential vault and never writes it to a file or a log." }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Facebook settings",
+      "blocks": [
+        { "table": {
+          "head": ["Setting", "Value"],
+          "rows": [
+            ["Server URL", "<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>"],
+            ["Protocol", "RTMPS (required by Facebook)"],
+            ["Resolution", "1920×1080 or 1080×1920"],
+            ["Frame rate", "30 fps"],
+            ["Video", "H.264, 6 Mbps CBR, keyframe every 2 seconds"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Common problems",
+      "blocks": [
+        { "list": [
+          "<strong>Connection failed:</strong> the session key expired. Copy a new one from Live Producer, or switch to a persistent key.",
+          "<strong>The address starts with rtmp://:</strong> Facebook does not accept unencrypted RTMP; use the rtmps:// address from Live Producer.",
+          "<strong>Live Producer receives the stream but nobody sees it:</strong> you still have to press Go live in Live Producer."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Can I go live on Facebook from a DJI drone?", "a": "Yes. DJI Fly sends RTMP to DJI Live Bridge on your computer, and the app forwards it to Facebook over RTMPS with the key from Live Producer." },
+    { "q": "Can I stream to a Facebook Page or group?", "a": "Yes. Choose where to post in Live Producer before you copy the key; the key belongs to that destination." },
+    { "q": "Why does my Facebook stream key stop working?", "a": "Facebook issues a key per session. Turn on the persistent stream key in Live Producer if you stream regularly to the same place." },
+    { "q": "Can I stream to Facebook and Instagram at the same time?", "a": "Yes, as two destinations in DJI Live Bridge. Both receive the same picture, so pick the orientation that suits your main audience." },
+    { "q": "Is it free?", "a": "Yes. DJI Live Bridge is free and open source, and is not affiliated with DJI or Meta." }
+  ]
+}

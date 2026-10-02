@@ -1,0 +1,65 @@
+{
+  "slug": "drone-ile-kick-yayini-nasil-yapilir",
+  "platform": "Kick",
+  "title": "DJI drone ile Kick'te yayın nasıl yapılır? (URL ve anahtar)",
+  "description": "Drone ile Kick'te yayın: Kick panelinden yayın URL'si ve anahtarını kopyalayın, DJI Live Bridge'e Özel RTMP hedefi olarak ekleyin ve yayına geçin.",
+  "h1": "DJI drone ile Kick'te yayın nasıl yapılır?",
+  "lead": "Kick içerik üreticisi panelinde <strong>Settings → Stream URL &amp; Key</strong> sayfasını açın, iki değeri de DJI Live Bridge'de bir <strong>Özel RTMP</strong> hedefine yapıştırın, drone'un görüntüsünü DJI Fly'dan uygulamaya gönderin ve YAYINI BAŞLAT'a basın. Kick şifreli bir RTMPS adresi kullanır; uygulama bunu destekler.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Kick, Kick panelindeki Stream URL ve Stream key değerleriyle Özel RTMP hedefi olarak eklenir.",
+    "Kick'in yayın URL'si rtmps:// ile başlayan bir adrestir; her zaman kendi panelinizden kopyalayın.",
+    "Kick, anahtarı göstermeden önce iki adımlı doğrulamayı açmanızı isteyebilir.",
+    "30 fps ve 6 Mbps ile 1920×1080 yayın için Yatay 16:9'u seçin.",
+    "Aynı görüntü Kick'e ve diğer platformlara aynı anda gidebilir."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Adım adım Kick'te yayın",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Drone'u bağlayın", "d": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın ve DJI Live Bridge'in gösterdiği adresi girin." },
+          { "t": "Yayın URL'sini ve anahtarını kopyalayın", "d": "kick.com'da içerik üreticisi panelini açın → Settings → Stream URL &amp; Key. <em>Stream URL</em> değerini (<code>rtmps://</code> ile başlar, <code>/app</code> ile biter) ve <em>Stream key</em> değerini kopyalayın." },
+          { "t": "Özel RTMP hedefi ekleyin", "d": "DJI Live Bridge'de Özel RTMP'yi seçin, adını Kick koyun ve iki değeri de yapıştırın." },
+          { "t": "Yatay 16:9'u seçin", "d": "<em>Görüntü ve ses</em> bölümünde <em>Yatay 16:9</em> seçeneğini işaretleyin." },
+          { "t": "YAYINI BAŞLAT'a basın", "d": "Kick yayını aldığında kanalınız yayına geçer. Başlığı ve kategoriyi panelden ayarlayın; bitirmek için uygulamada <em>Yayını bitir</em>'e basın." }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Kick ayarları",
+      "blocks": [
+        { "table": {
+          "head": ["Ayar", "Değer"],
+          "rows": [
+            ["Yayın URL'si", "Kick panelinden, <code>rtmps://…/app</code>"],
+            ["Çözünürlük", "1920×1080, yatay"],
+            ["Kare hızı", "30 fps"],
+            ["Video", "H.264, 6 Mbps CBR, her 2 saniyede bir anahtar kare"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Sık karşılaşılan sorunlar",
+      "blocks": [
+        { "list": [
+          "<strong>Anahtar görünmüyor:</strong> Kick hesap ayarlarınızda iki adımlı doğrulamayı açın, ardından sayfayı yeniden açın.",
+          "<strong>Bağlantı başarısız:</strong> yayın URL'sini <code>rtmps://</code>, port ve <code>/app</code> dahil olmak üzere yeniden kopyalayın.",
+          "<strong>Anahtarı yanlışlıkla paylaştınız:</strong> Kick'te sıfırlayın ve uygulamada yenisiyle güncelleyin."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI drone ile Kick'te yayın yapabilir miyim?", "a": "Evet. DJI Fly'ın RTMP yayınını DJI Live Bridge'e gönderin ve Kick'i, Kick panelinizdeki yayın URL'si ve anahtarıyla Özel RTMP hedefi olarak ekleyin." },
+    { "q": "Kick RTMPS destekliyor mu?", "a": "Evet. Kick'in yayın URL'si bir rtmps:// adresidir ve DJI Live Bridge rtmps:// hedeflerini kabul eder." },
+    { "q": "Kick ve Twitch'te aynı anda yayın yapabilir miyim?", "a": "DJI Live Bridge ikisine aynı anda gönderebilir. Önce her platformun eşzamanlı yayınla (simulcast) ilgili güncel kurallarını kontrol edin." },
+    { "q": "DJI Live Bridge'in Kick ile bir bağlantısı var mı?", "a": "Hayır. Bağımsız, ücretsiz ve açık kaynaklı bir uygulamadır." }
+  ]
+}

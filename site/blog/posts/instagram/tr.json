@@ -1,0 +1,141 @@
+{
+  "slug": "drone-ile-instagram-canli-yayin-nasil-yapilir",
+  "platform": "Instagram",
+  "title": "Drone ile Instagram'da canlı yayın nasıl yapılır? (Adım adım)",
+  "description": "Drone ile Instagram'da canlı yayın: instagram.com'dan yayın URL'si ve anahtarını alın, DJI Fly'ın RTMP yayınını DJI Live Bridge ile gönderin, Go live'a basın.",
+  "h1": "Drone ile Instagram'da canlı yayın nasıl yapılır?",
+  "lead": "Instagram Live, yayın yazılımlarından gelen yayınları kabul eder. <strong>instagram.com → Oluştur (+) → Canlı video</strong> yolunu açın, yayın URL'sini ve yayın anahtarını DJI Live Bridge'e kopyalayın, drone'un görüntüsünü DJI Fly'dan uygulamaya gönderin, YAYINI BAŞLAT'a basın ve son olarak Instagram'da <strong>Go live</strong>'a basın. Instagram her yayın için yeni bir anahtar verir.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Instagram'ın yayın URL'si ve anahtarı bilgisayarda instagram.com'dan alınır: Oluştur (+) → Canlı video.",
+    "Anahtar tek kullanımlıktır: her yayından önce hedef kartındaki “Anahtarı güncelle” ile yenileyin.",
+    "Instagram dikey video bekler; uygulama 1080×1920, 30 fps, 2 saniyelik anahtar karelerle H.264 gönderir.",
+    "Yayın, ancak Instagram'ın kendisinde Go live'a bastığınızda herkese açık olur.",
+    "Aynı görüntüyü aynı anda TikTok, YouTube veya Facebook'a da gönderebilirsiniz."
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "Neye ihtiyacınız var?",
+      "blocks": [
+        {
+          "list": [
+            "DJI Fly uygulamasında Canlı Yayın Platformları altında RTMP seçeneği olan bir DJI drone.",
+            "Kumandayla aynı Wi-Fi ağında veya aynı hotspot'ta olan bir Mac ya da Windows bilgisayarda <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a>.",
+            "instagram.com'da Oluştur altında <em>Canlı video</em> seçeneğini gösteren bir Instagram hesabı. Görünmüyorsa Instagram bu seçeneği o hesaba henüz açmamış demektir."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "steps",
+      "h2": "Adım adım Instagram'da canlı yayın",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Drone'u bağlayın",
+              "d": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın, DJI Live Bridge'in gösterdiği adresi girin ve yayını başlatın. Önizleme uygulamada belirir."
+            },
+            {
+              "t": "Instagram'da canlı videoyu oluşturun",
+              "d": "instagram.com'da Oluştur (+) → Canlı video'ya tıklayın, bir başlık verin, izleyici kitlesini seçin ve devam edin."
+            },
+            {
+              "t": "Yayın URL'sini ve anahtarını kopyalayın",
+              "d": "Instagram bir <em>Yayın URL'si</em> (<code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code> gibi) ve bir <em>Yayın anahtarı</em> gösterir. İkisini de DJI Live Bridge'deki bir Instagram hedefine yapıştırın."
+            },
+            {
+              "t": "YAYINI BAŞLAT'a basın",
+              "d": "<em>Dikey 9:16</em> açık kalsın. Birkaç saniye içinde Instagram penceresinde drone'un görüntüsü önizleme olarak belirir."
+            },
+            {
+              "t": "Instagram'da Go live'a basın",
+              "d": "Takipçileriniz yayını ancak şimdi görür. Bitirmek için yayını Instagram'da sonlandırın ve uygulamada <em>Yayını bitir</em>'e basın."
+            }
+          ]
+        },
+        {
+          "note": "Bir sonraki sefer Instagram'da yeni bir canlı video açın ve hedef kartındaki <em>Anahtarı güncelle</em>'yi kullanın: eski anahtar artık çalışmaz."
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Instagram'ın beklediği ayarlar",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Ayar",
+              "DJI Live Bridge"
+            ],
+            "rows": [
+              [
+                "Çözünürlük",
+                "1080×1920 (dikey 9:16)"
+              ],
+              [
+                "Kare hızı",
+                "30 fps"
+              ],
+              [
+                "Video",
+                "H.264 High, 6 Mbps CBR"
+              ],
+              [
+                "Anahtar kareler",
+                "2 saniyede bir"
+              ],
+              [
+                "Protokol",
+                "RTMPS (şifreli)"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "Drone yatay çeker. <em>Tüm görüntü</em> karenin tamamını korur ve üstteki ile alttaki boşluğu görüntünün bulanıklaştırılmış bir kopyasıyla doldurur; <em>Ekranı doldur (kırp)</em> ise telefon ekranını doldurmak için kenarları kırpar."
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Sık karşılaşılan sorunlar",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Hemen “Bağlantı başarısız” görünüyor:</strong> anahtar daha önce kullanılmış. Instagram'da yeni bir canlı video açın ve anahtarı güncelleyin.",
+            "<strong>Instagram'ın önizlemesi siyah kalıyor:</strong> YAYINI BAŞLAT'tan sonra birkaç saniye bekleyin; hâlâ siyahsa uygulamanın önizlemesinde drone'un göründüğünü kontrol edin.",
+            "<strong>Takipçiler yayını göremiyor:</strong> Instagram'da Go live'a basın — yayının Instagram'a ulaşması, yayınlandığı anlamına gelmez.",
+            "<strong>Oluştur altında Canlı video yok:</strong> hesapta bu seçenek web'de henüz açık değil; buna Instagram karar veriyor."
+          ]
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "DJI drone ile Instagram'da canlı yayın yapabilir miyim?",
+      "a": "Evet. DJI Fly, RTMP yayınını bilgisayarınızdaki DJI Live Bridge'e gönderir; uygulama da instagram.com'dan aldığınız yayın URL'si ve anahtarıyla bu yayını Instagram'a iletir."
+    },
+    {
+      "q": "Instagram neden her seferinde yeni bir yayın anahtarı istiyor?",
+      "a": "Instagram her canlı video için yeni bir anahtar üretir. Her yayından önce uygulamada Anahtarı güncelle ile yenileyin."
+    },
+    {
+      "q": "Instagram ve TikTok'ta aynı anda yayın yapabilir miyim?",
+      "a": "Evet. İki hedefi de açın; görüntü bir kez kodlanır ve her birine gönderilir. İkisi de dikey video beklediği için tek bir ayar ikisine de uyar."
+    },
+    {
+      "q": "OBS gerekiyor mu?",
+      "a": "Hayır. DJI Live Bridge yayını doğrudan Instagram'a gönderir; OBS isteğe bağlıdır."
+    },
+    {
+      "q": "Drone'un sesi yayına dahil mi?",
+      "a": "Varsayılan olarak DJI Fly'ın gönderdiği ses aynen iletilir. İsterseniz anlatım için bilgisayardan bir mikrofon seçebilir ya da yayının sesini kapatabilirsiniz."
+    }
+  ]
+}
