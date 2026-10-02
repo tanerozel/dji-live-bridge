@@ -1,0 +1,84 @@
+{
+  "slug": "dji-osmo-live-stream-instagram-tiktok",
+  "platform": "DJI Osmo cameras",
+  "title": "Live stream DJI Osmo Action and Pocket to Instagram and TikTok",
+  "description": "DJI Mimo can stream Osmo Action, Osmo Pocket and Osmo 360 cameras over RTMP. Send that to DJI Live Bridge to go live on Instagram, TikTok and YouTube at once.",
+  "h1": "Live stream your DJI Osmo camera to Instagram, TikTok and more",
+  "lead": "DJI Live Bridge is not only for drones. DJI's action and gimbal cameras stream over <strong>RTMP from the DJI Mimo app</strong> — exactly the kind of stream the app receives. Point an Osmo Action, Osmo Pocket or Osmo 360 at DJI Live Bridge and it goes to <strong>Instagram, TikTok, YouTube, Facebook, Twitch or Kick</strong>, several at once, in vertical or horizontal format — or into Zoom and OBS as a wireless webcam.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "DJI Mimo (version 1.2.20 or later) offers RTMP livestreaming on the Osmo Action, Osmo Pocket and Osmo 360 series.",
+    "The camera joins a Wi-Fi network itself and pushes RTMP; put it on the same network as the computer running DJI Live Bridge.",
+    "DJI Mimo's own platforms are Facebook, YouTube and RTMP — Instagram and TikTok are reached through DJI Live Bridge.",
+    "DJI lists 480p, 720p and 1080p at up to 6 Mbps; choose 1080p 6 Mbps when the Wi-Fi allows it.",
+    "The same stream can become a wireless webcam for TikTok LIVE Studio, OBS, Zoom or Meet."
+  ],
+  "sections": [
+    {
+      "id": "devices",
+      "h2": "Which DJI cameras can stream",
+      "blocks": [
+        { "p": "According to DJI, these cameras support livestreaming in DJI Mimo, with RTMP as one of the platforms:" },
+        { "table": {
+          "head": ["Camera", "Resolutions (DJI)", "Notes"],
+          "rows": [
+            ["Osmo Pocket 3, Osmo Pocket 4, Osmo Pocket 4P", "480p, 720p, 1080p at 30 fps", "Up to 6 Mbps at 1080p"],
+            ["Osmo Action 6, Osmo Action 5 Pro, Osmo Action 4, Osmo Action 3", "480p, 720p, 1080p", "Up to 6 Mbps at 1080p"],
+            ["Osmo 360 series", "480p, 720p, 1080p", "Single-lens mode only"],
+            ["DJI Pocket 2, DJI Action 2", "480p, 720p, 1080p", "Action 2 also offers an adaptive bitrate"],
+            ["Osmo Action (first generation)", "480p, 720p", "No 1080p livestream"]
+          ]
+        } },
+        { "note": "Not supported for livestreaming in DJI Mimo: the Osmo Mobile and DJI OM phone gimbals, the original Osmo Pocket and the Osmo Nano. With a phone gimbal, the phone itself is the camera." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Stream an Osmo camera through DJI Live Bridge",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Open DJI Live Bridge", "d": "Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> on a Mac or Windows PC. The <em>Connect your drone</em> step works for any RTMP camera and shows an address like <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Connect the camera in DJI Mimo", "d": "Update DJI Mimo to 1.2.20 or later, connect the camera and open its livestream option." },
+          { "t": "Choose RTMP and the network", "d": "Select RTMP as the platform and pick the Wi-Fi network the camera should use — the same one the computer is on, or a phone hotspot both have joined." },
+          { "t": "Enter the address and quality", "d": "Type the address from DJI Live Bridge, choose 1080p and the highest bitrate your Wi-Fi handles, and start. The preview appears in the app within seconds." },
+          { "t": "Add platforms and go live", "d": "Add Instagram, TikTok, YouTube or any RTMP server, choose vertical or horizontal, and press START LIVE." }
+        ] },
+        { "img": "go-live.png", "alt": "The Go live tab of DJI Live Bridge with the RTMP address, the destinations and the START LIVE button." }
+      ]
+    },
+    {
+      "id": "uses",
+      "h2": "What it adds to an Osmo camera",
+      "blocks": [
+        { "list": [
+          "<strong>Instagram and TikTok.</strong> DJI Mimo streams to Facebook, YouTube or an RTMP address; DJI Live Bridge reaches Instagram over RTMPS and TikTok with a stream key or through TikTok LIVE Studio.",
+          "<strong>Several platforms at once.</strong> One camera, the same broadcast on Instagram, TikTok and YouTube.",
+          "<strong>Vertical for phones.</strong> A landscape picture becomes 1080×1920 with a blurred fill instead of black bars.",
+          "<strong>A wireless webcam.</strong> The built-in virtual camera shows the Osmo's picture in TikTok LIVE Studio, OBS, Zoom or Meet — no cable to the computer. See <a href=\"../use-your-dji-drone-as-a-webcam/\">the webcam guide</a>.",
+          "<strong>Preview and recording.</strong> Watch the real input on the computer and record it while you stream."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "When it does not work",
+      "blocks": [
+        { "list": [
+          "<strong>The camera cannot connect:</strong> it must be on the same network as the computer. Guest networks often isolate devices; use a normal Wi-Fi or a hotspot.",
+          "<strong>No livestream option in DJI Mimo:</strong> update DJI Mimo and the camera firmware; livestreaming needs DJI Mimo 1.2.20 or later.",
+          "<strong>The picture stutters:</strong> lower the bitrate in DJI Mimo or move the camera closer to the router.",
+          "<strong>Osmo 360 does not stream:</strong> switch it to single-lens mode first."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Can I live stream an Osmo Action or Osmo Pocket to Instagram?", "a": "Not from DJI Mimo alone, which offers Facebook, YouTube and RTMP. Stream to DJI Live Bridge over RTMP and it forwards the picture to Instagram over RTMPS." },
+    { "q": "Does DJI Live Bridge work with cameras, not just drones?", "a": "Yes. It receives a standard RTMP stream, whether DJI Fly or DJI Mimo sends it." },
+    { "q": "Which DJI cameras support RTMP livestreaming?", "a": "Per DJI: Osmo Pocket 3, 4 and 4P, Osmo Action 3, 4, 5 Pro and 6, the Osmo 360 series in single-lens mode, DJI Pocket 2, DJI Action 2 and the first Osmo Action." },
+    { "q": "Can I use an Osmo camera as a wireless webcam?", "a": "Yes. Start DJI Live Bridge's virtual camera and pick DJI Live Bridge Camera in TikTok LIVE Studio, OBS, Zoom or Meet." },
+    { "q": "Is it free?", "a": "Yes. DJI Live Bridge is free and open source, and is not affiliated with DJI." }
+  ]
+}

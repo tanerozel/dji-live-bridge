@@ -1,0 +1,80 @@
+{
+  "slug": "osmo-action-canli-yayin",
+  "platform": "Osmo Action",
+  "title": "Osmo Action 5 Pro, 6 ve 4 ile Instagram ve TikTok'ta canlı yayın",
+  "description": "DJI Osmo Action 6, 5 Pro, 4 veya 3 ile DJI Mimo'dan RTMP yayınını DJI Live Bridge ile aynı anda Instagram, TikTok, YouTube ve Twitch'e gönderin. Kurulum ve ayarlar.",
+  "h1": "Osmo Action kamerayla Instagram ve TikTok'ta canlı yayın nasıl yapılır?",
+  "lead": "Osmo Action kameralar <strong>DJI Mimo'dan RTMP</strong> ile 1080p'ye kadar yayın yapar — kasktan, gidondan, arabadan ya da tripoddan. DJI Mimo tek başına Facebook'a, YouTube'a ya da bir RTMP adresine ulaşır; o RTMP yayınını bir bilgisayardaki <strong>DJI Live Bridge</strong>'e gönderin, aynı görüntü aynı anda <strong>Instagram, TikTok, YouTube, Twitch veya Kick</strong>'e gitsin.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Osmo Action 6, 5 Pro, 4 ve 3, DJI Mimo'dan (1.2.20 veya üzeri) 480p, 720p veya 1080p, 6 Mbps'ye kadar RTMP yayını yapar.",
+    "Kamera bir Wi-Fi ağına kendisi katılır; onu bilgisayarla aynı ağa ya da ikisinin paylaştığı bir hotspot'a bağlayın.",
+    "DJI Live Bridge yayını Instagram'a RTMPS ile dahil, aynı anda birkaç platforma gönderir.",
+    "Bulanık dolgulu dikey 1080×1920, aksiyon çekiminin tamamını telefon ekranlarında korur.",
+    "Sanal kamera da Osmo Action'ı OBS, Zoom veya TikTok LIVE Studio için kablosuz bir kameraya dönüştürür."
+  ],
+  "sections": [
+    {
+      "id": "setup",
+      "h2": "Osmo Action canlı yayınını kurun",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "DJI Live Bridge'i açın", "d": "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a>'i bir Mac'e veya Windows bilgisayara kurun ve gösterdiği adresi not edin, örneğin <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Kamerayı DJI Mimo'ya bağlayın", "d": "DJI Mimo'yu ve kamera yazılımını güncelleyin, Osmo Action'ı bağlayın ve canlı yayın seçeneğini açın." },
+          { "t": "RTMP'yi ve Wi-Fi'yi seçin", "d": "RTMP'yi ve kameranın katılacağı Wi-Fi'yi seçin — bilgisayarın ağı ya da bilgisayarın da kullandığı bir telefon hotspot'u." },
+          { "t": "Adresi girin ve başlatın", "d": "DJI Live Bridge'deki adresi yazın, 1080p'yi ve ağın kaldırabildiği en yüksek bit hızını seçin ve başlatın. Önizleme uygulamada görünür." },
+          { "t": "Platformları ekleyin ve yayına çıkın", "d": "Instagram, TikTok, YouTube, Twitch ya da herhangi bir RTMP sunucusunu ekleyin ve YAYINI BAŞLAT'a basın." }
+        ] },
+        { "img": "go-live.png", "alt": "DJI Live Bridge'in Canlı yayın sekmesi: RTMP adresi, hedefler ve YAYINI BAŞLAT düğmesi." },
+        { "note": "RTMP canlı yayını destekleyen diğer DJI kameralar <a href=\"../dji-osmo-kameralarla-canli-yayin/\">Osmo kameralar rehberinde</a> listeleniyor." }
+      ]
+    },
+    {
+      "id": "ideas",
+      "h2": "Aksiyon kamerasıyla canlı yayın nerede parlar?",
+      "blocks": [
+        { "list": [
+          "<strong>Spor ve sürüşler.</strong> Bisiklet, motosiklet, kayak ya da koşu — tek bir bakış açısı, birkaç platformda canlı.",
+          "<strong>Kamera arkası.</strong> Kamerayı bir sete ya da atölye duvarına takın ve çalışırken yayın yapın.",
+          "<strong>İkinci bir açı.</strong> Sanal kamerayla Osmo Action'ı OBS'de ana kameranızın yanına kablosuz bir kaynak olarak ekleyin — <a href=\"../drone-u-bilgisayarin-harici-kamerasi-yapin/\">webcam rehberine</a> bakın.",
+          "<strong>Hava şartlarına dayanıklı yayınlar.</strong> Kamera yağmura ve toza dayanır; bilgisayar arabada ya da çadırda kuru kalır."
+        ] }
+      ]
+    },
+    {
+      "id": "range",
+      "h2": "Menzil ve ağ",
+      "blocks": [
+        { "p": "Kamera yayınını Wi-Fi üzerinden bilgisayara gönderir; bu yüzden o ağın menzilinde kalmalıdır. Hareketli çekimlerde kameraya yakın taşınan bir telefon hotspot'u — bilgisayar da aynı hotspot'tayken — bağlantıyı kısa tutar. Platformlara yükleme o zaman hotspot'un mobil verisini kullanır; hedef başına yaklaşık 6 Mbps." },
+        { "table": {
+          "head": ["Kurulum", "Uygun olduğu yer"],
+          "rows": [
+            ["Ev ya da mekân Wi-Fi'si", "Sabit açılar, atölyeler, etkinlikler"],
+            ["Kameraya ve bilgisayara yakın bir telefon hotspot'u", "Dış çekimler ve kısa hareketli çekimler"],
+            ["Araba ya da karavanda seyahat router'ı", "Bilgisayarın sizinle birlikte gittiği sürüşler"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Çalışmazsa",
+      "blocks": [
+        { "list": [
+          "<strong>Kamera bağlanamıyor:</strong> bilgisayarın ağında değil ya da bir misafir ağı cihazları birbirinden ayırıyor.",
+          "<strong>Hareket halindeyken yayın kopuyor:</strong> kamera Wi-Fi'nin menzilinden çıkmış; hotspot'u yakın tutun ya da bit hızını düşürün.",
+          "<strong>Canlı yayın seçeneği yok:</strong> DJI Mimo'yu 1.2.20 veya üzerine, kamera yazılımını da güncelleyin.",
+          "<strong>Instagram yayını reddediyor:</strong> instagram.com'da yeni bir canlı video oluşturun ve anahtarı güncelleyin; her anahtar bir kez çalışır."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Osmo Action 5 Pro Instagram'a canlı yayın yapabilir mi?", "a": "Yalnızca DJI Mimo ile yapamaz. RTMP ile DJI Live Bridge'e yayın yapın; uygulama görüntüyü Instagram'a RTMPS ile iletir." },
+    { "q": "Hangi Osmo Action kameralar RTMP canlı yayını destekler?", "a": "DJI'a göre: Osmo Action 6, 5 Pro, 4 ve 3, DJI Action 2 ve ilk Osmo Action (en fazla 720p)." },
+    { "q": "Osmo Action ile Twitch ve YouTube'a aynı anda yayın yapabilir miyim?", "a": "Evet. İki hedefi de DJI Live Bridge'e ekleyin ve YAYINI BAŞLAT'a basın." },
+    { "q": "Kamera bilgisayardan ne kadar uzakta olabilir?", "a": "Wi-Fi'nin ulaştığı kadar. Kamera bilgisayara o ağ üzerinden yayın yapar; menzil içinde tutun ya da yanınızda bir hotspot taşıyın." }
+  ]
+}

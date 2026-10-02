@@ -15,6 +15,7 @@ Key facts:
 - Android: a separate paid app, "Stream My Drone" (Android 9 or newer, one-time purchase on Google Play), receives the DJI Fly stream on the phone and forwards it unchanged to several RTMP/RTMPS destinations; no virtual camera, no portrait conversion.
 - Output: 1080x1920 portrait, 30 fps, 6 Mbps CBR, H.264 High, 2-second keyframes; empty space filled with a blurred copy of the picture.
 - Input: whatever DJI Fly sends over RTMP, often 720p from the controller.
+- Also receives DJI Osmo cameras (Osmo Action, Osmo Pocket, Osmo 360) that stream RTMP from the DJI Mimo app.
 - The virtual camera carries video only, so TikTok LIVE Studio keeps control of audio.
 - Not affiliated with DJI, Instagram, TikTok or Apple.
 
@@ -36,6 +37,9 @@ Key facts:
 - [How to live stream a DJI Mini 4 Pro](https://tanerozel.github.io/dji-live-bridge/blog/dji-mini-4-pro-live-stream/): How to live stream a DJI Mini 4 Pro with the DJI RC 2 or RC-N2: RTMP in DJI Fly, the microphone rule, 720p limits and going live on Instagram, TikTok and YouTube.
 - [How to live stream a DJI Neo](https://tanerozel.github.io/dji-live-bridge/blog/dji-neo-live-stream/): How to live stream a DJI Neo: which control mode works (phone, RC-N3, goggles), RTMP in DJI Fly, and going live on Instagram, TikTok or YouTube with DJI Live Bridge.
 - [How to live stream a DJI Avata 2](https://tanerozel.github.io/dji-live-bridge/blog/dji-avata-2-live-stream/): How to live stream FPV footage from a DJI Avata 2: share the Goggles 3 view to DJI Fly on your phone, stream over RTMP and go live on Instagram, TikTok or YouTube.
+- [Live stream your DJI Osmo camera to Instagram, TikTok and more](https://tanerozel.github.io/dji-live-bridge/blog/dji-osmo-live-stream-instagram-tiktok/): DJI Mimo can stream Osmo Action, Osmo Pocket and Osmo 360 cameras over RTMP. Send that to DJI Live Bridge to go live on Instagram, TikTok and YouTube at once.
+- [How to live stream an Osmo Pocket 3 to Instagram and TikTok](https://tanerozel.github.io/dji-live-bridge/blog/osmo-pocket-3-live-stream/): How to live stream a DJI Osmo Pocket 3 over RTMP from DJI Mimo to Instagram, TikTok and YouTube at once, and use it as a wireless webcam, with DJI Live Bridge.
+- [How to live stream an Osmo Action camera to Instagram and TikTok](https://tanerozel.github.io/dji-live-bridge/blog/osmo-action-live-stream/): Live stream a DJI Osmo Action 6, 5 Pro, 4 or 3 over RTMP from DJI Mimo to Instagram, TikTok, YouTube and Twitch at once with DJI Live Bridge. Setup and settings.
 - [How to go live on TikTok with a DJI drone](https://tanerozel.github.io/dji-live-bridge/blog/how-to-go-live-on-tiktok-with-a-dji-drone/): Stream a DJI drone live on TikTok from DJI Fly: with a TikTok stream key, or without one through TikTok LIVE Studio and a virtual camera. Settings and fixes.
 - [How to go live on Instagram with a DJI drone](https://tanerozel.github.io/dji-live-bridge/blog/how-to-go-live-on-instagram-with-a-dji-drone/): Go live on Instagram from a DJI drone: get the stream URL and key on instagram.com, send DJI Fly's RTMP stream through DJI Live Bridge, then press Go live.
 - [How to live stream a DJI drone to YouTube](https://tanerozel.github.io/dji-live-bridge/blog/how-to-live-stream-a-dji-drone-to-youtube/): Stream a DJI drone live to YouTube: enable live streaming, copy the stream key from YouTube Studio, send DJI Fly's RTMP through DJI Live Bridge. Settings and tips.

@@ -1,0 +1,80 @@
+{
+  "slug": "osmo-action-live-stream",
+  "platform": "Osmo Action",
+  "title": "Osmo Action 5 Pro, 6 and 4 live stream to Instagram and TikTok",
+  "description": "Live stream a DJI Osmo Action 6, 5 Pro, 4 or 3 over RTMP from DJI Mimo to Instagram, TikTok, YouTube and Twitch at once with DJI Live Bridge. Setup and settings.",
+  "h1": "How to live stream an Osmo Action camera to Instagram and TikTok",
+  "lead": "Osmo Action cameras stream over <strong>RTMP from DJI Mimo</strong> at up to 1080p — from a helmet, a handlebar, a car or a tripod. DJI Mimo alone reaches Facebook, YouTube or an RTMP address; send that RTMP stream to <strong>DJI Live Bridge</strong> on a computer and the same picture goes to <strong>Instagram, TikTok, YouTube, Twitch or Kick</strong> at once.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Osmo Action 6, 5 Pro, 4 and 3 stream RTMP from DJI Mimo (1.2.20 or later) at 480p, 720p or 1080p, up to 6 Mbps.",
+    "The camera joins a Wi-Fi network itself; put it on the same network as the computer, or on a hotspot both share.",
+    "DJI Live Bridge sends the stream to several platforms at once, including Instagram over RTMPS.",
+    "Vertical 1080×1920 with a blurred fill keeps the full action shot on phone screens.",
+    "The virtual camera also makes the Osmo Action a wireless camera for OBS, Zoom or TikTok LIVE Studio."
+  ],
+  "sections": [
+    {
+      "id": "setup",
+      "h2": "Set up the Osmo Action live stream",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Open DJI Live Bridge", "d": "Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> on a Mac or Windows PC and note the address it shows, like <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Connect the camera in DJI Mimo", "d": "Update DJI Mimo and the camera firmware, connect the Osmo Action and open the livestream option." },
+          { "t": "Choose RTMP and the Wi-Fi", "d": "Select RTMP and the Wi-Fi the camera should join — the computer's network, or a phone hotspot that the computer also uses." },
+          { "t": "Enter the address and start", "d": "Type the address from DJI Live Bridge, pick 1080p and the highest bitrate the network holds, and start. The preview appears in the app." },
+          { "t": "Add platforms and go live", "d": "Add Instagram, TikTok, YouTube, Twitch or any RTMP server and press START LIVE." }
+        ] },
+        { "img": "go-live.png", "alt": "The Go live tab of DJI Live Bridge with the RTMP address, the destinations and the START LIVE button." },
+        { "note": "Other DJI cameras with RTMP livestreaming are listed in <a href=\"../dji-osmo-live-stream-instagram-tiktok/\">the Osmo cameras guide</a>." }
+      ]
+    },
+    {
+      "id": "ideas",
+      "h2": "Where an action camera live stream shines",
+      "blocks": [
+        { "list": [
+          "<strong>Sports and rides.</strong> Cycling, motorbike, skiing or running — one point of view, live on several platforms.",
+          "<strong>Behind the scenes.</strong> Mount the camera on a set or a workshop wall and stream while you work.",
+          "<strong>A second angle.</strong> Use the virtual camera to add the Osmo Action as a wireless source in OBS next to your main camera — see <a href=\"../use-your-dji-drone-as-a-webcam/\">the webcam guide</a>.",
+          "<strong>Weather-proof streams.</strong> The camera handles rain and dust; the computer stays dry in the car or the tent."
+        ] }
+      ]
+    },
+    {
+      "id": "range",
+      "h2": "Range and network",
+      "blocks": [
+        { "p": "The camera sends its stream over Wi-Fi to the computer, so it has to stay within reach of that network. For moving shots, a phone hotspot carried close to the camera — with the computer on the same hotspot — keeps the link short. The upload to the platforms then uses the hotspot's mobile data, about 6 Mbps per destination." },
+        { "table": {
+          "head": ["Setup", "Good for"],
+          "rows": [
+            ["Home or venue Wi-Fi", "Fixed angles, workshops, events"],
+            ["Phone hotspot near the camera and computer", "Outdoor shoots and short moving shots"],
+            ["Travel router in a car or van", "Rides where the computer travels with you"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "When it does not work",
+      "blocks": [
+        { "list": [
+          "<strong>The camera cannot connect:</strong> it is not on the computer's network, or a guest network isolates devices.",
+          "<strong>The stream drops while moving:</strong> the camera left the Wi-Fi's range; keep the hotspot closer or lower the bitrate.",
+          "<strong>No livestream option:</strong> update DJI Mimo to 1.2.20 or later and the camera firmware.",
+          "<strong>Instagram rejects the stream:</strong> create a new live video on instagram.com and update the key; each key works once."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Can the Osmo Action 5 Pro live stream to Instagram?", "a": "Not from DJI Mimo alone. Stream to DJI Live Bridge over RTMP and it forwards the picture to Instagram over RTMPS." },
+    { "q": "Which Osmo Action cameras support RTMP livestreaming?", "a": "Per DJI: Osmo Action 6, 5 Pro, 4 and 3, DJI Action 2 and the first Osmo Action (720p at most)." },
+    { "q": "Can I stream an Osmo Action to Twitch and YouTube at the same time?", "a": "Yes. Add both destinations in DJI Live Bridge and press START LIVE." },
+    { "q": "How far can the camera be from the computer?", "a": "As far as the Wi-Fi reaches. The camera streams to the computer over that network, so keep it within range or carry a hotspot." }
+  ]
+}

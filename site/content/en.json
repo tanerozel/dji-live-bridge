@@ -59,6 +59,10 @@
       {
         "h": "15 languages, 5 themes",
         "p": "The interface follows your system language, and Arabic switches the whole layout to right-to-left."
+      },
+      {
+        "h": "Osmo cameras too",
+        "p": "Osmo Action, Osmo Pocket and Osmo 360 cameras stream to the app over RTMP from DJI Mimo, just like a drone from DJI Fly."
       }
     ]
   },

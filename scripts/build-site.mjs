@@ -801,6 +801,7 @@ Key facts:
 - Android: a separate paid app, "Stream My Drone" (Android 9 or newer, one-time purchase on Google Play), receives the DJI Fly stream on the phone and forwards it unchanged to several RTMP/RTMPS destinations; no virtual camera, no portrait conversion.
 - Output: 1080x1920 portrait, 30 fps, 6 Mbps CBR, H.264 High, 2-second keyframes; empty space filled with a blurred copy of the picture.
 - Input: whatever DJI Fly sends over RTMP, often 720p from the controller.
+- Also receives DJI Osmo cameras (Osmo Action, Osmo Pocket, Osmo 360) that stream RTMP from the DJI Mimo app.
 - The virtual camera carries video only, so TikTok LIVE Studio keeps control of audio.
 - Not affiliated with DJI, Instagram, TikTok or Apple.
 

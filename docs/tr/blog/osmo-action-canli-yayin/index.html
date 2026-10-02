@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="tr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2HCY063P0W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-2HCY063P0W');
+</script>
+<title>Osmo Action 5 Pro, 6 ve 4 ile Instagram ve TikTok'ta canlı yayın</title>
+<meta name="description" content="DJI Osmo Action 6, 5 Pro, 4 veya 3 ile DJI Mimo'dan RTMP yayınını DJI Live Bridge ile aynı anda Instagram, TikTok, YouTube ve Twitch'e gönderin. Kurulum ve ayarlar.">
+<meta name="author" content="Taner Özel">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161618" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/osmo-action-canli-yayin/">
+<link rel="alternate" hreflang="en" href="https://tanerozel.github.io/dji-live-bridge/blog/osmo-action-live-stream/">
+<link rel="alternate" hreflang="tr" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/osmo-action-canli-yayin/">
+<link rel="alternate" hreflang="x-default" href="https://tanerozel.github.io/dji-live-bridge/blog/osmo-action-live-stream/">
+<link rel="icon" href="../../../img/icon.png">
+<link rel="apple-touch-icon" href="../../../img/icon.png">
+<meta property="og:site_name" content="DJI Live Bridge">
+<meta property="og:title" content="Osmo Action 5 Pro, 6 ve 4 ile Instagram ve TikTok'ta canlı yayın">
+<meta property="og:description" content="DJI Osmo Action 6, 5 Pro, 4 veya 3 ile DJI Mimo'dan RTMP yayınını DJI Live Bridge ile aynı anda Instagram, TikTok, YouTube ve Twitch'e gönderin. Kurulum ve ayarlar.">
+<meta property="og:image" content="https://tanerozel.github.io/dji-live-bridge/img/go-live.png">
+<meta property="og:url" content="https://tanerozel.github.io/dji-live-bridge/tr/blog/osmo-action-canli-yayin/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="tr_TR">
+<meta property="article:published_time" content="2026-10-03">
+<meta property="article:modified_time" content="2026-10-03">
+<meta property="article:author" content="Taner Özel">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Osmo Action 5 Pro, 6 ve 4 ile Instagram ve TikTok'ta canlı yayın">
+<meta name="twitter:description" content="DJI Osmo Action 6, 5 Pro, 4 veya 3 ile DJI Mimo'dan RTMP yayınını DJI Live Bridge ile aynı anda Instagram, TikTok, YouTube ve Twitch'e gönderin. Kurulum ve ayarlar.">
+<meta name="twitter:image" content="https://tanerozel.github.io/dji-live-bridge/img/go-live.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Osmo Action kamerayla Instagram ve TikTok'ta canlı yayın nasıl yapılır?","description":"DJI Osmo Action 6, 5 Pro, 4 veya 3 ile DJI Mimo'dan RTMP yayınını DJI Live Bridge ile aynı anda Instagram, TikTok, YouTube ve Twitch'e gönderin. Kurulum ve ayarlar.","inLanguage":"tr","datePublished":"2026-10-03","dateModified":"2026-10-03","url":"https://tanerozel.github.io/dji-live-bridge/tr/blog/osmo-action-canli-yayin/","mainEntityOfPage":"https://tanerozel.github.io/dji-live-bridge/tr/blog/osmo-action-canli-yayin/","image":"https://tanerozel.github.io/dji-live-bridge/img/go-live.png","author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"},"publisher":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"},"isPartOf":{"@type":"Blog","name":"DJI drone ile canlı yayın rehberleri — DJI Live Bridge blog","url":"https://tanerozel.github.io/dji-live-bridge/tr/blog/"},"about":{"@type":"SoftwareApplication","name":"DJI Live Bridge","url":"https://tanerozel.github.io/dji-live-bridge/tr/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"Osmo Action canlı yayınını kurun","inLanguage":"tr","tool":[{"@type":"HowToTool","name":"DJI Live Bridge"},{"@type":"HowToTool","name":"DJI Fly"}],"step":[{"@type":"HowToStep","position":1,"name":"DJI Live Bridge'i açın","text":"DJI Live Bridge'i bir Mac'e veya Windows bilgisayara kurun ve gösterdiği adresi not edin, örneğin rtmp://192.168.1.20:1935/drone.","url":"https://tanerozel.github.io/dji-live-bridge/tr/blog/osmo-action-canli-yayin/#setup"},{"@type":"HowToStep","position":2,"name":"Kamerayı DJI Mimo'ya bağlayın","text":"DJI Mimo'yu ve kamera yazılımını güncelleyin, Osmo Action'ı bağlayın ve canlı yayın seçeneğini açın.","url":"https://tanerozel.github.io/dji-live-bridge/tr/blog/osmo-action-canli-yayin/#setup"},{"@type":"HowToStep","position":3,"name":"RTMP'yi ve Wi-Fi'yi seçin","text":"RTMP'yi ve kameranın katılacağı Wi-Fi'yi seçin — bilgisayarın ağı ya da bilgisayarın da kullandığı bir telefon hotspot'u.","url":"https://tanerozel.github.io/dji-live-bridge/tr/blog/osmo-action-canli-yayin/#setup"},{"@type":"HowToStep","position":4,"name":"Adresi girin ve başlatın","text":"DJI Live Bridge'deki adresi yazın, 1080p'yi ve ağın kaldırabildiği en yüksek bit hızını seçin ve başlatın. Önizleme uygulamada görünür.","url":"https://tanerozel.github.io/dji-live-bridge/tr/blog/osmo-action-canli-yayin/#setup"},{"@type":"HowToStep","position":5,"name":"Platformları ekleyin ve yayına çıkın","text":"Instagram, TikTok, YouTube, Twitch ya da herhangi bir RTMP sunucusunu ekleyin ve YAYINI BAŞLAT'a basın.","url":"https://tanerozel.github.io/dji-live-bridge/tr/blog/osmo-action-canli-yayin/#setup"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"tr","mainEntity":[{"@type":"Question","name":"Osmo Action 5 Pro Instagram'a canlı yayın yapabilir mi?","acceptedAnswer":{"@type":"Answer","text":"Yalnızca DJI Mimo ile yapamaz. RTMP ile DJI Live Bridge'e yayın yapın; uygulama görüntüyü Instagram'a RTMPS ile iletir."}},{"@type":"Question","name":"Hangi Osmo Action kameralar RTMP canlı yayını destekler?","acceptedAnswer":{"@type":"Answer","text":"DJI'a göre: Osmo Action 6, 5 Pro, 4 ve 3, DJI Action 2 ve ilk Osmo Action (en fazla 720p)."}},{"@type":"Question","name":"Osmo Action ile Twitch ve YouTube'a aynı anda yayın yapabilir miyim?","acceptedAnswer":{"@type":"Answer","text":"Evet. İki hedefi de DJI Live Bridge'e ekleyin ve YAYINI BAŞLAT'a basın."}},{"@type":"Question","name":"Kamera bilgisayardan ne kadar uzakta olabilir?","acceptedAnswer":{"@type":"Answer","text":"Wi-Fi'nin ulaştığı kadar. Kamera bilgisayara o ağ üzerinden yayın yapar; menzil içinde tutun ya da yanınızda bir hotspot taşıyın."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Ana sayfa","item":"https://tanerozel.github.io/dji-live-bridge/tr/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://tanerozel.github.io/dji-live-bridge/tr/blog/"},{"@type":"ListItem","position":3,"name":"Osmo Action","item":"https://tanerozel.github.io/dji-live-bridge/tr/blog/osmo-action-canli-yayin/"}]}</script>
+<style>
+
+:root{
+  color-scheme:light;
+  --bg:#f5f5f7; --surface:#fff; --surface-2:#f2f2f5; --border:#e3e3e8; --border-strong:#d2d2d7;
+  --text:#1d1d1f; --muted:#6e6e73; --faint:#8e8e93;
+  --accent:#0a84ff; --accent-hover:#0071e3; --accent-soft:#eaf3ff;
+  --green:#34c759; --green-text:#1f8a3b; --green-soft:#eaf8ee;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    color-scheme:dark;
+    --bg:#161618; --surface:#1f1f22; --surface-2:#27272b; --border:#2e2e33; --border-strong:#3e3e45;
+    --text:#f2f2f5; --muted:#a1a1a8; --faint:#76767e;
+    --accent:#0a84ff; --accent-hover:#339aff; --accent-soft:rgba(10,132,255,.16);
+    --green:#30d158; --green-text:#5ee08a; --green-soft:rgba(48,209,88,.15);
+    --shadow:0 1px 2px rgba(0,0,0,.3);
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,ui-sans-serif,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;line-height:1.55}
+h1,h2,h3,p{margin:0}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.92em;background:var(--surface-2);
+  padding:2px 6px;border-radius:6px}
+.wrap{width:min(1080px,100%);margin:0 auto;padding:0 20px}
+
+header{position:sticky;top:0;z-index:10;backdrop-filter:saturate(180%) blur(14px);
+  background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--border)}
+.bar{display:flex;align-items:center;gap:14px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--text)}
+.brand img{width:30px;height:30px;border-radius:8px}
+nav{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:14px}
+nav a{color:var(--muted)}
+nav a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;
+  padding:11px 20px;font-size:15px;font-weight:600;border:1px solid var(--border-strong);
+  background:var(--surface);color:var(--text);cursor:pointer;text-decoration:none}
+.btn:hover{text-decoration:none;background:var(--surface-2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent-hover)}
+.btn.small{padding:7px 14px;font-size:14px}
+
+.hero{padding:72px 0 40px;text-align:center}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;
+  background:var(--green-soft);color:var(--green-text);font-size:13px;font-weight:600}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+h1{margin:18px auto 0;max-width:15ch;font-size:clamp(30px,5vw,52px);line-height:1.1;letter-spacing:-.02em}
+.lead{margin:18px auto 0;max-width:640px;font-size:clamp(16px,2vw,19px);color:var(--muted)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:28px}
+.meta{margin-top:14px;font-size:13px;color:var(--faint)}
+.shot{margin:44px auto 0;border:1px solid var(--border);border-radius:16px;overflow:hidden;
+  box-shadow:var(--shadow);background:var(--surface)}
+.shot img{display:block;width:100%;height:auto}
+.caption{margin-top:12px;font-size:13px;color:var(--faint);text-align:center}
+
+section{padding:56px 0;border-top:1px solid var(--border)}
+h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.01em}
+.sub{margin-top:10px;color:var(--muted);max-width:640px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:30px}
+.card{padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
+.card h3{font-size:16px;margin-bottom:8px}
+.card p{color:var(--muted);font-size:14.5px}
+.steps{counter-reset:step;display:grid;gap:14px;margin-top:30px;padding:0;list-style:none}
+.steps li{counter-increment:step;display:grid;grid-template-columns:34px 1fr;gap:14px;align-items:start;
+  padding:18px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
+.steps li::before{content:counter(step);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;
+  background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:15px}
+.steps li>div>strong{display:block;margin-bottom:3px}
+.steps span{color:var(--muted);font-size:14.5px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;margin-top:30px}
+.split .shot{margin:0}
+.split.top{align-items:start}
+.split .shot.phone{width:min(280px,100%);border-radius:28px;justify-self:center}
+ul.plain{margin:16px 0 0;padding-left:20px;color:var(--muted);font-size:15px}
+ul.plain li{margin:7px 0}
+.faq{display:grid;gap:12px;margin-top:26px}
+.faq details{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:16px 18px}
+.faq details[open]{background:var(--surface)}
+.faq summary{cursor:pointer;font-weight:600;font-size:15.5px}
+.faq details p{margin-top:10px;color:var(--muted);font-size:14.5px}
+.langs{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.lang{padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);
+  font-size:13.5px;color:var(--muted)}
+footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted);font-size:14px}
+.foot-links{display:flex;flex-wrap:wrap;gap:16px;margin:14px 0 20px}
+.note{font-size:13px;color:var(--faint)}
+@media (max-width:820px){.split{grid-template-columns:1fr}header nav>a:not(.btn){display:none}}
+
+/* Language menu: a crawlable list of links, collapsed on small screens. */
+.langmenu{position:relative;display:inline-flex;flex-direction:column;align-self:center}
+.langmenu>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+  padding:7px 12px;border:1px solid var(--border-strong);border-radius:10px;background:var(--surface);
+  color:var(--text);font-size:14px;font-weight:600}
+.langmenu>summary::-webkit-details-marker{display:none}
+.langmenu[open]>summary{background:var(--surface-2)}
+.langmenu:not([open]) .sheet{display:none}
+.langmenu .sheet{position:absolute;right:0;top:calc(100% + 8px);z-index:20;display:grid;
+  grid-template-columns:repeat(2,minmax(150px,1fr));gap:2px;padding:8px;border:1px solid var(--border);
+  border-radius:12px;background:var(--surface);box-shadow:var(--shadow);max-height:60vh;overflow:auto}
+.langmenu .sheet a{padding:8px 10px;border-radius:8px;color:var(--text);font-size:14px;white-space:nowrap}
+.langmenu .sheet a:hover{background:var(--surface-2);text-decoration:none}
+.langmenu .sheet a[aria-current=true]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.langs a{padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);
+  font-size:13.5px;color:var(--muted)}
+.langs a:hover{color:var(--text);text-decoration:none}
+.langs a[aria-current=true]{border-color:var(--accent);color:var(--accent)}
+/* Hidden until focused. Pushing it off-screen with a negative offset would
+   widen the page by that offset in right-to-left languages, so it is clipped
+   in place instead. */
+.skip{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap}
+.skip:focus{position:fixed;width:auto;height:auto;margin:0;clip-path:none;
+  inset-inline-start:20px;top:10px;z-index:30;padding:10px 14px;background:var(--surface);
+  color:var(--text);border:1px solid var(--border-strong);border-radius:10px}
+[dir=rtl] .steps li{grid-template-columns:34px 1fr}
+[dir=rtl] .langmenu .sheet{right:auto;left:0}
+[dir=rtl] ul.plain{padding-left:0;padding-right:20px}
+
+/* Below ~520px the header runs out of room: the brand, the language menu and
+   the GitHub button together force the page wider than the screen, which cuts
+   every section off on the right. The language name and the GitHub button go
+   (the hero repeats that link anyway); the globe stays as the affordance. */
+@media (max-width:520px){
+  .bar{gap:10px}
+  .langname{display:none}
+  .langmenu>summary{padding:7px 11px;font-size:16px}
+  header nav>.btn.small{display:none}
+  .langmenu .sheet{grid-template-columns:1fr;min-width:190px}
+}
+
+/* Blog. Articles keep a reading width; the header and footer stay site-wide. */
+.article,.blog-index{padding-top:36px;padding-bottom:64px}
+.article{max-width:760px}
+.article h1,.blog-index h1{margin:14px 0 0;max-width:none;font-size:clamp(28px,4.4vw,42px)}
+.blog-index .lead{margin:16px 0 0}
+.article h2{margin-top:44px;scroll-margin-top:80px}
+.article>p,.article .callout{margin-top:14px;font-size:16.5px}
+.article .steps{margin-top:18px}
+.article .shot{margin:22px 0 0}
+.article ul.plain{font-size:16px}
+.crumbs{display:flex;flex-wrap:wrap;gap:8px;font-size:13.5px;color:var(--faint)}
+.crumbs a{color:var(--muted)}
+.byline{margin-top:12px;font-size:14px;color:var(--faint)}
+.byline a{color:var(--muted)}
+.answer{margin-top:20px;font-size:18px;line-height:1.6}
+.keyfacts{margin-top:26px;padding:18px 20px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
+.keyfacts h2{margin:0;font-size:16px}
+.keyfacts ul{margin:10px 0 0;padding-inline-start:20px;color:var(--muted);font-size:15px}
+.keyfacts li{margin:6px 0}
+.crumbs,.toc{margin-left:0}
+.toc{display:block;margin-top:22px;font-size:14.5px}
+.toc ol{margin:8px 0 0;padding-inline-start:20px;color:var(--muted)}
+.toc li{margin:4px 0}
+.callout{padding:14px 16px;border-inline-start:3px solid var(--accent);border-radius:8px;background:var(--accent-soft)}
+.table{margin-top:18px;overflow-x:auto;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+.table table{width:100%;border-collapse:collapse;font-size:14.5px}
+.table th,.table td{padding:10px 14px;text-align:start;vertical-align:top;border-bottom:1px solid var(--border)}
+.table tr:last-child th,.table tr:last-child td{border-bottom:0}
+.table thead th{background:var(--surface-2);font-size:13px;color:var(--muted)}
+.table code{word-break:break-all}
+.article .faq{margin-top:18px}
+.cta-box{margin-top:44px;padding:24px;border:1px solid var(--border);border-radius:16px;background:var(--surface);box-shadow:var(--shadow)}
+.cta-box h2{margin:0}
+.cta-box p{margin-top:8px;color:var(--muted)}
+.cta-box .cta{justify-content:flex-start;margin-top:18px}
+.post-card{display:block;color:var(--text)}
+.post-card:hover{text-decoration:none;border-color:var(--accent)}
+.post-card h3{color:var(--text)}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">İçeriğe geç</a>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="https://tanerozel.github.io/dji-live-bridge/tr/"><img src="../../../img/icon.png" alt="" width="30" height="30">DJI Live Bridge</a>
+    <nav>
+      <a href="https://tanerozel.github.io/dji-live-bridge/tr/">Ana sayfa</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/tr/blog/">Blog</a>
+      <details class="langmenu">
+        <summary aria-label="Dil"><span aria-hidden="true">🌐</span><span class="langname">Türkçe</span></summary>
+        <div class="sheet"><a href="https://tanerozel.github.io/dji-live-bridge/blog/osmo-action-live-stream/" hreflang="en" lang="en">English</a><a href="https://tanerozel.github.io/dji-live-bridge/tr/blog/osmo-action-canli-yayin/" hreflang="tr" lang="tr" aria-current="true">Türkçe</a></div>
+      </details>
+      <a class="btn small" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">İndir</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<article class="wrap article">
+<nav class="crumbs" aria-label="Sayfa yolu"><a href="https://tanerozel.github.io/dji-live-bridge/tr/">Ana sayfa</a><span aria-hidden="true">›</span><a href="https://tanerozel.github.io/dji-live-bridge/tr/blog/">Blog</a><span aria-hidden="true">›</span><span aria-current="page">Osmo Action</span></nav>
+<h1>Osmo Action kamerayla Instagram ve TikTok'ta canlı yayın nasıl yapılır?</h1>
+<p class="byline">Yazan: <a href="https://github.com/tanerozel" rel="author">Taner Özel</a> · Güncelleme: <time datetime="2026-10-03">3 Ekim 2026</time></p>
+<p class="answer">Osmo Action kameralar <strong>DJI Mimo'dan RTMP</strong> ile 1080p'ye kadar yayın yapar — kasktan, gidondan, arabadan ya da tripoddan. DJI Mimo tek başına Facebook'a, YouTube'a ya da bir RTMP adresine ulaşır; o RTMP yayınını bir bilgisayardaki <strong>DJI Live Bridge</strong>'e gönderin, aynı görüntü aynı anda <strong>Instagram, TikTok, YouTube, Twitch veya Kick</strong>'e gitsin.</p>
+
+<div class="keyfacts">
+<h2 id="summary">Kısaca</h2>
+<ul><li>Osmo Action 6, 5 Pro, 4 ve 3, DJI Mimo'dan (1.2.20 veya üzeri) 480p, 720p veya 1080p, 6 Mbps'ye kadar RTMP yayını yapar.</li><li>Kamera bir Wi-Fi ağına kendisi katılır; onu bilgisayarla aynı ağa ya da ikisinin paylaştığı bir hotspot'a bağlayın.</li><li>DJI Live Bridge yayını Instagram'a RTMPS ile dahil, aynı anda birkaç platforma gönderir.</li><li>Bulanık dolgulu dikey 1080×1920, aksiyon çekiminin tamamını telefon ekranlarında korur.</li><li>Sanal kamera da Osmo Action'ı OBS, Zoom veya TikTok LIVE Studio için kablosuz bir kameraya dönüştürür.</li></ul>
+</div>
+
+<nav class="toc" aria-labelledby="toc-title"><strong id="toc-title">Bu sayfada</strong><ol><li><a href="#setup">Osmo Action canlı yayınını kurun</a></li><li><a href="#ideas">Aksiyon kamerasıyla canlı yayın nerede parlar?</a></li><li><a href="#range">Menzil ve ağ</a></li><li><a href="#troubleshooting">Çalışmazsa</a></li><li><a href="#faq">Sorular</a></li></ol></nav>
+
+<h2 id="setup">Osmo Action canlı yayınını kurun</h2>
+<ol class="steps"><li><div><strong>DJI Live Bridge'i açın</strong><span><a href="https://github.com/tanerozel/dji-live-bridge/releases/latest">DJI Live Bridge</a>'i bir Mac'e veya Windows bilgisayara kurun ve gösterdiği adresi not edin, örneğin <code>rtmp://192.168.1.20:1935/drone</code>.</span></div></li><li><div><strong>Kamerayı DJI Mimo'ya bağlayın</strong><span>DJI Mimo'yu ve kamera yazılımını güncelleyin, Osmo Action'ı bağlayın ve canlı yayın seçeneğini açın.</span></div></li><li><div><strong>RTMP'yi ve Wi-Fi'yi seçin</strong><span>RTMP'yi ve kameranın katılacağı Wi-Fi'yi seçin — bilgisayarın ağı ya da bilgisayarın da kullandığı bir telefon hotspot'u.</span></div></li><li><div><strong>Adresi girin ve başlatın</strong><span>DJI Live Bridge'deki adresi yazın, 1080p'yi ve ağın kaldırabildiği en yüksek bit hızını seçin ve başlatın. Önizleme uygulamada görünür.</span></div></li><li><div><strong>Platformları ekleyin ve yayına çıkın</strong><span>Instagram, TikTok, YouTube, Twitch ya da herhangi bir RTMP sunucusunu ekleyin ve YAYINI BAŞLAT'a basın.</span></div></li></ol>
+<div class="shot"><img src="../../../img/go-live.png" alt="DJI Live Bridge'in Canlı yayın sekmesi: RTMP adresi, hedefler ve YAYINI BAŞLAT düğmesi." width="1600" height="1260" loading="lazy"></div>
+<p class="callout">RTMP canlı yayını destekleyen diğer DJI kameralar <a href="../dji-osmo-kameralarla-canli-yayin/">Osmo kameralar rehberinde</a> listeleniyor.</p>
+
+<h2 id="ideas">Aksiyon kamerasıyla canlı yayın nerede parlar?</h2>
+<ul class="plain"><li><strong>Spor ve sürüşler.</strong> Bisiklet, motosiklet, kayak ya da koşu — tek bir bakış açısı, birkaç platformda canlı.</li><li><strong>Kamera arkası.</strong> Kamerayı bir sete ya da atölye duvarına takın ve çalışırken yayın yapın.</li><li><strong>İkinci bir açı.</strong> Sanal kamerayla Osmo Action'ı OBS'de ana kameranızın yanına kablosuz bir kaynak olarak ekleyin — <a href="../drone-u-bilgisayarin-harici-kamerasi-yapin/">webcam rehberine</a> bakın.</li><li><strong>Hava şartlarına dayanıklı yayınlar.</strong> Kamera yağmura ve toza dayanır; bilgisayar arabada ya da çadırda kuru kalır.</li></ul>
+
+<h2 id="range">Menzil ve ağ</h2>
+<p>Kamera yayınını Wi-Fi üzerinden bilgisayara gönderir; bu yüzden o ağın menzilinde kalmalıdır. Hareketli çekimlerde kameraya yakın taşınan bir telefon hotspot'u — bilgisayar da aynı hotspot'tayken — bağlantıyı kısa tutar. Platformlara yükleme o zaman hotspot'un mobil verisini kullanır; hedef başına yaklaşık 6 Mbps.</p>
+<div class="table"><table><thead><tr><th scope="col">Kurulum</th><th scope="col">Uygun olduğu yer</th></tr></thead><tbody><tr><th scope="row">Ev ya da mekân Wi-Fi'si</th><td>Sabit açılar, atölyeler, etkinlikler</td></tr><tr><th scope="row">Kameraya ve bilgisayara yakın bir telefon hotspot'u</th><td>Dış çekimler ve kısa hareketli çekimler</td></tr><tr><th scope="row">Araba ya da karavanda seyahat router'ı</th><td>Bilgisayarın sizinle birlikte gittiği sürüşler</td></tr></tbody></table></div>
+
+<h2 id="troubleshooting">Çalışmazsa</h2>
+<ul class="plain"><li><strong>Kamera bağlanamıyor:</strong> bilgisayarın ağında değil ya da bir misafir ağı cihazları birbirinden ayırıyor.</li><li><strong>Hareket halindeyken yayın kopuyor:</strong> kamera Wi-Fi'nin menzilinden çıkmış; hotspot'u yakın tutun ya da bit hızını düşürün.</li><li><strong>Canlı yayın seçeneği yok:</strong> DJI Mimo'yu 1.2.20 veya üzerine, kamera yazılımını da güncelleyin.</li><li><strong>Instagram yayını reddediyor:</strong> instagram.com'da yeni bir canlı video oluşturun ve anahtarı güncelleyin; her anahtar bir kez çalışır.</li></ul>
+
+<h2 id="faq">Sorular</h2>
+<div class="faq">
+<details><summary>Osmo Action 5 Pro Instagram'a canlı yayın yapabilir mi?</summary><p>Yalnızca DJI Mimo ile yapamaz. RTMP ile DJI Live Bridge'e yayın yapın; uygulama görüntüyü Instagram'a RTMPS ile iletir.</p></details>
+<details><summary>Hangi Osmo Action kameralar RTMP canlı yayını destekler?</summary><p>DJI'a göre: Osmo Action 6, 5 Pro, 4 ve 3, DJI Action 2 ve ilk Osmo Action (en fazla 720p).</p></details>
+<details><summary>Osmo Action ile Twitch ve YouTube'a aynı anda yayın yapabilir miyim?</summary><p>Evet. İki hedefi de DJI Live Bridge'e ekleyin ve YAYINI BAŞLAT'a basın.</p></details>
+<details><summary>Kamera bilgisayardan ne kadar uzakta olabilir?</summary><p>Wi-Fi'nin ulaştığı kadar. Kamera bilgisayara o ağ üzerinden yayın yapar; menzil içinde tutun ya da yanınızda bir hotspot taşıyın.</p></details>
+</div>
+
+<div class="cta-box">
+<h2>Kendi drone'unuzla deneyin</h2>
+<p>DJI Live Bridge ücretsiz ve açık kaynaklıdır; macOS ve Windows için. FFmpeg uygulamanın içinde gelir, ayrıca bir şey kurmanız gerekmez.</p>
+<div class="cta"><a class="btn primary" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">DJI Live Bridge'i indir</a><a class="btn" href="https://tanerozel.github.io/dji-live-bridge/tr/">Uygulama nasıl çalışır</a></div>
+</div>
+
+<h2 id="related">Diğer rehberler</h2>
+<div class="grid">
+      <a class="card post-card" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/dji-fly-rtmp-canli-yayin-ayarlari/"><h3>DJI Fly RTMP canlı yayın ayarları: eksiksiz kurulum</h3><p>DJI Fly RTMP canlı yayın ayarları: ayar nerede, hangi adres girilir, kumanda ve bilgisayar aynı ağa nasıl bağlanır ve sorunlar nasıl çözülür.</p></a>
+      <a class="card post-card" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/dji-fly-instagram-canli-yayin-neden-calismiyor/"><h3>DJI Fly neden Instagram'a canlı yayın yapamıyor? (ve çözümü)</h3><p>DJI Fly'da Instagram seçeneği yok ve RTMP istemcisi Instagram'ın istediği şifreli RTMPS'i yapamıyor. Nedeni ve DJI drone ile Instagram'da yine de nasıl canlı yayın yapılır.</p></a>
+      <a class="card post-card" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/drone-u-bilgisayarin-harici-kamerasi-yapin/"><h3>Drone'unuzu bilgisayarınızın harici kamerası yapın</h3><p>DJI Live Bridge sanal kamerasıyla DJI drone'unuzu TikTok LIVE Studio, OBS, Zoom, Google Meet ve Teams için webcam olarak kullanın. Kurulum, fikirler ve çözümler.</p></a>
+      <a class="card post-card" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/dji-mini-4-pro-canli-yayin/"><h3>DJI Mini 4 Pro ile canlı yayın nasıl yapılır?</h3><p>DJI Mini 4 Pro ile DJI RC 2 veya RC-N2 kumandayla canlı yayın: DJI Fly'da RTMP, mikrofon şartı, 720p sınırı ve Instagram, TikTok, YouTube'a yayın.</p></a>
+      <a class="card post-card" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/dji-neo-canli-yayin/"><h3>DJI Neo ile canlı yayın nasıl yapılır?</h3><p>DJI Neo ile canlı yayın: hangi kontrol modu çalışır (telefon, RC-N3, gözlük), DJI Fly'da RTMP ve DJI Live Bridge ile Instagram, TikTok veya YouTube'da yayın.</p></a>
+      <a class="card post-card" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/dji-avata-2-canli-yayin/"><h3>DJI Avata 2 ile canlı yayın nasıl yapılır?</h3><p>DJI Avata 2 ile FPV canlı yayın: Goggles 3 görüntüsünü telefondaki DJI Fly'a aktarın, RTMP ile yayınlayın ve Instagram, TikTok veya YouTube'da canlıya çıkın.</p></a>
+      <a class="card post-card" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/dji-osmo-kameralarla-canli-yayin/"><h3>DJI Osmo kameranızla Instagram, TikTok ve daha fazlasında canlı yayın</h3><p>DJI Mimo, Osmo Action, Osmo Pocket ve Osmo 360 kameralarla RTMP yayını yapabilir. Bunu DJI Live Bridge'e gönderin, aynı anda Instagram, TikTok ve YouTube'da canlı yayına çıkın.</p></a>
+      <a class="card post-card" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/osmo-pocket-3-canli-yayin/"><h3>Osmo Pocket 3 ile Instagram ve TikTok'ta canlı yayın nasıl yapılır?</h3><p>DJI Osmo Pocket 3 ile DJI Mimo'dan RTMP yayınını DJI Live Bridge ile aynı anda Instagram, TikTok ve YouTube'a gönderin ve kamerayı kablosuz webcam olarak kullanın.</p></a>
+      <a class="card post-card" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/drone-ile-tiktok-canli-yayin-nasil-yapilir/"><h3>DJI drone ile TikTok'ta canlı yayın nasıl yapılır</h3><p>Drone ile TikTok'ta canlı yayın: DJI Fly'dan TikTok yayın anahtarıyla ya da anahtarsız, TikTok LIVE Studio ve sanal kamerayla. Ayarlar ve çözümler.</p></a>
+      <a class="card post-card" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/drone-ile-instagram-canli-yayin-nasil-yapilir/"><h3>Drone ile Instagram'da canlı yayın nasıl yapılır?</h3><p>Drone ile Instagram'da canlı yayın: instagram.com'dan yayın URL'si ve anahtarını alın, DJI Fly'ın RTMP yayınını DJI Live Bridge ile gönderin, Go live'a basın.</p></a>
+      <a class="card post-card" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/drone-ile-youtube-canli-yayin-nasil-yapilir/"><h3>Drone ile YouTube'da canlı yayın nasıl yapılır?</h3><p>Drone ile YouTube'da canlı yayın: canlı yayını etkinleştirin, YouTube Studio'dan yayın anahtarını alın, DJI Fly'ın RTMP yayınını DJI Live Bridge ile gönderin.</p></a>
+      <a class="card post-card" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/drone-ile-facebook-canli-yayin-nasil-yapilir/"><h3>Drone ile Facebook'ta canlı yayın nasıl yapılır?</h3><p>Drone ile Facebook'ta canlı yayın: Live Producer'dan RTMPS sunucu URL'si ve yayın anahtarını alın, DJI Fly görüntüsünü DJI Live Bridge ile yayına taşıyın.</p></a>
+      <a class="card post-card" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/drone-ile-twitch-yayini-nasil-yapilir/"><h3>Drone ile Twitch'te yayın nasıl yapılır?</h3><p>Drone ile Twitch'te yayın: yayın anahtarını Twitch kontrol panelinden kopyalayın, Twitch'i DJI Live Bridge'e Özel RTMP hedefi olarak ekleyin ve yayına geçin.</p></a>
+      <a class="card post-card" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/drone-ile-kick-yayini-nasil-yapilir/"><h3>DJI drone ile Kick'te yayın nasıl yapılır?</h3><p>Drone ile Kick'te yayın: Kick panelinden yayın URL'si ve anahtarını kopyalayın, DJI Live Bridge'e Özel RTMP hedefi olarak ekleyin ve yayına geçin.</p></a>
+      <a class="card post-card" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/drone-ile-ayni-anda-birden-fazla-platformda-canli-yayin/"><h3>DJI drone ile aynı anda birden fazla platformda canlı yayın</h3><p>Drone ile aynı anda birden fazla platformda canlı yayın: tek DJI yayınını TikTok, YouTube, Twitch ve Kick'e ücretsiz, restream hizmeti olmadan gönderin.</p></a>
+      <a class="card post-card" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/dji-live-bridge-mi-restream-mi/"><h3>DJI Live Bridge mi, Restream mi: drone'unuz için hangisi?</h3><p>DJI drone'u birkaç platforma yayınlamak: Restream'in bulut aktarımı mı, bilgisayarınızda DJI Live Bridge mi? Maliyet, filigran, Instagram, dikey görüntü ve hangisi ne zaman öne çıkar.</p></a>
+      <a class="card post-card" href="https://tanerozel.github.io/dji-live-bridge/tr/blog/nginx-ve-obs-kurmadan-drone-yayini/"><h3>NGINX ve OBS kurmadan DJI drone ile yayın</h3><p>DJI Fly'ı OBS'ye almanın bilinen yolu NGINX RTMP sunucusu, bir yapılandırma dosyası ve medya kaynağıdır. Bu kurulumun neler gerektirdiği ve tek uygulamayla nasıl atlanacağı.</p></a>
+    </div>
+</article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <strong style="color:var(--text)">Taner Özel</strong> — geliştirici ve bakımcı
+    <div class="foot-links">
+      <a href="mailto:tanerozel47@gmail.com">tanerozel47@gmail.com</a>
+      <a href="https://github.com/tanerozel">GitHub</a>
+      <a href="https://www.linkedin.com/in/tanerozel">LinkedIn</a>
+      <a href="https://github.com/tanerozel/dji-live-bridge/issues">Sorun bildir</a>
+      <a href="https://tanerozel.github.io/dji-live-bridge/llms.txt">llms.txt</a>
+    </div>
+    <p class="note">MIT lisansıyla yayımlanmıştır; paketlenen FFmpeg LGPL'dir ve GPL bileşenleri olmadan kaynaktan derlenmiştir. DJI Live Bridge bağımsız bir projedir; DJI, Instagram, TikTok veya Apple ile bağlantısı yoktur. DJI, Instagram ve TikTok kendi sahiplerinin ticari markalarıdır. Google Play, Google LLC'nin ticari markasıdır.</p>
+  </div>
+</footer>
+
+</body>
+</html>

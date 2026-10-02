@@ -1,0 +1,80 @@
+{
+  "slug": "osmo-pocket-3-live-stream",
+  "platform": "Osmo Pocket 3",
+  "title": "Osmo Pocket 3 live stream to Instagram, TikTok and YouTube (2026)",
+  "description": "How to live stream a DJI Osmo Pocket 3 over RTMP from DJI Mimo to Instagram, TikTok and YouTube at once, and use it as a wireless webcam, with DJI Live Bridge.",
+  "h1": "How to live stream an Osmo Pocket 3 to Instagram and TikTok",
+  "lead": "The Osmo Pocket 3 streams over <strong>RTMP from DJI Mimo</strong> at up to 1080p. On its own, DJI Mimo reaches Facebook, YouTube or an RTMP address. Send that RTMP stream to <strong>DJI Live Bridge</strong> on your computer and the Pocket 3 goes live on <strong>Instagram and TikTok</strong> too — several platforms at once — or becomes a wireless webcam for Zoom, OBS and TikTok LIVE Studio.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "In DJI Mimo (1.2.20 or later), the Pocket 3 streams RTMP at 480p, 720p or 1080p, 30 fps, up to 6 Mbps.",
+    "The Pocket 3 joins a Wi-Fi network itself; put it on the same network as the computer running DJI Live Bridge.",
+    "DJI Live Bridge forwards the stream to Instagram over RTMPS, to TikTok and to any RTMP platform at the same time.",
+    "Vertical 1080×1920 output for Instagram and TikTok, with a blurred fill when the picture arrives in landscape.",
+    "The built-in virtual camera turns the Pocket 3 into a wireless webcam — no USB cable to the computer."
+  ],
+  "sections": [
+    {
+      "id": "setup",
+      "h2": "Set up the Pocket 3 live stream",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Open DJI Live Bridge", "d": "Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> on a Mac or Windows PC and note the address it shows, like <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Connect the Pocket 3 to DJI Mimo", "d": "Update DJI Mimo and the Pocket 3 firmware, connect the camera and open the livestream option." },
+          { "t": "Choose RTMP and a Wi-Fi network", "d": "Pick RTMP as the platform and the Wi-Fi the Pocket 3 should join — the same network as the computer, or a hotspot both are on." },
+          { "t": "Enter the address and start", "d": "Type the address from DJI Live Bridge, choose 1080p at 6 Mbps if your Wi-Fi allows, and start. The picture appears in the app's preview." },
+          { "t": "Go live everywhere", "d": "Add Instagram, TikTok, YouTube or any RTMP server, keep <em>Vertical 9:16</em> for Instagram and TikTok, and press START LIVE." }
+        ] },
+        { "img": "go-live.png", "alt": "The Go live tab of DJI Live Bridge with the RTMP address, the destinations and the START LIVE button." },
+        { "note": "The full list of DJI cameras that can do this is in <a href=\"../dji-osmo-live-stream-instagram-tiktok/\">the Osmo cameras guide</a>." }
+      ]
+    },
+    {
+      "id": "ideas",
+      "h2": "What creators do with it",
+      "blocks": [
+        { "list": [
+          "<strong>Walk-and-talk lives.</strong> The gimbal keeps the picture steady while you move; the same stream reaches Instagram and TikTok together.",
+          "<strong>Events and markets.</strong> Stream a talk, a concert or a stall to several platforms from one small camera.",
+          "<strong>A wireless desk camera.</strong> Put the Pocket 3 on a tripod and pick <strong>DJI Live Bridge Camera</strong> in Zoom, Meet, OBS or TikTok LIVE Studio. The Pocket 3 can also be a USB webcam; this way it needs no cable. See <a href=\"../use-your-dji-drone-as-a-webcam/\">the webcam guide</a>.",
+          "<strong>Record while live.</strong> DJI Live Bridge records the stream on the computer as it goes out."
+        ] }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Best settings",
+      "blocks": [
+        { "table": {
+          "head": ["Setting", "Recommendation", "Why"],
+          "rows": [
+            ["Resolution in DJI Mimo", "1080p", "The highest DJI Mimo offers for livestreaming."],
+            ["Bitrate in DJI Mimo", "6 Mbps", "Clearly sharper than 3 Mbps; lower it only if the Wi-Fi struggles."],
+            ["Output in DJI Live Bridge", "Vertical 9:16 for Instagram and TikTok", "Phones watch in portrait; 1080×1920 at 30 fps."],
+            ["Network", "5 GHz Wi-Fi or a nearby hotspot", "The camera's link to the computer carries the whole stream."]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "When it does not work",
+      "blocks": [
+        { "list": [
+          "<strong>The Pocket 3 cannot connect:</strong> the camera and the computer are on different networks, or a guest network isolates them.",
+          "<strong>No livestream option:</strong> update DJI Mimo to 1.2.20 or later and the camera firmware.",
+          "<strong>Instagram rejects the stream:</strong> each Instagram key works once; create a new live video on instagram.com and update the key.",
+          "<strong>The picture stutters:</strong> lower the bitrate in DJI Mimo or move closer to the router."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Can the Osmo Pocket 3 live stream to Instagram?", "a": "Not from DJI Mimo alone. Stream it over RTMP to DJI Live Bridge, which forwards it to Instagram over RTMPS in vertical 1080×1920." },
+    { "q": "What resolution does the Pocket 3 live stream in?", "a": "DJI Mimo offers 480p, 720p or 1080p at 30 fps, with 3 or 6 Mbps at 1080p." },
+    { "q": "Can I stream the Pocket 3 to TikTok and YouTube at the same time?", "a": "Yes. Add both destinations in DJI Live Bridge; the picture is encoded once and sent to each." },
+    { "q": "Can I use the Pocket 3 as a wireless webcam?", "a": "Yes. With the stream arriving in DJI Live Bridge, start the virtual camera and choose DJI Live Bridge Camera in your video app." }
+  ]
+}

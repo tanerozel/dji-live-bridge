@@ -59,6 +59,10 @@
       {
         "h": "15 bahasa, 5 tema",
         "p": "Antarmuka mengikuti bahasa sistem Anda, dan bahasa Arab mengubah seluruh tata letak menjadi kanan-ke-kiri."
+      },
+      {
+        "h": "Kamera Osmo juga",
+        "p": "Kamera Osmo Action, Osmo Pocket, dan Osmo 360 mengirim siaran ke aplikasi lewat RTMP dari DJI Mimo, sama seperti drone dari DJI Fly."
       }
     ]
   },

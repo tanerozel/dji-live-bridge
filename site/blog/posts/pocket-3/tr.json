@@ -1,0 +1,80 @@
+{
+  "slug": "osmo-pocket-3-canli-yayin",
+  "platform": "Osmo Pocket 3",
+  "title": "Osmo Pocket 3 ile Instagram, TikTok ve YouTube'da canlı yayın (2026)",
+  "description": "DJI Osmo Pocket 3 ile DJI Mimo'dan RTMP yayınını DJI Live Bridge ile aynı anda Instagram, TikTok ve YouTube'a gönderin ve kamerayı kablosuz webcam olarak kullanın.",
+  "h1": "Osmo Pocket 3 ile Instagram ve TikTok'ta canlı yayın nasıl yapılır?",
+  "lead": "Osmo Pocket 3, <strong>DJI Mimo'dan RTMP</strong> ile 1080p'ye kadar yayın yapar. DJI Mimo tek başına Facebook'a, YouTube'a ya da bir RTMP adresine ulaşır. O RTMP yayınını bilgisayarınızdaki <strong>DJI Live Bridge</strong>'e gönderin; Pocket 3 <strong>Instagram ve TikTok</strong>'ta da — aynı anda birkaç platformda — canlıya çıkar ya da Zoom, OBS ve TikTok LIVE Studio için kablosuz bir webcam olur.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "DJI Mimo'da (1.2.20 veya üzeri) Pocket 3, 30 fps'de 480p, 720p veya 1080p, 6 Mbps'ye kadar RTMP yayını yapar.",
+    "Pocket 3 bir Wi-Fi ağına kendisi katılır; onu DJI Live Bridge'in çalıştığı bilgisayarla aynı ağa bağlayın.",
+    "DJI Live Bridge yayını aynı anda Instagram'a RTMPS ile, TikTok'a ve herhangi bir RTMP platformuna iletir.",
+    "Instagram ve TikTok için dikey 1080×1920 çıkış; görüntü yatay gelirse bulanık dolguyla.",
+    "Yerleşik sanal kamera Pocket 3'ü kablosuz bir webcam'e dönüştürür — bilgisayara USB kablo gerekmez."
+  ],
+  "sections": [
+    {
+      "id": "setup",
+      "h2": "Pocket 3 canlı yayınını kurun",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "DJI Live Bridge'i açın", "d": "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a>'i bir Mac'e veya Windows bilgisayara kurun ve gösterdiği adresi not edin, örneğin <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Pocket 3'ü DJI Mimo'ya bağlayın", "d": "DJI Mimo'yu ve Pocket 3'ün yazılımını güncelleyin, kamerayı bağlayın ve canlı yayın seçeneğini açın." },
+          { "t": "RTMP'yi ve bir Wi-Fi ağını seçin", "d": "Platform olarak RTMP'yi ve Pocket 3'ün katılacağı Wi-Fi ağını seçin — bilgisayarla aynı ağ ya da ikisinin de bağlı olduğu bir hotspot." },
+          { "t": "Adresi girin ve başlatın", "d": "DJI Live Bridge'deki adresi yazın, Wi-Fi'niz izin veriyorsa 6 Mbps'de 1080p'yi seçin ve başlatın. Görüntü uygulamanın önizlemesinde belirir." },
+          { "t": "Her yerde yayına çıkın", "d": "Instagram, TikTok, YouTube ya da herhangi bir RTMP sunucusunu ekleyin; Instagram ve TikTok için <em>Dikey 9:16</em> açık kalsın ve YAYINI BAŞLAT'a basın." }
+        ] },
+        { "img": "go-live.png", "alt": "DJI Live Bridge'in Canlı yayın sekmesi: RTMP adresi, hedefler ve YAYINI BAŞLAT düğmesi." },
+        { "note": "Bunu yapabilen DJI kameraların tam listesi <a href=\"../dji-osmo-kameralarla-canli-yayin/\">Osmo kameralar rehberinde</a>." }
+      ]
+    },
+    {
+      "id": "ideas",
+      "h2": "İçerik üreticileri onunla ne yapıyor?",
+      "blocks": [
+        { "list": [
+          "<strong>Yürürken konuşarak yayın.</strong> Gimbal siz hareket ederken görüntüyü sabit tutar; aynı yayın Instagram'a ve TikTok'a birlikte ulaşır.",
+          "<strong>Etkinlikler ve pazarlar.</strong> Bir konuşmayı, konseri ya da tezgâhı tek bir küçük kamerayla birkaç platforma yayınlayın.",
+          "<strong>Kablosuz masa kamerası.</strong> Pocket 3'ü bir tripoda koyun ve Zoom, Meet, OBS ya da TikTok LIVE Studio'da <strong>DJI Live Bridge Camera</strong>'yı seçin. Pocket 3 USB webcam de olabilir; bu yolla kablo gerekmez. <a href=\"../drone-u-bilgisayarin-harici-kamerasi-yapin/\">Webcam rehberine</a> bakın.",
+          "<strong>Yayın yaparken kaydedin.</strong> DJI Live Bridge, yayın çıkarken onu bilgisayarda kaydeder."
+        ] }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "En iyi ayarlar",
+      "blocks": [
+        { "table": {
+          "head": ["Ayar", "Öneri", "Neden"],
+          "rows": [
+            ["DJI Mimo'da çözünürlük", "1080p", "DJI Mimo'nun canlı yayında sunduğu en yüksek değer."],
+            ["DJI Mimo'da bit hızı", "6 Mbps", "3 Mbps'den belirgin şekilde daha net; yalnızca Wi-Fi zorlanırsa düşürün."],
+            ["DJI Live Bridge'de çıkış", "Instagram ve TikTok için Dikey 9:16", "Telefonlar dikey izler; 30 fps'de 1080×1920."],
+            ["Ağ", "5 GHz Wi-Fi ya da yakındaki bir hotspot", "Kameradan bilgisayara giden bağlantı yayının tamamını taşır."]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Çalışmazsa",
+      "blocks": [
+        { "list": [
+          "<strong>Pocket 3 bağlanamıyor:</strong> kamera ile bilgisayar farklı ağlarda ya da bir misafir ağı onları birbirinden ayırıyor.",
+          "<strong>Canlı yayın seçeneği yok:</strong> DJI Mimo'yu 1.2.20 veya üzerine, kamera yazılımını da güncelleyin.",
+          "<strong>Instagram yayını reddediyor:</strong> her Instagram anahtarı bir kez çalışır; instagram.com'da yeni bir canlı video oluşturun ve anahtarı güncelleyin.",
+          "<strong>Görüntü takılıyor:</strong> DJI Mimo'da bit hızını düşürün ya da modeme yaklaşın."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Osmo Pocket 3 Instagram'a canlı yayın yapabilir mi?", "a": "Yalnızca DJI Mimo ile yapamaz. RTMP ile DJI Live Bridge'e yayın yapın; uygulama onu dikey 1080×1920 olarak Instagram'a RTMPS ile iletir." },
+    { "q": "Pocket 3 hangi çözünürlükte canlı yayın yapar?", "a": "DJI Mimo 30 fps'de 480p, 720p veya 1080p sunar; 1080p'de 3 veya 6 Mbps." },
+    { "q": "Pocket 3 ile TikTok ve YouTube'a aynı anda yayın yapabilir miyim?", "a": "Evet. İki hedefi de DJI Live Bridge'e ekleyin; görüntü bir kez kodlanır ve her birine gönderilir." },
+    { "q": "Pocket 3'ü kablosuz webcam olarak kullanabilir miyim?", "a": "Evet. Yayın DJI Live Bridge'e gelirken sanal kamerayı başlatın ve görüntülü görüşme uygulamanızda DJI Live Bridge Camera'yı seçin." }
+  ]
+}
