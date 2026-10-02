@@ -1,10 +1,10 @@
 {
   "meta": {
-    "title": "DJI Live Bridge — drone ile Instagram ve TikTok yayını",
-    "description": "DJI Fly'dan gelen RTMP yayınını Instagram, TikTok ve her RTMP hedefine aynı anda gönderen ücretsiz uygulama. TikTok LIVE Studio için sanal kamera da var.",
+    "title": "Drone ile sosyal medyada canlı yayın — DJI Live Bridge",
+    "description": "DJI drone ile Instagram, TikTok, YouTube ve Facebook'ta aynı anda canlı yayın yapın. DJI Fly RTMP yayınını alan ücretsiz uygulama; TikTok LIVE Studio için sanal kamera.",
     "ogTitle": "DJI Live Bridge",
     "ogDescription": "DJI drone'unuzdan Instagram, TikTok ve istediğiniz RTMP hedefine aynı anda canlı yayın yapın. Ücretsiz, açık kaynak, imzalı ve Apple onaylı.",
-    "keywords": "drone canlı yayın, DJI Fly RTMP ayarı, DJI drone ile canlı yayın, drone ile Instagram canlı yayın, drone ile TikTok yayını, sanal kamera, TikTok LIVE Studio, RTMP yayın aktarma"
+    "keywords": "drone ile canlı yayın, drone ile sosyal medyada canlı yayın, DJI Fly RTMP ayarı, drone ile Instagram canlı yayın, drone ile TikTok canlı yayın, drone ile YouTube canlı yayın, sanal kamera, TikTok LIVE Studio"
   },
   "nav": {
     "language": "Dil",
@@ -17,8 +17,8 @@
   },
   "hero": {
     "pill": "Ücretsiz · Apple tarafından imzalı ve onaylı",
-    "h1": "DJI drone'unuzdan Instagram ve TikTok'ta canlı yayın",
-    "lead": "DJI Live Bridge, bilgisayarınızda DJI Fly'dan gelen RTMP yayınını alır ve birden fazla platforma aynı anda gönderir — ya da yayın anahtarı gerekmeyen TikTok LIVE Studio için sanal kameraya çevirir.",
+    "h1": "Drone ile sosyal medyada canlı yayın yapın",
+    "lead": "DJI Fly'daki RTMP yayınını bilgisayarınıza gönderin; DJI Live Bridge onu Instagram, TikTok, YouTube, Facebook ve diğer platformlara aynı anda iletir. TikTok için yayın anahtarı gerekmeyen sanal kamera da var.",
     "ctaMac": "macOS için indir",
     "ctaWin": "Windows (beta)",
     "ctaSource": "GitHub'da kaynak kodu",
