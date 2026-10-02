@@ -63,6 +63,7 @@
 <meta name="twitter:description" content="把 DJI 空拍機畫面同時直播到 Instagram、TikTok 和任何 RTMP 目的地。免費、開源，已簽章並公證。">
 <meta name="twitter:image" content="https://tanerozel.github.io/dji-live-bridge/img/go-live.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"DJI Live Bridge","description":"免費軟體，接收 DJI Fly 送出的 RTMP 串流，同時直播到 Instagram、TikTok 和任何 RTMP 目的地；也能變成 TikTok LIVE Studio 的虛擬攝影機，不必串流金鑰。支援 macOS 與 Windows。","applicationCategory":"MultimediaApplication","operatingSystem":"macOS 13 or newer, Windows 10/11","softwareVersion":"0.2.6","url":"https://tanerozel.github.io/dji-live-bridge/zh-Hant/","downloadUrl":"https://github.com/tanerozel/dji-live-bridge/releases/latest","inLanguage":"zh-Hant","image":"https://tanerozel.github.io/dji-live-bridge/img/go-live.png","license":"https://opensource.org/licenses/MIT","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"MobileApplication","name":"Stream My Drone","description":"現場沒有電腦？Stream My Drone 是 Android 版本：手機接收 DJI Fly 的串流，並直接傳送到你的各個平台。","applicationCategory":"MultimediaApplication","operatingSystem":"Android 9 or newer","url":"https://play.google.com/store/apps/details?id=com.streammydrone.app","installUrl":"https://play.google.com/store/apps/details?id=com.streammydrone.app","inLanguage":"zh-Hant","image":"https://tanerozel.github.io/dji-live-bridge/img/android-live.jpg","author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"zh-Hant","mainEntity":[{"@type":"Question","name":"哪些無人機可以用？","acceptedAnswer":{"@type":"Answer","text":"只要該機型對應的 DJI Fly 版本在「直播平台」中提供 RTMP 就可以。應用程式收到的是一般的 RTMP 串流，因此不會直接與無人機溝通。在 RC 2 上，若遙控器沒有接麥克風，DJI Fly 可能會拒絕開始直播。"}},{"@type":"Question","name":"我需要自己安裝 FFmpeg 嗎？","acceptedAnswer":{"@type":"Answer","text":"不用。應用程式內建自行編譯的 FFmpeg，不含任何 GPL 元件（LGPL，H.264 使用 Apple VideoToolbox），所以沒有東西要安裝，也沒有東西要維護更新。授權條款全文與確切的編譯參數就在應用程式內的 Contents/Resources/licenses。"}},{"@type":"Question","name":"我需要 OBS 嗎？","acceptedAnswer":{"@type":"Answer","text":"不用。OBS 是選用的，只有在你想用它的場景、濾鏡或錄影時才有用。直接 RTMP 直播和虛擬攝影機不需要它。"}},{"@type":"Question","name":"在 Intel Mac 上可以用嗎？","acceptedAnswer":{"@type":"Answer","text":"可以。每個版本都提供兩個下載：一個給 Apple Silicon，一個給 Intel，兩者都已簽章並公證，各自內建 FFmpeg。挑選符合你 Mac 的檔案即可。"}},{"@type":"Question","name":"在 Windows 上可以用嗎？","acceptedAnswer":{"@type":"Answer","text":"Windows 版本目前是測試版。直播到 Instagram、TikTok 和任何 RTMP 目的地可以用，預覽、錄影與診斷也可以用。內建的虛擬攝影機同樣包含在內：安裝程式會為 TikTok LIVE Studio、OBS 或 Zoom 註冊一個「DJI Live Bridge Camera」裝置。它比 macOS 上的更新，所以如果沒有出現，透過選用的 OBS 整合使用 OBS Virtual Camera 仍然可行。還有一點：安裝程式尚未做程式碼簽章，因此 Windows SmartScreen 會跳出警告。"}},{"@type":"Question","name":"我的串流金鑰會存到哪裡？","acceptedAnswer":{"@type":"Answer","text":"存到系統的金鑰保管庫，每個目的地一筆。開播時透過回送介面交給本機媒體伺服器，停止後就移除。它們不會出現在設定檔、行程參數或記錄檔中。"}},{"@type":"Question","name":"為什麼 Instagram 每次都要新的金鑰？","acceptedAnswer":{"@type":"Answer","text":"這是 Instagram 自己的作法：它為每一場直播發新的串流金鑰。開播前請在目的地卡片上使用「更新金鑰」，並記得在 Instagram 那邊按下「開始直播」，直播才會公開。"}},{"@type":"Question","name":"為什麼我的畫面是 720p？","acceptedAnswer":{"@type":"Answer","text":"DJI 遙控器透過 RTMP 送出的往往就是 720p。應用程式會顯示真實的輸入解析度，不會把放大後的輸出假裝成原生 1080p。"}}]}</script>
 <style>
 
@@ -140,6 +141,8 @@ h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.01em}
 .steps span{color:var(--muted);font-size:14.5px}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;margin-top:30px}
 .split .shot{margin:0}
+.split.top{align-items:start}
+.split .shot.phone{width:min(280px,100%);border-radius:28px;justify-self:center}
 ul.plain{margin:16px 0 0;padding-left:20px;color:var(--muted);font-size:15px}
 ul.plain li{margin:7px 0}
 .faq{display:grid;gap:12px;margin-top:26px}
@@ -247,6 +250,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
     <nav>
       <a href="#features">功能</a>
       <a href="#how">運作方式</a>
+      <a href="#android">Android</a>
       <a href="#tiktok">TikTok</a>
       <a href="#faq">常見問題</a>
       <a href="https://tanerozel.github.io/dji-live-bridge/blog/">部落格</a>
@@ -268,6 +272,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
   <div class="cta">
     <a class="btn primary" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">下載 macOS 版</a>
     <a class="btn" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Windows（測試版）</a>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=com.streammydrone.app">Android 版（Google Play）</a>
     <a class="btn" href="https://github.com/tanerozel/dji-live-bridge">GitHub 上的原始碼</a>
   </div>
   <p class="meta">Apple Silicon 與 Intel Mac · macOS 13 或更新版本 · Windows 10/11 測試版 · 不必安裝其他東西</p>
@@ -300,6 +305,28 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <li><div><strong>選擇要直播到哪裡</strong><span>用平台提供的伺服器位址與串流金鑰，加入 Instagram、TikTok 或任何 RTMP 伺服器。金鑰會存在系統的金鑰保管庫中。</span></div></li>
       <li><div><strong>按下開始直播</strong><span>本機伺服器已在運作、無人機畫面已進來、而且已選好直播目的地時，按鈕才會解鎖。接著你會看到已直播的時間、每個目的地的狀態與已傳送的資料量。</span></div></li>
     </ol>
+  </div>
+</section>
+
+<section id="android">
+  <div class="wrap">
+    <h2>用 Android 應用程式直接從手機直播</h2>
+    <p class="sub">現場沒有電腦？Stream My Drone 是 Android 版本：手機接收 DJI Fly 的串流，並直接傳送到你的各個平台。</p>
+    <div class="split top">
+      <div>
+        <ul class="plain">
+          <li>同時串流到多個平台：Instagram、TikTok、YouTube、Facebook、Twitch、Kick 以及任何自訂 RTMP 或 RTMPS 伺服器。</li>
+          <li>開播前即可即時預覽無人機畫面，並顯示解析度、位元率和連線資訊。</li>
+          <li>網路短暫中斷後目標會自動重新連線；切換到其他應用程式時直播仍會持續。</li>
+          <li>透過同一個 Wi-Fi 或手機本身的熱點即可使用。串流金鑰使用 Android Keystore 加密。</li>
+        </ul>
+        <p class="note" style="margin-top:16px">在 Google Play 一次購買，無需訂閱。需要 Android 9 或更新版本。手機會依 DJI Fly 傳送的原樣轉發畫面，因此虛擬攝影機和 1080×1920 直式轉換仍是桌面版功能。</p>
+        <div class="cta" style="justify-content:flex-start;margin-top:22px">
+          <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.streammydrone.app">在 Google Play 上取得</a>
+        </div>
+      </div>
+      <div class="shot phone"><img src="../img/android-live.jpg" alt="Android 手機上的 Stream My Drone 正在直播到 Instagram，顯示無人機畫面、位元率和平台開關。" width="600" height="1211" loading="lazy"></div>
+    </div>
   </div>
 </section>
 
@@ -391,7 +418,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <a href="https://github.com/tanerozel/dji-live-bridge/issues">回報問題</a>
       <a href="https://tanerozel.github.io/dji-live-bridge/llms.txt">llms.txt</a>
     </div>
-    <p class="note">以 MIT 授權釋出；內建的 FFmpeg 採用 LGPL，由原始碼編譯且不含 GPL 元件。DJI Live Bridge 是獨立專案，與 DJI、Instagram、TikTok 或 Apple 無隸屬關係。DJI、Instagram 與 TikTok 是各自所有者的商標。</p>
+    <p class="note">以 MIT 授權釋出；內建的 FFmpeg 採用 LGPL，由原始碼編譯且不含 GPL 元件。DJI Live Bridge 是獨立專案，與 DJI、Instagram、TikTok 或 Apple 無隸屬關係。DJI、Instagram 與 TikTok 是各自所有者的商標。 Google Play 是 Google LLC 的商標。</p>
   </div>
 </footer>
 

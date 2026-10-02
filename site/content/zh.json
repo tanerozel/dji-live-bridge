@@ -10,6 +10,7 @@
     "language": "语言",
     "features": "功能",
     "how": "工作原理",
+    "android": "Android",
     "tiktok": "TikTok",
     "faq": "常见问题",
     "blog": "博客",
@@ -21,6 +22,7 @@
     "lead": "DJI Live Bridge 接收电脑上 DJI Fly 发来的 RTMP 流，同时推流到多个平台；也可以把它变成 TikTok LIVE Studio 的虚拟摄像头，在那里不需要推流密钥。",
     "ctaMac": "下载 macOS 版",
     "ctaWin": "Windows（测试版）",
+    "ctaAndroid": "Android 版（Google Play）",
     "ctaSource": "GitHub 上的源代码",
     "meta": "Apple Silicon 与 Intel Mac · macOS 13 或更新版本 · Windows 10/11 测试版 · 无需安装其他软件",
     "shotAlt": "“开始直播”标签页：连接无人机、选择推流目标，然后按下开始直播。",
@@ -77,6 +79,19 @@
         "d": "本地服务器已运行、无人机画面已到达、并且已选择推流目标时，按钮才会解锁。之后你会看到已直播的时长、每个目标的状态和已发送的数据量。"
       }
     ]
+  },
+  "android": {
+    "h2": "用 Android 应用直接从手机直播",
+    "sub": "现场没有电脑？Stream My Drone 是 Android 版本：手机接收 DJI Fly 的推流，并直接发送到你的各个平台。",
+    "items": [
+      "同时推流到多个平台：Instagram、TikTok、YouTube、Facebook、Twitch、Kick 以及任意自定义 RTMP 或 RTMPS 服务器。",
+      "开播前即可实时预览无人机画面，并显示分辨率、码率和连接信息。",
+      "网络短暂中断后目标会自动重连；切换到其他应用时直播仍会继续。",
+      "通过同一 Wi-Fi 或手机自带热点即可使用。推流密钥使用 Android Keystore 加密。"
+    ],
+    "note": "在 Google Play 一次性购买，无需订阅。需要 Android 9 或更高版本。手机按 DJI Fly 发送的原样转发画面，因此虚拟摄像头和 1080×1920 竖屏转换仍是桌面版功能。",
+    "cta": "在 Google Play 上获取",
+    "shotAlt": "Android 手机上的 Stream My Drone 正在直播到 Instagram，显示无人机画面、码率和平台开关。"
   },
   "tiktok": {
     "h2": "TikTok 不用推流密钥",
@@ -154,6 +169,6 @@
   "footer": {
     "role": "开发者与维护者",
     "issue": "报告问题",
-    "note": "以 MIT 许可证发布；内置的 FFmpeg 采用 LGPL，由源码编译且不含 GPL 组件。DJI Live Bridge 是独立项目，与 DJI、Instagram、TikTok 或 Apple 无隶属关系。DJI、Instagram 和 TikTok 是各自所有者的商标。"
+    "note": "以 MIT 许可证发布；内置的 FFmpeg 采用 LGPL，由源码编译且不含 GPL 组件。DJI Live Bridge 是独立项目，与 DJI、Instagram、TikTok 或 Apple 无隶属关系。DJI、Instagram 和 TikTok 是各自所有者的商标。 Google Play 是 Google LLC 的商标。"
   }
 }

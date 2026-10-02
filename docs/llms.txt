@@ -12,6 +12,7 @@ without GPL components.
 
 Key facts:
 - Platforms: macOS 13 or newer (Apple Silicon and Intel, signed and notarized), Windows 10/11 (beta, unsigned installer).
+- Android: a separate paid app, "Stream My Drone" (Android 9 or newer, one-time purchase on Google Play), receives the DJI Fly stream on the phone and forwards it unchanged to several RTMP/RTMPS destinations; no virtual camera, no portrait conversion.
 - Output: 1080x1920 portrait, 30 fps, 6 Mbps CBR, H.264 High, 2-second keyframes; empty space filled with a blurred copy of the picture.
 - Input: whatever DJI Fly sends over RTMP, often 720p from the controller.
 - The virtual camera carries video only, so TikTok LIVE Studio keeps control of audio.
@@ -24,6 +25,7 @@ Key facts:
 - [README](https://github.com/tanerozel/dji-live-bridge/blob/main/README.md): installation, streaming guide, development notes.
 - [Turkish README](https://github.com/tanerozel/dji-live-bridge/blob/main/README.tr.md): the same document in Turkish; 13 further languages sit beside it.
 - [Releases](https://github.com/tanerozel/dji-live-bridge/releases/latest): downloads for macOS and Windows.
+- [Stream My Drone on Google Play](https://play.google.com/store/apps/details?id=com.streammydrone.app): the Android app.
 - [Dependencies](https://tanerozel.github.io/dji-live-bridge/DEPENDENCIES.md): third-party components and their licences.
 - [Security policy](https://tanerozel.github.io/dji-live-bridge/SECURITY.md): how to report a vulnerability.
 

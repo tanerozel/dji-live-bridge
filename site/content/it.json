@@ -10,6 +10,7 @@
     "language": "Lingua",
     "features": "Funzioni",
     "how": "Come funziona",
+    "android": "Android",
     "tiktok": "TikTok",
     "faq": "Domande",
     "blog": "Blog",
@@ -21,6 +22,7 @@
     "lead": "DJI Live Bridge prende lo streaming RTMP che DJI Fly manda al tuo computer e lo inoltra a più piattaforme insieme, oppure lo trasforma in una fotocamera virtuale per TikTok LIVE Studio, dove non serve nessuna chiave di streaming.",
     "ctaMac": "Scarica per macOS",
     "ctaWin": "Windows (beta)",
+    "ctaAndroid": "Android su Google Play",
     "ctaSource": "Codice su GitHub",
     "meta": "Mac con Apple Silicon e Intel · macOS 13 o successivo · Windows 10/11 in beta · nient'altro da installare",
     "shotAlt": "La scheda Diretta: collega il drone, scegli le destinazioni e premi AVVIA DIRETTA.",
@@ -77,6 +79,19 @@
         "d": "Il pulsante si sblocca quando il server locale è attivo, il video del drone sta arrivando ed è selezionata una destinazione. Da lì vedi il tempo trascorso, lo stato di ogni destinazione e i dati inviati."
       }
     ]
+  },
+  "android": {
+    "h2": "Trasmetti dal telefono con l'app Android",
+    "sub": "Niente computer sul campo? Stream My Drone è la versione Android: il telefono riceve il flusso da DJI Fly e lo invia direttamente alle tue piattaforme.",
+    "items": [
+      "Più piattaforme insieme: Instagram, TikTok, YouTube, Facebook, Twitch, Kick e qualsiasi server RTMP o RTMPS personalizzato.",
+      "Un'anteprima dal vivo dell'immagine del drone, con risoluzione, bitrate e dettagli di connessione prima di andare in diretta.",
+      "Una destinazione si ricollega da sola dopo una breve interruzione di rete, e la diretta continua mentre usi un'altra app.",
+      "Funziona sulla stessa rete Wi-Fi o con l'hotspot del telefono. Le chiavi di streaming sono cifrate con Android Keystore."
+    ],
+    "note": "Acquisto una tantum su Google Play, nessun abbonamento. Android 9 o successivo. Il telefono inoltra l'immagine così come la invia DJI Fly, quindi la videocamera virtuale e la conversione verticale 1080×1920 restano funzioni dell'app desktop.",
+    "cta": "Disponibile su Google Play",
+    "shotAlt": "Stream My Drone su un telefono Android, in diretta su Instagram, con l'immagine del drone, il bitrate e gli interruttori delle piattaforme."
   },
   "tiktok": {
     "h2": "TikTok senza chiave di streaming",
@@ -154,6 +169,6 @@
   "footer": {
     "role": "sviluppatore e manutentore",
     "issue": "Segnala un problema",
-    "note": "Distribuita con licenza MIT; l'FFmpeg incluso è LGPL, compilato dai sorgenti senza componenti GPL. DJI Live Bridge è un progetto indipendente e non è affiliato a DJI, Instagram, TikTok o Apple. DJI, Instagram e TikTok sono marchi dei rispettivi proprietari."
+    "note": "Distribuita con licenza MIT; l'FFmpeg incluso è LGPL, compilato dai sorgenti senza componenti GPL. DJI Live Bridge è un progetto indipendente e non è affiliato a DJI, Instagram, TikTok o Apple. DJI, Instagram e TikTok sono marchi dei rispettivi proprietari. Google Play è un marchio di Google LLC."
   }
 }

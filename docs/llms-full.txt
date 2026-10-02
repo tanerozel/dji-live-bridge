@@ -18,6 +18,15 @@ DJI Fly sends RTMP to your computer; the computer does the rest.
 2. **Choose where to stream** Add Instagram, TikTok or any RTMP server with the server URL and stream key from that platform. Keys are stored in the system vault.
 3. **Press START LIVE** The button unlocks when the local server is running, drone video is arriving and a destination is selected. You then see the elapsed time, each destination's state and the data sent.
 
+## Stream from your phone with the Android app
+No computer at the field? Stream My Drone is the Android version: your phone receives the stream from DJI Fly and sends it straight to your platforms.
+- Several platforms at once: Instagram, TikTok, YouTube, Facebook, Twitch, Kick and any custom RTMP or RTMPS server.
+- A live preview of the drone picture with resolution, bitrate and connection details before you go live.
+- A destination reconnects on its own after a short network drop, and the broadcast keeps running while you use another app.
+- Works over the same Wi-Fi or the phone's own hotspot. Stream keys are encrypted with Android Keystore.
+A one-time purchase on Google Play, no subscription. Android 9 or newer. The phone forwards the picture as DJI Fly sends it, so the virtual camera and the vertical 1080×1920 conversion remain desktop features.
+Google Play: https://play.google.com/store/apps/details?id=com.streammydrone.app
+
 ## TikTok without a stream key
 TikTok only hands out RTMP keys to some accounts. TikTok LIVE Studio has no such limit, because you log in with your account — it just needs a camera. DJI Live Bridge provides that camera.
 - Enable the virtual camera once; your system asks for approval the first time.
@@ -462,4 +471,4 @@ Some platforms limit simulcasting for partners or in their terms; Twitch in part
 
 ---
 Taner Özel — developer and maintainer · https://github.com/tanerozel/dji-live-bridge
-Released under the MIT licence; the bundled FFmpeg is LGPL, built from source without GPL components. DJI Live Bridge is an independent project and is not affiliated with DJI, Instagram, TikTok or Apple. DJI, Instagram and TikTok are trademarks of their respective owners.
+Released under the MIT licence; the bundled FFmpeg is LGPL, built from source without GPL components. DJI Live Bridge is an independent project and is not affiliated with DJI, Instagram, TikTok or Apple. DJI, Instagram and TikTok are trademarks of their respective owners. Google Play is a trademark of Google LLC.

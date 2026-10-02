@@ -17,6 +17,8 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const BASE = "https://tanerozel.github.io/dji-live-bridge";
 const REPO = "https://github.com/tanerozel/dji-live-bridge";
 const RELEASES = `${REPO}/releases/latest`;
+// The Android app, published on its own as "Stream My Drone".
+const PLAY = "https://play.google.com/store/apps/details?id=com.streammydrone.app";
 // Google Analytics 4. Empty string removes the tag from every page.
 const ANALYTICS_ID = "G-2HCY063P0W";
 
@@ -128,6 +130,20 @@ function head(locale, content) {
     author: { "@type": "Person", name: "Taner Özel", url: "https://github.com/tanerozel" },
   };
 
+  const android = {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    name: "Stream My Drone",
+    description: stripTags(content.android.sub),
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "Android 9 or newer",
+    url: PLAY,
+    installUrl: PLAY,
+    inLanguage: locale.hreflang,
+    image: `${BASE}/img/android-live.jpg`,
+    author: { "@type": "Person", name: "Taner Özel", url: "https://github.com/tanerozel" },
+  };
+
   const faq = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -170,6 +186,7 @@ ${LOCALES.filter((other) => other.code !== locale.code)
 <meta name="twitter:description" content="${escapeHtml(stripTags(content.meta.ogDescription))}">
 <meta name="twitter:image" content="${BASE}/img/go-live.png">
 <script type="application/ld+json">${JSON.stringify(software)}</script>
+<script type="application/ld+json">${JSON.stringify(android)}</script>
 <script type="application/ld+json">${JSON.stringify(faq)}</script>
 <style>
 ${css}</style>`;
@@ -202,6 +219,7 @@ function page(locale, content) {
   const howSteps = content.how.steps
     .map((step) => `<li><div><strong>${step.t}</strong><span>${step.d}</span></div></li>`)
     .join("\n      ");
+  const androidItems = content.android.items.map((item) => `<li>${item}</li>`).join("\n          ");
   const tiktokItems = content.tiktok.items.map((item) => `<li>${item}</li>`).join("\n          ");
   const installSteps = content.install.steps
     .map((step) => `<li><div><strong>${step.t}</strong><span>${step.d}</span></div></li>`)
@@ -231,6 +249,7 @@ ${head(locale, content)}
     <nav>
       <a href="#features">${content.nav.features}</a>
       <a href="#how">${content.nav.how}</a>
+      <a href="#android">${content.nav.android}</a>
       <a href="#tiktok">${content.nav.tiktok}</a>
       <a href="#faq">${content.nav.faq}</a>
       <a href="${blogHomeFor(locale.code)}">${content.nav.blog}</a>
@@ -249,6 +268,7 @@ ${head(locale, content)}
   <div class="cta">
     <a class="btn primary" href="${RELEASES}">${content.hero.ctaMac}</a>
     <a class="btn" href="${RELEASES}">${content.hero.ctaWin}</a>
+    <a class="btn" href="${PLAY}">${content.hero.ctaAndroid}</a>
     <a class="btn" href="${REPO}">${content.hero.ctaSource}</a>
   </div>
   <p class="meta">${content.hero.meta}</p>
@@ -273,6 +293,25 @@ ${head(locale, content)}
     <ol class="steps">
       ${howSteps}
     </ol>
+  </div>
+</section>
+
+<section id="android">
+  <div class="wrap">
+    <h2>${content.android.h2}</h2>
+    <p class="sub">${content.android.sub}</p>
+    <div class="split top">
+      <div>
+        <ul class="plain">
+          ${androidItems}
+        </ul>
+        <p class="note" style="margin-top:16px">${content.android.note}</p>
+        <div class="cta" style="justify-content:flex-start;margin-top:22px">
+          <a class="btn primary" href="${PLAY}">${content.android.cta}</a>
+        </div>
+      </div>
+      <div class="shot phone"><img src="${asset}img/android-live.jpg" alt="${escapeHtml(stripTags(content.android.shotAlt))}" width="600" height="1211" loading="lazy"></div>
+    </div>
   </div>
 </section>
 
@@ -759,6 +798,7 @@ without GPL components.
 
 Key facts:
 - Platforms: macOS 13 or newer (Apple Silicon and Intel, signed and notarized), Windows 10/11 (beta, unsigned installer).
+- Android: a separate paid app, "Stream My Drone" (Android 9 or newer, one-time purchase on Google Play), receives the DJI Fly stream on the phone and forwards it unchanged to several RTMP/RTMPS destinations; no virtual camera, no portrait conversion.
 - Output: 1080x1920 portrait, 30 fps, 6 Mbps CBR, H.264 High, 2-second keyframes; empty space filled with a blurred copy of the picture.
 - Input: whatever DJI Fly sends over RTMP, often 720p from the controller.
 - The virtual camera carries video only, so TikTok LIVE Studio keeps control of audio.
@@ -771,6 +811,7 @@ Key facts:
 - [README](${REPO}/blob/main/README.md): installation, streaming guide, development notes.
 - [Turkish README](${REPO}/blob/main/README.tr.md): the same document in Turkish; 13 further languages sit beside it.
 - [Releases](${RELEASES}): downloads for macOS and Windows.
+- [Stream My Drone on Google Play](${PLAY}): the Android app.
 - [Dependencies](${BASE}/DEPENDENCIES.md): third-party components and their licences.
 - [Security policy](${BASE}/SECURITY.md): how to report a vulnerability.
 
@@ -833,6 +874,12 @@ function llmsFull(content) {
     `## ${line(content.how.h2)}`,
     line(content.how.sub),
     ...content.how.steps.map((step, index) => `${index + 1}. **${line(step.t)}** ${line(step.d)}`),
+    "",
+    `## ${line(content.android.h2)}`,
+    line(content.android.sub),
+    ...content.android.items.map((item) => `- ${line(item)}`),
+    line(content.android.note),
+    `Google Play: ${PLAY}`,
     "",
     `## ${line(content.tiktok.h2)}`,
     line(content.tiktok.sub),

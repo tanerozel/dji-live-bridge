@@ -10,6 +10,7 @@
     "language": "語言",
     "features": "功能",
     "how": "運作方式",
+    "android": "Android",
     "tiktok": "TikTok",
     "faq": "常見問題",
     "blog": "部落格",
@@ -21,6 +22,7 @@
     "lead": "DJI Live Bridge 接收電腦上 DJI Fly 傳來的 RTMP 串流，同時送往多個平台；也可以把它變成 TikTok LIVE Studio 的虛擬攝影機，在那裡不需要串流金鑰。",
     "ctaMac": "下載 macOS 版",
     "ctaWin": "Windows（測試版）",
+    "ctaAndroid": "Android 版（Google Play）",
     "ctaSource": "GitHub 上的原始碼",
     "meta": "Apple Silicon 與 Intel Mac · macOS 13 或更新版本 · Windows 10/11 測試版 · 不必安裝其他東西",
     "shotAlt": "「開始直播」分頁：連接無人機、選擇直播目的地，然後按下開始直播。",
@@ -77,6 +79,19 @@
         "d": "本機伺服器已在運作、無人機畫面已進來、而且已選好直播目的地時，按鈕才會解鎖。接著你會看到已直播的時間、每個目的地的狀態與已傳送的資料量。"
       }
     ]
+  },
+  "android": {
+    "h2": "用 Android 應用程式直接從手機直播",
+    "sub": "現場沒有電腦？Stream My Drone 是 Android 版本：手機接收 DJI Fly 的串流，並直接傳送到你的各個平台。",
+    "items": [
+      "同時串流到多個平台：Instagram、TikTok、YouTube、Facebook、Twitch、Kick 以及任何自訂 RTMP 或 RTMPS 伺服器。",
+      "開播前即可即時預覽無人機畫面，並顯示解析度、位元率和連線資訊。",
+      "網路短暫中斷後目標會自動重新連線；切換到其他應用程式時直播仍會持續。",
+      "透過同一個 Wi-Fi 或手機本身的熱點即可使用。串流金鑰使用 Android Keystore 加密。"
+    ],
+    "note": "在 Google Play 一次購買，無需訂閱。需要 Android 9 或更新版本。手機會依 DJI Fly 傳送的原樣轉發畫面，因此虛擬攝影機和 1080×1920 直式轉換仍是桌面版功能。",
+    "cta": "在 Google Play 上取得",
+    "shotAlt": "Android 手機上的 Stream My Drone 正在直播到 Instagram，顯示無人機畫面、位元率和平台開關。"
   },
   "tiktok": {
     "h2": "TikTok 不必串流金鑰",
@@ -154,6 +169,6 @@
   "footer": {
     "role": "開發者與維護者",
     "issue": "回報問題",
-    "note": "以 MIT 授權釋出；內建的 FFmpeg 採用 LGPL，由原始碼編譯且不含 GPL 元件。DJI Live Bridge 是獨立專案，與 DJI、Instagram、TikTok 或 Apple 無隸屬關係。DJI、Instagram 與 TikTok 是各自所有者的商標。"
+    "note": "以 MIT 授權釋出；內建的 FFmpeg 採用 LGPL，由原始碼編譯且不含 GPL 元件。DJI Live Bridge 是獨立專案，與 DJI、Instagram、TikTok 或 Apple 無隸屬關係。DJI、Instagram 與 TikTok 是各自所有者的商標。 Google Play 是 Google LLC 的商標。"
   }
 }

@@ -63,6 +63,7 @@
 <meta name="twitter:description" content="Siarkan drone DJI Anda ke Instagram, TikTok, dan tujuan RTMP mana pun sekaligus. Gratis, sumber terbuka, bertanda tangan digital dan ternotarisasi.">
 <meta name="twitter:image" content="https://tanerozel.github.io/dji-live-bridge/img/go-live.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"DJI Live Bridge","description":"Aplikasi gratis yang menyiarkan aliran RTMP dari DJI Fly ke Instagram, TikTok, dan tujuan RTMP mana pun, atau menjadi kamera virtual untuk TikTok LIVE Studio.","applicationCategory":"MultimediaApplication","operatingSystem":"macOS 13 or newer, Windows 10/11","softwareVersion":"0.2.6","url":"https://tanerozel.github.io/dji-live-bridge/id/","downloadUrl":"https://github.com/tanerozel/dji-live-bridge/releases/latest","inLanguage":"id","image":"https://tanerozel.github.io/dji-live-bridge/img/go-live.png","license":"https://opensource.org/licenses/MIT","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"MobileApplication","name":"Stream My Drone","description":"Tidak ada komputer di lapangan? Stream My Drone adalah versi Android: ponsel Anda menerima siaran dari DJI Fly dan mengirimkannya langsung ke platform Anda.","applicationCategory":"MultimediaApplication","operatingSystem":"Android 9 or newer","url":"https://play.google.com/store/apps/details?id=com.streammydrone.app","installUrl":"https://play.google.com/store/apps/details?id=com.streammydrone.app","inLanguage":"id","image":"https://tanerozel.github.io/dji-live-bridge/img/android-live.jpg","author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"id","mainEntity":[{"@type":"Question","name":"Drone apa saja yang bisa dipakai?","acceptedAnswer":{"@type":"Answer","text":"Drone mana pun yang versi DJI Fly-nya menyediakan RTMP di bawah Live Streaming Platforms. Aplikasi menerima aliran RTMP biasa, jadi ia tidak berkomunikasi dengan dronenya sendiri. Pada RC 2, DJI Fly kadang menolak memulai siaran kecuali ada mikrofon yang tersambung ke remote."}},{"@type":"Question","name":"Apakah saya perlu memasang FFmpeg?","acceptedAnswer":{"@type":"Answer","text":"Tidak. Aplikasi membawa FFmpeg-nya sendiri, dibangun dari sumber tanpa komponen GPL apa pun (LGPL, Apple VideoToolbox untuk H.264), jadi tidak ada yang perlu dipasang dan tidak ada yang perlu dijaga tetap mutakhir. Teks lisensi dan opsi build yang persis ada di dalam aplikasi pada Contents/Resources/licenses."}},{"@type":"Question","name":"Apakah saya perlu OBS?","acceptedAnswer":{"@type":"Answer","text":"Tidak. OBS bersifat opsional dan hanya berguna bila Anda ingin scene, filter, atau perekamannya. RTMP langsung dan kamera virtual bekerja tanpa OBS."}},{"@type":"Question","name":"Apakah bisa jalan di Mac Intel?","acceptedAnswer":{"@type":"Answer","text":"Bisa. Setiap rilis menyediakan dua unduhan: satu untuk Apple Silicon dan satu untuk Intel, keduanya ditandatangani dan dinotarisasi, masing-masing dengan FFmpeg bawaannya sendiri. Pilih berkas yang cocok dengan Mac Anda."}},{"@type":"Question","name":"Apakah bisa jalan di Windows?","acceptedAnswer":{"@type":"Answer","text":"Ada versi Windows dalam tahap beta. Siaran ke Instagram, TikTok, dan tujuan RTMP mana pun sudah berjalan, begitu pula pratinjau, perekaman, dan diagnostik. Kamera virtual bawaan juga ikut disertakan: pemasang mendaftarkan perangkat “DJI Live Bridge Camera” untuk TikTok LIVE Studio, OBS, atau Zoom. Kamera ini lebih baru daripada yang di macOS, jadi bila tidak muncul, OBS Virtual Camera lewat integrasi OBS opsional tetap bisa dipakai. Satu catatan lagi: pemasangnya belum ditandatangani secara digital, jadi Windows SmartScreen akan menampilkan peringatan."}},{"@type":"Question","name":"Stream key saya disimpan di mana?","acceptedAnswer":{"@type":"Answer","text":"Di brankas sistem, satu entri untuk tiap tujuan. Kunci diserahkan ke server media lokal lewat antarmuka loopback saat Anda mulai siaran, lalu dihapus saat siaran berhenti. Kunci tidak pernah muncul di berkas konfigurasi, di argumen proses, atau di log."}},{"@type":"Question","name":"Kenapa Instagram selalu meminta kunci baru?","acceptedAnswer":{"@type":"Answer","text":"Itu memang perilaku Instagram sendiri: kunci stream baru diterbitkan untuk setiap siaran. Gunakan “Perbarui kunci” di kartu tujuan sebelum mulai, dan jangan lupa menekan “Mulai live” di sisi Instagram agar siaran menjadi publik."}},{"@type":"Question","name":"Kenapa gambar saya 720p?","acceptedAnswer":{"@type":"Answer","text":"Remote DJI sering mengirim 720p lewat RTMP. Aplikasi menampilkan resolusi masukan yang sebenarnya dan tidak berpura-pura bahwa keluaran yang diperbesar adalah 1080p asli."}}]}</script>
 <style>
 
@@ -140,6 +141,8 @@ h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.01em}
 .steps span{color:var(--muted);font-size:14.5px}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;margin-top:30px}
 .split .shot{margin:0}
+.split.top{align-items:start}
+.split .shot.phone{width:min(280px,100%);border-radius:28px;justify-self:center}
 ul.plain{margin:16px 0 0;padding-left:20px;color:var(--muted);font-size:15px}
 ul.plain li{margin:7px 0}
 .faq{display:grid;gap:12px;margin-top:26px}
@@ -247,6 +250,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
     <nav>
       <a href="#features">Fitur</a>
       <a href="#how">Cara kerja</a>
+      <a href="#android">Android</a>
       <a href="#tiktok">TikTok</a>
       <a href="#faq">FAQ</a>
       <a href="https://tanerozel.github.io/dji-live-bridge/blog/">Blog</a>
@@ -268,6 +272,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
   <div class="cta">
     <a class="btn primary" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Unduh untuk macOS</a>
     <a class="btn" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Windows (beta)</a>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=com.streammydrone.app">Android di Google Play</a>
     <a class="btn" href="https://github.com/tanerozel/dji-live-bridge">Kode sumber di GitHub</a>
   </div>
   <p class="meta">Mac Apple Silicon dan Intel · macOS 13 atau lebih baru · Windows 10/11 beta · tidak ada yang perlu dipasang lagi</p>
@@ -300,6 +305,28 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <li><div><strong>Pilih tujuan siaran</strong><span>Tambahkan Instagram, TikTok, atau server RTMP mana pun dengan alamat server dan stream key dari platform tersebut. Kunci disimpan di brankas sistem.</span></div></li>
       <li><div><strong>Tekan MULAI SIARAN</strong><span>Tombol terbuka saat server lokal berjalan, video drone sudah masuk, dan satu tujuan sudah dipilih. Setelah itu Anda melihat waktu berjalan, keadaan tiap tujuan, dan data yang terkirim.</span></div></li>
     </ol>
+  </div>
+</section>
+
+<section id="android">
+  <div class="wrap">
+    <h2>Siaran langsung dari ponsel dengan aplikasi Android</h2>
+    <p class="sub">Tidak ada komputer di lapangan? Stream My Drone adalah versi Android: ponsel Anda menerima siaran dari DJI Fly dan mengirimkannya langsung ke platform Anda.</p>
+    <div class="split top">
+      <div>
+        <ul class="plain">
+          <li>Beberapa platform sekaligus: Instagram, TikTok, YouTube, Facebook, Twitch, Kick, dan server RTMP atau RTMPS kustom apa pun.</li>
+          <li>Pratinjau langsung gambar drone, lengkap dengan resolusi, bitrate, dan detail koneksi sebelum Anda mulai siaran.</li>
+          <li>Tujuan tersambung kembali dengan sendirinya setelah jaringan putus sebentar, dan siaran tetap berjalan saat Anda memakai aplikasi lain.</li>
+          <li>Bekerja lewat Wi-Fi yang sama atau hotspot ponsel itu sendiri. Kunci stream dienkripsi dengan Android Keystore.</li>
+        </ul>
+        <p class="note" style="margin-top:16px">Sekali beli di Google Play, tanpa langganan. Android 9 atau lebih baru. Ponsel meneruskan gambar persis seperti yang dikirim DJI Fly, jadi kamera virtual dan konversi vertikal 1080×1920 tetap menjadi fitur aplikasi desktop.</p>
+        <div class="cta" style="justify-content:flex-start;margin-top:22px">
+          <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.streammydrone.app">Dapatkan di Google Play</a>
+        </div>
+      </div>
+      <div class="shot phone"><img src="../img/android-live.jpg" alt="Stream My Drone di ponsel Android, siaran langsung ke Instagram, menampilkan gambar drone, bitrate, dan sakelar platform." width="600" height="1211" loading="lazy"></div>
+    </div>
   </div>
 </section>
 
@@ -391,7 +418,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <a href="https://github.com/tanerozel/dji-live-bridge/issues">Laporkan masalah</a>
       <a href="https://tanerozel.github.io/dji-live-bridge/llms.txt">llms.txt</a>
     </div>
-    <p class="note">Dirilis di bawah lisensi MIT; FFmpeg bawaannya berlisensi LGPL, dibangun dari sumber tanpa komponen GPL. DJI Live Bridge adalah proyek independen dan tidak berafiliasi dengan DJI, Instagram, TikTok, atau Apple. DJI, Instagram, dan TikTok adalah merek dagang pemiliknya masing-masing.</p>
+    <p class="note">Dirilis di bawah lisensi MIT; FFmpeg bawaannya berlisensi LGPL, dibangun dari sumber tanpa komponen GPL. DJI Live Bridge adalah proyek independen dan tidak berafiliasi dengan DJI, Instagram, TikTok, atau Apple. DJI, Instagram, dan TikTok adalah merek dagang pemiliknya masing-masing. Google Play adalah merek dagang Google LLC.</p>
   </div>
 </footer>
 

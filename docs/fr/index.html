@@ -63,6 +63,7 @@
 <meta name="twitter:description" content="Diffusez votre drone DJI en direct sur Instagram, TikTok et tout serveur RTMP à la fois. Gratuit, open source, signé et notarisé.">
 <meta name="twitter:image" content="https://tanerozel.github.io/dji-live-bridge/img/go-live.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"DJI Live Bridge","description":"Application gratuite qui prend le flux RTMP de DJI Fly et le diffuse sur Instagram, TikTok et tout serveur RTMP, ou en caméra virtuelle pour TikTok LIVE Studio.","applicationCategory":"MultimediaApplication","operatingSystem":"macOS 13 or newer, Windows 10/11","softwareVersion":"0.2.6","url":"https://tanerozel.github.io/dji-live-bridge/fr/","downloadUrl":"https://github.com/tanerozel/dji-live-bridge/releases/latest","inLanguage":"fr","image":"https://tanerozel.github.io/dji-live-bridge/img/go-live.png","license":"https://opensource.org/licenses/MIT","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"MobileApplication","name":"Stream My Drone","description":"Pas d'ordinateur sur le terrain ? Stream My Drone est la version Android : votre téléphone reçoit le flux de DJI Fly et l'envoie directement à vos plateformes.","applicationCategory":"MultimediaApplication","operatingSystem":"Android 9 or newer","url":"https://play.google.com/store/apps/details?id=com.streammydrone.app","installUrl":"https://play.google.com/store/apps/details?id=com.streammydrone.app","inLanguage":"fr","image":"https://tanerozel.github.io/dji-live-bridge/img/android-live.jpg","author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"fr","mainEntity":[{"@type":"Question","name":"Quels drones fonctionnent ?","acceptedAnswer":{"@type":"Answer","text":"Tout drone dont la version de DJI Fly propose RTMP dans les plateformes de diffusion. L'application reçoit un flux RTMP ordinaire, elle ne dialogue donc pas avec le drone lui-même. Sur la RC 2, DJI Fly peut refuser de lancer la diffusion si aucun micro n'est branché à la radiocommande."}},{"@type":"Question","name":"Dois-je installer FFmpeg ?","acceptedAnswer":{"@type":"Answer","text":"Non. L'application embarque son propre FFmpeg, compilé depuis les sources sans aucun composant GPL (LGPL, Apple VideoToolbox pour le H.264) : il n'y a rien à installer ni à tenir à jour. Les textes de licence et les options de compilation exactes se trouvent dans l'application, sous Contents/Resources/licenses."}},{"@type":"Question","name":"Ai-je besoin d'OBS ?","acceptedAnswer":{"@type":"Answer","text":"Non. OBS est facultatif et n'est utile que si vous voulez ses scènes, ses filtres ou son enregistrement. Le RTMP direct et la caméra virtuelle fonctionnent sans lui."}},{"@type":"Question","name":"Est-ce que ça marche sur un Mac Intel ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Chaque version propose deux téléchargements : un pour Apple Silicon et un pour Intel, tous deux signés et notarisés, chacun avec son propre FFmpeg intégré. Choisissez le fichier qui correspond à votre Mac."}},{"@type":"Question","name":"Est-ce que ça marche sous Windows ?","acceptedAnswer":{"@type":"Answer","text":"Il existe une version Windows en bêta. La diffusion vers Instagram, TikTok et toute destination RTMP fonctionne, tout comme l'aperçu, l'enregistrement et le diagnostic. La caméra virtuelle intégrée en fait partie elle aussi : le programme d'installation enregistre un périphérique « DJI Live Bridge Camera » pour TikTok LIVE Studio, OBS ou Zoom. Elle est plus récente que celle de macOS ; si elle n'apparaît pas, OBS Virtual Camera via l'intégration OBS facultative fonctionne toujours. Autre réserve : le programme d'installation n'est pas encore signé, Windows SmartScreen affichera donc un avertissement."}},{"@type":"Question","name":"Où vont mes clés de stream ?","acceptedAnswer":{"@type":"Answer","text":"Dans le coffre du système, une entrée par destination. Elles sont transmises au serveur média local par l'interface de bouclage au moment de passer en direct, puis supprimées à l'arrêt. Elles n'apparaissent jamais dans le fichier de configuration, dans les arguments d'un processus ni dans les journaux."}},{"@type":"Question","name":"Pourquoi Instagram demande-t-il une nouvelle clé à chaque fois ?","acceptedAnswer":{"@type":"Answer","text":"C'est le fonctionnement propre à Instagram : une nouvelle clé de stream est générée pour chaque diffusion. Utilisez « Mettre à jour la clé » sur la carte de la destination avant de démarrer, et pensez à appuyer sur « Passer en direct » du côté d'Instagram pour rendre la diffusion publique."}},{"@type":"Question","name":"Pourquoi mon image est-elle en 720p ?","acceptedAnswer":{"@type":"Answer","text":"La radiocommande DJI envoie souvent du 720p en RTMP. L'application affiche la résolution d'entrée réelle et ne fait pas passer la sortie agrandie pour du 1080p natif."}}]}</script>
 <style>
 
@@ -140,6 +141,8 @@ h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.01em}
 .steps span{color:var(--muted);font-size:14.5px}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;margin-top:30px}
 .split .shot{margin:0}
+.split.top{align-items:start}
+.split .shot.phone{width:min(280px,100%);border-radius:28px;justify-self:center}
 ul.plain{margin:16px 0 0;padding-left:20px;color:var(--muted);font-size:15px}
 ul.plain li{margin:7px 0}
 .faq{display:grid;gap:12px;margin-top:26px}
@@ -247,6 +250,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
     <nav>
       <a href="#features">Fonctionnalités</a>
       <a href="#how">Comment ça marche</a>
+      <a href="#android">Android</a>
       <a href="#tiktok">TikTok</a>
       <a href="#faq">FAQ</a>
       <a href="https://tanerozel.github.io/dji-live-bridge/blog/">Blog</a>
@@ -268,6 +272,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
   <div class="cta">
     <a class="btn primary" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Télécharger pour macOS</a>
     <a class="btn" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Windows (bêta)</a>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=com.streammydrone.app">Android sur Google Play</a>
     <a class="btn" href="https://github.com/tanerozel/dji-live-bridge">Code source sur GitHub</a>
   </div>
   <p class="meta">Mac Apple Silicon et Intel · macOS 13 ou plus récent · Windows 10/11 en bêta · rien d'autre à installer</p>
@@ -300,6 +305,28 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <li><div><strong>Choisissez où diffuser</strong><span>Ajoutez Instagram, TikTok ou n'importe quel serveur RTMP avec l'adresse du serveur et la clé de stream fournies par la plateforme. Les clés sont conservées dans le coffre du système.</span></div></li>
       <li><div><strong>Appuyez sur DÉMARRER LE DIRECT</strong><span>Le bouton se débloque quand le serveur local fonctionne, que la vidéo du drone arrive et qu'une destination est sélectionnée. Vous voyez ensuite le temps écoulé, l'état de chaque destination et les données envoyées.</span></div></li>
     </ol>
+  </div>
+</section>
+
+<section id="android">
+  <div class="wrap">
+    <h2>Diffusez depuis votre téléphone avec l'application Android</h2>
+    <p class="sub">Pas d'ordinateur sur le terrain ? Stream My Drone est la version Android : votre téléphone reçoit le flux de DJI Fly et l'envoie directement à vos plateformes.</p>
+    <div class="split top">
+      <div>
+        <ul class="plain">
+          <li>Plusieurs plateformes à la fois : Instagram, TikTok, YouTube, Facebook, Twitch, Kick et n'importe quel serveur RTMP ou RTMPS personnalisé.</li>
+          <li>Un aperçu en direct de l'image du drone, avec la résolution, le débit et les détails de connexion avant de passer en direct.</li>
+          <li>Une destination se reconnecte toute seule après une brève coupure réseau, et la diffusion continue pendant que vous utilisez une autre application.</li>
+          <li>Fonctionne sur le même Wi-Fi ou via le partage de connexion du téléphone. Les clés de stream sont chiffrées avec Android Keystore.</li>
+        </ul>
+        <p class="note" style="margin-top:16px">Achat unique sur Google Play, sans abonnement. Android 9 ou plus récent. Le téléphone transmet l'image telle que DJI Fly l'envoie : la caméra virtuelle et la conversion verticale 1080×1920 restent des fonctions de l'application de bureau.</p>
+        <div class="cta" style="justify-content:flex-start;margin-top:22px">
+          <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.streammydrone.app">Disponible sur Google Play</a>
+        </div>
+      </div>
+      <div class="shot phone"><img src="../img/android-live.jpg" alt="Stream My Drone sur un téléphone Android, en direct sur Instagram, avec l'image du drone, le débit et les interrupteurs de plateformes." width="600" height="1211" loading="lazy"></div>
+    </div>
   </div>
 </section>
 
@@ -391,7 +418,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <a href="https://github.com/tanerozel/dji-live-bridge/issues">Signaler un problème</a>
       <a href="https://tanerozel.github.io/dji-live-bridge/llms.txt">llms.txt</a>
     </div>
-    <p class="note">Publié sous licence MIT ; le FFmpeg intégré est sous LGPL, compilé depuis les sources sans composant GPL. DJI Live Bridge est un projet indépendant, sans lien avec DJI, Instagram, TikTok ni Apple. DJI, Instagram et TikTok sont des marques de leurs propriétaires respectifs.</p>
+    <p class="note">Publié sous licence MIT ; le FFmpeg intégré est sous LGPL, compilé depuis les sources sans composant GPL. DJI Live Bridge est un projet indépendant, sans lien avec DJI, Instagram, TikTok ni Apple. DJI, Instagram et TikTok sont des marques de leurs propriétaires respectifs. Google Play est une marque de Google LLC.</p>
   </div>
 </footer>
 

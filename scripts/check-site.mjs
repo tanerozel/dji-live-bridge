@@ -99,7 +99,7 @@ for (const locale of LOCALES) {
   if (headings.length !== 1) fail(where, `${headings.length} <h1> elements, expected 1`);
 
   const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
-  if (blocks.length !== 2) fail(where, `${blocks.length} JSON-LD blocks, expected 2`);
+  if (blocks.length !== 3) fail(where, `${blocks.length} JSON-LD blocks, expected 3`);
   for (const [, body] of blocks) {
     try {
       const data = JSON.parse(body);

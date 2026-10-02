@@ -10,6 +10,7 @@
     "language": "言語",
     "features": "機能",
     "how": "しくみ",
+    "android": "Android",
     "tiktok": "TikTok",
     "faq": "よくある質問",
     "blog": "ブログ",
@@ -21,6 +22,7 @@
     "lead": "DJI Live Bridge は、パソコン上の DJI Fly から届く RTMP 配信を受け取り、複数のプラットフォームへ同時に送ります。TikTok LIVE Studio 用の仮想カメラにすることもでき、そちらではストリームキーが要りません。",
     "ctaMac": "macOS 版をダウンロード",
     "ctaWin": "Windows（ベータ）",
+    "ctaAndroid": "Android 版（Google Play）",
     "ctaSource": "GitHub のソースコード",
     "meta": "Apple Silicon と Intel の Mac · macOS 13 以降 · Windows 10/11 ベータ · ほかに入れるものはありません",
     "shotAlt": "「配信」タブ：ドローンを接続し、配信先を選び、配信を開始を押します。",
@@ -77,6 +79,19 @@
         "d": "ローカルサーバーが動いていて、ドローンの映像が届いていて、配信先が選ばれていると、ボタンが押せるようになります。そのあとは経過時間、配信先ごとの状態、送信したデータ量が表示されます。"
       }
     ]
+  },
+  "android": {
+    "h2": "Android アプリでスマホから直接配信",
+    "sub": "現場にパソコンがない？ Stream My Drone は Android 版です。スマホが DJI Fly からの配信を受け取り、そのまま各プラットフォームへ送ります。",
+    "items": [
+      "複数のプラットフォームへ同時配信：Instagram、TikTok、YouTube、Facebook、Twitch、Kick、任意のカスタム RTMP / RTMPS サーバー。",
+      "配信を始める前に、解像度・ビットレート・接続情報付きでドローン映像をライブプレビュー。",
+      "短いネットワーク切断のあとは配信先が自動で再接続し、別のアプリを使っている間も配信は続きます。",
+      "同じ Wi-Fi でも、スマホ自身のテザリングでも使えます。ストリームキーは Android Keystore で暗号化されます。"
+    ],
+    "note": "Google Play での買い切り、サブスクリプションなし。Android 9 以降。スマホは DJI Fly が送る映像をそのまま転送するため、仮想カメラと縦型 1080×1920 への変換はデスクトップ版の機能です。",
+    "cta": "Google Play で手に入れよう",
+    "shotAlt": "Android スマホの Stream My Drone で Instagram にライブ配信中。ドローン映像、ビットレート、プラットフォームのスイッチが表示されています。"
   },
   "tiktok": {
     "h2": "ストリームキーなしの TikTok",
@@ -154,6 +169,6 @@
   "footer": {
     "role": "開発者・メンテナー",
     "issue": "問題を報告",
-    "note": "MIT ライセンスで公開しています。同梱の FFmpeg は LGPL で、GPL の部品を含まずソースからビルドしたものです。DJI Live Bridge は独立したプロジェクトで、DJI、Instagram、TikTok、Apple とは関係がありません。DJI、Instagram、TikTok はそれぞれの所有者の商標です。"
+    "note": "MIT ライセンスで公開しています。同梱の FFmpeg は LGPL で、GPL の部品を含まずソースからビルドしたものです。DJI Live Bridge は独立したプロジェクトで、DJI、Instagram、TikTok、Apple とは関係がありません。DJI、Instagram、TikTok はそれぞれの所有者の商標です。 Google Play は Google LLC の商標です。"
   }
 }

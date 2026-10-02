@@ -63,6 +63,7 @@
 <meta name="twitter:description" content="DJI 드론 영상을 Instagram, TikTok, 모든 RTMP 대상으로 동시에 방송하세요. 무료 오픈 소스이며 서명과 공증을 마쳤습니다.">
 <meta name="twitter:image" content="https://tanerozel.github.io/dji-live-bridge/img/go-live.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"DJI Live Bridge","description":"DJI Fly의 RTMP 스트림을 받아 Instagram, TikTok, 모든 RTMP 대상으로 동시에 내보내는 무료 앱. TikTok LIVE Studio용 가상 카메라로도 쓸 수 있어 스트림 키가 필요 없습니다. macOS와 Windows 지원.","applicationCategory":"MultimediaApplication","operatingSystem":"macOS 13 or newer, Windows 10/11","softwareVersion":"0.2.6","url":"https://tanerozel.github.io/dji-live-bridge/ko/","downloadUrl":"https://github.com/tanerozel/dji-live-bridge/releases/latest","inLanguage":"ko","image":"https://tanerozel.github.io/dji-live-bridge/img/go-live.png","license":"https://opensource.org/licenses/MIT","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"MobileApplication","name":"Stream My Drone","description":"현장에 컴퓨터가 없나요? Stream My Drone은 Android 버전입니다. 휴대폰이 DJI Fly의 스트림을 받아 여러 플랫폼으로 바로 보냅니다.","applicationCategory":"MultimediaApplication","operatingSystem":"Android 9 or newer","url":"https://play.google.com/store/apps/details?id=com.streammydrone.app","installUrl":"https://play.google.com/store/apps/details?id=com.streammydrone.app","inLanguage":"ko","image":"https://tanerozel.github.io/dji-live-bridge/img/android-live.jpg","author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"ko","mainEntity":[{"@type":"Question","name":"어떤 드론에서 쓸 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"해당 기체의 DJI Fly 버전이 '라이브 방송 플랫폼'에서 RTMP를 제공하면 모두 쓸 수 있습니다. 앱은 일반적인 RTMP 스트림을 받을 뿐이라 드론과 직접 통신하지 않습니다. RC 2에서는 조종기에 마이크가 연결되어 있지 않으면 DJI Fly가 송출 시작을 거부할 수 있습니다."}},{"@type":"Question","name":"FFmpeg를 따로 설치해야 하나요?","acceptedAnswer":{"@type":"Answer","text":"아닙니다. 앱은 GPL 구성 요소 없이 소스에서 직접 빌드한 FFmpeg(LGPL, H.264는 Apple VideoToolbox)를 가지고 있어 설치할 것도, 계속 최신으로 유지할 것도 없습니다. 라이선스 전문과 정확한 빌드 옵션은 앱 안 Contents/Resources/licenses에 있습니다."}},{"@type":"Question","name":"OBS가 필요한가요?","acceptedAnswer":{"@type":"Answer","text":"아닙니다. OBS는 선택 사항이며 장면, 필터, 녹화 기능을 쓰고 싶을 때만 쓸모가 있습니다. 직접 RTMP 송출과 가상 카메라는 OBS 없이 동작합니다."}},{"@type":"Question","name":"Intel Mac에서도 되나요?","acceptedAnswer":{"@type":"Answer","text":"됩니다. 모든 릴리스에는 다운로드가 두 개 있습니다. 하나는 Apple Silicon용, 하나는 Intel용이며 둘 다 서명과 공증을 마쳤고 각각 FFmpeg를 품고 있습니다. 사용하는 Mac에 맞는 파일을 고르세요."}},{"@type":"Question","name":"Windows에서도 되나요?","acceptedAnswer":{"@type":"Answer","text":"Windows 빌드는 베타입니다. Instagram, TikTok, 모든 RTMP 대상으로의 송출이 되고 미리보기, 녹화, 진단도 됩니다. 내장 가상 카메라도 들어 있습니다. 설치 프로그램이 TikTok LIVE Studio, OBS, Zoom에서 쓸 수 있는 'DJI Live Bridge Camera' 장치를 등록합니다. macOS 쪽보다 최근에 만든 기능이라 만약 목록에 나타나지 않으면 선택 사항인 OBS 연동을 통한 OBS Virtual Camera를 쓸 수 있습니다. 한 가지 더, 설치 프로그램은 아직 코드 서명이 되어 있지 않아 Windows SmartScreen이 경고를 띄웁니다."}},{"@type":"Question","name":"스트림 키는 어디에 저장되나요?","acceptedAnswer":{"@type":"Answer","text":"시스템 자격 증명 저장소에 대상마다 하나씩 저장됩니다. 방송을 시작할 때 루프백 인터페이스를 통해 로컬 미디어 서버로 전달되고, 중지하면 제거됩니다. 설정 파일이나 프로세스 인자, 로그에는 절대 나타나지 않습니다."}},{"@type":"Question","name":"Instagram은 왜 매번 새 키를 요구하나요?","acceptedAnswer":{"@type":"Answer","text":"Instagram 자체 동작입니다. 방송할 때마다 새 스트림 키를 발급합니다. 시작하기 전에 대상 카드의 '키 업데이트'를 사용하고, Instagram 쪽에서 '라이브 시작'을 눌러야 방송이 공개된다는 점도 잊지 마세요."}},{"@type":"Question","name":"화면이 왜 720p인가요?","acceptedAnswer":{"@type":"Answer","text":"DJI 조종기는 RTMP로 720p를 보내는 경우가 많습니다. 앱은 실제 입력 해상도를 그대로 보여 주며, 확대한 출력을 원래 1080p인 것처럼 꾸미지 않습니다."}}]}</script>
 <style>
 
@@ -140,6 +141,8 @@ h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.01em}
 .steps span{color:var(--muted);font-size:14.5px}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;margin-top:30px}
 .split .shot{margin:0}
+.split.top{align-items:start}
+.split .shot.phone{width:min(280px,100%);border-radius:28px;justify-self:center}
 ul.plain{margin:16px 0 0;padding-left:20px;color:var(--muted);font-size:15px}
 ul.plain li{margin:7px 0}
 .faq{display:grid;gap:12px;margin-top:26px}
@@ -247,6 +250,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
     <nav>
       <a href="#features">기능</a>
       <a href="#how">작동 방식</a>
+      <a href="#android">Android</a>
       <a href="#tiktok">TikTok</a>
       <a href="#faq">자주 묻는 질문</a>
       <a href="https://tanerozel.github.io/dji-live-bridge/blog/">블로그</a>
@@ -268,6 +272,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
   <div class="cta">
     <a class="btn primary" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">macOS용 다운로드</a>
     <a class="btn" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Windows(베타)</a>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=com.streammydrone.app">Google Play의 Android 앱</a>
     <a class="btn" href="https://github.com/tanerozel/dji-live-bridge">GitHub 소스 코드</a>
   </div>
   <p class="meta">Apple Silicon 및 Intel Mac · macOS 13 이상 · Windows 10/11 베타 · 따로 설치할 것 없음</p>
@@ -300,6 +305,28 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <li><div><strong>어디로 방송할지 고르기</strong><span>해당 플랫폼이 준 서버 주소와 스트림 키로 Instagram, TikTok 또는 아무 RTMP 서버나 추가하세요. 키는 시스템 자격 증명 저장소에 보관됩니다.</span></div></li>
       <li><div><strong>방송 시작 누르기</strong><span>로컬 서버가 실행 중이고, 드론 영상이 들어오고, 방송 대상이 선택되면 버튼이 열립니다. 그다음에는 경과 시간, 대상별 상태, 보낸 데이터량이 보입니다.</span></div></li>
     </ol>
+  </div>
+</section>
+
+<section id="android">
+  <div class="wrap">
+    <h2>Android 앱으로 휴대폰에서 바로 방송</h2>
+    <p class="sub">현장에 컴퓨터가 없나요? Stream My Drone은 Android 버전입니다. 휴대폰이 DJI Fly의 스트림을 받아 여러 플랫폼으로 바로 보냅니다.</p>
+    <div class="split top">
+      <div>
+        <ul class="plain">
+          <li>여러 플랫폼에 동시 송출: Instagram, TikTok, YouTube, Facebook, Twitch, Kick 및 모든 사용자 지정 RTMP·RTMPS 서버.</li>
+          <li>방송을 시작하기 전에 해상도, 비트레이트, 연결 정보와 함께 드론 화면을 실시간 미리보기.</li>
+          <li>짧은 네트워크 끊김 뒤에는 송출 대상이 알아서 다시 연결되고, 다른 앱을 쓰는 동안에도 방송이 계속됩니다.</li>
+          <li>같은 Wi-Fi나 휴대폰 자체 핫스팟으로 사용할 수 있습니다. 스트림 키는 Android Keystore로 암호화됩니다.</li>
+        </ul>
+        <p class="note" style="margin-top:16px">Google Play에서 한 번 구매, 구독 없음. Android 9 이상. 휴대폰은 DJI Fly가 보낸 화면을 그대로 전달하므로 가상 카메라와 세로 1080×1920 변환은 데스크톱 앱 기능입니다.</p>
+        <div class="cta" style="justify-content:flex-start;margin-top:22px">
+          <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.streammydrone.app">Google Play에서 다운로드</a>
+        </div>
+      </div>
+      <div class="shot phone"><img src="../img/android-live.jpg" alt="Android 휴대폰의 Stream My Drone이 Instagram으로 라이브 중이며, 드론 화면, 비트레이트, 플랫폼 스위치가 보입니다." width="600" height="1211" loading="lazy"></div>
+    </div>
   </div>
 </section>
 
@@ -391,7 +418,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <a href="https://github.com/tanerozel/dji-live-bridge/issues">문제 신고</a>
       <a href="https://tanerozel.github.io/dji-live-bridge/llms.txt">llms.txt</a>
     </div>
-    <p class="note">MIT 라이선스로 배포합니다. 함께 들어 있는 FFmpeg는 LGPL이며 GPL 구성 요소 없이 소스에서 빌드했습니다. DJI Live Bridge는 독립적인 프로젝트로 DJI, Instagram, TikTok, Apple과 제휴 관계가 없습니다. DJI, Instagram, TikTok은 각 소유자의 상표입니다.</p>
+    <p class="note">MIT 라이선스로 배포합니다. 함께 들어 있는 FFmpeg는 LGPL이며 GPL 구성 요소 없이 소스에서 빌드했습니다. DJI Live Bridge는 독립적인 프로젝트로 DJI, Instagram, TikTok, Apple과 제휴 관계가 없습니다. DJI, Instagram, TikTok은 각 소유자의 상표입니다. Google Play는 Google LLC의 상표입니다.</p>
   </div>
 </footer>
 

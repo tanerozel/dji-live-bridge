@@ -10,6 +10,7 @@
     "language": "Dil",
     "features": "Özellikler",
     "how": "Nasıl çalışır",
+    "android": "Android",
     "tiktok": "TikTok",
     "faq": "SSS",
     "blog": "Blog",
@@ -21,6 +22,7 @@
     "lead": "DJI Fly'daki RTMP yayınını bilgisayarınıza gönderin; DJI Live Bridge onu Instagram, TikTok, YouTube, Facebook ve diğer platformlara aynı anda iletir. TikTok için yayın anahtarı gerekmeyen sanal kamera da var.",
     "ctaMac": "macOS için indir",
     "ctaWin": "Windows (beta)",
+    "ctaAndroid": "Android – Google Play",
     "ctaSource": "GitHub'da kaynak kodu",
     "meta": "Apple Silicon ve Intel Mac'ler · macOS 13 veya üzeri · Windows 10/11 beta · başka hiçbir şey kurmanız gerekmez",
     "shotAlt": "Canlı yayın sekmesi: drone'u bağlayın, hedefleri seçin, sonra YAYINI BAŞLAT'a basın.",
@@ -77,6 +79,19 @@
         "d": "Düğme, yerel sunucu çalışırken, drone görüntüsü gelirken ve bir hedef seçiliyken açılır. Ardından geçen süreyi, her hedefin durumunu ve gönderilen veriyi görürsünüz."
       }
     ]
+  },
+  "android": {
+    "h2": "Android uygulamasıyla telefondan yayın yapın",
+    "sub": "Sahada bilgisayar yok mu? Stream My Drone, uygulamanın Android sürümü: telefonunuz DJI Fly'ın yayınını alır ve doğrudan platformlarınıza gönderir.",
+    "items": [
+      "Aynı anda birden çok platform: Instagram, TikTok, YouTube, Facebook, Twitch, Kick ve dilediğiniz RTMP veya RTMPS sunucusu.",
+      "Yayına çıkmadan önce drone görüntüsünün canlı önizlemesi; çözünürlük, bit hızı ve bağlantı bilgileriyle.",
+      "Kısa bir ağ kesintisinden sonra hedef kendi kendine yeniden bağlanır; başka bir uygulamaya geçtiğinizde yayın devam eder.",
+      "Aynı Wi-Fi ağında ya da telefonun kendi hotspot'u üzerinden çalışır. Yayın anahtarları Android Keystore ile şifrelenir."
+    ],
+    "note": "Google Play'de tek seferlik satın alma, abonelik yok. Android 9 veya üzeri. Telefon görüntüyü DJI Fly'ın gönderdiği gibi iletir; sanal kamera ve dikey 1080×1920 dönüştürme masaüstü uygulamasına özeldir.",
+    "cta": "Google Play'den indirin",
+    "shotAlt": "Android telefonda Stream My Drone, Instagram'a canlı yayında: drone görüntüsü, bit hızı ve platform anahtarları."
   },
   "tiktok": {
     "h2": "Yayın anahtarı olmadan TikTok",
@@ -154,6 +169,6 @@
   "footer": {
     "role": "geliştirici ve bakımcı",
     "issue": "Sorun bildir",
-    "note": "MIT lisansıyla yayımlanmıştır; paketlenen FFmpeg LGPL'dir ve GPL bileşenleri olmadan kaynaktan derlenmiştir. DJI Live Bridge bağımsız bir projedir; DJI, Instagram, TikTok veya Apple ile bağlantısı yoktur. DJI, Instagram ve TikTok kendi sahiplerinin ticari markalarıdır."
+    "note": "MIT lisansıyla yayımlanmıştır; paketlenen FFmpeg LGPL'dir ve GPL bileşenleri olmadan kaynaktan derlenmiştir. DJI Live Bridge bağımsız bir projedir; DJI, Instagram, TikTok veya Apple ile bağlantısı yoktur. DJI, Instagram ve TikTok kendi sahiplerinin ticari markalarıdır. Google Play, Google LLC'nin ticari markasıdır."
   }
 }

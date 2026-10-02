@@ -10,6 +10,7 @@
     "language": "Bahasa",
     "features": "Fitur",
     "how": "Cara kerja",
+    "android": "Android",
     "tiktok": "TikTok",
     "faq": "FAQ",
     "blog": "Blog",
@@ -21,6 +22,7 @@
     "lead": "DJI Live Bridge mengambil aliran RTMP dari DJI Fly di komputer Anda lalu mengirimkannya ke beberapa platform sekaligus — atau mengubahnya menjadi kamera virtual untuk TikTok LIVE Studio, yang tidak memerlukan stream key.",
     "ctaMac": "Unduh untuk macOS",
     "ctaWin": "Windows (beta)",
+    "ctaAndroid": "Android di Google Play",
     "ctaSource": "Kode sumber di GitHub",
     "meta": "Mac Apple Silicon dan Intel · macOS 13 atau lebih baru · Windows 10/11 beta · tidak ada yang perlu dipasang lagi",
     "shotAlt": "Tab Siaran: hubungkan drone, pilih tujuan, lalu tekan MULAI SIARAN.",
@@ -77,6 +79,19 @@
         "d": "Tombol terbuka saat server lokal berjalan, video drone sudah masuk, dan satu tujuan sudah dipilih. Setelah itu Anda melihat waktu berjalan, keadaan tiap tujuan, dan data yang terkirim."
       }
     ]
+  },
+  "android": {
+    "h2": "Siaran langsung dari ponsel dengan aplikasi Android",
+    "sub": "Tidak ada komputer di lapangan? Stream My Drone adalah versi Android: ponsel Anda menerima siaran dari DJI Fly dan mengirimkannya langsung ke platform Anda.",
+    "items": [
+      "Beberapa platform sekaligus: Instagram, TikTok, YouTube, Facebook, Twitch, Kick, dan server RTMP atau RTMPS kustom apa pun.",
+      "Pratinjau langsung gambar drone, lengkap dengan resolusi, bitrate, dan detail koneksi sebelum Anda mulai siaran.",
+      "Tujuan tersambung kembali dengan sendirinya setelah jaringan putus sebentar, dan siaran tetap berjalan saat Anda memakai aplikasi lain.",
+      "Bekerja lewat Wi-Fi yang sama atau hotspot ponsel itu sendiri. Kunci stream dienkripsi dengan Android Keystore."
+    ],
+    "note": "Sekali beli di Google Play, tanpa langganan. Android 9 atau lebih baru. Ponsel meneruskan gambar persis seperti yang dikirim DJI Fly, jadi kamera virtual dan konversi vertikal 1080×1920 tetap menjadi fitur aplikasi desktop.",
+    "cta": "Dapatkan di Google Play",
+    "shotAlt": "Stream My Drone di ponsel Android, siaran langsung ke Instagram, menampilkan gambar drone, bitrate, dan sakelar platform."
   },
   "tiktok": {
     "h2": "TikTok tanpa stream key",
@@ -154,6 +169,6 @@
   "footer": {
     "role": "pengembang dan pengelola",
     "issue": "Laporkan masalah",
-    "note": "Dirilis di bawah lisensi MIT; FFmpeg bawaannya berlisensi LGPL, dibangun dari sumber tanpa komponen GPL. DJI Live Bridge adalah proyek independen dan tidak berafiliasi dengan DJI, Instagram, TikTok, atau Apple. DJI, Instagram, dan TikTok adalah merek dagang pemiliknya masing-masing."
+    "note": "Dirilis di bawah lisensi MIT; FFmpeg bawaannya berlisensi LGPL, dibangun dari sumber tanpa komponen GPL. DJI Live Bridge adalah proyek independen dan tidak berafiliasi dengan DJI, Instagram, TikTok, atau Apple. DJI, Instagram, dan TikTok adalah merek dagang pemiliknya masing-masing. Google Play adalah merek dagang Google LLC."
   }
 }

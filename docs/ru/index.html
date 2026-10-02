@@ -63,6 +63,7 @@
 <meta name="twitter:description" content="Выходите в эфир с дрона DJI сразу в Instagram, TikTok и любое RTMP-направление. Бесплатно, открытый код, подпись и нотаризация Apple.">
 <meta name="twitter:image" content="https://tanerozel.github.io/dji-live-bridge/img/go-live.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"DJI Live Bridge","description":"Бесплатное приложение принимает RTMP из DJI Fly и транслирует в Instagram, TikTok и любой RTMP-сервер или работает виртуальной камерой для TikTok LIVE Studio.","applicationCategory":"MultimediaApplication","operatingSystem":"macOS 13 or newer, Windows 10/11","softwareVersion":"0.2.6","url":"https://tanerozel.github.io/dji-live-bridge/ru/","downloadUrl":"https://github.com/tanerozel/dji-live-bridge/releases/latest","inLanguage":"ru","image":"https://tanerozel.github.io/dji-live-bridge/img/go-live.png","license":"https://opensource.org/licenses/MIT","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"MobileApplication","name":"Stream My Drone","description":"Нет компьютера на месте съёмки? Stream My Drone — версия для Android: телефон принимает поток из DJI Fly и отправляет его прямо на ваши платформы.","applicationCategory":"MultimediaApplication","operatingSystem":"Android 9 or newer","url":"https://play.google.com/store/apps/details?id=com.streammydrone.app","installUrl":"https://play.google.com/store/apps/details?id=com.streammydrone.app","inLanguage":"ru","image":"https://tanerozel.github.io/dji-live-bridge/img/android-live.jpg","author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"ru","mainEntity":[{"@type":"Question","name":"Какие дроны подходят?","acceptedAnswer":{"@type":"Answer","text":"Любой дрон, у которого версия DJI Fly предлагает RTMP в разделе Live Streaming Platforms. Приложение принимает обычный RTMP-поток, поэтому с самим дроном оно не общается. На RC 2 DJI Fly может отказаться начинать трансляцию, пока к пульту не подключён микрофон."}},{"@type":"Question","name":"Нужно ли устанавливать FFmpeg?","acceptedAnswer":{"@type":"Answer","text":"Нет. Приложение несёт собственный FFmpeg, собранный из исходников без компонентов GPL (LGPL, Apple VideoToolbox для H.264), поэтому ничего не нужно ни ставить, ни обновлять. Тексты лицензий и точные флаги сборки лежат внутри приложения в Contents/Resources/licenses."}},{"@type":"Question","name":"Нужен ли OBS?","acceptedAnswer":{"@type":"Answer","text":"Нет. OBS необязателен и полезен, только если нужны его сцены, фильтры или запись. Прямой RTMP и виртуальная камера работают без него."}},{"@type":"Question","name":"Работает ли на Mac с Intel?","acceptedAnswer":{"@type":"Answer","text":"Да. В каждом выпуске две загрузки: одна для Apple Silicon и одна для Intel, обе подписаны и нотаризованы, у каждой свой встроенный FFmpeg. Выберите файл, который подходит вашему Mac."}},{"@type":"Question","name":"Работает ли в Windows?","acceptedAnswer":{"@type":"Answer","text":"Сборка для Windows находится в бете. Трансляция в Instagram, TikTok и любое RTMP-направление работает, как и предпросмотр, запись и диагностика. Встроенная виртуальная камера тоже входит в сборку: установщик регистрирует устройство «DJI Live Bridge Camera» для TikTok LIVE Studio, OBS или Zoom. Она новее, чем на macOS, поэтому, если её не видно, остаётся OBS Virtual Camera через необязательную интеграцию с OBS. Ещё одна оговорка: установщик пока не подписан, поэтому Windows SmartScreen выдаст предупреждение."}},{"@type":"Question","name":"Куда попадают мои ключи трансляции?","acceptedAnswer":{"@type":"Answer","text":"В системное хранилище, по одной записи на направление. При выходе в эфир они передаются локальному медиасерверу через интерфейс обратной петли и удаляются, когда вы останавливаете трансляцию. В файле настроек, в аргументах процесса и в журналах они не появляются."}},{"@type":"Question","name":"Почему Instagram каждый раз просит новый ключ?","acceptedAnswer":{"@type":"Answer","text":"Так устроен сам Instagram: он выдаёт свежий ключ трансляции для каждого эфира. Перед выходом в эфир нажмите «Обновить ключ» на карточке направления и не забудьте нажать «Начать эфир» на стороне Instagram, чтобы трансляция стала публичной."}},{"@type":"Question","name":"Почему у меня картинка 720p?","acceptedAnswer":{"@type":"Answer","text":"Пульт DJI часто отдаёт по RTMP 720p. Приложение показывает реальное разрешение входа и не выдаёт растянутый результат за настоящие 1080p."}}]}</script>
 <style>
 
@@ -140,6 +141,8 @@ h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.01em}
 .steps span{color:var(--muted);font-size:14.5px}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;margin-top:30px}
 .split .shot{margin:0}
+.split.top{align-items:start}
+.split .shot.phone{width:min(280px,100%);border-radius:28px;justify-self:center}
 ul.plain{margin:16px 0 0;padding-left:20px;color:var(--muted);font-size:15px}
 ul.plain li{margin:7px 0}
 .faq{display:grid;gap:12px;margin-top:26px}
@@ -247,6 +250,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
     <nav>
       <a href="#features">Возможности</a>
       <a href="#how">Как это работает</a>
+      <a href="#android">Android</a>
       <a href="#tiktok">TikTok</a>
       <a href="#faq">Вопросы</a>
       <a href="https://tanerozel.github.io/dji-live-bridge/blog/">Блог</a>
@@ -268,6 +272,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
   <div class="cta">
     <a class="btn primary" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Скачать для macOS</a>
     <a class="btn" href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Windows (бета)</a>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=com.streammydrone.app">Android в Google Play</a>
     <a class="btn" href="https://github.com/tanerozel/dji-live-bridge">Исходный код на GitHub</a>
   </div>
   <p class="meta">Mac на Apple Silicon и Intel · macOS 13 или новее · бета для Windows 10/11 · больше ничего ставить не нужно</p>
@@ -300,6 +305,28 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <li><div><strong>Выберите, куда транслировать</strong><span>Добавьте Instagram, TikTok или любой RTMP-сервер, указав адрес сервера и ключ трансляции с этой платформы. Ключи хранятся в системном хранилище.</span></div></li>
       <li><div><strong>Нажмите НАЧАТЬ ТРАНСЛЯЦИЮ</strong><span>Кнопка разблокируется, когда локальный сервер работает, видео с дрона поступает и выбрано направление. Дальше видно время эфира, состояние каждого направления и объём отправленных данных.</span></div></li>
     </ol>
+  </div>
+</section>
+
+<section id="android">
+  <div class="wrap">
+    <h2>Трансляция прямо с телефона в приложении для Android</h2>
+    <p class="sub">Нет компьютера на месте съёмки? Stream My Drone — версия для Android: телефон принимает поток из DJI Fly и отправляет его прямо на ваши платформы.</p>
+    <div class="split top">
+      <div>
+        <ul class="plain">
+          <li>Несколько платформ одновременно: Instagram, TikTok, YouTube, Facebook, Twitch, Kick и любой свой RTMP- или RTMPS-сервер.</li>
+          <li>Живой предпросмотр картинки с дрона с разрешением, битрейтом и сведениями о подключении ещё до начала эфира.</li>
+          <li>После короткого обрыва сети платформа переподключается сама, а эфир продолжается, пока вы пользуетесь другим приложением.</li>
+          <li>Работает в той же сети Wi-Fi или через точку доступа самого телефона. Ключи трансляции шифруются с помощью Android Keystore.</li>
+        </ul>
+        <p class="note" style="margin-top:16px">Разовая покупка в Google Play, без подписки. Android 9 или новее. Телефон пересылает картинку в том виде, в каком её отправляет DJI Fly, поэтому виртуальная камера и вертикальное преобразование 1080×1920 остаются функциями настольной версии.</p>
+        <div class="cta" style="justify-content:flex-start;margin-top:22px">
+          <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.streammydrone.app">Доступно в Google Play</a>
+        </div>
+      </div>
+      <div class="shot phone"><img src="../img/android-live.jpg" alt="Stream My Drone на телефоне Android в прямом эфире в Instagram: картинка с дрона, битрейт и переключатели платформ." width="600" height="1211" loading="lazy"></div>
+    </div>
   </div>
 </section>
 
@@ -391,7 +418,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <a href="https://github.com/tanerozel/dji-live-bridge/issues">Сообщить о проблеме</a>
       <a href="https://tanerozel.github.io/dji-live-bridge/llms.txt">llms.txt</a>
     </div>
-    <p class="note">Опубликовано под лицензией MIT; встроенный FFmpeg распространяется по LGPL и собран из исходников без компонентов GPL. DJI Live Bridge — независимый проект, не связанный с DJI, Instagram, TikTok или Apple. DJI, Instagram и TikTok — товарные знаки соответствующих владельцев.</p>
+    <p class="note">Опубликовано под лицензией MIT; встроенный FFmpeg распространяется по LGPL и собран из исходников без компонентов GPL. DJI Live Bridge — независимый проект, не связанный с DJI, Instagram, TikTok или Apple. DJI, Instagram и TikTok — товарные знаки соответствующих владельцев. Google Play — товарный знак Google LLC.</p>
   </div>
 </footer>
 
