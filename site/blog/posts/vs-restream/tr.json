@@ -1,0 +1,97 @@
+{
+  "slug": "dji-live-bridge-mi-restream-mi",
+  "platform": "Restream ile karşılaştırma",
+  "title": "Drone canlı yayını için DJI Live Bridge mi, Restream mi? (2026)",
+  "description": "DJI drone'u birkaç platforma yayınlamak: Restream'in bulut aktarımı mı, bilgisayarınızda DJI Live Bridge mi? Maliyet, filigran, Instagram, dikey görüntü ve hangisi ne zaman öne çıkar.",
+  "h1": "DJI Live Bridge mi, Restream mi: drone'unuz için hangisi?",
+  "lead": "İkisi de tek bir drone görüntüsünü birkaç platforma taşır. <strong>Restream</strong> bunu bulutta yapar: DJI Fly, Restream'in sunucularına yayın yapar, onlar da görüntüyü iletir. <strong>DJI Live Bridge</strong> bunu kendi bilgisayarınızda yapar: DJI Fly yerel ağınız üzerinden uygulamaya yayın yapar, uygulama da her platforma gönderir. Hangisinin daha iyi olduğu nerede uçtuğunuza ve neye para ödediğinize bağlı.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Restream bir bulut servisidir: sahada bilgisayar gerekmez, tek yükleme yeter, ama temel özelliklerin ötesi için abonelik gerekir.",
+    "Restream'in ücretsiz planı (Ekim 2026): 2 kanal, yayında Restream markası, özel RTMP hedefi yok; Standard aylık 19 $.",
+    "DJI Live Bridge ücretsiz ve açık kaynaktır: filigran yok, kanal sınırı yok, görüntü kendi bilgisayarınızda kalır.",
+    "DJI Live Bridge drone görüntüsünü Instagram ve TikTok için dikey 1080×1920'ye çevirir ve TikTok LIVE Studio için bir sanal kamera ekler.",
+    "İkisini birlikte de kullanabilirsiniz: Restream'i DJI Live Bridge'e özel RTMP hedefi olarak ekleyin."
+  ],
+  "sections": [
+    {
+      "id": "how",
+      "h2": "İki farklı yaklaşım",
+      "blocks": [
+        { "list": [
+          "<strong>Restream (bulut):</strong> DJI Fly → internet → Restream → her platform. Kumandanın internete ihtiyacı vardır; bilgisayar isteğe bağlıdır.",
+          "<strong>DJI Live Bridge (yerel):</strong> DJI Fly → yerel Wi-Fi → Mac'iniz ya da bilgisayarınız → her platform. Bilgisayarın internete ihtiyacı vardır; kumandaya yalnızca yerel ağ yeter."
+        ] },
+        { "p": "Karşılaştırmanın çoğunu bu tek fark açıklar: bulut, yükleme bant genişliğinizden ve bir bilgisayardan tasarruf ettirir; yerel uygulama ise aboneliği ortadan kaldırır ve görüntüyü sizin elinizde tutar." }
+      ]
+    },
+    {
+      "id": "compare",
+      "h2": "Yan yana",
+      "blocks": [
+        { "table": {
+          "head": ["", "DJI Live Bridge", "Restream"],
+          "rows": [
+            ["Fiyat", "Ücretsiz, açık kaynak", "Ücretsiz plan; ücretli planlar aylık 19 $'dan (Standard)"],
+            ["Filigran", "Yok", "Ücretsiz planda Restream markası"],
+            ["Hedef sayısı", "Yükleme hızınızın izin verdiği kadar", "Ücretsizde 2, Standard'da 3, üst planlarda daha fazla"],
+            ["Özel RTMP hedefleri", "Var", "Ücretsiz planda yok"],
+            ["DJI Fly'dan Instagram", "Evet, uygulama RTMPS gönderir", "Planınızın Instagram'ı nasıl bağladığına bağlı"],
+            ["Bulanık dolgulu dikey 1080×1920", "Yerleşik", "Drone'a özel bir özellik değil; yayın geldiği gibi çıkar"],
+            ["Sanal kamera (TikTok LIVE Studio, OBS, Zoom)", "Yerleşik", "Yok"],
+            ["Sahada bilgisayar", "Gerekir (ya da Android'de Stream My Drone)", "Gerekmez"],
+            ["Kullanılan yükleme", "Her hedef için bir kez", "Toplamda bir kez"],
+            ["Sohbet ve istatistikler", "Yok", "Var"],
+            ["Görüntü nereden geçer", "Yalnızca hedeflerinize gider", "Restream'in sunucularından geçer"]
+          ]
+        } },
+        { "note": "Restream planları Ekim 2026'daki fiyat sayfasından alındı ve değişebilir; karar vermeden önce güncel sayfaya bakın." }
+      ]
+    },
+    {
+      "id": "restream-wins",
+      "h2": "Restream ne zaman daha iyi?",
+      "blocks": [
+        { "list": [
+          "Bilgisayar ya da ikinci bir telefon olmadan doğrudan kumandadan yayın yapmak istiyorsanız.",
+          "Yükleme hızınız düşükse ve çok sayıda hedefe ihtiyacınız varsa: bulut tek yüklemeyi hepsine dağıtır.",
+          "Platformlar arası birleşik sohbet, istatistik ya da ekip özellikleri istiyorsanız."
+        ] }
+      ]
+    },
+    {
+      "id": "bridge-wins",
+      "h2": "DJI Live Bridge ne zaman daha iyi?",
+      "blocks": [
+        { "list": [
+          "Aylık fatura ya da yayınınızda filigran istemiyorsanız.",
+          "Instagram veya TikTok'a yayın yapıyor ve yatay bir şerit değil düzgün bir dikey görüntü istiyorsanız.",
+          "Yayın anahtarı olmadan, TikTok LIVE Studio ve yerleşik sanal kamera üzerinden TikTok'ta canlı yayın yapmak istiyorsanız.",
+          "Görüntü hassassa — bir müşteri alanı, bir denetim — ve üçüncü bir taraftan geçmemesi gerekiyorsa.",
+          "Yanınızdaki büyük bir ekranda önizleme, kayıt ve tanılama istiyorsanız."
+        ] },
+        { "p": "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS veya Windows</a> için indirin; kurulum <a href=\"../dji-fly-rtmp-canli-yayin-ayarlari/\">DJI Fly RTMP rehberinde</a>." }
+      ]
+    },
+    {
+      "id": "both",
+      "h2": "İkisini birlikte kullanmak",
+      "howto": true,
+      "blocks": [
+        { "p": "Zaten Restream'e ödeme yapıyorsanız, dikey görüntüyü ve önizlemeyi DJI Live Bridge'den alın, dağıtımı Restream'e bırakın:" },
+        { "steps": [
+          { "t": "Restream'in RTMP bilgilerini kopyalayın", "d": "Restream'de yayın yazılımınız için RTMP sunucu adresini ve yayın anahtarını bulun." },
+          { "t": "Özel RTMP hedefi ekleyin", "d": "DJI Live Bridge'de bu adres ve anahtarla özel bir hedef ekleyin." },
+          { "t": "Yayına çıkın", "d": "DJI Fly'dan drone'u uygulamaya gönderin ve YAYINI BAŞLAT'a basın; Restream yayını kanallarınıza iletir." }
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI Live Bridge, Restream'in ücretsiz bir alternatifi mi?", "a": "Drone yayını için evet: tek bir DJI Fly görüntüsünü ücretsiz ve filigransız olarak birkaç platforma gönderir. Bulutta değil bilgisayarınızda çalışır; bu yüzden bütün hedefleri bilgisayarın yükleme bağlantısı taşır." },
+    { "q": "Restream filigran ekliyor mu?", "a": "Ücretsiz planda Restream yayına kendi markasını ekler (Ekim 2026). Ücretli planlarda eklemez." },
+    { "q": "DJI Live Bridge ile Restream'i birlikte kullanabilir miyim?", "a": "Evet. Restream'i DJI Live Bridge'e özel RTMP hedefi olarak ekleyin." },
+    { "q": "Hangisi bilgisayarsız çalışır?", "a": "Restream, çünkü DJI Fly ona internet üzerinden doğrudan yayın yapabilir. DJI Live Bridge için bir bilgisayar gerekir; DJI RC 2 ile uçuyorsanız Android uygulaması Stream My Drone da olur." }
+  ]
+}

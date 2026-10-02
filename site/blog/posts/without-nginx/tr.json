@@ -1,0 +1,80 @@
+{
+  "slug": "nginx-ve-obs-kurmadan-drone-yayini",
+  "platform": "NGINX'siz yayın",
+  "title": "NGINX ve OBS kurmadan DJI drone ile canlı yayın (2026)",
+  "description": "DJI Fly'ı OBS'ye almanın bilinen yolu NGINX RTMP sunucusu, bir yapılandırma dosyası ve medya kaynağıdır. Bu kurulumun neler gerektirdiği ve tek uygulamayla nasıl atlanacağı.",
+  "h1": "NGINX ve OBS kurmadan DJI drone ile yayın",
+  "lead": "DJI drone'u OBS'ye nasıl alacağınızı aradığınızda rehberlerin çoğu aynı şekilde başlar: bir <strong>NGINX RTMP sunucusu</strong> kurun, yapılandırmasını düzenleyin, güvenlik duvarını açın, DJI Fly'ı ona yönlendirin ve yayını <strong>OBS</strong>'ye medya kaynağı olarak çekin. Çalışır, ama küçük bir sunucu projesidir. <strong>DJI Live Bridge</strong> RTMP sunucusunu, önizlemeyi, kodlamayı ve platform çıkışlarını tek bir uygulamada toplar — istediğinizde görüntüyü OBS'ye de verir.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Klasik tarif şudur: DJI Fly → RTMP modüllü NGINX → OBS medya kaynağı → tek bir platform.",
+    "Bu; bir sunucu kurmak, nginx.conf'u düzenlemek, 1935 portuna izin vermek ve sahneyi elle kurmak demektir.",
+    "Aynı anda birkaç platform için bir OBS eklentisi ya da bulut servisi, dikey tuval için de ek ayar gerekir.",
+    "DJI Live Bridge DJI Fly'ı doğrudan alır ve başka hiçbir şey kurmadan, dikey ya da yatay olarak birkaç platforma yayın yapar.",
+    "Yine de OBS istiyorsanız <em>OBS sahnesini hazırla</em>, drone görüntüsüyle bir DJI LIVE sahnesini sizin için kurar."
+  ],
+  "sections": [
+    {
+      "id": "diy",
+      "h2": "Bilinen NGINX + OBS tarifi",
+      "blocks": [
+        { "steps": [
+          { "t": "Bir RTMP sunucusu kurun", "d": "RTMP modüllü NGINX (Windows'ta çoğu zaman hazır derlenmiş bir paket) ya da başka bir RTMP sunucusu." },
+          { "t": "Yapılandırmayı düzenleyin", "d": "nginx.conf'a <code>live</code> gibi bir uygulamayla bir <code>rtmp</code> bloğu ekleyin ve sunucuyu başlatın." },
+          { "t": "Güvenlik duvarını açın", "d": "1935 portunda gelen bağlantılara izin verin ve bilgisayarın yerel adresini bulun." },
+          { "t": "DJI Fly'ı ona yönlendirin", "d": "Canlı Yayın Platformları → RTMP altına <code>rtmp://192.168.1.20/live/drone</code> gibi bir adres girin." },
+          { "t": "OBS'ye çekin", "d": "Aynı adresle bir Medya Kaynağı ekleyin, tuvalde boyutlandırın, sonra OBS'nin yayın adresini ve anahtarını platformunuz için ayarlayın." }
+        ] },
+        { "p": "Bundan sonra her değişiklik elle yapılır: yeni bir ağ yeni bir adres demektir, ikinci bir platform bir eklenti ya da aktarma servisi, dikey yayın da ikinci bir tuval ya da ayrı bir profil." }
+      ]
+    },
+    {
+      "id": "compare",
+      "h2": "DJI Live Bridge neyin yerini alır?",
+      "blocks": [
+        { "table": {
+          "head": ["İş", "NGINX + OBS", "DJI Live Bridge"],
+          "rows": [
+            ["DJI Fly için RTMP sunucusu", "NGINX'i kurup yapılandırmak", "Yerleşik; adres QR koduyla gösterilir"],
+            ["Drone önizlemesi", "OBS medya kaynağı", "Yerleşik; çözünürlük ve bit hızıyla"],
+            ["Aynı anda birkaç platform", "Eklenti ya da bulut servisi", "Yerleşik"],
+            ["Instagram (RTMPS)", "OBS tek bir hedefe RTMPS gönderebilir", "Yerleşik, diğerleriyle birlikte"],
+            ["Dikey 1080×1920", "Dikey bir tuval kurmak", "Tek bir anahtar, bulanık dolguyla"],
+            ["Yayın anahtarı olmadan TikTok", "OBS Sanal Kamera + LIVE Studio", "Yerleşik sanal kamera"],
+            ["Yayın anahtarları", "OBS ayarlarında", "Sistemin şifre kasasında"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Tek uygulamayla kurulum",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "DJI Live Bridge'i kurun", "d": "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS veya Windows</a> için indirin; FFmpeg ve medya sunucusu içinde gelir." },
+          { "t": "Adresi DJI Fly'a kopyalayın", "d": "Uygulama <code>rtmp://192.168.1.20:1935/drone</code> gibi bir adres gösterir. Onu DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP altına girin." },
+          { "t": "Platformlarınızı ekleyin", "d": "Instagram, TikTok, YouTube, Facebook, Twitch, Kick ya da herhangi bir RTMP sunucusu; her biri kendi adresi ve anahtarıyla." },
+          { "t": "YAYINI BAŞLAT'a basın", "d": "Görüntü bir kez kodlanır ve etkin her hedefe gönderilir." }
+        ] },
+        { "img": "go-live.png", "alt": "DJI Live Bridge'in Canlı yayın sekmesi: DJI Fly için RTMP adresi, hedefler ve YAYINI BAŞLAT düğmesi." }
+      ]
+    },
+    {
+      "id": "obs",
+      "h2": "Yine de OBS istiyorsanız",
+      "blocks": [
+        { "p": "Sahneler, katmanlar ve geçişler için OBS'nin üstüne yoktur. DJI Live Bridge onun yerini almaz — NGINX kısmının yerini alır. OBS WebSocket'i açın (Araçlar → WebSocket Sunucu Ayarları), uygulamanın Gelişmiş sekmesinden bağlayın ve <em>OBS sahnesini hazırla</em>'ya basın: uygulama, içinde drone görüntüsü hazır olan, yatay ya da dikey tuvale göre boyutlanmış <strong>DJI LIVE</strong> adlı bir sahne oluşturur." },
+        { "img": "advanced.png", "alt": "DJI Live Bridge'in isteğe bağlı OBS entegrasyonu ve OBS sahnesini hazırla düğmesinin bulunduğu Gelişmiş sekmesi." },
+        { "note": "OBS Sanal Kamera ile Zoom, Meet veya Teams görüşmeleri için <a href=\"../drone-u-bilgisayarin-harici-kamerasi-yapin/\">webcam rehberine</a> bakın." }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI drone'u OBS'ye almak için NGINX gerekir mi?", "a": "Hayır. DJI Live Bridge'in kendi RTMP sunucusu vardır; OBS sahnesini hazırla ile drone görüntüsünü NGINX olmadan OBS'ye de koyar." },
+    { "q": "DJI drone ile yayın için OBS gerekir mi?", "a": "Hayır. DJI Live Bridge Instagram, TikTok, YouTube ve diğer platformlara doğrudan yayın yapar. OBS, sahneler ve katmanlar için isteğe bağlıdır." },
+    { "q": "NGINX yöntemi daha mı kötü?", "a": "Çalışır ve esnektir, ama bir sunucuyu, bir yapılandırma dosyasını ve bir OBS sahnesini kendiniz yönetirsiniz; çoklu yayın ya da dikey görüntü ek adımlar gerektirir." },
+    { "q": "DJI Live Bridge ne kadar?", "a": "Ücretsiz. MIT lisansıyla açık kaynaktır." }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "slug": "dji-avata-2-canli-yayin",
+  "platform": "DJI Avata 2",
+  "title": "DJI Avata 2 ve Goggles 3 ile canlı yayın: Instagram, TikTok, YouTube",
+  "description": "DJI Avata 2 ile FPV canlı yayın: Goggles 3 görüntüsünü telefondaki DJI Fly'a aktarın, RTMP ile yayınlayın ve Instagram, TikTok veya YouTube'da canlıya çıkın.",
+  "h1": "DJI Avata 2 ile canlı yayın nasıl yapılır?",
+  "lead": "Avata 2'nin ekranlı bir kumandası yoktur; yayın telefonunuzdan çıkar: <strong>Goggles 3 canlı görüntüyü DJI Fly ile paylaşır</strong>, DJI Fly da onu <strong>RTMP</strong> ile gönderir. Bunu bilgisayardaki <strong>DJI Live Bridge</strong>'e yönlendirin; FPV görüntüsü Instagram, TikTok, YouTube'a ya da aynı anda birkaç platforma gider.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "DJI Goggles 3'ü telefonunuza bağlayın — en güvenilir yol USB-C kablodur — ve canlı görüntüyü görmek için DJI Fly'ı açın.",
+    "DJI Fly'da: GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP; adres olarak DJI Live Bridge'in gösterdiğini girin.",
+    "Telefonun Wi-Fi'si bilgisayarla aynı ağda olmalı; kablo, Wi-Fi'yi bu iş için boş bırakır.",
+    "DJI Live Bridge yatay FPV görüntüsünü Instagram ve TikTok için dikey 1080×1920'ye çevirir.",
+    "Yayını bir gözcü ya da ikinci bir kişi takip etmeli — pilotun gözünde gözlük var."
+  ],
+  "sections": [
+    {
+      "id": "how",
+      "h2": "FPV drone ile yayın nasıl çalışır?",
+      "blocks": [
+        { "p": "Avata 2'de görüntü drone'dan gözlüğe gider. DJI Goggles 3 bu canlı görüntüyü telefondaki DJI Fly ile kabloyla ya da Wi-Fi üzerinden paylaşabilir; DJI Fly'ın RTMP seçeneği de ekranda gösterdiğini yayınlar. Aynı yol, gözlükle uçurulan Neo için de belgelenmiştir." },
+        { "table": {
+          "head": ["Gözlükten telefona bağlantı", "Yayın için uygun mu?", "Notlar"],
+          "rows": [
+            ["USB-C kablo (OTG)", "Evet — önerilen", "Kararlıdır; telefonun Wi-Fi'si bilgisayara ulaşmak için boş kalır."],
+            ["Kablosuz paylaşım (Goggles 3)", "Mümkün", "Paylaşımın kendisi kablosuz çalışır ve parazit yapabilir; kabloyu tercih edin."]
+          ]
+        } },
+        { "note": "Bu yolun DJI Goggles 3 için belgelendiğini gördük. Başka gözlüklerde, telefondaki DJI Fly'ın canlı görüntüyü gösterip RTMP sunup sunmadığını kontrol edin." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Avata 2 canlı yayınını kurun",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Gözlüğü telefona kabloyla bağlayın", "d": "DJI Goggles 3'ün USB-C portunu OTG destekli bir kabloyla telefona bağlayın ve DJI Fly'ı açın; GO FLY'a dokunup canlı görüntünün geldiğini doğrulayın." },
+          { "t": "Telefonu ve bilgisayarı tek ağa bağlayın", "d": "Telefonun Wi-Fi'sini ve bilgisayarı aynı Wi-Fi ağına, sahadaysanız bir seyahat router'ına ya da başka bir telefonun hotspot'una bağlayın." },
+          { "t": "DJI Live Bridge'i açın", "d": "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a>'i bir Mac'e veya Windows bilgisayara kurun ve gösterdiği adresi not edin, örneğin <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "DJI Fly'da RTMP'yi başlatın", "d": "GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın, adresi girin ve başlatın. Önizleme DJI Live Bridge'de görünür." },
+          { "t": "Yayına çıkın", "d": "Instagram, TikTok, YouTube ya da herhangi bir RTMP sunucusunu ekleyin, dikey veya yatay seçin ve kalkıştan önce YAYINI BAŞLAT'a basın." }
+        ] },
+        { "img": "go-live.png", "alt": "DJI Live Bridge'in Canlı yayın sekmesi: DJI Fly için RTMP adresi, hedefler ve YAYINI BAŞLAT düğmesi." },
+        { "note": "Genel DJI Fly ayarları, ağlar ve güvenlik duvarı uyarıları <a href=\"../dji-fly-rtmp-canli-yayin-ayarlari/\">DJI Fly RTMP rehberinde</a> anlatılıyor." }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "FPV canlı yayınları için ipuçları",
+      "blocks": [
+        { "list": [
+          "<strong>Yayını kalkıştan önce başlatın.</strong> Gözlük takıldıktan sonra bilgisayarı göremezsiniz; önizlemeyi ve hedefleri önceden kontrol edin.",
+          "<strong>Yayını başkası izlesin.</strong> Bir gözcü hedef kartlarını takip edebilir ve gerekirse yayını bitirebilir.",
+          "<strong>Dikey FPV.</strong> <em>Tüm görüntü</em> ufku bütünüyle bulanık dolguyla korur — FPV için genellikle yanları kırpan <em>Ekranı doldur (kırp)</em>'tan daha iyidir.",
+          "<strong>Android telefonlar daha yüksek bit hızıyla yayın yapar.</strong> DJI, Android'de 5 veya 3 Mbps, iOS'ta 2 veya 1 Mbps belirtir — hızlı FPV hareketi her bit'e ihtiyaç duyar."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Çalışmazsa",
+      "blocks": [
+        { "list": [
+          "<strong>DJI Fly'da canlı görüntü yok:</strong> başka bir USB-C kablo deneyin; kablo yalnızca şarj değil veri de taşımalı.",
+          "<strong>DJI Fly bilgisayara bağlanamıyor:</strong> telefonun Wi-Fi'si başka bir ağda ya da bilgisayar yeni bir adres almış. Adresi yeniden kopyalayın.",
+          "<strong>Görüntü takılıyor:</strong> kablosuz paylaşım yerine kabloyu kullanın ve telefonu modeme yakın tutun.",
+          "<strong>Instagram yayını reddediyor:</strong> her Instagram anahtarı bir kez çalışır; yeni bir canlı video oluşturun ve anahtarı güncelleyin."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI Avata 2 canlı yayın yapabilir mi?", "a": "Evet. DJI Goggles 3 canlı görüntüyü telefondaki DJI Fly ile paylaşır, DJI Fly da onu RTMP ile DJI Live Bridge'e gönderir; uygulama da platformlarınıza iletir." },
+    { "q": "Gözlük ile telefon arasında kablo gerekli mi?", "a": "Goggles 3 kablosuz da paylaşabilir, ama kablo daha güvenilirdir ve telefonun Wi-Fi'sini bilgisayara ulaşmak için boş bırakır." },
+    { "q": "Avata 2 ile Instagram'a veya TikTok'a yayın yapabilir miyim?", "a": "Evet, DJI Live Bridge üzerinden. Yatay FPV görüntüsünü dikey 1080×1920'ye çevirir ve DJI Fly'ın kendi başına yapamadığı şekilde Instagram'a RTMPS ile ulaşır." },
+    { "q": "Ben uçarken yayını kim yönetmeli?", "a": "Yayını kalkıştan önce başlatın ve mümkünse bilgisayarı bir gözcü izlesin. Pilotun gözünde gözlük var, hedef kartlarını göremez." }
+  ]
+}

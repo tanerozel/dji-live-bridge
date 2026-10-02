@@ -1,0 +1,81 @@
+{
+  "slug": "dji-neo-canli-yayin",
+  "platform": "DJI Neo",
+  "title": "DJI Neo ile canlı yayın: Instagram, TikTok ve YouTube kurulumu (2026)",
+  "description": "DJI Neo ile canlı yayın: hangi kontrol modu çalışır (telefon, RC-N3, gözlük), DJI Fly'da RTMP ve DJI Live Bridge ile Instagram, TikTok veya YouTube'da yayın.",
+  "h1": "DJI Neo ile canlı yayın nasıl yapılır?",
+  "lead": "DJI Neo, DJI'ın büyük drone'ları gibi <strong>DJI Fly'ın RTMP seçeneğiyle</strong> yayın yapar. Püf noktası onu nasıl uçurduğunuzdur: telefon Neo'yu doğrudan Wi-Fi ile kontrol ederken o Wi-Fi drone'a ayrılmıştır. <strong>RC-N3</strong> ile (ya da telefona kabloyla bağlı gözlükle) uçarsanız telefon yayını bilgisayarınızdaki <strong>DJI Live Bridge</strong>'e gönderebilir; uygulama da onu Instagram, TikTok, YouTube'a ya da aynı anda birkaç platforma iletir.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Neo, telefonunuzdaki DJI Fly'dan yayın yapar: GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP.",
+    "<strong>RC-N3</strong> kullanın: telefon kumandaya kabloyla bağlıdır, Wi-Fi'si bilgisayarın ağına katılabilir.",
+    "Yalnızca telefonla uçarken telefonun Wi-Fi'si Neo'nun kendisine bağlıdır; bu yüzden genellikle bilgisayara ulaşamaz.",
+    "Gözlükle uçuyorsanız gözlüğü DJI Fly'ın açık olduğu telefona kabloyla bağlayın ve yayını oradan yapın.",
+    "DJI Live Bridge yayını Instagram ve TikTok için dikey 1080×1920'ye çevirir ve Instagram'a RTMPS ile ulaşır."
+  ],
+  "sections": [
+    {
+      "id": "modes",
+      "h2": "Neo'nun hangi kontrol modu yayın yapabilir?",
+      "blocks": [
+        { "p": "Neo üç şekilde uçurulabilir ve bu, yayının telefondan nasıl çıkacağını belirler. Her durumda yayını telefondaki DJI Fly yapar; bilgisayardaki DJI Live Bridge onu alır." },
+        { "table": {
+          "head": ["Nasıl uçuruyorsunuz", "Bilgisayara yayın?", "Neden"],
+          "rows": [
+            ["Yalnızca telefon (Wi-Fi, kısa menzil)", "Genellikle hayır", "Telefonun Wi-Fi'si Neo'ya bağlıdır, bilgisayarın ağında değildir."],
+            ["RC-N3 + telefon", "Evet — önerilen", "Telefon kumandayla kabloyla konuşur; Wi-Fi'si bilgisayarla aynı ağa katılır."],
+            ["Gözlük + USB-C kabloyla telefon", "Evet", "Telefondaki DJI Fly gözlüğün canlı görüntüsünü gösterir ve onu yayınlayabilir."]
+          ]
+        } },
+        { "note": "Bazı Android telefonlar bir Wi-Fi ağına bağlıyken kendi hotspot'unu da açabilir. Sizinki açabiliyorsa yalnızca telefonla uçarken bilgisayar o hotspot'a katılabilir — bunu test etmedik, bir deneme olarak görün." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Neo canlı yayınını RC-N3 ile kurun",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Telefonu RC-N3'e bağlayın", "d": "Neo'yu her zamanki gibi RC-N3 ile uçurun; telefon kabloyla bağlı, DJI Fly açık olsun." },
+          { "t": "Telefonu ve bilgisayarı tek ağa bağlayın", "d": "Telefonun Wi-Fi'sini ve bilgisayarı aynı Wi-Fi ağına bağlayın. Sahada ikinci bir telefonun hotspot'unu ya da bir seyahat router'ını açın ve ikisini de ona bağlayın." },
+          { "t": "DJI Live Bridge'i açın", "d": "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a>'i bir Mac'e veya Windows bilgisayara kurun. Uygulama <code>rtmp://192.168.1.20:1935/drone</code> gibi bir adres gösterir." },
+          { "t": "Adresi DJI Fly'a girin", "d": "GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın, adresi yazın ve başlatın. Önizleme uygulamada görünür." },
+          { "t": "Platformları seçin ve yayına çıkın", "d": "Instagram, TikTok, YouTube ya da herhangi bir RTMP sunucusunu ekleyin; Instagram ve TikTok için <em>Dikey 9:16</em> açık kalsın ve YAYINI BAŞLAT'a basın." }
+        ] },
+        { "img": "go-live.png", "alt": "DJI Live Bridge'in Canlı yayın sekmesi: DJI Fly için RTMP adresi, hedefler ve YAYINI BAŞLAT düğmesi." },
+        { "note": "DJI Fly tarafı, ağlar ve güvenlik duvarı hakkında daha fazlası <a href=\"../dji-fly-rtmp-canli-yayin-ayarlari/\">DJI Fly RTMP rehberinde</a>." }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "Neo ile yayın için ipuçları",
+      "blocks": [
+        { "list": [
+          "<strong>Android telefon daha yüksek bit hızıyla yayın yapar.</strong> DJI, Android için 5 veya 3 Mbps, iOS için 2 veya 1 Mbps belirtir.",
+          "<strong>Telefonun Wi-Fi'sini güçlü tutun.</strong> Yayın telefondan Wi-Fi üzerinden bilgisayara gider; modeme ya da hotspot'a yakın durun.",
+          "<strong>Sosyal medya için dikey.</strong> Neo yatay çeker; <em>Tüm görüntü</em> bütün kareyi bulanık dolguyla korur, <em>Ekranı doldur (kırp)</em> kırpar.",
+          "<strong>Yerde prova yapın.</strong> DJI Live Bridge'deki <em>Bir video dosyasıyla dene</em>, Neo kalkmadan önce platform tarafını kontrol etmenizi sağlar."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Çalışmazsa",
+      "blocks": [
+        { "list": [
+          "<strong>DJI Fly bağlanamıyor:</strong> telefonun Wi-Fi'sinin Neo'nun kendi Wi-Fi'sine değil, bilgisayarın ağına bağlı olduğunu kontrol edin.",
+          "<strong>RTMP seçeneği yok:</strong> DJI Fly'ı ve Neo'nun yazılımını güncelleyin; seçenek DJI Fly sürümüne bağlıdır.",
+          "<strong>Görüntü takılıyor:</strong> telefon modemden çok uzakta ya da ağ 2,4 ile 5 GHz arasında gidip geliyor.",
+          "<strong>Instagram yayını reddediyor:</strong> instagram.com'da yeni bir canlı video oluşturun ve anahtarı güncelleyin; her anahtar bir kez çalışır."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI Neo canlı yayın yapabilir mi?", "a": "Evet, DJI Fly'daki RTMP ile. Bilgisayara yayın için onu RC-N3 ile ya da telefona kabloyla bağlı gözlükle uçurun; böylece telefonun Wi-Fi'si bilgisayarın ağına katılabilir." },
+    { "q": "Neo'yu yalnızca telefonla kontrol ederken yayın yapabilir miyim?", "a": "Bilgisayara genellikle hayır: bu modda telefonun Wi-Fi'si Neo'ya bağlıdır. Bazı Android telefonlar aynı anda hotspot paylaşabilir, ama bunu test etmedik." },
+    { "q": "DJI Neo Instagram'a veya TikTok'a yayın yapabilir mi?", "a": "DJI Fly'dan doğrudan yapamaz. DJI Fly'ın RTMP yayınını DJI Live Bridge'e gönderin; uygulama onu Instagram'a RTMPS ile, TikTok'a da dikey 1080×1920 olarak iletir." },
+    { "q": "Neo 2 ile çalışır mı?", "a": "DJI Fly, drone'unuz ve kumandanız için Canlı Yayın Platformları altında RTMP gösteriyorsa çalışır: DJI Live Bridge yalnızca RTMP yayınını alır ve drone'la hiç konuşmaz." }
+  ]
+}

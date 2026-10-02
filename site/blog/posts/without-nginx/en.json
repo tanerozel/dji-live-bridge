@@ -1,0 +1,80 @@
+{
+  "slug": "dji-drone-to-obs-without-nginx",
+  "platform": "Without NGINX",
+  "title": "Stream a DJI drone without setting up NGINX and OBS (2026)",
+  "description": "The usual way to get DJI Fly into OBS is an NGINX RTMP server, a config file and a media source. Here is what that setup involves, and the one-app way to skip it.",
+  "h1": "Stream a DJI drone without setting up NGINX and OBS",
+  "lead": "Search for how to get a DJI drone into OBS and most guides start the same way: install an <strong>NGINX RTMP server</strong>, edit its config, open the firewall, point DJI Fly at it and pull the stream into <strong>OBS</strong> as a media source. It works, but it is a small server project. <strong>DJI Live Bridge</strong> puts the RTMP server, the preview, the encoding and the platform outputs in one app — and can still hand the picture to OBS when you want it.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "The classic recipe is DJI Fly → NGINX with the RTMP module → OBS media source → one platform.",
+    "It means installing a server, editing nginx.conf, allowing port 1935 and building a scene by hand.",
+    "Several platforms at once needs an OBS plugin or a cloud service; a vertical canvas needs more setup.",
+    "DJI Live Bridge receives DJI Fly directly and streams to several platforms, vertical or horizontal, with nothing else installed.",
+    "If you want OBS anyway, <em>Prepare OBS scene</em> builds a DJI LIVE scene with the drone feed for you."
+  ],
+  "sections": [
+    {
+      "id": "diy",
+      "h2": "The usual NGINX + OBS recipe",
+      "blocks": [
+        { "steps": [
+          { "t": "Install an RTMP server", "d": "NGINX with the RTMP module (on Windows often a prebuilt bundle), or another RTMP server." },
+          { "t": "Edit the configuration", "d": "Add an <code>rtmp</code> block with an application such as <code>live</code> to nginx.conf and start the server." },
+          { "t": "Open the firewall", "d": "Allow incoming connections on port 1935 and find the computer's local address." },
+          { "t": "Point DJI Fly at it", "d": "Enter something like <code>rtmp://192.168.1.20/live/drone</code> under Live Streaming Platforms → RTMP." },
+          { "t": "Pull it into OBS", "d": "Add a Media Source with the same address, size it on the canvas, then set OBS's stream URL and key for your platform." }
+        ] },
+        { "p": "After that, every change is manual: a new network means a new address, a second platform means a plugin or a relay service, and a vertical stream means a second canvas or a separate profile." }
+      ]
+    },
+    {
+      "id": "compare",
+      "h2": "What DJI Live Bridge replaces",
+      "blocks": [
+        { "table": {
+          "head": ["Task", "NGINX + OBS", "DJI Live Bridge"],
+          "rows": [
+            ["RTMP server for DJI Fly", "Install and configure NGINX", "Built in; the address is shown with a QR code"],
+            ["Preview of the drone", "OBS media source", "Built in, with resolution and bitrate"],
+            ["Several platforms at once", "Plugin or cloud service", "Built in"],
+            ["Instagram (RTMPS)", "OBS can send RTMPS to one destination", "Built in, alongside the others"],
+            ["Vertical 1080×1920", "Build a vertical canvas", "One switch, with a blurred fill"],
+            ["TikTok without a stream key", "OBS Virtual Camera + LIVE Studio", "Built-in virtual camera"],
+            ["Stream keys", "In OBS's settings", "In the system's credential vault"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "The one-app setup",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Install DJI Live Bridge", "d": "Download it for <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS or Windows</a>; FFmpeg and the media server are inside." },
+          { "t": "Copy the address into DJI Fly", "d": "The app shows an address like <code>rtmp://192.168.1.20:1935/drone</code>. Enter it in DJI Fly under GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP." },
+          { "t": "Add your platforms", "d": "Instagram, TikTok, YouTube, Facebook, Twitch, Kick or any RTMP server, each with its URL and key." },
+          { "t": "Press START LIVE", "d": "The picture is encoded once and sent to every enabled destination." }
+        ] },
+        { "img": "go-live.png", "alt": "The Go live tab of DJI Live Bridge with the RTMP address for DJI Fly, the destinations and the START LIVE button." }
+      ]
+    },
+    {
+      "id": "obs",
+      "h2": "When you still want OBS",
+      "blocks": [
+        { "p": "OBS is unbeatable for scenes, overlays and transitions. DJI Live Bridge does not replace that — it replaces the NGINX part. Enable OBS WebSocket (Tools → WebSocket Server Settings), connect it in the app's Advanced tab and press <em>Prepare OBS scene</em>: the app creates a scene named <strong>DJI LIVE</strong> with the drone feed already in it, sized to a horizontal or vertical canvas." },
+        { "img": "advanced.png", "alt": "The Advanced tab of DJI Live Bridge with the optional OBS integration and the Prepare OBS scene button." },
+        { "note": "For calls in Zoom, Meet or Teams through OBS Virtual Camera, see <a href=\"../use-your-dji-drone-as-a-webcam/\">the webcam guide</a>." }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Do I need NGINX to stream a DJI drone to OBS?", "a": "No. DJI Live Bridge contains its own RTMP server; with Prepare OBS scene it also puts the drone feed into OBS without NGINX." },
+    { "q": "Do I need OBS to stream a DJI drone?", "a": "No. DJI Live Bridge streams to Instagram, TikTok, YouTube and other platforms directly. OBS is optional for scenes and overlays." },
+    { "q": "Is the NGINX method worse?", "a": "It works and is flexible, but you maintain a server, a config file and an OBS scene yourself, and multistreaming or vertical video need extra steps." },
+    { "q": "What does DJI Live Bridge cost?", "a": "Nothing. It is free and open source under the MIT licence." }
+  ]
+}

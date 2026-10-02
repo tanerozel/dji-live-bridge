@@ -1,0 +1,81 @@
+{
+  "slug": "dji-mini-4-pro-live-stream",
+  "platform": "DJI Mini 4 Pro",
+  "title": "DJI Mini 4 Pro live stream to Instagram, TikTok and YouTube (2026)",
+  "description": "How to live stream a DJI Mini 4 Pro with the DJI RC 2 or RC-N2: RTMP in DJI Fly, the microphone rule, 720p limits and going live on Instagram, TikTok and YouTube.",
+  "h1": "How to live stream a DJI Mini 4 Pro",
+  "lead": "The DJI Mini 4 Pro can live stream over <strong>RTMP from DJI Fly</strong>, with both of its controllers. Send that stream to <strong>DJI Live Bridge</strong> on a computer — or to <strong>Stream My Drone</strong> on an Android phone when you fly with the DJI RC 2 — and it goes on to Instagram, TikTok, YouTube or several platforms at once, in the format each one expects.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "The Mini 4 Pro streams through DJI Fly: GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP.",
+    "With the <strong>DJI RC 2</strong>, DJI requires a microphone plugged into the controller before streaming starts, and the stream is 720p.",
+    "With the <strong>RC-N2</strong>, DJI Fly runs on your phone; DJI lists 5 or 3 Mbps on Android and 2 or 1 Mbps on iOS.",
+    "DJI Fly cannot reach Instagram on its own; DJI Live Bridge forwards the stream over RTMPS in vertical 1080×1920.",
+    "No computer in the field? With the DJI RC 2, the Android app Stream My Drone does the same job on a phone."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Can the DJI Mini 4 Pro live stream?",
+      "blocks": [
+        { "p": "Yes. Both controllers sold with the Mini 4 Pro offer RTMP under <em>Live Streaming Platforms</em> in DJI Fly. What changes between them is where DJI Fly runs, how good the stream can be, and one odd requirement on the DJI RC 2." },
+        { "table": {
+          "head": ["Controller", "Where DJI Fly runs", "Stream quality (DJI)", "Watch out for"],
+          "rows": [
+            ["DJI RC 2", "On the controller's own screen", "720p", "A microphone must be plugged into the controller"],
+            ["DJI RC-N2", "On your phone", "1080p or 720p; Android 5/3 Mbps, iOS 2/1 Mbps", "The phone's Wi-Fi must be on the same network as the computer"]
+          ]
+        } },
+        { "note": "DJI's own support page says livestreaming with the DJI RC 2 needs a plugged-in microphone. A small USB-C microphone such as a DJI Mic receiver in the controller's bottom port is enough." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Set up the Mini 4 Pro live stream",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Put everything on one network", "d": "Join the DJI RC 2 (or, with the RC-N2, your phone) and the computer to the same Wi-Fi, or to one phone hotspot." },
+          { "t": "Open DJI Live Bridge", "d": "Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> on a Mac or Windows PC. The <em>Connect your drone</em> step shows an address like <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Plug in a microphone (DJI RC 2 only)", "d": "Without one, DJI Fly on the RC 2 refuses to start the stream." },
+          { "t": "Enter the address in DJI Fly", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, type the address and start. The preview appears in the app within seconds." },
+          { "t": "Add your platforms and go live", "d": "Add Instagram, TikTok, YouTube or any RTMP server with its stream URL and key, keep <em>Vertical 9:16</em> for Instagram and TikTok, and press START LIVE." }
+        ] },
+        { "img": "go-live.png", "alt": "The Go live tab of DJI Live Bridge with the RTMP address for DJI Fly, the destinations and the START LIVE button." },
+        { "note": "No computer? With the DJI RC 2, <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Stream My Drone</a> on an Android phone receives the stream instead: turn on the phone's hotspot, join the RC 2 to it and type the address the app shows. The step-by-step DJI Fly part is in <a href=\"../dji-fly-rtmp-live-streaming-setup/\">the DJI Fly RTMP guide</a>." }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Getting the best picture from a Mini 4 Pro",
+      "blocks": [
+        { "list": [
+          "<strong>720p is the ceiling on the DJI RC 2.</strong> DJI Live Bridge scales it to 1080×1920 for vertical platforms and shows the real input resolution, so you know what you are sending.",
+          "<strong>On the RC-N2, an Android phone helps.</strong> DJI lists 5 or 3 Mbps for Android and only 2 or 1 Mbps for iOS, which shows in fast motion.",
+          "<strong>Keep the link short.</strong> The stream travels from the controller over Wi-Fi to the computer; a 5 GHz network or a hotspot next to the computer avoids drops.",
+          "<strong>Vertical or horizontal.</strong> The Mini 4 Pro films landscape by default. For Instagram and TikTok, <em>Whole picture</em> keeps the full frame with a blurred fill; <em>Fill screen</em> crops to fill the phone."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "When it does not work",
+      "blocks": [
+        { "list": [
+          "<strong>DJI Fly will not start the stream on the RC 2:</strong> plug in a microphone first.",
+          "<strong>DJI Fly says it cannot connect:</strong> the controller (or phone) and the computer are on different networks, or the computer got a new address. Copy the address from the app again.",
+          "<strong>No RTMP option:</strong> update DJI Fly; DJI added RTMP for the RC 2 in version 1.15.8.",
+          "<strong>Instagram rejects the stream:</strong> its key is single-use. Create a new live video on instagram.com and update the key."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Can the DJI Mini 4 Pro stream to Instagram?", "a": "Not from DJI Fly alone, because Instagram needs an encrypted RTMPS connection and DJI Fly sends plain RTMP. Send DJI Fly's stream to DJI Live Bridge, which forwards it to Instagram over RTMPS in vertical 1080×1920." },
+    { "q": "Why does the DJI RC 2 need a microphone to live stream?", "a": "DJI requires one: its support page says to plug in a microphone when streaming from the DJI RC 2. A USB-C microphone in the controller's bottom port is enough." },
+    { "q": "What resolution does the Mini 4 Pro stream in?", "a": "720p with the DJI RC 2. With the RC-N2, DJI Fly offers 1080p or 720p, at 5 or 3 Mbps on Android and 2 or 1 Mbps on iOS." },
+    { "q": "Can I stream the Mini 4 Pro without a computer?", "a": "With the DJI RC 2, yes: the Android app Stream My Drone receives the stream on a phone and sends it to your platforms. With the RC-N2, DJI Fly already runs on your phone, so use a computer with DJI Live Bridge." },
+    { "q": "Can I stream to Instagram and TikTok at the same time?", "a": "Yes. Add both as destinations; the picture is encoded once and sent to each." }
+  ]
+}

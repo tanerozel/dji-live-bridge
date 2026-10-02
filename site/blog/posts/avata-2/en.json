@@ -1,0 +1,80 @@
+{
+  "slug": "dji-avata-2-live-stream",
+  "platform": "DJI Avata 2",
+  "title": "DJI Avata 2 live stream with Goggles 3: Instagram, TikTok, YouTube",
+  "description": "How to live stream FPV footage from a DJI Avata 2: share the Goggles 3 view to DJI Fly on your phone, stream over RTMP and go live on Instagram, TikTok or YouTube.",
+  "h1": "How to live stream a DJI Avata 2",
+  "lead": "The Avata 2 has no screen controller, so the stream leaves through your phone: <strong>Goggles 3 share their live view with DJI Fly</strong>, and DJI Fly sends it over <strong>RTMP</strong>. Point that at <strong>DJI Live Bridge</strong> on a computer and the FPV picture goes on to Instagram, TikTok, YouTube or several platforms at once.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Connect DJI Goggles 3 to your phone — a USB-C cable is the most reliable — and open DJI Fly to see the live view.",
+    "In DJI Fly: GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, with the address DJI Live Bridge shows.",
+    "The phone's Wi-Fi must be on the same network as the computer; the cable keeps it free for that.",
+    "DJI Live Bridge reshapes the landscape FPV picture into vertical 1080×1920 for Instagram and TikTok.",
+    "A spotter or a second person should handle the stream — the pilot is wearing goggles."
+  ],
+  "sections": [
+    {
+      "id": "how",
+      "h2": "How streaming works with an FPV drone",
+      "blocks": [
+        { "p": "With the Avata 2 the picture goes from the drone to the goggles. DJI Goggles 3 can share that live view with DJI Fly on a phone, by cable or over Wi-Fi, and DJI Fly's RTMP option streams what it shows. The same path is documented for the Neo with goggles." },
+        { "table": {
+          "head": ["Link from goggles to phone", "Good for streaming?", "Notes"],
+          "rows": [
+            ["USB-C cable (OTG)", "Yes — recommended", "Stable, and the phone's Wi-Fi stays free to reach the computer."],
+            ["Wireless share (Goggles 3)", "Possible", "The share uses wireless itself and can interfere; prefer the cable."]
+          ]
+        } },
+        { "note": "We have seen this path documented for DJI Goggles 3. With other goggles, check whether DJI Fly on the phone shows the live view and offers RTMP." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Set up the Avata 2 live stream",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Cable the goggles to the phone", "d": "Connect the USB-C port of DJI Goggles 3 to the phone with an OTG-capable cable and open DJI Fly; tap GO FLY and confirm the live view appears." },
+          { "t": "Join phone and computer to one network", "d": "Connect the phone's Wi-Fi and the computer to the same Wi-Fi, or to a travel router or another phone's hotspot in the field." },
+          { "t": "Open DJI Live Bridge", "d": "Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> on a Mac or Windows PC and note the address it shows, like <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Start RTMP in DJI Fly", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, enter the address and start. The preview appears in DJI Live Bridge." },
+          { "t": "Go live", "d": "Add Instagram, TikTok, YouTube or any RTMP server, choose vertical or horizontal, and press START LIVE before take-off." }
+        ] },
+        { "img": "go-live.png", "alt": "The Go live tab of DJI Live Bridge with the RTMP address for DJI Fly, the destinations and the START LIVE button." },
+        { "note": "The general DJI Fly settings, networks and firewall prompts are covered in <a href=\"../dji-fly-rtmp-live-streaming-setup/\">the DJI Fly RTMP guide</a>." }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "Tips for FPV live streams",
+      "blocks": [
+        { "list": [
+          "<strong>Start the stream before take-off.</strong> Once the goggles are on, you cannot see the computer; check the preview and the destinations first.",
+          "<strong>Let someone else watch the stream.</strong> A spotter can follow the destination cards and end the broadcast if needed.",
+          "<strong>Vertical FPV.</strong> <em>Whole picture</em> keeps the full horizon with a blurred fill — usually better for FPV than <em>Fill screen</em>, which crops the sides.",
+          "<strong>Android phones stream at a higher bitrate.</strong> DJI lists 5 or 3 Mbps on Android and 2 or 1 Mbps on iOS — fast FPV motion needs every bit."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "When it does not work",
+      "blocks": [
+        { "list": [
+          "<strong>No live view in DJI Fly:</strong> try another USB-C cable; it must carry data, not only power.",
+          "<strong>DJI Fly cannot connect to the computer:</strong> the phone's Wi-Fi is on another network, or the computer has a new address. Copy the address again.",
+          "<strong>The picture stutters:</strong> use the cable instead of the wireless share, and keep the phone close to the router.",
+          "<strong>Instagram rejects the stream:</strong> each Instagram key works once; create a new live video and update the key."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Can the DJI Avata 2 live stream?", "a": "Yes. DJI Goggles 3 share the live view with DJI Fly on a phone, and DJI Fly streams it over RTMP to DJI Live Bridge, which sends it to your platforms." },
+    { "q": "Do I need a cable between the goggles and the phone?", "a": "Goggles 3 can also share wirelessly, but the cable is more reliable and keeps the phone's Wi-Fi free to reach the computer." },
+    { "q": "Can I stream the Avata 2 to Instagram or TikTok?", "a": "Yes, through DJI Live Bridge. It turns the landscape FPV picture into vertical 1080×1920 and reaches Instagram over RTMPS, which DJI Fly cannot do itself." },
+    { "q": "Who should run the stream while I fly?", "a": "Start it before take-off and, if you can, let a spotter watch the computer. The pilot has the goggles on and cannot see the destination cards." }
+  ]
+}

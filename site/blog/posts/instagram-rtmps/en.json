@@ -1,0 +1,82 @@
+{
+  "slug": "why-dji-fly-cannot-stream-to-instagram",
+  "platform": "Instagram problem",
+  "title": "Why DJI Fly can't stream to Instagram Live — and how to fix it",
+  "description": "DJI Fly has no Instagram option and its RTMP client cannot do the encrypted RTMPS Instagram requires. Here is why, and how to go live on Instagram from a DJI drone anyway.",
+  "h1": "Why DJI Fly can't live stream to Instagram (and the fix)",
+  "lead": "Paste Instagram's stream URL into DJI Fly and nothing happens. The reason is technical: <strong>Instagram only accepts RTMPS</strong>, an encrypted connection, and <strong>DJI Fly can only send plain RTMP</strong>. The fix is a relay that receives DJI Fly's RTMP and forwards it to Instagram over RTMPS — DJI Live Bridge does that on your own computer, for free.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Instagram's stream URL starts with <code>rtmps://</code> and uses port 443; DJI Fly's RTMP option cannot open that kind of connection.",
+    "DJI Fly does not list Instagram among its platforms, and Instagram has no setting to accept plain RTMP.",
+    "Instagram also gives a new stream key for every broadcast and expects vertical video.",
+    "Fix: DJI Fly → RTMP → DJI Live Bridge on your computer → RTMPS → Instagram, in vertical 1080×1920.",
+    "Without a computer, the Android app Stream My Drone does the same with a DJI RC 2."
+  ],
+  "sections": [
+    {
+      "id": "why",
+      "h2": "Why it does not work",
+      "blocks": [
+        { "list": [
+          "<strong>Encryption.</strong> Instagram's stream URL looks like <code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code>. The <em>s</em> means the video must travel inside an encrypted (TLS) connection. DJI Fly's RTMP client sends unencrypted RTMP only, so Instagram never accepts the connection.",
+          "<strong>No built-in Instagram option.</strong> DJI Fly lists RTMP (and on some controllers other regional platforms) under Live Streaming Platforms, but not Instagram.",
+          "<strong>Single-use keys.</strong> Instagram creates a new stream key for every live video, so a key saved in DJI Fly stops working after one broadcast.",
+          "<strong>Vertical video.</strong> Instagram is watched in portrait; a landscape drone picture needs reshaping to look right."
+        ] },
+        { "p": "None of this is a fault in your drone or your account. The two systems simply speak different versions of the same protocol." }
+      ]
+    },
+    {
+      "id": "fix",
+      "h2": "The fix: relay DJI Fly's stream through DJI Live Bridge",
+      "howto": true,
+      "blocks": [
+        { "p": "DJI Live Bridge runs a small RTMP server on your Mac or PC. DJI Fly streams to it over your local network; the app re-encodes the picture as vertical 1080×1920 and sends it to Instagram over RTMPS." },
+        { "steps": [
+          { "t": "Install DJI Live Bridge", "d": "Download it for <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS or Windows</a>. It is free and needs nothing else installed." },
+          { "t": "Send the drone to your computer", "d": "Put the controller and computer on one Wi-Fi or hotspot. In DJI Fly open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP and enter the address the app shows." },
+          { "t": "Create the live video on Instagram", "d": "On instagram.com click Create (+) → Live video and copy the stream URL and stream key." },
+          { "t": "Add Instagram in the app", "d": "Paste both into an Instagram destination, keep <em>Vertical 9:16</em> on and press START LIVE." },
+          { "t": "Press Go live on Instagram", "d": "Instagram's window shows the drone picture; press Go live there to make the broadcast public." }
+        ] },
+        { "note": "Every detail of the Instagram side, including the key that changes each time, is in <a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">the Instagram guide</a>." }
+      ]
+    },
+    {
+      "id": "options",
+      "h2": "Other ways around it",
+      "blocks": [
+        { "table": {
+          "head": ["Option", "Cost", "Good to know"],
+          "rows": [
+            ["DJI Live Bridge (Mac, Windows)", "Free, open source", "Runs on your computer; video never passes through a third-party server; several platforms at once."],
+            ["Stream My Drone (Android)", "One-time purchase", "Replaces the computer when you fly with the DJI RC 2; forwards to RTMPS destinations."],
+            ["Cloud restreaming service", "Usually a subscription", "DJI Fly streams to the service, which forwards to Instagram; check that your plan allows custom RTMP destinations."],
+            ["HDMI controller + capture card + OBS", "Hardware cost", "Needs a controller with HDMI output (such as the DJI RC Pro) and a capture card."]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Still not live?",
+      "blocks": [
+        { "list": [
+          "<strong>No Live video under Create on instagram.com:</strong> Instagram has not enabled the option for that account yet.",
+          "<strong>Connection failed right away:</strong> the key was already used. Open a new live video and update the key.",
+          "<strong>Instagram's preview stays black:</strong> check that DJI Live Bridge's own preview shows the drone first.",
+          "<strong>Followers see nothing:</strong> press Go live on Instagram; receiving the stream is not the same as publishing it."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Why can't DJI Fly stream to Instagram?", "a": "Instagram accepts only RTMPS, an encrypted connection, and DJI Fly sends plain RTMP. A relay such as DJI Live Bridge receives the RTMP stream and forwards it to Instagram over RTMPS." },
+    { "q": "Can I just change rtmps:// to rtmp:// in the Instagram URL?", "a": "No. Instagram's ingest servers expect the encrypted connection; an unencrypted RTMP connection is refused." },
+    { "q": "Do I need OBS to go live on Instagram from a drone?", "a": "No. DJI Live Bridge sends the stream to Instagram directly. OBS is only needed if you want its scenes and overlays." },
+    { "q": "Can I stream to Instagram and TikTok at the same time?", "a": "Yes. Add both as destinations in DJI Live Bridge; both expect vertical video, so one setting suits both." },
+    { "q": "Is it free?", "a": "DJI Live Bridge is free and open source. It is not affiliated with DJI or Instagram." }
+  ]
+}

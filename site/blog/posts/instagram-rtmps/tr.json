@@ -1,0 +1,82 @@
+{
+  "slug": "dji-fly-instagram-canli-yayin-neden-calismiyor",
+  "platform": "Instagram sorunu",
+  "title": "DJI Fly ile Instagram canlı yayını neden çalışmıyor? Çözümü",
+  "description": "DJI Fly'da Instagram seçeneği yok ve RTMP istemcisi Instagram'ın istediği şifreli RTMPS'i yapamıyor. Nedeni ve DJI drone ile Instagram'da yine de nasıl canlı yayın yapılır.",
+  "h1": "DJI Fly neden Instagram'a canlı yayın yapamıyor? (ve çözümü)",
+  "lead": "Instagram'ın yayın adresini DJI Fly'a yapıştırırsınız ve hiçbir şey olmaz. Nedeni teknik: <strong>Instagram yalnızca şifreli bağlantı olan RTMPS'i kabul eder</strong>, <strong>DJI Fly ise yalnızca düz RTMP gönderebilir</strong>. Çözüm, DJI Fly'ın RTMP yayınını alıp Instagram'a RTMPS ile ileten bir aktarıcıdır — DJI Live Bridge bunu kendi bilgisayarınızda, ücretsiz yapar.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Instagram'ın yayın adresi <code>rtmps://</code> ile başlar ve 443 portunu kullanır; DJI Fly'ın RTMP seçeneği bu tür bir bağlantı açamaz.",
+    "DJI Fly platformları arasında Instagram'ı listelemez, Instagram'da da düz RTMP kabul eden bir ayar yoktur.",
+    "Instagram ayrıca her yayın için yeni bir yayın anahtarı verir ve dikey görüntü bekler.",
+    "Çözüm: DJI Fly → RTMP → bilgisayarınızdaki DJI Live Bridge → RTMPS → Instagram, dikey 1080×1920.",
+    "Bilgisayar olmadan, DJI RC 2 ile Android uygulaması Stream My Drone aynı işi yapar."
+  ],
+  "sections": [
+    {
+      "id": "why",
+      "h2": "Neden çalışmıyor?",
+      "blocks": [
+        { "list": [
+          "<strong>Şifreleme.</strong> Instagram'ın yayın adresi <code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code> gibi görünür. Sondaki <em>s</em>, görüntünün şifreli (TLS) bir bağlantı içinde gitmesi gerektiği anlamına gelir. DJI Fly'ın RTMP istemcisi yalnızca şifresiz RTMP gönderir, bu yüzden Instagram bağlantıyı hiç kabul etmez.",
+          "<strong>Yerleşik Instagram seçeneği yok.</strong> DJI Fly, Canlı Yayın Platformları altında RTMP'yi (ve bazı kumandalarda başka bölgesel platformları) listeler, ama Instagram'ı listelemez.",
+          "<strong>Tek kullanımlık anahtarlar.</strong> Instagram her canlı video için yeni bir yayın anahtarı oluşturur; DJI Fly'a kaydedilen bir anahtar tek yayından sonra çalışmaz.",
+          "<strong>Dikey görüntü.</strong> Instagram dikey izlenir; yatay drone görüntüsünün düzgün görünmesi için yeniden biçimlendirilmesi gerekir."
+        ] },
+        { "p": "Bunların hiçbiri drone'unuzun ya da hesabınızın kusuru değil. İki sistem aynı protokolün farklı sürümlerini konuşuyor, o kadar." }
+      ]
+    },
+    {
+      "id": "fix",
+      "h2": "Çözüm: DJI Fly yayınını DJI Live Bridge üzerinden aktarın",
+      "howto": true,
+      "blocks": [
+        { "p": "DJI Live Bridge, Mac'inizde ya da bilgisayarınızda küçük bir RTMP sunucusu çalıştırır. DJI Fly yerel ağınız üzerinden ona yayın yapar; uygulama görüntüyü dikey 1080×1920 olarak yeniden kodlar ve Instagram'a RTMPS ile gönderir." },
+        { "steps": [
+          { "t": "DJI Live Bridge'i kurun", "d": "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS veya Windows</a> için indirin. Ücretsizdir ve başka hiçbir şey kurmanız gerekmez." },
+          { "t": "Drone'u bilgisayara gönderin", "d": "Kumandayı ve bilgisayarı aynı Wi-Fi ağına ya da hotspot'a bağlayın. DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın ve uygulamanın gösterdiği adresi girin." },
+          { "t": "Instagram'da canlı videoyu oluşturun", "d": "instagram.com'da Oluştur (+) → Canlı video'ya tıklayın ve yayın adresini ile yayın anahtarını kopyalayın." },
+          { "t": "Uygulamada Instagram'ı ekleyin", "d": "İkisini de bir Instagram hedefine yapıştırın, <em>Dikey 9:16</em> açık kalsın ve YAYINI BAŞLAT'a basın." },
+          { "t": "Instagram'da Canlı yayına geç'e basın", "d": "Instagram'ın penceresi drone görüntüsünü gösterir; yayını herkese açmak için oradaki düğmeye basın." }
+        ] },
+        { "note": "Her seferinde değişen anahtar dahil Instagram tarafının bütün ayrıntıları <a href=\"../drone-ile-instagram-canli-yayin-nasil-yapilir/\">Instagram rehberinde</a>." }
+      ]
+    },
+    {
+      "id": "options",
+      "h2": "Başka çözüm yolları",
+      "blocks": [
+        { "table": {
+          "head": ["Seçenek", "Maliyet", "Bilinmesi gereken"],
+          "rows": [
+            ["DJI Live Bridge (Mac, Windows)", "Ücretsiz, açık kaynak", "Bilgisayarınızda çalışır; görüntü hiçbir üçüncü taraf sunucudan geçmez; aynı anda birkaç platform."],
+            ["Stream My Drone (Android)", "Tek seferlik satın alma", "DJI RC 2 ile uçarken bilgisayarın yerini alır; RTMPS hedeflerine iletir."],
+            ["Bulut yayın aktarma servisi", "Genellikle abonelik", "DJI Fly servise yayın yapar, servis Instagram'a iletir; planınızın özel RTMP hedeflerine izin verdiğini kontrol edin."],
+            ["HDMI'lı kumanda + yakalama kartı + OBS", "Donanım maliyeti", "HDMI çıkışlı bir kumanda (örneğin DJI RC Pro) ve bir yakalama kartı gerekir."]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Hâlâ yayında değil misiniz?",
+      "blocks": [
+        { "list": [
+          "<strong>instagram.com'da Oluştur altında Canlı video yok:</strong> Instagram bu seçeneği o hesap için henüz açmamış.",
+          "<strong>Bağlantı hemen başarısız oluyor:</strong> anahtar daha önce kullanılmış. Yeni bir canlı video açın ve anahtarı güncelleyin.",
+          "<strong>Instagram'ın önizlemesi siyah kalıyor:</strong> önce DJI Live Bridge'in kendi önizlemesinde drone görüntüsünün olduğunu kontrol edin.",
+          "<strong>Takipçiler hiçbir şey görmüyor:</strong> Instagram'da yayını başlatın; yayının alınması, yayınlanması demek değildir."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI Fly neden Instagram'a yayın yapamıyor?", "a": "Instagram yalnızca şifreli bir bağlantı olan RTMPS'i kabul eder, DJI Fly ise düz RTMP gönderir. DJI Live Bridge gibi bir aktarıcı RTMP yayınını alır ve Instagram'a RTMPS ile iletir." },
+    { "q": "Instagram adresindeki rtmps:// kısmını rtmp:// yapsam olmaz mı?", "a": "Hayır. Instagram'ın yayın sunucuları şifreli bağlantı bekler; şifresiz bir RTMP bağlantısı reddedilir." },
+    { "q": "Drone ile Instagram'da canlı yayın için OBS gerekir mi?", "a": "Hayır. DJI Live Bridge yayını doğrudan Instagram'a gönderir. OBS yalnızca sahnelerini ve katmanlarını istiyorsanız gerekir." },
+    { "q": "Instagram ve TikTok'a aynı anda yayın yapabilir miyim?", "a": "Evet. İkisini de DJI Live Bridge'de hedef olarak ekleyin; ikisi de dikey görüntü beklediği için tek bir ayar ikisine de uyar." },
+    { "q": "Ücretsiz mi?", "a": "DJI Live Bridge ücretsiz ve açık kaynaktır. DJI veya Instagram ile bağlantılı değildir." }
+  ]
+}
