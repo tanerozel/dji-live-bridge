@@ -7,6 +7,13 @@
   },
   "rust": "1.98.1",
   "mediamtx": "1.21.0",
+  "onnxRuntime": {
+    "version": "1.28.0",
+    "rustCrate": "ort 2.0.0-rc.13",
+    "linking": "static (pyke prebuilt); CoreML provider on macOS, CPU on Windows",
+    "prebuiltMinimumMacOS": "13.4 (imports checked: nothing newer than 13.0 is used)"
+  },
+  "visionModels": "YOLOX 0.1.1rc0 (Apache-2.0), downloaded on first use, SHA-256 pinned in src-tauri/src/vision/models.rs",
   "obsStudio": "32.2.2",
   "obsWebSocketProtocol": "5.x / RPC 1 (runtime feature detection required)",
   "ffmpeg": {

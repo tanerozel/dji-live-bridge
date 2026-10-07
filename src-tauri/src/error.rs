@@ -17,6 +17,8 @@ pub enum BridgeError {
     Obs(String),
     #[error("Virtual camera error: {0}")]
     VirtualCamera(String),
+    #[error("AI Vision error: {0}")]
+    Vision(String),
     #[error("Invalid workflow transition: {0}")]
     InvalidTransition(String),
     #[error("Unsupported automation: {0}")]
@@ -63,6 +65,7 @@ impl From<BridgeError> for ErrorPayload {
                 "errors.message.virtualCamera",
                 "errors.action.virtualCamera",
             ),
+            BridgeError::Vision(_) => ("VISION", "errors.message.vision", "errors.action.vision"),
             BridgeError::InvalidTransition(_) => (
                 "INVALID_TRANSITION",
                 "errors.message.transition",

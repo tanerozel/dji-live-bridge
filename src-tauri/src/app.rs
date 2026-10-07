@@ -30,6 +30,7 @@ use crate::{
         StateStore, WorkflowState,
     },
     virtual_camera,
+    vision::{self, DetectionSettings, OverlayInput, VisionEngine},
 };
 
 pub struct AppState {
@@ -37,11 +38,14 @@ pub struct AppState {
     pub config_store: ConfigStore,
     pub config: RwLock<AppConfig>,
     pub supervisor: ProcessSupervisor,
+    pub vision: VisionEngine,
     pub media_mtx: MediaMtxController,
     pub obs: ObsController,
     pub obs_monitoring: AtomicBool,
     shutting_down: AtomicBool,
     pub active_destination_ids: RwLock<Vec<String>>,
+    /// Whether the last native live encode was started with the overlay.
+    production_overlay: AtomicBool,
 }
 
 impl AppState {
@@ -50,20 +54,31 @@ impl AppState {
         let mut config = config_store.load()?;
         migrate_legacy_destination(&mut config, &config_store)?;
         let media_mtx = MediaMtxController::new(&config_store)?;
+        let supervisor = ProcessSupervisor::default();
+        let vision = VisionEngine::new(
+            config_store.app_support_dir(),
+            supervisor.clone(),
+            config.vision.clone(),
+        );
         Ok(Arc::new(Self {
             state: StateStore::new(),
             config_store,
             config: RwLock::new(config),
-            supervisor: ProcessSupervisor::default(),
+            supervisor,
+            vision,
             media_mtx,
             obs: ObsController::default(),
             obs_monitoring: AtomicBool::new(false),
             shutting_down: AtomicBool::new(false),
             active_destination_ids: RwLock::new(Vec::new()),
+            production_overlay: AtomicBool::new(false),
         }))
     }
 
     pub async fn bootstrap(self: Arc<Self>, app: AppHandle) {
+        // Starts the model download now if AI Vision was left on.
+        let vision_settings = self.config.read().await.vision.clone();
+        self.vision.apply(vision_settings).await;
         if let Err(error) = self.run_bootstrap(&app).await {
             self.publish_error(&app, error).await;
         }
@@ -104,6 +119,17 @@ impl AppState {
                         false
                     } else {
                         snapshot.processes = processes;
+                        true
+                    }
+                })
+                .await;
+            let vision = self.vision.state();
+            self.state
+                .mutate_if_changed(&app, |snapshot| {
+                    if snapshot.vision == vision {
+                        false
+                    } else {
+                        snapshot.vision = vision;
                         true
                     }
                 })
@@ -161,6 +187,14 @@ impl AppState {
                                     since.map(|start| now_ms().saturating_sub(start) / 1000);
                             })
                             .await;
+                        if became_connected || became_disconnected {
+                            // Loading a model takes a moment; the monitor must not wait.
+                            let vision = self.vision.clone();
+                            let present = sample.present;
+                            tauri::async_runtime::spawn(async move {
+                                vision.set_publisher(present).await;
+                            });
+                        }
                         if became_connected {
                             if let Err(error) = self
                                 .state
@@ -199,6 +233,7 @@ impl AppState {
                                     snapshot.production.active = false;
                                     snapshot.production.prepared = false;
                                     snapshot.production.path_status = ServiceStatus::Unavailable;
+                                    snapshot.production.vision_overlay = false;
                                     snapshot.production.forward_state = None;
                                     snapshot.production.forward_error = None;
                                     snapshot.production.outbound_bytes = 0;
@@ -215,6 +250,9 @@ impl AppState {
                         if sample.present && metadata_check.elapsed() >= Duration::from_secs(30) {
                             match ffmpeg::inspect_stream().await {
                                 Ok(metadata) => {
+                                    self.vision.set_source_size(vision::parse_resolution(
+                                        metadata.resolution.as_deref(),
+                                    ));
                                     self.state
                                         .mutate(&app, |snapshot| {
                                             let received = snapshot.metadata.received_bytes;
@@ -591,6 +629,7 @@ impl AppState {
                 snapshot.production.active = false;
                 snapshot.production.path_status = ServiceStatus::Unavailable;
                 snapshot.production.encoder = None;
+                snapshot.production.vision_overlay = false;
                 snapshot.production.selected_microphone = settings.microphone;
                 snapshot.production.forward_state = None;
                 snapshot.production.forward_error = None;
@@ -788,7 +827,8 @@ impl AppState {
                 }
                 return self.activate_virtual_camera_extension(app).await;
             }
-            virtual_camera::start_feed(&self.supervisor).await?;
+            let overlay = self.vision_overlay().await;
+            virtual_camera::start_feed(&self.supervisor, overlay).await?;
             self.state
                 .mutate(app, |snapshot| {
                     snapshot.virtual_camera.feed_active = true;
@@ -884,6 +924,8 @@ impl AppState {
                             snapshot.production.active = true;
                             snapshot.production.path_status = ServiceStatus::Ready;
                             snapshot.production.encoder = encoder;
+                            snapshot.production.vision_overlay =
+                                self.production_overlay.load(Ordering::Relaxed);
                         } else {
                             snapshot.obs.stream_active = Some(true);
                         }
@@ -922,21 +964,35 @@ impl AppState {
         };
         // The periodic probe runs ~20 s after the drone connects; going live
         // before that must not replace the drone's audio with silence.
-        let has_drone_audio = match ffmpeg::inspect_stream().await {
-            Ok(metadata) => metadata.audio_codec.is_some(),
+        let (has_drone_audio, resolution) = match ffmpeg::inspect_stream().await {
+            Ok(metadata) => (metadata.audio_codec.is_some(), metadata.resolution),
             Err(error) => {
                 tracing::debug!(%error, "live-start probe failed; using cached metadata");
-                self.state.get().await.metadata.audio_codec.is_some()
+                let metadata = self.state.get().await.metadata;
+                (metadata.audio_codec.is_some(), metadata.resolution)
             }
         };
-        let encoder =
-            match ffmpeg::start_production(&self.supervisor, &settings, has_drone_audio).await {
-                Ok(value) => value,
-                Err(error) => {
-                    self.media_mtx.clear_forward().await.ok();
-                    return Err(error);
-                }
-            };
+        // With AI Vision on, the boxes are drawn into this one encode, so
+        // every destination receives them.
+        let overlay = self
+            .vision
+            .overlay_input(vision::parse_resolution(resolution.as_deref()));
+        let encoder = match ffmpeg::start_production(
+            &self.supervisor,
+            &settings,
+            has_drone_audio,
+            overlay.as_ref(),
+        )
+        .await
+        {
+            Ok(value) => value,
+            Err(error) => {
+                self.media_mtx.clear_forward().await.ok();
+                return Err(error);
+            }
+        };
+        self.production_overlay
+            .store(overlay.is_some(), Ordering::Relaxed);
         if let Err(error) = self
             .media_mtx
             .wait_for_path("production", Duration::from_secs(10))
@@ -985,6 +1041,7 @@ impl AppState {
                         snapshot.obs.stream_active = Some(false);
                         snapshot.production.active = false;
                         snapshot.production.path_status = ServiceStatus::Unavailable;
+                        snapshot.production.vision_overlay = false;
                         snapshot.production.forward_state = None;
                         snapshot.production.forward_error = None;
                         snapshot.production.outbound_bytes = 0;
@@ -1033,6 +1090,53 @@ impl AppState {
         }
     }
 
+    /// Saves and applies the AI Vision settings. A running virtual camera is
+    /// restarted when the overlay is switched on or off, so it appears or
+    /// disappears there at once. The live encode is left alone: restarting it
+    /// would drop every destination, so it picks the change up next time.
+    pub async fn set_vision_settings(
+        &self,
+        app: &AppHandle,
+        settings: DetectionSettings,
+    ) -> BridgeResult<()> {
+        settings.validate()?;
+        let overlay_changed = settings.enabled != self.vision.settings().enabled;
+        {
+            let mut config = self.config.write().await;
+            config.vision = settings.clone();
+            self.config_store.save(&config)?;
+        }
+        self.vision.apply(settings).await;
+        let vision = self.vision.state();
+        self.state
+            .mutate(app, |snapshot| snapshot.vision = vision)
+            .await;
+        let snapshot = self.state.get().await;
+        if overlay_changed && snapshot.virtual_camera.feed_active && snapshot.publisher_present {
+            let overlay = self.vision_overlay().await;
+            virtual_camera::start_feed(&self.supervisor, overlay).await?;
+        }
+        Ok(())
+    }
+
+    /// The overlay input for an output started now, probing the source size
+    /// if the periodic probe has not run yet.
+    async fn vision_overlay(&self) -> Option<OverlayInput> {
+        if !self.vision.settings().enabled {
+            return None;
+        }
+        let cached = self.state.get().await.metadata.resolution;
+        let resolution = match cached {
+            Some(resolution) => Some(resolution),
+            None => ffmpeg::inspect_stream()
+                .await
+                .ok()
+                .and_then(|metadata| metadata.resolution),
+        };
+        self.vision
+            .overlay_input(vision::parse_resolution(resolution.as_deref()))
+    }
+
     pub async fn publish_error(&self, app: &AppHandle, error: BridgeError) {
         let payload: ErrorPayload = error.into();
         tracing::error!(code = payload.code, message = %payload.detail);
@@ -1065,6 +1169,7 @@ impl AppState {
         }
         // Children first: OBS restore is network-bound and must never keep
         // MediaMTX/FFmpeg alive (orphans hold ports 1935/8554/9997).
+        self.vision.shutdown().await;
         self.supervisor.shutdown_all().await;
         let config = self.config.read().await.clone();
         if let Err(error) = self

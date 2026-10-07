@@ -3,7 +3,10 @@ use std::{fs, path::PathBuf};
 use serde::{Deserialize, Serialize};
 use url::Url;
 
-use crate::error::{BridgeError, BridgeResult};
+use crate::{
+    error::{BridgeError, BridgeResult},
+    vision::DetectionSettings,
+};
 
 pub const APP_DIR_NAME: &str = "DJI Live Bridge";
 
@@ -133,6 +136,7 @@ pub struct AppConfig {
     pub noise_suppression: bool,
     pub compressor: bool,
     pub limiter: bool,
+    pub vision: DetectionSettings,
 }
 
 impl Default for AppConfig {
@@ -154,6 +158,7 @@ impl Default for AppConfig {
             noise_suppression: true,
             compressor: true,
             limiter: true,
+            vision: DetectionSettings::default(),
         }
     }
 }
@@ -206,7 +211,11 @@ impl ConfigStore {
             return Ok(AppConfig::default());
         }
         let bytes = fs::read(path)?;
-        Ok(serde_json::from_slice(&bytes)?)
+        let mut config: AppConfig = serde_json::from_slice(&bytes)?;
+        // A model or class from another app version must not make every
+        // later save fail validation.
+        config.vision = config.vision.sanitized();
+        Ok(config)
     }
 
     pub fn save(&self, config: &AppConfig) -> BridgeResult<()> {
@@ -220,6 +229,7 @@ impl ConfigStore {
                 "Microphone volume must be between -60 dB and +12 dB".into(),
             ));
         }
+        config.vision.validate()?;
         let mut ids = std::collections::HashSet::new();
         for destination in &config.rtmp_destinations {
             validate_rtmp_destination_config(destination)?;

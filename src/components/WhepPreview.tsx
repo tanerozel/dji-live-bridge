@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { connectWhep } from "../lib/whep";
 
 interface Props {
@@ -7,9 +7,11 @@ interface Props {
   onConnected: () => void;
   onFailure: (reason: string) => void;
   t: (key: string) => string;
+  /** Drawn over the video, inside the same frame. */
+  children?: ReactNode;
 }
 
-export function WhepPreview({ endpoint, active, onConnected, onFailure, t }: Props) {
+export function WhepPreview({ endpoint, active, onConnected, onFailure, t, children }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [connecting, setConnecting] = useState(false);
 
@@ -50,6 +52,7 @@ export function WhepPreview({ endpoint, active, onConnected, onFailure, t }: Pro
   return (
     <div className="preview-stage">
       <video ref={videoRef} autoPlay muted playsInline />
+      {active && children}
       {connecting && <div className="preview-overlay">{t("preview.negotiating")}</div>}
       {!active && <div className="preview-overlay">{t("preview.waiting")}</div>}
     </div>

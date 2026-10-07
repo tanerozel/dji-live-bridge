@@ -384,6 +384,32 @@ input[type="checkbox"] { width: auto; accent-color: var(--accent); }
 .live-badge.static { position: static; }
 .preview-note { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px; padding: 8px 10px; border-radius: 8px; background: var(--amber-soft); color: var(--amber-text); font-size: 12px; }
 
+/* AI Vision */
+.vision-card.on { border-color: var(--accent-border); }
+.vision-status { display: grid; justify-items: start; gap: 8px; }
+.vision-status .connection-state { margin-bottom: 0; }
+.connection-state.failed { background: var(--red-soft); color: var(--red-text); }
+.connection-state.failed .dot { animation: none; }
+.progress { width: 100%; height: 6px; overflow: hidden; border-radius: 999px; background: var(--surface-3); }
+.progress > span { display: block; height: 100%; border-radius: inherit; background: var(--accent); transition: width .3s ease; }
+.vision-counts { width: 100%; margin-top: 0; }
+.vision-counts > span { display: grid; gap: 2px; font-size: 13px; }
+.vision-counts small { color: var(--muted); font-size: 12px; }
+.vision-toggles { margin-top: 12px; }
+.vision-threshold strong { margin-inline-start: 6px; font-variant-numeric: tabular-nums; }
+.vision-threshold input[type="range"] { padding: 0; border: 0; background: transparent; box-shadow: none; accent-color: var(--accent); }
+.vision-more { margin-top: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { gap: 6px; padding: 4px 10px; border-radius: 999px; color: var(--muted); font-size: 12px; }
+.chip.selected { border-color: var(--accent); background: var(--accent-soft); color: var(--text); font-weight: 600; }
+.chip-dot { width: 8px; height: 8px; border-radius: 50%; }
+.detection-layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.vision-badge { position: absolute; top: 18px; inset-inline-end: 18px; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 6px; background: rgba(0, 0, 0, .62); color: #fff; font-size: 12px; font-weight: 600; }
+.vision-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: #a1a1a6; }
+.vision-badge.running .dot { background: var(--green); animation: pulse 1.6s ease-in-out infinite; }
+.vision-badge strong { margin-inline-start: 2px; padding-inline-start: 8px; border-inline-start: 1px solid rgba(255, 255, 255, .3); font-variant-numeric: tabular-nums; }
+.live-head-badges { display: inline-flex; align-items: center; gap: 8px; }
+
 /* go live */
 .golive-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
 .golive-head h2 { font-size: 17px; }

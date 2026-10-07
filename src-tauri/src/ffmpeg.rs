@@ -17,6 +17,7 @@ use crate::{
     error::{BridgeError, BridgeResult},
     process::{ProcessSpec, ProcessSupervisor, RestartPolicy},
     state::StreamMetadata,
+    vision::{OVERLAY_FILTER, OverlayInput},
 };
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
@@ -196,16 +197,36 @@ pub fn virtual_camera_filter(width: u32, height: u32, fps: u32) -> String {
     )
 }
 
+/// Picks and filters the `/drone` video (input 0). With an AI Vision overlay
+/// at input `overlay_input`, it is composited right after the leading `fps=`
+/// step, at the source resolution, so one overlay fits every layout and the
+/// scaling, blur and padding that follow apply to it like to the picture.
+pub fn video_filter_args(filter: &str, overlay_input: Option<usize>) -> Vec<String> {
+    let Some(input) = overlay_input else {
+        return ["-map", "0:v:0", "-vf", filter]
+            .into_iter()
+            .map(str::to_string)
+            .collect();
+    };
+    let (rate, rest) = filter.split_once(',').unwrap_or((filter, "null"));
+    vec![
+        "-filter_complex".into(),
+        format!("[0:v:0]{rate}[aibase];[aibase][{input}:v]{OVERLAY_FILTER},{rest}[vout]"),
+        "-map".into(),
+        "[vout]".into(),
+    ]
+}
+
 /// Windows feed: raw NV12 frames on stdout, which the app copies into the
 /// shared buffer the DirectShow filter reads.
 #[cfg(windows)]
-pub fn virtual_camera_feed_args() -> Vec<String> {
+pub fn virtual_camera_feed_args(overlay: Option<&OverlayInput>) -> Vec<String> {
     let filter = virtual_camera_filter(
         crate::virtual_camera::FEED_WIDTH,
         crate::virtual_camera::FEED_HEIGHT,
         crate::virtual_camera::FEED_FPS,
     );
-    [
+    let mut args: Vec<String> = [
         "-hide_banner",
         "-loglevel",
         "warning",
@@ -213,20 +234,20 @@ pub fn virtual_camera_feed_args() -> Vec<String> {
         "tcp",
         "-i",
         "rtsp://127.0.0.1:8554/drone",
-        "-map",
-        "0:v:0",
-        "-an",
-        "-vf",
-        &filter,
-        "-pix_fmt",
-        "nv12",
-        "-f",
-        "rawvideo",
-        "-",
     ]
     .into_iter()
     .map(str::to_string)
-    .collect()
+    .collect();
+    if let Some(overlay) = overlay {
+        args.extend(overlay.input_args());
+    }
+    args.extend(video_filter_args(&filter, overlay.map(|_| 1)));
+    args.extend(
+        ["-an", "-pix_fmt", "nv12", "-f", "rawvideo", "-"]
+            .into_iter()
+            .map(str::to_string),
+    );
+    args
 }
 
 /// Picks the H.264 encoder: hardware first, because it leaves the CPU free for
@@ -385,6 +406,7 @@ pub async fn start_production(
     supervisor: &ProcessSupervisor,
     settings: &NativeProductionSettings,
     has_drone_audio: bool,
+    overlay: Option<&OverlayInput>,
 ) -> BridgeResult<String> {
     if !(-60.0..=12.0).contains(&settings.microphone_volume_db) {
         return Err(BridgeError::Validation(
@@ -458,8 +480,17 @@ pub async fn start_production(
         );
     }
 
-    args.extend(["-map", "0:v:0", "-vf"].into_iter().map(OsString::from));
-    args.push(OsString::from(video_filter));
+    // The overlay comes after the audio inputs, so `1:a:0` keeps meaning the
+    // microphone or the generated silence.
+    let audio_inputs = usize::from(settings.microphone.is_some() || !has_drone_audio);
+    if let Some(overlay) = overlay {
+        args.extend(overlay.input_args().into_iter().map(OsString::from));
+    }
+    args.extend(
+        video_filter_args(&video_filter, overlay.map(|_| 1 + audio_inputs))
+            .into_iter()
+            .map(OsString::from),
+    );
 
     if settings.microphone.is_some() {
         let mut mic_chain = "aresample=48000".to_string();
@@ -939,6 +970,38 @@ mod tests {
                 }
             }
         }
+    }
+
+    #[test]
+    fn without_ai_vision_the_video_arguments_are_unchanged() {
+        let filter = production_video_filter(OutputLayout::Portrait, FitMode::Fit);
+        assert_eq!(
+            video_filter_args(&filter, None),
+            vec!["-map", "0:v:0", "-vf", filter.as_str()]
+        );
+    }
+
+    #[test]
+    fn ai_vision_overlay_goes_on_the_source_picture_after_fps() {
+        for layout in [OutputLayout::Portrait, OutputLayout::Landscape] {
+            for fit in [FitMode::Fit, FitMode::Fill] {
+                let filter = production_video_filter(layout, fit);
+                let args = video_filter_args(&filter, Some(2));
+                assert_eq!(args[0], "-filter_complex");
+                assert_eq!(&args[2..], ["-map", "[vout]"]);
+                let graph = &args[1];
+                assert!(
+                    graph
+                        .starts_with("[0:v:0]fps=30[aibase];[aibase][2:v]overlay=eof_action=pass,"),
+                    "{graph}"
+                );
+                assert!(graph.ends_with("format=yuv420p[vout]"), "{graph}");
+                assert_eq!(graph.matches("fps=").count(), 1, "{graph}");
+            }
+        }
+        let camera = virtual_camera_filter(1080, 1920, 30);
+        let graph = &video_filter_args(&camera, Some(1))[1];
+        assert!(graph.ends_with("format=nv12[vout]"), "{graph}");
     }
 
     #[test]

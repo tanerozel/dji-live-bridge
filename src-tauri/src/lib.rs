@@ -13,6 +13,7 @@ mod process;
 mod recording;
 mod state;
 mod virtual_camera;
+mod vision;
 
 use std::{
     path::PathBuf,
@@ -312,6 +313,23 @@ async fn stop_live(
 }
 
 #[tauri::command]
+async fn set_vision_settings(
+    app: tauri::AppHandle,
+    state: State<'_, Arc<AppState>>,
+    settings: vision::DetectionSettings,
+) -> Result<(), ErrorPayload> {
+    state
+        .set_vision_settings(&app, settings)
+        .await
+        .map_err(Into::into)
+}
+
+#[tauri::command]
+fn reset_vision_counter(state: State<'_, Arc<AppState>>) {
+    state.vision.reset_counter();
+}
+
+#[tauri::command]
 async fn get_ffmpeg_capabilities() -> Result<FfmpegCapabilities, ErrorPayload> {
     Ok(ffmpeg::capabilities().await)
 }
@@ -381,6 +399,8 @@ pub fn run() {
             set_rtmp_destination_enabled,
             start_live,
             stop_live,
+            set_vision_settings,
+            reset_vision_counter,
             get_ffmpeg_capabilities,
             has_homebrew,
             install_ffmpeg,
@@ -394,6 +414,7 @@ pub fn run() {
                 initialize_logging(&state);
                 let handle = app.handle().clone();
                 virtual_camera::register_app_handle(handle.clone());
+                state.vision.attach(handle.clone());
                 tauri::async_runtime::spawn(state.clone().bootstrap(handle));
                 Ok(())
             }

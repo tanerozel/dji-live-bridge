@@ -1,6 +1,7 @@
 import { invoke } from "@tauri-apps/api/core";
 import type {
   BridgeSnapshot,
+  DetectionSettings,
   DiagnosticItem,
   ErrorPayload,
   FfmpegCapabilities,
@@ -102,6 +103,14 @@ export function removeRtmpDestination(id: string) {
 
 export function setRtmpDestinationEnabled(id: string, enabled: boolean) {
   return invoke<void>("set_rtmp_destination_enabled", { id, enabled });
+}
+
+export function setVisionSettings(settings: DetectionSettings) {
+  return invoke<void>("set_vision_settings", { settings });
+}
+
+export function resetVisionCounter() {
+  return invoke<void>("reset_vision_counter");
 }
 
 export function hasHomebrew() {

@@ -17,12 +17,20 @@ tauri-build = { version = "=2.6.0", features = [] }
 [dependencies]
 base64 = "=0.22.1"
 dirs = "=6.0.0"
+# Bitmap glyphs for the detection overlay: the bundled LGPL FFmpeg has no
+# drawtext (that needs freetype), so labels are drawn by the app.
+font8x8 = { version = "=0.3.1", default-features = false }
 futures-util = "=0.3.31"
 keyring = { version = "=3.6.3", features = ["apple-native", "windows-native"] }
+# AI Vision inference. Linked statically from pyke's prebuilt ONNX Runtime, so
+# the bundle gains no dylib to sign; macOS adds the CoreML provider below.
+ort = { version = "=2.0.0-rc.13", default-features = false, features = ["std", "api-17", "download-binaries", "tls-rustls", "tracing"] }
 reqwest = { version = "=0.12.23", default-features = false, features = ["json", "rustls-tls"] }
 serde = { version = "=1.0.225", features = ["derive"] }
 serde_json = "=1.0.145"
 sha2 = "=0.10.9"
+# Small socket buffers keep the overlay feed close to real time.
+socket2 = "=0.6.5"
 tauri = { version = "=2.11.0", features = [] }
 tauri-plugin-dialog = "=2.4.0"
 thiserror = "=2.0.16"
@@ -37,6 +45,10 @@ uuid = { version = "=1.18.1", features = ["v4"] }
 
 [target.'cfg(unix)'.dependencies]
 nix = { version = "=0.30.1", features = ["fs", "signal"] }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+# Runs the detector on the Neural Engine/GPU: ~5 ms instead of ~50 ms on CPU.
+ort = { version = "=2.0.0-rc.13", default-features = false, features = ["coreml"] }
 
 [target.'cfg(windows)'.dependencies]
 windows = { version = "=0.62.0", features = [

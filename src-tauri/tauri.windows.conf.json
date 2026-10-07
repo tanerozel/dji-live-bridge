@@ -2,7 +2,7 @@
   "$schema": "https://schema.tauri.app/config/2",
   "bundle": {
     "targets": ["nsis"],
-    "resources": ["resources/dji_virtual_camera.dll"],
+    "resources": ["resources/dji_virtual_camera.dll", "licenses/ONNXRuntime-LICENSE.txt"],
     "windows": {
       "nsis": {
         "installMode": "perMachine",

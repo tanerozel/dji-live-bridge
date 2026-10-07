@@ -11,6 +11,7 @@ use crate::{
     network::NetworkInterface,
     process::ProcessSnapshot,
     virtual_camera::VirtualCameraState,
+    vision::VisionState,
 };
 
 pub const STATE_EVENT: &str = "bridge://state";
@@ -130,6 +131,8 @@ pub struct ProductionState {
     pub destinations: Vec<RtmpDestinationState>,
     pub recording_active: bool,
     pub recording_path: Option<String>,
+    /// The running live encode carries the AI Vision overlay.
+    pub vision_overlay: bool,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -162,6 +165,7 @@ pub struct BridgeSnapshot {
     pub obs: ObsState,
     pub production: ProductionState,
     pub virtual_camera: VirtualCameraState,
+    pub vision: VisionState,
     pub audio_inputs: Vec<AudioInputDevice>,
     pub processes: Vec<ProcessSnapshot>,
     pub last_error: Option<ErrorPayload>,
@@ -190,6 +194,7 @@ impl Default for BridgeSnapshot {
             obs: ObsState::default(),
             production: ProductionState::default(),
             virtual_camera: VirtualCameraState::default(),
+            vision: VisionState::default(),
             audio_inputs: Vec::new(),
             processes: Vec::new(),
             last_error: None,

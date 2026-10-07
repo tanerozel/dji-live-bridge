@@ -56,7 +56,8 @@
         "embedded.provisionprofile": "embedded.provisionprofile",
         "Resources/licenses/FFmpeg-LICENSE.md": "licenses/FFmpeg-LICENSE.md",
         "Resources/licenses/FFmpeg-COPYING.LGPLv2.1.txt": "licenses/FFmpeg-COPYING.LGPLv2.1.txt",
-        "Resources/licenses/FFmpeg-BUILD.txt": "licenses/FFmpeg-BUILD.txt"
+        "Resources/licenses/FFmpeg-BUILD.txt": "licenses/FFmpeg-BUILD.txt",
+        "Resources/licenses/ONNXRuntime-LICENSE.txt": "licenses/ONNXRuntime-LICENSE.txt"
       },
       "minimumSystemVersion": "13.0",
       "infoPlist": "Info.plist"

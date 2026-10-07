@@ -5,6 +5,17 @@ fn main() {
         "cargo:rustc-env=BUILD_TARGET_TRIPLE={}",
         std::env::var("TARGET").expect("TARGET is missing")
     );
+    // AI Vision links ONNX Runtime statically. pyke's Windows build always
+    // contains the DirectML provider, so it imports DirectML, DXCore, D3D12
+    // and DXGI. The app only runs the CPU provider; load those DLLs lazily, as
+    // Microsoft's own onnxruntime.dll does, so a PC without them (or with an
+    // older DirectML) still starts.
+    if std::env::var("CARGO_CFG_TARGET_ENV").as_deref() == Ok("msvc") {
+        for dll in ["DirectML.dll", "dxcore.dll", "d3d12.dll", "dxgi.dll"] {
+            println!("cargo:rustc-link-arg=/DELAYLOAD:{dll}");
+        }
+        println!("cargo:rustc-link-lib=delayimp");
+    }
     // The Objective-C camera bridge is macOS-only; other platforms link nothing.
     #[cfg(target_os = "macos")]
     {

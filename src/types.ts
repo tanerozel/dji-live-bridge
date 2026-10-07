@@ -90,6 +90,8 @@ export interface ProductionState {
   destinations: RtmpDestinationState[];
   recordingActive: boolean;
   recordingPath: string | null;
+  /** The running live encode carries the AI Vision overlay. */
+  visionOverlay: boolean;
 }
 
 export interface VirtualCameraState {
@@ -147,10 +149,84 @@ export interface BridgeSnapshot {
   obs: ObsState;
   production: ProductionState;
   virtualCamera: VirtualCameraState;
+  vision: VisionState;
   audioInputs: AudioInputDevice[];
   processes: ProcessSnapshot[];
   lastError: ErrorPayload | null;
   updatedAtUnixMs: number;
+}
+
+export type InferenceRate = "Auto" | "Fps5" | "Fps10" | "Fps15";
+export type VisionStatus = "Off" | "Downloading" | "WaitingForVideo" | "Loading" | "Running" | "Failed";
+
+export interface DetectionSettings {
+  enabled: boolean;
+  showBoxes: boolean;
+  showCounter: boolean;
+  confidenceThreshold: number;
+  inferenceRate: InferenceRate;
+  modelId: string;
+  profile: "Animals";
+  /** Classes to report; empty means every class of the profile. */
+  classes: string[];
+}
+
+export interface ClassCount {
+  class: string;
+  count: number;
+}
+
+export interface CountSummary {
+  currentTotal: number;
+  currentByClass: ClassCount[];
+  uniqueTotal: number;
+  uniqueByClass: ClassCount[];
+}
+
+export interface VisionModelInfo {
+  id: string;
+  name: string;
+  sizeBytes: number;
+  license: string;
+  downloaded: boolean;
+}
+
+export interface VisionState {
+  settings: DetectionSettings;
+  status: VisionStatus;
+  detail: string | null;
+  models: VisionModelInfo[];
+  classes: string[];
+  download: { receivedBytes: number; totalBytes: number } | null;
+  backend: string | null;
+  inferenceMs: number | null;
+  inferenceFps: number | null;
+  droppedFrames: number;
+  counts: CountSummary;
+}
+
+export interface NormalizedBox {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+/** One tracked object, as sent on `vision://detections`. */
+export interface DetectionResult {
+  class: string;
+  confidence: number;
+  /** Source-video pixels, when the source size is known. */
+  bbox: NormalizedBox | null;
+  normalizedBbox: NormalizedBox;
+  trackId: number;
+}
+
+export interface DetectionEvent {
+  timestampMs: number;
+  frameWidth: number | null;
+  frameHeight: number | null;
+  detections: DetectionResult[];
 }
 
 export interface DiagnosticItem {

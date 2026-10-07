@@ -4,6 +4,7 @@ import QRCode from "qrcode";
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { WhepPreview } from "./components/WhepPreview";
 import { StatusPill } from "./components/StatusPill";
+import { DetectionLayer, VisionBadge, VisionCard } from "./components/Vision";
 import { LANGUAGES, loadLanguage, saveLanguage, translate, type Language, type TranslationParams } from "./i18n";
 import { THEMES, applyTheme, loadTheme, saveTheme, watchSystemTheme, type Theme } from "./theme";
 import {
@@ -349,6 +350,7 @@ function LiveTab({
         <StepCard n={3} tone="amber" done title={t("s3.title")}>
           <SettingsStep snapshot={snapshot} settings={settings} setSettings={setSettings} disabled={live} t={t} />
         </StepCard>
+        <VisionCard snapshot={snapshot} busy={busy} act={act} t={t} />
       </div>
 
       <div className="stage">
@@ -725,8 +727,11 @@ function PreviewCard({ snapshot, busy, act, t }: { snapshot: BridgeSnapshot; bus
 
   return (
     <section className={`card preview-card ${snapshot.production.active ? "is-live" : ""}`}>
-      <WhepPreview endpoint={endpoint} active={snapshot.publisherPresent && documentVisible} onConnected={handleConnected} onFailure={handleFailure} t={t} />
+      <WhepPreview endpoint={endpoint} active={snapshot.publisherPresent && documentVisible} onConnected={handleConnected} onFailure={handleFailure} t={t}>
+        {snapshot.vision.settings.enabled && snapshot.vision.settings.showBoxes && <DetectionLayer t={t} />}
+      </WhepPreview>
       {snapshot.production.active && <span className="live-badge"><span className="dot" />{t("status.live")}</span>}
+      <VisionBadge vision={snapshot.vision} t={t} />
       {previewError && (
         <div className="preview-note">
           <span>{t("preview.unavailable")}</span>
@@ -789,7 +794,10 @@ function GoLivePanel({
     return (
       <section className="card golive-card live">
         <div className="live-head">
-          <span className="live-badge static"><span className="dot" />{t("status.live")}</span>
+          <span className="live-head-badges">
+            <span className="live-badge static"><span className="dot" />{t("status.live")}</span>
+            {snapshot.production.visionOverlay && <StatusPill label={t("vision.badge")} tone="good" />}
+          </span>
           <strong className="live-timer">{formatDuration(liveSince ? Math.floor((now - liveSince) / 1000) : 0)}</strong>
         </div>
         <div className="live-targets">

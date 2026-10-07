@@ -54,6 +54,24 @@ The app ships its own FFmpeg and ffprobe so users install nothing. They are buil
   (not `eq`), and H.264 through `h264_videotoolbox`. A unit test enforces this.
 - FFmpeg's licence texts must stay in `Contents/Resources/licenses`; the build script copies them.
 
+## AI Vision (desktop)
+
+On-device animal detection lives in `src-tauri/src/vision/` (overview in `vision/mod.rs`). A tap FFmpeg
+reads `/drone` and feeds small pictures to a YOLO model on ONNX Runtime (`ort`, linked statically;
+CoreML on macOS, CPU on Windows); the boxes are drawn by the app into a `yuva420p` picture that the
+production and virtual-camera FFmpegs read as an extra input (`ffmpeg::video_filter_args`).
+
+- Only permissively licensed weights: Ultralytics YOLOv5/v8/11 are AGPL-3.0 and must not be added.
+  Models are downloaded on first use with a pinned SHA-256 (`vision/models.rs`), never bundled.
+- The overlay feed must never wait on inference: FFmpeg stalls the video while an overlay input
+  stalls. Writers only clone the latest `Scene`.
+- With AI Vision off, the production and camera FFmpeg arguments must stay exactly as before
+  (a unit test checks this).
+- Windows links pyke's ONNX Runtime, which always contains DirectML; `build.rs` delay-loads the
+  DirectX DLLs so the app starts without them. Keep that if `ort` is upgraded.
+- `cargo test --release -- --ignored` runs the real-model and end-to-end tests; they need the model
+  files and a drone clip (see `vision/onnx.rs` and `vision/e2e.rs`) and the app must not be running.
+
 ## The website (docs/)
 
 `docs/` is **generated** — never edit a file in it by hand, the next build overwrites it.

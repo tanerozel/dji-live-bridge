@@ -22,6 +22,7 @@ use crate::{
     ffmpeg,
     process::ProcessSupervisor,
     state::ServiceStatus,
+    vision::OverlayInput,
 };
 
 use super::{DEVICE_NAME, FEED_FPS, FEED_HEIGHT, FEED_WIDTH, VirtualCameraState, frame_bridge};
@@ -96,7 +97,10 @@ pub fn request_activation() -> BridgeResult<()> {
     ))
 }
 
-pub async fn start_feed(supervisor: &ProcessSupervisor) -> BridgeResult<()> {
+pub async fn start_feed(
+    supervisor: &ProcessSupervisor,
+    overlay: Option<OverlayInput>,
+) -> BridgeResult<()> {
     if !filter_registered() {
         return request_activation();
     }
@@ -110,7 +114,7 @@ pub async fn start_feed(supervisor: &ProcessSupervisor) -> BridgeResult<()> {
     stop_feed(supervisor).await.ok();
 
     let mut child = crate::console::hide_std(&mut Command::new(ffmpeg_path))
-        .args(ffmpeg::virtual_camera_feed_args())
+        .args(ffmpeg::virtual_camera_feed_args(overlay.as_ref()))
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
         .stderr(Stdio::null())

@@ -15,6 +15,7 @@ use crate::{
     ffmpeg,
     process::{ProcessSpec, ProcessSupervisor, RestartPolicy},
     state::ServiceStatus,
+    vision::OverlayInput,
 };
 
 static APP_HANDLE: OnceLock<AppHandle> = OnceLock::new();
@@ -156,7 +157,10 @@ pub fn request_activation() -> BridgeResult<()> {
     Ok(())
 }
 
-pub async fn start_feed(supervisor: &ProcessSupervisor) -> BridgeResult<()> {
+pub async fn start_feed(
+    supervisor: &ProcessSupervisor,
+    overlay: Option<OverlayInput>,
+) -> BridgeResult<()> {
     let state = inspect(false);
     if state.status != ServiceStatus::Ready {
         return Err(BridgeError::VirtualCamera(
@@ -169,7 +173,7 @@ pub async fn start_feed(supervisor: &ProcessSupervisor) -> BridgeResult<()> {
         .ok_or_else(|| BridgeError::Ffmpeg("FFmpeg is unavailable".into()))?;
     let filter = ffmpeg::virtual_camera_filter(FEED_WIDTH, FEED_HEIGHT, FEED_FPS);
     let output = format!("tcp://127.0.0.1:{FEED_PORT}?listen=1");
-    let args = [
+    let mut args: Vec<String> = [
         "-hide_banner",
         "-loglevel",
         "warning",
@@ -178,20 +182,20 @@ pub async fn start_feed(supervisor: &ProcessSupervisor) -> BridgeResult<()> {
         "tcp",
         "-i",
         "rtsp://127.0.0.1:8554/drone",
-        "-map",
-        "0:v:0",
-        "-an",
-        "-vf",
-        &filter,
-        "-pix_fmt",
-        "nv12",
-        "-f",
-        "rawvideo",
     ]
     .into_iter()
-    .map(OsString::from)
-    .chain([OsString::from(output)])
+    .map(str::to_string)
     .collect();
+    if let Some(overlay) = &overlay {
+        args.extend(overlay.input_args());
+    }
+    args.extend(ffmpeg::video_filter_args(&filter, overlay.map(|_| 1)));
+    args.extend(
+        ["-an", "-pix_fmt", "nv12", "-f", "rawvideo", &output]
+            .into_iter()
+            .map(str::to_string),
+    );
+    let args = args.into_iter().map(OsString::from).collect();
     supervisor
         .start(ProcessSpec {
             name: FEED_PROCESS_NAME.into(),
