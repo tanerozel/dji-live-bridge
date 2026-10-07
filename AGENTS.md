@@ -57,12 +57,17 @@ The app ships its own FFmpeg and ffprobe so users install nothing. They are buil
 ## AI Vision (desktop)
 
 On-device animal detection lives in `src-tauri/src/vision/` (overview in `vision/mod.rs`). A tap FFmpeg
-reads `/drone` and feeds small pictures to a YOLO model on ONNX Runtime (`ort`, linked statically;
+reads `/drone` and feeds small pictures to a detector on ONNX Runtime (`ort`, linked statically;
 CoreML on macOS, CPU on Windows); the boxes are drawn by the app into a `yuva420p` picture that the
 production and virtual-camera FFmpegs read as an extra input (`ffmpeg::video_filter_args`).
 
 - Only permissively licensed weights: Ultralytics YOLOv5/v8/11 are AGPL-3.0 and must not be added.
   Models are downloaded on first use with a pinned SHA-256 (`vision/models.rs`), never bundled.
+- COCO and Objects365 have no goat class. Goats, donkeys, poultry, pigs and deer come only from OWLv2
+  (open vocabulary, the macOS default): its prompts are pre-tokenised in `OWL_PROMPTS`, and its graph is
+  folded to static shapes on first load (`fold_shapes` in `vision/onnx.rs`) because CoreML fails on
+  the original. The animal list (`DetectionProfile::classes`) is farm-first; colours follow its order
+  in both `overlay.rs` and `Vision.tsx`.
 - The overlay feed must never wait on inference: FFmpeg stalls the video while an overlay input
   stalls. Writers only clone the latest `Scene`.
 - With AI Vision off, the production and camera FFmpeg arguments must stay exactly as before

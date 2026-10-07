@@ -12,7 +12,7 @@
 
 use super::detector::{BoundingBox, Detection};
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct TrackerConfig {
     /// Detections at or above this start tracks and are counted.
     pub high_confidence: f32,
@@ -40,6 +40,18 @@ impl TrackerConfig {
             confirm_hits: 2,
             max_age: 3.0,
             display_age: 0.6,
+        }
+    }
+
+    /// For a detector that runs every `interval` seconds. A slow model (OWLv2
+    /// does about one picture per second) must not lose a box after one
+    /// missed picture, nor forget an animal after three.
+    pub fn new(high_confidence: f32, interval: f64) -> Self {
+        let base = Self::with_threshold(high_confidence);
+        Self {
+            max_age: base.max_age.max(interval * 3.0),
+            display_age: base.display_age.max(interval * 1.5),
+            ..base
         }
     }
 }
@@ -451,6 +463,22 @@ mod tests {
         tracker.update(&[detection(19, 0.9, 0.2, 0.2)], 4.6);
         tracker.update(&[detection(19, 0.9, 0.2, 0.2)], 4.7);
         assert_eq!(tracker.visible(4.7)[0].id, 2);
+    }
+
+    #[test]
+    fn a_slow_detector_keeps_boxes_through_one_missed_picture() {
+        let mut tracker = ObjectTracker::new(TrackerConfig::new(0.6, 0.9), 1);
+        tracker.update(&[detection(19, 0.9, 0.2, 0.2)], 0.0);
+        tracker.update(&[detection(19, 0.9, 0.2, 0.2)], 0.9);
+        tracker.update(&[], 1.8);
+        assert_eq!(tracker.visible(1.8).len(), 1);
+        tracker.update(&[], 2.7);
+        assert!(tracker.visible(2.7).is_empty());
+        // A fast detector keeps the defaults.
+        assert_eq!(
+            TrackerConfig::new(0.6, 0.1),
+            TrackerConfig::with_threshold(0.6)
+        );
     }
 
     #[test]

@@ -16,6 +16,7 @@ use serde::Serialize;
 use sha2::{Digest, Sha256};
 use tokio::io::AsyncWriteExt;
 
+use super::settings::DetectionProfile;
 use crate::error::{BridgeError, BridgeResult};
 
 /// How a model lays out its output tensor.
@@ -68,14 +69,36 @@ pub struct ModelSpec {
     pub channel_order: ChannelOrder,
     /// Multiplier for 0–255 pixel values (YOLOX takes them unscaled).
     pub pixel_scale: f32,
-    /// The value letterbox padding is filled with.
+    /// The value letterbox padding is filled with (0–255, before scaling).
     pub pad_value: f32,
+    /// Per-channel mean/std applied after `pixel_scale`, for models trained
+    /// on normalised pictures.
+    pub normalize: Option<Normalize>,
     pub labels: &'static [&'static str],
     pub license: &'static str,
-    /// Too slow for live video on the CPU alone (0.5–2.5 s per picture on
+    /// Too slow for live video on the CPU alone (0.5–3.5 s per picture on
     /// two cores), so only offered where CoreML is available.
     pub needs_accelerator: bool,
+    /// Open-vocabulary models are told what to find: one tokenised text
+    /// prompt per label, fed as `input_ids`/`attention_mask`.
+    pub text_prompts: Option<&'static [&'static [i64]]>,
+    /// Multiplies the model's scores (capped at 1) so one threshold slider
+    /// means about the same for every model.
+    pub score_scale: f32,
+    /// Fold the graph to the pinned input sizes once and load that copy.
+    /// Some exports keep `Shape` nodes that CoreML cannot be fed otherwise.
+    pub fold_shapes: bool,
 }
+
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct Normalize {
+    pub mean: [f32; 3],
+    pub std: [f32; 3],
+}
+
+/// Tokens per text prompt (CLIP's context for OWLv2); shorter prompts are
+/// padded with token 0 and masked out.
+pub const PROMPT_TOKENS: usize = 16;
 
 pub const COCO_LABELS: [&str; 80] = [
     "person",
@@ -270,9 +293,13 @@ const YOLOX_TINY: ModelSpec = ModelSpec {
     channel_order: ChannelOrder::Bgr,
     pixel_scale: 1.0,
     pad_value: 114.0,
+    normalize: None,
     labels: &COCO_LABELS,
     license: "Apache-2.0",
     needs_accelerator: false,
+    text_prompts: None,
+    score_scale: 1.0,
+    fold_shapes: false,
 };
 
 /// YOLOX-Nano: 0.9 M parameters, 25.8 COCO mAP. ~15 ms on two CPU cores, so
@@ -290,9 +317,13 @@ const YOLOX_NANO: ModelSpec = ModelSpec {
     channel_order: ChannelOrder::Bgr,
     pixel_scale: 1.0,
     pad_value: 114.0,
+    normalize: None,
     labels: &COCO_LABELS,
     license: "Apache-2.0",
     needs_accelerator: false,
+    text_prompts: None,
+    score_scale: 1.0,
+    fold_shapes: false,
 };
 
 /// YOLOX-S at 640 px: 9 M parameters, 40.5 COCO mAP. Opt-in for high drone
@@ -312,9 +343,13 @@ const YOLOX_S: ModelSpec = ModelSpec {
     channel_order: ChannelOrder::Bgr,
     pixel_scale: 1.0,
     pad_value: 114.0,
+    normalize: None,
     labels: &COCO_LABELS,
     license: "Apache-2.0",
     needs_accelerator: false,
+    text_prompts: None,
+    score_scale: 1.0,
+    fold_shapes: false,
 };
 
 /// YOLOX-L at 640 px: 54 M parameters, 50.0 COCO mAP.
@@ -331,9 +366,13 @@ const YOLOX_L: ModelSpec = ModelSpec {
     channel_order: ChannelOrder::Bgr,
     pixel_scale: 1.0,
     pad_value: 114.0,
+    normalize: None,
     labels: &COCO_LABELS,
     license: "Apache-2.0",
     needs_accelerator: true,
+    text_prompts: None,
+    score_scale: 1.0,
+    fold_shapes: false,
 };
 
 /// YOLOX-X at 640 px: 99 M parameters, 51.5 COCO mAP.
@@ -350,9 +389,13 @@ const YOLOX_X: ModelSpec = ModelSpec {
     channel_order: ChannelOrder::Bgr,
     pixel_scale: 1.0,
     pad_value: 114.0,
+    normalize: None,
     labels: &COCO_LABELS,
     license: "Apache-2.0",
     needs_accelerator: true,
+    text_prompts: None,
+    score_scale: 1.0,
+    fold_shapes: false,
 };
 
 /// D-FINE-X pre-trained on Objects365 and fine-tuned on COCO: 59.3 COCO mAP,
@@ -372,9 +415,13 @@ const DFINE_X: ModelSpec = ModelSpec {
     channel_order: ChannelOrder::Rgb,
     pixel_scale: 1.0 / 255.0,
     pad_value: 0.0,
+    normalize: None,
     labels: &COCO_LABELS,
     license: "Apache-2.0",
     needs_accelerator: true,
+    text_prompts: None,
+    score_scale: 1.0,
+    fold_shapes: false,
 };
 
 /// RF-DETR Large (Roboflow, Apache-2.0; only Nano–Large are, XL and 2XL are
@@ -392,13 +439,89 @@ const RFDETR_L: ModelSpec = ModelSpec {
     channel_order: ChannelOrder::Rgb,
     pixel_scale: 1.0 / 255.0,
     pad_value: 0.0,
+    normalize: None,
     labels: &COCO91_LABELS,
     license: "Apache-2.0",
     needs_accelerator: true,
+    text_prompts: None,
+    score_scale: 1.0,
+    fold_shapes: false,
+};
+
+/// What OWLv2 is asked to find. COCO-trained models have no goat, donkey,
+/// chicken, pig or deer at all (a goat comes out as "sheep" or nothing), and
+/// Objects365 has no goat either; an open-vocabulary model reads the names.
+pub const OWL_LABELS: [&str; 14] = [
+    "goat",
+    "sheep",
+    "cow",
+    "horse",
+    "donkey",
+    "dog",
+    "cat",
+    "chicken",
+    "duck",
+    "goose",
+    "pig",
+    "deer",
+    "wild boar",
+    "bird",
+];
+
+/// `OWL_LABELS` through OWLv2's CLIP tokenizer: start, word pieces, end. The
+/// bare name scored best: on a goat pen "goat" found 96 goats and no other
+/// species, where "a photo of a goat" also called 4 of them cows.
+const OWL_PROMPTS: [&[i64]; 14] = [
+    &[49406, 9530, 49407],
+    &[49406, 9629, 49407],
+    &[49406, 9706, 49407],
+    &[49406, 4558, 49407],
+    &[49406, 21415, 49407],
+    &[49406, 1929, 49407],
+    &[49406, 2368, 49407],
+    &[49406, 3717, 49407],
+    &[49406, 6910, 49407],
+    &[49406, 13822, 49407],
+    &[49406, 9619, 49407],
+    &[49406, 8700, 49407],
+    &[49406, 3220, 35473, 49407],
+    &[49406, 3329, 49407],
+];
+
+/// OWLv2 base (Google, Apache-2.0), an open-vocabulary detector: a ViT-B/16
+/// at 960 px scoring 3600 patches against text prompts. It tells goats from
+/// sheep, which no COCO model can. ~440 ms per picture on Apple Silicon
+/// through CoreML (3.5 s on the CPU), so about one picture per second; that
+/// is enough for grazing animals, and the tracker bridges the gaps. Very
+/// distant animals are found but their species is a guess. Clear animals
+/// score ~0.6 and empty fields stay below 0.13, hence `score_scale`.
+const OWLV2_BASE: ModelSpec = ModelSpec {
+    id: "owlv2-base",
+    name: "OWLv2",
+    version: "hf-180d6ef",
+    url: "https://huggingface.co/onnx-community/owlv2-base-patch16-ensemble-ONNX/resolve/180d6ef7599bd69bb48db5c72bd49ad03ddfab80/onnx/model.onnx",
+    sha256: "ca3ea10811d55cd8763058c6eaddec514bbb91cc07ab774a0db0775346aef732",
+    size_bytes: 614_219_112,
+    input_size: 960,
+    resize: InputResize::Letterbox,
+    format: OutputFormat::Detr,
+    channel_order: ChannelOrder::Rgb,
+    pixel_scale: 1.0 / 255.0,
+    pad_value: 127.5,
+    normalize: Some(Normalize {
+        mean: [0.481_454_7, 0.457_827_5, 0.408_210_7],
+        std: [0.268_629_5, 0.261_302_6, 0.275_777_1],
+    }),
+    labels: &OWL_LABELS,
+    license: "Apache-2.0",
+    needs_accelerator: true,
+    text_prompts: Some(&OWL_PROMPTS),
+    score_scale: 1.5,
+    fold_shapes: true,
 };
 
 pub const CATALOG: &[ModelSpec] = &[
-    YOLOX_TINY, YOLOX_NANO, YOLOX_S, YOLOX_L, YOLOX_X, DFINE_X, RFDETR_L,
+    YOLOX_TINY, YOLOX_NANO, YOLOX_S, YOLOX_L, YOLOX_X, DFINE_X, RFDETR_L, OWLV2_BASE,
 ];
 
 /// The models this machine can run in real time.
@@ -412,14 +535,14 @@ pub fn find(id: &str) -> Option<&'static ModelSpec> {
     available().find(|spec| spec.id == id)
 }
 
-/// macOS: D-FINE X. On real drone footage of a herd it found 39 cows where
-/// YOLOX-X found 13 and YOLOX-Tiny 5 (mostly labelled "sheep"), at ~90 ms per
-/// picture on the GPU/Neural Engine and ~12% of one CPU core at Auto rate.
-/// The cost is a one-time 251 MB download and ~30 s to prepare it the first
-/// time. Windows runs on the CPU, where only the nano model is real time.
+/// macOS: OWLv2, because farm herds are goats, sheep, donkeys and poultry as
+/// much as cattle, and only it knows them (a one-time 614 MB download). D-FINE
+/// X stays the faster choice for cattle and horses: on real drone footage of a
+/// herd it found 39 cows where YOLOX-X found 13, at ~90 ms per picture.
+/// Windows runs on the CPU, where only the nano model is real time.
 pub fn default_model_id() -> &'static str {
     if cfg!(target_os = "macos") {
-        DFINE_X.id
+        OWLV2_BASE.id
     } else {
         YOLOX_NANO.id
     }
@@ -433,6 +556,9 @@ pub struct ModelInfo {
     pub size_bytes: u64,
     pub license: String,
     pub downloaded: bool,
+    /// Animal species it can tell apart, so the picker shows which model
+    /// knows goats.
+    pub species: u32,
 }
 
 #[derive(Debug, Clone)]
@@ -474,6 +600,7 @@ impl ModelStore {
                 size_bytes: spec.size_bytes,
                 license: spec.license.into(),
                 downloaded: self.is_ready(spec),
+                species: DetectionProfile::Animals.classes_of(spec.labels).len() as u32,
             })
             .collect()
     }
@@ -602,19 +729,34 @@ mod tests {
         for spec in CATALOG {
             assert_eq!(spec.sha256.len(), 64, "{}", spec.id);
             assert!(spec.url.starts_with("https://"), "{}", spec.id);
-            assert!(spec.labels.len() >= 80, "{}", spec.id);
             assert_eq!(spec.input_size % 16, 0, "{}", spec.id);
+            if let Some(prompts) = spec.text_prompts {
+                assert_eq!(prompts.len(), spec.labels.len(), "{}", spec.id);
+                assert!(prompts.iter().all(|p| p.len() <= PROMPT_TOKENS));
+            }
         }
         assert!(find(default_model_id()).is_some());
     }
 
     #[test]
-    fn animal_profile_classes_exist_in_every_model() {
+    fn every_model_knows_the_common_farm_animals() {
+        let animals = super::super::settings::DetectionProfile::Animals.classes();
         for spec in CATALOG {
-            for class in super::super::settings::DetectionProfile::Animals.classes() {
-                assert!(spec.labels.contains(class), "{class} in {}", spec.id);
+            for class in ["sheep", "cow", "horse", "dog", "bird"] {
+                assert!(spec.labels.contains(&class), "{class} in {}", spec.id);
             }
+            // Labels a profile does not list would never be reported.
+            assert!(
+                spec.labels
+                    .iter()
+                    .filter(|label| animals.contains(label))
+                    .count()
+                    >= 6,
+                "{}",
+                spec.id
+            );
         }
+        assert!(OWL_LABELS.iter().all(|label| animals.contains(label)));
         assert_eq!(COCO91_LABELS[21], "cow");
         assert_eq!(COCO91_LABELS.iter().filter(|l| !l.is_empty()).count(), 80);
     }

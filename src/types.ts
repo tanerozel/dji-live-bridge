@@ -189,6 +189,8 @@ export interface VisionModelInfo {
   sizeBytes: number;
   license: string;
   downloaded: boolean;
+  /** Animal species the model can tell apart. */
+  species: number;
 }
 
 export interface VisionState {

@@ -18,7 +18,7 @@ use std::{
     sync::{Arc, Mutex},
 };
 
-use super::{counter::CountSummary, tracker::TrackView};
+use super::{counter::CountSummary, settings::DetectionProfile, tracker::TrackView};
 use crate::error::{BridgeError, BridgeResult};
 
 /// Detections refresh at most 15 times a second; drawing faster would only
@@ -187,7 +187,9 @@ impl Yuv {
 
 const WHITE: Yuv = Yuv(235, 128, 128);
 const PANEL: Yuv = Yuv(16, 128, 128);
-const PALETTE: [(u8, u8, u8); 10] = [
+/// One colour per profile class (`DetectionProfile::colour_index`); the
+/// preview in `Vision.tsx` uses the same list.
+const PALETTE: [(u8, u8, u8); 15] = [
     (255, 193, 7),
     (76, 175, 80),
     (33, 150, 243),
@@ -198,6 +200,11 @@ const PALETTE: [(u8, u8, u8); 10] = [
     (205, 220, 57),
     (255, 99, 71),
     (121, 85, 72),
+    (244, 143, 177),
+    (0, 150, 136),
+    (158, 158, 158),
+    (63, 81, 181),
+    (255, 235, 59),
 ];
 
 /// A `yuva420p` canvas redrawn in place: only what was drawn last time is
@@ -261,7 +268,8 @@ impl OverlayRenderer {
         if x1 <= x0 + 2 || y1 <= y0 + 2 {
             return;
         }
-        let (r, g, b) = PALETTE[track.class_id % PALETTE.len()];
+        let label = labels.get(track.class_id).copied().unwrap_or("object");
+        let (r, g, b) = PALETTE[DetectionProfile::Animals.colour_index(label) % PALETTE.len()];
         let colour = Yuv::from_rgb(r, g, b);
         let t = self.unit;
         for edge in [
@@ -295,7 +303,7 @@ impl OverlayRenderer {
 
         let label = format!(
             "{} #{} {}%",
-            title_case(labels.get(track.class_id).copied().unwrap_or("object")),
+            title_case(label),
             track.id,
             (track.confidence * 100.0).round() as u32
         );

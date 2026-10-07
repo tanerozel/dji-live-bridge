@@ -99,14 +99,15 @@ pub struct VisionState {
     pub status: VisionStatus,
     pub detail: Option<String>,
     pub models: Vec<ModelInfo>,
-    /// Classes the current profile can report, for the species picker.
+    /// Classes of the profile the chosen model can report, for the species
+    /// picker.
     pub classes: Vec<String>,
     pub download: Option<DownloadProgress>,
     /// "CoreML" or "CPU" once a model is loaded.
     pub backend: Option<String>,
     /// Average time of one inference, in milliseconds.
     pub inference_ms: Option<f64>,
-    /// Inferences completed in the last second.
+    /// Inferences completed per second, over the last few seconds.
     pub inference_fps: Option<f64>,
     /// Pictures replaced before the detector got to them.
     pub dropped_frames: u64,
@@ -500,12 +501,11 @@ impl VisionEngine {
 }
 
 fn class_names(settings: &DetectionSettings) -> Vec<String> {
-    settings
-        .profile
-        .classes()
-        .iter()
-        .map(|class| class.to_string())
-        .collect()
+    let classes = match models::find(&settings.model_id) {
+        Some(spec) => settings.profile.classes_of(spec.labels),
+        None => settings.profile.classes().to_vec(),
+    };
+    classes.into_iter().map(str::to_string).collect()
 }
 
 /// A running tap and inference worker for one model.
@@ -583,7 +583,7 @@ fn run_worker(
     stop: &AtomicBool,
 ) -> Box<dyn ObjectDetector> {
     let mut tracker = ObjectTracker::new(
-        TrackerConfig::with_threshold(shared.settings().confidence_threshold),
+        TrackerConfig::new(shared.settings().confidence_threshold, 0.0),
         shared.next_track_id.load(Ordering::Relaxed),
     );
     let mut average_seconds: Option<f64> = None;
@@ -631,6 +631,7 @@ fn run_worker(
         };
         last_picture = Instant::now();
         let started = Instant::now();
+        let interval = last_start.map_or(0.0, |last| started.duration_since(last).as_secs_f64());
         last_start = Some(started);
 
         let active = settings.active_classes();
@@ -656,7 +657,7 @@ fn run_worker(
         average_seconds =
             Some(average_seconds.map_or(elapsed, |average| average * 0.9 + elapsed * 0.1));
 
-        tracker.set_config(TrackerConfig::with_threshold(settings.confidence_threshold));
+        tracker.set_config(TrackerConfig::new(settings.confidence_threshold, interval));
         let now = clock();
         tracker.update(&detections, now);
         let visible = tracker.visible(now);
@@ -671,12 +672,14 @@ fn run_worker(
         reported_empty = visible.is_empty();
         shared.publish(Some((visible, counts.clone(), spec.labels)));
 
+        // Over three seconds, so a model doing one picture per second does
+        // not read as alternating 0 and 1.
         completed.push(Instant::now());
-        completed.retain(|at| at.elapsed() <= Duration::from_secs(1));
+        completed.retain(|at| at.elapsed() <= Duration::from_secs(3));
         let dropped = slot.dropped();
         shared.runtime(|runtime| {
             runtime.inference_ms = average_seconds.map(|seconds| seconds * 1000.0);
-            runtime.inference_fps = Some(completed.len() as f64);
+            runtime.inference_fps = Some(completed.len() as f64 / 3.0);
             runtime.dropped_frames = dropped;
             runtime.counts = counts;
             runtime.detail = None;

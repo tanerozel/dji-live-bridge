@@ -1,4 +1,4 @@
-//! YOLO-family detectors on ONNX Runtime.
+//! Detectors on ONNX Runtime: YOLOX, the DETR family and OWLv2.
 //!
 //! macOS asks for the CoreML execution provider (Neural Engine/GPU) and falls
 //! back to the CPU if CoreML cannot take the model. Windows uses the CPU
@@ -8,15 +8,19 @@
 use std::path::Path;
 
 use ort::{
-    session::{Session, builder::GraphOptimizationLevel},
+    session::{
+        Session,
+        builder::{GraphOptimizationLevel, SessionBuilder},
+    },
     value::TensorRef,
 };
 
 use super::{
     detector::{
-        BoundingBox, DetectOptions, Detection, ObjectDetector, RgbFrame, suppress_overlaps,
+        BoundingBox, DetectOptions, Detection, ObjectDetector, RgbFrame, drop_group_boxes,
+        suppress_overlaps,
     },
-    models::{ChannelOrder, ModelSpec, OutputFormat},
+    models::{ChannelOrder, ModelSpec, OutputFormat, PROMPT_TOKENS},
 };
 use crate::error::{BridgeError, BridgeResult};
 
@@ -31,6 +35,9 @@ pub struct OnnxDetector {
     session: Session,
     spec: &'static ModelSpec,
     input: Vec<f32>,
+    /// `input_ids` and `attention_mask` of an open-vocabulary model; the
+    /// prompts never change, so they are built once.
+    prompts: Option<(Vec<i64>, Vec<i64>)>,
     backend: &'static str,
 }
 
@@ -40,49 +47,102 @@ impl OnnxDetector {
         model: &Path,
         compiled_cache: &Path,
     ) -> BridgeResult<Self> {
+        std::fs::create_dir_all(compiled_cache).ok();
+        let folded;
+        let model = if spec.fold_shapes {
+            folded = fold_shapes(spec, model, compiled_cache).map_err(vision_error)?;
+            folded.as_path()
+        } else {
+            model
+        };
         #[cfg(target_os = "macos")]
         {
-            std::fs::create_dir_all(compiled_cache).ok();
-            match build_session(model, spec.input_size, Some(compiled_cache)) {
+            match build_session(model, spec, Some(compiled_cache)) {
                 Ok(session) => return Ok(Self::new(session, spec, "CoreML")),
                 Err(error) => {
                     tracing::warn!(%error, "CoreML could not load the model; using the CPU")
                 }
             }
         }
-        #[cfg(not(target_os = "macos"))]
-        let _ = compiled_cache;
-        let session = build_session(model, spec.input_size, None).map_err(vision_error)?;
+        let session = build_session(model, spec, None).map_err(vision_error)?;
         Ok(Self::new(session, spec, "CPU"))
     }
 
     fn new(session: Session, spec: &'static ModelSpec, backend: &'static str) -> Self {
+        let prompts = spec.text_prompts.map(|prompts| {
+            let mut ids = vec![0; prompts.len() * PROMPT_TOKENS];
+            let mut mask = vec![0; prompts.len() * PROMPT_TOKENS];
+            for (row, tokens) in prompts.iter().enumerate() {
+                let at = row * PROMPT_TOKENS;
+                ids[at..at + tokens.len()].copy_from_slice(tokens);
+                mask[at..at + tokens.len()].fill(1);
+            }
+            (ids, mask)
+        });
         Self {
             session,
             spec,
             input: Vec::new(),
+            prompts,
             backend,
         }
     }
 }
 
-/// Exports with dynamic input sizes (`[batch_size, 3, height, width]`, as the
-/// DETR ones are) are pinned to the one size the tap delivers. CoreML needs
-/// that: with open dimensions it either rejects the graph or, for RF-DETR,
-/// aborts the whole process inside MPSGraph. Pinned, D-FINE runs in ~90 ms
-/// instead of ~210 ms. Names a model does not use are ignored.
-fn build_session(
-    model: &Path,
-    input_size: u32,
-    coreml_cache: Option<&Path>,
-) -> ort::Result<Session> {
-    let edge = i64::from(input_size);
+/// Writes (once) a copy of the model with every input size pinned and the
+/// shape arithmetic folded into constants. The OWLv2 export computes sizes
+/// with `Shape` nodes; given the original, ONNX Runtime hands CoreML a
+/// partition that expects those sizes as inputs and every run fails
+/// ("Feature ..._Shape_output_0 is required but not specified"). Folded,
+/// CoreML takes the whole vision tower: ~440 ms instead of 3.5 s on the CPU.
+fn fold_shapes(spec: &ModelSpec, model: &Path, cache: &Path) -> ort::Result<std::path::PathBuf> {
+    let folded = cache.join("folded.onnx");
+    if folded.is_file() {
+        return Ok(folded);
+    }
+    // ONNX Runtime picks the format from the extension, so keep ".onnx".
+    let partial = cache.join("folded.part.onnx");
     let builder = Session::builder()?
-        .with_optimization_level(GraphOptimizationLevel::Level3)?
+        .with_optimization_level(GraphOptimizationLevel::Level1)?
         .with_intra_threads(CPU_THREADS)?
+        .with_optimized_model_path(&partial)?;
+    pin_dimensions(builder, spec)?.commit_from_file(model)?;
+    std::fs::rename(&partial, &folded)
+        .map_err(|error| ort::Error::new(format!("could not keep the folded model: {error}")))?;
+    Ok(folded)
+}
+
+/// Exports with dynamic input sizes (`[batch_size, 3, height, width]`, as the
+/// DETR ones are) are pinned to the one size the tap delivers, and an
+/// open-vocabulary model to its fixed prompts. CoreML needs that: with open
+/// dimensions it either rejects the graph or, for RF-DETR, aborts the whole
+/// process inside MPSGraph. Names a model does not use are ignored.
+fn pin_dimensions(builder: SessionBuilder, spec: &ModelSpec) -> ort::Result<SessionBuilder> {
+    let edge = i64::from(spec.input_size);
+    let mut builder = builder
         .with_dimension_override("batch_size", 1)?
         .with_dimension_override("height", edge)?
         .with_dimension_override("width", edge)?;
+    if let Some(prompts) = spec.text_prompts {
+        builder = builder
+            .with_dimension_override("image_batch_size", 1)?
+            .with_dimension_override("num_channels", 3)?
+            .with_dimension_override("text_batch_size", prompts.len() as i64)?
+            .with_dimension_override("sequence_length", PROMPT_TOKENS as i64)?;
+    }
+    Ok(builder)
+}
+
+/// Pinned sizes also make D-FINE run in ~90 ms instead of ~210 ms on CoreML.
+fn build_session(
+    model: &Path,
+    spec: &ModelSpec,
+    coreml_cache: Option<&Path>,
+) -> ort::Result<Session> {
+    let builder = Session::builder()?
+        .with_optimization_level(GraphOptimizationLevel::Level3)?
+        .with_intra_threads(CPU_THREADS)?;
+    let builder = pin_dimensions(builder, spec)?;
     #[cfg(target_os = "macos")]
     let builder = match coreml_cache {
         Some(cache) => builder.with_execution_providers([ort::ep::CoreML::default()
@@ -125,10 +185,28 @@ impl ObjectDetector for OnnxDetector {
         fill_input(&mut self.input, frame, self.spec)?;
         let tensor = TensorRef::from_array_view(([1_usize, 3, size, size], self.input.as_slice()))
             .map_err(vision_error)?;
-        let outputs = self
-            .session
-            .run(ort::inputs![tensor])
-            .map_err(vision_error)?;
+        let outputs = match &self.prompts {
+            Some((ids, mask)) => {
+                let shape = [ids.len() / PROMPT_TOKENS, PROMPT_TOKENS];
+                let ids =
+                    TensorRef::from_array_view((shape, ids.as_slice())).map_err(vision_error)?;
+                let mask =
+                    TensorRef::from_array_view((shape, mask.as_slice())).map_err(vision_error)?;
+                self.session.run(ort::inputs![
+                    "pixel_values" => tensor,
+                    "input_ids" => ids,
+                    "attention_mask" => mask,
+                ])
+            }
+            None => self.session.run(ort::inputs![tensor]),
+        }
+        .map_err(vision_error)?;
+        // Decoders compare raw scores, so the threshold is unscaled first.
+        let scale = self.spec.score_scale;
+        let options = &DetectOptions {
+            min_confidence: options.min_confidence / scale,
+            wanted: options.wanted,
+        };
         let labels = self.spec.labels.len();
         let tensor = |name: Option<&str>| {
             let value = match name {
@@ -155,24 +233,27 @@ impl ObjectDetector for OnnxDetector {
             }
         };
         let (width, height) = (frame.width as f32, frame.height as f32);
-        Ok(
-            suppress_overlaps(candidates, SUPPRESSION_IOU, MAX_DETECTIONS)
-                .into_iter()
-                .map(|mut detection| {
-                    // The picture sits at the top-left of the input, unscaled,
-                    // so input pixels divided by its size are source fractions.
-                    detection.bbox = BoundingBox {
-                        x: detection.bbox.x / width,
-                        y: detection.bbox.y / height,
-                        width: detection.bbox.width / width,
-                        height: detection.bbox.height / height,
-                    }
-                    .clamped();
-                    detection
-                })
-                .filter(|detection| detection.bbox.area() > 0.0)
-                .collect(),
-        )
+        Ok(drop_group_boxes(suppress_overlaps(
+            candidates,
+            SUPPRESSION_IOU,
+            MAX_DETECTIONS,
+        ))
+        .into_iter()
+        .map(|mut detection| {
+            detection.confidence = (detection.confidence * scale).min(1.0);
+            // The picture sits at the top-left of the input, unscaled,
+            // so input pixels divided by its size are source fractions.
+            detection.bbox = BoundingBox {
+                x: detection.bbox.x / width,
+                y: detection.bbox.y / height,
+                width: detection.bbox.width / width,
+                height: detection.bbox.height / height,
+            }
+            .clamped();
+            detection
+        })
+        .filter(|detection| detection.bbox.area() > 0.0)
+        .collect())
     }
 }
 
@@ -190,9 +271,19 @@ fn fill_input(buffer: &mut Vec<f32>, frame: &RgbFrame, spec: &ModelSpec) -> Brid
         return Err(BridgeError::Vision("picture data is truncated".into()));
     }
     let plane = size * size;
-    buffer.clear();
-    buffer.resize(plane * 3, spec.pad_value * spec.pixel_scale);
     let scale = spec.pixel_scale;
+    // Indexed by input plane, i.e. already in the model's channel order.
+    let (mean, std) = spec.normalize.map_or(([0.0; 3], [1.0; 3]), |normalize| {
+        (normalize.mean, normalize.std)
+    });
+    let value = |plane_index: usize, raw: f32| (raw * scale - mean[plane_index]) / std[plane_index];
+    buffer.clear();
+    for plane_index in 0..3 {
+        buffer.extend(std::iter::repeat_n(
+            value(plane_index, spec.pad_value),
+            plane,
+        ));
+    }
     let order = match spec.channel_order {
         ChannelOrder::Rgb => [0, 1, 2],
         ChannelOrder::Bgr => [2, 1, 0],
@@ -202,7 +293,7 @@ fn fill_input(buffer: &mut Vec<f32>, frame: &RgbFrame, spec: &ModelSpec) -> Brid
         for (x, pixel) in row.as_chunks::<3>().0.iter().enumerate() {
             let at = y * size + x;
             for (plane_index, channel) in order.iter().enumerate() {
-                buffer[plane_index * plane + at] = f32::from(pixel[*channel]) * scale;
+                buffer[plane_index * plane + at] = value(plane_index, f32::from(pixel[*channel]));
             }
         }
     }
@@ -395,6 +486,29 @@ mod tests {
         assert_eq!(buffer[2 * plane + 1], 40.0);
         assert_eq!(buffer[2], 114.0);
         assert_eq!(buffer[416], 114.0);
+    }
+
+    #[test]
+    fn normalised_models_pad_and_scale_per_channel() {
+        let spec = crate::vision::models::find("owlv2-base").unwrap();
+        let frame = RgbFrame {
+            width: 1,
+            height: 1,
+            pixels: vec![255, 0, 128],
+        };
+        let mut buffer = Vec::new();
+        fill_input(&mut buffer, &frame, spec).unwrap();
+        let plane = 960 * 960;
+        let normalize = spec.normalize.unwrap();
+        let expect = |channel: usize, raw: f32| {
+            (raw / 255.0 - normalize.mean[channel]) / normalize.std[channel]
+        };
+        assert!((buffer[0] - expect(0, 255.0)).abs() < 1e-5);
+        assert!((buffer[plane] - expect(1, 0.0)).abs() < 1e-5);
+        assert!((buffer[2 * plane] - expect(2, 128.0)).abs() < 1e-5);
+        // Padding is mid-grey, normalised like a pixel.
+        assert!((buffer[1] - expect(0, 127.5)).abs() < 1e-5);
+        assert!((buffer[2 * plane + 5] - expect(2, 127.5)).abs() < 1e-5);
     }
 
     #[test]

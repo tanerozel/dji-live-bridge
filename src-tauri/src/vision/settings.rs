@@ -51,14 +51,48 @@ pub enum DetectionProfile {
 }
 
 impl DetectionProfile {
-    /// Model labels this profile reports, in the order the UI lists them.
+    /// Model labels this profile reports, in the order the UI lists them
+    /// (farm animals first). A model reports the ones it knows: COCO models
+    /// have no goat, donkey, poultry, pig or deer. Wild savanna animals are
+    /// left out on purpose; they only produced false "elephants" over herds.
     pub fn classes(self) -> &'static [&'static str] {
         match self {
             Self::Animals => &[
-                "bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra",
-                "giraffe",
+                "goat",
+                "sheep",
+                "cow",
+                "horse",
+                "donkey",
+                "dog",
+                "cat",
+                "chicken",
+                "duck",
+                "goose",
+                "pig",
+                "deer",
+                "wild boar",
+                "bird",
+                "bear",
             ],
         }
+    }
+
+    /// The profile classes a model can report, in the profile's order.
+    pub fn classes_of(self, labels: &[&str]) -> Vec<&'static str> {
+        self.classes()
+            .iter()
+            .copied()
+            .filter(|class| labels.contains(class))
+            .collect()
+    }
+
+    /// A stable colour slot per class name, shared by the burned-in overlay
+    /// and the preview, whichever model produced the label.
+    pub fn colour_index(self, label: &str) -> usize {
+        self.classes()
+            .iter()
+            .position(|class| *class == label)
+            .unwrap_or(0)
     }
 
     /// The heading of the on-video counter ("Animals: 14").
@@ -158,7 +192,7 @@ mod tests {
         let settings = DetectionSettings::default();
         assert!(!settings.enabled);
         settings.validate().unwrap();
-        assert_eq!(settings.active_classes().len(), 10);
+        assert_eq!(settings.active_classes().len(), 15);
     }
 
     #[test]
@@ -180,6 +214,8 @@ mod tests {
         settings.classes = vec!["cow".into(), "sheep".into()];
         settings.validate().unwrap();
         assert_eq!(settings.active_classes(), vec!["sheep", "cow"]);
+        settings.classes = vec!["giraffe".into()];
+        assert!(settings.validate().is_err());
         settings.confidence_threshold = 1.0;
         assert!(settings.validate().is_err());
     }
@@ -189,12 +225,25 @@ mod tests {
         let settings = DetectionSettings {
             model_id: "removed-model".into(),
             confidence_threshold: 2.0,
-            classes: vec!["cow".into(), "unicorn".into()],
+            classes: vec!["cow".into(), "unicorn".into(), "zebra".into()],
             ..DetectionSettings::default()
         }
         .sanitized();
         settings.validate().unwrap();
         assert_eq!(settings.classes, vec!["cow".to_string()]);
+    }
+
+    #[test]
+    fn models_report_only_the_animals_they_know() {
+        let profile = DetectionProfile::Animals;
+        let coco = profile.classes_of(&models::COCO_LABELS);
+        assert_eq!(
+            coco,
+            vec!["sheep", "cow", "horse", "dog", "cat", "bird", "bear"]
+        );
+        assert_eq!(profile.classes_of(&models::OWL_LABELS)[0], "goat");
+        assert_eq!(profile.colour_index("goat"), 0);
+        assert_eq!(profile.colour_index("cow"), 2);
     }
 
     #[test]

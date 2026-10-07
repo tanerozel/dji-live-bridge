@@ -105,9 +105,66 @@ pub fn suppress_overlaps(
     kept
 }
 
+/// Drops boxes drawn around a whole group: a box that mostly contains two or
+/// more other detections is the herd, not an animal. OWLv2 scores such group
+/// boxes as confidently as the animals in them, and suppression keeps them
+/// because they overlap each animal only a little.
+pub fn drop_group_boxes(detections: Vec<Detection>) -> Vec<Detection> {
+    let inside = |inner: &BoundingBox, outer: &BoundingBox| {
+        let left = inner.x.max(outer.x);
+        let top = inner.y.max(outer.y);
+        let right = (inner.x + inner.width).min(outer.x + outer.width);
+        let bottom = (inner.y + inner.height).min(outer.y + outer.height);
+        let overlap = (right - left).max(0.0) * (bottom - top).max(0.0);
+        inner.area() > 0.0 && overlap >= inner.area() * 0.8
+    };
+    let groups: Vec<bool> = detections
+        .iter()
+        .enumerate()
+        .map(|(index, outer)| {
+            detections
+                .iter()
+                .enumerate()
+                .filter(|(other, inner)| {
+                    *other != index
+                        && inner.bbox.area() < outer.bbox.area() * 0.5
+                        && inside(&inner.bbox, &outer.bbox)
+                })
+                .count()
+                >= 2
+        })
+        .collect();
+    detections
+        .into_iter()
+        .zip(groups)
+        .filter(|(_, group)| !group)
+        .map(|(detection, _)| detection)
+        .collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_box_around_several_animals_is_dropped() {
+        let animal = |x: f32| Detection {
+            class_id: 0,
+            confidence: 0.5,
+            bbox: bbox(x, 0.4, 0.05, 0.08),
+        };
+        let herd = Detection {
+            class_id: 0,
+            confidence: 0.6,
+            bbox: bbox(0.28, 0.38, 0.3, 0.12),
+        };
+        let kept = drop_group_boxes(vec![herd.clone(), animal(0.3), animal(0.4), animal(0.5)]);
+        assert_eq!(kept.len(), 3);
+        assert!(!kept.contains(&herd));
+        // An animal next to one other is not a group.
+        let pair = drop_group_boxes(vec![herd, animal(0.3)]);
+        assert_eq!(pair.len(), 2);
+    }
 
     fn bbox(x: f32, y: f32, width: f32, height: f32) -> BoundingBox {
         BoundingBox {

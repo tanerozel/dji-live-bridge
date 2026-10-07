@@ -9,12 +9,16 @@ type Act = (name: string, operation: () => Promise<unknown>) => Promise<void>;
 
 const RATES: InferenceRate[] = ["Auto", "Fps5", "Fps10", "Fps15"];
 
-/** Same colours as the overlay burned into the stream (indexed by COCO class id). */
-const PALETTE = ["#ffc107", "#4caf50", "#2196f3", "#e91e63", "#00bcd4", "#ff5722", "#9c27b0", "#cddc39", "#ff6347", "#795548"];
-const COCO_IDS: Record<string, number> = {
-  bird: 14, cat: 15, dog: 16, horse: 17, sheep: 18, cow: 19, elephant: 20, bear: 21, zebra: 22, giraffe: 23,
-};
-const classColour = (name: string) => PALETTE[(COCO_IDS[name] ?? 0) % PALETTE.length];
+/** Same colours as the overlay burned into the stream: one per class of the
+ * animal profile, in its order (`DetectionProfile::classes` in settings.rs). */
+const PALETTE = [
+  "#ffc107", "#4caf50", "#2196f3", "#e91e63", "#00bcd4", "#ff5722", "#9c27b0", "#cddc39",
+  "#ff6347", "#795548", "#f48fb1", "#009688", "#9e9e9e", "#3f51b5", "#ffeb3b",
+];
+const PROFILE_CLASSES = [
+  "goat", "sheep", "cow", "horse", "donkey", "dog", "cat", "chicken", "duck", "goose", "pig", "deer", "wild boar", "bird", "bear",
+];
+const classColour = (name: string) => PALETTE[Math.max(0, PROFILE_CLASSES.indexOf(name)) % PALETTE.length];
 
 export function VisionCard({ snapshot, busy, act, t }: { snapshot: BridgeSnapshot; busy?: string; act: Act; t: Translate }) {
   const vision = snapshot.vision;
@@ -100,7 +104,7 @@ export function VisionCard({ snapshot, busy, act, t }: { snapshot: BridgeSnapsho
                 <select value={settings.modelId} onChange={(event) => void save({ modelId: event.target.value })}>
                   {vision.models.map((model) => (
                     <option key={model.id} value={model.id}>
-                      {model.name} · {(model.sizeBytes / 1024 / 1024).toFixed(1)} MB{model.downloaded ? "" : ` · ${t("vision.needsDownload")}`}
+                      {model.name} · {t("vision.speciesCount", { count: model.species })} · {(model.sizeBytes / 1024 / 1024).toFixed(0)} MB{model.downloaded ? "" : ` · ${t("vision.needsDownload")}`}
                     </option>
                   ))}
                 </select>
@@ -159,8 +163,9 @@ function VisionStatusLine({ vision, act, t, onRetry }: { vision: VisionState; ac
           <span className="dot" />
           {t("vision.status.Running", {
             backend: vision.backend ?? "CPU",
-            ms: vision.inferenceMs?.toFixed(1) ?? "—",
-            fps: vision.inferenceFps?.toFixed(0) ?? "0",
+            ms: vision.inferenceMs?.toFixed(vision.inferenceMs < 100 ? 1 : 0) ?? "—",
+            // OWLv2 does about one picture per second; keep the decimal there.
+            fps: vision.inferenceFps?.toFixed(vision.inferenceFps < 10 ? 1 : 0) ?? "0",
           })}
         </span>
         <div className="row-between vision-counts">
