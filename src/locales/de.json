@@ -24,6 +24,8 @@
   "ingest.videoFilter": "Video",
   "preview.negotiating": "Lokale WHEP-Verbindung wird ausgehandelt…",
   "preview.waiting": "Warte auf die Quelle /drone",
+  "preview.fullscreen": "Vollbild",
+  "preview.exitFullscreen": "Vollbild beenden (Esc)",
   "preview.unavailable": "Direkte Vorschau nicht verfügbar",
   "preview.startFallback": "Ersatzlösung nur für die Vorschau starten",
   "preview.reason.preparingFallback": "Browsertaugliche Ersatzlösung wird vorbereitet…",

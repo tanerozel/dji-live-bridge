@@ -24,6 +24,8 @@
   "ingest.videoFilter": "Video",
   "preview.negotiating": "Yerel WHEP bağlantısı kuruluyor…",
   "preview.waiting": "/drone yayıncısı bekleniyor",
+  "preview.fullscreen": "Tam ekran",
+  "preview.exitFullscreen": "Tam ekrandan çık (Esc)",
   "preview.unavailable": "Doğrudan önizleme kullanılamıyor",
   "preview.startFallback": "Yedek önizlemeyi başlat",
   "preview.reason.preparingFallback": "Tarayıcı uyumlu yedek hazırlanıyor…",

@@ -24,6 +24,8 @@
   "ingest.videoFilter": "视频",
   "preview.negotiating": "正在协商本地 WHEP…",
   "preview.waiting": "等待 /drone 推流端",
+  "preview.fullscreen": "全屏",
+  "preview.exitFullscreen": "退出全屏 (Esc)",
   "preview.unavailable": "无法直接预览",
   "preview.startFallback": "启动仅预览的备用方案",
   "preview.reason.preparingFallback": "正在准备浏览器兼容的备用方案…",

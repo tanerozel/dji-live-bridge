@@ -24,6 +24,8 @@
   "ingest.videoFilter": "Vídeo",
   "preview.negotiating": "Negociando WHEP local…",
   "preview.waiting": "Esperando al emisor /drone",
+  "preview.fullscreen": "Pantalla completa",
+  "preview.exitFullscreen": "Salir de pantalla completa (Esc)",
   "preview.unavailable": "Vista previa directa no disponible",
   "preview.startFallback": "Iniciar alternativa solo para vista previa",
   "preview.reason.preparingFallback": "Preparando una alternativa compatible con el navegador…",

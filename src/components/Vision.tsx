@@ -261,11 +261,12 @@ export function DetectionLayer({ t }: { t: Translate }) {
       latest = payload;
       draw();
       window.clearTimeout(staleTimer);
-      // Detections that stop arriving (video paused, AI turned off) must not linger.
+      // Detections that stop arriving (video paused, AI turned off) must not
+      // linger. OWLv2 sends about one update a second, so allow a few.
       staleTimer = window.setTimeout(() => {
         latest = null;
         draw();
-      }, 1500);
+      }, 3000);
     }).then((fn) => {
       if (disposed) fn();
       else unlisten = fn;

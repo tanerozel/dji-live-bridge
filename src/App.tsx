@@ -2,6 +2,7 @@ import { listen } from "@tauri-apps/api/event";
 import { open } from "@tauri-apps/plugin-dialog";
 import QRCode from "qrcode";
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import { getCurrentWindow } from "@tauri-apps/api/window";
 import { WhepPreview } from "./components/WhepPreview";
 import { StatusPill } from "./components/StatusPill";
 import { DetectionLayer, VisionBadge, VisionCard } from "./components/Vision";
@@ -697,6 +698,35 @@ function PreviewCard({ snapshot, busy, act, t }: { snapshot: BridgeSnapshot; bus
   const [previewError, setPreviewError] = useState<string>();
   const [endpoint, setEndpoint] = useState(snapshot.preview.directWhepUrl);
   const [documentVisible, setDocumentVisible] = useState(!document.hidden);
+  const [fullscreen, setFullscreen] = useState(false);
+
+  // The preview fills the window and the window goes fullscreen, so the boxes
+  // and badges drawn over the video come along (the video element alone would
+  // leave them behind).
+  const toggleFullscreen = useCallback((next: boolean) => {
+    setFullscreen(next);
+    void getCurrentWindow().setFullscreen(next).catch(() => undefined);
+  }, []);
+
+  useEffect(() => {
+    if (!fullscreen) return;
+    const appWindow = getCurrentWindow();
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") toggleFullscreen(false);
+    };
+    window.addEventListener("keydown", handleKey);
+    // Leaving fullscreen another way (the green button, a Mission Control
+    // gesture) must also bring the normal layout back.
+    const unlisten = appWindow.onResized(() => {
+      void appWindow.isFullscreen().then((isFullscreen) => {
+        if (!isFullscreen) setFullscreen(false);
+      });
+    });
+    return () => {
+      window.removeEventListener("keydown", handleKey);
+      void unlisten.then((fn) => fn());
+    };
+  }, [fullscreen, toggleFullscreen]);
 
   useEffect(() => {
     const handleVisibility = () => setDocumentVisible(!document.hidden);
@@ -726,10 +756,34 @@ function PreviewCard({ snapshot, busy, act, t }: { snapshot: BridgeSnapshot; bus
     });
 
   return (
-    <section className={`card preview-card ${snapshot.production.active ? "is-live" : ""}`}>
+    <section
+      className={`card preview-card ${snapshot.production.active ? "is-live" : ""} ${fullscreen ? "fullscreen" : ""}`}
+      onDoubleClick={() => toggleFullscreen(!fullscreen)}
+    >
       <WhepPreview endpoint={endpoint} active={snapshot.publisherPresent && documentVisible} onConnected={handleConnected} onFailure={handleFailure} t={t}>
         {snapshot.vision.settings.enabled && snapshot.vision.settings.showBoxes && <DetectionLayer t={t} />}
       </WhepPreview>
+      <button
+        className="fullscreen-toggle"
+        title={t(fullscreen ? "preview.exitFullscreen" : "preview.fullscreen")}
+        aria-label={t(fullscreen ? "preview.exitFullscreen" : "preview.fullscreen")}
+        onClick={(event) => {
+          event.stopPropagation();
+          toggleFullscreen(!fullscreen);
+        }}
+        onDoubleClick={(event) => event.stopPropagation()}
+      >
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+          <path
+            d={fullscreen ? "M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" : "M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
       {snapshot.production.active && <span className="live-badge"><span className="dot" />{t("status.live")}</span>}
       <VisionBadge vision={snapshot.vision} t={t} />
       {previewError && (

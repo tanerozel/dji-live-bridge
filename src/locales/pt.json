@@ -24,6 +24,8 @@
   "ingest.videoFilter": "Vídeo",
   "preview.negotiating": "Negociando WHEP local…",
   "preview.waiting": "Aguardando a fonte /drone",
+  "preview.fullscreen": "Ecrã inteiro",
+  "preview.exitFullscreen": "Sair do ecrã inteiro (Esc)",
   "preview.unavailable": "Prévia direta indisponível",
   "preview.startFallback": "Iniciar alternativa só para prévia",
   "preview.reason.preparingFallback": "Preparando uma alternativa compatível com o navegador…",

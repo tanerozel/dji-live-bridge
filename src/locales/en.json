@@ -24,6 +24,8 @@
   "ingest.videoFilter": "Video",
   "preview.negotiating": "Negotiating local WHEP…",
   "preview.waiting": "Waiting for /drone publisher",
+  "preview.fullscreen": "Full screen",
+  "preview.exitFullscreen": "Exit full screen (Esc)",
   "preview.unavailable": "Direct preview unavailable",
   "preview.startFallback": "Start preview-only fallback",
   "preview.reason.preparingFallback": "Preparing a browser-compatible fallback…",

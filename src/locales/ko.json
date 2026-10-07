@@ -24,6 +24,8 @@
   "ingest.videoFilter": "동영상",
   "preview.negotiating": "로컬 WHEP 연결 중…",
   "preview.waiting": "/drone 송출을 기다리는 중",
+  "preview.fullscreen": "전체 화면",
+  "preview.exitFullscreen": "전체 화면 종료 (Esc)",
   "preview.unavailable": "직접 미리보기를 사용할 수 없음",
   "preview.startFallback": "미리보기 전용 대체 방식 시작",
   "preview.reason.preparingFallback": "브라우저 호환 대체 방식을 준비하는 중…",

@@ -24,6 +24,8 @@
   "ingest.videoFilter": "動画",
   "preview.negotiating": "ローカル WHEP を確立中…",
   "preview.waiting": "/drone の配信元を待っています",
+  "preview.fullscreen": "全画面表示",
+  "preview.exitFullscreen": "全画面表示を終了 (Esc)",
   "preview.unavailable": "直接プレビューは利用できません",
   "preview.startFallback": "プレビュー専用の代替方式を開始",
   "preview.reason.preparingFallback": "ブラウザ対応の代替方式を準備中…",

@@ -24,6 +24,8 @@
   "ingest.videoFilter": "影片",
   "preview.negotiating": "正在建立本機 WHEP 連線…",
   "preview.waiting": "等待 /drone 推流來源",
+  "preview.fullscreen": "全螢幕",
+  "preview.exitFullscreen": "結束全螢幕 (Esc)",
   "preview.unavailable": "無法直接預覽",
   "preview.startFallback": "啟動僅供預覽的替代方案",
   "preview.reason.preparingFallback": "正在準備瀏覽器相容的替代方案…",

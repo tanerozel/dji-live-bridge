@@ -24,6 +24,8 @@
   "ingest.videoFilter": "Видео",
   "preview.negotiating": "Согласование локального WHEP…",
   "preview.waiting": "Ожидание источника /drone",
+  "preview.fullscreen": "Во весь экран",
+  "preview.exitFullscreen": "Выйти из полноэкранного режима (Esc)",
   "preview.unavailable": "Прямой предпросмотр недоступен",
   "preview.startFallback": "Запустить резервный вариант только для предпросмотра",
   "preview.reason.preparingFallback": "Готовится вариант, совместимый с браузером…",

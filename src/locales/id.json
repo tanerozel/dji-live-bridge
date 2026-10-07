@@ -24,6 +24,8 @@
   "ingest.videoFilter": "Video",
   "preview.negotiating": "Menyiapkan koneksi WHEP lokal…",
   "preview.waiting": "Menunggu sumber /drone",
+  "preview.fullscreen": "Layar penuh",
+  "preview.exitFullscreen": "Keluar dari layar penuh (Esc)",
   "preview.unavailable": "Pratinjau langsung tidak tersedia",
   "preview.startFallback": "Mulai alternatif khusus pratinjau",
   "preview.reason.preparingFallback": "Menyiapkan alternatif yang cocok untuk peramban…",

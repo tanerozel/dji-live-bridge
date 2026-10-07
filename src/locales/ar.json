@@ -24,6 +24,8 @@
   "ingest.videoFilter": "فيديو",
   "preview.negotiating": "جارٍ التفاوض على WHEP المحلي…",
   "preview.waiting": "في انتظار مصدر ‎/drone",
+  "preview.fullscreen": "ملء الشاشة",
+  "preview.exitFullscreen": "الخروج من ملء الشاشة (Esc)",
   "preview.unavailable": "المعاينة المباشرة غير متاحة",
   "preview.startFallback": "تشغيل البديل الخاص بالمعاينة فقط",
   "preview.reason.preparingFallback": "جارٍ تجهيز بديل متوافق مع المتصفح…",

@@ -403,6 +403,13 @@ input[type="checkbox"] { width: auto; accent-color: var(--accent); }
 .chip { gap: 6px; padding: 4px 10px; border-radius: 999px; color: var(--muted); font-size: 12px; }
 .chip.selected { border-color: var(--accent); background: var(--accent-soft); color: var(--text); font-weight: 600; }
 .chip-dot { width: 8px; height: 8px; border-radius: 50%; }
+.fullscreen-toggle { position: absolute; bottom: 18px; inset-inline-end: 18px; display: grid; place-items: center; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 7px; background: rgba(0, 0, 0, .55); color: #fff; cursor: pointer; opacity: .75; transition: opacity .15s; }
+.fullscreen-toggle:hover, .fullscreen-toggle:focus-visible { opacity: 1; }
+.preview-card.fullscreen { position: fixed; inset: 0; z-index: 1000; margin: 0; padding: 0; border: 0; border-radius: 0; background: #000; box-shadow: none; }
+.preview-card.fullscreen .preview-stage { height: 100%; aspect-ratio: auto; border-radius: 0; }
+.preview-card.fullscreen .preview-note { display: none; }
+.preview-card.fullscreen .fullscreen-toggle { opacity: .35; }
+.preview-card.fullscreen .fullscreen-toggle:hover { opacity: 1; }
 .detection-layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .vision-badge { position: absolute; top: 18px; inset-inline-end: 18px; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 6px; background: rgba(0, 0, 0, .62); color: #fff; font-size: 12px; font-weight: 600; }
 .vision-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: #a1a1a6; }

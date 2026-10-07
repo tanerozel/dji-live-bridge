@@ -24,6 +24,8 @@
   "ingest.videoFilter": "वीडियो",
   "preview.negotiating": "लोकल WHEP कनेक्शन बन रहा है…",
   "preview.waiting": "/drone स्रोत की प्रतीक्षा है",
+  "preview.fullscreen": "पूर्ण स्क्रीन",
+  "preview.exitFullscreen": "पूर्ण स्क्रीन से बाहर निकलें (Esc)",
   "preview.unavailable": "सीधा प्रीव्यू उपलब्ध नहीं",
   "preview.startFallback": "सिर्फ़ प्रीव्यू के लिए विकल्प चालू करें",
   "preview.reason.preparingFallback": "ब्राउज़र के अनुकूल विकल्प तैयार किया जा रहा है…",
