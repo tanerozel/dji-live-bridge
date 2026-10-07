@@ -12,6 +12,7 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+const readJson = (path) => JSON.parse(readFileSync(join(root, path), "utf8"));
 const BASE = "https://tanerozel.github.io/dji-live-bridge";
 // Keep in step with scripts/build-site.mjs.
 const ANALYTICS_ID = "G-2HCY063P0W";
@@ -103,8 +104,9 @@ for (const locale of LOCALES) {
   for (const [, body] of blocks) {
     try {
       const data = JSON.parse(body);
-      if (data["@type"] === "FAQPage" && data.mainEntity.length !== 8) {
-        fail(where, `FAQ structured data has ${data.mainEntity.length} questions, expected 8`);
+      const questions = readJson(`site/content/${locale.code}.json`).faq.items.length;
+      if (data["@type"] === "FAQPage" && data.mainEntity.length !== questions) {
+        fail(where, `FAQ structured data has ${data.mainEntity.length} questions, expected ${questions}`);
       }
       if (data["@type"] === "SoftwareApplication" && data.url !== urlFor(locale.code)) {
         fail(where, "SoftwareApplication url does not match the page");
@@ -155,7 +157,6 @@ for (const locale of LOCALES) {
 const blogUrl = (code) => (code === "en" ? `${BASE}/blog/` : `${BASE}/${code}/blog/`);
 const blogFile = (code, slug) =>
   join(root, code === "en" ? "docs/blog" : `docs/${code}/blog`, slug ? `${slug}/index.html` : "index.html");
-const readJson = (path) => JSON.parse(readFileSync(join(root, path), "utf8"));
 
 const blogLocales = LOCALES.filter((locale) => existsSync(join(root, `site/blog/${locale.code}.json`)));
 const blogPages = [];

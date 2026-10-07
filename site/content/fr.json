@@ -37,6 +37,10 @@
         "p": "Instagram, TikTok et n'importe quelle destination RTMP personnalisée dans la même diffusion. L'image est encodée une seule fois puis transmise à chacune, donc une destination en échec n'arrête pas les autres."
       },
       {
+        "h": "Repère et compte les animaux",
+        "p": "AI Vision trouve chèvres, moutons, bovins, chevaux, ânes et volailles dans l'image du drone, encadre chacun avec une étiquette dans le direct et les compte. Tout se passe sur votre ordinateur ; aucune image n'est envoyée."
+      },
+      {
         "h": "Pas de clé de stream pour TikTok",
         "p": "La caméra virtuelle intégrée apparaît dans TikTok LIVE Studio sous le nom « DJI Live Bridge Camera », ce qui permet de passer en direct sans accès RTMP."
       },
@@ -155,6 +159,10 @@
       {
         "q": "Est-ce que ça marche sous Windows ?",
         "a": "Il existe une version Windows en bêta. La diffusion vers Instagram, TikTok et toute destination RTMP fonctionne, tout comme l'aperçu, l'enregistrement et le diagnostic. La caméra virtuelle intégrée en fait partie elle aussi : le programme d'installation enregistre un périphérique « DJI Live Bridge Camera » pour TikTok LIVE Studio, OBS ou Zoom. Elle est plus récente que celle de macOS ; si elle n'apparaît pas, OBS Virtual Camera via l'intégration OBS facultative fonctionne toujours. Autre réserve : le programme d'installation n'est pas encore signé, Windows SmartScreen affichera donc un avertissement."
+      },
+      {
+        "q": "Peut-elle détecter et compter des animaux ?",
+        "a": "Oui. Activez AI Vision dans l'onglet Direct : chaque animal reçoit un cadre étiqueté dans le direct et dans la caméra virtuelle, et un compteur fait le total. Tout se passe sur votre ordinateur. Les chèvres, ânes et volailles nécessitent un Mac ; sous Windows, l'application reconnaît moutons, vaches, chevaux, chiens, chats, oiseaux et ours."
       },
       {
         "q": "Où vont mes clés de stream ?",

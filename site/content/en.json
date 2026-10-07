@@ -37,6 +37,10 @@
         "p": "Instagram, TikTok and any custom RTMP destination in the same broadcast. The picture is encoded once and forwarded to each one, so one failing destination does not stop the others."
       },
       {
+        "h": "Spots and counts animals",
+        "p": "AI Vision finds goats, sheep, cattle, horses, donkeys and poultry in the drone picture, marks each one with a labelled box on the stream and keeps a count. It runs on your computer; no picture is uploaded."
+      },
+      {
         "h": "No stream key for TikTok",
         "p": "The built-in virtual camera appears in TikTok LIVE Studio as “DJI Live Bridge Camera”, so you can go live without RTMP access."
       },
@@ -155,6 +159,10 @@
       {
         "q": "Does it work on Windows?",
         "a": "There is a Windows build in beta. Streaming to Instagram, TikTok and any RTMP destination works, as do the preview, recording and diagnostics. The built-in virtual camera is included too: the installer registers a “DJI Live Bridge Camera” device for TikTok LIVE Studio, OBS or Zoom. It is newer than the macOS one, so if it does not appear, OBS Virtual Camera through the optional OBS integration still works. One more caveat: the installer is not code-signed yet, so Windows SmartScreen will warn you."
+      },
+      {
+        "q": "Can it detect and count animals?",
+        "a": "Yes. Turn on AI Vision on the Go live tab: each animal gets a labelled box on the stream and the virtual camera, and a counter keeps track. Everything runs on your computer. Goats, donkeys and poultry need a Mac; on Windows it recognises sheep, cows, horses, dogs, cats, birds and bears."
       },
       {
         "q": "Where do my stream keys go?",

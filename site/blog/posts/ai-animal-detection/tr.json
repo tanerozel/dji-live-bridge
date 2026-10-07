@@ -1,0 +1,98 @@
+{
+  "slug": "dji-drone-ile-yapay-zeka-hayvan-sayimi",
+  "platform": "AI Vision",
+  "title": "DJI drone ile keçi, koyun ve sığırları yapay zekâyla canlı sayın",
+  "description": "DJI Live Bridge, drone'unuzun canlı görüntüsündeki keçi, koyun, inek, at, eşek ve kümes hayvanlarını bulur, yayında işaretler ve sayar. Hepsi kendi bilgisayarınızda.",
+  "h1": "DJI drone'unuzla hayvanları canlı bulun ve sayın",
+  "lead": "DJI Live Bridge artık drone'unuzun canlı görüntüsüne sizin yerinize bakabiliyor. <strong>AI Vision</strong> keçi, koyun, sığır, at, eşek, kümes hayvanları ve diğer hayvanları bulur, yayında ve sanal kamerada her birinin etrafına etiketli bir kutu çizer ve sayar. Kendi bilgisayarınızda çalışır; hiçbir görüntü veya sonuç bir yere gönderilmez.",
+  "published": "2026-10-07",
+  "updated": "2026-10-07",
+  "summary": [
+    "Canlı yayın sekmesinde <strong>AI Vision · Hayvan Tespiti</strong>'ni açın; uygulama bulduğu her hayvanı bir kutu ve <em>Keçi #12 %85</em> gibi bir etiketle işaretler.",
+    "Önce çiftlik hayvanları olmak üzere 15 tür tanır: keçi, koyun, inek, at, eşek, köpek, kedi, tavuk, ördek, kaz, domuz, geyik, yaban domuzu, kuş ve ayı.",
+    "Bir sayaç, görüntüde şu an kaç hayvan olduğunu ve kaç farklı hayvan gördüğünü gösterir.",
+    "Her şey bilgisayarınızda çalışır. Model bir kez indirilir; sonrasında bilgisayardan hiçbir şey çıkmaz.",
+    "Drone görüntüsü asla yavaşlamaz. Mac'teki varsayılan model görüntüyü saniyede bir iki kez inceler; otlayan sürüler için bu yeterlidir."
+  ],
+  "sections": [
+    {
+      "id": "what",
+      "h2": "AI Vision ne yapar",
+      "blocks": [
+        { "p": "Bir meranın üzerinden uçarken sürüyü saymak ya da çalının arkasındaki tek keçiyi bulmak, kumandanın küçük ekranında zordur. Bakma işini AI Vision üstlenir: canlı görüntüyü sürekli inceler (OWLv2 ile saniyede bir iki kez, daha hafif modellerle saniyede on kereye kadar) ve tanıdığı her hayvanı işaretler." },
+        { "list": [
+          "<strong>Kutular ve etiketler:</strong> türü, her hayvana verilen numarayı ve modelin ne kadar emin olduğunu gösterir. Uygulamanın önizlemesinde etiketler Türkçedir (<em>Koyun #7 %78</em>); yayına ve sanal kameraya işlenen etiketler ise İngilizcedir (<em>Sheep #7 78%</em>).",
+          "<strong>Hayvan sayacı:</strong> görüntünün üzerinde, şu an görünen hayvan sayısını türlere göre ve sayacı sıfırladığınızdan beri gördüğü farklı hayvan sayısını gösterir.",
+          "<strong>Her çıkışta:</strong> kutular Instagram, TikTok, YouTube ve diğer hedeflerinize giden canlı yayına, sanal kameraya ve uygulamadaki önizlemeye çizilir.",
+          "<strong>Kutular isteğe bağlıdır:</strong> kutuları veya sayacı gizleyip saymayı uygulamada sürdürebilirsiniz."
+        ] },
+        { "note": "AI Vision görüntünün üzerine yalnızca bir katman ekler. Drone görüntüsü analizi beklemek için asla bekletilmez." }
+      ]
+    },
+    {
+      "id": "animals",
+      "h2": "Hangi hayvanları tanır",
+      "blocks": [
+        { "p": "Hazır tespit modellerinin çoğu aynı açık fotoğraf koleksiyonlarıyla eğitilir ve bunlarda keçi hiç yoktur. Keçi ya koyun olarak çıkar ya da hiç çıkmaz. Bu yüzden Mac'teki varsayılan model, hangi hayvanları arayacağı ona adlarıyla söylenen <strong>OWLv2</strong>'dir." },
+        { "table": {
+          "head": ["Model", "Hayvanlar", "Mac'te hız", "İndirme"],
+          "rows": [
+            ["OWLv2 (Mac'te varsayılan)", "Keçi, koyun, inek, at, eşek, köpek, kedi, tavuk, ördek, kaz, domuz, geyik, yaban domuzu, kuş", "Görüntü başına yaklaşık 0,5 sn", "586 MB"],
+            ["D-FINE X, RF-DETR Large", "Koyun, inek, at, köpek, kedi, kuş, ayı", "Görüntü başına yaklaşık 0,1–0,2 sn", "240–464 MB"],
+            ["YOLOX (Nano'dan X'e)", "Koyun, inek, at, köpek, kedi, kuş, ayı", "En hızlısı; Nano, Tiny ve S Windows'ta da çalışır", "3–378 MB"]
+          ]
+        } },
+        { "p": "Modeli <em>Tespit ayarları → Model</em> altından değiştirebilirsiniz; liste her modelin kaç tür tanıdığını gösterir. Keçi ve koyunun karışık olduğu sürüler için OWLv2'yi kullanın. Yalnızca sığır ve at için D-FINE X yaklaşık beş kat daha hızlıdır. <em>Tespit edilen türler</em> altında aramayı ilgilendiğiniz hayvanlarla sınırlayabilirsiniz." },
+        { "note": "Zürafa, zebra ve fil gibi vahşi savan hayvanları listede bilerek yok: bir sığır sürüsünün üzerinde yalnızca yanlış alarma yol açıyorlardı." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Hayvan tespiti nasıl açılır",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Drone'unuzu bağlayın", "d": "Canlı görüntüyü her zamanki gibi DJI Fly'dan RTMP ile uygulamaya gönderin; adres Canlı yayın sekmesindedir. Ayrıntılar <a href=\"../dji-fly-rtmp-canli-yayin-ayarlari/\">DJI Fly RTMP rehberinde</a>." },
+          { "t": "AI Vision'ı açın", "d": "Canlı yayın sekmesinde <strong>AI Vision · Hayvan Tespiti</strong> kartını bulun ve <em>Hayvan tespiti</em>'ni açın." },
+          { "t": "Modelin inip hazırlanmasını bekleyin", "d": "İlk seferde model indirilir ve bilgisayarınız için hazırlanır. OWLv2 ile bu birkaç dakika sürebilir; kart ilerlemeyi gösterir. Sonraki açılışlar yaklaşık bir dakika sürer." },
+          { "t": "Eşiği ayarlayın", "d": "Hayvanların küçük göründüğü havadan çekimler için <em>Güven eşiği</em>'ni 0,25–0,35 civarına indirin. Çalı veya taşların üzerinde kutu görürseniz yükseltin." },
+          { "t": "Yayına başlayın", "d": "Yayını veya sanal kamerayı başlatın. Zaten yayındaysanız kutular yayına bir sonraki başlatışınızda eklenir; sanal kamera onları hemen gösterir." }
+        ] },
+        { "note": "Yakında drone yok mu? Canlı yayın sekmesindeki <em>Bir video dosyasıyla dene</em> seçeneği kayıtlı bir videoyu aynı yoldan oynatır; AI Vision'ı masanızda deneyebilirsiniz." }
+      ]
+    },
+    {
+      "id": "flying",
+      "h2": "İyi bir sayım için uçuş",
+      "blocks": [
+        { "list": [
+          "<strong>En önemlisi yükseklik.</strong> Çok yüksekten bir hayvan birkaç pikselden ibarettir. Uygulama onu yine bulur ama keçi mi buzağı mı olduğu tahmine döner. Tür önemliyse daha alçaktan uçun ya da yakınlaştırın.",
+          "<strong>Yavaş uçun.</strong> Varsayılan model saniyede bir iki kez bakar. Yavaş bir geçiş, her hayvanı kaybedip yeniden bulmak yerine takip etmesini sağlar.",
+          "<strong>Saymadan önce sıfırlayın.</strong> Sürünün üzerinden geçişe başlarken <em>Sayacı sıfırla</em>'ya basın. Birkaç saniye görüntüden çıkıp geri gelen bir hayvan yeniden sayılabilir; benzersiz sayıyı kesin bir sayım değil, iyi bir tahmin olarak görün.",
+          "<strong>Tam ekranı kullanın.</strong> Görüntüyü ve kutuları tüm ekranda görmek için önizlemeye çift tıklayın ya da köşesindeki düğmeye basın. Geri dönmek için Esc'ye basın."
+        ] }
+      ]
+    },
+    {
+      "id": "privacy",
+      "h2": "Gizlilik ve gereksinimler",
+      "blocks": [
+        { "list": [
+          "<strong>Yalnızca bilgisayarınızda.</strong> Tespit yerelde çalışır. Hiçbir görüntü, tespit veya sayım yüklenmez. Ağı kullanan tek şey, modelin bir kerelik indirilmesidir.",
+          "<strong>Mac:</strong> modeller Mac'in grafik ve sinir ağı donanımında çalışır. Apple Silicon bir Mac önerilir. OWLv2 hazırlandıktan sonra yaklaşık 4 GB boş disk alanı ister.",
+          "<strong>Windows (beta):</strong> daha hafif YOLOX modelleri işlemcide çalışır. OWLv2 ve diğer büyük modeller yalnızca Mac'te sunulur; bu yüzden Windows'ta keçi, eşek ve kümes hayvanları henüz tanınmaz.",
+          "<strong>Kapalıysa kapalıdır.</strong> AI Vision kapalıyken hiçbir model yüklenmez ve yayınınız eskisiyle tamamen aynıdır."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI drone'um hayvan sayabilir mi?", "a": "Drone'un kendisi saymaz, ama bilgisayarınızda DJI Live Bridge açıkken DJI Fly'dan gelen canlı görüntü orada incelenir: her hayvan bir kutu ve etiket alır, bir sayaç da kaç hayvanın göründüğünü ve kaç farklı hayvan görüldüğünü gösterir." },
+    { "q": "Keçiyi tanıyor mu?", "a": "Evet, Mac'te varsayılan olan OWLv2 modeliyle. Normal uçuş yüksekliklerinde keçiyi koyundan ayırır. Diğer modellerde keçi sınıfı hiç yoktur." },
+    { "q": "Kutular Instagram, TikTok veya YouTube yayınımda görünür mü?", "a": "Evet. Her çıkışa çizilirler: tüm hedeflere giden canlı yayın, sanal kamera ve uygulamadaki önizleme. Kutuları veya sayacı istediğiniz an kapatabilirsiniz." },
+    { "q": "Videom bir yapay zekâ servisine gönderiliyor mu?", "a": "Hayır. Her şey kendi bilgisayarınızda çalışır. Yalnızca model dosyası bir kez, herkese açık bir kaynaktan indirilir ve kullanılmadan önce doğrulanır." },
+    { "q": "Yayınımı yavaşlatır mı?", "a": "Hayır. Video kare hızını korur; analiz onun yanında çalışır ve yeni bir sonuç hazır oldukça kutular güncellenir." },
+    { "q": "Sayım ne kadar doğru?", "a": "Bir sürüye genel bakış için iyidir, resmî bir sayım yerine geçmez. Çok uzaktaki hayvanların türü yanlış çıkabilir; görüntüden çıkıp geri gelen bir hayvan iki kez sayılabilir." },
+    { "q": "Ücretsiz mi?", "a": "Evet. AI Vision, MIT lisansıyla ücretsiz ve açık kaynak olan DJI Live Bridge'in bir parçasıdır. Modeller Apache 2.0 lisansıyla yayımlanmıştır." }
+  ]
+}

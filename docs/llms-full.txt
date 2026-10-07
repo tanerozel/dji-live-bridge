@@ -5,6 +5,7 @@ Stream your DJI drone to Instagram, TikTok and any RTMP destination at once, or 
 ## What it does
 Everything runs on your own computer. The drone feed never goes through anyone else's server.
 - **Several platforms at once**: Instagram, TikTok and any custom RTMP destination in the same broadcast. The picture is encoded once and forwarded to each one, so one failing destination does not stop the others.
+- **Spots and counts animals**: AI Vision finds goats, sheep, cattle, horses, donkeys and poultry in the drone picture, marks each one with a labelled box on the stream and keeps a count. It runs on your computer; no picture is uploaded.
 - **No stream key for TikTok**: The built-in virtual camera appears in TikTok LIVE Studio as “DJI Live Bridge Camera”, so you can go live without RTMP access.
 - **Made for vertical video**: 1080×1920 at 30 fps, 6 Mbps CBR, H.264 High, 2-second keyframes. Empty space is filled with a blurred copy of the shot instead of black bars.
 - **Nothing else to install**: FFmpeg is built into the app — no Homebrew, no Terminal, no separate download. The macOS bundle is signed and notarized by Apple.
@@ -57,6 +58,9 @@ Yes. Every release ships two downloads: one for Apple Silicon and one for Intel,
 ### Does it work on Windows?
 There is a Windows build in beta. Streaming to Instagram, TikTok and any RTMP destination works, as do the preview, recording and diagnostics. The built-in virtual camera is included too: the installer registers a “DJI Live Bridge Camera” device for TikTok LIVE Studio, OBS or Zoom. It is newer than the macOS one, so if it does not appear, OBS Virtual Camera through the optional OBS integration still works. One more caveat: the installer is not code-signed yet, so Windows SmartScreen will warn you.
 
+### Can it detect and count animals?
+Yes. Turn on AI Vision on the Go live tab: each animal gets a labelled box on the stream and the virtual camera, and a counter keeps track. Everything runs on your computer. Goats, donkeys and poultry need a Mac; on Windows it recognises sheep, cows, horses, dogs, cats, birds and bears.
+
 ### Where do my stream keys go?
 Into the system vault, one entry per destination. They are handed to the local media server over the loopback interface when you go live and removed when you stop. They never appear in the config file, in process arguments or in logs.
 
@@ -65,6 +69,70 @@ That is Instagram's own behaviour: it issues a fresh stream key for every broadc
 
 ### Why is my picture 720p?
 The DJI controller often sends 720p over RTMP. The app shows the real input resolution and does not pretend the upscaled output is native 1080p.
+
+## Spot and count animals live from your DJI drone
+Source: https://tanerozel.github.io/dji-live-bridge/blog/count-animals-with-a-dji-drone-ai-detection/ (updated 2026-10-07)
+
+DJI Live Bridge can now look at your drone's live picture for you. AI Vision finds goats, sheep, cattle, horses, donkeys, poultry and other animals, draws a labelled box around each one on your stream and the virtual camera, and keeps a count. It runs on your own computer; no picture or result is sent anywhere.
+
+- Turn on AI Vision · Animal Detection on the Go live tab and the app marks every animal it finds with a box and a label such as Goat #12 85%.
+- It knows 15 kinds of animal, farm animals first: goat, sheep, cow, horse, donkey, dog, cat, chicken, duck, goose, pig, deer, wild boar, bird and bear.
+- A counter shows how many animals are in the picture now and how many different ones it has seen.
+- Everything runs on your computer. The model is downloaded once; after that nothing leaves the machine.
+- The drone video is never slowed down. On a Mac the default model checks the picture about once or twice a second, which suits grazing herds.
+
+### What AI Vision does
+When you fly over a pasture, counting the herd or finding the one goat behind a bush is hard on a small controller screen. AI Vision does the looking: it checks the live picture over and over, once or twice a second with OWLv2 and up to ten times a second with the lighter models, and marks each animal it recognises.
+- Boxes and labels with the species, a number for each animal and how sure the model is, for example Sheep #7 78%.
+- An animal counter in the corner of the picture: how many are visible now, by species, and how many different animals it has seen since you reset it.
+- On every output. The boxes are drawn into the live stream to Instagram, TikTok, YouTube and your other destinations, into the virtual camera and into the preview in the app.
+- Boxes are optional. You can hide the boxes or the counter and keep the counting running in the app.
+AI Vision only adds a layer on top of the picture. The drone video itself is never held back to wait for the analysis.
+
+### Which animals it recognises
+Most ready-made detection models are trained on the same public photo collections, and those have no goat at all. A goat comes out as a sheep, or as nothing. That is why the default model on a Mac is OWLv2, a model that is told by name which animals to look for.
+| Model | Animals | Speed on a Mac | Download |
+| --- | --- | --- | --- |
+| OWLv2 (default on Mac) | Goat, sheep, cow, horse, donkey, dog, cat, chicken, duck, goose, pig, deer, wild boar, bird | About 0.5 s per picture | 586 MB |
+| D-FINE X, RF-DETR Large | Sheep, cow, horse, dog, cat, bird, bear | About 0.1–0.2 s per picture | 240–464 MB |
+| YOLOX (Nano to X) | Sheep, cow, horse, dog, cat, bird, bear | Fastest; Nano, Tiny and S also run on Windows | 3–378 MB |
+You can switch models under Detection settings → Model; the list shows how many species each one knows. For mixed herds of goats and sheep, use OWLv2. For cattle and horses only, D-FINE X is about five times faster. Under Detected species you can limit the search to the animals you care about.
+Wild savanna animals such as giraffes, zebras and elephants are not in the list on purpose: over a herd of cattle they only produced false alarms.
+
+### How to turn on animal detection
+1. **Connect your drone** Send the live picture from DJI Fly to the app over RTMP as usual; the address is on the Go live tab. The details are in the DJI Fly RTMP guide.
+2. **Switch on AI Vision** On the Go live tab, find the AI Vision · Animal Detection card and turn on Animal detection.
+3. **Let it download and prepare the model** The first time, the model is downloaded and prepared for your computer. With OWLv2 this can take several minutes; the card shows the progress. Later starts take about a minute.
+4. **Set the threshold** Drag Confidence threshold down to about 0.25–0.35 for shots from the air, where animals are small. Raise it if you see boxes on bushes or rocks.
+5. **Go live** Start the broadcast or the virtual camera. If you were already live, the boxes join the stream the next time you start it; the virtual camera shows them right away.
+No drone nearby? Try with a video file on the Go live tab plays a recorded clip through the same path, so you can try AI Vision at your desk.
+
+### Flying for a good count
+- Height matters most. From very high up an animal is only a few pixels. The app still finds it, but whether it is a goat or a calf becomes a guess. Fly lower, or zoom in, when the species matters.
+- Fly slowly. The default model looks about once or twice a second. A slow pass lets it follow each animal instead of losing and re-finding it.
+- Reset before you count. Press Reset count when you start a pass over the herd. An animal that leaves the picture for a few seconds and comes back may be counted again, so treat the unique count as a good estimate, not a census.
+- Use the full screen. Double-click the preview, or press the button in its corner, to see the picture and the boxes across the whole screen. Press Esc to go back.
+
+### Privacy and requirements
+- On your computer only. Detection runs locally. No picture, detection or count is uploaded. The only network use is the one-time model download.
+- Mac: the models run on the Mac's graphics and neural hardware. An Apple Silicon Mac is recommended. OWLv2 needs about 4 GB of free disk space once prepared.
+- Windows (beta): the lighter YOLOX models run on the processor. OWLv2 and the other large models are offered only on a Mac, so goats, donkeys and poultry are not recognised on Windows yet.
+- Off means off. While AI Vision is switched off, no model is loaded and your stream is exactly as before.
+
+### FAQ
+**Can my DJI drone count animals?** The drone itself does not, but with DJI Live Bridge on your computer the live picture from DJI Fly is analysed there: each animal gets a box and a label, and a counter shows how many are visible and how many different ones were seen.
+
+**Does it recognise goats?** Yes, with the OWLv2 model, the default on a Mac. It tells goats from sheep at normal flying heights. The other models have no goat class at all.
+
+**Do the boxes appear on my Instagram, TikTok or YouTube stream?** Yes. They are drawn into every output: the live stream to all destinations, the virtual camera and the in-app preview. You can switch the boxes or the counter off at any time.
+
+**Is my video sent to an AI service?** No. Everything runs on your own computer. Only the model file is downloaded once, from a public source, and it is checked before use.
+
+**Does it slow down my stream?** No. The video keeps its frame rate; the analysis runs beside it and the boxes are updated whenever a new result is ready.
+
+**How accurate is the count?** Good for an overview of a herd, not a certified census. Very distant animals may get the wrong species, and an animal that leaves the picture and comes back can be counted twice.
+
+**Is it free?** Yes. AI Vision is part of DJI Live Bridge, which is free and open source under the MIT licence. The models are released under the Apache 2.0 licence.
 
 ## DJI Fly RTMP live streaming: the complete setup
 Source: https://tanerozel.github.io/dji-live-bridge/blog/dji-fly-rtmp-live-streaming-setup/ (updated 2026-10-02)

@@ -37,6 +37,10 @@
         "p": "Instagram, TikTok e qualsiasi destinazione RTMP personalizzata nella stessa diretta. L'immagine viene codificata una volta sola e inoltrata a ognuna, così una destinazione che non riesce non ferma le altre."
       },
       {
+        "h": "Riconosce e conta gli animali",
+        "p": "AI Vision trova capre, pecore, bovini, cavalli, asini e pollame nell'immagine del drone, segna ognuno nella diretta con un riquadro e un'etichetta e li conta. Funziona sul tuo computer; nessuna immagine viene caricata."
+      },
+      {
         "h": "Nessuna chiave di streaming per TikTok",
         "p": "La fotocamera virtuale integrata compare in TikTok LIVE Studio come «DJI Live Bridge Camera», così puoi andare in diretta senza accesso RTMP."
       },
@@ -155,6 +159,10 @@
       {
         "q": "Funziona su Windows?",
         "a": "C'è una versione per Windows in beta. La trasmissione verso Instagram, TikTok e qualsiasi destinazione RTMP funziona, così come l'anteprima, la registrazione e la diagnostica. C'è anche la fotocamera virtuale integrata: il programma di installazione registra un dispositivo «DJI Live Bridge Camera» per TikTok LIVE Studio, OBS o Zoom. È più recente di quella per macOS, quindi, se non compare, resta possibile usare OBS Virtual Camera tramite l'integrazione facoltativa con OBS. Un'altra avvertenza: il programma di installazione non è ancora firmato, quindi Windows SmartScreen mostrerà un avviso."
+      },
+      {
+        "q": "Può riconoscere e contare gli animali?",
+        "a": "Sì. Attiva AI Vision nella scheda Diretta: ogni animale riceve un riquadro con etichetta nella diretta e nella fotocamera virtuale, e un contatore tiene il conto. Tutto funziona sul tuo computer. Capre, asini e pollame richiedono un Mac; su Windows riconosce pecore, mucche, cavalli, cani, gatti, uccelli e orsi."
       },
       {
         "q": "Dove finiscono le mie chiavi di streaming?",

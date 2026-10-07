@@ -37,6 +37,10 @@
         "p": "Instagram, TikTok, dan tujuan RTMP khusus mana pun dalam satu siaran. Gambar dienkode sekali lalu diteruskan ke tiap tujuan, jadi satu tujuan yang gagal tidak menghentikan yang lain."
       },
       {
+        "h": "Mengenali dan menghitung hewan",
+        "p": "AI Vision menemukan kambing, domba, sapi, kuda, keledai, dan unggas di gambar drone, menandai setiap hewan di siaran dengan kotak berlabel, dan menghitungnya. Berjalan di komputer Anda; tidak ada gambar yang diunggah."
+      },
+      {
         "h": "Tanpa stream key untuk TikTok",
         "p": "Kamera virtual bawaan muncul di TikTok LIVE Studio sebagai “DJI Live Bridge Camera”, jadi Anda bisa siaran tanpa akses RTMP."
       },
@@ -155,6 +159,10 @@
       {
         "q": "Apakah bisa jalan di Windows?",
         "a": "Ada versi Windows dalam tahap beta. Siaran ke Instagram, TikTok, dan tujuan RTMP mana pun sudah berjalan, begitu pula pratinjau, perekaman, dan diagnostik. Kamera virtual bawaan juga ikut disertakan: pemasang mendaftarkan perangkat “DJI Live Bridge Camera” untuk TikTok LIVE Studio, OBS, atau Zoom. Kamera ini lebih baru daripada yang di macOS, jadi bila tidak muncul, OBS Virtual Camera lewat integrasi OBS opsional tetap bisa dipakai. Satu catatan lagi: pemasangnya belum ditandatangani secara digital, jadi Windows SmartScreen akan menampilkan peringatan."
+      },
+      {
+        "q": "Bisakah aplikasi ini mendeteksi dan menghitung hewan?",
+        "a": "Bisa. Aktifkan AI Vision di tab Siaran: setiap hewan mendapat kotak berlabel di siaran dan kamera virtual, dan penghitung mencatat jumlahnya. Semuanya berjalan di komputer Anda. Kambing, keledai, dan unggas memerlukan Mac; di Windows yang dikenali adalah domba, sapi, kuda, anjing, kucing, burung, dan beruang."
       },
       {
         "q": "Stream key saya disimpan di mana?",

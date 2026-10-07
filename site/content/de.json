@@ -37,6 +37,10 @@
         "p": "Instagram, TikTok und jedes eigene RTMP-Ziel in derselben Übertragung. Das Bild wird einmal kodiert und an jedes Ziel weitergeleitet, ein fehlgeschlagenes Ziel stoppt die anderen also nicht."
       },
       {
+        "h": "Erkennt und zählt Tiere",
+        "p": "AI Vision findet Ziegen, Schafe, Rinder, Pferde, Esel und Geflügel im Drohnenbild, markiert jedes Tier im Stream mit einem beschrifteten Rahmen und zählt mit. Es läuft auf Ihrem Computer; kein Bild wird hochgeladen."
+      },
+      {
         "h": "Kein Stream-Schlüssel für TikTok",
         "p": "Die integrierte virtuelle Kamera erscheint in TikTok LIVE Studio als „DJI Live Bridge Camera“, Sie können also ohne RTMP-Zugang live gehen."
       },
@@ -155,6 +159,10 @@
       {
         "q": "Funktioniert es unter Windows?",
         "a": "Es gibt eine Windows-Version in der Beta. Das Streamen zu Instagram, TikTok und jedem RTMP-Ziel funktioniert, ebenso Vorschau, Aufnahme und Diagnose. Die integrierte virtuelle Kamera ist ebenfalls dabei: Das Installationsprogramm registriert ein Gerät namens „DJI Live Bridge Camera“ für TikTok LIVE Studio, OBS oder Zoom. Sie ist neuer als die unter macOS; falls sie nicht auftaucht, funktioniert weiterhin OBS Virtual Camera über die optionale OBS-Integration. Ein weiterer Vorbehalt: Das Installationsprogramm ist noch nicht signiert, Windows SmartScreen warnt Sie also."
+      },
+      {
+        "q": "Kann die App Tiere erkennen und zählen?",
+        "a": "Ja. Schalten Sie AI Vision im Tab „Live gehen“ ein: Jedes Tier erhält im Stream und in der virtuellen Kamera einen beschrifteten Rahmen, und ein Zähler zählt mit. Alles läuft auf Ihrem Computer. Ziegen, Esel und Geflügel erfordern einen Mac; unter Windows werden Schafe, Kühe, Pferde, Hunde, Katzen, Vögel und Bären erkannt."
       },
       {
         "q": "Wo landen meine Stream-Schlüssel?",

@@ -37,6 +37,10 @@
         "p": "Instagram, TikTok ve istediğiniz özel RTMP hedefi tek yayında. Görüntü bir kez kodlanır ve her hedefe ayrı ayrı iletilir; bir hedef düşerse diğerleri durmaz."
       },
       {
+        "h": "Hayvanları bulur ve sayar",
+        "p": "AI Vision drone görüntüsündeki keçi, koyun, sığır, at, eşek ve kümes hayvanlarını bulur, her birini yayında etiketli bir kutuyla işaretler ve sayar. Bilgisayarınızda çalışır; hiçbir görüntü yüklenmez."
+      },
+      {
         "h": "TikTok için yayın anahtarı gerekmez",
         "p": "Yerleşik sanal kamera TikTok LIVE Studio'da “DJI Live Bridge Camera” olarak görünür, böylece RTMP erişimi olmadan canlı yayın yapabilirsiniz."
       },
@@ -155,6 +159,10 @@
       {
         "q": "Windows'ta çalışır mı?",
         "a": "Beta aşamasında bir Windows sürümü var. Instagram, TikTok ve istediğiniz RTMP hedefine yayın çalışıyor; önizleme, kayıt ve tanılama da öyle. Yerleşik sanal kamera da dahil: kurulum dosyası, TikTok LIVE Studio, OBS ya da Zoom için bir “DJI Live Bridge Camera” cihazı kaydeder. macOS'takinden daha yeni olduğu için görünmezse, isteğe bağlı OBS entegrasyonu üzerinden OBS Virtual Camera hâlâ çalışır. Bir uyarı daha: kurulum dosyası henüz imzalı değil, bu yüzden Windows SmartScreen sizi uyaracak."
+      },
+      {
+        "q": "Hayvanları tespit edip sayabilir mi?",
+        "a": "Evet. Canlı yayın sekmesinde AI Vision'ı açın: her hayvan yayında ve sanal kamerada etiketli bir kutu alır, bir sayaç da sayar. Her şey bilgisayarınızda çalışır. Keçi, eşek ve kümes hayvanları için Mac gerekir; Windows'ta koyun, inek, at, köpek, kedi, kuş ve ayı tanınır."
       },
       {
         "q": "Yayın anahtarlarım nereye gidiyor?",

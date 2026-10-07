@@ -37,6 +37,10 @@
         "p": "Instagram, TikTok y cualquier destino RTMP personalizado en la misma transmisión. La imagen se codifica una vez y se reenvía a cada uno, así que un destino que falla no detiene a los demás."
       },
       {
+        "h": "Detecta y cuenta animales",
+        "p": "AI Vision encuentra cabras, ovejas, vacas, caballos, burros y aves de corral en la imagen del dron, marca cada uno en la transmisión con un recuadro y una etiqueta, y los cuenta. Funciona en tu ordenador; no se sube ninguna imagen."
+      },
+      {
         "h": "Sin clave de transmisión para TikTok",
         "p": "La cámara virtual integrada aparece en TikTok LIVE Studio como «DJI Live Bridge Camera», así que puedes transmitir en directo sin acceso RTMP."
       },
@@ -155,6 +159,10 @@
       {
         "q": "¿Funciona en Windows?",
         "a": "Hay una versión de Windows en beta. La transmisión a Instagram, TikTok y cualquier destino RTMP funciona, igual que la vista previa, la grabación y el diagnóstico. La cámara virtual integrada también está incluida: el instalador registra un dispositivo «DJI Live Bridge Camera» para TikTok LIVE Studio, OBS o Zoom. Es más reciente que la de macOS, así que, si no aparece, la cámara virtual de OBS a través de la integración opcional con OBS sigue funcionando. Un aviso más: el instalador todavía no está firmado, así que Windows SmartScreen te mostrará una advertencia."
+      },
+      {
+        "q": "¿Puede detectar y contar animales?",
+        "a": "Sí. Activa AI Vision en la pestaña Transmitir: cada animal recibe un recuadro con etiqueta en la transmisión y en la cámara virtual, y un contador lleva la cuenta. Todo funciona en tu ordenador. Las cabras, los burros y las aves de corral requieren un Mac; en Windows reconoce ovejas, vacas, caballos, perros, gatos, pájaros y osos."
       },
       {
         "q": "¿Dónde acaban mis claves de transmisión?",
