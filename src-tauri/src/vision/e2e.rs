@@ -77,7 +77,7 @@ fn usage(pid: u32) -> Option<(f64, u64)> {
 
 struct Sampler {
     started: Instant,
-    first: std::collections::HashMap<String, (f64, Instant)>,
+    first: std::collections::HashMap<String, (u32, f64, Instant)>,
 }
 
 impl Sampler {
@@ -88,23 +88,15 @@ impl Sampler {
         }
     }
 
-    /// Average CPU % since the first sample of each process, and RSS now.
+    /// Average CPU % since the first sample of the current process generation,
+    /// and RSS now. A tap restart resets its process CPU clock.
     fn report(&mut self, label: &str, processes: &[(String, u32)]) -> Vec<(String, f64, u64)> {
         let mut rows = Vec::new();
         for (name, pid) in processes {
             let Some((cpu, rss)) = usage(*pid) else {
                 continue;
             };
-            let (cpu0, at0) = *self
-                .first
-                .entry(name.clone())
-                .or_insert((cpu, Instant::now()));
-            let wall = at0.elapsed().as_secs_f64();
-            let percent = if wall > 0.5 {
-                (cpu - cpu0) / wall * 100.0
-            } else {
-                0.0
-            };
+            let percent = self.cpu_percent(name, *pid, cpu, Instant::now());
             rows.push((name.clone(), percent, rss));
         }
         let line = rows
@@ -118,6 +110,36 @@ impl Sampler {
         );
         rows
     }
+
+    fn cpu_percent(&mut self, name: &str, pid: u32, cpu: f64, now: Instant) -> f64 {
+        let first = self.first.entry(name.into()).or_insert((pid, cpu, now));
+        if first.0 != pid || cpu < first.1 {
+            *first = (pid, cpu, now);
+        }
+        let wall = now.duration_since(first.2).as_secs_f64();
+        if wall > 0.5 {
+            (cpu - first.1) / wall * 100.0
+        } else {
+            0.0
+        }
+    }
+}
+
+#[test]
+fn cpu_sampling_resets_when_a_managed_process_restarts() {
+    let mut sampler = Sampler::new();
+    let start = Instant::now();
+    assert_eq!(sampler.cpu_percent("tap", 1, 2.0, start), 0.0);
+    assert_eq!(
+        sampler.cpu_percent("tap", 1, 3.0, start + Duration::from_secs(10)),
+        10.0
+    );
+    assert_eq!(
+        sampler.cpu_percent("tap", 2, 0.1, start + Duration::from_secs(11)),
+        0.0
+    );
+    let cpu = sampler.cpu_percent("tap", 2, 0.3, start + Duration::from_secs(13));
+    assert!((cpu - 10.0).abs() < 1e-9);
 }
 
 async fn processes(supervisor: &ProcessSupervisor) -> Vec<(String, u32)> {

@@ -7,8 +7,8 @@
 //!                  │        ▲ overlay input
 //!                  │        │
 //!                  └─► tap FFmpeg ─► FrameSlot ─► worker ─► Scene ─► OverlayServer
-//!                      (decode, 15 fps,          (detect,
-//!                       fit 416 px)               track, count)
+//!                      (decode, adaptive fps,    (detect,
+//!                       fit model input)          track, count)
 //! ```
 //!
 //! The video never waits for the AI. The tap is just another MediaMTX reader;
@@ -55,7 +55,7 @@ use self::{
     models::{ModelSpec, ModelStore},
     onnx::OnnxDetector,
     overlay::{OverlayServer, Scene, SceneCell},
-    tap::{FrameSlot, FrameTap},
+    tap::{FrameSlot, FrameTap, TapLifecycle},
     tracker::{ObjectTracker, TrackView, TrackerConfig},
 };
 use crate::{
@@ -193,6 +193,7 @@ struct Shared {
     /// Set on app exit: nothing may start an FFmpeg after the supervisor has
     /// stopped them all.
     shutting_down: AtomicBool,
+    tap_lifecycle: Arc<TapLifecycle>,
 }
 
 impl Shared {
@@ -235,7 +236,7 @@ struct Control {
     pipeline: Option<Pipeline>,
     /// The model of a pipeline stopped because the drone went away, kept
     /// while AI Vision stays on so a reconnect does not reload it (large
-    /// models take up to ~45 s to prepare). Dropped when AI Vision is turned
+    /// models can take minutes to prepare). Dropped when AI Vision is turned
     /// off or another model is chosen.
     parked: Option<(&'static str, Box<dyn ObjectDetector>)>,
 }
@@ -268,6 +269,7 @@ impl VisionEngine {
                 source_size: Mutex::new(None),
                 app: OnceLock::new(),
                 shutting_down: AtomicBool::new(false),
+                tap_lifecycle: Arc::new(TapLifecycle::default()),
             }),
             control: Arc::new(tokio::sync::Mutex::new(Control {
                 publisher_present: false,
@@ -360,11 +362,12 @@ impl VisionEngine {
     /// Stops inference on app exit. The tap FFmpeg is also stopped by the
     /// supervisor's shutdown; this releases the model first.
     ///
-    /// Never waits for a model that is still loading (up to ~45 s for large
-    /// ones): app exit must stop every child promptly. A load in progress sees
+    /// Never waits for a model that is still loading (large ones can take
+    /// minutes): app exit must stop every child promptly. A load in progress sees
     /// `shutting_down` and starts nothing.
     pub async fn shutdown(&self) {
         self.shared.shutting_down.store(true, Ordering::SeqCst);
+        self.shared.tap_lifecycle.close().await;
         let Ok(mut control) = self.control.try_lock() else {
             return;
         };
@@ -545,8 +548,20 @@ impl Pipeline {
         shared.runtime(|runtime| runtime.backend = Some(detector.backend()));
 
         let slot = Arc::new(FrameSlot::default());
-        let tap =
-            FrameTap::start(supervisor, detector.input_size(), spec.resize, slot.clone()).await?;
+        slot.request_fps(
+            shared
+                .settings()
+                .inference_rate
+                .tap_fps(0.0, detector.backend() == "CoreML"),
+        );
+        let tap = FrameTap::start(
+            supervisor,
+            detector.input_size(),
+            spec.resize,
+            slot.clone(),
+            shared.tap_lifecycle.clone(),
+        )
+        .await?;
         let stop = Arc::new(AtomicBool::new(false));
         let worker = {
             let stop = stop.clone();
@@ -591,14 +606,20 @@ fn run_worker(
     let mut last_picture = Instant::now();
     let mut completed: Vec<Instant> = Vec::new();
     let mut reported_empty = true;
+    let accelerated = detector.backend() == "CoreML";
 
     while !stop.load(Ordering::Relaxed) {
         let settings = shared.settings();
+        slot.request_fps(
+            settings
+                .inference_rate
+                .tap_fps(average_seconds.unwrap_or(0.0), accelerated),
+        );
         if let Some(started) = last_start {
             let interval = Duration::from_secs_f64(
                 settings
                     .inference_rate
-                    .interval_seconds(average_seconds.unwrap_or(0.0)),
+                    .interval_seconds(average_seconds.unwrap_or(0.0), accelerated),
             );
             let remaining = interval.saturating_sub(started.elapsed());
             if !remaining.is_zero() {
@@ -645,7 +666,9 @@ fn run_worker(
             min_confidence: (settings.confidence_threshold * 0.5).clamp(0.05, 0.3),
             wanted: &wanted,
         };
-        let detections = match detector.detect(&frame, &options) {
+        let result = detector.detect(&frame, &options);
+        slot.recycle(frame);
+        let detections = match result {
             Ok(detections) => detections,
             Err(error) => {
                 tracing::warn!(%error, "AI Vision inference failed");

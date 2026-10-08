@@ -130,6 +130,7 @@ pub fn drop_group_boxes(detections: Vec<Detection>) -> Vec<Detection> {
                         && inner.bbox.area() < outer.bbox.area() * 0.5
                         && inside(&inner.bbox, &outer.bbox)
                 })
+                .take(2)
                 .count()
                 >= 2
         })

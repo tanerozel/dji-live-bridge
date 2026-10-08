@@ -10,8 +10,8 @@ use crate::error::{BridgeError, BridgeResult};
 /// never slowed down; this only decides how fresh the boxes are.
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize)]
 pub enum InferenceRate {
-    /// 10 per second, slowed down whenever the model needs more than half of
-    /// the time between two pictures, so a slow machine keeps CPU for video.
+    /// Up to 15 per second. Accelerated models leave a little headroom;
+    /// CPU inference keeps half of its time available for video processing.
     #[default]
     Auto,
     Fps5,
@@ -25,19 +25,30 @@ impl InferenceRate {
 
     fn target_fps(self) -> f64 {
         match self {
-            Self::Auto | Self::Fps10 => 10.0,
+            Self::Auto | Self::Fps15 => f64::from(Self::MAX_FPS),
+            Self::Fps10 => 10.0,
             Self::Fps5 => 5.0,
-            Self::Fps15 => 15.0,
         }
     }
 
     /// Seconds from the start of one inference to the start of the next.
-    pub fn interval_seconds(self, inference_seconds: f64) -> f64 {
+    pub fn interval_seconds(self, inference_seconds: f64, accelerated: bool) -> f64 {
         let target = 1.0 / self.target_fps();
         match self {
-            Self::Auto => target.max(inference_seconds * 2.0),
+            Self::Auto => target.max(inference_seconds * if accelerated { 1.1 } else { 2.0 }),
             _ => target,
         }
+    }
+
+    /// Keep a fresh picture ready without resizing and transporting 15
+    /// pictures a second for a detector that can only consume one or two.
+    pub fn tap_fps(self, inference_seconds: f64, accelerated: bool) -> u32 {
+        let consumed_interval = self
+            .interval_seconds(inference_seconds, accelerated)
+            .max(inference_seconds);
+        (2.0 / consumed_interval)
+            .ceil()
+            .clamp(1.0, f64::from(Self::MAX_FPS)) as u32
     }
 }
 
@@ -248,8 +259,27 @@ mod tests {
 
     #[test]
     fn auto_rate_backs_off_for_a_slow_model() {
-        assert_eq!(InferenceRate::Auto.interval_seconds(0.005), 0.1);
-        assert_eq!(InferenceRate::Auto.interval_seconds(0.08), 0.16);
-        assert_eq!(InferenceRate::Fps15.interval_seconds(0.08), 1.0 / 15.0);
+        assert_eq!(
+            InferenceRate::Auto.interval_seconds(0.005, true),
+            1.0 / 15.0
+        );
+        assert_eq!(InferenceRate::Auto.interval_seconds(0.08, false), 0.16);
+        assert!((InferenceRate::Auto.interval_seconds(0.08, true) - 0.088).abs() < 1e-12);
+        assert_eq!(
+            InferenceRate::Fps15.interval_seconds(0.08, false),
+            1.0 / 15.0
+        );
+    }
+
+    #[test]
+    fn tap_tracks_the_consumption_rate_and_keeps_a_fresh_picture_ready() {
+        assert_eq!(InferenceRate::Auto.tap_fps(0.44, true), 5);
+        assert_eq!(InferenceRate::Auto.tap_fps(3.5, false), 1);
+        assert_eq!(InferenceRate::Auto.tap_fps(0.005, true), 15);
+        assert_eq!(InferenceRate::Fps5.tap_fps(0.01, true), 10);
+        assert_eq!(InferenceRate::Fps10.tap_fps(0.01, true), 15);
+        // A manual target cannot make a slow model consume pictures faster.
+        assert_eq!(InferenceRate::Fps15.tap_fps(0.44, true), 5);
+        assert_eq!(InferenceRate::Fps5.tap_fps(0.44, true), 5);
     }
 }

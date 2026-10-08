@@ -31,14 +31,34 @@ const MAX_DETECTIONS: usize = 200;
 /// Threads ONNX Runtime may use on the CPU; the rest stay with FFmpeg.
 const CPU_THREADS: usize = 2;
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum CoremlStrategy {
+    Default,
+    BinaryWeights,
+    #[cfg(test)]
+    FastPrediction,
+}
+
+/// Only the shape-folded macOS model needs the CoreML weight workaround.
+/// CPU-only platforms keep their original graph optimizations and cache.
+fn production_strategy(spec: &ModelSpec) -> CoremlStrategy {
+    if cfg!(target_os = "macos") && spec.fold_shapes {
+        CoremlStrategy::BinaryWeights
+    } else {
+        CoremlStrategy::Default
+    }
+}
+
 pub struct OnnxDetector {
     session: Session,
     spec: &'static ModelSpec,
-    input: Vec<f32>,
+    input: ModelInput,
     /// `input_ids` and `attention_mask` of an open-vocabulary model; the
     /// prompts never change, so they are built once.
     prompts: Option<(Vec<i64>, Vec<i64>)>,
     backend: &'static str,
+    #[cfg(test)]
+    last_timings: DetectionTimings,
 }
 
 impl OnnxDetector {
@@ -47,24 +67,35 @@ impl OnnxDetector {
         model: &Path,
         compiled_cache: &Path,
     ) -> BridgeResult<Self> {
+        Self::load_with_strategy(spec, model, compiled_cache, production_strategy(spec))
+    }
+
+    fn load_with_strategy(
+        spec: &'static ModelSpec,
+        model: &Path,
+        compiled_cache: &Path,
+        specialization: CoremlStrategy,
+    ) -> BridgeResult<Self> {
         std::fs::create_dir_all(compiled_cache).ok();
         let folded;
         let model = if spec.fold_shapes {
-            folded = fold_shapes(spec, model, compiled_cache).map_err(vision_error)?;
+            folded =
+                fold_shapes(spec, model, compiled_cache, specialization).map_err(vision_error)?;
             folded.as_path()
         } else {
             model
         };
         #[cfg(target_os = "macos")]
         {
-            match build_session(model, spec, Some(compiled_cache)) {
+            match build_session(model, spec, Some(compiled_cache), specialization) {
                 Ok(session) => return Ok(Self::new(session, spec, "CoreML")),
                 Err(error) => {
                     tracing::warn!(%error, "CoreML could not load the model; using the CPU")
                 }
             }
         }
-        let session = build_session(model, spec, None).map_err(vision_error)?;
+        let session =
+            build_session(model, spec, None, CoremlStrategy::Default).map_err(vision_error)?;
         Ok(Self::new(session, spec, "CPU"))
     }
 
@@ -82,9 +113,11 @@ impl OnnxDetector {
         Self {
             session,
             spec,
-            input: Vec::new(),
+            input: ModelInput::new(spec),
             prompts,
             backend,
+            #[cfg(test)]
+            last_timings: DetectionTimings::default(),
         }
     }
 }
@@ -95,17 +128,30 @@ impl OnnxDetector {
 /// partition that expects those sizes as inputs and every run fails
 /// ("Feature ..._Shape_output_0 is required but not specified"). Folded,
 /// CoreML takes the whole vision tower: ~440 ms instead of 3.5 s on the CPU.
-fn fold_shapes(spec: &ModelSpec, model: &Path, cache: &Path) -> ort::Result<std::path::PathBuf> {
-    let folded = cache.join("folded.onnx");
+fn fold_shapes(
+    spec: &ModelSpec,
+    model: &Path,
+    cache: &Path,
+    specialization: CoremlStrategy,
+) -> ort::Result<std::path::PathBuf> {
+    // Legacy folded graphs already contain the fused Gemms. A new filename
+    // also gives CoreML a new cache key without deleting existing models.
+    let stem = if specialization == CoremlStrategy::BinaryWeights {
+        "folded-binary-weights-v1"
+    } else {
+        "folded"
+    };
+    let folded = cache.join(format!("{stem}.onnx"));
     if folded.is_file() {
         return Ok(folded);
     }
     // ONNX Runtime picks the format from the extension, so keep ".onnx".
-    let partial = cache.join("folded.part.onnx");
+    let partial = cache.join(format!("{stem}.part.onnx"));
     let builder = Session::builder()?
         .with_optimization_level(GraphOptimizationLevel::Level1)?
         .with_intra_threads(CPU_THREADS)?
         .with_optimized_model_path(&partial)?;
+    let builder = keep_binary_weights(builder, specialization)?;
     pin_dimensions(builder, spec)?.commit_from_file(model)?;
     std::fs::rename(&partial, &folded)
         .map_err(|error| ort::Error::new(format!("could not keep the folded model: {error}")))?;
@@ -138,25 +184,74 @@ fn build_session(
     model: &Path,
     spec: &ModelSpec,
     coreml_cache: Option<&Path>,
+    specialization: CoremlStrategy,
 ) -> ort::Result<Session> {
     let builder = Session::builder()?
         .with_optimization_level(GraphOptimizationLevel::Level3)?
         .with_intra_threads(CPU_THREADS)?;
+    let builder = keep_binary_weights(builder, specialization)?;
     let builder = pin_dimensions(builder, spec)?;
     #[cfg(target_os = "macos")]
     let builder = match coreml_cache {
-        Some(cache) => builder.with_execution_providers([ort::ep::CoreML::default()
-            .with_model_format(ort::ep::coreml::ModelFormat::MLProgram)
-            .with_static_input_shapes(true)
-            .with_model_cache_dir(cache.display())
-            .build()
-            .error_on_failure()])?,
+        Some(cache) => {
+            let provider = ort::ep::CoreML::default()
+                .with_model_format(ort::ep::coreml::ModelFormat::MLProgram)
+                .with_static_input_shapes(true)
+                .with_model_cache_dir(coreml_cache_dir(cache, specialization).display());
+            let provider = match specialization {
+                // Preserve the existing provider configuration, including
+                // CoreML's default optimization hints.
+                CoremlStrategy::Default | CoremlStrategy::BinaryWeights => provider,
+                #[cfg(test)]
+                CoremlStrategy::FastPrediction => provider.with_specialization_strategy(
+                    ort::ep::coreml::SpecializationStrategy::FastPrediction,
+                ),
+            };
+            builder.with_execution_providers([provider.build().error_on_failure()])?
+        }
         None => builder,
     };
     #[cfg(not(target_os = "macos"))]
-    let _ = coreml_cache;
+    let _ = (coreml_cache, specialization);
     let mut builder = builder;
     builder.commit_from_file(model)
+}
+
+/// ORT's Gemm builder embeds transposed weights as large inline constants.
+/// Keeping MatMul + Add separate lets the MLProgram builder put those same
+/// weights in weight.bin, avoiding expensive MIL serialization on every load.
+/// Shape folding and all other graph optimizers remain enabled.
+fn keep_binary_weights(
+    builder: SessionBuilder,
+    specialization: CoremlStrategy,
+) -> ort::Result<SessionBuilder> {
+    if specialization == CoremlStrategy::BinaryWeights {
+        Ok(builder.with_disabled_optimizers("MatMulAddFusion")?)
+    } else {
+        Ok(builder)
+    }
+}
+
+/// CoreML caches models independently of session options. Keep specializations
+/// in separate directories so a benchmark cannot reuse the other strategy.
+#[cfg(any(target_os = "macos", test))]
+fn coreml_cache_dir(cache: &Path, specialization: CoremlStrategy) -> std::path::PathBuf {
+    match specialization {
+        // Preserve already compiled models: Default has not changed and
+        // moving its cache would make users compile the whole model again.
+        CoremlStrategy::Default | CoremlStrategy::BinaryWeights => cache.to_path_buf(),
+        #[cfg(test)]
+        CoremlStrategy::FastPrediction => cache.join("coreml-fast-prediction-v1"),
+    }
+}
+
+#[cfg(test)]
+#[derive(Debug, Default, Clone, Copy)]
+struct DetectionTimings {
+    preprocess_ms: f64,
+    model_ms: f64,
+    postprocess_ms: f64,
+    total_ms: f64,
 }
 
 fn vision_error(error: impl std::fmt::Display) -> BridgeError {
@@ -181,10 +276,17 @@ impl ObjectDetector for OnnxDetector {
         frame: &RgbFrame,
         options: &DetectOptions,
     ) -> BridgeResult<Vec<Detection>> {
+        #[cfg(test)]
+        let started = std::time::Instant::now();
         let size = self.spec.input_size as usize;
-        fill_input(&mut self.input, frame, self.spec)?;
-        let tensor = TensorRef::from_array_view(([1_usize, 3, size, size], self.input.as_slice()))
-            .map_err(vision_error)?;
+        self.input.fill(frame)?;
+        let tensor =
+            TensorRef::from_array_view(([1_usize, 3, size, size], self.input.pixels.as_slice()))
+                .map_err(vision_error)?;
+        #[cfg(test)]
+        let preprocess_ms = started.elapsed().as_secs_f64() * 1000.0;
+        #[cfg(test)]
+        let model_started = std::time::Instant::now();
         let outputs = match &self.prompts {
             Some((ids, mask)) => {
                 let shape = [ids.len() / PROMPT_TOKENS, PROMPT_TOKENS];
@@ -201,6 +303,10 @@ impl ObjectDetector for OnnxDetector {
             None => self.session.run(ort::inputs![tensor]),
         }
         .map_err(vision_error)?;
+        #[cfg(test)]
+        let model_ms = model_started.elapsed().as_secs_f64() * 1000.0;
+        #[cfg(test)]
+        let postprocess_started = std::time::Instant::now();
         // Decoders compare raw scores, so the threshold is unscaled first.
         let scale = self.spec.score_scale;
         let options = &DetectOptions {
@@ -233,7 +339,7 @@ impl ObjectDetector for OnnxDetector {
             }
         };
         let (width, height) = (frame.width as f32, frame.height as f32);
-        Ok(drop_group_boxes(suppress_overlaps(
+        let detections = drop_group_boxes(suppress_overlaps(
             candidates,
             SUPPRESSION_IOU,
             MAX_DETECTIONS,
@@ -253,51 +359,93 @@ impl ObjectDetector for OnnxDetector {
             detection
         })
         .filter(|detection| detection.bbox.area() > 0.0)
-        .collect())
+        .collect();
+        #[cfg(test)]
+        {
+            self.last_timings = DetectionTimings {
+                preprocess_ms,
+                model_ms,
+                postprocess_ms: postprocess_started.elapsed().as_secs_f64() * 1000.0,
+                total_ms: started.elapsed().as_secs_f64() * 1000.0,
+            };
+        }
+        Ok(detections)
     }
 }
 
-/// Letterboxes the picture into the NCHW input: top-left aligned, the rest
-/// filled with the model's padding value, channels in the model's order.
-fn fill_input(buffer: &mut Vec<f32>, frame: &RgbFrame, spec: &ModelSpec) -> BridgeResult<()> {
-    let size = spec.input_size as usize;
-    let (width, height) = (frame.width as usize, frame.height as usize);
-    if width == 0 || height == 0 || width > size || height > size {
-        return Err(BridgeError::Vision(format!(
-            "a {width}x{height} picture does not fit the {size}x{size} model input"
-        )));
-    }
-    if frame.pixels.len() != width * height * 3 {
-        return Err(BridgeError::Vision("picture data is truncated".into()));
-    }
-    let plane = size * size;
-    let scale = spec.pixel_scale;
-    // Indexed by input plane, i.e. already in the model's channel order.
-    let (mean, std) = spec.normalize.map_or(([0.0; 3], [1.0; 3]), |normalize| {
-        (normalize.mean, normalize.std)
-    });
-    let value = |plane_index: usize, raw: f32| (raw * scale - mean[plane_index]) / std[plane_index];
-    buffer.clear();
-    for plane_index in 0..3 {
-        buffer.extend(std::iter::repeat_n(
-            value(plane_index, spec.pad_value),
-            plane,
-        ));
-    }
-    let order = match spec.channel_order {
-        ChannelOrder::Rgb => [0, 1, 2],
-        ChannelOrder::Bgr => [2, 1, 0],
-    };
-    for y in 0..height {
-        let row = &frame.pixels[y * width * 3..(y + 1) * width * 3];
-        for (x, pixel) in row.as_chunks::<3>().0.iter().enumerate() {
-            let at = y * size + x;
-            for (plane_index, channel) in order.iter().enumerate() {
-                buffer[plane_index * plane + at] = value(plane_index, f32::from(pixel[*channel]));
-            }
+/// The NCHW tensor and normalization are reused for the detector's lifetime.
+/// Letterbox padding is untouched while the picture dimensions stay the same.
+struct ModelInput {
+    pixels: Vec<f32>,
+    values: [[f32; 256]; 3],
+    padding: [f32; 3],
+    order: [usize; 3],
+    size: usize,
+    picture_size: Option<(u32, u32)>,
+}
+
+impl ModelInput {
+    fn new(spec: &ModelSpec) -> Self {
+        // Keep the original operation order, including the division, so every
+        // lookup value is bit-identical to the previous per-pixel computation.
+        let (mean, std) = spec.normalize.map_or(([0.0; 3], [1.0; 3]), |normalize| {
+            (normalize.mean, normalize.std)
+        });
+        let value =
+            |channel: usize, raw: f32| (raw * spec.pixel_scale - mean[channel]) / std[channel];
+        Self {
+            pixels: Vec::new(),
+            values: std::array::from_fn(|channel| {
+                std::array::from_fn(|raw| value(channel, raw as f32))
+            }),
+            padding: std::array::from_fn(|channel| value(channel, spec.pad_value)),
+            order: match spec.channel_order {
+                ChannelOrder::Rgb => [0, 1, 2],
+                ChannelOrder::Bgr => [2, 1, 0],
+            },
+            size: spec.input_size as usize,
+            picture_size: None,
         }
     }
-    Ok(())
+
+    fn fill(&mut self, frame: &RgbFrame) -> BridgeResult<()> {
+        let (width, height) = (frame.width as usize, frame.height as usize);
+        if width == 0 || height == 0 || width > self.size || height > self.size {
+            return Err(BridgeError::Vision(format!(
+                "a {width}x{height} picture does not fit the {}x{} model input",
+                self.size, self.size
+            )));
+        }
+        if frame.pixels.len() != width * height * 3 {
+            return Err(BridgeError::Vision("picture data is truncated".into()));
+        }
+        let plane = self.size * self.size;
+        let picture_size = (frame.width, frame.height);
+        if self.picture_size != Some(picture_size) {
+            self.pixels.resize(plane * 3, 0.0);
+            for (pixels, padding) in self.pixels.chunks_exact_mut(plane).zip(self.padding) {
+                pixels.fill(padding);
+            }
+            self.picture_size = Some(picture_size);
+        }
+        for ((pixels, values), channel) in self
+            .pixels
+            .chunks_exact_mut(plane)
+            .zip(&self.values)
+            .zip(self.order)
+        {
+            for (target, source) in pixels
+                .chunks_exact_mut(self.size)
+                .take(height)
+                .zip(frame.pixels.chunks_exact(width * 3))
+            {
+                for (target, pixel) in target[..width].iter_mut().zip(source.as_chunks::<3>().0) {
+                    *target = values[usize::from(pixel[channel])];
+                }
+            }
+        }
+        Ok(())
+    }
 }
 
 /// The best wanted class of one candidate, scored by `score(class)`.
@@ -476,8 +624,9 @@ mod tests {
             height: 1,
             pixels: vec![10, 20, 30, 40, 50, 60],
         };
-        let mut buffer = Vec::new();
-        fill_input(&mut buffer, &frame, spec).unwrap();
+        let mut input = ModelInput::new(spec);
+        input.fill(&frame).unwrap();
+        let buffer = &input.pixels;
         let plane = 416 * 416;
         assert_eq!(buffer.len(), plane * 3);
         // BGR: blue first.
@@ -490,14 +639,15 @@ mod tests {
 
     #[test]
     fn normalised_models_pad_and_scale_per_channel() {
-        let spec = crate::vision::models::find("owlv2-base").unwrap();
+        let spec = CATALOG.iter().find(|spec| spec.id == "owlv2-base").unwrap();
         let frame = RgbFrame {
             width: 1,
             height: 1,
             pixels: vec![255, 0, 128],
         };
-        let mut buffer = Vec::new();
-        fill_input(&mut buffer, &frame, spec).unwrap();
+        let mut input = ModelInput::new(spec);
+        input.fill(&frame).unwrap();
+        let buffer = &input.pixels;
         let plane = 960 * 960;
         let normalize = spec.normalize.unwrap();
         let expect = |channel: usize, raw: f32| {
@@ -518,7 +668,191 @@ mod tests {
             height: 10,
             pixels: vec![0; 500 * 10 * 3],
         };
-        assert!(fill_input(&mut Vec::new(), &frame, &CATALOG[0]).is_err());
+        assert!(ModelInput::new(&CATALOG[0]).fill(&frame).is_err());
+    }
+
+    /// The previous preprocessing formula, applied independently to every
+    /// tensor cell, is the bit-level reference for each catalog model.
+    fn reference_input(frame: &RgbFrame, spec: &ModelSpec) -> Vec<f32> {
+        let size = spec.input_size as usize;
+        let plane = size * size;
+        let (mean, std) = spec.normalize.map_or(([0.0; 3], [1.0; 3]), |normalize| {
+            (normalize.mean, normalize.std)
+        });
+        (0..plane * 3)
+            .map(|at| {
+                let channel = at / plane;
+                let (x, y) = (at % size, (at % plane) / size);
+                let raw = if x < frame.width as usize && y < frame.height as usize {
+                    let source_channel = match spec.channel_order {
+                        ChannelOrder::Rgb => channel,
+                        ChannelOrder::Bgr => 2 - channel,
+                    };
+                    f32::from(frame.pixels[(y * frame.width as usize + x) * 3 + source_channel])
+                } else {
+                    spec.pad_value
+                };
+                (raw * spec.pixel_scale - mean[channel]) / std[channel]
+            })
+            .collect()
+    }
+
+    #[test]
+    fn cached_input_is_bit_identical_for_all_models_and_pixel_values() {
+        // Every channel sees every u8 value, including the extrema. This covers
+        // BGR, RGB, unscaled, scaled and CLIP-normalized catalog inputs.
+        let frame = RgbFrame {
+            width: 16,
+            height: 16,
+            pixels: (0..256)
+                .flat_map(|value| [value as u8, (255 - value) as u8, (value ^ 0xaa) as u8])
+                .collect(),
+        };
+        for spec in CATALOG {
+            let mut input = ModelInput::new(spec);
+            input.fill(&frame).unwrap();
+            let expected = reference_input(&frame, spec);
+            assert!(
+                input
+                    .pixels
+                    .iter()
+                    .zip(expected)
+                    .all(|(actual, expected)| actual.to_bits() == expected.to_bits()),
+                "{} changed its preprocessing tensor",
+                spec.id
+            );
+        }
+    }
+
+    #[test]
+    fn cached_padding_is_restored_when_frame_dimensions_change() {
+        let spec = ModelSpec {
+            input_size: 16,
+            ..CATALOG[0]
+        };
+        let mut input = ModelInput::new(&spec);
+        let mut allocation = None;
+        for (index, (width, height)) in [(16, 16), (16, 16), (8, 4), (4, 8), (16, 16)]
+            .into_iter()
+            .enumerate()
+        {
+            let frame = RgbFrame {
+                width,
+                height,
+                pixels: vec![(index * 40) as u8; (width * height * 3) as usize],
+            };
+            input.fill(&frame).unwrap();
+            assert_eq!(input.pixels, reference_input(&frame, &spec));
+            assert_eq!(
+                *allocation.get_or_insert(input.pixels.as_ptr()),
+                input.pixels.as_ptr()
+            );
+        }
+    }
+
+    #[test]
+    fn rejected_frame_does_not_change_cached_input_or_padding() {
+        let spec = ModelSpec {
+            input_size: 16,
+            ..CATALOG[0]
+        };
+        let mut input = ModelInput::new(&spec);
+        let frame = RgbFrame {
+            width: 8,
+            height: 4,
+            pixels: vec![255; 8 * 4 * 3],
+        };
+        input.fill(&frame).unwrap();
+        let before = input.pixels.clone();
+        assert!(
+            input
+                .fill(&RgbFrame {
+                    width: 4,
+                    height: 8,
+                    pixels: vec![0; 1],
+                })
+                .is_err()
+        );
+        assert_eq!(input.picture_size, Some((8, 4)));
+        assert_eq!(input.pixels, before);
+        input.fill(&frame).unwrap();
+        assert_eq!(input.pixels, reference_input(&frame, &spec));
+    }
+
+    #[test]
+    fn coreml_specialization_caches_do_not_overlap() {
+        let root = Path::new("compiled");
+        assert_eq!(coreml_cache_dir(root, CoremlStrategy::Default), root);
+        assert_ne!(
+            coreml_cache_dir(root, CoremlStrategy::Default),
+            coreml_cache_dir(root, CoremlStrategy::FastPrediction)
+        );
+    }
+
+    #[test]
+    fn binary_weights_preserve_matmul_and_migrate_the_folded_cache() {
+        // Synthetic X[1,2] @ W[2,2] + B[2]; see fixtures/README.md.
+        let root = std::env::temp_dir().join(format!("dlb-fold-test-{}", uuid::Uuid::new_v4()));
+        std::fs::create_dir_all(&root).unwrap();
+        let source = root.join("source.onnx");
+        std::fs::write(&source, include_bytes!("fixtures/matmul-add.onnx")).unwrap();
+        let spec = CATALOG.iter().find(|spec| spec.id == "owlv2-base").unwrap();
+        let legacy = fold_shapes(spec, &source, &root, CoremlStrategy::Default).unwrap();
+        let legacy_bytes = std::fs::read(&legacy).unwrap();
+        assert!(
+            legacy_bytes
+                .windows(6)
+                .any(|bytes| bytes == b"\x22\x04Gemm")
+        );
+        let binary = fold_shapes(spec, &source, &root, CoremlStrategy::BinaryWeights).unwrap();
+        let binary_bytes = std::fs::read(&binary).unwrap();
+        assert_ne!(legacy, binary, "the old fused graph must not be reused");
+        assert_eq!(std::fs::read(&legacy).unwrap(), legacy_bytes);
+        assert!(
+            binary_bytes
+                .windows(8)
+                .any(|bytes| bytes == b"\x22\x06MatMul")
+        );
+        assert!(
+            !binary_bytes
+                .windows(6)
+                .any(|bytes| bytes == b"\x22\x04Gemm")
+        );
+        // A warm load uses the new graph even if the source is unavailable.
+        std::fs::remove_file(&source).unwrap();
+        assert_eq!(
+            fold_shapes(spec, &source, &root, CoremlStrategy::BinaryWeights).unwrap(),
+            binary
+        );
+        for (path, strategy) in [
+            (&legacy, CoremlStrategy::Default),
+            (&binary, CoremlStrategy::BinaryWeights),
+        ] {
+            let mut session = build_session(path, spec, None, strategy).unwrap();
+            for (input, expected) in [([5.0_f32, 6.0], [24.0_f32, 36.0]), ([1.0, 1.0], [5.0, 8.0])]
+            {
+                let input = TensorRef::from_array_view(([1_usize, 2], input.as_slice())).unwrap();
+                let outputs = session.run(ort::inputs!["X" => input]).unwrap();
+                let (_, actual) = outputs["Y"].try_extract_tensor::<f32>().unwrap();
+                assert_eq!(actual, expected);
+            }
+        }
+        std::fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn only_shape_folded_macos_models_use_the_weight_workaround() {
+        let owl = CATALOG.iter().find(|spec| spec.id == "owlv2-base").unwrap();
+        let yolox = crate::vision::models::find("yolox-nano").unwrap();
+        assert_eq!(production_strategy(yolox), CoremlStrategy::Default);
+        assert_eq!(
+            production_strategy(owl),
+            if cfg!(target_os = "macos") {
+                CoremlStrategy::BinaryWeights
+            } else {
+                CoremlStrategy::Default
+            }
+        );
     }
 
     #[test]
@@ -643,10 +977,17 @@ mod tests {
         assert_eq!(detections[0].bbox.y, 45.0);
     }
 
-    /// Runs a real model on a picture and prints the animals it finds:
+    /// Runs a real model on a picture and prints its animals and phase timings:
     /// `DLB_VISION_MODEL=/path/model.onnx DLB_VISION_MODEL_ID=yolox-nano
     /// DLB_VISION_PPM=/path/picture.ppm cargo test --release -- --ignored real_model`.
     /// The picture must already fit the model input (stretched for DETR).
+    /// `DLB_VISION_COREML_STRATEGY=compare` benchmarks Default/FastPrediction
+    /// in separate caches and verifies equivalent boxes and class scores.
+    /// `default` uses the production strategy; `legacy` uses the previous
+    /// fused graph. `fast-prediction` runs only that experimental hint.
+    /// `binary-weights` keeps MatMul weights external; `compare-binary` verifies
+    /// it against Default using distinct folded-model cache keys.
+    /// `DLB_VISION_BENCH_ITERATIONS`/`DLB_VISION_BENCH_WARMUP` default to 20/3.
     #[test]
     #[ignore]
     fn real_model_finds_animals() {
@@ -659,31 +1000,140 @@ mod tests {
             .unwrap()
             .unwrap();
         let cache = std::env::temp_dir().join("dlb-coreml-cache").join(spec.id);
-        let started = std::time::Instant::now();
-        let mut detector = OnnxDetector::load(spec, Path::new(&model), &cache).unwrap();
-        println!("loaded in {:.1} s", started.elapsed().as_secs_f64());
         let animals = crate::vision::settings::DetectionProfile::Animals.classes();
         let wanted: Vec<bool> = spec.labels.iter().map(|l| animals.contains(l)).collect();
         let options = DetectOptions {
             min_confidence: 0.3,
             wanted: &wanted,
         };
-        let detections = detector.detect(&frame, &options).unwrap();
-        let started = std::time::Instant::now();
-        for _ in 0..20 {
-            detector.detect(&frame, &options).unwrap();
+        let iterations = benchmark_count("DLB_VISION_BENCH_ITERATIONS", 20);
+        let warmup = benchmark_count("DLB_VISION_BENCH_WARMUP", 3);
+        let strategies = match std::env::var("DLB_VISION_COREML_STRATEGY")
+            .unwrap_or_else(|_| "default".into())
+            .as_str()
+        {
+            "default" => vec![production_strategy(spec)],
+            "legacy" => vec![CoremlStrategy::Default],
+            "fast-prediction" => vec![CoremlStrategy::FastPrediction],
+            "binary-weights" => vec![CoremlStrategy::BinaryWeights],
+            "compare-binary" => vec![
+                CoremlStrategy::BinaryWeights,
+                CoremlStrategy::Default,
+                CoremlStrategy::BinaryWeights,
+            ],
+            "compare" => vec![CoremlStrategy::Default, CoremlStrategy::FastPrediction],
+            value => panic!("unknown DLB_VISION_COREML_STRATEGY: {value}"),
+        };
+        let compare = strategies.len() > 1;
+        let mut reference: Option<Vec<Detection>> = None;
+        for specialization in strategies {
+            let started = std::time::Instant::now();
+            let mut detector =
+                OnnxDetector::load_with_strategy(spec, Path::new(&model), &cache, specialization)
+                    .unwrap();
+            println!(
+                "{:?} loaded in {:.3} s (backend {})",
+                specialization,
+                started.elapsed().as_secs_f64(),
+                detector.backend()
+            );
+            if compare || specialization != CoremlStrategy::Default {
+                assert_eq!(
+                    detector.backend(),
+                    "CoreML",
+                    "CoreML specialization benchmark fell back to CPU"
+                );
+            }
+            for _ in 0..warmup {
+                detector.detect(&frame, &options).unwrap();
+            }
+            let mut samples = Vec::with_capacity(iterations);
+            let mut detections = Vec::new();
+            for _ in 0..iterations {
+                detections = detector.detect(&frame, &options).unwrap();
+                samples.push(detector.last_timings);
+            }
+            let mut counts = std::collections::BTreeMap::new();
+            for detection in &detections {
+                *counts.entry(spec.labels[detection.class_id]).or_insert(0) += 1;
+            }
+            println!(
+                "{} on {} ({specialization:?}): {:.1} ms per picture, {} animals >= 0.3: {counts:?}",
+                spec.name,
+                detector.backend(),
+                samples.iter().map(|sample| sample.total_ms).sum::<f64>() / iterations as f64,
+                detections.len()
+            );
+            print_phase("preprocess", &samples, |sample| sample.preprocess_ms);
+            print_phase("model", &samples, |sample| sample.model_ms);
+            print_phase("postprocess", &samples, |sample| sample.postprocess_ms);
+            print_phase("total", &samples, |sample| sample.total_ms);
+            assert!(!detections.is_empty());
+            if compare {
+                if let Some(reference) = &reference {
+                    assert_equivalent_detections(reference, &detections);
+                } else {
+                    reference = Some(detections);
+                }
+            }
         }
-        let mut counts = std::collections::BTreeMap::new();
-        for detection in &detections {
-            *counts.entry(spec.labels[detection.class_id]).or_insert(0) += 1;
-        }
+    }
+
+    fn benchmark_count(name: &str, default: usize) -> usize {
+        std::env::var(name).map_or(default, |value| {
+            value
+                .parse::<usize>()
+                .ok()
+                .filter(|count| *count > 0)
+                .unwrap_or_else(|| panic!("{name} must be a positive integer"))
+        })
+    }
+
+    fn print_phase(name: &str, samples: &[DetectionTimings], phase: fn(&DetectionTimings) -> f64) {
+        let mut values: Vec<f64> = samples.iter().map(phase).collect();
+        values.sort_by(f64::total_cmp);
+        let percentile = |percent: f64| values[(values.len() as f64 * percent).ceil() as usize - 1];
         println!(
-            "{} on {}: {:.1} ms per picture, {} animals >= 0.3: {counts:?}",
-            spec.name,
-            detector.backend(),
-            started.elapsed().as_secs_f64() * 1000.0 / 20.0,
-            detections.len()
+            "  {name}: p50 {:.3} ms, p95 {:.3} ms ({} samples)",
+            percentile(0.5),
+            percentile(0.95),
+            values.len()
         );
-        assert!(!detections.is_empty());
+    }
+
+    fn assert_equivalent_detections(reference: &[Detection], actual: &[Detection]) {
+        let ordered = |detections: &[Detection]| {
+            let mut detections = detections.to_vec();
+            detections.sort_by(|a, b| {
+                a.class_id
+                    .cmp(&b.class_id)
+                    .then(a.bbox.x.total_cmp(&b.bbox.x))
+                    .then(a.bbox.y.total_cmp(&b.bbox.y))
+            });
+            detections
+        };
+        assert_eq!(
+            reference.len(),
+            actual.len(),
+            "specialization changed animal count"
+        );
+        for (reference, actual) in ordered(reference).iter().zip(ordered(actual)) {
+            assert_eq!(
+                reference.class_id, actual.class_id,
+                "specialization changed species"
+            );
+            for (expected, actual) in [
+                (reference.confidence, actual.confidence),
+                (reference.bbox.x, actual.bbox.x),
+                (reference.bbox.y, actual.bbox.y),
+                (reference.bbox.width, actual.bbox.width),
+                (reference.bbox.height, actual.bbox.height),
+            ] {
+                assert!(
+                    (expected - actual).abs() <= 1e-4,
+                    "specialization changed a score or box"
+                );
+            }
+        }
     }
 }

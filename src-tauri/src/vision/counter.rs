@@ -1,7 +1,7 @@
 //! Counts what the tracker currently sees and every distinct track it has
 //! confirmed since the counter was last reset.
 
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, btree_map::Entry};
 
 use serde::Serialize;
 
@@ -33,21 +33,46 @@ pub const UNIQUE_MIN_HITS: u32 = 3;
 pub struct ObjectCounter {
     /// Every confirmed track id, with the class it was last labelled as.
     seen: BTreeMap<u64, usize>,
+    /// Updated only when an id first counts or changes class, so reporting a
+    /// frame never scans every animal observed during the entire session.
+    unique_by_class: BTreeMap<usize, u32>,
 }
 
 impl ObjectCounter {
     pub fn reset(&mut self) {
         self.seen.clear();
+        self.unique_by_class.clear();
     }
 
     pub fn update(&mut self, visible: &[TrackView], labels: &[&str]) -> CountSummary {
         for track in visible {
-            if track.hits >= UNIQUE_MIN_HITS || self.seen.contains_key(&track.id) {
-                self.seen.insert(track.id, track.class_id);
+            match self.seen.entry(track.id) {
+                Entry::Vacant(entry) if track.hits >= UNIQUE_MIN_HITS => {
+                    entry.insert(track.class_id);
+                    *self.unique_by_class.entry(track.class_id).or_default() += 1;
+                }
+                Entry::Occupied(mut entry) if *entry.get() != track.class_id => {
+                    let previous = entry.insert(track.class_id);
+                    let count = self
+                        .unique_by_class
+                        .get_mut(&previous)
+                        .expect("counted track has a class tally");
+                    *count -= 1;
+                    if *count == 0 {
+                        self.unique_by_class.remove(&previous);
+                    }
+                    *self.unique_by_class.entry(track.class_id).or_default() += 1;
+                }
+                _ => {}
             }
         }
         let current = tally(visible.iter().map(|track| track.class_id), labels);
-        let unique = tally(self.seen.values().copied(), labels);
+        let unique = class_counts(
+            self.unique_by_class
+                .iter()
+                .map(|(&class, &count)| (class, count)),
+            labels,
+        );
         CountSummary {
             current_total: visible.len() as u32,
             current_by_class: current,
@@ -63,8 +88,11 @@ fn tally(classes: impl Iterator<Item = usize>, labels: &[&str]) -> Vec<ClassCoun
     for class in classes {
         *counts.entry(class).or_default() += 1;
     }
+    class_counts(counts.into_iter(), labels)
+}
+
+fn class_counts(counts: impl Iterator<Item = (usize, u32)>, labels: &[&str]) -> Vec<ClassCount> {
     let mut result: Vec<ClassCount> = counts
-        .into_iter()
         .map(|(class, count)| ClassCount {
             class: labels.get(class).copied().unwrap_or("object").to_string(),
             count,
@@ -148,5 +176,122 @@ mod tests {
         let summary = counter.update(&[track(7, 1)], &labels);
         assert_eq!(summary.unique_total, 1);
         assert_eq!(summary.unique_by_class[0].class, "dog");
+    }
+
+    #[test]
+    fn relabels_remove_empty_class_totals_and_preserve_absent_animals() {
+        let labels = ["cat", "dog", "cow"];
+        let mut counter = ObjectCounter::default();
+        counter.update(&[track(1, 0), track(2, 1), track(3, 1)], &labels);
+        let mut relabelled = track(1, 2);
+        // An already counted id remains counted even when a caller supplies
+        // fewer hits; relabelling must move, rather than duplicate, its tally.
+        relabelled.hits = 1;
+        let changed = counter.update(&[relabelled.clone()], &labels);
+        assert_eq!(changed.unique_total, 3);
+        assert_eq!(
+            changed.unique_by_class,
+            vec![
+                ClassCount {
+                    class: "dog".into(),
+                    count: 2
+                },
+                ClassCount {
+                    class: "cow".into(),
+                    count: 1
+                },
+            ]
+        );
+        assert_eq!(
+            counter.update(&[relabelled], &labels).unique_by_class,
+            changed.unique_by_class
+        );
+        assert_eq!(
+            counter.update(&[], &labels).unique_by_class,
+            changed.unique_by_class
+        );
+
+        counter.reset();
+        assert!(counter.update(&[], &labels).unique_by_class.is_empty());
+        let restarted = counter.update(&[track(1, 0)], &labels);
+        assert_eq!(restarted.unique_total, 1);
+        assert_eq!(restarted.unique_by_class[0].class, "cat");
+    }
+
+    #[test]
+    fn incremental_totals_match_a_long_session_with_relabels_and_resets() {
+        let labels = ["cat", "dog", "cow", "sheep"];
+        let mut counter = ObjectCounter::default();
+        let mut recorded: BTreeMap<u64, usize> = BTreeMap::new();
+        for frame in 0..400 {
+            if frame == 250 {
+                counter.reset();
+                recorded.clear();
+            }
+            let visible: Vec<_> = (0..7)
+                .map(|offset| {
+                    let id = (frame * 3 + offset) as u64;
+                    let mut animal = track(id, (frame + offset) % labels.len());
+                    animal.hits = (frame + offset) as u32 % 5;
+                    animal
+                })
+                .collect();
+            for animal in &visible {
+                if animal.hits >= UNIQUE_MIN_HITS || recorded.contains_key(&animal.id) {
+                    recorded.insert(animal.id, animal.class_id);
+                }
+            }
+            let summary = counter.update(&visible, &labels);
+            assert_eq!(summary.unique_total, recorded.len() as u32);
+            assert_eq!(
+                summary.unique_by_class,
+                tally(recorded.values().copied(), &labels)
+            );
+            assert_eq!(
+                summary.current_by_class,
+                tally(visible.iter().map(|animal| animal.class_id), &labels)
+            );
+        }
+    }
+
+    /// Self-contained before/after benchmark: no model, clip or running app.
+    #[test]
+    #[ignore]
+    fn benchmark_incremental_history_count() {
+        use std::{hint::black_box, time::Instant};
+
+        let labels = super::super::settings::DetectionProfile::Animals.classes();
+        let history: Vec<_> = (0..50_000)
+            .map(|id| track(id, id as usize % labels.len()))
+            .collect();
+        let recorded: BTreeMap<_, _> = history
+            .iter()
+            .map(|animal| (animal.id, animal.class_id))
+            .collect();
+        let visible = &history[history.len() - 20..];
+        let mut counter = ObjectCounter::default();
+        counter.update(&history, labels);
+        let iterations = 500;
+        let started = Instant::now();
+        for _ in 0..iterations {
+            black_box(tally(recorded.values().copied(), labels));
+        }
+        let baseline = started.elapsed();
+        let started = Instant::now();
+        for _ in 0..iterations {
+            black_box(counter.update(black_box(visible), labels));
+        }
+        let incremental = started.elapsed();
+        println!(
+            "counter: {iterations} frames, {} historical ids, {} visible; historical tally {:.1} ms, full incremental update {:.1} ms",
+            history.len(),
+            visible.len(),
+            baseline.as_secs_f64() * 1000.0,
+            incremental.as_secs_f64() * 1000.0,
+        );
+        assert_eq!(
+            counter.update(&[], labels).unique_total,
+            history.len() as u32
+        );
     }
 }

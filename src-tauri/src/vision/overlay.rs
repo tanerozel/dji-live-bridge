@@ -7,7 +7,9 @@
 //! FFmpeg only waits for overlay frames as the video needs them, so a writer
 //! here pushes frames as fast as it is allowed to and must never block on
 //! anything but the socket: a stalled overlay would stall the video. It only
-//! ever clones the latest `Scene`; inference never holds it up. When the app
+//! ever uses the latest completed `Scene`; inference never holds it up. Writers
+//! of the same size share an immutable rendered picture, while their sockets
+//! keep independent pull/backpressure timing. When the app
 //! stops feeding (it quit, or the connection broke), `eof_action=pass` lets
 //! the video continue without the overlay.
 
@@ -121,17 +123,17 @@ impl OverlayServer {
         }
         let listener = TcpListener::bind((Ipv4Addr::LOCALHOST, 0))?;
         let port = listener.local_addr()?.port();
-        let scene = self.scene.clone();
+        let frames = Arc::new(OverlayFrames::new(width, height, self.scene.clone()));
         std::thread::Builder::new()
             .name("vision-overlay-accept".into())
             .spawn(move || {
                 for stream in listener.incoming() {
                     match stream {
                         Ok(stream) => {
-                            let scene = scene.clone();
+                            let frames = frames.clone();
                             let spawned = std::thread::Builder::new()
                                 .name("vision-overlay-feed".into())
-                                .spawn(move || feed(stream, width, height, &scene));
+                                .spawn(move || feed(stream, &frames));
                             if let Err(error) = spawned {
                                 tracing::warn!(%error, "could not start an overlay feed");
                             }
@@ -150,16 +152,62 @@ impl OverlayServer {
 }
 
 /// Writes overlay frames until FFmpeg goes away.
-fn feed(stream: TcpStream, width: u32, height: u32, scene: &SceneCell) {
+fn feed(stream: TcpStream, frames: &OverlayFrames) {
     let _ = stream.set_nodelay(true);
     let _ = socket2::SockRef::from(&stream).set_send_buffer_size(64 * 1024);
     let mut stream = stream;
-    let mut renderer = OverlayRenderer::new(width, height);
+    let _ = feed_frames(&mut stream, frames);
+}
+
+fn feed_frames(writer: &mut impl Write, frames: &OverlayFrames) -> std::io::Result<()> {
     loop {
-        renderer.render(&scene.load(), super::clock());
-        if stream.write_all(renderer.frame()).is_err() {
-            break;
+        // The snapshot owns its bytes and the render lock is already released:
+        // a slow or disconnected output cannot hold another output up.
+        let frame = frames.snapshot_at(super::clock());
+        writer.write_all(&frame)?;
+    }
+}
+
+/// Only the current picture is cached; each active writer may also retain its
+/// in-flight picture. There is no frame queue to replay after a consumer stalls.
+struct OverlayFrames {
+    scene: Arc<SceneCell>,
+    rendered: Mutex<RenderedOverlay>,
+}
+
+struct RenderedOverlay {
+    renderer: OverlayRenderer,
+    bucket: Option<u64>,
+    latest_time: f64,
+}
+
+impl OverlayFrames {
+    fn new(width: u32, height: u32, scene: Arc<SceneCell>) -> Self {
+        Self {
+            scene,
+            rendered: Mutex::new(RenderedOverlay {
+                renderer: OverlayRenderer::new(width, height),
+                bucket: None,
+                latest_time: 0.0,
+            }),
         }
+    }
+
+    fn snapshot_at(&self, now: f64) -> Arc<[u8]> {
+        let mut rendered = self.rendered.lock().expect("overlay render lock");
+        // Load after taking the render lock so a writer delayed by another
+        // render cannot restore an older scene. The monotonic time also keeps
+        // an earlier caller from rewinding motion after it wins the lock later.
+        let scene = self.scene.load();
+        let now = now.max(rendered.latest_time);
+        let bucket = (now * f64::from(OVERLAY_FPS)) as u64;
+        if rendered.bucket != Some(bucket) || rendered.renderer.drawn_version != Some(scene.version)
+        {
+            rendered.renderer.render(&scene, now);
+            rendered.bucket = Some(bucket);
+        }
+        rendered.latest_time = now;
+        rendered.renderer.frame.clone()
     }
 }
 
@@ -208,11 +256,12 @@ const PALETTE: [(u8, u8, u8); 15] = [
 ];
 
 /// A `yuva420p` canvas redrawn in place: only what was drawn last time is
-/// cleared, so an idle overlay costs a memcpy per frame and nothing else.
+/// cleared. Immutable snapshots share the canvas without copying it; a render
+/// only copies when a writer still needs the previous picture.
 pub struct OverlayRenderer {
     width: u32,
     height: u32,
-    frame: Vec<u8>,
+    frame: Arc<[u8]>,
     dirty: Vec<Rect>,
     drawn_version: Option<u64>,
     /// Line width and glyph scale, from the picture size.
@@ -228,13 +277,14 @@ impl OverlayRenderer {
         Self {
             width,
             height,
-            frame,
+            frame: frame.into(),
             dirty: Vec::new(),
             drawn_version: None,
             unit: (width.min(height) / 360).max(2),
         }
     }
 
+    #[cfg(test)]
     pub fn frame(&self) -> &[u8] {
         &self.frame
     }
@@ -246,6 +296,7 @@ impl OverlayRenderer {
         if self.drawn_version == Some(scene.version) && !boxes {
             return;
         }
+        Arc::make_mut(&mut self.frame);
         self.clear();
         if scene.show_boxes {
             for track in &scene.tracks {
@@ -416,18 +467,19 @@ impl OverlayRenderer {
         let chroma_width = width / 2;
         let chroma = chroma_width * (self.height as usize / 2);
         let alpha_offset = luma + chroma * 2;
+        let frame = Arc::get_mut(&mut self.frame).expect("unique overlay canvas during rendering");
         let (x0, x1) = (rect.x0 as usize, rect.x1 as usize);
         for y in rect.y0 as usize..rect.y1 as usize {
-            self.frame[y * width + x0..y * width + x1].fill(colour.0);
-            self.frame[alpha_offset + y * width + x0..alpha_offset + y * width + x1].fill(alpha);
+            frame[y * width + x0..y * width + x1].fill(colour.0);
+            frame[alpha_offset + y * width + x0..alpha_offset + y * width + x1].fill(alpha);
         }
         let (cx0, cx1) = (x0 / 2, x1.div_ceil(2).min(chroma_width));
         let chroma_rows =
             rect.y0 as usize / 2..(rect.y1 as usize).div_ceil(2).min(self.height as usize / 2);
         for cy in chroma_rows {
             let row = cy * chroma_width;
-            self.frame[luma + row + cx0..luma + row + cx1].fill(colour.1);
-            self.frame[luma + chroma + row + cx0..luma + chroma + row + cx1].fill(colour.2);
+            frame[luma + row + cx0..luma + row + cx1].fill(colour.1);
+            frame[luma + chroma + row + cx0..luma + chroma + row + cx1].fill(colour.2);
         }
         if track_dirty {
             self.dirty.push(rect);
@@ -440,10 +492,11 @@ impl OverlayRenderer {
         let luma = width * self.height as usize;
         let chroma = (width / 2) * (self.height as usize / 2);
         let alpha_offset = luma + chroma * 2;
+        let frame = Arc::get_mut(&mut self.frame).expect("unique overlay canvas during rendering");
         for rect in self.dirty.drain(..) {
             for y in rect.y0 as usize..rect.y1 as usize {
                 let start = alpha_offset + y * width;
-                self.frame[start + rect.x0 as usize..start + rect.x1 as usize].fill(0);
+                frame[start + rect.x0 as usize..start + rect.x1 as usize].fill(0);
             }
         }
     }
@@ -465,6 +518,11 @@ fn title_case(label: &str) -> String {
 mod tests {
     use super::*;
     use crate::vision::{counter::ClassCount, detector::BoundingBox};
+    use std::{
+        io::ErrorKind,
+        sync::{Barrier, mpsc},
+        time::Duration,
+    };
 
     fn alpha(renderer: &OverlayRenderer, x: u32, y: u32) -> u8 {
         let (w, h) = (renderer.width as usize, renderer.height as usize);
@@ -570,6 +628,8 @@ mod tests {
         let args = input.input_args();
         assert!(args.windows(2).any(|w| w == ["-pix_fmt", "yuva420p"]));
         assert!(args.windows(2).any(|w| w == ["-video_size", "1280x720"]));
+        assert!(args.windows(2).any(|w| w == ["-framerate", "15"]));
+        assert!(args.windows(2).any(|w| w == ["-thread_queue_size", "1"]));
         assert_eq!(
             args.last().unwrap(),
             "tcp://127.0.0.1:40000?recv_buffer_size=65536"
@@ -582,5 +642,212 @@ mod tests {
         assert_eq!((white.0, white.1, white.2), (235, 128, 128));
         let black = Yuv::from_rgb(0, 0, 0);
         assert_eq!(black.0, 16);
+    }
+
+    #[test]
+    fn consumers_share_one_picture_but_scene_changes_are_immediate() {
+        let scene_cell = Arc::new(SceneCell::default());
+        scene_cell.store(scene(1, vec![cow(0.1)]));
+        let frames = OverlayFrames::new(640, 360, scene_cell.clone());
+        let first = frames.snapshot_at(0.01);
+        let same_tick = frames.snapshot_at(0.02);
+        assert!(Arc::ptr_eq(&first, &same_tick));
+
+        scene_cell.store(scene(2, vec![cow(0.5)]));
+        let updated = frames.snapshot_at(0.03);
+        assert!(!Arc::ptr_eq(&first, &updated));
+        let alpha_offset = 640 * 360 * 3 / 2;
+        assert_eq!(first[alpha_offset + 200 * 640 + 64], 255);
+        assert_eq!(updated[alpha_offset + 200 * 640 + 64], 0);
+        assert_eq!(updated[alpha_offset + 200 * 640 + 320], 255);
+    }
+
+    #[test]
+    fn moving_pictures_refresh_once_per_tick_and_never_rewind() {
+        let scene_cell = Arc::new(SceneCell::default());
+        let mut moving = cow(0.1);
+        moving.velocity = (0.5, 0.0);
+        scene_cell.store(scene(1, vec![moving]));
+        let frames = OverlayFrames::new(640, 360, scene_cell);
+        let first = frames.snapshot_at(0.0);
+        let moved = frames.snapshot_at(0.2);
+        let late_request = frames.snapshot_at(0.01);
+        assert!(Arc::ptr_eq(&moved, &late_request));
+        let alpha_offset = 640 * 360 * 3 / 2;
+        assert_eq!(first[alpha_offset + 200 * 640 + 64], 255);
+        assert_eq!(moved[alpha_offset + 200 * 640 + 64], 0);
+        assert_eq!(moved[alpha_offset + 200 * 640 + 128], 255);
+    }
+
+    #[test]
+    fn simultaneous_consumers_receive_the_same_immutable_picture() {
+        let scene_cell = Arc::new(SceneCell::default());
+        scene_cell.store(scene(1, vec![cow(0.1)]));
+        let frames = Arc::new(OverlayFrames::new(640, 360, scene_cell));
+        let barrier = Arc::new(Barrier::new(4));
+        let consumers: Vec<_> = (0..4)
+            .map(|_| {
+                let frames = frames.clone();
+                let barrier = barrier.clone();
+                std::thread::spawn(move || {
+                    barrier.wait();
+                    frames.snapshot_at(0.01)
+                })
+            })
+            .collect();
+        let pictures: Vec<_> = consumers
+            .into_iter()
+            .map(|consumer| consumer.join().unwrap())
+            .collect();
+        assert!(
+            pictures[1..]
+                .iter()
+                .all(|frame| Arc::ptr_eq(&pictures[0], frame))
+        );
+    }
+
+    #[derive(Default)]
+    struct CaptureOne {
+        frame: Vec<u8>,
+    }
+
+    impl Write for CaptureOne {
+        fn write(&mut self, frame: &[u8]) -> std::io::Result<usize> {
+            if !self.frame.is_empty() {
+                return Err(ErrorKind::BrokenPipe.into());
+            }
+            self.frame.extend_from_slice(frame);
+            Ok(frame.len())
+        }
+
+        fn flush(&mut self) -> std::io::Result<()> {
+            Ok(())
+        }
+    }
+
+    struct StalledWriter {
+        entered: mpsc::Sender<()>,
+        release: mpsc::Receiver<()>,
+        first: bool,
+        frame: Vec<u8>,
+    }
+
+    impl Write for StalledWriter {
+        fn write(&mut self, frame: &[u8]) -> std::io::Result<usize> {
+            if !self.first {
+                return Err(ErrorKind::BrokenPipe.into());
+            }
+            self.first = false;
+            self.entered.send(()).unwrap();
+            self.release
+                .recv_timeout(Duration::from_secs(5))
+                .map_err(|_| std::io::Error::from(ErrorKind::TimedOut))?;
+            // Read after another consumer has rendered a newer scene: the
+            // in-flight bytes must remain unchanged throughout the stall.
+            self.frame.extend_from_slice(frame);
+            Ok(frame.len())
+        }
+
+        fn flush(&mut self) -> std::io::Result<()> {
+            Ok(())
+        }
+    }
+
+    #[test]
+    fn a_stalled_or_disconnected_writer_cannot_block_another_output() {
+        let scene_cell = Arc::new(SceneCell::default());
+        scene_cell.store(scene(1, vec![cow(0.1)]));
+        let frames = Arc::new(OverlayFrames::new(640, 360, scene_cell.clone()));
+        let (entered_tx, entered_rx) = mpsc::channel();
+        let (release_tx, release_rx) = mpsc::channel();
+        let slow_frames = frames.clone();
+        let slow = std::thread::spawn(move || {
+            let mut writer = StalledWriter {
+                entered: entered_tx,
+                release: release_rx,
+                first: true,
+                frame: Vec::new(),
+            };
+            let error = feed_frames(&mut writer, &slow_frames).unwrap_err();
+            (writer.frame, error.kind())
+        });
+        entered_rx.recv_timeout(Duration::from_secs(2)).unwrap();
+
+        scene_cell.store(scene(2, vec![cow(0.5)]));
+        let (finished_tx, finished_rx) = mpsc::channel();
+        let fast = std::thread::spawn(move || {
+            let mut writer = CaptureOne::default();
+            let error = feed_frames(&mut writer, &frames).unwrap_err();
+            finished_tx.send((writer.frame, error.kind())).unwrap();
+        });
+        let fast_result = finished_rx.recv_timeout(Duration::from_secs(2));
+        release_tx.send(()).unwrap();
+        let (old, slow_error) = slow.join().unwrap();
+        fast.join().unwrap();
+        let (new, fast_error) = fast_result.expect("other output stalled behind a socket write");
+        assert_eq!(slow_error, ErrorKind::BrokenPipe);
+        assert_eq!(fast_error, ErrorKind::BrokenPipe);
+        let alpha_offset = 640 * 360 * 3 / 2;
+        assert_eq!(old[alpha_offset + 200 * 640 + 64], 255);
+        assert_eq!(new[alpha_offset + 200 * 640 + 64], 0);
+        assert_eq!(new[alpha_offset + 200 * 640 + 320], 255);
+        assert_eq!(OVERLAY_FILTER, "overlay=eof_action=pass");
+    }
+
+    /// Measures render sharing including the copy-on-write cost of consumers
+    /// still using the previous picture. Socket bandwidth is unchanged.
+    #[test]
+    #[ignore]
+    fn benchmark_shared_overlay_render() {
+        use std::{hint::black_box, time::Instant};
+
+        let tracks: Vec<_> = (0..48)
+            .map(|index| {
+                let mut animal = cow(0.02 + (index % 8) as f32 * 0.12);
+                animal.id = index as u64;
+                animal.bbox.y = 0.12 + (index / 8) as f32 * 0.13;
+                animal.bbox.width = 0.07;
+                animal.bbox.height = 0.1;
+                animal.velocity = (0.005, 0.002);
+                animal
+            })
+            .collect();
+        let scene = scene(1, tracks);
+        let scene_cell = Arc::new(SceneCell::default());
+        scene_cell.store(scene.clone());
+        let mut independent = [
+            OverlayRenderer::new(1920, 1080),
+            OverlayRenderer::new(1920, 1080),
+        ];
+        let shared = OverlayFrames::new(1920, 1080, scene_cell);
+        let iterations = 180;
+        let started = Instant::now();
+        for tick in 0..iterations {
+            let now = (f64::from(tick) + 0.5) / f64::from(OVERLAY_FPS);
+            for renderer in &mut independent {
+                renderer.render(black_box(&scene), now);
+                black_box(renderer.frame());
+            }
+        }
+        let baseline = started.elapsed();
+        let mut in_flight: Option<[Arc<[u8]>; 2]> = None;
+        let started = Instant::now();
+        for tick in 0..iterations {
+            let now = (f64::from(tick) + 0.5) / f64::from(OVERLAY_FPS);
+            let first = shared.snapshot_at(now);
+            let second = shared.snapshot_at(now);
+            assert!(Arc::ptr_eq(&first, &second));
+            black_box(&first);
+            // Retain the previous two outputs until the new picture is ready,
+            // so this measures the copy rather than an uncontended best case.
+            in_flight = Some([first, second]);
+        }
+        black_box(&in_flight);
+        let cached = started.elapsed();
+        println!(
+            "overlay: {iterations} ticks, 48 animals, 1920x1080, two outputs; independent render {:.1} ms, shared render including COW {:.1} ms",
+            baseline.as_secs_f64() * 1000.0,
+            cached.as_secs_f64() * 1000.0,
+        );
     }
 }
