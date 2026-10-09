@@ -70,7 +70,33 @@ jobs:
           $dumpbin = Get-ChildItem "$vs\VC\Tools\MSVC\*\bin\Hostx64\x64\dumpbin.exe" | Sort-Object FullName -Descending | Select-Object -First 1
           $test = Get-ChildItem src-tauri/target/debug/deps/dji_live_bridge_lib-*.exe | Select-Object -First 1
           if ($test -and $dumpbin) {
-            & $dumpbin.FullName /imports $test.FullName
+            $imports = & $dumpbin.FullName /imports $test.FullName
+            $imports
+            Get-ChildItem src-tauri/target/debug -Filter '*.dll' -Recurse | Select-Object FullName
+            Add-Type @'
+          using System;
+          using System.Runtime.InteropServices;
+          using System.Text;
+          public static class NativeImports {
+            [DllImport("kernel32.dll", CharSet=CharSet.Unicode)] public static extern IntPtr LoadLibrary(string path);
+            [DllImport("kernel32.dll", CharSet=CharSet.Ansi)] public static extern IntPtr GetProcAddress(IntPtr module, string name);
+            [DllImport("kernel32.dll", CharSet=CharSet.Unicode)] public static extern uint GetModuleFileName(IntPtr module, StringBuilder name, int size);
+          }
+          '@
+            $module = [IntPtr]::Zero
+            foreach ($line in $imports) {
+              if ($line -match 'delay load imports') { break }
+              if ($line -match '^    ([\w.-]+\.dll)$') {
+                $dll = $Matches[1]
+                $module = [NativeImports]::LoadLibrary($dll)
+                $path = [System.Text.StringBuilder]::new(1024)
+                [void][NativeImports]::GetModuleFileName($module, $path, 1024)
+                Write-Host "Resolved $dll to $path"
+              } elseif ($module -ne [IntPtr]::Zero -and $line -match '^\s+[0-9A-F]+\s+([?\w@$]+)$') {
+                $symbol = $Matches[1]
+                if ([NativeImports]::GetProcAddress($module, $symbol) -eq [IntPtr]::Zero) { Write-Host "MISSING ENTRY: $dll $symbol" }
+              }
+            }
             foreach ($dll in @('msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll', 'DXCore.dll', 'DirectML.dll', 'D3D12.dll', 'dxgi.dll')) {
               $path = Join-Path $env:SystemRoot "System32/$dll"
               if (Test-Path $path) {
