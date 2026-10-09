@@ -74,6 +74,10 @@ production and virtual-camera FFmpegs read as an extra input (`ffmpeg::video_fil
   (a unit test checks this).
 - Windows links pyke's ONNX Runtime, which always contains DirectML; `build.rs` delay-loads the
   DirectX DLLs so the app starts without them. Keep that if `ort` is upgraded.
+- ONNX Runtime 1.28 has no Intel macOS prebuilt. `build:mac x86_64-apple-darwin` builds the pinned
+  Microsoft source with CoreML via `scripts/build-onnxruntime-macos.sh` and caches a combined static
+  archive under `src-tauri/target/onnxruntime/`. This requires full Xcode and `uv`; no runtime dylib
+  is shipped. An existing compatible static build can be supplied with `ORT_LIB_LOCATION`.
 - `cargo test --release -- --ignored` runs the real-model and end-to-end tests; they need the model
   files and a drone clip (see `vision/onnx.rs` and `vision/e2e.rs`) and the app must not be running.
 

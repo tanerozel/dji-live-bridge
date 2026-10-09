@@ -11,6 +11,14 @@ fn main() {
     // Microsoft's own onnxruntime.dll does, so a PC without them (or with an
     // older DirectML) still starts.
     if std::env::var("CARGO_CFG_TARGET_ENV").as_deref() == Ok("msvc") {
+        // Tauri's resource manifest is only linked into application binaries.
+        // Unit-test executables also import rfd's TaskDialogIndirect, which
+        // exists only in Common Controls v6. Let the linker embed the same
+        // dependency in every executable so tests can start too.
+        println!("cargo:rustc-link-arg=/MANIFEST:EMBED");
+        println!(
+            "cargo:rustc-link-arg=/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'"
+        );
         for dll in ["DirectML.dll", "dxcore.dll", "d3d12.dll", "dxgi.dll"] {
             println!("cargo:rustc-link-arg=/DELAYLOAD:{dll}");
         }
@@ -51,5 +59,11 @@ fn main() {
         println!("cargo:rustc-link-lib=objc");
         println!("cargo:rerun-if-changed=native/virtual_camera.m");
     }
-    tauri_build::build()
+    // The linker above supplies the Windows manifest, including for tests.
+    // Keep Tauri's other resources without adding a duplicate manifest.
+    tauri_build::try_build(
+        tauri_build::Attributes::new()
+            .windows_attributes(tauri_build::WindowsAttributes::new_without_app_manifest()),
+    )
+    .expect("Tauri build failed")
 }

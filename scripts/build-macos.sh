@@ -101,6 +101,12 @@ if pkill -f "DJI Live Bridge/mediamtx.yml" 2>/dev/null; then
   sleep 1
 fi
 
+if [ "$TARGET" = "x86_64-apple-darwin" ] && [ -z "${ORT_LIB_LOCATION:-}${ORT_LIB_PATH:-}" ]; then
+  step "Preparing Intel ONNX Runtime (no prebuilt runtime is available)"
+  ./scripts/build-onnxruntime-macos.sh "$TARGET"
+  export ORT_LIB_LOCATION="$ROOT_DIR/src-tauri/target/onnxruntime/1.28.0/$TARGET/lib"
+fi
+
 step "Building app bundle ($TARGET)"
 DJI_BUILD_MAC=1 npm run tauri -- build --target "$TARGET" --bundles app
 
