@@ -7,7 +7,7 @@
 
 Everything runs locally: the drone video never passes through a third-party server. FFmpeg and the
 media server are bundled, so nothing else has to be installed. Stream keys are kept in the operating
-system's credential vault. Version 0.2.6. MIT licence; the bundled FFmpeg is LGPL, built
+system's credential vault. Version 0.2.7. MIT licence; the bundled FFmpeg is LGPL, built
 without GPL components.
 
 Key facts:
