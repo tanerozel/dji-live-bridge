@@ -43,6 +43,7 @@ nav a:hover{color:var(--text)}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn.primary:hover{background:var(--accent-hover)}
 .btn.small{padding:7px 14px;font-size:14px}
+.btn-icon{flex-shrink:0;fill:currentColor}
 
 .hero{padding:72px 0 40px;text-align:center}
 .pill{display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;

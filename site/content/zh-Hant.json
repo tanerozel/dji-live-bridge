@@ -23,6 +23,7 @@
     "ctaMac": "下載 macOS 版",
     "ctaWin": "Windows（測試版）",
     "ctaAndroid": "Android 版（Google Play）",
+    "ctaIos": "iOS – App Store",
     "ctaSource": "GitHub 上的原始碼",
     "meta": "Apple Silicon 與 Intel Mac · macOS 13 或更新版本 · Windows 10/11 測試版 · 不必安裝其他東西",
     "shotAlt": "「開始直播」分頁：連接無人機、選擇直播目的地，然後按下開始直播。",
@@ -99,7 +100,9 @@
     ],
     "note": "在 Google Play 一次購買，無需訂閱。需要 Android 9 或更新版本。手機會依 DJI Fly 傳送的原樣轉發畫面，因此虛擬攝影機和 1080×1920 直式轉換仍是桌面版功能。",
     "cta": "在 Google Play 上取得",
-    "shotAlt": "Android 手機上的 Stream My Drone 正在直播到 Instagram，顯示無人機畫面、位元率和平台開關。"
+    "shotAlt": "Android 手機上的 Stream My Drone 正在直播到 Instagram，顯示無人機畫面、位元率和平台開關。",
+    "iosNote": "Stream My Drone 的 iOS 版本現已在 App Store 上架。",
+    "ctaIos": "在 App Store 下載"
   },
   "tiktok": {
     "h2": "TikTok 不必串流金鑰",

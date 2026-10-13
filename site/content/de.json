@@ -23,6 +23,7 @@
     "ctaMac": "Für macOS herunterladen",
     "ctaWin": "Windows (Beta)",
     "ctaAndroid": "Android bei Google Play",
+    "ctaIos": "iOS – App Store",
     "ctaSource": "Quellcode auf GitHub",
     "meta": "Macs mit Apple Silicon und Intel · macOS 13 oder neuer · Windows 10/11 als Beta · sonst nichts zu installieren",
     "shotAlt": "Der Tab „Live gehen“: Drohne verbinden, Ziele wählen, dann LIVE STARTEN drücken.",
@@ -99,7 +100,9 @@
     ],
     "note": "Einmalkauf bei Google Play, kein Abo. Android 9 oder neuer. Das Smartphone leitet das Bild so weiter, wie DJI Fly es sendet; die virtuelle Kamera und die Hochformat-Umwandlung auf 1080×1920 bleiben Funktionen der Desktop-App.",
     "cta": "Jetzt bei Google Play",
-    "shotAlt": "Stream My Drone auf einem Android-Smartphone, live auf Instagram, mit Drohnenbild, Bitrate und Plattform-Schaltern."
+    "shotAlt": "Stream My Drone auf einem Android-Smartphone, live auf Instagram, mit Drohnenbild, Bitrate und Plattform-Schaltern.",
+    "iosNote": "Stream My Drone ist auch für iOS im App Store erhältlich.",
+    "ctaIos": "Im App Store laden"
   },
   "tiktok": {
     "h2": "TikTok ohne Stream-Schlüssel",

@@ -23,6 +23,7 @@
     "ctaMac": "Скачать для macOS",
     "ctaWin": "Windows (бета)",
     "ctaAndroid": "Android в Google Play",
+    "ctaIos": "iOS – App Store",
     "ctaSource": "Исходный код на GitHub",
     "meta": "Mac на Apple Silicon и Intel · macOS 13 или новее · бета для Windows 10/11 · больше ничего ставить не нужно",
     "shotAlt": "Вкладка «Трансляция»: подключите дрон, выберите направления и нажмите НАЧАТЬ ТРАНСЛЯЦИЮ.",
@@ -99,7 +100,9 @@
     ],
     "note": "Разовая покупка в Google Play, без подписки. Android 9 или новее. Телефон пересылает картинку в том виде, в каком её отправляет DJI Fly, поэтому виртуальная камера и вертикальное преобразование 1080×1920 остаются функциями настольной версии.",
     "cta": "Доступно в Google Play",
-    "shotAlt": "Stream My Drone на телефоне Android в прямом эфире в Instagram: картинка с дрона, битрейт и переключатели платформ."
+    "shotAlt": "Stream My Drone на телефоне Android в прямом эфире в Instagram: картинка с дрона, битрейт и переключатели платформ.",
+    "iosNote": "Stream My Drone также доступен для iOS в App Store.",
+    "ctaIos": "Загрузить в App Store"
   },
   "tiktok": {
     "h2": "TikTok без ключа трансляции",

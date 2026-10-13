@@ -23,6 +23,7 @@
     "ctaMac": "下载 macOS 版",
     "ctaWin": "Windows（测试版）",
     "ctaAndroid": "Android 版（Google Play）",
+    "ctaIos": "iOS – App Store",
     "ctaSource": "GitHub 上的源代码",
     "meta": "Apple Silicon 与 Intel Mac · macOS 13 或更新版本 · Windows 10/11 测试版 · 无需安装其他软件",
     "shotAlt": "“开始直播”标签页：连接无人机、选择推流目标，然后按下开始直播。",
@@ -99,7 +100,9 @@
     ],
     "note": "在 Google Play 一次性购买，无需订阅。需要 Android 9 或更高版本。手机按 DJI Fly 发送的原样转发画面，因此虚拟摄像头和 1080×1920 竖屏转换仍是桌面版功能。",
     "cta": "在 Google Play 上获取",
-    "shotAlt": "Android 手机上的 Stream My Drone 正在直播到 Instagram，显示无人机画面、码率和平台开关。"
+    "shotAlt": "Android 手机上的 Stream My Drone 正在直播到 Instagram，显示无人机画面、码率和平台开关。",
+    "iosNote": "Stream My Drone 的 iOS 版本现已在 App Store 上架。",
+    "ctaIos": "在 App Store 下载"
   },
   "tiktok": {
     "h2": "TikTok 不用推流密钥",

@@ -23,6 +23,7 @@
     "ctaMac": "Baixar para macOS",
     "ctaWin": "Windows (beta)",
     "ctaAndroid": "Android no Google Play",
+    "ctaIos": "iOS – App Store",
     "ctaSource": "Código no GitHub",
     "meta": "Macs com Apple Silicon e Intel · macOS 13 ou mais recente · Windows 10/11 em beta · nada mais para instalar",
     "shotAlt": "A aba Transmitir: conecte o drone, escolha os destinos e pressione INICIAR TRANSMISSÃO.",
@@ -99,7 +100,9 @@
     ],
     "note": "Compra única no Google Play, sem assinatura. Android 9 ou mais recente. O celular repassa a imagem do jeito que o DJI Fly envia, então a câmera virtual e a conversão vertical 1080×1920 continuam sendo recursos do app para computador.",
     "cta": "Disponível no Google Play",
-    "shotAlt": "Stream My Drone em um celular Android, ao vivo no Instagram, com a imagem do drone, a taxa de bits e os botões das plataformas."
+    "shotAlt": "Stream My Drone em um celular Android, ao vivo no Instagram, com a imagem do drone, a taxa de bits e os botões das plataformas.",
+    "iosNote": "O Stream My Drone também está disponível para iOS na App Store.",
+    "ctaIos": "Baixar na App Store"
   },
   "tiktok": {
     "h2": "TikTok sem chave de transmissão",

@@ -23,6 +23,7 @@
     "ctaMac": "macOS용 다운로드",
     "ctaWin": "Windows(베타)",
     "ctaAndroid": "Google Play의 Android 앱",
+    "ctaIos": "iOS – App Store",
     "ctaSource": "GitHub 소스 코드",
     "meta": "Apple Silicon 및 Intel Mac · macOS 13 이상 · Windows 10/11 베타 · 따로 설치할 것 없음",
     "shotAlt": "'방송' 탭: 드론을 연결하고 방송 대상을 고른 뒤 방송 시작을 누릅니다.",
@@ -99,7 +100,9 @@
     ],
     "note": "Google Play에서 한 번 구매, 구독 없음. Android 9 이상. 휴대폰은 DJI Fly가 보낸 화면을 그대로 전달하므로 가상 카메라와 세로 1080×1920 변환은 데스크톱 앱 기능입니다.",
     "cta": "Google Play에서 다운로드",
-    "shotAlt": "Android 휴대폰의 Stream My Drone이 Instagram으로 라이브 중이며, 드론 화면, 비트레이트, 플랫폼 스위치가 보입니다."
+    "shotAlt": "Android 휴대폰의 Stream My Drone이 Instagram으로 라이브 중이며, 드론 화면, 비트레이트, 플랫폼 스위치가 보입니다.",
+    "iosNote": "Stream My Drone의 iOS 버전도 App Store에서 이용할 수 있습니다.",
+    "ctaIos": "App Store에서 다운로드"
   },
   "tiktok": {
     "h2": "스트림 키 없이 하는 TikTok 방송",

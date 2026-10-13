@@ -23,6 +23,7 @@
     "ctaMac": "التنزيل لنظام macOS",
     "ctaWin": "‏Windows (نسخة تجريبية)",
     "ctaAndroid": "أندرويد على Google Play",
+    "ctaIos": "iOS – App Store",
     "ctaSource": "الشيفرة المصدرية على GitHub",
     "meta": "أجهزة Mac بمعالج Apple Silicon و Intel · نظام macOS 13 أو أحدث · نسخة Windows 10/11 التجريبية · لا شيء آخر تحتاج إلى تثبيته",
     "shotAlt": "تبويب البث المباشر: وصّل الدرون، واختر الوجهات، ثم اضغط «ابدأ البث».",
@@ -99,7 +100,9 @@
     ],
     "note": "شراء لمرة واحدة على Google Play، بلا اشتراك. أندرويد 9 أو أحدث. ينقل الهاتف الصورة كما يرسلها DJI Fly، لذا تبقى الكاميرا الافتراضية والتحويل العمودي 1080×1920 من ميزات تطبيق سطح المكتب.",
     "cta": "احصل عليه من Google Play",
-    "shotAlt": "Stream My Drone على هاتف أندرويد في بث مباشر إلى Instagram، مع صورة الطائرة ومعدل البت ومفاتيح المنصات."
+    "shotAlt": "Stream My Drone على هاتف أندرويد في بث مباشر إلى Instagram، مع صورة الطائرة ومعدل البت ومفاتيح المنصات.",
+    "iosNote": "يتوفر Stream My Drone أيضًا لنظام iOS على App Store.",
+    "ctaIos": "تنزيل من App Store"
   },
   "tiktok": {
     "h2": "‏TikTok بلا مفتاح بث",

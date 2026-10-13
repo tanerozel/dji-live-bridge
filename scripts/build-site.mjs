@@ -17,8 +17,9 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const BASE = "https://tanerozel.github.io/dji-live-bridge";
 const REPO = "https://github.com/tanerozel/dji-live-bridge";
 const RELEASES = `${REPO}/releases/latest`;
-// The Android app, published on its own as "Stream My Drone".
+// The mobile apps, published on their own as "Stream My Drone".
 const PLAY = "https://play.google.com/store/apps/details?id=com.streammydrone.app";
+const APP_STORE = "https://apps.apple.com/us/app/stream-my-drone/id6818233095";
 // Google Analytics 4. Empty string removes the tag from every page.
 const ANALYTICS_ID = "G-2HCY063P0W";
 
@@ -53,6 +54,18 @@ const assetPrefix = (code) => (code === "en" ? "" : "../");
 const escapeHtml = (value) =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const stripTags = (value) => value.replace(/<[^>]+>/g, "");
+
+// Decorative icons: each button keeps its visible, localized accessible name.
+const BUTTON_ICONS = {
+  apple: '<path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/>',
+  windows: '<path d="M2 4.5 10.5 3v8.25H2Zm10-1.75L22 1v10.25H12ZM2 12.75h8.5V21L2 19.5Zm10 0h10V23l-10-1.75Z"/>',
+  play: '<path fill="#34a853" d="m3 2 11 10L3 22Z"/><path fill="#4285f4" d="m3 2 14 8-3 2Z"/><path fill="#fbbc04" d="m17 10 4 2-4 2-3-2Z"/><path fill="#ea4335" d="m3 22 11-10 3 2Z"/>',
+  github: '<path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.64 1.22 3.28.93.1-.73.39-1.22.72-1.5-2.5-.28-5.13-1.25-5.13-5.57 0-1.23.44-2.23 1.16-3.01-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.09 1.15A10.77 10.77 0 0 1 12 6.16c.96 0 1.92.13 2.82.38 2.14-1.45 3.08-1.15 3.08-1.15.61 1.55.23 2.7.11 2.98.72.78 1.16 1.78 1.16 3.01 0 4.33-2.64 5.29-5.15 5.57.41.35.76 1.03.76 2.08v3.1c0 .3.2.65.78.54A11.25 11.25 0 0 0 12 .75Z"/>',
+  download: '<path d="M11 2h2v11l4-4 1.4 1.4L12 16.8l-6.4-6.4L7 9l4 4ZM3 16h2v4h14v-4h2v6H3Z"/>',
+  globe: '<g fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></g>',
+};
+const buttonIcon = (name) =>
+  `<svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">${BUTTON_ICONS[name]}</svg>`;
 
 // --- blog sources --------------------------------------------------------
 //
@@ -254,7 +267,7 @@ ${head(locale, content)}
       <a href="#faq">${content.nav.faq}</a>
       <a href="${blogHomeFor(locale.code)}">${content.nav.blog}</a>
       ${menu}
-      <a class="btn small" href="${REPO}">GitHub</a>
+      <a class="btn small" href="${REPO}">${buttonIcon("github")}GitHub</a>
     </nav>
   </div>
 </header>
@@ -266,10 +279,11 @@ ${head(locale, content)}
   <h1>${content.hero.h1}</h1>
   <p class="lead">${content.hero.lead}</p>
   <div class="cta">
-    <a class="btn primary" href="${RELEASES}">${content.hero.ctaMac}</a>
-    <a class="btn" href="${RELEASES}">${content.hero.ctaWin}</a>
-    <a class="btn" href="${PLAY}">${content.hero.ctaAndroid}</a>
-    <a class="btn" href="${REPO}">${content.hero.ctaSource}</a>
+    <a class="btn primary" href="${RELEASES}">${buttonIcon("apple")}${content.hero.ctaMac}</a>
+    <a class="btn" href="${RELEASES}">${buttonIcon("windows")}${content.hero.ctaWin}</a>
+    <a class="btn" href="${PLAY}">${buttonIcon("play")}${content.hero.ctaAndroid}</a>
+    <a class="btn" href="${APP_STORE}">${buttonIcon("apple")}${content.hero.ctaIos}</a>
+    <a class="btn" href="${REPO}">${buttonIcon("github")}${content.hero.ctaSource}</a>
   </div>
   <p class="meta">${content.hero.meta}</p>
   <div class="shot"><img src="${asset}img/go-live.png" alt="${escapeHtml(stripTags(content.hero.shotAlt))}" width="1600" height="1260" fetchpriority="high"></div>
@@ -307,7 +321,11 @@ ${head(locale, content)}
         </ul>
         <p class="note" style="margin-top:16px">${content.android.note}</p>
         <div class="cta" style="justify-content:flex-start;margin-top:22px">
-          <a class="btn primary" href="${PLAY}">${content.android.cta}</a>
+          <a class="btn primary" href="${PLAY}">${buttonIcon("play")}${content.android.cta}</a>
+        </div>
+        <p class="note" style="margin-top:22px">${content.android.iosNote}</p>
+        <div class="cta" style="justify-content:flex-start;margin-top:12px">
+          <a class="btn" href="${APP_STORE}">${buttonIcon("apple")}${content.android.ctaIos}</a>
         </div>
       </div>
       <div class="shot phone"><img src="${asset}img/android-live.jpg" alt="${escapeHtml(stripTags(content.android.shotAlt))}" width="600" height="1211" loading="lazy"></div>
@@ -346,7 +364,7 @@ ${head(locale, content)}
       ${installSteps}
     </ol>
     <div class="cta" style="justify-content:flex-start;margin-top:26px">
-      <a class="btn primary" href="${RELEASES}">${content.install.cta}</a>
+      <a class="btn primary" href="${RELEASES}">${buttonIcon("download")}${content.install.cta}</a>
     </div>
     <h3 style="margin-top:34px;font-size:16px">${content.install.langsTitle}</h3>
     <div class="langs">
@@ -474,7 +492,7 @@ function blogHeader(locale, labels, menuLinks, asset) {
       <a href="${urlFor(locale.code)}">${labels.home}</a>
       <a href="${blogUrl(locale.code)}">${labels.blog}</a>
       ${menu}
-      <a class="btn small" href="${RELEASES}">${labels.download}</a>
+      <a class="btn small" href="${RELEASES}">${buttonIcon("download")}${labels.download}</a>
     </nav>
   </div>
 </header>`;
@@ -639,7 +657,7 @@ ${faq}
 <div class="cta-box">
 <h2>${labels.cta.h}</h2>
 <p>${labels.cta.p}</p>
-<div class="cta"><a class="btn primary" href="${RELEASES}">${labels.cta.button}</a><a class="btn" href="${urlFor(locale.code)}">${labels.cta.more}</a></div>
+<div class="cta"><a class="btn primary" href="${RELEASES}">${buttonIcon("download")}${labels.cta.button}</a><a class="btn" href="${urlFor(locale.code)}">${buttonIcon("globe")}${labels.cta.more}</a></div>
 </div>
 
 <h2 id="related">${labels.related}</h2>
@@ -813,6 +831,7 @@ Key facts:
 - [Turkish README](${REPO}/blob/main/README.tr.md): the same document in Turkish; 13 further languages sit beside it.
 - [Releases](${RELEASES}): downloads for macOS and Windows.
 - [Stream My Drone on Google Play](${PLAY}): the Android app.
+- [Stream My Drone on the App Store](${APP_STORE}): the iOS app.
 - [Dependencies](${BASE}/DEPENDENCIES.md): third-party components and their licences.
 - [Security policy](${BASE}/SECURITY.md): how to report a vulnerability.
 
@@ -881,6 +900,8 @@ function llmsFull(content) {
     ...content.android.items.map((item) => `- ${line(item)}`),
     line(content.android.note),
     `Google Play: ${PLAY}`,
+    line(content.android.iosNote),
+    `App Store: ${APP_STORE}`,
     "",
     `## ${line(content.tiktok.h2)}`,
     line(content.tiktok.sub),

@@ -23,6 +23,7 @@
     "ctaMac": "macOS के लिए डाउनलोड करें",
     "ctaWin": "Windows (बीटा)",
     "ctaAndroid": "Google Play पर Android ऐप",
+    "ctaIos": "iOS – App Store",
     "ctaSource": "GitHub पर सोर्स कोड",
     "meta": "Apple Silicon और Intel Mac · macOS 13 या नया · Windows 10/11 बीटा · और कुछ इंस्टॉल नहीं करना",
     "shotAlt": "लाइव टैब: ड्रोन जोड़ें, गंतव्य चुनें, फिर लाइव शुरू करें दबाएँ।",
@@ -99,7 +100,9 @@
     ],
     "note": "Google Play पर एक बार की खरीद, कोई सदस्यता नहीं। Android 9 या उससे नया। फ़ोन तस्वीर को वैसे ही आगे भेजता है जैसे DJI Fly भेजता है, इसलिए वर्चुअल कैमरा और वर्टिकल 1080×1920 रूपांतरण डेस्कटॉप ऐप की ही सुविधाएँ हैं।",
     "cta": "Google Play पर पाएँ",
-    "shotAlt": "Android फ़ोन पर Stream My Drone, Instagram पर लाइव, ड्रोन की तस्वीर, बिटरेट और प्लेटफ़ॉर्म स्विच के साथ।"
+    "shotAlt": "Android फ़ोन पर Stream My Drone, Instagram पर लाइव, ड्रोन की तस्वीर, बिटरेट और प्लेटफ़ॉर्म स्विच के साथ।",
+    "iosNote": "Stream My Drone का iOS संस्करण भी App Store पर उपलब्ध है।",
+    "ctaIos": "App Store से डाउनलोड करें"
   },
   "tiktok": {
     "h2": "स्ट्रीम की के बिना TikTok",

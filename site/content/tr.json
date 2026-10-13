@@ -23,6 +23,7 @@
     "ctaMac": "macOS için indir",
     "ctaWin": "Windows (beta)",
     "ctaAndroid": "Android – Google Play",
+    "ctaIos": "iOS – App Store",
     "ctaSource": "GitHub'da kaynak kodu",
     "meta": "Apple Silicon ve Intel Mac'ler · macOS 13 veya üzeri · Windows 10/11 beta · başka hiçbir şey kurmanız gerekmez",
     "shotAlt": "Canlı yayın sekmesi: drone'u bağlayın, hedefleri seçin, sonra YAYINI BAŞLAT'a basın.",
@@ -99,7 +100,9 @@
     ],
     "note": "Google Play'de tek seferlik satın alma, abonelik yok. Android 9 veya üzeri. Telefon görüntüyü DJI Fly'ın gönderdiği gibi iletir; sanal kamera ve dikey 1080×1920 dönüştürme masaüstü uygulamasına özeldir.",
     "cta": "Google Play'den indirin",
-    "shotAlt": "Android telefonda Stream My Drone, Instagram'a canlı yayında: drone görüntüsü, bit hızı ve platform anahtarları."
+    "shotAlt": "Android telefonda Stream My Drone, Instagram'a canlı yayında: drone görüntüsü, bit hızı ve platform anahtarları.",
+    "iosNote": "Stream My Drone’un iOS sürümü de App Store’da yayında.",
+    "ctaIos": "App Store’dan indirin"
   },
   "tiktok": {
     "h2": "Yayın anahtarı olmadan TikTok",

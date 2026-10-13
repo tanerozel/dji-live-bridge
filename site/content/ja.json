@@ -23,6 +23,7 @@
     "ctaMac": "macOS 版をダウンロード",
     "ctaWin": "Windows（ベータ）",
     "ctaAndroid": "Android 版（Google Play）",
+    "ctaIos": "iOS – App Store",
     "ctaSource": "GitHub のソースコード",
     "meta": "Apple Silicon と Intel の Mac · macOS 13 以降 · Windows 10/11 ベータ · ほかに入れるものはありません",
     "shotAlt": "「配信」タブ：ドローンを接続し、配信先を選び、配信を開始を押します。",
@@ -99,7 +100,9 @@
     ],
     "note": "Google Play での買い切り、サブスクリプションなし。Android 9 以降。スマホは DJI Fly が送る映像をそのまま転送するため、仮想カメラと縦型 1080×1920 への変換はデスクトップ版の機能です。",
     "cta": "Google Play で手に入れよう",
-    "shotAlt": "Android スマホの Stream My Drone で Instagram にライブ配信中。ドローン映像、ビットレート、プラットフォームのスイッチが表示されています。"
+    "shotAlt": "Android スマホの Stream My Drone で Instagram にライブ配信中。ドローン映像、ビットレート、プラットフォームのスイッチが表示されています。",
+    "iosNote": "Stream My DroneのiOS版もApp Storeで配信中です。",
+    "ctaIos": "App Storeからダウンロード"
   },
   "tiktok": {
     "h2": "ストリームキーなしの TikTok",

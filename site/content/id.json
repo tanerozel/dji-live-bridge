@@ -23,6 +23,7 @@
     "ctaMac": "Unduh untuk macOS",
     "ctaWin": "Windows (beta)",
     "ctaAndroid": "Android di Google Play",
+    "ctaIos": "iOS – App Store",
     "ctaSource": "Kode sumber di GitHub",
     "meta": "Mac Apple Silicon dan Intel · macOS 13 atau lebih baru · Windows 10/11 beta · tidak ada yang perlu dipasang lagi",
     "shotAlt": "Tab Siaran: hubungkan drone, pilih tujuan, lalu tekan MULAI SIARAN.",
@@ -99,7 +100,9 @@
     ],
     "note": "Sekali beli di Google Play, tanpa langganan. Android 9 atau lebih baru. Ponsel meneruskan gambar persis seperti yang dikirim DJI Fly, jadi kamera virtual dan konversi vertikal 1080×1920 tetap menjadi fitur aplikasi desktop.",
     "cta": "Dapatkan di Google Play",
-    "shotAlt": "Stream My Drone di ponsel Android, siaran langsung ke Instagram, menampilkan gambar drone, bitrate, dan sakelar platform."
+    "shotAlt": "Stream My Drone di ponsel Android, siaran langsung ke Instagram, menampilkan gambar drone, bitrate, dan sakelar platform.",
+    "iosNote": "Stream My Drone juga tersedia untuk iOS di App Store.",
+    "ctaIos": "Unduh di App Store"
   },
   "tiktok": {
     "h2": "TikTok tanpa stream key",
