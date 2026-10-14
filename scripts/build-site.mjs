@@ -279,10 +279,10 @@ ${head(locale, content)}
   <h1>${content.hero.h1}</h1>
   <p class="lead">${content.hero.lead}</p>
   <div class="cta">
-    <a class="btn primary" href="${RELEASES}">${buttonIcon("apple")}${content.hero.ctaMac}</a>
+    <a class="btn primary" href="${PLAY}">${buttonIcon("play")}${content.hero.ctaAndroid}</a>
+    <a class="btn primary" href="${APP_STORE}">${buttonIcon("apple")}${content.hero.ctaIos}</a>
+    <a class="btn" href="${RELEASES}">${buttonIcon("apple")}${content.hero.ctaMac}</a>
     <a class="btn" href="${RELEASES}">${buttonIcon("windows")}${content.hero.ctaWin}</a>
-    <a class="btn" href="${PLAY}">${buttonIcon("play")}${content.hero.ctaAndroid}</a>
-    <a class="btn" href="${APP_STORE}">${buttonIcon("apple")}${content.hero.ctaIos}</a>
     <a class="btn" href="${REPO}">${buttonIcon("github")}${content.hero.ctaSource}</a>
   </div>
   <p class="meta">${content.hero.meta}</p>
