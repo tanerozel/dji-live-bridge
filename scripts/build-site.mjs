@@ -1,4 +1,5 @@
-// Generates the GitHub Pages site into docs/ from site/content/<lang>.json.
+// Generates the GitHub Pages site into docs/ from site/content/<lang>.json,
+// blog sources and the standalone site/privacy-policy.html.
 //
 // One page per language at its own URL (English at the root, the rest under
 // /<code>/), because a search engine can only rank a language it can crawl at
@@ -1010,6 +1011,7 @@ for (const { locale, labels } of BLOG) {
 
 // Pages runs Jekyll over docs/ by default; this turns that off so the files
 // are served exactly as generated.
+writeFileSync(join(root, "docs/privacy-policy.html"), readFileSync(join(root, "site/privacy-policy.html"), "utf8"));
 writeFileSync(join(root, "docs/.nojekyll"), "");
 writeFileSync(join(root, "docs/sitemap.xml"), sitemap());
 writeFileSync(join(root, "docs/robots.txt"), robots());

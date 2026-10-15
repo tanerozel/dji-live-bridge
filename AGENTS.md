@@ -87,6 +87,7 @@ production and virtual-camera FFmpegs read as an extra input (`ffmpeg::video_fil
 
 - Sources: `site/content/<lang>.json` (one file per language, all with the same key shape) and
   `site/styles.css`. The generator is `scripts/build-site.mjs`.
+- The standalone mobile privacy policy source is `site/privacy-policy.html`; the generator copies it to `docs/privacy-policy.html`.
 - Rebuild with `npm run build:site`, verify with `npm run check:site` (the latter rebuilds first).
 - Every language gets its own URL (English at `/`, the rest at `/<code>/`) with its own canonical
   link and a full set of `hreflang` alternates; `check-site.mjs` fails if any of that is wrong, if a

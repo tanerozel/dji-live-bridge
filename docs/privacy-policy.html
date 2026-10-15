@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stream My Drone — Privacy Policy</title>
+    <meta name="description" content="How Stream My Drone handles local streaming, optional Google and YouTube account access, secure credentials, retention and disconnecting your account.">
+    <link rel="canonical" href="https://tanerozel.github.io/dji-live-bridge/privacy-policy.html">
     <style>
         * {
             margin: 0;
@@ -55,7 +57,7 @@
 
         p {
             margin-bottom: 15px;
-            text-align: justify;
+            text-align: left;
         }
 
         ul, ol {
@@ -90,6 +92,7 @@
             padding: 2px 6px;
             border-radius: 3px;
             font-family: 'Courier New', monospace;
+            overflow-wrap: anywhere;
         }
 
         .divider {
@@ -113,18 +116,18 @@
         <p style="font-size: 1.2em; margin-bottom: 20px;">Privacy Policy</p>
 
         <div class="last-updated">
-            <strong>Last Updated:</strong> October 1, 2026
+            <strong>Last Updated:</strong> <time datetime="2026-10-15">October 15, 2026</time>
         </div>
 
         <h2>Introduction</h2>
-        <p>Stream My Drone for iPhone, iPad and Android receives the picture that DJI Fly sends from your DJI remote controller over your local network, and forwards it to the streaming platforms you choose. This policy explains what the app does with your information. The short version: the app does not collect any data, and there is no Stream My Drone server or account.</p>
+        <p>Stream My Drone for iPhone, iPad and Android receives the picture that DJI Fly sends from your DJI remote controller over your local network, and forwards it to the streaming platforms you choose. This policy explains what the app accesses, stores, uses and sends when providing these features. The developer does not operate a Stream My Drone account service or a backend that receives your account data or broadcasts.</p>
 
         <div class="highlight">
             <strong>In short:</strong>
             <ul style="margin-top: 10px;">
-                <li>We do not collect, receive, share or sell any personal data.</li>
+                <li>Your settings and saved connection information stay on your device; the developer does not receive them on a server or sell them.</li>
                 <li>The app contains no analytics, advertising, crash-reporting or tracking code.</li>
-                <li>The app never contacts a server run by us. Your video goes only to the streaming platforms you set up.</li>
+                <li>The app communicates directly with the platforms you choose. On Android versions offering a YouTube account connection, it also communicates directly with Google and YouTube to authorize access and manage your broadcasts.</li>
                 <li>Your stream keys stay on your device, in secure storage.</li>
             </ul>
         </div>
@@ -134,6 +137,8 @@
         <ul>
             <li><strong>Saved platforms:</strong> the name, platform and server address of each destination you add.</li>
             <li><strong>Stream keys:</strong> on iPhone and iPad, in the iOS Keychain, readable only on this device while it is unlocked, and never synced to iCloud or included in backups. On Android, encrypted with a key held by the Android Keystore.</li>
+            <li><strong>Connected YouTube account (Android, where available):</strong> your Google account email address, YouTube channel ID and name, stream ID, broadcast title, visibility and made-for-kids selection. These settings are kept in the app's private storage, excluded from Android cloud backup and device transfer. Stream keys are encrypted separately as described above.</li>
+            <li><strong>YouTube recovery records:</strong> account identity and remote session identifiers needed to finish a broadcast after an interrupted operation. These are kept in private storage excluded from backup; they do not contain video, stream keys or OAuth access tokens.</li>
             <li><strong>Preferences:</strong> theme, language, how the picture fills the screen, and whether you have seen the first-run guide.</li>
             <li><strong>Test video:</strong> if you pick a video to try the app without a drone, a converted copy of its first 60 seconds may be kept in the app's cache so it does not need converting again.</li>
         </ul>
@@ -142,11 +147,24 @@
         <h2>2. Where Your Video Goes</h2>
         <ul>
             <li><strong>From your remote controller to the app:</strong> DJI Fly sends the picture to the app over your local Wi-Fi network or your phone's hotspot. It does not pass through the internet.</li>
-            <li><strong>From the app to your platforms:</strong> while you are live, the app sends the picture and sound, together with the stream key you entered, directly to the RTMP or RTMPS server of each platform you switched on (for example Instagram, TikTok, YouTube, Facebook, Twitch, Kick or your own server). For RTMPS addresses the connection is encrypted and the server's certificate is verified.</li>
+            <li><strong>From the app to your platforms:</strong> while you are live, the app sends the picture and sound, authenticated with the stream key you entered or obtained through your authorized YouTube connection, directly to the RTMP or RTMPS server of each platform you switched on (for example Instagram, TikTok, YouTube, Facebook, Twitch, Kick or your own server). For RTMPS addresses the connection is encrypted and the server's certificate is verified.</li>
         </ul>
         <p>What those platforms do with your broadcast is covered by their own privacy policies. DJI Fly and your DJI equipment are covered by DJI's privacy policy. Stream My Drone is not affiliated with DJI or with any streaming platform.</p>
 
-        <h2>3. Permissions</h2>
+        <h2 id="google-youtube">3. Optional Google and YouTube Account Connection</h2>
+        <p>Android versions that offer <strong>Connect YouTube account</strong> use <strong>YouTube API Services</strong>. This connection is optional: you can use manually configured stream keys and other streaming destinations without connecting a Google account. The native iPhone and iPad apps currently use manually configured stream keys.</p>
+        <p>When you choose to connect, Google's own authorization interface asks you to select an account and grant permission. Stream My Drone does not receive or store your Google password. The app requests:</p>
+        <ul>
+            <li><strong>Google account email</strong> (<code>https://www.googleapis.com/auth/userinfo.email</code>): to identify the connected account and request subsequent authorization for the same account.</li>
+            <li><strong>YouTube account access</strong> (<code>https://www.googleapis.com/auth/youtube.force-ssl</code>): to retrieve your channel information, create a reusable streaming input and obtain its ingest address and stream key, create and bind live broadcasts, check their status, complete them when you stop, and delete unstarted events or inputs created during an unsuccessful setup.</li>
+        </ul>
+        <p>The YouTube permission Google displays is broader than these particular operations and includes managing or deleting videos, ratings, comments and captions. Stream My Drone uses it for the broadcast operations described here; it does not read or manage your ratings, comments or captions, and does not delete unrelated videos.</p>
+        <p>Your broadcast title, selected visibility and made-for-kids setting are sent directly to YouTube when the app prepares your broadcast. Account, channel, stream and broadcast identifiers are sent to Google or YouTube as needed to authorize and manage that connection. Broadcasts are configured to start when YouTube receives video and to stop automatically when appropriate; the app also requests completion when you end the broadcast. YouTube's processing of your account data and video, including any saved replay, is governed by its own settings and policies.</p>
+        <p><strong>Credentials:</strong> Google Play services manages authorization and its token cache. The app uses short-lived OAuth access tokens in memory for direct HTTPS requests to Google and YouTube. It does not write OAuth access tokens to its own files or logs, and does not request or store a refresh token. YouTube stream keys use Android Keystore encryption. No Google account data, access tokens, stream keys or broadcasts are sent to a developer-operated server.</p>
+        <p><strong>Use and sharing:</strong> Google account data is used only for the account connection and broadcast features you request. We do not sell it, use it for advertising or tracking, send it to data brokers, or use it to train AI models. Its use is limited to these user-facing features in accordance with the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
+        <p>Google and YouTube handle data under the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>. Your use of YouTube features is also subject to the <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>. You can revoke the app's access at any time in <a href="https://security.google.com/settings/security/permissions">Google Account permissions</a>. The local deletion and disconnect options are described in section 6 below.</p>
+
+        <h2>4. Device Permissions</h2>
         <ul>
             <li><strong>Local network (iPhone and iPad):</strong> to receive the picture from DJI Fly on your remote controller.</li>
             <li><strong>Internet:</strong> to send your broadcast to the platforms you chose.</li>
@@ -156,35 +174,30 @@
         </ul>
         <p>The app does not use your camera, microphone, location, contacts or photo library. When you pick a test video, the system's own picker gives the app only the video you chose.</p>
 
-        <h2>4. Children's Privacy</h2>
-        <p>Stream My Drone is not directed at children under 13. The app does not collect personal data from anyone, including children.</p>
+        <h2>5. Children's Privacy</h2>
+        <p>Stream My Drone is not directed at children under 13. The developer does not operate a service that receives personal data from children. The optional Google and YouTube connection is subject to Google's account and YouTube's age and live-streaming requirements. The broadcast's made-for-kids setting describes its intended audience; it does not authorize a child to use an account or bypass those requirements.</p>
 
-        <h2>5. Deleting Your Data</h2>
+        <h2 id="deleting-data">6. Retention, Disconnecting and Deleting Your Data</h2>
         <ul>
             <li>Deleting a platform in the app removes its server address and stream key from your device.</li>
+            <li>For a connected YouTube profile on Android, end the broadcast and choose <strong>Disconnect YouTube account</strong>. The app first attempts any outstanding broadcast cleanup, revokes its Google authorization for that account, and removes the saved profile, including its email address, channel details, settings and encrypted stream key. Other connections using the same Google account may need permission again. If the operation fails, the app reports the error so you can retry.</li>
+            <li>You can also revoke access directly through <a href="https://security.google.com/settings/security/permissions">Google Account permissions</a>. Revoking access there does not itself erase a locally saved profile. Remove the profile in the app where possible, or clear the app's storage or uninstall it to remove local Android files. Removing a local profile or uninstalling alone does not guarantee that Google's authorization has been revoked; use Google's permissions page to confirm.</li>
+            <li>Saved YouTube connection settings remain on your device until you remove or replace the profile, clear app storage or uninstall. Recovery records are removed after the associated cleanup succeeds; if a network or permission error prevents cleanup, they remain for a later retry or until app storage is cleared. Google Play services manages the lifetime of its own authorization cache.</li>
             <li>Uninstalling the app removes its settings and cache. On iPhone and iPad, iOS may keep Keychain items after an app is deleted, so delete your platforms in the app first if you want their keys gone too.</li>
+            <li>Disconnecting or uninstalling does not delete completed broadcasts, recordings or reusable stream inputs stored by YouTube. Manage those in YouTube Studio. If a broadcast cannot be ended because of a connection or authorization error, check and end it in YouTube Studio.</li>
         </ul>
-        <p>Because we hold no data about you, there is nothing for us to access, export or delete on your behalf.</p>
+        <p>The developer has no server-side copy of your account or broadcast data to access, export or delete. For questions about the app's privacy practices or deleting local information, contact the address below; Google and YouTube control data held by their services.</p>
 
-        <h2>6. Changes to This Policy</h2>
+        <h2>7. Changes to This Policy</h2>
         <p>If the app's handling of information changes, this policy will be updated and the "Last Updated" date above will change.</p>
 
-        <h2>7. Contact Us</h2>
+        <h2>8. Contact Us</h2>
         <div class="contact-info">
             <p>If you have questions about this Privacy Policy:</p>
             <p>
-                <strong>Email:</strong> <code>tanerozel47@gmail.com</code><br>
+                <strong>Email:</strong> <a href="mailto:tanerozel47@gmail.com">tanerozel47@gmail.com</a><br>
             </p>
         </div>
-
-        <div class="divider"></div>
-
-        <h2>Store Privacy Disclosures</h2>
-        <ul>
-            <li><strong>App Store privacy label:</strong> Data Not Collected.</li>
-            <li><strong>Google Play data safety:</strong> no data collected, no data shared with third parties.</li>
-            <li><strong>Tracking:</strong> none.</li>
-        </ul>
 
         <footer>
             <p>© 2026 Stream My Drone. All rights reserved.</p>
