@@ -291,4 +291,32 @@
     <string name="weak_link_title">画面频繁卡顿</string>
     <string name="weak_link_tip">通常是遥控器和这部手机之间的 Wi-Fi 造成的。请把遥控器连到这部手机的热点（可以的话选 5 GHz），并让两者靠近。如果遥控器屏幕也卡顿，说明无人机信号弱。</string>
     <string name="weak_link_tip_hotspot">通常是遥控器和这部手机之间的 Wi-Fi 造成的。请让两者靠近且中间无遮挡，可以的话把热点设为 5 GHz。如果遥控器屏幕也卡顿，说明无人机信号弱。</string>
+
+    <!-- YouTube account connection (Android). -->
+    <string name="youtube_connect">连接 YouTube 账号</string>
+    <string name="youtube_connection_help">连接 Google 账号以自动准备直播。</string>
+    <string name="youtube_channel">频道</string>
+    <string name="youtube_title">直播标题</string>
+    <string name="youtube_privacy">可见性</string>
+    <string name="youtube_private">私享</string>
+    <string name="youtube_unlisted">不公开</string>
+    <string name="youtube_public">公开</string>
+    <string name="youtube_audience">受众</string>
+    <string name="youtube_not_kids">不是面向儿童的内容</string>
+    <string name="youtube_kids">面向儿童的内容</string>
+    <string name="youtube_manual">手动输入直播密钥</string>
+    <string name="youtube_disconnect">断开 YouTube 账号</string>
+    <string name="youtube_disconnect_message">这会删除已保存的平台并撤销此 Google 账号的 YouTube 访问权限。使用此账号的其他连接也需要重新授权。</string>
+    <string name="youtube_auto_hint">收到视频后 YouTube 会自动开始直播。请在 YouTube 上检查直播。</string>
+    <string name="youtube_error_auth">需要 YouTube 授权。请重新连接账号。</string>
+    <string name="youtube_error_setup">此应用尚未配置 YouTube 连接。请联系支持。</string>
+    <string name="youtube_error_channel">此账号没有可用的 YouTube 频道。</string>
+    <string name="youtube_error_channel_changed">请重新连接此 YouTube 频道的 Google 账号。</string>
+    <string name="youtube_error_live">请先为 YouTube 频道启用直播。</string>
+    <string name="youtube_error_quota">已达到 YouTube 请求上限。请稍后重试。</string>
+    <string name="youtube_error_network">无法连接 YouTube。请检查网络后重试。</string>
+    <string name="youtube_error_api">YouTube 无法完成此操作。请重试。</string>
+    <string name="youtube_error_title">请输入不超过 100 个字符且不含 &lt; 或 &gt; 的标题。</string>
+    <string name="youtube_error_end">已停止发送视频。请在 YouTube Studio 中确认直播已结束。</string>
+    <string name="youtube_error_edit_live">请先结束 YouTube 直播，再编辑连接。</string>
 </resources>

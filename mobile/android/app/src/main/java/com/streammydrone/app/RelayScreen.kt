@@ -162,6 +162,14 @@ internal fun RelayScreen(
         destinations.selectedProfiles.firstOrNull { it.kind == kind }
             ?: destinations.profiles.firstOrNull { it.kind == kind }
 
+    fun editProfile(profile: DestinationProfile?, kind: DestinationKind) {
+        if (profile?.id in RelayServiceState.value.liveProfileIds && kind == DestinationKind.YOUTUBE) {
+            showMessage(uiText(R.string.youtube_error_edit_live))
+            return
+        }
+        profileEditorViewModel.open(profile, kind)
+    }
+
     val newKeyEachStream = stringResource(R.string.key_changes_each_stream)
     val updateKey = stringResource(R.string.update_key)
 
@@ -315,9 +323,37 @@ internal fun RelayScreen(
             )
             is BridgeScreen.Editor -> {
                 val editing = target.state
-                DestinationProfileEditor(
+                val deleteProfile: (() -> UiText?)? = editing.profile?.let { profile ->
+                    {
+                        updateProfiles(announce = false) { profileStore.delete(profile.id) }.also { error ->
+                            if (error == null) {
+                                profileEditorViewModel.close()
+                                showMessage(uiText(R.string.platform_deleted, profile.kind.displayName(context)))
+                            }
+                        }
+                    }
+                }
+                if (editing.youtubeSetup) {
+                    YouTubeProfileEditor(
+                        state = editing,
+                        onDismiss = profileEditorViewModel::close,
+                        onManual = { editing.youtubeSetup = false },
+                        onSave = { connection, serverUrl, streamKey ->
+                            updateProfiles(announce = false) {
+                                profileStore.save(editing.profile?.id, "YouTube", DestinationKind.YOUTUBE, serverUrl, streamKey, connection)
+                            }.also { error ->
+                                if (error == null) {
+                                    profileEditorViewModel.close()
+                                    showMessage(uiText(R.string.saved))
+                                }
+                            }
+                        },
+                        onDelete = deleteProfile,
+                    )
+                } else DestinationProfileEditor(
                     state = editing,
                     onDismiss = profileEditorViewModel::close,
+                    onConnectYouTube = if (editing.kind == DestinationKind.YOUTUBE) ({ editing.youtubeSetup = true }) else null,
                     onSave = { serverUrl, streamKey ->
                         // The store adds a new platform to the ones the broadcast goes to.
                         updateProfiles(announce = false) {
@@ -341,16 +377,7 @@ internal fun RelayScreen(
                             }
                         }
                     },
-                    onDelete = editing.profile?.let { profile ->
-                        {
-                            updateProfiles(announce = false) { profileStore.delete(profile.id) }.also { error ->
-                                if (error == null) {
-                                    profileEditorViewModel.close()
-                                    showMessage(uiText(R.string.platform_deleted, profile.kind.displayName(context)))
-                                }
-                            }
-                        }
-                    },
+                    onDelete = deleteProfile,
                 )
             }
             BridgeScreen.Home -> DroneScreen(
@@ -369,8 +396,8 @@ internal fun RelayScreen(
                 onGoLive = { requestGoLive() },
                 onEndLive = ::confirmEndLive,
                 onPlatformToggle = ::onPlatformToggle,
-                onPlatformEdit = { kind -> profileFor(kind)?.let { profileEditorViewModel.open(it, kind) } },
-                onEditProfile = { profile -> profileEditorViewModel.open(profile, profile.kind) },
+                onPlatformEdit = { kind -> profileFor(kind)?.let { editProfile(it, kind) } },
+                onEditProfile = { profile -> editProfile(profile, profile.kind) },
                 onStartReceiver = { restart -> startReceiver(restart = restart) },
                 onTestVideo = {
                     testVideoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly))

@@ -1,10 +1,12 @@
 import SwiftUI
+import GoogleSignIn
 
 @main
 struct StreamMyDroneApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
+                .onOpenURL { GIDSignIn.sharedInstance.handle($0) }
         }
     }
 }
@@ -29,7 +31,7 @@ struct RootView: View {
         }
         .animation(.easeInOut(duration: 0.2), value: model.showGuide)
         .fullScreenCover(item: $model.editor) { request in
-            ProfileEditorView(request: request).themed(model.theme).environment(model)
+            DestinationEditorView(request: request).themed(model.theme).environment(model)
         }
         .alert(endLiveTitle, isPresented: endLiveShown, presenting: model.endLive) { request in
             Button(tr("end_broadcast"), role: .destructive) { model.endLiveConfirmed(request) }

@@ -71,7 +71,9 @@ internal fun liveTips(phase: BridgePhase, snapshot: RelaySnapshot, destinations:
             snapshot.outputs.any { it.reconnectAttempts >= RECONNECT_HINT_THRESHOLD } -> listOf(R.string.tip_check_key)
         phase == BridgePhase.RECEIVER_ERROR -> listOf(R.string.tip_receiver_error)
         phase == BridgePhase.LIVE && congested -> listOf(R.string.tip_congested)
-        phase == BridgePhase.LIVE -> destinations.mapNotNull { it.kind.liveReminder }.distinct()
+        phase == BridgePhase.LIVE -> destinations.mapNotNull {
+            if (it.youtube != null) R.string.youtube_auto_hint else it.kind.liveReminder
+        }.distinct()
         else -> emptyList()
     }
     return tips.map { stringResource(it) }

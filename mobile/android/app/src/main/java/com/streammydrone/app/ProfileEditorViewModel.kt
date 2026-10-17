@@ -31,6 +31,8 @@ internal class ProfileEditorState(
     val profile: DestinationProfile?,
     val kind: DestinationKind,
 ) {
+    var youtubeSetup by mutableStateOf(kind == DestinationKind.YOUTUBE && (profile == null || profile.youtube != null))
+    val youtube = YouTubeEditorState(profile?.youtube)
     val initialServerUrl = profile?.serverUrl ?: kind.defaultServerUrl.orEmpty()
 
     var serverUrl by mutableStateOf(initialServerUrl)
@@ -48,6 +50,7 @@ internal class ProfileEditorState(
     var showDeleteConfirmation by mutableStateOf(false)
 
     internal fun clearSecret() {
+        youtube.clearSecret()
         streamKey = ""
         keyVisible = false
     }

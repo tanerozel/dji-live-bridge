@@ -301,4 +301,32 @@
     <string name="weak_link_title">L\'immagine si blocca spesso</string>
     <string name="weak_link_tip">Di solito dipende dal Wi-Fi tra radiocomando e telefono. Collega il radiocomando all\'hotspot di questo telefono (a 5 GHz, se disponibile) e tienili vicini. Se si blocca anche lo schermo del radiocomando, il segnale del drone è debole.</string>
     <string name="weak_link_tip_hotspot">Di solito dipende dal Wi-Fi tra radiocomando e telefono. Tienili vicini, senza ostacoli in mezzo, e imposta l\'hotspot a 5 GHz, se disponibile. Se si blocca anche lo schermo del radiocomando, il segnale del drone è debole.</string>
+
+    <!-- YouTube account connection (Android). -->
+    <string name="youtube_connect">Collega account YouTube</string>
+    <string name="youtube_connection_help">Collega il tuo account Google per preparare automaticamente le dirette.</string>
+    <string name="youtube_channel">Canale</string>
+    <string name="youtube_title">Titolo della diretta</string>
+    <string name="youtube_privacy">Visibilità</string>
+    <string name="youtube_private">Privato</string>
+    <string name="youtube_unlisted">Non in elenco</string>
+    <string name="youtube_public">Pubblico</string>
+    <string name="youtube_audience">Pubblico di destinazione</string>
+    <string name="youtube_not_kids">Non destinato ai bambini</string>
+    <string name="youtube_kids">Destinato ai bambini</string>
+    <string name="youtube_manual">Inserisci una chiave manualmente</string>
+    <string name="youtube_disconnect">Scollega account YouTube</string>
+    <string name="youtube_disconnect_message">La piattaforma salvata viene rimossa e l’accesso a YouTube per questo account Google revocato. Le altre connessioni con questo account richiederanno una nuova autorizzazione.</string>
+    <string name="youtube_auto_hint">YouTube avvia automaticamente la diretta quando riceve il video. Controllala su YouTube.</string>
+    <string name="youtube_error_auth">È necessaria l’autorizzazione YouTube. Ricollega il tuo account.</string>
+    <string name="youtube_error_setup">La connessione YouTube di questa app non è configurata. Contatta l’assistenza.</string>
+    <string name="youtube_error_channel">Nessun canale YouTube è disponibile per questo account.</string>
+    <string name="youtube_error_channel_changed">Ricollega l’account Google di questo canale YouTube.</string>
+    <string name="youtube_error_live">Prima abilita le dirette sul tuo canale YouTube.</string>
+    <string name="youtube_error_quota">È stato raggiunto il limite di richieste YouTube. Riprova più tardi.</string>
+    <string name="youtube_error_network">Impossibile raggiungere YouTube. Controlla la connessione e riprova.</string>
+    <string name="youtube_error_api">YouTube non ha completato questa azione. Riprova.</string>
+    <string name="youtube_error_title">Inserisci un titolo di massimo 100 caratteri, senza &lt; o &gt;.</string>
+    <string name="youtube_error_end">L’invio del video è stato interrotto. Verifica in YouTube Studio che la diretta sia terminata.</string>
+    <string name="youtube_error_edit_live">Termina la diretta YouTube prima di modificare la connessione.</string>
 </resources>

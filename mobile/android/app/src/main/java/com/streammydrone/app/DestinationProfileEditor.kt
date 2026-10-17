@@ -75,6 +75,7 @@ internal fun DestinationProfileEditor(
     onDismiss: () -> Unit,
     onSave: (serverUrl: String, streamKey: String) -> UiText?,
     onDelete: (() -> UiText?)?,
+    onConnectYouTube: (() -> Unit)? = null,
 ) {
     val colors = BridgeTheme.colors
     val focusManager = LocalFocusManager.current
@@ -181,6 +182,9 @@ internal fun DestinationProfileEditor(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 PlatformTile(kind = kind, size = 64.dp)
+                if (onConnectYouTube != null) {
+                    TextButton(onClick = onConnectYouTube) { Text(stringResource(R.string.youtube_connect)) }
+                }
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(6.dp),
@@ -365,7 +369,7 @@ internal fun DestinationProfileEditor(
 }
 
 @Composable
-private fun SecureWindowEffect() {
+internal fun SecureWindowEffect() {
     val window = LocalActivity.current?.window
     DisposableEffect(window) {
         window?.addFlags(WindowManager.LayoutParams.FLAG_SECURE)

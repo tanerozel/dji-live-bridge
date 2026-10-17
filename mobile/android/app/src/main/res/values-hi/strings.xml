@@ -296,4 +296,32 @@
     <string name="weak_link_title">तस्वीर बार-बार अटक रही है</string>
     <string name="weak_link_tip">आम तौर पर समस्या रिमोट और इस फ़ोन के बीच के Wi-Fi में होती है। रिमोट को इस फ़ोन के हॉटस्पॉट से जोड़ें (विकल्प हो तो 5 GHz) और दोनों को पास-पास रखें। रिमोट की स्क्रीन भी अटके, तो ड्रोन का सिग्नल कमज़ोर है।</string>
     <string name="weak_link_tip_hotspot">आम तौर पर समस्या रिमोट और इस फ़ोन के बीच के Wi-Fi में होती है। दोनों को पास-पास रखें, बीच में कोई रुकावट न हो, और विकल्प हो तो हॉटस्पॉट 5 GHz पर सेट करें। रिमोट की स्क्रीन भी अटके, तो ड्रोन का सिग्नल कमज़ोर है।</string>
+
+    <!-- YouTube account connection (Android). -->
+    <string name="youtube_connect">YouTube खाता जोड़ें</string>
+    <string name="youtube_connection_help">प्रसारण अपने आप तैयार करने के लिए अपना Google खाता जोड़ें।</string>
+    <string name="youtube_channel">चैनल</string>
+    <string name="youtube_title">प्रसारण का शीर्षक</string>
+    <string name="youtube_privacy">दिखने की सेटिंग</string>
+    <string name="youtube_private">निजी</string>
+    <string name="youtube_unlisted">सबके लिए उपलब्ध नहीं</string>
+    <string name="youtube_public">सार्वजनिक</string>
+    <string name="youtube_audience">दर्शक</string>
+    <string name="youtube_not_kids">बच्चों के लिए नहीं है</string>
+    <string name="youtube_kids">बच्चों के लिए है</string>
+    <string name="youtube_manual">स्ट्रीम कुंजी खुद दर्ज करें</string>
+    <string name="youtube_disconnect">YouTube खाते का कनेक्शन हटाएँ</string>
+    <string name="youtube_disconnect_message">सहेजा गया प्लेटफ़ॉर्म हट जाएगा और इस Google खाते की YouTube अनुमति रद्द हो जाएगी। इस खाते के अन्य कनेक्शन को फिर से अनुमति चाहिए होगी।</string>
+    <string name="youtube_auto_hint">वीडियो मिलने पर YouTube अपने आप प्रसारण शुरू करता है। YouTube पर अपना प्रसारण जाँचें।</string>
+    <string name="youtube_error_auth">YouTube की अनुमति चाहिए। खाता फिर से जोड़ें।</string>
+    <string name="youtube_error_setup">इस ऐप का YouTube कनेक्शन सेट नहीं है। सहायता से संपर्क करें।</string>
+    <string name="youtube_error_channel">इस खाते में कोई YouTube चैनल उपलब्ध नहीं है।</string>
+    <string name="youtube_error_channel_changed">इस YouTube चैनल का Google खाता फिर से जोड़ें।</string>
+    <string name="youtube_error_live">पहले अपने YouTube चैनल पर लाइव स्ट्रीमिंग चालू करें।</string>
+    <string name="youtube_error_quota">YouTube अनुरोध सीमा पूरी हो गई। बाद में कोशिश करें।</string>
+    <string name="youtube_error_network">YouTube से संपर्क नहीं हुआ। कनेक्शन जाँचकर फिर कोशिश करें।</string>
+    <string name="youtube_error_api">YouTube यह काम पूरा नहीं कर सका। फिर कोशिश करें।</string>
+    <string name="youtube_error_title">&lt; या &gt; के बिना अधिकतम 100 अक्षरों का शीर्षक दर्ज करें।</string>
+    <string name="youtube_error_end">वीडियो भेजना बंद हो गया। YouTube Studio में पुष्टि करें कि प्रसारण समाप्त हो गया है।</string>
+    <string name="youtube_error_edit_live">कनेक्शन बदलने से पहले YouTube प्रसारण समाप्त करें।</string>
 </resources>

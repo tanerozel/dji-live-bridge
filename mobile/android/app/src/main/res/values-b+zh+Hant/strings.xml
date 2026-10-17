@@ -291,4 +291,32 @@
     <string name="weak_link_title">畫面經常停格</string>
     <string name="weak_link_tip">問題通常出在遙控器與這支手機之間的 Wi‑Fi。請將遙控器連到這支手機的熱點（可以的話用 5 GHz），並讓兩者靠近。若遙控器的畫面也會停格，表示無人機的訊號太弱。</string>
     <string name="weak_link_tip_hotspot">問題通常出在遙控器與這支手機之間的 Wi‑Fi。請讓兩者靠近、中間不要有遮擋，可以的話把熱點設為 5 GHz。若遙控器的畫面也會停格，表示無人機的訊號太弱。</string>
+
+    <!-- YouTube account connection (Android). -->
+    <string name="youtube_connect">連結 YouTube 帳戶</string>
+    <string name="youtube_connection_help">連結 Google 帳戶以自動準備直播。</string>
+    <string name="youtube_channel">頻道</string>
+    <string name="youtube_title">直播標題</string>
+    <string name="youtube_privacy">瀏覽權限</string>
+    <string name="youtube_private">私人</string>
+    <string name="youtube_unlisted">不公開</string>
+    <string name="youtube_public">公開</string>
+    <string name="youtube_audience">觀眾</string>
+    <string name="youtube_not_kids">非兒童專屬內容</string>
+    <string name="youtube_kids">兒童專屬內容</string>
+    <string name="youtube_manual">手動輸入串流金鑰</string>
+    <string name="youtube_disconnect">中斷 YouTube 帳戶連結</string>
+    <string name="youtube_disconnect_message">這會刪除已儲存的平台並撤銷此 Google 帳戶的 YouTube 存取權。使用此帳戶的其他連線也需要重新授權。</string>
+    <string name="youtube_auto_hint">收到影片後 YouTube 會自動開始直播。請在 YouTube 上檢查直播。</string>
+    <string name="youtube_error_auth">需要 YouTube 授權。請重新連結帳戶。</string>
+    <string name="youtube_error_setup">此應用程式尚未設定 YouTube 連線。請聯絡支援。</string>
+    <string name="youtube_error_channel">此帳戶沒有可用的 YouTube 頻道。</string>
+    <string name="youtube_error_channel_changed">請重新連結此 YouTube 頻道的 Google 帳戶。</string>
+    <string name="youtube_error_live">請先為 YouTube 頻道啟用直播。</string>
+    <string name="youtube_error_quota">已達 YouTube 要求上限。請稍後再試。</string>
+    <string name="youtube_error_network">無法連線至 YouTube。請檢查網路後再試。</string>
+    <string name="youtube_error_api">YouTube 無法完成此操作。請再試一次。</string>
+    <string name="youtube_error_title">請輸入不超過 100 個字元且不含 &lt; 或 &gt; 的標題。</string>
+    <string name="youtube_error_end">已停止傳送影片。請在 YouTube Studio 中確認直播已結束。</string>
+    <string name="youtube_error_edit_live">請先結束 YouTube 直播，再編輯連線。</string>
 </resources>

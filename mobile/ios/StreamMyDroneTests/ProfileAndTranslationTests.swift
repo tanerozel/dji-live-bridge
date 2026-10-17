@@ -86,6 +86,38 @@ final class DestinationProfileStoreTests: XCTestCase {
             .write(to: directory.appendingPathComponent("destination-profiles-v1.json"))
         XCTAssertThrowsError(try store.load()) { XCTAssertEqual(key($0), .tr("profile_error_version")) }
     }
+
+    func testOldManualYouTubeProfileLoadsWithoutAccountMetadata() throws {
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        try Data(#"{"version":1,"selectedProfileIds":["old"],"profiles":[{"id":"old","name":"YouTube","kind":"youtube","serverUrl":"rtmps://a.rtmps.youtube.com/live2"}]}"#.utf8)
+            .write(to: directory.appendingPathComponent("destination-profiles-v1.json"))
+        let profile = try XCTUnwrap(store.load().profiles.first)
+        XCTAssertNil(profile.youtube)
+        XCTAssertEqual(profile.id, "old")
+    }
+
+    func testYouTubeMetadataRoundTripsAndStreamKeyStaysInKeychainOnly() throws {
+        let connection = YouTubeConnection(accountEmail: "test@example.com", channelId: "channel", channelTitle: "My channel",
+            streamId: "stream", title: "Flight", privacy: "unlisted", madeForKids: false)
+        let saved = try store.save(existingId: nil, name: "YouTube", kind: .youtube,
+            serverUrl: "rtmps://a.rtmps.youtube.com/live2", streamKey: "secret-key-1234", youtube: connection)
+        XCTAssertEqual(try store.load().profiles.first?.youtube, connection)
+        XCTAssertEqual(try store.credentials(saved.profiles[0].id).streamKey, "secret-key-1234")
+        let file = try String(contentsOf: directory.appendingPathComponent("destination-profiles-v1.json"), encoding: .utf8)
+        XCTAssertFalse(file.contains("secret-key-1234"))
+        XCTAssertFalse(file.contains("accessToken"))
+        XCTAssertFalse(file.contains("refreshToken"))
+    }
+
+    func testInvalidYouTubeMetadataCannotOverwriteExistingKey() throws {
+        let id = try store.save(existingId: nil, name: "YouTube", kind: .youtube,
+            serverUrl: "rtmps://a.rtmps.youtube.com/live2", streamKey: "old-key-1234").profiles[0].id
+        let invalid = YouTubeConnection(accountEmail: "test@example.com", channelId: "channel", channelTitle: "My channel",
+            streamId: "stream", title: "Flight", privacy: "invalid", madeForKids: false)
+        XCTAssertThrowsError(try store.save(existingId: id, name: "YouTube", kind: .youtube,
+            serverUrl: "rtmps://a.rtmps.youtube.com/live2", streamKey: "new-key-1234", youtube: invalid))
+        XCTAssertEqual(try store.credentials(id).streamKey, "old-key-1234")
+    }
 }
 
 final class ValidationTests: XCTestCase {

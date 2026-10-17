@@ -301,4 +301,32 @@
     <string name="weak_link_title">La imagen se congela a menudo</string>
     <string name="weak_link_tip">Suele ser la conexión Wi-Fi entre el control y este teléfono. Conecta el control al punto de acceso de este teléfono (5 GHz si está disponible) y mantenlos cerca. Si la pantalla del control también se congela, la señal del dron es débil.</string>
     <string name="weak_link_tip_hotspot">Suele ser la conexión Wi-Fi entre el control y este teléfono. Mantenlos cerca y sin obstáculos entre ellos, y pon el punto de acceso en 5 GHz si está disponible. Si la pantalla del control también se congela, la señal del dron es débil.</string>
+
+    <!-- YouTube account connection (Android). -->
+    <string name="youtube_connect">Conectar cuenta de YouTube</string>
+    <string name="youtube_connection_help">Conecta tu cuenta de Google para preparar los directos automáticamente.</string>
+    <string name="youtube_channel">Canal</string>
+    <string name="youtube_title">Título del directo</string>
+    <string name="youtube_privacy">Visibilidad</string>
+    <string name="youtube_private">Privado</string>
+    <string name="youtube_unlisted">Oculto</string>
+    <string name="youtube_public">Público</string>
+    <string name="youtube_audience">Audiencia</string>
+    <string name="youtube_not_kids">No creado para niños</string>
+    <string name="youtube_kids">Creado para niños</string>
+    <string name="youtube_manual">Introducir la clave manualmente</string>
+    <string name="youtube_disconnect">Desconectar cuenta de YouTube</string>
+    <string name="youtube_disconnect_message">Se elimina la plataforma guardada y se revoca el acceso a YouTube de esta cuenta de Google. Otras conexiones con esta cuenta deberán autorizarse de nuevo.</string>
+    <string name="youtube_auto_hint">YouTube comienza automáticamente al recibir vídeo. Comprueba tu directo en YouTube.</string>
+    <string name="youtube_error_auth">Se necesita permiso de YouTube. Vuelve a conectar tu cuenta.</string>
+    <string name="youtube_error_setup">La conexión de YouTube de esta app no está configurada. Contacta con soporte.</string>
+    <string name="youtube_error_channel">Esta cuenta no tiene un canal de YouTube disponible.</string>
+    <string name="youtube_error_channel_changed">Vuelve a conectar la cuenta de Google de este canal de YouTube.</string>
+    <string name="youtube_error_live">Primero activa los directos en tu canal de YouTube.</string>
+    <string name="youtube_error_quota">Se alcanzó el límite de solicitudes de YouTube. Inténtalo más tarde.</string>
+    <string name="youtube_error_network">No se pudo conectar con YouTube. Comprueba tu conexión e inténtalo de nuevo.</string>
+    <string name="youtube_error_api">YouTube no pudo completar esta acción. Inténtalo de nuevo.</string>
+    <string name="youtube_error_title">Introduce un título de hasta 100 caracteres sin &lt; ni &gt;.</string>
+    <string name="youtube_error_end">Se detuvo el envío de vídeo. Comprueba en YouTube Studio que el directo haya terminado.</string>
+    <string name="youtube_error_edit_live">Finaliza el directo de YouTube antes de editar su conexión.</string>
 </resources>

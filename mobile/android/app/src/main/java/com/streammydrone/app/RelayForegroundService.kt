@@ -47,10 +47,13 @@ class RelayForegroundService : Service() {
     private var testVideoConverter: TestVideoConverter? = null
     /** The profiles the stream goes to. Touched on the main thread only. */
     private val liveProfileIds = mutableListOf<String>()
+    /** Main thread only: late preparation/attach errors belong to one Go live attempt. */
+    private val liveAttempts = mutableMapOf<String, Any>()
     @Volatile private var tlsCaBundle: File? = null
     private var wakeLock: PowerManager.WakeLock? = null
     private var wifiLock: WifiManager.WifiLock? = null
     private var shownNotification: Pair<String, Boolean>? = null
+    private lateinit var youtube: YouTubeBroadcastManager
 
     /** Set when the receiver stops because of a failure the user should see, not by request. */
     @Volatile private var failureMessage: UiText? = null
@@ -58,6 +61,10 @@ class RelayForegroundService : Service() {
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
+        youtube = YouTubeBroadcastManager(applicationContext) {
+            RelayServiceState.showNotice(RelayNotice(uiText(R.string.end_broadcast), uiText(R.string.youtube_error_end)))
+        }
+        youtube.recover()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -101,6 +108,7 @@ class RelayForegroundService : Service() {
 
     override fun onDestroy() {
         stopRequested.set(true)
+        youtube.close()
         pollThread?.interrupt()
         stopTestVideoWork()
         commands.shutdown()
@@ -226,12 +234,28 @@ class RelayForegroundService : Service() {
         val added = profileIds.filterNot { it in liveProfileIds }
         if (added.isEmpty()) return
         liveProfileIds += added
+        added.forEach { liveAttempts[it] = Any() }
         RelayServiceState.goingLive(added)
         acquireWakeLock()
         showNotification(notificationText(RelayServiceState.value.snapshot))
+        val profiles = runCatching { DestinationProfileStore(applicationContext).load() }.getOrNull()
+        val manual = added.filter { id -> profiles?.profiles?.firstOrNull { it.id == id }?.youtube == null }
+        attachProfiles(manual)
+        added.filterNot { it in manual }.forEach { id ->
+            val profile = profiles!!.profiles.first { it.id == id }
+            youtube.prepare(profile,
+                ready = { if (!stopRequested.get() && id in liveProfileIds) attachProfiles(listOf(id)) },
+                failed = { error -> goLiveFailed(listOf(id to uiText(R.string.named_error, DestinationKind.YOUTUBE.nameText, error))) },
+            )
+        }
+    }
+
+    private fun attachProfiles(profileIds: List<String>) {
+        if (profileIds.isEmpty()) return
+        val attempts = profileIds.associateWith { liveAttempts[it] }
         commands.execute {
             val store = DestinationProfileStore(applicationContext)
-            val failures = added.mapNotNull { profileId ->
+            val failures = profileIds.mapNotNull { profileId ->
                 val error = try {
                     attachDestination(store, profileId).takeIf(String::isNotEmpty)?.let(::nativeError)
                 } catch (failure: DestinationProfileException) {
@@ -242,13 +266,17 @@ class RelayForegroundService : Service() {
                 val kind = runCatching { store.load().profiles.firstOrNull { it.id == profileId }?.kind }.getOrNull()
                 profileId to (kind?.let { uiText(R.string.named_error, it.nameText, error) } ?: error)
             }
-            if (failures.isNotEmpty()) mainHandler.post { goLiveFailed(failures) }
+            if (failures.isNotEmpty()) mainHandler.post {
+                if (!stopRequested.get()) goLiveFailed(failures.filter { (id, _) -> liveAttempts[id] === attempts[id] })
+            }
         }
     }
 
     private fun goLiveFailed(failures: List<Pair<String, UiText>>) {
         val failed = failures.map { it.first }.filter { it in liveProfileIds }
         if (failed.isEmpty()) return
+        youtube.end(failed)
+        failed.forEach(liveAttempts::remove)
         liveProfileIds.removeAll(failed)
         val message = UiText.Raw(failures.joinToString("\n") { it.second.resolve(this) })
         RelayServiceState.notLive(failed, RelayNotice(uiText(R.string.go_live_failed), message))
@@ -280,6 +308,8 @@ class RelayForegroundService : Service() {
     private fun endLive(profileId: String?) {
         val ended = if (profileId == null) liveProfileIds.toList() else listOf(profileId).filter { it in liveProfileIds }
         if (ended.isEmpty()) return
+        youtube.end(ended)
+        ended.forEach(liveAttempts::remove)
         liveProfileIds.removeAll(ended)
         RelayServiceState.notLive(ended)
         val stillLive = liveProfileIds.isNotEmpty()
@@ -368,6 +398,8 @@ class RelayForegroundService : Service() {
 
     private fun requestStop() {
         stopRequested.set(true)
+        youtube.end(liveProfileIds.toList())
+        liveAttempts.clear()
         liveProfileIds.clear()
         stopTestVideoWork()
         pollThread?.interrupt()

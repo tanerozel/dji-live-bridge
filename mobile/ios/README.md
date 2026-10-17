@@ -40,6 +40,14 @@ Video and audio are copied, never decoded or re-encoded on their way to the plat
   script, commit both. CI fails when they differ, and `TranslationsTests` fails on a missing string
   or placeholder.
 
+## YouTube account connection
+
+YouTube can connect through the official Google Sign-In SDK and prepare a broadcast without
+copying a key. The iOS OAuth client, callback, dependency pins, secure storage and recovery are
+configured. See [`YOUTUBE_SETUP.md`](YOUTUBE_SETUP.md) for the account flow, testing status and
+release requirements. Existing manual profiles remain usable. Google consent and a real live
+broadcast still need verification on a physical iPhone/iPad.
+
 ## Where iOS differs
 
 | | Android | iOS |
@@ -87,7 +95,7 @@ for the vendored OpenSSL, later ones only recompile what changed. From the comma
 ```sh
 cd mobile/ios
 xcodebuild test -project StreamMyDrone.xcodeproj -scheme StreamMyDrone \
-  -destination 'platform=iOS Simulator,name=iPhone 16'
+  -destination 'platform=iOS Simulator,name=iPhone 18 Pro'
 ```
 
 Signing uses team `GXDXLCQ92M` with automatic provisioning and the bundle id
@@ -101,13 +109,14 @@ video works there: it needs no Wi-Fi.
   and `NativeRelay` over the C interface.
 - `StreamMyDrone/Media`: FLV/H.264/AAC helpers, the loopback RTMP publisher, the test video
   converter and streamer, the preview decoder and picture.
+- `StreamMyDrone/YouTube`: native Google authorization, HTTPS API and serialized broadcast recovery.
 - `StreamMyDrone/Storage`: saved platforms and Keychain keys, UI preferences.
 - `StreamMyDrone/UI`: the drone screen and its parts, the sheets, the guide, the key screen.
 - `StreamMyDrone/Resources`: generated strings, the asset catalog (platform glyphs and the drone
   symbol converted from the Android vector drawables, the app icon from
   `branding/streammydrone-play-store.svg`), the privacy manifest.
 - `StreamMyDroneTests`: phases, snapshot parsing, formatting, networks, picture fit, test video
-  rules, FLV/RTMP/AMF, the profile store and the translations.
+  rules, FLV/RTMP/AMF, the profile store, YouTube API/lifecycle failures and the translations.
 
 The project uses folder-synchronized groups: a file added under `StreamMyDrone/` or
 `StreamMyDroneTests/` is part of the target without editing the project.

@@ -42,6 +42,7 @@ data class DestinationProfile(
     val name: String,
     val kind: DestinationKind,
     val serverUrl: String,
+    val youtube: YouTubeConnection? = null,
 )
 
 data class DestinationProfiles(
@@ -74,7 +75,9 @@ class DestinationProfileStore(context: Context) {
         kind: DestinationKind,
         serverUrl: String,
         streamKey: String,
+        youtube: YouTubeConnection? = null,
     ): DestinationProfiles = synchronized(STORE_LOCK) {
+        require(youtube == null || kind == DestinationKind.YOUTUBE)
         val normalizedName = validateName(name)
         val normalizedUrl = validateServerUrl(serverUrl)
         val current = readRecords()
@@ -103,6 +106,7 @@ class DestinationProfileStore(context: Context) {
             kind = kind,
             serverUrl = normalizedUrl,
             encryptedSecret = encryptedSecret,
+            youtube = youtube,
         )
         val updatedProfiles = current.profiles.toMutableList().apply {
             if (recordIndex >= 0) set(recordIndex, updatedRecord) else add(updatedRecord)
@@ -176,6 +180,7 @@ class DestinationProfileStore(context: Context) {
                             name = item.getString("name"),
                             kind = DestinationKind.fromStorage(item.optString("kind")),
                             serverUrl = item.getString("serverUrl"),
+                            youtube = item.optJSONObject("youtube")?.let(YouTubeConnection::fromJson),
                             encryptedSecret = EncryptedSecret(
                                 iv = Base64.decode(item.getString("iv"), Base64.NO_WRAP),
                                 ciphertext = Base64.decode(
@@ -208,6 +213,7 @@ class DestinationProfileStore(context: Context) {
                     .put("name", profile.name)
                     .put("kind", profile.kind.storageValue)
                     .put("serverUrl", profile.serverUrl)
+                    .put("youtube", profile.youtube?.toJson())
                     .put("iv", Base64.encodeToString(profile.encryptedSecret.iv, Base64.NO_WRAP))
                     .put(
                         "ciphertext",
@@ -237,7 +243,7 @@ class DestinationProfileStore(context: Context) {
 
     private fun StoredProfiles.toPublicState(): DestinationProfiles = DestinationProfiles(
         profiles = profiles.map { profile ->
-            DestinationProfile(profile.id, profile.name, profile.kind, profile.serverUrl)
+            DestinationProfile(profile.id, profile.name, profile.kind, profile.serverUrl, profile.youtube)
         },
         selectedProfileIds = selectedProfileIds,
     )
@@ -265,6 +271,7 @@ private data class StoredProfile(
     val kind: DestinationKind,
     val serverUrl: String,
     val encryptedSecret: EncryptedSecret,
+    val youtube: YouTubeConnection? = null,
 )
 
 private data class EncryptedSecret(

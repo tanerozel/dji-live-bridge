@@ -296,4 +296,32 @@
     <string name="weak_link_title">Das Bild friert immer wieder ein</string>
     <string name="weak_link_tip">Meist liegt es am WLAN zwischen Fernsteuerung und diesem Handy. Verbinde die Fernsteuerung mit dem Hotspot dieses Handys (5 GHz, falls verfügbar) und halte beide nah beieinander. Friert auch der Bildschirm der Fernsteuerung ein, ist das Signal der Drohne schwach.</string>
     <string name="weak_link_tip_hotspot">Meist liegt es am WLAN zwischen Fernsteuerung und diesem Handy. Halte beide nah beieinander, ohne Hindernisse dazwischen, und stelle den Hotspot auf 5 GHz, falls verfügbar. Friert auch der Bildschirm der Fernsteuerung ein, ist das Signal der Drohne schwach.</string>
+
+    <!-- YouTube account connection (Android). -->
+    <string name="youtube_connect">YouTube-Konto verbinden</string>
+    <string name="youtube_connection_help">Verbinde dein Google-Konto, um Livestreams automatisch vorzubereiten.</string>
+    <string name="youtube_channel">Kanal</string>
+    <string name="youtube_title">Titel des Livestreams</string>
+    <string name="youtube_privacy">Sichtbarkeit</string>
+    <string name="youtube_private">Privat</string>
+    <string name="youtube_unlisted">Nicht gelistet</string>
+    <string name="youtube_public">Öffentlich</string>
+    <string name="youtube_audience">Zielgruppe</string>
+    <string name="youtube_not_kids">Nicht speziell für Kinder</string>
+    <string name="youtube_kids">Speziell für Kinder</string>
+    <string name="youtube_manual">Streamschlüssel manuell eingeben</string>
+    <string name="youtube_disconnect">YouTube-Konto trennen</string>
+    <string name="youtube_disconnect_message">Die gespeicherte Plattform wird entfernt und der YouTube-Zugriff für dieses Google-Konto widerrufen. Andere Verbindungen mit diesem Konto benötigen erneut eine Erlaubnis.</string>
+    <string name="youtube_auto_hint">YouTube startet automatisch, sobald Video ankommt. Prüfe deinen Livestream auf YouTube.</string>
+    <string name="youtube_error_auth">Eine YouTube-Berechtigung ist erforderlich. Verbinde dein Konto erneut.</string>
+    <string name="youtube_error_setup">Die YouTube-Verbindung dieser App ist nicht eingerichtet. Wende dich an den Support.</string>
+    <string name="youtube_error_channel">Für dieses Konto ist kein YouTube-Kanal verfügbar.</string>
+    <string name="youtube_error_channel_changed">Verbinde das Google-Konto dieses YouTube-Kanals erneut.</string>
+    <string name="youtube_error_live">Aktiviere zuerst Livestreaming für deinen YouTube-Kanal.</string>
+    <string name="youtube_error_quota">Das YouTube-Anfragelimit wurde erreicht. Versuche es später erneut.</string>
+    <string name="youtube_error_network">YouTube ist nicht erreichbar. Prüfe deine Verbindung und versuche es erneut.</string>
+    <string name="youtube_error_api">YouTube konnte die Aktion nicht abschließen. Versuche es erneut.</string>
+    <string name="youtube_error_title">Gib einen Titel mit höchstens 100 Zeichen ohne &lt; oder &gt; ein.</string>
+    <string name="youtube_error_end">Die Videoübertragung wurde gestoppt. Prüfe in YouTube Studio, ob der Livestream beendet ist.</string>
+    <string name="youtube_error_edit_live">Beende den YouTube-Livestream, bevor du die Verbindung bearbeitest.</string>
 </resources>

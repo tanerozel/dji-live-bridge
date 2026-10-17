@@ -291,4 +291,32 @@
     <string name="weak_link_title">Gambar sering macet</string>
     <string name="weak_link_tip">Biasanya penyebabnya Wi-Fi antara remote dan ponsel ini. Hubungkan remote ke hotspot ponsel ini (5 GHz jika tersedia) dan dekatkan keduanya. Jika layar remote juga macet, sinyal drone lemah.</string>
     <string name="weak_link_tip_hotspot">Biasanya penyebabnya Wi-Fi antara remote dan ponsel ini. Dekatkan keduanya tanpa penghalang di antaranya, dan atur hotspot ke 5 GHz jika tersedia. Jika layar remote juga macet, sinyal drone lemah.</string>
+
+    <!-- YouTube account connection (Android). -->
+    <string name="youtube_connect">Hubungkan akun YouTube</string>
+    <string name="youtube_connection_help">Hubungkan akun Google untuk menyiapkan siaran secara otomatis.</string>
+    <string name="youtube_channel">Channel</string>
+    <string name="youtube_title">Judul siaran</string>
+    <string name="youtube_privacy">Visibilitas</string>
+    <string name="youtube_private">Pribadi</string>
+    <string name="youtube_unlisted">Tidak publik</string>
+    <string name="youtube_public">Publik</string>
+    <string name="youtube_audience">Audiens</string>
+    <string name="youtube_not_kids">Bukan untuk anak-anak</string>
+    <string name="youtube_kids">Dibuat untuk anak-anak</string>
+    <string name="youtube_manual">Masukkan kunci secara manual</string>
+    <string name="youtube_disconnect">Putuskan akun YouTube</string>
+    <string name="youtube_disconnect_message">Platform tersimpan dihapus dan akses YouTube untuk akun Google ini dicabut. Koneksi lain dengan akun ini perlu izin lagi.</string>
+    <string name="youtube_auto_hint">YouTube mulai otomatis saat menerima video. Periksa siaran Anda di YouTube.</string>
+    <string name="youtube_error_auth">Izin YouTube diperlukan. Hubungkan akun Anda lagi.</string>
+    <string name="youtube_error_setup">Koneksi YouTube aplikasi ini belum dikonfigurasi. Hubungi dukungan.</string>
+    <string name="youtube_error_channel">Tidak ada channel YouTube yang tersedia untuk akun ini.</string>
+    <string name="youtube_error_channel_changed">Hubungkan kembali akun Google untuk channel YouTube ini.</string>
+    <string name="youtube_error_live">Aktifkan siaran langsung di channel YouTube Anda terlebih dahulu.</string>
+    <string name="youtube_error_quota">Batas permintaan YouTube tercapai. Coba lagi nanti.</string>
+    <string name="youtube_error_network">YouTube tidak dapat dihubungi. Periksa koneksi dan coba lagi.</string>
+    <string name="youtube_error_api">YouTube tidak dapat menyelesaikan tindakan ini. Coba lagi.</string>
+    <string name="youtube_error_title">Masukkan judul hingga 100 karakter, tanpa &lt; atau &gt;.</string>
+    <string name="youtube_error_end">Pengiriman video dihentikan. Pastikan siaran telah berakhir di YouTube Studio.</string>
+    <string name="youtube_error_edit_live">Akhiri siaran YouTube sebelum mengedit koneksinya.</string>
 </resources>

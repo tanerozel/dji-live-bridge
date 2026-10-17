@@ -296,4 +296,32 @@
     <string name="weak_link_title">Görüntü sürekli takılıyor</string>
     <string name="weak_link_tip">Genelde sebep kumanda ile bu telefon arasındaki Wi-Fi\'dır. Kumandayı bu telefonun hotspot\'una bağla (varsa 5 GHz) ve ikisini yakın tut. Kumandanın ekranı da takılıyorsa drone\'un sinyali zayıftır.</string>
     <string name="weak_link_tip_hotspot">Genelde sebep kumanda ile bu telefon arasındaki Wi-Fi\'dır. İkisini arada engel olmadan yakın tut, varsa hotspot\'u 5 GHz\'e al. Kumandanın ekranı da takılıyorsa drone\'un sinyali zayıftır.</string>
+
+    <!-- YouTube account connection (Android). -->
+    <string name="youtube_connect">YouTube hesabını bağla</string>
+    <string name="youtube_connection_help">Yayınları otomatik hazırlamak için Google hesabını bağla.</string>
+    <string name="youtube_channel">Kanal</string>
+    <string name="youtube_title">Yayın başlığı</string>
+    <string name="youtube_privacy">Görünürlük</string>
+    <string name="youtube_private">Gizli</string>
+    <string name="youtube_unlisted">Liste dışı</string>
+    <string name="youtube_public">Herkese açık</string>
+    <string name="youtube_audience">Kitle</string>
+    <string name="youtube_not_kids">Çocuklara özel değil</string>
+    <string name="youtube_kids">Çocuklara özel</string>
+    <string name="youtube_manual">Yayın anahtarını elle gir</string>
+    <string name="youtube_disconnect">YouTube bağlantısını kaldır</string>
+    <string name="youtube_disconnect_message">Kayıtlı platform silinir ve bu Google hesabının YouTube erişim izni kaldırılır. Bu hesabı kullanan diğer bağlantılar da yeniden izin ister.</string>
+    <string name="youtube_auto_hint">Görüntü ulaştığında YouTube yayını otomatik başlatır. Yayınını YouTube üzerinden kontrol et.</string>
+    <string name="youtube_error_auth">YouTube erişim izni gerekiyor. Hesabını yeniden bağla.</string>
+    <string name="youtube_error_setup">Bu uygulamanın YouTube bağlantısı yapılandırılmamış. Destek ile iletişime geç.</string>
+    <string name="youtube_error_channel">Bu hesapta kullanılabilir bir YouTube kanalı bulunamadı.</string>
+    <string name="youtube_error_channel_changed">Bu YouTube kanalının Google hesabını yeniden bağla.</string>
+    <string name="youtube_error_live">Önce YouTube kanalında canlı yayını etkinleştir.</string>
+    <string name="youtube_error_quota">YouTube istek sınırına ulaşıldı. Daha sonra tekrar dene.</string>
+    <string name="youtube_error_network">YouTube’a ulaşılamadı. Bağlantını kontrol edip tekrar dene.</string>
+    <string name="youtube_error_api">YouTube bu işlemi tamamlayamadı. Tekrar dene.</string>
+    <string name="youtube_error_title">&lt; veya &gt; içermeyen, en fazla 100 karakterlik bir başlık gir.</string>
+    <string name="youtube_error_end">Görüntü aktarımı durduruldu. Yayının bittiğini YouTube Studio’dan kontrol et.</string>
+    <string name="youtube_error_edit_live">Bağlantıyı düzenlemeden önce YouTube yayınını bitir.</string>
 </resources>

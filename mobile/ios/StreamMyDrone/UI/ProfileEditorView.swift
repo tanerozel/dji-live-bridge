@@ -199,7 +199,7 @@ struct ProfileEditorView: View {
 }
 
 /// A labeled text field in the theme's colors, with its error or a note under it.
-private struct FieldBox<Field: View>: View {
+struct FieldBox<Field: View>: View {
     let label: String
     var error: String?
     var supporting: String?

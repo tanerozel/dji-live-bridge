@@ -246,15 +246,18 @@ final class AppModel {
     }
 
     func editPlatform(_ kind: DestinationKind) {
+        if kind == .youtube && liveYouTube { showMessage(.tr("youtube_error_edit_live")); return }
         if let profile = profile(for: kind) { editor = ProfileEditorRequest(profile: profile, kind: kind) }
     }
 
     func editProfile(_ profile: DestinationProfile) {
+        if profile.kind == .youtube && liveYouTube { showMessage(.tr("youtube_error_edit_live")); return }
         editor = ProfileEditorRequest(profile: profile, kind: profile.kind)
     }
 
     /// Saves the key screen; returns the error for the screen to show, or nil once saved.
     func saveProfile(_ request: ProfileEditorRequest, serverUrl: String, streamKey: String) -> UiText? {
+        if request.kind == .youtube && liveYouTube { return .tr("youtube_error_edit_live") }
         // The store adds a new platform to the ones the broadcast goes to.
         let error = updateProfiles(announce: false) {
             try store.save(
@@ -273,12 +276,61 @@ final class AppModel {
     }
 
     func deleteProfile(_ profile: DestinationProfile) -> UiText? {
+        if profile.youtube != nil { return .tr("youtube_error_auth") }
         let error = updateProfiles(announce: false) { try store.delete(profile.id) }
         if error == nil {
             editor = nil
             showMessage(.tr("platform_deleted", .string(profile.kind.displayName)))
         }
         return error
+    }
+
+    var liveYouTube: Bool { liveDestinations.contains { $0.kind == .youtube } }
+
+    func saveYouTube(_ request: ProfileEditorRequest, email: String, channel: YouTubeChannel,
+                     title: String, privacy: String, madeForKids: Bool) async -> UiText? {
+        guard !liveYouTube else { return .tr("youtube_error_edit_live") }
+        var created: (YouTubeAPI, YouTubeStream)?
+        do {
+            let title = try validateYouTubeTitle(title)
+            let old = request.profile?.youtube
+            let sameChannel = old?.accountEmail == email && old?.channelId == channel.id
+            let stream: YouTubeStream
+            if sameChannel, let old, let profile = request.profile {
+                let credentials = try store.credentials(profile.id)
+                stream = YouTubeStream(id: old.streamId, serverUrl: credentials.serverUrl, key: credentials.streamKey)
+            } else {
+                let api = try await YouTubeAuthorization.shared.api(for: email)
+                try await api.checkChannel(channel.id)
+                stream = try await api.createStream()
+                created = (api, stream)
+            }
+            guard !liveYouTube else { throw YouTubeError("youtube_error_edit_live") }
+            let connection = YouTubeConnection(accountEmail: email, channelId: channel.id, channelTitle: channel.title,
+                streamId: stream.id, title: title, privacy: privacy, madeForKids: madeForKids)
+            destinations = try store.save(existingId: request.profile?.id, name: request.profile?.name ?? "YouTube",
+                kind: .youtube, serverUrl: stream.serverUrl, streamKey: stream.key, youtube: connection)
+            profileError = nil
+            editor = nil
+            showMessage(.tr("saved"))
+            return nil
+        } catch {
+            if let (api, stream) = created { try? await api.deleteStream(stream.id) }
+            return youTubeErrorText(error)
+        }
+    }
+
+    func disconnectYouTube(_ profile: DestinationProfile) async -> UiText? {
+        guard !liveYouTube else { return .tr("youtube_error_edit_live") }
+        guard let connection = profile.youtube else { return nil }
+        do {
+            try await relay.youtube.finish(profileId: profile.id)
+            try await YouTubeAuthorization.shared.disconnect(email: connection.accountEmail)
+            destinations = try store.delete(profile.id)
+            editor = nil
+            showMessage(.tr("platform_deleted", .string("YouTube")))
+            return nil
+        } catch { return youTubeErrorText(error) }
     }
 
     // MARK: Broadcast

@@ -166,6 +166,10 @@ object RelayServiceState {
     var value by mutableStateOf(RelayServiceUiState())
         private set
 
+    fun showNotice(notice: RelayNotice) {
+        value = value.copy(notice = notice)
+    }
+
     fun starting() {
         value = RelayServiceUiState(
             isActive = true,

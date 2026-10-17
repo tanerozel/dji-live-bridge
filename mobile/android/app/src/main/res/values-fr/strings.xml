@@ -301,4 +301,32 @@
     <string name="weak_link_title">L\'image se fige souvent</string>
     <string name="weak_link_tip">En général, c\'est le Wi-Fi entre la radiocommande et ce téléphone. Connectez-la au partage de connexion de ce téléphone (5 GHz si disponible) et rapprochez les deux. Si l\'écran de la radiocommande se fige aussi, le signal du drone est faible.</string>
     <string name="weak_link_tip_hotspot">En général, c\'est le Wi-Fi entre la radiocommande et ce téléphone. Rapprochez les deux, sans obstacle entre eux, et réglez le partage de connexion sur 5 GHz si disponible. Si l\'écran de la radiocommande se fige aussi, le signal du drone est faible.</string>
+
+    <!-- YouTube account connection (Android). -->
+    <string name="youtube_connect">Connecter un compte YouTube</string>
+    <string name="youtube_connection_help">Connectez votre compte Google pour préparer automatiquement les directs.</string>
+    <string name="youtube_channel">Chaîne</string>
+    <string name="youtube_title">Titre du direct</string>
+    <string name="youtube_privacy">Visibilité</string>
+    <string name="youtube_private">Privée</string>
+    <string name="youtube_unlisted">Non répertoriée</string>
+    <string name="youtube_public">Publique</string>
+    <string name="youtube_audience">Audience</string>
+    <string name="youtube_not_kids">Non conçue pour les enfants</string>
+    <string name="youtube_kids">Conçue pour les enfants</string>
+    <string name="youtube_manual">Saisir une clé manuellement</string>
+    <string name="youtube_disconnect">Déconnecter le compte YouTube</string>
+    <string name="youtube_disconnect_message">La plateforme enregistrée est supprimée et l’accès à YouTube de ce compte Google est révoqué. Les autres connexions utilisant ce compte devront être autorisées à nouveau.</string>
+    <string name="youtube_auto_hint">YouTube démarre automatiquement à la réception de la vidéo. Vérifiez votre direct sur YouTube.</string>
+    <string name="youtube_error_auth">Une autorisation YouTube est nécessaire. Reconnectez votre compte.</string>
+    <string name="youtube_error_setup">La connexion YouTube de cette application n’est pas configurée. Contactez l’assistance.</string>
+    <string name="youtube_error_channel">Aucune chaîne YouTube n’est disponible pour ce compte.</string>
+    <string name="youtube_error_channel_changed">Reconnectez le compte Google de cette chaîne YouTube.</string>
+    <string name="youtube_error_live">Activez d’abord le direct sur votre chaîne YouTube.</string>
+    <string name="youtube_error_quota">La limite de requêtes YouTube est atteinte. Réessayez plus tard.</string>
+    <string name="youtube_error_network">Impossible de joindre YouTube. Vérifiez votre connexion et réessayez.</string>
+    <string name="youtube_error_api">YouTube n’a pas pu terminer cette action. Réessayez.</string>
+    <string name="youtube_error_title">Saisissez un titre de 100 caractères maximum, sans &lt; ni &gt;.</string>
+    <string name="youtube_error_end">L’envoi vidéo est arrêté. Vérifiez dans YouTube Studio que le direct est terminé.</string>
+    <string name="youtube_error_edit_live">Terminez le direct YouTube avant de modifier sa connexion.</string>
 </resources>

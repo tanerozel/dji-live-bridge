@@ -1345,7 +1345,8 @@ private fun SavedPlatform(profile: DestinationProfile, onEdit: () -> Unit) {
                 overflow = TextOverflow.Ellipsis,
             )
             Text(
-                text = stringResource(if (renewKey) R.string.key_changes_each_stream else R.string.key_saved),
+                text = profile.youtube?.channelTitle
+                    ?: stringResource(if (renewKey) R.string.key_changes_each_stream else R.string.key_saved),
                 color = if (renewKey) WarningColor else Color.White.copy(alpha = 0.6f),
                 style = MaterialTheme.typography.labelSmall,
             )

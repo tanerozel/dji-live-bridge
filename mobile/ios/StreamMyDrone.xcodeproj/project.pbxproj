@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+        5D0000000000000000000501 = {isa = PBXBuildFile; productRef = 5D0000000000000000000511; };
+        5D0000000000000000000502 = {isa = PBXBuildFile; productRef = 5D0000000000000000000512; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		5D0000000000000000000301 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -44,6 +49,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+                5D0000000000000000000501,
+                5D0000000000000000000502,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +123,7 @@
 				5D0000000000000000000021 /* StreamMyDrone */,
 			);
 			name = StreamMyDrone;
+            packageProductDependencies = (5D0000000000000000000511, 5D0000000000000000000512);
 			productName = StreamMyDrone;
 			productReference = 5D0000000000000000000011 /* StreamMyDrone.app */;
 			productType = "com.apple.product-type.application";
@@ -184,6 +192,7 @@
 			mainGroup = 5D0000000000000000000002;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
+            packageReferences = (5D0000000000000000000520);
 			productRefGroup = 5D0000000000000000000003 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -193,6 +202,18 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+        5D0000000000000000000520 = {
+            isa = XCRemoteSwiftPackageReference;
+            repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+            requirement = {kind = exactVersion; version = 10.0.0; };
+        };
+/* End XCRemoteSwiftPackageReference section */
+/* Begin XCSwiftPackageProductDependency section */
+        5D0000000000000000000511 = {isa = XCSwiftPackageProductDependency; package = 5D0000000000000000000520; productName = GoogleSignIn; };
+        5D0000000000000000000512 = {isa = XCSwiftPackageProductDependency; package = 5D0000000000000000000520; productName = GoogleSignInSwift; };
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5D0000000000000000000203 /* Resources */ = {

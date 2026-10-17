@@ -316,4 +316,32 @@
     <string name="weak_link_title">الصورة تتجمّد مرارًا</string>
     <string name="weak_link_tip">السبب عادةً هو الشبكة اللاسلكية بين وحدة التحكم وهذا الهاتف. وصّل وحدة التحكم بنقطة الاتصال في هذا الهاتف (بنطاق ‎5 GHz إن توفّر) وأبقِهما متقاربين. وإذا تجمّدت شاشة وحدة التحكم أيضًا، فإشارة الدرون ضعيفة.</string>
     <string name="weak_link_tip_hotspot">السبب عادةً هو الشبكة اللاسلكية بين وحدة التحكم وهذا الهاتف. أبقِهما متقاربين دون عوائق بينهما، واضبط نقطة الاتصال على نطاق ‎5 GHz إن توفّر. وإذا تجمّدت شاشة وحدة التحكم أيضًا، فإشارة الدرون ضعيفة.</string>
+
+    <!-- YouTube account connection (Android). -->
+    <string name="youtube_connect">ربط حساب YouTube</string>
+    <string name="youtube_connection_help">اربط حساب Google لتحضير البث تلقائيًا.</string>
+    <string name="youtube_channel">القناة</string>
+    <string name="youtube_title">عنوان البث</string>
+    <string name="youtube_privacy">مستوى الظهور</string>
+    <string name="youtube_private">خاص</string>
+    <string name="youtube_unlisted">غير مدرج</string>
+    <string name="youtube_public">علني</string>
+    <string name="youtube_audience">الجمهور</string>
+    <string name="youtube_not_kids">غير مخصّص للأطفال</string>
+    <string name="youtube_kids">مخصّص للأطفال</string>
+    <string name="youtube_manual">إدخال مفتاح البث يدويًا</string>
+    <string name="youtube_disconnect">إلغاء ربط حساب YouTube</string>
+    <string name="youtube_disconnect_message">ستُحذف المنصة المحفوظة ويُلغى إذن الوصول إلى YouTube لحساب Google هذا. ستحتاج الاتصالات الأخرى التي تستخدم الحساب إلى إذن جديد.</string>
+    <string name="youtube_auto_hint">يبدأ YouTube تلقائيًا عند استلام الفيديو. تحقّق من البث على YouTube.</string>
+    <string name="youtube_error_auth">يلزم إذن YouTube. أعد ربط حسابك.</string>
+    <string name="youtube_error_setup">لم يُضبط اتصال YouTube لهذا التطبيق. تواصل مع الدعم.</string>
+    <string name="youtube_error_channel">لا توجد قناة YouTube متاحة لهذا الحساب.</string>
+    <string name="youtube_error_channel_changed">أعد ربط حساب Google الخاص بقناة YouTube هذه.</string>
+    <string name="youtube_error_live">فعّل البث المباشر في قناة YouTube أولًا.</string>
+    <string name="youtube_error_quota">تم بلوغ حد طلبات YouTube. حاول لاحقًا.</string>
+    <string name="youtube_error_network">تعذّر الوصول إلى YouTube. تحقّق من الاتصال وحاول مجددًا.</string>
+    <string name="youtube_error_api">لم يتمكّن YouTube من إكمال هذا الإجراء. حاول مجددًا.</string>
+    <string name="youtube_error_title">أدخل عنوانًا لا يتجاوز 100 حرف ولا يحتوي على &lt; أو &gt;.</string>
+    <string name="youtube_error_end">توقف إرسال الفيديو. تأكّد من انتهاء البث في YouTube Studio.</string>
+    <string name="youtube_error_edit_live">أنه بث YouTube قبل تعديل الاتصال.</string>
 </resources>

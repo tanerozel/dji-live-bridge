@@ -301,4 +301,32 @@
     <string name="weak_link_title">A imagem continua travando</string>
     <string name="weak_link_tip">Geralmente o problema é o Wi-Fi entre o controle e este celular. Conecte o controle ao ponto de acesso deste celular (5 GHz, se disponível) e mantenha os dois próximos. Se a tela do controle também travar, o sinal do drone está fraco.</string>
     <string name="weak_link_tip_hotspot">Geralmente o problema é o Wi-Fi entre o controle e este celular. Mantenha os dois próximos, sem nada entre eles, e configure o ponto de acesso para 5 GHz, se disponível. Se a tela do controle também travar, o sinal do drone está fraco.</string>
+
+    <!-- YouTube account connection (Android). -->
+    <string name="youtube_connect">Conectar conta do YouTube</string>
+    <string name="youtube_connection_help">Conecte sua conta Google para preparar transmissões automaticamente.</string>
+    <string name="youtube_channel">Canal</string>
+    <string name="youtube_title">Título da transmissão</string>
+    <string name="youtube_privacy">Visibilidade</string>
+    <string name="youtube_private">Privado</string>
+    <string name="youtube_unlisted">Não listado</string>
+    <string name="youtube_public">Público</string>
+    <string name="youtube_audience">Público-alvo</string>
+    <string name="youtube_not_kids">Não é conteúdo para crianças</string>
+    <string name="youtube_kids">É conteúdo para crianças</string>
+    <string name="youtube_manual">Inserir uma chave manualmente</string>
+    <string name="youtube_disconnect">Desconectar conta do YouTube</string>
+    <string name="youtube_disconnect_message">A plataforma salva é removida e o acesso ao YouTube desta conta Google é revogado. Outras conexões com esta conta precisarão de nova autorização.</string>
+    <string name="youtube_auto_hint">O YouTube inicia automaticamente ao receber vídeo. Confira sua transmissão no YouTube.</string>
+    <string name="youtube_error_auth">É necessária permissão do YouTube. Reconecte sua conta.</string>
+    <string name="youtube_error_setup">A conexão com o YouTube deste app não está configurada. Contate o suporte.</string>
+    <string name="youtube_error_channel">Nenhum canal do YouTube está disponível para esta conta.</string>
+    <string name="youtube_error_channel_changed">Reconecte a conta Google deste canal do YouTube.</string>
+    <string name="youtube_error_live">Primeiro ative as transmissões ao vivo no seu canal do YouTube.</string>
+    <string name="youtube_error_quota">O limite de solicitações do YouTube foi atingido. Tente mais tarde.</string>
+    <string name="youtube_error_network">Não foi possível acessar o YouTube. Verifique a conexão e tente novamente.</string>
+    <string name="youtube_error_api">O YouTube não concluiu esta ação. Tente novamente.</string>
+    <string name="youtube_error_title">Insira um título de até 100 caracteres, sem &lt; ou &gt;.</string>
+    <string name="youtube_error_end">O envio de vídeo foi interrompido. Confirme no YouTube Studio que a transmissão terminou.</string>
+    <string name="youtube_error_edit_live">Encerre a transmissão no YouTube antes de editar a conexão.</string>
 </resources>

@@ -297,4 +297,32 @@
     <string name="weak_link_title">The picture keeps freezing</string>
     <string name="weak_link_tip">Usually it\'s the Wi-Fi between the controller and this phone. Connect the controller to this phone\'s hotspot (5 GHz if offered) and keep the two close. If the controller\'s screen freezes too, the drone\'s signal is weak.</string>
     <string name="weak_link_tip_hotspot">Usually it\'s the Wi-Fi between the controller and this phone. Keep the two close with nothing in between, and set the hotspot to 5 GHz if offered. If the controller\'s screen freezes too, the drone\'s signal is weak.</string>
+
+    <!-- YouTube account connection (Android). -->
+    <string name="youtube_connect">Connect YouTube account</string>
+    <string name="youtube_connection_help">Connect your Google account to prepare broadcasts automatically.</string>
+    <string name="youtube_channel">Channel</string>
+    <string name="youtube_title">Broadcast title</string>
+    <string name="youtube_privacy">Visibility</string>
+    <string name="youtube_private">Private</string>
+    <string name="youtube_unlisted">Unlisted</string>
+    <string name="youtube_public">Public</string>
+    <string name="youtube_audience">Audience</string>
+    <string name="youtube_not_kids">Not made for kids</string>
+    <string name="youtube_kids">Made for kids</string>
+    <string name="youtube_manual">Enter a stream key instead</string>
+    <string name="youtube_disconnect">Disconnect YouTube account</string>
+    <string name="youtube_disconnect_message">This removes the saved platform and revokes YouTube access for this Google account. Other connections using this account will need permission again.</string>
+    <string name="youtube_auto_hint">YouTube starts automatically when it receives video. Check your broadcast on YouTube.</string>
+    <string name="youtube_error_auth">YouTube permission is required. Reconnect your account.</string>
+    <string name="youtube_error_setup">YouTube connection is not configured for this app. Please contact support.</string>
+    <string name="youtube_error_channel">No YouTube channel is available for this account.</string>
+    <string name="youtube_error_channel_changed">Reconnect the Google account for this YouTube channel.</string>
+    <string name="youtube_error_live">Enable live streaming for your YouTube channel first.</string>
+    <string name="youtube_error_quota">YouTube’s request limit was reached. Try again later.</string>
+    <string name="youtube_error_network">Could not reach YouTube. Check your connection and try again.</string>
+    <string name="youtube_error_api">YouTube could not complete this action. Try again.</string>
+    <string name="youtube_error_title">Enter a title of up to 100 characters, without &lt; or &gt;.</string>
+    <string name="youtube_error_end">Video forwarding stopped. Check YouTube Studio to confirm the broadcast has ended.</string>
+    <string name="youtube_error_edit_live">End the YouTube broadcast before editing its connection.</string>
 </resources>

@@ -22,10 +22,18 @@ final class RelayController {
     @ObservationIgnored private var pollTask: Task<Void, Never>?
     @ObservationIgnored private var testVideoTask: Task<Void, Never>?
     @ObservationIgnored private var converter: TestVideoConverter?
+    @ObservationIgnored let youtube = YouTubeBroadcastManager.shared
+    @ObservationIgnored private var liveAttempts: [String: UUID] = [:]
+    @ObservationIgnored private var liveFailures: [String: UiText] = [:]
     @ObservationIgnored private let profileStore: DestinationProfileStore
 
     init(profileStore: DestinationProfileStore = DestinationProfileStore()) {
         self.profileStore = profileStore
+        Task { [weak self] in
+            guard let self else { return }
+            do { try await youtube.recoverOnce() }
+            catch { state.notice = RelayNotice(title: .tr("youtube_error_end"), message: .tr("youtube_error_end")) }
+        }
     }
 
     var phase: BridgePhase { bridgePhase(state) }
@@ -64,6 +72,10 @@ final class RelayController {
 
     /// Closes the receiver and ends any broadcast; `notice` says why, when it was not asked for.
     func stop(notice: RelayNotice? = nil) {
+        let attempts = liveAttempts
+        liveAttempts.removeAll()
+        liveFailures.removeAll()
+        finishYouTube(attempts)
         stopTestVideoWork()
         pollTask?.cancel()
         pollTask = nil
@@ -145,46 +157,69 @@ final class RelayController {
         guard !added.isEmpty else { return }
         state.liveProfileIds += added
         state.notice = nil
-        let store = profileStore
-        commands.async { [weak self] in
-            var failures: [(String, UiText)] = []
-            for profileId in added {
-                let problem: UiText?
+        liveFailures.removeAll()
+        for profileId in added {
+            let owner = UUID()
+            liveAttempts[profileId] = owner
+            Task { [weak self] in
+                guard let self else { return }
                 do {
-                    let credentials = try store.credentials(profileId)
-                    problem = NativeRelay.goLive(outputId: profileId, serverUrl: credentials.serverUrl, streamKey: credentials.streamKey)
-                        .map(nativeError)
-                } catch let failure as DestinationProfileError {
-                    problem = failure.text
+                    guard let profile = try profileStore.load().profiles.first(where: { $0.id == profileId }) else {
+                        throw DestinationProfileError("profile_error_not_found")
+                    }
+                    try await youtube.prepare(profile, owner: owner)
+                    guard liveAttempts[profileId] == owner else {
+                        finishYouTube([profileId: owner])
+                        return
+                    }
+                    let credentials = try profileStore.credentials(profileId)
+                    commands.async { [weak self] in
+                        let problem = NativeRelay.goLive(outputId: profileId, serverUrl: credentials.serverUrl, streamKey: credentials.streamKey).map(nativeError)
+                        if let problem {
+                            Task { @MainActor in self?.goLiveFailed(profileId, owner: owner, error: problem) }
+                        }
+                    }
                 } catch {
-                    problem = .tr("error_internal")
+                    goLiveFailed(profileId, owner: owner, error: youTubeErrorText(error))
                 }
-                guard let problem else { continue }
-                let kind = (try? store.load().profiles.first { $0.id == profileId })?.kind
-                failures.append((profileId, kind.map { .tr("named_error", .text($0.nameText), .text(problem)) } ?? problem))
             }
-            guard !failures.isEmpty else { return }
-            Task { @MainActor in self?.goLiveFailed(failures) }
         }
     }
 
-    private func goLiveFailed(_ failures: [(String, UiText)]) {
-        let failed = failures.map(\.0).filter(state.liveProfileIds.contains)
-        guard !failed.isEmpty else { return }
-        state.liveProfileIds.removeAll(where: failed.contains)
+    private func goLiveFailed(_ profileId: String, owner: UUID, error: UiText) {
+        finishYouTube([profileId: owner])
+        guard liveAttempts[profileId] == owner else { return }
+        liveAttempts[profileId] = nil
+        state.liveProfileIds.removeAll { $0 == profileId }
         if !state.isLive { state.liveSince = nil }
-        state.notice = RelayNotice(title: .tr("go_live_failed"), message: .joined(failures.map(\.1), separator: "\n"))
+        let kind = (try? profileStore.load().profiles.first { $0.id == profileId })?.kind
+        liveFailures[profileId] = kind.map { .tr("named_error", .text($0.nameText), .text(error)) } ?? error
+        state.notice = RelayNotice(title: .tr("go_live_failed"),
+            message: .joined(liveFailures.keys.sorted().compactMap { liveFailures[$0] }, separator: "\n"))
     }
 
     /// Ends the broadcast on `profileId`, or on every platform when nil; the drone stays connected.
     func endLive(_ profileId: String? = nil, notice: RelayNotice? = nil) {
         let ended = profileId.map { id in state.liveProfileIds.filter { $0 == id } } ?? state.liveProfileIds
         guard !ended.isEmpty else { return }
+        var attempts: [String: UUID] = [:]
+        for id in ended { attempts[id] = liveAttempts.removeValue(forKey: id) }
         state.liveProfileIds.removeAll(where: ended.contains)
         if !state.isLive { state.liveSince = nil }
         state.notice = notice
         let stillLive = state.isLive
         commands.async { NativeRelay.endLive(outputId: stillLive ? profileId : nil) }
+        finishYouTube(attempts)
+    }
+
+    private func finishYouTube(_ attempts: [String: UUID]) {
+        for (id, owner) in attempts {
+            Task { [weak self] in
+                guard let self else { return }
+                do { try await youtube.finish(profileId: id, owner: owner) }
+                catch { state.notice = RelayNotice(title: .tr("youtube_error_end"), message: .tr("youtube_error_end")) }
+            }
+        }
     }
 
     func dismissNotice() {

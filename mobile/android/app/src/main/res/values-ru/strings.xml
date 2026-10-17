@@ -306,4 +306,32 @@
     <string name="weak_link_title">Изображение часто зависает</string>
     <string name="weak_link_tip">Обычно дело в Wi-Fi между пультом и этим телефоном. Подключите пульт к точке доступа этого телефона (по возможности на 5 ГГц) и держите их рядом. Если изображение зависает и на экране пульта, значит, сигнал дрона слабый.</string>
     <string name="weak_link_tip_hotspot">Обычно дело в Wi-Fi между пультом и этим телефоном. Держите их рядом, без препятствий между ними, и по возможности переключите точку доступа на 5 ГГц. Если изображение зависает и на экране пульта, значит, сигнал дрона слабый.</string>
+
+    <!-- YouTube account connection (Android). -->
+    <string name="youtube_connect">Подключить аккаунт YouTube</string>
+    <string name="youtube_connection_help">Подключите аккаунт Google для автоматической подготовки трансляций.</string>
+    <string name="youtube_channel">Канал</string>
+    <string name="youtube_title">Название трансляции</string>
+    <string name="youtube_privacy">Доступ</string>
+    <string name="youtube_private">Ограниченный доступ</string>
+    <string name="youtube_unlisted">Доступ по ссылке</string>
+    <string name="youtube_public">Открытый доступ</string>
+    <string name="youtube_audience">Аудитория</string>
+    <string name="youtube_not_kids">Не для детей</string>
+    <string name="youtube_kids">Для детей</string>
+    <string name="youtube_manual">Ввести ключ вручную</string>
+    <string name="youtube_disconnect">Отключить аккаунт YouTube</string>
+    <string name="youtube_disconnect_message">Сохранённая платформа будет удалена, а доступ к YouTube для этого аккаунта Google отозван. Другим подключениям с этим аккаунтом потребуется новое разрешение.</string>
+    <string name="youtube_auto_hint">YouTube запускает трансляцию автоматически при получении видео. Проверьте её на YouTube.</string>
+    <string name="youtube_error_auth">Нужно разрешение YouTube. Подключите аккаунт заново.</string>
+    <string name="youtube_error_setup">Подключение к YouTube в этом приложении не настроено. Обратитесь в поддержку.</string>
+    <string name="youtube_error_channel">Для этого аккаунта нет доступного канала YouTube.</string>
+    <string name="youtube_error_channel_changed">Подключите заново аккаунт Google этого канала YouTube.</string>
+    <string name="youtube_error_live">Сначала включите прямые трансляции на своём канале YouTube.</string>
+    <string name="youtube_error_quota">Достигнут лимит запросов YouTube. Повторите позже.</string>
+    <string name="youtube_error_network">Не удалось связаться с YouTube. Проверьте соединение и повторите.</string>
+    <string name="youtube_error_api">YouTube не удалось выполнить действие. Повторите попытку.</string>
+    <string name="youtube_error_title">Введите название до 100 символов без &lt; и &gt;.</string>
+    <string name="youtube_error_end">Передача видео остановлена. Убедитесь в YouTube Studio, что трансляция завершена.</string>
+    <string name="youtube_error_edit_live">Завершите трансляцию YouTube перед изменением подключения.</string>
 </resources>

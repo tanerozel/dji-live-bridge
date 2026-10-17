@@ -43,6 +43,7 @@ struct DestinationProfile: Identifiable, Equatable {
     let name: String
     let kind: DestinationKind
     let serverUrl: String
+    var youtube: YouTubeConnection? = nil
 }
 
 struct DestinationProfiles: Equatable {
@@ -105,17 +106,23 @@ final class DestinationProfileStore: @unchecked Sendable {
         name: String,
         kind: DestinationKind,
         serverUrl: String,
-        streamKey: String
+        streamKey: String,
+        youtube: YouTubeConnection? = nil
     ) throws -> DestinationProfiles {
         try Self.lock.withLock {
             let normalizedName = try validateName(name)
             let normalizedUrl = try validateServerUrl(serverUrl)
+            if let youtube {
+                guard kind == .youtube else { throw DestinationProfileError("profile_error_corrupt") }
+                try youtube.validate()
+            }
             var current = try readRecords()
             let index = existingId.flatMap { id in current.profiles.firstIndex { $0.id == id } }
             if existingId != nil && index == nil {
                 throw DestinationProfileError("profile_error_not_found")
             }
             let id = existingId ?? UUID().uuidString.lowercased()
+            let previousKey = streamKey.isEmpty ? nil : try? keys.load(for: id)
             if !streamKey.isEmpty {
                 try validateStreamKey(streamKey)
                 do {
@@ -126,7 +133,7 @@ final class DestinationProfileStore: @unchecked Sendable {
             } else if index == nil {
                 throw DestinationProfileError("profile_error_key_required")
             }
-            let profile = DestinationProfile(id: id, name: normalizedName, kind: kind, serverUrl: normalizedUrl)
+            let profile = DestinationProfile(id: id, name: normalizedName, kind: kind, serverUrl: normalizedUrl, youtube: youtube)
             if let index {
                 current.profiles[index] = profile
             } else {
@@ -134,7 +141,14 @@ final class DestinationProfileStore: @unchecked Sendable {
                 // A platform the user just added is one they mean to stream to.
                 current.selectedProfileIds.append(id)
             }
-            try writeRecords(current)
+            do { try writeRecords(current) }
+            catch {
+                if !streamKey.isEmpty {
+                    if let previousKey { try? keys.save(previousKey, for: id) }
+                    else { keys.delete(for: id) }
+                }
+                throw error
+            }
             return current
         }
     }
@@ -199,8 +213,12 @@ final class DestinationProfileStore: @unchecked Sendable {
         guard stored.version == Self.storageVersion else {
             throw DestinationProfileError("profile_error_version")
         }
-        let profiles = stored.profiles.map {
-            DestinationProfile(id: $0.id, name: $0.name, kind: .fromStorage($0.kind), serverUrl: $0.serverUrl)
+        let profiles = try stored.profiles.map {
+            try $0.youtube?.validate()
+            if $0.youtube != nil && $0.kind != DestinationKind.youtube.rawValue {
+                throw DestinationProfileError("profile_error_corrupt")
+            }
+            return DestinationProfile(id: $0.id, name: $0.name, kind: .fromStorage($0.kind), serverUrl: $0.serverUrl, youtube: $0.youtube)
         }
         var seen = Set<String>()
         let selected = stored.selectedProfileIds.filter { id in
@@ -214,18 +232,22 @@ final class DestinationProfileStore: @unchecked Sendable {
             version: Self.storageVersion,
             selectedProfileIds: value.selectedProfileIds,
             profiles: value.profiles.map {
-                StoredProfile(id: $0.id, name: $0.name, kind: $0.kind.rawValue, serverUrl: $0.serverUrl)
+                StoredProfile(id: $0.id, name: $0.name, kind: $0.kind.rawValue, serverUrl: $0.serverUrl, youtube: $0.youtube)
             }
         )
         do {
-            try FileManager.default.createDirectory(at: file.deletingLastPathComponent(), withIntermediateDirectories: true)
+            var directory = file.deletingLastPathComponent()
+            try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+            var values = URLResourceValues()
+            values.isExcludedFromBackup = true
+            // Exclude the parent before the atomic write, so a crash or a failed file-flag
+            // update cannot expose new account metadata to backup or undo a committed key.
+            try directory.setResourceValues(values)
             let encoder = JSONEncoder()
             encoder.outputFormatting = [.sortedKeys]
             try encoder.encode(stored).write(to: file, options: [.atomic, .completeFileProtectionUntilFirstUserAuthentication])
             var url = file
-            var values = URLResourceValues()
-            values.isExcludedFromBackup = true
-            try url.setResourceValues(values)
+            try? url.setResourceValues(values)
         } catch {
             throw DestinationProfileError("profile_error_write")
         }
@@ -243,6 +265,7 @@ private struct StoredProfile: Codable {
     var name: String
     var kind: String
     var serverUrl: String
+    var youtube: YouTubeConnection?
 }
 
 /// Stream keys as generic-password items of this app, one per profile.

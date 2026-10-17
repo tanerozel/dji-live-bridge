@@ -56,6 +56,27 @@ server until they were fixed there (sessions captured from an RC 2 showed both):
 
 `librtmp2`'s tests replay those captured bytes, and CI runs them.
 
+## YouTube account connection
+
+YouTube can be connected through Google's native AuthorizationClient instead of pasting a stream
+key. The editor asks for a channel, broadcast title, visibility (unlisted by default), and an
+explicit made-for-kids choice. The service prepares a fresh broadcast on each Go live, binds it
+to the saved reusable input, and enables automatic start/stop. Ending a broadcast also completes
+it through the API, or deletes an unstarted event. HTTP work uses a separate serialized executor;
+ending a pending preparation prevents it from attaching to the relay later. Other destinations
+keep working independently.
+
+Google access tokens stay in memory/Google Play services. Stream keys use the existing Keystore
+encryption. Recoverable session metadata contains remote IDs and account identity only, in
+no-backup private storage. Failed cleanup remains recorded for retry on the next service start.
+Disconnect revokes Google access and deletes the local profile. Existing manually configured
+YouTube profiles continue to work, and the manual editor remains available.
+
+Cloud registration and an account-enabled physical-device test are required before claiming live
+YouTube validation. See [the Turkish setup guide](YOUTUBE_SETUP.md). Instagram's phone browser
+candidate remains unverified; its test plan is in [INSTAGRAM_MOBILE_SPIKE.md](INSTAGRAM_MOBILE_SPIKE.md).
+The native iOS account connection is a later step.
+
 ## User interface
 
 The app is one dark screen, laid out like a camera app, from the first launch to the end of a
