@@ -14,7 +14,7 @@
     <string name="error_ca_bundle">RTMPS 用の Android の証明書を準備できませんでした。</string>
 
     <!-- Shared components -->
-    <string name="live_badge">配信中</string>
+    <string name="live_badge" tools:ignore="UnusedResources">配信中</string>
     <string name="copy_address">アドレスをコピー</string>
     <string name="collapse">閉じる</string>
     <string name="expand">開く</string>
@@ -88,15 +88,15 @@
     <string name="notification_channel_description">DJI RC 2 の映像を受信して配信先に中継します</string>
     <string name="notification_receiver_error">受信サーバーでエラーが発生しました</string>
     <string name="notification_starting">受信サーバーを準備中</string>
-    <string name="notification_live">ライブ配信中</string>
-    <string name="notification_live_slow">ライブ配信中 · 回線が低速</string>
-    <plurals name="notification_live_many">
+    <string name="notification_live" tools:ignore="UnusedResources">ライブ配信中</string>
+    <string name="notification_live_slow" tools:ignore="UnusedResources">ライブ配信中 · 回線が低速</string>
+    <plurals name="notification_live_many" tools:ignore="UnusedResources">
         <item quantity="other">%d 件の配信先でライブ配信中</item>
     </plurals>
     <string name="notification_reconnecting">配信先に再接続中</string>
     <string name="notification_connecting">配信先に接続中</string>
     <string name="notification_holding">ドローン切断 · 配信は維持中</string>
-    <string name="notification_live_waiting">配信中 · ドローンを待っています</string>
+    <string name="notification_live_waiting" tools:ignore="UnusedResources">配信中 · ドローンを待っています</string>
     <string name="notification_test_video">テスト動画を受信中</string>
     <string name="notification_drone">ドローンの映像を受信中</string>
     <string name="notification_connected">送信機が接続されました</string>
@@ -195,7 +195,7 @@
     <string name="platforms">配信先</string>
     <string name="end">終了</string>
     <string name="end_platform">%1$s の配信を終了</string>
-    <string name="status_live">配信中</string>
+    <string name="status_live" tools:ignore="UnusedResources">配信中</string>
     <string name="status_congested">回線が低速 · コマ落ち発生中</string>
     <string name="status_connecting">接続中</string>
     <string name="status_reconnecting">再接続中</string>
@@ -319,4 +319,55 @@
     <string name="youtube_error_title">&lt; と &gt; を含まない 100 文字以内のタイトルを入力してください。</string>
     <string name="youtube_error_end">動画の送信を停止しました。YouTube Studio で配信が終了したことを確認してください。</string>
     <string name="youtube_error_edit_live">接続を編集する前に YouTube の配信を終了してください。</string>
+
+    <!-- Android phone browser handoff for Instagram Live Producer. -->
+    <string name="instagram_phone_setup">このスマートフォンで準備</string>
+    <string name="instagram_open_browser">ブラウザでInstagramを開く</string>
+    <string name="instagram_paste_server">サーバーアドレスを貼り付け</string>
+    <string name="instagram_paste_key">ストリームキーを貼り付け</string>
+    <string name="instagram_error_browser">ブラウザがありません。Chromeなどをインストールまたは有効にしてください。</string>
+    <string name="instagram_error_clipboard">先にテキストをコピーしてから貼り付けてください。</string>
+    <string name="instagram_error_server">InstagramのRTMPSサーバーアドレスを、キーを含めずに貼り付けてください。</string>
+    <string name="instagram_error_key">伏せ字やサーバーアドレスではなく、Instagramの実際のキーをコピーしてください。</string>
+    <string name="instagram_phone_steps">1. ブラウザでPC版サイトを有効にしてログインします。\n2. 作成 → ライブ動画を選びます。可能なら練習を選び、このタブを開いたままにします。\n3. 配信URLとキーを別々にコピーして下に貼り付けます。ライブ動画がない場合、このアカウントでは利用できません。</string>
+    <string name="instagram_connect">Instagramを接続</string>
+    <string name="instagram_manual">手動で入力</string>
+    <string name="instagram_clear_session">セッションを消去</string>
+    <string name="instagram_open_producer">Instagramウィンドウを開く</string>
+    <string name="instagram_connected">Instagramの接続を保存しました。</string>
+    <string name="instagram_error_edit_live">接続を変更する前にInstagramの配信を終了してください。</string>
+    <string name="instagram_error_page">Instagramを読み込めません。接続を確認するか、ブラウザで続けてください。</string>
+    <string name="instagram_modal_help">アプリでタイトルと公開範囲を選択します。Instagramはログイン、認証、問題の解決時のみ開きます。</string>
+    <string name="instagram_modal_steps">ここでログインまたは認証を完了してください。準備は自動で再開します。キーのコピーは不要です。</string>
+    <string name="instagram_producer_live">開始と終了はアプリで管理します。プレビューの確認や問題の解決にはInstagramを開いてください。</string>
+
+    <!-- Relay forwarding and platform confirmation (Android). -->
+    <string name="status_forwarding">転送中</string>
+    <string name="notification_forwarding">プラットフォームに映像を送信中 · 配信状況は各サービスで確認</string>
+    <string name="notification_forwarding_slow">映像転送中 · 接続が低速</string>
+    <string name="notification_forwarding_waiting">転送有効 · 映像待機中</string>
+    <string name="youtube_status_live">YouTube確認済み：ライブ配信中</string>
+    <string name="youtube_status_pending">YouTubeはまだライブ配信を確認していません。</string>
+    <string name="youtube_status_testing">YouTubeはプレビュー／テストモードです。</string>
+    <string name="youtube_status_ended">YouTubeの配信は終了または取り消されました。</string>
+    <string name="youtube_open_broadcast">YouTubeで開く</string>
+    <string name="instagram_show_live_control">Instagramのライブ開始ボタンを表示</string>
+    <string name="instagram_control_missing">ライブ開始ボタンを一つに特定できません。Producer画面と公開対象を確認してください。練習モードは視聴者に表示されません。</string>
+    <string name="instagram_setup_unavailable">Instagramの準備を完了できませんでした。再試行するか、Instagramを開いて準備を完了してください。</string>
+    <string name="instagram_waiting_video">Instagramが映像を待っています…</string>
+    <string name="instagram_publish_starting">Instagram配信を開始しています…</string>
+    <string name="instagram_publish_live">選択した公開範囲でInstagramを開始しました。</string>
+    <string name="instagram_publish_failed">Instagramの開始を確認できませんでした。配信画面を確認してください。</string>
+    <string name="instagram_end_starting">Instagram配信を終了しています…</string>
+    <string name="instagram_end_done">Instagramセッションを終了しました。</string>
+    <string name="instagram_end_failed">Instagramの終了を確認できませんでした。再試行するかInstagramの画面を確認してください。</string>
+    <string name="broadcast_title">配信タイトル</string>
+    <string name="broadcast_title_error">&lt; と &gt; を含まない1～100文字のタイトルを入力してください。</string>
+    <string name="broadcast_title_clear">タイトルを消去</string>
+    <string name="broadcast_title_manual">接続したYouTubeとInstagramにタイトルを適用します。他の配信先のタイトルは各プラットフォームで設定してください。</string>
+    <string name="broadcast_title_instagram_error">Instagramの入力上限を超えています。戻って短いタイトルを選んでください。</string>
+    <string name="instagram_audience">Instagramの公開範囲</string>
+    <string name="instagram_audience_practice">練習</string>
+    <string name="instagram_audience_public">公開</string>
+    <string name="instagram_preparing">Instagramを準備中…</string>
 </resources>

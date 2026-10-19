@@ -14,7 +14,7 @@
     <string name="error_ca_bundle">RTMPS के लिए Android के सर्टिफ़िकेट तैयार नहीं हो सके।</string>
 
     <!-- Shared components -->
-    <string name="live_badge">लाइव</string>
+    <string name="live_badge" tools:ignore="UnusedResources">लाइव</string>
     <string name="copy_address">पता कॉपी करें</string>
     <string name="collapse">बंद करें</string>
     <string name="expand">खोलें</string>
@@ -88,16 +88,16 @@
     <string name="notification_channel_description">DJI RC 2 से स्ट्रीम लेना और उसे आपके प्लेटफ़ॉर्मों पर भेजना</string>
     <string name="notification_receiver_error">रिसीवर में त्रुटि</string>
     <string name="notification_starting">रिसीवर तैयार हो रहा है</string>
-    <string name="notification_live">आप लाइव हैं</string>
-    <string name="notification_live_slow">आप लाइव हैं · कनेक्शन धीमा</string>
-    <plurals name="notification_live_many">
+    <string name="notification_live" tools:ignore="UnusedResources">आप लाइव हैं</string>
+    <string name="notification_live_slow" tools:ignore="UnusedResources">आप लाइव हैं · कनेक्शन धीमा</string>
+    <plurals name="notification_live_many" tools:ignore="UnusedResources">
         <item quantity="one">आप %d प्लेटफ़ॉर्म पर लाइव हैं</item>
         <item quantity="other">आप %d प्लेटफ़ॉर्मों पर लाइव हैं</item>
     </plurals>
     <string name="notification_reconnecting">प्लेटफ़ॉर्म से दोबारा जुड़ रहा है</string>
     <string name="notification_connecting">प्लेटफ़ॉर्म से जुड़ रहा है</string>
     <string name="notification_holding">ड्रोन का कनेक्शन टूटा · प्रसारण चालू है</string>
-    <string name="notification_live_waiting">प्रसारण चालू · ड्रोन की प्रतीक्षा</string>
+    <string name="notification_live_waiting" tools:ignore="UnusedResources">प्रसारण चालू · ड्रोन की प्रतीक्षा</string>
     <string name="notification_test_video">टेस्ट वीडियो आ रहा है</string>
     <string name="notification_drone">ड्रोन की तस्वीर आ रही है</string>
     <string name="notification_connected">रिमोट जुड़ गया</string>
@@ -199,7 +199,7 @@
     <string name="platforms">प्लेटफ़ॉर्म</string>
     <string name="end">बंद करें</string>
     <string name="end_platform">%1$s पर लाइव बंद करें</string>
-    <string name="status_live">लाइव</string>
+    <string name="status_live" tools:ignore="UnusedResources">लाइव</string>
     <string name="status_congested">धीमा कनेक्शन · फ़्रेम छूट रहे हैं</string>
     <string name="status_connecting">जुड़ रहा है</string>
     <string name="status_reconnecting">दोबारा जुड़ रहा है</string>
@@ -324,4 +324,55 @@
     <string name="youtube_error_title">&lt; या &gt; के बिना अधिकतम 100 अक्षरों का शीर्षक दर्ज करें।</string>
     <string name="youtube_error_end">वीडियो भेजना बंद हो गया। YouTube Studio में पुष्टि करें कि प्रसारण समाप्त हो गया है।</string>
     <string name="youtube_error_edit_live">कनेक्शन बदलने से पहले YouTube प्रसारण समाप्त करें।</string>
+
+    <!-- Android phone browser handoff for Instagram Live Producer. -->
+    <string name="instagram_phone_setup">इस फ़ोन पर तैयार करें</string>
+    <string name="instagram_open_browser">ब्राउज़र में Instagram खोलें</string>
+    <string name="instagram_paste_server">सर्वर पता पेस्ट करें</string>
+    <string name="instagram_paste_key">स्ट्रीम कुंजी पेस्ट करें</string>
+    <string name="instagram_error_browser">वेब ब्राउज़र उपलब्ध नहीं है। Chrome जैसा ब्राउज़र इंस्टॉल या सक्षम करें।</string>
+    <string name="instagram_error_clipboard">पहले टेक्स्ट कॉपी करें, फिर पेस्ट करें पर टैप करें।</string>
+    <string name="instagram_error_server">Instagram से RTMPS सर्वर पता पेस्ट करें, स्ट्रीम कुंजी के बिना।</string>
+    <string name="instagram_error_key">Instagram की असली स्ट्रीम कुंजी कॉपी करें, छिपे हुए चिह्न या सर्वर पता नहीं।</string>
+    <string name="instagram_phone_steps">1. ब्राउज़र में डेस्कटॉप साइट चालू करें और लॉग इन करें।\n2. बनाएँ → लाइव वीडियो चुनें। उपलब्ध हो तो अभ्यास चुनें। यह टैब खुला रखें।\n3. स्ट्रीम URL और कुंजी अलग-अलग कॉपी करके नीचे पेस्ट करें। लाइव वीडियो न दिखे तो यह तरीका इस खाते के लिए उपलब्ध नहीं है।</string>
+    <string name="instagram_connect">Instagram कनेक्ट करें</string>
+    <string name="instagram_manual">मैन्युअल रूप से दर्ज करें</string>
+    <string name="instagram_clear_session">सत्र साफ़ करें</string>
+    <string name="instagram_open_producer">Instagram विंडो खोलें</string>
+    <string name="instagram_connected">Instagram कनेक्शन सहेजा गया।</string>
+    <string name="instagram_error_edit_live">कनेक्शन बदलने से पहले Instagram प्रसारण समाप्त करें।</string>
+    <string name="instagram_error_page">Instagram लोड नहीं हुआ। कनेक्शन जाँचें या ब्राउज़र में जारी रखें।</string>
+    <string name="instagram_modal_help">ऐप में शीर्षक और दर्शक चुनें। Instagram केवल लॉगिन, सत्यापन या समस्या के लिए खुलता है।</string>
+    <string name="instagram_modal_steps">यहाँ लॉगिन या सत्यापन पूरा करें। तैयारी अपने आप जारी होगी; स्ट्रीम कुंजी कॉपी न करें।</string>
+    <string name="instagram_producer_live">ऐप शुरुआत और समाप्ति संभालता है। पूर्वावलोकन देखने या समस्या हल करने के लिए Instagram खोलें।</string>
+
+    <!-- Relay forwarding and platform confirmation (Android). -->
+    <string name="status_forwarding">भेजा जा रहा है</string>
+    <string name="notification_forwarding">वीडियो प्लेटफ़ॉर्म पर भेजा जा रहा है · वहाँ प्रसारण जाँचें</string>
+    <string name="notification_forwarding_slow">वीडियो भेजा जा रहा है · धीमा कनेक्शन</string>
+    <string name="notification_forwarding_waiting">भेजना चालू · वीडियो की प्रतीक्षा</string>
+    <string name="youtube_status_live">YouTube ने पुष्टि की: लाइव</string>
+    <string name="youtube_status_pending">YouTube ने अभी लाइव प्रसारण की पुष्टि नहीं की है।</string>
+    <string name="youtube_status_testing">YouTube पूर्वावलोकन/परीक्षण मोड में है।</string>
+    <string name="youtube_status_ended">YouTube प्रसारण समाप्त या रद्द हो गया।</string>
+    <string name="youtube_open_broadcast">YouTube पर खोलें</string>
+    <string name="instagram_show_live_control">Instagram का लाइव बटन दिखाएँ</string>
+    <string name="instagram_control_missing">एक स्पष्ट लाइव बटन नहीं मिला। Producer और दर्शक सेटिंग जाँचें; अभ्यास दर्शकों को नहीं दिखता।</string>
+    <string name="instagram_setup_unavailable">Instagram की तैयारी पूरी नहीं हुई। फिर प्रयास करें या तैयारी पूरी करने के लिए Instagram खोलें।</string>
+    <string name="instagram_waiting_video">Instagram वीडियो की प्रतीक्षा कर रहा है…</string>
+    <string name="instagram_publish_starting">Instagram प्रसारण शुरू हो रहा है…</string>
+    <string name="instagram_publish_live">Instagram चुने गए दर्शकों के साथ शुरू हुआ।</string>
+    <string name="instagram_publish_failed">Instagram शुरू होने की पुष्टि नहीं हुई। प्रसारण विंडो देखें।</string>
+    <string name="instagram_end_starting">Instagram प्रसारण समाप्त हो रहा है…</string>
+    <string name="instagram_end_done">Instagram सत्र समाप्त हुआ।</string>
+    <string name="instagram_end_failed">Instagram बंद होने की पुष्टि नहीं हुई। फिर प्रयास करें या Instagram विंडो देखें।</string>
+    <string name="broadcast_title">प्रसारण का शीर्षक</string>
+    <string name="broadcast_title_error">&lt; या &gt; के बिना 1–100 अक्षरों का शीर्षक लिखें।</string>
+    <string name="broadcast_title_clear">शीर्षक साफ़ करें</string>
+    <string name="broadcast_title_manual">शीर्षक जुड़े YouTube और Instagram खातों पर लागू होता है। अन्य शीर्षक उनके प्लेटफ़ॉर्म पर सेट करें।</string>
+    <string name="broadcast_title_instagram_error">शीर्षक Instagram की सीमा से लंबा है। वापस जाकर छोटा शीर्षक चुनें।</string>
+    <string name="instagram_audience">Instagram दर्शक</string>
+    <string name="instagram_audience_practice">अभ्यास</string>
+    <string name="instagram_audience_public">सार्वजनिक</string>
+    <string name="instagram_preparing">Instagram तैयार हो रहा है…</string>
 </resources>

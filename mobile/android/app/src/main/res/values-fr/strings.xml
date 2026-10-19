@@ -14,7 +14,7 @@
     <string name="error_ca_bundle">Les certificats Android pour le RTMPS n\'ont pas pu être préparés.</string>
 
     <!-- Shared components -->
-    <string name="live_badge">DIRECT</string>
+    <string name="live_badge" tools:ignore="UnusedResources">DIRECT</string>
     <string name="copy_address">Copier l\'adresse</string>
     <string name="collapse">Réduire</string>
     <string name="expand">Développer</string>
@@ -88,9 +88,9 @@
     <string name="notification_channel_description">Réception du flux de la DJI RC 2 et envoi vers vos plateformes</string>
     <string name="notification_receiver_error">Erreur du récepteur</string>
     <string name="notification_starting">Préparation du récepteur</string>
-    <string name="notification_live">Vous êtes en direct</string>
-    <string name="notification_live_slow">Vous êtes en direct · connexion lente</string>
-    <plurals name="notification_live_many">
+    <string name="notification_live" tools:ignore="UnusedResources">Vous êtes en direct</string>
+    <string name="notification_live_slow" tools:ignore="UnusedResources">Vous êtes en direct · connexion lente</string>
+    <plurals name="notification_live_many" tools:ignore="UnusedResources">
         <item quantity="one">Vous êtes en direct sur %d plateforme</item>
         <item quantity="many">Vous êtes en direct sur %d plateformes</item>
         <item quantity="other">Vous êtes en direct sur %d plateformes</item>
@@ -98,7 +98,7 @@
     <string name="notification_reconnecting">Reconnexion à la plateforme</string>
     <string name="notification_connecting">Connexion à la plateforme</string>
     <string name="notification_holding">Drone déconnecté · diffusion maintenue</string>
-    <string name="notification_live_waiting">Diffusion active · en attente du drone</string>
+    <string name="notification_live_waiting" tools:ignore="UnusedResources">Diffusion active · en attente du drone</string>
     <string name="notification_test_video">Réception de la vidéo de test</string>
     <string name="notification_drone">Réception de l\'image du drone</string>
     <string name="notification_connected">Radiocommande connectée</string>
@@ -203,7 +203,7 @@
     <string name="platforms">Plateformes</string>
     <string name="end">Arrêter</string>
     <string name="end_platform">Arrêter le direct sur %1$s</string>
-    <string name="status_live">En direct</string>
+    <string name="status_live" tools:ignore="UnusedResources">En direct</string>
     <string name="status_congested">Connexion lente · images sautées</string>
     <string name="status_connecting">Connexion…</string>
     <string name="status_reconnecting">Reconnexion…</string>
@@ -329,4 +329,55 @@
     <string name="youtube_error_title">Saisissez un titre de 100 caractères maximum, sans &lt; ni &gt;.</string>
     <string name="youtube_error_end">L’envoi vidéo est arrêté. Vérifiez dans YouTube Studio que le direct est terminé.</string>
     <string name="youtube_error_edit_live">Terminez le direct YouTube avant de modifier sa connexion.</string>
+
+    <!-- Android phone browser handoff for Instagram Live Producer. -->
+    <string name="instagram_phone_setup">Préparer sur ce téléphone</string>
+    <string name="instagram_open_browser">Ouvrir Instagram dans le navigateur</string>
+    <string name="instagram_paste_server">Coller l’adresse du serveur</string>
+    <string name="instagram_paste_key">Coller la clé de diffusion</string>
+    <string name="instagram_error_browser">Aucun navigateur disponible. Installez ou activez un navigateur comme Chrome.</string>
+    <string name="instagram_error_clipboard">Copiez d’abord du texte, puis touchez Coller.</string>
+    <string name="instagram_error_server">Collez l’adresse RTMPS d’Instagram sans la clé de diffusion.</string>
+    <string name="instagram_error_key">Copiez la vraie clé Instagram, pas les caractères masqués ni l’adresse du serveur.</string>
+    <string name="instagram_phone_steps">1. Activez Version pour ordinateur dans le navigateur et connectez-vous.\n2. Choisissez Créer → Vidéo en direct. Utilisez Entraînement si disponible. Gardez cet onglet ouvert.\n3. Copiez séparément l’URL et la clé, puis collez-les ci-dessous. Sans Vidéo en direct, ce compte ne peut pas utiliser ce parcours.</string>
+    <string name="instagram_connect">Connecter Instagram</string>
+    <string name="instagram_manual">Saisir manuellement</string>
+    <string name="instagram_clear_session">Effacer la session</string>
+    <string name="instagram_open_producer">Ouvrir la fenêtre Instagram</string>
+    <string name="instagram_connected">Connexion Instagram enregistrée.</string>
+    <string name="instagram_error_edit_live">Terminez le direct Instagram avant de modifier sa connexion.</string>
+    <string name="instagram_error_page">Impossible de charger Instagram. Vérifiez la connexion ou continuez dans un navigateur.</string>
+    <string name="instagram_modal_help">Choisissez le titre et l’audience dans l’app. Instagram s’ouvre pour la connexion, la vérification ou un problème.</string>
+    <string name="instagram_modal_steps">Terminez la connexion ou la vérification ici. La préparation reprend automatiquement ; inutile de copier la clé.</string>
+    <string name="instagram_producer_live">L’app gère le démarrage et la fin. Ouvrez Instagram pour vérifier l’aperçu ou résoudre un problème.</string>
+
+    <!-- Relay forwarding and platform confirmation (Android). -->
+    <string name="status_forwarding">Transmission</string>
+    <string name="notification_forwarding">Vidéo envoyée aux plateformes · vérifiez la diffusion sur place</string>
+    <string name="notification_forwarding_slow">Transmission vidéo · connexion lente</string>
+    <string name="notification_forwarding_waiting">Transmission activée · en attente de vidéo</string>
+    <string name="youtube_status_live">YouTube confirme : en direct</string>
+    <string name="youtube_status_pending">YouTube n’a pas encore confirmé de diffusion en direct.</string>
+    <string name="youtube_status_testing">YouTube est en mode aperçu/test.</string>
+    <string name="youtube_status_ended">La diffusion YouTube est terminée ou révoquée.</string>
+    <string name="youtube_open_broadcast">Ouvrir sur YouTube</string>
+    <string name="instagram_show_live_control">Afficher le bouton de direct Instagram</string>
+    <string name="instagram_control_missing">Aucun bouton de direct unique trouvé. Vérifiez Producer et le public ; le mode entraînement est invisible aux spectateurs.</string>
+    <string name="instagram_setup_unavailable">La préparation Instagram n’a pas abouti. Réessayez ou ouvrez Instagram pour la terminer.</string>
+    <string name="instagram_waiting_video">Instagram attend la vidéo…</string>
+    <string name="instagram_publish_starting">Démarrage du direct Instagram…</string>
+    <string name="instagram_publish_live">Instagram a démarré avec le public choisi.</string>
+    <string name="instagram_publish_failed">Le démarrage Instagram n’a pas pu être confirmé. Vérifiez la fenêtre de diffusion.</string>
+    <string name="instagram_end_starting">Arrêt du direct Instagram…</string>
+    <string name="instagram_end_done">La session Instagram est terminée.</string>
+    <string name="instagram_end_failed">La fin sur Instagram n’a pas pu être confirmée. Réessayez ou vérifiez la fenêtre Instagram.</string>
+    <string name="broadcast_title">Titre de diffusion</string>
+    <string name="broadcast_title_error">Saisissez un titre de 1 à 100 caractères sans &lt; ni &gt;.</string>
+    <string name="broadcast_title_clear">Effacer le titre</string>
+    <string name="broadcast_title_manual">Le titre est appliqué aux comptes YouTube et Instagram connectés. Réglez les autres titres sur leurs plateformes.</string>
+    <string name="broadcast_title_instagram_error">Ce titre dépasse la limite du champ Instagram. Revenez et choisissez un titre plus court.</string>
+    <string name="instagram_audience">Audience Instagram</string>
+    <string name="instagram_audience_practice">Entraînement</string>
+    <string name="instagram_audience_public">Public</string>
+    <string name="instagram_preparing">Préparation d’Instagram…</string>
 </resources>

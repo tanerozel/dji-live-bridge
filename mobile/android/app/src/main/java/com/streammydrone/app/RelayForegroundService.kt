@@ -49,6 +49,7 @@ class RelayForegroundService : Service() {
     private val liveProfileIds = mutableListOf<String>()
     /** Main thread only: late preparation/attach errors belong to one Go live attempt. */
     private val liveAttempts = mutableMapOf<String, Any>()
+    private val pendingInstagramEnds = mutableSetOf<String>()
     @Volatile private var tlsCaBundle: File? = null
     private var wakeLock: PowerManager.WakeLock? = null
     private var wifiLock: WifiManager.WifiLock? = null
@@ -82,7 +83,7 @@ class RelayForegroundService : Service() {
             }
             ACTION_GO_LIVE -> if (enterForeground()) {
                 startReceiver()
-                goLive(intent.getStringArrayExtra(EXTRA_DESTINATION_PROFILE_IDS).orEmpty().toList())
+                goLive(intent.getStringArrayExtra(EXTRA_DESTINATION_PROFILE_IDS).orEmpty().toList(), intent.getStringExtra(EXTRA_BROADCAST_TITLE))
             }
             ACTION_END_LIVE -> endLive(intent.getStringExtra(EXTRA_DESTINATION_PROFILE_ID))
             ACTION_STOP_TEST_VIDEO -> stopTestVideo()
@@ -226,7 +227,12 @@ class RelayForegroundService : Service() {
     }
 
     /** Adds [profileIds] to the broadcast. A platform that fails is reported; the others go on. */
-    private fun goLive(profileIds: List<String>) {
+    private fun goLive(profileIds: List<String>, requestedTitle: String?) {
+        val title = runCatching { validateBroadcastTitle(requestedTitle.orEmpty()) }.getOrNull()
+        if (title == null) {
+            RelayServiceState.notLive(profileIds, RelayNotice(uiText(R.string.go_live_failed), uiText(R.string.broadcast_title_error)))
+            return
+        }
         if (profileIds.isEmpty()) {
             RelayServiceState.notLive(emptyList(), RelayNotice(uiText(R.string.go_live_failed), uiText(R.string.pick_platform_first)))
             return
@@ -243,7 +249,7 @@ class RelayForegroundService : Service() {
         attachProfiles(manual)
         added.filterNot { it in manual }.forEach { id ->
             val profile = profiles!!.profiles.first { it.id == id }
-            youtube.prepare(profile,
+            youtube.prepare(profile, title,
                 ready = { if (!stopRequested.get() && id in liveProfileIds) attachProfiles(listOf(id)) },
                 failed = { error -> goLiveFailed(listOf(id to uiText(R.string.named_error, DestinationKind.YOUTUBE.nameText, error))) },
             )
@@ -308,16 +314,38 @@ class RelayForegroundService : Service() {
     private fun endLive(profileId: String?) {
         val ended = if (profileId == null) liveProfileIds.toList() else listOf(profileId).filter { it in liveProfileIds }
         if (ended.isEmpty()) return
+        val instagram = InstagramProducerSession.profileToEnd(ended)
+        endRelay(ended.filterNot { it == instagram })
+        if (instagram != null && pendingInstagramEnds.add(instagram)) {
+            // Instagram's End/confirmation runs before cutting its ingest, with an 8-second bound.
+            InstagramProducerSession.endConnected(instagram) { success ->
+                pendingInstagramEnds.remove(instagram)
+                if (!stopRequested.get()) {
+                    endRelay(listOf(instagram))
+                    if (!success) RelayServiceState.showNotice(RelayNotice(uiText(R.string.end_broadcast), uiText(R.string.instagram_end_failed)))
+                }
+            }
+        }
+        if (instagram == null) {
+            val hasInstagram = runCatching { DestinationProfileStore(applicationContext).load().profiles }
+                .getOrDefault(emptyList()).any { it.id in ended && it.kind == DestinationKind.INSTAGRAM }
+            if (hasInstagram) RelayServiceState.showNotice(RelayNotice(uiText(R.string.end_broadcast), uiText(R.string.instagram_end_failed)))
+        }
+    }
+
+    private fun endRelay(profileIds: List<String>) {
+        val ended = profileIds.filter { it in liveProfileIds }
+        if (ended.isEmpty()) return
         youtube.end(ended)
         ended.forEach(liveAttempts::remove)
         liveProfileIds.removeAll(ended)
         RelayServiceState.notLive(ended)
-        val stillLive = liveProfileIds.isNotEmpty()
-        if (!stillLive) releaseWakeLock()
+        val targets = relayEndTargets(ended, liveProfileIds)
+        if (liveProfileIds.isEmpty()) releaseWakeLock()
         showNotification(notificationText(RelayServiceState.value.snapshot))
         commands.execute {
-            NativeRelay.nativeEndLive(if (stillLive) profileId.orEmpty() else "")
-            if (!stillLive) deleteTlsCaBundle()
+            targets.forEach { NativeRelay.nativeEndLive(it) }
+            if (targets == listOf("")) deleteTlsCaBundle()
         }
     }
 
@@ -557,14 +585,12 @@ class RelayForegroundService : Service() {
             snapshot.status == "error" -> getString(R.string.notification_receiver_error)
             snapshot.status == "starting" -> getString(R.string.notification_starting)
             liveProfileIds.isNotEmpty() -> when {
-                publishing && snapshot.outputStatus == "congested" -> getString(R.string.notification_live_slow)
-                publishing && snapshot.outputStatus == "forwarding" && liveProfileIds.size > 1 ->
-                    resources.getQuantityString(R.plurals.notification_live_many, liveProfileIds.size, liveProfileIds.size)
-                publishing && snapshot.outputStatus == "forwarding" -> getString(R.string.notification_live)
+                publishing && snapshot.outputStatus == "congested" -> getString(R.string.notification_forwarding_slow)
+                publishing && snapshot.outputStatus == "forwarding" -> getString(R.string.notification_forwarding)
                 publishing && snapshot.outputStatus == "reconnecting" -> getString(R.string.notification_reconnecting)
                 publishing -> getString(R.string.notification_connecting)
                 snapshot.outputStatus == "holding" -> getString(R.string.notification_holding)
-                else -> getString(R.string.notification_live_waiting)
+                else -> getString(R.string.notification_forwarding_waiting)
             }
             publishing && RelayServiceState.value.testVideoName != null -> getString(R.string.notification_test_video)
             publishing -> getString(R.string.notification_drone)
@@ -580,6 +606,7 @@ class RelayForegroundService : Service() {
         private const val ACTION_STOP_TEST_VIDEO = "com.streammydrone.app.action.STOP_TEST_VIDEO"
         private const val ACTION_STOP = "com.streammydrone.app.action.STOP_RELAY"
         private const val EXTRA_DESTINATION_PROFILE_ID = "destination_profile_id"
+        private const val EXTRA_BROADCAST_TITLE = "broadcast_title"
         private const val EXTRA_DESTINATION_PROFILE_IDS = "destination_profile_ids"
         private const val EXTRA_TEST_VIDEO_NAME = "test_video_name"
         private const val EXTRA_TEST_VIDEO_DURATION_MS = "test_video_duration_ms"
@@ -616,12 +643,13 @@ class RelayForegroundService : Service() {
         }
 
         /** Sends the received stream to every destination in [destinationProfileIds]. */
-        fun goLive(context: Context, destinationProfileIds: List<String>) {
+        fun goLive(context: Context, destinationProfileIds: List<String>, title: String) {
             ContextCompat.startForegroundService(
                 context,
                 Intent(context, RelayForegroundService::class.java)
                     .setAction(ACTION_GO_LIVE)
-                    .putExtra(EXTRA_DESTINATION_PROFILE_IDS, destinationProfileIds.toTypedArray()),
+                    .putExtra(EXTRA_DESTINATION_PROFILE_IDS, destinationProfileIds.toTypedArray())
+                    .putExtra(EXTRA_BROADCAST_TITLE, validateBroadcastTitle(title)),
             )
         }
 

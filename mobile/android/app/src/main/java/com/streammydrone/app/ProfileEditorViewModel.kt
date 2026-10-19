@@ -6,6 +6,13 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
 internal class ProfileEditorViewModel : ViewModel() {
+    val instagramBrowser = InstagramBrowser()
+    val instagramProducer = InstagramProducerSession()
+    /** Explicit manual-save fallback is valid for this app session, without a retained WebView. */
+    val instagramManualProfiles = mutableSetOf<String>()
+    var broadcastTitle: String? = null
+    var broadcastInstagramAudience = InstagramAudience.PRACTICE
+    var pendingStart: BroadcastStartRequest? = null
     var state by mutableStateOf<ProfileEditorState?>(null)
         private set
 
@@ -21,6 +28,7 @@ internal class ProfileEditorViewModel : ViewModel() {
     }
 
     override fun onCleared() {
+        instagramProducer.destroy()
         state?.clearSecret()
         state = null
         super.onCleared()
@@ -32,6 +40,9 @@ internal class ProfileEditorState(
     val kind: DestinationKind,
 ) {
     var youtubeSetup by mutableStateOf(kind == DestinationKind.YOUTUBE && (profile == null || profile.youtube != null))
+    var instagramManual by mutableStateOf(false)
+    /** Only a Go live request, never an ordinary connection edit, resumes after capture. */
+    var instagramStartRequest: BroadcastStartRequest? = null
     val youtube = YouTubeEditorState(profile?.youtube)
     val initialServerUrl = profile?.serverUrl ?: kind.defaultServerUrl.orEmpty()
 
@@ -50,6 +61,7 @@ internal class ProfileEditorState(
     var showDeleteConfirmation by mutableStateOf(false)
 
     internal fun clearSecret() {
+        instagramStartRequest = null
         youtube.clearSecret()
         streamKey = ""
         keyVisible = false

@@ -11,6 +11,7 @@
 /native/windows/build
 /src-tauri/resources
 /mobile/android/.gradle
+/mobile/android/.kotlin
 /mobile/android/.idea
 /mobile/android/local.properties
 /mobile/android/*.jks

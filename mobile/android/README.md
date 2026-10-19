@@ -66,6 +66,12 @@ it through the API, or deletes an unstarted event. HTTP work uses a separate ser
 ending a pending preparation prevents it from attaching to the relay later. Other destinations
 keep working independently.
 
+The Android status badge and foreground notification describe **forwarding**, not viewer-visible
+publication. Connected YouTube profiles show a read-only API status and visibility card while
+the screen is active (15-second checks), with a link to the exact broadcast when found. A missing
+session, failed request or non-live lifecycle never confirms that the broadcast is live. The card
+does not change visibility or transition the broadcast.
+
 Google access tokens stay in memory/Google Play services. Stream keys use the existing Keystore
 encryption. Recoverable session metadata contains remote IDs and account identity only, in
 no-backup private storage. Failed cleanup remains recorded for retry on the next service start.
@@ -73,9 +79,97 @@ Disconnect revokes Google access and deletes the local profile. Existing manuall
 YouTube profiles continue to work, and the manual editor remains available.
 
 Cloud registration and an account-enabled physical-device test are required before claiming live
-YouTube validation. See [the Turkish setup guide](YOUTUBE_SETUP.md). Instagram's phone browser
-candidate remains unverified; its test plan is in [INSTAGRAM_MOBILE_SPIKE.md](INSTAGRAM_MOBILE_SPIKE.md).
-The native iOS account connection is a later step.
+YouTube validation. See [the Turkish setup guide](YOUTUBE_SETUP.md). The native iOS account
+connection is described in [the iOS setup guide](../ios/YOUTUBE_SETUP.md).
+
+## One title before starting
+
+Go live first opens a title dialog with the last confirmed title, falling back to an existing
+YouTube profile title and then Stream My Drone. Clear edits only the draft; Cancel neither saves
+nor starts. Confirm snapshots selected destinations and the validated title (1–100 code points,
+no angle brackets/control characters). The title survives notification permission and Instagram
+setup in the ViewModel. Adding a destination to an ongoing broadcast reuses its current title.
+
+The service independently validates the intent title before preparing any destination. Connected
+YouTube receives a per-broadcast title override with account, visibility and made-for-kids settings
+preserved. Instagram applies the chosen title during setup and returns only title-match metadata
+with the connection. A mismatched/unverified retained draft is prepared again before forwarding;
+authentication remains on Instagram; the native dialog confirms the audience and setup advances Next automatically. Its field maxlength is checked without truncation.
+Manual stream-key destinations still receive the video, but their titles must be set on-platform;
+the title dialog explains this when one is selected. No generic RTMP title-update API is implied.
+
+## Instagram setup on the phone
+
+Connect Instagram prepares a draft with the last title/audience without asking for them again.
+It never publishes. Go live asks for the title and Instagram audience in one native dialog:
+Practice is selected on first use; the last confirmed audience is always shown before Start.
+A measured WebView prepares Create → Live video, title, selected audience and Next behind the app
+while a cancellable native progress dialog is shown. It opens the secure full-screen page for
+login/verification or a setup error. Login completion resumes preparation automatically.
+The native WebView explicitly uses MATCH_PARENT layout parameters. Leaving its default
+WRAP_CONTENT parameters made viewport-height CSS resolve to zero on the Galaxy S23, collapsing
+the Live video dialog to 40 pixels despite a full-screen Compose allocation. The fixed native
+parameters restored the dialog content in the same device session; the user confirmed it visible.
+After sign-in, a bounded helper opens the uniquely identified visible Create → Live video
+controls. Setup never submits login details, publishes or ends a broadcast.
+The separately scoped setup helper supports the real desktop picker’s unlabelled DIV/nested-span
+controls as well as semantic/native controls. Plain selection is confirmed only after the dropdown
+collapses and exactly one visible audience label matches; a click alone is not proof. Disabled
+ancestors and overlapping elements block delegated span actions.
+The helper uses the title-revision proof, applies only the audience
+confirmed in the native dialog and advances a unique uncovered Next once. It verifies selected
+radio/option/native-select or collapsed audience control state before advancing. Missing controls
+wait up to 60 seconds; ambiguous or covered controls are not guessed. Errors open the page with
+retry/manual fallback. The title uses native input/change events; no publication control is pressed. A scoped DOM reader then detects the server
+address and stream key, validates both again natively, and saves the encrypted profile automatically.
+A caption can be up to three parent levels above its field, but only inside a single-field
+container; shared server/key containers never label another field.
+Login/2FA pages, other origins, masked keys and ambiguous results are excluded. There is no native
+Javascript bridge, password/cookie export, private API, or network response interception.
+
+The connection screen has one primary Connect action; manual fields stay behind the manual fallback.
+The setup loop is independent of the visible dialog and survives login host changes. Title and
+audience must both match the current setup revision before automatic capture can resume a pending
+Start; ordinary Connect only saves the connection. Cancel clears the queued Start and cannot resume
+forwarding. The page closes after capture and keeps browser/session tools in an overflow menu. The WebView remains measured and non-interactive behind the opaque app UI when
+hidden, preserving the Producer page without showing it over the drone picture.
+
+An explicit app Go live action arms one bounded Instagram start request. It waits for positive
+outbound bytes on that profile and a uniquely identified, enabled, uncovered Go live control (ignoring disabled or covered copies
+in older dialog layers),
+then clicks once. Native dispatch is claimed before evaluating JavaScript; missing callbacks
+never cause another click. A page-scoped request token also prevents duplicate dispatch. A
+visible enabled End live control (with no Go live control) confirms the start. The main screen
+shows waiting, starting, confirmed, or unconfirmed status and an action to inspect Instagram.
+After setup, publication preserves the confirmed audience: Practice remains Practice. No request is armed by reopening a window,
+recomposition, reconnect, or process restoration. Stop, navigation, renderer loss or a 90-second
+monotonic deadline cancels a pending start. The main-thread handler is independent of dialog
+composition; Android can still suspend or destroy the app/renderer in the background. Device
+background/lock behavior requires separate testing.
+
+App/notification End attempts Instagram End and its confirmation before cutting that ingest.
+A weak reference connects the retained Producer session to the service without retaining a dead
+Activity/ViewModel. Other platforms end immediately; Instagram has an eight-second deadline,
+then its input stops even if the web action fails. Each End/confirm action is claimed once, and
+renderer-side commits also expire. Only an explicit ended heading or an unambiguous draft Go
+live control confirms completion; disappearance alone never does. Failure stays visible with
+Retry/Open actions. Confirmation invalidates the old key and reloads the signed-in home page
+for fresh setup next time. No share/delete controls are clicked. An unavailable or OS-suspended
+page may require manual ending. Runtime end-to-end evidence is recorded in the spike log.
+
+Web session data can be cleared locally; connection changes and clearing are disabled while
+forwarding to Instagram. Explicit manual profiles retain manual publishing as a fallback.
+
+When the retained Producer connection is missing, Go live prepares a fresh Instagram connection
+before forwarding, then resumes the explicit request after capture/save. Closing the setup editor
+cancels that request. An explicitly saved manual fallback remains usable for this app session.
+
+Manual Paste fields and the external desktop-browser guide remain a fallback. Clipboard access
+is explicit and foreground-only. The external browser picker has vendor-visibility fallbacks.
+
+This integration depends on Instagram's current web UI, account eligibility and embedded-login
+behavior. Device build/install evidence and DOM fixture tests do not prove a real live broadcast.
+See [the Turkish setup and test record](INSTAGRAM_MOBILE_SPIKE.md) for the current test status.
 
 ## User interface
 

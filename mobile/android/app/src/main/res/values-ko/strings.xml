@@ -14,7 +14,7 @@
     <string name="error_ca_bundle">RTMPS에 필요한 Android 인증서를 준비하지 못했습니다.</string>
 
     <!-- Shared components -->
-    <string name="live_badge">방송 중</string>
+    <string name="live_badge" tools:ignore="UnusedResources">방송 중</string>
     <string name="copy_address">주소 복사</string>
     <string name="collapse">접기</string>
     <string name="expand">펼치기</string>
@@ -88,15 +88,15 @@
     <string name="notification_channel_description">DJI RC 2의 영상을 받아 플랫폼으로 송출합니다</string>
     <string name="notification_receiver_error">수신기 오류</string>
     <string name="notification_starting">수신기 준비 중</string>
-    <string name="notification_live">방송 중</string>
-    <string name="notification_live_slow">방송 중 · 연결 느림</string>
-    <plurals name="notification_live_many">
+    <string name="notification_live" tools:ignore="UnusedResources">방송 중</string>
+    <string name="notification_live_slow" tools:ignore="UnusedResources">방송 중 · 연결 느림</string>
+    <plurals name="notification_live_many" tools:ignore="UnusedResources">
         <item quantity="other">%d개 플랫폼에서 방송 중</item>
     </plurals>
     <string name="notification_reconnecting">플랫폼에 다시 연결하는 중</string>
     <string name="notification_connecting">플랫폼에 연결하는 중</string>
     <string name="notification_holding">드론 연결 끊김 · 방송 유지 중</string>
-    <string name="notification_live_waiting">방송 켜짐 · 드론을 기다리는 중</string>
+    <string name="notification_live_waiting" tools:ignore="UnusedResources">방송 켜짐 · 드론을 기다리는 중</string>
     <string name="notification_test_video">테스트 영상 수신 중</string>
     <string name="notification_drone">드론 영상 수신 중</string>
     <string name="notification_connected">조종기 연결됨</string>
@@ -195,7 +195,7 @@
     <string name="platforms">플랫폼</string>
     <string name="end">종료</string>
     <string name="end_platform">%1$s 방송 종료</string>
-    <string name="status_live">방송 중</string>
+    <string name="status_live" tools:ignore="UnusedResources">방송 중</string>
     <string name="status_congested">연결 느림 · 프레임 건너뛰는 중</string>
     <string name="status_connecting">연결 중</string>
     <string name="status_reconnecting">재연결 중</string>
@@ -319,4 +319,55 @@
     <string name="youtube_error_title">&lt; 또는 &gt; 없이 100자 이내의 제목을 입력하세요.</string>
     <string name="youtube_error_end">영상 전송을 중지했습니다. YouTube Studio에서 방송이 종료되었는지 확인하세요.</string>
     <string name="youtube_error_edit_live">연결을 편집하기 전에 YouTube 방송을 종료하세요.</string>
+
+    <!-- Android phone browser handoff for Instagram Live Producer. -->
+    <string name="instagram_phone_setup">이 휴대전화에서 준비</string>
+    <string name="instagram_open_browser">브라우저에서 Instagram 열기</string>
+    <string name="instagram_paste_server">서버 주소 붙여넣기</string>
+    <string name="instagram_paste_key">스트림 키 붙여넣기</string>
+    <string name="instagram_error_browser">브라우저가 없습니다. Chrome 같은 브라우저를 설치하거나 사용 설정하세요.</string>
+    <string name="instagram_error_clipboard">먼저 텍스트를 복사한 다음 붙여넣기를 누르세요.</string>
+    <string name="instagram_error_server">스트림 키를 제외한 Instagram RTMPS 서버 주소를 붙여넣으세요.</string>
+    <string name="instagram_error_key">가려진 문자나 서버 주소가 아닌 실제 Instagram 스트림 키를 복사하세요.</string>
+    <string name="instagram_phone_steps">1. 브라우저에서 데스크톱 사이트를 켜고 로그인하세요.\n2. 만들기 → 라이브 동영상을 선택하세요. 가능하면 연습을 사용하고 탭을 열어 두세요.\n3. 스트림 URL과 키를 각각 복사하여 아래에 붙여넣으세요. 라이브 동영상이 없으면 이 계정에서 사용할 수 없습니다.</string>
+    <string name="instagram_connect">Instagram 연결</string>
+    <string name="instagram_manual">직접 입력</string>
+    <string name="instagram_clear_session">세션 지우기</string>
+    <string name="instagram_open_producer">Instagram 창 열기</string>
+    <string name="instagram_connected">Instagram 연결을 저장했습니다.</string>
+    <string name="instagram_error_edit_live">연결을 변경하기 전에 Instagram 방송을 종료하세요.</string>
+    <string name="instagram_error_page">Instagram을 불러올 수 없습니다. 연결을 확인하거나 브라우저에서 계속하세요.</string>
+    <string name="instagram_modal_help">앱에서 제목과 공개 범위를 선택하세요. Instagram은 로그인, 인증 또는 문제 해결 시에만 열립니다.</string>
+    <string name="instagram_modal_steps">여기에서 로그인 또는 인증을 완료하세요. 준비가 자동으로 계속됩니다. 키를 복사할 필요가 없습니다.</string>
+    <string name="instagram_producer_live">앱에서 시작과 종료를 관리합니다. 미리보기를 확인하거나 문제를 해결하려면 Instagram을 여세요.</string>
+
+    <!-- Relay forwarding and platform confirmation (Android). -->
+    <string name="status_forwarding">전송 중</string>
+    <string name="notification_forwarding">플랫폼으로 영상 전송 중 · 해당 플랫폼에서 방송 확인</string>
+    <string name="notification_forwarding_slow">영상 전송 중 · 느린 연결</string>
+    <string name="notification_forwarding_waiting">전송 활성화 · 영상 대기 중</string>
+    <string name="youtube_status_live">YouTube 확인: 라이브 방송 중</string>
+    <string name="youtube_status_pending">YouTube에서 아직 라이브 방송을 확인하지 않았습니다.</string>
+    <string name="youtube_status_testing">YouTube 미리보기/테스트 모드입니다.</string>
+    <string name="youtube_status_ended">YouTube 방송이 종료되거나 취소되었습니다.</string>
+    <string name="youtube_open_broadcast">YouTube에서 열기</string>
+    <string name="instagram_show_live_control">Instagram 라이브 시작 버튼 표시</string>
+    <string name="instagram_control_missing">라이브 버튼을 하나로 특정하지 못했습니다. Producer와 공개 대상을 확인하세요. 연습 모드는 시청자에게 보이지 않습니다.</string>
+    <string name="instagram_setup_unavailable">Instagram 준비를 완료하지 못했습니다. 다시 시도하거나 Instagram을 열어 준비를 완료하세요.</string>
+    <string name="instagram_waiting_video">Instagram에서 영상을 기다리는 중…</string>
+    <string name="instagram_publish_starting">Instagram 방송 시작 중…</string>
+    <string name="instagram_publish_live">선택한 공개 대상에게 Instagram 방송이 시작됐습니다.</string>
+    <string name="instagram_publish_failed">Instagram 시작을 확인하지 못했습니다. 방송 창을 확인하세요.</string>
+    <string name="instagram_end_starting">Instagram 방송 종료 중…</string>
+    <string name="instagram_end_done">Instagram 세션이 종료됐습니다.</string>
+    <string name="instagram_end_failed">Instagram 종료를 확인하지 못했습니다. 다시 시도하거나 Instagram 창을 확인하세요.</string>
+    <string name="broadcast_title">방송 제목</string>
+    <string name="broadcast_title_error">&lt; 또는 &gt; 없이 1~100자의 제목을 입력하세요.</string>
+    <string name="broadcast_title_clear">제목 지우기</string>
+    <string name="broadcast_title_manual">연결된 YouTube와 Instagram 계정에 제목을 적용합니다. 다른 대상의 제목은 각 플랫폼에서 설정하세요.</string>
+    <string name="broadcast_title_instagram_error">Instagram 입력 한도를 초과했습니다. 돌아가서 더 짧은 제목을 선택하세요.</string>
+    <string name="instagram_audience">Instagram 공개 범위</string>
+    <string name="instagram_audience_practice">연습</string>
+    <string name="instagram_audience_public">공개</string>
+    <string name="instagram_preparing">Instagram 준비 중…</string>
 </resources>

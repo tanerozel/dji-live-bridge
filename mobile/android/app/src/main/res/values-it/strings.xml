@@ -14,7 +14,7 @@
     <string name="error_ca_bundle">Impossibile preparare i certificati di Android per RTMPS.</string>
 
     <!-- Shared components -->
-    <string name="live_badge">IN DIRETTA</string>
+    <string name="live_badge" tools:ignore="UnusedResources">IN DIRETTA</string>
     <string name="copy_address">Copia indirizzo</string>
     <string name="collapse">Comprimi</string>
     <string name="expand">Espandi</string>
@@ -88,9 +88,9 @@
     <string name="notification_channel_description">Riceve il flusso del DJI RC 2 e lo invia alle tue piattaforme</string>
     <string name="notification_receiver_error">Errore del ricevitore</string>
     <string name="notification_starting">Preparazione del ricevitore</string>
-    <string name="notification_live">Sei in diretta</string>
-    <string name="notification_live_slow">Sei in diretta · connessione lenta</string>
-    <plurals name="notification_live_many">
+    <string name="notification_live" tools:ignore="UnusedResources">Sei in diretta</string>
+    <string name="notification_live_slow" tools:ignore="UnusedResources">Sei in diretta · connessione lenta</string>
+    <plurals name="notification_live_many" tools:ignore="UnusedResources">
         <item quantity="one">Sei in diretta su %d piattaforma</item>
         <item quantity="many">Sei in diretta su %d piattaforme</item>
         <item quantity="other">Sei in diretta su %d piattaforme</item>
@@ -98,7 +98,7 @@
     <string name="notification_reconnecting">Riconnessione alla piattaforma…</string>
     <string name="notification_connecting">Connessione alla piattaforma…</string>
     <string name="notification_holding">Drone scollegato · la diretta resta aperta</string>
-    <string name="notification_live_waiting">Diretta attiva · in attesa del drone</string>
+    <string name="notification_live_waiting" tools:ignore="UnusedResources">Diretta attiva · in attesa del drone</string>
     <string name="notification_test_video">Ricezione del video di prova</string>
     <string name="notification_drone">Ricezione dell\'immagine del drone</string>
     <string name="notification_connected">Radiocomando collegato</string>
@@ -203,7 +203,7 @@
     <string name="platforms">Piattaforme</string>
     <string name="end">Termina</string>
     <string name="end_platform">Termina la diretta su %1$s</string>
-    <string name="status_live">In diretta</string>
+    <string name="status_live" tools:ignore="UnusedResources">In diretta</string>
     <string name="status_congested">Connessione lenta · fotogrammi saltati</string>
     <string name="status_connecting">Connessione…</string>
     <string name="status_reconnecting">Riconnessione…</string>
@@ -329,4 +329,55 @@
     <string name="youtube_error_title">Inserisci un titolo di massimo 100 caratteri, senza &lt; o &gt;.</string>
     <string name="youtube_error_end">L’invio del video è stato interrotto. Verifica in YouTube Studio che la diretta sia terminata.</string>
     <string name="youtube_error_edit_live">Termina la diretta YouTube prima di modificare la connessione.</string>
+
+    <!-- Android phone browser handoff for Instagram Live Producer. -->
+    <string name="instagram_phone_setup">Prepara su questo telefono</string>
+    <string name="instagram_open_browser">Apri Instagram nel browser</string>
+    <string name="instagram_paste_server">Incolla indirizzo del server</string>
+    <string name="instagram_paste_key">Incolla chiave di streaming</string>
+    <string name="instagram_error_browser">Nessun browser disponibile. Installa o attiva un browser come Chrome.</string>
+    <string name="instagram_error_clipboard">Prima copia il testo, poi tocca Incolla.</string>
+    <string name="instagram_error_server">Incolla l’indirizzo RTMPS di Instagram senza la chiave di streaming.</string>
+    <string name="instagram_error_key">Copia la chiave reale di Instagram, non i caratteri nascosti o l’indirizzo del server.</string>
+    <string name="instagram_phone_steps">1. Attiva Sito desktop nel browser e accedi.\n2. Scegli Crea → Video in diretta. Usa Prova se disponibile. Lascia aperta la scheda.\n3. Copia URL e chiave separatamente e incollali sotto. Se manca Video in diretta, questo account non può usare questo flusso.</string>
+    <string name="instagram_connect">Collega Instagram</string>
+    <string name="instagram_manual">Inserisci manualmente</string>
+    <string name="instagram_clear_session">Cancella sessione</string>
+    <string name="instagram_open_producer">Apri finestra Instagram</string>
+    <string name="instagram_connected">Connessione Instagram salvata.</string>
+    <string name="instagram_error_edit_live">Termina la diretta Instagram prima di cambiare la connessione.</string>
+    <string name="instagram_error_page">Impossibile caricare Instagram. Controlla la connessione o continua nel browser.</string>
+    <string name="instagram_modal_help">Scegli titolo e pubblico nell’app. Instagram si apre solo per accesso, verifica o problemi.</string>
+    <string name="instagram_modal_steps">Completa qui accesso o verifica. La preparazione riprende automaticamente; non copiare la chiave.</string>
+    <string name="instagram_producer_live">L’app gestisce avvio e fine. Apri Instagram per controllare l’anteprima o risolvere un problema.</string>
+
+    <!-- Relay forwarding and platform confirmation (Android). -->
+    <string name="status_forwarding">Trasmissione</string>
+    <string name="notification_forwarding">Video inviato alle piattaforme · verifica lì la diretta</string>
+    <string name="notification_forwarding_slow">Invio video · connessione lenta</string>
+    <string name="notification_forwarding_waiting">Invio attivo · in attesa del video</string>
+    <string name="youtube_status_live">YouTube conferma: in diretta</string>
+    <string name="youtube_status_pending">YouTube non ha ancora confermato una diretta.</string>
+    <string name="youtube_status_testing">YouTube è in modalità anteprima/test.</string>
+    <string name="youtube_status_ended">Diretta YouTube terminata o revocata.</string>
+    <string name="youtube_open_broadcast">Apri su YouTube</string>
+    <string name="instagram_show_live_control">Mostra il pulsante diretta di Instagram</string>
+    <string name="instagram_control_missing">Nessun pulsante diretta univoco trovato. Controlla Producer e il pubblico; la modalità pratica non è visibile agli spettatori.</string>
+    <string name="instagram_setup_unavailable">La preparazione di Instagram non è stata completata. Riprova o apri Instagram per completarla.</string>
+    <string name="instagram_waiting_video">Instagram attende il video…</string>
+    <string name="instagram_publish_starting">Avvio della diretta Instagram…</string>
+    <string name="instagram_publish_live">Instagram è partito con il pubblico selezionato.</string>
+    <string name="instagram_publish_failed">Avvio Instagram non confermato. Controlla la finestra della diretta.</string>
+    <string name="instagram_end_starting">Chiusura della diretta Instagram…</string>
+    <string name="instagram_end_done">Sessione Instagram terminata.</string>
+    <string name="instagram_end_failed">Chiusura su Instagram non confermata. Riprova o controlla la finestra Instagram.</string>
+    <string name="broadcast_title">Titolo della trasmissione</string>
+    <string name="broadcast_title_error">Inserisci un titolo di 1–100 caratteri senza &lt; o &gt;.</string>
+    <string name="broadcast_title_clear">Cancella titolo</string>
+    <string name="broadcast_title_manual">Il titolo si applica agli account YouTube e Instagram collegati. Imposta gli altri titoli sulle rispettive piattaforme.</string>
+    <string name="broadcast_title_instagram_error">Il titolo supera il limite di Instagram. Torna indietro e scegli un titolo più breve.</string>
+    <string name="instagram_audience">Pubblico Instagram</string>
+    <string name="instagram_audience_practice">Prova</string>
+    <string name="instagram_audience_public">Pubblico</string>
+    <string name="instagram_preparing">Preparazione di Instagram…</string>
 </resources>

@@ -41,9 +41,9 @@ internal class YouTubeBroadcastManager(context: Context, private val cleanupFail
         }
     }
 
-    fun prepare(profile: DestinationProfile, ready: () -> Unit, failed: (UiText) -> Unit) {
+    fun prepare(profile: DestinationProfile, title: String, ready: () -> Unit, failed: (UiText) -> Unit) {
         if (closed) return
-        val connection = profile.youtube ?: return
+        val connection = profile.youtube?.copy(title = validateBroadcastTitle(title)) ?: return
         val operation = AtomicBoolean(false)
         pending.put(profile.id, operation)?.set(true)
         worker.execute {

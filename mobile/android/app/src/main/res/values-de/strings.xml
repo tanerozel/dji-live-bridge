@@ -14,7 +14,7 @@
     <string name="error_ca_bundle">Die Android-Zertifikate für RTMPS konnten nicht vorbereitet werden.</string>
 
     <!-- Shared components -->
-    <string name="live_badge">LIVE</string>
+    <string name="live_badge" tools:ignore="UnusedResources">LIVE</string>
     <string name="copy_address">Adresse kopieren</string>
     <string name="collapse">Einklappen</string>
     <string name="expand">Ausklappen</string>
@@ -88,16 +88,16 @@
     <string name="notification_channel_description">Empfängt den Stream der DJI RC 2 und sendet ihn an deine Plattformen</string>
     <string name="notification_receiver_error">Empfängerfehler</string>
     <string name="notification_starting">Empfänger wird vorbereitet</string>
-    <string name="notification_live">Du bist live</string>
-    <string name="notification_live_slow">Du bist live · langsame Verbindung</string>
-    <plurals name="notification_live_many">
+    <string name="notification_live" tools:ignore="UnusedResources">Du bist live</string>
+    <string name="notification_live_slow" tools:ignore="UnusedResources">Du bist live · langsame Verbindung</string>
+    <plurals name="notification_live_many" tools:ignore="UnusedResources">
         <item quantity="one">Du bist live auf %d Plattform</item>
         <item quantity="other">Du bist live auf %d Plattformen</item>
     </plurals>
     <string name="notification_reconnecting">Verbindung zur Plattform wird neu aufgebaut</string>
     <string name="notification_connecting">Verbindung zur Plattform wird aufgebaut</string>
     <string name="notification_holding">Drohne getrennt · Stream bleibt offen</string>
-    <string name="notification_live_waiting">Stream aktiv · warte auf die Drohne</string>
+    <string name="notification_live_waiting" tools:ignore="UnusedResources">Stream aktiv · warte auf die Drohne</string>
     <string name="notification_test_video">Testvideo wird empfangen</string>
     <string name="notification_drone">Drohnenbild wird empfangen</string>
     <string name="notification_connected">Fernsteuerung verbunden</string>
@@ -199,7 +199,7 @@
     <string name="platforms">Plattformen</string>
     <string name="end">Beenden</string>
     <string name="end_platform">Stream für %1$s beenden</string>
-    <string name="status_live">Live</string>
+    <string name="status_live" tools:ignore="UnusedResources">Live</string>
     <string name="status_congested">Langsame Verbindung · Bilder fallen aus</string>
     <string name="status_connecting">Verbindung wird aufgebaut</string>
     <string name="status_reconnecting">Verbindung wird neu aufgebaut</string>
@@ -324,4 +324,55 @@
     <string name="youtube_error_title">Gib einen Titel mit höchstens 100 Zeichen ohne &lt; oder &gt; ein.</string>
     <string name="youtube_error_end">Die Videoübertragung wurde gestoppt. Prüfe in YouTube Studio, ob der Livestream beendet ist.</string>
     <string name="youtube_error_edit_live">Beende den YouTube-Livestream, bevor du die Verbindung bearbeitest.</string>
+
+    <!-- Android phone browser handoff for Instagram Live Producer. -->
+    <string name="instagram_phone_setup">Auf diesem Telefon vorbereiten</string>
+    <string name="instagram_open_browser">Instagram im Browser öffnen</string>
+    <string name="instagram_paste_server">Serveradresse einfügen</string>
+    <string name="instagram_paste_key">Streamschlüssel einfügen</string>
+    <string name="instagram_error_browser">Kein Webbrowser verfügbar. Installiere oder aktiviere einen Browser wie Chrome.</string>
+    <string name="instagram_error_clipboard">Kopiere zuerst Text und tippe dann auf Einfügen.</string>
+    <string name="instagram_error_server">Füge die RTMPS-Serveradresse von Instagram ohne Streamschlüssel ein.</string>
+    <string name="instagram_error_key">Kopiere den tatsächlichen Instagram-Streamschlüssel, nicht die verdeckte Anzeige oder Serveradresse.</string>
+    <string name="instagram_phone_steps">1. Aktiviere im Browser die Desktopwebsite und melde dich an.\n2. Wähle Erstellen → Live-Video. Nutze Übung, falls verfügbar. Lass diesen Tab offen.\n3. Kopiere Stream-URL und Schlüssel getrennt und füge sie unten ein. Fehlt Live-Video, kann dieses Konto den Ablauf nicht nutzen.</string>
+    <string name="instagram_connect">Instagram verbinden</string>
+    <string name="instagram_manual">Manuell eingeben</string>
+    <string name="instagram_clear_session">Sitzung löschen</string>
+    <string name="instagram_open_producer">Instagram-Fenster öffnen</string>
+    <string name="instagram_connected">Instagram-Verbindung gespeichert.</string>
+    <string name="instagram_error_edit_live">Beende den Instagram-Livestream, bevor du die Verbindung änderst.</string>
+    <string name="instagram_error_page">Instagram konnte nicht geladen werden. Prüfe die Verbindung oder nutze einen Browser.</string>
+    <string name="instagram_modal_help">Titel und Publikum in der App wählen. Instagram öffnet sich nur zur Anmeldung, Bestätigung oder bei Problemen.</string>
+    <string name="instagram_modal_steps">Anmeldung oder Bestätigung hier abschließen. Die Vorbereitung läuft automatisch weiter; keinen Stream-Schlüssel kopieren.</string>
+    <string name="instagram_producer_live">Start und Ende werden in der App gesteuert. Instagram zur Vorschau oder zur Problemlösung öffnen.</string>
+
+    <!-- Relay forwarding and platform confirmation (Android). -->
+    <string name="status_forwarding">Übertragung</string>
+    <string name="notification_forwarding">Video wird an Plattformen gesendet · dort den Sendestatus prüfen</string>
+    <string name="notification_forwarding_slow">Videoübertragung · langsame Verbindung</string>
+    <string name="notification_forwarding_waiting">Übertragung aktiviert · warte auf Video</string>
+    <string name="youtube_status_live">YouTube bestätigt: live</string>
+    <string name="youtube_status_pending">YouTube hat noch keine Liveübertragung bestätigt.</string>
+    <string name="youtube_status_testing">YouTube ist im Vorschau-/Testmodus.</string>
+    <string name="youtube_status_ended">YouTube-Übertragung beendet oder widerrufen.</string>
+    <string name="youtube_open_broadcast">Auf YouTube öffnen</string>
+    <string name="instagram_show_live_control">Instagram-Live-Schaltfläche anzeigen</string>
+    <string name="instagram_control_missing">Keine eindeutige Live-Schaltfläche gefunden. Producer und Zielgruppe prüfen; der Übungsmodus ist für Zuschauer unsichtbar.</string>
+    <string name="instagram_setup_unavailable">Die Instagram-Vorbereitung wurde nicht abgeschlossen. Erneut versuchen oder das Instagram-Fenster öffnen.</string>
+    <string name="instagram_waiting_video">Instagram wartet auf Video…</string>
+    <string name="instagram_publish_starting">Instagram-Übertragung wird gestartet…</string>
+    <string name="instagram_publish_live">Instagram wurde mit deiner gewählten Zielgruppe gestartet.</string>
+    <string name="instagram_publish_failed">Der Instagram-Start konnte nicht bestätigt werden. Prüfe das Übertragungsfenster.</string>
+    <string name="instagram_end_starting">Instagram-Übertragung wird beendet…</string>
+    <string name="instagram_end_done">Instagram-Sitzung beendet.</string>
+    <string name="instagram_end_failed">Das Ende auf Instagram konnte nicht bestätigt werden. Versuche es erneut oder prüfe das Instagram-Fenster.</string>
+    <string name="broadcast_title">Übertragungstitel</string>
+    <string name="broadcast_title_error">Gib einen Titel mit 1–100 Zeichen ohne &lt; oder &gt; ein.</string>
+    <string name="broadcast_title_clear">Titel löschen</string>
+    <string name="broadcast_title_manual">Der Titel gilt für verbundene YouTube- und Instagram-Konten. Andere Titel werden auf der jeweiligen Plattform geändert.</string>
+    <string name="broadcast_title_instagram_error">Dieser Titel überschreitet das Instagram-Feldlimit. Gehe zurück und wähle einen kürzeren Titel.</string>
+    <string name="instagram_audience">Instagram-Publikum</string>
+    <string name="instagram_audience_practice">Übung</string>
+    <string name="instagram_audience_public">Öffentlich</string>
+    <string name="instagram_preparing">Instagram wird vorbereitet…</string>
 </resources>

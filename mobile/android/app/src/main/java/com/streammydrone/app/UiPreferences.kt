@@ -19,11 +19,22 @@ internal class UiPreferences(context: Context) {
         get() = PictureFit.fromStorage(preferences.getString(KEY_PICTURE_FIT, null))
         set(value) = preferences.edit { putString(KEY_PICTURE_FIT, value.storageValue) }
 
+    var lastBroadcastTitle: String?
+        get() = preferences.getString(KEY_BROADCAST_TITLE, null)?.let {
+            runCatching { validateBroadcastTitle(it) }.getOrNull()
+        }
+        set(value) = preferences.edit { putString(KEY_BROADCAST_TITLE, value?.let(::validateBroadcastTitle)) }
+
+    var instagramAudience: InstagramAudience
+        get() = InstagramAudience.fromStorage(preferences.getString("instagram_audience", null))
+        set(value) = preferences.edit { putString("instagram_audience", value.name) }
+
     private companion object {
         const val FILE_NAME = "ui_preferences"
 
         // Bumped when the guide changes so everyone sees the new one once.
         const val KEY_GUIDE_COMPLETED = "guide_completed_v3"
+        const val KEY_BROADCAST_TITLE = "last_broadcast_title"
         const val KEY_THEME = "theme"
         const val KEY_PICTURE_FIT = "picture_fit"
     }

@@ -14,7 +14,7 @@
     <string name="error_ca_bundle">无法准备 RTMPS 所需的 Android 证书。</string>
 
     <!-- Shared components -->
-    <string name="live_badge">直播中</string>
+    <string name="live_badge" tools:ignore="UnusedResources">直播中</string>
     <string name="copy_address">复制地址</string>
     <string name="collapse">收起</string>
     <string name="expand">展开</string>
@@ -88,15 +88,15 @@
     <string name="notification_channel_description">接收 DJI RC 2 的视频流并发送到你的平台</string>
     <string name="notification_receiver_error">接收器出错</string>
     <string name="notification_starting">正在准备接收器</string>
-    <string name="notification_live">你正在直播</string>
-    <string name="notification_live_slow">你正在直播 · 连接较慢</string>
-    <plurals name="notification_live_many">
+    <string name="notification_live" tools:ignore="UnusedResources">你正在直播</string>
+    <string name="notification_live_slow" tools:ignore="UnusedResources">你正在直播 · 连接较慢</string>
+    <plurals name="notification_live_many" tools:ignore="UnusedResources">
         <item quantity="other">你正在 %d 个平台上直播</item>
     </plurals>
     <string name="notification_reconnecting">正在重新连接到平台</string>
     <string name="notification_connecting">正在连接到平台</string>
     <string name="notification_holding">无人机已断开 · 直播保持开启</string>
-    <string name="notification_live_waiting">直播已开启 · 等待无人机</string>
+    <string name="notification_live_waiting" tools:ignore="UnusedResources">直播已开启 · 等待无人机</string>
     <string name="notification_test_video">正在接收测试视频</string>
     <string name="notification_drone">正在接收无人机画面</string>
     <string name="notification_connected">遥控器已连接</string>
@@ -195,7 +195,7 @@
     <string name="platforms">平台</string>
     <string name="end">结束</string>
     <string name="end_platform">结束 %1$s 的直播</string>
-    <string name="status_live">直播中</string>
+    <string name="status_live" tools:ignore="UnusedResources">直播中</string>
     <string name="status_congested">连接较慢 · 正在跳帧</string>
     <string name="status_connecting">连接中</string>
     <string name="status_reconnecting">重新连接中</string>
@@ -319,4 +319,55 @@
     <string name="youtube_error_title">请输入不超过 100 个字符且不含 &lt; 或 &gt; 的标题。</string>
     <string name="youtube_error_end">已停止发送视频。请在 YouTube Studio 中确认直播已结束。</string>
     <string name="youtube_error_edit_live">请先结束 YouTube 直播，再编辑连接。</string>
+
+    <!-- Android phone browser handoff for Instagram Live Producer. -->
+    <string name="instagram_phone_setup">在此手机上准备</string>
+    <string name="instagram_open_browser">在浏览器中打开 Instagram</string>
+    <string name="instagram_paste_server">粘贴服务器地址</string>
+    <string name="instagram_paste_key">粘贴串流密钥</string>
+    <string name="instagram_error_browser">没有可用的浏览器。请安装或启用 Chrome 等浏览器。</string>
+    <string name="instagram_error_clipboard">请先复制文本，再点按粘贴。</string>
+    <string name="instagram_error_server">请粘贴 Instagram 的 RTMPS 服务器地址，不要包含串流密钥。</string>
+    <string name="instagram_error_key">请复制 Instagram 的实际串流密钥，不要复制掩码字符或服务器地址。</string>
+    <string name="instagram_phone_steps">1. 在浏览器中启用桌面版网站并登录。\n2. 选择创建 → 直播视频。若有练习选项，请使用它。保持此标签页打开。\n3. 分别复制串流 URL 和密钥并粘贴到下方。若没有直播视频选项，此账号无法使用此流程。</string>
+    <string name="instagram_connect">连接 Instagram</string>
+    <string name="instagram_manual">手动输入</string>
+    <string name="instagram_clear_session">清除会话</string>
+    <string name="instagram_open_producer">打开 Instagram 窗口</string>
+    <string name="instagram_connected">Instagram 连接已保存。</string>
+    <string name="instagram_error_edit_live">更改连接前请先结束 Instagram 直播。</string>
+    <string name="instagram_error_page">无法加载 Instagram。请检查连接或在浏览器中继续。</string>
+    <string name="instagram_modal_help">在应用中选择标题和观众。仅在登录、验证或准备遇到问题时打开 Instagram。</string>
+    <string name="instagram_modal_steps">请在此完成登录或验证。准备将自动继续，无需复制串流密钥。</string>
+    <string name="instagram_producer_live">应用负责开始和结束。可打开 Instagram 检查预览或解决问题。</string>
+
+    <!-- Relay forwarding and platform confirmation (Android). -->
+    <string name="status_forwarding">传输中</string>
+    <string name="notification_forwarding">正在向平台发送视频 · 请在平台确认直播状态</string>
+    <string name="notification_forwarding_slow">正在传输视频 · 连接缓慢</string>
+    <string name="notification_forwarding_waiting">已启用传输 · 等待视频</string>
+    <string name="youtube_status_live">YouTube 已确认：正在直播</string>
+    <string name="youtube_status_pending">YouTube 尚未确认直播已开始。</string>
+    <string name="youtube_status_testing">YouTube 处于预览/测试模式。</string>
+    <string name="youtube_status_ended">YouTube 直播已结束或被撤销。</string>
+    <string name="youtube_open_broadcast">在 YouTube 打开</string>
+    <string name="instagram_show_live_control">显示 Instagram 开播按钮</string>
+    <string name="instagram_control_missing">未找到唯一的开播按钮。请检查 Producer 页面及观众设置；练习模式不会向观众展示。</string>
+    <string name="instagram_setup_unavailable">无法完成 Instagram 准备。请重试或打开 Instagram 窗口完成准备。</string>
+    <string name="instagram_waiting_video">Instagram 正在等待视频…</string>
+    <string name="instagram_publish_starting">正在开始 Instagram 直播…</string>
+    <string name="instagram_publish_live">Instagram 已向所选观众开始直播。</string>
+    <string name="instagram_publish_failed">无法确认 Instagram 已开始。请检查直播窗口。</string>
+    <string name="instagram_end_starting">正在结束 Instagram 直播…</string>
+    <string name="instagram_end_done">Instagram 会话已结束。</string>
+    <string name="instagram_end_failed">无法确认 Instagram 已结束。请重试或检查 Instagram 窗口。</string>
+    <string name="broadcast_title">直播标题</string>
+    <string name="broadcast_title_error">请输入 1–100 个字符的标题，不含 &lt; 或 &gt;。</string>
+    <string name="broadcast_title_clear">清除标题</string>
+    <string name="broadcast_title_manual">标题应用于已连接的 YouTube 和 Instagram 帐号。其他直播目标的标题请在对应平台设置。</string>
+    <string name="broadcast_title_instagram_error">标题超过 Instagram 输入限制。请返回并选择更短的标题。</string>
+    <string name="instagram_audience">Instagram 观众</string>
+    <string name="instagram_audience_practice">练习</string>
+    <string name="instagram_audience_public">公开</string>
+    <string name="instagram_preparing">正在准备 Instagram…</string>
 </resources>

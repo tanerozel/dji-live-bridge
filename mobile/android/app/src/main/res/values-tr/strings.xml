@@ -14,7 +14,7 @@
     <string name="error_ca_bundle">RTMPS için Android sertifikaları hazırlanamadı.</string>
 
     <!-- Shared components -->
-    <string name="live_badge">CANLI</string>
+    <string name="live_badge" tools:ignore="UnusedResources">CANLI</string>
     <string name="copy_address">Adresi kopyala</string>
     <string name="collapse">Kapat</string>
     <string name="expand">Aç</string>
@@ -88,16 +88,16 @@
     <string name="notification_channel_description">DJI RC 2 yayınının alınması ve platformlara aktarılması</string>
     <string name="notification_receiver_error">RTMP alıcı hatası</string>
     <string name="notification_starting">Alıcı hazırlanıyor</string>
-    <string name="notification_live">Canlı yayındasın</string>
-    <string name="notification_live_slow">Canlı yayındasın · bağlantı yavaş</string>
-    <plurals name="notification_live_many">
+    <string name="notification_live" tools:ignore="UnusedResources">Canlı yayındasın</string>
+    <string name="notification_live_slow" tools:ignore="UnusedResources">Canlı yayındasın · bağlantı yavaş</string>
+    <plurals name="notification_live_many" tools:ignore="UnusedResources">
         <item quantity="one">%d platformda canlı yayındasın</item>
         <item quantity="other">%d platformda canlı yayındasın</item>
     </plurals>
     <string name="notification_reconnecting">Platforma yeniden bağlanıyor</string>
     <string name="notification_connecting">Platforma bağlanıyor</string>
     <string name="notification_holding">Drone bağlantısı koptu · yayın açık tutuluyor</string>
-    <string name="notification_live_waiting">Canlı yayın açık · drone bekleniyor</string>
+    <string name="notification_live_waiting" tools:ignore="UnusedResources">Canlı yayın açık · drone bekleniyor</string>
     <string name="notification_test_video">Test videosu alınıyor</string>
     <string name="notification_drone">Drone görüntüsü alınıyor</string>
     <string name="notification_connected">Kumanda bağlandı</string>
@@ -199,7 +199,7 @@
     <string name="platforms">Platformlar</string>
     <string name="end">Bitir</string>
     <string name="end_platform">%1$s yayınını bitir</string>
-    <string name="status_live">Yayında</string>
+    <string name="status_live" tools:ignore="UnusedResources">Yayında</string>
     <string name="status_congested">Bağlantı yavaş · kareler atlanıyor</string>
     <string name="status_connecting">Bağlanıyor</string>
     <string name="status_reconnecting">Yeniden bağlanıyor</string>
@@ -324,4 +324,55 @@
     <string name="youtube_error_title">&lt; veya &gt; içermeyen, en fazla 100 karakterlik bir başlık gir.</string>
     <string name="youtube_error_end">Görüntü aktarımı durduruldu. Yayının bittiğini YouTube Studio’dan kontrol et.</string>
     <string name="youtube_error_edit_live">Bağlantıyı düzenlemeden önce YouTube yayınını bitir.</string>
+
+    <!-- Android phone browser handoff for Instagram Live Producer. -->
+    <string name="instagram_phone_setup">Bu telefonda hazırla</string>
+    <string name="instagram_open_browser">Instagram’ı tarayıcıda aç</string>
+    <string name="instagram_paste_server">Sunucu adresini yapıştır</string>
+    <string name="instagram_paste_key">Yayın anahtarını yapıştır</string>
+    <string name="instagram_error_browser">Web tarayıcısı bulunamadı. Chrome gibi bir tarayıcı yükle veya etkinleştir.</string>
+    <string name="instagram_error_clipboard">Önce metni kopyala, ardından Yapıştır’a dokun.</string>
+    <string name="instagram_error_server">Instagram’daki RTMPS sunucu adresini, yayın anahtarını eklemeden yapıştır.</string>
+    <string name="instagram_error_key">Instagram’daki gerçek yayın anahtarını kopyala; gizlenmiş yıldızları veya sunucu adresini değil.</string>
+    <string name="instagram_phone_steps">1. Tarayıcıda Masaüstü sitesi’ni aç ve giriş yap.\n2. Oluştur → Canlı video’yu seç. Varsa Alıştırma’yı kullan. Bu sekmeyi açık tut.\n3. Yayın URL’sini ve anahtarını sırayla kopyalayıp aşağıya yapıştır. Canlı video yoksa bu hesapta bu akış kullanılamaz.</string>
+    <string name="instagram_connect">Instagram’ı bağla</string>
+    <string name="instagram_manual">Elle yapıştır</string>
+    <string name="instagram_clear_session">Oturumu temizle</string>
+    <string name="instagram_open_producer">Instagram penceresini aç</string>
+    <string name="instagram_connected">Instagram bağlantısı kaydedildi.</string>
+    <string name="instagram_error_edit_live">Bağlantıyı değiştirmeden önce Instagram yayınını bitir.</string>
+    <string name="instagram_error_page">Instagram yüklenemedi. Bağlantını kontrol et veya tarayıcıda devam et.</string>
+    <string name="instagram_modal_help">Başlığı ve kitleyi uygulamada seç. Instagram yalnız giriş, doğrulama veya hazırlık sorunu için açılır.</string>
+    <string name="instagram_modal_steps">Giriş veya doğrulamayı burada tamamla. Hazırlık otomatik devam eder; yayın anahtarını kopyalaman gerekmez.</string>
+    <string name="instagram_producer_live">Başlatma ve bitirme uygulamadan yönetilir. Önizlemeyi kontrol etmek veya bir sorunu çözmek için Instagram’ı açabilirsin.</string>
+
+    <!-- Relay forwarding and platform confirmation (Android). -->
+    <string name="status_forwarding">Aktarılıyor</string>
+    <string name="notification_forwarding">Görüntü platformlara gönderiliyor · yayını platformda kontrol et</string>
+    <string name="notification_forwarding_slow">Görüntü aktarılıyor · bağlantı yavaş</string>
+    <string name="notification_forwarding_waiting">Aktarım açık · görüntü bekleniyor</string>
+    <string name="youtube_status_live">YouTube doğruladı: canlı</string>
+    <string name="youtube_status_pending">YouTube henüz canlı yayını doğrulamadı.</string>
+    <string name="youtube_status_testing">YouTube önizleme/deneme modunda.</string>
+    <string name="youtube_status_ended">YouTube yayını bitti veya iptal edildi.</string>
+    <string name="youtube_open_broadcast">YouTube’da aç</string>
+    <string name="instagram_show_live_control">Instagram’ın yayın düğmesini göster</string>
+    <string name="instagram_control_missing">Tek bir Canlı yayına geç düğmesi bulunamadı. Producer sayfasını ve kitleyi kontrol et; Alıştırma izleyicilere görünmez.</string>
+    <string name="instagram_setup_unavailable">Instagram hazırlığı tamamlanamadı. Yeniden dene veya hazırlığı tamamlamak için Instagram penceresini aç.</string>
+    <string name="instagram_waiting_video">Instagram görüntüyü bekliyor…</string>
+    <string name="instagram_publish_starting">Instagram yayını başlatılıyor…</string>
+    <string name="instagram_publish_live">Instagram yayını seçtiğin kitleyle başladı.</string>
+    <string name="instagram_publish_failed">Instagram başlangıcı doğrulanamadı. Yayın ekranını kontrol et.</string>
+    <string name="instagram_end_starting">Instagram yayını bitiriliyor…</string>
+    <string name="instagram_end_done">Instagram oturumu sonlandırıldı.</string>
+    <string name="instagram_end_failed">Instagram kapanışı doğrulanamadı. Tekrar dene veya Instagram penceresini kontrol et.</string>
+    <string name="broadcast_title">Yayın başlığı</string>
+    <string name="broadcast_title_error">&lt; veya &gt; içermeyen, 1–100 karakterlik bir başlık gir.</string>
+    <string name="broadcast_title_clear">Başlığı temizle</string>
+    <string name="broadcast_title_manual">Başlık bağlı YouTube ve Instagram hesaplarına uygulanır. Diğer hedeflerin başlığını kendi platformlarında düzenle.</string>
+    <string name="broadcast_title_instagram_error">Bu başlık Instagram alanının sınırını aşıyor. Geri dönüp daha kısa bir başlık seç.</string>
+    <string name="instagram_audience">Instagram yayın kitlesi</string>
+    <string name="instagram_audience_practice">Alıştırma</string>
+    <string name="instagram_audience_public">Herkese açık</string>
+    <string name="instagram_preparing">Instagram hazırlanıyor…</string>
 </resources>

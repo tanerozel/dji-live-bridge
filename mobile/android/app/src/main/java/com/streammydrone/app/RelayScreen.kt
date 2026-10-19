@@ -17,6 +17,9 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -106,6 +109,7 @@ internal fun RelayScreen(
     var profileError by remember(profileStore) {
         mutableStateOf(initialProfiles.exceptionOrNull()?.let(::profileErrorText))
     }
+    var titleProfiles by rememberSaveable { mutableStateOf<List<String>?>(null) }
     var showEndLiveConfirmation by rememberSaveable { mutableStateOf(false) }
     // The platform whose broadcast the dialog ends, or null for all of them.
     var endLiveProfileId by rememberSaveable { mutableStateOf<String?>(null) }
@@ -213,25 +217,62 @@ internal fun RelayScreen(
     }
 
     /** Starts the broadcast on [profileIds]; while live, adds them to it. */
-    fun goLive(profileIds: List<String>) {
+    fun goLive(request: BroadcastStartRequest) {
+        val profileIds = request.profileIds
         if (profileIds.isEmpty()) return
+        val instagram = destinations.profiles.firstOrNull { it.id in profileIds && it.kind == DestinationKind.INSTAGRAM }
+        if (instagram != null && profileEditorViewModel.instagramProducer.ending) {
+            showMessage(uiText(R.string.instagram_end_starting))
+            return
+        }
+        if (instagram != null && profileEditorViewModel.instagramProducer.rejectsTitle(request.title)) {
+            showMessage(uiText(R.string.broadcast_title_instagram_error))
+            titleProfiles = profileIds
+            return
+        }
+        if (instagram != null && instagram.id !in RelayServiceState.value.liveProfileIds &&
+            instagram.id !in profileEditorViewModel.instagramManualProfiles &&
+            !profileEditorViewModel.instagramProducer.prepareForTitle(instagram.id, request.title, request.instagramAudience)
+        ) {
+            // A stored key cannot restore a lost Producer page. Prepare a fresh session first;
+            // only this explicit Go live request resumes forwarding after a successful save.
+            profileEditorViewModel.open(instagram, DestinationKind.INSTAGRAM)
+            profileEditorViewModel.state?.let { editing ->
+                editing.instagramStartRequest = request
+                profileEditorViewModel.instagramProducer.prepare(editing, request.title, request.instagramAudience)
+            }
+            return
+        }
+        val startInstagram = instagram?.id?.takeIf { it !in RelayServiceState.value.liveProfileIds }
         // Switch to the live screen now; the service confirms or reports a failure.
         RelayServiceState.goingLive(profileIds)
-        runCatching { RelayForegroundService.goLive(context, profileIds) }
+        runCatching { RelayForegroundService.goLive(context, profileIds, request.title) }
+            .onSuccess {
+                if (startInstagram != null && startInstagram !in profileEditorViewModel.instagramManualProfiles) {
+                    profileEditorViewModel.instagramProducer.requestPublish(startInstagram)
+                }
+            }
             .onFailure { error ->
                 RelayServiceState.notLive(profileIds, RelayNotice(uiText(R.string.go_live_failed), serviceStartError(error)))
             }
     }
 
-    // The platforms waiting for the notification permission answer.
-    var pendingGoLive by remember { mutableStateOf(emptyList<String>()) }
     val notificationPermissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission(),
     ) { granted ->
-        if (!granted) {
-            showMessage(uiText(R.string.notification_permission_denied))
-        }
-        goLive(pendingGoLive)
+        if (!granted) showMessage(uiText(R.string.notification_permission_denied))
+        val request = profileEditorViewModel.pendingStart
+        profileEditorViewModel.pendingStart = null
+        request?.let(::goLive)
+    }
+
+    fun continueStart(request: BroadcastStartRequest) {
+        val needsNotificationPermission = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+        if (needsNotificationPermission) {
+            profileEditorViewModel.pendingStart = request
+            notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        } else goLive(request)
     }
 
     fun requestGoLive(profileIds: List<String> = destinations.selectedProfiles.map { it.id }) {
@@ -239,18 +280,15 @@ internal fun RelayScreen(
             showMessage(uiText(R.string.pick_platform_first))
             return
         }
-        val needsNotificationPermission =
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
-                ContextCompat.checkSelfPermission(
-                    context,
-                    Manifest.permission.POST_NOTIFICATIONS,
-                ) != PackageManager.PERMISSION_GRANTED
-        if (needsNotificationPermission) {
-            pendingGoLive = profileIds
-            notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-        } else {
-            goLive(profileIds)
+        val addingInstagram = destinations.profiles.any {
+            it.id in profileIds && it.kind == DestinationKind.INSTAGRAM &&
+                it.id !in RelayServiceState.value.liveProfileIds && it.id !in profileEditorViewModel.instagramManualProfiles
         }
+        if (RelayServiceState.value.isLive && !addingInstagram) {
+            // Adding a destination belongs to the current broadcast, so it keeps that title.
+            val title = profileEditorViewModel.broadcastTitle ?: initialBroadcastTitle(uiPreferences.lastBroadcastTitle, destinations.selectedProfiles)
+            continueStart(BroadcastStartRequest(profileIds, title, profileEditorViewModel.broadcastInstagramAudience))
+        } else titleProfiles = profileIds.toList()
     }
 
     /** Asks before ending; ending the last platform ends the whole broadcast. */
@@ -303,118 +341,246 @@ internal fun RelayScreen(
 
     val editorState = profileEditorViewModel.state
     val screen = when {
-        editorState != null -> BridgeScreen.Editor(editorState)
+        editorState != null && (editorState.instagramStartRequest == null || editorState.instagramManual) -> BridgeScreen.Editor(editorState)
         showGuide -> BridgeScreen.Guide
         else -> BridgeScreen.Home
     }
     SideEffect { onDroneScreenChange(screen == BridgeScreen.Home) }
 
-    AnimatedContent(
-        targetState = screen,
-        transitionSpec = { fadeIn(tween(durationMillis = 220)) togetherWith fadeOut(tween(durationMillis = 150)) },
-        label = "screen",
-    ) { target ->
-        when (target) {
-            BridgeScreen.Guide -> GuideScreen(
-                onFinish = {
-                    uiPreferences.guideCompleted = true
-                    showGuide = false
-                },
-            )
-            is BridgeScreen.Editor -> {
-                val editing = target.state
-                val deleteProfile: (() -> UiText?)? = editing.profile?.let { profile ->
-                    {
-                        updateProfiles(announce = false) { profileStore.delete(profile.id) }.also { error ->
-                            if (error == null) {
-                                profileEditorViewModel.close()
-                                showMessage(uiText(R.string.platform_deleted, profile.kind.displayName(context)))
+    Box(Modifier.fillMaxSize()) {
+        InstagramProducerBackground(profileEditorViewModel.instagramProducer)
+        Surface(color = BridgeTheme.colors.background, modifier = Modifier.fillMaxSize()) {
+            AnimatedContent(
+                targetState = screen,
+                transitionSpec = { fadeIn(tween(durationMillis = 220)) togetherWith fadeOut(tween(durationMillis = 150)) },
+                label = "screen",
+            ) { target ->
+                when (target) {
+                    BridgeScreen.Guide -> GuideScreen(
+                        onFinish = {
+                            uiPreferences.guideCompleted = true
+                            showGuide = false
+                        },
+                    )
+                    is BridgeScreen.Editor -> {
+                        val editing = target.state
+                        val deleteProfile: (() -> UiText?)? = editing.profile?.let { profile ->
+                            {
+                                updateProfiles(announce = false) { profileStore.delete(profile.id) }.also { error ->
+                                    if (error == null) {
+                                        profileEditorViewModel.close()
+                                        showMessage(uiText(R.string.platform_deleted, profile.kind.displayName(context)))
+                                    }
+                                }
                             }
                         }
+                        if (editing.youtubeSetup) {
+                            YouTubeProfileEditor(
+                                state = editing,
+                                onDismiss = profileEditorViewModel::close,
+                                onManual = { editing.youtubeSetup = false },
+                                onSave = { connection, serverUrl, streamKey ->
+                                    updateProfiles(announce = false) {
+                                        profileStore.save(editing.profile?.id, "YouTube", DestinationKind.YOUTUBE, serverUrl, streamKey, connection)
+                                    }.also { error ->
+                                        if (error == null) {
+                                            profileEditorViewModel.close()
+                                            showMessage(uiText(R.string.saved))
+                                        }
+                                    }
+                                },
+                                onDelete = deleteProfile,
+                            )
+                        } else DestinationProfileEditor(
+                            state = editing,
+                            onDismiss = profileEditorViewModel::close,
+                            onConnectYouTube = if (editing.kind == DestinationKind.YOUTUBE) ({ editing.youtubeSetup = true }) else null,
+                            onOpenInstagram = if (editing.kind == DestinationKind.INSTAGRAM) ({
+                                if (serviceState.liveProfileIds.any { id -> destinations.profiles.any { it.id == id && it.kind == DestinationKind.INSTAGRAM } }) {
+                                    editing.editorError = uiText(R.string.instagram_error_edit_live)
+                                } else {
+                                    profileEditorViewModel.instagramProducer.prepare(editing,
+                                        initialBroadcastTitle(uiPreferences.lastBroadcastTitle, destinations.selectedProfiles), uiPreferences.instagramAudience)
+                                }
+                            }) else null,
+                            onOpenInstagramBrowser = if (editing.kind == DestinationKind.INSTAGRAM) ({
+                                profileEditorViewModel.instagramBrowser.open(context)?.let { editing.editorError = it }
+                            }) else null,
+                            onSave = { serverUrl, streamKey ->
+                                val resume = editing.instagramStartRequest
+                                var savedId: String? = null
+                                // The store adds a new platform to the ones the broadcast goes to.
+                                updateProfiles(announce = false) {
+                                    profileStore.save(
+                                        existingId = editing.profile?.id,
+                                        name = editing.profile?.name ?: editing.kind.displayName(context),
+                                        kind = editing.kind,
+                                        serverUrl = serverUrl,
+                                        streamKey = streamKey,
+                                    ).also { updated ->
+                                        savedId = editing.profile?.id ?: updated.profiles.last().id
+                                    }
+                                }.also { error ->
+                                    if (error == null) {
+                                        if (editing.kind == DestinationKind.INSTAGRAM) {
+                                            savedId?.let { profileEditorViewModel.instagramManualProfiles.add(it) }
+                                            profileEditorViewModel.instagramProducer.cancelPublish()
+                                            profileEditorViewModel.instagramProducer.hide()
+                                        }
+                                        profileEditorViewModel.close()
+                                        showMessage(
+                                            if (editing.profile == null) {
+                                                uiText(R.string.platform_added, editing.kind.displayName(context))
+                                            } else {
+                                                uiText(R.string.saved)
+                                            },
+                                        )
+                                        if (resume != null) goLive(resume)
+                                    }
+                                }
+                            },
+                            onDelete = deleteProfile,
+                        )
                     }
-                }
-                if (editing.youtubeSetup) {
-                    YouTubeProfileEditor(
-                        state = editing,
-                        onDismiss = profileEditorViewModel::close,
-                        onManual = { editing.youtubeSetup = false },
-                        onSave = { connection, serverUrl, streamKey ->
-                            updateProfiles(announce = false) {
-                                profileStore.save(editing.profile?.id, "YouTube", DestinationKind.YOUTUBE, serverUrl, streamKey, connection)
-                            }.also { error ->
-                                if (error == null) {
-                                    profileEditorViewModel.close()
-                                    showMessage(uiText(R.string.saved))
+                    BridgeScreen.Home -> DroneScreen(
+                        phase = phase,
+                        serviceState = serviceState,
+                        showPicture = serviceState.isLive || showingPicture,
+                        destinations = destinations,
+                        profileError = profileError,
+                        lan = lan,
+                        pictureFit = pictureFit,
+                        snackbarHostState = snackbarHostState,
+                        onPictureFitChange = { fit ->
+                            pictureFit = fit
+                            uiPreferences.pictureFit = fit
+                        },
+                        onGoLive = { requestGoLive() },
+                        onRetryInstagram = {
+                            if (profileEditorViewModel.instagramProducer.publishStatus == R.string.instagram_end_failed) {
+                                profileEditorViewModel.instagramProducer.retryEnd()
+                            } else destinations.profiles.firstOrNull {
+                                it.kind == DestinationKind.INSTAGRAM && it.id in RelayServiceState.value.liveProfileIds
+                            }?.let { profile ->
+                                if (profileEditorViewModel.instagramProducer.hasConnection(profile.id)) {
+                                    profileEditorViewModel.instagramProducer.requestPublish(profile.id)
+                                } else {
+                                    RelayServiceState.notLive(listOf(profile.id))
+                                    RelayForegroundService.endLive(context, profile.id)
+                                    profileEditorViewModel.open(profile, DestinationKind.INSTAGRAM)
+                                    profileEditorViewModel.state?.let { editing ->
+                                        val title = profileEditorViewModel.broadcastTitle ?: initialBroadcastTitle(uiPreferences.lastBroadcastTitle, destinations.selectedProfiles)
+                                        editing.instagramStartRequest = BroadcastStartRequest(listOf(profile.id), title, profileEditorViewModel.broadcastInstagramAudience)
+                                        profileEditorViewModel.instagramProducer.prepare(editing, title, profileEditorViewModel.broadcastInstagramAudience)
+                                    }
                                 }
                             }
                         },
-                        onDelete = deleteProfile,
+                        instagramPublishStatus = profileEditorViewModel.instagramProducer.publishStatus,
+                        instagramPublishing = profileEditorViewModel.instagramProducer.publishing,
+                        onOpenInstagram = {
+                            profileEditorViewModel.instagramProducer.show(null)
+                        },
+                        onEndLive = ::confirmEndLive,
+                        onPlatformToggle = ::onPlatformToggle,
+                        onPlatformEdit = { kind -> profileFor(kind)?.let { editProfile(it, kind) } },
+                        onEditProfile = { profile -> editProfile(profile, profile.kind) },
+                        onStartReceiver = { restart -> startReceiver(restart = restart) },
+                        onTestVideo = {
+                            testVideoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly))
+                        },
+                        onStopTestVideo = {
+                            // Back to the connect card at once, without waiting out the grace period.
+                            if (!serviceState.isLive) showingPicture = false
+                            RelayForegroundService.stopTestVideo(context)
+                        },
+                        onCopyAddress = ::copyAddress,
+                        onOpenWifiSettings = ::openWifiSettings,
+                        onShowLanguagePicker = { showLanguagePicker = true },
+                        onShowThemePicker = { showThemePicker = true },
+                        onShowGuide = { showGuide = true },
                     )
-                } else DestinationProfileEditor(
-                    state = editing,
-                    onDismiss = profileEditorViewModel::close,
-                    onConnectYouTube = if (editing.kind == DestinationKind.YOUTUBE) ({ editing.youtubeSetup = true }) else null,
-                    onSave = { serverUrl, streamKey ->
-                        // The store adds a new platform to the ones the broadcast goes to.
-                        updateProfiles(announce = false) {
-                            profileStore.save(
-                                existingId = editing.profile?.id,
-                                name = editing.profile?.name ?: editing.kind.displayName(context),
-                                kind = editing.kind,
-                                serverUrl = serverUrl,
-                                streamKey = streamKey,
-                            )
-                        }.also { error ->
-                            if (error == null) {
-                                profileEditorViewModel.close()
-                                showMessage(
-                                    if (editing.profile == null) {
-                                        uiText(R.string.platform_added, editing.kind.displayName(context))
-                                    } else {
-                                        uiText(R.string.saved)
-                                    },
-                                )
-                            }
-                        }
-                    },
-                    onDelete = deleteProfile,
-                )
+                }
             }
-            BridgeScreen.Home -> DroneScreen(
-                phase = phase,
-                serviceState = serviceState,
-                showPicture = serviceState.isLive || showingPicture,
-                destinations = destinations,
-                profileError = profileError,
-                lan = lan,
-                pictureFit = pictureFit,
-                snackbarHostState = snackbarHostState,
-                onPictureFitChange = { fit ->
-                    pictureFit = fit
-                    uiPreferences.pictureFit = fit
-                },
-                onGoLive = { requestGoLive() },
-                onEndLive = ::confirmEndLive,
-                onPlatformToggle = ::onPlatformToggle,
-                onPlatformEdit = { kind -> profileFor(kind)?.let { editProfile(it, kind) } },
-                onEditProfile = { profile -> editProfile(profile, profile.kind) },
-                onStartReceiver = { restart -> startReceiver(restart = restart) },
-                onTestVideo = {
-                    testVideoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly))
-                },
-                onStopTestVideo = {
-                    // Back to the connect card at once, without waiting out the grace period.
-                    if (!serviceState.isLive) showingPicture = false
-                    RelayForegroundService.stopTestVideo(context)
-                },
-                onCopyAddress = ::copyAddress,
-                onOpenWifiSettings = ::openWifiSettings,
-                onShowLanguagePicker = { showLanguagePicker = true },
-                onShowThemePicker = { showThemePicker = true },
-                onShowGuide = { showGuide = true },
-            )
+
         }
     }
+    titleProfiles?.let { profileIds ->
+        BroadcastTitleDialog(
+            initialTitle = initialBroadcastTitle(uiPreferences.lastBroadcastTitle, destinations.selectedProfiles),
+            hasManualDestinations = destinations.profiles.any {
+                it.id in profileIds && (it.kind != DestinationKind.INSTAGRAM && it.youtube == null || it.id in profileEditorViewModel.instagramManualProfiles)
+            },
+            hasInstagram = destinations.profiles.any { it.id in profileIds && it.kind == DestinationKind.INSTAGRAM && it.id !in profileEditorViewModel.instagramManualProfiles },
+            initialAudience = uiPreferences.instagramAudience,
+            onDismiss = { titleProfiles = null },
+            onStart = { title, audience ->
+                val request = BroadcastStartRequest(profileIds, title, audience)
+                titleProfiles = null
+                uiPreferences.lastBroadcastTitle = request.title
+                uiPreferences.instagramAudience = audience
+                profileEditorViewModel.broadcastInstagramAudience = audience
+                profileEditorViewModel.broadcastTitle = request.title
+                continueStart(request)
+            },
+        )
+    }
+
+    LaunchedEffect(profileEditorViewModel.instagramProducer.publishStatus) {
+        if (profileEditorViewModel.instagramProducer.publishStatus == R.string.instagram_end_done) {
+            showMessage(uiText(R.string.instagram_end_done))
+        }
+    }
+
+    InstagramPreparingDialog(profileEditorViewModel.instagramProducer) {
+        val target = profileEditorViewModel.state
+        val resume = target?.instagramStartRequest
+        profileEditorViewModel.instagramProducer.cancelSetup()
+        if (resume != null) profileEditorViewModel.close()
+    }
+    InstagramProducerAutomation(
+        session = profileEditorViewModel.instagramProducer,
+        onCaptured = { target, credentials ->
+            if (profileEditorViewModel.state === target) {
+                val resume = target.instagramStartRequest
+                var savedId: String? = null
+                val error = updateProfiles(announce = false) {
+                    profileStore.save(target.profile?.id, target.profile?.name ?: "Instagram", DestinationKind.INSTAGRAM,
+                        credentials.serverUrl, credentials.streamKey).also { updated ->
+                        savedId = target.profile?.id ?: updated.profiles.last().id
+                    }
+                }
+                if (error == null) {
+                    savedId?.let {
+                        profileEditorViewModel.instagramProducer.connected(it)
+                        profileEditorViewModel.instagramManualProfiles.remove(it)
+                    }
+                    profileEditorViewModel.close()
+                    showMessage(uiText(R.string.instagram_connected))
+                    if (resume != null) goLive(resume)
+                }
+                else {
+                    target.serverUrl = credentials.serverUrl
+                    target.streamKey = credentials.streamKey
+                    target.instagramManual = true
+                    target.editorError = error
+                }
+            }
+        },
+    )
+    InstagramProducerDialog(
+        session = profileEditorViewModel.instagramProducer,
+        live = serviceState.liveProfileIds.any { id -> destinations.profiles.any { it.id == id && it.kind == DestinationKind.INSTAGRAM } },
+        onDismiss = {
+            val resume = profileEditorViewModel.state?.instagramStartRequest
+            profileEditorViewModel.instagramProducer.cancelSetup()
+            if (resume != null) profileEditorViewModel.close()
+        },
+        onExternalBrowser = {
+            profileEditorViewModel.state?.instagramManual = true
+            profileEditorViewModel.instagramBrowser.open(context)?.let { showMessage(it) }
+        },
+    )
 
     if (showThemePicker) {
         ThemePickerDialog(
@@ -460,7 +626,6 @@ internal fun RelayScreen(
                     onClick = {
                         showEndLiveConfirmation = false
                         val profileId = endLiveProfileId
-                        RelayServiceState.notLive(profileId?.let(::listOf))
                         RelayForegroundService.endLive(context, profileId)
                     },
                 ) {

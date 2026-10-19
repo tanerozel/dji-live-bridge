@@ -14,7 +14,7 @@
     <string name="error_ca_bundle">Не удалось подготовить сертификаты Android для RTMPS.</string>
 
     <!-- Shared components -->
-    <string name="live_badge">В ЭФИРЕ</string>
+    <string name="live_badge" tools:ignore="UnusedResources">В ЭФИРЕ</string>
     <string name="copy_address">Копировать адрес</string>
     <string name="collapse">Свернуть</string>
     <string name="expand">Развернуть</string>
@@ -88,9 +88,9 @@
     <string name="notification_channel_description">Приём видео с DJI RC 2 и отправка на ваши платформы</string>
     <string name="notification_receiver_error">Ошибка приёмника</string>
     <string name="notification_starting">Подготовка приёмника</string>
-    <string name="notification_live">Вы в эфире</string>
-    <string name="notification_live_slow">Вы в эфире · медленное соединение</string>
-    <plurals name="notification_live_many">
+    <string name="notification_live" tools:ignore="UnusedResources">Вы в эфире</string>
+    <string name="notification_live_slow" tools:ignore="UnusedResources">Вы в эфире · медленное соединение</string>
+    <plurals name="notification_live_many" tools:ignore="UnusedResources">
         <item quantity="one">Вы в эфире на %d платформе</item>
         <item quantity="few">Вы в эфире на %d платформах</item>
         <item quantity="many">Вы в эфире на %d платформах</item>
@@ -99,7 +99,7 @@
     <string name="notification_reconnecting">Переподключение к платформе</string>
     <string name="notification_connecting">Подключение к платформе</string>
     <string name="notification_holding">Дрон отключился · трансляция не прервана</string>
-    <string name="notification_live_waiting">Эфир идёт · ожидание дрона</string>
+    <string name="notification_live_waiting" tools:ignore="UnusedResources">Эфир идёт · ожидание дрона</string>
     <string name="notification_test_video">Приём тестового видео</string>
     <string name="notification_drone">Приём изображения с дрона</string>
     <string name="notification_connected">Пульт подключён</string>
@@ -207,7 +207,7 @@
     <string name="platforms">Платформы</string>
     <string name="end">Завершить</string>
     <string name="end_platform">Завершить трансляцию: %1$s</string>
-    <string name="status_live">В эфире</string>
+    <string name="status_live" tools:ignore="UnusedResources">В эфире</string>
     <string name="status_congested">Медленное соединение · пропуск кадров</string>
     <string name="status_connecting">Подключение</string>
     <string name="status_reconnecting">Переподключение</string>
@@ -334,4 +334,55 @@
     <string name="youtube_error_title">Введите название до 100 символов без &lt; и &gt;.</string>
     <string name="youtube_error_end">Передача видео остановлена. Убедитесь в YouTube Studio, что трансляция завершена.</string>
     <string name="youtube_error_edit_live">Завершите трансляцию YouTube перед изменением подключения.</string>
+
+    <!-- Android phone browser handoff for Instagram Live Producer. -->
+    <string name="instagram_phone_setup">Настроить на этом телефоне</string>
+    <string name="instagram_open_browser">Открыть Instagram в браузере</string>
+    <string name="instagram_paste_server">Вставить адрес сервера</string>
+    <string name="instagram_paste_key">Вставить ключ трансляции</string>
+    <string name="instagram_error_browser">Браузер недоступен. Установите или включите браузер, например Chrome.</string>
+    <string name="instagram_error_clipboard">Сначала скопируйте текст, затем нажмите «Вставить».</string>
+    <string name="instagram_error_server">Вставьте адрес сервера RTMPS из Instagram без ключа трансляции.</string>
+    <string name="instagram_error_key">Скопируйте настоящий ключ Instagram, а не скрывающие символы или адрес сервера.</string>
+    <string name="instagram_phone_steps">1. Включите в браузере версию для ПК и войдите.\n2. Выберите Создать → Прямой эфир. Если доступно, выберите тренировку. Не закрывайте вкладку.\n3. Отдельно скопируйте URL и ключ и вставьте ниже. Если прямого эфира нет, этот способ недоступен для аккаунта.</string>
+    <string name="instagram_connect">Подключить Instagram</string>
+    <string name="instagram_manual">Ввести вручную</string>
+    <string name="instagram_clear_session">Очистить сеанс</string>
+    <string name="instagram_open_producer">Открыть окно Instagram</string>
+    <string name="instagram_connected">Подключение Instagram сохранено.</string>
+    <string name="instagram_error_edit_live">Завершите эфир Instagram перед изменением подключения.</string>
+    <string name="instagram_error_page">Не удалось загрузить Instagram. Проверьте соединение или откройте браузер.</string>
+    <string name="instagram_modal_help">Выберите название и аудиторию в приложении. Instagram открывается для входа, проверки или устранения проблемы.</string>
+    <string name="instagram_modal_steps">Завершите вход или проверку здесь. Подготовка продолжится автоматически; копировать ключ не нужно.</string>
+    <string name="instagram_producer_live">Запуск и завершение управляются приложением. Откройте Instagram для просмотра или решения проблемы.</string>
+
+    <!-- Relay forwarding and platform confirmation (Android). -->
+    <string name="status_forwarding">Передача</string>
+    <string name="notification_forwarding">Видео отправляется на платформы · проверьте эфир там</string>
+    <string name="notification_forwarding_slow">Передача видео · медленное соединение</string>
+    <string name="notification_forwarding_waiting">Передача включена · ожидание видео</string>
+    <string name="youtube_status_live">YouTube подтвердил: в эфире</string>
+    <string name="youtube_status_pending">YouTube ещё не подтвердил прямой эфир.</string>
+    <string name="youtube_status_testing">YouTube в режиме предпросмотра/теста.</string>
+    <string name="youtube_status_ended">Эфир YouTube завершён или отозван.</string>
+    <string name="youtube_open_broadcast">Открыть на YouTube</string>
+    <string name="instagram_show_live_control">Показать кнопку эфира Instagram</string>
+    <string name="instagram_control_missing">Однозначная кнопка начала эфира не найдена. Проверьте Producer и аудиторию; пробный эфир не виден зрителям.</string>
+    <string name="instagram_setup_unavailable">Не удалось завершить подготовку Instagram. Повторите попытку или завершите её в окне Instagram.</string>
+    <string name="instagram_waiting_video">Instagram ожидает видео…</string>
+    <string name="instagram_publish_starting">Запуск трансляции Instagram…</string>
+    <string name="instagram_publish_live">Instagram запущен с выбранной аудиторией.</string>
+    <string name="instagram_publish_failed">Запуск Instagram не подтверждён. Проверьте окно трансляции.</string>
+    <string name="instagram_end_starting">Завершение трансляции Instagram…</string>
+    <string name="instagram_end_done">Сеанс Instagram завершён.</string>
+    <string name="instagram_end_failed">Завершение в Instagram не подтверждено. Повторите попытку или проверьте окно Instagram.</string>
+    <string name="broadcast_title">Название трансляции</string>
+    <string name="broadcast_title_error">Введите название длиной 1–100 символов без &lt; и &gt;.</string>
+    <string name="broadcast_title_clear">Очистить название</string>
+    <string name="broadcast_title_manual">Название применяется к подключённым YouTube и Instagram. Названия других трансляций меняются на их платформах.</string>
+    <string name="broadcast_title_instagram_error">Название превышает лимит поля Instagram. Вернитесь и выберите более короткое название.</string>
+    <string name="instagram_audience">Аудитория Instagram</string>
+    <string name="instagram_audience_practice">Практика</string>
+    <string name="instagram_audience_public">Для всех</string>
+    <string name="instagram_preparing">Подготовка Instagram…</string>
 </resources>

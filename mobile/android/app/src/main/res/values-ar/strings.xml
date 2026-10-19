@@ -14,7 +14,7 @@
     <string name="error_ca_bundle">تعذّر تجهيز شهادات Android الخاصة بـ RTMPS.</string>
 
     <!-- Shared components -->
-    <string name="live_badge">مباشر</string>
+    <string name="live_badge" tools:ignore="UnusedResources">مباشر</string>
     <string name="copy_address">نسخ العنوان</string>
     <string name="collapse">تصغير</string>
     <string name="expand">توسيع</string>
@@ -88,9 +88,9 @@
     <string name="notification_channel_description">استقبال البث من DJI RC 2 وإرساله إلى منصاتك</string>
     <string name="notification_receiver_error">خطأ في المستقبِل</string>
     <string name="notification_starting">جارٍ تجهيز المستقبِل</string>
-    <string name="notification_live">أنت تبث مباشرةً</string>
-    <string name="notification_live_slow">أنت تبث مباشرةً · الاتصال بطيء</string>
-    <plurals name="notification_live_many">
+    <string name="notification_live" tools:ignore="UnusedResources">أنت تبث مباشرةً</string>
+    <string name="notification_live_slow" tools:ignore="UnusedResources">أنت تبث مباشرةً · الاتصال بطيء</string>
+    <plurals name="notification_live_many" tools:ignore="UnusedResources">
         <item quantity="zero">أنت تبث مباشرةً على %d منصة</item>
         <item quantity="one">أنت تبث مباشرةً على %d منصة</item>
         <item quantity="two">أنت تبث مباشرةً على منصتين (%d)</item>
@@ -101,7 +101,7 @@
     <string name="notification_reconnecting">جارٍ إعادة الاتصال بالمنصة</string>
     <string name="notification_connecting">جارٍ الاتصال بالمنصة</string>
     <string name="notification_holding">انقطع اتصال الدرون · البث ما زال مفتوحًا</string>
-    <string name="notification_live_waiting">البث يعمل · في انتظار الدرون</string>
+    <string name="notification_live_waiting" tools:ignore="UnusedResources">البث يعمل · في انتظار الدرون</string>
     <string name="notification_test_video">جارٍ استقبال فيديو الاختبار</string>
     <string name="notification_drone">جارٍ استقبال صورة الدرون</string>
     <string name="notification_connected">وحدة التحكم متصلة</string>
@@ -215,7 +215,7 @@
     <string name="platforms">المنصات</string>
     <string name="end">إنهاء</string>
     <string name="end_platform">إنهاء البث على %1$s</string>
-    <string name="status_live">مباشر</string>
+    <string name="status_live" tools:ignore="UnusedResources">مباشر</string>
     <string name="status_congested">الاتصال بطيء · يتم تخطي بعض الإطارات</string>
     <string name="status_connecting">جارٍ الاتصال</string>
     <string name="status_reconnecting">جارٍ إعادة الاتصال</string>
@@ -344,4 +344,55 @@
     <string name="youtube_error_title">أدخل عنوانًا لا يتجاوز 100 حرف ولا يحتوي على &lt; أو &gt;.</string>
     <string name="youtube_error_end">توقف إرسال الفيديو. تأكّد من انتهاء البث في YouTube Studio.</string>
     <string name="youtube_error_edit_live">أنه بث YouTube قبل تعديل الاتصال.</string>
+
+    <!-- Android phone browser handoff for Instagram Live Producer. -->
+    <string name="instagram_phone_setup">الإعداد على هذا الهاتف</string>
+    <string name="instagram_open_browser">فتح Instagram في المتصفح</string>
+    <string name="instagram_paste_server">لصق عنوان الخادم</string>
+    <string name="instagram_paste_key">لصق مفتاح البث</string>
+    <string name="instagram_error_browser">لا يتوفر متصفح. ثبّت أو فعّل متصفحًا مثل Chrome.</string>
+    <string name="instagram_error_clipboard">انسخ النص أولًا، ثم اضغط على لصق.</string>
+    <string name="instagram_error_server">الصق عنوان خادم RTMPS من Instagram دون مفتاح البث.</string>
+    <string name="instagram_error_key">انسخ مفتاح البث الحقيقي من Instagram، وليس الرموز المخفية أو عنوان الخادم.</string>
+    <string name="instagram_phone_steps">1. فعّل موقع سطح المكتب في المتصفح وسجّل الدخول.\n2. اختر إنشاء ← فيديو مباشر. استخدم التدريب إن توفر. أبقِ علامة التبويب مفتوحة.\n3. انسخ رابط البث والمفتاح كلًا على حدة والصقهما أدناه. إن لم يظهر الفيديو المباشر، فلا يمكن لهذا الحساب استخدام هذه الطريقة.</string>
+    <string name="instagram_connect">ربط Instagram</string>
+    <string name="instagram_manual">إدخال يدوي</string>
+    <string name="instagram_clear_session">مسح الجلسة</string>
+    <string name="instagram_open_producer">فتح نافذة Instagram</string>
+    <string name="instagram_connected">تم حفظ اتصال Instagram.</string>
+    <string name="instagram_error_edit_live">أنه بث Instagram قبل تغيير الاتصال.</string>
+    <string name="instagram_error_page">تعذر تحميل Instagram. تحقق من الاتصال أو تابع في المتصفح.</string>
+    <string name="instagram_modal_help">اختر العنوان والجمهور في التطبيق. يفتح Instagram لتسجيل الدخول أو التحقق أو حل مشكلة فقط.</string>
+    <string name="instagram_modal_steps">أكمل تسجيل الدخول أو التحقق هنا. يستأنف التجهيز تلقائيًا؛ لا تنسخ مفتاح البث.</string>
+    <string name="instagram_producer_live">يدير التطبيق بدء البث وإنهاءه. افتح Instagram للتحقق من المعاينة أو حل مشكلة.</string>
+
+    <!-- Relay forwarding and platform confirmation (Android). -->
+    <string name="status_forwarding">جارٍ الإرسال</string>
+    <string name="notification_forwarding">يُرسل الفيديو إلى المنصات · تحقق من البث هناك</string>
+    <string name="notification_forwarding_slow">جارٍ إرسال الفيديو · اتصال بطيء</string>
+    <string name="notification_forwarding_waiting">الإرسال مفعّل · بانتظار الفيديو</string>
+    <string name="youtube_status_live">أكد YouTube: بث مباشر</string>
+    <string name="youtube_status_pending">لم يؤكد YouTube البث المباشر بعد.</string>
+    <string name="youtube_status_testing">YouTube في وضع المعاينة أو الاختبار.</string>
+    <string name="youtube_status_ended">انتهى بث YouTube أو أُلغي.</string>
+    <string name="youtube_open_broadcast">فتح في YouTube</string>
+    <string name="instagram_show_live_control">إظهار زر البث المباشر في Instagram</string>
+    <string name="instagram_control_missing">لم يُعثر على زر بث مباشر واحد. تحقق من Producer والجمهور؛ وضع التدريب غير مرئي للمشاهدين.</string>
+    <string name="instagram_setup_unavailable">تعذّر إكمال تجهيز Instagram. أعد المحاولة أو افتح نافذة Instagram لإكمال التجهيز.</string>
+    <string name="instagram_waiting_video">ينتظر Instagram الفيديو…</string>
+    <string name="instagram_publish_starting">جارٍ بدء بث Instagram…</string>
+    <string name="instagram_publish_live">بدأ Instagram بالجمهور الذي اخترته.</string>
+    <string name="instagram_publish_failed">تعذر تأكيد بدء Instagram. تحقق من نافذة البث.</string>
+    <string name="instagram_end_starting">جارٍ إنهاء بث Instagram…</string>
+    <string name="instagram_end_done">انتهت جلسة Instagram.</string>
+    <string name="instagram_end_failed">تعذر تأكيد الإنهاء على Instagram. أعد المحاولة أو تحقق من نافذة Instagram.</string>
+    <string name="broadcast_title">عنوان البث</string>
+    <string name="broadcast_title_error">أدخل عنوانًا من 1 إلى 100 حرف دون &lt; أو &gt;.</string>
+    <string name="broadcast_title_clear">مسح العنوان</string>
+    <string name="broadcast_title_manual">يُطبق العنوان على حسابات YouTube وInstagram المتصلة. اضبط عناوين الوجهات الأخرى على منصاتها.</string>
+    <string name="broadcast_title_instagram_error">يتجاوز العنوان حد حقل Instagram. ارجع واختر عنوانًا أقصر.</string>
+    <string name="instagram_audience">جمهور Instagram</string>
+    <string name="instagram_audience_practice">تدريب</string>
+    <string name="instagram_audience_public">عام</string>
+    <string name="instagram_preparing">جارٍ تجهيز Instagram…</string>
 </resources>

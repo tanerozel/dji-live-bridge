@@ -40,6 +40,9 @@ data class YouTubeConnection(
 
 internal data class YouTubeChannel(val id: String, val title: String)
 
+/** Read-only platform confirmation; the relay's forwarding state cannot supply this. */
+internal data class YouTubeBroadcastStatus(val id: String, val lifecycle: String, val privacy: String)
+
 /** Deliberately has no generated toString: the key stays out of diagnostics. */
 internal class YouTubeStream(val id: String, val serverUrl: String, val key: String)
 
@@ -172,6 +175,19 @@ internal class YouTubeApi(private val transport: YouTubeTransport) {
 
     fun bind(broadcastId: String, streamId: String) {
         transport.request("POST", "youtube/v3/liveBroadcasts/bind", mapOf("part" to "id", "id" to broadcastId, "streamId" to streamId), null)
+    }
+
+    fun broadcastStatus(id: String, channelId: String, streamId: String): YouTubeBroadcastStatus? {
+        val items = transport.request("GET", "youtube/v3/liveBroadcasts",
+            mapOf("part" to "id,snippet,status,contentDetails", "id" to id), null).getJSONArray("items")
+        if (items.length() == 0) return null
+        val item = items.getJSONObject(0)
+        if (items.length() != 1 || item.getString("id") != id ||
+            item.getJSONObject("snippet").getString("channelId") != channelId ||
+            item.getJSONObject("contentDetails").optString("boundStreamId") != streamId
+        ) throw YouTubeException(YouTubeFailure.WRONG_CHANNEL)
+        val status = item.getJSONObject("status")
+        return YouTubeBroadcastStatus(id, status.getString("lifeCycleStatus"), status.getString("privacyStatus"))
     }
 
     /** Idempotent: a missing or already completed broadcast needs no more remote work. */

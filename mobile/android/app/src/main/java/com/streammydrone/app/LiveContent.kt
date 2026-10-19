@@ -48,12 +48,16 @@ internal fun LiveDetails(
     destinations: List<DestinationProfile>,
     lan: LanAddress?,
     onEndPlatform: (DestinationProfile) -> Unit,
+    onOpenInstagram: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
         if (phase.isStreaming) StatsCard(snapshot)
         if (destinations.size > 1) PlatformsCard(destinations, snapshot, onEndPlatform)
         liveTips(phase, snapshot, destinations).forEach { TipBox(it) }
+        if (destinations.any { it.kind == DestinationKind.INSTAGRAM }) {
+            BridgeCard { InstagramProducerActions(onOpenBrowser = onOpenInstagram) }
+        }
         BridgeCard(verticalSpacing = 8.dp) {
             SectionHeader(title = stringResource(R.string.technical_details))
             TechnicalDetailRows(snapshot, destinations, lan)
@@ -200,7 +204,7 @@ private fun PlatformsCard(
 }
 
 internal fun outputLabel(status: String?, colors: BridgePalette): Pair<Int, Color> = when (status) {
-    "forwarding" -> R.string.status_live to colors.success
+    "forwarding" -> R.string.status_forwarding to colors.success
     "congested" -> R.string.status_congested to colors.warningText
     "ready", "connecting" -> R.string.status_connecting to colors.accent
     "reconnecting" -> R.string.status_reconnecting to colors.warningText

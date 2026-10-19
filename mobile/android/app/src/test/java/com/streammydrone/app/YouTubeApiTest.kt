@@ -51,6 +51,19 @@ class YouTubeApiTest {
         assertFalse(body.getJSONObject("contentDetails").getJSONObject("monitorStream").getBoolean("enableMonitorStream"))
     }
 
+    @Test fun `shared start title reaches the real broadcast request without changing the saved audience`() {
+        val start = BroadcastStartRequest(listOf("youtube", "instagram"), "New shared flight")
+        val transport = FakeTransport { request ->
+            if (request.path == "youtube/v3/channels") channels() else JSONObject().put("id", "new-broadcast")
+        }
+        prepareYouTubeBroadcast(YouTubeApi(transport), connection.copy(title = start.title)) { }
+        val body = transport.requests.first { it.path == "youtube/v3/liveBroadcasts" }.body!!
+        assertEquals("New shared flight", body.getJSONObject("snippet").getString("title"))
+        assertEquals("unlisted", body.getJSONObject("status").getString("privacyStatus"))
+        assertFalse(body.getJSONObject("status").getBoolean("selfDeclaredMadeForKids"))
+        assertEquals("Drone flight", connection.title)
+    }
+
     @Test fun `a different authorized channel can never create a broadcast`() {
         val transport = FakeTransport { channels("different-channel") }
         val error = assertThrows(YouTubeException::class.java) {
@@ -58,6 +71,26 @@ class YouTubeApiTest {
         }
         assertEquals(YouTubeFailure.WRONG_CHANNEL, error.failure)
         assertEquals(listOf("GET"), transport.requests.map { it.method })
+    }
+
+    @Test fun `status confirms the exact broadcast channel input and visibility using GET only`() {
+        val item = JSONObject().put("id", "broadcast-a")
+            .put("snippet", JSONObject().put("channelId", "channel-a"))
+            .put("contentDetails", JSONObject().put("boundStreamId", "stream-a"))
+            .put("status", JSONObject().put("lifeCycleStatus", "live").put("privacyStatus", "unlisted"))
+        val transport = FakeTransport { JSONObject().put("items", JSONArray().put(item)) }
+        assertEquals(YouTubeBroadcastStatus("broadcast-a", "live", "unlisted"),
+            YouTubeApi(transport).broadcastStatus("broadcast-a", "channel-a", "stream-a"))
+        assertEquals(listOf("GET"), transport.requests.map { it.method })
+        assertEquals("broadcast-a", transport.requests.single().query["id"])
+        assertThrows(YouTubeException::class.java) { YouTubeApi(transport).broadcastStatus("broadcast-a", "other", "stream-a") }
+        assertThrows(YouTubeException::class.java) { YouTubeApi(transport).broadcastStatus("broadcast-a", "channel-a", "other") }
+        assertThrows(YouTubeException::class.java) { YouTubeApi(transport).broadcastStatus("other", "channel-a", "stream-a") }
+    }
+
+    @Test fun `a missing broadcast is never reported as live`() {
+        val transport = FakeTransport { JSONObject().put("items", JSONArray()) }
+        assertEquals(null, YouTubeApi(transport).broadcastStatus("missing", "channel-a", "stream-a"))
     }
 
     @Test fun `a bind failure deletes the unstarted remote broadcast`() {

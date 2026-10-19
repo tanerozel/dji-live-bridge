@@ -27,6 +27,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.DeleteOutline
+import androidx.compose.material.icons.rounded.ContentPaste
 import androidx.compose.material.icons.rounded.Visibility
 import androidx.compose.material.icons.rounded.VisibilityOff
 import androidx.compose.material3.AlertDialog
@@ -50,6 +51,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.heading
@@ -76,6 +78,8 @@ internal fun DestinationProfileEditor(
     onSave: (serverUrl: String, streamKey: String) -> UiText?,
     onDelete: (() -> UiText?)?,
     onConnectYouTube: (() -> Unit)? = null,
+    onOpenInstagram: (() -> Unit)? = null,
+    onOpenInstagramBrowser: (() -> Unit)? = null,
 ) {
     val colors = BridgeTheme.colors
     val focusManager = LocalFocusManager.current
@@ -83,6 +87,7 @@ internal fun DestinationProfileEditor(
     val serverFocus = remember { FocusRequester() }
     val profile = state.profile
     val kind = state.kind
+    val context = LocalContext.current
 
     var serverUrl by state::serverUrl
     var streamKey by state::streamKey
@@ -94,10 +99,15 @@ internal fun DestinationProfileEditor(
     var showDiscardConfirmation by state::showDiscardConfirmation
     var showDeleteConfirmation by state::showDeleteConfirmation
 
-    val serverError = validationMessage { validateServerUrl(serverUrl) }?.asString()
+    val serverError = if (kind == DestinationKind.INSTAGRAM) {
+        try { validateInstagramServer(serverUrl); null } catch (_: InstagramSetupException) { stringResource(R.string.instagram_error_server) }
+    } else validationMessage { validateServerUrl(serverUrl) }?.asString()
     val keyError = when {
         streamKey.isEmpty() && profile != null -> null
         streamKey.isEmpty() -> stringResource(R.string.key_paste_prompt)
+        kind == DestinationKind.INSTAGRAM -> {
+            try { validateInstagramKey(streamKey); null } catch (_: InstagramSetupException) { stringResource(R.string.instagram_error_key) }
+        }
         else -> validationMessage { validateStreamKey(streamKey) }?.asString()
     }
     val hasChanges = streamKey.isNotEmpty() || !sameServerUrl(serverUrl, state.initialServerUrl)
@@ -118,7 +128,7 @@ internal fun DestinationProfileEditor(
         keyTouched = true
         if (serverError != null) serverExpanded = true
         if (serverError != null || keyError != null) return
-        editorError = onSave(serverUrl, streamKey)
+        editorError = onSave(serverUrl, if (kind == DestinationKind.INSTAGRAM) streamKey.trim() else streamKey)
         if (editorError == null) state.clearSecret()
     }
 
@@ -127,6 +137,7 @@ internal fun DestinationProfileEditor(
     // Most visits are only for a key, so the keyboard opens straight on it. Platforms without a
     // published address start on the address instead; their field is always shown.
     LaunchedEffect(state) {
+        if (kind == DestinationKind.INSTAGRAM) return@LaunchedEffect
         if (kind.defaultServerUrl == null && serverUrl.isBlank()) serverFocus.requestFocus() else keyFocus.requestFocus()
     }
 
@@ -157,7 +168,7 @@ internal fun DestinationProfileEditor(
                     .padding(horizontal = 20.dp, vertical = 12.dp),
                 contentAlignment = Alignment.Center,
             ) {
-                PrimaryButton(
+                if (kind != DestinationKind.INSTAGRAM || state.instagramManual) PrimaryButton(
                     modifier = Modifier.widthIn(max = 560.dp),
                     text = stringResource(R.string.save),
                     onClick = ::save,
@@ -194,7 +205,7 @@ internal fun DestinationProfileEditor(
                         text = kind.displayName(),
                         style = MaterialTheme.typography.headlineSmall,
                     )
-                    Text(
+                    if (kind != DestinationKind.INSTAGRAM || state.instagramManual) Text(
                         text = stringResource(kind.keyHelp),
                         style = MaterialTheme.typography.bodyMedium,
                         color = colors.muted,
@@ -202,106 +213,127 @@ internal fun DestinationProfileEditor(
                     )
                 }
 
-                if (serverExpanded) {
+                if (onOpenInstagram != null) {
+                    Text(stringResource(R.string.instagram_modal_help), style = MaterialTheme.typography.bodyMedium, color = colors.muted)
+                    PrimaryButton(text = stringResource(R.string.instagram_connect), onClick = onOpenInstagram)
+                    TextButton(onClick = { state.instagramManual = !state.instagramManual }) { Text(stringResource(R.string.instagram_manual)) }
+                }
+                if (state.instagramManual && onOpenInstagramBrowser != null) InstagramSetupGuide(onOpenBrowser = onOpenInstagramBrowser)
+
+                if (kind != DestinationKind.INSTAGRAM || state.instagramManual) {
+                    if (serverExpanded) {
+                        OutlinedTextField(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .focusRequester(serverFocus)
+                                .semantics { if (serverTouched && serverError != null) this.error(serverError) },
+                            value = serverUrl,
+                            onValueChange = {
+                                serverUrl = it
+                                serverTouched = true
+                                editorError = null
+                            },
+                            label = { Text(stringResource(R.string.server_address)) },
+                            trailingIcon = if (kind == DestinationKind.INSTAGRAM) {
+                                { IconButton(onClick = { pasteInstagram(context, state, server = true) }) {
+                                    Icon(Icons.Rounded.ContentPaste, contentDescription = stringResource(R.string.instagram_paste_server))
+                                } }
+                            } else null,
+                            placeholder = { Text(kind.serverPlaceholder()) },
+                            // Addresses read left to right in every language, Arabic included.
+                            textStyle = LocalTextStyle.current.copy(textDirection = TextDirection.Ltr),
+                            singleLine = true,
+                            isError = serverTouched && serverError != null,
+                            supportingText = if (serverTouched && serverError != null) {
+                                { Text(serverError) }
+                            } else {
+                                null
+                            },
+                            keyboardOptions = KeyboardOptions(
+                                autoCorrectEnabled = false,
+                                keyboardType = KeyboardType.Uri,
+                                imeAction = ImeAction.Next,
+                            ),
+                            keyboardActions = KeyboardActions(onNext = { keyFocus.requestFocus() }),
+                            shape = MaterialTheme.shapes.small,
+                        )
+                    }
+
                     OutlinedTextField(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .focusRequester(serverFocus)
-                            .semantics { if (serverTouched && serverError != null) this.error(serverError) },
-                        value = serverUrl,
+                            .focusRequester(keyFocus)
+                            .semantics { if (keyTouched && keyError != null) this.error(keyError) },
+                        value = streamKey,
                         onValueChange = {
-                            serverUrl = it
-                            serverTouched = true
+                            streamKey = it
+                            keyTouched = true
                             editorError = null
                         },
-                        label = { Text(stringResource(R.string.server_address)) },
-                        placeholder = { Text(kind.serverPlaceholder()) },
-                        // Addresses read left to right in every language, Arabic included.
+                        label = { Text(stringResource(if (profile == null) R.string.stream_key else R.string.stream_key_new)) },
+                        placeholder = {
+                            Text(stringResource(if (profile == null) R.string.stream_key_paste_here else R.string.stream_key_keep_hint))
+                        },
+                        visualTransformation = if (keyVisible) VisualTransformation.None else PasswordVisualTransformation(),
                         textStyle = LocalTextStyle.current.copy(textDirection = TextDirection.Ltr),
+                        trailingIcon = {
+                            Row {
+                                if (kind == DestinationKind.INSTAGRAM) {
+                                    IconButton(onClick = { pasteInstagram(context, state, server = false) }) {
+                                        Icon(Icons.Rounded.ContentPaste, contentDescription = stringResource(R.string.instagram_paste_key))
+                                    }
+                                }
+                                IconButton(onClick = { keyVisible = !keyVisible }) {
+                                    Icon(
+                                        imageVector = if (keyVisible) Icons.Rounded.VisibilityOff else Icons.Rounded.Visibility,
+                                        contentDescription = stringResource(if (keyVisible) R.string.key_hide else R.string.key_show),
+                                    )
+                                }
+                            }
+                        },
                         singleLine = true,
-                        isError = serverTouched && serverError != null,
-                        supportingText = if (serverTouched && serverError != null) {
-                            { Text(serverError) }
-                        } else {
-                            null
+                        isError = keyTouched && keyError != null,
+                        supportingText = {
+                            Text(
+                                when {
+                                    keyTouched && keyError != null -> keyError
+                                    profile != null -> stringResource(R.string.stream_key_kept)
+                                    else -> stringResource(R.string.stream_key_stored_encrypted)
+                                },
+                            )
                         },
                         keyboardOptions = KeyboardOptions(
                             autoCorrectEnabled = false,
-                            keyboardType = KeyboardType.Uri,
-                            imeAction = ImeAction.Next,
+                            keyboardType = KeyboardType.Password,
+                            imeAction = ImeAction.Done,
                         ),
-                        keyboardActions = KeyboardActions(onNext = { keyFocus.requestFocus() }),
+                        keyboardActions = KeyboardActions(onDone = { save() }),
                         shape = MaterialTheme.shapes.small,
                     )
-                }
 
-                OutlinedTextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .focusRequester(keyFocus)
-                        .semantics { if (keyTouched && keyError != null) this.error(keyError) },
-                    value = streamKey,
-                    onValueChange = {
-                        streamKey = it
-                        keyTouched = true
-                        editorError = null
-                    },
-                    label = { Text(stringResource(if (profile == null) R.string.stream_key else R.string.stream_key_new)) },
-                    placeholder = {
-                        Text(stringResource(if (profile == null) R.string.stream_key_paste_here else R.string.stream_key_keep_hint))
-                    },
-                    visualTransformation = if (keyVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                    textStyle = LocalTextStyle.current.copy(textDirection = TextDirection.Ltr),
-                    trailingIcon = {
-                        IconButton(onClick = { keyVisible = !keyVisible }) {
-                            Icon(
-                                imageVector = if (keyVisible) Icons.Rounded.VisibilityOff else Icons.Rounded.Visibility,
-                                contentDescription = stringResource(if (keyVisible) R.string.key_hide else R.string.key_show),
-                            )
+                    if (!serverExpanded) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    text = stringResource(R.string.server_address),
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = colors.muted,
+                                )
+                                Text(
+                                    text = serverUrl,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    fontFamily = FontFamily.Monospace,
+                                    color = colors.muted,
+                                )
+                            }
+                            TextButton(onClick = { serverExpanded = true }) { Text(stringResource(R.string.change)) }
                         }
-                    },
-                    singleLine = true,
-                    isError = keyTouched && keyError != null,
-                    supportingText = {
-                        Text(
-                            when {
-                                keyTouched && keyError != null -> keyError
-                                profile != null -> stringResource(R.string.stream_key_kept)
-                                else -> stringResource(R.string.stream_key_stored_encrypted)
-                            },
-                        )
-                    },
-                    keyboardOptions = KeyboardOptions(
-                        autoCorrectEnabled = false,
-                        keyboardType = KeyboardType.Password,
-                        imeAction = ImeAction.Done,
-                    ),
-                    keyboardActions = KeyboardActions(onDone = { save() }),
-                    shape = MaterialTheme.shapes.small,
-                )
-
-                if (!serverExpanded) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(
-                                text = stringResource(R.string.server_address),
-                                style = MaterialTheme.typography.labelMedium,
-                                color = colors.muted,
-                            )
-                            Text(
-                                text = serverUrl,
-                                style = MaterialTheme.typography.bodySmall,
-                                fontFamily = FontFamily.Monospace,
-                                color = colors.muted,
-                            )
-                        }
-                        TextButton(onClick = { serverExpanded = true }) { Text(stringResource(R.string.change)) }
                     }
-                }
 
+                }
                 editorError?.let { AlertBanner(title = stringResource(R.string.save_failed), message = it.asString()) }
 
                 if (onDelete != null) {

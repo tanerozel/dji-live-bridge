@@ -90,6 +90,7 @@ import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -162,6 +163,10 @@ internal fun DroneScreen(
     onPictureFitChange: (PictureFit) -> Unit,
     /** Goes live on every chosen platform. */
     onGoLive: () -> Unit,
+    onOpenInstagram: () -> Unit = {},
+    onRetryInstagram: () -> Unit = {},
+    instagramPublishStatus: Int? = null,
+    instagramPublishing: Boolean = false,
     /** Ends the broadcast on one platform, or on all of them for null. */
     onEndLive: (profileId: String?) -> Unit,
     /** A platform's switch: choose it for the next broadcast, or while live start or end it there. */
@@ -234,6 +239,10 @@ internal fun DroneScreen(
                     onFitToggle = { onPictureFitChange(otherFit) },
                     onPictureOnly = { pictureOnly = true },
                     onGoLive = onGoLive,
+                    onOpenInstagram = onOpenInstagram,
+                    onRetryInstagram = onRetryInstagram,
+                    instagramPublishStatus = instagramPublishStatus,
+                    instagramPublishing = instagramPublishing,
                     onEndLive = onEndLive,
                     onPlatformToggle = onPlatformToggle,
                     onPlatformEdit = onPlatformEdit,
@@ -270,6 +279,7 @@ internal fun DroneScreen(
                 destinations = liveDestinations,
                 lan = lan,
                 onEndPlatform = { profile -> onEndLive(profile.id) },
+                onOpenInstagram = onOpenInstagram,
             )
         }
         null -> Unit
@@ -293,6 +303,10 @@ private fun Controls(
     onFitToggle: () -> Unit,
     onPictureOnly: () -> Unit,
     onGoLive: () -> Unit,
+    onOpenInstagram: () -> Unit,
+    onRetryInstagram: () -> Unit,
+    instagramPublishStatus: Int?,
+    instagramPublishing: Boolean,
     onEndLive: (profileId: String?) -> Unit,
     onPlatformToggle: (DestinationKind) -> Unit,
     onPlatformEdit: (DestinationKind) -> Unit,
@@ -402,6 +416,19 @@ private fun Controls(
             onEdit = onPlatformEdit,
             onMore = onPlatforms,
         )
+        if (liveDestinations.any { it.kind == DestinationKind.INSTAGRAM } ||
+            instagramPublishStatus in setOf(R.string.instagram_end_starting, R.string.instagram_end_failed)
+        ) {
+            Text(stringResource(instagramPublishStatus ?: R.string.instagram_producer_live), color = Color.White, style = MaterialTheme.typography.bodySmall)
+            if (instagramPublishing || instagramPublishStatus == R.string.instagram_end_starting) LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+            Row {
+                if (instagramPublishStatus in setOf(R.string.instagram_publish_failed, R.string.instagram_end_failed)) {
+                    TextButton(onClick = onRetryInstagram) { Text(stringResource(R.string.retry)) }
+                }
+                TextButton(onClick = onOpenInstagram) { Text(stringResource(R.string.instagram_open_producer)) }
+            }
+        }
+        liveDestinations.filter { it.youtube != null }.forEach { YouTubeBroadcastCard(it) }
     }
     val actions: @Composable (Modifier) -> Unit = { modifier ->
         ActionRow(
@@ -633,7 +660,7 @@ private fun statusLook(
             StatusLook(
                 tone = if (congested) Tone.WARNING else Tone.LIVE,
                 leading = if (congested) Leading.WARNING else Leading.LIVE_DOT,
-                headline = stringResource(R.string.live_badge),
+                headline = stringResource(R.string.status_forwarding),
                 caption = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         liveSinceElapsedMillis?.let { since ->
