@@ -56,7 +56,14 @@ struct RootView: View {
         }
         .onChange(of: model.phase, initial: true) { model.phaseChanged() }
         .onChange(of: model.relay.state.isLive) { model.phaseChanged() }
+        .onChange(of: model.relay.state.liveProfileIds) { model.liveProfilesChanged() }
+        // Instagram's page and dialogs live in windows of their own (InstagramPresenter).
+        .onChange(of: instagramPresentation, initial: true) { model.instagramPresenter.update(model) }
         .onChange(of: model.picture.pictureInPicture) { model.pictureInPictureChanged() }
+    }
+
+    private var instagramPresentation: [Bool] {
+        [model.instagram.hasPage, model.instagram.preparing, model.instagram.visible]
     }
 
     private var endLiveShown: Binding<Bool> {

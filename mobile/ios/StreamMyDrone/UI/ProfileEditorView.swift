@@ -10,6 +10,8 @@ struct ProfileEditorView: View {
     @Environment(\.palette) private var palette
     @Environment(\.scenePhase) private var scenePhase
     let request: ProfileEditorRequest
+    /// For Instagram: back to the connection the app prepares itself.
+    var onAutomatic: (() -> Void)?
 
     @State private var serverUrl: String
     @State private var streamKey = ""
@@ -26,8 +28,9 @@ struct ProfileEditorView: View {
 
     private enum Field { case server, key }
 
-    init(request: ProfileEditorRequest) {
+    init(request: ProfileEditorRequest, onAutomatic: (() -> Void)? = nil) {
         self.request = request
+        self.onAutomatic = onAutomatic
         let initial = request.profile?.serverUrl ?? request.kind.defaultServerUrl ?? ""
         _serverUrl = State(initialValue: initial)
         _serverExpanded = State(initialValue: request.kind.defaultServerUrl.map { !sameServerUrl(initial, $0) } ?? true)
@@ -125,6 +128,11 @@ struct ProfileEditorView: View {
                         }
                     }
                     if let editorError { AlertBanner(title: tr("save_failed"), message: editorError.resolve()) }
+                    if let onAutomatic {
+                        Button(tr("instagram_connect")) { clearAndKeepOpen(); onAutomatic() }
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(palette.link)
+                    }
                     if request.profile != nil {
                         Button(role: .destructive) { showDelete = true } label: {
                             Label(tr("delete_platform"), systemImage: "trash").foregroundStyle(palette.dangerText)
@@ -176,6 +184,12 @@ struct ProfileEditorView: View {
     private func requestDismiss() {
         focus = nil
         if hasChanges { showDiscard = true } else { clearAndClose() }
+    }
+
+    private func clearAndKeepOpen() {
+        streamKey = ""
+        keyVisible = false
+        focus = nil
     }
 
     private func clearAndClose() {

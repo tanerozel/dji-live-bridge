@@ -66,7 +66,11 @@ struct DroneControls: View {
                         ZStack(alignment: .topTrailing) {
                             // The card takes the middle; the settings button sits above its corner.
                             CenteredScroll { connect.padding(.top, Metrics.sideButton + Metrics.gap) }
-                            sideButtons
+                            // When the platforms leave too little height, the buttons line up across.
+                            ViewThatFits(in: .vertical) {
+                                sideButtons
+                                HStack(spacing: Metrics.gap) { sideButtonList }
+                            }
                         }
                         .frame(maxHeight: .infinity)
                         bottom
@@ -87,7 +91,14 @@ struct DroneControls: View {
     }
 
     private var statusCard: some View {
-        StatusCard(look: statusLook(phase: model.phase, state: state, target: LiveTarget(model.liveDestinations)))
+        let instagramLive = model.liveDestinations.contains {
+            instagramConfirmedOutput(profileId: $0.id, output: state.snapshot.output($0.id), confirmation: model.instagram.publicationConfirmation)
+        }
+        // Instagram's own start is the moment viewers see the broadcast.
+        let since = instagramLive ? model.instagram.publicationConfirmation?.since : nil
+        return StatusCard(look: statusLook(phase: model.phase, state: state, target: LiveTarget(model.liveDestinations),
+                                           confirmed: instagramLive || model.youtubeViews.values.contains { $0.live },
+                                           liveSince: since ?? state.liveSince))
     }
 
     private var chips: some View {
@@ -107,7 +118,11 @@ struct DroneControls: View {
     }
 
     private var sideButtons: some View {
-        VStack(spacing: Metrics.gap) {
+        VStack(spacing: Metrics.gap) { sideButtonList }
+    }
+
+    @ViewBuilder private var sideButtonList: some View {
+        Group {
             let whole = model.picture.shownFit == .whole
             if showPicture {
                 GlassIconButton(
@@ -140,6 +155,7 @@ struct DroneControls: View {
                     .transition(.move(edge: .bottom).combined(with: .opacity))
             }
             MessageBanner(showPicture: showPicture)
+            AutomaticPlatforms()
             StreamToCard(onMore: { sheet = .platforms })
         }
         .animation(.easeInOut(duration: 0.2), value: model.snackbar)
@@ -262,7 +278,8 @@ struct LiveTarget {
 }
 
 /// The stream's state in a word, with a line under it, for the card in the top corner.
-private func statusLook(phase: BridgePhase, state: RelayUiState, target: LiveTarget) -> StatusLook {
+/// `confirmed`: a platform itself said the broadcast is on air, not only that video reaches it.
+private func statusLook(phase: BridgePhase, state: RelayUiState, target: LiveTarget, confirmed: Bool, liveSince: TimeInterval?) -> StatusLook {
     let snapshot = state.snapshot
     if !state.isLive {
         switch phase {
@@ -278,9 +295,9 @@ private func statusLook(phase: BridgePhase, state: RelayUiState, target: LiveTar
         return StatusLook(
             tone: congested ? .warning : .live,
             leading: congested ? .warning : .liveDot,
-            headline: tr("live_badge"),
+            headline: tr(confirmed ? "live_badge" : "status_forwarding"),
             caption: congested ? tr("status_congested") : formatBitrate(snapshot.bitrateKbps),
-            liveSince: state.liveSince
+            liveSince: liveSince
         )
     case .preview, .connectingTarget:
         return StatusLook(tone: .busy, leading: .progress, headline: tr("status_connecting"), caption: target.label)
@@ -486,7 +503,9 @@ private struct MessageBanner: View {
             let tip = model.lan?.kind == .hotspot ? "weak_link_tip_hotspot" : "weak_link_tip"
             return Content(key: "weak_link", title: tr("weak_link_title"), message: tr(tip), systemImage: "wifi.slash", accent: DroneColors.warning)
         }
-        if let tip = liveTips(phase: phase, snapshot: snapshot, destinations: model.liveDestinations).first {
+        // The status panel already says what Instagram and a connected YouTube confirmed.
+        if let tip = liveTips(phase: phase, snapshot: snapshot, destinations: model.liveDestinations,
+                              skipReminders: automaticProfileIds(model)).first {
             return Content(key: tip, title: nil, message: tip, systemImage: "lightbulb", accent: DroneColors.warning)
         }
         return nil
@@ -494,7 +513,8 @@ private struct MessageBanner: View {
 }
 
 /// What the user can do about the stream's state right now, most urgent first.
-func liveTips(phase: BridgePhase, snapshot: RelaySnapshot, destinations: [DestinationProfile]) -> [String] {
+/// `skipReminders`: platforms the app starts by itself, with no "press Go live there" reminder.
+func liveTips(phase: BridgePhase, snapshot: RelaySnapshot, destinations: [DestinationProfile], skipReminders: Set<String> = []) -> [String] {
     let congested = snapshot.outputs.contains { $0.status == "congested" }
     let keys: [String]
     if destinations.isEmpty {
@@ -507,11 +527,162 @@ func liveTips(phase: BridgePhase, snapshot: RelaySnapshot, destinations: [Destin
         keys = ["tip_congested"]
     } else if phase == .live {
         var seen = Set<String>()
-        keys = destinations.compactMap(\.kind.liveReminderKey).filter { seen.insert($0).inserted }
+        keys = destinations.filter { !skipReminders.contains($0.id) }
+            .compactMap { $0.youtube != nil ? "youtube_auto_hint" : $0.kind.liveReminderKey }
+            .filter { seen.insert($0).inserted }
     } else {
         keys = []
     }
     return keys.map { tr($0) }
+}
+
+/// Instagram set up by the app and a connected YouTube: the app starts and checks these itself.
+@MainActor
+func automaticProfileIds(_ model: AppModel) -> Set<String> {
+    Set(model.liveDestinations.filter { $0.youtube != nil || model.isAutomaticInstagram($0) }.map(\.id))
+}
+
+/**
+ * The platforms the app starts and checks by itself, Instagram and a connected YouTube: what each
+ * one confirmed, in a line, and a tap to look at it there.
+ */
+private struct AutomaticPlatforms: View {
+    @Environment(AppModel.self) private var model
+
+    var body: some View {
+        let status = model.instagram.publishStatus ?? ""
+        let instagram = model.liveInstagram || ["instagram_end_starting", "instagram_end_failed"].contains(status)
+        let youtube: [YouTubeBroadcastView] = model.liveDestinations.compactMap { model.youtubeViews[$0.id] }
+        if instagram || !youtube.isEmpty {
+            VStack(spacing: 0) {
+                if instagram { InstagramStatusRow() }
+                ForEach(youtube, id: \.profileId) { view in
+                    if instagram || view !== youtube.first {
+                        Divider().overlay(.white.opacity(0.08)).padding(.leading, 54).padding(.trailing, 12)
+                    }
+                    YouTubeStatusRow(view: view)
+                }
+            }
+            .padding(.vertical, 2)
+            .glass(radius: Metrics.panelRadius)
+        }
+    }
+}
+
+/// What Instagram's own page says about the broadcast the app started there.
+private struct InstagramStatusRow: View {
+    @Environment(AppModel.self) private var model
+
+    var body: some View {
+        let session = model.instagram
+        let status = session.publishStatus
+        let snapshot = model.relay.state.snapshot
+        let confirmed = model.liveDestinations.contains {
+            instagramConfirmedOutput(profileId: $0.id, output: snapshot.output($0.id), confirmation: session.publicationConfirmation)
+        }
+        let failed = status == "instagram_publish_failed" || status == "instagram_end_failed"
+        let working = ["instagram_waiting_video", "instagram_publish_starting", "instagram_end_starting"].contains(status ?? "")
+        let automatic = model.liveDestinations.contains { model.isAutomaticInstagram($0) }
+        let audience: InstagramAudience? = automatic ? model.broadcastAudience : nil
+        let dot: Color = failed ? DroneColors.danger : confirmed ? DroneColors.ready : .white.opacity(0.5)
+        PlatformStatusRow(
+            kind: .instagram,
+            badge: audience.map { tr($0.labelKey) },
+            // Practice is not visible to viewers; that should not go unnoticed.
+            badgeColor: audience == .practice ? DroneColors.warning : .white,
+            status: tr(status ?? (confirmed ? "instagram_publish_live" : "instagram_producer_live")),
+            dot: dot,
+            busy: !failed && !confirmed && (session.publishing || working),
+            openLabel: tr("instagram_open_producer"),
+            onOpen: { model.openInstagram() },
+            onRetry: retry(failed)
+        )
+    }
+
+    private func retry(_ failed: Bool) -> (() -> Void)? {
+        guard failed else { return nil }
+        return { model.retryInstagram() }
+    }
+}
+
+/// What YouTube says about the broadcast the app created there.
+private struct YouTubeStatusRow: View {
+    let view: YouTubeBroadcastView
+    @Environment(\.openURL) private var openURL
+
+    var body: some View {
+        let dot: Color = view.error != nil ? DroneColors.danger : view.live ? DroneColors.ready : view.testing ? DroneColors.warning : .white.opacity(0.5)
+        PlatformStatusRow(
+            kind: .youtube,
+            badge: tr(view.privacyKey),
+            badgeColor: view.privacyKey == "youtube_private" ? DroneColors.warning : .white,
+            status: view.error?.resolve() ?? tr(view.lifecycleKey),
+            dot: dot,
+            busy: view.pending,
+            openLabel: tr("youtube_open_broadcast"),
+            onOpen: { openURL(view.url) },
+            onRetry: nil
+        )
+    }
+}
+
+/// One platform in the status panel; the whole row opens the platform.
+private struct PlatformStatusRow: View {
+    let kind: DestinationKind
+    let badge: String?
+    let badgeColor: Color
+    let status: String
+    let dot: Color
+    let busy: Bool
+    let openLabel: String
+    let onOpen: () -> Void
+    let onRetry: (() -> Void)?
+
+    var body: some View {
+        HStack(spacing: 10) {
+            Button(action: onOpen) {
+                HStack(spacing: 10) {
+                    PlatformTile(kind: kind, size: 30)
+                    VStack(alignment: .leading, spacing: 2) {
+                        HStack(spacing: 6) {
+                            Text(kind.displayName).font(.subheadline.weight(.semibold)).foregroundStyle(.white).lineLimit(1)
+                            if let badge {
+                                Text(badge).font(.caption2.weight(.semibold)).foregroundStyle(badgeColor).lineLimit(1)
+                                    .padding(.horizontal, 7).padding(.vertical, 1)
+                                    .background(badgeColor.opacity(0.16), in: Capsule())
+                            }
+                        }
+                        HStack(spacing: 6) {
+                            if busy {
+                                ProgressView().controlSize(.mini).tint(.white)
+                            } else {
+                                Circle().fill(dot).frame(width: 7, height: 7)
+                            }
+                            Text(status).font(.caption).foregroundStyle(.white.opacity(0.8)).lineLimit(2)
+                                .multilineTextAlignment(.leading)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    Image(systemName: "arrow.up.forward.square").font(.subheadline).foregroundStyle(.white.opacity(0.6))
+                }
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityElement(children: .combine)
+            .accessibilityHint(openLabel)
+            if let onRetry {
+                Button(action: onRetry) {
+                    Image(systemName: "arrow.clockwise").font(.body.weight(.semibold)).foregroundStyle(DroneColors.goLiveStart)
+                        .frame(width: 40, height: 40)
+                }
+                .accessibilityLabel(tr("retry"))
+            }
+        }
+        .padding(.leading, 12)
+        .padding(.trailing, 8)
+        .padding(.vertical, 6)
+        .frame(minHeight: 52)
+    }
 }
 
 /**
@@ -646,7 +817,7 @@ private struct ActionRow: View {
     let onDetails: () -> Void
 
     var body: some View {
-        HStack(alignment: .top, spacing: 10) {
+        HStack(alignment: .center, spacing: 10) {
             if live {
                 BigButton(title: tr("end_broadcast"), systemImage: "stop.fill",
                           colors: [Color(hex: 0xEF4444), Color(hex: 0xDC2626)]) { model.confirmEndLive(nil) }
@@ -665,17 +836,14 @@ private struct ActionRow: View {
                 if !live { Button { onPlatforms() } label: { Label(tr("platforms"), systemImage: "square.grid.2x2") } }
                 Button { onDetails() } label: { Label(tr("technical_details"), systemImage: "info.circle") }
             } label: {
-                // The label may be wider than the square ("Daha fazla"); the column grows a little.
-                VStack(spacing: 3) {
-                    Image(systemName: "ellipsis")
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundStyle(.white)
-                        .frame(width: Metrics.squareAction, height: Metrics.squareAction)
-                        .glass()
-                    Text(tr("more")).font(.caption2).foregroundStyle(.white).lineLimit(1)
-                }
-                .frame(minWidth: Metrics.squareAction, maxWidth: Metrics.squareActionMaxWidth)
+                // As tall as the broadcast button, so the shutter row lines up; its name is spoken.
+                Image(systemName: "ellipsis")
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundStyle(.white)
+                    .frame(width: Metrics.squareAction, height: Metrics.squareAction)
+                    .glass(Circle())
             }
+            .accessibilityLabel(tr("more"))
         }
     }
 }

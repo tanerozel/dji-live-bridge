@@ -209,3 +209,74 @@ struct PrimaryButton: View {
         .disabled(!enabled)
     }
 }
+
+/// One choice in a list of them, with an optional line under its name saying what it means.
+struct OptionCard: View {
+    let label: String
+    var hint: String?
+    let selected: Bool
+    let action: () -> Void
+    @Environment(\.palette) private var palette
+    @Environment(\.isEnabled) private var enabled
+
+    var body: some View {
+        let shape = RoundedRectangle(cornerRadius: 12, style: .continuous)
+        Button(action: action) {
+            HStack(spacing: 12) {
+                Image(systemName: selected ? "largecircle.fill.circle" : "circle")
+                    .font(.title3)
+                    .foregroundStyle(selected ? palette.accent : palette.faint)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(label).font(.subheadline.weight(.semibold)).foregroundStyle(palette.text)
+                    if let hint { Text(hint).font(.footnote).foregroundStyle(palette.muted) }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .multilineTextAlignment(.leading)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 10)
+            .background(selected ? palette.accentSoft : palette.field, in: shape)
+            .overlay(shape.strokeBorder(selected ? palette.accent : palette.border, lineWidth: 1))
+            .contentShape(shape)
+            .opacity(enabled ? 1 : 0.5)
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(selected ? [.isSelected] : [])
+    }
+}
+
+/// Steps in order, each after a round number.
+struct NumberedSteps: View {
+    let steps: [String]
+    @Environment(\.palette) private var palette
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            ForEach(Array(steps.enumerated()), id: \.offset) { index, step in
+                HStack(alignment: .top, spacing: 12) {
+                    Text("\(index + 1)")
+                        .font(.footnote.weight(.semibold))
+                        .foregroundStyle(palette.onAccentSoft)
+                        .frame(width: 24, height: 24)
+                        .background(palette.accentSoft, in: Circle())
+                    Text(step).font(.subheadline).foregroundStyle(palette.text)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 2)
+                }
+                .accessibilityElement(children: .combine)
+            }
+        }
+    }
+}
+
+/// "How it works", with its steps, for a platform the app connects itself.
+struct HowItWorksCard: View {
+    let steps: [String]
+
+    var body: some View {
+        BridgeCard(spacing: 14) {
+            SectionHeader(title: tr("how_it_works"))
+            NumberedSteps(steps: steps)
+        }
+    }
+}

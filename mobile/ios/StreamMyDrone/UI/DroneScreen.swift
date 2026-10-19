@@ -53,8 +53,16 @@ struct DroneScreen: View {
             } else {
                 ControlsHint()
             }
+            if let request = model.titleRequest {
+                BroadcastTitleDialog(request: request, initialTitle: model.broadcastTitle ?? model.initialTitle,
+                                     initialAudience: model.broadcastAudience)
+                    .transition(.opacity)
+            }
         }
+        .animation(.easeInOut(duration: 0.2), value: model.titleRequest)
         .environment(\.colorScheme, .dark)
+        // The title dialog goes over the picture, not under a sheet.
+        .onChange(of: model.titleRequest) { if model.titleRequest != nil { sheet = nil } }
         .onChange(of: showPicture) { if !showPicture { pictureOnly = false } }
         .task(id: model.phase.hasPicture) {
             if model.phase.hasPicture {

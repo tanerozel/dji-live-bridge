@@ -162,7 +162,8 @@ final class TestVideoConverter {
         for file in (try? FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil)) ?? [] {
             try? FileManager.default.removeItem(at: file)
         }
-        let partial = directory.appendingPathComponent("\(name)-partial.mp4")
+        // Its own name: a cancelled conversion of the same video must not remove this one's file.
+        let partial = directory.appendingPathComponent("\(name)-\(UUID().uuidString)-partial.mp4")
         do {
             try await run(source: source, output: partial, onProgress: onProgress)
             try FileManager.default.moveItem(at: partial, to: converted)
@@ -173,11 +174,12 @@ final class TestVideoConverter {
         }
     }
 
+    /// The reader stops, so both inputs run dry and finish; `run` then cancels the writer. A
+    /// writer cancelled here would never ask for more, and the conversion would never end.
     func cancel() {
         lock.withLock {
             cancelled = true
             reader?.cancelReading()
-            writer?.cancelWriting()
         }
     }
 
@@ -271,21 +273,31 @@ final class TestVideoConverter {
         audioInput.expectsMediaDataInRealTime = false
         writer.add(audioInput)
 
+        if isCancelled { throw CancellationError() }
+        // AVFoundation crashes when a reader or writer is cancelled from another thread while it
+        // starts, so `cancel` sees them only once they run; a cancel meanwhile is handled here.
+        guard reader.startReading() else { throw reader.error ?? TestVideoError("test_video_convert_failed") }
+        guard writer.startWriting() else {
+            reader.cancelReading()
+            throw writer.error ?? TestVideoError("test_video_convert_failed")
+        }
+        writer.startSession(atSourceTime: .zero)
         try lock.withLock {
-            if cancelled { throw CancellationError() }
+            if cancelled {
+                reader.cancelReading()
+                writer.cancelWriting()
+                throw CancellationError()
+            }
             self.reader = reader
             self.writer = writer
         }
-        guard reader.startReading() else { throw reader.error ?? TestVideoError("test_video_convert_failed") }
-        guard writer.startWriting() else { throw writer.error ?? TestVideoError("test_video_convert_failed") }
-        writer.startSession(atSourceTime: .zero)
 
         let clipSeconds = max(clip.seconds, 0.001)
         let queue = DispatchQueue(label: "test-video-convert")
         try await withThrowingTaskGroup(of: Void.self) { group in
             group.addTask {
-                try await pump(input: videoInput, on: queue) {
-                    guard let sample = videoOutput.copyNextSampleBuffer() else { return nil }
+                try await pump(input: videoInput, on: queue) { [self] in
+                    guard !isCancelled, let sample = videoOutput.copyNextSampleBuffer() else { return nil }
                     let seconds = CMSampleBufferGetPresentationTimeStamp(sample).seconds
                     let percent = Int(min(99, max(0, seconds / clipSeconds * 100)))
                     Task { @MainActor in onProgress(percent) }
@@ -294,11 +306,11 @@ final class TestVideoConverter {
             }
             group.addTask {
                 if let audioOutput {
-                    try await pump(input: audioInput, on: queue) { audioOutput.copyNextSampleBuffer() }
+                    try await pump(input: audioInput, on: queue) { [self] in isCancelled ? nil : audioOutput.copyNextSampleBuffer() }
                 } else {
                     // Declaring sound makes the result carry it; a silent video gets silence.
                     var silence = SilenceGenerator(duration: clip)
-                    try await pump(input: audioInput, on: queue) { silence.next() }
+                    try await pump(input: audioInput, on: queue) { [self] in isCancelled ? nil : silence.next() }
                 }
             }
             try await group.waitForAll()

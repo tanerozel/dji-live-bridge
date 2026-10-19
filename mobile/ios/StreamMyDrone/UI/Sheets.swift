@@ -47,22 +47,24 @@ struct PlatformsSheet: View {
 
 /// A saved platform with the state of its stream key and the way to change it.
 private struct SavedPlatform: View {
+    @Environment(AppModel.self) private var model
     let profile: DestinationProfile
     let onEdit: () -> Void
 
     var body: some View {
-        let renewKey = profile.kind.keyChangesEachStream
+        let renewKey = model.renewsKeyByHand(profile)
+        let automatic = model.isAutomaticInstagram(profile)
         HStack(spacing: 10) {
             PlatformTile(kind: profile.kind, size: 28)
             VStack(alignment: .leading, spacing: 1) {
                 Text(profile.kind.displayName).font(.subheadline.weight(.semibold)).lineLimit(1)
-                Text(tr(renewKey ? "key_changes_each_stream" : "key_saved"))
+                Text(automatic ? tr("instagram_automatic_setup") : profile.youtube?.channelTitle ?? tr(renewKey ? "key_changes_each_stream" : "key_saved"))
                     .font(.caption2)
                     .foregroundStyle(renewKey ? DroneColors.warning : .white.opacity(0.6))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             Button(action: onEdit) {
-                Label(tr(renewKey ? "update_key" : "edit"), systemImage: "key")
+                Label(tr(renewKey ? "update_key" : "edit"), systemImage: profile.kind == .instagram ? "gearshape" : "key")
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(DroneColors.goLiveStart)
             }
@@ -107,7 +109,8 @@ struct LiveDetails: View {
                 }
             }
         }
-        ForEach(liveTips(phase: phase, snapshot: snapshot, destinations: destinations), id: \.self) { TipBox(text: $0) }
+        ForEach(liveTips(phase: phase, snapshot: snapshot, destinations: destinations, skipReminders: automaticProfileIds(model)),
+                id: \.self) { TipBox(text: $0) }
         BridgeCard(spacing: 8) {
             SectionHeader(title: tr("technical_details"))
             TechnicalDetailRows(snapshot: snapshot, destinations: destinations, lan: model.lan)

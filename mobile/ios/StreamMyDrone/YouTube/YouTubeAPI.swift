@@ -22,6 +22,12 @@ struct YouTubeChannel: Equatable, Identifiable {
     let title: String
 }
 
+struct YouTubeBroadcastStatus: Equatable {
+    let id: String
+    let lifecycle: String
+    let privacy: String
+}
+
 struct YouTubeStream {
     let id: String
     let serverUrl: String
@@ -170,6 +176,21 @@ struct YouTubeAPI {
 
     func bind(_ broadcastId: String, streamId: String) async throws {
         _ = try await transport.request("POST", "youtube/v3/liveBroadcasts/bind", query: ["part": "id", "id": broadcastId, "streamId": streamId], body: nil)
+    }
+
+    /// What YouTube says about the app's broadcast; nil once YouTube no longer has it.
+    func broadcastStatus(_ id: String, channelId: String, streamId: String) async throws -> YouTubeBroadcastStatus? {
+        let result = try await transport.request("GET", "youtube/v3/liveBroadcasts", query: ["part": "id,snippet,status,contentDetails", "id": id], body: nil)
+        guard let items = result["items"] as? [[String: Any]] else { throw YouTubeError() }
+        guard let item = items.first else { return nil }
+        guard items.count == 1, item["id"] as? String == id,
+              (item["snippet"] as? [String: Any])?["channelId"] as? String == channelId,
+              (item["contentDetails"] as? [String: Any])?["boundStreamId"] as? String == streamId else {
+            throw YouTubeError("youtube_error_channel_changed")
+        }
+        guard let status = item["status"] as? [String: Any], let lifecycle = status["lifeCycleStatus"] as? String,
+              let privacy = status["privacyStatus"] as? String else { throw YouTubeError() }
+        return YouTubeBroadcastStatus(id: id, lifecycle: lifecycle, privacy: privacy)
     }
 
     /// Deletes only an unstarted event; completed/live videos are never deleted.

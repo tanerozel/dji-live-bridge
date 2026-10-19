@@ -13,6 +13,8 @@ struct UiPreferences {
     private static let themeKey = "theme"
     private static let pictureFitKey = "picture_fit"
     private static let notificationsAskedKey = "notifications_asked"
+    private static let lastBroadcastTitleKey = "last_broadcast_title"
+    private static let instagramAudienceKey = "instagram_audience"
 
     var guideCompleted: Bool {
         get { defaults.bool(forKey: Self.guideCompletedKey) }
@@ -27,6 +29,18 @@ struct UiPreferences {
     var pictureFit: PictureFit {
         get { PictureFit.fromStorage(defaults.string(forKey: Self.pictureFitKey)) }
         nonmutating set { defaults.set(newValue.rawValue, forKey: Self.pictureFitKey) }
+    }
+
+    /// The title the last broadcast went out with, offered again for the next one.
+    var lastBroadcastTitle: String? {
+        get { defaults.string(forKey: Self.lastBroadcastTitleKey) }
+        nonmutating set { defaults.set(newValue, forKey: Self.lastBroadcastTitleKey) }
+    }
+
+    /// The audience last chosen for Instagram; Practice until the user picks Public.
+    var instagramAudience: InstagramAudience {
+        get { InstagramAudience.fromStorage(defaults.string(forKey: Self.instagramAudienceKey)) }
+        nonmutating set { defaults.set(newValue.rawValue, forKey: Self.instagramAudienceKey) }
     }
 
     /// Whether the notification permission was asked for, which iOS allows only once.

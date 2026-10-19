@@ -283,6 +283,13 @@ internal class InstagramProducerSession {
                     openAttempts = 0
                     loading = true
                     pageError = false
+                    // A new page, such as Instagram's own after signing in, gets fresh time and
+                    // another try: signing in is all the user has to do.
+                    if (preparing && automaticSetup) {
+                        producerUnavailable = false
+                        diagnosed = false
+                        setupDeadline = SystemClock.elapsedRealtime() + 60_000
+                    }
                     host = try { URI(url.orEmpty()).host ?: "instagram.com" } catch (_: Exception) { "instagram.com" }
                 }
                 override fun onPageFinished(view: WebView?, url: String?) {

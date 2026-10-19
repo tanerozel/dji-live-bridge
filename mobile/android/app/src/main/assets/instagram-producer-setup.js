@@ -3,8 +3,10 @@
   // Native confirmation supplies title/audience. This helper only prepares the draft;
   // Go live and End are handled by separate, explicitly armed requests.
   if (window.top !== window || location.origin !== 'https://www.instagram.com') return 'blocked';
+  // A signed-out start page has no form, only links to sign in or sign up: the user signs in.
   if (/^\/(accounts|challenge|checkpoint)(\/|$)/.test(location.pathname) ||
-      document.querySelector('input[name="username"], input[autocomplete="one-time-code"], input[autocomplete="current-password"]')) return 'auth';
+      document.querySelector('input[name="username"], input[autocomplete="one-time-code"], input[autocomplete="current-password"], ' +
+        'a[href^="/accounts/login"], a[href^="https://www.instagram.com/accounts/login"], a[href^="/accounts/emailsignup"]')) return 'auth';
   const visible = node => node.getClientRects().length > 0 && getComputedStyle(node).display !== 'none' && getComputedStyle(node).visibility !== 'hidden';
   const label = node => String(node.getAttribute('aria-label') || node.textContent || '').trim().replace(/\s+/g, ' ');
   const liveHeading = /^(live video|canlı video|video en vivo|vídeo en directo|vidéo en direct|live-video|video in diretta|vídeo ao vivo|прямой эфир|فيديو مباشر|लाइव वीडियो|video siaran langsung|ライブ動画|라이브 방송|直播视频|直播影片)$/i;
@@ -102,16 +104,21 @@
     if (claims.has('audience-opened')) {
       // Device evidence: the audience portal uses ordinary BUTTONs without role=option.
       // Require exactly the Public/Practice pair in a small shared menu container, never
-      // arbitrary page buttons or the original title-dialog trigger.
-      const buttons = Array.from(document.querySelectorAll('button')).filter(node =>
+      // arbitrary page buttons or the original title-dialog trigger. WebKit shows the menu as
+      // a sheet that also offers Close friends and Cancel; those two, and only those, may
+      // share the container, and the title dialog's own Public/Practice button is not counted.
+      const sheetExtra = /^(close friends|yakın arkadaşlar|mejores amigos|amis proches|enge freunde|amici più stretti|melhores amigos|близкие друзья|الأصدقاء المقربون|क्लोज़ फ़्रेंड्स|teman dekat|親しい友達|친한 친구|密友|摯友|cancel|iptal|vazgeç|cancelar|annuler|abbrechen|annulla|отмена|إلغاء|रद्द करें|batal|キャンセル|취소|取消)$/i;
+      let buttons = Array.from(document.querySelectorAll('button')).filter(node =>
         enabled(node) && node.tagName === 'BUTTON' && anyAudience(label(node)));
+      if (buttons.length !== 2) buttons = buttons.filter(node => !dialog.contains(node));
       const desiredButtons = buttons.filter(node => wanted.test(label(node)));
       if (buttons.length === 2 && desiredButtons.length === 1 &&
           Object.values(patterns).every(pattern => buttons.some(node => pattern.test(label(node))))) {
         let group = buttons[0].parentElement;
         for (let depth = 0; group && depth < 4 && group !== dialog && group !== document.body; group = group.parentElement, depth++) {
-          if (buttons.every(node => group.contains(node)) &&
-              Array.from(group.querySelectorAll('button')).filter(enabled).length === 2) return click(desiredButtons[0], 'selected');
+          const members = Array.from(group.querySelectorAll('button')).filter(enabled);
+          if (buttons.every(node => group.contains(node)) && (members.length === 2 ||
+              members.every(node => buttons.includes(node) || sheetExtra.test(label(node))))) return click(desiredButtons[0], 'selected');
         }
       }
       const plainOptions = leafSpans(document, wanted);

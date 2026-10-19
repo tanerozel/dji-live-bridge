@@ -39,7 +39,8 @@ SDK dependencies as well.
    inputs remain in YouTube Studio. Connections sharing that Google account may need consent again.
 
 Existing manual YouTube profiles keep the manual editor. A new YouTube profile can use
-“Enter a stream key instead”. Instagram and other platforms retain their current key flow.
+“Enter a stream key instead”. Instagram is prepared by the app in its own Live Producer page
+(`StreamMyDrone/Instagram`, the same scripts as the Android app); the other platforms take a key.
 
 The SDK has one current Google session. Connecting a different Google account replaces the
 active SDK identity; saved connections for another account require reconnecting that account.

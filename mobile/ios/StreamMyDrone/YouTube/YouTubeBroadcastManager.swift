@@ -62,8 +62,10 @@ final class YouTubeBroadcastManager {
         return try await task.value
     }
 
-    func prepare(_ profile: DestinationProfile, owner: UUID) async throws {
-        guard let connection = profile.youtube else { return }
+    /// Creates and binds this broadcast's event; `title` is the one confirmed before going live.
+    func prepare(_ profile: DestinationProfile, title: String? = nil, owner: UUID) async throws {
+        guard var connection = profile.youtube else { return }
+        if let title { connection.title = try validateBroadcastTitle(title) }
         try await ordered { [self] in
             try await finishStored(profileId: profile.id, owner: nil)
             let api = try await apiProvider(connection.accountEmail)
@@ -88,6 +90,11 @@ final class YouTubeBroadcastManager {
 
     func finish(profileId: String, owner: UUID? = nil) async throws {
         try await ordered { [self] in try await finishStored(profileId: profileId, owner: owner) }
+    }
+
+    /// The app's current broadcast for `profileId`, for reading its state.
+    func session(for profileId: String) -> YouTubeSession? {
+        (try? store.load())?.last { $0.profileId == profileId }
     }
 
     /// Recovery runs once when the controller is created, before new preparation enters the lane.

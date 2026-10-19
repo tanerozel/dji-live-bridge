@@ -3,7 +3,8 @@
   // Open setup only. Never submit details, choose an audience, publish or end a broadcast.
   if (window.top !== window || location.origin !== 'https://www.instagram.com' ||
       /^\/(accounts|challenge|checkpoint)(\/|$)/.test(location.pathname)) return 'blocked';
-  if (document.querySelector('input[type="password"], input[name="username"], input[autocomplete="one-time-code"]')) return 'blocked';
+  if (document.querySelector('input[type="password"], input[name="username"], input[autocomplete="one-time-code"], ' +
+      'a[href^="/accounts/login"], a[href^="https://www.instagram.com/accounts/login"], a[href^="/accounts/emailsignup"]')) return 'blocked';
   const visible = node => node.getClientRects().length > 0 &&
     getComputedStyle(node).display !== 'none' && getComputedStyle(node).visibility !== 'hidden';
   const label = node => String(node.getAttribute('aria-label') || node.textContent || '').trim().replace(/\s+/g, ' ');

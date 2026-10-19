@@ -1,14 +1,26 @@
 import GoogleSignInSwift
 import SwiftUI
 
+/// The screen for one platform: Instagram and YouTube connect themselves, the others take a key.
 struct DestinationEditorView: View {
+    @Environment(AppModel.self) private var model
     let request: ProfileEditorRequest
-    @State private var manual = false
+    /// Chosen on this screen; until then a key pasted earlier in this session keeps the key screen.
+    @State private var manual: Bool?
+
     var body: some View {
-        if request.kind != .youtube || manual || (request.profile != nil && request.profile?.youtube == nil) {
+        let manual = manual ?? request.profile.map { model.instagramManualProfiles.contains($0.id) } ?? false
+        switch request.kind {
+        case .instagram:
+            if manual {
+                ProfileEditorView(request: request, onAutomatic: { self.manual = false })
+            } else {
+                InstagramConnectView(request: request, onManual: { self.manual = true })
+            }
+        case .youtube where !manual && (request.profile == nil || request.profile?.youtube != nil):
+            YouTubeProfileEditor(request: request, onManual: { self.manual = true })
+        default:
             ProfileEditorView(request: request)
-        } else {
-            YouTubeProfileEditor(request: request, onManual: { manual = true })
         }
     }
 }
@@ -41,44 +53,58 @@ struct YouTubeProfileEditor: View {
     }
 
     var body: some View {
+        let connected = !email.isEmpty && !channels.isEmpty
         VStack(spacing: 0) {
             HStack {
                 Button { model.editor = nil } label: {
-                    Image(systemName: "xmark").font(.body.weight(.semibold)).frame(width: 44, height: 44)
+                    Image(systemName: "xmark").font(.body.weight(.semibold)).foregroundStyle(palette.muted).frame(width: 44, height: 44)
                 }.accessibilityLabel(tr("close")).disabled(busy)
                 Spacer()
             }.padding(.horizontal, 4)
+            // Talking to Google can take a moment; the bar says the tap was taken.
+            ProgressView().progressViewStyle(.linear).tint(palette.accent).opacity(busy ? 1 : 0)
             ScrollView {
                 VStack(spacing: 16) {
                     PlatformTile(kind: .youtube, size: 64)
-                    Text("YouTube").font(.title2.weight(.semibold)).accessibilityAddTraits(.isHeader)
-                    Text(tr("youtube_connection_help")).font(.subheadline).foregroundStyle(palette.muted).multilineTextAlignment(.center)
-                    GoogleSignInButton { connect() }.disabled(busy || model.liveYouTube)
-                    if !email.isEmpty {
-                        Text(email).font(.subheadline).foregroundStyle(palette.muted)
-                        Picker(tr("youtube_channel"), selection: $channelId) {
-                            ForEach(channels) { Text($0.title).tag($0.id) }
-                        }
-                        FieldBox(label: tr("youtube_title")) {
-                            TextField(tr("youtube_title"), text: $title).submitLabel(.done)
-                        }
-                        Picker(tr("youtube_privacy"), selection: $privacy) {
-                            Text(tr("youtube_private")).tag("private")
-                            Text(tr("youtube_unlisted")).tag("unlisted")
-                            Text(tr("youtube_public")).tag("public")
-                        }
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text(tr("youtube_audience")).font(.caption.weight(.semibold)).foregroundStyle(palette.muted)
-                            audience(false, "youtube_not_kids")
-                            audience(true, "youtube_kids")
-                        }.frame(maxWidth: .infinity, alignment: .leading)
-                        Text(tr("youtube_auto_hint")).font(.caption).foregroundStyle(palette.muted)
+                    VStack(spacing: 6) {
+                        Text("YouTube").font(.title2.weight(.semibold)).accessibilityAddTraits(.isHeader)
+                        Text(tr("youtube_connection_help")).font(.subheadline).foregroundStyle(palette.muted).multilineTextAlignment(.center)
                     }
-                    if busy { ProgressView() }
+                    if !connected {
+                        HowItWorksCard(steps: [tr("youtube_step_account"), tr("youtube_step_prepare"), tr("youtube_auto_hint")])
+                    } else {
+                        accountCard
+                        if channels.count > 1 {
+                            section(tr("youtube_channel")) {
+                                ForEach(channels) { channel in
+                                    OptionCard(label: channel.title, selected: channelId == channel.id) { channelId = channel.id }
+                                }
+                            }
+                        }
+                        section(tr("youtube_title")) {
+                            TextField(tr("youtube_title"), text: $title)
+                                .submitLabel(.done)
+                                .padding(.horizontal, 12)
+                                .frame(minHeight: 50)
+                                .background(palette.field, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                                .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).strokeBorder(palette.border, lineWidth: 1))
+                        }
+                        section(tr("youtube_privacy")) {
+                            ForEach(["private", "unlisted", "public"], id: \.self) { value in
+                                OptionCard(label: tr("youtube_\(value)"), hint: tr("youtube_\(value)_hint"), selected: privacy == value) { privacy = value }
+                            }
+                        }
+                        section(tr("youtube_audience")) {
+                            OptionCard(label: tr("youtube_not_kids"), selected: kids == false) { kids = false }
+                            OptionCard(label: tr("youtube_kids"), selected: kids == true) { kids = true }
+                        }
+                    }
                     if let error { AlertBanner(title: tr("save_failed"), message: error.resolve()) }
-                    if request.profile == nil { Button(tr("youtube_manual"), action: onManual).disabled(busy) }
-                    else {
-                        Button(tr("youtube_disconnect"), role: .destructive) { disconnect = true }.disabled(busy)
+                    if request.profile == nil {
+                        Button(tr("youtube_manual"), action: onManual).font(.subheadline.weight(.semibold)).foregroundStyle(palette.link).disabled(busy)
+                    } else {
+                        Button(tr("youtube_disconnect"), role: .destructive) { disconnect = true }
+                            .font(.subheadline.weight(.semibold)).foregroundStyle(palette.dangerText).disabled(busy)
                     }
                     Link(tr("privacy_policy"), destination: URL(string: "https://tanerozel.github.io/dji-live-bridge/privacy-policy.html#google-youtube")!)
                         .font(.caption)
@@ -86,8 +112,17 @@ struct YouTubeProfileEditor: View {
                 .padding(.horizontal, 20).frame(maxWidth: 560).frame(maxWidth: .infinity)
                 .disabled(busy)
             }.scrollDismissesKeyboard(.interactively)
-            PrimaryButton(title: tr("save"), enabled: !busy && !email.isEmpty && !channelId.isEmpty && kids != nil) { save() }
-                .frame(maxWidth: 560).padding(.horizontal, 20).padding(.vertical, 12)
+            Group {
+                if connected {
+                    PrimaryButton(title: tr("save"), enabled: !busy && !channelId.isEmpty && kids != nil &&
+                                  (try? validateYouTubeTitle(title)) != nil) { save() }
+                } else {
+                    // Google's own button, as its sign-in guidelines ask.
+                    GoogleSignInButton(scheme: palette.isDark ? .dark : .light, style: .wide) { connect() }
+                        .disabled(busy || model.liveYouTube)
+                }
+            }
+            .frame(maxWidth: 560).padding(.horizontal, 20).padding(.vertical, 12)
         }
         .foregroundStyle(palette.text).background(palette.background.ignoresSafeArea())
         .interactiveDismissDisabled(busy)
@@ -101,11 +136,34 @@ struct YouTubeProfileEditor: View {
         } message: { Text(tr("youtube_disconnect_message")) }
     }
 
-    private func audience(_ value: Bool, _ key: String) -> some View {
-        Button { kids = value } label: {
-            Label(tr(key), systemImage: kids == value ? "largecircle.fill.circle" : "circle")
-                .multilineTextAlignment(.leading)
-        }.accessibilityAddTraits(kids == value ? [.isSelected] : [])
+    /// The Google account in use, with a way to pick another.
+    private var accountCard: some View {
+        BridgeCard(padding: EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 8)) {
+            HStack(spacing: 12) {
+                Text(email.first.map { String($0).uppercased() } ?? "")
+                    .font(.headline)
+                    .foregroundStyle(palette.onAccentSoft)
+                    .frame(width: 40, height: 40)
+                    .background(palette.accentSoft, in: Circle())
+                VStack(alignment: .leading, spacing: 2) {
+                    if channels.count == 1, let channel = channels.first {
+                        Text(channel.title).font(.subheadline.weight(.semibold)).lineLimit(1)
+                    }
+                    Text(email).font(.footnote).foregroundStyle(palette.muted).lineLimit(1).truncationMode(.middle)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                Button(tr("change")) { connect() }.font(.subheadline.weight(.semibold)).disabled(busy || model.liveYouTube)
+            }
+        }
+    }
+
+    /// A heading over one group of settings.
+    private func section<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title).font(.subheadline.weight(.semibold)).foregroundStyle(palette.muted).accessibilityAddTraits(.isHeader)
+            content()
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private func connect() {

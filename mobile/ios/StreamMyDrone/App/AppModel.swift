@@ -48,6 +48,18 @@ final class AppModel {
     private(set) var pictureFit: PictureFit
     /// The drone screen shows the picture, and keeps it through a short drop.
     private(set) var showingPicture = false
+    /// Instagram's Live Producer, prepared and started by the app itself.
+    let instagram = InstagramProducerSession()
+    @ObservationIgnored let instagramPresenter = InstagramPresenter()
+    /// The platforms the title dialog is open for.
+    var titleRequest: TitleRequest?
+    /// Instagram profiles whose key was pasted by hand in this session; the app does not run them.
+    private(set) var instagramManualProfiles: Set<String> = []
+    /// The current broadcast's title and Instagram audience, kept when a platform is added.
+    private(set) var broadcastTitle: String?
+    private(set) var broadcastAudience: InstagramAudience = .practice
+    /// What YouTube says about each live connected YouTube profile.
+    private(set) var youtubeViews: [String: YouTubeBroadcastView] = [:]
 
     @ObservationIgnored private let store: DestinationProfileStore
     @ObservationIgnored private let preferences = UiPreferences()
@@ -69,6 +81,9 @@ final class AppModel {
         } catch {
             profileError = profileErrorText(error)
         }
+        broadcastAudience = preferences.instagramAudience
+        instagram.relayState = { [weak relay] in relay?.state ?? RelayUiState() }
+        instagram.onCaptured = { [weak self] target, credentials in self?.instagramCaptured(target, credentials) }
     }
 
     var phase: BridgePhase { relay.phase }
@@ -94,6 +109,7 @@ final class AppModel {
             }
         }
         updateIdleTimer()
+        liveProfilesChanged()
     }
 
     /**
@@ -104,6 +120,7 @@ final class AppModel {
     func enteredBackground() {
         active = false
         networkTask?.cancel()
+        youtubeViews.values.forEach { $0.stop() }
         guard relay.state.isActive else { return }
         let live = relay.state.isLive
         background.begin(warn: live && !picture.pictureInPicture) { [weak self] in
@@ -218,8 +235,9 @@ final class AppModel {
         }
         let select = !destinations.isSelected(profile.id)
         updateProfiles { try store.setSelected(profile.id, selected: select) }
-        // Instagram and TikTok hand out a new key for every broadcast: offer to paste it now.
-        if select && kind.keyChangesEachStream {
+        // TikTok, and Instagram set up by hand, hand out a new key for every broadcast: offer to
+        // paste it now. The app prepares Instagram's itself.
+        if select && renewsKeyByHand(profile) {
             showMessage(.tr("named_error", .text(kind.nameText), .text(.tr("key_changes_each_stream"))),
                         actionTitle: tr("update_key"), long: true) { [weak self] in
                 self?.editor = ProfileEditorRequest(profile: profile, kind: kind)
@@ -269,10 +287,95 @@ final class AppModel {
             )
         }
         if error == nil {
+            if request.kind == .instagram, let id = request.profile?.id ?? destinations.profiles.last?.id {
+                // A pasted key: this profile goes out as it is, without the Producer page.
+                instagramManualProfiles.insert(id)
+                instagram.cancelPublish()
+                instagram.hide()
+            }
             editor = nil
             showMessage(request.profile == nil ? .tr("platform_added", .string(request.kind.displayName)) : .tr("saved"))
         }
         return error
+    }
+
+    /// The key has to be pasted again before each broadcast.
+    func renewsKeyByHand(_ profile: DestinationProfile) -> Bool {
+        profile.kind == .tiktok || (profile.kind == .instagram && instagramManualProfiles.contains(profile.id))
+    }
+
+    /// Instagram the app prepares and starts itself, rather than a pasted key.
+    func isAutomaticInstagram(_ profile: DestinationProfile) -> Bool {
+        profile.kind == .instagram && !instagramManualProfiles.contains(profile.id)
+    }
+
+    // MARK: Instagram
+
+    var liveInstagram: Bool { liveDestinations.contains { $0.kind == .instagram } }
+
+    /// The editor's Connect: prepares Instagram's Producer with the last title and audience.
+    func connectInstagram(_ request: ProfileEditorRequest) -> UiText? {
+        if liveInstagram { return .tr("instagram_error_edit_live") }
+        instagram.prepare(InstagramCaptureTarget(profile: request.profile),
+                          title: broadcastTitle ?? initialBroadcastTitle(saved: preferences.lastBroadcastTitle, profiles: destinations.selectedProfiles),
+                          audience: broadcastAudience)
+        return nil
+    }
+
+    /// Instagram's page showed the ingest: it is saved, and a waiting Go live continues.
+    private func instagramCaptured(_ target: InstagramCaptureTarget, _ credentials: InstagramCredentials) {
+        let existing = target.profile
+        var savedId: String?
+        let error = updateProfiles(announce: false) {
+            let updated = try store.save(existingId: existing?.id, name: existing?.name ?? "Instagram", kind: .instagram,
+                                         serverUrl: credentials.serverUrl, streamKey: credentials.streamKey)
+            savedId = existing?.id ?? updated.profiles.last?.id
+            return updated
+        }
+        guard error == nil, let savedId else {
+            showMessage(error ?? .tr("save_failed"))
+            return
+        }
+        instagram.connected(savedId)
+        instagramManualProfiles.remove(savedId)
+        if editor?.kind == .instagram { editor = nil }
+        showMessage(.tr("instagram_connected"))
+        if let start = target.startRequest { goLive(start) }
+    }
+
+    func openInstagram() { instagram.show() }
+
+    func closeInstagramWindow() { instagram.cancelSetup() }
+
+    func cancelInstagramSetup() { instagram.cancelSetup() }
+
+    /// Instagram's start or end could not be confirmed: try again, or set it up again.
+    func retryInstagram() {
+        if instagram.publishStatus == "instagram_end_failed" { return instagram.retryEnd() }
+        guard let profile = liveDestinations.first(where: { $0.kind == .instagram }) else { return }
+        if instagram.hasConnection(profile.id) { return instagram.requestPublish(profile.id) }
+        // The page was lost: its old key cannot be reused, so the platform starts over.
+        relay.endLive(profile.id)
+        let title = broadcastTitle ?? initialBroadcastTitle(saved: preferences.lastBroadcastTitle, profiles: destinations.selectedProfiles)
+        guard let request = try? BroadcastStartRequest(profileIds: [profile.id], title: title, instagramAudience: broadcastAudience) else { return }
+        instagram.prepare(InstagramCaptureTarget(profile: profile, startRequest: request), title: title, audience: broadcastAudience)
+    }
+
+    // MARK: YouTube status
+
+    /// Starts asking YouTube about each live connected YouTube profile, and stops for the others.
+    func liveProfilesChanged() {
+        let live = liveDestinations.filter { $0.youtube != nil }
+        for (id, view) in youtubeViews where !live.contains(where: { $0.id == id && $0.youtube == view.connection }) {
+            view.stop()
+            youtubeViews[id] = nil
+        }
+        for profile in live {
+            guard let connection = profile.youtube else { continue }
+            let view = youtubeViews[profile.id] ?? YouTubeBroadcastView(profileId: profile.id, connection: connection)
+            youtubeViews[profile.id] = view
+            if active { view.start(relay.youtube) }
+        }
     }
 
     func deleteProfile(_ profile: DestinationProfile) -> UiText? {
@@ -335,24 +438,84 @@ final class AppModel {
 
     // MARK: Broadcast
 
-    /// Goes live on every chosen platform, or while live adds `profileIds` to the broadcast.
+    /**
+     * Goes live on every chosen platform, or while live adds `profileIds` to the broadcast. A new
+     * broadcast first asks for its title (and Instagram's audience); a platform added while live
+     * keeps the broadcast's, unless it is Instagram, which needs its own preparation.
+     */
     func requestGoLive(_ profileIds: [String]? = nil) {
         let ids = profileIds ?? destinations.selectedProfiles.map(\.id)
         guard !ids.isEmpty else {
             showMessage(.tr("pick_platform_first"))
             return
         }
+        let addingInstagram = destinations.profiles.contains {
+            ids.contains($0.id) && isAutomaticInstagram($0) && !relay.state.liveProfileIds.contains($0.id)
+        }
+        if relay.state.isLive && !addingInstagram,
+           let request = try? BroadcastStartRequest(profileIds: ids, title: broadcastTitle ?? initialTitle, instagramAudience: broadcastAudience) {
+            continueStart(request)
+        } else {
+            titleRequest = TitleRequest(profileIds: ids)
+        }
+    }
+
+    /// The title the dialog starts with.
+    var initialTitle: String {
+        initialBroadcastTitle(saved: preferences.lastBroadcastTitle, profiles: destinations.selectedProfiles)
+    }
+
+    /// The title dialog's Go live.
+    func startBroadcast(_ request: TitleRequest, title: String, audience: InstagramAudience) {
+        guard let start = try? BroadcastStartRequest(profileIds: request.profileIds, title: title, instagramAudience: audience) else { return }
+        titleRequest = nil
+        preferences.lastBroadcastTitle = start.title
+        preferences.instagramAudience = audience
+        broadcastTitle = start.title
+        broadcastAudience = audience
+        continueStart(start)
+    }
+
+    private func continueStart(_ request: BroadcastStartRequest) {
         // The notification warns when iOS is about to stop a broadcast left in the background.
         if !preferences.notificationsAsked {
             preferences.notificationsAsked = true
             Task { [weak self] in
                 let granted = (try? await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound])) ?? false
                 if !granted { self?.showMessage(.tr("notification_permission_denied")) }
-                self?.relay.goLive(ids)
+                self?.goLive(request)
             }
         } else {
-            relay.goLive(ids)
+            goLive(request)
         }
+    }
+
+    /// Starts the broadcast on the request's platforms; Instagram is prepared first when needed.
+    private func goLive(_ request: BroadcastStartRequest) {
+        let ids = request.profileIds
+        let instagramProfile = destinations.profiles.first { ids.contains($0.id) && $0.kind == .instagram }
+        if instagramProfile != nil && instagram.ending {
+            showMessage(.tr("instagram_end_starting"))
+            return
+        }
+        if instagramProfile != nil && instagram.rejectsTitle(request.title) {
+            showMessage(.tr("broadcast_title_instagram_error"))
+            titleRequest = TitleRequest(profileIds: ids)
+            return
+        }
+        if let profile = instagramProfile, isAutomaticInstagram(profile), !relay.state.liveProfileIds.contains(profile.id),
+           !instagram.prepareForTitle(profileId: profile.id, title: request.title, audience: request.instagramAudience) {
+            // A saved key cannot bring back a lost Producer page. A fresh draft is prepared;
+            // only this Go live continues once it is saved.
+            instagram.prepare(InstagramCaptureTarget(profile: profile, startRequest: request),
+                              title: request.title, audience: request.instagramAudience)
+            return
+        }
+        let startInstagram = instagramProfile.flatMap { profile in
+            isAutomaticInstagram(profile) && !relay.state.liveProfileIds.contains(profile.id) ? profile.id : nil
+        }
+        relay.goLive(ids, title: request.title)
+        if let startInstagram { instagram.requestPublish(startInstagram) }
         updateIdleTimer()
     }
 
@@ -363,8 +526,24 @@ final class AppModel {
 
     func endLiveConfirmed(_ request: EndLiveRequest) {
         endLive = nil
-        relay.endLive(request.profileId)
-        updateIdleTimer()
+        let ended = request.profileId.map { [$0] } ?? relay.state.liveProfileIds
+        guard let instagramId = instagram.profileToEnd(ended) else {
+            relay.endLive(request.profileId)
+            // The page that started Instagram is gone, so its End could not be pressed.
+            if destinations.profiles.contains(where: { ended.contains($0.id) && isAutomaticInstagram($0) }) {
+                showMessage(.tr("instagram_end_failed"))
+            }
+            updateIdleTimer()
+            return
+        }
+        // Instagram's own End and confirmation run before its ingest is cut; the rest end now.
+        for id in ended where id != instagramId { relay.endLive(id) }
+        instagram.requestEnd(instagramId) { [weak self] success in
+            guard let self else { return }
+            self.relay.endLive(instagramId)
+            self.showMessage(.tr(success ? "instagram_end_done" : "instagram_end_failed"))
+            self.updateIdleTimer()
+        }
     }
 
     func startReceiver(restart: Bool) {

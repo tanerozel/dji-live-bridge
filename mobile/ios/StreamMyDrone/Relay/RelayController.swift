@@ -147,7 +147,8 @@ final class RelayController {
     // MARK: Broadcast
 
     /// Adds `profileIds` to the broadcast. A platform that fails is reported; the others go on.
-    func goLive(_ profileIds: [String]) {
+    /// `title` is the broadcast's, for the platforms the app sets up itself.
+    func goLive(_ profileIds: [String], title: String? = nil) {
         guard !profileIds.isEmpty else {
             state.notice = RelayNotice(title: .tr("go_live_failed"), message: .tr("pick_platform_first"))
             return
@@ -167,7 +168,7 @@ final class RelayController {
                     guard let profile = try profileStore.load().profiles.first(where: { $0.id == profileId }) else {
                         throw DestinationProfileError("profile_error_not_found")
                     }
-                    try await youtube.prepare(profile, owner: owner)
+                    try await youtube.prepare(profile, title: title, owner: owner)
                     guard liveAttempts[profileId] == owner else {
                         finishYouTube([profileId: owner])
                         return
