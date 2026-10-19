@@ -6,6 +6,8 @@
   const visible = node => node.getClientRects().length > 0 && getComputedStyle(node).display !== 'none' && getComputedStyle(node).visibility !== 'hidden';
   const words = {
     practice: /^(practice|alıştırma)$/i, public: /^(public|herkese açık)$/i,
+    start: /^(go live|start live video|canlı yayına geç|canlı yayını başlat|canlı yayın başlat)$/i,
+    end: /^(end live video|end live|end broadcast|canlı videoyu bitir|canlı videonu bitir|canlı videoyu sonlandır|canlı videonu sonlandır|canlı yayını bitir|canlı yayını sonlandır)$/i,
     next: /^(next|continue|ileri|İleri|devam|devam et|sonraki)$/i, audience: /^(audience|kitle|yayın kitlesi)$/i,
   };
   const roles = new Set(['button', 'combobox', 'option', 'menuitem', 'radio', 'listbox', 'dialog']);

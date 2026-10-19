@@ -459,3 +459,29 @@ The script produces `app/build/outputs/apk/release/app-release.apk` and
 SHA-256 digests. Never commit a keystore or its credentials. Losing the signing key prevents future
 updates outside Play App Signing, so creating and backing up the production key remains an explicit
 release-owner step.
+
+## Instagram publication versus forwarding
+
+RTMP outbound bytes confirm delivery, not publication. The retained Producer is checked read-only
+while its profile is active, even after the explicit 90-second automatic Start expires or a user
+presses Go live manually. Only a unique enabled/uncovered End-live control with no active Go-live
+control confirms publication. Missing, blocked, replaced, failed or timed-out observations clear
+confirmation. Observation never arms a new Start or retries an already claimed click.
+
+Readonly, explicitly labelled Producer stream-key password fields are excluded from the login
+password guard; their values are never read by the start/end helpers. Unknown/editable password
+fields and login/2FA/current-password inputs remain blocked. A renderer commit also verifies the
+expected page URL and its deadline before clicking once.
+
+For a single Instagram destination, the top badge and Android notification switch from Forwarding to Live only when that
+same profile has both current platform confirmation and a nonempty forwarding output. Its timer
+starts at confirmation. In multiple-platform details, the Instagram row can show Live independently;
+a confirmed Instagram does not label unconfirmed/manual destinations live. Transport statistics and
+other unverified destinations keep Forwarding. Confirmation is held in memory and is not restored
+following process death.
+
+Instagram selection does not show a manual Update key snackbar or renewal button. The saved
+managed connection says it is prepared automatically, with an Edit/settings action for account
+or fallback settings. Explicit manual fallback profiles retain their stored-key summary instead
+of promising automatic setup. Manual TikTok renewal prompts are unchanged. Start still prepares
+a fresh Instagram connection automatically whenever the retained title/audience session is missing.

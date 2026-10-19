@@ -430,6 +430,7 @@ internal class InstagramProducerSession {
             if (document != currentDocument || view.url != url || observableProfileId() != profileId) return@evaluateJavascript
             val state = runCatching { JSONTokener(raw).nextValue() as? String }.getOrNull()
             if (state in setOf("live", "ready", "waiting", "blocked")) publishState(state!!)
+            if (state == "blocked" || (armed == null && state != "live")) diagnoseSetup()
             if (state == "live") {
                 val since = publicationConfirmation?.takeIf { it.profileId == profileId }?.sinceElapsedMillis
                     ?: SystemClock.elapsedRealtime()
@@ -662,7 +663,7 @@ internal class InstagramProducerSession {
         view.evaluateJavascript(diagnoseScript) { raw ->
             val code = runCatching { JSONTokener(raw).nextValue() as? String }.getOrNull() ?: return@evaluateJavascript
             // Defense in depth: only the probe's finite structural vocabulary reaches logs.
-            val allowed = setOf("practice", "public", "next", "audience", "button", "div", "span", "label", "select", "input", "option",
+            val allowed = setOf("practice", "public", "next", "audience", "start", "end", "button", "div", "span", "label", "select", "input", "option",
                 "other", "none", "combobox", "menuitem", "radio", "listbox", "dialog", "disabled", "enabled", "blocked", "no-controls")
             if (code.length <= 3000 && code.split(':', ',').all { it in allowed }) Log.i(LOG_TAG, "Instagram structure: $code")
         }
@@ -725,6 +726,11 @@ internal class InstagramProducerSession {
     companion object {
         // A notification may finish the retained page; no Activity or destroyed ViewModel is retained.
         private var retained: WeakReference<InstagramProducerSession>? = null
+
+        fun singlePublicationConfirmed(profileIds: List<String>, snapshot: RelaySnapshot): Boolean {
+            val profileId = profileIds.singleOrNull() ?: return false
+            return instagramConfirmedOutput(profileId, snapshot.output(profileId), retained?.get()?.publicationConfirmation)
+        }
 
         fun profileToEnd(profileIds: List<String>): String? = retained?.get()?.connectedProfileId?.takeIf { it in profileIds }
 

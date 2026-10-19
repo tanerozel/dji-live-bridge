@@ -50,10 +50,11 @@ internal fun LiveDetails(
     onEndPlatform: (DestinationProfile) -> Unit,
     onOpenInstagram: () -> Unit,
     modifier: Modifier = Modifier,
+    instagramConfirmation: InstagramPublicationConfirmation? = null,
 ) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
         if (phase.isStreaming) StatsCard(snapshot)
-        if (destinations.size > 1) PlatformsCard(destinations, snapshot, onEndPlatform)
+        if (destinations.size > 1) PlatformsCard(destinations, snapshot, onEndPlatform, instagramConfirmation)
         liveTips(phase, snapshot, destinations).forEach { TipBox(it) }
         if (destinations.any { it.kind == DestinationKind.INSTAGRAM }) {
             BridgeCard { InstagramProducerActions(onOpenBrowser = onOpenInstagram) }
@@ -162,12 +163,14 @@ private fun PlatformsCard(
     destinations: List<DestinationProfile>,
     snapshot: RelaySnapshot,
     onEnd: (DestinationProfile) -> Unit,
+    instagramConfirmation: InstagramPublicationConfirmation?,
 ) {
     val colors = BridgeTheme.colors
     BridgeCard(verticalSpacing = 10.dp) {
         SectionHeader(title = stringResource(R.string.platforms))
         destinations.forEach { profile ->
-            val (label, tone) = outputLabel(snapshot.output(profile.id)?.status, colors)
+            val (transportLabel, tone) = outputLabel(snapshot.output(profile.id)?.status, colors)
+            val label = if (instagramPublicationConfirmed(profile, snapshot.output(profile.id), instagramConfirmation)) R.string.status_live else transportLabel
             val name = profile.kind.displayName()
             Row(
                 modifier = Modifier.semantics(mergeDescendants = true) {},

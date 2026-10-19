@@ -581,10 +581,13 @@ class RelayForegroundService : Service() {
 
     private fun notificationText(snapshot: RelaySnapshot): String {
         val publishing = snapshot.status == "publishing"
+        val confirmed = InstagramProducerSession.singlePublicationConfirmed(liveProfileIds.toList(), snapshot)
         return when {
             snapshot.status == "error" -> getString(R.string.notification_receiver_error)
             snapshot.status == "starting" -> getString(R.string.notification_starting)
             liveProfileIds.isNotEmpty() -> when {
+                publishing && confirmed && snapshot.outputStatus == "congested" -> getString(R.string.notification_live_slow)
+                publishing && confirmed -> getString(R.string.notification_live)
                 publishing && snapshot.outputStatus == "congested" -> getString(R.string.notification_forwarding_slow)
                 publishing && snapshot.outputStatus == "forwarding" -> getString(R.string.notification_forwarding)
                 publishing && snapshot.outputStatus == "reconnecting" -> getString(R.string.notification_reconnecting)

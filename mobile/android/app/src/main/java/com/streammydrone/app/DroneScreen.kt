@@ -167,6 +167,8 @@ internal fun DroneScreen(
     onRetryInstagram: () -> Unit = {},
     instagramPublishStatus: Int? = null,
     instagramPublishing: Boolean = false,
+    instagramConfirmation: InstagramPublicationConfirmation? = null,
+    instagramManualProfileIds: Set<String> = emptySet(),
     /** Ends the broadcast on one platform, or on all of them for null. */
     onEndLive: (profileId: String?) -> Unit,
     /** A platform's switch: choose it for the next broadcast, or while live start or end it there. */
@@ -243,6 +245,7 @@ internal fun DroneScreen(
                     onRetryInstagram = onRetryInstagram,
                     instagramPublishStatus = instagramPublishStatus,
                     instagramPublishing = instagramPublishing,
+                    instagramConfirmation = instagramConfirmation,
                     onEndLive = onEndLive,
                     onPlatformToggle = onPlatformToggle,
                     onPlatformEdit = onPlatformEdit,
@@ -270,6 +273,7 @@ internal fun DroneScreen(
                 onToggle = onPlatformToggle,
                 onEdit = onPlatformEdit,
                 onEditProfile = onEditProfile,
+                instagramManualProfileIds = instagramManualProfileIds,
             )
         }
         DroneSheet.DETAILS -> BridgeSheet(onDismiss = { sheet = null }) {
@@ -280,6 +284,7 @@ internal fun DroneScreen(
                 lan = lan,
                 onEndPlatform = { profile -> onEndLive(profile.id) },
                 onOpenInstagram = onOpenInstagram,
+                instagramConfirmation = instagramConfirmation,
             )
         }
         null -> Unit
@@ -307,6 +312,7 @@ private fun Controls(
     onRetryInstagram: () -> Unit,
     instagramPublishStatus: Int?,
     instagramPublishing: Boolean,
+    instagramConfirmation: InstagramPublicationConfirmation?,
     onEndLive: (profileId: String?) -> Unit,
     onPlatformToggle: (DestinationKind) -> Unit,
     onPlatformEdit: (DestinationKind) -> Unit,
@@ -327,7 +333,9 @@ private fun Controls(
     }
     val statusCard: @Composable (Modifier) -> Unit = { modifier ->
         StatusCard(
-            look = statusLook(phase, snapshot, live, serviceState.liveSinceElapsedMillis, LiveTarget(liveDestinations)),
+            look = statusLook(phase, snapshot, live, serviceState.liveSinceElapsedMillis, LiveTarget(liveDestinations),
+                liveDestinations.singleOrNull()?.takeIf { instagramPublicationConfirmed(it, snapshot.output(it.id), instagramConfirmation) }
+                    ?.let { instagramConfirmation }),
             modifier = modifier,
         )
     }
@@ -641,6 +649,7 @@ private fun statusLook(
     live: Boolean,
     liveSinceElapsedMillis: Long?,
     target: LiveTarget,
+    instagramConfirmation: InstagramPublicationConfirmation?,
 ): StatusLook {
     fun text(value: String): @Composable () -> Unit = { StatusCaption(value) }
     if (!live) {
@@ -660,10 +669,10 @@ private fun statusLook(
             StatusLook(
                 tone = if (congested) Tone.WARNING else Tone.LIVE,
                 leading = if (congested) Leading.WARNING else Leading.LIVE_DOT,
-                headline = stringResource(R.string.status_forwarding),
+                headline = stringResource(if (instagramConfirmation != null) R.string.status_live else R.string.status_forwarding),
                 caption = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        liveSinceElapsedMillis?.let { since ->
+                        (instagramConfirmation?.sinceElapsedMillis ?: liveSinceElapsedMillis)?.let { since ->
                             LiveTimer(since, color = Color.White, style = MaterialTheme.typography.labelSmall)
                             StatusCaption(" · ")
                         }
@@ -1284,7 +1293,7 @@ private fun NotConnecting() {
 
 /**
  * Where the stream goes, in the style of the screen: every platform with its switch, then the saved
- * ones with their stream keys. Instagram and TikTok need a new key for every broadcast.
+ * ones with their connection settings. Managed Instagram setup prepares its own connection.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -1296,6 +1305,7 @@ private fun PlatformsSheet(
     onToggle: (DestinationKind) -> Unit,
     onEdit: (DestinationKind) -> Unit,
     onEditProfile: (DestinationProfile) -> Unit,
+    instagramManualProfileIds: Set<String>,
 ) {
     val saved = destinations.profiles.mapTo(mutableSetOf()) { it.kind }
     val on = if (live) {
@@ -1340,7 +1350,8 @@ private fun PlatformsSheet(
     if (destinations.profiles.isNotEmpty()) {
         HorizontalDivider(color = Color.White.copy(alpha = 0.1f))
         destinations.profiles.forEach { profile ->
-            SavedPlatform(profile = profile, onEdit = { onEditProfile(profile) })
+            SavedPlatform(profile = profile, automaticInstagram = profile.kind == DestinationKind.INSTAGRAM && profile.id !in instagramManualProfileIds,
+                onEdit = { onEditProfile(profile) })
         }
     }
     val selected = destinations.selectedProfiles.size
@@ -1357,10 +1368,10 @@ private fun PlatformsSheet(
     }
 }
 
-/** A saved platform with the state of its stream key and the way to change it. */
+/** A saved platform with its connection summary and settings action. */
 @Composable
-private fun SavedPlatform(profile: DestinationProfile, onEdit: () -> Unit) {
-    val renewKey = profile.kind.keyChangesEachStream
+private fun SavedPlatform(profile: DestinationProfile, automaticInstagram: Boolean, onEdit: () -> Unit) {
+    val renewKey = profile.kind.requiresManualKeyRenewal
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
         PlatformTile(kind = profile.kind, size = 28.dp)
         Column(modifier = Modifier.weight(1f)) {
@@ -1372,15 +1383,18 @@ private fun SavedPlatform(profile: DestinationProfile, onEdit: () -> Unit) {
                 overflow = TextOverflow.Ellipsis,
             )
             Text(
-                text = profile.youtube?.channelTitle
-                    ?: stringResource(if (renewKey) R.string.key_changes_each_stream else R.string.key_saved),
+                text = when {
+                    automaticInstagram -> stringResource(R.string.instagram_automatic_setup)
+                    profile.youtube != null -> profile.youtube.channelTitle
+                    else -> stringResource(if (renewKey) R.string.key_changes_each_stream else R.string.key_saved)
+                },
                 color = if (renewKey) WarningColor else Color.White.copy(alpha = 0.6f),
                 style = MaterialTheme.typography.labelSmall,
             )
         }
         PanelButton(
             text = stringResource(if (renewKey) R.string.update_key else R.string.edit),
-            icon = Icons.Rounded.Key,
+            icon = if (profile.kind == DestinationKind.INSTAGRAM) Icons.Rounded.Settings else Icons.Rounded.Key,
             onClick = onEdit,
         )
     }

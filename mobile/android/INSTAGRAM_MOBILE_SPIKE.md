@@ -346,3 +346,52 @@ Meta kaynakları bu araştırmada erişim sınırı verdi; yeni bir resmî yayı
   verified sonucuna izin vermediğinden bu kayıt yeni hazırlığın iki doğrulamasını da kanıtlar.
   capture sırasında pencere gizlendi ve profile-save callback'ine geçildi. Yeni gerçek yayın
   başlatma/bitirme yapılmadı; Go live veya mevcut yayının kapanışı bu testin kanıtı değildir.
+
+## Otomatik başlangıç ve Yayında göstergesi (2026-10-19)
+
+- Kullanıcı aktarımın iki dakika sürdüğünü, sonra Instagram Go Live'a kendisinin basarak
+  yayını açtığını doğruladı. Bu, otomatik Go Live kanıtı değildir. Ana kart yalnız relay
+  forwarding durumuna bağlı olduğundan gerçek yayın açılsa da Aktarılıyor yazıyordu.
+- Kodda start/end auth guard her password-type alanı login sayıyordu. Producer'ın açıkça
+  stream-key etiketli readonly password alanı artık yalnız label/readonly metadatasıyla
+  ayrılır; değer okunmaz. Bilinmeyen/editable password, login ve 2FA guard'ları korunur.
+- Süresi dolan native Start tekrar canlandırılmaz. Renderer commit URL/son-kullanma-süresi
+  kontrolüyle tek seferliktir. Kullanıcı bir yayın başlattıktan sonra bağlı aktif sayfa,
+  Start isteği bitse de üç saniyelik salt okunur döngüyle izlenir. Döngü Go Live tıklamaz;
+  olumlu End-live kanıtı doğrular, belirsiz/hatalı sonuç önceki doğrulamayı temizler.
+- Ana kart ve Android bildirimi yalnız tek aktif Instagram profilinin doğrulaması ve aynı nonempty forwarding
+  output'u varsa Yayında gösterir; timer doğrulama anından başlar. Çoklu hedef ayrıntısında
+  Instagram satırı ayrı doğrulanır; başka hedeflere Instagram onayı taşınmaz.
+- Bu değişiklik hazırlanırken mevcut gerçek yayına dokunulmadı. Yükleme aktarımı keseceği
+  için test/derleme tamamlandıktan sonra kullanıcının mevcut yayını/aktarımı durdurması
+  beklenecek; gerçek Go Live/End testi kullanıcı onayı olmadan yapılmayacak.
+
+- Hazır APK doğrulaması: 118 Android JVM / 64 JavaScript testi geçti. Debug/release başarılı;
+  lint 0 hata / mevcut 6 uyarı. Rust fmt/clippy, 79 test (6 kapsam dışı), TypeScript/ESLint,
+  15 dil/40 yazı site ve 45 dosya/15 dil iOS çeviri kontrolleri geçti. Paket içindeki
+  publish/end helper'ları son kaynakla eşleşiyor. Yeni sürüm henüz telefona yüklenmedi;
+  kullanıcının elle açtığı gerçek yayın korunuyor. Gerçek otomatik Go Live testi bekliyor.
+
+- Kullanıcı yayını ve aktarımı durdurduğunu belirterek yüklemeyi onayladı. Son kaynak
+  `env DJI_ANDROID_DEVICE_SERIAL=RFCX413L56N ./start.sh` ile Galaxy S23'e yüklendi:
+  debug build başarılı (39 task up-to-date), install `Success`, MainActivity `Status: ok`,
+  PID `25853`. Bu yüklemede gerçek Go Live veya End tıklaması yapılmadı; otomatik
+  yayın başlangıcı ve yeni Yayında göstergesinin gerçek platform testi henüz yapılmadı.
+
+## Gereksiz Anahtarı güncelle adımını kaldırma (2026-10-19)
+
+- Instagram seçilince çıkan eski key-renewal snackbar ve kayıtlı platform satırındaki
+  Anahtarı güncelle düğmesi, elle paste akışından kalmıştı. İki çağrı noktası ortak
+  requiresManualKeyRenewal kararıyla artık yalnız mevcut manuel TikTok akışını kullanır.
+- Yönetilen Instagram satırı 15 dilde Bağlantı otomatik hazırlanır özetini ve Düzenle/settings
+  eylemini gösterir. Açıkça manuel fallback seçilen profilde otomatik hazırlık vaadi yerine
+  kayıtlı anahtar özeti korunur. Instagram için manuel anahtar yenileme uyarısı çıkmaz.
+- Başlat'ın title/audience oturumunu yeniden hazırlama ve bağlantıyı otomatik yakalama yolu
+  değişmedi. Uygun oturum yoksa gerekli bağlantıyı o yol yeniler; sadece metin gizlenip eski
+  key ile doğrudan yayına gönderme gibi bir kestirme eklenmedi.
+
+- Son kontroller: 118 Android JVM testi geçti; debug/release başarılı, lint 0 hata / mevcut
+  6 uyarı. Rust fmt/clippy, 79 test (6 kapsam dışı), TypeScript/ESLint ve 45 dosya/15 dil
+  iOS çeviri kontrolü geçti. Bu küçük UI düzeltmesi için uygulamayı aynalayan yeni test eklenmedi.
+- `env DJI_ANDROID_DEVICE_SERIAL=RFCX413L56N ./start.sh` ile S23'e yüklendi: debug build
+  başarılı, install `Success`, MainActivity `Status: ok`, PID `30709`. Yayın başlatılmadı.

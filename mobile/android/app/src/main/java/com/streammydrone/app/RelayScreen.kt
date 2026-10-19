@@ -186,8 +186,8 @@ internal fun RelayScreen(
         }
         val select = !destinations.isSelected(profile.id)
         updateProfiles { profileStore.setSelected(profile.id, select) }
-        // Instagram and TikTok hand out a new key for every broadcast: offer to paste it now.
-        if (select && kind.keyChangesEachStream) {
+        // Managed Instagram setup renews its own connection before Start.
+        if (select && kind.requiresManualKeyRenewal) {
             scope.launch {
                 snackbarHostState.currentSnackbarData?.dismiss()
                 val result = snackbarHostState.showSnackbar(
@@ -478,6 +478,8 @@ internal fun RelayScreen(
                         },
                         instagramPublishStatus = profileEditorViewModel.instagramProducer.publishStatus,
                         instagramPublishing = profileEditorViewModel.instagramProducer.publishing,
+                        instagramConfirmation = profileEditorViewModel.instagramProducer.publicationConfirmation,
+                        instagramManualProfileIds = profileEditorViewModel.instagramManualProfiles,
                         onOpenInstagram = {
                             profileEditorViewModel.instagramProducer.show(null)
                         },

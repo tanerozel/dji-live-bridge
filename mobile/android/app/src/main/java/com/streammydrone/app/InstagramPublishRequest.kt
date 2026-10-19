@@ -29,5 +29,11 @@ internal fun instagramPublicationConfirmed(
     profile: DestinationProfile,
     output: OutputSnapshot?,
     confirmation: InstagramPublicationConfirmation?,
-): Boolean = profile.kind == DestinationKind.INSTAGRAM && confirmation?.profileId == profile.id &&
-    output?.id == profile.id && output.status in LIVE_OUTPUT_STATUSES && output.outboundBytes > 0
+): Boolean = profile.kind == DestinationKind.INSTAGRAM && instagramConfirmedOutput(profile.id, output, confirmation)
+
+internal fun instagramConfirmedOutput(
+    profileId: String,
+    output: OutputSnapshot?,
+    confirmation: InstagramPublicationConfirmation?,
+): Boolean = confirmation?.profileId == profileId && output?.id == profileId &&
+    output.status in LIVE_OUTPUT_STATUSES && output.outboundBytes > 0

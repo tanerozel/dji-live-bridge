@@ -1,6 +1,7 @@
 (() => {
   'use strict';
-  // Invoked only for an explicit app Start request. Never read form values or choose an audience.
+  // Probe can observe a manual start. Only an explicit, unexpired app Start can commit.
+  // Never read form values or choose an audience.
   if (window.top !== window || location.origin !== 'https://www.instagram.com' ||
       /^\/(accounts|challenge|checkpoint)(\/|$)/.test(location.pathname) ||
       document.querySelector('input[autocomplete="current-password"], input[autocomplete="one-time-code"], input[name="username"]')) return 'blocked';

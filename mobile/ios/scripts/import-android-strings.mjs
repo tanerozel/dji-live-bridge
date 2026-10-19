@@ -42,6 +42,7 @@ const LANGUAGES = [
 // Android strings that mean nothing on iOS (its notification channel, the Android 13+
 // notification permission, the Wi-Fi settings screen, the Android background limit).
 const ANDROID_ONLY = new Set([
+  'instagram_automatic_setup',
   'instagram_audience',
   'instagram_audience_practice',
   'instagram_audience_public',

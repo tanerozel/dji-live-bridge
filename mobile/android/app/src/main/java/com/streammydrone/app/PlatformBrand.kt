@@ -80,9 +80,9 @@ internal fun PlatformTile(kind: DestinationKind, size: Dp, modifier: Modifier = 
     }
 }
 
-/** Instagram and TikTok hand out a new stream key for every broadcast. */
-internal val DestinationKind.keyChangesEachStream: Boolean
-    get() = this == DestinationKind.INSTAGRAM || this == DestinationKind.TIKTOK
+/** Show renewal prompts only where the current connection flow needs a manual key. */
+internal val DestinationKind.requiresManualKeyRenewal: Boolean
+    get() = this == DestinationKind.TIKTOK
 
 /** The platform as people call it; a custom server is named in the app's language. */
 internal fun DestinationKind.displayName(context: Context): String =
