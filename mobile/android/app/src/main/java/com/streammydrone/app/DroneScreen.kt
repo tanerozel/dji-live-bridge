@@ -47,6 +47,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.HelpOutline
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.rounded.OpenInNew
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.Close
@@ -90,12 +91,12 @@ import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
@@ -114,6 +115,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
@@ -169,6 +171,8 @@ internal fun DroneScreen(
     instagramPublishing: Boolean = false,
     instagramConfirmation: InstagramPublicationConfirmation? = null,
     instagramManualProfileIds: Set<String> = emptySet(),
+    /** The audience the app chose on Instagram for this broadcast. */
+    instagramAudience: InstagramAudience? = null,
     /** Ends the broadcast on one platform, or on all of them for null. */
     onEndLive: (profileId: String?) -> Unit,
     /** A platform's switch: choose it for the next broadcast, or while live start or end it there. */
@@ -246,6 +250,8 @@ internal fun DroneScreen(
                     instagramPublishStatus = instagramPublishStatus,
                     instagramPublishing = instagramPublishing,
                     instagramConfirmation = instagramConfirmation,
+                    instagramManualProfileIds = instagramManualProfileIds,
+                    instagramAudience = instagramAudience,
                     onEndLive = onEndLive,
                     onPlatformToggle = onPlatformToggle,
                     onPlatformEdit = onPlatformEdit,
@@ -285,6 +291,7 @@ internal fun DroneScreen(
                 onEndPlatform = { profile -> onEndLive(profile.id) },
                 onOpenInstagram = onOpenInstagram,
                 instagramConfirmation = instagramConfirmation,
+                skipReminders = automaticProfileIds(liveDestinations, instagramManualProfileIds),
             )
         }
         null -> Unit
@@ -313,6 +320,8 @@ private fun Controls(
     instagramPublishStatus: Int?,
     instagramPublishing: Boolean,
     instagramConfirmation: InstagramPublicationConfirmation?,
+    instagramManualProfileIds: Set<String>,
+    instagramAudience: InstagramAudience?,
     onEndLive: (profileId: String?) -> Unit,
     onPlatformToggle: (DestinationKind) -> Unit,
     onPlatformEdit: (DestinationKind) -> Unit,
@@ -328,14 +337,26 @@ private fun Controls(
     val snapshot = serviceState.snapshot
     val live = serviceState.isLive
     val testing = serviceState.testVideoName != null
+    val automaticInstagram = liveDestinations.filter { it.kind == DestinationKind.INSTAGRAM && it.id !in instagramManualProfileIds }
+    val youtube = liveDestinations.mapNotNull { profile ->
+        profile.youtube?.let { connection -> key(profile.id) { rememberYouTubeBroadcast(profile, connection) } }
+    }
+    val instagramLive = liveDestinations.any { instagramPublicationConfirmed(it, snapshot.output(it.id), instagramConfirmation) }
     val deviceCard: @Composable (Modifier) -> Unit = { modifier ->
         DeviceCard(phase = phase, testing = testing, onClick = onDetails, modifier = modifier)
     }
     val statusCard: @Composable (Modifier) -> Unit = { modifier ->
         StatusCard(
-            look = statusLook(phase, snapshot, live, serviceState.liveSinceElapsedMillis, LiveTarget(liveDestinations),
-                liveDestinations.singleOrNull()?.takeIf { instagramPublicationConfirmed(it, snapshot.output(it.id), instagramConfirmation) }
-                    ?.let { instagramConfirmation }),
+            look = statusLook(
+                phase = phase,
+                snapshot = snapshot,
+                live = live,
+                // Instagram's own start is the moment viewers see the broadcast.
+                liveSinceElapsedMillis = instagramConfirmation?.takeIf { instagramLive }?.sinceElapsedMillis
+                    ?: serviceState.liveSinceElapsedMillis,
+                target = LiveTarget(liveDestinations),
+                confirmed = instagramLive || youtube.any { it.live },
+            ),
             modifier = modifier,
         )
     }
@@ -362,8 +383,9 @@ private fun Controls(
             )
         }
     }
-    val sideButtons: @Composable () -> Unit = {
-        Column(verticalArrangement = Arrangement.spacedBy(GAP)) {
+    val sideButtonCount = (if (showPicture) 2 else 0) + 1 + (if (testing) 1 else 0)
+    val sideButtons: @Composable (vertical: Boolean) -> Unit = { vertical ->
+        SideButtons(vertical) {
             val whole = pictureState.shownFit == PictureFit.WHOLE
             if (showPicture) {
                 GlassIconButton(
@@ -413,7 +435,20 @@ private fun Controls(
             showPicture = showPicture,
             profileError = profileError,
             liveDestinations = liveDestinations,
+            // The status panel already says what these platforms confirmed.
+            automaticProfileIds = automaticProfileIds(liveDestinations, instagramManualProfileIds),
             lan = lan,
+        )
+        AutomaticPlatforms(
+            instagram = liveDestinations.any { it.kind == DestinationKind.INSTAGRAM } ||
+                instagramPublishStatus in setOf(R.string.instagram_end_starting, R.string.instagram_end_failed),
+            instagramStatus = instagramPublishStatus,
+            instagramBusy = instagramPublishing,
+            instagramConfirmed = instagramLive,
+            instagramAudience = instagramAudience?.takeIf { automaticInstagram.isNotEmpty() },
+            youtube = youtube,
+            onOpenInstagram = onOpenInstagram,
+            onRetryInstagram = onRetryInstagram,
         )
         StreamToCard(
             destinations = destinations,
@@ -424,19 +459,6 @@ private fun Controls(
             onEdit = onPlatformEdit,
             onMore = onPlatforms,
         )
-        if (liveDestinations.any { it.kind == DestinationKind.INSTAGRAM } ||
-            instagramPublishStatus in setOf(R.string.instagram_end_starting, R.string.instagram_end_failed)
-        ) {
-            Text(stringResource(instagramPublishStatus ?: R.string.instagram_producer_live), color = Color.White, style = MaterialTheme.typography.bodySmall)
-            if (instagramPublishing || instagramPublishStatus == R.string.instagram_end_starting) LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-            Row {
-                if (instagramPublishStatus in setOf(R.string.instagram_publish_failed, R.string.instagram_end_failed)) {
-                    TextButton(onClick = onRetryInstagram) { Text(stringResource(R.string.retry)) }
-                }
-                TextButton(onClick = onOpenInstagram) { Text(stringResource(R.string.instagram_open_producer)) }
-            }
-        }
-        liveDestinations.filter { it.youtube != null }.forEach { YouTubeBroadcastCard(it) }
     }
     val actions: @Composable (Modifier) -> Unit = { modifier ->
         ActionRow(
@@ -480,7 +502,7 @@ private fun Controls(
                 ) {
                     Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(GAP)) {
                         statusCard(Modifier.weight(1f))
-                        sideButtons()
+                        sideButtons(true)
                     }
                     Box(
                         modifier = Modifier
@@ -503,7 +525,7 @@ private fun Controls(
                     }
                     Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(GAP)) {
                         statusCard(Modifier.widthIn(max = 220.dp))
-                        sideButtons()
+                        sideButtons(true)
                     }
                 }
                 Spacer(modifier = Modifier.weight(1f))
@@ -529,24 +551,196 @@ private fun Controls(
                     statusCard(Modifier.weight(1f))
                 }
                 chips()
-                Box(
+                BoxWithConstraints(
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxWidth(),
                     contentAlignment = Alignment.Center,
                 ) {
-                    // The card takes the middle; the settings button sits above its corner.
+                    // The card takes the middle; the settings button sits above its corner. When
+                    // the platforms leave too little height, the buttons line up across instead.
+                    val vertical = maxHeight >= SIDE_BUTTON * sideButtonCount + GAP * (sideButtonCount - 1)
                     connect(
                         Modifier
                             .padding(top = SIDE_BUTTON + GAP)
                             .verticalScroll(rememberScrollState()),
                     )
-                    Box(modifier = Modifier.align(Alignment.TopEnd)) { sideButtons() }
+                    Box(modifier = Modifier.align(Alignment.TopEnd)) { sideButtons(vertical) }
                 }
                 bottom()
                 actions(Modifier.fillMaxWidth())
             }
         }
+    }
+}
+
+/** Instagram set up by the app and a connected YouTube: the app starts and checks these itself. */
+private fun automaticProfileIds(destinations: List<DestinationProfile>, instagramManualProfileIds: Set<String>): Set<String> =
+    destinations.filter {
+        it.youtube != null || (it.kind == DestinationKind.INSTAGRAM && it.id !in instagramManualProfileIds)
+    }.mapTo(mutableSetOf()) { it.id }
+
+/** The round buttons beside the picture, in a column or, where the height is short, a row. */
+@Composable
+private fun SideButtons(vertical: Boolean, content: @Composable () -> Unit) {
+    if (vertical) {
+        Column(verticalArrangement = Arrangement.spacedBy(GAP)) { content() }
+    } else {
+        Row(horizontalArrangement = Arrangement.spacedBy(GAP)) { content() }
+    }
+}
+
+/**
+ * The platforms the app starts and checks by itself, Instagram and a connected YouTube: what each
+ * one confirmed, in a line, and a tap to look at it there.
+ */
+@Composable
+private fun AutomaticPlatforms(
+    instagram: Boolean,
+    @StringRes instagramStatus: Int?,
+    instagramBusy: Boolean,
+    instagramConfirmed: Boolean,
+    instagramAudience: InstagramAudience?,
+    youtube: List<YouTubeBroadcastView>,
+    onOpenInstagram: () -> Unit,
+    onRetryInstagram: () -> Unit,
+) {
+    if (!instagram && youtube.isEmpty()) return
+    val uriHandler = LocalUriHandler.current
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .glass(PANEL_SHAPE)
+            .padding(vertical = 2.dp),
+    ) {
+        if (instagram) {
+            val failed = instagramStatus in setOf(R.string.instagram_publish_failed, R.string.instagram_end_failed)
+            val busy = !failed && !instagramConfirmed && (instagramBusy || instagramStatus in INSTAGRAM_BUSY)
+            PlatformStatusRow(
+                kind = DestinationKind.INSTAGRAM,
+                badge = instagramAudience?.let { stringResource(it.label) },
+                // Practice is not visible to viewers; that should not go unnoticed.
+                badgeColor = if (instagramAudience == InstagramAudience.PRACTICE) WarningColor else Color.White,
+                status = stringResource(
+                    instagramStatus ?: if (instagramConfirmed) R.string.instagram_publish_live else R.string.instagram_producer_live,
+                ),
+                dot = when {
+                    failed -> DangerColor
+                    instagramConfirmed -> ReadyColor
+                    else -> Color.White.copy(alpha = 0.5f)
+                },
+                busy = busy,
+                openLabel = stringResource(R.string.instagram_open_producer),
+                onOpen = onOpenInstagram,
+                onRetry = if (failed) onRetryInstagram else null,
+            )
+        }
+        youtube.forEachIndexed { index, view ->
+            if (instagram || index > 0) RowDivider()
+            val error = view.error
+            val lifecycle = view.status?.lifecycle
+            PlatformStatusRow(
+                kind = DestinationKind.YOUTUBE,
+                badge = stringResource(view.privacy),
+                badgeColor = if (view.privacy == R.string.youtube_private) WarningColor else Color.White,
+                status = error?.asString() ?: stringResource(view.lifecycle),
+                dot = when {
+                    error != null -> DangerColor
+                    view.live -> ReadyColor
+                    lifecycle == "testing" || lifecycle == "testStarting" -> WarningColor
+                    else -> Color.White.copy(alpha = 0.5f)
+                },
+                busy = error == null && view.lifecycle == R.string.youtube_status_pending,
+                openLabel = stringResource(R.string.youtube_open_broadcast),
+                onOpen = {
+                    runCatching { uriHandler.openUri(view.url) }.onFailure { view.error = uiText(R.string.youtube_error_api) }
+                },
+                onRetry = null,
+            )
+        }
+    }
+}
+
+@Composable
+private fun RowDivider() {
+    HorizontalDivider(modifier = Modifier.padding(start = 54.dp, end = 12.dp), color = Color.White.copy(alpha = 0.08f))
+}
+
+/** One platform in the status panel; the whole row opens the platform. */
+@Composable
+private fun PlatformStatusRow(
+    kind: DestinationKind,
+    badge: String?,
+    badgeColor: Color,
+    status: String,
+    dot: Color,
+    busy: Boolean,
+    openLabel: String,
+    onOpen: () -> Unit,
+    onRetry: (() -> Unit)?,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClickLabel = openLabel, role = Role.Button, onClick = onOpen)
+            .heightIn(min = 52.dp)
+            .padding(start = 12.dp, end = 8.dp, top = 6.dp, bottom = 6.dp)
+            .semantics(mergeDescendants = true) { liveRegion = LiveRegionMode.Polite },
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        PlatformTile(kind = kind, size = 30.dp)
+        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                Text(
+                    text = kind.displayName(),
+                    color = Color.White,
+                    style = MaterialTheme.typography.labelLarge,
+                    maxLines = 1,
+                )
+                badge?.let {
+                    Text(
+                        text = it,
+                        color = badgeColor,
+                        style = MaterialTheme.typography.labelSmall,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier
+                            .background(badgeColor.copy(alpha = 0.16f), CircleShape)
+                            .padding(horizontal = 7.dp, vertical = 1.dp),
+                    )
+                }
+            }
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                if (busy) {
+                    CircularProgressIndicator(modifier = Modifier.size(10.dp), color = Color.White, strokeWidth = 1.5.dp)
+                } else {
+                    Box(
+                        modifier = Modifier
+                            .size(7.dp)
+                            .background(dot, CircleShape),
+                    )
+                }
+                Text(
+                    text = status,
+                    color = Color.White.copy(alpha = 0.8f),
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+        }
+        onRetry?.let {
+            IconButton(onClick = it) {
+                Icon(Icons.Rounded.Refresh, contentDescription = stringResource(R.string.retry), tint = GoLiveStart, modifier = Modifier.size(20.dp))
+            }
+        }
+        Icon(
+            Icons.AutoMirrored.Rounded.OpenInNew,
+            contentDescription = null,
+            tint = Color.White.copy(alpha = 0.6f),
+            modifier = Modifier.size(18.dp),
+        )
     }
 }
 
@@ -649,7 +843,8 @@ private fun statusLook(
     live: Boolean,
     liveSinceElapsedMillis: Long?,
     target: LiveTarget,
-    instagramConfirmation: InstagramPublicationConfirmation?,
+    /** A platform itself said the broadcast is on air, not only that video reaches it. */
+    confirmed: Boolean,
 ): StatusLook {
     fun text(value: String): @Composable () -> Unit = { StatusCaption(value) }
     if (!live) {
@@ -669,10 +864,10 @@ private fun statusLook(
             StatusLook(
                 tone = if (congested) Tone.WARNING else Tone.LIVE,
                 leading = if (congested) Leading.WARNING else Leading.LIVE_DOT,
-                headline = stringResource(if (instagramConfirmation != null) R.string.status_live else R.string.status_forwarding),
+                headline = stringResource(if (confirmed) R.string.status_live else R.string.status_forwarding),
                 caption = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        (instagramConfirmation?.sinceElapsedMillis ?: liveSinceElapsedMillis)?.let { since ->
+                        liveSinceElapsedMillis?.let { since ->
                             LiveTimer(since, color = Color.White, style = MaterialTheme.typography.labelSmall)
                             StatusCaption(" · ")
                         }
@@ -792,6 +987,7 @@ private fun Message(
     showPicture: Boolean,
     profileError: UiText?,
     liveDestinations: List<DestinationProfile>,
+    automaticProfileIds: Set<String>,
     lan: LanAddress?,
 ) {
     val snapshot = serviceState.snapshot
@@ -839,7 +1035,7 @@ private fun Message(
             icon = Icons.Rounded.WifiOff,
             accent = WarningColor,
         )
-        else -> liveTips(phase, snapshot, liveDestinations).firstOrNull()?.let { tip ->
+        else -> liveTips(phase, snapshot, liveDestinations, skipReminders = automaticProfileIds).firstOrNull()?.let { tip ->
             Banner(key = tip, title = null, message = tip, icon = Icons.Rounded.Lightbulb, accent = WarningColor)
         }
     }
@@ -1414,7 +1610,7 @@ private fun ActionRow(
 ) {
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.Top,
+        verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         if (live) {
@@ -1452,32 +1648,18 @@ private fun ActionRow(
     }
 }
 
+/** A square as tall as the broadcast button, so the shutter row lines up; its name is spoken. */
 @Composable
 private fun SquareAction(icon: ImageVector, label: String, onClick: () -> Unit) {
-    // The label may be wider than the square ("Daha fazla"); the column grows a little for it.
-    Column(
+    Box(
         modifier = Modifier
-            .widthIn(min = SQUARE_ACTION_SIZE, max = SQUARE_ACTION_MAX_WIDTH)
-            .clip(CARD_SHAPE)
-            .clickable(role = Role.Button, onClick = onClick),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(3.dp),
+            .size(SQUARE_ACTION_SIZE)
+            .glass(CircleShape)
+            .clickable(onClickLabel = label, role = Role.Button, onClick = onClick)
+            .semantics { contentDescription = label },
+        contentAlignment = Alignment.Center,
     ) {
-        Box(
-            modifier = Modifier
-                .size(SQUARE_ACTION_SIZE)
-                .glass(CARD_SHAPE),
-            contentAlignment = Alignment.Center,
-        ) {
-            Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(ICON))
-        }
-        Text(
-            text = label,
-            color = Color.White,
-            style = MaterialTheme.typography.labelSmall,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-        )
+        Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(ICON))
     }
 }
 
@@ -1628,6 +1810,13 @@ private fun KeepScreenOn() {
     }
 }
 
+/** Instagram statuses that mean the app is still working on it. */
+private val INSTAGRAM_BUSY = setOf(
+    R.string.instagram_waiting_video,
+    R.string.instagram_publish_starting,
+    R.string.instagram_end_starting,
+)
+
 private val MAIN_PLATFORMS = setOf(
     DestinationKind.INSTAGRAM,
     DestinationKind.TIKTOK,
@@ -1637,12 +1826,12 @@ private val MAIN_PLATFORMS = setOf(
 
 /** Behind the connect card until the picture comes: the brand's blue, nearly black. */
 private val WaitingBackground = Brush.verticalGradient(listOf(Color(0xFF101A2A), Color(0xFF05070B)))
-private val SheetColor = Color(0xFF14171C)
+internal val SheetColor = Color(0xFF14171C)
 private val ReadyColor = Color(0xFF4ADE80)
-private val WarningColor = Color(0xFFFBBF24)
+internal val WarningColor = Color(0xFFFBBF24)
 private val DangerColor = Color(0xFFF87171)
-private val GoLiveStart = Color(0xFFFF8A3D)
-private val GoLiveEnd = Color(0xFFEA580C)
+internal val GoLiveStart = Color(0xFFFF8A3D)
+internal val GoLiveEnd = Color(0xFFEA580C)
 
 // Sized for a 360 dp wide phone at a larger font size: four platform tiles fit in a row.
 private val EDGE = 12.dp
@@ -1659,7 +1848,6 @@ private const val VISIBLE_TILES = 4
 private val TILE_SPACING = 6.dp
 private val MIN_TILE_WIDTH = 62.dp
 private val SQUARE_ACTION_SIZE = 52.dp
-private val SQUARE_ACTION_MAX_WIDTH = 76.dp
 private val LANDSCAPE_ACTIONS_WIDTH = 320.dp
 private const val CONTROLS_HINT_MS = 2_500L
 private const val DIM_DELAY_MS = 1_000L

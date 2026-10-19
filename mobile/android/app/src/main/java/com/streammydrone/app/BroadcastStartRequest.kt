@@ -13,9 +13,9 @@ internal fun initialBroadcastTitle(saved: String?, profiles: List<DestinationPro
         .firstNotNullOf { runCatching { validateBroadcastTitle(it) }.getOrNull() }
 
 /** The native Start confirmation always names the audience; first use defaults to Practice. */
-internal enum class InstagramAudience(val label: Int) {
-    PRACTICE(R.string.instagram_audience_practice),
-    PUBLIC(R.string.instagram_audience_public);
+internal enum class InstagramAudience(val label: Int, val hint: Int) {
+    PRACTICE(R.string.instagram_audience_practice, R.string.instagram_audience_practice_hint),
+    PUBLIC(R.string.instagram_audience_public, R.string.instagram_audience_public_hint);
 
     companion object {
         fun fromStorage(value: String?): InstagramAudience = entries.firstOrNull { it.name == value } ?: PRACTICE

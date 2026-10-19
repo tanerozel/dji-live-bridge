@@ -371,4 +371,15 @@
     <string name="instagram_audience_public">公開</string>
     <string name="instagram_preparing">正在準備 Instagram…</string>
     <string name="instagram_automatic_setup">連線將自動準備。</string>
+    <string name="how_it_works">運作方式</string>
+    <string name="instagram_audience_practice_hint">只有你看得到。適合測試直播。</string>
+    <string name="instagram_audience_public_hint">你的粉絲可以觀看。</string>
+    <string name="instagram_preparing_hint">這需要幾秒鐘。如果 Instagram 要求你登入，它的視窗會在這裡開啟。</string>
+    <string name="instagram_step_signin">在 App 內的視窗中登入 Instagram，只需一次。</string>
+    <string name="instagram_step_prepare">每次直播，App 都會自行準備串流金鑰，不需要複製任何內容。</string>
+    <string name="youtube_private_hint">只有你和你選擇的人可以觀看。</string>
+    <string name="youtube_unlisted_hint">任何擁有連結的人都可以觀看；不會出現在搜尋結果或你的頻道中。</string>
+    <string name="youtube_public_hint">任何人都可以在 YouTube 上找到並觀看。</string>
+    <string name="youtube_step_account">選擇你的 Google 帳戶；授權在 Google 自己的視窗中完成。</string>
+    <string name="youtube_step_prepare">標題和公開範圍只需設定一次；每次開播時 App 都會自動建立直播。</string>
 </resources>

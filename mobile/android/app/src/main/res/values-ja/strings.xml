@@ -371,4 +371,15 @@
     <string name="instagram_audience_public">公開</string>
     <string name="instagram_preparing">Instagramを準備中…</string>
     <string name="instagram_automatic_setup">接続は自動で準備されます。</string>
+    <string name="how_it_works">しくみ</string>
+    <string name="instagram_audience_practice_hint">あなただけが見られます。テスト配信に最適です。</string>
+    <string name="instagram_audience_public_hint">フォロワーが視聴できます。</string>
+    <string name="instagram_preparing_hint">数秒かかります。Instagramからログインを求められた場合は、ここにそのウィンドウが開きます。</string>
+    <string name="instagram_step_signin">アプリ内のウィンドウでInstagramに一度ログインします。</string>
+    <string name="instagram_step_prepare">配信のたびにアプリがストリームキーを自動で用意します。コピーは不要です。</string>
+    <string name="youtube_private_hint">あなたと、あなたが選んだ人だけが視聴できます。</string>
+    <string name="youtube_unlisted_hint">リンクを知っている人なら誰でも視聴できます。検索やチャンネルには表示されません。</string>
+    <string name="youtube_public_hint">誰でもYouTubeで見つけて視聴できます。</string>
+    <string name="youtube_step_account">Googleアカウントを選びます。許可はGoogle自身のウィンドウで行います。</string>
+    <string name="youtube_step_prepare">タイトルと公開設定は一度だけ。ライブを始めるたびにアプリが配信を作成します。</string>
 </resources>

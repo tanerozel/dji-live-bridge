@@ -371,4 +371,15 @@
     <string name="instagram_audience_public">공개</string>
     <string name="instagram_preparing">Instagram 준비 중…</string>
     <string name="instagram_automatic_setup">연결이 자동으로 준비됩니다.</string>
+    <string name="how_it_works">작동 방식</string>
+    <string name="instagram_audience_practice_hint">나만 볼 수 있습니다. 테스트 방송에 적합합니다.</string>
+    <string name="instagram_audience_public_hint">팔로워가 시청할 수 있습니다.</string>
+    <string name="instagram_preparing_hint">몇 초 정도 걸립니다. Instagram에서 로그인을 요청하면 여기에서 창이 열립니다.</string>
+    <string name="instagram_step_signin">앱 안의 창에서 Instagram에 한 번 로그인하세요.</string>
+    <string name="instagram_step_prepare">방송할 때마다 앱이 스트림 키를 직접 준비합니다. 복사할 것이 없습니다.</string>
+    <string name="youtube_private_hint">나와 내가 선택한 사람만 시청할 수 있습니다.</string>
+    <string name="youtube_unlisted_hint">링크가 있는 누구나 시청할 수 있으며, 검색이나 채널에는 표시되지 않습니다.</string>
+    <string name="youtube_public_hint">누구나 YouTube에서 찾아 시청할 수 있습니다.</string>
+    <string name="youtube_step_account">Google 계정을 선택하세요. 권한은 Google의 자체 창에서 부여합니다.</string>
+    <string name="youtube_step_prepare">제목과 공개 범위를 한 번만 설정하면, 라이브를 시작할 때마다 앱이 방송을 만듭니다.</string>
 </resources>

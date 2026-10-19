@@ -376,4 +376,15 @@
     <string name="instagram_audience_public">Öffentlich</string>
     <string name="instagram_preparing">Instagram wird vorbereitet…</string>
     <string name="instagram_automatic_setup">Die Verbindung wird automatisch vorbereitet.</string>
+    <string name="how_it_works">So funktioniert es</string>
+    <string name="instagram_audience_practice_hint">Nur du siehst es. Ideal für einen Testlauf.</string>
+    <string name="instagram_audience_public_hint">Deine Follower können zusehen.</string>
+    <string name="instagram_preparing_hint">Das dauert ein paar Sekunden. Wenn Instagram eine Anmeldung verlangt, öffnet sich sein Fenster hier.</string>
+    <string name="instagram_step_signin">Melde dich einmal bei Instagram an, in einem Fenster in der App.</string>
+    <string name="instagram_step_prepare">Für jede Übertragung bereitet die App den Streamschlüssel selbst vor; du musst nichts kopieren.</string>
+    <string name="youtube_private_hint">Nur du und die Personen, die du auswählst, können zusehen.</string>
+    <string name="youtube_unlisted_hint">Jeder mit dem Link kann zusehen; nicht in der Suche oder auf deinem Kanal sichtbar.</string>
+    <string name="youtube_public_hint">Jeder kann es auf YouTube finden und ansehen.</string>
+    <string name="youtube_step_account">Wähle dein Google-Konto; die Berechtigung erteilst du in Googles eigenem Fenster.</string>
+    <string name="youtube_step_prepare">Lege Titel und Sichtbarkeit einmal fest; die App erstellt die Übertragung bei jedem Livegang selbst.</string>
 </resources>

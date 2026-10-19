@@ -371,4 +371,15 @@
     <string name="instagram_audience_public">Publik</string>
     <string name="instagram_preparing">Menyiapkan Instagram…</string>
     <string name="instagram_automatic_setup">Koneksi disiapkan secara otomatis.</string>
+    <string name="how_it_works">Cara kerjanya</string>
+    <string name="instagram_audience_practice_hint">Hanya kamu yang bisa melihatnya. Cocok untuk uji coba.</string>
+    <string name="instagram_audience_public_hint">Pengikutmu bisa menonton.</string>
+    <string name="instagram_preparing_hint">Ini butuh beberapa detik. Jika Instagram memintamu masuk, jendelanya terbuka di sini.</string>
+    <string name="instagram_step_signin">Masuk ke Instagram sekali saja, di jendela di dalam aplikasi.</string>
+    <string name="instagram_step_prepare">Untuk setiap siaran, aplikasi menyiapkan kunci streaming sendiri; tidak ada yang perlu disalin.</string>
+    <string name="youtube_private_hint">Hanya kamu dan orang yang kamu pilih yang bisa menonton.</string>
+    <string name="youtube_unlisted_hint">Siapa pun yang punya tautan bisa menonton; tidak muncul di penelusuran atau di kanalmu.</string>
+    <string name="youtube_public_hint">Siapa pun bisa menemukan dan menontonnya di YouTube.</string>
+    <string name="youtube_step_account">Pilih akun Google-mu; izin diberikan di jendela Google sendiri.</string>
+    <string name="youtube_step_prepare">Atur judul dan visibilitas sekali; aplikasi membuat siaran setiap kali kamu live.</string>
 </resources>

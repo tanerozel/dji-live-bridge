@@ -376,4 +376,15 @@
     <string name="instagram_audience_public">सार्वजनिक</string>
     <string name="instagram_preparing">Instagram तैयार हो रहा है…</string>
     <string name="instagram_automatic_setup">कनेक्शन अपने आप तैयार होता है।</string>
+    <string name="how_it_works">यह कैसे काम करता है</string>
+    <string name="instagram_audience_practice_hint">सिर्फ़ आप देख सकते हैं। टेस्ट लाइव के लिए अच्छा है।</string>
+    <string name="instagram_audience_public_hint">आपके फ़ॉलोअर देख सकते हैं।</string>
+    <string name="instagram_preparing_hint">इसमें कुछ सेकंड लगते हैं। अगर Instagram लॉग इन करने को कहे, तो उसकी विंडो यहीं खुलेगी।</string>
+    <string name="instagram_step_signin">ऐप के अंदर की विंडो में Instagram में एक बार लॉग इन करें।</string>
+    <string name="instagram_step_prepare">हर ब्रॉडकास्ट के लिए ऐप स्ट्रीम की खुद तैयार करता है; कुछ भी कॉपी नहीं करना है।</string>
+    <string name="youtube_private_hint">सिर्फ़ आप और आपके चुने हुए लोग देख सकते हैं।</string>
+    <string name="youtube_unlisted_hint">लिंक वाला कोई भी देख सकता है; यह खोज या आपके चैनल पर नहीं दिखता।</string>
+    <string name="youtube_public_hint">कोई भी इसे YouTube पर ढूँढकर देख सकता है।</string>
+    <string name="youtube_step_account">अपना Google खाता चुनें; अनुमति Google की अपनी विंडो में दी जाती है।</string>
+    <string name="youtube_step_prepare">शीर्षक और दृश्यता एक बार सेट करें; हर बार लाइव होने पर ऐप ब्रॉडकास्ट खुद बनाता है।</string>
 </resources>

@@ -480,6 +480,7 @@ internal fun RelayScreen(
                         instagramPublishing = profileEditorViewModel.instagramProducer.publishing,
                         instagramConfirmation = profileEditorViewModel.instagramProducer.publicationConfirmation,
                         instagramManualProfileIds = profileEditorViewModel.instagramManualProfiles,
+                        instagramAudience = profileEditorViewModel.broadcastInstagramAudience,
                         onOpenInstagram = {
                             profileEditorViewModel.instagramProducer.show(null)
                         },
@@ -513,6 +514,7 @@ internal fun RelayScreen(
             hasManualDestinations = destinations.profiles.any {
                 it.id in profileIds && (it.kind != DestinationKind.INSTAGRAM && it.youtube == null || it.id in profileEditorViewModel.instagramManualProfiles)
             },
+            platforms = destinations.profiles.filter { it.id in profileIds }.map { it.kind }.distinct(),
             hasInstagram = destinations.profiles.any { it.id in profileIds && it.kind == DestinationKind.INSTAGRAM && it.id !in profileEditorViewModel.instagramManualProfiles },
             initialAudience = uiPreferences.instagramAudience,
             onDismiss = { titleProfiles = null },

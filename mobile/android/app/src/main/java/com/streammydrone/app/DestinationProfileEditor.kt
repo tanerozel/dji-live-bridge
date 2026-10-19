@@ -36,6 +36,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -111,6 +112,8 @@ internal fun DestinationProfileEditor(
         else -> validationMessage { validateStreamKey(streamKey) }?.asString()
     }
     val hasChanges = streamKey.isNotEmpty() || !sameServerUrl(serverUrl, state.initialServerUrl)
+    // Instagram connected by the app itself: no key to type, one button to connect.
+    val automaticInstagram = onOpenInstagram != null && !state.instagramManual
 
     fun requestDismiss() {
         focusManager.clearFocus()
@@ -168,12 +171,20 @@ internal fun DestinationProfileEditor(
                     .padding(horizontal = 20.dp, vertical = 12.dp),
                 contentAlignment = Alignment.Center,
             ) {
-                if (kind != DestinationKind.INSTAGRAM || state.instagramManual) PrimaryButton(
-                    modifier = Modifier.widthIn(max = 560.dp),
-                    text = stringResource(R.string.save),
-                    onClick = ::save,
-                    enabled = profile == null || hasChanges,
-                )
+                if (automaticInstagram) {
+                    PrimaryButton(
+                        modifier = Modifier.widthIn(max = 560.dp),
+                        text = stringResource(R.string.instagram_connect),
+                        onClick = { onOpenInstagram?.invoke() },
+                    )
+                } else if (kind != DestinationKind.INSTAGRAM || state.instagramManual) {
+                    PrimaryButton(
+                        modifier = Modifier.widthIn(max = 560.dp),
+                        text = stringResource(R.string.save),
+                        onClick = ::save,
+                        enabled = profile == null || hasChanges,
+                    )
+                }
             }
         },
     ) { contentPadding ->
@@ -193,9 +204,6 @@ internal fun DestinationProfileEditor(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 PlatformTile(kind = kind, size = 64.dp)
-                if (onConnectYouTube != null) {
-                    TextButton(onClick = onConnectYouTube) { Text(stringResource(R.string.youtube_connect)) }
-                }
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(6.dp),
@@ -205,19 +213,15 @@ internal fun DestinationProfileEditor(
                         text = kind.displayName(),
                         style = MaterialTheme.typography.headlineSmall,
                     )
-                    if (kind != DestinationKind.INSTAGRAM || state.instagramManual) Text(
-                        text = stringResource(kind.keyHelp),
+                    Text(
+                        text = stringResource(if (automaticInstagram) R.string.instagram_automatic_setup else kind.keyHelp),
                         style = MaterialTheme.typography.bodyMedium,
                         color = colors.muted,
                         textAlign = TextAlign.Center,
                     )
                 }
 
-                if (onOpenInstagram != null) {
-                    Text(stringResource(R.string.instagram_modal_help), style = MaterialTheme.typography.bodyMedium, color = colors.muted)
-                    PrimaryButton(text = stringResource(R.string.instagram_connect), onClick = onOpenInstagram)
-                    TextButton(onClick = { state.instagramManual = !state.instagramManual }) { Text(stringResource(R.string.instagram_manual)) }
-                }
+                if (automaticInstagram) InstagramAutomaticSteps()
                 if (state.instagramManual && onOpenInstagramBrowser != null) InstagramSetupGuide(onOpenBrowser = onOpenInstagramBrowser)
 
                 if (kind != DestinationKind.INSTAGRAM || state.instagramManual) {
@@ -334,7 +338,31 @@ internal fun DestinationProfileEditor(
                     }
 
                 }
+                if (onConnectYouTube != null) {
+                    BridgeCard(verticalSpacing = 12.dp) {
+                        Text(
+                            text = stringResource(R.string.youtube_connection_help),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = colors.muted,
+                        )
+                        OutlinedButton(
+                            onClick = onConnectYouTube,
+                            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                            shape = MaterialTheme.shapes.medium,
+                        ) {
+                            PlatformTile(kind = DestinationKind.YOUTUBE, size = 20.dp)
+                            Spacer(Modifier.width(8.dp))
+                            Text(stringResource(R.string.youtube_connect))
+                        }
+                    }
+                }
                 editorError?.let { AlertBanner(title = stringResource(R.string.save_failed), message = it.asString()) }
+                if (onOpenInstagram != null) {
+                    // The other way to set up Instagram, and back.
+                    TextButton(onClick = { state.instagramManual = !state.instagramManual }) {
+                        Text(stringResource(if (state.instagramManual) R.string.instagram_connect else R.string.instagram_manual))
+                    }
+                }
 
                 if (onDelete != null) {
                     TextButton(

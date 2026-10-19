@@ -396,4 +396,15 @@
     <string name="instagram_audience_public">عام</string>
     <string name="instagram_preparing">جارٍ تجهيز Instagram…</string>
     <string name="instagram_automatic_setup">يتم تجهيز الاتصال تلقائيًا.</string>
+    <string name="how_it_works">كيف يعمل</string>
+    <string name="instagram_audience_practice_hint">لا يراه أحد غيرك. مناسب لبث تجريبي.</string>
+    <string name="instagram_audience_public_hint">يمكن لمتابعيك المشاهدة.</string>
+    <string name="instagram_preparing_hint">يستغرق هذا بضع ثوانٍ. إذا طلب Instagram تسجيل الدخول، تُفتح نافذته هنا.</string>
+    <string name="instagram_step_signin">سجّل الدخول إلى Instagram مرة واحدة، في نافذة داخل التطبيق.</string>
+    <string name="instagram_step_prepare">يجهّز التطبيق مفتاح البث بنفسه لكل بث؛ لا حاجة إلى نسخ أي شيء.</string>
+    <string name="youtube_private_hint">لا يشاهده إلا أنت والأشخاص الذين تختارهم.</string>
+    <string name="youtube_unlisted_hint">يمكن لأي شخص لديه الرابط المشاهدة؛ لا يظهر في البحث أو على قناتك.</string>
+    <string name="youtube_public_hint">يمكن لأي شخص العثور عليه ومشاهدته على YouTube.</string>
+    <string name="youtube_step_account">اختر حساب Google؛ يُمنح الإذن في نافذة Google نفسها.</string>
+    <string name="youtube_step_prepare">اضبط العنوان ومستوى الظهور مرة واحدة؛ ينشئ التطبيق البث في كل مرة تبدأ فيها البث المباشر.</string>
 </resources>

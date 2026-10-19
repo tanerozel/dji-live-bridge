@@ -51,11 +51,12 @@ internal fun LiveDetails(
     onOpenInstagram: () -> Unit,
     modifier: Modifier = Modifier,
     instagramConfirmation: InstagramPublicationConfirmation? = null,
+    skipReminders: Set<String> = emptySet(),
 ) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
         if (phase.isStreaming) StatsCard(snapshot)
         if (destinations.size > 1) PlatformsCard(destinations, snapshot, onEndPlatform, instagramConfirmation)
-        liveTips(phase, snapshot, destinations).forEach { TipBox(it) }
+        liveTips(phase, snapshot, destinations, skipReminders).forEach { TipBox(it) }
         if (destinations.any { it.kind == DestinationKind.INSTAGRAM }) {
             BridgeCard { InstagramProducerActions(onOpenBrowser = onOpenInstagram) }
         }
@@ -68,7 +69,13 @@ internal fun LiveDetails(
 
 /** What the user can do about the stream's state right now, most urgent first. */
 @Composable
-internal fun liveTips(phase: BridgePhase, snapshot: RelaySnapshot, destinations: List<DestinationProfile>): List<String> {
+internal fun liveTips(
+    phase: BridgePhase,
+    snapshot: RelaySnapshot,
+    destinations: List<DestinationProfile>,
+    /** Platforms the app starts by itself: no reminder to press "Go live" there. */
+    skipReminders: Set<String> = emptySet(),
+): List<String> {
     val congested = snapshot.outputs.any { it.status == "congested" }
     val tips = when {
         destinations.isEmpty() -> emptyList()
@@ -76,7 +83,7 @@ internal fun liveTips(phase: BridgePhase, snapshot: RelaySnapshot, destinations:
             snapshot.outputs.any { it.reconnectAttempts >= RECONNECT_HINT_THRESHOLD } -> listOf(R.string.tip_check_key)
         phase == BridgePhase.RECEIVER_ERROR -> listOf(R.string.tip_receiver_error)
         phase == BridgePhase.LIVE && congested -> listOf(R.string.tip_congested)
-        phase == BridgePhase.LIVE -> destinations.mapNotNull {
+        phase == BridgePhase.LIVE -> destinations.filter { it.id !in skipReminders }.mapNotNull {
             if (it.youtube != null) R.string.youtube_auto_hint else it.kind.liveReminder
         }.distinct()
         else -> emptyList()

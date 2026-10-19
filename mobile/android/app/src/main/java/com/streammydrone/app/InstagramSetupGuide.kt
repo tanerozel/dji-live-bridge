@@ -4,7 +4,15 @@ import android.content.ClipboardManager
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.OpenInNew
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -45,10 +53,33 @@ internal fun pasteInstagram(context: Context, state: ProfileEditorState, server:
 
 @Composable
 internal fun InstagramSetupGuide(onOpenBrowser: () -> Unit) {
-    Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(stringResource(R.string.instagram_phone_setup), style = MaterialTheme.typography.titleSmall)
-        Text(stringResource(R.string.instagram_phone_steps), style = MaterialTheme.typography.bodySmall, color = BridgeTheme.colors.muted)
-        TextButton(onClick = onOpenBrowser) { Text(stringResource(R.string.instagram_open_browser)) }
+    BridgeCard(verticalSpacing = 14.dp) {
+        SectionHeader(title = stringResource(R.string.instagram_phone_setup))
+        NumberedSteps(numberedLines(stringResource(R.string.instagram_phone_steps)))
+        OutlinedButton(
+            onClick = onOpenBrowser,
+            modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+            shape = MaterialTheme.shapes.medium,
+        ) {
+            Icon(Icons.AutoMirrored.Rounded.OpenInNew, contentDescription = null, modifier = Modifier.size(18.dp))
+            Spacer(Modifier.width(8.dp))
+            Text(stringResource(R.string.instagram_open_browser))
+        }
+    }
+}
+
+/** What happens when Instagram is connected, so nothing about it is a surprise. */
+@Composable
+internal fun InstagramAutomaticSteps() {
+    BridgeCard(verticalSpacing = 14.dp) {
+        SectionHeader(title = stringResource(R.string.how_it_works))
+        NumberedSteps(
+            listOf(
+                stringResource(R.string.instagram_step_signin),
+                stringResource(R.string.instagram_step_prepare),
+                stringResource(R.string.instagram_modal_help),
+            ),
+        )
     }
 }
 

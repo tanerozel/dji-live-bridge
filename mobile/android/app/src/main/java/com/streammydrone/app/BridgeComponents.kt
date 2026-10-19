@@ -7,6 +7,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ErrorOutline
@@ -27,16 +29,21 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.liveRegion
@@ -206,3 +213,67 @@ internal fun DetailRow(label: String, value: String) {
         )
     }
 }
+
+/** One choice in a list of them, with an optional line under its name saying what it means. */
+@Composable
+internal fun ChoiceRow(label: String, hint: String?, selected: Boolean, enabled: Boolean, onSelect: () -> Unit) {
+    val colors = BridgeTheme.colors
+    val shape = MaterialTheme.shapes.small
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(shape)
+            .background(if (selected) colors.accentSoft else colors.field)
+            .border(1.dp, if (selected) colors.accent else colors.border, shape)
+            .selectable(selected = selected, enabled = enabled, role = Role.RadioButton, onClick = onSelect)
+            .alpha(if (enabled) 1f else 0.5f)
+            .padding(horizontal = 12.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        RadioButton(
+            selected = selected,
+            onClick = null,
+            enabled = enabled,
+            colors = RadioButtonDefaults.colors(selectedColor = colors.accent, unselectedColor = colors.faint),
+        )
+        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Text(label, style = MaterialTheme.typography.titleSmall, color = colors.text)
+            hint?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = colors.muted) }
+        }
+    }
+}
+
+/** Steps in order, each after a round number. */
+@Composable
+internal fun NumberedSteps(steps: List<String>, modifier: Modifier = Modifier) {
+    val colors = BridgeTheme.colors
+    Column(modifier = modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        steps.forEachIndexed { index, step ->
+            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.Top) {
+                Box(
+                    modifier = Modifier
+                        .size(24.dp)
+                        .background(colors.accentSoft, CircleShape),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text("${index + 1}", style = MaterialTheme.typography.labelMedium, color = colors.onAccentSoft)
+                }
+                Text(
+                    text = step,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = colors.text,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(top = 2.dp),
+                )
+            }
+        }
+    }
+}
+
+/** Splits a translated "1. …\n2. …" text into its steps, without their numbers. */
+internal fun numberedLines(text: String): List<String> =
+    text.split('\n').map { it.replace(STEP_NUMBER, "").trim() }.filter { it.isNotEmpty() }
+
+private val STEP_NUMBER = Regex("""^\s*[\p{Nd}]+\s*[.)、．]\s*""")

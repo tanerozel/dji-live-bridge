@@ -381,4 +381,15 @@
     <string name="instagram_audience_public">Public</string>
     <string name="instagram_preparing">Préparation d’Instagram…</string>
     <string name="instagram_automatic_setup">La connexion se prépare automatiquement.</string>
+    <string name="how_it_works">Comment ça marche</string>
+    <string name="instagram_audience_practice_hint">Vous seul pouvez la voir. Idéal pour un essai.</string>
+    <string name="instagram_audience_public_hint">Vos abonnés peuvent regarder.</string>
+    <string name="instagram_preparing_hint">Cela prend quelques secondes. Si Instagram vous demande de vous connecter, sa fenêtre s’ouvre ici.</string>
+    <string name="instagram_step_signin">Connectez-vous une seule fois à Instagram, dans une fenêtre de l’app.</string>
+    <string name="instagram_step_prepare">Pour chaque diffusion, l’app prépare elle-même la clé de stream ; rien à copier.</string>
+    <string name="youtube_private_hint">Seuls vous et les personnes choisies peuvent regarder.</string>
+    <string name="youtube_unlisted_hint">Toute personne disposant du lien peut regarder ; absent des recherches et de votre chaîne.</string>
+    <string name="youtube_public_hint">Tout le monde peut la trouver et la regarder sur YouTube.</string>
+    <string name="youtube_step_account">Choisissez votre compte Google ; l’autorisation se donne dans la fenêtre de Google.</string>
+    <string name="youtube_step_prepare">Réglez le titre et la visibilité une fois ; l’app crée la diffusion à chaque passage en direct.</string>
 </resources>

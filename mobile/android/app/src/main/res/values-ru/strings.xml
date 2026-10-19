@@ -386,4 +386,15 @@
     <string name="instagram_audience_public">Для всех</string>
     <string name="instagram_preparing">Подготовка Instagram…</string>
     <string name="instagram_automatic_setup">Подключение подготавливается автоматически.</string>
+    <string name="how_it_works">Как это работает</string>
+    <string name="instagram_audience_practice_hint">Видите только вы. Подходит для пробного эфира.</string>
+    <string name="instagram_audience_public_hint">Ваши подписчики могут смотреть.</string>
+    <string name="instagram_preparing_hint">Это займёт несколько секунд. Если Instagram попросит войти, его окно откроется здесь.</string>
+    <string name="instagram_step_signin">Войдите в Instagram один раз, в окне внутри приложения.</string>
+    <string name="instagram_step_prepare">Для каждого эфира приложение само готовит ключ трансляции; ничего копировать не нужно.</string>
+    <string name="youtube_private_hint">Смотреть можете только вы и выбранные вами люди.</string>
+    <string name="youtube_unlisted_hint">Смотреть может любой, у кого есть ссылка; не видно в поиске и на вашем канале.</string>
+    <string name="youtube_public_hint">Любой может найти и посмотреть на YouTube.</string>
+    <string name="youtube_step_account">Выберите аккаунт Google; разрешение даётся в собственном окне Google.</string>
+    <string name="youtube_step_prepare">Задайте название и доступ один раз; приложение само создаёт трансляцию при каждом выходе в эфир.</string>
 </resources>
