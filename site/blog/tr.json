@@ -1,10 +1,10 @@
 {
   "meta": {
     "title": "DJI drone ile canlı yayın rehberleri — DJI Live Bridge blog",
-    "description": "DJI Fly'dan TikTok, Instagram, YouTube, Facebook, Twitch, Kick veya aynı anda birden fazla platforma drone ile canlı yayın için adım adım rehberler."
+    "description": "DJI Mini 5 Pro, Mini 4 Pro ve DJI Fly canlı yayın rehberleri: telefon veya bilgisayar kurulumu, RTMP ayarları, YouTube, Instagram ve Facebook adımları."
   },
   "h1": "Drone ile canlı yayın rehberleri",
-  "lead": "DJI Fly'daki canlı görüntüyü kullandığınız platforma nasıl taşırsınız: her platformun istediği ayarlar, yayın anahtarının nerede olduğu ve çalışmadığında ne yapacağınız.",
+  "lead": "Drone’unuzu veya platformunuzu seçin: Mini 5 Pro ve Mini 4 Pro kumanda kurulumları, telefon ve bilgisayardan yayın, DJI Fly RTMP ayarları ve izleyiciler gelmeden yapılacak kontroller.",
   "language": "Dil",
   "skip": "İçeriğe geç",
   "home": "Ana sayfa",
@@ -25,7 +25,7 @@
   },
   "guides": {
     "h2": "Rehberler",
-    "sub": "Her platform için adım adım anlatım.",
+    "sub": "Drone, kumanda ve platformunuza göre adım adım anlatım.",
     "all": "Tüm rehberler"
   }
 }

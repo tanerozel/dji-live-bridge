@@ -1,81 +1,231 @@
 {
   "slug": "dji-mini-4-pro-canli-yayin",
   "platform": "DJI Mini 4 Pro",
-  "title": "DJI Mini 4 Pro ile Instagram, TikTok ve YouTube'da canlı yayın (2026)",
-  "description": "DJI Mini 4 Pro ile DJI RC 2 veya RC-N2 kumandayla canlı yayın: DJI Fly'da RTMP, mikrofon şartı, 720p sınırı ve Instagram, TikTok, YouTube'a yayın.",
+  "title": "DJI Mini 4 Pro ile canlı yayın: RC 2 ve RC-N2 kurulumu (2026)",
+  "description": "DJI Mini 4 Pro ile RC 2 veya RC-N2 üzerinden canlı yayın: telefon ve bilgisayar kurulumu, DJI Fly RTMP ayarları, mikrofon gereksinimi ve platform kontrolü.",
   "h1": "DJI Mini 4 Pro ile canlı yayın nasıl yapılır?",
-  "lead": "DJI Mini 4 Pro, iki kumandasıyla da <strong>DJI Fly üzerinden RTMP</strong> ile canlı yayın yapabilir. Bu yayını bilgisayardaki <strong>DJI Live Bridge</strong>'e — DJI RC 2 ile uçuyorsanız Android telefondaki <strong>Stream My Drone</strong>'a — gönderin; oradan Instagram, TikTok, YouTube ya da aynı anda birkaç platforma, her birinin beklediği biçimde gider.",
+  "lead": "<strong>DJI Mini 4 Pro</strong>, canlı görüntüyü DJI Fly’dan RTMP ile gönderebilir. <strong>DJI RC 2</strong> ile görüntüyü ayrı telefonda <strong>Stream My Drone</strong> veya bilgisayarda <strong>DJI Live Bridge</strong> alır. <strong>RC-N2</strong> için aşağıdaki bilgisayarlı kurulum, DJI Fly’ın uçuş telefonunda açık kalmasını sağlar. Ardından YouTube, Instagram, Facebook veya başka bir hedefi alıcı uygulamada ayarlarsınız.",
   "published": "2026-10-03",
-  "updated": "2026-10-03",
+  "updated": "2026-10-21",
   "summary": [
-    "Mini 4 Pro, DJI Fly üzerinden yayın yapar: GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP.",
-    "<strong>DJI RC 2</strong> ile DJI, yayın başlamadan önce kumandaya bir mikrofon takılmasını şart koşar ve yayın 720p'dir.",
-    "<strong>RC-N2</strong> ile DJI Fly telefonunuzda çalışır; DJI, Android'de 5 veya 3 Mbps, iOS'ta 2 veya 1 Mbps bit hızı belirtir.",
-    "DJI Fly tek başına Instagram'a ulaşamaz; DJI Live Bridge yayını dikey 1080×1920 olarak RTMPS ile iletir.",
-    "Sahada bilgisayar yok mu? DJI RC 2 ile Android uygulaması Stream My Drone aynı işi telefonda yapar."
+    "DJI Fly yerel görüntüyü gönderir; Stream My Drone veya DJI Live Bridge onu platformunuza iletir.",
+    "RC 2 ile ayrı telefon alıcı olabilir; RC-N2 telefonu DJI Fly için kullanır, bu rehberde görüntüyü bilgisayar alır.",
+    "Kumandanın RTMP çıkışı, canlı görüntüsünden veya drone’a kaydedilen dosyadan daha düşük çözünürlükte olabilir.",
+    "Mobil uygulama gelen videoyu iletir; masaüstü çıkışı görüntüyü dikey biçime dönüştürebilir.",
+    "Çıkışı başlattıktan sonra platformun izleyici sayfasını kontrol edin: aktarım ve yayına çıkma ayrı adımlardır."
   ],
   "sections": [
     {
       "id": "controllers",
       "h2": "DJI Mini 4 Pro canlı yayın yapabilir mi?",
       "blocks": [
-        { "p": "Evet. Mini 4 Pro ile satılan iki kumanda da DJI Fly'da <em>Canlı Yayın Platformları</em> altında RTMP sunar. Aralarındaki fark DJI Fly'ın nerede çalıştığı, yayının ne kadar kaliteli olabileceği ve DJI RC 2'deki tuhaf bir şarttır." },
-        { "table": {
-          "head": ["Kumanda", "DJI Fly nerede çalışır", "Yayın kalitesi (DJI)", "Dikkat"],
-          "rows": [
-            ["DJI RC 2", "Kumandanın kendi ekranında", "720p", "Kumandaya bir mikrofon takılı olmalı"],
-            ["DJI RC-N2", "Telefonunuzda", "1080p veya 720p; Android 5/3 Mbps, iOS 2/1 Mbps", "Telefonun Wi-Fi'si bilgisayarla aynı ağda olmalı"]
-          ]
-        } },
-        { "note": "DJI'ın destek sayfası, DJI RC 2 ile canlı yayın için takılı bir mikrofon gerektiğini söylüyor. Kumandanın alt portuna takılan küçük bir USB-C mikrofon, örneğin bir DJI Mic alıcısı yeterlidir." }
+        {
+          "p": "Standart kumanda seçenekleri DJI RC 2 ve RC-N2’dir. DJI Fly, RC 2’nin kendi ekranında veya RC-N2’ye bağlı telefonda çalışır. İki kurulum da görüntüyü ayrı bir alıcıya gönderebilir."
+        },
+        {
+          "table": {
+            "head": [
+              "Kumanda",
+              "DJI Fly nerede çalışır",
+              "Yayın kalitesi (DJI)",
+              "Dikkat"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "Kumandanın kendi ekranında",
+                "720p",
+                "DJI Fly v1.16.0’dan itibaren mikrofon gerekir"
+              ],
+              [
+                "DJI RC-N2",
+                "Telefonunuzda",
+                "1080p veya 720p; Android 5/3 Mbps, iOS 2/1 Mbps",
+                "Telefonun Wi-Fi'si bilgisayarla aynı ağda olmalı"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;pbc=BCQ9HQ1u&amp;pm=custom&amp;re=US&amp;spaceId=34\">DJI’ın canlı yayın rehberine</a> göre RC 2, 720p ile sınırlıdır ve DJI Fly v1.16.0’dan itibaren bağlı mikrofon ister. RC-N2’de telefon seçenekleri 1080p veya 720p; Android’de 5/3 Mbps, iOS’ta 2/1 Mbps’tir; kullanılabilirlik görüntü aktarımının kare hızına bağlıdır."
+        }
       ]
     },
     {
       "id": "setup",
-      "h2": "Mini 4 Pro canlı yayınını kurun",
+      "h2": "Mini 4 Pro yayınını bilgisayarda kurun",
       "howto": true,
       "blocks": [
-        { "steps": [
-          { "t": "Her şeyi tek bir ağa bağlayın", "d": "DJI RC 2'yi (RC-N2 kullanıyorsanız telefonunuzu) ve bilgisayarı aynı Wi-Fi ağına ya da tek bir telefon hotspot'una bağlayın." },
-          { "t": "DJI Live Bridge'i açın", "d": "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a>'i bir Mac'e veya Windows bilgisayara kurun. <em>Drone'u bağla</em> adımı <code>rtmp://192.168.1.20:1935/drone</code> gibi bir adres gösterir." },
-          { "t": "Bir mikrofon takın (yalnızca DJI RC 2)", "d": "Mikrofon olmadan RC 2'deki DJI Fly yayını başlatmaz." },
-          { "t": "Adresi DJI Fly'a girin", "d": "GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın, adresi yazın ve başlatın. Önizleme birkaç saniye içinde uygulamada görünür." },
-          { "t": "Platformlarınızı ekleyin ve yayına çıkın", "d": "Instagram, TikTok, YouTube ya da herhangi bir RTMP sunucusunu yayın adresi ve anahtarıyla ekleyin; Instagram ve TikTok için <em>Dikey 9:16</em> açık kalsın ve YAYINI BAŞLAT'a basın." }
-        ] },
-        { "img": "go-live.png", "alt": "DJI Live Bridge'in Canlı yayın sekmesi: DJI Fly için RTMP adresi, hedefler ve YAYINI BAŞLAT düğmesi." },
-        { "note": "Bilgisayar yok mu? DJI RC 2 ile yayını Android telefondaki <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Stream My Drone</a> alabilir: telefonun hotspot'unu açın, RC 2'yi ona bağlayın ve uygulamanın gösterdiği adresi yazın. DJI Fly tarafının adım adım anlatımı <a href=\"../dji-fly-rtmp-canli-yayin-ayarlari/\">DJI Fly RTMP rehberinde</a>." }
+        {
+          "steps": [
+            {
+              "t": "Her şeyi tek bir ağa bağlayın",
+              "d": "DJI RC 2'yi (RC-N2 kullanıyorsanız telefonunuzu) ve bilgisayarı aynı Wi-Fi ağına ya da tek bir telefon hotspot'una bağlayın."
+            },
+            {
+              "t": "DJI Live Bridge'i açın",
+              "d": "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a>'i bir Mac'e veya Windows bilgisayara kurun. <em>Drone'u bağla</em> adımı <code>rtmp://192.168.1.20:1935/drone</code> gibi bir adres gösterir."
+            },
+            {
+              "t": "Bir mikrofon takın (yalnızca DJI RC 2)",
+              "d": "Mikrofon olmadan RC 2'deki DJI Fly yayını başlatmaz."
+            },
+            {
+              "t": "Adresi DJI Fly'a girin",
+              "d": "GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın, adresi yazın ve başlatın. Önizleme birkaç saniye içinde uygulamada görünür."
+            },
+            {
+              "t": "Platformlarınızı ekleyin ve yayına çıkın",
+              "d": "Platformu güncel yayın adresi ve anahtarıyla ekleyin. Masaüstü çıkış biçimini seçip çıkışı başlatın ve platformun panelini kontrol edin. İzleyicilere yayın başladığını söylemeden önce varsa ek Yayına Geç adımını tamamlayın."
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "DJI Live Bridge'in Canlı yayın sekmesi: DJI Fly için RTMP adresi, hedefler ve YAYINI BAŞLAT düğmesi."
+        },
+        {
+          "note": "RC 2 ile yalnızca telefon kullanmak için sonraki bölümü izleyin. Ekran adımları ve ağ ayrıntıları için <a href=\"../dji-fly-rtmp-canli-yayin-ayarlari/\">DJI Fly RTMP rehberine</a> bakın."
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Mini 4 Pro ve RC 2 ile telefondan, bilgisayarsız yayın",
+      "blocks": [
+        {
+          "p": "DJI Fly RC 2’de açık kalsın; alıcı olarak ayrı bir telefon kullanın. Stream My Drone’u <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> veya <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a>’dan kurun."
+        },
+        {
+          "steps": [
+            {
+              "t": "Yerel ağı seçin",
+              "d": "RC 2 ile telefonu internet erişimi olan aynı Wi-Fi ağına bağlayın. Sahada Android telefon hem hotspot açabilir hem de görüntüyü alabilir. iPhone’da istenirse yerel ağ erişimine izin verin."
+            },
+            {
+              "t": "Alıcı adresini uygulamadan okuyun",
+              "d": "Ağa bağlandıktan sonra Stream My Drone’u açın. Gösterdiği tam adresi kullanın; bir rehberdeki örnek IP adresini kopyalamayın."
+            },
+            {
+              "t": "DJI Fly aktarımını başlatın",
+              "d": "Adresi DJI Fly → GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP alanına girin. İstenirse mikrofon bağlayıp aktarımı başlatın ve telefondaki önizlemeyi kontrol edin."
+            },
+            {
+              "t": "Platformu Stream My Drone’a ekleyin",
+              "d": "Sunuluyorsa hesap bağlantısını kullanın veya hedef ayarlarına platformun sunucu adresini ve yayın anahtarını girin. Yerel alıcı adresi DJI Fly’a, platform bilgileri buraya yazılır."
+            },
+            {
+              "t": "İzleyicinin yayını görebildiğini kontrol edin",
+              "d": "Aktarımı başlatıp platformun paneline veya izleyici sayfasına bakın. Kalan bir Yayına Geç adımı varsa tamamlayın. Önizleme veya etkin veri bağlantısı tek başına yayına çıkıldığını doğrulamaz."
+            }
+          ]
+        },
+        {
+          "note": "Mobil uygulama gelen görüntüyü yeniden kodlamadan iletir. Önizlemeyi kırpmak dikey 1080×1920 çıkış üretmez; bu dönüşüm için masaüstü uygulamasını kullanın. iPhone’da kurulum sırasında uygulamayı önde tutun; arka planda yayın Resim İçinde Resim’e bağlıdır."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Hangi platformda canlı yayın yapacaksınız?",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Platform",
+              "Önceden hazırlayın",
+              "Ayrıntılı rehber"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "Canlı yayın özelliği açık bir hesap ve hazırlanmış yayın",
+                "<a href=\"../drone-ile-youtube-canli-yayin-nasil-yapilir/\">YouTube kurulumu</a>"
+              ],
+              [
+                "Instagram",
+                "Live Producer erişimi ve güncel RTMPS bilgileri",
+                "<a href=\"../drone-ile-instagram-canli-yayin-nasil-yapilir/\">Instagram kurulumu</a>"
+              ],
+              [
+                "Facebook",
+                "Sunucu adresi ve anahtarı alınmış bir canlı yayın",
+                "<a href=\"../drone-ile-facebook-canli-yayin-nasil-yapilir/\">Facebook kurulumu</a>"
+              ],
+              [
+                "TikTok",
+                "Hesapta RTMP erişimi veya LIVE Studio erişimi olan bir bilgisayar",
+                "<a href=\"../drone-ile-tiktok-canli-yayin-nasil-yapilir/\">TikTok kurulumu</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "Platform erişimi hesabınıza bağlıdır. Drone görüntüsünün uygulamaya ulaşması yayın anahtarı sağlamaz ve platformda yayını başlatmaz. TikTok LIVE Studio için masaüstü uygulamasının <a href=\"../drone-u-bilgisayarin-harici-kamerasi-yapin/\">sanal kamera</a> seçeneği de vardır. Yayına geçiş için gereken güncel adımı platformun panelinden kontrol edin."
+        }
       ]
     },
     {
       "id": "quality",
       "h2": "Mini 4 Pro'dan en iyi görüntüyü almak",
       "blocks": [
-        { "list": [
-          "<strong>DJI RC 2'de üst sınır 720p'dir.</strong> DJI Live Bridge dikey platformlar için onu 1080×1920'ye ölçekler ve gerçek giriş çözünürlüğünü gösterir; neyi gönderdiğinizi bilirsiniz.",
-          "<strong>RC-N2'de Android telefon avantajlıdır.</strong> DJI, Android için 5 veya 3 Mbps, iOS için yalnızca 2 veya 1 Mbps belirtir; bu fark hızlı hareketlerde görünür.",
-          "<strong>Bağlantıyı kısa tutun.</strong> Yayın kumandadan Wi-Fi üzerinden bilgisayara gider; 5 GHz bir ağ ya da bilgisayarın yanındaki bir hotspot kopmaları önler.",
-          "<strong>Dikey mi, yatay mı?</strong> Mini 4 Pro varsayılan olarak yatay çeker. Instagram ve TikTok için <em>Tüm görüntü</em> bütün kareyi bulanık bir dolguyla korur; <em>Ekranı doldur (kırp)</em> ise telefonu dolduracak şekilde kırpar."
-        ] }
+        {
+          "list": [
+            "<strong>DJI RC 2'de üst sınır 720p'dir.</strong> DJI Live Bridge dikey platformlar için onu 1080×1920'ye ölçekler ve gerçek giriş çözünürlüğünü gösterir; neyi gönderdiğinizi bilirsiniz.",
+            "<strong>RC-N2'de Android telefon avantajlıdır.</strong> DJI, Android için 5 veya 3 Mbps, iOS için yalnızca 2 veya 1 Mbps belirtir; bu fark hızlı hareketlerde görünür.",
+            "<strong>Bağlantıyı kısa tutun.</strong> Yayın kumandadan Wi-Fi üzerinden bilgisayara gider; 5 GHz bir ağ ya da bilgisayarın yanındaki bir hotspot kopmaları önler.",
+            "<strong>Dikey mi, yatay mı?</strong> Mini 4 Pro varsayılan olarak yatay çeker. Instagram ve TikTok için <em>Tüm görüntü</em> bütün kareyi bulanık bir dolguyla korur; <em>Ekranı doldur (kırp)</em> ise telefonu dolduracak şekilde kırpar."
+          ]
+        }
       ]
     },
     {
       "id": "troubleshooting",
       "h2": "Çalışmazsa",
       "blocks": [
-        { "list": [
-          "<strong>DJI Fly RC 2'de yayını başlatmıyor:</strong> önce bir mikrofon takın.",
-          "<strong>DJI Fly bağlanamadığını söylüyor:</strong> kumanda (ya da telefon) ile bilgisayar farklı ağlarda veya bilgisayar yeni bir adres almış. Adresi uygulamadan yeniden kopyalayın.",
-          "<strong>RTMP seçeneği yok:</strong> DJI Fly'ı güncelleyin; DJI, RC 2 için RTMP'yi 1.15.8 sürümünde ekledi.",
-          "<strong>Instagram yayını reddediyor:</strong> anahtarı tek kullanımlıktır. instagram.com'da yeni bir canlı video oluşturun ve anahtarı güncelleyin."
-        ] }
+        {
+          "list": [
+            "<strong>DJI Fly RC 2'de yayını başlatmıyor:</strong> önce bir mikrofon takın.",
+            "<strong>DJI Fly bağlanamadığını söylüyor:</strong> kumanda (ya da telefon) ile bilgisayar farklı ağlarda veya bilgisayar yeni bir adres almış. Adresi uygulamadan yeniden kopyalayın.",
+            "<strong>RTMP seçeneği yok:</strong> kumandanın DJI RC yerine RC 2 olduğunu kontrol edin; DJI Fly’ı ve kumanda yazılımını güncelleyin. Alıcı uygulama eksik RTMP menüsünü ekleyemez.",
+            "<strong>Önizleme var, platformda yayın yok:</strong> hedef adresini, güncel anahtarı ve platform panelindeki son yayınlama adımını kontrol edin."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Kaynaklar ve Mini 5 Pro rehberi",
+      "blocks": [
+        {
+          "p": "Resmî kaynaklar: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;pbc=BCQ9HQ1u&amp;pm=custom&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a> ve <a href=\"https://www.dji.com/mini-4-pro/faq\">DJI Mini 4 Pro SSS</a>. 21 Ekim 2026’da kontrol edildi. Menüler ve sunulan ayarlar yazılım sürümüyle değişebilir."
+        },
+        {
+          "p": "Yeni modeli mi kullanıyorsunuz? <a href=\"../dji-mini-5-pro-canli-yayin/\">Mini 5 Pro canlı yayın rehberi</a>, RC 2 ve RC-N3 kumandaları, telefondan görüntü almayı ve bilgisayarlı kurulumu anlatır."
+        }
       ]
     }
   ],
   "faq": [
-    { "q": "DJI Mini 4 Pro Instagram'a yayın yapabilir mi?", "a": "Tek başına DJI Fly ile yapamaz; Instagram şifreli RTMPS bağlantısı ister, DJI Fly ise düz RTMP gönderir. DJI Fly'ın yayınını DJI Live Bridge'e gönderin; uygulama onu dikey 1080×1920 olarak RTMPS ile Instagram'a iletir." },
-    { "q": "DJI RC 2 canlı yayın için neden mikrofon istiyor?", "a": "DJI bunu şart koşuyor: destek sayfası DJI RC 2 ile yayın yaparken bir mikrofon takılmasını söylüyor. Kumandanın alt portuna takılan bir USB-C mikrofon yeterlidir." },
-    { "q": "Mini 4 Pro hangi çözünürlükte yayın yapar?", "a": "DJI RC 2 ile 720p. RC-N2 ile DJI Fly 1080p veya 720p sunar; Android'de 5 veya 3 Mbps, iOS'ta 2 veya 1 Mbps." },
-    { "q": "Mini 4 Pro ile bilgisayarsız yayın yapabilir miyim?", "a": "DJI RC 2 ile evet: Android uygulaması Stream My Drone yayını telefonda alır ve platformlarınıza gönderir. RC-N2 ile DJI Fly zaten telefonunuzda çalıştığından DJI Live Bridge yüklü bir bilgisayar kullanın." },
-    { "q": "Instagram ve TikTok'a aynı anda yayın yapabilir miyim?", "a": "Evet. İkisini de hedef olarak ekleyin; görüntü bir kez kodlanır ve her birine gönderilir." }
+    {
+      "q": "DJI Mini 4 Pro Instagram'a yayın yapabilir mi?",
+      "a": "Tek başına DJI Fly ile yapamaz; Instagram şifreli RTMPS bağlantısı ister, DJI Fly ise düz RTMP gönderir. DJI Fly'ın yayınını DJI Live Bridge'e gönderin; uygulama onu dikey 1080×1920 olarak RTMPS ile Instagram'a iletir."
+    },
+    {
+      "q": "DJI RC 2 canlı yayın için neden mikrofon istiyor?",
+      "a": "DJI, DJI Fly v1.16.0’dan itibaren RC 2’de canlı yayın için bağlı mikrofon gerektiğini belirtiyor. Uyumlu mikrofonu bağlayıp başlamadan önce DJI Fly’ın onu tanıdığını kontrol edin."
+    },
+    {
+      "q": "Mini 4 Pro hangi çözünürlükte yayın yapar?",
+      "a": "DJI RC 2 ile 720p. RC-N2 ile DJI Fly 1080p veya 720p sunar; Android'de 5 veya 3 Mbps, iOS'ta 2 veya 1 Mbps."
+    },
+    {
+      "q": "Mini 4 Pro ile bilgisayarsız yayın yapabilir miyim?",
+      "a": "RC 2 ile aynı yerel ağdaki ayrı Android telefon veya iPhone’da Stream My Drone kullanın. RC-N2 için bu rehber, DJI Fly uçuş telefonunda açık kalsın diye bilgisayarda DJI Live Bridge kullanır."
+    },
+    {
+      "q": "Instagram ve TikTok'a aynı anda yayın yapabilir miyim?",
+      "a": "Hesaplarınız gerekli yayın erişimini sağlıyorsa ikisini de hedef olarak ekleyebilirsiniz. Her hedef yükleme kapasitesi kullanır. Masaüstünde görüntü bir kez kodlanır; mobilde gelen görüntü yeniden kodlanmadan iletilir."
+    }
   ]
 }
