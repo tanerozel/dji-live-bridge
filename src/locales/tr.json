@@ -186,7 +186,7 @@
   "status.droneConnected": "Drone bağlı",
   "status.live": "CANLI",
   "s1.title": "Drone'u bağla",
-  "s1.help": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açıp bu adresi yapıştır. Mac ve kumanda aynı Wi-Fi'da veya hotspot'ta olmalı.",
+  "s1.help": "DJI Fly'da GO FLY → ••• → İletim → Canlı Yayın Platformları → RTMP yolunu açıp bu adresi yapıştır. Mac ve kumanda aynı Wi-Fi'da veya hotspot'ta olmalı.",
   "s1.connected": "Drone görüntüsü geliyor",
   "s1.waiting": "Drone görüntüsü bekleniyor…",
   "s1.copy": "Kopyala",

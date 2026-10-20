@@ -54,7 +54,7 @@
       "blocks": [
         { "steps": [
           { "t": "DJI Live Bridge'i kurun", "d": "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS veya Windows</a> için indirin; FFmpeg ve medya sunucusu içinde gelir." },
-          { "t": "Adresi DJI Fly'a kopyalayın", "d": "Uygulama <code>rtmp://192.168.1.20:1935/drone</code> gibi bir adres gösterir. Onu DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP altına girin." },
+          { "t": "Adresi DJI Fly'a kopyalayın", "d": "Uygulama <code>rtmp://192.168.1.20:1935/drone</code> gibi bir adres gösterir. Onu DJI Fly'da GO FLY → ••• → İletim → Canlı Yayın Platformları → RTMP altına girin." },
           { "t": "Platformlarınızı ekleyin", "d": "Instagram, TikTok, YouTube, Facebook, Twitch, Kick ya da herhangi bir RTMP sunucusu; her biri kendi adresi ve anahtarıyla." },
           { "t": "YAYINI BAŞLAT'a basın", "d": "Görüntü bir kez kodlanır ve etkin her hedefe gönderilir." }
         ] },
