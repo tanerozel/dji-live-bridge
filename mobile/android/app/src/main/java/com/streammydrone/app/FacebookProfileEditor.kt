@@ -26,7 +26,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -47,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -57,7 +57,8 @@ internal class FacebookEditorState(connection: FacebookConnection?) {
     var user by mutableStateOf(connection?.let { FacebookUser(it.userId, it.userName) })
     var pages by mutableStateOf(connection?.takeIf { it.page }?.let { listOf(FacebookPage(it.targetId, it.targetName)) }.orEmpty())
     var targetId by mutableStateOf(connection?.targetId)
-    var title by mutableStateOf(connection?.title.orEmpty())
+    /** Only a fallback for the first broadcast's title: Go live asks for the title every time. */
+    val title = connection?.title ?: "Stream My Drone"
     /** Not chosen yet for a new profile connection: the user decides who can watch. */
     var privacy by mutableStateOf(connection?.takeIf { !it.page }?.privacy)
     var busy by mutableStateOf(false)
@@ -108,16 +109,22 @@ internal fun FacebookProfileEditor(
     }
 
     // Facebook's redirect arrives through FacebookRedirectActivity while the Custom Tab closes.
+    // Taking it clears FacebookLoginFlow.callback, which restarts this effect, so the login is
+    // finished in the screen's own scope rather than in the effect.
     val callback = FacebookLoginFlow.callback
     LaunchedEffect(callback) {
         if (callback == null) return@LaunchedEffect
         val (state, url) = FacebookLoginFlow.finish() ?: return@LaunchedEffect
-        try {
-            val (user, login) = withContext(Dispatchers.IO) { completeFacebookLogin(context, url!!, state) }
-            showPages(user, login, userChosen = true)
-        } catch (error: Exception) {
-            editor.error = facebookError(error)
-            editor.busy = false
+        scope.launch {
+            try {
+                val (user, login) = withContext(Dispatchers.IO) { completeFacebookLogin(context, url!!, state) }
+                showPages(user, login, userChosen = true)
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (error: Exception) {
+                editor.error = facebookError(error)
+                editor.busy = false
+            }
         }
     }
 
@@ -205,7 +212,7 @@ internal fun FacebookProfileEditor(
                         modifier = Modifier.widthIn(max = 560.dp),
                         text = stringResource(R.string.save),
                         onClick = ::save,
-                        enabled = !editor.busy && editor.title.isNotBlank() && (onPage || editor.privacy != null),
+                        enabled = !editor.busy && (onPage || editor.privacy != null),
                     )
                 } else {
                     PrimaryButton(
@@ -248,17 +255,6 @@ internal fun FacebookProfileEditor(
                                 }
                             }
                         }
-                    }
-                    SettingsSection(stringResource(R.string.youtube_title)) {
-                        OutlinedTextField(
-                            value = editor.title,
-                            onValueChange = { editor.title = it; editor.touched = true },
-                            modifier = Modifier.fillMaxWidth(),
-                            placeholder = { Text(stringResource(R.string.youtube_title)) },
-                            singleLine = true,
-                            enabled = !editor.busy,
-                            shape = MaterialTheme.shapes.small,
-                        )
                     }
                     SettingsSection(stringResource(R.string.facebook_privacy)) {
                         if (onPage) {

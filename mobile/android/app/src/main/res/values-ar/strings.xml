@@ -406,7 +406,7 @@
     <string name="youtube_unlisted_hint">يمكن لأي شخص لديه الرابط المشاهدة؛ لا يظهر في البحث أو على قناتك.</string>
     <string name="youtube_public_hint">يمكن لأي شخص العثور عليه ومشاهدته على YouTube.</string>
     <string name="youtube_step_account">اختر حساب Google؛ يُمنح الإذن في نافذة Google نفسها.</string>
-    <string name="youtube_step_prepare">اضبط العنوان ومستوى الظهور مرة واحدة؛ ينشئ التطبيق البث في كل مرة تبدأ فيها البث المباشر.</string>
+    <string name="youtube_step_prepare">اضبط مستوى الظهور مرة واحدة؛ في كل مرة تبدأ فيها البث المباشر ينشئ التطبيق البث بالعنوان الذي تكتبه.</string>
     <string name="facebook_connect">ربط حساب Facebook</string>
     <string name="facebook_connection_help">اربط حساب Facebook لتحضير الفيديوهات المباشرة تلقائيًا.</string>
     <string name="facebook_target">البث على</string>
@@ -424,7 +424,7 @@
     <string name="facebook_disconnect_message">ستُحذف المنصة المحفوظة ويُلغى وصول هذا التطبيق إلى حساب Facebook الخاص بك. ستحتاج منصات Facebook الأخرى في التطبيق إلى الربط من جديد.</string>
     <string name="facebook_auto_hint">يبدأ Facebook الفيديو المباشر عند استلام الفيديو. تحقّق منه على Facebook.</string>
     <string name="facebook_step_account">سجّل الدخول باستخدام Facebook؛ يُمنح الإذن في نافذة Facebook نفسها.</string>
-    <string name="facebook_step_prepare">اختر ملفك الشخصي أو صفحة واضبط العنوان مرة واحدة؛ ينشئ التطبيق الفيديو المباشر في كل مرة تبدأ فيها البث المباشر.</string>
+    <string name="facebook_step_prepare">اختر ملفك الشخصي أو صفحة مرة واحدة؛ في كل مرة تبدأ فيها البث المباشر ينشئ التطبيق الفيديو المباشر بالعنوان الذي تكتبه.</string>
     <string name="facebook_error_auth">يلزم إذن Facebook. أعد ربط حسابك وامنح جميع الأذونات.</string>
     <string name="facebook_error_setup">لم يُضبط اتصال Facebook لهذا التطبيق. تواصل مع الدعم.</string>
     <string name="facebook_error_account">أعد ربط حساب Facebook الذي أُعدّت به هذه المنصة.</string>

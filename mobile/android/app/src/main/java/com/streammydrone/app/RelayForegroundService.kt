@@ -225,7 +225,7 @@ class RelayForegroundService : Service() {
                 Log.i(
                     LOG_TAG,
                     "Platform ${output.id.take(8)}: ${before ?: "added"} -> ${output.status}" +
-                        (output.reason?.let { " ($it)" }.orEmpty()) +
+                        (output.reason?.let { " ($it${output.reasonDetail?.let { detail -> ": $detail" }.orEmpty()})" }.orEmpty()) +
                         ", ${output.droppedFrames} frames skipped so far",
                 )
             }

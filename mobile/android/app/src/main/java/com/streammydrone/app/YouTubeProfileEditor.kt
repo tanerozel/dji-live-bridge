@@ -35,7 +35,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -67,7 +66,8 @@ internal class YouTubeEditorState(connection: YouTubeConnection?) {
     var email by mutableStateOf(connection?.accountEmail)
     var channels by mutableStateOf(connection?.let { listOf(YouTubeChannel(it.channelId, it.channelTitle)) }.orEmpty())
     var channelId by mutableStateOf(connection?.channelId)
-    var title by mutableStateOf(connection?.title.orEmpty())
+    /** Only a fallback for the first broadcast's title: Go live asks for the title every time. */
+    val title = connection?.title ?: "Stream My Drone"
     var privacy by mutableStateOf(connection?.privacy ?: YouTubePrivacy.UNLISTED.apiValue)
     var madeForKids by mutableStateOf(connection?.madeForKids)
     var busy by mutableStateOf(false)
@@ -229,7 +229,7 @@ internal fun YouTubeProfileEditor(
                         modifier = Modifier.widthIn(max = 560.dp),
                         text = stringResource(R.string.save),
                         onClick = ::save,
-                        enabled = !editor.busy && editor.title.isNotBlank() && editor.madeForKids != null,
+                        enabled = !editor.busy && editor.madeForKids != null,
                     )
                 } else {
                     PrimaryButton(
@@ -290,17 +290,6 @@ internal fun YouTubeProfileEditor(
                                 }
                             }
                         }
-                    }
-                    SettingsSection(stringResource(R.string.youtube_title)) {
-                        OutlinedTextField(
-                            value = editor.title,
-                            onValueChange = { editor.title = it; editor.touched = true },
-                            modifier = Modifier.fillMaxWidth(),
-                            placeholder = { Text(stringResource(R.string.youtube_title)) },
-                            singleLine = true,
-                            enabled = !editor.busy,
-                            shape = MaterialTheme.shapes.small,
-                        )
                     }
                     SettingsSection(stringResource(R.string.youtube_privacy)) {
                         Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {

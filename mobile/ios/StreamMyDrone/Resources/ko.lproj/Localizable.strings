@@ -97,7 +97,7 @@
 "facebook_status_live" = "Facebook 확인: 라이브 방송 중";
 "facebook_status_pending" = "Facebook에서 아직 라이브 동영상을 확인하지 않았습니다.";
 "facebook_step_account" = "Facebook으로 로그인하세요. 권한은 Facebook의 자체 창에서 부여합니다.";
-"facebook_step_prepare" = "프로필이나 페이지를 선택하고 제목을 한 번만 설정하면, 라이브를 시작할 때마다 앱이 라이브 동영상을 만듭니다.";
+"facebook_step_prepare" = "프로필이나 페이지를 한 번만 선택하면, 라이브를 시작할 때마다 입력한 제목으로 앱이 라이브 동영상을 만듭니다.";
 "facebook_target" = "방송 위치";
 "facebook_target_page" = "페이지";
 "facebook_target_profile" = "내 프로필";
@@ -347,7 +347,7 @@
 "youtube_status_pending" = "YouTube에서 아직 라이브 방송을 확인하지 않았습니다.";
 "youtube_status_testing" = "YouTube 미리보기/테스트 모드입니다.";
 "youtube_step_account" = "Google 계정을 선택하세요. 권한은 Google의 자체 창에서 부여합니다.";
-"youtube_step_prepare" = "제목과 공개 범위를 한 번만 설정하면, 라이브를 시작할 때마다 앱이 방송을 만듭니다.";
+"youtube_step_prepare" = "공개 범위를 한 번만 설정하면, 라이브를 시작할 때마다 입력한 제목으로 앱이 방송을 만듭니다.";
 "youtube_title" = "방송 제목";
 "youtube_unlisted" = "일부 공개";
 "youtube_unlisted_hint" = "링크가 있는 누구나 시청할 수 있으며, 검색이나 채널에는 표시되지 않습니다.";

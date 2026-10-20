@@ -387,7 +387,7 @@
     <string name="youtube_unlisted_hint">Anyone with the link can watch; it is not shown in search or on your channel.</string>
     <string name="youtube_public_hint">Anyone can find and watch it on YouTube.</string>
     <string name="youtube_step_account">Choose your Google account; permission is given in Google’s own window.</string>
-    <string name="youtube_step_prepare">Set the title and visibility once; the app creates the broadcast every time you go live.</string>
+    <string name="youtube_step_prepare">Set the visibility once; every time you go live, the app creates the broadcast with the title you enter.</string>
     <string name="facebook_connect">Connect Facebook account</string>
     <string name="facebook_connection_help">Connect your Facebook account to prepare live videos automatically.</string>
     <string name="facebook_target">Broadcast to</string>
@@ -405,7 +405,7 @@
     <string name="facebook_disconnect_message">This removes the saved platform and removes this app’s access to your Facebook account. Other Facebook platforms in the app will need to connect again.</string>
     <string name="facebook_auto_hint">Facebook starts the live video when it receives video. Check it on Facebook.</string>
     <string name="facebook_step_account">Log in with Facebook; permission is given in Facebook’s own window.</string>
-    <string name="facebook_step_prepare">Choose your profile or a Page and set the title once; the app creates the live video every time you go live.</string>
+    <string name="facebook_step_prepare">Choose your profile or a Page once; every time you go live, the app creates the live video with the title you enter.</string>
     <string name="facebook_error_auth">Facebook permission is required. Reconnect your account and allow every permission.</string>
     <string name="facebook_error_setup">Facebook connection is not configured for this app. Please contact support.</string>
     <string name="facebook_error_account">Reconnect the Facebook account this platform was set up with.</string>

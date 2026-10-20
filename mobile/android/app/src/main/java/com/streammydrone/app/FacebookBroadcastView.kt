@@ -19,11 +19,16 @@ import kotlinx.coroutines.withContext
 
 /** What Facebook last said about one connected profile's live video. */
 @Stable
-internal class FacebookBroadcastView(val connection: FacebookConnection) {
+internal class FacebookBroadcastView(val profileId: String, val connection: FacebookConnection) {
     var status by mutableStateOf<FacebookLiveStatus?>(null)
     var error by mutableStateOf<UiText?>(null)
 
-    val live: Boolean get() = status?.status == "LIVE"
+    /**
+     * A `LIVE_NOW` live video reports LIVE before any video arrives, so Facebook's word alone is
+     * not enough: the relay must also be delivering this profile's video.
+     */
+    fun live(snapshot: RelaySnapshot): Boolean =
+        status?.status == "LIVE" && snapshot.output(profileId)?.status in setOf("forwarding", "congested")
 
     @get:StringRes
     val privacy: Int get() = when {
@@ -33,10 +38,10 @@ internal class FacebookBroadcastView(val connection: FacebookConnection) {
         else -> R.string.facebook_public
     }
 
-    @get:StringRes
-    val lifecycle: Int get() = when (status?.status) {
-        "LIVE" -> R.string.facebook_status_live
-        "LIVE_STOPPED", "VOD", "PROCESSING" -> R.string.facebook_status_ended
+    @StringRes
+    fun lifecycle(snapshot: RelaySnapshot): Int = when {
+        live(snapshot) -> R.string.facebook_status_live
+        status?.status in setOf("LIVE_STOPPED", "VOD", "PROCESSING") -> R.string.facebook_status_ended
         else -> R.string.facebook_status_pending
     }
 
@@ -49,7 +54,7 @@ internal class FacebookBroadcastView(val connection: FacebookConnection) {
 internal fun rememberFacebookBroadcast(profile: DestinationProfile, connection: FacebookConnection): FacebookBroadcastView {
     val context = LocalContext.current.applicationContext
     val lifecycle = LocalLifecycleOwner.current
-    val view = remember(profile.id, connection) { FacebookBroadcastView(connection) }
+    val view = remember(profile.id, connection) { FacebookBroadcastView(profile.id, connection) }
     LaunchedEffect(view, lifecycle) {
         lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
             // A previous check must not remain labelled live when resuming after backgrounding.

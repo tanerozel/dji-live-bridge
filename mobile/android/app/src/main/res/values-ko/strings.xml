@@ -381,7 +381,7 @@
     <string name="youtube_unlisted_hint">링크가 있는 누구나 시청할 수 있으며, 검색이나 채널에는 표시되지 않습니다.</string>
     <string name="youtube_public_hint">누구나 YouTube에서 찾아 시청할 수 있습니다.</string>
     <string name="youtube_step_account">Google 계정을 선택하세요. 권한은 Google의 자체 창에서 부여합니다.</string>
-    <string name="youtube_step_prepare">제목과 공개 범위를 한 번만 설정하면, 라이브를 시작할 때마다 앱이 방송을 만듭니다.</string>
+    <string name="youtube_step_prepare">공개 범위를 한 번만 설정하면, 라이브를 시작할 때마다 입력한 제목으로 앱이 방송을 만듭니다.</string>
     <string name="facebook_connect">Facebook 계정 연결</string>
     <string name="facebook_connection_help">Facebook 계정을 연결하여 라이브 동영상을 자동으로 준비하세요.</string>
     <string name="facebook_target">방송 위치</string>
@@ -399,7 +399,7 @@
     <string name="facebook_disconnect_message">저장된 플랫폼을 삭제하고 이 앱의 Facebook 계정 접근 권한을 취소합니다. 앱의 다른 Facebook 플랫폼도 다시 연결해야 합니다.</string>
     <string name="facebook_auto_hint">영상이 도착하면 Facebook이 라이브 동영상을 시작합니다. Facebook에서 확인하세요.</string>
     <string name="facebook_step_account">Facebook으로 로그인하세요. 권한은 Facebook의 자체 창에서 부여합니다.</string>
-    <string name="facebook_step_prepare">프로필이나 페이지를 선택하고 제목을 한 번만 설정하면, 라이브를 시작할 때마다 앱이 라이브 동영상을 만듭니다.</string>
+    <string name="facebook_step_prepare">프로필이나 페이지를 한 번만 선택하면, 라이브를 시작할 때마다 입력한 제목으로 앱이 라이브 동영상을 만듭니다.</string>
     <string name="facebook_error_auth">Facebook 권한이 필요합니다. 계정을 다시 연결하고 모든 권한을 허용하세요.</string>
     <string name="facebook_error_setup">이 앱의 Facebook 연결이 설정되지 않았습니다. 지원팀에 문의하세요.</string>
     <string name="facebook_error_account">이 플랫폼을 설정할 때 사용한 Facebook 계정을 다시 연결하세요.</string>

@@ -97,7 +97,7 @@
 "facebook_status_live" = "أكد Facebook: بث مباشر";
 "facebook_status_pending" = "لم يؤكد Facebook الفيديو المباشر بعد.";
 "facebook_step_account" = "سجّل الدخول باستخدام Facebook؛ يُمنح الإذن في نافذة Facebook نفسها.";
-"facebook_step_prepare" = "اختر ملفك الشخصي أو صفحة واضبط العنوان مرة واحدة؛ ينشئ التطبيق الفيديو المباشر في كل مرة تبدأ فيها البث المباشر.";
+"facebook_step_prepare" = "اختر ملفك الشخصي أو صفحة مرة واحدة؛ في كل مرة تبدأ فيها البث المباشر ينشئ التطبيق الفيديو المباشر بالعنوان الذي تكتبه.";
 "facebook_target" = "البث على";
 "facebook_target_page" = "صفحة";
 "facebook_target_profile" = "ملفك الشخصي";
@@ -347,7 +347,7 @@
 "youtube_status_pending" = "لم يؤكد YouTube البث المباشر بعد.";
 "youtube_status_testing" = "YouTube في وضع المعاينة أو الاختبار.";
 "youtube_step_account" = "اختر حساب Google؛ يُمنح الإذن في نافذة Google نفسها.";
-"youtube_step_prepare" = "اضبط العنوان ومستوى الظهور مرة واحدة؛ ينشئ التطبيق البث في كل مرة تبدأ فيها البث المباشر.";
+"youtube_step_prepare" = "اضبط مستوى الظهور مرة واحدة؛ في كل مرة تبدأ فيها البث المباشر ينشئ التطبيق البث بالعنوان الذي تكتبه.";
 "youtube_title" = "عنوان البث";
 "youtube_unlisted" = "غير مدرج";
 "youtube_unlisted_hint" = "يمكن لأي شخص لديه الرابط المشاهدة؛ لا يظهر في البحث أو على قناتك.";

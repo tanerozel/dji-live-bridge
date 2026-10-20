@@ -17,16 +17,18 @@ final class FacebookBroadcastView {
         self.connection = connection
     }
 
-    var live: Bool { status?.status == "LIVE" }
-    var pending: Bool { error == nil && lifecycleKey == "facebook_status_pending" }
+    /// A `LIVE_NOW` live video reports LIVE before any video arrives, so Facebook's word alone is
+    /// not enough: the relay must also be delivering this profile's video.
+    func live(_ snapshot: RelaySnapshot) -> Bool {
+        status?.status == "LIVE" && ["forwarding", "congested"].contains(snapshot.output(profileId)?.status ?? "")
+    }
+
+    func pending(_ snapshot: RelaySnapshot) -> Bool { error == nil && lifecycleKey(snapshot) == "facebook_status_pending" }
     var privacyKey: String { connection.privacyKey }
 
-    var lifecycleKey: String {
-        switch status?.status {
-        case "LIVE": "facebook_status_live"
-        case "LIVE_STOPPED", "VOD", "PROCESSING": "facebook_status_ended"
-        default: "facebook_status_pending"
-        }
+    func lifecycleKey(_ snapshot: RelaySnapshot) -> String {
+        if live(snapshot) { return "facebook_status_live" }
+        return ["LIVE_STOPPED", "VOD", "PROCESSING"].contains(status?.status ?? "") ? "facebook_status_ended" : "facebook_status_pending"
     }
 
     /// The live video once Facebook named it, the profile or Page until then.

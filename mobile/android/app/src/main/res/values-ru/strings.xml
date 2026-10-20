@@ -396,7 +396,7 @@
     <string name="youtube_unlisted_hint">Смотреть может любой, у кого есть ссылка; не видно в поиске и на вашем канале.</string>
     <string name="youtube_public_hint">Любой может найти и посмотреть на YouTube.</string>
     <string name="youtube_step_account">Выберите аккаунт Google; разрешение даётся в собственном окне Google.</string>
-    <string name="youtube_step_prepare">Задайте название и доступ один раз; приложение само создаёт трансляцию при каждом выходе в эфир.</string>
+    <string name="youtube_step_prepare">Задайте доступ один раз; при каждом выходе в эфир приложение само создаёт трансляцию с введённым вами названием.</string>
     <string name="facebook_connect">Подключить аккаунт Facebook</string>
     <string name="facebook_connection_help">Подключите аккаунт Facebook для автоматической подготовки прямых эфиров.</string>
     <string name="facebook_target">Где транслировать</string>
@@ -414,7 +414,7 @@
     <string name="facebook_disconnect_message">Сохранённая платформа будет удалена, а доступ этого приложения к вашему аккаунту Facebook отозван. Другие платформы Facebook в приложении нужно будет подключить заново.</string>
     <string name="facebook_auto_hint">Facebook запускает прямой эфир при получении видео. Проверьте его на Facebook.</string>
     <string name="facebook_step_account">Войдите через Facebook; разрешение даётся в собственном окне Facebook.</string>
-    <string name="facebook_step_prepare">Выберите профиль или страницу и задайте название один раз; приложение само создаёт прямой эфир при каждом выходе в эфир.</string>
+    <string name="facebook_step_prepare">Выберите профиль или страницу один раз; при каждом выходе в эфир приложение само создаёт прямой эфир с введённым вами названием.</string>
     <string name="facebook_error_auth">Нужно разрешение Facebook. Подключите аккаунт заново и предоставьте все разрешения.</string>
     <string name="facebook_error_setup">Подключение к Facebook в этом приложении не настроено. Обратитесь в поддержку.</string>
     <string name="facebook_error_account">Подключите заново аккаунт Facebook, с которым настраивалась эта платформа.</string>

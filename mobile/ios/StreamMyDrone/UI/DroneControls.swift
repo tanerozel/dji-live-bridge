@@ -97,7 +97,7 @@ struct DroneControls: View {
         // Instagram's own start is the moment viewers see the broadcast.
         let since = instagramLive ? model.instagram.publicationConfirmation?.since : nil
         return StatusCard(look: statusLook(phase: model.phase, state: state, target: LiveTarget(model.liveDestinations),
-                                           confirmed: instagramLive || model.youtubeViews.values.contains { $0.live } || model.facebookViews.values.contains { $0.live },
+                                           confirmed: instagramLive || model.youtubeViews.values.contains { $0.live } || model.facebookViews.values.contains { $0.live(state.snapshot) },
                                            liveSince: since ?? state.liveSince))
     }
 
@@ -635,17 +635,19 @@ private struct YouTubeStatusRow: View {
 /// What Facebook says about the live video the app created there.
 private struct FacebookStatusRow: View {
     let view: FacebookBroadcastView
+    @Environment(AppModel.self) private var model
 
     var body: some View {
-        let dot: Color = view.error != nil ? DroneColors.danger : view.live ? DroneColors.ready : .white.opacity(0.5)
+        let snapshot = model.relay.state.snapshot
+        let dot: Color = view.error != nil ? DroneColors.danger : view.live(snapshot) ? DroneColors.ready : .white.opacity(0.5)
         PlatformStatusRow(
             kind: .facebook,
             badge: tr(view.privacyKey),
             // Only me is not visible to viewers; that should not go unnoticed.
             badgeColor: view.privacyKey == "facebook_only_me" ? DroneColors.warning : .white,
-            status: view.error?.resolve() ?? tr(view.lifecycleKey),
+            status: view.error?.resolve() ?? tr(view.lifecycleKey(snapshot)),
             dot: dot,
-            busy: view.pending,
+            busy: view.pending(snapshot),
             openLabel: tr("facebook_open_broadcast"),
             onOpen: { openInApp(view.url) },
             onRetry: nil

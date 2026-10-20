@@ -97,7 +97,7 @@
 "facebook_status_live" = "Facebook 已確認：正在直播";
 "facebook_status_pending" = "Facebook 尚未確認直播視訊。";
 "facebook_step_account" = "使用 Facebook 登入；授權在 Facebook 自己的視窗中完成。";
-"facebook_step_prepare" = "選擇你的個人檔案或一個粉絲專頁，標題只需設定一次；每次開播時 App 都會自動建立直播視訊。";
+"facebook_step_prepare" = "只需選擇一次你的個人檔案或一個粉絲專頁；每次開播時，App 都會用你輸入的標題自動建立直播視訊。";
 "facebook_target" = "發佈到";
 "facebook_target_page" = "粉絲專頁";
 "facebook_target_profile" = "你的個人檔案";
@@ -347,7 +347,7 @@
 "youtube_status_pending" = "YouTube 尚未確認直播已開始。";
 "youtube_status_testing" = "YouTube 處於預覽／測試模式。";
 "youtube_step_account" = "選擇你的 Google 帳戶；授權在 Google 自己的視窗中完成。";
-"youtube_step_prepare" = "標題和公開範圍只需設定一次；每次開播時 App 都會自動建立直播。";
+"youtube_step_prepare" = "公開範圍只需設定一次；每次開播時，App 都會用你輸入的標題自動建立直播。";
 "youtube_title" = "直播標題";
 "youtube_unlisted" = "不公開";
 "youtube_unlisted_hint" = "任何擁有連結的人都可以觀看；不會出現在搜尋結果或你的頻道中。";

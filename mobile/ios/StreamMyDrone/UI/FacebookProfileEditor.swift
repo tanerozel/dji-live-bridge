@@ -8,7 +8,8 @@ struct FacebookProfileEditor: View {
     @State private var user: FacebookUser?
     @State private var pages: [FacebookPage]
     @State private var targetId: String
-    @State private var title: String
+    /// Only a fallback for the first broadcast's title: Go live asks for the title every time.
+    private let title: String
     /// Not chosen yet for a new profile connection: the user decides who can watch.
     @State private var privacy: FacebookPrivacy?
     @State private var busy = false
@@ -22,7 +23,7 @@ struct FacebookProfileEditor: View {
         _user = State(initialValue: old.map { FacebookUser(id: $0.userId, name: $0.userName) })
         _pages = State(initialValue: old.flatMap { $0.page ? [FacebookPage(id: $0.targetId, name: $0.targetName)] : nil } ?? [])
         _targetId = State(initialValue: old?.targetId ?? "")
-        _title = State(initialValue: old?.title ?? "Stream My Drone")
+        title = old?.title ?? "Stream My Drone"
         _privacy = State(initialValue: old.flatMap { $0.page ? nil : FacebookPrivacy(rawValue: $0.privacy) })
     }
 
@@ -52,14 +53,6 @@ struct FacebookProfileEditor: View {
                                 OptionCard(label: page.name, hint: tr("facebook_target_page"), selected: targetId == page.id) { targetId = page.id }
                             }
                         }
-                        section(tr("youtube_title")) {
-                            TextField(tr("youtube_title"), text: $title)
-                                .submitLabel(.done)
-                                .padding(.horizontal, 12)
-                                .frame(minHeight: 50)
-                                .background(palette.field, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-                                .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).strokeBorder(palette.border, lineWidth: 1))
-                        }
                         section(tr("facebook_privacy")) {
                             if onPage {
                                 Text(tr("facebook_page_public_hint")).font(.subheadline).foregroundStyle(palette.muted)
@@ -87,8 +80,7 @@ struct FacebookProfileEditor: View {
             }.scrollDismissesKeyboard(.interactively)
             Group {
                 if user != nil {
-                    PrimaryButton(title: tr("save"), enabled: !busy && (onPage || privacy != nil) &&
-                                  (try? validateBroadcastTitle(title)) != nil) { save() }
+                    PrimaryButton(title: tr("save"), enabled: !busy && (onPage || privacy != nil)) { save() }
                 } else {
                     PrimaryButton(title: tr("facebook_connect"), enabled: !busy && !model.liveFacebook) { connect() }
                 }

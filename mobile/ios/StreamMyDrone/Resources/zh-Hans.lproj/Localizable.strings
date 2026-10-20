@@ -97,7 +97,7 @@
 "facebook_status_live" = "Facebook 已确认：正在直播";
 "facebook_status_pending" = "Facebook 尚未确认直播视频。";
 "facebook_step_account" = "使用 Facebook 登录；授权在 Facebook 自己的窗口中完成。";
-"facebook_step_prepare" = "选择你的个人主页或一个公共主页，标题只需设置一次；每次开播时应用都会自动创建直播视频。";
+"facebook_step_prepare" = "只需选择一次你的个人主页或一个公共主页；每次开播时，应用都会用你输入的标题自动创建直播视频。";
 "facebook_target" = "发布到";
 "facebook_target_page" = "公共主页";
 "facebook_target_profile" = "你的个人主页";
@@ -347,7 +347,7 @@
 "youtube_status_pending" = "YouTube 尚未确认直播已开始。";
 "youtube_status_testing" = "YouTube 处于预览/测试模式。";
 "youtube_step_account" = "选择你的 Google 账号；授权在 Google 自己的窗口中完成。";
-"youtube_step_prepare" = "标题和公开范围只需设置一次；每次开播时应用都会自动创建直播。";
+"youtube_step_prepare" = "公开范围只需设置一次；每次开播时，应用都会用你输入的标题自动创建直播。";
 "youtube_title" = "直播标题";
 "youtube_unlisted" = "不公开";
 "youtube_unlisted_hint" = "任何拥有链接的人都可以观看；不会出现在搜索结果或你的频道中。";

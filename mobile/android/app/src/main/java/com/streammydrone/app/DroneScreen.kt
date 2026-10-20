@@ -358,7 +358,7 @@ private fun Controls(
                 liveSinceElapsedMillis = instagramConfirmation?.takeIf { instagramLive }?.sinceElapsedMillis
                     ?: serviceState.liveSinceElapsedMillis,
                 target = LiveTarget(liveDestinations),
-                confirmed = instagramLive || youtube.any { it.live } || facebook.any { it.live },
+                confirmed = instagramLive || youtube.any { it.live } || facebook.any { it.live(snapshot) },
             ),
             modifier = modifier,
         )
@@ -451,6 +451,7 @@ private fun Controls(
             instagramAudience = instagramAudience?.takeIf { automaticInstagram.isNotEmpty() },
             youtube = youtube,
             facebook = facebook,
+            snapshot = snapshot,
             onOpenInstagram = onOpenInstagram,
             onRetryInstagram = onRetryInstagram,
         )
@@ -607,6 +608,7 @@ private fun AutomaticPlatforms(
     instagramAudience: InstagramAudience?,
     youtube: List<YouTubeBroadcastView>,
     facebook: List<FacebookBroadcastView>,
+    snapshot: RelaySnapshot,
     onOpenInstagram: () -> Unit,
     onRetryInstagram: () -> Unit,
 ) {
@@ -671,13 +673,13 @@ private fun AutomaticPlatforms(
                 badge = stringResource(view.privacy),
                 // Only me is not visible to viewers; that should not go unnoticed.
                 badgeColor = if (view.privacy == R.string.facebook_only_me) WarningColor else Color.White,
-                status = error?.asString() ?: stringResource(view.lifecycle),
+                status = error?.asString() ?: stringResource(view.lifecycle(snapshot)),
                 dot = when {
                     error != null -> DangerColor
-                    view.live -> ReadyColor
+                    view.live(snapshot) -> ReadyColor
                     else -> Color.White.copy(alpha = 0.5f)
                 },
-                busy = error == null && view.lifecycle == R.string.facebook_status_pending,
+                busy = error == null && view.lifecycle(snapshot) == R.string.facebook_status_pending,
                 openLabel = stringResource(R.string.facebook_open_broadcast),
                 onOpen = {
                     runCatching { openInApp(context, view.url) }.onFailure { view.error = uiText(R.string.facebook_error_api) }

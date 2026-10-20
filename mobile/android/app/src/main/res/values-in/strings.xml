@@ -381,7 +381,7 @@
     <string name="youtube_unlisted_hint">Siapa pun yang punya tautan bisa menonton; tidak muncul di penelusuran atau di kanalmu.</string>
     <string name="youtube_public_hint">Siapa pun bisa menemukan dan menontonnya di YouTube.</string>
     <string name="youtube_step_account">Pilih akun Google-mu; izin diberikan di jendela Google sendiri.</string>
-    <string name="youtube_step_prepare">Atur judul dan visibilitas sekali; aplikasi membuat siaran setiap kali kamu live.</string>
+    <string name="youtube_step_prepare">Atur visibilitas sekali; setiap kali kamu live, aplikasi membuat siaran dengan judul yang kamu masukkan.</string>
     <string name="facebook_connect">Hubungkan akun Facebook</string>
     <string name="facebook_connection_help">Hubungkan akun Facebook-mu untuk menyiapkan video langsung secara otomatis.</string>
     <string name="facebook_target">Siarkan ke</string>
@@ -399,7 +399,7 @@
     <string name="facebook_disconnect_message">Platform tersimpan dihapus dan akses aplikasi ini ke akun Facebook-mu dicabut. Platform Facebook lain di aplikasi perlu dihubungkan lagi.</string>
     <string name="facebook_auto_hint">Facebook memulai video langsung saat menerima video. Periksa di Facebook.</string>
     <string name="facebook_step_account">Masuk dengan Facebook; izin diberikan di jendela Facebook sendiri.</string>
-    <string name="facebook_step_prepare">Pilih profilmu atau sebuah Halaman dan atur judul sekali; aplikasi membuat video langsung setiap kali kamu live.</string>
+    <string name="facebook_step_prepare">Pilih profilmu atau sebuah Halaman sekali; setiap kali kamu live, aplikasi membuat video langsung dengan judul yang kamu masukkan.</string>
     <string name="facebook_error_auth">Izin Facebook diperlukan. Hubungkan akunmu lagi dan berikan semua izin.</string>
     <string name="facebook_error_setup">Koneksi Facebook aplikasi ini belum dikonfigurasi. Hubungi dukungan.</string>
     <string name="facebook_error_account">Hubungkan kembali akun Facebook yang dipakai untuk menyiapkan platform ini.</string>

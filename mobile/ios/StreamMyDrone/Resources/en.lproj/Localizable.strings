@@ -97,7 +97,7 @@
 "facebook_status_live" = "Facebook confirmed: live";
 "facebook_status_pending" = "Facebook has not confirmed a live video yet.";
 "facebook_step_account" = "Log in with Facebook; permission is given in Facebook’s own window.";
-"facebook_step_prepare" = "Choose your profile or a Page and set the title once; the app creates the live video every time you go live.";
+"facebook_step_prepare" = "Choose your profile or a Page once; every time you go live, the app creates the live video with the title you enter.";
 "facebook_target" = "Broadcast to";
 "facebook_target_page" = "Page";
 "facebook_target_profile" = "Your profile";
@@ -347,7 +347,7 @@
 "youtube_status_pending" = "YouTube has not confirmed a live broadcast yet.";
 "youtube_status_testing" = "YouTube is in preview/test mode.";
 "youtube_step_account" = "Choose your Google account; permission is given in Google’s own window.";
-"youtube_step_prepare" = "Set the title and visibility once; the app creates the broadcast every time you go live.";
+"youtube_step_prepare" = "Set the visibility once; every time you go live, the app creates the broadcast with the title you enter.";
 "youtube_title" = "Broadcast title";
 "youtube_unlisted" = "Unlisted";
 "youtube_unlisted_hint" = "Anyone with the link can watch; it is not shown in search or on your channel.";

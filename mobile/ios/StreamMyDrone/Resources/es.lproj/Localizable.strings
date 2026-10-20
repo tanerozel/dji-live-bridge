@@ -97,7 +97,7 @@
 "facebook_status_live" = "Facebook confirmó: en directo";
 "facebook_status_pending" = "Facebook aún no ha confirmado un vídeo en directo.";
 "facebook_step_account" = "Inicia sesión con Facebook; el permiso se da en la propia ventana de Facebook.";
-"facebook_step_prepare" = "Elige tu perfil o una página y define el título una vez; la app crea el vídeo en directo cada vez que sales en directo.";
+"facebook_step_prepare" = "Elige tu perfil o una página una vez; cada vez que sales en directo, la app crea el vídeo en directo con el título que escribas.";
 "facebook_target" = "Emitir en";
 "facebook_target_page" = "Página";
 "facebook_target_profile" = "Tu perfil";
@@ -347,7 +347,7 @@
 "youtube_status_pending" = "YouTube aún no ha confirmado una emisión en directo.";
 "youtube_status_testing" = "YouTube está en modo de vista previa/prueba.";
 "youtube_step_account" = "Elige tu cuenta de Google; el permiso se da en la propia ventana de Google.";
-"youtube_step_prepare" = "Define el título y la visibilidad una vez; la app crea la emisión cada vez que sales en directo.";
+"youtube_step_prepare" = "Define la visibilidad una vez; cada vez que sales en directo, la app crea la emisión con el título que escribas.";
 "youtube_title" = "Título del directo";
 "youtube_unlisted" = "Oculto";
 "youtube_unlisted_hint" = "Cualquiera con el enlace puede verlo; no aparece en las búsquedas ni en tu canal.";

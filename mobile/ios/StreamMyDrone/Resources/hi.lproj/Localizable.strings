@@ -97,7 +97,7 @@
 "facebook_status_live" = "Facebook ने पुष्टि की: लाइव";
 "facebook_status_pending" = "Facebook ने अभी लाइव वीडियो की पुष्टि नहीं की है।";
 "facebook_step_account" = "Facebook से लॉग इन करें; अनुमति Facebook की अपनी विंडो में दी जाती है।";
-"facebook_step_prepare" = "अपनी प्रोफ़ाइल या कोई पेज चुनें और शीर्षक एक बार सेट करें; हर बार लाइव होने पर ऐप लाइव वीडियो खुद बनाता है।";
+"facebook_step_prepare" = "अपनी प्रोफ़ाइल या कोई पेज एक बार चुनें; हर बार लाइव होने पर ऐप आपके लिखे शीर्षक के साथ लाइव वीडियो खुद बनाता है।";
 "facebook_target" = "कहाँ प्रसारित करें";
 "facebook_target_page" = "पेज";
 "facebook_target_profile" = "आपकी प्रोफ़ाइल";
@@ -347,7 +347,7 @@
 "youtube_status_pending" = "YouTube ने अभी लाइव प्रसारण की पुष्टि नहीं की है।";
 "youtube_status_testing" = "YouTube पूर्वावलोकन/परीक्षण मोड में है।";
 "youtube_step_account" = "अपना Google खाता चुनें; अनुमति Google की अपनी विंडो में दी जाती है।";
-"youtube_step_prepare" = "शीर्षक और दृश्यता एक बार सेट करें; हर बार लाइव होने पर ऐप ब्रॉडकास्ट खुद बनाता है।";
+"youtube_step_prepare" = "दृश्यता एक बार सेट करें; हर बार लाइव होने पर ऐप आपके लिखे शीर्षक के साथ ब्रॉडकास्ट खुद बनाता है।";
 "youtube_title" = "प्रसारण का शीर्षक";
 "youtube_unlisted" = "सबके लिए उपलब्ध नहीं";
 "youtube_unlisted_hint" = "लिंक वाला कोई भी देख सकता है; यह खोज या आपके चैनल पर नहीं दिखता।";

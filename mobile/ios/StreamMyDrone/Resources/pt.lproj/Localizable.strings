@@ -97,7 +97,7 @@
 "facebook_status_live" = "Facebook confirmou: ao vivo";
 "facebook_status_pending" = "O Facebook ainda não confirmou um vídeo ao vivo.";
 "facebook_step_account" = "Entre com o Facebook; a permissão é dada na própria janela do Facebook.";
-"facebook_step_prepare" = "Escolha seu perfil ou uma Página e defina o título uma vez; o app cria o vídeo ao vivo sempre que você entrar ao vivo.";
+"facebook_step_prepare" = "Escolha seu perfil ou uma Página uma vez; sempre que você entrar ao vivo, o app cria o vídeo ao vivo com o título que você digitar.";
 "facebook_target" = "Transmitir em";
 "facebook_target_page" = "Página";
 "facebook_target_profile" = "Seu perfil";
@@ -347,7 +347,7 @@
 "youtube_status_pending" = "O YouTube ainda não confirmou uma transmissão ao vivo.";
 "youtube_status_testing" = "O YouTube está no modo de prévia/teste.";
 "youtube_step_account" = "Escolha sua conta Google; a permissão é dada na própria janela do Google.";
-"youtube_step_prepare" = "Defina o título e a visibilidade uma vez; o app cria a transmissão sempre que você entrar ao vivo.";
+"youtube_step_prepare" = "Defina a visibilidade uma vez; sempre que você entrar ao vivo, o app cria a transmissão com o título que você digitar.";
 "youtube_title" = "Título da transmissão";
 "youtube_unlisted" = "Não listado";
 "youtube_unlisted_hint" = "Qualquer pessoa com o link pode assistir; não aparece na pesquisa nem no seu canal.";

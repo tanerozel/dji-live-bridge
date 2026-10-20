@@ -97,7 +97,7 @@
 "facebook_status_live" = "Facebook確認済み：ライブ配信中";
 "facebook_status_pending" = "Facebookはまだライブ動画を確認していません。";
 "facebook_step_account" = "Facebookでログインします。許可はFacebook自身のウィンドウで行います。";
-"facebook_step_prepare" = "プロフィールかページを選び、タイトルは一度だけ設定。ライブを始めるたびにアプリがライブ動画を作成します。";
+"facebook_step_prepare" = "プロフィールかページを一度選ぶだけ。ライブを始めるたびに、入力したタイトルでアプリがライブ動画を作成します。";
 "facebook_target" = "配信先";
 "facebook_target_page" = "ページ";
 "facebook_target_profile" = "自分のプロフィール";
@@ -347,7 +347,7 @@
 "youtube_status_pending" = "YouTubeはまだライブ配信を確認していません。";
 "youtube_status_testing" = "YouTubeはプレビュー／テストモードです。";
 "youtube_step_account" = "Googleアカウントを選びます。許可はGoogle自身のウィンドウで行います。";
-"youtube_step_prepare" = "タイトルと公開設定は一度だけ。ライブを始めるたびにアプリが配信を作成します。";
+"youtube_step_prepare" = "公開設定は一度だけ。ライブを始めるたびに、入力したタイトルでアプリが配信を作成します。";
 "youtube_title" = "配信タイトル";
 "youtube_unlisted" = "限定公開";
 "youtube_unlisted_hint" = "リンクを知っている人なら誰でも視聴できます。検索やチャンネルには表示されません。";

@@ -391,7 +391,7 @@
     <string name="youtube_unlisted_hint">Chiunque abbia il link può guardarla; non compare nelle ricerche né sul tuo canale.</string>
     <string name="youtube_public_hint">Chiunque può trovarla e guardarla su YouTube.</string>
     <string name="youtube_step_account">Scegli il tuo account Google; l’autorizzazione si dà nella finestra di Google.</string>
-    <string name="youtube_step_prepare">Imposta titolo e visibilità una volta; l’app crea la diretta ogni volta che vai live.</string>
+    <string name="youtube_step_prepare">Imposta la visibilità una volta; ogni volta che vai live, l’app crea la diretta con il titolo che inserisci.</string>
     <string name="facebook_connect">Collega account Facebook</string>
     <string name="facebook_connection_help">Collega il tuo account Facebook per preparare automaticamente i video in diretta.</string>
     <string name="facebook_target">Trasmetti su</string>
@@ -409,7 +409,7 @@
     <string name="facebook_disconnect_message">La piattaforma salvata viene rimossa e l’accesso di questa app al tuo account Facebook revocato. Le altre piattaforme Facebook nell’app dovranno essere ricollegate.</string>
     <string name="facebook_auto_hint">Facebook avvia il video in diretta quando riceve il video. Controllalo su Facebook.</string>
     <string name="facebook_step_account">Accedi con Facebook; l’autorizzazione si dà nella finestra di Facebook.</string>
-    <string name="facebook_step_prepare">Scegli il tuo profilo o una Pagina e imposta il titolo una volta; l’app crea il video in diretta ogni volta che vai live.</string>
+    <string name="facebook_step_prepare">Scegli il tuo profilo o una Pagina una volta; ogni volta che vai live, l’app crea il video in diretta con il titolo che inserisci.</string>
     <string name="facebook_error_auth">È necessaria l’autorizzazione di Facebook. Ricollega il tuo account e concedi tutte le autorizzazioni.</string>
     <string name="facebook_error_setup">La connessione Facebook di questa app non è configurata. Contatta l’assistenza.</string>
     <string name="facebook_error_account">Ricollega l’account Facebook con cui è stata configurata questa piattaforma.</string>

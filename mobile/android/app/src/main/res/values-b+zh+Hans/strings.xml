@@ -381,7 +381,7 @@
     <string name="youtube_unlisted_hint">任何拥有链接的人都可以观看；不会出现在搜索结果或你的频道中。</string>
     <string name="youtube_public_hint">任何人都可以在 YouTube 上找到并观看。</string>
     <string name="youtube_step_account">选择你的 Google 账号；授权在 Google 自己的窗口中完成。</string>
-    <string name="youtube_step_prepare">标题和公开范围只需设置一次；每次开播时应用都会自动创建直播。</string>
+    <string name="youtube_step_prepare">公开范围只需设置一次；每次开播时，应用都会用你输入的标题自动创建直播。</string>
     <string name="facebook_connect">连接 Facebook 账号</string>
     <string name="facebook_connection_help">连接 Facebook 账号以自动准备直播视频。</string>
     <string name="facebook_target">发布到</string>
@@ -399,7 +399,7 @@
     <string name="facebook_disconnect_message">这会删除已保存的平台，并撤销此应用对你的 Facebook 账号的访问权限。应用中的其他 Facebook 平台需要重新连接。</string>
     <string name="facebook_auto_hint">收到视频后 Facebook 会开始直播视频。请在 Facebook 上检查。</string>
     <string name="facebook_step_account">使用 Facebook 登录；授权在 Facebook 自己的窗口中完成。</string>
-    <string name="facebook_step_prepare">选择你的个人主页或一个公共主页，标题只需设置一次；每次开播时应用都会自动创建直播视频。</string>
+    <string name="facebook_step_prepare">只需选择一次你的个人主页或一个公共主页；每次开播时，应用都会用你输入的标题自动创建直播视频。</string>
     <string name="facebook_error_auth">需要 Facebook 授权。请重新连接账号并授予所有权限。</string>
     <string name="facebook_error_setup">此应用尚未配置 Facebook 连接。请联系支持。</string>
     <string name="facebook_error_account">请重新连接设置此平台时使用的 Facebook 账号。</string>

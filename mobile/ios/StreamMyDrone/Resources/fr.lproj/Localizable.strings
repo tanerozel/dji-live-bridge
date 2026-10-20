@@ -97,7 +97,7 @@
 "facebook_status_live" = "Facebook confirme : en direct";
 "facebook_status_pending" = "Facebook n’a pas encore confirmé de vidéo en direct.";
 "facebook_step_account" = "Connectez-vous avec Facebook ; l’autorisation se donne dans la fenêtre de Facebook.";
-"facebook_step_prepare" = "Choisissez votre profil ou une Page et réglez le titre une fois ; l’app crée la vidéo en direct à chaque passage en direct.";
+"facebook_step_prepare" = "Choisissez votre profil ou une Page une fois ; à chaque passage en direct, l’app crée la vidéo en direct avec le titre que vous saisissez.";
 "facebook_target" = "Diffuser sur";
 "facebook_target_page" = "Page";
 "facebook_target_profile" = "Votre profil";
@@ -347,7 +347,7 @@
 "youtube_status_pending" = "YouTube n’a pas encore confirmé de diffusion en direct.";
 "youtube_status_testing" = "YouTube est en mode aperçu/test.";
 "youtube_step_account" = "Choisissez votre compte Google ; l’autorisation se donne dans la fenêtre de Google.";
-"youtube_step_prepare" = "Réglez le titre et la visibilité une fois ; l’app crée la diffusion à chaque passage en direct.";
+"youtube_step_prepare" = "Réglez la visibilité une fois ; à chaque passage en direct, l’app crée la diffusion avec le titre que vous saisissez.";
 "youtube_title" = "Titre du direct";
 "youtube_unlisted" = "Non répertoriée";
 "youtube_unlisted_hint" = "Toute personne disposant du lien peut regarder ; absent des recherches et de votre chaîne.";

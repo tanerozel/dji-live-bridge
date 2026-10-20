@@ -391,7 +391,7 @@
     <string name="youtube_unlisted_hint">Toute personne disposant du lien peut regarder ; absent des recherches et de votre chaîne.</string>
     <string name="youtube_public_hint">Tout le monde peut la trouver et la regarder sur YouTube.</string>
     <string name="youtube_step_account">Choisissez votre compte Google ; l’autorisation se donne dans la fenêtre de Google.</string>
-    <string name="youtube_step_prepare">Réglez le titre et la visibilité une fois ; l’app crée la diffusion à chaque passage en direct.</string>
+    <string name="youtube_step_prepare">Réglez la visibilité une fois ; à chaque passage en direct, l’app crée la diffusion avec le titre que vous saisissez.</string>
     <string name="facebook_connect">Connecter un compte Facebook</string>
     <string name="facebook_connection_help">Connectez votre compte Facebook pour préparer automatiquement les vidéos en direct.</string>
     <string name="facebook_target">Diffuser sur</string>
@@ -409,7 +409,7 @@
     <string name="facebook_disconnect_message">La plateforme enregistrée est supprimée et l’accès de cette app à votre compte Facebook est révoqué. Les autres plateformes Facebook de l’app devront être reconnectées.</string>
     <string name="facebook_auto_hint">Facebook lance la vidéo en direct dès qu’il reçoit la vidéo. Vérifiez sur Facebook.</string>
     <string name="facebook_step_account">Connectez-vous avec Facebook ; l’autorisation se donne dans la fenêtre de Facebook.</string>
-    <string name="facebook_step_prepare">Choisissez votre profil ou une Page et réglez le titre une fois ; l’app crée la vidéo en direct à chaque passage en direct.</string>
+    <string name="facebook_step_prepare">Choisissez votre profil ou une Page une fois ; à chaque passage en direct, l’app crée la vidéo en direct avec le titre que vous saisissez.</string>
     <string name="facebook_error_auth">Une autorisation Facebook est nécessaire. Reconnectez votre compte et accordez toutes les autorisations.</string>
     <string name="facebook_error_setup">La connexion Facebook de cette application n’est pas configurée. Contactez l’assistance.</string>
     <string name="facebook_error_account">Reconnectez le compte Facebook avec lequel cette plateforme a été configurée.</string>

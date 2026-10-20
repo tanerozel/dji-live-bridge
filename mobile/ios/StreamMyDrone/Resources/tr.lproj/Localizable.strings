@@ -97,7 +97,7 @@
 "facebook_status_live" = "Facebook onayladı: canlı";
 "facebook_status_pending" = "Facebook henüz canlı videoyu onaylamadı.";
 "facebook_step_account" = "Facebook ile giriş yap; izin Facebook’un kendi penceresinde verilir.";
-"facebook_step_prepare" = "Profilini veya bir Sayfayı seç, başlığı bir kez ayarla; uygulama her canlı yayında canlı videoyu kendisi oluşturur.";
+"facebook_step_prepare" = "Profilini veya bir Sayfayı bir kez seç; her canlı yayında uygulama canlı videoyu, girdiğin başlıkla kendisi oluşturur.";
 "facebook_target" = "Nerede yayınlansın";
 "facebook_target_page" = "Sayfa";
 "facebook_target_profile" = "Profilin";
@@ -347,7 +347,7 @@
 "youtube_status_pending" = "YouTube henüz canlı yayını doğrulamadı.";
 "youtube_status_testing" = "YouTube önizleme/deneme modunda.";
 "youtube_step_account" = "Google hesabını seç; izin Google’ın kendi penceresinde verilir.";
-"youtube_step_prepare" = "Başlığı ve görünürlüğü bir kez ayarla; uygulama her canlı yayında yayını kendisi oluşturur.";
+"youtube_step_prepare" = "Görünürlüğü bir kez ayarla; her canlı yayında uygulama yayını, girdiğin başlıkla kendisi oluşturur.";
 "youtube_title" = "Yayın başlığı";
 "youtube_unlisted" = "Liste dışı";
 "youtube_unlisted_hint" = "Bağlantıya sahip herkes izleyebilir; aramada ve kanalında görünmez.";

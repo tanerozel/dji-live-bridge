@@ -386,7 +386,7 @@
     <string name="youtube_unlisted_hint">Bağlantıya sahip herkes izleyebilir; aramada ve kanalında görünmez.</string>
     <string name="youtube_public_hint">Herkes YouTube’da bulup izleyebilir.</string>
     <string name="youtube_step_account">Google hesabını seç; izin Google’ın kendi penceresinde verilir.</string>
-    <string name="youtube_step_prepare">Başlığı ve görünürlüğü bir kez ayarla; uygulama her canlı yayında yayını kendisi oluşturur.</string>
+    <string name="youtube_step_prepare">Görünürlüğü bir kez ayarla; her canlı yayında uygulama yayını, girdiğin başlıkla kendisi oluşturur.</string>
     <string name="facebook_connect">Facebook hesabını bağla</string>
     <string name="facebook_connection_help">Canlı videoları otomatik hazırlamak için Facebook hesabını bağla.</string>
     <string name="facebook_target">Nerede yayınlansın</string>
@@ -404,7 +404,7 @@
     <string name="facebook_disconnect_message">Kayıtlı platform silinir ve bu uygulamanın Facebook hesabına erişimi kaldırılır. Uygulamadaki diğer Facebook platformlarının yeniden bağlanması gerekir.</string>
     <string name="facebook_auto_hint">Facebook görüntüyü aldığında canlı videoyu başlatır. Facebook’ta kontrol et.</string>
     <string name="facebook_step_account">Facebook ile giriş yap; izin Facebook’un kendi penceresinde verilir.</string>
-    <string name="facebook_step_prepare">Profilini veya bir Sayfayı seç, başlığı bir kez ayarla; uygulama her canlı yayında canlı videoyu kendisi oluşturur.</string>
+    <string name="facebook_step_prepare">Profilini veya bir Sayfayı bir kez seç; her canlı yayında uygulama canlı videoyu, girdiğin başlıkla kendisi oluşturur.</string>
     <string name="facebook_error_auth">Facebook izni gerekli. Hesabını yeniden bağla ve tüm izinleri ver.</string>
     <string name="facebook_error_setup">Bu uygulamada Facebook bağlantısı yapılandırılmamış. Lütfen destekle iletişime geç.</string>
     <string name="facebook_error_account">Bu platformu kurduğun Facebook hesabını yeniden bağla.</string>

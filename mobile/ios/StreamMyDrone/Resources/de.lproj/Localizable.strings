@@ -97,7 +97,7 @@
 "facebook_status_live" = "Facebook bestätigt: live";
 "facebook_status_pending" = "Facebook hat noch kein Live-Video bestätigt.";
 "facebook_step_account" = "Melde dich mit Facebook an; die Berechtigung erteilst du in Facebooks eigenem Fenster.";
-"facebook_step_prepare" = "Wähle dein Profil oder eine Seite und lege den Titel einmal fest; die App erstellt das Live-Video bei jedem Livegang selbst.";
+"facebook_step_prepare" = "Wähle einmal dein Profil oder eine Seite; bei jedem Livegang erstellt die App das Live-Video mit dem Titel, den du eingibst.";
 "facebook_target" = "Übertragen auf";
 "facebook_target_page" = "Seite";
 "facebook_target_profile" = "Dein Profil";
@@ -347,7 +347,7 @@
 "youtube_status_pending" = "YouTube hat noch keine Liveübertragung bestätigt.";
 "youtube_status_testing" = "YouTube ist im Vorschau-/Testmodus.";
 "youtube_step_account" = "Wähle dein Google-Konto; die Berechtigung erteilst du in Googles eigenem Fenster.";
-"youtube_step_prepare" = "Lege Titel und Sichtbarkeit einmal fest; die App erstellt die Übertragung bei jedem Livegang selbst.";
+"youtube_step_prepare" = "Lege die Sichtbarkeit einmal fest; bei jedem Livegang erstellt die App die Übertragung mit dem Titel, den du eingibst.";
 "youtube_title" = "Titel des Livestreams";
 "youtube_unlisted" = "Nicht gelistet";
 "youtube_unlisted_hint" = "Jeder mit dem Link kann zusehen; nicht in der Suche oder auf deinem Kanal sichtbar.";

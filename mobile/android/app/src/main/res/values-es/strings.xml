@@ -391,7 +391,7 @@
     <string name="youtube_unlisted_hint">Cualquiera con el enlace puede verlo; no aparece en las búsquedas ni en tu canal.</string>
     <string name="youtube_public_hint">Cualquiera puede encontrarlo y verlo en YouTube.</string>
     <string name="youtube_step_account">Elige tu cuenta de Google; el permiso se da en la propia ventana de Google.</string>
-    <string name="youtube_step_prepare">Define el título y la visibilidad una vez; la app crea la emisión cada vez que sales en directo.</string>
+    <string name="youtube_step_prepare">Define la visibilidad una vez; cada vez que sales en directo, la app crea la emisión con el título que escribas.</string>
     <string name="facebook_connect">Conectar cuenta de Facebook</string>
     <string name="facebook_connection_help">Conecta tu cuenta de Facebook para preparar los vídeos en directo automáticamente.</string>
     <string name="facebook_target">Emitir en</string>
@@ -409,7 +409,7 @@
     <string name="facebook_disconnect_message">Se elimina la plataforma guardada y se revoca el acceso de esta app a tu cuenta de Facebook. Las demás plataformas de Facebook de la app deberán conectarse de nuevo.</string>
     <string name="facebook_auto_hint">Facebook inicia el vídeo en directo al recibir vídeo. Compruébalo en Facebook.</string>
     <string name="facebook_step_account">Inicia sesión con Facebook; el permiso se da en la propia ventana de Facebook.</string>
-    <string name="facebook_step_prepare">Elige tu perfil o una página y define el título una vez; la app crea el vídeo en directo cada vez que sales en directo.</string>
+    <string name="facebook_step_prepare">Elige tu perfil o una página una vez; cada vez que sales en directo, la app crea el vídeo en directo con el título que escribas.</string>
     <string name="facebook_error_auth">Se necesita permiso de Facebook. Vuelve a conectar tu cuenta y concede todos los permisos.</string>
     <string name="facebook_error_setup">La conexión de Facebook de esta app no está configurada. Contacta con soporte.</string>
     <string name="facebook_error_account">Vuelve a conectar la cuenta de Facebook con la que se configuró esta plataforma.</string>

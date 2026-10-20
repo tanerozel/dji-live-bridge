@@ -97,7 +97,7 @@
 "facebook_status_live" = "Facebook conferma: in diretta";
 "facebook_status_pending" = "Facebook non ha ancora confermato un video in diretta.";
 "facebook_step_account" = "Accedi con Facebook; l’autorizzazione si dà nella finestra di Facebook.";
-"facebook_step_prepare" = "Scegli il tuo profilo o una Pagina e imposta il titolo una volta; l’app crea il video in diretta ogni volta che vai live.";
+"facebook_step_prepare" = "Scegli il tuo profilo o una Pagina una volta; ogni volta che vai live, l’app crea il video in diretta con il titolo che inserisci.";
 "facebook_target" = "Trasmetti su";
 "facebook_target_page" = "Pagina";
 "facebook_target_profile" = "Il tuo profilo";
@@ -347,7 +347,7 @@
 "youtube_status_pending" = "YouTube non ha ancora confermato una diretta.";
 "youtube_status_testing" = "YouTube è in modalità anteprima/test.";
 "youtube_step_account" = "Scegli il tuo account Google; l’autorizzazione si dà nella finestra di Google.";
-"youtube_step_prepare" = "Imposta titolo e visibilità una volta; l’app crea la diretta ogni volta che vai live.";
+"youtube_step_prepare" = "Imposta la visibilità una volta; ogni volta che vai live, l’app crea la diretta con il titolo che inserisci.";
 "youtube_title" = "Titolo della diretta";
 "youtube_unlisted" = "Non in elenco";
 "youtube_unlisted_hint" = "Chiunque abbia il link può guardarla; non compare nelle ricerche né sul tuo canale.";

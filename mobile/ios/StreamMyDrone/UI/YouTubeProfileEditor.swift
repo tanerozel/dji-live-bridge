@@ -35,7 +35,8 @@ struct YouTubeProfileEditor: View {
     @State private var email: String
     @State private var channels: [YouTubeChannel]
     @State private var channelId: String
-    @State private var title: String
+    /// Only a fallback for the first broadcast's title: Go live asks for the title every time.
+    private let title: String
     @State private var privacy: String
     @State private var kids: Bool?
     @State private var busy = false
@@ -49,7 +50,7 @@ struct YouTubeProfileEditor: View {
         _email = State(initialValue: old?.accountEmail ?? "")
         _channels = State(initialValue: old.map { [YouTubeChannel(id: $0.channelId, title: $0.channelTitle)] } ?? [])
         _channelId = State(initialValue: old?.channelId ?? "")
-        _title = State(initialValue: old?.title ?? "Stream My Drone")
+        title = old?.title ?? "Stream My Drone"
         _privacy = State(initialValue: old?.privacy ?? "unlisted")
         _kids = State(initialValue: old?.madeForKids)
     }
@@ -83,14 +84,6 @@ struct YouTubeProfileEditor: View {
                                 }
                             }
                         }
-                        section(tr("youtube_title")) {
-                            TextField(tr("youtube_title"), text: $title)
-                                .submitLabel(.done)
-                                .padding(.horizontal, 12)
-                                .frame(minHeight: 50)
-                                .background(palette.field, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
-                                .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).strokeBorder(palette.border, lineWidth: 1))
-                        }
                         section(tr("youtube_privacy")) {
                             ForEach(["private", "unlisted", "public"], id: \.self) { value in
                                 OptionCard(label: tr("youtube_\(value)"), hint: tr("youtube_\(value)_hint"), selected: privacy == value) { privacy = value }
@@ -116,8 +109,7 @@ struct YouTubeProfileEditor: View {
             }.scrollDismissesKeyboard(.interactively)
             Group {
                 if connected {
-                    PrimaryButton(title: tr("save"), enabled: !busy && !channelId.isEmpty && kids != nil &&
-                                  (try? validateYouTubeTitle(title)) != nil) { save() }
+                    PrimaryButton(title: tr("save"), enabled: !busy && !channelId.isEmpty && kids != nil) { save() }
                 } else {
                     // Google's own button, as its sign-in guidelines ask.
                     GoogleSignInButton(scheme: palette.isDark ? .dark : .light, style: .wide) { connect() }

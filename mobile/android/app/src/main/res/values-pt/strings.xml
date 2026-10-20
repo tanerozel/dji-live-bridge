@@ -391,7 +391,7 @@
     <string name="youtube_unlisted_hint">Qualquer pessoa com o link pode assistir; não aparece na pesquisa nem no seu canal.</string>
     <string name="youtube_public_hint">Qualquer pessoa pode encontrar e assistir no YouTube.</string>
     <string name="youtube_step_account">Escolha sua conta Google; a permissão é dada na própria janela do Google.</string>
-    <string name="youtube_step_prepare">Defina o título e a visibilidade uma vez; o app cria a transmissão sempre que você entrar ao vivo.</string>
+    <string name="youtube_step_prepare">Defina a visibilidade uma vez; sempre que você entrar ao vivo, o app cria a transmissão com o título que você digitar.</string>
     <string name="facebook_connect">Conectar conta do Facebook</string>
     <string name="facebook_connection_help">Conecte sua conta do Facebook para preparar vídeos ao vivo automaticamente.</string>
     <string name="facebook_target">Transmitir em</string>
@@ -409,7 +409,7 @@
     <string name="facebook_disconnect_message">A plataforma salva é removida e o acesso deste app à sua conta do Facebook é revogado. Outras plataformas do Facebook no app precisarão se conectar novamente.</string>
     <string name="facebook_auto_hint">O Facebook inicia o vídeo ao vivo ao receber vídeo. Confira no Facebook.</string>
     <string name="facebook_step_account">Entre com o Facebook; a permissão é dada na própria janela do Facebook.</string>
-    <string name="facebook_step_prepare">Escolha seu perfil ou uma Página e defina o título uma vez; o app cria o vídeo ao vivo sempre que você entrar ao vivo.</string>
+    <string name="facebook_step_prepare">Escolha seu perfil ou uma Página uma vez; sempre que você entrar ao vivo, o app cria o vídeo ao vivo com o título que você digitar.</string>
     <string name="facebook_error_auth">É necessária permissão do Facebook. Reconecte sua conta e conceda todas as permissões.</string>
     <string name="facebook_error_setup">A conexão com o Facebook deste app não está configurada. Contate o suporte.</string>
     <string name="facebook_error_account">Reconecte a conta do Facebook usada para configurar esta plataforma.</string>

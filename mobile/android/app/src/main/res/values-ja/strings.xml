@@ -381,7 +381,7 @@
     <string name="youtube_unlisted_hint">リンクを知っている人なら誰でも視聴できます。検索やチャンネルには表示されません。</string>
     <string name="youtube_public_hint">誰でもYouTubeで見つけて視聴できます。</string>
     <string name="youtube_step_account">Googleアカウントを選びます。許可はGoogle自身のウィンドウで行います。</string>
-    <string name="youtube_step_prepare">タイトルと公開設定は一度だけ。ライブを始めるたびにアプリが配信を作成します。</string>
+    <string name="youtube_step_prepare">公開設定は一度だけ。ライブを始めるたびに、入力したタイトルでアプリが配信を作成します。</string>
     <string name="facebook_connect">Facebookアカウントを接続</string>
     <string name="facebook_connection_help">Facebookアカウントを接続してライブ動画を自動で準備します。</string>
     <string name="facebook_target">配信先</string>
@@ -399,7 +399,7 @@
     <string name="facebook_disconnect_message">保存済みの配信先を削除し、このアプリによるFacebookアカウントへのアクセス権を取り消します。アプリ内の他のFacebook配信先も再接続が必要です。</string>
     <string name="facebook_auto_hint">動画が届くとFacebookがライブ動画を開始します。Facebookで確認してください。</string>
     <string name="facebook_step_account">Facebookでログインします。許可はFacebook自身のウィンドウで行います。</string>
-    <string name="facebook_step_prepare">プロフィールかページを選び、タイトルは一度だけ設定。ライブを始めるたびにアプリがライブ動画を作成します。</string>
+    <string name="facebook_step_prepare">プロフィールかページを一度選ぶだけ。ライブを始めるたびに、入力したタイトルでアプリがライブ動画を作成します。</string>
     <string name="facebook_error_auth">Facebookの許可が必要です。アカウントを再接続し、すべての許可を与えてください。</string>
     <string name="facebook_error_setup">このアプリのFacebook接続が設定されていません。サポートにお問い合わせください。</string>
     <string name="facebook_error_account">この配信先を設定したFacebookアカウントを再接続してください。</string>

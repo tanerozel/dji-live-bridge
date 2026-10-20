@@ -77,7 +77,7 @@
     "steps": [
       {
         "t": "Drone'u bağlayın",
-        "d": "DJI Fly'da: GO FLY → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın ve uygulamanın gösterdiği adresi yapıştırın. Bilgisayar ile kumanda aynı Wi-Fi ağında veya aynı telefon hotspot'unda olmalı."
+        "d": "DJI Fly'da: GO FLY → İletim → Canlı Yayın Platformları → RTMP yolunu açın ve uygulamanın gösterdiği adresi yapıştırın. Bilgisayar ile kumanda aynı Wi-Fi ağında veya aynı telefon hotspot'unda olmalı."
       },
       {
         "t": "Nereye yayın yapacağınızı seçin",
