@@ -39,8 +39,10 @@ internal class ProfileEditorState(
     val profile: DestinationProfile?,
     val kind: DestinationKind,
 ) {
-    var youtubeSetup by mutableStateOf(kind == DestinationKind.YOUTUBE && (profile == null || profile.youtube != null))
-    var facebookSetup by mutableStateOf(kind == DestinationKind.FACEBOOK && (profile == null || profile.facebook != null))
+    var youtubeSetup by mutableStateOf(kind == DestinationKind.YOUTUBE &&
+        (profile?.youtube != null || profile == null && BuildConfig.YOUTUBE_ACCOUNT_CONNECTION))
+    var facebookSetup by mutableStateOf(kind == DestinationKind.FACEBOOK &&
+        (profile?.facebook != null || profile == null && BuildConfig.FACEBOOK_ACCOUNT_CONNECTION))
     var instagramManual by mutableStateOf(false)
     /** Only a Go live request, never an ordinary connection edit, resumes after capture. */
     var instagramStartRequest: BroadcastStartRequest? = null

@@ -417,8 +417,8 @@ internal fun RelayScreen(
                             state = editing,
                             onDismiss = profileEditorViewModel::close,
                             onConnectAccount = when (editing.kind) {
-                                DestinationKind.YOUTUBE -> ({ editing.youtubeSetup = true })
-                                DestinationKind.FACEBOOK -> ({ editing.facebookSetup = true })
+                                DestinationKind.YOUTUBE -> if (BuildConfig.YOUTUBE_ACCOUNT_CONNECTION) ({ editing.youtubeSetup = true }) else null
+                                DestinationKind.FACEBOOK -> if (BuildConfig.FACEBOOK_ACCOUNT_CONNECTION) ({ editing.facebookSetup = true }) else null
                                 else -> null
                             },
                             onOpenInstagram = if (editing.kind == DestinationKind.INSTAGRAM) ({

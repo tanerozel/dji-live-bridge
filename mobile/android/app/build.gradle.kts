@@ -44,8 +44,8 @@ android {
         applicationId = "com.streammydrone.app"
         minSdk = 28
         targetSdk = 36
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 2
+        versionName = "1.1"
 
         ndk {
             abiFilters += "arm64-v8a"
@@ -73,7 +73,16 @@ android {
     }
 
     buildTypes {
+        // "Connect account" for YouTube and Facebook works only for the test users listed with Google
+        // and Meta until Google's OAuth verification and Meta's App Review pass, so release builds
+        // offer manual stream keys only. Set these to true in release once both reviews are approved.
+        debug {
+            buildConfigField("boolean", "YOUTUBE_ACCOUNT_CONNECTION", "true")
+            buildConfigField("boolean", "FACEBOOK_ACCOUNT_CONNECTION", "true")
+        }
         release {
+            buildConfigField("boolean", "YOUTUBE_ACCOUNT_CONNECTION", "false")
+            buildConfigField("boolean", "FACEBOOK_ACCOUNT_CONNECTION", "false")
             isMinifyEnabled = true
             isShrinkResources = true
             signingConfig = signingConfigs.findByName("release")

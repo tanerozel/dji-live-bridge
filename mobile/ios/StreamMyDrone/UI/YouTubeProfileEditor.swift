@@ -17,14 +17,27 @@ struct DestinationEditorView: View {
             } else {
                 InstagramConnectView(request: request, onManual: { self.manual = true })
             }
-        case .youtube where !manual && (request.profile == nil || request.profile?.youtube != nil):
+        case .youtube where !manual && (request.profile?.youtube != nil || request.profile == nil && AccountConnection.youtube):
             YouTubeProfileEditor(request: request, onManual: { self.manual = true })
-        case .facebook where !manual && (request.profile == nil || request.profile?.facebook != nil):
+        case .facebook where !manual && (request.profile?.facebook != nil || request.profile == nil && AccountConnection.facebook):
             FacebookProfileEditor(request: request, onManual: { self.manual = true })
         default:
             ProfileEditorView(request: request)
         }
     }
+}
+
+/// "Connect account" for YouTube and Facebook works only for the test users listed with Google and
+/// Meta until Google's OAuth verification and Meta's App Review pass, so release builds offer manual
+/// stream keys only. Set these to true in release once both reviews are approved.
+enum AccountConnection {
+    #if DEBUG
+    static let youtube = true
+    static let facebook = true
+    #else
+    static let youtube = false
+    static let facebook = false
+    #endif
 }
 
 struct YouTubeProfileEditor: View {
