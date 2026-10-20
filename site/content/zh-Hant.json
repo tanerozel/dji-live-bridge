@@ -184,6 +184,7 @@
   "footer": {
     "role": "開發者與維護者",
     "issue": "回報問題",
+    "privacy": "隱私權政策",
     "note": "以 MIT 授權釋出；內建的 FFmpeg 採用 LGPL，由原始碼編譯且不含 GPL 元件。DJI Live Bridge 是獨立專案，與 DJI、Instagram、TikTok 或 Apple 無隸屬關係。DJI、Instagram 與 TikTok 是各自所有者的商標。 Google Play 是 Google LLC 的商標。"
   }
 }

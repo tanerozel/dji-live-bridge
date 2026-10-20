@@ -184,6 +184,7 @@
   "footer": {
     "role": "developer and maintainer",
     "issue": "Report an issue",
+    "privacy": "Privacy policy",
     "note": "Released under the MIT licence; the bundled FFmpeg is LGPL, built from source without GPL components. DJI Live Bridge is an independent project and is not affiliated with DJI, Instagram, TikTok or Apple. DJI, Instagram and TikTok are trademarks of their respective owners. Google Play is a trademark of Google LLC."
   }
 }

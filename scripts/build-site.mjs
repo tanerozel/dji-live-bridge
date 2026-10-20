@@ -402,6 +402,7 @@ function footer(content) {
       <a href="https://github.com/tanerozel">GitHub</a>
       <a href="https://www.linkedin.com/in/tanerozel">LinkedIn</a>
       <a href="${REPO}/issues">${content.footer.issue}</a>
+      <a href="${BASE}/privacy-policy.html">${content.footer.privacy}</a>
       <a href="${BASE}/llms.txt">llms.txt</a>
     </div>
     <p class="note">${content.footer.note}</p>

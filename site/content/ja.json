@@ -184,6 +184,7 @@
   "footer": {
     "role": "開発者・メンテナー",
     "issue": "問題を報告",
+    "privacy": "プライバシーポリシー",
     "note": "MIT ライセンスで公開しています。同梱の FFmpeg は LGPL で、GPL の部品を含まずソースからビルドしたものです。DJI Live Bridge は独立したプロジェクトで、DJI、Instagram、TikTok、Apple とは関係がありません。DJI、Instagram、TikTok はそれぞれの所有者の商標です。 Google Play は Google LLC の商標です。"
   }
 }

@@ -184,6 +184,7 @@
   "footer": {
     "role": "geliştirici ve bakımcı",
     "issue": "Sorun bildir",
+    "privacy": "Gizlilik politikası",
     "note": "MIT lisansıyla yayımlanmıştır; paketlenen FFmpeg LGPL'dir ve GPL bileşenleri olmadan kaynaktan derlenmiştir. DJI Live Bridge bağımsız bir projedir; DJI, Instagram, TikTok veya Apple ile bağlantısı yoktur. DJI, Instagram ve TikTok kendi sahiplerinin ticari markalarıdır. Google Play, Google LLC'nin ticari markasıdır."
   }
 }

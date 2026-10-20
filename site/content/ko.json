@@ -184,6 +184,7 @@
   "footer": {
     "role": "개발자 및 관리자",
     "issue": "문제 신고",
+    "privacy": "개인정보 처리방침",
     "note": "MIT 라이선스로 배포합니다. 함께 들어 있는 FFmpeg는 LGPL이며 GPL 구성 요소 없이 소스에서 빌드했습니다. DJI Live Bridge는 독립적인 프로젝트로 DJI, Instagram, TikTok, Apple과 제휴 관계가 없습니다. DJI, Instagram, TikTok은 각 소유자의 상표입니다. Google Play는 Google LLC의 상표입니다."
   }
 }
