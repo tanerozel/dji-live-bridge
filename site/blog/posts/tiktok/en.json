@@ -6,7 +6,7 @@
   "h1": "How to go live on TikTok with a DJI drone",
   "lead": "DJI Fly cannot stream to TikTok by itself, but it can send RTMP to a computer. DJI Live Bridge receives that stream and gets it to TikTok in one of two ways: <strong>directly with a TikTok server URL and stream key</strong>, if your account has one, or <strong>through TikTok LIVE Studio</strong>, where the drone appears as a camera and no stream key is needed.",
   "published": "2026-10-02",
-  "updated": "2026-10-02",
+  "updated": "2026-10-21",
   "summary": [
     "You need a DJI drone whose DJI Fly app offers RTMP under Live Streaming Platforms, and a Mac or Windows PC on the same Wi-Fi or hotspot as the controller.",
     "With a stream key: add a TikTok destination in DJI Live Bridge and press START LIVE.",
@@ -67,7 +67,7 @@
           { "t": "Go live", "d": "Press Go Live in TikTok LIVE Studio. Going live always stays in your hands." }
         ] },
         { "img": "virtual-camera.png", "alt": "The TikTok LIVE Studio tab of DJI Live Bridge with the Start Virtual Camera button." },
-        { "note": "On Windows the virtual camera is new and in beta. If it does not appear in LIVE Studio, the optional OBS integration and OBS Virtual Camera still work." }
+        { "note": "The built-in Windows virtual camera has been tested with TikTok LIVE Studio. Select “DJI Live Bridge Camera” as the video source. The optional OBS integration is also available for broadcasts using OBS scenes." }
       ]
     },
     {

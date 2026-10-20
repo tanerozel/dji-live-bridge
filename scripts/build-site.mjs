@@ -817,7 +817,7 @@ system's credential vault. Version ${version}. MIT licence; the bundled FFmpeg i
 without GPL components.
 
 Key facts:
-- Platforms: macOS 13 or newer (Apple Silicon and Intel, signed and notarized), Windows 10/11 (beta, unsigned installer).
+- Platforms: macOS 13 or newer (Apple Silicon and Intel, signed and notarized), Windows 10/11 (streaming, preview, recording, diagnostics and built-in virtual camera tested; unsigned installer).
 - Android: a separate paid app, "Stream My Drone" (Android 9 or newer, one-time purchase on Google Play), receives the DJI Fly stream on the phone and forwards it unchanged to several RTMP/RTMPS destinations; no virtual camera, no portrait conversion.
 - Output: 1080x1920 portrait, 30 fps, 6 Mbps CBR, H.264 High, 2-second keyframes; empty space filled with a blurred copy of the picture.
 - Input: whatever DJI Fly sends over RTMP, often 720p from the controller.

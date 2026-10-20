@@ -21,11 +21,11 @@
     "h1": "DJI 드론 영상을 Instagram, TikTok, YouTube, Facebook과 사용자 지정 RTMP 대상으로 방송하세요",
     "lead": "DJI Live Bridge는 컴퓨터의 DJI Fly에서 오는 RTMP 스트림을 받아 여러 플랫폼으로 동시에 보냅니다. TikTok LIVE Studio용 가상 카메라로 바꿀 수도 있으며, 그쪽에서는 스트림 키가 필요 없습니다.",
     "ctaMac": "macOS용 다운로드",
-    "ctaWin": "Windows(베타)",
+    "ctaWin": "Windows",
     "ctaAndroid": "Google Play의 Android 앱",
     "ctaIos": "iOS – App Store",
     "ctaSource": "GitHub 소스 코드",
-    "meta": "Apple Silicon 및 Intel Mac · macOS 13 이상 · Windows 10/11 베타 · 따로 설치할 것 없음",
+    "meta": "Apple Silicon 및 Intel Mac · macOS 13 이상 · Windows 10/11 · 따로 설치할 것 없음",
     "shotAlt": "'방송' 탭: 드론을 연결하고 방송 대상을 고른 뒤 방송 시작을 누릅니다.",
     "caption": "화면 하나로 끝납니다. 드론을 연결하고, 방송 대상을 추가하고, 방송 시작을 누릅니다."
   },
@@ -161,7 +161,7 @@
       },
       {
         "q": "Windows에서도 되나요?",
-        "a": "Windows 빌드는 베타입니다. Instagram, TikTok, 모든 RTMP 대상으로의 송출이 되고 미리보기, 녹화, 진단도 됩니다. 내장 가상 카메라도 들어 있습니다. 설치 프로그램이 TikTok LIVE Studio, OBS, Zoom에서 쓸 수 있는 'DJI Live Bridge Camera' 장치를 등록합니다. macOS 쪽보다 최근에 만든 기능이라 만약 목록에 나타나지 않으면 선택 사항인 OBS 연동을 통한 OBS Virtual Camera를 쓸 수 있습니다. 한 가지 더, 설치 프로그램은 아직 코드 서명이 되어 있지 않아 Windows SmartScreen이 경고를 띄웁니다."
+        "a": "네. Windows 10/11을 지원합니다. 송출, 미리보기, 녹화, 진단, 내장 가상 카메라 기능은 모두 테스트되었습니다. 설치 프로그램은 TikTok LIVE Studio, OBS, Zoom에서 사용할 수 있는 “DJI Live Bridge Camera” 장치를 등록합니다. 설치 프로그램에 코드 서명이 없어 Windows SmartScreen 경고가 표시될 수 있습니다."
       },
       {
         "q": "동물을 감지하고 셀 수 있나요?",

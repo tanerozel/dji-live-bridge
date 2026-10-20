@@ -58,7 +58,7 @@ No. OBS is optional and only useful if you want its scenes, filters or recording
 Yes. Every release ships two downloads: one for Apple Silicon and one for Intel, both signed and notarized, each with its own bundled FFmpeg. Pick the file that matches your Mac.
 
 ### Does it work on Windows?
-There is a Windows build in beta. Streaming to Instagram, TikTok and any RTMP destination works, as do the preview, recording and diagnostics. The built-in virtual camera is included too: the installer registers a “DJI Live Bridge Camera” device for TikTok LIVE Studio, OBS or Zoom. It is newer than the macOS one, so if it does not appear, OBS Virtual Camera through the optional OBS integration still works. One more caveat: the installer is not code-signed yet, so Windows SmartScreen will warn you.
+Yes. Windows 10/11 is supported. Streaming, preview, recording, diagnostics and the built-in virtual camera have all been tested. The installer registers a “DJI Live Bridge Camera” device for TikTok LIVE Studio, OBS and Zoom. The installer is not code-signed, so Windows SmartScreen may show a warning.
 
 ### Can it detect and count animals?
 Yes. Turn on AI Vision on the Go live tab: each animal gets a labelled box on the stream and the virtual camera, and a counter keeps track. Everything runs on your computer. Goats, donkeys and poultry need a Mac; on Windows it recognises sheep, cows, horses, dogs, cats, birds and bears.
@@ -216,7 +216,7 @@ Looking for the newer model? The Mini 5 Pro live streaming guide covers RC 2 and
 **Can I stream to Instagram and TikTok at the same time?** You can add both as destinations if your accounts provide the required streaming access. Each destination uses upload bandwidth. On desktop the picture is encoded once; on mobile the incoming picture is forwarded without re-encoding.
 
 ## Spot and count animals live from your DJI drone
-Source: https://tanerozel.github.io/dji-live-bridge/blog/count-animals-with-a-dji-drone-ai-detection/ (updated 2026-10-07)
+Source: https://tanerozel.github.io/dji-live-bridge/blog/count-animals-with-a-dji-drone-ai-detection/ (updated 2026-10-21)
 
 DJI Live Bridge can now look at your drone's live picture for you. AI Vision finds goats, sheep, cattle, horses, donkeys, poultry and other animals, draws a labelled box around each one on your stream and the virtual camera, and keeps a count. It runs on your own computer; no picture or result is sent anywhere.
 
@@ -261,7 +261,7 @@ No drone nearby? Try with a video file on the Go live tab plays a recorded clip 
 ### Privacy and requirements
 - On your computer only. Detection runs locally. No picture, detection or count is uploaded. The only network use is the one-time model download.
 - Mac: the models run on the Mac's graphics and neural hardware. An Apple Silicon Mac is recommended. OWLv2 needs about 4 GB of free disk space once prepared.
-- Windows (beta): the lighter YOLOX models run on the processor. OWLv2 and the other large models are offered only on a Mac, so goats, donkeys and poultry are not recognised on Windows yet.
+- Windows: the lighter YOLOX models run on the processor. OWLv2 and the other large models are offered only on a Mac, so goats, donkeys and poultry are not recognised on Windows yet.
 - Off means off. While AI Vision is switched off, no model is loaded and your stream is exactly as before.
 
 ### FAQ
@@ -385,7 +385,7 @@ Every detail of the Instagram side, including the key that changes each time, is
 **Is it free?** DJI Live Bridge is free and open source. It is not affiliated with DJI or Instagram.
 
 ## Turn your DJI drone into your computer's webcam
-Source: https://tanerozel.github.io/dji-live-bridge/blog/use-your-dji-drone-as-a-webcam/ (updated 2026-10-02)
+Source: https://tanerozel.github.io/dji-live-bridge/blog/use-your-dji-drone-as-a-webcam/ (updated 2026-10-21)
 
 DJI Live Bridge does more than restream. Its virtual camera hands the live picture from DJI Fly to your computer as an ordinary camera called DJI Live Bridge Camera, so any app with a camera menu — TikTok LIVE Studio, OBS, Zoom, Google Meet, Microsoft Teams — can show what your drone sees. No stream key, no streaming account.
 
@@ -401,7 +401,7 @@ So the other app needs no stream key, no streaming account and no RTMP support. 
 - Name: DJI Live Bridge Camera.
 - Picture: vertical 1080×1920 at 30 fps. A landscape drone picture sits in the middle of the frame with black above and below; nothing is cropped.
 - Sound: none, on purpose. You pick a microphone in the app that uses the camera, so you never hear the audio twice.
-- Systems: macOS 13 or newer (the app must be in the Applications folder), and Windows 10/11 in beta.
+- Systems: macOS 13 or newer (the app must be in the Applications folder), and Windows 10/11.
 
 ### What you can do with it
 A few ideas — anything that accepts a webcam can show the view from your drone.
@@ -448,7 +448,7 @@ The built-in camera is vertical, because TikTok LIVE Studio and phone-first plat
 - It stopped after an update: replacing the app makes macOS switch the old camera off. Press Start Virtual Camera again; it requests activation itself. If macOS asks for it, restart the Mac.
 - The picture is black: no drone video is arriving. Check the preview on the Go live tab and the RTMP address in DJI Fly.
 - A browser does not show it: allow camera access for the site and reload the page.
-- Windows: the built-in camera is in beta. If an app does not list it, use the OBS route above.
+- Windows: the built-in camera has been tested with TikTok LIVE Studio, OBS and Zoom. Select “DJI Live Bridge Camera” as the video source.
 
 ### FAQ
 **Can I use my DJI drone as a webcam?** Yes. With DJI Live Bridge running and DJI Fly sending RTMP to it, the drone appears as a camera named DJI Live Bridge Camera in any app that lets you choose a camera.
@@ -464,7 +464,7 @@ The built-in camera is vertical, because TikTok LIVE Studio and phone-first plat
 **Is it free?** Yes. DJI Live Bridge is free and open source under the MIT licence, and is not affiliated with DJI, Zoom, Google or Microsoft.
 
 ## How to live stream a DJI Neo
-Source: https://tanerozel.github.io/dji-live-bridge/blog/dji-neo-live-stream/ (updated 2026-10-03)
+Source: https://tanerozel.github.io/dji-live-bridge/blog/dji-neo-live-stream/ (updated 2026-10-21)
 
 The DJI Neo streams through DJI Fly's RTMP option, like DJI's bigger drones. The catch is the way you fly it: when the phone controls the Neo directly over Wi-Fi, that Wi-Fi is taken by the drone. Fly with the RC-N3 (or goggles cabled to the phone) and the phone is free to send the stream to DJI Live Bridge on your computer, which takes it on to Instagram, TikTok, YouTube or several platforms at once.
 
@@ -481,7 +481,7 @@ The Neo can be flown three ways, and that decides how the stream leaves the phon
 | Phone only (Wi-Fi, short range) | Usually not | The phone's Wi-Fi is connected to the Neo, so it is not on the computer's network. |
 | RC-N3 + phone | Yes — recommended | The phone talks to the controller by cable; its Wi-Fi joins the same network as the computer. |
 | Goggles + phone on a USB-C cable | Yes | DJI Fly on the phone shows the goggles' live view and can stream it. |
-Some Android phones can run their own hotspot while connected to a Wi-Fi network. If yours can, the computer could join that hotspot in phone-only mode — we have not tested it, so treat it as an experiment.
+Some Android phones can run their own hotspot while connected to a Wi-Fi network. On a phone that supports both connections at once, connect the computer to that hotspot so it can receive the DJI Fly feed. This route depends on the phone’s Wi-Fi sharing capability.
 
 ### Set up the Neo live stream with the RC-N3
 1. **Connect the phone to the RC-N3** Fly the Neo with the RC-N3 as usual, phone attached by cable, DJI Fly open.
@@ -506,7 +506,7 @@ More detail on the DJI Fly side, networks and firewalls is in the DJI Fly RTMP g
 ### FAQ
 **Can the DJI Neo live stream?** Yes, through RTMP in DJI Fly. For streaming to a computer, fly it with the RC-N3 or with goggles cabled to the phone, so the phone's Wi-Fi is free to join the computer's network.
 
-**Can I live stream the Neo when controlling it with just my phone?** Usually not to a computer: in that mode the phone's Wi-Fi is connected to the Neo. Some Android phones can share a hotspot at the same time, but we have not tested that.
+**Can I live stream the Neo when controlling it with just my phone?** In phone-only control mode, the phone’s Wi-Fi is connected to the Neo. A computer can receive the feed through the phone’s hotspot if the Android phone supports Wi-Fi and hotspot sharing at the same time. Availability depends on the phone.
 
 **Can the DJI Neo stream to Instagram or TikTok?** Not from DJI Fly directly. Send DJI Fly's RTMP stream to DJI Live Bridge, which forwards it to Instagram over RTMPS and to TikTok in vertical 1080×1920.
 
@@ -710,7 +710,7 @@ The camera sends its stream over Wi-Fi to the computer, so it has to stay within
 **How far can the camera be from the computer?** As far as the Wi-Fi reaches. The camera streams to the computer over that network, so keep it within range or carry a hotspot.
 
 ## How to go live on TikTok with a DJI drone
-Source: https://tanerozel.github.io/dji-live-bridge/blog/how-to-go-live-on-tiktok-with-a-dji-drone/ (updated 2026-10-02)
+Source: https://tanerozel.github.io/dji-live-bridge/blog/how-to-go-live-on-tiktok-with-a-dji-drone/ (updated 2026-10-21)
 
 DJI Fly cannot stream to TikTok by itself, but it can send RTMP to a computer. DJI Live Bridge receives that stream and gets it to TikTok in one of two ways: directly with a TikTok server URL and stream key, if your account has one, or through TikTok LIVE Studio, where the drone appears as a camera and no stream key is needed.
 
@@ -747,7 +747,7 @@ TikTok LIVE Studio is TikTok's own desktop app. You sign in with your TikTok acc
 3. **Add the camera in LIVE Studio** Add a Camera source and pick DJI Live Bridge Camera.
 4. **Set up the sound** Set that source's audio capture to None and choose one microphone in LIVE Studio. The camera carries video only, so you never get double audio.
 5. **Go live** Press Go Live in TikTok LIVE Studio. Going live always stays in your hands.
-On Windows the virtual camera is new and in beta. If it does not appear in LIVE Studio, the optional OBS integration and OBS Virtual Camera still work.
+The built-in Windows virtual camera has been tested with TikTok LIVE Studio. Select “DJI Live Bridge Camera” as the video source. The optional OBS integration is also available for broadcasts using OBS scenes.
 
 ### Recommended settings for TikTok
 | Setting | Value | Why |

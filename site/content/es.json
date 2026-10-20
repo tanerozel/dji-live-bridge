@@ -21,11 +21,11 @@
     "h1": "Transmite en directo desde tu dron DJI a Instagram, TikTok, YouTube, Facebook y destinos RTMP personalizados",
     "lead": "DJI Live Bridge toma la transmisión RTMP que DJI Fly envía a tu ordenador y la reenvía a varias plataformas a la vez, o la convierte en una cámara virtual para TikTok LIVE Studio, donde no hace falta ninguna clave de transmisión.",
     "ctaMac": "Descargar para macOS",
-    "ctaWin": "Windows (beta)",
+    "ctaWin": "Windows",
     "ctaAndroid": "Android en Google Play",
     "ctaIos": "iOS – App Store",
     "ctaSource": "Código en GitHub",
-    "meta": "Macs con Apple Silicon e Intel · macOS 13 o posterior · Windows 10/11 en beta · nada más que instalar",
+    "meta": "Macs con Apple Silicon e Intel · macOS 13 o posterior · Windows 10/11 · nada más que instalar",
     "shotAlt": "La pestaña Transmitir: conecta el dron, elige los destinos y pulsa INICIAR TRANSMISIÓN.",
     "caption": "Una sola pantalla: conecta el dron, añade destinos y pulsa INICIAR TRANSMISIÓN."
   },
@@ -161,7 +161,7 @@
       },
       {
         "q": "¿Funciona en Windows?",
-        "a": "Hay una versión de Windows en beta. La transmisión a Instagram, TikTok y cualquier destino RTMP funciona, igual que la vista previa, la grabación y el diagnóstico. La cámara virtual integrada también está incluida: el instalador registra un dispositivo «DJI Live Bridge Camera» para TikTok LIVE Studio, OBS o Zoom. Es más reciente que la de macOS, así que, si no aparece, la cámara virtual de OBS a través de la integración opcional con OBS sigue funcionando. Un aviso más: el instalador todavía no está firmado, así que Windows SmartScreen te mostrará una advertencia."
+        "a": "Sí. Windows 10/11 es compatible. Se han probado todas las funciones de transmisión, vista previa, grabación, diagnóstico y cámara virtual integrada. El instalador registra un dispositivo «DJI Live Bridge Camera» para TikTok LIVE Studio, OBS y Zoom. El instalador no tiene firma de código, por lo que Windows SmartScreen puede mostrar una advertencia."
       },
       {
         "q": "¿Puede detectar y contar animales?",

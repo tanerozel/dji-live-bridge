@@ -21,11 +21,11 @@
     "h1": "Mit Ihrer DJI-Drohne live auf Instagram, TikTok, YouTube, Facebook und eigenen RTMP-Zielen",
     "lead": "DJI Live Bridge übernimmt den RTMP-Stream von DJI Fly auf Ihrem Computer und sendet ihn an mehrere Plattformen gleichzeitig — oder macht daraus eine virtuelle Kamera für TikTok LIVE Studio, wo kein Stream-Schlüssel nötig ist.",
     "ctaMac": "Für macOS herunterladen",
-    "ctaWin": "Windows (Beta)",
+    "ctaWin": "Windows",
     "ctaAndroid": "Android bei Google Play",
     "ctaIos": "iOS – App Store",
     "ctaSource": "Quellcode auf GitHub",
-    "meta": "Macs mit Apple Silicon und Intel · macOS 13 oder neuer · Windows 10/11 als Beta · sonst nichts zu installieren",
+    "meta": "Macs mit Apple Silicon und Intel · macOS 13 oder neuer · Windows 10/11 · sonst nichts zu installieren",
     "shotAlt": "Der Tab „Live gehen“: Drohne verbinden, Ziele wählen, dann LIVE STARTEN drücken.",
     "caption": "Ein Bildschirm: Drohne verbinden, Ziele hinzufügen, LIVE STARTEN drücken."
   },
@@ -161,7 +161,7 @@
       },
       {
         "q": "Funktioniert es unter Windows?",
-        "a": "Es gibt eine Windows-Version in der Beta. Das Streamen zu Instagram, TikTok und jedem RTMP-Ziel funktioniert, ebenso Vorschau, Aufnahme und Diagnose. Die integrierte virtuelle Kamera ist ebenfalls dabei: Das Installationsprogramm registriert ein Gerät namens „DJI Live Bridge Camera“ für TikTok LIVE Studio, OBS oder Zoom. Sie ist neuer als die unter macOS; falls sie nicht auftaucht, funktioniert weiterhin OBS Virtual Camera über die optionale OBS-Integration. Ein weiterer Vorbehalt: Das Installationsprogramm ist noch nicht signiert, Windows SmartScreen warnt Sie also."
+        "a": "Ja. Windows 10/11 wird unterstützt. Streaming, Vorschau, Aufnahme, Diagnose und die integrierte virtuelle Kamera wurden vollständig getestet. Das Installationsprogramm registriert ein Gerät namens „DJI Live Bridge Camera“ für TikTok LIVE Studio, OBS und Zoom. Das Installationsprogramm ist nicht mit einer Codesignatur versehen, daher kann Windows SmartScreen eine Warnung anzeigen."
       },
       {
         "q": "Kann die App Tiere erkennen und zählen?",

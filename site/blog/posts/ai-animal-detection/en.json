@@ -6,7 +6,7 @@
   "h1": "Spot and count animals live from your DJI drone",
   "lead": "DJI Live Bridge can now look at your drone's live picture for you. <strong>AI Vision</strong> finds goats, sheep, cattle, horses, donkeys, poultry and other animals, draws a labelled box around each one on your stream and the virtual camera, and keeps a count. It runs on your own computer; no picture or result is sent anywhere.",
   "published": "2026-10-07",
-  "updated": "2026-10-07",
+  "updated": "2026-10-21",
   "summary": [
     "Turn on <strong>AI Vision · Animal Detection</strong> on the Go live tab and the app marks every animal it finds with a box and a label such as <em>Goat #12 85%</em>.",
     "It knows 15 kinds of animal, farm animals first: goat, sheep, cow, horse, donkey, dog, cat, chicken, duck, goose, pig, deer, wild boar, bird and bear.",
@@ -80,7 +80,7 @@
         { "list": [
           "<strong>On your computer only.</strong> Detection runs locally. No picture, detection or count is uploaded. The only network use is the one-time model download.",
           "<strong>Mac:</strong> the models run on the Mac's graphics and neural hardware. An Apple Silicon Mac is recommended. OWLv2 needs about 4 GB of free disk space once prepared.",
-          "<strong>Windows (beta):</strong> the lighter YOLOX models run on the processor. OWLv2 and the other large models are offered only on a Mac, so goats, donkeys and poultry are not recognised on Windows yet.",
+          "<strong>Windows:</strong> the lighter YOLOX models run on the processor. OWLv2 and the other large models are offered only on a Mac, so goats, donkeys and poultry are not recognised on Windows yet.",
           "<strong>Off means off.</strong> While AI Vision is switched off, no model is loaded and your stream is exactly as before."
         ] }
       ]

@@ -21,11 +21,11 @@
     "h1": "अपने DJI ड्रोन से Instagram, TikTok, YouTube, Facebook और कस्टम RTMP गंतव्यों पर लाइव जाएँ",
     "lead": "DJI Live Bridge आपके कंप्यूटर पर DJI Fly से आने वाली RTMP स्ट्रीम लेता है और उसे एक साथ कई प्लेटफ़ॉर्म पर भेजता है — या उसे TikTok LIVE Studio के लिए वर्चुअल कैमरा बना देता है, जहाँ स्ट्रीम की नहीं चाहिए।",
     "ctaMac": "macOS के लिए डाउनलोड करें",
-    "ctaWin": "Windows (बीटा)",
+    "ctaWin": "Windows",
     "ctaAndroid": "Google Play पर Android ऐप",
     "ctaIos": "iOS – App Store",
     "ctaSource": "GitHub पर सोर्स कोड",
-    "meta": "Apple Silicon और Intel Mac · macOS 13 या नया · Windows 10/11 बीटा · और कुछ इंस्टॉल नहीं करना",
+    "meta": "Apple Silicon और Intel Mac · macOS 13 या नया · Windows 10/11 · और कुछ इंस्टॉल नहीं करना",
     "shotAlt": "लाइव टैब: ड्रोन जोड़ें, गंतव्य चुनें, फिर लाइव शुरू करें दबाएँ।",
     "caption": "एक ही स्क्रीन: ड्रोन जोड़ें, गंतव्य जोड़ें, लाइव शुरू करें दबाएँ।"
   },
@@ -161,7 +161,7 @@
       },
       {
         "q": "क्या यह Windows पर चलता है?",
-        "a": "Windows बिल्ड बीटा में है। Instagram, TikTok और किसी भी RTMP गंतव्य पर स्ट्रीमिंग चलती है, और प्रीव्यू, रिकॉर्डिंग व जाँच भी। अंतर्निहित वर्चुअल कैमरा भी साथ आता है: इंस्टॉलर TikTok LIVE Studio, OBS या Zoom के लिए “DJI Live Bridge Camera” डिवाइस पंजीकृत करता है। यह macOS वाले से नया है, इसलिए अगर यह न दिखे तो वैकल्पिक OBS एकीकरण के ज़रिए OBS Virtual Camera अब भी काम करता है। एक बात और: इंस्टॉलर पर अभी कोड हस्ताक्षर नहीं है, इसलिए Windows SmartScreen चेतावनी देगा।"
+        "a": "हाँ। Windows 10/11 समर्थित है। स्ट्रीमिंग, प्रीव्यू, रिकॉर्डिंग, डायग्नोस्टिक्स और अंतर्निहित वर्चुअल कैमरा, सभी सुविधाओं का परीक्षण किया गया है। इंस्टॉलर TikTok LIVE Studio, OBS और Zoom के लिए “DJI Live Bridge Camera” डिवाइस पंजीकृत करता है। इंस्टॉलर कोड-साइन नहीं है, इसलिए Windows SmartScreen चेतावनी दिखा सकता है।"
       },
       {
         "q": "क्या यह जानवरों को पहचान और गिन सकता है?",

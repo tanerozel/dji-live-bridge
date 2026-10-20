@@ -21,11 +21,11 @@
     "h1": "把 DJI 空拍機畫面直播到 Instagram、TikTok、YouTube、Facebook 與自訂 RTMP 目的地",
     "lead": "DJI Live Bridge 接收電腦上 DJI Fly 傳來的 RTMP 串流，同時送往多個平台；也可以把它變成 TikTok LIVE Studio 的虛擬攝影機，在那裡不需要串流金鑰。",
     "ctaMac": "下載 macOS 版",
-    "ctaWin": "Windows（測試版）",
+    "ctaWin": "Windows",
     "ctaAndroid": "Android 版（Google Play）",
     "ctaIos": "iOS – App Store",
     "ctaSource": "GitHub 上的原始碼",
-    "meta": "Apple Silicon 與 Intel Mac · macOS 13 或更新版本 · Windows 10/11 測試版 · 不必安裝其他東西",
+    "meta": "Apple Silicon 與 Intel Mac · macOS 13 或更新版本 · Windows 10/11 · 不必安裝其他東西",
     "shotAlt": "「開始直播」分頁：連接無人機、選擇直播目的地，然後按下開始直播。",
     "caption": "一個畫面：連接無人機、加入直播目的地、按下開始直播。"
   },
@@ -161,7 +161,7 @@
       },
       {
         "q": "在 Windows 上可以用嗎？",
-        "a": "Windows 版本目前是測試版。直播到 Instagram、TikTok 和任何 RTMP 目的地可以用，預覽、錄影與診斷也可以用。內建的虛擬攝影機同樣包含在內：安裝程式會為 TikTok LIVE Studio、OBS 或 Zoom 註冊一個「DJI Live Bridge Camera」裝置。它比 macOS 上的更新，所以如果沒有出現，透過選用的 OBS 整合使用 OBS Virtual Camera 仍然可行。還有一點：安裝程式尚未做程式碼簽章，因此 Windows SmartScreen 會跳出警告。"
+        "a": "支援 Windows 10/11。直播、預覽、錄影、診斷和內建虛擬攝影機功能均已測試。安裝程式會為 TikTok LIVE Studio、OBS 和 Zoom 註冊一個「DJI Live Bridge Camera」裝置。安裝程式沒有程式碼簽章，因此 Windows SmartScreen 可能會顯示警告。"
       },
       {
         "q": "它能辨識並清點動物嗎？",

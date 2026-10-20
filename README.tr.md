@@ -25,7 +25,7 @@ RC 2 girdisi 720p olabilir ve UI gerçek ffprobe metadata'sını gösterir. 1080
 ## Gereksinimler
 
 - macOS 13 veya üzeri. Apple Silicon ve Intel için ayrı sürümler yayınlanır.
-- Windows 10/11 (beta): yayın, önizleme, kayıt ve tanılama çalışır. Yerleşik sanal kamera artık Windows'ta da var; kurulum "DJI Live Bridge Camera" aygıtını kaydeder ve TikTok LIVE Studio, OBS ya da Zoom bunu seçebilir. Ancak yeni ve macOS'taki kadar denenmiş değil; görünmezse OBS sanal kamerası yedek yoldur. Kurulum henüz imzalanmadığından SmartScreen uyarı verir.
+- Windows 10/11: canlı yayın, önizleme, kayıt, tanılama ve yerleşik sanal kamera özelliklerinin tamamı test edildi. Kurulum, TikTok LIVE Studio, OBS ve Zoom için "DJI Live Bridge Camera" aygıtını kaydeder. OBS sahneleriyle yayın için isteğe bağlı OBS entegrasyonu da kullanılabilir. Kurulum dosyası kod imzalı olmadığı için SmartScreen uyarı gösterebilir.
 - Rust 1.98.1 (`rust-toolchain.toml`).
 - Node.js 22 ve npm.
 - OBS Studio 32.2.2 + obs-websocket 5.x yalnız isteğe bağlı advanced path içindir; varsayılan Direct RTMP hattında OBS gerekmez.
@@ -175,7 +175,7 @@ npm run build:mac
 
 > **Build için tek geçerli komut `npm run build:mac`'tir.** Çıplak `tauri build` engellenmiştir (`scripts/tauri.sh`), çünkü Tauri, uygulamanın kısıtlı entitlement'larını (`system-extension.install`, `application-groups`) `mediamtx` sidecar'ına da uygular. Provisioning profile olmayan sidecar'ı macOS açılışta `SIGKILL` ile öldürür (exit 137); uygulama da `error sending request for url (http://127.0.0.1:9997/v3/paths/list)` hatasını verir. `build:mac` sidecar'ı boş entitlement ile yeniden imzalar, `.app` ve `.dmg` içindeki bundle'ı `scripts/verify-bundle.sh` ile doğrular ve doğrulanmamış bir build'i başarılı saymaz. Kurulu bir uygulamayı denetlemek için: `npm run verify:bundle -- "/Applications/DJI Live Bridge.app"`.
 
-RTMP config serileştirme, secret ayrımı, URL doğrulama ve bir hedef çalışırken diğerinin hata vermesi senaryoları Rust unit testleriyle doğrulanır. Gerçek Instagram/TikTok hesabına yayın ayrıca geçerli platform anahtarlarıyla kullanıcı tarafından doğrulanmalıdır.
+RTMP config serileştirme, secret ayrımı, URL doğrulama ve bir hedef çalışırken diğerinin hata vermesi senaryoları Rust unit testleriyle doğrulanır. Instagram ve TikTok’a canlı yayın da geçerli platform anahtarlarıyla test edildi.
 
 ## Packaging, signing ve notarization
 

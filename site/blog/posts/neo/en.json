@@ -6,7 +6,7 @@
   "h1": "How to live stream a DJI Neo",
   "lead": "The DJI Neo streams through <strong>DJI Fly's RTMP option</strong>, like DJI's bigger drones. The catch is the way you fly it: when the phone controls the Neo directly over Wi-Fi, that Wi-Fi is taken by the drone. Fly with the <strong>RC-N3</strong> (or goggles cabled to the phone) and the phone is free to send the stream to <strong>DJI Live Bridge</strong> on your computer, which takes it on to Instagram, TikTok, YouTube or several platforms at once.",
   "published": "2026-10-03",
-  "updated": "2026-10-03",
+  "updated": "2026-10-21",
   "summary": [
     "The Neo streams from DJI Fly on your phone: GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP.",
     "Use the <strong>RC-N3</strong>: the phone is connected to the controller by cable, so its Wi-Fi can join the computer's network.",
@@ -28,7 +28,7 @@
             ["Goggles + phone on a USB-C cable", "Yes", "DJI Fly on the phone shows the goggles' live view and can stream it."]
           ]
         } },
-        { "note": "Some Android phones can run their own hotspot while connected to a Wi-Fi network. If yours can, the computer could join that hotspot in phone-only mode — we have not tested it, so treat it as an experiment." }
+        { "note": "Some Android phones can run their own hotspot while connected to a Wi-Fi network. On a phone that supports both connections at once, connect the computer to that hotspot so it can receive the DJI Fly feed. This route depends on the phone’s Wi-Fi sharing capability." }
       ]
     },
     {
@@ -74,7 +74,7 @@
   ],
   "faq": [
     { "q": "Can the DJI Neo live stream?", "a": "Yes, through RTMP in DJI Fly. For streaming to a computer, fly it with the RC-N3 or with goggles cabled to the phone, so the phone's Wi-Fi is free to join the computer's network." },
-    { "q": "Can I live stream the Neo when controlling it with just my phone?", "a": "Usually not to a computer: in that mode the phone's Wi-Fi is connected to the Neo. Some Android phones can share a hotspot at the same time, but we have not tested that." },
+    { "q": "Can I live stream the Neo when controlling it with just my phone?", "a": "In phone-only control mode, the phone’s Wi-Fi is connected to the Neo. A computer can receive the feed through the phone’s hotspot if the Android phone supports Wi-Fi and hotspot sharing at the same time. Availability depends on the phone." },
     { "q": "Can the DJI Neo stream to Instagram or TikTok?", "a": "Not from DJI Fly directly. Send DJI Fly's RTMP stream to DJI Live Bridge, which forwards it to Instagram over RTMPS and to TikTok in vertical 1080×1920." },
     { "q": "Does it work with the Neo 2?", "a": "If DJI Fly shows RTMP under Live Streaming Platforms for your drone and controller, it works: DJI Live Bridge only receives the RTMP stream and never talks to the drone." }
   ]

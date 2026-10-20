@@ -6,7 +6,7 @@
   "h1": "DJI drone'unuzla hayvanları canlı bulun ve sayın",
   "lead": "DJI Live Bridge artık drone'unuzun canlı görüntüsüne sizin yerinize bakabiliyor. <strong>AI Vision</strong> keçi, koyun, sığır, at, eşek, kümes hayvanları ve diğer hayvanları bulur, yayında ve sanal kamerada her birinin etrafına etiketli bir kutu çizer ve sayar. Kendi bilgisayarınızda çalışır; hiçbir görüntü veya sonuç bir yere gönderilmez.",
   "published": "2026-10-07",
-  "updated": "2026-10-07",
+  "updated": "2026-10-21",
   "summary": [
     "Canlı yayın sekmesinde <strong>AI Vision · Hayvan Tespiti</strong>'ni açın; uygulama bulduğu her hayvanı bir kutu ve <em>Keçi #12 %85</em> gibi bir etiketle işaretler.",
     "Önce çiftlik hayvanları olmak üzere 15 tür tanır: keçi, koyun, inek, at, eşek, köpek, kedi, tavuk, ördek, kaz, domuz, geyik, yaban domuzu, kuş ve ayı.",
@@ -80,7 +80,7 @@
         { "list": [
           "<strong>Yalnızca bilgisayarınızda.</strong> Tespit yerelde çalışır. Hiçbir görüntü, tespit veya sayım yüklenmez. Ağı kullanan tek şey, modelin bir kerelik indirilmesidir.",
           "<strong>Mac:</strong> modeller Mac'in grafik ve sinir ağı donanımında çalışır. Apple Silicon bir Mac önerilir. OWLv2 hazırlandıktan sonra yaklaşık 4 GB boş disk alanı ister.",
-          "<strong>Windows (beta):</strong> daha hafif YOLOX modelleri işlemcide çalışır. OWLv2 ve diğer büyük modeller yalnızca Mac'te sunulur; bu yüzden Windows'ta keçi, eşek ve kümes hayvanları henüz tanınmaz.",
+          "<strong>Windows:</strong> daha hafif YOLOX modelleri işlemcide çalışır. OWLv2 ve diğer büyük modeller yalnızca Mac'te sunulur; bu yüzden Windows'ta keçi, eşek ve kümes hayvanları henüz tanınmaz.",
           "<strong>Kapalıysa kapalıdır.</strong> AI Vision kapalıyken hiçbir model yüklenmez ve yayınınız eskisiyle tamamen aynıdır."
         ] }
       ]

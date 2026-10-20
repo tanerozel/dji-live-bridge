@@ -21,11 +21,11 @@
     "h1": "DJI drone’unuzdan Instagram, TikTok, YouTube, Facebook ve özel RTMP hedeflerine canlı yayın yapın",
     "lead": "DJI Fly'daki RTMP yayınını bilgisayarınıza gönderin; DJI Live Bridge onu Instagram, TikTok, YouTube, Facebook ve diğer platformlara aynı anda iletir. TikTok için yayın anahtarı gerekmeyen sanal kamera da var.",
     "ctaMac": "macOS için indir",
-    "ctaWin": "Windows (beta)",
+    "ctaWin": "Windows",
     "ctaAndroid": "Android – Google Play",
     "ctaIos": "iOS – App Store",
     "ctaSource": "GitHub'da kaynak kodu",
-    "meta": "Apple Silicon ve Intel Mac'ler · macOS 13 veya üzeri · Windows 10/11 beta · başka hiçbir şey kurmanız gerekmez",
+    "meta": "Apple Silicon ve Intel Mac'ler · macOS 13 veya üzeri · Windows 10/11 · başka hiçbir şey kurmanız gerekmez",
     "shotAlt": "Canlı yayın sekmesi: drone'u bağlayın, hedefleri seçin, sonra YAYINI BAŞLAT'a basın.",
     "caption": "Tek ekran: drone'u bağlayın, hedef ekleyin, YAYINI BAŞLAT'a basın."
   },
@@ -161,7 +161,7 @@
       },
       {
         "q": "Windows'ta çalışır mı?",
-        "a": "Beta aşamasında bir Windows sürümü var. Instagram, TikTok ve istediğiniz RTMP hedefine yayın çalışıyor; önizleme, kayıt ve tanılama da öyle. Yerleşik sanal kamera da dahil: kurulum dosyası, TikTok LIVE Studio, OBS ya da Zoom için bir “DJI Live Bridge Camera” cihazı kaydeder. macOS'takinden daha yeni olduğu için görünmezse, isteğe bağlı OBS entegrasyonu üzerinden OBS Virtual Camera hâlâ çalışır. Bir uyarı daha: kurulum dosyası henüz imzalı değil, bu yüzden Windows SmartScreen sizi uyaracak."
+        "a": "Evet. Windows 10/11 desteklenir. Canlı yayın, önizleme, kayıt, tanılama ve yerleşik sanal kamera özelliklerinin tamamı test edildi. Kurulum dosyası TikTok LIVE Studio, OBS ve Zoom için bir “DJI Live Bridge Camera” aygıtı kaydeder. Kurulum dosyası kod imzalı olmadığı için Windows SmartScreen uyarı gösterebilir."
       },
       {
         "q": "Hayvanları tespit edip sayabilir mi?",

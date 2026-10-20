@@ -21,11 +21,11 @@
     "h1": "Vai in diretta dal tuo drone DJI su Instagram, TikTok, YouTube, Facebook e destinazioni RTMP personalizzate",
     "lead": "DJI Live Bridge prende lo streaming RTMP che DJI Fly manda al tuo computer e lo inoltra a più piattaforme insieme, oppure lo trasforma in una fotocamera virtuale per TikTok LIVE Studio, dove non serve nessuna chiave di streaming.",
     "ctaMac": "Scarica per macOS",
-    "ctaWin": "Windows (beta)",
+    "ctaWin": "Windows",
     "ctaAndroid": "Android su Google Play",
     "ctaIos": "iOS – App Store",
     "ctaSource": "Codice su GitHub",
-    "meta": "Mac con Apple Silicon e Intel · macOS 13 o successivo · Windows 10/11 in beta · nient'altro da installare",
+    "meta": "Mac con Apple Silicon e Intel · macOS 13 o successivo · Windows 10/11 · nient'altro da installare",
     "shotAlt": "La scheda Diretta: collega il drone, scegli le destinazioni e premi AVVIA DIRETTA.",
     "caption": "Una sola schermata: collega il drone, aggiungi le destinazioni, premi AVVIA DIRETTA."
   },
@@ -161,7 +161,7 @@
       },
       {
         "q": "Funziona su Windows?",
-        "a": "C'è una versione per Windows in beta. La trasmissione verso Instagram, TikTok e qualsiasi destinazione RTMP funziona, così come l'anteprima, la registrazione e la diagnostica. C'è anche la fotocamera virtuale integrata: il programma di installazione registra un dispositivo «DJI Live Bridge Camera» per TikTok LIVE Studio, OBS o Zoom. È più recente di quella per macOS, quindi, se non compare, resta possibile usare OBS Virtual Camera tramite l'integrazione facoltativa con OBS. Un'altra avvertenza: il programma di installazione non è ancora firmato, quindi Windows SmartScreen mostrerà un avviso."
+        "a": "Sì. Windows 10/11 è supportato. Trasmissione, anteprima, registrazione, diagnostica e fotocamera virtuale integrata sono state tutte testate. Il programma di installazione registra un dispositivo «DJI Live Bridge Camera» per TikTok LIVE Studio, OBS e Zoom. Il programma di installazione non ha una firma digitale, quindi Windows SmartScreen potrebbe mostrare un avviso."
       },
       {
         "q": "Può riconoscere e contare gli animali?",

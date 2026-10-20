@@ -21,11 +21,11 @@
     "h1": "Go live from your DJI drone to Instagram, TikTok, YouTube, Facebook and custom RTMP destinations",
     "lead": "DJI Live Bridge takes the RTMP stream from DJI Fly on your computer and sends it to several platforms at once — or turns it into a virtual camera for TikTok LIVE Studio, where no stream key is needed.",
     "ctaMac": "Download for macOS",
-    "ctaWin": "Windows (beta)",
+    "ctaWin": "Windows",
     "ctaAndroid": "Android on Google Play",
     "ctaIos": "iOS – App Store",
     "ctaSource": "Source on GitHub",
-    "meta": "Apple Silicon and Intel Macs · macOS 13 or newer · Windows 10/11 beta · nothing else to install",
+    "meta": "Apple Silicon and Intel Macs · macOS 13 or newer · Windows 10/11 · nothing else to install",
     "shotAlt": "The Go live tab: connect your drone, choose destinations, then press START LIVE.",
     "caption": "One screen: connect the drone, add destinations, press START LIVE."
   },
@@ -161,7 +161,7 @@
       },
       {
         "q": "Does it work on Windows?",
-        "a": "There is a Windows build in beta. Streaming to Instagram, TikTok and any RTMP destination works, as do the preview, recording and diagnostics. The built-in virtual camera is included too: the installer registers a “DJI Live Bridge Camera” device for TikTok LIVE Studio, OBS or Zoom. It is newer than the macOS one, so if it does not appear, OBS Virtual Camera through the optional OBS integration still works. One more caveat: the installer is not code-signed yet, so Windows SmartScreen will warn you."
+        "a": "Yes. Windows 10/11 is supported. Streaming, preview, recording, diagnostics and the built-in virtual camera have all been tested. The installer registers a “DJI Live Bridge Camera” device for TikTok LIVE Studio, OBS and Zoom. The installer is not code-signed, so Windows SmartScreen may show a warning."
       },
       {
         "q": "Can it detect and count animals?",

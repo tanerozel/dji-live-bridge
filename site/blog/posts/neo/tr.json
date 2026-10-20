@@ -6,7 +6,7 @@
   "h1": "DJI Neo ile canlı yayın nasıl yapılır?",
   "lead": "DJI Neo, DJI'ın büyük drone'ları gibi <strong>DJI Fly'ın RTMP seçeneğiyle</strong> yayın yapar. Püf noktası onu nasıl uçurduğunuzdur: telefon Neo'yu doğrudan Wi-Fi ile kontrol ederken o Wi-Fi drone'a ayrılmıştır. <strong>RC-N3</strong> ile (ya da telefona kabloyla bağlı gözlükle) uçarsanız telefon yayını bilgisayarınızdaki <strong>DJI Live Bridge</strong>'e gönderebilir; uygulama da onu Instagram, TikTok, YouTube'a ya da aynı anda birkaç platforma iletir.",
   "published": "2026-10-03",
-  "updated": "2026-10-03",
+  "updated": "2026-10-21",
   "summary": [
     "Neo, telefonunuzdaki DJI Fly'dan yayın yapar: GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP.",
     "<strong>RC-N3</strong> kullanın: telefon kumandaya kabloyla bağlıdır, Wi-Fi'si bilgisayarın ağına katılabilir.",
@@ -28,7 +28,7 @@
             ["Gözlük + USB-C kabloyla telefon", "Evet", "Telefondaki DJI Fly gözlüğün canlı görüntüsünü gösterir ve onu yayınlayabilir."]
           ]
         } },
-        { "note": "Bazı Android telefonlar bir Wi-Fi ağına bağlıyken kendi hotspot'unu da açabilir. Sizinki açabiliyorsa yalnızca telefonla uçarken bilgisayar o hotspot'a katılabilir — bunu test etmedik, bir deneme olarak görün." }
+        { "note": "Bazı Android telefonlar bir Wi-Fi ağına bağlıyken kendi hotspot'unu da açabilir. İki bağlantıyı birlikte destekleyen bir telefonda bilgisayarı bu hotspot'a bağlayarak DJI Fly görüntüsünü alabilirsiniz. Bu kurulum, telefonun Wi-Fi paylaşım desteğine bağlıdır." }
       ]
     },
     {
@@ -74,7 +74,7 @@
   ],
   "faq": [
     { "q": "DJI Neo canlı yayın yapabilir mi?", "a": "Evet, DJI Fly'daki RTMP ile. Bilgisayara yayın için onu RC-N3 ile ya da telefona kabloyla bağlı gözlükle uçurun; böylece telefonun Wi-Fi'si bilgisayarın ağına katılabilir." },
-    { "q": "Neo'yu yalnızca telefonla kontrol ederken yayın yapabilir miyim?", "a": "Bilgisayara genellikle hayır: bu modda telefonun Wi-Fi'si Neo'ya bağlıdır. Bazı Android telefonlar aynı anda hotspot paylaşabilir, ama bunu test etmedik." },
+    { "q": "Neo'yu yalnızca telefonla kontrol ederken yayın yapabilir miyim?", "a": "Yalnızca telefonla kontrol modunda telefonun Wi-Fi'si Neo'ya bağlıdır. Android telefon aynı anda Wi-Fi bağlantısı ve hotspot paylaşımını destekliyorsa bilgisayar görüntüyü telefonun hotspot'u üzerinden alabilir. Kullanılabilirlik telefona bağlıdır." },
     { "q": "DJI Neo Instagram'a veya TikTok'a yayın yapabilir mi?", "a": "DJI Fly'dan doğrudan yapamaz. DJI Fly'ın RTMP yayınını DJI Live Bridge'e gönderin; uygulama onu Instagram'a RTMPS ile, TikTok'a da dikey 1080×1920 olarak iletir." },
     { "q": "Neo 2 ile çalışır mı?", "a": "DJI Fly, drone'unuz ve kumandanız için Canlı Yayın Platformları altında RTMP gösteriyorsa çalışır: DJI Live Bridge yalnızca RTMP yayınını alır ve drone'la hiç konuşmaz." }
   ]

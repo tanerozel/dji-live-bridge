@@ -21,11 +21,11 @@
     "h1": "DJI ドローンの映像を Instagram、TikTok、YouTube、Facebook、カスタム RTMP 配信先へライブ配信",
     "lead": "DJI Live Bridge は、パソコン上の DJI Fly から届く RTMP 配信を受け取り、複数のプラットフォームへ同時に送ります。TikTok LIVE Studio 用の仮想カメラにすることもでき、そちらではストリームキーが要りません。",
     "ctaMac": "macOS 版をダウンロード",
-    "ctaWin": "Windows（ベータ）",
+    "ctaWin": "Windows",
     "ctaAndroid": "Android 版（Google Play）",
     "ctaIos": "iOS – App Store",
     "ctaSource": "GitHub のソースコード",
-    "meta": "Apple Silicon と Intel の Mac · macOS 13 以降 · Windows 10/11 ベータ · ほかに入れるものはありません",
+    "meta": "Apple Silicon と Intel の Mac · macOS 13 以降 · Windows 10/11 · ほかに入れるものはありません",
     "shotAlt": "「配信」タブ：ドローンを接続し、配信先を選び、配信を開始を押します。",
     "caption": "画面はひとつ。ドローンを接続し、配信先を追加し、配信を開始を押すだけ。"
   },
@@ -161,7 +161,7 @@
       },
       {
         "q": "Windows でも動きますか？",
-        "a": "Windows 版はベータです。Instagram、TikTok、任意の RTMP 配信先への配信は動き、プレビュー、録画、診断も使えます。内蔵の仮想カメラも入っていて、インストーラーが TikTok LIVE Studio や OBS、Zoom 向けに「DJI Live Bridge Camera」というデバイスを登録します。macOS 版より新しいため、もし出てこない場合は、任意の OBS 連携を通じた OBS Virtual Camera が使えます。もうひとつ注意点として、インストーラーはまだコード署名されていないので、Windows SmartScreen が警告を出します。"
+        "a": "はい。Windows 10/11 に対応しています。配信、プレビュー、録画、診断、内蔵の仮想カメラはすべてテスト済みです。インストーラーは TikTok LIVE Studio、OBS、Zoom 向けに「DJI Live Bridge Camera」デバイスを登録します。インストーラーにはコード署名がないため、Windows SmartScreen が警告を表示する場合があります。"
       },
       {
         "q": "動物を検出して数えられますか？",

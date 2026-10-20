@@ -6,7 +6,7 @@
   "h1": "Drone'unuzu bilgisayarınızın harici kamerası yapın",
   "lead": "DJI Live Bridge yalnızca yayını platformlara iletmez. <strong>Sanal kamerası</strong>, DJI Fly'dan gelen canlı görüntüyü bilgisayarınıza <strong>DJI Live Bridge Camera</strong> adında sıradan bir kamera olarak verir. Böylece kamera menüsü olan her uygulama — TikTok LIVE Studio, OBS, Zoom, Google Meet, Microsoft Teams — drone'unuzun gördüğünü gösterebilir. Yayın anahtarı ya da yayın hesabı gerekmez.",
   "published": "2026-10-02",
-  "updated": "2026-10-02",
+  "updated": "2026-10-21",
   "summary": [
     "DJI Live Bridge bilgisayarınıza drone'unuzun canlı görüntüsünü gösteren <strong>DJI Live Bridge Camera</strong> adlı bir kamera ekler.",
     "Kamera seçmenize izin veren her uygulama onu kullanabilir: TikTok LIVE Studio, OBS, Zoom, Google Meet, Microsoft Teams ya da tarayıcı tabanlı bir stüdyo.",
@@ -25,7 +25,7 @@
           "<strong>Adı:</strong> DJI Live Bridge Camera.",
           "<strong>Görüntü:</strong> 30 fps'de dikey 1080×1920. Yatay drone görüntüsü karenin ortasına yerleşir, üstünde ve altında siyah alan kalır; hiçbir yer kırpılmaz.",
           "<strong>Ses:</strong> bilerek yok. Mikrofonu kamerayı kullanan uygulamada seçersiniz, böylece sesi asla iki kez duymazsınız.",
-          "<strong>Sistemler:</strong> macOS 13 veya üzeri (uygulama Uygulamalar klasöründe olmalı) ve beta olarak Windows 10/11."
+          "<strong>Sistemler:</strong> macOS 13 veya üzeri (uygulama Uygulamalar klasöründe olmalı) ve Windows 10/11."
         ] }
       ]
     },
@@ -108,7 +108,7 @@
           "<strong>Güncellemeden sonra durdu:</strong> uygulamayı değiştirmek macOS'un eski kamerayı kapatmasına yol açar. <em>Sanal kamerayı başlat</em>'a yeniden basın; etkinleştirmeyi kendisi ister. macOS isterse Mac'i yeniden başlatın.",
           "<strong>Görüntü siyah:</strong> drone görüntüsü gelmiyor. Canlı yayın sekmesindeki önizlemeyi ve DJI Fly'daki RTMP adresini kontrol edin.",
           "<strong>Tarayıcı göstermiyor:</strong> siteye kamera erişimi izni verin ve sayfayı yenileyin.",
-          "<strong>Windows:</strong> yerleşik kamera beta aşamasında. Bir uygulama onu listelemiyorsa yukarıdaki OBS yolunu kullanın."
+          "<strong>Windows:</strong> yerleşik kamera TikTok LIVE Studio, OBS ve Zoom ile test edildi. Görüntü kaynağı olarak “DJI Live Bridge Camera” seçin."
         ] }
       ]
     }

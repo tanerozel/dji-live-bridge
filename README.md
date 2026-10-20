@@ -32,12 +32,11 @@ The build is signed and notarized by Apple, so it opens without warnings.
 
 **Requirements:** Apple Silicon or Intel Mac, macOS 13 or newer. Nothing else: FFmpeg ships inside the app. Each release has an `aarch64` and an `x86_64` download.
 
-**Windows (beta):** every release also carries a Windows installer. Streaming, preview, recording and
-diagnostics work. The built-in virtual camera is now included as well — the installer registers a
-"DJI Live Bridge Camera" device that TikTok LIVE Studio, OBS and Zoom can select — but it is new and
-has had far less real-world use than the macOS one; if it does not show up, OBS Virtual Camera through
-the optional OBS integration is the fallback. The installer is not code-signed yet, so SmartScreen
-warns on first run.
+**Windows:** Windows 10/11 is supported, and every release includes a Windows installer.
+Streaming, preview, recording, diagnostics and the built-in virtual camera have all been tested.
+The installer registers a "DJI Live Bridge Camera" device for TikTok LIVE Studio, OBS and Zoom.
+The optional OBS integration is also available for broadcasts using OBS scenes. The installer
+is not code-signed, so SmartScreen may show a warning on first run.
 
 ## Stream to Instagram / TikTok (Direct RTMP)
 
@@ -165,7 +164,7 @@ npm run build:mac
 
 > **`npm run build:mac` is the only supported build command.** A bare `tauri build` is blocked (`scripts/tauri.sh`), because Tauri applies the app's restricted entitlements (`system-extension.install`, `application-groups`) to the `mediamtx` sidecar as well. Without a provisioning profile macOS kills that sidecar at launch with `SIGKILL` (exit 137), and the app then fails with `error sending request for url (http://127.0.0.1:9997/v3/paths/list)`. `build:mac` re-signs the sidecar with empty entitlements, verifies the bundle inside both the `.app` and the `.dmg` with `scripts/verify-bundle.sh`, and refuses to call an unverified build successful. To audit an installed app: `npm run verify:bundle -- "/Applications/DJI Live Bridge.app"`.
 
-RTMP config serialization, secret separation, URL validation and the case where one destination fails while another keeps running are covered by Rust unit tests. Streaming to a real Instagram/TikTok account still has to be verified by a person with valid platform keys.
+RTMP config serialization, secret separation, URL validation and the case where one destination fails while another keeps running are covered by Rust unit tests. Live streaming to Instagram and TikTok has also been tested with valid platform keys.
 
 ## Packaging, signing and notarization
 

@@ -21,11 +21,11 @@
     "h1": "Transmita ao vivo do seu drone DJI para Instagram, TikTok, YouTube, Facebook e destinos RTMP personalizados",
     "lead": "O DJI Live Bridge recebe a transmissão RTMP que o DJI Fly envia para o seu computador e a repassa para várias plataformas ao mesmo tempo — ou a transforma em uma câmera virtual para o TikTok LIVE Studio, onde nenhuma chave de transmissão é necessária.",
     "ctaMac": "Baixar para macOS",
-    "ctaWin": "Windows (beta)",
+    "ctaWin": "Windows",
     "ctaAndroid": "Android no Google Play",
     "ctaIos": "iOS – App Store",
     "ctaSource": "Código no GitHub",
-    "meta": "Macs com Apple Silicon e Intel · macOS 13 ou mais recente · Windows 10/11 em beta · nada mais para instalar",
+    "meta": "Macs com Apple Silicon e Intel · macOS 13 ou mais recente · Windows 10/11 · nada mais para instalar",
     "shotAlt": "A aba Transmitir: conecte o drone, escolha os destinos e pressione INICIAR TRANSMISSÃO.",
     "caption": "Uma tela só: conecte o drone, adicione destinos, pressione INICIAR TRANSMISSÃO."
   },
@@ -161,7 +161,7 @@
       },
       {
         "q": "Funciona no Windows?",
-        "a": "Existe uma versão para Windows em beta. A transmissão para Instagram, TikTok e qualquer destino RTMP funciona, assim como a prévia, a gravação e o diagnóstico. A câmera virtual integrada também está incluída: o instalador registra um dispositivo “DJI Live Bridge Camera” para TikTok LIVE Studio, OBS ou Zoom. Ela é mais nova que a do macOS, então, se não aparecer, o OBS Virtual Camera pela integração opcional com o OBS continua funcionando. Mais um aviso: o instalador ainda não é assinado, então o Windows SmartScreen vai exibir um alerta."
+        "a": "Sim. Windows 10/11 é compatível. A transmissão, a prévia, a gravação, o diagnóstico e a câmera virtual integrada foram todos testados. O instalador registra um dispositivo “DJI Live Bridge Camera” para TikTok LIVE Studio, OBS e Zoom. O instalador não tem assinatura de código, por isso o Windows SmartScreen pode exibir um alerta."
       },
       {
         "q": "Ele consegue detectar e contar animais?",

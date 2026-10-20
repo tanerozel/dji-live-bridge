@@ -21,11 +21,11 @@
     "h1": "Siarkan langsung dari drone DJI Anda ke Instagram, TikTok, YouTube, Facebook, dan tujuan RTMP kustom",
     "lead": "DJI Live Bridge mengambil aliran RTMP dari DJI Fly di komputer Anda lalu mengirimkannya ke beberapa platform sekaligus — atau mengubahnya menjadi kamera virtual untuk TikTok LIVE Studio, yang tidak memerlukan stream key.",
     "ctaMac": "Unduh untuk macOS",
-    "ctaWin": "Windows (beta)",
+    "ctaWin": "Windows",
     "ctaAndroid": "Android di Google Play",
     "ctaIos": "iOS – App Store",
     "ctaSource": "Kode sumber di GitHub",
-    "meta": "Mac Apple Silicon dan Intel · macOS 13 atau lebih baru · Windows 10/11 beta · tidak ada yang perlu dipasang lagi",
+    "meta": "Mac Apple Silicon dan Intel · macOS 13 atau lebih baru · Windows 10/11 · tidak ada yang perlu dipasang lagi",
     "shotAlt": "Tab Siaran: hubungkan drone, pilih tujuan, lalu tekan MULAI SIARAN.",
     "caption": "Satu layar: hubungkan drone, tambahkan tujuan, tekan MULAI SIARAN."
   },
@@ -161,7 +161,7 @@
       },
       {
         "q": "Apakah bisa jalan di Windows?",
-        "a": "Ada versi Windows dalam tahap beta. Siaran ke Instagram, TikTok, dan tujuan RTMP mana pun sudah berjalan, begitu pula pratinjau, perekaman, dan diagnostik. Kamera virtual bawaan juga ikut disertakan: pemasang mendaftarkan perangkat “DJI Live Bridge Camera” untuk TikTok LIVE Studio, OBS, atau Zoom. Kamera ini lebih baru daripada yang di macOS, jadi bila tidak muncul, OBS Virtual Camera lewat integrasi OBS opsional tetap bisa dipakai. Satu catatan lagi: pemasangnya belum ditandatangani secara digital, jadi Windows SmartScreen akan menampilkan peringatan."
+        "a": "Ya. Windows 10/11 didukung. Siaran, pratinjau, perekaman, diagnostik, dan kamera virtual bawaan semuanya telah diuji. Pemasang mendaftarkan perangkat “DJI Live Bridge Camera” untuk TikTok LIVE Studio, OBS, dan Zoom. Pemasang tidak ditandatangani secara digital, sehingga Windows SmartScreen mungkin menampilkan peringatan."
       },
       {
         "q": "Bisakah aplikasi ini mendeteksi dan menghitung hewan?",

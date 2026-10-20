@@ -6,7 +6,7 @@
   "h1": "DJI drone ile TikTok'ta canlı yayın nasıl yapılır",
   "lead": "DJI Fly tek başına TikTok'a yayın yapamaz, ama bir bilgisayara RTMP gönderebilir. DJI Live Bridge bu yayını alır ve TikTok'a iki yoldan biriyle ulaştırır: hesabınızda varsa <strong>doğrudan TikTok sunucu URL'si ve yayın anahtarıyla</strong> ya da drone'un bir kamera olarak göründüğü ve yayın anahtarı gerekmeyen <strong>TikTok LIVE Studio üzerinden</strong>.",
   "published": "2026-10-02",
-  "updated": "2026-10-02",
+  "updated": "2026-10-21",
   "summary": [
     "DJI Fly uygulamasında Canlı Yayın Platformları altında RTMP sunan bir DJI drone'a ve kumandayla aynı Wi-Fi ağında ya da hotspot'ta olan bir Mac veya Windows PC'ye ihtiyacınız var.",
     "Yayın anahtarıyla: DJI Live Bridge'de bir TikTok hedefi ekleyin ve YAYINI BAŞLAT'a basın.",
@@ -67,7 +67,7 @@
           { "t": "Yayına başlayın", "d": "TikTok LIVE Studio'da Go Live'a basın. Yayını başlatma kararı her zaman sizde kalır." }
         ] },
         { "img": "virtual-camera.png", "alt": "DJI Live Bridge'in TikTok LIVE Studio sekmesi ve Sanal kamerayı başlat düğmesi." },
-        { "note": "Windows'ta sanal kamera yeni ve beta aşamasında. LIVE Studio'da görünmezse isteğe bağlı OBS entegrasyonu ve OBS Virtual Camera yine de çalışır." }
+        { "note": "Windows yerleşik sanal kamerası TikTok LIVE Studio ile test edildi. Görüntü kaynağı olarak “DJI Live Bridge Camera” seçin. OBS sahneleriyle yayın yapmak için isteğe bağlı OBS entegrasyonu da kullanılabilir." }
       ]
     },
     {
