@@ -341,6 +341,9 @@ private fun Controls(
     val youtube = liveDestinations.mapNotNull { profile ->
         profile.youtube?.let { connection -> key(profile.id) { rememberYouTubeBroadcast(profile, connection) } }
     }
+    val facebook = liveDestinations.mapNotNull { profile ->
+        profile.facebook?.let { connection -> key(profile.id) { rememberFacebookBroadcast(profile, connection) } }
+    }
     val instagramLive = liveDestinations.any { instagramPublicationConfirmed(it, snapshot.output(it.id), instagramConfirmation) }
     val deviceCard: @Composable (Modifier) -> Unit = { modifier ->
         DeviceCard(phase = phase, testing = testing, onClick = onDetails, modifier = modifier)
@@ -355,7 +358,7 @@ private fun Controls(
                 liveSinceElapsedMillis = instagramConfirmation?.takeIf { instagramLive }?.sinceElapsedMillis
                     ?: serviceState.liveSinceElapsedMillis,
                 target = LiveTarget(liveDestinations),
-                confirmed = instagramLive || youtube.any { it.live },
+                confirmed = instagramLive || youtube.any { it.live } || facebook.any { it.live },
             ),
             modifier = modifier,
         )
@@ -447,6 +450,7 @@ private fun Controls(
             instagramConfirmed = instagramLive,
             instagramAudience = instagramAudience?.takeIf { automaticInstagram.isNotEmpty() },
             youtube = youtube,
+            facebook = facebook,
             onOpenInstagram = onOpenInstagram,
             onRetryInstagram = onRetryInstagram,
         )
@@ -574,10 +578,10 @@ private fun Controls(
     }
 }
 
-/** Instagram set up by the app and a connected YouTube: the app starts and checks these itself. */
+/** Instagram set up by the app and a connected YouTube or Facebook: the app starts and checks these itself. */
 private fun automaticProfileIds(destinations: List<DestinationProfile>, instagramManualProfileIds: Set<String>): Set<String> =
     destinations.filter {
-        it.youtube != null || (it.kind == DestinationKind.INSTAGRAM && it.id !in instagramManualProfileIds)
+        it.youtube != null || it.facebook != null || (it.kind == DestinationKind.INSTAGRAM && it.id !in instagramManualProfileIds)
     }.mapTo(mutableSetOf()) { it.id }
 
 /** The round buttons beside the picture, in a column or, where the height is short, a row. */
@@ -591,8 +595,8 @@ private fun SideButtons(vertical: Boolean, content: @Composable () -> Unit) {
 }
 
 /**
- * The platforms the app starts and checks by itself, Instagram and a connected YouTube: what each
- * one confirmed, in a line, and a tap to look at it there.
+ * The platforms the app starts and checks by itself, Instagram and a connected YouTube or
+ * Facebook: what each one confirmed, in a line, and a tap to look at it there.
  */
 @Composable
 private fun AutomaticPlatforms(
@@ -602,10 +606,11 @@ private fun AutomaticPlatforms(
     instagramConfirmed: Boolean,
     instagramAudience: InstagramAudience?,
     youtube: List<YouTubeBroadcastView>,
+    facebook: List<FacebookBroadcastView>,
     onOpenInstagram: () -> Unit,
     onRetryInstagram: () -> Unit,
 ) {
-    if (!instagram && youtube.isEmpty()) return
+    if (!instagram && youtube.isEmpty() && facebook.isEmpty()) return
     val uriHandler = LocalUriHandler.current
     Column(
         modifier = Modifier
@@ -654,6 +659,28 @@ private fun AutomaticPlatforms(
                 openLabel = stringResource(R.string.youtube_open_broadcast),
                 onOpen = {
                     runCatching { uriHandler.openUri(view.url) }.onFailure { view.error = uiText(R.string.youtube_error_api) }
+                },
+                onRetry = null,
+            )
+        }
+        facebook.forEachIndexed { index, view ->
+            if (instagram || youtube.isNotEmpty() || index > 0) RowDivider()
+            val error = view.error
+            PlatformStatusRow(
+                kind = DestinationKind.FACEBOOK,
+                badge = stringResource(view.privacy),
+                // Only me is not visible to viewers; that should not go unnoticed.
+                badgeColor = if (view.privacy == R.string.facebook_only_me) WarningColor else Color.White,
+                status = error?.asString() ?: stringResource(view.lifecycle),
+                dot = when {
+                    error != null -> DangerColor
+                    view.live -> ReadyColor
+                    else -> Color.White.copy(alpha = 0.5f)
+                },
+                busy = error == null && view.lifecycle == R.string.facebook_status_pending,
+                openLabel = stringResource(R.string.facebook_open_broadcast),
+                onOpen = {
+                    runCatching { uriHandler.openUri(view.url) }.onFailure { view.error = uiText(R.string.facebook_error_api) }
                 },
                 onRetry = null,
             )
@@ -1582,6 +1609,7 @@ private fun SavedPlatform(profile: DestinationProfile, automaticInstagram: Boole
                 text = when {
                     automaticInstagram -> stringResource(R.string.instagram_automatic_setup)
                     profile.youtube != null -> profile.youtube.channelTitle
+                    profile.facebook != null -> profile.facebook.targetName
                     else -> stringResource(if (renewKey) R.string.key_changes_each_stream else R.string.key_saved)
                 },
                 color = if (renewKey) WarningColor else Color.White.copy(alpha = 0.6f),

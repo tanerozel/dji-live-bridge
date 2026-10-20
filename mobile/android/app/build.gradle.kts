@@ -9,6 +9,16 @@ val releaseSigningValues = mapOf(
     "keyAlias" to providers.environmentVariable("DJI_ANDROID_KEY_ALIAS").orNull,
     "keyPassword" to providers.environmentVariable("DJI_ANDROID_KEY_PASSWORD").orNull,
 )
+// Facebook login (see FACEBOOK_SETUP.md). Both values are public parts of the app, but they are
+// kept out of the repository: set them in ~/.gradle/gradle.properties or the environment.
+val facebookAppId = (providers.gradleProperty("facebookAppId").orNull ?: providers.environmentVariable("FACEBOOK_APP_ID").orNull)
+    .orEmpty().trim()
+val facebookClientToken = (providers.gradleProperty("facebookClientToken").orNull ?: providers.environmentVariable("FACEBOOK_CLIENT_TOKEN").orNull)
+    .orEmpty().trim()
+if (!facebookAppId.matches(Regex("[0-9]*")) || !facebookClientToken.matches(Regex("[0-9a-fA-F]*"))) {
+    throw GradleException("facebookAppId must be digits and facebookClientToken hexadecimal.")
+}
+
 val hasAnyReleaseSigningValue = releaseSigningValues.values.any { !it.isNullOrBlank() }
 val hasCompleteReleaseSigning = releaseSigningValues.values.all { !it.isNullOrBlank() }
 
@@ -39,6 +49,13 @@ android {
         ndk {
             abiFilters += "arm64-v8a"
         }
+
+        buildConfigField("String", "FACEBOOK_APP_ID", "\"$facebookAppId\"")
+        buildConfigField("String", "FACEBOOK_CLIENT_TOKEN", "\"$facebookClientToken\"")
+        resValue("string", "facebook_app_id", facebookAppId)
+        resValue("string", "facebook_client_token", facebookClientToken)
+        // Facebook's login returns to fb<App ID>://; without an App ID nothing may claim "fb".
+        resValue("string", "fb_login_protocol_scheme", if (facebookAppId.isEmpty()) "streammydrone-no-facebook" else "fb$facebookAppId")
     }
 
     signingConfigs {
@@ -76,6 +93,7 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+        resValues = true
     }
 
     sourceSets["main"].jniLibs.directories.add("build/generated/rustJniLibs")
@@ -123,6 +141,8 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.core:core-ktx:1.18.0")
     implementation("com.google.android.gms:play-services-auth:22.0.0")
+    // Login only; app events, advertiser ID and auto-init are switched off in the manifest.
+    implementation("com.facebook.android:facebook-login:18.3.0")
     // Turns a heavy test video into what DJI Fly sends (see TestVideoConverter).
     implementation("androidx.media3:media3-common:1.11.1")
     implementation("androidx.media3:media3-effect:1.11.1")

@@ -23,6 +23,7 @@ final class RelayController {
     @ObservationIgnored private var testVideoTask: Task<Void, Never>?
     @ObservationIgnored private var converter: TestVideoConverter?
     @ObservationIgnored let youtube = YouTubeBroadcastManager.shared
+    @ObservationIgnored let facebook = FacebookBroadcastManager.shared
     @ObservationIgnored private var liveAttempts: [String: UUID] = [:]
     @ObservationIgnored private var liveFailures: [String: UiText] = [:]
     @ObservationIgnored private let profileStore: DestinationProfileStore
@@ -33,6 +34,11 @@ final class RelayController {
             guard let self else { return }
             do { try await youtube.recoverOnce() }
             catch { state.notice = RelayNotice(title: .tr("youtube_error_end"), message: .tr("youtube_error_end")) }
+        }
+        Task { [weak self] in
+            guard let self else { return }
+            do { try await facebook.recoverOnce() }
+            catch { state.notice = RelayNotice(title: .tr("facebook_error_end"), message: .tr("facebook_error_end")) }
         }
     }
 
@@ -75,7 +81,7 @@ final class RelayController {
         let attempts = liveAttempts
         liveAttempts.removeAll()
         liveFailures.removeAll()
-        finishYouTube(attempts)
+        finishRemote(attempts)
         stopTestVideoWork()
         pollTask?.cancel()
         pollTask = nil
@@ -168,12 +174,19 @@ final class RelayController {
                     guard let profile = try profileStore.load().profiles.first(where: { $0.id == profileId }) else {
                         throw DestinationProfileError("profile_error_not_found")
                     }
-                    try await youtube.prepare(profile, title: title, owner: owner)
+                    let credentials: DestinationCredentials
+                    if profile.facebook != nil {
+                        // Facebook's stream URL belongs to this one live video; it is never stored.
+                        let broadcastTitle = title ?? initialBroadcastTitle(saved: nil, profiles: [profile])
+                        credentials = try await facebook.prepare(profile, title: broadcastTitle, owner: owner)
+                    } else {
+                        try await youtube.prepare(profile, title: title, owner: owner)
+                        credentials = try profileStore.credentials(profileId)
+                    }
                     guard liveAttempts[profileId] == owner else {
-                        finishYouTube([profileId: owner])
+                        finishRemote([profileId: owner])
                         return
                     }
-                    let credentials = try profileStore.credentials(profileId)
                     commands.async { [weak self] in
                         let problem = NativeRelay.goLive(outputId: profileId, serverUrl: credentials.serverUrl, streamKey: credentials.streamKey).map(nativeError)
                         if let problem {
@@ -181,14 +194,14 @@ final class RelayController {
                         }
                     }
                 } catch {
-                    goLiveFailed(profileId, owner: owner, error: youTubeErrorText(error))
+                    goLiveFailed(profileId, owner: owner, error: error is FacebookError ? facebookErrorText(error) : youTubeErrorText(error))
                 }
             }
         }
     }
 
     private func goLiveFailed(_ profileId: String, owner: UUID, error: UiText) {
-        finishYouTube([profileId: owner])
+        finishRemote([profileId: owner])
         guard liveAttempts[profileId] == owner else { return }
         liveAttempts[profileId] = nil
         state.liveProfileIds.removeAll { $0 == profileId }
@@ -210,15 +223,21 @@ final class RelayController {
         state.notice = notice
         let stillLive = state.isLive
         commands.async { NativeRelay.endLive(outputId: stillLive ? profileId : nil) }
-        finishYouTube(attempts)
+        finishRemote(attempts)
     }
 
-    private func finishYouTube(_ attempts: [String: UUID]) {
+    /// Ends what the app created on YouTube or Facebook for these attempts; each has at most one.
+    private func finishRemote(_ attempts: [String: UUID]) {
         for (id, owner) in attempts {
             Task { [weak self] in
                 guard let self else { return }
                 do { try await youtube.finish(profileId: id, owner: owner) }
                 catch { state.notice = RelayNotice(title: .tr("youtube_error_end"), message: .tr("youtube_error_end")) }
+            }
+            Task { [weak self] in
+                guard let self else { return }
+                do { try await facebook.finish(profileId: id, owner: owner) }
+                catch { state.notice = RelayNotice(title: .tr("facebook_error_end"), message: .tr("facebook_error_end")) }
             }
         }
     }

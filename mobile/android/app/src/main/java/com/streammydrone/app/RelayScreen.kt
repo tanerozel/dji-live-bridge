@@ -171,6 +171,10 @@ internal fun RelayScreen(
             showMessage(uiText(R.string.youtube_error_edit_live))
             return
         }
+        if (profile?.id in RelayServiceState.value.liveProfileIds && profile?.facebook != null) {
+            showMessage(uiText(R.string.facebook_error_edit_live))
+            return
+        }
         profileEditorViewModel.open(profile, kind)
     }
 
@@ -391,10 +395,32 @@ internal fun RelayScreen(
                                 },
                                 onDelete = deleteProfile,
                             )
+                        } else if (editing.facebookSetup) {
+                            FacebookProfileEditor(
+                                state = editing,
+                                onDismiss = profileEditorViewModel::close,
+                                onManual = { editing.facebookSetup = false },
+                                onSave = { connection ->
+                                    updateProfiles(announce = false) {
+                                        profileStore.save(editing.profile?.id, "Facebook", DestinationKind.FACEBOOK,
+                                            DestinationKind.FACEBOOK.defaultServerUrl!!, "", facebook = connection)
+                                    }.also { error ->
+                                        if (error == null) {
+                                            profileEditorViewModel.close()
+                                            showMessage(uiText(R.string.saved))
+                                        }
+                                    }
+                                },
+                                onDelete = deleteProfile,
+                            )
                         } else DestinationProfileEditor(
                             state = editing,
                             onDismiss = profileEditorViewModel::close,
-                            onConnectYouTube = if (editing.kind == DestinationKind.YOUTUBE) ({ editing.youtubeSetup = true }) else null,
+                            onConnectAccount = when (editing.kind) {
+                                DestinationKind.YOUTUBE -> ({ editing.youtubeSetup = true })
+                                DestinationKind.FACEBOOK -> ({ editing.facebookSetup = true })
+                                else -> null
+                            },
                             onOpenInstagram = if (editing.kind == DestinationKind.INSTAGRAM) ({
                                 if (serviceState.liveProfileIds.any { id -> destinations.profiles.any { it.id == id && it.kind == DestinationKind.INSTAGRAM } }) {
                                     editing.editorError = uiText(R.string.instagram_error_edit_live)
@@ -512,7 +538,8 @@ internal fun RelayScreen(
         BroadcastTitleDialog(
             initialTitle = initialBroadcastTitle(uiPreferences.lastBroadcastTitle, destinations.selectedProfiles),
             hasManualDestinations = destinations.profiles.any {
-                it.id in profileIds && (it.kind != DestinationKind.INSTAGRAM && it.youtube == null || it.id in profileEditorViewModel.instagramManualProfiles)
+                it.id in profileIds && (it.kind != DestinationKind.INSTAGRAM && it.youtube == null && it.facebook == null ||
+                    it.id in profileEditorViewModel.instagramManualProfiles)
             },
             platforms = destinations.profiles.filter { it.id in profileIds }.map { it.kind }.distinct(),
             hasInstagram = destinations.profiles.any { it.id in profileIds && it.kind == DestinationKind.INSTAGRAM && it.id !in profileEditorViewModel.instagramManualProfiles },

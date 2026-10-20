@@ -40,10 +40,12 @@ internal class ProfileEditorState(
     val kind: DestinationKind,
 ) {
     var youtubeSetup by mutableStateOf(kind == DestinationKind.YOUTUBE && (profile == null || profile.youtube != null))
+    var facebookSetup by mutableStateOf(kind == DestinationKind.FACEBOOK && (profile == null || profile.facebook != null))
     var instagramManual by mutableStateOf(false)
     /** Only a Go live request, never an ordinary connection edit, resumes after capture. */
     var instagramStartRequest: BroadcastStartRequest? = null
     val youtube = YouTubeEditorState(profile?.youtube)
+    val facebook = FacebookEditorState(profile?.facebook)
     val initialServerUrl = profile?.serverUrl ?: kind.defaultServerUrl.orEmpty()
 
     var serverUrl by mutableStateOf(initialServerUrl)

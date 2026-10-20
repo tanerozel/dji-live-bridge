@@ -78,7 +78,8 @@ internal fun DestinationProfileEditor(
     onDismiss: () -> Unit,
     onSave: (serverUrl: String, streamKey: String) -> UiText?,
     onDelete: (() -> UiText?)?,
-    onConnectYouTube: (() -> Unit)? = null,
+    /** Switches YouTube or Facebook to its connected-account setup. */
+    onConnectAccount: (() -> Unit)? = null,
     onOpenInstagram: (() -> Unit)? = null,
     onOpenInstagramBrowser: (() -> Unit)? = null,
 ) {
@@ -338,21 +339,22 @@ internal fun DestinationProfileEditor(
                     }
 
                 }
-                if (onConnectYouTube != null) {
+                if (onConnectAccount != null) {
+                    val facebook = kind == DestinationKind.FACEBOOK
                     BridgeCard(verticalSpacing = 12.dp) {
                         Text(
-                            text = stringResource(R.string.youtube_connection_help),
+                            text = stringResource(if (facebook) R.string.facebook_connection_help else R.string.youtube_connection_help),
                             style = MaterialTheme.typography.bodyMedium,
                             color = colors.muted,
                         )
                         OutlinedButton(
-                            onClick = onConnectYouTube,
+                            onClick = onConnectAccount,
                             modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
                             shape = MaterialTheme.shapes.medium,
                         ) {
-                            PlatformTile(kind = DestinationKind.YOUTUBE, size = 20.dp)
+                            PlatformTile(kind = kind, size = 20.dp)
                             Spacer(Modifier.width(8.dp))
-                            Text(stringResource(R.string.youtube_connect))
+                            Text(stringResource(if (facebook) R.string.facebook_connect else R.string.youtube_connect))
                         }
                     }
                 }

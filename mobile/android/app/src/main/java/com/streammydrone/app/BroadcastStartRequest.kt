@@ -9,7 +9,7 @@ internal class BroadcastStartRequest(profileIds: List<String>, title: String, va
 internal fun validateBroadcastTitle(value: String): String = validateYouTubeTitle(value)
 
 internal fun initialBroadcastTitle(saved: String?, profiles: List<DestinationProfile>): String =
-    (listOfNotNull(saved) + profiles.mapNotNull { it.youtube?.title } + "Stream My Drone")
+    (listOfNotNull(saved) + profiles.mapNotNull { it.youtube?.title ?: it.facebook?.title } + "Stream My Drone")
         .firstNotNullOf { runCatching { validateBroadcastTitle(it) }.getOrNull() }
 
 /** The native Start confirmation always names the audience; first use defaults to Practice. */

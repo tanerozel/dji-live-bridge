@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stream My Drone — Privacy Policy</title>
-    <meta name="description" content="How Stream My Drone handles local streaming, optional Google and YouTube account access, secure credentials, retention and disconnecting your account.">
+    <meta name="description" content="How Stream My Drone handles local streaming, optional Google, YouTube and Facebook account access, secure credentials, retention and disconnecting your account.">
     <link rel="canonical" href="https://tanerozel.github.io/dji-live-bridge/privacy-policy.html">
     <style>
         * {
@@ -116,7 +116,7 @@
         <p style="font-size: 1.2em; margin-bottom: 20px;">Privacy Policy</p>
 
         <div class="last-updated">
-            <strong>Last Updated:</strong> <time datetime="2026-10-17">October 17, 2026</time>
+            <strong>Last Updated:</strong> <time datetime="2026-10-20">October 20, 2026</time>
         </div>
 
         <h2>Introduction</h2>
@@ -126,8 +126,8 @@
             <strong>In short:</strong>
             <ul style="margin-top: 10px;">
                 <li>Your settings and saved connection information stay on your device; the developer does not receive them on a server or sell them.</li>
-                <li>The developer does not add advertising, tracking or crash-reporting services. The optional Google Sign-In SDK has its own data practices, described below.</li>
-                <li>The app communicates directly with the platforms you choose. On versions offering a YouTube account connection for Android, iPhone and iPad, it also communicates directly with Google and YouTube to authorize access and manage your broadcasts.</li>
+                <li>The developer does not add advertising, tracking or crash-reporting services. The optional Google Sign-In and Facebook Login SDKs have their own data practices, described below.</li>
+                <li>The app communicates directly with the platforms you choose. On versions offering a YouTube or Facebook account connection, it also communicates directly with Google and YouTube, or with Facebook, to authorize access and manage your broadcasts.</li>
                 <li>Your stream keys stay on your device, in secure storage.</li>
             </ul>
         </div>
@@ -139,6 +139,8 @@
             <li><strong>Stream keys:</strong> on iPhone and iPad, in the iOS Keychain, readable only on this device while it is unlocked, and never synced to iCloud or included in backups. On Android, encrypted with a key held by the Android Keystore.</li>
             <li><strong>Connected YouTube account (where available):</strong> your Google account email address, YouTube channel ID and name, stream ID, broadcast title, visibility and made-for-kids selection. These settings are kept in the app's private storage, excluded from backup (and from Android device transfer). Stream keys are encrypted separately as described above.</li>
             <li><strong>YouTube recovery records:</strong> account identity and remote session identifiers needed to finish a broadcast after an interrupted operation. These are kept in private storage excluded from backup; they do not contain video, stream keys or OAuth access tokens.</li>
+            <li><strong>Connected Facebook account (where available):</strong> your Facebook user ID and name, whether broadcasts go to your profile or to a Page you manage (its ID and name), the broadcast title and, for your profile, who can watch. These settings are kept in the app's private storage, excluded from backup. No Facebook stream key is saved: Facebook issues a new stream address for every live video, which the app holds in memory only while that broadcast runs.</li>
+            <li><strong>Facebook recovery records:</strong> your Facebook user ID, the profile or Page ID and the live video ID needed to end a live video after an interrupted operation. They are kept in private storage excluded from backup and do not contain video, stream addresses or access tokens.</li>
             <li><strong>Preferences:</strong> theme, language, how the picture fills the screen, whether you have seen the first-run guide, and the last broadcast title you confirmed on Android. The title is stored locally to prefill your next broadcast. Cancelling the title dialog does not save a new title or start a broadcast.</li>
             <li><strong>Test video:</strong> if you pick a video to try the app without a drone, a converted copy of its first 60 seconds may be kept in the app's cache so it does not need converting again.</li>
         </ul>
@@ -147,7 +149,7 @@
         <h2>2. Where Your Video Goes</h2>
         <ul>
             <li><strong>From your remote controller to the app:</strong> DJI Fly sends the picture to the app over your local Wi-Fi network or your phone's hotspot. It does not pass through the internet.</li>
-            <li><strong>From the app to your platforms:</strong> while you are live, the app sends the picture and sound, authenticated with the stream key you entered or obtained through your authorized YouTube connection, directly to the RTMP or RTMPS server of each platform you switched on (for example Instagram, TikTok, YouTube, Facebook, Twitch, Kick or your own server). For RTMPS addresses the connection is encrypted and the server's certificate is verified.</li>
+            <li><strong>From the app to your platforms:</strong> while you are live, the app sends the picture and sound, authenticated with the stream key you entered or obtained through your authorized YouTube or Facebook connection, directly to the RTMP or RTMPS server of each platform you switched on (for example Instagram, TikTok, YouTube, Facebook, Twitch, Kick or your own server). For RTMPS addresses the connection is encrypted and the server's certificate is verified.</li>
         </ul>
         <p>What those platforms do with your broadcast is covered by their own privacy policies. DJI Fly and your DJI equipment are covered by DJI's privacy policy. Stream My Drone is not affiliated with DJI or with any streaming platform.</p>
 
@@ -167,6 +169,19 @@
         <p><strong>Use and sharing:</strong> Google account data is used only for the account connection and broadcast features you request. We do not sell it, use it for advertising or tracking, send it to data brokers, or use it to train AI models. Its use is limited to these user-facing features in accordance with the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements.</p>
         <p>Google and YouTube handle data under the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>. Your use of YouTube features is also subject to the <a href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>. You can revoke the app's access at any time in <a href="https://security.google.com/settings/security/permissions">Google Account permissions</a>. The local deletion and disconnect options are described in section 6 below.</p>
 
+        <h2 id="facebook">Optional Facebook Account Connection</h2>
+        <p>Versions that offer <strong>Connect Facebook account</strong> use the Facebook Graph API's Live Video features. This connection is optional: you can use a manually entered Facebook stream key, or any other destination, without connecting a Facebook account.</p>
+        <p>When you choose to connect, Facebook's own login (the Facebook app, or Facebook's website in a secure system browser window) asks you to log in and grant permission. Stream My Drone does not see or store your Facebook password. The app requests:</p>
+        <ul>
+            <li><strong>Public profile</strong> (<code>public_profile</code>): your Facebook user ID and name, to show which account is connected and to make sure broadcasts are only created for that account.</li>
+            <li><strong>Publish live videos to your profile</strong> (<code>publish_video</code>): to create a live video on your profile with the title and audience you chose, receive its stream address, check whether it is live and end it when you stop.</li>
+            <li><strong>Pages you manage</strong> (<code>pages_show_list</code>, <code>pages_read_engagement</code>, <code>pages_manage_posts</code>): to list the Pages you can publish to, obtain the Page's access for the Page you selected, and create, check and end live videos on that Page.</li>
+        </ul>
+        <p>Your broadcast title and, for your profile, the audience you selected (Only me, Friends or Public) are sent directly to Facebook when the app prepares the live video. Page live videos are public. The app does not read your posts, friends, messages, Page insights or comments, and does not publish anything other than the live videos you start. Facebook's processing of your account data and video, including the saved replay, is governed by its own settings and policies.</p>
+        <p><strong>Credentials on Android:</strong> the official Facebook Login SDK manages login and keeps its access token in the app's private storage. The app uses that token, and a Page's access when broadcasting to a Page, in memory for direct HTTPS requests to Facebook. It does not copy access tokens into its own files or logs. Page access and stream addresses are never written to storage. No Facebook account data, access tokens, stream addresses or broadcasts are sent to a developer-operated server.</p>
+        <p><strong>Facebook SDK data practices:</strong> the app turns off the SDK's automatic app event logging, advertising identifier collection and automatic initialization, and uses it only for login. When you log in, the SDK and Facebook's login page communicate with Facebook, which receives information such as your IP address and device and app details as part of that request. See the <a href="https://www.facebook.com/privacy/policy/">Meta Privacy Policy</a>.</p>
+        <p><strong>Use and sharing:</strong> Facebook account data is used only for the account connection and live video features you request. We do not sell it, use it for advertising or tracking, or send it to data brokers. You can remove the app's access at any time in Facebook under <strong>Settings &amp; privacy → Settings → Apps and websites</strong>. How to delete the app's local Facebook data is described in <a href="#deleting-data">section 6</a>.</p>
+
         <h2>Instagram Setup on Android</h2>
         <p>The optional Instagram connection opens Instagram's own website inside an app window using Android WebView in desktop mode. You complete login and two-factor authentication on Instagram's page (or an allowed Facebook login page). The current site host is shown in the window. The app does not copy your password, login cookies or authentication tokens into its native profile files, and does not request Instagram API account permissions. The website and WebView engine may retain web login/session data in the app's private WebView storage; this is separate from a normal external browser's session.</p>
         <p>When Live Producer displays the streaming server address and key, a scoped script reads the visible connection fields on Instagram's page. It does not inspect login, challenge or two-factor forms. The native app validates the site, current editor request, server and key before saving the connection automatically. The saved stream key uses the Android Keystore encryption described above. Raw keys and web page responses are not included in diagnostic messages or sent to a developer server. The window stays in memory when hidden so you can return to Instagram's preview and live controls. Its <strong>Clear session</strong> control clears local WebView cookies and web storage; this does not revoke any Instagram API permission, since none is requested. Uninstalling removes this app's WebView files.</p>
@@ -185,7 +200,7 @@
         <p>The app does not use your camera, microphone, location, contacts or photo library. When you pick a test video, the system's own picker gives the app only the video you chose.</p>
 
         <h2>5. Children's Privacy</h2>
-        <p>Stream My Drone is not directed at children under 13. The developer does not operate a service that receives personal data from children. The optional Google and YouTube connection is subject to Google's account and YouTube's age and live-streaming requirements. The broadcast's made-for-kids setting describes its intended audience; it does not authorize a child to use an account or bypass those requirements.</p>
+        <p>Stream My Drone is not directed at children under 13. The developer does not operate a service that receives personal data from children. The optional Google and YouTube connection is subject to Google's account and YouTube's age and live-streaming requirements, and the optional Facebook connection to Facebook's age and live video requirements. The broadcast's made-for-kids setting describes its intended audience; it does not authorize a child to use an account or bypass those requirements.</p>
 
         <h2 id="deleting-data">6. Retention, Disconnecting and Deleting Your Data</h2>
         <ul>
@@ -193,10 +208,12 @@
             <li>For a connected YouTube profile, end the broadcast and choose <strong>Disconnect YouTube account</strong>. The app first attempts any outstanding broadcast cleanup, revokes its Google authorization for that account, and removes the saved profile, including its email address, channel details, settings and securely stored stream key. Other connections using the same Google account may need permission again. If the operation fails, the app reports the error so you can retry.</li>
             <li>You can also revoke access directly through <a href="https://security.google.com/settings/security/permissions">Google Account permissions</a>. Revoking access there does not itself erase a locally saved profile. Remove the profile in the app where possible, or clear the app's storage or uninstall it to remove local app files. On iPhone and iPad, Keychain items may survive uninstalling; disconnect in the app before removal where possible. Removing a local profile or uninstalling alone does not guarantee that Google's authorization has been revoked; use Google's permissions page to confirm.</li>
             <li>Saved YouTube connection settings remain on your device until you remove or replace the profile, clear app storage or uninstall. Recovery records are removed after the associated cleanup succeeds; if a network or permission error prevents cleanup, they remain for a later retry or until app storage is cleared. Google Play services manages the lifetime of its own Android authorization cache; Google Sign-In on iPhone and iPad keeps its Keychain authorization state until sign-out/disconnect or SDK cleanup.</li>
+            <li>For a connected Facebook profile, end the broadcast and choose <strong>Disconnect Facebook account</strong>. The app first attempts to end any outstanding live video, removes every permission it holds on your Facebook account, logs out of the Facebook SDK and removes the saved profile, including your Facebook user ID, name, profile or Page details and settings. Other Facebook platforms in the app will need to connect again. If the operation fails, the app reports the error so you can retry.</li>
+            <li>You can also remove the app in Facebook under <strong>Settings &amp; privacy → Settings → Apps and websites</strong>. This does not itself erase the locally saved profile; remove it in the app, or clear the app's storage or uninstall it. Facebook recovery records are removed after the associated cleanup succeeds. Live videos and replays stay on Facebook until you delete them there.</li>
             <li>Uninstalling the app removes its settings and cache. On iPhone and iPad, iOS may keep Keychain items after an app is deleted, so delete your platforms in the app first if you want their keys gone too.</li>
             <li>Disconnecting or uninstalling does not delete completed broadcasts, recordings or reusable stream inputs stored by YouTube. Manage those in YouTube Studio. If a broadcast cannot be ended because of a connection or authorization error, check and end it in YouTube Studio.</li>
         </ul>
-        <p>The developer has no server-side copy of your account or broadcast data to access, export or delete. For questions about the app's privacy practices or deleting local information, contact the address below; Google and YouTube control data held by their services.</p>
+        <p>The developer has no server-side copy of your account or broadcast data to access, export or delete. For questions about the app's privacy practices or deleting local information, contact the address below; Google, YouTube and Facebook control data held by their services.</p>
 
         <h2>7. Changes to This Policy</h2>
         <p>If the app's handling of information changes, this policy will be updated and the "Last Updated" date above will change.</p>

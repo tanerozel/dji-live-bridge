@@ -33,7 +33,7 @@ struct BroadcastTitleDialog: View {
         let kinds = profiles.map(\.kind).reduce(into: [DestinationKind]()) { if !$0.contains($1) { $0.append($1) } }
         let hasInstagram = profiles.contains { $0.kind == .instagram && !model.instagramManualProfiles.contains($0.id) }
         let hasManual = profiles.contains {
-            ($0.kind != .instagram && $0.youtube == nil) || model.instagramManualProfiles.contains($0.id)
+            ($0.kind != .instagram && $0.youtube == nil && $0.facebook == nil) || model.instagramManualProfiles.contains($0.id)
         }
         LiveDialog(onDismiss: { model.titleRequest = nil }) {
                 VStack(alignment: .leading, spacing: 18) {

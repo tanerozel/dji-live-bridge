@@ -43,6 +43,8 @@ data class DestinationProfile(
     val kind: DestinationKind,
     val serverUrl: String,
     val youtube: YouTubeConnection? = null,
+    /** A connected Facebook account; its live videos get their stream URL when they start. */
+    val facebook: FacebookConnection? = null,
 )
 
 data class DestinationProfiles(
@@ -76,8 +78,10 @@ class DestinationProfileStore(context: Context) {
         serverUrl: String,
         streamKey: String,
         youtube: YouTubeConnection? = null,
+        facebook: FacebookConnection? = null,
     ): DestinationProfiles = synchronized(STORE_LOCK) {
         require(youtube == null || kind == DestinationKind.YOUTUBE)
+        require(facebook == null || kind == DestinationKind.FACEBOOK)
         val normalizedName = validateName(name)
         val normalizedUrl = validateServerUrl(serverUrl)
         val current = readRecords()
@@ -87,7 +91,10 @@ class DestinationProfileStore(context: Context) {
         }
 
         val id = existingId ?: UUID.randomUUID().toString()
-        val encryptedSecret = if (streamKey.isNotEmpty()) {
+        val encryptedSecret = if (facebook != null) {
+            // Facebook hands out a new stream URL for every live video; nothing to keep.
+            null
+        } else if (streamKey.isNotEmpty()) {
             validateStreamKey(streamKey)
             try {
                 cipher.encrypt(id, streamKey)
@@ -95,10 +102,8 @@ class DestinationProfileStore(context: Context) {
                 throw DestinationProfileException(R.string.profile_error_key_encrypt)
             }
         } else {
-            if (recordIndex < 0) {
-                throw DestinationProfileException(R.string.profile_error_key_required)
-            }
-            current.profiles[recordIndex].encryptedSecret
+            current.profiles.getOrNull(recordIndex)?.encryptedSecret
+                ?: throw DestinationProfileException(R.string.profile_error_key_required)
         }
         val updatedRecord = StoredProfile(
             id = id,
@@ -107,6 +112,7 @@ class DestinationProfileStore(context: Context) {
             serverUrl = normalizedUrl,
             encryptedSecret = encryptedSecret,
             youtube = youtube,
+            facebook = facebook,
         )
         val updatedProfiles = current.profiles.toMutableList().apply {
             if (recordIndex >= 0) set(recordIndex, updatedRecord) else add(updatedRecord)
@@ -150,8 +156,9 @@ class DestinationProfileStore(context: Context) {
     fun credentials(profileId: String): DestinationCredentials = synchronized(STORE_LOCK) {
         val profile = readRecords().profiles.firstOrNull { it.id == profileId }
             ?: throw DestinationProfileException(R.string.profile_error_not_found)
+        val secret = profile.encryptedSecret ?: throw DestinationProfileException(R.string.profile_error_key_required)
         val streamKey = try {
-            cipher.decrypt(profile.id, profile.encryptedSecret)
+            cipher.decrypt(profile.id, secret)
         } catch (_: Exception) {
             throw DestinationProfileException(R.string.profile_error_key_decrypt)
         }
@@ -181,13 +188,14 @@ class DestinationProfileStore(context: Context) {
                             kind = DestinationKind.fromStorage(item.optString("kind")),
                             serverUrl = item.getString("serverUrl"),
                             youtube = item.optJSONObject("youtube")?.let(YouTubeConnection::fromJson),
-                            encryptedSecret = EncryptedSecret(
+                            facebook = item.optJSONObject("facebook")?.let(FacebookConnection::fromJson),
+                            encryptedSecret = if (item.has("ciphertext")) EncryptedSecret(
                                 iv = Base64.decode(item.getString("iv"), Base64.NO_WRAP),
                                 ciphertext = Base64.decode(
                                     item.getString("ciphertext"),
                                     Base64.NO_WRAP,
                                 ),
-                            ),
+                            ) else null,
                         ),
                     )
                 }
@@ -214,11 +222,13 @@ class DestinationProfileStore(context: Context) {
                     .put("kind", profile.kind.storageValue)
                     .put("serverUrl", profile.serverUrl)
                     .put("youtube", profile.youtube?.toJson())
-                    .put("iv", Base64.encodeToString(profile.encryptedSecret.iv, Base64.NO_WRAP))
-                    .put(
-                        "ciphertext",
-                        Base64.encodeToString(profile.encryptedSecret.ciphertext, Base64.NO_WRAP),
-                    ),
+                    .put("facebook", profile.facebook?.toJson())
+                    .apply {
+                        profile.encryptedSecret?.let { secret ->
+                            put("iv", Base64.encodeToString(secret.iv, Base64.NO_WRAP))
+                            put("ciphertext", Base64.encodeToString(secret.ciphertext, Base64.NO_WRAP))
+                        }
+                    },
             )
         }
         val bytes = JSONObject()
@@ -243,7 +253,7 @@ class DestinationProfileStore(context: Context) {
 
     private fun StoredProfiles.toPublicState(): DestinationProfiles = DestinationProfiles(
         profiles = profiles.map { profile ->
-            DestinationProfile(profile.id, profile.name, profile.kind, profile.serverUrl, profile.youtube)
+            DestinationProfile(profile.id, profile.name, profile.kind, profile.serverUrl, profile.youtube, profile.facebook)
         },
         selectedProfileIds = selectedProfileIds,
     )
@@ -270,8 +280,10 @@ private data class StoredProfile(
     val name: String,
     val kind: DestinationKind,
     val serverUrl: String,
-    val encryptedSecret: EncryptedSecret,
+    /** Null only for a connected Facebook account, which has no lasting key. */
+    val encryptedSecret: EncryptedSecret?,
     val youtube: YouTubeConnection? = null,
+    val facebook: FacebookConnection? = null,
 )
 
 private data class EncryptedSecret(

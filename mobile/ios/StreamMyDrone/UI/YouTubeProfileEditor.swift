@@ -1,7 +1,7 @@
 import GoogleSignInSwift
 import SwiftUI
 
-/// The screen for one platform: Instagram and YouTube connect themselves, the others take a key.
+/// The screen for one platform: Instagram, YouTube and Facebook connect themselves, the others take a key.
 struct DestinationEditorView: View {
     @Environment(AppModel.self) private var model
     let request: ProfileEditorRequest
@@ -19,6 +19,8 @@ struct DestinationEditorView: View {
             }
         case .youtube where !manual && (request.profile == nil || request.profile?.youtube != nil):
             YouTubeProfileEditor(request: request, onManual: { self.manual = true })
+        case .facebook where !manual && (request.profile == nil || request.profile?.facebook != nil):
+            FacebookProfileEditor(request: request, onManual: { self.manual = true })
         default:
             ProfileEditorView(request: request)
         }

@@ -97,7 +97,7 @@ struct DroneControls: View {
         // Instagram's own start is the moment viewers see the broadcast.
         let since = instagramLive ? model.instagram.publicationConfirmation?.since : nil
         return StatusCard(look: statusLook(phase: model.phase, state: state, target: LiveTarget(model.liveDestinations),
-                                           confirmed: instagramLive || model.youtubeViews.values.contains { $0.live },
+                                           confirmed: instagramLive || model.youtubeViews.values.contains { $0.live } || model.facebookViews.values.contains { $0.live },
                                            liveSince: since ?? state.liveSince))
     }
 
@@ -503,7 +503,7 @@ private struct MessageBanner: View {
             let tip = model.lan?.kind == .hotspot ? "weak_link_tip_hotspot" : "weak_link_tip"
             return Content(key: "weak_link", title: tr("weak_link_title"), message: tr(tip), systemImage: "wifi.slash", accent: DroneColors.warning)
         }
-        // The status panel already says what Instagram and a connected YouTube confirmed.
+        // The status panel already says what Instagram and a connected YouTube or Facebook confirmed.
         if let tip = liveTips(phase: phase, snapshot: snapshot, destinations: model.liveDestinations,
                               skipReminders: automaticProfileIds(model)).first {
             return Content(key: tip, title: nil, message: tip, systemImage: "lightbulb", accent: DroneColors.warning)
@@ -528,7 +528,7 @@ func liveTips(phase: BridgePhase, snapshot: RelaySnapshot, destinations: [Destin
     } else if phase == .live {
         var seen = Set<String>()
         keys = destinations.filter { !skipReminders.contains($0.id) }
-            .compactMap { $0.youtube != nil ? "youtube_auto_hint" : $0.kind.liveReminderKey }
+            .compactMap { $0.youtube != nil ? "youtube_auto_hint" : $0.facebook != nil ? "facebook_auto_hint" : $0.kind.liveReminderKey }
             .filter { seen.insert($0).inserted }
     } else {
         keys = []
@@ -536,15 +536,15 @@ func liveTips(phase: BridgePhase, snapshot: RelaySnapshot, destinations: [Destin
     return keys.map { tr($0) }
 }
 
-/// Instagram set up by the app and a connected YouTube: the app starts and checks these itself.
+/// Instagram set up by the app and a connected YouTube or Facebook: the app starts and checks these itself.
 @MainActor
 func automaticProfileIds(_ model: AppModel) -> Set<String> {
-    Set(model.liveDestinations.filter { $0.youtube != nil || model.isAutomaticInstagram($0) }.map(\.id))
+    Set(model.liveDestinations.filter { $0.youtube != nil || $0.facebook != nil || model.isAutomaticInstagram($0) }.map(\.id))
 }
 
 /**
- * The platforms the app starts and checks by itself, Instagram and a connected YouTube: what each
- * one confirmed, in a line, and a tap to look at it there.
+ * The platforms the app starts and checks by itself, Instagram and a connected YouTube or
+ * Facebook: what each one confirmed, in a line, and a tap to look at it there.
  */
 private struct AutomaticPlatforms: View {
     @Environment(AppModel.self) private var model
@@ -553,7 +553,8 @@ private struct AutomaticPlatforms: View {
         let status = model.instagram.publishStatus ?? ""
         let instagram = model.liveInstagram || ["instagram_end_starting", "instagram_end_failed"].contains(status)
         let youtube: [YouTubeBroadcastView] = model.liveDestinations.compactMap { model.youtubeViews[$0.id] }
-        if instagram || !youtube.isEmpty {
+        let facebook: [FacebookBroadcastView] = model.liveDestinations.compactMap { model.facebookViews[$0.id] }
+        if instagram || !youtube.isEmpty || !facebook.isEmpty {
             VStack(spacing: 0) {
                 if instagram { InstagramStatusRow() }
                 ForEach(youtube, id: \.profileId) { view in
@@ -561,6 +562,12 @@ private struct AutomaticPlatforms: View {
                         Divider().overlay(.white.opacity(0.08)).padding(.leading, 54).padding(.trailing, 12)
                     }
                     YouTubeStatusRow(view: view)
+                }
+                ForEach(facebook, id: \.profileId) { view in
+                    if instagram || !youtube.isEmpty || view !== facebook.first {
+                        Divider().overlay(.white.opacity(0.08)).padding(.leading, 54).padding(.trailing, 12)
+                    }
+                    FacebookStatusRow(view: view)
                 }
             }
             .padding(.vertical, 2)
@@ -608,7 +615,6 @@ private struct InstagramStatusRow: View {
 /// What YouTube says about the broadcast the app created there.
 private struct YouTubeStatusRow: View {
     let view: YouTubeBroadcastView
-    @Environment(\.openURL) private var openURL
 
     var body: some View {
         let dot: Color = view.error != nil ? DroneColors.danger : view.live ? DroneColors.ready : view.testing ? DroneColors.warning : .white.opacity(0.5)
@@ -620,7 +626,28 @@ private struct YouTubeStatusRow: View {
             dot: dot,
             busy: view.pending,
             openLabel: tr("youtube_open_broadcast"),
-            onOpen: { openURL(view.url) },
+            onOpen: { openInApp(view.url) },
+            onRetry: nil
+        )
+    }
+}
+
+/// What Facebook says about the live video the app created there.
+private struct FacebookStatusRow: View {
+    let view: FacebookBroadcastView
+
+    var body: some View {
+        let dot: Color = view.error != nil ? DroneColors.danger : view.live ? DroneColors.ready : .white.opacity(0.5)
+        PlatformStatusRow(
+            kind: .facebook,
+            badge: tr(view.privacyKey),
+            // Only me is not visible to viewers; that should not go unnoticed.
+            badgeColor: view.privacyKey == "facebook_only_me" ? DroneColors.warning : .white,
+            status: view.error?.resolve() ?? tr(view.lifecycleKey),
+            dot: dot,
+            busy: view.pending,
+            openLabel: tr("facebook_open_broadcast"),
+            onOpen: { openInApp(view.url) },
             onRetry: nil
         )
     }

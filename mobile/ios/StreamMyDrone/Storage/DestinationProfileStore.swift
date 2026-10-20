@@ -44,6 +44,8 @@ struct DestinationProfile: Identifiable, Equatable {
     let kind: DestinationKind
     let serverUrl: String
     var youtube: YouTubeConnection? = nil
+    /// A connected Facebook account; its live videos get their stream URL when they start.
+    var facebook: FacebookConnection? = nil
 }
 
 struct DestinationProfiles: Equatable {
@@ -107,7 +109,8 @@ final class DestinationProfileStore: @unchecked Sendable {
         kind: DestinationKind,
         serverUrl: String,
         streamKey: String,
-        youtube: YouTubeConnection? = nil
+        youtube: YouTubeConnection? = nil,
+        facebook: FacebookConnection? = nil
     ) throws -> DestinationProfiles {
         try Self.lock.withLock {
             let normalizedName = try validateName(name)
@@ -116,6 +119,10 @@ final class DestinationProfileStore: @unchecked Sendable {
                 guard kind == .youtube else { throw DestinationProfileError("profile_error_corrupt") }
                 try youtube.validate()
             }
+            if let facebook {
+                guard kind == .facebook else { throw DestinationProfileError("profile_error_corrupt") }
+                try facebook.validate()
+            }
             var current = try readRecords()
             let index = existingId.flatMap { id in current.profiles.firstIndex { $0.id == id } }
             if existingId != nil && index == nil {
@@ -123,17 +130,21 @@ final class DestinationProfileStore: @unchecked Sendable {
             }
             let id = existingId ?? UUID().uuidString.lowercased()
             let previousKey = streamKey.isEmpty ? nil : try? keys.load(for: id)
-            if !streamKey.isEmpty {
+            if facebook != nil {
+                // Facebook hands out a new stream URL for every live video; nothing to keep.
+                guard streamKey.isEmpty else { throw DestinationProfileError("profile_error_corrupt") }
+            } else if !streamKey.isEmpty {
                 try validateStreamKey(streamKey)
                 do {
                     try keys.save(streamKey, for: id)
                 } catch {
                     throw DestinationProfileError("profile_error_key_encrypt")
                 }
-            } else if index == nil {
+            } else if index == nil || index.map({ current.profiles[$0].facebook != nil }) == true {
+                // A connected Facebook profile has no key to keep for a manual one.
                 throw DestinationProfileError("profile_error_key_required")
             }
-            let profile = DestinationProfile(id: id, name: normalizedName, kind: kind, serverUrl: normalizedUrl, youtube: youtube)
+            let profile = DestinationProfile(id: id, name: normalizedName, kind: kind, serverUrl: normalizedUrl, youtube: youtube, facebook: facebook)
             if let index {
                 current.profiles[index] = profile
             } else {
@@ -149,6 +160,8 @@ final class DestinationProfileStore: @unchecked Sendable {
                 }
                 throw error
             }
+            // A manual key saved earlier on this profile is no longer used.
+            if facebook != nil { keys.delete(for: id) }
             return current
         }
     }
@@ -218,7 +231,12 @@ final class DestinationProfileStore: @unchecked Sendable {
             if $0.youtube != nil && $0.kind != DestinationKind.youtube.rawValue {
                 throw DestinationProfileError("profile_error_corrupt")
             }
-            return DestinationProfile(id: $0.id, name: $0.name, kind: .fromStorage($0.kind), serverUrl: $0.serverUrl, youtube: $0.youtube)
+            do { try $0.facebook?.validate() } catch { throw DestinationProfileError("profile_error_corrupt") }
+            if $0.facebook != nil && $0.kind != DestinationKind.facebook.rawValue {
+                throw DestinationProfileError("profile_error_corrupt")
+            }
+            return DestinationProfile(id: $0.id, name: $0.name, kind: .fromStorage($0.kind), serverUrl: $0.serverUrl,
+                                      youtube: $0.youtube, facebook: $0.facebook)
         }
         var seen = Set<String>()
         let selected = stored.selectedProfileIds.filter { id in
@@ -232,7 +250,7 @@ final class DestinationProfileStore: @unchecked Sendable {
             version: Self.storageVersion,
             selectedProfileIds: value.selectedProfileIds,
             profiles: value.profiles.map {
-                StoredProfile(id: $0.id, name: $0.name, kind: $0.kind.rawValue, serverUrl: $0.serverUrl, youtube: $0.youtube)
+                StoredProfile(id: $0.id, name: $0.name, kind: $0.kind.rawValue, serverUrl: $0.serverUrl, youtube: $0.youtube, facebook: $0.facebook)
             }
         )
         do {
@@ -266,6 +284,7 @@ private struct StoredProfile: Codable {
     var kind: String
     var serverUrl: String
     var youtube: YouTubeConnection?
+    var facebook: FacebookConnection?
 }
 
 /// Stream keys as generic-password items of this app, one per profile.

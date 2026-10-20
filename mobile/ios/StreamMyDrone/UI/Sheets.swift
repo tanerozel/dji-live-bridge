@@ -58,7 +58,7 @@ private struct SavedPlatform: View {
             PlatformTile(kind: profile.kind, size: 28)
             VStack(alignment: .leading, spacing: 1) {
                 Text(profile.kind.displayName).font(.subheadline.weight(.semibold)).lineLimit(1)
-                Text(automatic ? tr("instagram_automatic_setup") : profile.youtube?.channelTitle ?? tr(renewKey ? "key_changes_each_stream" : "key_saved"))
+                Text(automatic ? tr("instagram_automatic_setup") : profile.youtube?.channelTitle ?? profile.facebook?.targetName ?? tr(renewKey ? "key_changes_each_stream" : "key_saved"))
                     .font(.caption2)
                     .foregroundStyle(renewKey ? DroneColors.warning : .white.opacity(0.6))
             }

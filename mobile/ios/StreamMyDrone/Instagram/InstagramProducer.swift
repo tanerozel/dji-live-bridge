@@ -45,7 +45,7 @@ func validateBroadcastTitle(_ value: String) throws -> String { try validateYouT
 
 /// The last title, a connected YouTube's title, or the app's name: the first one that is valid.
 func initialBroadcastTitle(saved: String?, profiles: [DestinationProfile]) -> String {
-    let candidates = [saved].compactMap { $0 } + profiles.compactMap { $0.youtube?.title } + ["Stream My Drone"]
+    let candidates = [saved].compactMap { $0 } + profiles.compactMap { $0.youtube?.title ?? $0.facebook?.title } + ["Stream My Drone"]
     return candidates.lazy.compactMap { try? validateBroadcastTitle($0) }.first ?? "Stream My Drone"
 }
 

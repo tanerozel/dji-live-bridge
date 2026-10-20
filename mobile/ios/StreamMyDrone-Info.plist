@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <!-- Meta app for "Connect Facebook account" (public). Empty: the editor says Facebook is not set up. -->
+    <key>FacebookAppID</key>
+    <string>1140011221710660</string>
+    <!-- Facebook Login for Business configuration (user access token with the live video permissions). -->
+    <key>FacebookLoginConfigID</key>
+    <string>1133738702566263</string>
     <key>GIDClientID</key>
     <string>976687442774-07f5kicfkavd31lvhr1jb0jbk72efngd.apps.googleusercontent.com</string>
     <key>CFBundleURLTypes</key>

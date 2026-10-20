@@ -60,6 +60,8 @@ final class AppModel {
     private(set) var broadcastAudience: InstagramAudience = .practice
     /// What YouTube says about each live connected YouTube profile.
     private(set) var youtubeViews: [String: YouTubeBroadcastView] = [:]
+    /// What Facebook says about each live connected Facebook profile.
+    private(set) var facebookViews: [String: FacebookBroadcastView] = [:]
 
     @ObservationIgnored private let store: DestinationProfileStore
     @ObservationIgnored private let preferences = UiPreferences()
@@ -121,6 +123,7 @@ final class AppModel {
         active = false
         networkTask?.cancel()
         youtubeViews.values.forEach { $0.stop() }
+        facebookViews.values.forEach { $0.stop() }
         guard relay.state.isActive else { return }
         let live = relay.state.isLive
         background.begin(warn: live && !picture.pictureInPicture) { [weak self] in
@@ -265,17 +268,20 @@ final class AppModel {
 
     func editPlatform(_ kind: DestinationKind) {
         if kind == .youtube && liveYouTube { showMessage(.tr("youtube_error_edit_live")); return }
+        if kind == .facebook && liveFacebook { showMessage(.tr("facebook_error_edit_live")); return }
         if let profile = profile(for: kind) { editor = ProfileEditorRequest(profile: profile, kind: kind) }
     }
 
     func editProfile(_ profile: DestinationProfile) {
         if profile.kind == .youtube && liveYouTube { showMessage(.tr("youtube_error_edit_live")); return }
+        if profile.kind == .facebook && liveFacebook { showMessage(.tr("facebook_error_edit_live")); return }
         editor = ProfileEditorRequest(profile: profile, kind: profile.kind)
     }
 
     /// Saves the key screen; returns the error for the screen to show, or nil once saved.
     func saveProfile(_ request: ProfileEditorRequest, serverUrl: String, streamKey: String) -> UiText? {
         if request.kind == .youtube && liveYouTube { return .tr("youtube_error_edit_live") }
+        if request.kind == .facebook && liveFacebook { return .tr("facebook_error_edit_live") }
         // The store adds a new platform to the ones the broadcast goes to.
         let error = updateProfiles(announce: false) {
             try store.save(
@@ -376,10 +382,22 @@ final class AppModel {
             youtubeViews[profile.id] = view
             if active { view.start(relay.youtube) }
         }
+        let liveFacebook = liveDestinations.filter { $0.facebook != nil }
+        for (id, view) in facebookViews where !liveFacebook.contains(where: { $0.id == id && $0.facebook == view.connection }) {
+            view.stop()
+            facebookViews[id] = nil
+        }
+        for profile in liveFacebook {
+            guard let connection = profile.facebook else { continue }
+            let view = facebookViews[profile.id] ?? FacebookBroadcastView(profileId: profile.id, connection: connection)
+            facebookViews[profile.id] = view
+            if active { view.start(relay.facebook) }
+        }
     }
 
     func deleteProfile(_ profile: DestinationProfile) -> UiText? {
         if profile.youtube != nil { return .tr("youtube_error_auth") }
+        if profile.facebook != nil { return .tr("facebook_error_auth") }
         let error = updateProfiles(announce: false) { try store.delete(profile.id) }
         if error == nil {
             editor = nil
@@ -421,6 +439,34 @@ final class AppModel {
             if let (api, stream) = created { try? await api.deleteStream(stream.id) }
             return youTubeErrorText(error)
         }
+    }
+
+    var liveFacebook: Bool { liveDestinations.contains { $0.kind == .facebook } }
+
+    /// Saves a connected Facebook profile; Facebook's stream URL is fetched on every Go live instead.
+    func saveFacebook(_ request: ProfileEditorRequest, connection: FacebookConnection) async -> UiText? {
+        guard !liveFacebook else { return .tr("facebook_error_edit_live") }
+        do {
+            destinations = try store.save(existingId: request.profile?.id, name: request.profile?.name ?? "Facebook",
+                kind: .facebook, serverUrl: DestinationKind.facebook.defaultServerUrl!, streamKey: "", facebook: connection)
+            profileError = nil
+            editor = nil
+            showMessage(.tr("saved"))
+            return nil
+        } catch { return facebookErrorText(error) }
+    }
+
+    func disconnectFacebook(_ profile: DestinationProfile) async -> UiText? {
+        guard !liveFacebook else { return .tr("facebook_error_edit_live") }
+        guard profile.facebook != nil else { return nil }
+        do {
+            try await relay.facebook.finish(profileId: profile.id)
+            try await FacebookAuthorization.shared.disconnect()
+            destinations = try store.delete(profile.id)
+            editor = nil
+            showMessage(.tr("platform_deleted", .string("Facebook")))
+            return nil
+        } catch { return facebookErrorText(error) }
     }
 
     func disconnectYouTube(_ profile: DestinationProfile) async -> UiText? {

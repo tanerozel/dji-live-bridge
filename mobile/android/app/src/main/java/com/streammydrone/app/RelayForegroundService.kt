@@ -55,6 +55,7 @@ class RelayForegroundService : Service() {
     private var wifiLock: WifiManager.WifiLock? = null
     private var shownNotification: Pair<String, Boolean>? = null
     private lateinit var youtube: YouTubeBroadcastManager
+    private lateinit var facebook: FacebookBroadcastManager
 
     /** Set when the receiver stops because of a failure the user should see, not by request. */
     @Volatile private var failureMessage: UiText? = null
@@ -66,6 +67,10 @@ class RelayForegroundService : Service() {
             RelayServiceState.showNotice(RelayNotice(uiText(R.string.end_broadcast), uiText(R.string.youtube_error_end)))
         }
         youtube.recover()
+        facebook = FacebookBroadcastManager(applicationContext) {
+            RelayServiceState.showNotice(RelayNotice(uiText(R.string.end_broadcast), uiText(R.string.facebook_error_end)))
+        }
+        facebook.recover()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -110,6 +115,7 @@ class RelayForegroundService : Service() {
     override fun onDestroy() {
         stopRequested.set(true)
         youtube.close()
+        facebook.close()
         pollThread?.interrupt()
         stopTestVideoWork()
         commands.shutdown()
@@ -245,25 +251,40 @@ class RelayForegroundService : Service() {
         acquireWakeLock()
         showNotification(notificationText(RelayServiceState.value.snapshot))
         val profiles = runCatching { DestinationProfileStore(applicationContext).load() }.getOrNull()
-        val manual = added.filter { id -> profiles?.profiles?.firstOrNull { it.id == id }?.youtube == null }
+        val manual = added.filter { id -> profiles?.profiles?.firstOrNull { it.id == id }?.let { it.youtube == null && it.facebook == null } ?: true }
         attachProfiles(manual)
         added.filterNot { it in manual }.forEach { id ->
             val profile = profiles!!.profiles.first { it.id == id }
-            youtube.prepare(profile, title,
-                ready = { if (!stopRequested.get() && id in liveProfileIds) attachProfiles(listOf(id)) },
-                failed = { error -> goLiveFailed(listOf(id to uiText(R.string.named_error, DestinationKind.YOUTUBE.nameText, error))) },
-            )
+            val attempt = liveAttempts[id]
+            fun failed(error: UiText) = goLiveFailed(listOf(id to uiText(R.string.named_error, profile.kind.nameText, error)))
+            if (profile.facebook != null) {
+                facebook.prepare(profile, title,
+                    // The stream URL is Facebook's for this one live video; it is never stored.
+                    ready = { credentials ->
+                        if (!stopRequested.get() && id in liveProfileIds && liveAttempts[id] === attempt) {
+                            attachProfiles(listOf(id), mapOf(id to credentials))
+                        }
+                    },
+                    failed = ::failed,
+                )
+            } else {
+                youtube.prepare(profile, title,
+                    ready = { if (!stopRequested.get() && id in liveProfileIds) attachProfiles(listOf(id)) },
+                    failed = ::failed,
+                )
+            }
         }
     }
 
-    private fun attachProfiles(profileIds: List<String>) {
+    /** [runtime] holds the credentials of platforms that hand out a new stream URL per broadcast. */
+    private fun attachProfiles(profileIds: List<String>, runtime: Map<String, DestinationCredentials> = emptyMap()) {
         if (profileIds.isEmpty()) return
         val attempts = profileIds.associateWith { liveAttempts[it] }
         commands.execute {
             val store = DestinationProfileStore(applicationContext)
             val failures = profileIds.mapNotNull { profileId ->
                 val error = try {
-                    attachDestination(store, profileId).takeIf(String::isNotEmpty)?.let(::nativeError)
+                    attachDestination(store, profileId, runtime[profileId]).takeIf(String::isNotEmpty)?.let(::nativeError)
                 } catch (failure: DestinationProfileException) {
                     failure.text
                 } catch (_: Exception) {
@@ -282,6 +303,7 @@ class RelayForegroundService : Service() {
         val failed = failures.map { it.first }.filter { it in liveProfileIds }
         if (failed.isEmpty()) return
         youtube.end(failed)
+        facebook.end(failed)
         failed.forEach(liveAttempts::remove)
         liveProfileIds.removeAll(failed)
         val message = UiText.Raw(failures.joinToString("\n") { it.second.resolve(this) })
@@ -293,8 +315,8 @@ class RelayForegroundService : Service() {
         showNotification(notificationText(RelayServiceState.value.snapshot))
     }
 
-    private fun attachDestination(store: DestinationProfileStore, profileId: String): String {
-        val credentials = store.credentials(profileId)
+    private fun attachDestination(store: DestinationProfileStore, profileId: String, runtime: DestinationCredentials?): String {
+        val credentials = runtime ?: store.credentials(profileId)
         val tlsCaFile = if (credentials.serverUrl.startsWith("rtmps://")) {
             try {
                 // One bundle for every RTMPS platform; it goes when the last one ends.
@@ -337,6 +359,7 @@ class RelayForegroundService : Service() {
         val ended = profileIds.filter { it in liveProfileIds }
         if (ended.isEmpty()) return
         youtube.end(ended)
+        facebook.end(ended)
         ended.forEach(liveAttempts::remove)
         liveProfileIds.removeAll(ended)
         RelayServiceState.notLive(ended)
@@ -427,6 +450,7 @@ class RelayForegroundService : Service() {
     private fun requestStop() {
         stopRequested.set(true)
         youtube.end(liveProfileIds.toList())
+        facebook.end(liveProfileIds.toList())
         liveAttempts.clear()
         liveProfileIds.clear()
         stopTestVideoWork()

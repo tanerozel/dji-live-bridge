@@ -377,9 +377,9 @@ internal fun YouTubeProfileEditor(
     }
 }
 
-/** The Google account in use, with a way to pick another. */
+/** The account in use (a Google e-mail or a Facebook name), with a way to pick another. */
 @Composable
-private fun AccountCard(email: String, channel: String?, enabled: Boolean, onChange: () -> Unit) {
+internal fun AccountCard(email: String, channel: String?, enabled: Boolean, onChange: () -> Unit) {
     val colors = BridgeTheme.colors
     BridgeCard(contentPadding = PaddingValues(start = 16.dp, end = 8.dp, top = 12.dp, bottom = 12.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -404,7 +404,7 @@ private fun AccountCard(email: String, channel: String?, enabled: Boolean, onCha
 
 /** A heading over one group of settings. */
 @Composable
-private fun SettingsSection(title: String, content: @Composable () -> Unit) {
+internal fun SettingsSection(title: String, content: @Composable () -> Unit) {
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
             text = title,
