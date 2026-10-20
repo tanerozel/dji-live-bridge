@@ -18,8 +18,10 @@
             <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="https" />
         </intent>
-        <!-- Facebook login uses the Facebook app when it is installed. -->
-        <package android:name="com.facebook.katana" />
+        <!-- Browsers that can show a Custom Tab, for Facebook's login and broadcast pages. -->
+        <intent>
+            <action android:name="android.support.customtabs.action.CustomTabsService" />
+        </intent>
     </queries>
 
     <application
@@ -44,33 +46,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- Facebook SDK: login only. No app events, advertiser ID or start-up requests. -->
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-        <meta-data
-            android:name="com.facebook.sdk.ClientToken"
-            android:value="@string/facebook_client_token" />
-        <meta-data
-            android:name="com.facebook.sdk.AutoInitEnabled"
-            android:value="false" />
-        <meta-data
-            android:name="com.facebook.sdk.AutoLogAppEventsEnabled"
-            android:value="false" />
-        <meta-data
-            android:name="com.facebook.sdk.AdvertiserIDCollectionEnabled"
-            android:value="false" />
-        <meta-data
-            android:name="com.facebook.sdk.MonitorEnabled"
-            android:value="false" />
+        <!-- Receives Facebook's login redirect (fb<App ID>://authorize/) from the Custom Tab. -->
         <activity
-            android:name="com.facebook.CustomTabActivity"
-            android:exported="true">
+            android:name=".FacebookRedirectActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="@string/fb_login_protocol_scheme" />
+                <data android:scheme="@string/fb_login_protocol_scheme" android:host="authorize" />
             </intent-filter>
         </activity>
         <service

@@ -165,6 +165,32 @@ class FacebookApiTest {
         assertThrows(FacebookLiveException::class.java) { splitFacebookStreamUrl("rtmps://live-api-s.facebook.com:443/rtmp/") }
     }
 
+    @Test fun `the login redirect needs the same state and reads the token`() {
+        val url = "fb123://authorize/#access_token=EAAB%2Bx&expires_in=5184000&state=s1"
+        val result = parseFacebookCallback(url, "s1", nowMillis = 1_000)
+        assertEquals("EAAB+x", result.token)
+        assertEquals(1_000 + 5_184_000_000L, result.expiresAtMillis)
+        assertThrows(FacebookLiveException::class.java) { parseFacebookCallback(url, "other") }
+        assertThrows(FacebookLiveException::class.java) {
+            parseFacebookCallback("fb123://authorize/?error=access_denied&error_reason=user_denied&state=s1#_=_", "s1")
+        }
+        assertNull(parseFacebookCallback("fb123://authorize/#access_token=t&state=s1", "s1").expiresAtMillis)
+    }
+
+    @Test fun `only granted permissions count`() {
+        val transport = FakeTransport {
+            JSONObject().put("data", org.json.JSONArray()
+                .put(JSONObject().put("permission", "publish_video").put("status", "granted"))
+                .put(JSONObject().put("permission", "pages_manage_posts").put("status", "declined")))
+        }
+        val granted = FacebookApi(transport).grantedPermissions("token")
+        assertEquals(listOf("publish_video"), granted)
+        val login = FacebookLogin("user-a", "token", null, granted)
+        assertTrue(facebookLoginAllows(login, page = false))
+        assertFalse(facebookLoginAllows(login, page = true))
+        assertEquals(granted, FacebookLogin.fromJson(login.toJson()).scopes)
+    }
+
     @Test fun `saved connections round-trip and reject a profile aimed at someone else`() {
         assertEquals(page, FacebookConnection.fromJson(page.toJson()))
         assertEquals(profile, FacebookConnection.fromJson(profile.toJson()))

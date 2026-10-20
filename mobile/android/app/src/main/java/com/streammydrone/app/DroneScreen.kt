@@ -115,7 +115,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
@@ -611,7 +611,7 @@ private fun AutomaticPlatforms(
     onRetryInstagram: () -> Unit,
 ) {
     if (!instagram && youtube.isEmpty() && facebook.isEmpty()) return
-    val uriHandler = LocalUriHandler.current
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -658,7 +658,7 @@ private fun AutomaticPlatforms(
                 busy = error == null && view.lifecycle == R.string.youtube_status_pending,
                 openLabel = stringResource(R.string.youtube_open_broadcast),
                 onOpen = {
-                    runCatching { uriHandler.openUri(view.url) }.onFailure { view.error = uiText(R.string.youtube_error_api) }
+                    runCatching { openInApp(context, view.url) }.onFailure { view.error = uiText(R.string.youtube_error_api) }
                 },
                 onRetry = null,
             )
@@ -680,7 +680,7 @@ private fun AutomaticPlatforms(
                 busy = error == null && view.lifecycle == R.string.facebook_status_pending,
                 openLabel = stringResource(R.string.facebook_open_broadcast),
                 onOpen = {
-                    runCatching { uriHandler.openUri(view.url) }.onFailure { view.error = uiText(R.string.facebook_error_api) }
+                    runCatching { openInApp(context, view.url) }.onFailure { view.error = uiText(R.string.facebook_error_api) }
                 },
                 onRetry = null,
             )

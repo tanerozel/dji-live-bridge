@@ -224,6 +224,14 @@ internal class FacebookApi(private val transport: FacebookTransport) {
         if (failure.failure == FacebookFailure.NOT_FOUND) null else throw failure
     }
 
+    /** The permissions the user actually granted; a business login does not list them in its redirect. */
+    fun grantedPermissions(token: String): List<String> {
+        val items = transport.request("GET", "me/permissions", emptyMap(), token).optJSONArray("data") ?: return emptyList()
+        return (0 until items.length()).mapNotNull { index ->
+            items.optJSONObject(index)?.takeIf { it.optString("status") == "granted" }?.optString("permission")?.takeIf(String::isNotEmpty)
+        }
+    }
+
     /** Removes every permission this app holds, which also ends its access to the account. */
     fun revokePermissions(token: String) {
         transport.request("DELETE", "me/permissions", emptyMap(), token)

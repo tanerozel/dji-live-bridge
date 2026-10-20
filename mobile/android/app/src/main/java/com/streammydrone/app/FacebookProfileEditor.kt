@@ -1,7 +1,6 @@
 package com.streammydrone.app
 
 import androidx.activity.compose.BackHandler
-import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,13 +31,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,17 +44,15 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.facebook.AccessToken
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-/** Kept by the activity ViewModel; the access token stays in the Facebook SDK's own cache. */
+/** Kept by the activity ViewModel; the access token stays in the encrypted login store. */
 internal class FacebookEditorState(connection: FacebookConnection?) {
     var user by mutableStateOf(connection?.let { FacebookUser(it.userId, it.userName) })
     var pages by mutableStateOf(connection?.takeIf { it.page }?.let { listOf(FacebookPage(it.targetId, it.targetName)) }.orEmpty())
@@ -93,16 +87,14 @@ internal fun FacebookProfileEditor(
         if (editor.touched) editor.confirmDiscard = true else onDismiss()
     }
 
-    /** Reads who logged in and which Pages they may publish to. */
-    fun loaded(token: AccessToken, userChosen: Boolean) {
+    /** Lists the Pages the logged-in user may publish to. */
+    fun showPages(user: FacebookUser, login: FacebookLogin, userChosen: Boolean) {
         editor.busy = true
         scope.launch {
             try {
-                val api = FacebookApi(GraphFacebookTransport())
-                val (user, pages) = withContext(Dispatchers.IO) {
-                    api.me(token.token) to if (facebookTokenAllows(token, page = true)) api.pages(token.token) else emptyList()
+                val pages = withContext(Dispatchers.IO) {
+                    if (facebookLoginAllows(login, page = true)) FacebookApi(GraphFacebookTransport()).pages(login.token) else emptyList()
                 }
-                if (!userChosen && user.id != editor.user?.id) return@launch
                 editor.user = user
                 editor.pages = pages
                 editor.targetId = editor.targetId?.takeIf { id -> id == user.id || pages.any { it.id == id } } ?: user.id
@@ -115,28 +107,53 @@ internal fun FacebookProfileEditor(
         }
     }
 
-    val login = rememberFacebookLogin(
-        onToken = { loaded(it, userChosen = true) },
-        onEnd = { error -> editor.error = error; editor.busy = false },
-    )
+    // Facebook's redirect arrives through FacebookRedirectActivity while the Custom Tab closes.
+    val callback = FacebookLoginFlow.callback
+    LaunchedEffect(callback) {
+        if (callback == null) return@LaunchedEffect
+        val (state, url) = FacebookLoginFlow.finish() ?: return@LaunchedEffect
+        try {
+            val (user, login) = withContext(Dispatchers.IO) { completeFacebookLogin(context, url!!, state) }
+            showPages(user, login, userChosen = true)
+        } catch (error: Exception) {
+            editor.error = facebookError(error)
+            editor.busy = false
+        }
+    }
 
-    // An existing connection lists its Pages again when Facebook still has the same user signed in.
+    // Back on screen with no redirect: the user closed the tab or Facebook never sent one back.
+    val lifecycle = LocalLifecycleOwner.current
+    LaunchedEffect(lifecycle) {
+        lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            delay(1_000)
+            if (FacebookLoginFlow.pendingState != null && FacebookLoginFlow.callback == null) {
+                FacebookLoginFlow.finish()
+                editor.error = uiText(R.string.facebook_login_incomplete)
+                editor.busy = false
+            }
+        }
+    }
+
+    // An existing connection lists its Pages again while the same Facebook user is logged in.
     LaunchedEffect(editor) {
-        if (editor.pagesRefreshed || original == null || !facebookConfigured) return@LaunchedEffect
+        if (editor.pagesRefreshed || original == null) return@LaunchedEffect
         editor.pagesRefreshed = true
-        runCatching { ensureFacebookSdk(context) }
-        AccessToken.getCurrentAccessToken()?.takeIf { !it.isExpired && it.userId == original.userId }?.let { loaded(it, userChosen = false) }
+        val login = withContext(Dispatchers.IO) { currentFacebookLogin(context) }?.takeIf { it.userId == original.userId } ?: return@LaunchedEffect
+        showPages(FacebookUser(original.userId, original.userName), login, userChosen = false)
     }
 
     fun connect() {
         if (editor.busy) return
         editor.error = null
-        if (login == null) {
+        if (!facebookConfigured) {
             editor.error = uiText(R.string.facebook_error_setup)
             return
         }
         editor.busy = true
-        login()
+        if (!FacebookLoginFlow.start(context)) {
+            editor.error = uiText(R.string.facebook_error_auth)
+            editor.busy = false
+        }
     }
 
     fun save() {
@@ -149,8 +166,8 @@ internal fun FacebookProfileEditor(
             return
         }
         // Facebook must have granted what this target needs; a declined permission asks again.
-        val token = runCatching { ensureFacebookSdk(context); AccessToken.getCurrentAccessToken() }.getOrNull()
-        if (token == null || token.userId != user.id || !facebookTokenAllows(token, page != null)) {
+        val login = currentFacebookLogin(context)
+        if (login == null || login.userId != user.id || !facebookLoginAllows(login, page != null)) {
             editor.error = uiText(R.string.facebook_error_auth)
             return
         }
@@ -219,11 +236,7 @@ internal fun FacebookProfileEditor(
                         color = colors.muted, textAlign = TextAlign.Center)
                 }
                 if (user != null) {
-                    AccountCard(email = user.name, channel = null, enabled = !editor.busy, onChange = {
-                        // Another account: forget this one first, or Facebook offers it again.
-                        runCatching { LoginManager.getInstance().logOut() }
-                        connect()
-                    })
+                    AccountCard(email = user.name, channel = null, enabled = !editor.busy, onChange = ::connect)
                     SettingsSection(stringResource(R.string.facebook_target)) {
                         Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             ChoiceRow(user.name, stringResource(R.string.facebook_target_profile), editor.targetId == user.id, !editor.busy) {
@@ -325,31 +338,4 @@ internal fun FacebookProfileEditor(
             },
             dismissButton = { TextButton(onClick = { editor.confirmDisconnect = false }) { Text(stringResource(R.string.cancel)) } })
     }
-}
-
-/**
- * Facebook's own login (its app, or a Custom Tab), never a WebView. Null when this build has no
- * Facebook App ID; the SDK is not touched then.
- */
-@Composable
-private fun rememberFacebookLogin(onToken: (AccessToken) -> Unit, onEnd: (UiText?) -> Unit): (() -> Unit)? {
-    if (!facebookConfigured) return null
-    val context = LocalContext.current
-    val manager = remember {
-        runCatching { ensureFacebookSdk(context); LoginManager.getInstance() }.getOrNull()
-    } ?: return null
-    val callbacks = remember { CallbackManager.Factory.create() }
-    val currentOnToken by rememberUpdatedState(onToken)
-    val currentOnEnd by rememberUpdatedState(onEnd)
-    DisposableEffect(manager, callbacks) {
-        manager.registerCallback(callbacks, object : FacebookCallback<LoginResult> {
-            override fun onSuccess(result: LoginResult) = currentOnToken(result.accessToken)
-            override fun onCancel() = currentOnEnd(null)
-            override fun onError(error: FacebookException) = currentOnEnd(uiText(R.string.facebook_error_auth))
-        })
-        onDispose { manager.unregisterCallback(callbacks) }
-    }
-    val contract = remember(manager, callbacks) { manager.createLogInActivityResultContract(callbacks) }
-    val launcher = rememberLauncherForActivityResult(contract) { }
-    return { launcher.launch(FACEBOOK_PERMISSIONS) }
 }

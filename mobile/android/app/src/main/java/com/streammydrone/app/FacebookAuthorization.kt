@@ -1,68 +1,62 @@
 package com.streammydrone.app
 
 import android.content.Context
-import com.facebook.AccessToken
-import com.facebook.FacebookSdk
-import com.facebook.login.LoginManager
 
 /**
- * Asked for once in Facebook's own login window. `publish_video` creates live videos on the
- * user's profile; the `pages_*` permissions list the user's Pages and publish to them.
+ * Granted through the Facebook Login for Business configuration (`facebookLoginConfigId`).
+ * `publish_video` creates live videos on the user's profile; the `pages_*` permissions list the
+ * user's Pages and publish to them.
  */
-internal val FACEBOOK_PERMISSIONS = listOf(
-    "public_profile", "publish_video", "pages_show_list", "pages_read_engagement", "pages_manage_posts",
-)
-
 private val PROFILE_PERMISSIONS = setOf("publish_video")
 private val PAGE_PERMISSIONS = setOf("pages_show_list", "pages_read_engagement", "pages_manage_posts")
 
-/** The App ID and client token come from Gradle properties; see FACEBOOK_SETUP.md. */
+/** The App ID and login configuration come from Gradle properties; see FACEBOOK_SETUP.md. */
 internal val facebookConfigured: Boolean
-    get() = BuildConfig.FACEBOOK_APP_ID.isNotBlank() && BuildConfig.FACEBOOK_CLIENT_TOKEN.isNotBlank()
+    get() = BuildConfig.FACEBOOK_APP_ID.isNotBlank() && BuildConfig.FACEBOOK_LOGIN_CONFIG_ID.isNotBlank()
+
+internal fun facebookLoginAllows(login: FacebookLogin, page: Boolean): Boolean =
+    login.scopes.containsAll(if (page) PAGE_PERMISSIONS else PROFILE_PERMISSIONS)
 
 /**
- * The SDK is only initialised, never fully: no app events, advertiser ID or automatic start-up
- * requests (see the manifest). It is used for nothing but login and its token cache.
+ * Finishes a login from Facebook's redirect: checks the state, asks Facebook who logged in and
+ * what was granted (a business login does not list it in the redirect), then saves it. Blocking.
  */
-internal fun ensureFacebookSdk(context: Context) {
-    if (!facebookConfigured) throw FacebookLiveException(FacebookFailure.SETUP)
-    if (!FacebookSdk.isInitialized()) {
-        try {
-            @Suppress("DEPRECATION")
-            FacebookSdk.sdkInitialize(context.applicationContext)
-        } catch (_: Exception) {
-            throw FacebookLiveException(FacebookFailure.SETUP)
-        }
+internal fun completeFacebookLogin(context: Context, callbackUrl: String, state: String): Pair<FacebookUser, FacebookLogin> {
+    val callback = parseFacebookCallback(callbackUrl, state)
+    val api = FacebookApi(GraphFacebookTransport())
+    val user = api.me(callback.token)
+    val login = FacebookLogin(user.id, callback.token, callback.expiresAtMillis, api.grantedPermissions(callback.token))
+    try {
+        FacebookLoginStore(context).save(login)
+    } catch (_: Exception) {
+        throw FacebookLiveException(FacebookFailure.AUTH)
     }
-    FacebookSdk.setAutoLogAppEventsEnabled(false)
-    FacebookSdk.setAdvertiserIDCollectionEnabled(false)
+    return user to login
 }
 
-/** For a service: the SDK's cached token, if it still belongs to [userId] and may publish to a profile or [page]. */
+/** The saved login, if it is still valid. */
+internal fun currentFacebookLogin(context: Context): FacebookLogin? = FacebookLoginStore(context).load()?.takeIf { it.usable() }
+
+/** For a service: the saved login's token, if it still belongs to [userId] and may publish to a profile or [page]. */
 internal fun facebookUserToken(context: Context, userId: String, page: Boolean): String {
-    ensureFacebookSdk(context)
-    val token = AccessToken.getCurrentAccessToken()?.takeIf { !it.isExpired && !it.isDataAccessExpired }
-        ?: throw FacebookLiveException(FacebookFailure.AUTH)
-    if (token.userId != userId) throw FacebookLiveException(FacebookFailure.WRONG_ACCOUNT)
-    if (!facebookTokenAllows(token, page)) throw FacebookLiveException(FacebookFailure.AUTH)
-    return token.token
+    val login = currentFacebookLogin(context) ?: throw FacebookLiveException(FacebookFailure.AUTH)
+    if (login.userId != userId) throw FacebookLiveException(FacebookFailure.WRONG_ACCOUNT)
+    if (!facebookLoginAllows(login, page)) throw FacebookLiveException(FacebookFailure.AUTH)
+    return login.token
 }
 
-internal fun facebookTokenAllows(token: AccessToken, page: Boolean): Boolean =
-    token.permissions.containsAll(if (page) PAGE_PERMISSIONS else PROFILE_PERMISSIONS)
-
-/** Removes this app's access on Facebook's side, then forgets the cached token. Blocking. */
+/** Removes this app's access on Facebook's side, then forgets the login. Blocking. */
 internal fun revokeFacebookAccess(context: Context) {
-    ensureFacebookSdk(context)
-    AccessToken.getCurrentAccessToken()?.let { token ->
+    val store = FacebookLoginStore(context)
+    store.load()?.let { login ->
         try {
-            FacebookApi(GraphFacebookTransport()).revokePermissions(token.token)
+            FacebookApi(GraphFacebookTransport()).revokePermissions(login.token)
         } catch (failure: FacebookLiveException) {
-            // An already revoked or expired token has no access left to remove.
+            // An already revoked or expired login has no access left to remove.
             if (failure.failure != FacebookFailure.AUTH) throw failure
         }
     }
-    LoginManager.getInstance().logOut()
+    store.delete()
 }
 
 internal fun facebookError(error: Throwable): UiText {

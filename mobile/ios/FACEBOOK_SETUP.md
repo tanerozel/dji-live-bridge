@@ -10,15 +10,19 @@ Without App Tracking Transparency consent the Facebook iOS SDK only performs Lim
 returns no Graph API access token, so it cannot create live videos. The app declares no tracking,
 so it does not use the SDK. `FacebookAuthorization` opens Facebook's own OAuth dialog in
 `ASWebAuthenticationSession` (shares Safari's Facebook login), with
-`redirect_uri=fb<App ID>://authorize/`, `response_type=token,granted_scopes` and a random `state`.
+`redirect_uri=fb<App ID>://authorize/`, `response_type=token`, the Facebook Login for Business
+`config_id` (`FacebookLoginConfigID` in Info.plist) and a random `state`; the granted permissions
+are read from `GET /me/permissions`. The Meta app is a business app: a plain `scope` request ended
+on `dialog/oauth/business/cancel` without a token.
 The token is checked against `GET /me` and kept in one Keychain item
 (`AfterFirstUnlockThisDeviceOnly`, not synchronized), so a broadcast can still be ended while the
 phone is locked in Picture in Picture. No URL type needs registering: the session catches the
 `fb<App ID>` scheme itself.
 
-**To verify on the first real login** (not testable in unit tests): that Facebook accepts the
-`fb<App ID>://authorize/` redirect for this app's iOS platform, and how long the returned token
-lasts (`expires_in`). If the token is short-lived, the app asks to reconnect once it expires.
+Verified in the simulator on 2026-10-20: login, a live video on the profile ("Only me") and the
+"Facebook confirmed: live" status. Still to check: how long the token lasts (`expires_in`); when
+it expires the app asks to reconnect. The status row opens the broadcast in `SFSafariViewController`
+(`openInApp`), which keeps its own login: the first visit may ask to log in to Facebook once.
 
 ## Meta app settings for iOS
 

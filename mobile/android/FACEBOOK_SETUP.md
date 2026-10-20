@@ -9,17 +9,23 @@ yere kaydedilmez.
 ## Meta uygulaması
 
 1. [developers.facebook.com/apps](https://developers.facebook.com/apps) → **Create app**. Kullanım
-   durumu olarak Facebook Login'i ve Sayfa/video yayınlamayı içeren seçeneği al (Meta'nın listesi
-   değişebiliyor; gerekirse **Other** → **Business**).
+   durumu olarak **Access the Live Video API** ve **Manage everything on your Page**'i seç. Meta
+   bunları Facebook Login ile aynı anda seçtirmiyor; bu seçim **işletme tipi** bir uygulama
+   oluşturur ve giriş **Facebook Login for Business** ile yapılır.
+
+   Mevcut uygulama: **Stream My Drone**, App ID `1140011221710660`, giriş yapılandırması
+   `1133738702566263` (20 Ekim 2026).
 2. **App settings → Basic**: App ID'yi not et. Gizlilik politikası:
    `https://tanerozel.github.io/dji-live-bridge/privacy-policy.html`, veri silme talimatları:
    `https://tanerozel.github.io/dji-live-bridge/privacy-policy.html#deleting-data`, kategori, ikon ve iletişim e-postası.
-3. **App settings → Advanced → Security → Client token**: client token'ı not et.
-   **Require App Secret** kapalı kalmalı (mobil uygulama app secret taşıyamaz).
-4. **Facebook Login → Settings**: *Client OAuth login* açık, *Embedded browser OAuth login* kapalı.
-5. **Permissions** (Use cases / App Review → Permissions and features) bölümünde şunları ekle:
-   `public_profile`, `publish_video`, `pages_show_list`, `pages_read_engagement`,
-   `pages_manage_posts`. Live Video API özelliği de listede varsa ekle.
+3. **App settings → Advanced → Security**: **Require App Secret** kapalı kalmalı (mobil uygulama
+   app secret taşıyamaz).
+4. **Facebook Login for Business → Settings**: *Client OAuth login* açık, *Embedded browser OAuth
+   login* kapalı.
+5. **Facebook Login for Business → Configurations → Create configuration**: *User access token*,
+   izinler `publish_video`, `pages_show_list`, `pages_read_engagement`, `pages_manage_posts`.
+   İşletme girişi `scope` listesini kabul etmez (iOS'ta `dialog/oauth/business/cancel` sayfasına
+   düşüp token vermedi); uygulama bu yapılandırmanın kimliğini `config_id` olarak gönderir.
 6. **Add platform → Android**:
    - Package name: **`com.streammydrone.app`**
    - Class name: **`com.streammydrone.app.MainActivity`**
@@ -44,26 +50,31 @@ Play dağıtımında **Play Console → App integrity → App signing key certif
 key hash'e çevirip ayrıca ekle:
 `echo <SHA-1 iki noktalı> | tr -d : | xxd -r -p | openssl base64`.
 
-## Uygulamaya App ID ve client token vermek
+## Uygulamaya App ID ve yapılandırma kimliğini vermek
 
-İkisi de uygulamanın içine gömülen, gizli olmayan değerlerdir; yine de repoya yazılmaz.
+İkisi de uygulamanın içine gömülen, gizli olmayan değerlerdir; Android'de repoya yazılmaz.
 `~/.gradle/gradle.properties` dosyasına ekle:
 
 ```properties
-facebookAppId=1234567890
-facebookClientToken=0123456789abcdef0123456789abcdef
+facebookAppId=1140011221710660
+facebookLoginConfigId=1133738702566263
 ```
 
-veya ortam değişkeni olarak `FACEBOOK_APP_ID` / `FACEBOOK_CLIENT_TOKEN`. Değerler yoksa uygulama
-yine derlenir; Facebook profil ekranı "yapılandırılmamış" hatası gösterir ve SDK hiç başlatılmaz.
+veya ortam değişkeni olarak `FACEBOOK_APP_ID` / `FACEBOOK_LOGIN_CONFIG_ID`. Değerler yoksa uygulama
+yine derlenir; Facebook profil ekranı "yapılandırılmamış" hatası gösterir.
 
-## SDK ve gizlilik
+## Facebook SDK yok
 
-`com.facebook.android:facebook-login` yalnızca giriş için kullanılır. Manifest'te otomatik
-başlatma, otomatik uygulama olayları, reklam kimliği toplama ve izleme kapalıdır. Erişim token'ını
-SDK kendi özel deposunda tutar; uygulama kendi dosyalarına veya loglara token yazmaz. Sayfa
-token'ı ve yayın adresi yalnızca bellekte tutulur. Kurtarma için yalnızca kullanıcı/hedef/canlı
-video kimlikleri `noBackupFilesDir` içinde saklanır.
+Android Facebook SDK'sı (18.3.0) `config_id` gönderemiyor, bu yüzden kullanılmıyor. Giriş iOS ile
+aynı: Facebook'un OAuth sayfası Chrome Custom Tab'de açılır (`response_type=token`, `config_id`,
+rastgele `state`), dönüş `fb<App ID>://authorize/` adresine gelir ve `FacebookRedirectActivity`
+yakalar. Verilen izinler `GET /me/permissions` ile okunur. Token, kendi Android Keystore anahtarıyla
+AES-GCM şifrelenip `noBackupFilesDir/facebook-login-v1.json` içinde tutulur; loglara yazılmaz.
+Sayfa token'ı ve yayın adresi yalnızca bellekte tutulur. Kurtarma için yalnızca
+kullanıcı/hedef/canlı video kimlikleri `noBackupFilesDir` içinde saklanır.
+
+Custom Tab, Chrome'un Facebook oturumunu kullanır: başka bir hesapla bağlanmak için Chrome'da
+Facebook'tan çıkış yap. Durum panelindeki "Facebook'ta aç" da Custom Tab'de açılır.
 
 ## Geliştirme modunda test
 

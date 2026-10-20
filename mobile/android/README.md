@@ -84,8 +84,10 @@ connection is described in [the iOS setup guide](../ios/YOUTUBE_SETUP.md).
 
 ## Facebook account connection
 
-Facebook can be connected through the official Facebook Login SDK (login only: auto-init, app
-events and advertiser ID are off in the manifest). The editor lists the user's profile and the
+Facebook can be connected without the Facebook SDK: the Meta app is a business app, whose
+Facebook Login for Business needs a `config_id` the Android SDK cannot send. Facebook's OAuth page
+opens in a Custom Tab, `FacebookRedirectActivity` receives `fb<App ID>://authorize/`, and the token
+is kept AES-GCM encrypted with its own Keystore key (`FacebookLoginStore`). The editor lists the user's profile and the
 Pages they may publish to, a title, and for the profile an explicit audience (Only me, Friends,
 Public). Facebook gives every live video its own stream URL, so the profile stores no key: on each
 Go live `FacebookBroadcastManager` creates a `LIVE_NOW` live video, records its ID, and passes the
@@ -94,8 +96,8 @@ recovery, ownership and cancellation follow the YouTube manager. A Page broadcas
 access token, fetched when needed and never stored.
 
 The status card polls the live video every 30 seconds (Graph API limits calls per user and hour)
-and only says live when Facebook reports `LIVE`. App ID and client token come from the
-`facebookAppId` / `facebookClientToken` Gradle properties; without them the editor reports that
+and only says live when Facebook reports `LIVE`. App ID and login configuration come from
+the `facebookAppId` / `facebookLoginConfigId` Gradle properties; without them the editor reports that
 Facebook is not configured. See [the Turkish setup guide](FACEBOOK_SETUP.md).
 
 ## One title before starting

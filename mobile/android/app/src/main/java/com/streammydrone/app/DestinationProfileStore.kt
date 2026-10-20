@@ -286,12 +286,16 @@ private data class StoredProfile(
     val facebook: FacebookConnection? = null,
 )
 
-private data class EncryptedSecret(
+internal data class EncryptedSecret(
     val iv: ByteArray,
     val ciphertext: ByteArray,
 )
 
-private class AndroidKeystoreProfileCipher {
+/** AES-GCM with a key held by the Android Keystore; [alias] and [purpose] keep each use apart. */
+internal class AndroidKeystoreProfileCipher(
+    private val alias: String = KEY_ALIAS,
+    private val purpose: String = "dji-live-bridge-destination",
+) {
     fun encrypt(profileId: String, plaintext: String): EncryptedSecret {
         val cipher = Cipher.getInstance(TRANSFORMATION)
         cipher.init(Cipher.ENCRYPT_MODE, getOrCreateKey())
@@ -309,17 +313,17 @@ private class AndroidKeystoreProfileCipher {
     fun deleteKey() {
         KeyStore.getInstance(ANDROID_KEYSTORE).apply {
             load(null)
-            if (containsAlias(KEY_ALIAS)) deleteEntry(KEY_ALIAS)
+            if (containsAlias(alias)) deleteEntry(alias)
         }
     }
 
     private fun getOrCreateKey(): SecretKey {
         val keyStore = KeyStore.getInstance(ANDROID_KEYSTORE).apply { load(null) }
-        (keyStore.getKey(KEY_ALIAS, null) as? SecretKey)?.let { return it }
+        (keyStore.getKey(alias, null) as? SecretKey)?.let { return it }
         val generator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEYSTORE)
         generator.init(
             KeyGenParameterSpec.Builder(
-                KEY_ALIAS,
+                alias,
                 KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT,
             )
                 .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
@@ -332,7 +336,7 @@ private class AndroidKeystoreProfileCipher {
     }
 
     private fun aad(profileId: String): ByteArray =
-        "dji-live-bridge-destination:$profileId".toByteArray(Charsets.UTF_8)
+        "$purpose:$profileId".toByteArray(Charsets.UTF_8)
 
     companion object {
         private const val ANDROID_KEYSTORE = "AndroidKeyStore"
