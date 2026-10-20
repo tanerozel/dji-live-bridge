@@ -130,7 +130,7 @@
 "key_help_facebook" = "facebook.com で「ライブ動画」→「配信ソフトウェア」を開き、「ストリームキー」をコピーしてください。固定キーを有効にしていない限り、Facebook は配信ごとに新しいキーを発行します。";
 "key_help_instagram" = "instagram.com で「作成（＋）」→「ライブ動画」を開き、「ストリームURL」と「ストリームキー」をコピーしてください。Instagram は配信ごとに新しいキーを発行します。";
 "key_help_kick" = "Kick で Creator Dashboard → Settings → Stream URL & Key を開き、キーをコピーしてください。別の Stream URL が表示されている場合は、サーバーアドレスをそれに置き換えてください。";
-"key_help_tiktok" = "TikTok LIVE Center でストリームキーの画面を開き、サーバー URL とストリームキーをコピーしてください。アカウントに RTMP の利用権限が必要です。TikTok は配信ごとに新しいキーを発行します。";
+"key_help_tiktok" = "TikTok LIVE Center でストリームキーの画面を開き、サーバー URL とストリームキーをコピーしてください。TikTok は配信ごとに新しいキーを発行します。注意：TikTok がストリームキーを発行するのは承認したアカウントだけで、スマホから LIVE 配信できるだけでは足りません。LIVE Center にキーが表示されない場合、アカウントにまだ権限がなく、このアプリでは変えられません。";
 "key_help_twitch" = "Twitch のクリエイターダッシュボードで「設定」→「配信」を開き、プライマリストリームキーをコピーしてください。";
 "key_help_youtube" = "YouTube Studio で「作成」→「ライブ配信を開始」→「ストリーミング ソフトウェア」を開き、「ストリームキー」をコピーしてください。キーはリセットするまで変わりません。";
 "key_hide" = "キーを隠す";

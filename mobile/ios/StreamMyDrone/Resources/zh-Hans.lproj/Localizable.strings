@@ -130,7 +130,7 @@
 "key_help_facebook" = "在 facebook.com 上打开 直播视频 → 直播软件，复制“串流密钥”。除非你启用了固定密钥，否则 Facebook 每次直播都会给出新密钥。";
 "key_help_instagram" = "在 instagram.com 上打开 创建 (+) → 直播视频，复制“推流网址”和“推流密钥”。Instagram 每次直播都会生成新密钥。";
 "key_help_kick" = "在 Kick 上打开 Creator Dashboard → Settings → Stream URL & Key，复制密钥。如果那里显示的 Stream URL 不同，请用它替换服务器地址。";
-"key_help_tiktok" = "在 TikTok LIVE Center 中打开推流密钥页面，复制服务器地址和推流密钥。你的账号需要有 RTMP 权限；TikTok 每次直播都会生成新密钥。";
+"key_help_tiktok" = "在 TikTok LIVE Center 中打开推流密钥页面，复制服务器地址和推流密钥。TikTok 每次直播都会生成新密钥。注意：TikTok 只向其审核通过的账号提供推流密钥；能用手机开直播并不够。如果 LIVE Center 中看不到密钥，说明你的账号尚无此权限，本应用无法改变这一点。";
 "key_help_twitch" = "在 Twitch 创作者仪表板中打开 设置 → 直播，复制你的主推流密钥。";
 "key_help_youtube" = "在 YouTube 工作室中打开 创建 → 开始直播 → 直播软件，复制“串流密钥”。除非你重置，密钥不会改变。";
 "key_hide" = "隐藏密钥";

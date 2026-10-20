@@ -130,7 +130,7 @@
 "key_help_facebook" = "facebook.com'da Canlı video → Yayın yazılımı bölümünden “Yayın anahtarı”nı kopyala. Kalıcı anahtarı açmadıysan Facebook her yayında yenisini verir.";
 "key_help_instagram" = "instagram.com'da Oluştur (+) → Canlı video'yu aç; “Yayın URL'si”ni ve “Yayın anahtarı”nı kopyala. Instagram her yayında yeni bir anahtar verir.";
 "key_help_kick" = "Kick'te Creator Dashboard → Settings → Stream URL & Key bölümünden anahtarı kopyala. Orada farklı bir Stream URL görürsen sunucu adresini onunla değiştir.";
-"key_help_tiktok" = "TikTok LIVE Center'da yayın anahtarı ekranını aç; Sunucu URL'sini ve Yayın anahtarını kopyala. Hesabının RTMP erişimi olmalı; TikTok her yayında yeni anahtar verir.";
+"key_help_tiktok" = "TikTok LIVE Center'da yayın anahtarı ekranını aç; Sunucu URL'sini ve Yayın anahtarını kopyala. TikTok her yayında yeni anahtar verir. Not: TikTok yayın anahtarını yalnızca onayladığı hesaplara verir; telefondan canlı yayın açabilmek yetmez. LIVE Center'da anahtar görünmüyorsa hesabının henüz erişimi yoktur ve bu uygulama bunu değiştiremez.";
 "key_help_twitch" = "Twitch Yayıncı Kontrol Paneli'nde Ayarlar → Yayın bölümünden birincil yayın anahtarını kopyala.";
 "key_help_youtube" = "YouTube Studio'da Oluştur → Canlı yayına geç → Yayın yazılımı bölümünden “Yayın anahtarı”nı kopyala. Anahtar, sen sıfırlayana kadar aynı kalır.";
 "key_hide" = "Anahtarı gizle";

@@ -130,7 +130,7 @@
 "key_help_facebook" = "Su facebook.com apri Video in diretta → Software di streaming e copia la “Chiave per lo streaming”. Se non hai attivato una chiave permanente, Facebook ne genera una nuova a ogni diretta.";
 "key_help_instagram" = "Su instagram.com apri Crea (+) → Video in diretta e copia l'URL di streaming e la chiave di streaming. Instagram genera una chiave nuova a ogni diretta.";
 "key_help_kick" = "Su Kick apri Creator Dashboard → Settings → Stream URL & Key e copia la chiave. Se lì compare uno Stream URL diverso, inseriscilo al posto dell'indirizzo del server.";
-"key_help_tiktok" = "In TikTok LIVE Center apri la schermata della chiave di streaming e copia l'URL del server e la chiave. Il tuo account deve avere l'accesso RTMP; TikTok genera una chiave nuova a ogni diretta.";
+"key_help_tiktok" = "In TikTok LIVE Center apri la schermata della chiave di streaming e copia l'URL del server e la chiave. TikTok genera una chiave nuova a ogni diretta. Nota: TikTok dà le chiavi di streaming solo agli account che approva; poter andare in LIVE dal telefono non basta. Se LIVE Center non mostra nessuna chiave, il tuo account non ha ancora l'accesso e questa app non può cambiarlo.";
 "key_help_twitch" = "Nella Dashboard autore di Twitch apri Impostazioni → Stream e copia il “Codice streaming principale”.";
 "key_help_youtube" = "In YouTube Studio apri Crea → Trasmetti dal vivo → Software di streaming e copia la “Chiave stream”. La chiave resta la stessa finché non la reimposti.";
 "key_hide" = "Nascondi chiave";

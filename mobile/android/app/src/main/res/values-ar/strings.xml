@@ -58,7 +58,7 @@
     <string name="on_kick">على Kick</string>
     <string name="on_custom">على خادمك المخصص</string>
     <string name="key_help_instagram">في instagram.com، افتح إنشاء (+) ← فيديو مباشر وانسخ «عنوان URL للبث» و«مفتاح البث». يمنح Instagram مفتاحًا جديدًا لكل بث.</string>
-    <string name="key_help_tiktok">في TikTok LIVE Center، افتح شاشة مفتاح البث وانسخ عنوان الخادم ومفتاح البث. يحتاج حسابك إلى صلاحية RTMP؛ ويمنح TikTok مفتاحًا جديدًا لكل بث.</string>
+    <string name="key_help_tiktok">في TikTok LIVE Center، افتح شاشة مفتاح البث وانسخ عنوان الخادم ومفتاح البث. يمنح TikTok مفتاحًا جديدًا لكل بث. ملاحظة: لا يمنح TikTok مفاتيح البث إلا للحسابات التي يوافق عليها، ولا تكفي القدرة على البث المباشر من الهاتف. إذا لم يظهر أي مفتاح في LIVE Center فليس لحسابك صلاحية بعد، ولا يستطيع هذا التطبيق تغيير ذلك.</string>
     <string name="key_help_youtube">في YouTube Studio، افتح إنشاء ← بدء البث المباشر ← برنامج البث وانسخ «مفتاح البث». يبقى المفتاح كما هو إلى أن تعيد ضبطه.</string>
     <string name="key_help_facebook">على facebook.com، افتح فيديو مباشر ← برنامج البث وانسخ «مفتاح البث». يمنح Facebook مفتاحًا جديدًا لكل بث ما لم تفعّل مفتاحًا دائمًا.</string>
     <string name="key_help_twitch">في لوحة تحكم صانع المحتوى على Twitch، افتح الإعدادات ← البث وانسخ مفتاح البث الأساسي.</string>

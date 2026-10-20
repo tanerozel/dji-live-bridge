@@ -130,7 +130,7 @@
 "key_help_facebook" = "On facebook.com, open Live video → Streaming software and copy the “Stream key”. Unless you turned on a persistent key, Facebook gives a new one for every broadcast.";
 "key_help_instagram" = "On instagram.com, open Create (+) → Live video and copy the “Stream URL” and the “Stream key”. Instagram gives a new key for every broadcast.";
 "key_help_kick" = "On Kick, open Creator Dashboard → Settings → Stream URL & Key and copy the key. If it shows a different Stream URL, replace the server address with it.";
-"key_help_tiktok" = "In TikTok LIVE Center, open the stream key screen and copy the Server URL and the Stream key. Your account needs RTMP access; TikTok gives a new key for every broadcast.";
+"key_help_tiktok" = "In TikTok LIVE Center, open the stream key screen and copy the Server URL and the Stream key. TikTok gives a new key for every broadcast. Note: TikTok gives stream keys only to accounts it approves; being able to go LIVE from the phone is not enough. If LIVE Center shows no key, your account has no access yet, and this app cannot change that.";
 "key_help_twitch" = "In the Twitch Creator Dashboard, open Settings → Stream and copy your primary stream key.";
 "key_help_youtube" = "In YouTube Studio, open Create → Go live → Streaming software and copy the “Stream key”. The key stays the same until you reset it.";
 "key_hide" = "Hide key";

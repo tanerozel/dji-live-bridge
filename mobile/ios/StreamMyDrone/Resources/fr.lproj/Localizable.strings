@@ -130,7 +130,7 @@
 "key_help_facebook" = "Sur facebook.com, ouvrez Vidéo en direct → Logiciel de diffusion et copiez la « Clé de flux ». Sauf si vous avez activé une clé permanente, Facebook en génère une nouvelle à chaque direct.";
 "key_help_instagram" = "Sur instagram.com, ouvrez Créer (+) → Vidéo en direct et copiez l'« URL de stream » et la « Clé de stream ». Instagram génère une nouvelle clé à chaque direct.";
 "key_help_kick" = "Sur Kick, ouvrez Creator Dashboard → Settings → Stream URL & Key et copiez la clé. Si une autre Stream URL s'affiche, remplacez l'adresse du serveur par celle-ci.";
-"key_help_tiktok" = "Dans TikTok LIVE Center, ouvrez l'écran de la clé de stream et copiez l'adresse du serveur et la clé. Votre compte doit avoir accès au RTMP ; TikTok génère une nouvelle clé à chaque direct.";
+"key_help_tiktok" = "Dans TikTok LIVE Center, ouvrez l'écran de la clé de stream et copiez l'adresse du serveur et la clé. TikTok génère une nouvelle clé à chaque direct. Remarque : TikTok ne donne de clé de stream qu'aux comptes qu'il approuve ; pouvoir faire un LIVE depuis le téléphone ne suffit pas. Si LIVE Center n'affiche aucune clé, votre compte n'a pas encore cet accès et cette app ne peut pas y remédier.";
 "key_help_twitch" = "Dans le Tableau de bord des créateurs de Twitch, ouvrez Paramètres → Stream et copiez votre clé de stream principale.";
 "key_help_youtube" = "Dans YouTube Studio, ouvrez Créer → Passer en direct → Logiciel de diffusion et copiez la « Clé de flux ». La clé reste la même tant que vous ne la réinitialisez pas.";
 "key_hide" = "Masquer la clé";
