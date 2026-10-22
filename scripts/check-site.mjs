@@ -7,13 +7,13 @@
 //
 // Run: npm run check:site
 
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync, statSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const readJson = (path) => JSON.parse(readFileSync(join(root, path), "utf8"));
-const BASE = "https://tanerozel.github.io/dji-live-bridge";
+const BASE = "https://streammydrone.com";
 // Keep in step with scripts/build-site.mjs.
 const ANALYTICS_ID = "G-2HCY063P0W";
 
@@ -258,6 +258,12 @@ for (const pageInfo of blogPages) {
   if (ANALYTICS_ID && !html.includes(`gtag('config', '${ANALYTICS_ID}')`)) fail(where, "the analytics tag is missing");
 }
 
+// Ensure the published GitHub Pages domain survives site regeneration.
+const cnameFile = join(root, "docs/CNAME");
+if (!existsSync(cnameFile) || readFileSync(cnameFile, "utf8").trim() !== "streammydrone.com") {
+  fail("CNAME", "GitHub Pages custom domain must be streammydrone.com");
+}
+
 // Site-wide files.
 const sitemapFile = join(root, "docs/sitemap.xml");
 if (!existsSync(sitemapFile)) {
@@ -284,6 +290,31 @@ for (const name of ["llms.txt", "llms-full.txt"]) {
   const file = join(root, "docs", name);
   if (!existsSync(file)) fail(name, "missing");
   else if (!readFileSync(file, "utf8").startsWith("# ")) fail(name, "does not start with a heading");
+}
+
+// Check every generated document, including the standalone privacy policy.
+// Domain migrations can leave relative links or old absolute URLs behind even
+// when a page's canonical URL is correct.
+const docsRoot = join(root, "docs");
+for (const name of readdirSync(docsRoot, { recursive: true })) {
+  if (!/\.(html|xml|txt)$/.test(name)) continue;
+  const content = readFileSync(join(docsRoot, name), "utf8");
+  if (content.includes("https://tanerozel.github.io/dji-live-bridge")) {
+    fail(name, "still references the former GitHub Pages URL");
+  }
+  if (!name.endsWith(".html")) continue;
+  const pageUrl = new URL(name.replace(/index\.html$/, ""), `${BASE}/`);
+  for (const [, value] of content.matchAll(/\b(?:href|src)="([^"]+)"/g)) {
+    const url = new URL(value.replaceAll("&amp;", "&"), pageUrl);
+    if (url.origin !== BASE) continue;
+    let target = join(docsRoot, decodeURIComponent(url.pathname));
+    if (existsSync(target) && statSync(target).isDirectory()) target = join(target, "index.html");
+    if (!existsSync(target)) fail(name, `broken internal link or asset: ${value}`);
+  }
+}
+const privacy = readFileSync(join(docsRoot, "privacy-policy.html"), "utf8");
+if (!privacy.includes(`<link rel="canonical" href="${BASE}/privacy-policy.html">`)) {
+  fail("privacy-policy.html", "canonical does not use the custom domain");
 }
 
 for (const line of warnings) console.warn(`warning  ${line}`);

@@ -20,55 +20,55 @@ Key facts:
 - Not affiliated with DJI, Instagram, TikTok or Apple.
 
 ## Documentation
-- [Home page](https://tanerozel.github.io/dji-live-bridge/): what the app does, how to set it up, FAQ.
-- [Full site text](https://tanerozel.github.io/dji-live-bridge/llms-full.txt): every section of the home page and every guide as plain text.
-- [Blog](https://tanerozel.github.io/dji-live-bridge/blog/): step-by-step guides for each streaming platform, in English and Turkish.
+- [Home page](https://streammydrone.com/): what the app does, how to set it up, FAQ.
+- [Full site text](https://streammydrone.com/llms-full.txt): every section of the home page and every guide as plain text.
+- [Blog](https://streammydrone.com/blog/): step-by-step guides for each streaming platform, in English and Turkish.
 - [README](https://github.com/tanerozel/dji-live-bridge/blob/main/README.md): installation, streaming guide, development notes.
 - [Turkish README](https://github.com/tanerozel/dji-live-bridge/blob/main/README.tr.md): the same document in Turkish; 13 further languages sit beside it.
 - [Releases](https://github.com/tanerozel/dji-live-bridge/releases/latest): downloads for macOS and Windows.
 - [Stream My Drone on Google Play](https://play.google.com/store/apps/details?id=com.streammydrone.app): the Android app.
 - [Stream My Drone on the App Store](https://apps.apple.com/us/app/stream-my-drone/id6818233095): the iOS app.
-- [Dependencies](https://tanerozel.github.io/dji-live-bridge/DEPENDENCIES.md): third-party components and their licences.
-- [Security policy](https://tanerozel.github.io/dji-live-bridge/SECURITY.md): how to report a vulnerability.
+- [Dependencies](https://streammydrone.com/DEPENDENCIES.md): third-party components and their licences.
+- [Security policy](https://streammydrone.com/SECURITY.md): how to report a vulnerability.
 
 ## Guides
-- [How to live stream a DJI Mini 5 Pro](https://tanerozel.github.io/dji-live-bridge/blog/dji-mini-5-pro-live-stream/): Live stream a DJI Mini 5 Pro with RC 2 or RC-N3. Set up DJI Fly RTMP, use a phone or computer, and send your drone feed to YouTube, Instagram or Facebook.
-- [How to live stream a DJI Mini 4 Pro](https://tanerozel.github.io/dji-live-bridge/blog/dji-mini-4-pro-live-stream/): Live stream a DJI Mini 4 Pro using RC 2 or RC-N2. Follow phone and computer setup, DJI Fly RTMP settings, microphone requirements and platform checks.
-- [Spot and count animals live from your DJI drone](https://tanerozel.github.io/dji-live-bridge/blog/count-animals-with-a-dji-drone-ai-detection/): DJI Live Bridge spots goats, sheep, cows, horses, donkeys and poultry in your drone's live picture, marks them on the stream and counts them, all on your own computer.
-- [DJI Fly RTMP live streaming: the complete setup](https://tanerozel.github.io/dji-live-bridge/blog/dji-fly-rtmp-live-streaming-setup/): How to set up RTMP live streaming in DJI Fly: where the setting is, which address to enter, how to network the controller and computer, and how to fix it.
-- [Why DJI Fly can't live stream to Instagram (and the fix)](https://tanerozel.github.io/dji-live-bridge/blog/why-dji-fly-cannot-stream-to-instagram/): DJI Fly has no Instagram option and its RTMP client cannot do the encrypted RTMPS Instagram requires. Here is why, and how to go live on Instagram from a DJI drone anyway.
-- [Turn your DJI drone into your computer's webcam](https://tanerozel.github.io/dji-live-bridge/blog/use-your-dji-drone-as-a-webcam/): Turn your DJI drone into a webcam for TikTok LIVE Studio, OBS, Zoom, Google Meet or Teams with the DJI Live Bridge virtual camera. Setup, ideas and fixes.
-- [How to live stream a DJI Neo](https://tanerozel.github.io/dji-live-bridge/blog/dji-neo-live-stream/): How to live stream a DJI Neo: which control mode works (phone, RC-N3, goggles), RTMP in DJI Fly, and going live on Instagram, TikTok or YouTube with DJI Live Bridge.
-- [How to live stream a DJI Avata 2](https://tanerozel.github.io/dji-live-bridge/blog/dji-avata-2-live-stream/): How to live stream FPV footage from a DJI Avata 2: share the Goggles 3 view to DJI Fly on your phone, stream over RTMP and go live on Instagram, TikTok or YouTube.
-- [Live stream your DJI Osmo camera to Instagram, TikTok and more](https://tanerozel.github.io/dji-live-bridge/blog/dji-osmo-live-stream-instagram-tiktok/): DJI Mimo can stream Osmo Action, Osmo Pocket and Osmo 360 cameras over RTMP. Send that to DJI Live Bridge to go live on Instagram, TikTok and YouTube at once.
-- [How to live stream an Osmo Pocket 3 to Instagram and TikTok](https://tanerozel.github.io/dji-live-bridge/blog/osmo-pocket-3-live-stream/): How to live stream a DJI Osmo Pocket 3 over RTMP from DJI Mimo to Instagram, TikTok and YouTube at once, and use it as a wireless webcam, with DJI Live Bridge.
-- [How to live stream an Osmo Action camera to Instagram and TikTok](https://tanerozel.github.io/dji-live-bridge/blog/osmo-action-live-stream/): Live stream a DJI Osmo Action 6, 5 Pro, 4 or 3 over RTMP from DJI Mimo to Instagram, TikTok, YouTube and Twitch at once with DJI Live Bridge. Setup and settings.
-- [How to go live on TikTok with a DJI drone](https://tanerozel.github.io/dji-live-bridge/blog/how-to-go-live-on-tiktok-with-a-dji-drone/): Stream a DJI drone live on TikTok from DJI Fly: with a TikTok stream key, or without one through TikTok LIVE Studio and a virtual camera. Settings and fixes.
-- [How to go live on Instagram with a DJI drone](https://tanerozel.github.io/dji-live-bridge/blog/how-to-go-live-on-instagram-with-a-dji-drone/): Go live on Instagram from a DJI drone: get the stream URL and key on instagram.com, send DJI Fly's RTMP stream through DJI Live Bridge, then press Go live.
-- [How to live stream a DJI drone to YouTube](https://tanerozel.github.io/dji-live-bridge/blog/how-to-live-stream-a-dji-drone-to-youtube/): Stream a DJI drone live to YouTube: enable live streaming, copy the stream key from YouTube Studio, send DJI Fly's RTMP through DJI Live Bridge. Settings and tips.
-- [How to go live on Facebook with a DJI drone](https://tanerozel.github.io/dji-live-bridge/blog/how-to-go-live-on-facebook-with-a-dji-drone/): Stream a DJI drone live on Facebook: get the RTMPS server URL and stream key from Live Producer, send DJI Fly's stream through DJI Live Bridge, and go live.
-- [How to stream a DJI drone on Twitch](https://tanerozel.github.io/dji-live-bridge/blog/how-to-stream-a-dji-drone-on-twitch/): Stream a DJI drone live on Twitch: copy your stream key from the Creator Dashboard, add Twitch as a custom RTMP destination in DJI Live Bridge and go live.
-- [How to stream a DJI drone on Kick](https://tanerozel.github.io/dji-live-bridge/blog/how-to-stream-a-dji-drone-on-kick/): Stream a DJI drone live on Kick: copy the stream URL and key from the Kick dashboard, add them as a custom RTMP destination in DJI Live Bridge, and go live.
-- [Stream a DJI drone to several platforms at once](https://tanerozel.github.io/dji-live-bridge/blog/stream-a-dji-drone-to-multiple-platforms-at-once/): Send one DJI drone live stream to TikTok, Instagram, YouTube, Facebook, Twitch and Kick at the same time with DJI Live Bridge — free, local, no restream service.
-- [DJI Live Bridge vs Restream: which one for your drone?](https://tanerozel.github.io/dji-live-bridge/blog/dji-live-bridge-vs-restream/): Streaming a DJI drone to several platforms: Restream's cloud relay or DJI Live Bridge on your own computer? Cost, watermark, Instagram, vertical video and when each one wins.
-- [Stream a DJI drone without setting up NGINX and OBS](https://tanerozel.github.io/dji-live-bridge/blog/dji-drone-to-obs-without-nginx/): The usual way to get DJI Fly into OBS is an NGINX RTMP server, a config file and a media source. Here is what that setup involves, and the one-app way to skip it.
+- [How to live stream a DJI Mini 5 Pro](https://streammydrone.com/blog/dji-mini-5-pro-live-stream/): Live stream a DJI Mini 5 Pro with RC 2 or RC-N3. Set up DJI Fly RTMP, use a phone or computer, and send your drone feed to YouTube, Instagram or Facebook.
+- [How to live stream a DJI Mini 4 Pro](https://streammydrone.com/blog/dji-mini-4-pro-live-stream/): Live stream a DJI Mini 4 Pro using RC 2 or RC-N2. Follow phone and computer setup, DJI Fly RTMP settings, microphone requirements and platform checks.
+- [Spot and count animals live from your DJI drone](https://streammydrone.com/blog/count-animals-with-a-dji-drone-ai-detection/): DJI Live Bridge spots goats, sheep, cows, horses, donkeys and poultry in your drone's live picture, marks them on the stream and counts them, all on your own computer.
+- [DJI Fly RTMP live streaming: the complete setup](https://streammydrone.com/blog/dji-fly-rtmp-live-streaming-setup/): How to set up RTMP live streaming in DJI Fly: where the setting is, which address to enter, how to network the controller and computer, and how to fix it.
+- [Why DJI Fly can't live stream to Instagram (and the fix)](https://streammydrone.com/blog/why-dji-fly-cannot-stream-to-instagram/): DJI Fly has no Instagram option and its RTMP client cannot do the encrypted RTMPS Instagram requires. Here is why, and how to go live on Instagram from a DJI drone anyway.
+- [Turn your DJI drone into your computer's webcam](https://streammydrone.com/blog/use-your-dji-drone-as-a-webcam/): Turn your DJI drone into a webcam for TikTok LIVE Studio, OBS, Zoom, Google Meet or Teams with the DJI Live Bridge virtual camera. Setup, ideas and fixes.
+- [How to live stream a DJI Neo](https://streammydrone.com/blog/dji-neo-live-stream/): How to live stream a DJI Neo: which control mode works (phone, RC-N3, goggles), RTMP in DJI Fly, and going live on Instagram, TikTok or YouTube with DJI Live Bridge.
+- [How to live stream a DJI Avata 2](https://streammydrone.com/blog/dji-avata-2-live-stream/): How to live stream FPV footage from a DJI Avata 2: share the Goggles 3 view to DJI Fly on your phone, stream over RTMP and go live on Instagram, TikTok or YouTube.
+- [Live stream your DJI Osmo camera to Instagram, TikTok and more](https://streammydrone.com/blog/dji-osmo-live-stream-instagram-tiktok/): DJI Mimo can stream Osmo Action, Osmo Pocket and Osmo 360 cameras over RTMP. Send that to DJI Live Bridge to go live on Instagram, TikTok and YouTube at once.
+- [How to live stream an Osmo Pocket 3 to Instagram and TikTok](https://streammydrone.com/blog/osmo-pocket-3-live-stream/): How to live stream a DJI Osmo Pocket 3 over RTMP from DJI Mimo to Instagram, TikTok and YouTube at once, and use it as a wireless webcam, with DJI Live Bridge.
+- [How to live stream an Osmo Action camera to Instagram and TikTok](https://streammydrone.com/blog/osmo-action-live-stream/): Live stream a DJI Osmo Action 6, 5 Pro, 4 or 3 over RTMP from DJI Mimo to Instagram, TikTok, YouTube and Twitch at once with DJI Live Bridge. Setup and settings.
+- [How to go live on TikTok with a DJI drone](https://streammydrone.com/blog/how-to-go-live-on-tiktok-with-a-dji-drone/): Stream a DJI drone live on TikTok from DJI Fly: with a TikTok stream key, or without one through TikTok LIVE Studio and a virtual camera. Settings and fixes.
+- [How to go live on Instagram with a DJI drone](https://streammydrone.com/blog/how-to-go-live-on-instagram-with-a-dji-drone/): Go live on Instagram from a DJI drone: get the stream URL and key on instagram.com, send DJI Fly's RTMP stream through DJI Live Bridge, then press Go live.
+- [How to live stream a DJI drone to YouTube](https://streammydrone.com/blog/how-to-live-stream-a-dji-drone-to-youtube/): Stream a DJI drone live to YouTube: enable live streaming, copy the stream key from YouTube Studio, send DJI Fly's RTMP through DJI Live Bridge. Settings and tips.
+- [How to go live on Facebook with a DJI drone](https://streammydrone.com/blog/how-to-go-live-on-facebook-with-a-dji-drone/): Stream a DJI drone live on Facebook: get the RTMPS server URL and stream key from Live Producer, send DJI Fly's stream through DJI Live Bridge, and go live.
+- [How to stream a DJI drone on Twitch](https://streammydrone.com/blog/how-to-stream-a-dji-drone-on-twitch/): Stream a DJI drone live on Twitch: copy your stream key from the Creator Dashboard, add Twitch as a custom RTMP destination in DJI Live Bridge and go live.
+- [How to stream a DJI drone on Kick](https://streammydrone.com/blog/how-to-stream-a-dji-drone-on-kick/): Stream a DJI drone live on Kick: copy the stream URL and key from the Kick dashboard, add them as a custom RTMP destination in DJI Live Bridge, and go live.
+- [Stream a DJI drone to several platforms at once](https://streammydrone.com/blog/stream-a-dji-drone-to-multiple-platforms-at-once/): Send one DJI drone live stream to TikTok, Instagram, YouTube, Facebook, Twitch and Kick at the same time with DJI Live Bridge — free, local, no restream service.
+- [DJI Live Bridge vs Restream: which one for your drone?](https://streammydrone.com/blog/dji-live-bridge-vs-restream/): Streaming a DJI drone to several platforms: Restream's cloud relay or DJI Live Bridge on your own computer? Cost, watermark, Instagram, vertical video and when each one wins.
+- [Stream a DJI drone without setting up NGINX and OBS](https://streammydrone.com/blog/dji-drone-to-obs-without-nginx/): The usual way to get DJI Fly into OBS is an NGINX RTMP server, a config file and a media source. Here is what that setup involves, and the one-app way to skip it.
 
 ## Languages
-- [English](https://tanerozel.github.io/dji-live-bridge/)
-- [Türkçe](https://tanerozel.github.io/dji-live-bridge/tr/)
-- [Español](https://tanerozel.github.io/dji-live-bridge/es/)
-- [中文（简体）](https://tanerozel.github.io/dji-live-bridge/zh/)
-- [中文（繁體）](https://tanerozel.github.io/dji-live-bridge/zh-Hant/)
-- [العربية](https://tanerozel.github.io/dji-live-bridge/ar/)
-- [हिन्दी](https://tanerozel.github.io/dji-live-bridge/hi/)
-- [Português](https://tanerozel.github.io/dji-live-bridge/pt/)
-- [Русский](https://tanerozel.github.io/dji-live-bridge/ru/)
-- [Français](https://tanerozel.github.io/dji-live-bridge/fr/)
-- [Deutsch](https://tanerozel.github.io/dji-live-bridge/de/)
-- [日本語](https://tanerozel.github.io/dji-live-bridge/ja/)
-- [한국어](https://tanerozel.github.io/dji-live-bridge/ko/)
-- [Bahasa Indonesia](https://tanerozel.github.io/dji-live-bridge/id/)
-- [Italiano](https://tanerozel.github.io/dji-live-bridge/it/)
+- [English](https://streammydrone.com/)
+- [Türkçe](https://streammydrone.com/tr/)
+- [Español](https://streammydrone.com/es/)
+- [中文（简体）](https://streammydrone.com/zh/)
+- [中文（繁體）](https://streammydrone.com/zh-Hant/)
+- [العربية](https://streammydrone.com/ar/)
+- [हिन्दी](https://streammydrone.com/hi/)
+- [Português](https://streammydrone.com/pt/)
+- [Русский](https://streammydrone.com/ru/)
+- [Français](https://streammydrone.com/fr/)
+- [Deutsch](https://streammydrone.com/de/)
+- [日本語](https://streammydrone.com/ja/)
+- [한국어](https://streammydrone.com/ko/)
+- [Bahasa Indonesia](https://streammydrone.com/id/)
+- [Italiano](https://streammydrone.com/it/)
 
 ## Source
 - [Repository](https://github.com/tanerozel/dji-live-bridge)
