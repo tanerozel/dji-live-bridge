@@ -15,7 +15,7 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const BASE = "https://tanerozel.github.io/dji-live-bridge";
+const BASE = "https://streammydrone.com";
 const REPO = "https://github.com/tanerozel/dji-live-bridge";
 const RELEASES = `${REPO}/releases/latest`;
 // The mobile apps, published on their own as "Stream My Drone".
@@ -1013,6 +1013,7 @@ for (const { locale, labels } of BLOG) {
 // Pages runs Jekyll over docs/ by default; this turns that off so the files
 // are served exactly as generated.
 writeFileSync(join(root, "docs/privacy-policy.html"), readFileSync(join(root, "site/privacy-policy.html"), "utf8"));
+writeFileSync(join(root, "docs/CNAME"), "streammydrone.com\n");
 writeFileSync(join(root, "docs/.nojekyll"), "");
 writeFileSync(join(root, "docs/sitemap.xml"), sitemap());
 writeFileSync(join(root, "docs/robots.txt"), robots());

@@ -13,7 +13,7 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const readJson = (path) => JSON.parse(readFileSync(join(root, path), "utf8"));
-const BASE = "https://tanerozel.github.io/dji-live-bridge";
+const BASE = "https://streammydrone.com";
 // Keep in step with scripts/build-site.mjs.
 const ANALYTICS_ID = "G-2HCY063P0W";
 
@@ -256,6 +256,12 @@ for (const pageInfo of blogPages) {
 
   if (/undefined|\[object Object\]/.test(html)) fail(where, "rendered 'undefined' or '[object Object]'");
   if (ANALYTICS_ID && !html.includes(`gtag('config', '${ANALYTICS_ID}')`)) fail(where, "the analytics tag is missing");
+}
+
+// Ensure the published GitHub Pages domain survives site regeneration.
+const cnameFile = join(root, "docs/CNAME");
+if (!existsSync(cnameFile) || readFileSync(cnameFile, "utf8").trim() !== "streammydrone.com") {
+  fail("CNAME", "GitHub Pages custom domain must be streammydrone.com");
 }
 
 // Site-wide files.
