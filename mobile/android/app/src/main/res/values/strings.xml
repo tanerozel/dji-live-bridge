@@ -421,4 +421,51 @@
     <string name="facebook_status_ended">Facebook live video ended.</string>
     <string name="facebook_open_broadcast">Open on Facebook</string>
     <string name="facebook_login_incomplete">Facebook login was not completed, so nothing was saved. Try again and finish every step in Facebook’s window.</string>
+
+    <!-- Public-SDK Bluetooth capability diagnostics: no audio capture. -->
+    <string name="vmic_title">Virtual Bluetooth Microphone</string>
+    <string name="vmic_developer_mode">Developer diagnostics</string>
+    <string name="vmic_diagnostics_scope">Inspect remote services and the actual HFP control session. Service information alone does not confirm DJI Fly microphone recognition.</string>
+    <string name="vmic_permission_reason">Bluetooth permission lists paired devices and connects to the controller. No device scan is performed.</string>
+    <string name="vmic_allow_bluetooth">Allow Bluetooth</string>
+    <string name="vmic_refresh">Refresh</string>
+    <string name="vmic_bluetooth_settings">Bluetooth settings</string>
+    <string name="vmic_settings_unavailable">Bluetooth settings could not be opened.</string>
+    <string name="vmic_paired_devices">Paired devices</string>
+    <string name="vmic_no_paired_devices">No paired devices. Pair the controller in Android Bluetooth settings first.</string>
+    <string name="vmic_sdp_warning">Cached UUIDs may be outdated. SDP responses have no request ID and do not prove HFP, SCO or microphone support in DJI Fly.</string>
+    <string name="vmic_report_privacy">The report excludes paired-device names, addresses and custom service UUIDs. Copying it puts only the displayed report on your clipboard.</string>
+    <string name="vmic_copy_report">Copy sanitized report</string>
+    <string name="vmic_copied">Report copied</string>
+    <string name="vmic_bluetooth_permission">Bluetooth: permission required</string>
+    <string name="vmic_bluetooth_unavailable">Bluetooth: unavailable</string>
+    <string name="vmic_bluetooth_off">Bluetooth: off</string>
+    <string name="vmic_bluetooth_on">Bluetooth: on</string>
+    <string name="vmic_bluetooth_unknown">Bluetooth: unknown</string>
+    <string name="vmic_sdp_idle">SDP: not requested</string>
+    <string name="vmic_sdp_pending">SDP: waiting for a response (up to 15 seconds)</string>
+    <string name="vmic_sdp_received">SDP: response received</string>
+    <string name="vmic_sdp_empty">SDP: no service information returned</string>
+    <string name="vmic_sdp_timeout">SDP: timed out; retry manually</string>
+    <string name="vmic_sdp_failed">SDP: request failed; retry manually</string>
+    <string name="vmic_sdp_cancelled">SDP: cancelled</string>
+    <string name="vmic_query_services">Query remote services</string>
+
+    <string name="vmic_control_purpose">Keep the connection open to test whether RC 2 recognizes the phone as a microphone. No audio is sent.</string>
+    <string name="vmic_fly_unverified">DJI Fly microphone recognition: Unverified</string>
+    <string name="vmic_check_controller">On RC 2, open DJI Fly live-stream settings and check whether the microphone warning has disappeared.</string>
+    <string name="vmic_connect">Connect to RC 2</string>
+    <string name="vmic_disconnect">Disconnect</string>
+    <string name="vmic_connection_kept_open">The connection stays open when this screen closes. Use Disconnect here or in the notification to end it.</string>
+    <string name="vmic_control_idle">HFP control: not connected</string>
+    <string name="vmic_control_connecting">HFP control: connecting</string>
+    <string name="vmic_control_negotiating">HFP control: negotiating</string>
+    <string name="vmic_control_connected">HFP control: connected</string>
+    <string name="vmic_control_disconnected">HFP control: disconnected</string>
+    <string name="vmic_control_failed">HFP control: connection failed. Check Bluetooth and retry.</string>
+    <string name="vmic_control_notification_channel">Bluetooth microphone control</string>
+    <string name="vmic_control_notification_title">Bluetooth microphone control</string>
+    <string name="vmic_control_notification_connecting">Connecting to the selected controller</string>
+    <string name="vmic_control_notification_connected">HFP control connected — check the controller microphone screen</string>
+    <string name="vmic_control_notification_disconnect">Disconnect</string>
 </resources>

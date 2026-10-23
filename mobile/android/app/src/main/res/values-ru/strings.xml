@@ -430,4 +430,51 @@
     <string name="facebook_status_ended">Прямой эфир Facebook завершён.</string>
     <string name="facebook_open_broadcast">Открыть на Facebook</string>
     <string name="facebook_login_incomplete">Вход в Facebook не завершён, поэтому ничего не сохранено. Попробуйте ещё раз и пройдите все шаги в окне Facebook.</string>
+
+    <!-- Public-SDK Bluetooth capability diagnostics: no audio capture. -->
+    <string name="vmic_title">Виртуальный Bluetooth-микрофон</string>
+    <string name="vmic_developer_mode">Диагностика для разработчиков</string>
+    <string name="vmic_diagnostics_scope">Проверьте удалённые службы и фактическое соединение управления HFP. Сведения о службах сами по себе не подтверждают распознавание микрофона в DJI Fly.</string>
+    <string name="vmic_permission_reason">Разрешение Bluetooth используется для списка сопряжённых устройств и подключения к пульту. Поиск устройств не выполняется.</string>
+    <string name="vmic_allow_bluetooth">Разрешить Bluetooth</string>
+    <string name="vmic_refresh">Обновить</string>
+    <string name="vmic_bluetooth_settings">Настройки Bluetooth</string>
+    <string name="vmic_settings_unavailable">Не удалось открыть настройки Bluetooth.</string>
+    <string name="vmic_paired_devices">Сопряжённые устройства</string>
+    <string name="vmic_no_paired_devices">Нет сопряжённых устройств. Сначала выполните сопряжение пульта в настройках Bluetooth Android.</string>
+    <string name="vmic_sdp_warning">UUID в кэше могут устареть. Ответы SDP не содержат ID запроса и не подтверждают поддержку HFP, SCO или микрофона в DJI Fly.</string>
+    <string name="vmic_report_privacy">Отчёт не содержит имён, адресов устройств и UUID нестандартных служб. В буфер обмена копируется только показанный отчёт.</string>
+    <string name="vmic_copy_report">Копировать обезличенный отчёт</string>
+    <string name="vmic_copied">Отчёт скопирован</string>
+    <string name="vmic_bluetooth_permission">Bluetooth: требуется разрешение</string>
+    <string name="vmic_bluetooth_unavailable">Bluetooth: недоступен</string>
+    <string name="vmic_bluetooth_off">Bluetooth: выключен</string>
+    <string name="vmic_bluetooth_on">Bluetooth: включён</string>
+    <string name="vmic_bluetooth_unknown">Bluetooth: неизвестно</string>
+    <string name="vmic_sdp_idle">SDP: не запрошен</string>
+    <string name="vmic_sdp_pending">SDP: ожидание ответа (до 15 секунд)</string>
+    <string name="vmic_sdp_received">SDP: ответ получен</string>
+    <string name="vmic_sdp_empty">SDP: сведения о службах не получены</string>
+    <string name="vmic_sdp_timeout">SDP: время истекло; повторите вручную</string>
+    <string name="vmic_sdp_failed">SDP: ошибка запроса; повторите вручную</string>
+    <string name="vmic_sdp_cancelled">SDP: отменён</string>
+    <string name="vmic_query_services">Запросить службы устройства</string>
+
+    <string name="vmic_control_purpose">Оставьте соединение открытым, чтобы проверить, распознаёт ли RC 2 телефон как микрофон. Звук не передаётся.</string>
+    <string name="vmic_fly_unverified">Распознавание микрофона в DJI Fly: Не проверено</string>
+    <string name="vmic_check_controller">На RC 2 откройте настройки прямой трансляции в DJI Fly и проверьте, исчезло ли предупреждение о микрофоне.</string>
+    <string name="vmic_connect">Подключиться к RC 2</string>
+    <string name="vmic_disconnect">Отключиться</string>
+    <string name="vmic_connection_kept_open">После закрытия этого экрана соединение остаётся открытым. Для завершения нажмите Отключиться здесь или в уведомлении.</string>
+    <string name="vmic_control_idle">Управление HFP: не подключено</string>
+    <string name="vmic_control_connecting">Управление HFP: подключение</string>
+    <string name="vmic_control_negotiating">Управление HFP: согласование</string>
+    <string name="vmic_control_connected">Управление HFP: подключено</string>
+    <string name="vmic_control_disconnected">Управление HFP: отключено</string>
+    <string name="vmic_control_failed">Управление HFP: ошибка подключения. Проверьте Bluetooth и повторите попытку.</string>
+    <string name="vmic_control_notification_channel">Управление микрофоном Bluetooth</string>
+    <string name="vmic_control_notification_title">Управление микрофоном Bluetooth</string>
+    <string name="vmic_control_notification_connecting">Подключение к выбранному пульту</string>
+    <string name="vmic_control_notification_connected">Управление HFP подключено — проверьте экран микрофона на пульте</string>
+    <string name="vmic_control_notification_disconnect">Отключиться</string>
 </resources>

@@ -46,6 +46,8 @@ android {
         targetSdk = 36
         versionCode = 2
         versionName = "1.1"
+        // Test-only, public-SDK RFCOMM control diagnostic; excluded from the release APK.
+        testInstrumentationRunner = "com.streammydrone.app.hfpcontrolprobe.HfpControlProbeInstrumentation"
 
         ndk {
             abiFilters += "arm64-v8a"

@@ -440,4 +440,51 @@
     <string name="facebook_status_ended">انتهى فيديو Facebook المباشر.</string>
     <string name="facebook_open_broadcast">فتح في Facebook</string>
     <string name="facebook_login_incomplete">لم يكتمل تسجيل الدخول إلى Facebook، لذلك لم يُحفظ أي شيء. حاول مرة أخرى وأكمل جميع الخطوات في نافذة Facebook.</string>
+
+    <!-- Public-SDK Bluetooth capability diagnostics: no audio capture. -->
+    <string name="vmic_title">ميكروفون بلوتوث افتراضي</string>
+    <string name="vmic_developer_mode">تشخيص المطوّر</string>
+    <string name="vmic_diagnostics_scope">افحص الخدمات البعيدة واتصال تحكم HFP الفعلي. معلومات الخدمات وحدها لا تؤكد تعرّف DJI Fly على الميكروفون.</string>
+    <string name="vmic_permission_reason">يُستخدم إذن Bluetooth لعرض الأجهزة المقترنة والاتصال بوحدة التحكم. لا يتم البحث عن أجهزة.</string>
+    <string name="vmic_allow_bluetooth">السماح بـ Bluetooth</string>
+    <string name="vmic_refresh">تحديث</string>
+    <string name="vmic_bluetooth_settings">إعدادات البلوتوث</string>
+    <string name="vmic_settings_unavailable">تعذّر فتح إعدادات البلوتوث.</string>
+    <string name="vmic_paired_devices">الأجهزة المقترنة</string>
+    <string name="vmic_no_paired_devices">لا توجد أجهزة مقترنة. أقرن وحدة التحكم أولاً من إعدادات بلوتوث Android.</string>
+    <string name="vmic_sdp_warning">قد تكون UUID المخزّنة قديمة. لا تحتوي ردود SDP على معرّف طلب ولا تثبت دعم HFP أو SCO أو الميكروفون في DJI Fly.</string>
+    <string name="vmic_report_privacy">يستبعد التقرير أسماء الأجهزة وعناوينها وUUID الخدمات المخصصة. يُنسخ التقرير المعروض فقط إلى الحافظة.</string>
+    <string name="vmic_copy_report">نسخ التقرير المنقّح</string>
+    <string name="vmic_copied">تم نسخ التقرير</string>
+    <string name="vmic_bluetooth_permission">البلوتوث: الإذن مطلوب</string>
+    <string name="vmic_bluetooth_unavailable">البلوتوث: غير متاح</string>
+    <string name="vmic_bluetooth_off">البلوتوث: متوقف</string>
+    <string name="vmic_bluetooth_on">البلوتوث: مفعّل</string>
+    <string name="vmic_bluetooth_unknown">البلوتوث: غير معروف</string>
+    <string name="vmic_sdp_idle">SDP: لم يُطلب</string>
+    <string name="vmic_sdp_pending">SDP: انتظار الرد (حتى 15 ثانية)</string>
+    <string name="vmic_sdp_received">SDP: تم استلام الرد</string>
+    <string name="vmic_sdp_empty">SDP: لم ترد معلومات عن الخدمات</string>
+    <string name="vmic_sdp_timeout">SDP: انتهت المهلة؛ أعد المحاولة يدوياً</string>
+    <string name="vmic_sdp_failed">SDP: فشل الطلب؛ أعد المحاولة يدوياً</string>
+    <string name="vmic_sdp_cancelled">SDP: أُلغي</string>
+    <string name="vmic_query_services">استعلام عن خدمات الجهاز</string>
+
+    <string name="vmic_control_purpose">أبقِ الاتصال مفتوحًا لاختبار ما إذا كانت RC 2 تتعرّف على الهاتف كميكروفون. لا يُرسل أي صوت.</string>
+    <string name="vmic_fly_unverified">تعرّف DJI Fly على الميكروفون: لم يتم التحقق</string>
+    <string name="vmic_check_controller">على RC 2، افتح إعدادات البث المباشر في DJI Fly وتحقق مما إذا كان تحذير الميكروفون قد اختفى.</string>
+    <string name="vmic_connect">الاتصال بـ RC 2</string>
+    <string name="vmic_disconnect">قطع الاتصال</string>
+    <string name="vmic_connection_kept_open">يبقى الاتصال مفتوحًا عند إغلاق هذه الشاشة. لإنهائه، استخدم قطع الاتصال هنا أو في الإشعار.</string>
+    <string name="vmic_control_idle">تحكم HFP: غير متصل</string>
+    <string name="vmic_control_connecting">تحكم HFP: جارٍ الاتصال</string>
+    <string name="vmic_control_negotiating">تحكم HFP: جارٍ التفاوض</string>
+    <string name="vmic_control_connected">تحكم HFP: متصل</string>
+    <string name="vmic_control_disconnected">تحكم HFP: تم قطع الاتصال</string>
+    <string name="vmic_control_failed">تحكم HFP: فشل الاتصال. تحقق من Bluetooth وأعد المحاولة.</string>
+    <string name="vmic_control_notification_channel">التحكم بميكروفون Bluetooth</string>
+    <string name="vmic_control_notification_title">التحكم بميكروفون Bluetooth</string>
+    <string name="vmic_control_notification_connecting">جارٍ الاتصال بوحدة التحكم المحددة</string>
+    <string name="vmic_control_notification_connected">تحكم HFP متصل — تحقق من شاشة الميكروفون على وحدة التحكم</string>
+    <string name="vmic_control_notification_disconnect">قطع الاتصال</string>
 </resources>

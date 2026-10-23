@@ -420,4 +420,51 @@
     <string name="facebook_status_ended">Facebook लाइव वीडियो समाप्त हो गया।</string>
     <string name="facebook_open_broadcast">Facebook पर खोलें</string>
     <string name="facebook_login_incomplete">Facebook लॉगिन पूरा नहीं हुआ, इसलिए कुछ भी सेव नहीं हुआ। फिर से कोशिश करें और Facebook की विंडो में सभी चरण पूरे करें।</string>
+
+    <!-- Public-SDK Bluetooth capability diagnostics: no audio capture. -->
+    <string name="vmic_title">वर्चुअल ब्लूटूथ माइक्रोफ़ोन</string>
+    <string name="vmic_developer_mode">डेवलपर निदान</string>
+    <string name="vmic_diagnostics_scope">रिमोट सेवाएँ और वास्तविक HFP नियंत्रण कनेक्शन देखें। केवल सेवा जानकारी से DJI Fly में माइक्रोफ़ोन की पहचान की पुष्टि नहीं होती।</string>
+    <string name="vmic_permission_reason">Bluetooth अनुमति का उपयोग पेयर किए गए डिवाइस दिखाने और कंट्रोलर से जुड़ने के लिए होता है। डिवाइस स्कैन नहीं किया जाता।</string>
+    <string name="vmic_allow_bluetooth">Bluetooth की अनुमति दें</string>
+    <string name="vmic_refresh">रीफ़्रेश करें</string>
+    <string name="vmic_bluetooth_settings">ब्लूटूथ सेटिंग</string>
+    <string name="vmic_settings_unavailable">ब्लूटूथ सेटिंग नहीं खुल सकीं।</string>
+    <string name="vmic_paired_devices">पेयर किए गए डिवाइस</string>
+    <string name="vmic_no_paired_devices">कोई पेयर किया गया डिवाइस नहीं। पहले Android ब्लूटूथ सेटिंग में कंट्रोलर पेयर करें।</string>
+    <string name="vmic_sdp_warning">कैश किए गए UUID पुराने हो सकते हैं। SDP उत्तरों में अनुरोध आईडी नहीं होती और वे DJI Fly में HFP, SCO या माइक्रोफ़ोन समर्थन का प्रमाण नहीं हैं।</string>
+    <string name="vmic_report_privacy">रिपोर्ट में डिवाइस नाम, पते और कस्टम सेवा UUID शामिल नहीं हैं। केवल दिखाई गई रिपोर्ट क्लिपबोर्ड पर कॉपी होती है।</string>
+    <string name="vmic_copy_report">निजी जानकारी हटाई गई रिपोर्ट कॉपी करें</string>
+    <string name="vmic_copied">रिपोर्ट कॉपी हुई</string>
+    <string name="vmic_bluetooth_permission">ब्लूटूथ: अनुमति चाहिए</string>
+    <string name="vmic_bluetooth_unavailable">ब्लूटूथ: उपलब्ध नहीं</string>
+    <string name="vmic_bluetooth_off">ब्लूटूथ: बंद</string>
+    <string name="vmic_bluetooth_on">ब्लूटूथ: चालू</string>
+    <string name="vmic_bluetooth_unknown">ब्लूटूथ: अज्ञात</string>
+    <string name="vmic_sdp_idle">SDP: अनुरोध नहीं किया गया</string>
+    <string name="vmic_sdp_pending">SDP: उत्तर की प्रतीक्षा (अधिकतम 15 सेकंड)</string>
+    <string name="vmic_sdp_received">SDP: उत्तर मिला</string>
+    <string name="vmic_sdp_empty">SDP: सेवा जानकारी नहीं मिली</string>
+    <string name="vmic_sdp_timeout">SDP: समय समाप्त; स्वयं फिर कोशिश करें</string>
+    <string name="vmic_sdp_failed">SDP: अनुरोध विफल; स्वयं फिर कोशिश करें</string>
+    <string name="vmic_sdp_cancelled">SDP: रद्द किया गया</string>
+    <string name="vmic_query_services">रिमोट सेवाएँ पूछें</string>
+
+    <string name="vmic_control_purpose">यह जाँचने के लिए कनेक्शन खुला रखें कि RC 2 फ़ोन को माइक्रोफ़ोन के रूप में पहचानता है या नहीं। कोई ऑडियो नहीं भेजा जाता।</string>
+    <string name="vmic_fly_unverified">DJI Fly में माइक्रोफ़ोन की पहचान: पुष्टि नहीं हुई</string>
+    <string name="vmic_check_controller">RC 2 पर DJI Fly की लाइव स्ट्रीम सेटिंग खोलें और देखें कि माइक्रोफ़ोन की चेतावनी हटी है या नहीं।</string>
+    <string name="vmic_connect">RC 2 से कनेक्ट करें</string>
+    <string name="vmic_disconnect">डिस्कनेक्ट करें</string>
+    <string name="vmic_connection_kept_open">यह स्क्रीन बंद होने पर भी कनेक्शन खुला रहता है। इसे समाप्त करने के लिए यहाँ या सूचना में डिस्कनेक्ट करें चुनें।</string>
+    <string name="vmic_control_idle">HFP नियंत्रण: कनेक्ट नहीं है</string>
+    <string name="vmic_control_connecting">HFP नियंत्रण: कनेक्ट हो रहा है</string>
+    <string name="vmic_control_negotiating">HFP नियंत्रण: प्रोटोकॉल की बातचीत जारी है</string>
+    <string name="vmic_control_connected">HFP नियंत्रण: कनेक्ट है</string>
+    <string name="vmic_control_disconnected">HFP नियंत्रण: डिस्कनेक्ट हो गया</string>
+    <string name="vmic_control_failed">HFP नियंत्रण: कनेक्शन विफल। Bluetooth जाँचकर फिर प्रयास करें।</string>
+    <string name="vmic_control_notification_channel">Bluetooth माइक्रोफ़ोन नियंत्रण</string>
+    <string name="vmic_control_notification_title">Bluetooth माइक्रोफ़ोन नियंत्रण</string>
+    <string name="vmic_control_notification_connecting">चुने गए कंट्रोलर से कनेक्ट हो रहा है</string>
+    <string name="vmic_control_notification_connected">HFP नियंत्रण कनेक्ट है — कंट्रोलर की माइक्रोफ़ोन स्क्रीन देखें</string>
+    <string name="vmic_control_notification_disconnect">डिस्कनेक्ट करें</string>
 </resources>

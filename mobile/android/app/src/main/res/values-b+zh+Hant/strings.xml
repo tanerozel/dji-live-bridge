@@ -415,4 +415,51 @@
     <string name="facebook_status_ended">Facebook 直播視訊已結束。</string>
     <string name="facebook_open_broadcast">在 Facebook 開啟</string>
     <string name="facebook_login_incomplete">Facebook 登入未完成，因此沒有儲存任何內容。請再試一次，並在 Facebook 視窗中完成所有步驟。</string>
+
+    <!-- Public-SDK Bluetooth capability diagnostics: no audio capture. -->
+    <string name="vmic_title">虛擬藍牙麥克風</string>
+    <string name="vmic_developer_mode">開發者診斷</string>
+    <string name="vmic_diagnostics_scope">查看遠端服務和實際 HFP 控制連線。僅憑服務資訊無法確認 DJI Fly 是否識別麥克風。</string>
+    <string name="vmic_permission_reason">藍牙權限用於列出已配對裝置並連接遙控器。不會掃描裝置。</string>
+    <string name="vmic_allow_bluetooth">允許藍牙</string>
+    <string name="vmic_refresh">重新整理</string>
+    <string name="vmic_bluetooth_settings">藍牙設定</string>
+    <string name="vmic_settings_unavailable">無法開啟藍牙設定。</string>
+    <string name="vmic_paired_devices">已配對裝置</string>
+    <string name="vmic_no_paired_devices">沒有已配對裝置。請先在 Android 藍牙設定中配對遙控器。</string>
+    <string name="vmic_sdp_warning">快取的 UUID 可能已過時。SDP 回應沒有要求 ID，無法證明 DJI Fly 支援 HFP、SCO 或麥克風。</string>
+    <string name="vmic_report_privacy">報告不包含裝置名稱、位址和自訂服務 UUID。僅將顯示的報告複製到剪貼簿。</string>
+    <string name="vmic_copy_report">複製已移除個人資訊的報告</string>
+    <string name="vmic_copied">報告已複製</string>
+    <string name="vmic_bluetooth_permission">藍牙：需要權限</string>
+    <string name="vmic_bluetooth_unavailable">藍牙：無法使用</string>
+    <string name="vmic_bluetooth_off">藍牙：已關閉</string>
+    <string name="vmic_bluetooth_on">藍牙：已開啟</string>
+    <string name="vmic_bluetooth_unknown">藍牙：未知</string>
+    <string name="vmic_sdp_idle">SDP：未要求</string>
+    <string name="vmic_sdp_pending">SDP：等待回應（最多 15 秒）</string>
+    <string name="vmic_sdp_received">SDP：已收到回應</string>
+    <string name="vmic_sdp_empty">SDP：未傳回服務資訊</string>
+    <string name="vmic_sdp_timeout">SDP：逾時，請手動重試</string>
+    <string name="vmic_sdp_failed">SDP：要求失敗，請手動重試</string>
+    <string name="vmic_sdp_cancelled">SDP：已取消</string>
+    <string name="vmic_query_services">查詢遠端服務</string>
+
+    <string name="vmic_control_purpose">保持連線以測試 RC 2 是否將手機識別為麥克風。不會傳送音訊。</string>
+    <string name="vmic_fly_unverified">DJI Fly 麥克風識別：未驗證</string>
+    <string name="vmic_check_controller">在 RC 2 上開啟 DJI Fly 的直播設定，檢查麥克風警告是否已消失。</string>
+    <string name="vmic_connect">連接 RC 2</string>
+    <string name="vmic_disconnect">中斷連線</string>
+    <string name="vmic_connection_kept_open">關閉此頁面後，連線仍會保持。請使用此處或通知中的「中斷連線」結束連線。</string>
+    <string name="vmic_control_idle">HFP 控制：未連接</string>
+    <string name="vmic_control_connecting">HFP 控制：正在連接</string>
+    <string name="vmic_control_negotiating">HFP 控制：正在協商</string>
+    <string name="vmic_control_connected">HFP 控制：已連接</string>
+    <string name="vmic_control_disconnected">HFP 控制：已中斷</string>
+    <string name="vmic_control_failed">HFP 控制：連線失敗。請檢查藍牙後重試。</string>
+    <string name="vmic_control_notification_channel">藍牙麥克風控制</string>
+    <string name="vmic_control_notification_title">藍牙麥克風控制</string>
+    <string name="vmic_control_notification_connecting">正在連接所選遙控器</string>
+    <string name="vmic_control_notification_connected">HFP 控制已連接 — 請檢查遙控器上的麥克風頁面</string>
+    <string name="vmic_control_notification_disconnect">中斷連線</string>
 </resources>

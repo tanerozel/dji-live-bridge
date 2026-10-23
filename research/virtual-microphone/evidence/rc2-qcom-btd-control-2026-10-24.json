@@ -1,0 +1,88 @@
+{
+  "collected_at_utc": "2026-10-23T22:50:52.675438+00:00",
+  "remote_label": "QCOM-BTD",
+  "remote_identity": "DJI RC 2, identified by user",
+  "prelaunch_relay_status": "no_active_relay_service",
+  "method": "Test-only Android Instrumentation under target app UID; public RFCOMM socket to HFP AG111f, bounded mandatory AT exchange, no audio",
+  "instrumentation_code": -1,
+  "report": {
+    "schemaVersion": 1,
+    "outcome": "MANDATORY_SLC_EXCHANGE_OBSERVED",
+    "passed": true,
+    "elapsedMs": 1733,
+    "scope": "RFCOMM_CONTROL_PLANE_ONLY_NO_AUDIO_NO_LOCAL_HF_SDP",
+    "audioVerdict": "NOT_TESTED",
+    "rtmpMicrophoneVerdict": "NOT_TESTED",
+    "events": [
+      {
+        "event": "PARSER_SELF_CHECK_PASSED",
+        "elapsedMs": 48
+      },
+      {
+        "event": "ORDINARY_TARGET_APP_UID_CONFIRMED",
+        "elapsedMs": 54
+      },
+      {
+        "event": "EXACT_PAIRED_TARGET_SELECTED",
+        "elapsedMs": 76
+      },
+      {
+        "event": "HFP_AG_RFCOMM_CONNECT_STARTED",
+        "elapsedMs": 83
+      },
+      {
+        "event": "HFP_AG_RFCOMM_CONNECTED",
+        "elapsedMs": 1664
+      },
+      {
+        "event": "BRSF_SENT",
+        "elapsedMs": 1665
+      },
+      {
+        "event": "BRSF_VALID_RESPONSE_AND_OK",
+        "elapsedMs": 1676
+      },
+      {
+        "event": "CIND_DEFINITIONS_SENT",
+        "elapsedMs": 1676
+      },
+      {
+        "event": "CIND_DEFINITIONS_VALID_RESPONSE_AND_OK",
+        "elapsedMs": 1692
+      },
+      {
+        "event": "CIND_VALUES_SENT",
+        "elapsedMs": 1692
+      },
+      {
+        "event": "CIND_VALUES_VALID_RESPONSE_AND_OK",
+        "elapsedMs": 1719
+      },
+      {
+        "event": "CMER_SENT",
+        "elapsedMs": 1719
+      },
+      {
+        "event": "CMER_VALID_RESPONSE_AND_OK",
+        "elapsedMs": 1730
+      },
+      {
+        "event": "MANDATORY_SLC_EXCHANGE_OBSERVED",
+        "elapsedMs": 1730
+      },
+      {
+        "event": "WORKER_STOPPED",
+        "elapsedMs": 1733
+      }
+    ],
+    "bluetoothPrivilegedGranted": 0,
+    "pairedNameMatchCount": 1,
+    "hfAdvertisedOptionalFeatures": 0,
+    "agSupportedFeatures": 3943,
+    "validatedIndicatorCount": 7
+  },
+  "collection_notes": [
+    "Earlier invocation output was display-mode JSON and was not retained because the collector expected raw bundle output; no outcome is attributed to that invocation",
+    "Parser-only on-device self-check passed before this recorded run; no Bluetooth connection in that self-check"
+  ]
+}

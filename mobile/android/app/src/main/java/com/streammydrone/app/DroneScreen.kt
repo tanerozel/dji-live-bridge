@@ -1,6 +1,7 @@
 package com.streammydrone.app
 
 import android.os.Build
+import com.streammydrone.app.virtualmicrophone.VirtualMicrophoneDiagnosticsDialog
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
@@ -141,7 +142,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /** Which sheet is open over the picture. */
-private enum class DroneSheet { PLATFORMS, DETAILS }
+private enum class DroneSheet { PLATFORMS, DETAILS, VIRTUAL_MICROPHONE }
 
 /**
  * The app's one screen, laid out like a camera app: what is connected and the stream's state at
@@ -241,6 +242,7 @@ internal fun DroneScreen(
                     pictureState = pictureState,
                     snackbarHostState = snackbarHostState,
                     onDetails = { sheet = DroneSheet.DETAILS },
+                    onVirtualMicrophone = { sheet = DroneSheet.VIRTUAL_MICROPHONE },
                     onPlatforms = { sheet = DroneSheet.PLATFORMS },
                     onFitToggle = { onPictureFitChange(otherFit) },
                     onPictureOnly = { pictureOnly = true },
@@ -294,6 +296,7 @@ internal fun DroneScreen(
                 skipReminders = automaticProfileIds(liveDestinations, instagramManualProfileIds),
             )
         }
+        DroneSheet.VIRTUAL_MICROPHONE -> VirtualMicrophoneDiagnosticsDialog(onDismiss = { sheet = null })
         null -> Unit
     }
 }
@@ -311,6 +314,7 @@ private fun Controls(
     pictureState: DronePictureState,
     snackbarHostState: SnackbarHostState,
     onDetails: () -> Unit,
+    onVirtualMicrophone: () -> Unit,
     onPlatforms: () -> Unit,
     onFitToggle: () -> Unit,
     onPictureOnly: () -> Unit,
@@ -474,6 +478,7 @@ private fun Controls(
             onEndLive = { onEndLive(null) },
             onPlatforms = onPlatforms,
             onDetails = onDetails,
+            onVirtualMicrophone = onVirtualMicrophone,
             modifier = modifier,
         )
     }
@@ -1636,6 +1641,7 @@ private fun ActionRow(
     onEndLive: () -> Unit,
     onPlatforms: () -> Unit,
     onDetails: () -> Unit,
+    onVirtualMicrophone: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -1673,6 +1679,7 @@ private fun ActionRow(
             items = buildList {
                 if (!live) add(MenuEntry(R.string.platforms, Icons.Rounded.GridView, onPlatforms))
                 add(MenuEntry(R.string.technical_details, Icons.Rounded.Info, onDetails))
+                add(MenuEntry(R.string.vmic_title, Icons.Rounded.Sensors, onVirtualMicrophone))
             },
         ) { open -> SquareAction(icon = Icons.Rounded.MoreHoriz, label = stringResource(R.string.more), onClick = open) }
     }

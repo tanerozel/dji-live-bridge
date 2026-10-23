@@ -1,0 +1,15 @@
+{
+  "collected_at_utc": "2026-10-23T22:44:37.540334+00:00",
+  "remote_label": "QCOM-BTD",
+  "remote_identity": "DJI RC 2, identified by user",
+  "method": "S23 installed app public fetchUuidsWithSdp via explicit UI tap after confirming selected QCOM-BTD; sanitized UI report",
+  "target_selected_in_this_snapshot": null,
+  "report": "Stream My Drone — Virtual Bluetooth Microphone diagnostics\nThis Android device does not allow third-party apps to emulate a Bluetooth HFP microphone.\nDevice model: samsung SM-S911B\nAndroid: 16 (API 36)\nBluetooth adapter: ON\nBLUETOOTH_PRIVILEGED granted: false\nPublic HFP HF / SCO microphone API: NOT_AVAILABLE\nPlatform: UNSUPPORTED_PLATFORM\nCached remote standard services: HEADSET_AUDIO_GATEWAY (0x1112), HANDSFREE_AUDIO_GATEWAY (0x111f)\nSDP request: RECEIVED\nSDP remote standard services: HEADSET_AUDIO_GATEWAY (0x1112), HANDSFREE_AUDIO_GATEWAY (0x111f)\nSDP broadcasts have no request ID; service presence is not connection or audio proof.\nThe following describes this diagnostics module only, not other phone Bluetooth sessions:\nHFP service level connection: NOT_ESTABLISHED\nSCO/eSCO audio: NOT_ESTABLISHED\nCodec: NOT_NEGOTIATED\nMicrophone capture: NOT_STARTED\nAudio routing: NOT_AVAILABLE\nDJI Fly microphone recognition: UNVERIFIED\nLast error: NONE\nDisconnect reason: NO_AUDIO_SESSION\nNo audio is captured or transmitted. No Bluetooth HFP connection is attempted.",
+  "limits": [
+    "UUID broadcasts have no request ID; response may include cached services",
+    "No local HF advertisement, RFCOMM HFP negotiation or SCO audio was attempted by this diagnostic UI",
+    "No microphone capture or RTMP audio acceptance"
+  ],
+  "pre_query_selection_confirmed_in_ui": true,
+  "pre_query_selection_observation": "QCOM-BTD row checked=true; then Uzak hizmetleri sorgula tapped in same diagnostics screen"
+}

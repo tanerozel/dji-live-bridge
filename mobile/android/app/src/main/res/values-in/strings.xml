@@ -415,4 +415,51 @@
     <string name="facebook_status_ended">Video langsung Facebook berakhir.</string>
     <string name="facebook_open_broadcast">Buka di Facebook</string>
     <string name="facebook_login_incomplete">Login Facebook tidak selesai, jadi tidak ada yang disimpan. Coba lagi dan selesaikan semua langkah di jendela Facebook.</string>
+
+    <!-- Public-SDK Bluetooth capability diagnostics: no audio capture. -->
+    <string name="vmic_title">Mikrofon Bluetooth virtual</string>
+    <string name="vmic_developer_mode">Diagnostik pengembang</string>
+    <string name="vmic_diagnostics_scope">Periksa layanan jarak jauh dan koneksi kontrol HFP yang sebenarnya. Informasi layanan saja tidak memastikan pengenalan mikrofon oleh DJI Fly.</string>
+    <string name="vmic_permission_reason">Izin Bluetooth digunakan untuk menampilkan perangkat yang disandingkan dan menghubungkan ke pengendali. Tidak ada pemindaian perangkat.</string>
+    <string name="vmic_allow_bluetooth">Izinkan Bluetooth</string>
+    <string name="vmic_refresh">Segarkan</string>
+    <string name="vmic_bluetooth_settings">Setelan Bluetooth</string>
+    <string name="vmic_settings_unavailable">Setelan Bluetooth tidak dapat dibuka.</string>
+    <string name="vmic_paired_devices">Perangkat yang dipasangkan</string>
+    <string name="vmic_no_paired_devices">Tidak ada perangkat yang dipasangkan. Pasangkan pengendali terlebih dahulu di setelan Bluetooth Android.</string>
+    <string name="vmic_sdp_warning">UUID tersimpan mungkin sudah usang. Respons SDP tidak memiliki ID permintaan dan tidak membuktikan dukungan HFP, SCO, atau mikrofon di DJI Fly.</string>
+    <string name="vmic_report_privacy">Laporan tidak menyertakan nama dan alamat perangkat atau UUID layanan khusus. Hanya laporan yang ditampilkan yang disalin ke papan klip.</string>
+    <string name="vmic_copy_report">Salin laporan tanpa data pribadi</string>
+    <string name="vmic_copied">Laporan disalin</string>
+    <string name="vmic_bluetooth_permission">Bluetooth: perlu izin</string>
+    <string name="vmic_bluetooth_unavailable">Bluetooth: tidak tersedia</string>
+    <string name="vmic_bluetooth_off">Bluetooth: nonaktif</string>
+    <string name="vmic_bluetooth_on">Bluetooth: aktif</string>
+    <string name="vmic_bluetooth_unknown">Bluetooth: tidak diketahui</string>
+    <string name="vmic_sdp_idle">SDP: belum diminta</string>
+    <string name="vmic_sdp_pending">SDP: menunggu respons (hingga 15 detik)</string>
+    <string name="vmic_sdp_received">SDP: respons diterima</string>
+    <string name="vmic_sdp_empty">SDP: tidak ada informasi layanan</string>
+    <string name="vmic_sdp_timeout">SDP: waktu habis; coba lagi secara manual</string>
+    <string name="vmic_sdp_failed">SDP: permintaan gagal; coba lagi secara manual</string>
+    <string name="vmic_sdp_cancelled">SDP: dibatalkan</string>
+    <string name="vmic_query_services">Periksa layanan perangkat</string>
+
+    <string name="vmic_control_purpose">Biarkan koneksi tetap terbuka untuk menguji apakah RC 2 mengenali ponsel sebagai mikrofon. Tidak ada audio yang dikirim.</string>
+    <string name="vmic_fly_unverified">Pengenalan mikrofon DJI Fly: Belum diverifikasi</string>
+    <string name="vmic_check_controller">Di RC 2, buka pengaturan siaran langsung DJI Fly dan periksa apakah peringatan mikrofon sudah hilang.</string>
+    <string name="vmic_connect">Hubungkan ke RC 2</string>
+    <string name="vmic_disconnect">Putuskan</string>
+    <string name="vmic_connection_kept_open">Koneksi tetap terbuka saat layar ini ditutup. Untuk mengakhirinya, pilih Putuskan di sini atau di notifikasi.</string>
+    <string name="vmic_control_idle">Kontrol HFP: belum terhubung</string>
+    <string name="vmic_control_connecting">Kontrol HFP: menghubungkan</string>
+    <string name="vmic_control_negotiating">Kontrol HFP: bernegosiasi</string>
+    <string name="vmic_control_connected">Kontrol HFP: terhubung</string>
+    <string name="vmic_control_disconnected">Kontrol HFP: terputus</string>
+    <string name="vmic_control_failed">Kontrol HFP: koneksi gagal. Periksa Bluetooth dan coba lagi.</string>
+    <string name="vmic_control_notification_channel">Kontrol mikrofon Bluetooth</string>
+    <string name="vmic_control_notification_title">Kontrol mikrofon Bluetooth</string>
+    <string name="vmic_control_notification_connecting">Menghubungkan ke pengendali yang dipilih</string>
+    <string name="vmic_control_notification_connected">Kontrol HFP terhubung — periksa layar mikrofon di pengendali</string>
+    <string name="vmic_control_notification_disconnect">Putuskan</string>
 </resources>

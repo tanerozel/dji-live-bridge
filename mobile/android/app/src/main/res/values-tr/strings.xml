@@ -420,4 +420,51 @@
     <string name="facebook_status_ended">Facebook canlı videosu bitti.</string>
     <string name="facebook_open_broadcast">Facebook’ta aç</string>
     <string name="facebook_login_incomplete">Facebook girişi tamamlanmadı, bu yüzden hiçbir şey kaydedilmedi. Tekrar dene ve Facebook penceresindeki tüm adımları bitir.</string>
+
+    <!-- Public-SDK Bluetooth capability diagnostics: no audio capture. -->
+    <string name="vmic_title">Sanal Bluetooth Mikrofon</string>
+    <string name="vmic_developer_mode">Geliştirici tanılaması</string>
+    <string name="vmic_diagnostics_scope">Uzak hizmetleri ve gerçek HFP kontrol bağlantısını inceleyin. Hizmet bilgileri tek başına DJI Fly mikrofon algısını doğrulamaz.</string>
+    <string name="vmic_permission_reason">Bluetooth izni, eşleştirilmiş cihazları listelemek ve kumandaya bağlanmak için kullanılır. Cihaz taraması yapılmaz.</string>
+    <string name="vmic_allow_bluetooth">Bluetooth izni ver</string>
+    <string name="vmic_refresh">Yenile</string>
+    <string name="vmic_bluetooth_settings">Bluetooth ayarları</string>
+    <string name="vmic_settings_unavailable">Bluetooth ayarları açılamadı.</string>
+    <string name="vmic_paired_devices">Eşleştirilmiş cihazlar</string>
+    <string name="vmic_no_paired_devices">Eşleştirilmiş cihaz yok. Önce kumandayı Android Bluetooth ayarlarından eşleştirin.</string>
+    <string name="vmic_sdp_warning">Önbellekteki UUID bilgileri güncel olmayabilir. SDP yanıtlarında istek kimliği yoktur; DJI Fly için HFP, SCO veya mikrofon desteğini kanıtlamazlar.</string>
+    <string name="vmic_report_privacy">Raporda eşleştirilmiş cihaz adları, adresleri ve özel hizmet UUID bilgileri bulunmaz. Yalnızca gösterilen rapor panoya kopyalanır.</string>
+    <string name="vmic_copy_report">Kişisel verilerden arındırılmış raporu kopyala</string>
+    <string name="vmic_copied">Rapor kopyalandı</string>
+    <string name="vmic_bluetooth_permission">Bluetooth: izin gerekiyor</string>
+    <string name="vmic_bluetooth_unavailable">Bluetooth: kullanılamıyor</string>
+    <string name="vmic_bluetooth_off">Bluetooth: kapalı</string>
+    <string name="vmic_bluetooth_on">Bluetooth: açık</string>
+    <string name="vmic_bluetooth_unknown">Bluetooth: bilinmiyor</string>
+    <string name="vmic_sdp_idle">SDP: istenmedi</string>
+    <string name="vmic_sdp_pending">SDP: yanıt bekleniyor (en fazla 15 saniye)</string>
+    <string name="vmic_sdp_received">SDP: yanıt alındı</string>
+    <string name="vmic_sdp_empty">SDP: hizmet bilgisi döndürülmedi</string>
+    <string name="vmic_sdp_timeout">SDP: zaman aşımı; elle yeniden deneyin</string>
+    <string name="vmic_sdp_failed">SDP: istek başarısız; elle yeniden deneyin</string>
+    <string name="vmic_sdp_cancelled">SDP: iptal edildi</string>
+    <string name="vmic_query_services">Uzak hizmetleri sorgula</string>
+
+    <string name="vmic_control_purpose">RC 2’nin telefonu mikrofon olarak algılamasını denemek için bağlantıyı açık tutar. Ses gönderilmez.</string>
+    <string name="vmic_fly_unverified">DJI Fly mikrofon algısı: Doğrulanmadı</string>
+    <string name="vmic_check_controller">RC 2’de DJI Fly canlı yayın ayarlarını açın ve mikrofon uyarısının kaybolup kaybolmadığını kontrol edin.</string>
+    <string name="vmic_connect">RC 2’ye bağlan</string>
+    <string name="vmic_disconnect">Bağlantıyı kes</string>
+    <string name="vmic_connection_kept_open">Bu ekran kapandığında bağlantı açık kalır. Sonlandırmak için buradaki veya bildirimdeki Bağlantıyı kes düğmesini kullanın.</string>
+    <string name="vmic_control_idle">HFP kontrolü: bağlı değil</string>
+    <string name="vmic_control_connecting">HFP kontrolü: bağlanıyor</string>
+    <string name="vmic_control_negotiating">HFP kontrolü: protokol görüşmesi sürüyor</string>
+    <string name="vmic_control_connected">HFP kontrolü: bağlı</string>
+    <string name="vmic_control_disconnected">HFP kontrolü: bağlantı kesildi</string>
+    <string name="vmic_control_failed">HFP kontrolü: bağlantı başarısız. Bluetooth’u kontrol edip yeniden deneyin.</string>
+    <string name="vmic_control_notification_channel">Bluetooth mikrofon kontrolü</string>
+    <string name="vmic_control_notification_title">Bluetooth mikrofon kontrolü</string>
+    <string name="vmic_control_notification_connecting">Seçilen kumandaya bağlanıyor</string>
+    <string name="vmic_control_notification_connected">HFP kontrolü bağlı — kumandadaki mikrofon ekranını kontrol edin</string>
+    <string name="vmic_control_notification_disconnect">Bağlantıyı kes</string>
 </resources>

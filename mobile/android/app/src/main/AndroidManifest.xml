@@ -7,9 +7,14 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- Optional, user-initiated paired-device / SDP diagnostics. No scan or microphone access. -->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-feature android:name="android.hardware.bluetooth" android:required="false" />
 
     <!-- Discover browser handlers so Instagram app links cannot take over web setup. -->
     <queries>
@@ -64,6 +69,11 @@
             android:name=".RelayForegroundService"
             android:exported="false"
             android:foregroundServiceType="dataSync"
+            android:stopWithTask="false" />
+        <service
+            android:name=".virtualmicrophone.VirtualMicrophoneControlService"
+            android:exported="false"
+            android:foregroundServiceType="connectedDevice"
             android:stopWithTask="false" />
     </application>
 

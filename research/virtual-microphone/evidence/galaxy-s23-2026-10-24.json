@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "collected_at_utc": "2026-10-23T22:31:19.399276+00:00",
+  "method": "Explicitly selected USB/ADB device; read-only shell. Raw dumps discarded in memory.",
+  "properties": {
+    "ro.product.manufacturer": {
+      "command_result": "ok",
+      "value": "samsung",
+      "observed": true
+    },
+    "ro.product.model": {
+      "command_result": "ok",
+      "value": "SM-S911B",
+      "observed": true
+    },
+    "ro.build.version.release": {
+      "command_result": "ok",
+      "value": "16",
+      "observed": true
+    },
+    "ro.build.version.sdk": {
+      "command_result": "ok",
+      "value": "36",
+      "observed": true
+    },
+    "bluetooth.profile.hfp.hf.enabled": {
+      "command_result": "ok",
+      "value": null,
+      "observed": false
+    },
+    "bluetooth.profile.hfp.ag.enabled": {
+      "command_result": "ok",
+      "value": "true",
+      "observed": true
+    },
+    "bluetooth.hfp.software_datapath.enabled": {
+      "command_result": "ok",
+      "value": null,
+      "observed": false
+    }
+  },
+  "selinux": "Enforcing",
+  "bluetooth_manager": {
+    "command_result": "ok",
+    "enabled": false,
+    "profile_dump_headings": [
+      "GattService"
+    ],
+    "headset_client_service_mentioned": false,
+    "interpretation": "A service mention or dump heading does not prove app access, SDP advertising, SLC, SCO, microphone routing, or remote acceptance. Absence is not proof of lack of hardware support."
+  },
+  "app_package": {
+    "command_result": "ok",
+    "bluetooth_privileged_mentioned_in_package_dump": false,
+    "interpretation": "A package dump mention is not proof of a granted signature permission."
+  },
+  "not_tested": [
+    "RC 2 SDP",
+    "HFP service-level connection",
+    "SCO/eSCO",
+    "phone microphone routing",
+    "DJI Fly microphone detection",
+    "RTMP audible speech",
+    "latency/CPU/power"
+  ]
+}

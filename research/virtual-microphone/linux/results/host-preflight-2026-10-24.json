@@ -1,0 +1,19 @@
+{
+  "created_utc": "2026-10-23T22:36:46.342926+00:00",
+  "host_os": "Darwin",
+  "host_release": "25.6.0",
+  "machine": "arm64",
+  "hardware_verdict": "NOT_TESTED",
+  "tools": {
+    "bluetoothctl": false,
+    "pipewire": false,
+    "wireplumber": false,
+    "wpctl": false,
+    "pw-dump": false,
+    "pw-loopback": false
+  },
+  "notes": [
+    "No pairing, discovery, SCO audio or livestream is started by preflight."
+  ],
+  "status": "UNSUPPORTED_HOST"
+}

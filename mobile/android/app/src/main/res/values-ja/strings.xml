@@ -415,4 +415,51 @@
     <string name="facebook_status_ended">Facebookのライブ動画は終了しました。</string>
     <string name="facebook_open_broadcast">Facebookで開く</string>
     <string name="facebook_login_incomplete">Facebookへのログインが完了しなかったため、何も保存されていません。もう一度試して、Facebookの画面ですべての手順を完了してください。</string>
+
+    <!-- Public-SDK Bluetooth capability diagnostics: no audio capture. -->
+    <string name="vmic_title">仮想Bluetoothマイク</string>
+    <string name="vmic_developer_mode">開発者向け診断</string>
+    <string name="vmic_diagnostics_scope">リモートサービスと実際の HFP 制御接続を確認します。サービス情報だけでは DJI Fly のマイク認識を確認できません。</string>
+    <string name="vmic_permission_reason">Bluetooth の権限はペア設定済みデバイスの一覧表示と送信機への接続に使います。デバイスのスキャンは行いません。</string>
+    <string name="vmic_allow_bluetooth">Bluetooth を許可</string>
+    <string name="vmic_refresh">更新</string>
+    <string name="vmic_bluetooth_settings">Bluetooth設定</string>
+    <string name="vmic_settings_unavailable">Bluetooth設定を開けませんでした。</string>
+    <string name="vmic_paired_devices">ペアリング済みの端末</string>
+    <string name="vmic_no_paired_devices">ペアリング済みの端末がありません。先にAndroidのBluetooth設定で送信機をペアリングしてください。</string>
+    <string name="vmic_sdp_warning">キャッシュされたUUIDは古い場合があります。SDP応答にはリクエストIDがなく、DJI FlyでのHFP、SCO、マイクの対応を証明するものではありません。</string>
+    <string name="vmic_report_privacy">レポートには端末名、アドレス、独自サービスのUUIDは含まれません。表示中のレポートのみクリップボードにコピーされます。</string>
+    <string name="vmic_copy_report">個人情報を除いたレポートをコピー</string>
+    <string name="vmic_copied">レポートをコピーしました</string>
+    <string name="vmic_bluetooth_permission">Bluetooth：権限が必要</string>
+    <string name="vmic_bluetooth_unavailable">Bluetooth：利用不可</string>
+    <string name="vmic_bluetooth_off">Bluetooth：オフ</string>
+    <string name="vmic_bluetooth_on">Bluetooth：オン</string>
+    <string name="vmic_bluetooth_unknown">Bluetooth：不明</string>
+    <string name="vmic_sdp_idle">SDP：未要求</string>
+    <string name="vmic_sdp_pending">SDP：応答待ち（最大15秒）</string>
+    <string name="vmic_sdp_received">SDP：応答を受信</string>
+    <string name="vmic_sdp_empty">SDP：サービス情報なし</string>
+    <string name="vmic_sdp_timeout">SDP：タイムアウト。手動で再試行してください</string>
+    <string name="vmic_sdp_failed">SDP：要求失敗。手動で再試行してください</string>
+    <string name="vmic_sdp_cancelled">SDP：キャンセル済み</string>
+    <string name="vmic_query_services">端末のサービスを照会</string>
+
+    <string name="vmic_control_purpose">接続を維持して、RC 2 がスマートフォンをマイクとして認識するか確認します。音声は送信しません。</string>
+    <string name="vmic_fly_unverified">DJI Fly のマイク認識：未確認</string>
+    <string name="vmic_check_controller">RC 2 で DJI Fly のライブ配信設定を開き、マイクの警告が消えたか確認してください。</string>
+    <string name="vmic_connect">RC 2 に接続</string>
+    <string name="vmic_disconnect">切断</string>
+    <string name="vmic_connection_kept_open">この画面を閉じても接続は維持されます。終了するには、この画面または通知の「切断」を押してください。</string>
+    <string name="vmic_control_idle">HFP 制御：未接続</string>
+    <string name="vmic_control_connecting">HFP 制御：接続中</string>
+    <string name="vmic_control_negotiating">HFP 制御：ネゴシエーション中</string>
+    <string name="vmic_control_connected">HFP 制御：接続済み</string>
+    <string name="vmic_control_disconnected">HFP 制御：切断済み</string>
+    <string name="vmic_control_failed">HFP 制御：接続に失敗しました。Bluetooth を確認して再試行してください。</string>
+    <string name="vmic_control_notification_channel">Bluetooth マイク制御</string>
+    <string name="vmic_control_notification_title">Bluetooth マイク制御</string>
+    <string name="vmic_control_notification_connecting">選択した送信機に接続中</string>
+    <string name="vmic_control_notification_connected">HFP 制御に接続済み — 送信機のマイク画面を確認してください</string>
+    <string name="vmic_control_notification_disconnect">切断</string>
 </resources>

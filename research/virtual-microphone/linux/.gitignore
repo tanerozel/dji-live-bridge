@@ -1,0 +1,5 @@
+evidence/
+__pycache__/
+*.btsnoop
+*.snoop
+*.wav
