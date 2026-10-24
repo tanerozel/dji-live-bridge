@@ -28,4 +28,9 @@ If recognition fails, investigate RC 2's active HFP device/input routing and exa
 
 ## Verification record
 
-Build, automated checks and actual persistent-session results will be recorded after running the final application. DJI Fly's microphone decision remains unverified until observed on the RC 2.
+- Final Android `testDebugUnitTest lintDebug assembleDebug assembleDebugAndroidTest` passed: **152 tests**, no failures/errors/skips; lint **0 errors / 8 existing warnings**. New tests cover handshake completion, held connection without audio, deadline cancellation, malformed replies, permission loss, EOF, cancellation and stale-generation state.
+- The first lint attempt hit a Kotlin analyzer error on the private transport constructor's property parameters. Moving those properties into the class body resolved it without disabling a lint detector. Final sources were rebuilt and checked.
+- Required Rust formatting, clippy, Rust tests (79 passed / 6 ignored), frontend typecheck/lint and `git diff --check` passed. iOS shared strings were regenerated using the established importer and its 15-language check passed; this is **not an iOS feature port or iPhone test**.
+- The user reported **“harika oldu çalıştı”** after the recognition-only discussion. This is user-reported success; the exact RC 2 screen/firmware/Fly predicate was not independently observed by the agent.
+- The new persistent-service APK is built at `mobile/android/app/build/outputs/apk/debug/app-debug.apk`. Final deployment via `env DJI_ANDROID_DEVICE_SERIAL=<explicit-device> ./start.sh` stopped at the device precheck because S23 disconnected; subsequent ADB inventory contained only the emulator. No install or persistent-service hardware result is attributed to that attempt. Earlier isolated S23/RC 2 mandatory control exchange remains independently recorded in the control-probe evidence.
+- No microphone, SCO audio, public broadcast or iOS Bluetooth operation was tested by this update.

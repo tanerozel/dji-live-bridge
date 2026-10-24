@@ -3,10 +3,12 @@
 Native Android application for receiving an RTMP publish from DJI Fly on a DJI RC 2 and
 forwarding the stream to one or more external RTMP destinations at the same time.
 
-The **More → Virtual Bluetooth Microphone** screen provides capability and paired-device SDP
-diagnostics. It does not transmit the phone microphone: the required HFP-HF/SCO path is not
-available through the public Android SDK. See the [research and verification record](../../research/virtual-microphone/README.md)
-for the measured S23 observations, platform blockers and separate Linux experiment.
+The **More → Virtual Bluetooth Microphone** screen can hold a selected paired controller's HFP
+control connection open, to test whether DJI Fly recognizes the phone as a microphone without
+transmitting audio. It uses public RFCOMM and a separate connected-device foreground service,
+with explicit connect/disconnect controls; the notification can disconnect it too. Developer
+diagnostics show cached UUIDs, SDP queries and actual HFP stages. Phone microphone/SCO audio is
+not started. See the [recognition-only implementation and verification](../../research/virtual-microphone/RC2_RECOGNITION_ONLY.md).
 
 The Android app does not use DJI SDK, Tauri, or a WebView. Phase 8 contains a secure,
 reconnecting single-target stream-copy relay hosted by an Android foreground service:

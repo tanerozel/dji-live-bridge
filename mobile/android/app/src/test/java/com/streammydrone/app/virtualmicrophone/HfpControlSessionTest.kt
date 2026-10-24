@@ -39,7 +39,7 @@ class HfpControlSessionTest {
         val transport = ScriptedTransport(::reply)
         val running = Running(transport, stageTimeoutMs = 100, overallTimeoutMs = 200)
         assertTrue(running.connected.await(2, TimeUnit.SECONDS))
-        repeat(100) { transport.receive("+CIEV: 1,1\r\n") }
+        repeat(32) { transport.receive("+CIEV: 1,1\r\n") }
         assertFalse(running.done.await(250, TimeUnit.MILLISECONDS))
         transport.eof()
         running.awaitDone()

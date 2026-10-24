@@ -142,7 +142,10 @@ class VirtualMicrophoneControlService : Service() {
             healthCheck = { connectionProblem(this, address) },
             progress = { event ->
                 main.post {
-                    if (currentGeneration == generation && VirtualMicrophoneControlState.value.isActive) {
+                    if (currentGeneration == generation &&
+                        VirtualMicrophoneControlState.value.generation == generation &&
+                        VirtualMicrophoneControlState.value.isActive
+                    ) {
                         VirtualMicrophoneControlState.progress(generation, event)
                         if (event.connected) {
                             getSystemService(NotificationManager::class.java).notify(NOTIFICATION_ID, notification(connected = true))
@@ -292,7 +295,9 @@ class VirtualMicrophoneControlService : Service() {
         }
     }
 
-    private class AndroidRfcommTransport(private val context: Context, private val address: String) : HfpControlTransport {
+    private class AndroidRfcommTransport(context: Context, address: String) : HfpControlTransport {
+        private val context = context
+        private val address = address
         @Volatile private var socket: BluetoothSocket? = null
         @Volatile private var closed = false
         override val input: InputStream get() = checkNotNull(socket).inputStream
