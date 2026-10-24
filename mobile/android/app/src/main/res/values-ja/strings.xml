@@ -425,7 +425,6 @@
     <string name="vmic_refresh">更新</string>
     <string name="vmic_bluetooth_settings">Bluetooth設定</string>
     <string name="vmic_settings_unavailable">Bluetooth設定を開けませんでした。</string>
-    <string name="vmic_paired_devices">ペアリング済みの端末</string>
     <string name="vmic_no_paired_devices">ペアリング済みの端末がありません。先にAndroidのBluetooth設定で送信機をペアリングしてください。</string>
     <string name="vmic_sdp_warning">キャッシュされたUUIDは古い場合があります。SDP応答にはリクエストIDがなく、DJI FlyでのHFP、SCO、マイクの対応を証明するものではありません。</string>
     <string name="vmic_report_privacy">レポートには端末名、アドレス、独自サービスのUUIDは含まれません。表示中のレポートのみクリップボードにコピーされます。</string>
@@ -434,7 +433,6 @@
     <string name="vmic_bluetooth_permission">Bluetooth：権限が必要</string>
     <string name="vmic_bluetooth_unavailable">Bluetooth：利用不可</string>
     <string name="vmic_bluetooth_off">Bluetooth：オフ</string>
-    <string name="vmic_bluetooth_on">Bluetooth：オン</string>
     <string name="vmic_bluetooth_unknown">Bluetooth：不明</string>
     <string name="vmic_sdp_idle">SDP：未要求</string>
     <string name="vmic_sdp_pending">SDP：応答待ち（最大15秒）</string>
@@ -445,7 +443,7 @@
     <string name="vmic_sdp_cancelled">SDP：キャンセル済み</string>
     <string name="vmic_query_services">端末のサービスを照会</string>
 
-    <string name="vmic_control_purpose">接続を維持して、RC 2 がスマートフォンをマイクとして認識するか確認します。音声は送信しません。</string>
+    <string name="vmic_control_purpose">RC 2 の DJI Fly がこのスマートフォンを Bluetooth マイクとして認識し、マイクの警告が消えます。音声は送信されません。</string>
     <string name="vmic_fly_unverified">DJI Fly のマイク認識：未確認</string>
     <string name="vmic_check_controller">RC 2 で DJI Fly のライブ配信設定を開き、マイクの警告が消えたか確認してください。</string>
     <string name="vmic_connect">RC 2 に接続</string>
@@ -462,4 +460,14 @@
     <string name="vmic_control_notification_connecting">選択した送信機に接続中</string>
     <string name="vmic_control_notification_connected">HFP 制御に接続済み — 送信機のマイク画面を確認してください</string>
     <string name="vmic_control_notification_disconnect">切断</string>
+    <string name="vmic_state_not_connected">未接続</string>
+    <string name="vmic_state_connecting">接続中…</string>
+    <string name="vmic_state_connected">マイクとして接続済み</string>
+    <string name="vmic_state_failed">接続できませんでした</string>
+    <string name="vmic_failed_hint">RC 2 の電源が入っていて近くにあることを確認し、もう一度お試しください。</string>
+    <string name="vmic_turn_on_bluetooth">Bluetooth をオンにする</string>
+    <string name="vmic_pick_controller">送信機を選んでください。RC 2 は QCOM-BTD と表示されることがあります。</string>
+    <string name="vmic_how_it_works">使い方</string>
+    <string name="vmic_steps">1. Bluetooth設定で RC 2 をこのスマートフォンとペアリングします（初回のみ）。\n2. ここで選び、「RC 2 に接続」をタップします。\n3. RC 2 で DJI Fly のライブ配信設定を開くと、マイクの警告が消えています。</string>
+    <string name="vmic_chip">マイク</string>
 </resources>

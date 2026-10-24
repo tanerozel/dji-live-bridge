@@ -1,7 +1,9 @@
 package com.streammydrone.app
 
 import android.os.Build
-import com.streammydrone.app.virtualmicrophone.VirtualMicrophoneDiagnosticsDialog
+import com.streammydrone.app.virtualmicrophone.VirtualMicrophoneControlPhase
+import com.streammydrone.app.virtualmicrophone.VirtualMicrophoneControlState
+import com.streammydrone.app.virtualmicrophone.VirtualMicrophoneSheet
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
@@ -65,6 +67,7 @@ import androidx.compose.material.icons.rounded.Key
 import androidx.compose.material.icons.rounded.Lan
 import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.Lightbulb
+import androidx.compose.material.icons.rounded.Mic
 import androidx.compose.material.icons.rounded.MoreHoriz
 import androidx.compose.material.icons.rounded.Movie
 import androidx.compose.material.icons.rounded.Palette
@@ -296,7 +299,7 @@ internal fun DroneScreen(
                 skipReminders = automaticProfileIds(liveDestinations, instagramManualProfileIds),
             )
         }
-        DroneSheet.VIRTUAL_MICROPHONE -> VirtualMicrophoneDiagnosticsDialog(onDismiss = { sheet = null })
+        DroneSheet.VIRTUAL_MICROPHONE -> BridgeSheet(onDismiss = { sheet = null }) { VirtualMicrophoneSheet() }
         null -> Unit
     }
 }
@@ -372,6 +375,7 @@ private fun Controls(
             videoSize = pictureState.videoSize?.takeIf { showPicture }?.let { "${it.width}×${it.height}" },
             bitrateKbps = snapshot.bitrateKbps,
             lan = lan,
+            microphone = VirtualMicrophoneControlState.value.phase == VirtualMicrophoneControlPhase.CONNECTED,
         )
     }
     val connect: @Composable (Modifier) -> Unit = { modifier ->
@@ -972,10 +976,10 @@ private fun StatusCaption(text: String) {
     )
 }
 
-/** The picture's size, the incoming bitrate and how the phone is connected. */
+/** The picture's size, the incoming bitrate, how the phone is connected and whether RC 2 has it as its microphone. */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun InfoChips(videoSize: String?, bitrateKbps: Double, lan: LanAddress?) {
+private fun InfoChips(videoSize: String?, bitrateKbps: Double, lan: LanAddress?, microphone: Boolean) {
     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
         // Numbers read left to right in every language: "1280×720" must not turn into "720×1280".
         videoSize?.let { InfoChip(Icons.Rounded.Hd, it, numbers = true) }
@@ -988,11 +992,12 @@ private fun InfoChips(videoSize: String?, bitrateKbps: Double, lan: LanAddress?)
             }
             InfoChip(icon, networkName(kind))
         }
+        if (microphone) InfoChip(Icons.Rounded.Mic, stringResource(R.string.vmic_chip), tint = ReadyColor)
     }
 }
 
 @Composable
-private fun InfoChip(icon: ImageVector, text: String, numbers: Boolean = false) {
+private fun InfoChip(icon: ImageVector, text: String, numbers: Boolean = false, tint: Color = Color.White) {
     Row(
         modifier = Modifier
             .glass(CircleShape)
@@ -1000,7 +1005,7 @@ private fun InfoChip(icon: ImageVector, text: String, numbers: Boolean = false) 
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(5.dp),
     ) {
-        Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(14.dp))
+        Icon(icon, contentDescription = null, tint = tint, modifier = Modifier.size(14.dp))
         Text(
             text = text,
             color = Color.White,
@@ -1408,7 +1413,7 @@ private fun PanelConverting(percent: Int) {
 
 /** A quiet orange text button, the only kind of button inside the connect card. */
 @Composable
-private fun PanelButton(text: String, icon: ImageVector, onClick: () -> Unit) {
+internal fun PanelButton(text: String, icon: ImageVector, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .clip(RoundedCornerShape(8.dp))
@@ -1679,7 +1684,7 @@ private fun ActionRow(
             items = buildList {
                 if (!live) add(MenuEntry(R.string.platforms, Icons.Rounded.GridView, onPlatforms))
                 add(MenuEntry(R.string.technical_details, Icons.Rounded.Info, onDetails))
-                add(MenuEntry(R.string.vmic_title, Icons.Rounded.Sensors, onVirtualMicrophone))
+                add(MenuEntry(R.string.vmic_title, Icons.Rounded.Mic, onVirtualMicrophone))
             },
         ) { open -> SquareAction(icon = Icons.Rounded.MoreHoriz, label = stringResource(R.string.more), onClick = open) }
     }
@@ -1702,7 +1707,7 @@ private fun SquareAction(icon: ImageVector, label: String, onClick: () -> Unit) 
 
 /** The broadcast button: orange to go live, red to end it. Its text shrinks to fit any language. */
 @Composable
-private fun BigButton(
+internal fun BigButton(
     text: String,
     icon: ImageVector,
     brush: Brush,
@@ -1806,7 +1811,7 @@ private fun Modifier.glass(shape: Shape): Modifier =
 /** A dark sheet like the screen under it, scrolling when its content is long. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun BridgeSheet(onDismiss: () -> Unit, content: @Composable () -> Unit) {
+internal fun BridgeSheet(onDismiss: () -> Unit, content: @Composable () -> Unit) {
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
@@ -1864,9 +1869,9 @@ private val MAIN_PLATFORMS = setOf(
 /** Behind the connect card until the picture comes: the brand's blue, nearly black. */
 private val WaitingBackground = Brush.verticalGradient(listOf(Color(0xFF101A2A), Color(0xFF05070B)))
 internal val SheetColor = Color(0xFF14171C)
-private val ReadyColor = Color(0xFF4ADE80)
+internal val ReadyColor = Color(0xFF4ADE80)
 internal val WarningColor = Color(0xFFFBBF24)
-private val DangerColor = Color(0xFFF87171)
+internal val DangerColor = Color(0xFFF87171)
 internal val GoLiveStart = Color(0xFFFF8A3D)
 internal val GoLiveEnd = Color(0xFFEA580C)
 

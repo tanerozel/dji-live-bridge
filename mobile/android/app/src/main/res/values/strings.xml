@@ -431,7 +431,6 @@
     <string name="vmic_refresh">Refresh</string>
     <string name="vmic_bluetooth_settings">Bluetooth settings</string>
     <string name="vmic_settings_unavailable">Bluetooth settings could not be opened.</string>
-    <string name="vmic_paired_devices">Paired devices</string>
     <string name="vmic_no_paired_devices">No paired devices. Pair the controller in Android Bluetooth settings first.</string>
     <string name="vmic_sdp_warning">Cached UUIDs may be outdated. SDP responses have no request ID and do not prove HFP, SCO or microphone support in DJI Fly.</string>
     <string name="vmic_report_privacy">The report excludes paired-device names, addresses and custom service UUIDs. Copying it puts only the displayed report on your clipboard.</string>
@@ -440,7 +439,6 @@
     <string name="vmic_bluetooth_permission">Bluetooth: permission required</string>
     <string name="vmic_bluetooth_unavailable">Bluetooth: unavailable</string>
     <string name="vmic_bluetooth_off">Bluetooth: off</string>
-    <string name="vmic_bluetooth_on">Bluetooth: on</string>
     <string name="vmic_bluetooth_unknown">Bluetooth: unknown</string>
     <string name="vmic_sdp_idle">SDP: not requested</string>
     <string name="vmic_sdp_pending">SDP: waiting for a response (up to 15 seconds)</string>
@@ -451,7 +449,7 @@
     <string name="vmic_sdp_cancelled">SDP: cancelled</string>
     <string name="vmic_query_services">Query remote services</string>
 
-    <string name="vmic_control_purpose">Keep the connection open to test whether RC 2 recognizes the phone as a microphone. No audio is sent.</string>
+    <string name="vmic_control_purpose">DJI Fly on RC 2 sees this phone as a Bluetooth microphone, so the microphone warning goes away. No sound is sent.</string>
     <string name="vmic_fly_unverified">DJI Fly microphone recognition: Unverified</string>
     <string name="vmic_check_controller">On RC 2, open DJI Fly live-stream settings and check whether the microphone warning has disappeared.</string>
     <string name="vmic_connect">Connect to RC 2</string>
@@ -468,4 +466,14 @@
     <string name="vmic_control_notification_connecting">Connecting to the selected controller</string>
     <string name="vmic_control_notification_connected">HFP control connected — check the controller microphone screen</string>
     <string name="vmic_control_notification_disconnect">Disconnect</string>
+    <string name="vmic_state_not_connected">Not connected</string>
+    <string name="vmic_state_connecting">Connecting…</string>
+    <string name="vmic_state_connected">Connected as a microphone</string>
+    <string name="vmic_state_failed">Could not connect</string>
+    <string name="vmic_failed_hint">Make sure RC 2 is on and close by, then try again.</string>
+    <string name="vmic_turn_on_bluetooth">Turn on Bluetooth</string>
+    <string name="vmic_pick_controller">Choose your remote controller. RC 2 may be listed as QCOM-BTD.</string>
+    <string name="vmic_how_it_works">How does it work?</string>
+    <string name="vmic_steps">1. Pair RC 2 with this phone in Bluetooth settings (only once).\n2. Choose it here and tap Connect to RC 2.\n3. On RC 2, open the live stream settings in DJI Fly: the microphone warning is gone.</string>
+    <string name="vmic_chip">Mic</string>
 </resources>

@@ -450,7 +450,6 @@
     <string name="vmic_refresh">تحديث</string>
     <string name="vmic_bluetooth_settings">إعدادات البلوتوث</string>
     <string name="vmic_settings_unavailable">تعذّر فتح إعدادات البلوتوث.</string>
-    <string name="vmic_paired_devices">الأجهزة المقترنة</string>
     <string name="vmic_no_paired_devices">لا توجد أجهزة مقترنة. أقرن وحدة التحكم أولاً من إعدادات بلوتوث Android.</string>
     <string name="vmic_sdp_warning">قد تكون UUID المخزّنة قديمة. لا تحتوي ردود SDP على معرّف طلب ولا تثبت دعم HFP أو SCO أو الميكروفون في DJI Fly.</string>
     <string name="vmic_report_privacy">يستبعد التقرير أسماء الأجهزة وعناوينها وUUID الخدمات المخصصة. يُنسخ التقرير المعروض فقط إلى الحافظة.</string>
@@ -459,7 +458,6 @@
     <string name="vmic_bluetooth_permission">البلوتوث: الإذن مطلوب</string>
     <string name="vmic_bluetooth_unavailable">البلوتوث: غير متاح</string>
     <string name="vmic_bluetooth_off">البلوتوث: متوقف</string>
-    <string name="vmic_bluetooth_on">البلوتوث: مفعّل</string>
     <string name="vmic_bluetooth_unknown">البلوتوث: غير معروف</string>
     <string name="vmic_sdp_idle">SDP: لم يُطلب</string>
     <string name="vmic_sdp_pending">SDP: انتظار الرد (حتى 15 ثانية)</string>
@@ -470,7 +468,7 @@
     <string name="vmic_sdp_cancelled">SDP: أُلغي</string>
     <string name="vmic_query_services">استعلام عن خدمات الجهاز</string>
 
-    <string name="vmic_control_purpose">أبقِ الاتصال مفتوحًا لاختبار ما إذا كانت RC 2 تتعرّف على الهاتف كميكروفون. لا يُرسل أي صوت.</string>
+    <string name="vmic_control_purpose">يتعرّف DJI Fly على RC 2 على هذا الهاتف كميكروفون بلوتوث، فيختفي تحذير الميكروفون. لا يُرسَل أي صوت.</string>
     <string name="vmic_fly_unverified">تعرّف DJI Fly على الميكروفون: لم يتم التحقق</string>
     <string name="vmic_check_controller">على RC 2، افتح إعدادات البث المباشر في DJI Fly وتحقق مما إذا كان تحذير الميكروفون قد اختفى.</string>
     <string name="vmic_connect">الاتصال بـ RC 2</string>
@@ -487,4 +485,14 @@
     <string name="vmic_control_notification_connecting">جارٍ الاتصال بوحدة التحكم المحددة</string>
     <string name="vmic_control_notification_connected">تحكم HFP متصل — تحقق من شاشة الميكروفون على وحدة التحكم</string>
     <string name="vmic_control_notification_disconnect">قطع الاتصال</string>
+    <string name="vmic_state_not_connected">غير متصل</string>
+    <string name="vmic_state_connecting">جارٍ الاتصال…</string>
+    <string name="vmic_state_connected">متصل كميكروفون</string>
+    <string name="vmic_state_failed">تعذّر الاتصال</string>
+    <string name="vmic_failed_hint">تأكد من أن RC 2 قيد التشغيل وقريب، ثم أعد المحاولة.</string>
+    <string name="vmic_turn_on_bluetooth">تشغيل البلوتوث</string>
+    <string name="vmic_pick_controller">اختر وحدة التحكم. قد يظهر RC 2 باسم QCOM-BTD.</string>
+    <string name="vmic_how_it_works">كيف يعمل؟</string>
+    <string name="vmic_steps">1. اقرن RC 2 بهذا الهاتف من إعدادات البلوتوث (مرة واحدة فقط).\n2. اختره هنا واضغط على الاتصال بـ RC 2.\n3. على RC 2، افتح إعدادات البث المباشر في DJI Fly: سيكون تحذير الميكروفون قد اختفى.</string>
+    <string name="vmic_chip">ميكروفون</string>
 </resources>

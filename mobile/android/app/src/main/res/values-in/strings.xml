@@ -425,7 +425,6 @@
     <string name="vmic_refresh">Segarkan</string>
     <string name="vmic_bluetooth_settings">Setelan Bluetooth</string>
     <string name="vmic_settings_unavailable">Setelan Bluetooth tidak dapat dibuka.</string>
-    <string name="vmic_paired_devices">Perangkat yang dipasangkan</string>
     <string name="vmic_no_paired_devices">Tidak ada perangkat yang dipasangkan. Pasangkan pengendali terlebih dahulu di setelan Bluetooth Android.</string>
     <string name="vmic_sdp_warning">UUID tersimpan mungkin sudah usang. Respons SDP tidak memiliki ID permintaan dan tidak membuktikan dukungan HFP, SCO, atau mikrofon di DJI Fly.</string>
     <string name="vmic_report_privacy">Laporan tidak menyertakan nama dan alamat perangkat atau UUID layanan khusus. Hanya laporan yang ditampilkan yang disalin ke papan klip.</string>
@@ -434,7 +433,6 @@
     <string name="vmic_bluetooth_permission">Bluetooth: perlu izin</string>
     <string name="vmic_bluetooth_unavailable">Bluetooth: tidak tersedia</string>
     <string name="vmic_bluetooth_off">Bluetooth: nonaktif</string>
-    <string name="vmic_bluetooth_on">Bluetooth: aktif</string>
     <string name="vmic_bluetooth_unknown">Bluetooth: tidak diketahui</string>
     <string name="vmic_sdp_idle">SDP: belum diminta</string>
     <string name="vmic_sdp_pending">SDP: menunggu respons (hingga 15 detik)</string>
@@ -445,7 +443,7 @@
     <string name="vmic_sdp_cancelled">SDP: dibatalkan</string>
     <string name="vmic_query_services">Periksa layanan perangkat</string>
 
-    <string name="vmic_control_purpose">Biarkan koneksi tetap terbuka untuk menguji apakah RC 2 mengenali ponsel sebagai mikrofon. Tidak ada audio yang dikirim.</string>
+    <string name="vmic_control_purpose">DJI Fly di RC 2 mengenali ponsel ini sebagai mikrofon Bluetooth, sehingga peringatan mikrofon hilang. Tidak ada suara yang dikirim.</string>
     <string name="vmic_fly_unverified">Pengenalan mikrofon DJI Fly: Belum diverifikasi</string>
     <string name="vmic_check_controller">Di RC 2, buka pengaturan siaran langsung DJI Fly dan periksa apakah peringatan mikrofon sudah hilang.</string>
     <string name="vmic_connect">Hubungkan ke RC 2</string>
@@ -462,4 +460,14 @@
     <string name="vmic_control_notification_connecting">Menghubungkan ke pengendali yang dipilih</string>
     <string name="vmic_control_notification_connected">Kontrol HFP terhubung — periksa layar mikrofon di pengendali</string>
     <string name="vmic_control_notification_disconnect">Putuskan</string>
+    <string name="vmic_state_not_connected">Tidak terhubung</string>
+    <string name="vmic_state_connecting">Menghubungkan…</string>
+    <string name="vmic_state_connected">Terhubung sebagai mikrofon</string>
+    <string name="vmic_state_failed">Tidak dapat terhubung</string>
+    <string name="vmic_failed_hint">Pastikan RC 2 menyala dan berada di dekat Anda, lalu coba lagi.</string>
+    <string name="vmic_turn_on_bluetooth">Nyalakan Bluetooth</string>
+    <string name="vmic_pick_controller">Pilih remote Anda. RC 2 mungkin muncul sebagai QCOM-BTD.</string>
+    <string name="vmic_how_it_works">Bagaimana cara kerjanya?</string>
+    <string name="vmic_steps">1. Sambungkan RC 2 dengan ponsel ini di setelan Bluetooth (cukup sekali).\n2. Pilih di sini lalu ketuk Hubungkan ke RC 2.\n3. Di RC 2, buka pengaturan siaran langsung DJI Fly: peringatan mikrofon sudah hilang.</string>
+    <string name="vmic_chip">Mik</string>
 </resources>

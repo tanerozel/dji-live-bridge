@@ -430,8 +430,7 @@
     <string name="vmic_refresh">Aktualisieren</string>
     <string name="vmic_bluetooth_settings">Bluetooth-Einstellungen</string>
     <string name="vmic_settings_unavailable">Die Bluetooth-Einstellungen konnten nicht geöffnet werden.</string>
-    <string name="vmic_paired_devices">Gekoppelte Geräte</string>
-    <string name="vmic_no_paired_devices">Keine gekoppelten Geräte. Koppeln Sie die Fernsteuerung zuerst in den Android-Bluetooth-Einstellungen.</string>
+    <string name="vmic_no_paired_devices">Keine gekoppelten Geräte. Kopple die Fernsteuerung zuerst in den Android-Bluetooth-Einstellungen.</string>
     <string name="vmic_sdp_warning">Gespeicherte UUIDs können veraltet sein. SDP-Antworten haben keine Anfrage-ID und belegen keine HFP-, SCO- oder Mikrofonunterstützung in DJI Fly.</string>
     <string name="vmic_report_privacy">Der Bericht enthält keine Gerätenamen, Adressen oder benutzerdefinierten Dienst-UUIDs. Nur der angezeigte Bericht wird in die Zwischenablage kopiert.</string>
     <string name="vmic_copy_report">Bereinigten Bericht kopieren</string>
@@ -439,7 +438,6 @@
     <string name="vmic_bluetooth_permission">Bluetooth: Berechtigung erforderlich</string>
     <string name="vmic_bluetooth_unavailable">Bluetooth: nicht verfügbar</string>
     <string name="vmic_bluetooth_off">Bluetooth: aus</string>
-    <string name="vmic_bluetooth_on">Bluetooth: an</string>
     <string name="vmic_bluetooth_unknown">Bluetooth: unbekannt</string>
     <string name="vmic_sdp_idle">SDP: nicht angefragt</string>
     <string name="vmic_sdp_pending">SDP: Antwort wird erwartet (bis zu 15 Sekunden)</string>
@@ -450,9 +448,9 @@
     <string name="vmic_sdp_cancelled">SDP: abgebrochen</string>
     <string name="vmic_query_services">Dienste des Geräts abfragen</string>
 
-    <string name="vmic_control_purpose">Lassen Sie die Verbindung offen, um zu testen, ob RC 2 das Telefon als Mikrofon erkennt. Es wird kein Audio gesendet.</string>
+    <string name="vmic_control_purpose">DJI Fly auf der RC 2 erkennt dieses Handy als Bluetooth-Mikrofon, und die Mikrofonwarnung verschwindet. Es wird kein Ton gesendet.</string>
     <string name="vmic_fly_unverified">DJI Fly-Mikrofonerkennung: Nicht bestätigt</string>
-    <string name="vmic_check_controller">Öffnen Sie auf RC 2 die Livestream-Einstellungen in DJI Fly und prüfen Sie, ob die Mikrofonwarnung verschwunden ist.</string>
+    <string name="vmic_check_controller">Öffne auf der RC 2 die Livestream-Einstellungen in DJI Fly und prüfe, ob die Mikrofonwarnung verschwunden ist.</string>
     <string name="vmic_connect">Mit RC 2 verbinden</string>
     <string name="vmic_disconnect">Trennen</string>
     <string name="vmic_connection_kept_open">Die Verbindung bleibt beim Schließen dieses Bildschirms offen. Zum Beenden hier oder in der Benachrichtigung auf Trennen tippen.</string>
@@ -467,4 +465,14 @@
     <string name="vmic_control_notification_connecting">Verbindung zur ausgewählten Fernsteuerung wird hergestellt</string>
     <string name="vmic_control_notification_connected">HFP-Steuerung verbunden — Mikrofonbildschirm der Fernsteuerung prüfen</string>
     <string name="vmic_control_notification_disconnect">Trennen</string>
+    <string name="vmic_state_not_connected">Nicht verbunden</string>
+    <string name="vmic_state_connecting">Wird verbunden…</string>
+    <string name="vmic_state_connected">Als Mikrofon verbunden</string>
+    <string name="vmic_state_failed">Verbindung fehlgeschlagen</string>
+    <string name="vmic_failed_hint">Prüfe, ob die RC 2 eingeschaltet und in der Nähe ist, und versuche es erneut.</string>
+    <string name="vmic_turn_on_bluetooth">Bluetooth einschalten</string>
+    <string name="vmic_pick_controller">Wähle deine Fernsteuerung. Die RC 2 heißt in der Liste eventuell QCOM-BTD.</string>
+    <string name="vmic_how_it_works">Wie funktioniert das?</string>
+    <string name="vmic_steps">1. Kopple die RC 2 in den Bluetooth-Einstellungen mit diesem Handy (nur einmal).\n2. Wähle sie hier aus und tippe auf Mit RC 2 verbinden.\n3. Öffne auf der RC 2 die Livestream-Einstellungen in DJI Fly: Die Mikrofonwarnung ist weg.</string>
+    <string name="vmic_chip">Mikro</string>
 </resources>

@@ -425,7 +425,6 @@
     <string name="vmic_refresh">刷新</string>
     <string name="vmic_bluetooth_settings">蓝牙设置</string>
     <string name="vmic_settings_unavailable">无法打开蓝牙设置。</string>
-    <string name="vmic_paired_devices">已配对设备</string>
     <string name="vmic_no_paired_devices">没有已配对设备。请先在 Android 蓝牙设置中配对遥控器。</string>
     <string name="vmic_sdp_warning">缓存的 UUID 可能已过时。SDP 响应没有请求 ID，不能证明 DJI Fly 支持 HFP、SCO 或麦克风。</string>
     <string name="vmic_report_privacy">报告不包含设备名称、地址和自定义服务 UUID。仅将显示的报告复制到剪贴板。</string>
@@ -434,7 +433,6 @@
     <string name="vmic_bluetooth_permission">蓝牙：需要权限</string>
     <string name="vmic_bluetooth_unavailable">蓝牙：不可用</string>
     <string name="vmic_bluetooth_off">蓝牙：已关闭</string>
-    <string name="vmic_bluetooth_on">蓝牙：已开启</string>
     <string name="vmic_bluetooth_unknown">蓝牙：未知</string>
     <string name="vmic_sdp_idle">SDP：未请求</string>
     <string name="vmic_sdp_pending">SDP：等待响应（最多 15 秒）</string>
@@ -445,7 +443,7 @@
     <string name="vmic_sdp_cancelled">SDP：已取消</string>
     <string name="vmic_query_services">查询远程服务</string>
 
-    <string name="vmic_control_purpose">保持连接以测试 RC 2 是否将手机识别为麦克风。不会发送音频。</string>
+    <string name="vmic_control_purpose">RC 2 上的 DJI Fly 会把这部手机识别为蓝牙麦克风，麦克风警告随之消失。不会发送任何声音。</string>
     <string name="vmic_fly_unverified">DJI Fly 麦克风识别：未验证</string>
     <string name="vmic_check_controller">在 RC 2 上打开 DJI Fly 的直播设置，检查麦克风警告是否已消失。</string>
     <string name="vmic_connect">连接 RC 2</string>
@@ -462,4 +460,14 @@
     <string name="vmic_control_notification_connecting">正在连接所选遥控器</string>
     <string name="vmic_control_notification_connected">HFP 控制已连接 — 请检查遥控器上的麦克风页面</string>
     <string name="vmic_control_notification_disconnect">断开连接</string>
+    <string name="vmic_state_not_connected">未连接</string>
+    <string name="vmic_state_connecting">正在连接…</string>
+    <string name="vmic_state_connected">已作为麦克风连接</string>
+    <string name="vmic_state_failed">无法连接</string>
+    <string name="vmic_failed_hint">请确认 RC 2 已开机并在附近，然后重试。</string>
+    <string name="vmic_turn_on_bluetooth">打开蓝牙</string>
+    <string name="vmic_pick_controller">选择你的遥控器。RC 2 可能显示为 QCOM-BTD。</string>
+    <string name="vmic_how_it_works">如何使用？</string>
+    <string name="vmic_steps">1. 在蓝牙设置中将 RC 2 与这部手机配对（只需一次）。\n2. 在这里选中它，然后点按“连接 RC 2”。\n3. 在 RC 2 上打开 DJI Fly 的直播设置：麦克风警告已消失。</string>
+    <string name="vmic_chip">麦克风</string>
 </resources>

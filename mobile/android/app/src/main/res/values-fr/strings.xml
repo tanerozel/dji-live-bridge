@@ -435,7 +435,6 @@
     <string name="vmic_refresh">Actualiser</string>
     <string name="vmic_bluetooth_settings">Paramètres Bluetooth</string>
     <string name="vmic_settings_unavailable">Impossible d’ouvrir les paramètres Bluetooth.</string>
-    <string name="vmic_paired_devices">Appareils associés</string>
     <string name="vmic_no_paired_devices">Aucun appareil associé. Associez d’abord la radiocommande dans les paramètres Bluetooth Android.</string>
     <string name="vmic_sdp_warning">Les UUID en cache peuvent être périmés. Les réponses SDP n’ont pas d’identifiant de requête et ne prouvent pas la prise en charge HFP, SCO ou du microphone dans DJI Fly.</string>
     <string name="vmic_report_privacy">Le rapport exclut les noms et adresses des appareils et les UUID de services personnalisés. Seul le rapport affiché est copié dans le presse-papiers.</string>
@@ -444,7 +443,6 @@
     <string name="vmic_bluetooth_permission">Bluetooth : autorisation requise</string>
     <string name="vmic_bluetooth_unavailable">Bluetooth : indisponible</string>
     <string name="vmic_bluetooth_off">Bluetooth : désactivé</string>
-    <string name="vmic_bluetooth_on">Bluetooth : activé</string>
     <string name="vmic_bluetooth_unknown">Bluetooth : inconnu</string>
     <string name="vmic_sdp_idle">SDP : non demandé</string>
     <string name="vmic_sdp_pending">SDP : attente d’une réponse (15 secondes maximum)</string>
@@ -455,7 +453,7 @@
     <string name="vmic_sdp_cancelled">SDP : annulé</string>
     <string name="vmic_query_services">Interroger les services distants</string>
 
-    <string name="vmic_control_purpose">Gardez la connexion ouverte pour tester si RC 2 reconnaît le téléphone comme microphone. Aucun son n’est envoyé.</string>
+    <string name="vmic_control_purpose">DJI Fly sur la RC 2 reconnaît ce téléphone comme microphone Bluetooth et l’avertissement du microphone disparaît. Aucun son n’est envoyé.</string>
     <string name="vmic_fly_unverified">Détection du microphone dans DJI Fly : Non vérifiée</string>
     <string name="vmic_check_controller">Sur RC 2, ouvrez les paramètres de diffusion en direct de DJI Fly et vérifiez si l’avertissement du microphone a disparu.</string>
     <string name="vmic_connect">Se connecter à RC 2</string>
@@ -472,4 +470,14 @@
     <string name="vmic_control_notification_connecting">Connexion à la radiocommande sélectionnée</string>
     <string name="vmic_control_notification_connected">Contrôle HFP connecté — vérifiez l’écran du microphone sur la radiocommande</string>
     <string name="vmic_control_notification_disconnect">Déconnecter</string>
+    <string name="vmic_state_not_connected">Non connecté</string>
+    <string name="vmic_state_connecting">Connexion…</string>
+    <string name="vmic_state_connected">Connecté comme microphone</string>
+    <string name="vmic_state_failed">Connexion impossible</string>
+    <string name="vmic_failed_hint">Vérifiez que la RC 2 est allumée et à proximité, puis réessayez.</string>
+    <string name="vmic_turn_on_bluetooth">Activer le Bluetooth</string>
+    <string name="vmic_pick_controller">Choisissez votre radiocommande. La RC 2 peut apparaître sous le nom QCOM-BTD.</string>
+    <string name="vmic_how_it_works">Comment ça marche ?</string>
+    <string name="vmic_steps">1. Associez la RC 2 à ce téléphone dans les paramètres Bluetooth (une seule fois).\n2. Choisissez-la ici et touchez Se connecter à RC 2.\n3. Sur la RC 2, ouvrez les paramètres de diffusion en direct de DJI Fly : l’avertissement du microphone a disparu.</string>
+    <string name="vmic_chip">Micro</string>
 </resources>
