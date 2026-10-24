@@ -1,0 +1,21 @@
+Subject: Supported iOS API for a control-only Bluetooth Hands-Free connection
+
+Hello Apple Developer Support,
+
+Please route this API/capability question to the appropriate technical team.
+
+We develop Stream My Drone, a native iOS app. We seek a supported way for an ordinary iPhone app, without extra hardware or jailbreak, to act as Bluetooth Hands-Free (HF) and maintain a service-level connection to a DJI RC 2 controller acting as an Audio Gateway (AG). Our goal is DJI Fly microphone recognition before livestreaming, without microphone capture or audio transmission.
+
+On Android, an ordinary app opened the controller's AG service UUID 0000111f-0000-1000-8000-00805f9b34fb over public RFCOMM and validated AT+BRSF=0, AT+CIND=?, AT+CIND? and AT+CMER=3,0,0,1. Our implementation maintains the channel; the independently recorded hardware test was a bounded exchange. The user subsequently reported microphone recognition in DJI Fly; we have not independently verified that UI result. No iPhone-to-RC-2 Hands-Free connection has been tested or claimed.
+
+We reviewed the iPhoneOS 27.0 SDK and Core Bluetooth, including Classic GATT, L2CAP channels and transport bridging, plus ExternalAccessory, AccessorySetupKit, AudioAccessoryKit and AccessoryTransportExtension. We found no documented RFCOMM stream to this gateway or API for the local HF role. This is an API availability question, not a reproduced crash or a request for internal Apple APIs.
+
+Please clarify:
+1. Which public iOS API, if any, provides this control-only connection and local HF role, and on which OS/device versions?
+2. Is there a developer-requestable entitlement, managed capability or approved integration providing it? Please identify eligibility and regional restrictions.
+3. Does Core Bluetooth's L2CAP API support this specific Classic BR/EDR RFCOMM connection, rather than LE channels or GATT?
+4. If it is unsupported, please confirm the boundary and direct us to the appropriate enhancement/interoperability request process.
+
+We only seek the supported iOS transport/API contract. Whether DJI Fly accepts the resulting device remains a separate hardware validation step.
+
+Thank you.

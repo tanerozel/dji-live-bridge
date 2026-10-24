@@ -2,6 +2,11 @@
 
 Reviewed on 2026-10-24 against **Xcode 27.0 (27A266a), iPhoneOS 27.0 SDK** and current Apple documentation. Scope: make RC 2 recognize the iPhone as a microphone, with **no audio capture or transmission**. This is a source/API audit, not an iPhone–RC 2 hardware result.
 
+Follow-up on 2026-10-25: the user confirmed an ordinary iPhone app **without external hardware**.
+See [the additional native-code, accessory-extension and entitlement audit](IOS_APP_ONLY_FOLLOWUP.md),
+including the Apple technical query submitted on 2026-10-25 as **case 103007562941**. No technical
+response has been received and no working iOS transport has been established.
+
 ## Decision
 
 The successful Android mechanism cannot currently be ported to an ordinary iOS app using a documented public equivalent. Android opens the RC 2 HFP Audio Gateway service (`111f`) with a public RFCOMM socket, validates `BRSF` / `CIND` / `CMER`, then keeps the control channel open. See [the actual control test](ANDROID_CONTROL_PROBE.md) and [recognition-only scope](RC2_RECOGNITION_ONLY.md).

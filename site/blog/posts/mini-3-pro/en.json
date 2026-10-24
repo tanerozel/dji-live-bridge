@@ -1,0 +1,121 @@
+{
+  "slug": "dji-mini-3-pro-live-stream",
+  "platform": "DJI Mini 3 Pro",
+  "title": "DJI Mini 3 Pro live streaming: RC-N1 setup and DJI RC limits (2026)",
+  "description": "Live stream a DJI Mini 3 Pro using RC-N1, DJI Fly on your phone and DJI Live Bridge on a computer. Understand why the original DJI RC cannot use this RTMP route.",
+  "h1": "How to live stream a DJI Mini 3 Pro",
+  "lead": "Your <strong>DJI Mini 3 Pro</strong> can send its camera view through DJI Fly, but the controller determines whether that option exists. With <strong>RC-N1 and a phone</strong>, send RTMP to <strong>DJI Live Bridge</strong> on a separate Mac or Windows computer, then publish to your platform. The original screen-equipped <strong>DJI RC does not support this livestream route</strong>.",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "Use RC-N1 with DJI Fly running on its connected phone; receive the video on a separate computer.",
+    "DJI's Mini 3 Pro guide explicitly excludes livestreaming with the original DJI RC.",
+    "A local receiving address goes into DJI Fly. The platform's server URL and key go into DJI Live Bridge.",
+    "DJI RC, DJI RC 2 and DJI RC Pro are different products; do not transfer instructions between them.",
+    "Confirm the receiver preview first, then verify the actual broadcast on your platform."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Check the controller before setting up RTMP",
+      "blocks": [
+        { "p": "The <a href=\"https://repair.dji.com/help/content?customId=en-us03400006840&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">official Mini 3 Pro beginner guide</a> confirms livestreaming with RC-N1 and a mobile device, and says it is unavailable with DJI RC. Start by reading the model name on your controller." },
+        { "table": {
+          "head": ["Controller", "DJI Fly location", "Route in this guide"],
+          "rows": [
+            ["DJI RC-N1", "Phone connected to the controller by USB", "DJI Fly RTMP → DJI Live Bridge on a separate computer"],
+            ["DJI RC (original screen controller)", "Built-in screen", "No supported DJI Fly livestream route in DJI's model guide"]
+          ]
+        } },
+        { "note": "The Mini 4 Pro and Mini 5 Pro instructions for RC 2 do not apply to the original DJI RC. Adding a receiver app or joining Wi-Fi cannot create an RTMP output that the controller does not provide. DJI's <a href=\"https://www.dji.com/rc/faq\">DJI RC FAQ</a> also says it does not allow third-party app installation." }
+      ]
+    },
+    {
+      "id": "prepare",
+      "h2": "Prepare the flight phone and a separate receiver",
+      "blocks": [
+        { "p": "Keep the RC-N1 phone dedicated to DJI Fly during flight. Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> on your Mac or Windows computer. This setup keeps the receiver and publishing controls on the computer while the flight screen stays visible." },
+        { "list": [
+          "Connect the flight phone and computer to the same local network with internet access. A shared router is a straightforward starting point; test any field hotspot before relying on it.",
+          "Update DJI Fly and the aircraft/controller firmware before the broadcast day, then check the RTMP menu with the aircraft connected.",
+          "Prepare a live event or destination in your platform account, and keep its stream key private.",
+          "Test while the aircraft is on the ground. Arrange the computer so managing the broadcast does not distract from piloting."
+        ] },
+        { "note": "This guide does not assume that DJI Fly and Stream My Drone can run the flight and relay together on the same phone. The RC 2 plus separate-phone method from newer Mini guides is not a substitute for RC-N1 on Mini 3 Pro." }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Send Mini 3 Pro video from DJI Fly to the computer",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Copy DJI Live Bridge's receiving address", "d": "Open the computer app and copy the complete address under Connect your drone. For example, <code>rtmp://192.168.1.20:1935/drone</code> illustrates the format; use the address actually shown for your network." },
+          { "t": "Open DJI Fly's livestream settings", "d": "On the phone connected to RC-N1, enter the camera view and open ••• → Transmission → Live Streaming Platforms or Enable Livestreaming, then choose RTMP. Menu labels can differ by DJI Fly version. The <a href=\"../dji-fly-rtmp-live-streaming-setup/\">RTMP setup guide</a> explains the address fields." },
+          { "t": "Paste the full local address and start the feed", "d": "Use the computer app's address, including its path. Do not append your YouTube or other platform key to this local address. Start DJI Fly's stream, allow the computer's private-network firewall prompt if needed, and wait for moving video in DJI Live Bridge." },
+          { "t": "Configure the outgoing picture and destination", "d": "Choose landscape or the desktop app's vertical output to match the broadcast. Add the platform's current server URL and stream key in the destination settings. Those credentials belong here, separately from the local DJI Fly address." },
+          { "t": "Verify the viewer experience", "d": "Start the destination output, open the platform's live dashboard, and complete any remaining Go Live step. Check motion, framing and audio on the viewer page before treating the broadcast as published." }
+        ] },
+        { "img": "go-live.png", "alt": "DJI Live Bridge desktop app showing the local drone receiving address and destination controls." }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Choose a platform your account can publish to",
+      "blocks": [
+        { "table": {
+          "head": ["Destination", "Check before the flight", "Guide"],
+          "rows": [
+            ["YouTube", "Live streaming is enabled and your broadcast is ready", "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube setup</a>"],
+            ["Instagram", "Your account offers Live Producer and current RTMPS credentials", "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram setup</a>"],
+            ["Facebook", "Live Producer gives you a server URL and stream key", "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Facebook setup</a>"],
+            ["TikTok", "Your account has a stream key or permission to use LIVE Studio", "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok setup</a>"]
+          ]
+        } },
+        { "p": "Eligibility and publishing controls depend on the platform and your account. A receiver app does not grant LIVE access. If you use a permitted desktop application that accepts webcam input, DJI Live Bridge's <a href=\"../use-your-dji-drone-as-a-webcam/\">virtual camera</a> is another output option; it still needs an incoming drone feed." }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Recording quality, livestream quality and portrait framing",
+      "blocks": [
+        { "p": "DJI's <a href=\"https://www.dji.com/support/product/mini-3-pro\">Mini 3 Pro specifications and support</a> list a 1080p/30fps controller live view. That describes the aircraft-to-controller picture, not a promise that every DJI Fly RTMP setting or internet broadcast has that resolution. Inspect the actual input received by DJI Live Bridge; the drone's high-resolution recording is a separate file." },
+        { "list": [
+          "<strong>Check portrait output end to end.</strong> Rotating the camera for a vertical shot does not alone establish the platform's final frame dimensions. Confirm the receiver input and desktop output layout.",
+          "<strong>Start with one destination.</strong> Add simultaneous outputs after the first broadcast remains stable; each destination consumes upload capacity.",
+          "<strong>Plan mobile data.</strong> A continuous 5 Mbps output is about 2.25 GB per hour before overhead. Two equal outputs are about 4.5 GB per hour.",
+          "<strong>Test sound separately.</strong> Watch the destination's audio meters and listen from the viewer side. Do not infer successful audio from a moving video preview."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Troubleshooting Mini 3 Pro livestreams",
+      "blocks": [
+        { "list": [
+          "<strong>There is no livestream menu:</strong> identify the controller first. On original DJI RC this is an expected limitation, not a missing setting in DJI Live Bridge. With RC-N1, check DJI Fly version and the aircraft connection.",
+          "<strong>DJI Fly cannot connect:</strong> recopy the receiver address after changing networks. Avoid guest Wi-Fi with device isolation, check the private-network firewall, and do not use <code>localhost</code> for another device.",
+          "<strong>The picture arrives but viewers see nothing:</strong> check the destination URL and key, confirm the platform receives video, and complete its publication step.",
+          "<strong>The stream becomes choppy:</strong> test one output, reduce the offered bitrate if available, and check both the local Wi-Fi link and internet upload. A strong aircraft link alone does not prove the internet path is healthy.",
+          "<strong>Portrait looks cropped or sideways:</strong> compare the incoming preview with the selected desktop output. Make framing changes on the ground and recheck the platform preview."
+        ] }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Official sources and related guides",
+      "blocks": [
+        { "p": "Checked October 25, 2026: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006840&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Mini 3 Pro beginner guide</a> for the RC-N1 livestream route and DJI RC exclusion; <a href=\"https://www.dji.com/rc/faq\">DJI RC FAQ</a> for controller restrictions; <a href=\"https://www.dji.com/support/product/mini-3-pro\">Mini 3 Pro support and specifications</a> for live-view quality. Menus and account features may change, so check your installed version before a flight." },
+        { "p": "Compare the <a href=\"../dji-mini-3-live-stream/\">Mini 3 guide</a> or <a href=\"../dji-mini-4-pro-live-stream/\">Mini 4 Pro guide</a>. After one output works, follow the <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">multistreaming guide</a> to add destinations." }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Can DJI Mini 3 Pro live stream?", "a": "Yes, DJI documents livestreaming through RC-N1 with DJI Fly on a connected phone. This guide receives that RTMP feed on a separate computer running DJI Live Bridge." },
+    { "q": "Can I use the screen-equipped DJI RC for this?", "a": "No. DJI's Mini 3 Pro guide excludes livestreaming with the original DJI RC. Instructions for DJI RC 2 on newer aircraft do not apply to it." },
+    { "q": "Can I use one phone for both flight and receiving?", "a": "This guide keeps DJI Fly on the RC-N1 phone and puts the receiver on a separate computer. It does not assume reliable simultaneous flight and relay apps on a single phone." },
+    { "q": "Does the drone's recording resolution determine the broadcast?", "a": "No. The saved camera recording, controller live view and RTMP input are different outputs. Check the input received by DJI Live Bridge and the outgoing platform preview." },
+    { "q": "Which RTMP address belongs in DJI Fly?", "a": "Use the complete local receiving address shown by DJI Live Bridge. Put the platform's server URL and stream key in the computer app's destination settings." },
+    { "q": "Does an incoming preview mean I am live?", "a": "It confirms that the computer receives video. Start the platform output and verify the platform's own viewer page, including any required Go Live action." }
+  ]
+}

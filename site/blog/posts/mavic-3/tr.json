@@ -1,0 +1,244 @@
+{
+  "slug": "dji-mavic-3-canli-yayin",
+  "platform": "DJI Mavic 3 Serisi",
+  "title": "DJI Mavic 3, Classic ve Pro ile canlı yayın: kumanda rehberi (2026)",
+  "description": "DJI Mavic 3, Classic veya Pro ile RC-N1 ya da RC Pro üzerinden yayın yapın. DJI RC sınırı, ayrı telefon alıcısı, bilgisayarda RTMP ve görüntü kalitesi.",
+  "h1": "DJI Mavic 3, Classic veya Pro ile canlı yayın nasıl yapılır?",
+  "lead": "<strong>DJI Mavic 3 ailesi</strong>, DJI Fly üzerinden canlı kamera görüntüsü gönderebilir; ancak kullanılacak yolu kumanda belirler. <strong>RC-N1</strong> ile uçuş telefonunu ve bilgisayar alıcısını, <strong>RC Pro</strong> ile ayrı telefonda Stream My Drone'u kullanın. Ekranlı <strong>DJI RC</strong> ise farklıdır: DJI bu kumandayla canlı yayını desteklemez.",
+  "summary": [
+    "Bu rehber tüketici modelleri Mavic 3, Mavic 3 Cine, Mavic 3 Classic ve Mavic 3 Pro ailesini kapsar; Mavic 3 Enterprise'ı kapsamaz.",
+    "RC-N1, DJI Fly için telefon kullanır; bilgisayarlı kurulum alıcıyı ayrı bilgisayarda tutar.",
+    "RC Pro, RTMP görüntüsünü başka telefondaki Stream My Drone'a veya bilgisayardaki DJI Live Bridge'e gönderebilir.",
+    "DJI RC uçuş için uyumlu olsa da DJI Fly canlı yayınını desteklemez.",
+    "RTMP görüntüsünü doğrudan kontrol edin: kamera kayıt kalitesi ve kumandanın canlı görüntüsü, yayın çözünürlüğünü belirlemez."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Drone modelini ve kumandayı birlikte kontrol edin",
+      "blocks": [
+        {
+          "p": "DJI, tüketici ailesi için <a href=\"https://www.dji.com/support/product/mavic-3-pro\">Mavic 3 Pro destek SSS sayfasında</a> <strong>RC-N1, DJI RC ve DJI RC Pro</strong> listeler. <a href=\"https://www.dji.com/support/product/mavic-3-classic\">Mavic 3 Classic destek sayfası</a> da üçünü belgeler. İlk <a href=\"https://www.dji.com/mavic-3/specs\">Mavic 3 destek sayfası</a> RC-N1 ve RC Pro'yu açıklar; <a href=\"https://www.dji.com/rc/faq\">DJI RC SSS sayfası</a> ayrıca DJI RC'nin Mavic 3 ve Mavic 3 Cine uyumluluğunu doğrular. Bunlar uçuş uyumluluğu bilgileridir; her kumandanın yayın yapabileceği anlamına gelmez."
+        },
+        {
+          "table": {
+            "head": [
+              "Kumanda",
+              "DJI Fly nerede çalışır?",
+              "Canlı yayın yolu"
+            ],
+            "rows": [
+              [
+                "DJI RC-N1",
+                "USB ile bağlı telefonda",
+                "Telefondan bilgisayardaki DJI Live Bridge'e RTMP"
+              ],
+              [
+                "DJI RC Pro",
+                "Kumandanın kendi ekranında",
+                "Ayrı telefondaki Stream My Drone'a veya bilgisayara RTMP"
+              ],
+              [
+                "DJI RC",
+                "Kumandanın kendi ekranında",
+                "DJI Fly canlı yayını desteklenmiyor"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "DJI RC ile RC 2'yi, RC Pro ile RC Pro 2'yi karıştırmayın. Mavic 4 Pro kumanda kurulumu, Mavic 3 uyumluluğunu kanıtlamaz. Mavic 3 Enterprise ve Thermal modelleri farklı ürün ve uygulama akışı kullanır; bu rehberin kapsamı dışındadır."
+        }
+      ]
+    },
+    {
+      "id": "rtmp-check",
+      "h2": "Kendi yazılımınızda RTMP menüsünü ve sesi doğrulayın",
+      "blocks": [
+        {
+          "p": "Yayın destekleyen bir kumandayla drone'u eşleştirin ve DJI Fly kamera görünümünü açın. GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP bölümüne bakın. Gerekirse drone, kumanda ve DJI Fly'ı güncelleyin; canlı etkinliği planlamadan önce menüyü yeniden kontrol edin."
+        },
+        {
+          "note": "DJI'ın <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">canlı yayın rehberi</a>, RC Pro için DJI Fly v1.16.0'dan itibaren bağlı mikrofon ister; Fly v1.18.0 veya üstünde RC Pro yalnızca 720p RTMP destekler. RC-N1, bağlı telefonun sunduğu ayarları kullanır. Eski bir 1080p anlatımını kopyalamak yerine mevcut ayarları doğrulayın."
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Mavic 3 ve RC Pro: yayını telefonda alın",
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Ayrı telefona Stream My Drone kurun",
+              "d": "Uygulamayı <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> veya <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a> üzerinden indirin. DJI Fly RC Pro üzerinde açık kalsın; telefon görüntüyü alıp platforma iletecek."
+            },
+            {
+              "t": "Kumanda ve alıcıyı aynı ağa bağlayın",
+              "d": "İnternet erişimi olan bir Wi-Fi ağı kullanın. Sahada yayını alan Android telefon hotspot da açabilir. Ağı seçtikten sonra Stream My Drone'u açın; iPhone isterse yerel ağ erişimine izin verin. Ağ değiştirirseniz gösterilen adresi yeniden kontrol edin."
+            },
+            {
+              "t": "Alıcı adresini DJI Fly'a girin",
+              "d": "Stream My Drone'un gösterdiği yerel RTMP adresinin tamamını kopyalayın. DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın. Sürümünüzdeki alan adlarını izleyin: adres ve anahtarı ayrı isteyen ekran ile tam RTMP URL'si isteyen ekran farklıdır. Yerel alıcı adresine YouTube veya Instagram anahtarınızı eklemeyin. Menü ayrıntıları için <a href=\"../dji-fly-rtmp-canli-yayin-ayarlari/\">DJI Fly RTMP rehberine</a> bakın."
+            },
+            {
+              "t": "Yerel aktarımı başlatıp sesi kontrol edin",
+              "d": "DJI Fly'da canlı aktarımı başlatın ve Stream My Drone'da hareketli görüntü geldiğini doğrulayın. Kumandada seçili mikrofonu kontrol edin; yerdeki denemede sesi platformdan dinleyin. Görüntü gelip ses gelmiyorsa kalkıştan önce çözmek daha kolaydır."
+            },
+            {
+              "t": "Hedefleri ekleyip yayına geçin",
+              "d": "Sunuluyorsa platform hesabınızı bağlayın veya güncel sunucu adresiyle yayın anahtarını Stream My Drone'a girin. Aktarımı başlatıp platformun panelini açın. Ayrıca Yayına Geç adımı isteniyorsa tamamlayın; ardından izleyici sayfasından gerçekten izlenebildiğini doğrulayın."
+            }
+          ]
+        },
+        {
+          "note": "Alıcı telefon, kumandadan ayrı bir cihazdır. Mobil aktarım gelen videoyu korur; önizlemedeki kırpma veya bulanık arka plan yeni bir dikey yayın oluşturmaz. iPhone'da kurulum sırasında uygulamayı açık tutun; arka planda alımın sürmesi Resim İçinde Resim'e bağlıdır."
+        }
+      ],
+      "howto": true
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Mavic 3 ve RC-N1: ayrı bilgisayarda görüntüyü alın",
+      "blocks": [
+        {
+          "p": "RC-N1 kullanıyorsanız DJI Fly, kumandaya USB ile bağlı telefonda açık kalsın. RC Pro da bu bilgisayar alıcısına görüntü gönderebilir. Mac veya Windows bilgisayara <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> kurun. Bilgisayar, DJI Fly RTMP görüntüsünü yerel ağdan alır; bu kurulum kumandadan HDMI yakalama veya USB web kamerası bağlantısı kullanmaz."
+        },
+        {
+          "steps": [
+            {
+              "t": "Bilgisayarın yerel RTMP adresini kopyalayın",
+              "d": "Bilgisayarı ve DJI Fly'ın çalıştığı cihazı aynı ağa bağlayın. DJI Live Bridge'de Drone'u bağla bölümündeki adresi kopyalayın. <code>rtmp://192.168.1.20:1935/drone</code> yalnızca örnektir; uygulamanızda görünen adresi kullanın."
+            },
+            {
+              "t": "Görüntüyü gönderip alındığını doğrulayın",
+              "d": "Bu yerel adresi DJI Fly'a girip aktarımı başlatın. Güvenlik duvarı sorarsa özel ağda uygulamanın gelen bağlantıları almasına izin verin. Platform ayarlarına geçmeden önce hareketli önizlemeyi kontrol edin."
+            },
+            {
+              "t": "Çıkışı seçip bir hedef başlatın",
+              "d": "Yatay veya masaüstünün dikey düzenlerinden birini seçin; platformun sunucu adresini ve anahtarını ekleyin. Çıkışı başlatın, platforma görüntü ulaştığını doğrulayın ve yayınlama adımını tamamlayın. Birkaç hedef açacaksanız önce toplam yükleme ihtiyacını kontrol edin."
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "DJI Live Bridge masaüstünde yerel alıcı adresi, platform hedefleri ve canlı yayın denetimleri."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "YouTube, Instagram, Facebook veya TikTok'ta yayınlayın",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Hedef",
+              "Gerekenler",
+              "Rehber"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "Canlı yayın erişimi açık hesap ve hazırlanmış yayın",
+                "<a href=\"../drone-ile-youtube-canli-yayin-nasil-yapilir/\">YouTube kurulumu</a>"
+              ],
+              [
+                "Instagram",
+                "Live Producer erişimi ve güncel RTMPS bilgileri",
+                "<a href=\"../drone-ile-instagram-canli-yayin-nasil-yapilir/\">Instagram kurulumu</a>"
+              ],
+              [
+                "Facebook",
+                "Hazırlanmış canlı yayın, sunucu adresi ve anahtar",
+                "<a href=\"../drone-ile-facebook-canli-yayin-nasil-yapilir/\">Facebook kurulumu</a>"
+              ],
+              [
+                "TikTok",
+                "Hesapta RTMP erişimi veya bilgisayarda LIVE Studio erişimi",
+                "<a href=\"../drone-ile-tiktok-canli-yayin-nasil-yapilir/\">TikTok kurulumu</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "Hesabın uygunluğunu platform belirler. Uygulamalar yayın anahtarı vermez veya erişim koşullarını kaldırmaz. Bilgisayarda uygun bir stüdyo uygulamasıyla çalışacaksanız DJI Live Bridge'in <a href=\"../drone-u-bilgisayarin-harici-kamerasi-yapin/\">sanal kamera</a> seçeneği de vardır. Yerel önizleme görüntünün alındığını, çalışan izleyici sayfası ise yayının yayınlandığını doğrular."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "İzleyiciye hangi çözünürlük ulaşır?",
+      "blocks": [
+        {
+          "p": "Mavic 3 ailesinin yüksek çözünürlüklü kamera kayıtları ve O3+ kumanda görüntüsü, RTMP kodlayıcı çıkışından ayrıdır. Alıcı, kodlayıcının göndermediği ayrıntıyı geri getiremez. Drone'un kayıt özelliğini canlı yayın çözünürlüğü olarak vaat etmek yerine alınan videonun boyutlarını ve hedefin oynatma kalitesini kontrol edin."
+        },
+        {
+          "p": "Bu kontrol, Mavic 3 Pro'nun farklı lenslerini kullanırken özellikle yararlıdır: yayına geçmeden önce kullanacağınız lensi ve kadrajı alıcıda deneyin. Kamera veya kayıt ayarını değiştirmek, gönderilen yayını kontrol etmenin yerine geçmez. Dikey hedef için masaüstü DJI Live Bridge görüntüyü kırpabilir veya dikey çıkışa sığdırabilir; mobil uygulama gelen videoyu aldığı biçimde iletir."
+        },
+        {
+          "list": [
+            "<strong>Yerel alımı internet yüklemesinden ayrı değerlendirin.</strong> Kumanda alıcıya yerel ağdan ulaşmalı; alıcının da hedefleri için yeterli internet yüklemesi olmalıdır.",
+            "<strong>Yükleme ihtiyaçlarını toplayın.</strong> İki 5 Mbps hedef çıkışı toplam yaklaşık 10 Mbps yükleme ister ve ek yük hariç saatte yaklaşık 4,5 GB kullanır. Denemeye tek hedefle başlayın.",
+            "<strong>Görüntüye bakarken sesi de dinleyin.</strong> Seçili kumanda veya uçuş telefonu mikrofonunu kontrol edin, sonra sesi platformdan dinleyin. Drone kamera görüntüsünün kullanılabilir drone sesi içerdiğini varsaymayın."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Mavic 3, Classic ve Pro yayınında sorun giderme",
+      "blocks": [
+        {
+          "list": [
+            "<strong>DJI RC'de RTMP menüsü yok:</strong> kumanda drone'unuzu uçurabilse de bu belgelenen bir sınırdır. Stream My Drone, DJI RC'ye canlı yayın ekleyemez. Buradaki kurulum için uyumlu RC-N1 veya RC Pro kullanın.",
+            "<strong>RC Pro aktarımı başlatmıyor:</strong> mikrofon bağlantısını ve DJI Fly isteğini kontrol edin, sonra mevcut RTMP ayarlarını doğrulayın.",
+            "<strong>RC-N1 telefonu kopuyor:</strong> alıcıda sorun aramadan önce DJI Fly'ın drone bağlantısını gösterdiğini doğrulayın ve USB kablosunu kontrol edin.",
+            "<strong>Alıcıya ulaşılamıyor:</strong> ağ değişikliğinden sonra güncel yerel adresi yeniden kopyalayın. Cihaz yalıtımı olan misafir ağından kaçının ve bilgisayarın güvenlik duvarını kontrol edin. Uçuş cihazındaki <code>localhost</code> o cihazın kendisini gösterir.",
+            "<strong>Görüntü geldi ama izlenemiyor:</strong> hedef çıkışını başlatın, güncel platform bilgilerini doğrulayın ve platformun yayınlama adımını tamamlayın. Alıcı önizlemesi tek başına yayını yayınlamaz."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Resmî kaynaklar ve sonraki adımlar",
+      "blocks": [
+        {
+          "p": "25 Ekim 2026'da kontrol edildi: model ve kumanda farkları için <a href=\"https://www.dji.com/support/product/mavic-3-pro\">Mavic 3 Pro destek</a>, <a href=\"https://www.dji.com/support/product/mavic-3-classic\">Mavic 3 Classic destek</a>, <a href=\"https://www.dji.com/mavic-3/specs\">ilk Mavic 3 destek</a> ve <a href=\"https://www.dji.com/rc/faq\">DJI RC SSS</a>; yayın desteği ve sınırlar için <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly canlı yayın rehberi</a>. Gerçekte sunulan menüyü kendi drone ve kumanda yazılımınızda kontrol edin."
+        },
+        {
+          "p": "Yeni nesil için <a href=\"../dji-mavic-4-pro-canli-yayin/\">Mavic 4 Pro canlı yayın rehberini</a> okuyun. Daha küçük bir ekranlı kumanda kurulumu için <a href=\"../dji-mini-5-pro-canli-yayin/\">Mini 5 Pro</a> rehberine bakın. Birkaç hedefte yayınlamak için <a href=\"../drone-ile-ayni-anda-birden-fazla-platformda-canli-yayin/\">çoklu yayın rehberiyle</a> devam edin."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Bazı paketlerdeki DJI RC ile Mavic 3 Pro canlı yayın yapabilir mi?",
+      "a": "DJI RC, Mavic 3 Pro'yu uçurabilir ancak DJI bu kumandayla canlı yayını desteklemez. Bu rehberdeki RTMP kurulumu için uçuş telefonuyla birlikte uyumlu RC-N1 veya uyumlu RC Pro kullanın."
+    },
+    {
+      "q": "Rehber Mavic 3 Classic ve Mavic 3 Cine'yi de kapsıyor mu?",
+      "a": "Evet; yukarıda anlatılan tüketici modellerini ve uyumlu kumanda eşleşmelerini kapsar. Ayrı Mavic 3 Enterprise veya Thermal kurulumunu kapsamaz."
+    },
+    {
+      "q": "RC Pro görüntüsünü bilgisayarsız telefonda alabilir miyim?",
+      "a": "DJI Fly RC Pro'da açık kalırken aynı yerel ağdaki ayrı telefonda Stream My Drone kullanın. Uygulamanın alıcı adresini DJI Fly'a girin; platformu Stream My Drone'da ayarlayın."
+    },
+    {
+      "q": "RC-N1'in uçuş telefonu aynı zamanda alıcı olabilir mi?",
+      "a": "Bu telefon uçuş için zaten DJI Fly çalıştırır. Rehber, uçuş uygulaması açık kalabilsin diye ayrı bilgisayarda DJI Live Bridge kullanır; iki uygulamanın uçuşu ve aktarımı tek telefonda yürütebildiğini varsaymaz."
+    },
+    {
+      "q": "Eski bir RC Pro rehberinde neden daha yüksek çözünürlük var?",
+      "a": "DJI Fly özellikleri yazılım sürümüyle değişir. Güncel kumanda ayarlarını ve resmî yayın rehberini kontrol edin; kayıt özelliğine veya eski anlatıma güvenmek yerine gelen videoya bakın."
+    },
+    {
+      "q": "Platformun yayın anahtarını DJI Fly'a mı gireceğim?",
+      "a": "Bu aktarıcı kurulumunda DJI Fly'a Stream My Drone veya DJI Live Bridge'in gösterdiği yerel adres yazılır. Platformun sunucu adresi ve yayın anahtarı alıcı uygulamadaki hedef ayarlarına girilir."
+    }
+  ],
+  "published": "2026-10-25",
+  "updated": "2026-10-25"
+}

@@ -1,0 +1,251 @@
+{
+  "slug": "dji-air-3s-canli-yayin",
+  "platform": "DJI Air 3S",
+  "title": "DJI Air 3S ile canlı yayın: RC 2 ve RC-N3 kurulumu (2026)",
+  "description": "DJI Air 3S ile YouTube, Instagram veya Facebook yayını açın. Kumandayı seçin, DJI Fly RTMP görüntüsünü telefona ya da bilgisayara alın ve yayın kadrajını kontrol edin.",
+  "h1": "DJI Air 3S ile canlı yayın nasıl yapılır?",
+  "lead": "<strong>DJI Air 3S</strong> görüntüsünü DJI Fly’ın RTMP çıkışıyla ayrı telefondaki <strong>Stream My Drone</strong>’a veya Mac ya da Windows bilgisayardaki <strong>DJI Live Bridge</strong>’e gönderebilirsiniz. DJI Fly’ın hangi cihazda çalışacağını kumandanız belirler. Aşağıdaki uygun kurulumla başlayın; kalkıştan önce alıcıyı, kadrajı ve platformdaki yayını kontrol edin.",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "DJI RC 2 ile DJI Fly kumandanın ekranında çalışır; ayrı bir telefon görüntüyü alıp platforma iletebilir.",
+    "RC-N3 ve RC-N2 ile DJI Fly telefonda çalışır. Bilgisayarlı kurulum, alıcıyı uçuş için kullanılan telefondan ayrı tutar.",
+    "Yerel alıcı adresi DJI Fly’a; platform bilgileri Stream My Drone veya DJI Live Bridge’e girilir.",
+    "Kamera kaydı, kumandadaki canlı görüntü ve gönderilen RTMP yayınının kalite ayarları ayrıdır.",
+    "Uçuştan önce seçtiğiniz kamera görüntüsünü ve platformun izleyici sayfasını kontrol edin."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Air 3S kumandaları: RC 2, RC-N3 ve RC-N2",
+      "blocks": [
+        {
+          "p": "DJI’ın güncel <a href=\"https://www.dji.com/air-3s/faq\">Air 3S SSS sayfasında</a> DJI RC 2, RC-N3 ve RC-N2 listeleniyor. Elinizdeki RC-N2’yi kullanacaksanız eşleştirmeyi kontrol etmeden önce drone’u, kumandayı ve DJI Fly’ı güncelleyin. Kurulumu paket adına göre değil, kullandığınız kumandaya göre seçin."
+        },
+        {
+          "table": {
+            "head": [
+              "Kumanda",
+              "Uçuşu nereden yönetirsiniz?",
+              "Yayını hangi cihaz alır?"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "Kumandanın ekranındaki DJI Fly",
+                "Ayrı telefonda Stream My Drone veya bilgisayarda DJI Live Bridge"
+              ],
+              [
+                "DJI RC-N3",
+                "USB ile bağlı telefondaki DJI Fly",
+                "Burada anlatılan kurulumda bilgisayardaki DJI Live Bridge"
+              ],
+              [
+                "DJI RC-N2",
+                "USB ile bağlı telefondaki DJI Fly",
+                "RC-N3 ile aynı bilgisayarlı alıcı kurulumu"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "DJI’ın <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">canlı yayın rehberine</a> göre RC 2 yayını 720p ile sınırlıdır; DJI Fly v1.16.0’dan itibaren bağlı mikrofon gerekir. Kumandanızdaki seçenekleri kontrol edin."
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Air 3S ve RC 2 ile bilgisayarsız canlı yayın",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Telefona Stream My Drone kurun",
+              "d": "Uygulamayı <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> veya <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a>'dan indirin. DJI Fly RC 2'de açık kalırken telefon yayını alır."
+            },
+            {
+              "t": "RC 2 ile telefonu aynı ağa bağlayın",
+              "d": "İki cihazı internet erişimi olan aynı Wi-Fi ağına bağlayın. Sahada Android telefon hem hotspot açabilir hem de yayını alabilir. Ağı seçtikten sonra Stream My Drone'u açın; iPhone'da istenirse yerel ağ erişimine izin verin."
+            },
+            {
+              "t": "Alıcı adresini DJI Fly'a girin",
+              "d": "Stream My Drone’un gösterdiği yerel alıcı adresinin tamamını kopyalayın. DJI Fly’da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açıp adresi girin. Menü adımları için <a href=\"../dji-fly-rtmp-canli-yayin-ayarlari/\">DJI Fly RTMP rehberine</a> bakın."
+            },
+            {
+              "t": "DJI Fly yayınını başlatıp önizlemeyi kontrol edin",
+              "d": "Kumandadan aktarımı başlatın ve telefona hareketli drone görüntüsünün ulaştığını doğrulayın. DJI Fly’ın istediği mikrofon bağlıyken sesi de kontrol edin. Test boyunca Stream My Drone’u açık tutun."
+            },
+            {
+              "t": "Hedefi seçip platformda yayını doğrulayın",
+              "d": "Stream My Drone'a bir platform ekleyin: sunuluyorsa hesap bağlantısını, yoksa sunucu adresi ve yayın anahtarını kullanın. Aktarımı başlatıp platformun canlı yayın panelini veya izleyici sayfasını açın. Platform ayrıca Yayına Geç işlemi istiyorsa onu da tamamlayın."
+            }
+          ]
+        },
+        {
+          "note": "Telefon, gelen videoyu yeniden kodlamadan iletir. Önizlemedeki kırpma veya bulanık arka plan, gönderilen yayını dikey 1080×1920'ye dönüştürmez. Bu dönüşüm için masaüstü uygulamasını kullanın. iPhone'da kurulum sırasında uygulamayı önde tutun; arka planda yayının sürmesi Resim İçinde Resim'e bağlıdır."
+        }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Air 3S ve RC-N3 veya RC-N2 ile görüntüyü bilgisayara alın",
+      "blocks": [
+        {
+          "p": "RC-N3 veya RC-N2 kullanıyorsanız DJI Fly, kumandaya bağlı telefonda açık kalsın. Mac veya Windows bilgisayara <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> kurup bilgisayarı ve uçuş telefonunu aynı yerel ağa bağlayın. RC 2 de bu masaüstü kurulumunu kullanabilir."
+        },
+        {
+          "steps": [
+            {
+              "t": "Bilgisayarın RTMP adresini bulun",
+              "d": "DJI Live Bridge'i açıp Drone'u bağla bölümündeki adresi kopyalayın. <code>rtmp://192.168.1.20:1935/drone</code> yalnızca örnektir; uygulamanızda görünen adresi kullanın."
+            },
+            {
+              "t": "DJI Fly'ı bu adrese yönlendirin",
+              "d": "Adresi DJI Fly'ın RTMP ayarlarına girip aktarımı başlatın. Bilgisayarın güvenlik duvarı sorarsa özel ağda gelen bağlantılara izin verin. Hedef eklemeden önce önizlemeyi kontrol edin."
+            },
+            {
+              "t": "Çıkış biçimini ve platformu ayarlayın",
+              "d": "Klasik YouTube veya Facebook yayını için yatay, dikey düzen kullanan bir hesap için dikey çıkış seçin. Hedefin güncel sunucu adresini ve anahtarını ekleyip çıkışı başlatın; platformdan yayını doğrulayın."
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "DJI Live Bridge masaüstü uygulamasında yerel DJI Fly RTMP adresi, platform hedefleri ve Yayını Başlat düğmesi."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Hangi platformda canlı yayın yapacaksınız?",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Platform",
+              "Önceden hazırlayın",
+              "Ayrıntılı rehber"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "Canlı yayın özelliği açık bir hesap ve hazırlanmış yayın",
+                "<a href=\"../drone-ile-youtube-canli-yayin-nasil-yapilir/\">YouTube kurulumu</a>"
+              ],
+              [
+                "Instagram",
+                "Live Producer erişimi ve güncel RTMPS bilgileri",
+                "<a href=\"../drone-ile-instagram-canli-yayin-nasil-yapilir/\">Instagram kurulumu</a>"
+              ],
+              [
+                "Facebook",
+                "Sunucu adresi ve anahtarı alınmış bir canlı yayın",
+                "<a href=\"../drone-ile-facebook-canli-yayin-nasil-yapilir/\">Facebook kurulumu</a>"
+              ],
+              [
+                "TikTok",
+                "Hesapta RTMP erişimi veya LIVE Studio erişimi olan bir bilgisayar",
+                "<a href=\"../drone-ile-tiktok-canli-yayin-nasil-yapilir/\">TikTok kurulumu</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "Platform erişimi hesabınıza bağlıdır. Drone görüntüsünün uygulamaya ulaşması yayın anahtarı sağlamaz ve platformda yayını başlatmaz. TikTok LIVE Studio için masaüstü uygulamasının <a href=\"../drone-u-bilgisayarin-harici-kamerasi-yapin/\">sanal kamera</a> seçeneği de vardır. Yayına geçiş için gereken güncel adımı platformun panelinden kontrol edin."
+        }
+      ]
+    },
+    {
+      "id": "camera-framing",
+      "h2": "Air 3S kamera yeniliği canlı yayını nasıl etkiler?",
+      "blocks": [
+        {
+          "p": "DJI’ın <a href=\"https://www.dji.com/air-3s/faq\">Air 3S SSS sayfası</a>, 1 inç ana kamerayı ve iki kamerayla da dikey kaydı açıklar. Bu kamera yeniliği RC 2’nin canlı yayın sınırını yükseltmez ve dikey RTMP görüntüsünü garanti etmez. Yayını alıcıya ulaşan görüntüyle değerlendirin."
+        },
+        {
+          "list": [
+            "<strong>Geniş açı ve tele görüntülerini prova edin.</strong> Drone yerdeyken DJI Fly’da iki kamerayı sırayla seçin. Alıcıda pozlamayı, kadrajı ve kameralar arasındaki geçişi izleyin.",
+            "<strong>Değişen ışığı kontrol edin.</strong> Gün batımı veya parlak bir şehir manzarası çekerken uçuş ekranının yanında alınan görüntüyü de izleyin. Sonradan düzenlemeye güvenmeden izleyicinin hemen görebileceği görüntüyü ayarlayın.",
+            "<strong>Dikey yayını ayrıca deneyin.</strong> Gelen görüntünün boyutlarına bakın, gerekiyorsa masaüstünde kırpma veya tüm görüntü düzenini seçin ve yayına çıkmadan önce platform önizlemesini kontrol edin."
+          ]
+        },
+        {
+          "note": "Air 3’ten geçtiyseniz eşleştirme ve güncelleme sonrasında Air 3S ile yeniden yerde test yapın. Ağ değişince alıcı adresini yeniden alın ve hedef bilgilerini kontrol edin; önceki drone ile çalışan yayın, yeni kurulumun çalıştığını kanıtlamaz."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Air 3S yayın kalitesi ve mobil internet kullanımı",
+      "blocks": [
+        {
+          "p": "Drone’a kaydedilen dosya, kumandanın canlı görüntüsü ve alıcıya gönderilen video ayrı çıkışlardır. Çıkış ayarını seçmeden önce alıcının giriş çözünürlüğünü inceleyin. Büyütme, görüntünün boyutunu değiştirir; girişte olmayan ayrıntıyı geri getiremez. Platformun görüntüyü işlemesi de ek kalite değişimi ve gecikme yaratabilir."
+        },
+        {
+          "list": [
+            "<strong>Kalkıştan önce deneyin.</strong> Drone yerdeyken hareketi, sesi ve platformun izleyici sayfasını kontrol edin.",
+            "<strong>Yükleme kapasitesini hesaplayın.</strong> Kesintisiz 5 Mbps çıkış, ağ ek yükü hariç saatte yaklaşık 2,25 GB kullanır. Bu hızda iki hedef yaklaşık 10 Mbps toplam yükleme ve saatte 4,5 GB gerektirir.",
+            "<strong>Yerel bağlantıyı güçlü tutun.</strong> Telefonu veya bilgisayarı hotspot'a yakın tutun. Kararlı bağlantı, ağın ilan edilen en yüksek hızından daha önemlidir.",
+            "<strong>Gönderilen kadrajı kontrol edin.</strong> Mobilde önizleme düzeni yereldir. Masaüstünde yayına geçmeden önce kırpma veya tüm görüntü çıkışını kontrol edin."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Air 3S canlı yayınında sorun giderme",
+      "blocks": [
+        {
+          "list": [
+            "<strong>RC-N2 eşleşmiyor:</strong> Air 3S’nin seçili olduğunu doğrulayın; drone ve kumanda yazılımıyla DJI Fly’ı güncelleyip DJI’ın güncel talimatlarına göre yeniden eşleştirin. RTMP alıcısına geçmeden önce drone bağlantısını kontrol edin.",
+            "<strong>Görüntü kayıttan daha yumuşak:</strong> alıcının girişini DJI Fly’ın yayın ayarıyla karşılaştırın. Yüksek çözünürlüklü kayıt modu, kumandanın canlı yayın sınırını kaldırmaz.",
+            "<strong>Bağlantı kurulamıyor:</strong> ağ değişince uygulamadaki adresi yeniden kopyalayın. Misafir yalıtımı olmayan ortak yerel ağ kullanın; kumandadaki <code>localhost</code> kumandanın kendisini gösterir.",
+            "<strong>Telefonda görüntü var, izleyicide yok:</strong> hedef bağlantısını, güncel yayın anahtarını ve platformun son yayınlama adımını kontrol edin. Veri gönderiliyor olması tek başına izleyiciye açık yayın kanıtı değildir.",
+            "<strong>iPhone'da başka uygulamaya geçince duruyor:</strong> Stream My Drone'a dönüp Resim İçinde Resim'i kontrol edin. Bu özellik olmadan iOS alıcıyı askıya alabilir.",
+            "<strong>Yayın takılıyor:</strong> önce tek hedefle deneyin, mobil yükleme bağlantısının kararlılığını kontrol edin ve alıcıyı hotspot'a yaklaştırın.",
+            "<strong>RTMP menüsü yok:</strong> önce drone bağlantısını ve kumanda modelini doğrulayın, ardından yazılım ve DJI Fly güncellemelerini kontrol edin. Alıcı, eksik Aktarım menüsünü ekleyemez."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Kaynaklar ve diğer model rehberleri",
+      "blocks": [
+        {
+          "p": "Resmî model bilgileri: <a href=\"https://www.dji.com/air-3s/faq\">DJI Air 3S SSS</a>. RTMP adımları ve kumanda sınırları: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Yazılım ve kılavuzlar: <a href=\"https://www.dji.com/air-3s/downloads\">DJI Air 3S indirmeleri</a>. 25 Ekim 2026’da kontrol edildi; menüler yazılım sürümüyle değişebilir."
+        },
+        {
+          "p": "<a href=\"../dji-air-3-canli-yayin/\">Air 3 yayın rehberi</a> veya <a href=\"../dji-mini-5-pro-canli-yayin/\">Mini 5 Pro rehberiyle</a> karşılaştırın. Aynı görüntüyü birkaç hedefe göndermek için <a href=\"../drone-ile-ayni-anda-birden-fazla-platformda-canli-yayin/\">çoklu yayın rehberine</a> geçin."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Air 3S ile bilgisayarsız canlı yayın yapabilir miyim?",
+      "a": "RC 2 ile aynı yerel ağa bağlı ayrı bir telefonda Stream My Drone kullanabilirsiniz. DJI Fly kumandada çalışır, telefon RTMP görüntüsünü alır ve hedefi Stream My Drone'da ayarlarsınız."
+    },
+    {
+      "q": "Air 3S ile RC-N2 kullanabilir miyim?",
+      "a": "DJI’ın güncel Air 3S SSS sayfası, RC-N3 ve RC 2 yanında RC-N2’yi de listeliyor. Önce cihazları güncelleyip eşleşmeyi doğrulayın. RC-N2 ile DJI Fly bağlı telefonda açık kalsın; RC-N3 için anlatılan aynı bilgisayarlı alıcı kurulumunu kullanın."
+    },
+    {
+      "q": "DJI Fly'a hangi adresi yazmalıyım?",
+      "a": "Stream My Drone veya DJI Live Bridge'in gösterdiği yerel alıcı adresinin tamamını yazın. Platformun sunucu adresini ve yayın anahtarını ise alıcı uygulamadaki hedef ayarlarına girin."
+    },
+    {
+      "q": "Stream My Drone görüntüyü dikey yayına dönüştürür mü?",
+      "a": "Mobil uygulama aldığı videoyu iletir. Önizleme düzeni, gönderilen görüntüyü yeniden kodlamaz. Bilgisayardaki DJI Live Bridge dikey çıkış dönüşümü sunar."
+    },
+    {
+      "q": "Önizleme var ama izleyiciler neden yayını göremiyor?",
+      "a": "Önizleme yalnızca yerel drone görüntüsünün ulaştığını gösterir. Bir hedef çıkışı başlatın, platformun görüntüyü aldığını doğrulayın ve varsa oradaki son Yayına Geç adımını tamamlayın."
+    },
+    {
+      "q": "Air 3S ile dikey kayıt, dikey canlı yayını garanti eder mi?",
+      "a": "Alıcıya gerçekte ulaşan görüntüyü kontrol edin. Kameranın kayıt biçimi ile RTMP çıkışı ayrıdır. Mobil uygulama gelen videoyu iletir; masaüstü uygulaması çıkış dönüşümü ve kadraj kontrolleri sunar."
+    }
+  ]
+}

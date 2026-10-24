@@ -72,6 +72,624 @@ That is Instagram's own behaviour: it issues a fresh stream key for every broadc
 ### Why is my picture 720p?
 The DJI controller often sends 720p over RTMP. The app shows the real input resolution and does not pretend the upscaled output is native 1080p.
 
+## How to live stream a DJI Lito X1
+Source: https://streammydrone.com/blog/dji-lito-x1-live-stream/ (updated 2026-10-25)
+
+DJI Lito X1 can share a live flight through DJI Fly RTMP. With an RC 2, let a separate phone running Stream My Drone receive the picture. With an RC-N3 or RC-N2, keep DJI Fly on the controller phone and use DJI Live Bridge on a computer. Here is how to connect the devices, check the feed and go live on your chosen platform.
+
+- DJI lists Lito X1 in its livestream compatibility guide; check the controller and current DJI Fly version together.
+- RC 2 keeps DJI Fly on its built-in screen, leaving a separate phone free to receive the stream.
+- RC-N3 and RC-N2 use a phone for DJI Fly. Use the separate computer receiver described below so DJI Fly stays open.
+- The local receiver address belongs in DJI Fly. Configure platform accounts or stream keys in Stream My Drone or DJI Live Bridge.
+- Check the receiver preview first and the platform viewer page second; recording settings do not determine the RTMP output.
+
+### Choose the workflow for your RC 2, RC-N3 or RC-N2
+DJI’s official Lito X1 product FAQ lists DJI RC 2, DJI RC-N3 and DJI RC-N2. The DJI Fly livestream compatibility guide also names Lito X1. Use your actual controller label to choose the route below; a shared aircraft name does not make every controller interchangeable.
+| Controller | Where you fly | Where you receive the stream |
+| --- | --- | --- |
+| DJI RC 2 | DJI Fly on the built-in screen | Stream My Drone on a separate phone, or DJI Live Bridge on a computer |
+| DJI RC-N3 | DJI Fly on the phone connected by USB | DJI Live Bridge on a separate Mac or Windows PC |
+| DJI RC-N2 | DJI Fly on the phone connected by USB | The same separate computer workflow as RC-N3 |
+The DJI livestream guide specifies a 720p livestream limit for RC 2 and a connected microphone from DJI Fly v1.16.0. Check those requirements before leaving for a broadcast. Install Stream My Drone on the receiving phone; it does not run on RC 2.
+
+### Lito X1 with RC 2: use a separate phone without a computer
+1. **Install Stream My Drone on your phone** Get the app from Google Play or the App Store. The phone receives the stream while DJI Fly stays open on the RC 2.
+2. **Connect the RC 2 and phone** Join both to the same Wi-Fi with internet access. In the field, an Android phone can host the hotspot and receive the stream. Open Stream My Drone after choosing the network; on iPhone, allow local network access when requested.
+3. **Copy the receiving address into DJI Fly** Use the full local address shown by Stream My Drone. In DJI Fly, open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Enter the address there. The full menu walkthrough is in the DJI Fly RTMP setup guide. Connect a microphone if DJI Fly requests one.
+4. **Start the DJI Fly feed and check the preview** Start streaming on the controller, then confirm the moving drone picture appears on your phone. Keep Stream My Drone open while checking the connection. This establishes the local video link.
+5. **Choose a destination and confirm publication** Add a platform in Stream My Drone using its account connection where available, or its server URL and stream key. Start forwarding, then open the platform's live dashboard or viewer page. Complete any Go Live step the platform still requires.
+The phone forwards the incoming video without re-encoding it. The preview's crop or blurred background does not turn the outgoing feed into vertical 1080×1920. Use the desktop app when you need that conversion. On iPhone, keep the app in the foreground during setup; continued background streaming depends on Picture in Picture.
+
+### Lito X1 with RC-N3 or RC-N2: receive the feed on a computer
+With RC-N3 or RC-N2, keep DJI Fly open on the phone attached to the controller. Install DJI Live Bridge on a Mac or Windows PC and connect that computer and the DJI Fly phone to the same local network. RC 2 can use this desktop route too.
+1. **Find the computer's RTMP address** Open DJI Live Bridge and copy the address under Connect your drone. An address such as rtmp://192.168.1.20:1935/drone is an example; use the one your app displays.
+2. **Send DJI Fly to that address** In DJI Fly, open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, enter the receiver address and start the feed. The DJI Fly RTMP guide explains the menu. Allow incoming connections on your private network if the computer’s firewall asks. Check the preview before adding a destination.
+3. **Set the output and platform** Choose landscape for a conventional YouTube or Facebook broadcast, or vertical output for an account using a portrait layout. Add the destination's current server URL and key, start the output, and verify the broadcast on the platform.
+
+### Which platform do you want to reach?
+| Platform | What to prepare | Detailed guide |
+| --- | --- | --- |
+| YouTube | An account with live streaming enabled and a prepared broadcast | YouTube setup |
+| Instagram | Access to Live Producer and current RTMPS credentials | Instagram setup |
+| Facebook | A live broadcast with its server URL and key | Facebook setup |
+| TikTok | RTMP access on your account, or a computer with access to LIVE Studio | TikTok setup |
+Platform access belongs to your account. Receiving a drone feed in the app does not grant a stream key or publish a broadcast. For TikTok LIVE Studio, the desktop app also offers a virtual camera. Check each platform's dashboard for the current publishing step.
+
+### Lito X1 recording quality, live view and RTMP output
+DJI’s Lito X1 product page describes 4K recording and an O4 live view. Those specifications describe different parts of the workflow. The video recorded on the aircraft, the view on the controller, the RTMP input and the platform output can have different resolutions. Check the input reported by your receiver; enlarging it on the desktop does not restore missing detail.
+- Test before takeoff. Check movement, sound and the platform's viewer page while the drone is on the ground.
+- Budget for upload. A continuous 5 Mbps output uses about 2.25 GB per hour before network overhead. Two such destinations need about 10 Mbps combined upload and 4.5 GB per hour.
+- Keep the local link strong. Keep the phone or computer near the hotspot. A stable connection matters more than the network's advertised peak speed.
+- Watch the actual outgoing framing. On mobile, the preview layout is local. On desktop, check the selected crop or whole-picture output before publishing.
+
+### Troubleshooting a Lito X1 broadcast
+- No RTMP menu: check the controller model, update its firmware and DJI Fly, and look under Transmission. The receiving app cannot add a missing DJI Fly feature.
+- Connection fails: copy the app's address again after a network change. Use a shared local network without guest isolation; localhost on the controller points to the controller itself.
+- Picture on the phone, nothing for viewers: check the destination connection, current stream key and the platform's final publishing step. Forwarding bytes alone do not confirm a public broadcast.
+- Stream stops after switching iPhone apps: return to Stream My Drone and check Picture in Picture. Without it, iOS can suspend the receiver.
+- Choppy broadcast: try one destination first, check cellular upload stability and move the receiver closer to the hotspot.
+
+### Sources and related model guides
+Model and controller details: official Lito X1 product page and FAQ. Aircraft listing: DJI Fly livestream compatibility guide (Chinese). Controller requirements and menu instructions: DJI Fly App Livestream Operation Guides. Checked on October 25, 2026; check the current menu again after firmware updates.
+Compare the other Lito model: Lito 1 setup.
+For a Mini-series aircraft, see the Mini 5 Pro guide. To send one incoming picture to several destinations, continue with the multistreaming guide.
+
+### FAQ
+**Can I live stream a Lito X1 without a computer?** With RC 2, use Stream My Drone on a separate phone connected to the same local network. DJI Fly runs on the controller, the phone receives its RTMP feed, and you configure the destination in Stream My Drone.
+
+**Can I use the phone already connected to RC-N3 or RC-N2?** That phone runs DJI Fly for flight control. This guide uses DJI Live Bridge on a separate computer as the receiver, so you can keep DJI Fly open. It does not assume both apps can handle a live flight and relay on one phone.
+
+**Which address goes into DJI Fly?** The full local receiving address displayed by Stream My Drone or DJI Live Bridge. Put the platform's server URL and stream key into the receiving app's destination settings.
+
+**Does Stream My Drone turn the video into a vertical broadcast?** The mobile app forwards the video it receives. Its preview layout does not re-encode the outgoing picture. DJI Live Bridge on a computer offers vertical output conversion.
+
+**Why can I see a preview but my audience cannot watch?** The preview proves only that the local drone feed has arrived. Start a destination output, confirm that the platform receives it, and complete any remaining Go Live step there.
+
+**Can I use QuickTransfer for a Lito X1 live broadcast?** QuickTransfer transfers recorded files. For the live flight picture, use DJI Fly’s RTMP menu and the receiver address shown by your app. First check that moving video reaches the receiver, then start a platform output.
+
+## How to live stream a DJI Lito 1
+Source: https://streammydrone.com/blog/dji-lito-1-live-stream/ (updated 2026-10-25)
+
+The standard DJI Lito 1 package includes an RC-N3, so start with DJI Fly on the phone attached to your controller and DJI Live Bridge on a separate computer. If you already use a compatible RC 2, a second phone running Stream My Drone can receive the feed instead. This guide covers both routes, from the local RTMP address to a broadcast your audience can watch.
+
+- DJI lists Lito 1 in its livestream compatibility guide; check the controller and current DJI Fly version together.
+- RC 2 keeps DJI Fly on its built-in screen, leaving a separate phone free to receive the stream.
+- RC-N3 and RC-N2 use a phone for DJI Fly. Use the separate computer receiver described below so DJI Fly stays open.
+- The local receiver address belongs in DJI Fly. Configure platform accounts or stream keys in Stream My Drone or DJI Live Bridge.
+- Check the receiver preview first and the platform viewer page second; recording settings do not determine the RTMP output.
+
+### Choose the workflow for your RC 2, RC-N3 or RC-N2
+DJI’s official Lito 1 product FAQ lists DJI RC 2, DJI RC-N3 and DJI RC-N2. The DJI Fly livestream compatibility guide also names Lito 1. Use your actual controller label to choose the route below; a shared aircraft name does not make every controller interchangeable.
+| Controller | Where you fly | Where you receive the stream |
+| --- | --- | --- |
+| DJI RC 2 | DJI Fly on the built-in screen | Stream My Drone on a separate phone, or DJI Live Bridge on a computer |
+| DJI RC-N3 | DJI Fly on the phone connected by USB | DJI Live Bridge on a separate Mac or Windows PC |
+| DJI RC-N2 | DJI Fly on the phone connected by USB | The same separate computer workflow as RC-N3 |
+The DJI livestream guide specifies a 720p livestream limit for RC 2 and a connected microphone from DJI Fly v1.16.0. Check those requirements before leaving for a broadcast. Install Stream My Drone on the receiving phone; it does not run on RC 2.
+
+### Lito 1 with RC-N3 or RC-N2: receive the feed on a computer
+With RC-N3 or RC-N2, keep DJI Fly open on the phone attached to the controller. Install DJI Live Bridge on a Mac or Windows PC and connect that computer and the DJI Fly phone to the same local network. RC 2 can use this desktop route too.
+1. **Find the computer's RTMP address** Open DJI Live Bridge and copy the address under Connect your drone. An address such as rtmp://192.168.1.20:1935/drone is an example; use the one your app displays.
+2. **Send DJI Fly to that address** In DJI Fly, open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, enter the receiver address and start the feed. The DJI Fly RTMP guide explains the menu. Allow incoming connections on your private network if the computer’s firewall asks. Check the preview before adding a destination.
+3. **Set the output and platform** Choose landscape for a conventional YouTube or Facebook broadcast, or vertical output for an account using a portrait layout. Add the destination's current server URL and key, start the output, and verify the broadcast on the platform.
+
+### Lito 1 with RC 2: use a separate phone without a computer
+1. **Install Stream My Drone on your phone** Get the app from Google Play or the App Store. The phone receives the stream while DJI Fly stays open on the RC 2.
+2. **Connect the RC 2 and phone** Join both to the same Wi-Fi with internet access. In the field, an Android phone can host the hotspot and receive the stream. Open Stream My Drone after choosing the network; on iPhone, allow local network access when requested.
+3. **Copy the receiving address into DJI Fly** Use the full local address shown by Stream My Drone. In DJI Fly, open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Enter the address there. The full menu walkthrough is in the DJI Fly RTMP setup guide. Connect a microphone if DJI Fly requests one.
+4. **Start the DJI Fly feed and check the preview** Start streaming on the controller, then confirm the moving drone picture appears on your phone. Keep Stream My Drone open while checking the connection. This establishes the local video link.
+5. **Choose a destination and confirm publication** Add a platform in Stream My Drone using its account connection where available, or its server URL and stream key. Start forwarding, then open the platform's live dashboard or viewer page. Complete any Go Live step the platform still requires.
+The phone forwards the incoming video without re-encoding it. The preview's crop or blurred background does not turn the outgoing feed into vertical 1080×1920. Use the desktop app when you need that conversion. On iPhone, keep the app in the foreground during setup; continued background streaming depends on Picture in Picture.
+
+### Which platform do you want to reach?
+| Platform | What to prepare | Detailed guide |
+| --- | --- | --- |
+| YouTube | An account with live streaming enabled and a prepared broadcast | YouTube setup |
+| Instagram | Access to Live Producer and current RTMPS credentials | Instagram setup |
+| Facebook | A live broadcast with its server URL and key | Facebook setup |
+| TikTok | RTMP access on your account, or a computer with access to LIVE Studio | TikTok setup |
+Platform access belongs to your account. Receiving a drone feed in the app does not grant a stream key or publish a broadcast. For TikTok LIVE Studio, the desktop app also offers a virtual camera. Check each platform's dashboard for the current publishing step.
+
+### Lito 1 recording quality, live view and RTMP output
+DJI’s Lito 1 product page describes 4K recording and an O4 live view. Those specifications describe different parts of the workflow. The video recorded on the aircraft, the view on the controller, the RTMP input and the platform output can have different resolutions. Check the input reported by your receiver; enlarging it on the desktop does not restore missing detail.
+- Test before takeoff. Check movement, sound and the platform's viewer page while the drone is on the ground.
+- Budget for upload. A continuous 5 Mbps output uses about 2.25 GB per hour before network overhead. Two such destinations need about 10 Mbps combined upload and 4.5 GB per hour.
+- Keep the local link strong. Keep the phone or computer near the hotspot. A stable connection matters more than the network's advertised peak speed.
+- Watch the actual outgoing framing. On mobile, the preview layout is local. On desktop, check the selected crop or whole-picture output before publishing.
+
+### Troubleshooting a Lito 1 broadcast
+- No RTMP menu: check the controller model, update its firmware and DJI Fly, and look under Transmission. The receiving app cannot add a missing DJI Fly feature.
+- Connection fails: copy the app's address again after a network change. Use a shared local network without guest isolation; localhost on the controller points to the controller itself.
+- Picture on the phone, nothing for viewers: check the destination connection, current stream key and the platform's final publishing step. Forwarding bytes alone do not confirm a public broadcast.
+- Stream stops after switching iPhone apps: return to Stream My Drone and check Picture in Picture. Without it, iOS can suspend the receiver.
+- Choppy broadcast: try one destination first, check cellular upload stability and move the receiver closer to the hotspot.
+
+### Sources and related model guides
+Model and controller details: official Lito 1 product page and FAQ. Aircraft listing: DJI Fly livestream compatibility guide (Chinese). Controller requirements and menu instructions: DJI Fly App Livestream Operation Guides. Checked on October 25, 2026; check the current menu again after firmware updates.
+Compare the other Lito model: Lito X1 setup.
+For a Mini-series aircraft, see the Mini 5 Pro guide. To send one incoming picture to several destinations, continue with the multistreaming guide.
+
+### FAQ
+**Can I live stream a Lito 1 without a computer?** With RC 2, use Stream My Drone on a separate phone connected to the same local network. DJI Fly runs on the controller, the phone receives its RTMP feed, and you configure the destination in Stream My Drone.
+
+**Can I use the phone already connected to RC-N3 or RC-N2?** That phone runs DJI Fly for flight control. This guide uses DJI Live Bridge on a separate computer as the receiver, so you can keep DJI Fly open. It does not assume both apps can handle a live flight and relay on one phone.
+
+**Which address goes into DJI Fly?** The full local receiving address displayed by Stream My Drone or DJI Live Bridge. Put the platform's server URL and stream key into the receiving app's destination settings.
+
+**Does Stream My Drone turn the video into a vertical broadcast?** The mobile app forwards the video it receives. Its preview layout does not re-encode the outgoing picture. DJI Live Bridge on a computer offers vertical output conversion.
+
+**Why can I see a preview but my audience cannot watch?** The preview proves only that the local drone feed has arrived. Start a destination output, confirm that the platform receives it, and complete any remaining Go Live step there.
+
+**Can I use QuickTransfer for a Lito 1 live broadcast?** QuickTransfer transfers recorded files. For the live flight picture, use DJI Fly’s RTMP menu and the receiver address shown by your app. First check that moving video reaches the receiver, then start a platform output.
+
+## How to live stream a DJI Air 3S
+Source: https://streammydrone.com/blog/dji-air-3s-live-stream/ (updated 2026-10-25)
+
+Your DJI Air 3S can send DJI Fly’s RTMP picture to Stream My Drone on a separate phone or to DJI Live Bridge on a Mac or Windows PC. The controller determines which device runs DJI Fly. Follow the matching setup below, then check the receiver, framing and destination before takeoff.
+
+- DJI RC 2 keeps DJI Fly on its built-in screen; a separate phone can receive and forward the feed.
+- RC-N3 and RC-N2 use a phone for DJI Fly. The desktop workflow keeps the receiver separate from that flight phone.
+- The local receiving address belongs in DJI Fly; platform credentials belong in Stream My Drone or DJI Live Bridge.
+- Camera recording, the controller’s live view and the outgoing RTMP broadcast have separate quality settings.
+- Test both the selected camera view and the platform’s viewer page before your flight.
+
+### Air 3S controllers: RC 2, RC-N3 and RC-N2
+DJI’s current Air 3S FAQ lists DJI RC 2, RC-N3 and RC-N2. If you are reusing an RC-N2, update the aircraft, controller and DJI Fly before checking that they pair. Choose the workflow by the controller you actually use, rather than the name of the bundle.
+| Controller | Where you fly | Where you receive the stream |
+| --- | --- | --- |
+| DJI RC 2 | DJI Fly on the built-in screen | Stream My Drone on a separate phone, or DJI Live Bridge on a computer |
+| DJI RC-N3 | DJI Fly on the phone connected by USB | DJI Live Bridge on a computer for the setup described here |
+| DJI RC-N2 | DJI Fly on the phone connected by USB | The same computer receiving workflow as RC-N3 |
+DJI’s livestream guide limits RC 2 streaming to 720p and requires a connected microphone from DJI Fly v1.16.0. Check the available settings on your controller.
+
+### Air 3S with RC 2: live stream without a computer
+1. **Install Stream My Drone on your phone** Get the app from Google Play or the App Store. The phone receives the stream while DJI Fly stays open on the RC 2.
+2. **Connect the RC 2 and phone** Join both to the same Wi-Fi with internet access. In the field, an Android phone can host the hotspot and receive the stream. Open Stream My Drone after choosing the network; on iPhone, allow local network access when requested.
+3. **Copy the receiving address into DJI Fly** Copy the full local receiving address shown by Stream My Drone. In DJI Fly, open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP and enter it. Use the DJI Fly RTMP guide for the menu walkthrough.
+4. **Start the DJI Fly feed and check the preview** Start the feed on the controller, then confirm that a moving drone picture reaches your phone. Check sound too, with any microphone required by DJI Fly connected. Keep Stream My Drone open during the test.
+5. **Choose a destination and confirm publication** Add a platform in Stream My Drone using its account connection where available, or its server URL and stream key. Start forwarding, then open the platform's live dashboard or viewer page. Complete any Go Live step the platform still requires.
+The phone forwards the incoming video without re-encoding it. The preview's crop or blurred background does not turn the outgoing feed into vertical 1080×1920. Use the desktop app when you need that conversion. On iPhone, keep the app in the foreground during setup; continued background streaming depends on Picture in Picture.
+
+### Air 3S with RC-N3 or RC-N2: receive on a computer
+With RC-N3 or RC-N2, keep DJI Fly open on the phone attached to the controller. Install DJI Live Bridge on a Mac or Windows PC, then connect the computer and flight phone to the same local network. RC 2 can use this desktop workflow too.
+1. **Find the computer's RTMP address** Open DJI Live Bridge and copy the address under Connect your drone. An address such as rtmp://192.168.1.20:1935/drone is an example; use the one your app displays.
+2. **Send DJI Fly to that address** Enter it in DJI Fly's RTMP settings and start the feed. Allow incoming connections on your private network if the computer's firewall asks. Check the preview before adding a destination.
+3. **Set the output and platform** Choose landscape for a conventional YouTube or Facebook broadcast, or vertical output for an account using a portrait layout. Add the destination's current server URL and key, start the output, and verify the broadcast on the platform.
+
+### Which platform do you want to reach?
+| Platform | What to prepare | Detailed guide |
+| --- | --- | --- |
+| YouTube | An account with live streaming enabled and a prepared broadcast | YouTube setup |
+| Instagram | Access to Live Producer and current RTMPS credentials | Instagram setup |
+| Facebook | A live broadcast with its server URL and key | Facebook setup |
+| TikTok | RTMP access on your account, or a computer with access to LIVE Studio | TikTok setup |
+Platform access belongs to your account. Receiving a drone feed in the app does not grant a stream key or publish a broadcast. For TikTok LIVE Studio, the desktop app also offers a virtual camera. Check each platform's dashboard for the current publishing step.
+
+### What the Air 3S camera upgrade means for your broadcast
+DJI’s Air 3S FAQ describes its 1-inch main camera and vertical recording with both cameras. That camera upgrade does not raise the RC 2 livestream limit or guarantee a portrait RTMP picture. Judge the broadcast using what reaches your receiver.
+- Rehearse wide-angle and tele views. Select each camera in DJI Fly while the drone is on the ground. Watch the receiver for exposure, framing and the transition between views.
+- Check changing light. When filming a sunset or a bright skyline, watch the received picture as well as the flight screen. Adjust for an image viewers can watch immediately, rather than relying on later editing.
+- Test portrait delivery separately. Check the incoming dimensions, choose the desktop crop or whole-picture layout if required, and inspect the platform preview before publishing.
+If you upgraded from Air 3, do a new ground test with Air 3S after pairing and updating. Save a fresh receiving address after any network change and check your destination credentials; the previous drone’s working broadcast is not proof of the new setup.
+
+### Air 3S broadcast quality and mobile data
+The drone’s recorded file, the controller’s live view and the video sent to the receiver are separate outputs. Inspect the receiver’s input resolution before choosing output settings. Upscaling changes the size of a picture; it cannot restore detail absent from the incoming feed. Platform processing can introduce another quality change and delay.
+- Test before takeoff. Check movement, sound and the platform's viewer page while the drone is on the ground.
+- Budget for upload. A continuous 5 Mbps output uses about 2.25 GB per hour before network overhead. Two such destinations need about 10 Mbps combined upload and 4.5 GB per hour.
+- Keep the local link strong. Keep the phone or computer near the hotspot. A stable connection matters more than the network's advertised peak speed.
+- Watch the actual outgoing framing. On mobile, the preview layout is local. On desktop, check the selected crop or whole-picture output before publishing.
+
+### Troubleshooting an Air 3S broadcast
+- RC-N2 will not pair: confirm Air 3S is selected, update the aircraft and controller firmware and DJI Fly, and retry linking following DJI’s current instructions. Check aircraft pairing before troubleshooting the RTMP receiver.
+- Picture is softer than the recording: compare the receiver’s input with the DJI Fly streaming setting. A high-resolution recording mode does not remove the controller’s livestream limit.
+- Connection fails: copy the app's address again after a network change. Use a shared local network without guest isolation; localhost on the controller points to the controller itself.
+- Picture on the phone, nothing for viewers: check the destination connection, current stream key and the platform's final publishing step. Forwarding bytes alone do not confirm a public broadcast.
+- Stream stops after switching iPhone apps: return to Stream My Drone and check Picture in Picture. Without it, iOS can suspend the receiver.
+- Choppy broadcast: try one destination first, check cellular upload stability and move the receiver closer to the hotspot.
+- RTMP menu is missing: first confirm the aircraft connection and controller model, then check firmware and DJI Fly updates. The receiver cannot add a missing transmission menu.
+
+### Sources and related model guides
+Official model details: DJI Air 3S FAQ. RTMP procedure and controller limits: DJI Fly App Livestream Operation Guides. Firmware and manuals: DJI Air 3S downloads. Checked on October 25, 2026; available menus can change with firmware.
+Compare the Air 3 streaming guide or Mini 5 Pro guide. To send the same picture to several destinations, follow the multistreaming guide.
+
+### FAQ
+**Can I live stream an Air 3S without a computer?** With RC 2, use Stream My Drone on a separate phone connected to the same local network. DJI Fly runs on the controller, the phone receives its RTMP feed, and you configure the destination in Stream My Drone.
+
+**Can I use an RC-N2 with Air 3S?** DJI’s current Air 3S FAQ lists RC-N2 alongside RC-N3 and RC 2. Update the devices and confirm pairing first. With RC-N2, keep DJI Fly on the attached phone and use the same computer receiver workflow described for RC-N3.
+
+**Which address goes into DJI Fly?** The full local receiving address displayed by Stream My Drone or DJI Live Bridge. Put the platform's server URL and stream key into the receiving app's destination settings.
+
+**Does Stream My Drone turn the video into a vertical broadcast?** The mobile app forwards the video it receives. Its preview layout does not re-encode the outgoing picture. DJI Live Bridge on a computer offers vertical output conversion.
+
+**Why can I see a preview but my audience cannot watch?** The preview proves only that the local drone feed has arrived. Start a destination output, confirm that the platform receives it, and complete any remaining Go Live step there.
+
+**Does Air 3S vertical recording guarantee a vertical live stream?** Check the feed that actually reaches the receiver. Camera recording format and RTMP output are separate. The mobile app forwards incoming video, while the desktop app provides output conversion and framing controls.
+
+## How to live stream a DJI Air 3
+Source: https://streammydrone.com/blog/dji-air-3-live-stream/ (updated 2026-10-25)
+
+Your DJI Air 3 can send DJI Fly’s RTMP picture to Stream My Drone on a separate phone or to DJI Live Bridge on a Mac or Windows PC. The controller determines which device runs DJI Fly. Follow the matching setup below, then check the receiver, framing and destination before takeoff.
+
+- DJI RC 2 keeps DJI Fly on its built-in screen; a separate phone can receive and forward the feed.
+- RC-N2 uses a phone for DJI Fly. Use the desktop workflow here to keep the receiving app on another device.
+- The local receiving address belongs in DJI Fly; platform credentials belong in Stream My Drone or DJI Live Bridge.
+- Camera recording, the controller’s live view and the outgoing RTMP broadcast have separate quality settings.
+- Test both the selected camera view and the platform’s viewer page before your flight.
+
+### Air 3 controllers: DJI RC 2 or RC-N2
+The official Air 3 FAQ lists DJI RC 2 and DJI RC-N2. Check the model printed on your controller: DJI RC, RC-N1 and RC-N3 are different products, so their instructions are not a substitute for an Air 3 compatibility check.
+| Controller | Where you fly | Where you receive the stream |
+| --- | --- | --- |
+| DJI RC 2 | DJI Fly on the built-in screen | Stream My Drone on a separate phone, or DJI Live Bridge on a computer |
+| DJI RC-N2 | DJI Fly on the phone connected by USB | DJI Live Bridge on a computer for the setup described here |
+DJI’s livestream guide limits RC 2 streaming to 720p and requires a connected microphone from DJI Fly v1.16.0. Check the available settings on your controller.
+
+### Air 3 with RC 2: live stream without a computer
+1. **Install Stream My Drone on your phone** Get the app from Google Play or the App Store. The phone receives the stream while DJI Fly stays open on the RC 2.
+2. **Connect the RC 2 and phone** Join both to the same Wi-Fi with internet access. In the field, an Android phone can host the hotspot and receive the stream. Open Stream My Drone after choosing the network; on iPhone, allow local network access when requested.
+3. **Copy the receiving address into DJI Fly** Copy the full local receiving address shown by Stream My Drone. In DJI Fly, open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP and enter it. Use the DJI Fly RTMP guide for the menu walkthrough.
+4. **Start the DJI Fly feed and check the preview** Start the feed on the controller, then confirm that a moving drone picture reaches your phone. Check sound too, with any microphone required by DJI Fly connected. Keep Stream My Drone open during the test.
+5. **Choose a destination and confirm publication** Add a platform in Stream My Drone using its account connection where available, or its server URL and stream key. Start forwarding, then open the platform's live dashboard or viewer page. Complete any Go Live step the platform still requires.
+The phone forwards the incoming video without re-encoding it. The preview's crop or blurred background does not turn the outgoing feed into vertical 1080×1920. Use the desktop app when you need that conversion. On iPhone, keep the app in the foreground during setup; continued background streaming depends on Picture in Picture.
+
+### Air 3 with RC-N2, or a desktop production setup
+With RC-N2, keep DJI Fly open on the phone attached to the controller. Install DJI Live Bridge on a Mac or Windows PC and connect that computer and the DJI Fly phone to the same local network. RC 2 can use this desktop route too.
+1. **Find the computer's RTMP address** Open DJI Live Bridge and copy the address under Connect your drone. An address such as rtmp://192.168.1.20:1935/drone is an example; use the one your app displays.
+2. **Send DJI Fly to that address** Enter it in DJI Fly's RTMP settings and start the feed. Allow incoming connections on your private network if the computer's firewall asks. Check the preview before adding a destination.
+3. **Set the output and platform** Choose landscape for a conventional YouTube or Facebook broadcast, or vertical output for an account using a portrait layout. Add the destination's current server URL and key, start the output, and verify the broadcast on the platform.
+
+### Which platform do you want to reach?
+| Platform | What to prepare | Detailed guide |
+| --- | --- | --- |
+| YouTube | An account with live streaming enabled and a prepared broadcast | YouTube setup |
+| Instagram | Access to Live Producer and current RTMPS credentials | Instagram setup |
+| Facebook | A live broadcast with its server URL and key | Facebook setup |
+| TikTok | RTMP access on your account, or a computer with access to LIVE Studio | TikTok setup |
+Platform access belongs to your account. Receiving a drone feed in the app does not grant a stream key or publish a broadcast. For TikTok LIVE Studio, the desktop app also offers a virtual camera. Check each platform's dashboard for the current publishing step.
+
+### Plan your wide-angle, tele and vertical shots
+Air 3 gives you wide-angle and medium tele cameras. DJI’s camera FAQ also describes 9:16 recording up to 2.7K/60fps. These are camera capabilities; they do not specify the resolution or orientation of the RTMP feed received by your app.
+- Rehearse each camera view. While on the ground, select the wide-angle and tele views in DJI Fly and watch the receiver. Check the framing and any transition before using it in a broadcast.
+- Frame for the audience. A subject near the edge of a landscape picture can disappear in a desktop portrait crop. Leave room around the subject and inspect the actual outgoing output.
+- Check colour at the receiver. Choose an exposure and colour setup that looks right in the received feed. Recording a file for later grading and delivering a ready-to-watch live picture are separate tasks.
+For Instagram or TikTok, inspect the actual input dimensions instead of assuming the drone’s vertical recording setting produces a portrait RTMP feed. The phone app’s preview layout does not change the outgoing video; use the desktop output controls when conversion is needed.
+
+### Air 3 broadcast quality and mobile data
+The drone’s recorded file, the controller’s live view and the video sent to the receiver are separate outputs. Inspect the receiver’s input resolution before choosing output settings. Upscaling changes the size of a picture; it cannot restore detail absent from the incoming feed. Platform processing can introduce another quality change and delay.
+- Test before takeoff. Check movement, sound and the platform's viewer page while the drone is on the ground.
+- Budget for upload. A continuous 5 Mbps output uses about 2.25 GB per hour before network overhead. Two such destinations need about 10 Mbps combined upload and 4.5 GB per hour.
+- Keep the local link strong. Keep the phone or computer near the hotspot. A stable connection matters more than the network's advertised peak speed.
+- Watch the actual outgoing framing. On mobile, the preview layout is local. On desktop, check the selected crop or whole-picture output before publishing.
+
+### Troubleshooting an Air 3 broadcast
+- No RTMP menu: check the controller model, update its firmware and DJI Fly, and look under Transmission. The receiving app cannot add a missing DJI Fly feature.
+- Picture is softer than the recording: compare the receiver’s input with the DJI Fly streaming setting. A high-resolution recording mode does not remove the controller’s livestream limit.
+- Connection fails: copy the app's address again after a network change. Use a shared local network without guest isolation; localhost on the controller points to the controller itself.
+- Picture on the phone, nothing for viewers: check the destination connection, current stream key and the platform's final publishing step. Forwarding bytes alone do not confirm a public broadcast.
+- Stream stops after switching iPhone apps: return to Stream My Drone and check Picture in Picture. Without it, iOS can suspend the receiver.
+- Choppy broadcast: try one destination first, check cellular upload stability and move the receiver closer to the hotspot.
+
+### Sources and related model guides
+Official model details: DJI Air 3 FAQ. RTMP procedure and controller limits: DJI Fly App Livestream Operation Guides. Firmware and manuals: DJI Air 3 downloads. Checked on October 25, 2026; available menus can change with firmware.
+Compare the Air 3S streaming guide or Mini 5 Pro guide. To send the same picture to several destinations, follow the multistreaming guide.
+
+### FAQ
+**Can I live stream an Air 3 without a computer?** With RC 2, use Stream My Drone on a separate phone connected to the same local network. DJI Fly runs on the controller, the phone receives its RTMP feed, and you configure the destination in Stream My Drone.
+
+**Can I run the receiver on the phone attached to RC-N2?** That phone runs DJI Fly for flight control. This guide uses a separate computer for DJI Live Bridge so DJI Fly can stay open. It does not assume the phone can run the flight app and relay app together reliably.
+
+**Which address goes into DJI Fly?** The full local receiving address displayed by Stream My Drone or DJI Live Bridge. Put the platform's server URL and stream key into the receiving app's destination settings.
+
+**Does Stream My Drone turn the video into a vertical broadcast?** The mobile app forwards the video it receives. Its preview layout does not re-encode the outgoing picture. DJI Live Bridge on a computer offers vertical output conversion.
+
+**Why can I see a preview but my audience cannot watch?** The preview proves only that the local drone feed has arrived. Start a destination output, confirm that the platform receives it, and complete any remaining Go Live step there.
+
+**Does Air 3 vertical recording guarantee a vertical live stream?** Check the feed that actually reaches the receiver. Camera recording format and RTMP output are separate. The mobile app forwards incoming video, while the desktop app provides output conversion and framing controls.
+
+## How to live stream a DJI Mavic 4 Pro
+Source: https://streammydrone.com/blog/dji-mavic-4-pro-live-stream/ (updated 2026-10-25)
+
+Your DJI Mavic 4 Pro can send DJI Fly’s RTMP picture to Stream My Drone on a separate phone or DJI Live Bridge on a computer. The useful starting point is your controller: RC 2 and RC Pro 2 both have screens, but their microphone hardware differs. Follow the route below to receive the picture, choose destinations and check what viewers actually see.
+
+- Use RC 2 or RC Pro 2; DJI’s current Mavic 4 Pro setup does not list an RC-N controller.
+- A separate phone running Stream My Drone gives you a computer-free receiving and forwarding setup.
+- DJI Fly’s RTMP broadcast is a separate output from the high-resolution recording on the aircraft.
+- Put the receiving app’s local address in DJI Fly and the platform credentials in the receiving app.
+- Check the actual RTMP menu and microphone prompt before takeoff, then confirm the platform’s viewer page.
+
+### Which Mavic 4 Pro controller can send the feed?
+DJI’s aircraft linking guide lists DJI RC 2 and DJI RC Pro 2 for Mavic 4 Pro. Both run DJI Fly on their built-in screen. Do not reuse an RC-N1, RC-N2 or RC-N3 workflow from another aircraft: those are not the controller choices documented for this model.
+| Controller | Flight app | Receiver for this guide |
+| --- | --- | --- |
+| DJI RC 2 | DJI Fly on the built-in screen | Stream My Drone on a separate phone, or DJI Live Bridge on a computer |
+| DJI RC Pro 2 | DJI Fly on the built-in screen | The same separate-phone or desktop receiving routes |
+DJI RC Pro 2 is different from DJI RC Pro. Its official FAQ confirms a built-in microphone. RC 2 users should prepare an external microphone; follow the prompt on the actual DJI Fly version before starting a broadcast.
+
+### Check the RTMP menu before planning the broadcast
+Update the aircraft, controller and DJI Fly, link the aircraft and enter its camera view. Open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Menu names can differ by version and language. If your firmware does not expose RTMP, the receiving app cannot add it.
+DJI’s current livestream operation guide limits both RC 2 and RC Pro 2 RTMP output to 720p. It also requires a connected microphone on RC 2 from DJI Fly v1.16.0. Verify the available output settings on your controller; a 1080p screen or higher aircraft recording setting does not override this limit.
+
+### Mavic 4 Pro without a computer: receive on a phone
+1. **Install Stream My Drone on a separate phone** Download it from Google Play or the App Store. Keep DJI Fly open on your RC 2 or RC Pro 2; the phone will receive and forward its video.
+2. **Put the controller and receiver on the same network** Use a Wi-Fi network with internet access. In the field, an Android receiving phone can also host the hotspot. Open Stream My Drone after choosing the network and allow local network access on iPhone when requested. Check the displayed address again if you change networks.
+3. **Enter the receiver address in DJI Fly** Copy the full local RTMP address shown by Stream My Drone. In DJI Fly, open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Follow the labels in your version: a screen asking for separate address and key fields is different from one asking for a full RTMP URL. Do not add your YouTube or Instagram key to the local receiver address. See the DJI Fly RTMP guide for the menu walkthrough.
+4. **Start the local feed and check sound** Start livestreaming in DJI Fly, then verify a moving picture appears in Stream My Drone. Check the microphone selected on the controller and listen at the platform during your ground test. A picture without usable sound is easier to diagnose before takeoff.
+5. **Add destinations and publish** Connect a platform account where that option is available, or enter its current server URL and stream key in Stream My Drone. Start forwarding and open the platform dashboard. Complete any separate Go Live step, then confirm the actual viewer page works.
+The receiving phone is a separate device from the controller. Mobile forwarding preserves the incoming video; preview cropping or a blurred background does not create a new vertical broadcast. On iPhone, keep the app open during setup; continued background reception depends on Picture in Picture.
+
+### Mavic 4 Pro on Mac or Windows: desktop production
+Keep DJI Fly running on your RC 2 or RC Pro 2. Install DJI Live Bridge on your Mac or Windows PC. The computer receives the DJI Fly RTMP feed over your local network; this setup does not use HDMI capture or a USB webcam connection from the controller.
+1. **Copy the computer’s local RTMP address** Connect the computer and the device running DJI Fly to the same network. In DJI Live Bridge, copy the address under Connect your drone. rtmp://192.168.1.20:1935/drone is only an example: use the address displayed by your app.
+2. **Send the feed and verify reception** Enter that local address in DJI Fly and start streaming. If the firewall asks, allow the app to receive connections on your private network. Check the moving preview before configuring a platform.
+3. **Choose your output and start a destination** Choose landscape or a desktop vertical layout, then add the platform’s server URL and key. Start the output, confirm the platform receives it and complete its publishing step. For several destinations, check the combined upload requirement before enabling them together.
+
+### Send your Mavic 4 Pro broadcast to a platform
+| Destination | What you need | Guide |
+| --- | --- | --- |
+| YouTube | Live access enabled and a prepared broadcast | YouTube setup |
+| Instagram | Live Producer access and the current RTMPS credentials | Instagram setup |
+| Facebook | A prepared live broadcast and its server URL and key | Facebook setup |
+| TikTok | RTMP access on your account, or LIVE Studio access on a computer | TikTok setup |
+Account eligibility comes from the platform. Neither app grants a stream key or bypasses access requirements. For a computer workflow in a compatible studio app, DJI Live Bridge also provides a virtual camera. A local preview proves reception; a working viewer page confirms publication.
+
+### Recording quality, portrait shooting and your broadcast
+Keep three pictures separate: the file recorded on the aircraft, the controller’s live view and the RTMP video arriving at the receiver. Evaluate the stream by its received dimensions and bitrate. A larger desktop output cannot recreate details absent from the incoming image.
+Mavic 4 Pro can shoot vertically, and DJI documents the controls in its portrait-mode guide. Test what the RTMP receiver actually gets after changing orientation. A vertical recording setting, a rotated controller screen and a 9:16 platform broadcast are not interchangeable checks.
+- Frame deliberately. Check the outgoing picture at the platform. On mobile, the preview layout does not re-encode it; on desktop, choose the crop or whole-picture output you intend to publish.
+- Budget per destination. A continuous 5 Mbps output uses about 2.25 GB per hour before overhead. Two such outputs need about 10 Mbps combined upload and 4.5 GB per hour.
+- Test on the ground. Check movement, sound and the real viewer page. Keep the receiving phone close to the hotspot and monitor its power and temperature during longer broadcasts.
+
+### Troubleshooting the Mavic 4 Pro live feed
+- No RTMP option: confirm the controller model and software version in DJI Fly. RC 2 and the older DJI RC have different features; changing the receiver does not change the controller’s capabilities.
+- DJI Fly asks for a microphone: with RC 2, connect a supported microphone and recheck its input. With RC Pro 2, check the selected input and microphone permissions instead of assuming RC 2 instructions apply.
+- Connection failed: use the receiver’s current local IP address. Guest Wi-Fi isolation, a firewall or switching hotspots can break the local connection. localhost refers to the controller itself.
+- Preview works but the audience sees nothing: check forwarding, the destination credentials and any remaining platform Go Live step.
+- iPhone reception stops: return to Stream My Drone and check Picture in Picture. iOS can suspend reception when the app is in the background without it.
+
+### Official sources and related guides
+Checked on October 25, 2026: DJI aircraft linking guide for controller choices; DJI RC Pro 2 FAQ for microphone hardware; DJI Fly livestream operation guide for RTMP limitations; and DJI portrait mode for vertical shooting controls. Firmware and menu availability can change; verify your own combination.
+For the previous generation, read the Mavic 3, Classic and Pro streaming guide. To send the same feed to several services, continue with multistreaming a DJI drone.
+
+### FAQ
+**Can I live stream Mavic 4 Pro without a computer?** Yes, use DJI Fly on RC 2 or RC Pro 2 and receive its RTMP feed in Stream My Drone on a separate phone on the same local network. Configure destinations in the phone app and confirm publication on each platform.
+
+**Can I use an RC-N3 phone setup with Mavic 4 Pro?** DJI’s current linking guide lists RC 2 and RC Pro 2 for this aircraft. This guide uses those supported screen controllers rather than assuming RC-N compatibility from another model.
+
+**Do both controllers need an external microphone?** RC Pro 2 has a built-in microphone. For RC 2, DJI documents a connected-microphone requirement from Fly v1.16.0. Test audio and follow the prompt shown by your controller before flight.
+
+**Does a 6K recording mean a 6K livestream?** No. The file recorded by the camera is separate from the DJI Fly RTMP output. Check the actual input in the receiving app and the stream seen by the platform.
+
+**Where do my YouTube or Instagram credentials go?** In the destination settings of Stream My Drone or DJI Live Bridge. DJI Fly receives the local RTMP address displayed by that app.
+
+**Does rotating the controller screen guarantee a vertical broadcast?** Check the image arriving in the receiver and the platform’s viewer page. The controller screen, camera recording orientation and outgoing video format are separate. Desktop DJI Live Bridge can convert output to a vertical layout.
+
+## How to live stream a DJI Mavic 3, Classic or Pro
+Source: https://streammydrone.com/blog/dji-mavic-3-live-stream/ (updated 2026-10-25)
+
+The DJI Mavic 3 family can send a live camera view through DJI Fly, but the controller decides which route is available. Use RC-N1 with a flight phone and a computer receiver, or RC Pro with a separate phone running Stream My Drone. The screen-equipped DJI RC is a different case: DJI does not support livestreaming with it.
+
+- This guide covers the consumer Mavic 3, Mavic 3 Cine, Mavic 3 Classic and Mavic 3 Pro family, not Mavic 3 Enterprise.
+- RC-N1 uses a phone for DJI Fly; the desktop route keeps reception on a separate computer.
+- RC Pro can send RTMP to Stream My Drone on another phone or to DJI Live Bridge on a computer.
+- DJI RC is compatible for flight but does not support DJI Fly livestreaming.
+- Check the RTMP feed itself: camera recording quality and the controller’s live view do not define the broadcast resolution.
+
+### Check the aircraft and controller together
+For the consumer family, DJI lists RC-N1, DJI RC and DJI RC Pro in its Mavic 3 Pro support FAQ. The Mavic 3 Classic support page documents all three too. Original Mavic 3 support documents RC-N1 and RC Pro; the DJI RC FAQ also confirms DJI RC compatibility with Mavic 3 and Mavic 3 Cine. These are flight compatibility facts, not a promise that every controller can broadcast.
+| Controller | Where DJI Fly runs | Livestream route |
+| --- | --- | --- |
+| DJI RC-N1 | Phone attached by USB | RTMP from that phone to DJI Live Bridge on a computer |
+| DJI RC Pro | Built-in controller screen | RTMP to a separate phone running Stream My Drone, or to a computer |
+| DJI RC | Built-in controller screen | DJI Fly livestreaming is not supported |
+Do not confuse DJI RC with RC 2, or RC Pro with RC Pro 2. A Mavic 4 Pro controller workflow does not establish compatibility with a Mavic 3. The Mavic 3 Enterprise and Thermal models use a separate product and app workflow, outside this guide.
+
+### Confirm the RTMP menu and audio on your own software
+With a supported broadcasting controller, link the aircraft and open DJI Fly’s camera view. Look under GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Update the aircraft, controller and DJI Fly if needed, then check the menu again before planning a live event.
+DJI’s livestream guide requires an attached microphone on RC Pro from DJI Fly v1.16.0; on RC Pro with Fly v1.18.0 or later, only 720p RTMP is supported. RC-N1 uses the attached phone’s available settings. Confirm those settings rather than copying an old 1080p tutorial.
+
+### Mavic 3 with RC Pro: receive the stream on a phone
+1. **Install Stream My Drone on a separate phone** Download it from Google Play or the App Store. Keep DJI Fly open on your RC Pro; the phone will receive and forward its video.
+2. **Put the controller and receiver on the same network** Use a Wi-Fi network with internet access. In the field, an Android receiving phone can also host the hotspot. Open Stream My Drone after choosing the network and allow local network access on iPhone when requested. Check the displayed address again if you change networks.
+3. **Enter the receiver address in DJI Fly** Copy the full local RTMP address shown by Stream My Drone. In DJI Fly, open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Follow the labels in your version: a screen asking for separate address and key fields is different from one asking for a full RTMP URL. Do not add your YouTube or Instagram key to the local receiver address. See the DJI Fly RTMP guide for the menu walkthrough.
+4. **Start the local feed and check sound** Start livestreaming in DJI Fly, then verify a moving picture appears in Stream My Drone. Check the microphone selected on the controller and listen at the platform during your ground test. A picture without usable sound is easier to diagnose before takeoff.
+5. **Add destinations and publish** Connect a platform account where that option is available, or enter its current server URL and stream key in Stream My Drone. Start forwarding and open the platform dashboard. Complete any separate Go Live step, then confirm the actual viewer page works.
+The receiving phone is a separate device from the controller. Mobile forwarding preserves the incoming video; preview cropping or a blurred background does not create a new vertical broadcast. On iPhone, keep the app open during setup; continued background reception depends on Picture in Picture.
+
+### Mavic 3 with RC-N1: use a separate computer receiver
+With RC-N1, keep DJI Fly open on the phone connected to the controller by USB. RC Pro can also send to this desktop receiver. Install DJI Live Bridge on your Mac or Windows PC. The computer receives the DJI Fly RTMP feed over your local network; this setup does not use HDMI capture or a USB webcam connection from the controller.
+1. **Copy the computer’s local RTMP address** Connect the computer and the device running DJI Fly to the same network. In DJI Live Bridge, copy the address under Connect your drone. rtmp://192.168.1.20:1935/drone is only an example: use the address displayed by your app.
+2. **Send the feed and verify reception** Enter that local address in DJI Fly and start streaming. If the firewall asks, allow the app to receive connections on your private network. Check the moving preview before configuring a platform.
+3. **Choose your output and start a destination** Choose landscape or a desktop vertical layout, then add the platform’s server URL and key. Start the output, confirm the platform receives it and complete its publishing step. For several destinations, check the combined upload requirement before enabling them together.
+
+### Publish to YouTube, Instagram, Facebook or TikTok
+| Destination | What you need | Guide |
+| --- | --- | --- |
+| YouTube | Live access enabled and a prepared broadcast | YouTube setup |
+| Instagram | Live Producer access and the current RTMPS credentials | Instagram setup |
+| Facebook | A prepared live broadcast and its server URL and key | Facebook setup |
+| TikTok | RTMP access on your account, or LIVE Studio access on a computer | TikTok setup |
+Account eligibility comes from the platform. Neither app grants a stream key or bypasses access requirements. For a computer workflow in a compatible studio app, DJI Live Bridge also provides a virtual camera. A local preview proves reception; a working viewer page confirms publication.
+
+### What resolution will viewers actually receive?
+The Mavic 3 family’s high-resolution camera recordings and O3+ controller view are separate from the RTMP encoder output. A receiver cannot recover detail the encoder did not send. Check the received video dimensions and the destination’s playback quality rather than promising the aircraft’s recording specification as a livestream.
+This is particularly useful with Mavic 3 Pro’s different lenses: test your intended lens and framing in the receiver before going live. Changing camera or recording settings is not a substitute for checking the outgoing stream. For a portrait destination, desktop DJI Live Bridge can crop or fit the picture into vertical output; the mobile app forwards the incoming video as received.
+- Separate local reception from internet upload. The controller must reach your receiver over the local network, and the receiver must have enough internet upload for its destinations.
+- Add upload needs together. Two 5 Mbps destination outputs need about 10 Mbps combined upload and use about 4.5 GB per hour before overhead. Start with one destination while testing.
+- Listen as well as look. Check the selected controller or flight-phone microphone, then listen on the platform. Do not assume the aircraft’s camera view includes useful aircraft audio.
+
+### Troubleshooting Mavic 3, Classic and Pro streaming
+- DJI RC has no RTMP menu: this is a documented limitation, even when that controller flies your aircraft. Stream My Drone cannot add livestreaming to DJI RC. Use a compatible RC-N1 or RC Pro route for the workflow here.
+- RC Pro will not start: check its microphone connection and DJI Fly prompt, then verify the current RTMP settings.
+- The RC-N1 phone disconnects: confirm that DJI Fly still shows the aircraft connection and check the USB cable before troubleshooting the receiver.
+- The receiver is unreachable: recopy the current local address after any network change. Avoid guest Wi-Fi with device isolation and check the computer’s firewall. localhost on the flight device points to that device.
+- Picture arrives but nobody can watch: start the destination output, verify current platform credentials and finish the platform’s publication step. A receiving preview alone does not publish the broadcast.
+
+### Official references and the next steps
+Checked October 25, 2026: Mavic 3 Pro support, Mavic 3 Classic support, original Mavic 3 support and DJI RC FAQ for model/controller differences; DJI Fly livestream operation guide for streaming support and limits. Check your aircraft and controller firmware for the menu actually available.
+For the newer generation, read the Mavic 4 Pro livestream guide. For a smaller screen-controller setup, see Mini 5 Pro. Continue with the multistreaming guide to publish to several destinations.
+
+### FAQ
+**Can Mavic 3 Pro live stream with the DJI RC included in some bundles?** DJI RC can fly Mavic 3 Pro, but DJI does not support livestreaming with that controller. For the RTMP workflow in this guide, use a compatible RC-N1 with its flight phone or a compatible RC Pro.
+
+**Does this guide also cover Mavic 3 Classic and Mavic 3 Cine?** Yes, for the consumer models and the compatible controller combinations described above. It does not cover the separate Mavic 3 Enterprise or Thermal workflow.
+
+**Can I receive the RC Pro feed on a phone without a computer?** Use Stream My Drone on a separate phone on the same local network, while DJI Fly stays open on RC Pro. Enter the app’s receiving address in DJI Fly and configure your platform in Stream My Drone.
+
+**Can the RC-N1 flight phone also be the receiver?** That phone is already running DJI Fly for the flight. This guide uses DJI Live Bridge on a separate computer so the flight app can remain open; it does not assume both apps can manage the flight and relay on one phone.
+
+**Why does an older RC Pro guide show a higher resolution?** DJI Fly capabilities change with software versions. Check the current controller settings and the official livestream guide, then inspect the received video instead of relying on a recording specification or old tutorial.
+
+**Do I enter the platform’s stream key in DJI Fly?** For this relay setup, enter the local address shown by Stream My Drone or DJI Live Bridge in DJI Fly. Put the platform server URL and stream key in the receiving app’s destination settings.
+
+## How to live stream a DJI Mini 3 Pro
+Source: https://streammydrone.com/blog/dji-mini-3-pro-live-stream/ (updated 2026-10-25)
+
+Your DJI Mini 3 Pro can send its camera view through DJI Fly, but the controller determines whether that option exists. With RC-N1 and a phone, send RTMP to DJI Live Bridge on a separate Mac or Windows computer, then publish to your platform. The original screen-equipped DJI RC does not support this livestream route.
+
+- Use RC-N1 with DJI Fly running on its connected phone; receive the video on a separate computer.
+- DJI's Mini 3 Pro guide explicitly excludes livestreaming with the original DJI RC.
+- A local receiving address goes into DJI Fly. The platform's server URL and key go into DJI Live Bridge.
+- DJI RC, DJI RC 2 and DJI RC Pro are different products; do not transfer instructions between them.
+- Confirm the receiver preview first, then verify the actual broadcast on your platform.
+
+### Check the controller before setting up RTMP
+The official Mini 3 Pro beginner guide confirms livestreaming with RC-N1 and a mobile device, and says it is unavailable with DJI RC. Start by reading the model name on your controller.
+| Controller | DJI Fly location | Route in this guide |
+| --- | --- | --- |
+| DJI RC-N1 | Phone connected to the controller by USB | DJI Fly RTMP → DJI Live Bridge on a separate computer |
+| DJI RC (original screen controller) | Built-in screen | No supported DJI Fly livestream route in DJI's model guide |
+The Mini 4 Pro and Mini 5 Pro instructions for RC 2 do not apply to the original DJI RC. Adding a receiver app or joining Wi-Fi cannot create an RTMP output that the controller does not provide. DJI's DJI RC FAQ also says it does not allow third-party app installation.
+
+### Prepare the flight phone and a separate receiver
+Keep the RC-N1 phone dedicated to DJI Fly during flight. Install DJI Live Bridge on your Mac or Windows computer. This setup keeps the receiver and publishing controls on the computer while the flight screen stays visible.
+- Connect the flight phone and computer to the same local network with internet access. A shared router is a straightforward starting point; test any field hotspot before relying on it.
+- Update DJI Fly and the aircraft/controller firmware before the broadcast day, then check the RTMP menu with the aircraft connected.
+- Prepare a live event or destination in your platform account, and keep its stream key private.
+- Test while the aircraft is on the ground. Arrange the computer so managing the broadcast does not distract from piloting.
+This guide does not assume that DJI Fly and Stream My Drone can run the flight and relay together on the same phone. The RC 2 plus separate-phone method from newer Mini guides is not a substitute for RC-N1 on Mini 3 Pro.
+
+### Send Mini 3 Pro video from DJI Fly to the computer
+1. **Copy DJI Live Bridge's receiving address** Open the computer app and copy the complete address under Connect your drone. For example, rtmp://192.168.1.20:1935/drone illustrates the format; use the address actually shown for your network.
+2. **Open DJI Fly's livestream settings** On the phone connected to RC-N1, enter the camera view and open ••• → Transmission → Live Streaming Platforms or Enable Livestreaming, then choose RTMP. Menu labels can differ by DJI Fly version. The RTMP setup guide explains the address fields.
+3. **Paste the full local address and start the feed** Use the computer app's address, including its path. Do not append your YouTube or other platform key to this local address. Start DJI Fly's stream, allow the computer's private-network firewall prompt if needed, and wait for moving video in DJI Live Bridge.
+4. **Configure the outgoing picture and destination** Choose landscape or the desktop app's vertical output to match the broadcast. Add the platform's current server URL and stream key in the destination settings. Those credentials belong here, separately from the local DJI Fly address.
+5. **Verify the viewer experience** Start the destination output, open the platform's live dashboard, and complete any remaining Go Live step. Check motion, framing and audio on the viewer page before treating the broadcast as published.
+
+### Choose a platform your account can publish to
+| Destination | Check before the flight | Guide |
+| --- | --- | --- |
+| YouTube | Live streaming is enabled and your broadcast is ready | YouTube setup |
+| Instagram | Your account offers Live Producer and current RTMPS credentials | Instagram setup |
+| Facebook | Live Producer gives you a server URL and stream key | Facebook setup |
+| TikTok | Your account has a stream key or permission to use LIVE Studio | TikTok setup |
+Eligibility and publishing controls depend on the platform and your account. A receiver app does not grant LIVE access. If you use a permitted desktop application that accepts webcam input, DJI Live Bridge's virtual camera is another output option; it still needs an incoming drone feed.
+
+### Recording quality, livestream quality and portrait framing
+DJI's Mini 3 Pro specifications and support list a 1080p/30fps controller live view. That describes the aircraft-to-controller picture, not a promise that every DJI Fly RTMP setting or internet broadcast has that resolution. Inspect the actual input received by DJI Live Bridge; the drone's high-resolution recording is a separate file.
+- Check portrait output end to end. Rotating the camera for a vertical shot does not alone establish the platform's final frame dimensions. Confirm the receiver input and desktop output layout.
+- Start with one destination. Add simultaneous outputs after the first broadcast remains stable; each destination consumes upload capacity.
+- Plan mobile data. A continuous 5 Mbps output is about 2.25 GB per hour before overhead. Two equal outputs are about 4.5 GB per hour.
+- Test sound separately. Watch the destination's audio meters and listen from the viewer side. Do not infer successful audio from a moving video preview.
+
+### Troubleshooting Mini 3 Pro livestreams
+- There is no livestream menu: identify the controller first. On original DJI RC this is an expected limitation, not a missing setting in DJI Live Bridge. With RC-N1, check DJI Fly version and the aircraft connection.
+- DJI Fly cannot connect: recopy the receiver address after changing networks. Avoid guest Wi-Fi with device isolation, check the private-network firewall, and do not use localhost for another device.
+- The picture arrives but viewers see nothing: check the destination URL and key, confirm the platform receives video, and complete its publication step.
+- The stream becomes choppy: test one output, reduce the offered bitrate if available, and check both the local Wi-Fi link and internet upload. A strong aircraft link alone does not prove the internet path is healthy.
+- Portrait looks cropped or sideways: compare the incoming preview with the selected desktop output. Make framing changes on the ground and recheck the platform preview.
+
+### Official sources and related guides
+Checked October 25, 2026: DJI Mini 3 Pro beginner guide for the RC-N1 livestream route and DJI RC exclusion; DJI RC FAQ for controller restrictions; Mini 3 Pro support and specifications for live-view quality. Menus and account features may change, so check your installed version before a flight.
+Compare the Mini 3 guide or Mini 4 Pro guide. After one output works, follow the multistreaming guide to add destinations.
+
+### FAQ
+**Can DJI Mini 3 Pro live stream?** Yes, DJI documents livestreaming through RC-N1 with DJI Fly on a connected phone. This guide receives that RTMP feed on a separate computer running DJI Live Bridge.
+
+**Can I use the screen-equipped DJI RC for this?** No. DJI's Mini 3 Pro guide excludes livestreaming with the original DJI RC. Instructions for DJI RC 2 on newer aircraft do not apply to it.
+
+**Can I use one phone for both flight and receiving?** This guide keeps DJI Fly on the RC-N1 phone and puts the receiver on a separate computer. It does not assume reliable simultaneous flight and relay apps on a single phone.
+
+**Does the drone's recording resolution determine the broadcast?** No. The saved camera recording, controller live view and RTMP input are different outputs. Check the input received by DJI Live Bridge and the outgoing platform preview.
+
+**Which RTMP address belongs in DJI Fly?** Use the complete local receiving address shown by DJI Live Bridge. Put the platform's server URL and stream key in the computer app's destination settings.
+
+**Does an incoming preview mean I am live?** It confirms that the computer receives video. Start the platform output and verify the platform's own viewer page, including any required Go Live action.
+
+## How to live stream a DJI Mini 3
+Source: https://streammydrone.com/blog/dji-mini-3-live-stream/ (updated 2026-10-25)
+
+The DJI Mini 3 has a documented live streaming option with RC-N1 and DJI Fly on a phone. Send that RTMP feed to DJI Live Bridge on a separate computer, then forward it to your platform. If your Mini 3 came with the screen-equipped DJI RC, check the controller limitation first: DJI does not support livestreaming with that controller.
+
+- The supported route described here is Mini 3 → RC-N1 with a DJI Fly phone → a separate computer.
+- The original DJI RC has no supported livestream route in DJI's Mini 3 guide; it is different from DJI RC 2.
+- Mini 3's specified controller live view is 720p/30fps. Its 4K recording capability is a separate output.
+- The USB flight connection and network RTMP connection serve different jobs.
+- A working computer preview is the first check; the platform's viewer page confirms publication.
+
+### Mini 3 with RC-N1 or DJI RC: which can live stream?
+DJI's Mini 3 FAQ lists RC-N1 and DJI RC as compatible controllers. They do not offer identical broadcast features: the official beginner guide supports livestreaming with RC-N1 and a mobile device, and excludes DJI RC.
+| Your controller | Flight display | Livestream preparation |
+| --- | --- | --- |
+| DJI RC-N1 | DJI Fly on a USB-connected phone | Use the RTMP-to-computer steps below |
+| DJI RC | Built-in screen running DJI Fly | The documented DJI Fly livestream route is unavailable |
+A phone hotspot does not add livestreaming to DJI RC. Do not follow RC 2 instructions from the Mini 4 Pro or Mini 5 Pro guide. Before buying or changing a controller, check DJI's current model compatibility and your actual setup.
+
+### Understand the three connections
+| Connection | Purpose | What you configure |
+| --- | --- | --- |
+| Mini 3 ↔ RC-N1 | Flight control and aircraft camera view | Normal aircraft/controller pairing |
+| RC-N1 ↔ phone by USB | DJI Fly flight screen and livestream controls | Your compatible phone and controller cable |
+| Phone → computer over the local network | Send the DJI Fly RTMP feed to DJI Live Bridge | The receiving address shown by the computer app |
+The computer then uses its internet connection to reach your chosen platform. Connect the computer and flight phone to the same local network; internet access alone is not enough if that network prevents devices from communicating. Keep DJI Fly open on the flight phone and manage the receiver from the computer.
+QuickTransfer is for moving captured files, as described in DJI's Mini 3 FAQ. It is not the RTMP connection used for this live broadcast. A USB cable to the computer is also not a substitute for the receiving address below.
+
+### Set up the Mini 3 RTMP feed and publish it
+1. **Prepare the apps and network** Connect the Mini 3, RC-N1 and flight phone normally. Install DJI Live Bridge on a Mac or Windows computer. Put the computer and flight phone on a shared local network with internet access; test a hotspot arrangement before the flight.
+2. **Copy the computer's full RTMP address** Open DJI Live Bridge and copy the address under Connect your drone. rtmp://192.168.1.20:1935/drone is only a format example. Use the current address displayed by your app, including the path.
+3. **Start DJI Fly's RTMP output** In the phone's camera view, open ••• → Transmission → Enable Livestreaming or Live Streaming Platforms and choose RTMP. Paste the receiving address and start. Menu wording can vary by version; see the DJI Fly RTMP guide for the shared walkthrough.
+4. **Check video on the computer** Allow the receiver's private-network firewall prompt if one appears, then confirm moving video in DJI Live Bridge. If it is missing, fix this local connection before configuring the platform. Keep the flight phone on DJI Fly.
+5. **Add a platform and verify the broadcast** Choose your desktop output layout, enter the platform's current server URL and stream key as a destination, and start the output. Open the platform dashboard, finish any required Go Live action, and check the viewer page with sound.
+
+### Prepare YouTube, Instagram, Facebook or TikTok
+| Platform | Required account access | Next guide |
+| --- | --- | --- |
+| YouTube | Live streaming enabled and a broadcast prepared | Drone to YouTube |
+| Instagram | Live Producer and RTMPS details available for your account | Drone to Instagram |
+| Facebook | A Live Producer broadcast with its current URL and key | Drone to Facebook |
+| TikTok | RTMP credentials or permission to use LIVE Studio | Drone to TikTok |
+Check your own platform dashboard before planning a public broadcast; receiving the drone feed does not unlock account eligibility. For desktop applications that accept a webcam, the virtual camera guide explains the video-source route. It does not remove the need for platform access or the Mini 3's incoming RTMP feed.
+
+### What picture quality should you expect from Mini 3?
+DJI's Mini 3 specifications list DJI O2 transmission with a 720p/30fps controller live view, alongside separate 4K camera recording. A saved 4K file is not evidence of a 4K RTMP broadcast. Inspect the receiver's actual input and use the settings available in your DJI Fly version.
+- Upscaling has limits. Desktop output can use larger dimensions, but it cannot reconstruct detail missing from a lower-resolution input.
+- Check vertical framing. Mini 3's rotating camera and the final broadcast canvas are different parts of the setup. Review the actual desktop output before publishing portrait video.
+- Leave upload headroom. Test at the flight location and start with one destination. Two destinations each sending 5 Mbps need about 10 Mbps combined upload before overhead.
+- Budget data and power. One continuous 5 Mbps output uses about 2.25 GB per hour before overhead. Keep the flight phone and computer powered for the planned session.
+
+### Common Mini 3 live streaming problems
+- Livestream settings are missing: check whether your controller is the original DJI RC. Its documented limitation cannot be fixed in the receiver app. With RC-N1, check DJI Fly updates and the aircraft connection.
+- DJI Fly reports a connection error: copy the full current receiver address again. Check the Wi-Fi network, device isolation and computer firewall. localhost points at the device using it, not your computer across the network.
+- The preview works but publication fails: the local feed is established. Check the platform URL, current key, account access and final publish control separately.
+- Video stalls outdoors: check both local Wi-Fi and internet upload. Move the receiver closer to the network source and test a single lower-bitrate output where settings allow.
+- There is video but no sound: inspect the incoming and destination audio settings and listen from a viewer device. If using a virtual camera, configure sound separately in the receiving broadcast application.
+
+### Official sources and the next steps
+Checked October 25, 2026: DJI Mini 3 beginner guide for RC-N1 livestreaming and the DJI RC restriction; Mini 3 FAQ for compatible controllers and QuickTransfer; Mini 3 specifications for the live-view and recording distinction. Recheck available menus after firmware changes.
+Own the Pro instead? Read the Mini 3 Pro live streaming guide. Once a single destination works, use the multistreaming guide to send one feed to more platforms.
+
+### FAQ
+**Does DJI Mini 3 support live streaming?** DJI documents livestreaming with RC-N1 and a mobile device running DJI Fly. This guide sends that feed to DJI Live Bridge on a separate computer.
+
+**Can the Mini 3 DJI RC kit use these RTMP steps?** No. DJI's Mini 3 beginner guide says livestreaming is unavailable with the original DJI RC. It is different from the newer DJI RC 2.
+
+**Can Mini 3 stream its 4K camera recording?** Do not assume the live feed matches the saved recording. DJI lists a 720p/30fps controller live view for Mini 3; inspect the actual RTMP input in the receiver.
+
+**Can I replace RTMP with QuickTransfer?** No. QuickTransfer moves captured files to a phone. This setup uses DJI Fly's livestream output over the local network.
+
+**Can the flight phone also be the receiver?** This guide leaves DJI Fly on the RC-N1 phone and receives video on a separate computer. It does not assume that the flight and relay apps can reliably share one phone.
+
+**Where do I enter the platform stream key?** Enter it in DJI Live Bridge's destination settings with the platform server URL. DJI Fly receives the local computer address instead, including the path displayed by the app.
+
 ## How to live stream a DJI Mini 5 Pro
 Source: https://streammydrone.com/blog/dji-mini-5-pro-live-stream/ (updated 2026-10-21)
 

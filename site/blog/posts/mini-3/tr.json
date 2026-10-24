@@ -1,0 +1,123 @@
+{
+  "slug": "dji-mini-3-canli-yayin",
+  "platform": "DJI Mini 3",
+  "title": "DJI Mini 3 ile canlı yayın: RC-N1, DJI Fly ve bilgisayar kurulumu (2026)",
+  "description": "DJI Mini 3 canlı yayınını RC-N1 ve DJI Fly üzerinden bilgisayardaki DJI Live Bridge'e kurun. DJI RC sınırını, 720p canlı görüntüyü ve platformda yayına geçişi öğrenin.",
+  "h1": "DJI Mini 3 ile canlı yayın nasıl yapılır?",
+  "lead": "<strong>DJI Mini 3</strong>, <strong>RC-N1 ve telefondaki DJI Fly</strong> ile belgelenmiş bir canlı yayın seçeneği sunar. RTMP görüntüsünü ayrı bir bilgisayardaki <strong>DJI Live Bridge</strong>'e gönderip platformunuza aktarın. Mini 3'ünüz ekranlı <strong>DJI RC</strong> ile geldiyse önce kumanda sınırını kontrol edin: DJI bu kumandayla canlı yayını desteklemiyor.",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "Burada anlatılan destekli yol: Mini 3 → DJI Fly telefonu bağlı RC-N1 → ayrı bilgisayar.",
+    "DJI'ın Mini 3 rehberinde ilk nesil DJI RC için desteklenen canlı yayın yolu yoktur; bu kumanda DJI RC 2'den farklıdır.",
+    "Mini 3'ün belirtilen kumanda canlı görüntüsü 720p/30fps'tir. 4K kayıt yeteneği ayrı bir çıkıştır.",
+    "USB uçuş bağlantısı ile ağ üzerinden RTMP bağlantısı farklı işler yapar.",
+    "Bilgisayardaki önizleme ilk kontroldür; yayını platformun izleyici sayfası doğrular."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "RC-N1 veya DJI RC: Mini 3 hangisiyle canlı yayın yapar?",
+      "blocks": [
+        { "p": "DJI'ın <a href=\"https://www.dji.com/mini-3/faq\">Mini 3 SSS sayfası</a> RC-N1 ve DJI RC'yi uyumlu kumandalar olarak listeler. Yayın özellikleri aynı değildir: <a href=\"https://repair.dji.com/help/content?customId=en-us03400007192&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">resmî başlangıç rehberi</a> RC-N1 ve mobil cihazla canlı yayını desteklerken DJI RC'yi kapsam dışında bırakır." },
+        { "table": {
+          "head": ["Kumandanız", "Uçuş ekranı", "Canlı yayın hazırlığı"],
+          "rows": [
+            ["DJI RC-N1", "USB ile bağlı telefondaki DJI Fly", "Aşağıdaki RTMP ile bilgisayara aktarım adımlarını kullanın"],
+            ["DJI RC", "Kendi ekranındaki DJI Fly", "Belgelenen DJI Fly canlı yayın yolu kullanılamaz"]
+          ]
+        } },
+        { "note": "Telefon hotspot'u DJI RC'ye canlı yayın özelliği eklemez. Mini 4 Pro veya Mini 5 Pro rehberlerindeki RC 2 adımlarını uygulamayın. Kumanda almadan veya değiştirmeden önce DJI'ın güncel model uyumluluğunu ve kendi kurulumunuzu kontrol edin." }
+      ]
+    },
+    {
+      "id": "connections",
+      "h2": "Üç bağlantının görevini ayırın",
+      "blocks": [
+        { "table": {
+          "head": ["Bağlantı", "Görevi", "Neyi ayarlarsınız?"],
+          "rows": [
+            ["Mini 3 ↔ RC-N1", "Uçuş kontrolü ve drone kamera görüntüsü", "Normal drone ve kumanda eşleştirmesi"],
+            ["RC-N1 ↔ USB ile telefon", "DJI Fly uçuş ekranı ve canlı yayın kontrolleri", "Uyumlu telefon ve kumanda kablonuz"],
+            ["Telefon → yerel ağ üzerinden bilgisayar", "DJI Fly RTMP görüntüsünü DJI Live Bridge'e göndermek", "Bilgisayar uygulamasının gösterdiği alıcı adresi"]
+          ]
+        } },
+        { "p": "Bilgisayar daha sonra internet bağlantısını kullanarak seçtiğiniz platforma ulaşır. Bilgisayarı ve uçuş telefonunu aynı yerel ağa bağlayın; ağ cihazların iletişimini engelliyorsa yalnızca internet erişimi olması yetmez. Uçuş telefonunda DJI Fly açık kalsın; alıcıyı bilgisayardan yönetin." },
+        { "note": "DJI'ın <a href=\"https://www.dji.com/mini-3/faq\">Mini 3 SSS sayfasında</a> anlatılan QuickTransfer, çekilmiş dosyaları taşımak içindir. Bu canlı yayının RTMP bağlantısı değildir. Bilgisayara USB kablosu takmak da aşağıdaki alıcı adresinin yerine geçmez." }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Mini 3 RTMP görüntüsünü kurup platformda yayınlayın",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Uygulamaları ve ağı hazırlayın", "d": "Mini 3, RC-N1 ve uçuş telefonunu normal biçimde bağlayın. Mac veya Windows bilgisayara <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> kurun. Bilgisayarı ve uçuş telefonunu internet erişimi olan ortak yerel ağa bağlayın; hotspot düzenini uçuştan önce deneyin." },
+          { "t": "Bilgisayarın tam RTMP adresini kopyalayın", "d": "DJI Live Bridge'i açıp Drone'u bağla bölümündeki adresi kopyalayın. <code>rtmp://192.168.1.20:1935/drone</code> yalnızca biçim örneğidir. Uygulamanızın gösterdiği güncel adresi sonundaki yol dahil kullanın." },
+          { "t": "DJI Fly'ın RTMP çıkışını başlatın", "d": "Telefonun kamera görünümünde ••• → Aktarım → Canlı Yayını Etkinleştir veya Canlı Yayın Platformları yolunu açıp RTMP'yi seçin. Alıcı adresini yapıştırıp başlatın. Menü adları sürüme göre değişebilir; ortak adımlar için <a href=\"../dji-fly-rtmp-canli-yayin-ayarlari/\">DJI Fly RTMP rehberine</a> bakın." },
+          { "t": "Bilgisayarda görüntüyü kontrol edin", "d": "Alıcı için özel ağ güvenlik duvarı isteği çıkarsa izin verin; ardından DJI Live Bridge'de hareketli görüntüyü doğrulayın. Görüntü yoksa platformu ayarlamadan önce bu yerel bağlantıyı düzeltin. Uçuş telefonunda DJI Fly açık kalsın." },
+          { "t": "Platform ekleyip yayını doğrulayın", "d": "Masaüstü çıkış düzenini seçin; platformun güncel sunucu adresini ve yayın anahtarını hedef olarak girip çıkışı başlatın. Platform panelini açın, isteniyorsa Yayına Geç işlemini tamamlayın ve izleyici sayfasını sesle birlikte kontrol edin." }
+        ] },
+        { "img": "go-live.png", "alt": "DJI Live Bridge'de bilgisayarın yerel RTMP adresi ve canlı yayın hedefi kontrolleri." }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "YouTube, Instagram, Facebook veya TikTok'u hazırlayın",
+      "blocks": [
+        { "table": {
+          "head": ["Platform", "Gereken hesap erişimi", "Sonraki rehber"],
+          "rows": [
+            ["YouTube", "Canlı yayın etkin ve yayın hazırlanmış olmalı", "<a href=\"../drone-ile-youtube-canli-yayin-nasil-yapilir/\">Drone ile YouTube</a>"],
+            ["Instagram", "Hesabınızda Live Producer ve RTMPS bilgileri bulunmalı", "<a href=\"../drone-ile-instagram-canli-yayin-nasil-yapilir/\">Drone ile Instagram</a>"],
+            ["Facebook", "Live Producer'da güncel adresi ve anahtarı olan yayın bulunmalı", "<a href=\"../drone-ile-facebook-canli-yayin-nasil-yapilir/\">Drone ile Facebook</a>"],
+            ["TikTok", "RTMP bilgileri veya LIVE Studio kullanma izni bulunmalı", "<a href=\"../drone-ile-tiktok-canli-yayin-nasil-yapilir/\">Drone ile TikTok</a>"]
+          ]
+        } },
+        { "p": "Herkese açık yayın planlamadan önce kendi platform panelinizi kontrol edin; drone görüntüsünü almak hesap koşullarını karşılamanızı sağlamaz. Web kamerası kabul eden masaüstü uygulamaları için <a href=\"../drone-u-bilgisayarin-harici-kamerasi-yapin/\">sanal kamera rehberi</a> görüntü kaynağı yolunu anlatır. Bu seçenek platform erişimi veya Mini 3'ten gelen RTMP görüntüsü gereksinimini kaldırmaz." }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Mini 3'ten hangi görüntü kalitesini beklemelisiniz?",
+      "blocks": [
+        { "p": "DJI'ın <a href=\"https://www.dji.com/mini-3/specs\">Mini 3 teknik özellikleri</a>, DJI O2 aktarımında kumanda canlı görüntüsünü 720p/30fps olarak listeler; kameranın 4K kaydı ayrı belirtilir. Kaydedilmiş 4K dosya, 4K RTMP yayınının kanıtı değildir. Alıcının gerçek girişini inceleyin ve DJI Fly sürümünüzde sunulan ayarları kullanın." },
+        { "list": [
+          "<strong>Büyütmenin sınırı vardır.</strong> Masaüstü çıkışı daha büyük boyutlar kullanabilir; ancak düşük çözünürlüklü girişte olmayan ayrıntıyı geri oluşturamaz.",
+          "<strong>Dikey kadrajı kontrol edin.</strong> Mini 3'ün dönen kamerası ve son yayın tuvali kurulumun farklı parçalarıdır. Dikey görüntüyü yayınlamadan önce gerçek masaüstü çıkışını inceleyin.",
+          "<strong>Yükleme payı bırakın.</strong> Uçuş yerinde test edin ve tek hedefle başlayın. Her biri 5 Mbps gönderen iki hedef, ek yük hariç yaklaşık 10 Mbps toplam yükleme gerektirir.",
+          "<strong>Veri ve gücü hesaplayın.</strong> Kesintisiz tek 5 Mbps çıkış, ek yük hariç saatte yaklaşık 2,25 GB kullanır. Planlanan oturum boyunca uçuş telefonu ve bilgisayarın gücünü koruyun."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Mini 3 canlı yayınında sık görülen sorunlar",
+      "blocks": [
+        { "list": [
+          "<strong>Canlı yayın ayarı yok:</strong> kumandanın ilk nesil DJI RC olup olmadığını kontrol edin. Belgelenen sınır alıcı uygulamada düzeltilemez. RC-N1 ile DJI Fly güncellemelerini ve drone bağlantısını kontrol edin.",
+          "<strong>DJI Fly bağlantı hatası veriyor:</strong> güncel alıcı adresinin tamamını yeniden kopyalayın. Wi-Fi ağını, cihaz yalıtımını ve bilgisayar güvenlik duvarını kontrol edin. <code>localhost</code> ağdaki bilgisayarı değil, kullanıldığı cihazın kendisini gösterir.",
+          "<strong>Önizleme var ama yayın başlamıyor:</strong> yerel görüntü bağlantısı kurulmuştur. Platform adresini, güncel anahtarı, hesap erişimini ve son yayınlama kontrolünü ayrı değerlendirin.",
+          "<strong>Sahada görüntü duruyor:</strong> yerel Wi-Fi'ı ve internet yüklemesini kontrol edin. Alıcıyı ağ kaynağına yaklaştırın; ayarlar izin veriyorsa daha düşük bit hızlı tek çıkışla deneyin.",
+          "<strong>Görüntü var, ses yok:</strong> giriş ve hedef ses ayarlarını inceleyip izleyici cihazından dinleyin. Sanal kamera kullanıyorsanız sesi görüntüyü alan yayın uygulamasında ayrıca ayarlayın."
+        ] }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Resmî kaynaklar ve sonraki adımlar",
+      "blocks": [
+        { "p": "25 Ekim 2026'da kontrol edildi: RC-N1 ile yayın ve DJI RC sınırı için <a href=\"https://repair.dji.com/help/content?customId=en-us03400007192&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Mini 3 başlangıç rehberi</a>; uyumlu kumandalar ve QuickTransfer için <a href=\"https://www.dji.com/mini-3/faq\">Mini 3 SSS</a>; canlı görüntü ve kayıt ayrımı için <a href=\"https://www.dji.com/mini-3/specs\">Mini 3 teknik özellikleri</a>. Yazılım değişikliklerinden sonra kullanılabilen menüleri tekrar kontrol edin." },
+        { "p": "Pro modeli mi kullanıyorsunuz? <a href=\"../dji-mini-3-pro-canli-yayin/\">Mini 3 Pro canlı yayın rehberini</a> okuyun. Tek hedef çalıştıktan sonra aynı görüntüyü daha fazla platforma göndermek için <a href=\"../drone-ile-ayni-anda-birden-fazla-platformda-canli-yayin/\">çoklu yayın rehberine</a> geçin." }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI Mini 3 canlı yayını destekliyor mu?", "a": "DJI, RC-N1 ve DJI Fly çalıştıran mobil cihazla canlı yayını belgeliyor. Bu rehber görüntüyü ayrı bilgisayardaki DJI Live Bridge'e gönderir." },
+    { "q": "Mini 3 DJI RC seti bu RTMP adımlarını kullanabilir mi?", "a": "Hayır. DJI'ın Mini 3 başlangıç rehberi ilk nesil DJI RC ile canlı yayının kullanılamadığını söylüyor. Bu kumanda yeni DJI RC 2'den farklıdır." },
+    { "q": "Mini 3, 4K kamera kaydını canlı yayınlayabilir mi?", "a": "Canlı görüntünün kaydedilen dosyayla aynı olduğunu varsaymayın. DJI Mini 3 için 720p/30fps kumanda canlı görüntüsü listeler; alıcıdaki gerçek RTMP girişini inceleyin." },
+    { "q": "RTMP yerine QuickTransfer kullanabilir miyim?", "a": "Hayır. QuickTransfer çekilmiş dosyaları telefona taşır. Bu kurulum DJI Fly'ın yerel ağ üzerinden gönderdiği canlı yayın çıkışını kullanır." },
+    { "q": "Uçuş telefonu aynı zamanda alıcı olabilir mi?", "a": "Bu rehber DJI Fly'ı RC-N1 telefonunda açık bırakır ve görüntüyü ayrı bilgisayarda alır. Uçuş ve aktarma uygulamalarının tek telefonu güvenilir biçimde paylaşabildiğini varsaymaz." },
+    { "q": "Platformun yayın anahtarını nereye girerim?", "a": "Platformun sunucu adresiyle birlikte DJI Live Bridge hedef ayarlarına girin. DJI Fly'a ise uygulamanın gösterdiği yol dahil yerel bilgisayar adresi yazılır." }
+  ]
+}

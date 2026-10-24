@@ -1,0 +1,244 @@
+{
+  "slug": "dji-mavic-3-live-stream",
+  "platform": "DJI Mavic 3 Series",
+  "title": "DJI Mavic 3, Classic and Pro live streaming: controller guide (2026)",
+  "description": "Live stream a DJI Mavic 3, Classic or Pro with RC-N1 or RC Pro. Learn why DJI RC cannot stream, plus phone receivers, desktop RTMP and quality limits.",
+  "h1": "How to live stream a DJI Mavic 3, Classic or Pro",
+  "lead": "The <strong>DJI Mavic 3 family</strong> can send a live camera view through DJI Fly, but the controller decides which route is available. Use <strong>RC-N1</strong> with a flight phone and a computer receiver, or <strong>RC Pro</strong> with a separate phone running Stream My Drone. The screen-equipped <strong>DJI RC</strong> is a different case: DJI does not support livestreaming with it.",
+  "summary": [
+    "This guide covers the consumer Mavic 3, Mavic 3 Cine, Mavic 3 Classic and Mavic 3 Pro family, not Mavic 3 Enterprise.",
+    "RC-N1 uses a phone for DJI Fly; the desktop route keeps reception on a separate computer.",
+    "RC Pro can send RTMP to Stream My Drone on another phone or to DJI Live Bridge on a computer.",
+    "DJI RC is compatible for flight but does not support DJI Fly livestreaming.",
+    "Check the RTMP feed itself: camera recording quality and the controller’s live view do not define the broadcast resolution."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Check the aircraft and controller together",
+      "blocks": [
+        {
+          "p": "For the consumer family, DJI lists <strong>RC-N1, DJI RC and DJI RC Pro</strong> in its <a href=\"https://www.dji.com/support/product/mavic-3-pro\">Mavic 3 Pro support FAQ</a>. The <a href=\"https://www.dji.com/support/product/mavic-3-classic\">Mavic 3 Classic support page</a> documents all three too. Original <a href=\"https://www.dji.com/mavic-3/specs\">Mavic 3 support</a> documents RC-N1 and RC Pro; the <a href=\"https://www.dji.com/rc/faq\">DJI RC FAQ</a> also confirms DJI RC compatibility with Mavic 3 and Mavic 3 Cine. These are flight compatibility facts, not a promise that every controller can broadcast."
+        },
+        {
+          "table": {
+            "head": [
+              "Controller",
+              "Where DJI Fly runs",
+              "Livestream route"
+            ],
+            "rows": [
+              [
+                "DJI RC-N1",
+                "Phone attached by USB",
+                "RTMP from that phone to DJI Live Bridge on a computer"
+              ],
+              [
+                "DJI RC Pro",
+                "Built-in controller screen",
+                "RTMP to a separate phone running Stream My Drone, or to a computer"
+              ],
+              [
+                "DJI RC",
+                "Built-in controller screen",
+                "DJI Fly livestreaming is not supported"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "Do not confuse DJI RC with RC 2, or RC Pro with RC Pro 2. A Mavic 4 Pro controller workflow does not establish compatibility with a Mavic 3. The Mavic 3 Enterprise and Thermal models use a separate product and app workflow, outside this guide."
+        }
+      ]
+    },
+    {
+      "id": "rtmp-check",
+      "h2": "Confirm the RTMP menu and audio on your own software",
+      "blocks": [
+        {
+          "p": "With a supported broadcasting controller, link the aircraft and open DJI Fly’s camera view. Look under GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Update the aircraft, controller and DJI Fly if needed, then check the menu again before planning a live event."
+        },
+        {
+          "note": "DJI’s <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">livestream guide</a> requires an attached microphone on RC Pro from DJI Fly v1.16.0; on RC Pro with Fly v1.18.0 or later, only 720p RTMP is supported. RC-N1 uses the attached phone’s available settings. Confirm those settings rather than copying an old 1080p tutorial."
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Mavic 3 with RC Pro: receive the stream on a phone",
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Install Stream My Drone on a separate phone",
+              "d": "Download it from <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> or the <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a>. Keep DJI Fly open on your RC Pro; the phone will receive and forward its video."
+            },
+            {
+              "t": "Put the controller and receiver on the same network",
+              "d": "Use a Wi-Fi network with internet access. In the field, an Android receiving phone can also host the hotspot. Open Stream My Drone after choosing the network and allow local network access on iPhone when requested. Check the displayed address again if you change networks."
+            },
+            {
+              "t": "Enter the receiver address in DJI Fly",
+              "d": "Copy the full local RTMP address shown by Stream My Drone. In DJI Fly, open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Follow the labels in your version: a screen asking for separate address and key fields is different from one asking for a full RTMP URL. Do not add your YouTube or Instagram key to the local receiver address. See the <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP guide</a> for the menu walkthrough."
+            },
+            {
+              "t": "Start the local feed and check sound",
+              "d": "Start livestreaming in DJI Fly, then verify a moving picture appears in Stream My Drone. Check the microphone selected on the controller and listen at the platform during your ground test. A picture without usable sound is easier to diagnose before takeoff."
+            },
+            {
+              "t": "Add destinations and publish",
+              "d": "Connect a platform account where that option is available, or enter its current server URL and stream key in Stream My Drone. Start forwarding and open the platform dashboard. Complete any separate Go Live step, then confirm the actual viewer page works."
+            }
+          ]
+        },
+        {
+          "note": "The receiving phone is a separate device from the controller. Mobile forwarding preserves the incoming video; preview cropping or a blurred background does not create a new vertical broadcast. On iPhone, keep the app open during setup; continued background reception depends on Picture in Picture."
+        }
+      ],
+      "howto": true
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Mavic 3 with RC-N1: use a separate computer receiver",
+      "blocks": [
+        {
+          "p": "With RC-N1, keep DJI Fly open on the phone connected to the controller by USB. RC Pro can also send to this desktop receiver. Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> on your Mac or Windows PC. The computer receives the DJI Fly RTMP feed over your local network; this setup does not use HDMI capture or a USB webcam connection from the controller."
+        },
+        {
+          "steps": [
+            {
+              "t": "Copy the computer’s local RTMP address",
+              "d": "Connect the computer and the device running DJI Fly to the same network. In DJI Live Bridge, copy the address under Connect your drone. <code>rtmp://192.168.1.20:1935/drone</code> is only an example: use the address displayed by your app."
+            },
+            {
+              "t": "Send the feed and verify reception",
+              "d": "Enter that local address in DJI Fly and start streaming. If the firewall asks, allow the app to receive connections on your private network. Check the moving preview before configuring a platform."
+            },
+            {
+              "t": "Choose your output and start a destination",
+              "d": "Choose landscape or a desktop vertical layout, then add the platform’s server URL and key. Start the output, confirm the platform receives it and complete its publishing step. For several destinations, check the combined upload requirement before enabling them together."
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "DJI Live Bridge desktop showing the local receiving address, platform destinations and live output controls."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Publish to YouTube, Instagram, Facebook or TikTok",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Destination",
+              "What you need",
+              "Guide"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "Live access enabled and a prepared broadcast",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube setup</a>"
+              ],
+              [
+                "Instagram",
+                "Live Producer access and the current RTMPS credentials",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram setup</a>"
+              ],
+              [
+                "Facebook",
+                "A prepared live broadcast and its server URL and key",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Facebook setup</a>"
+              ],
+              [
+                "TikTok",
+                "RTMP access on your account, or LIVE Studio access on a computer",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok setup</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "Account eligibility comes from the platform. Neither app grants a stream key or bypasses access requirements. For a computer workflow in a compatible studio app, DJI Live Bridge also provides a <a href=\"../use-your-dji-drone-as-a-webcam/\">virtual camera</a>. A local preview proves reception; a working viewer page confirms publication."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "What resolution will viewers actually receive?",
+      "blocks": [
+        {
+          "p": "The Mavic 3 family’s high-resolution camera recordings and O3+ controller view are separate from the RTMP encoder output. A receiver cannot recover detail the encoder did not send. Check the received video dimensions and the destination’s playback quality rather than promising the aircraft’s recording specification as a livestream."
+        },
+        {
+          "p": "This is particularly useful with Mavic 3 Pro’s different lenses: test your intended lens and framing in the receiver before going live. Changing camera or recording settings is not a substitute for checking the outgoing stream. For a portrait destination, desktop DJI Live Bridge can crop or fit the picture into vertical output; the mobile app forwards the incoming video as received."
+        },
+        {
+          "list": [
+            "<strong>Separate local reception from internet upload.</strong> The controller must reach your receiver over the local network, and the receiver must have enough internet upload for its destinations.",
+            "<strong>Add upload needs together.</strong> Two 5 Mbps destination outputs need about 10 Mbps combined upload and use about 4.5 GB per hour before overhead. Start with one destination while testing.",
+            "<strong>Listen as well as look.</strong> Check the selected controller or flight-phone microphone, then listen on the platform. Do not assume the aircraft’s camera view includes useful aircraft audio."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Troubleshooting Mavic 3, Classic and Pro streaming",
+      "blocks": [
+        {
+          "list": [
+            "<strong>DJI RC has no RTMP menu:</strong> this is a documented limitation, even when that controller flies your aircraft. Stream My Drone cannot add livestreaming to DJI RC. Use a compatible RC-N1 or RC Pro route for the workflow here.",
+            "<strong>RC Pro will not start:</strong> check its microphone connection and DJI Fly prompt, then verify the current RTMP settings.",
+            "<strong>The RC-N1 phone disconnects:</strong> confirm that DJI Fly still shows the aircraft connection and check the USB cable before troubleshooting the receiver.",
+            "<strong>The receiver is unreachable:</strong> recopy the current local address after any network change. Avoid guest Wi-Fi with device isolation and check the computer’s firewall. <code>localhost</code> on the flight device points to that device.",
+            "<strong>Picture arrives but nobody can watch:</strong> start the destination output, verify current platform credentials and finish the platform’s publication step. A receiving preview alone does not publish the broadcast."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Official references and the next steps",
+      "blocks": [
+        {
+          "p": "Checked October 25, 2026: <a href=\"https://www.dji.com/support/product/mavic-3-pro\">Mavic 3 Pro support</a>, <a href=\"https://www.dji.com/support/product/mavic-3-classic\">Mavic 3 Classic support</a>, <a href=\"https://www.dji.com/mavic-3/specs\">original Mavic 3 support</a> and <a href=\"https://www.dji.com/rc/faq\">DJI RC FAQ</a> for model/controller differences; <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly livestream operation guide</a> for streaming support and limits. Check your aircraft and controller firmware for the menu actually available."
+        },
+        {
+          "p": "For the newer generation, read the <a href=\"../dji-mavic-4-pro-live-stream/\">Mavic 4 Pro livestream guide</a>. For a smaller screen-controller setup, see <a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro</a>. Continue with the <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">multistreaming guide</a> to publish to several destinations."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Can Mavic 3 Pro live stream with the DJI RC included in some bundles?",
+      "a": "DJI RC can fly Mavic 3 Pro, but DJI does not support livestreaming with that controller. For the RTMP workflow in this guide, use a compatible RC-N1 with its flight phone or a compatible RC Pro."
+    },
+    {
+      "q": "Does this guide also cover Mavic 3 Classic and Mavic 3 Cine?",
+      "a": "Yes, for the consumer models and the compatible controller combinations described above. It does not cover the separate Mavic 3 Enterprise or Thermal workflow."
+    },
+    {
+      "q": "Can I receive the RC Pro feed on a phone without a computer?",
+      "a": "Use Stream My Drone on a separate phone on the same local network, while DJI Fly stays open on RC Pro. Enter the app’s receiving address in DJI Fly and configure your platform in Stream My Drone."
+    },
+    {
+      "q": "Can the RC-N1 flight phone also be the receiver?",
+      "a": "That phone is already running DJI Fly for the flight. This guide uses DJI Live Bridge on a separate computer so the flight app can remain open; it does not assume both apps can manage the flight and relay on one phone."
+    },
+    {
+      "q": "Why does an older RC Pro guide show a higher resolution?",
+      "a": "DJI Fly capabilities change with software versions. Check the current controller settings and the official livestream guide, then inspect the received video instead of relying on a recording specification or old tutorial."
+    },
+    {
+      "q": "Do I enter the platform’s stream key in DJI Fly?",
+      "a": "For this relay setup, enter the local address shown by Stream My Drone or DJI Live Bridge in DJI Fly. Put the platform server URL and stream key in the receiving app’s destination settings."
+    }
+  ],
+  "published": "2026-10-25",
+  "updated": "2026-10-25"
+}

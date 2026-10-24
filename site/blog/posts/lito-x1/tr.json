@@ -1,0 +1,233 @@
+{
+  "slug": "dji-lito-x1-canli-yayin",
+  "platform": "DJI Lito X1",
+  "title": "DJI Lito X1 ile canlı yayın: telefon ve bilgisayar kurulumu (2026)",
+  "description": "DJI Lito X1 ile RC 2, RC-N3 veya RC-N2 üzerinden canlı yayın: DJI Fly RTMP ayarları, telefon ve bilgisayar kurulumu, platform adımları ve sorun giderme.",
+  "h1": "DJI Lito X1 ile canlı yayın nasıl yapılır?",
+  "lead": "<strong>DJI Lito X1</strong> uçuşunu DJI Fly RTMP üzerinden paylaşabilirsiniz. RC 2 ile görüntüyü ayrı telefondaki <strong>Stream My Drone</strong> alsın. RC-N3 veya RC-N2 ile DJI Fly kumandaya bağlı telefonda açık kalsın; yayını bilgisayardaki <strong>DJI Live Bridge</strong> alsın. Bu rehber cihazları bağlamayı, görüntüyü kontrol etmeyi ve seçtiğiniz platformda yayına geçmeyi anlatır.",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "DJI, Lito X1 modelini canlı yayın uyumluluk listesinde gösteriyor; kumandanızı ve güncel DJI Fly sürümünü birlikte kontrol edin.",
+    "RC 2, DJI Fly uygulamasını kendi ekranında çalıştırır; ayrı telefon yayını alabilir.",
+    "RC-N3 ve RC-N2, DJI Fly için telefon kullanır. DJI Fly açık kalabilsin diye aşağıdaki ayrı bilgisayar kurulumunu izleyin.",
+    "Yerel alıcı adresi DJI Fly’a girilir. Platform hesabı veya yayın anahtarı Stream My Drone ya da DJI Live Bridge içinde ayarlanır.",
+    "Önce alıcı önizlemesini, sonra platformun izleyici sayfasını kontrol edin; kayıt ayarları RTMP çıkışını belirlemez."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "RC 2, RC-N3 veya RC-N2 kumandanıza göre kurulumu seçin",
+      "blocks": [
+        {
+          "p": "DJI’ın <a href=\"https://store.dji.com/ph/product/dji-lito-x1-fly-more-combo-dji-rc-n3?vid=220431\">resmî Lito X1 ürün sayfasındaki sık sorulan sorular</a> DJI RC 2, DJI RC-N3 ve DJI RC-N2 kumandalarını listeliyor. <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">DJI Fly canlı yayın uyumluluk rehberinde</a> de Lito X1 yer alıyor. Aşağıdaki yolu seçerken kumandanızın üzerindeki model adını okuyun; aynı drone ile çalışmaları kumandaların bütün özelliklerini ortak yapmaz."
+        },
+        {
+          "table": {
+            "head": [
+              "Kumanda",
+              "Uçuşu nereden yönetirsiniz?",
+              "Yayını hangi cihaz alır?"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "Kumandanın ekranındaki DJI Fly",
+                "Ayrı telefonda Stream My Drone veya bilgisayarda DJI Live Bridge"
+              ],
+              [
+                "DJI RC-N3",
+                "USB ile bağlı telefondaki DJI Fly",
+                "Ayrı Mac veya Windows bilgisayarda DJI Live Bridge"
+              ],
+              [
+                "DJI RC-N2",
+                "USB ile bağlı telefondaki DJI Fly",
+                "RC-N3 ile aynı ayrı bilgisayar kurulumu"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI canlı yayın rehberi</a>, RC 2 için 720p yayın sınırını ve DJI Fly v1.16.0’dan itibaren mikrofon bağlantısını belirtiyor. Yayın yerine gitmeden önce bunları kontrol edin. Stream My Drone, görüntüyü alan telefona kurulur; RC 2 üzerinde çalışmaz."
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Lito X1 ve RC 2: bilgisayarsız, ayrı telefondan yayın",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Telefona Stream My Drone kurun",
+              "d": "Uygulamayı <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> veya <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a>'dan indirin. DJI Fly RC 2'de açık kalırken telefon yayını alır."
+            },
+            {
+              "t": "RC 2 ile telefonu aynı ağa bağlayın",
+              "d": "İki cihazı internet erişimi olan aynı Wi-Fi ağına bağlayın. Sahada Android telefon hem hotspot açabilir hem de yayını alabilir. Ağı seçtikten sonra Stream My Drone'u açın; iPhone'da istenirse yerel ağ erişimine izin verin."
+            },
+            {
+              "t": "Alıcı adresini DJI Fly'a girin",
+              "d": "Stream My Drone'un gösterdiği yerel adresin tamamını kullanın. DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açıp adresi girin. Menülerin ayrıntılı anlatımı <a href=\"../dji-fly-rtmp-canli-yayin-ayarlari/\">DJI Fly RTMP kurulum rehberinde</a>. DJI Fly isterse mikrofon bağlayın."
+            },
+            {
+              "t": "DJI Fly yayınını başlatıp önizlemeyi kontrol edin",
+              "d": "Kumandadan aktarımı başlatın ve telefonda hareketli drone görüntüsünün geldiğini doğrulayın. Bağlantıyı kontrol ederken Stream My Drone'u açık tutun. Bu adım yerel görüntü bağlantısını kurar."
+            },
+            {
+              "t": "Hedefi seçip platformda yayını doğrulayın",
+              "d": "Stream My Drone'a bir platform ekleyin: sunuluyorsa hesap bağlantısını, yoksa sunucu adresi ve yayın anahtarını kullanın. Aktarımı başlatıp platformun canlı yayın panelini veya izleyici sayfasını açın. Platform ayrıca Yayına Geç işlemi istiyorsa onu da tamamlayın."
+            }
+          ]
+        },
+        {
+          "note": "Telefon, gelen videoyu yeniden kodlamadan iletir. Önizlemedeki kırpma veya bulanık arka plan, gönderilen yayını dikey 1080×1920'ye dönüştürmez. Bu dönüşüm için masaüstü uygulamasını kullanın. iPhone'da kurulum sırasında uygulamayı önde tutun; arka planda yayının sürmesi Resim İçinde Resim'e bağlıdır."
+        }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Lito X1 ve RC-N3 veya RC-N2: görüntüyü bilgisayarda alın",
+      "blocks": [
+        {
+          "p": "RC-N3 veya RC-N2 kullanıyorsanız DJI Fly, kumandaya bağlı telefonda açık kalsın. Mac veya Windows bilgisayara <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> kurun; bilgisayarı ve DJI Fly'ın çalıştığı telefonu aynı yerel ağa bağlayın. RC 2 de bu bilgisayarlı kurulumu kullanabilir."
+        },
+        {
+          "steps": [
+            {
+              "t": "Bilgisayarın RTMP adresini bulun",
+              "d": "DJI Live Bridge'i açıp Drone'u bağla bölümündeki adresi kopyalayın. <code>rtmp://192.168.1.20:1935/drone</code> yalnızca örnektir; uygulamanızda görünen adresi kullanın."
+            },
+            {
+              "t": "DJI Fly'ı bu adrese yönlendirin",
+              "d": "DJI Fly’da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın, alıcı adresini girip aktarımı başlatın. Menü ayrıntıları <a href=\"../dji-fly-rtmp-canli-yayin-ayarlari/\">DJI Fly RTMP rehberinde</a>. Bilgisayarın güvenlik duvarı sorarsa özel ağda gelen bağlantılara izin verin. Hedef eklemeden önce önizlemeyi kontrol edin."
+            },
+            {
+              "t": "Çıkış biçimini ve platformu ayarlayın",
+              "d": "Klasik YouTube veya Facebook yayını için yatay, dikey düzen kullanan bir hesap için dikey çıkış seçin. Hedefin güncel sunucu adresini ve anahtarını ekleyip çıkışı başlatın; platformdan yayını doğrulayın."
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "DJI Live Bridge masaüstü uygulamasında yerel DJI Fly RTMP adresi, platform hedefleri ve Yayını Başlat düğmesi."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Hangi platformda canlı yayın yapacaksınız?",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Platform",
+              "Önceden hazırlayın",
+              "Ayrıntılı rehber"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "Canlı yayın özelliği açık bir hesap ve hazırlanmış yayın",
+                "<a href=\"../drone-ile-youtube-canli-yayin-nasil-yapilir/\">YouTube kurulumu</a>"
+              ],
+              [
+                "Instagram",
+                "Live Producer erişimi ve güncel RTMPS bilgileri",
+                "<a href=\"../drone-ile-instagram-canli-yayin-nasil-yapilir/\">Instagram kurulumu</a>"
+              ],
+              [
+                "Facebook",
+                "Sunucu adresi ve anahtarı alınmış bir canlı yayın",
+                "<a href=\"../drone-ile-facebook-canli-yayin-nasil-yapilir/\">Facebook kurulumu</a>"
+              ],
+              [
+                "TikTok",
+                "Hesapta RTMP erişimi veya LIVE Studio erişimi olan bir bilgisayar",
+                "<a href=\"../drone-ile-tiktok-canli-yayin-nasil-yapilir/\">TikTok kurulumu</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "Platform erişimi hesabınıza bağlıdır. Drone görüntüsünün uygulamaya ulaşması yayın anahtarı sağlamaz ve platformda yayını başlatmaz. TikTok LIVE Studio için masaüstü uygulamasının <a href=\"../drone-u-bilgisayarin-harici-kamerasi-yapin/\">sanal kamera</a> seçeneği de vardır. Yayına geçiş için gereken güncel adımı platformun panelinden kontrol edin."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Lito X1 kayıt kalitesi, canlı görüntü ve RTMP çıkışı",
+      "blocks": [
+        {
+          "p": "DJI’ın <a href=\"https://store.dji.com/ph/product/dji-lito-x1-fly-more-combo-dji-rc-n3?vid=220431\">Lito X1 ürün sayfasında</a> 4K kayıt ve O4 canlı görüntü özellikleri anlatılıyor. Bunlar akışın farklı aşamalarıdır. Drone’a kaydedilen video, kumandadaki görüntü, RTMP girişi ve platform çıkışı farklı çözünürlüklerde olabilir. Alıcının gösterdiği giriş değerini kontrol edin; masaüstünde büyütmek eksik ayrıntıyı geri getirmez."
+        },
+        {
+          "list": [
+            "<strong>Kalkıştan önce deneyin.</strong> Drone yerdeyken hareketi, sesi ve platformun izleyici sayfasını kontrol edin.",
+            "<strong>Yükleme kapasitesini hesaplayın.</strong> Kesintisiz 5 Mbps çıkış, ağ ek yükü hariç saatte yaklaşık 2,25 GB kullanır. Bu hızda iki hedef yaklaşık 10 Mbps toplam yükleme ve saatte 4,5 GB gerektirir.",
+            "<strong>Yerel bağlantıyı güçlü tutun.</strong> Telefonu veya bilgisayarı hotspot'a yakın tutun. Kararlı bağlantı, ağın ilan edilen en yüksek hızından daha önemlidir.",
+            "<strong>Gönderilen kadrajı kontrol edin.</strong> Mobilde önizleme düzeni yereldir. Masaüstünde yayına geçmeden önce kırpma veya tüm görüntü çıkışını kontrol edin."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Lito X1 canlı yayınında sorun giderme",
+      "blocks": [
+        {
+          "list": [
+            "<strong>RTMP menüsü yok:</strong> kumanda modelini kontrol edin, kumanda yazılımını ve DJI Fly'ı güncelleyin, Aktarım bölümüne bakın. Alıcı uygulama DJI Fly'da olmayan bir özelliği ekleyemez.",
+            "<strong>Bağlantı kurulamıyor:</strong> ağ değişince uygulamadaki adresi yeniden kopyalayın. Misafir yalıtımı olmayan ortak yerel ağ kullanın; kumandadaki <code>localhost</code> kumandanın kendisini gösterir.",
+            "<strong>Telefonda görüntü var, izleyicide yok:</strong> hedef bağlantısını, güncel yayın anahtarını ve platformun son yayınlama adımını kontrol edin. Veri gönderiliyor olması tek başına izleyiciye açık yayın kanıtı değildir.",
+            "<strong>iPhone'da başka uygulamaya geçince duruyor:</strong> Stream My Drone'a dönüp Resim İçinde Resim'i kontrol edin. Bu özellik olmadan iOS alıcıyı askıya alabilir.",
+            "<strong>Yayın takılıyor:</strong> önce tek hedefle deneyin, mobil yükleme bağlantısının kararlılığını kontrol edin ve alıcıyı hotspot'a yaklaştırın."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Kaynaklar ve diğer model rehberleri",
+      "blocks": [
+        {
+          "p": "Model ve kumanda bilgileri: <a href=\"https://store.dji.com/ph/product/dji-lito-x1-fly-more-combo-dji-rc-n3?vid=220431\">resmî Lito X1 ürün sayfası ve sık sorulan sorular</a>. Model listesi: <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">DJI Fly canlı yayın uyumluluk rehberi (Çince)</a>. Kumanda gereksinimleri ve menü adımları: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. 25 Ekim 2026’da kontrol edildi; yazılım güncellemelerinden sonra menüyü tekrar kontrol edin."
+        },
+        {
+          "p": "Diğer Lito modeliyle karşılaştırmak için <a href=\"../dji-lito-1-canli-yayin/\">Lito 1 kurulumuna</a> bakın."
+        },
+        {
+          "p": "Mini serisi için <a href=\"../dji-mini-5-pro-canli-yayin/\">Mini 5 Pro rehberine</a> bakın. Tek görüntüyü birkaç hedefe göndermek için <a href=\"../drone-ile-ayni-anda-birden-fazla-platformda-canli-yayin/\">çoklu yayın rehberiyle</a> devam edin."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Lito X1 ile bilgisayarsız canlı yayın yapabilir miyim?",
+      "a": "RC 2 ile aynı yerel ağa bağlı ayrı bir telefonda Stream My Drone kullanabilirsiniz. DJI Fly kumandada çalışır, telefon RTMP görüntüsünü alır ve hedefi Stream My Drone'da ayarlarsınız."
+    },
+    {
+      "q": "RC-N3 veya RC-N2'ye zaten bağlı olan telefonu kullanabilir miyim?",
+      "a": "O telefon uçuş kontrolü için DJI Fly'ı çalıştırır. Bu rehber, DJI Fly açık kalabilsin diye alıcı olarak ayrı bilgisayarda DJI Live Bridge kullanır. İki uygulamanın uçuşu ve aktarımı tek telefonda birlikte yürütebildiğini varsaymaz."
+    },
+    {
+      "q": "DJI Fly'a hangi adresi yazmalıyım?",
+      "a": "Stream My Drone veya DJI Live Bridge'in gösterdiği yerel alıcı adresinin tamamını yazın. Platformun sunucu adresini ve yayın anahtarını ise alıcı uygulamadaki hedef ayarlarına girin."
+    },
+    {
+      "q": "Stream My Drone görüntüyü dikey yayına dönüştürür mü?",
+      "a": "Mobil uygulama aldığı videoyu iletir. Önizleme düzeni, gönderilen görüntüyü yeniden kodlamaz. Bilgisayardaki DJI Live Bridge dikey çıkış dönüşümü sunar."
+    },
+    {
+      "q": "Önizleme var ama izleyiciler neden yayını göremiyor?",
+      "a": "Önizleme yalnızca yerel drone görüntüsünün ulaştığını gösterir. Bir hedef çıkışı başlatın, platformun görüntüyü aldığını doğrulayın ve varsa oradaki son Yayına Geç adımını tamamlayın."
+    },
+    {
+      "q": "Lito X1 canlı yayını için QuickTransfer kullanabilir miyim?",
+      "a": "QuickTransfer kayıtlı dosyaları aktarır. Canlı uçuş görüntüsü için DJI Fly’ın RTMP menüsünü ve alıcı uygulamanın gösterdiği adresi kullanın. Önce hareketli görüntünün alıcıya ulaştığını kontrol edin, sonra platform çıkışını başlatın."
+    }
+  ]
+}
