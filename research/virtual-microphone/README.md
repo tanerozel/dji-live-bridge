@@ -14,6 +14,8 @@ The requested stock Galaxy S23 → RC 2 Bluetooth microphone product is **not im
 - [BLOCKERS.md](BLOCKERS.md): concrete system changes and outstanding evidence.
 - [VERIFICATION.md](VERIFICATION.md): checks actually run and hardware acceptance procedure.
 - [ANDROID_CONTROL_PROBE.md](ANDROID_CONTROL_PROBE.md): actual public-RFCOMM mandatory HFP control exchange with the user-identified QCOM-BTD/RC 2; test-only source and reproduction commands.
+- [IOS_FEASIBILITY.md](IOS_FEASIBILITY.md): current public iOS SDK transport boundary for the recognition-only goal; Core Bluetooth Classic is not a generic RFCOMM/HFP stream.
+- [IOS_VERIFICATION.md](IOS_VERIFICATION.md): implemented iOS availability diagnostics and the checks actually run, separate from missing physical iPhone/RC 2 proof.
 - [android/collect-capabilities.py](android/collect-capabilities.py): read-only ADB evidence collector, excluding Bluetooth addresses, serials and raw dumps.
 - [evidence/galaxy-s23-2026-10-24.json](evidence/galaxy-s23-2026-10-24.json): actual connected S23 observations, including Bluetooth OFF and unknown/absent properties.
 - [evidence/galaxy-s23-bluetooth-on-2026-10-24.json](evidence/galaxy-s23-bluetooth-on-2026-10-24.json): second observation with Bluetooth ON; gateway/headset service present, no HF-client service in the dump.

@@ -2,7 +2,7 @@ import SwiftUI
 
 /// Which sheet is open over the picture.
 enum DroneSheet: String, Identifiable {
-    case platforms, details, theme, language
+    case platforms, details, theme, language, virtualMicrophone
     var id: String { rawValue }
 }
 
@@ -78,6 +78,7 @@ struct DroneScreen: View {
             case .details: DarkSheet { LiveDetails(onEndPlatform: { model.confirmEndLive($0.id) }) }
             case .theme: ThemePicker()
             case .language: LanguagePicker()
+            case .virtualMicrophone: DarkSheet { VirtualMicrophoneView() }
             }
         }
         .sheet(isPresented: $pickingVideo) {

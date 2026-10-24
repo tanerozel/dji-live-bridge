@@ -166,7 +166,8 @@ struct DroneControls: View {
             live: state.isLive,
             canGoLive: model.phase.hasPicture,
             onPlatforms: { sheet = .platforms },
-            onDetails: { sheet = .details }
+            onDetails: { sheet = .details },
+            onVirtualMicrophone: { sheet = .virtualMicrophone }
         )
     }
 }
@@ -844,6 +845,7 @@ private struct ActionRow: View {
     let canGoLive: Bool
     let onPlatforms: () -> Void
     let onDetails: () -> Void
+    let onVirtualMicrophone: () -> Void
 
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
@@ -864,6 +866,7 @@ private struct ActionRow: View {
             Menu {
                 if !live { Button { onPlatforms() } label: { Label(tr("platforms"), systemImage: "square.grid.2x2") } }
                 Button { onDetails() } label: { Label(tr("technical_details"), systemImage: "info.circle") }
+                Button { onVirtualMicrophone() } label: { Label(tr("vmic_title"), systemImage: "mic") }
             } label: {
                 // As tall as the broadcast button, so the shutter row lines up; its name is spoken.
                 Image(systemName: "ellipsis")

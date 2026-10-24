@@ -59,6 +59,20 @@ broadcast still need verification on a physical iPhone/iPad.
 | Key screen privacy | `FLAG_SECURE` | The key stays masked; the screen is covered while recorded or mirrored and in the app switcher |
 | Language | Android 13+ per-app language | In-app picker, applied at once; "Phone's language" also follows iOS Settings → Stream My Drone → Language |
 | Phone Wi-Fi in details | Signal, band and link speed | Not available to apps on iOS; only "this phone's hotspot" is shown |
+| RC 2 microphone recognition | Explicit persistent HFP control connection | Availability and Bluetooth status diagnostics only; the public iOS SDK has no documented equivalent for this app's RFCOMM/HFP control transport |
+
+### Virtual Bluetooth microphone availability
+
+**More → Virtual Bluetooth Microphone** explains the current iOS transport limit and offers an
+explicit Bluetooth authorization/radio check. Opening the screen does not request Bluetooth
+access; the check button creates the Core Bluetooth manager. The screen does not scan, pair,
+connect, advertise a microphone or capture audio. Bluetooth enabled/authorized never means that
+HFP is connected or DJI Fly recognizes a microphone. A sanitized report can be copied explicitly.
+
+The working Android recognition-only control session cannot currently be ported through a
+documented public iOS API. This diagnostics screen is not a completed microphone feature port.
+See [the SDK/source analysis](../../research/virtual-microphone/IOS_FEASIBILITY.md) and
+[the verification record](../../research/virtual-microphone/IOS_VERIFICATION.md).
 
 ### Background
 
@@ -110,6 +124,7 @@ video works there: it needs no Wi-Fi.
 - `StreamMyDrone/Media`: FLV/H.264/AAC helpers, the loopback RTMP publisher, the test video
   converter and streamer, the preview decoder and picture.
 - `StreamMyDrone/YouTube`: native Google authorization, HTTPS API and serialized broadcast recovery.
+- `StreamMyDrone/VirtualMicrophone`: explicit Bluetooth state check, availability model and diagnostics sheet; no HFP transport.
 - `StreamMyDrone/Storage`: saved platforms and Keychain keys, UI preferences.
 - `StreamMyDrone/UI`: the drone screen and its parts, the sheets, the guide, the key screen.
 - `StreamMyDrone/Resources`: generated strings, the asset catalog (platform glyphs and the drone

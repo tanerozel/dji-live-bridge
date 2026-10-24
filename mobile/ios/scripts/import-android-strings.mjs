@@ -64,7 +64,10 @@ const ANDROID_ONLY = new Set([
 ]);
 
 // Written into InfoPlist.strings rather than Localizable.
-const INFO_PLIST = { NSLocalNetworkUsageDescription: 'ios_local_network_usage' };
+const INFO_PLIST = {
+  NSLocalNetworkUsageDescription: 'ios_local_network_usage',
+  NSBluetoothAlwaysUsageDescription: 'ios_vmic_bluetooth_usage',
+};
 
 const PLURAL_FORMS = ['zero', 'one', 'two', 'few', 'many', 'other'];
 
