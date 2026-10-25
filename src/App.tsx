@@ -30,8 +30,10 @@ import {
   setRecording,
   setNativeRecording,
   setRtmpDestinationEnabled,
+  startCaptureCard,
   startLive,
   startTestDrone,
+  stopCaptureCard,
   stopTestDrone,
   stopLive,
   upsertRtmpDestination,
@@ -441,7 +443,63 @@ function DroneStep({ snapshot, busy, act, t }: { snapshot: BridgeSnapshot; busy?
           {testRunning ? t("s1.stopTest") : t("s1.test")}
         </button>
       </div>
+      <CaptureCard snapshot={snapshot} busy={busy} act={act} t={t} />
     </>
+  );
+}
+
+/** An HDMI capture card publishes /drone in place of DJI Fly. */
+function CaptureCard({ snapshot, busy, act, t }: { snapshot: BridgeSnapshot; busy?: string; act: Act; t: Translate }) {
+  const process = snapshot.processes.find((item) => item.name === "capture-card");
+  const running = process?.status === "Running" || process?.status === "Starting";
+  const [device, setDevice] = useState("");
+  const [audio, setAudio] = useState<string | null>(null);
+  const devices = snapshot.videoInputs;
+  const selected = devices.some((item) => item.name === device) ? device : (devices[0]?.name ?? "");
+  // Cards usually list their audio under the same name as the video.
+  const matchingAudio = snapshot.audioInputs.find((item) => item.name === selected)?.name ?? "";
+  const selectedAudio = audio ?? matchingAudio;
+
+  return (
+    <div className="capture-card">
+      <div className="row-between">
+        <strong>{t("capture.title")}</strong>
+        {devices.length > 0 && (
+          <button
+            className="soft"
+            disabled={snapshot.mediaMtx !== "Ready" || busy === "capture-card" || !selected || (snapshot.publisherPresent && !running)}
+            onClick={() => void act("capture-card", () => (running ? stopCaptureCard() : startCaptureCard(selected, selectedAudio || null)))}
+          >
+            {running ? t("capture.stop") : t("capture.start")}
+          </button>
+        )}
+      </div>
+      {devices.length === 0 ? (
+        <p className="hint">{t("capture.none")}</p>
+      ) : (
+        <div className="capture-selects">
+          <label className="inline-select">
+            {t("capture.device")}
+            <select value={selected} disabled={running} onChange={(event) => { setDevice(event.target.value); setAudio(null); }}>
+              {devices.map((item) => (
+                <option key={item.name} value={item.name}>{item.name}</option>
+              ))}
+            </select>
+          </label>
+          <label className="inline-select">
+            {t("capture.audio")}
+            <select value={selectedAudio} disabled={running} onChange={(event) => setAudio(event.target.value)}>
+              <option value="">{t("capture.noAudio")}</option>
+              {snapshot.audioInputs.map((item) => (
+                <option key={item.name} value={item.name}>{item.name}</option>
+              ))}
+            </select>
+          </label>
+        </div>
+      )}
+      <p className="hint">{t("capture.help")}</p>
+      {process?.status === "Failed" && process.lastError && <p className="hint warn-text">{process.lastError}</p>}
+    </div>
   );
 }
 

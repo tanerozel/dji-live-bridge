@@ -1,5 +1,6 @@
 mod app;
 mod audio;
+mod capture;
 mod config;
 mod console;
 mod diagnostics;
@@ -59,6 +60,26 @@ async fn stop_test_drone(state: State<'_, Arc<AppState>>) -> Result<(), ErrorPay
     state
         .supervisor
         .stop("test-drone")
+        .await
+        .map_err(Into::into)
+}
+
+#[tauri::command]
+async fn start_capture_card(
+    state: State<'_, Arc<AppState>>,
+    device: String,
+    audio: Option<String>,
+) -> Result<(), ErrorPayload> {
+    capture::start(&state.supervisor, &device, audio.as_deref())
+        .await
+        .map_err(Into::into)
+}
+
+#[tauri::command]
+async fn stop_capture_card(state: State<'_, Arc<AppState>>) -> Result<(), ErrorPayload> {
+    state
+        .supervisor
+        .stop(capture::PROCESS_NAME)
         .await
         .map_err(Into::into)
 }
@@ -379,6 +400,8 @@ pub fn run() {
             select_interface,
             start_test_drone,
             stop_test_drone,
+            start_capture_card,
+            stop_capture_card,
             activate_preview_fallback,
             stop_preview_fallback,
             report_preview_status,

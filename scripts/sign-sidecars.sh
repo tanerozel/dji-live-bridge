@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Re-sign bundled sidecar binaries with EMPTY entitlements, then re-seal the app.
+# Re-sign bundled sidecar binaries with minimal entitlements (only the unrestricted
+# camera/microphone ones, nothing that needs a provisioning profile), then re-seal the app.
 #
 # WHY THIS EXISTS: `tauri build` signs every binary in Contents/MacOS with the
 # app's entitlements.plist. That file holds restricted entitlements

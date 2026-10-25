@@ -11,7 +11,7 @@ Applies to Codex, Claude Code and any other coding agent working in this repo.
   (`system-extension.install`, `application-groups`). Without a provisioning profile macOS SIGKILLs the
   sidecar at launch (exit 137), MediaMTX never starts, and the app shows
   `HTTP error: error sending request for url (http://127.0.0.1:9997/v3/paths/list)`.
-- `build:mac` builds the `.app`, re-signs the sidecar with empty entitlements (`scripts/sign-sidecars.sh`),
+- `build:mac` builds the `.app`, re-signs the sidecars with minimal entitlements (`scripts/sign-sidecars.sh`; only camera/microphone),
   verifies the bundle (`scripts/verify-bundle.sh`), creates the `.dmg` from the fixed app, and verifies the
   app inside the DMG. If any check fails the build fails — do not work around it.
 - Do not run `scripts/sign-sidecars.sh` by hand, do not use the DMG Tauri generates, and do not add

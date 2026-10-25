@@ -313,6 +313,8 @@ input[type="checkbox"] { width: auto; accent-color: var(--accent); }
 .copy-field + .hint, .qr + .hint { margin-top: 10px; }
 .inline-select { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; }
 .inline-select select { width: auto; max-width: 240px; padding: 4px 8px; font-size: 12px; }
+.capture-card { display: grid; gap: 8px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 13px; }
+.capture-selects { display: flex; flex-wrap: wrap; gap: 8px 16px; }
 
 /* destinations */
 .destinations { display: grid; gap: 8px; }

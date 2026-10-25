@@ -25,6 +25,14 @@ export function stopTestDrone() {
   return invoke<void>("stop_test_drone");
 }
 
+export function startCaptureCard(device: string, audio: string | null) {
+  return invoke<void>("start_capture_card", { device, audio });
+}
+
+export function stopCaptureCard() {
+  return invoke<void>("stop_capture_card");
+}
+
 export function activatePreviewFallback() {
   return invoke<string>("activate_preview_fallback");
 }

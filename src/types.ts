@@ -128,6 +128,10 @@ export interface ProcessSnapshot {
   lastError: string | null;
 }
 
+export interface VideoInputDevice {
+  name: string;
+}
+
 export interface AudioInputDevice {
   name: string;
   manufacturer: string | null;
@@ -151,6 +155,7 @@ export interface BridgeSnapshot {
   virtualCamera: VirtualCameraState;
   vision: VisionState;
   audioInputs: AudioInputDevice[];
+  videoInputs: VideoInputDevice[];
   processes: ProcessSnapshot[];
   lastError: ErrorPayload | null;
   updatedAtUnixMs: number;

@@ -11,7 +11,7 @@ use tauri::AppHandle;
 use tokio::sync::RwLock;
 
 use crate::{
-    audio,
+    audio, capture,
     config::{
         AppConfig, BroadcastDestination, ConfigStore, DestinationMode, FitMode, OutputLayout,
         ProductionEngine, RtmpDestinationConfig, RtmpDestinationInput, RtmpDestinationKind,
@@ -158,6 +158,21 @@ impl AppState {
                     }
                     Ok(Err(error)) => tracing::debug!(%error, "audio device discovery failed"),
                     Err(error) => tracing::debug!(%error, "audio device discovery task failed"),
+                }
+                match capture::discover_video_devices().await {
+                    Ok(devices) => {
+                        self.state
+                            .mutate_if_changed(&app, |snapshot| {
+                                if snapshot.video_inputs == devices {
+                                    false
+                                } else {
+                                    snapshot.video_inputs = devices;
+                                    true
+                                }
+                            })
+                            .await;
+                    }
+                    Err(error) => tracing::debug!(%error, "video device discovery failed"),
                 }
                 audio_check = Instant::now();
             }

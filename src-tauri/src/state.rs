@@ -6,6 +6,7 @@ use tokio::sync::RwLock;
 
 use crate::{
     audio::AudioInputDevice,
+    capture::VideoInputDevice,
     config::{ProductionEngine, RtmpDestinationKind},
     error::{BridgeError, BridgeResult, ErrorPayload},
     network::NetworkInterface,
@@ -167,6 +168,7 @@ pub struct BridgeSnapshot {
     pub virtual_camera: VirtualCameraState,
     pub vision: VisionState,
     pub audio_inputs: Vec<AudioInputDevice>,
+    pub video_inputs: Vec<VideoInputDevice>,
     pub processes: Vec<ProcessSnapshot>,
     pub last_error: Option<ErrorPayload>,
     pub updated_at_unix_ms: u64,
@@ -196,6 +198,7 @@ impl Default for BridgeSnapshot {
             virtual_camera: VirtualCameraState::default(),
             vision: VisionState::default(),
             audio_inputs: Vec::new(),
+            video_inputs: Vec::new(),
             processes: Vec::new(),
             last_error: None,
             updated_at_unix_ms: now_ms(),

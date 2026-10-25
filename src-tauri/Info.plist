@@ -4,6 +4,8 @@
 <dict>
   <key>NSLocalNetworkUsageDescription</key>
   <string>DJI RC 2 cihazından aynı yerel ağ üzerinden RTMP video akışını almak için yerel ağ erişimi gerekir.</string>
+  <key>NSCameraUsageDescription</key>
+  <string>HDMI video kartından (capture card) gelen drone görüntüsünü almak için kamera erişimi gerekir.</string>
   <key>NSMicrophoneUsageDescription</key>
   <string>Canlı yayına isteğe bağlı yorum mikrofonu eklemek için mikrofon erişimi gerekir.</string>
 </dict>

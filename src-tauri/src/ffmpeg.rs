@@ -267,12 +267,12 @@ pub fn select_h264_encoder(capabilities: &FfmpegCapabilities) -> Option<&'static
 
 /// FFmpeg's capture input for the commentary microphone.
 #[cfg(target_os = "macos")]
-const AUDIO_INPUT_FORMAT: &str = "avfoundation";
+pub(crate) const AUDIO_INPUT_FORMAT: &str = "avfoundation";
 #[cfg(target_os = "windows")]
-const AUDIO_INPUT_FORMAT: &str = "dshow";
+pub(crate) const AUDIO_INPUT_FORMAT: &str = "dshow";
 
 /// avfoundation addresses devices as ":name"; dshow as "audio=name".
-fn audio_input_argument(microphone: &str) -> String {
+pub(crate) fn audio_input_argument(microphone: &str) -> String {
     if cfg!(target_os = "windows") {
         format!("audio={microphone}")
     } else {
@@ -563,6 +563,51 @@ pub async fn start_production(
     Ok(encoder.to_string())
 }
 
+/// Encodes a local source (input 0 video, mapped beforehand) and publishes it
+/// as `/drone`, so everything downstream treats it like the drone. The long
+/// side is capped but the source's own orientation is kept: padding a
+/// portrait clip into 1280x720 left a 405x720 strip that production then
+/// shrank even further.
+pub(crate) fn drone_publish_args(encoder: &str, long_side: u32) -> Vec<OsString> {
+    let scale = format!(
+        "fps=30,scale='if(gte(iw,ih),min({long_side},iw),-2)':'if(gte(iw,ih),-2,min({long_side},ih))':flags=lanczos"
+    );
+    [
+        "-vf",
+        &scale,
+        "-c:v",
+        encoder,
+        "-pix_fmt",
+        "yuv420p",
+        "-profile:v",
+        "high",
+        "-b:v",
+        "8000k",
+        "-maxrate",
+        "8000k",
+        "-bufsize",
+        "16000k",
+        "-g",
+        "30",
+        "-bf",
+        "0",
+        "-c:a",
+        "aac",
+        "-b:a",
+        "128k",
+        "-ar",
+        "48000",
+        "-ac",
+        "2",
+        "-f",
+        "flv",
+        "rtmp://127.0.0.1:1935/drone",
+    ]
+    .into_iter()
+    .map(OsString::from)
+    .collect()
+}
+
 pub async fn start_test_drone(supervisor: &ProcessSupervisor, input: &Path) -> BridgeResult<()> {
     let capabilities = capabilities().await;
     let ffmpeg = capabilities
@@ -609,44 +654,8 @@ pub async fn start_test_drone(supervisor: &ProcessSupervisor, input: &Path) -> B
     .map(OsString::from)
     .chain([input.into_os_string()])
     .chain(audio_args.iter().map(OsString::from))
-    .chain(
-        [
-            // Behave like the RC 2 (long side 1280, 30 fps) but keep the
-            // clip's own orientation: padding a portrait clip into 1280x720
-            // left a 405x720 strip that production then shrank even further.
-            "-vf",
-            "fps=30,scale='if(gte(iw,ih),min(1280,iw),-2)':'if(gte(iw,ih),-2,min(1280,ih))':flags=lanczos",
-            "-c:v",
-            encoder,
-            "-pix_fmt",
-            "yuv420p",
-            "-profile:v",
-            "high",
-            "-b:v",
-            "8000k",
-            "-maxrate",
-            "8000k",
-            "-bufsize",
-            "16000k",
-            "-g",
-            "30",
-            "-bf",
-            "0",
-            "-c:a",
-            "aac",
-            "-b:a",
-            "128k",
-            "-ar",
-            "48000",
-            "-ac",
-            "2",
-            "-f",
-            "flv",
-            "rtmp://127.0.0.1:1935/drone",
-        ]
-        .into_iter()
-        .map(OsString::from),
-    )
+    // Behave like the RC 2: long side 1280, 30 fps.
+    .chain(drone_publish_args(encoder, 1280))
     .collect();
     supervisor
         .start(ProcessSpec {
