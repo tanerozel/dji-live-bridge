@@ -290,7 +290,12 @@ impl AppState {
                         self.state
                             .mutate(&app, |snapshot| {
                                 snapshot.media_mtx = ServiceStatus::Failed;
-                                snapshot.last_error = Some(error.into());
+                                // A startup error (a busy port, a killed
+                                // sidecar) says why; "request failed" every 2 s
+                                // would only hide it.
+                                if snapshot.last_error.is_none() {
+                                    snapshot.last_error = Some(error.into());
+                                }
                             })
                             .await;
                     }

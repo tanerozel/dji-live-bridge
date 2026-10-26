@@ -64,6 +64,7 @@ impl MediaMtxController {
 
     pub async fn start(&self, supervisor: &ProcessSupervisor) -> BridgeResult<()> {
         self.reap_stale_sidecar().await;
+        ensure_ports_free().await?;
         self.write_and_validate_config().await?;
         supervisor
             .start(ProcessSpec {
@@ -393,6 +394,85 @@ fn runtime_config() -> &'static str {
     include_str!("../mediamtx.runtime.yml")
 }
 
+/// Every `<name>Address: <host>:<port>` MediaMTX listens on, with whether it
+/// is UDP. `:1935` means all interfaces.
+fn listen_addresses(config: &str) -> Vec<(String, bool)> {
+    config
+        .lines()
+        .filter_map(|line| {
+            let (key, value) = line.trim().split_once(':')?;
+            let key = key.strip_suffix("Address")?;
+            let value = value.trim();
+            let address = if value.starts_with(':') {
+                format!("0.0.0.0{value}")
+            } else {
+                value.to_string()
+            };
+            Some((address, key.ends_with("UDP")))
+        })
+        .collect()
+}
+
+/// MediaMTX exits at once when another program holds one of its ports, and
+/// the app was left showing only that its Control API did not answer. An
+/// Android emulator, for one, listens on 127.0.0.1:8554. Binding each address
+/// first (as MediaMTX does) names the port and, where possible, its owner.
+async fn ensure_ports_free() -> BridgeResult<()> {
+    for (address, udp) in listen_addresses(runtime_config()) {
+        let in_use = if udp {
+            std::net::UdpSocket::bind(&address).err()
+        } else {
+            std::net::TcpListener::bind(&address).err()
+        }
+        .is_some_and(|error| error.kind() == std::io::ErrorKind::AddrInUse);
+        if in_use {
+            let port = address.rsplit(':').next().unwrap_or(&address);
+            let owner = port_owner(port, udp)
+                .await
+                .map(|owner| format!(" by {owner}"))
+                .unwrap_or_default();
+            return Err(BridgeError::MediaMtx(format!(
+                "Port {port} ({address}) is already in use{owner}. Quit that program \
+                 (an Android emulator, OBS or another streaming tool) and reopen \
+                 Stream My Drone."
+            )));
+        }
+    }
+    Ok(())
+}
+
+/// `name (PID n)` of the process holding a port, from lsof.
+#[cfg(unix)]
+async fn port_owner(port: &str, udp: bool) -> Option<String> {
+    let filter = if udp {
+        format!("-iUDP:{port}")
+    } else {
+        format!("-iTCP:{port}")
+    };
+    let mut args = vec!["-nP", filter.as_str(), "-Fpc"];
+    if !udp {
+        args.push("-sTCP:LISTEN");
+    }
+    let output = Command::new("/usr/sbin/lsof")
+        .args(&args)
+        .output()
+        .await
+        .ok()?;
+    parse_lsof_owner(&String::from_utf8_lossy(&output.stdout))
+}
+
+#[cfg(windows)]
+async fn port_owner(_port: &str, _udp: bool) -> Option<String> {
+    None
+}
+
+/// lsof `-Fpc` prints `p<pid>` and `c<command>` lines.
+fn parse_lsof_owner(text: &str) -> Option<String> {
+    let pid = text.lines().find_map(|line| line.strip_prefix('p'))?;
+    let command = text.lines().find_map(|line| line.strip_prefix('c'))?;
+    Some(format!("{command} (PID {pid})"))
+}
+
 fn resolve_sidecar_path() -> BridgeResult<PathBuf> {
     let executable_dir = std::env::current_exe()?
         .parent()
@@ -478,6 +558,47 @@ mod tests {
         assert_eq!(
             forward_dest("rtmp://push.example/live", "abc"),
             "rtmp://push.example/live#abc"
+        );
+    }
+
+    #[test]
+    fn reads_every_listen_address_from_the_runtime_config() {
+        let addresses = listen_addresses(runtime_config());
+        for expected in [
+            "127.0.0.1:9997",
+            "127.0.0.1:8554",
+            "0.0.0.0:1935",
+            "127.0.0.1:8889",
+        ] {
+            assert!(
+                addresses.contains(&(expected.to_string(), false)),
+                "{expected} missing from {addresses:?}"
+            );
+        }
+        assert!(addresses.contains(&("127.0.0.1:8189".to_string(), true)));
+    }
+
+    #[test]
+    fn names_the_program_holding_a_port() {
+        assert_eq!(
+            parse_lsof_owner("p91642\ncqemu-system-aarch64\nf53\n").as_deref(),
+            Some("qemu-system-aarch64 (PID 91642)")
+        );
+        assert_eq!(parse_lsof_owner(""), None);
+    }
+
+    #[cfg(unix)]
+    #[tokio::test]
+    async fn finds_who_holds_a_busy_port() {
+        let listener = std::net::TcpListener::bind("127.0.0.1:0").unwrap();
+        let address = listener.local_addr().unwrap();
+        let error = std::net::TcpListener::bind(address).unwrap_err();
+        assert_eq!(error.kind(), std::io::ErrorKind::AddrInUse);
+        let owner = port_owner(&address.port().to_string(), false).await;
+        let pid = format!("PID {}", std::process::id());
+        assert!(
+            owner.as_deref().is_some_and(|owner| owner.contains(&pid)),
+            "{owner:?}"
         );
     }
 
