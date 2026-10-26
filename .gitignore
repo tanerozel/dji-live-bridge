@@ -26,3 +26,5 @@
 /marketing/launch-kit/*.jpg
 mobile/android/store-assets/*
 mobile/ios/store-assets/*
+# Rendered promo videos (100 MB+; GitHub rejects files over 100 MB)
+/marketing/promo-video/out/
