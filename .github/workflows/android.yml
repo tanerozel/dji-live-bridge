@@ -28,7 +28,8 @@ jobs:
           java-version: "17"
           cache: gradle
 
-      - uses: android-actions/setup-android@v3
+      # v3 also installed the obsolete `tools` package, which sdkmanager no longer has.
+      - uses: android-actions/setup-android@v4
 
       - name: Install Android SDK and NDK
         run: sdkmanager "platforms;android-36.1" "build-tools;36.1.0" "ndk;28.2.13676358"

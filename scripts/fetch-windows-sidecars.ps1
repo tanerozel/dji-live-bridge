@@ -19,10 +19,12 @@ $mediamtxUrl = "https://github.com/bluenviron/mediamtx/releases/download/v$media
 $mediamtxSha = '8a58a9b8c25ee99a96c23dc0a17f39ace3072c01d2e148329073c64ddf83493d'
 
 # BtbN autobuild, pinned. A rolling "latest" URL would change under us.
-$ffmpegTag = 'autobuild-2026-10-08-13-05'
-$ffmpegAsset = 'ffmpeg-n9.0.2-23-g27b46f0fbc-win64-lgpl-9.0.zip'
+# Pin a month-end build only: BtbN deletes the daily ones after about two
+# weeks (that broke CI once) but keeps the last build of every month.
+$ffmpegTag = 'autobuild-2026-09-30-13-08'
+$ffmpegAsset = 'ffmpeg-n9.0.2-17-g2a571b6068-win64-lgpl-9.0.zip'
 $ffmpegUrl = "https://github.com/BtbN/FFmpeg-Builds/releases/download/$ffmpegTag/$ffmpegAsset"
-$ffmpegSha = '74823968af824fddced214fbfa3aa47c73c0cb15fd225db8d73ee3212e9757f7'
+$ffmpegSha = '6b264b9e6019103f601d98c292bd332fd87acf1c5e941ddff4fb71760fe63432'
 
 function Get-Verified([string]$url, [string]$expected, [string]$destination) {
   Write-Host "==> Downloading $(Split-Path -Leaf $url)"
