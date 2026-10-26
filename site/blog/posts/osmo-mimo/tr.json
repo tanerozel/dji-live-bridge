@@ -2,15 +2,15 @@
   "slug": "dji-osmo-kameralarla-canli-yayin",
   "platform": "DJI Osmo kameralar",
   "title": "DJI Osmo Action ve Pocket ile Instagram ve TikTok'ta canlı yayın",
-  "description": "DJI Mimo, Osmo Action, Osmo Pocket ve Osmo 360 kameralarla RTMP yayını yapabilir. Bunu DJI Live Bridge'e gönderin, aynı anda Instagram, TikTok ve YouTube'da canlı yayına çıkın.",
+  "description": "DJI Mimo, Osmo Action, Osmo Pocket ve Osmo 360 kameralarla RTMP yayını yapabilir. Bunu Stream My Drone'a gönderin, aynı anda Instagram, TikTok ve YouTube'da canlı yayına çıkın.",
   "h1": "DJI Osmo kameranızla Instagram, TikTok ve daha fazlasında canlı yayın",
-  "lead": "DJI Live Bridge yalnızca drone'lar için değil. DJI'ın aksiyon ve gimbal kameraları <strong>DJI Mimo uygulamasından RTMP</strong> ile yayın yapar — uygulamanın aldığı tam da bu tür bir yayındır. Bir Osmo Action, Osmo Pocket ya da Osmo 360'ı DJI Live Bridge'e yönlendirin; görüntü <strong>Instagram, TikTok, YouTube, Facebook, Twitch veya Kick</strong>'e, aynı anda birkaçına, dikey ya da yatay olarak gider — ya da kablosuz bir webcam olarak Zoom'a ve OBS'ye.",
+  "lead": "Stream My Drone yalnızca drone'lar için değil. DJI'ın aksiyon ve gimbal kameraları <strong>DJI Mimo uygulamasından RTMP</strong> ile yayın yapar — uygulamanın aldığı tam da bu tür bir yayındır. Bir Osmo Action, Osmo Pocket ya da Osmo 360'ı Stream My Drone'a yönlendirin; görüntü <strong>Instagram, TikTok, YouTube, Facebook, Twitch veya Kick</strong>'e, aynı anda birkaçına, dikey ya da yatay olarak gider — ya da kablosuz bir webcam olarak Zoom'a ve OBS'ye.",
   "published": "2026-10-03",
   "updated": "2026-10-03",
   "summary": [
     "DJI Mimo (1.2.20 veya üzeri), Osmo Action, Osmo Pocket ve Osmo 360 serilerinde RTMP ile canlı yayın sunar.",
-    "Kamera kendisi bir Wi-Fi ağına katılır ve RTMP gönderir; onu DJI Live Bridge'in çalıştığı bilgisayarla aynı ağa bağlayın.",
-    "DJI Mimo'nun kendi platformları Facebook, YouTube ve RTMP'dir — Instagram ve TikTok'a DJI Live Bridge üzerinden ulaşılır.",
+    "Kamera kendisi bir Wi-Fi ağına katılır ve RTMP gönderir; onu Stream My Drone'un çalıştığı bilgisayarla aynı ağa bağlayın.",
+    "DJI Mimo'nun kendi platformları Facebook, YouTube ve RTMP'dir — Instagram ve TikTok'a Stream My Drone üzerinden ulaşılır.",
     "DJI, 6 Mbps'ye kadar 480p, 720p ve 1080p belirtir; Wi-Fi izin veriyorsa 1080p 6 Mbps seçin.",
     "Aynı yayın TikTok LIVE Studio, OBS, Zoom veya Meet için kablosuz bir webcam'e dönüşebilir."
   ],
@@ -35,17 +35,17 @@
     },
     {
       "id": "setup",
-      "h2": "Osmo kamerayı DJI Live Bridge üzerinden yayınlayın",
+      "h2": "Osmo kamerayı Stream My Drone üzerinden yayınlayın",
       "howto": true,
       "blocks": [
         { "steps": [
-          { "t": "DJI Live Bridge'i açın", "d": "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a>'i bir Mac'e veya Windows bilgisayara kurun. <em>Drone'u bağla</em> adımı her RTMP kamerası için çalışır ve <code>rtmp://192.168.1.20:1935/drone</code> gibi bir adres gösterir." },
+          { "t": "Stream My Drone'u açın", "d": "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>'i bir Mac'e veya Windows bilgisayara kurun. <em>Drone'u bağla</em> adımı her RTMP kamerası için çalışır ve <code>rtmp://192.168.1.20:1935/drone</code> gibi bir adres gösterir." },
           { "t": "Kamerayı DJI Mimo'ya bağlayın", "d": "DJI Mimo'yu 1.2.20 veya üzerine güncelleyin, kamerayı bağlayın ve canlı yayın seçeneğini açın." },
           { "t": "RTMP'yi ve ağı seçin", "d": "Platform olarak RTMP'yi seçin ve kameranın kullanacağı Wi-Fi ağını belirleyin — bilgisayarın bağlı olduğu ağ ya da ikisinin de katıldığı bir telefon hotspot'u." },
-          { "t": "Adresi ve kaliteyi girin", "d": "DJI Live Bridge'deki adresi yazın, 1080p'yi ve Wi-Fi'nizin kaldırabildiği en yüksek bit hızını seçin ve başlatın. Önizleme birkaç saniye içinde uygulamada görünür." },
+          { "t": "Adresi ve kaliteyi girin", "d": "Stream My Drone'daki adresi yazın, 1080p'yi ve Wi-Fi'nizin kaldırabildiği en yüksek bit hızını seçin ve başlatın. Önizleme birkaç saniye içinde uygulamada görünür." },
           { "t": "Platformları ekleyin ve yayına çıkın", "d": "Instagram, TikTok, YouTube ya da herhangi bir RTMP sunucusunu ekleyin, dikey veya yatay seçin ve YAYINI BAŞLAT'a basın." }
         ] },
-        { "img": "go-live.png", "alt": "DJI Live Bridge'in Canlı yayın sekmesi: RTMP adresi, hedefler ve YAYINI BAŞLAT düğmesi." }
+        { "img": "go-live.png", "alt": "Stream My Drone'un Canlı yayın sekmesi: RTMP adresi, hedefler ve YAYINI BAŞLAT düğmesi." }
       ]
     },
     {
@@ -53,7 +53,7 @@
       "h2": "Osmo kameranıza neler katar?",
       "blocks": [
         { "list": [
-          "<strong>Instagram ve TikTok.</strong> DJI Mimo; Facebook'a, YouTube'a ya da bir RTMP adresine yayın yapar. DJI Live Bridge Instagram'a RTMPS ile, TikTok'a da yayın anahtarıyla ya da TikTok LIVE Studio üzerinden ulaşır.",
+          "<strong>Instagram ve TikTok.</strong> DJI Mimo; Facebook'a, YouTube'a ya da bir RTMP adresine yayın yapar. Stream My Drone Instagram'a RTMPS ile, TikTok'a da yayın anahtarıyla ya da TikTok LIVE Studio üzerinden ulaşır.",
           "<strong>Aynı anda birkaç platform.</strong> Tek kamera; Instagram, TikTok ve YouTube'da aynı yayın.",
           "<strong>Telefonlar için dikey.</strong> Yatay görüntü siyah şeritler yerine bulanık dolguyla 1080×1920 olur.",
           "<strong>Kablosuz webcam.</strong> Yerleşik sanal kamera, Osmo'nun görüntüsünü TikTok LIVE Studio, OBS, Zoom veya Meet'te gösterir — bilgisayara kablo gerekmez. <a href=\"../drone-u-bilgisayarin-harici-kamerasi-yapin/\">Webcam rehberine</a> bakın.",
@@ -75,10 +75,10 @@
     }
   ],
   "faq": [
-    { "q": "Osmo Action veya Osmo Pocket ile Instagram'da canlı yayın yapabilir miyim?", "a": "Yalnızca DJI Mimo ile yapamazsınız; Mimo Facebook, YouTube ve RTMP sunar. RTMP ile DJI Live Bridge'e yayın yapın; uygulama görüntüyü Instagram'a RTMPS ile iletir." },
-    { "q": "DJI Live Bridge yalnızca drone'larla değil kameralarla da çalışır mı?", "a": "Evet. Standart bir RTMP yayını alır; onu DJI Fly'ın ya da DJI Mimo'nun göndermesi fark etmez." },
+    { "q": "Osmo Action veya Osmo Pocket ile Instagram'da canlı yayın yapabilir miyim?", "a": "Yalnızca DJI Mimo ile yapamazsınız; Mimo Facebook, YouTube ve RTMP sunar. RTMP ile Stream My Drone'a yayın yapın; uygulama görüntüyü Instagram'a RTMPS ile iletir." },
+    { "q": "Stream My Drone yalnızca drone'larla değil kameralarla da çalışır mı?", "a": "Evet. Standart bir RTMP yayını alır; onu DJI Fly'ın ya da DJI Mimo'nun göndermesi fark etmez." },
     { "q": "Hangi DJI kameralar RTMP canlı yayını destekler?", "a": "DJI'a göre: Osmo Pocket 3, 4 ve 4P, Osmo Action 3, 4, 5 Pro ve 6, tek lens modunda Osmo 360 serisi, DJI Pocket 2, DJI Action 2 ve ilk Osmo Action." },
-    { "q": "Osmo kamerayı kablosuz webcam olarak kullanabilir miyim?", "a": "Evet. DJI Live Bridge'in sanal kamerasını başlatın ve TikTok LIVE Studio, OBS, Zoom veya Meet'te DJI Live Bridge Camera'yı seçin." },
-    { "q": "Ücretsiz mi?", "a": "Evet. DJI Live Bridge ücretsiz ve açık kaynaktır; DJI ile bağlantılı değildir." }
+    { "q": "Osmo kamerayı kablosuz webcam olarak kullanabilir miyim?", "a": "Evet. Stream My Drone'un sanal kamerasını başlatın ve TikTok LIVE Studio, OBS, Zoom veya Meet'te Stream My Drone Camera'yı seçin." },
+    { "q": "Ücretsiz mi?", "a": "Evet. Stream My Drone ücretsiz ve açık kaynaktır; DJI ile bağlantılı değildir." }
   ]
 }

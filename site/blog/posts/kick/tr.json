@@ -2,9 +2,9 @@
   "slug": "drone-ile-kick-yayini-nasil-yapilir",
   "platform": "Kick",
   "title": "DJI drone ile Kick'te yayın nasıl yapılır? (URL ve anahtar)",
-  "description": "Drone ile Kick'te yayın: Kick panelinden yayın URL'si ve anahtarını kopyalayın, DJI Live Bridge'e Özel RTMP hedefi olarak ekleyin ve yayına geçin.",
+  "description": "Drone ile Kick'te yayın: Kick panelinden yayın URL'si ve anahtarını kopyalayın, Stream My Drone'a Özel RTMP hedefi olarak ekleyin ve yayına geçin.",
   "h1": "DJI drone ile Kick'te yayın nasıl yapılır?",
-  "lead": "Kick içerik üreticisi panelinde <strong>Settings → Stream URL &amp; Key</strong> sayfasını açın, iki değeri de DJI Live Bridge'de bir <strong>Özel RTMP</strong> hedefine yapıştırın, drone'un görüntüsünü DJI Fly'dan uygulamaya gönderin ve YAYINI BAŞLAT'a basın. Kick şifreli bir RTMPS adresi kullanır; uygulama bunu destekler.",
+  "lead": "Kick içerik üreticisi panelinde <strong>Settings → Stream URL &amp; Key</strong> sayfasını açın, iki değeri de Stream My Drone'da bir <strong>Özel RTMP</strong> hedefine yapıştırın, drone'un görüntüsünü DJI Fly'dan uygulamaya gönderin ve YAYINI BAŞLAT'a basın. Kick şifreli bir RTMPS adresi kullanır; uygulama bunu destekler.",
   "published": "2026-10-02",
   "updated": "2026-10-02",
   "summary": [
@@ -21,9 +21,9 @@
       "howto": true,
       "blocks": [
         { "steps": [
-          { "t": "Drone'u bağlayın", "d": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın ve DJI Live Bridge'in gösterdiği adresi girin." },
+          { "t": "Drone'u bağlayın", "d": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın ve Stream My Drone'un gösterdiği adresi girin." },
           { "t": "Yayın URL'sini ve anahtarını kopyalayın", "d": "kick.com'da içerik üreticisi panelini açın → Settings → Stream URL &amp; Key. <em>Stream URL</em> değerini (<code>rtmps://</code> ile başlar, <code>/app</code> ile biter) ve <em>Stream key</em> değerini kopyalayın." },
-          { "t": "Özel RTMP hedefi ekleyin", "d": "DJI Live Bridge'de Özel RTMP'yi seçin, adını Kick koyun ve iki değeri de yapıştırın." },
+          { "t": "Özel RTMP hedefi ekleyin", "d": "Stream My Drone'da Özel RTMP'yi seçin, adını Kick koyun ve iki değeri de yapıştırın." },
           { "t": "Yatay 16:9'u seçin", "d": "<em>Görüntü ve ses</em> bölümünde <em>Yatay 16:9</em> seçeneğini işaretleyin." },
           { "t": "YAYINI BAŞLAT'a basın", "d": "Kick yayını aldığında kanalınız yayına geçer. Başlığı ve kategoriyi panelden ayarlayın; bitirmek için uygulamada <em>Yayını bitir</em>'e basın." }
         ] }
@@ -57,9 +57,9 @@
     }
   ],
   "faq": [
-    { "q": "DJI drone ile Kick'te yayın yapabilir miyim?", "a": "Evet. DJI Fly'ın RTMP yayınını DJI Live Bridge'e gönderin ve Kick'i, Kick panelinizdeki yayın URL'si ve anahtarıyla Özel RTMP hedefi olarak ekleyin." },
-    { "q": "Kick RTMPS destekliyor mu?", "a": "Evet. Kick'in yayın URL'si bir rtmps:// adresidir ve DJI Live Bridge rtmps:// hedeflerini kabul eder." },
-    { "q": "Kick ve Twitch'te aynı anda yayın yapabilir miyim?", "a": "DJI Live Bridge ikisine aynı anda gönderebilir. Önce her platformun eşzamanlı yayınla (simulcast) ilgili güncel kurallarını kontrol edin." },
-    { "q": "DJI Live Bridge'in Kick ile bir bağlantısı var mı?", "a": "Hayır. Bağımsız, ücretsiz ve açık kaynaklı bir uygulamadır." }
+    { "q": "DJI drone ile Kick'te yayın yapabilir miyim?", "a": "Evet. DJI Fly'ın RTMP yayınını Stream My Drone'a gönderin ve Kick'i, Kick panelinizdeki yayın URL'si ve anahtarıyla Özel RTMP hedefi olarak ekleyin." },
+    { "q": "Kick RTMPS destekliyor mu?", "a": "Evet. Kick'in yayın URL'si bir rtmps:// adresidir ve Stream My Drone rtmps:// hedeflerini kabul eder." },
+    { "q": "Kick ve Twitch'te aynı anda yayın yapabilir miyim?", "a": "Stream My Drone ikisine aynı anda gönderebilir. Önce her platformun eşzamanlı yayınla (simulcast) ilgili güncel kurallarını kontrol edin." },
+    { "q": "Stream My Drone'un Kick ile bir bağlantısı var mı?", "a": "Hayır. Bağımsız, ücretsiz ve açık kaynaklı bir uygulamadır." }
   ]
 }

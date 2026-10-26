@@ -4,14 +4,14 @@
   "title": "DJI Flip ile canlı yayın: telefon ve bilgisayar kurulumu (2026)",
   "description": "DJI Flip ile RC 2, RC-N3 veya RC-N2 üzerinden canlı yayın: telefon ve bilgisayar RTMP kurulumu, avuç içi ve telefon kontrolü, dikey kadraj ve platform kontrolleri.",
   "h1": "DJI Flip ile canlı yayın nasıl yapılır?",
-  "lead": "<strong>DJI Flip</strong>, uyumlu bir kumandayla DJI Fly RTMP üzerinden canlı uçuş görüntüsü gönderebilir. RC 2 ile ayrı telefonda <strong>Stream My Drone</strong> kullanın. RC-N3 veya RC-N2 ile DJI Fly uçuş telefonunda açık kalsın; görüntüyü bilgisayardaki <strong>DJI Live Bridge</strong> alsın. Bu rehber kumandalı kurulumu anlatır ve Flip’in avuç içi kontrolü, doğrudan telefon kontrolü ve dikey kaydından farklarını açıklar.",
+  "lead": "<strong>DJI Flip</strong>, uyumlu bir kumandayla DJI Fly RTMP üzerinden canlı uçuş görüntüsü gönderebilir. RC 2 ile ayrı telefonda <strong>Stream My Drone</strong> kullanın. RC-N3 veya RC-N2 ile DJI Fly uçuş telefonunda açık kalsın; görüntüyü bilgisayardaki <strong>Stream My Drone</strong> alsın. Bu rehber kumandalı kurulumu anlatır ve Flip’in avuç içi kontrolü, doğrudan telefon kontrolü ve dikey kaydından farklarını açıklar.",
   "published": "2026-10-25",
   "updated": "2026-10-25",
   "summary": [
     "DJI, Flip modelini canlı yayın uyumluluk listesinde; RC 2, RC-N3 ve RC-N2 modellerini de uyumlu kumandalar arasında gösteriyor.",
     "RC 2, DJI Fly uygulamasını kendi ekranında çalıştırır; ayrı telefon yayını alabilir.",
     "RC-N3 ve RC-N2, DJI Fly için telefon kullanır. DJI Fly açık kalabilsin diye aşağıdaki ayrı bilgisayar kurulumunu izleyin.",
-    "Yerel alıcı adresi DJI Fly’a girilir. Platform hesabı veya yayın anahtarı Stream My Drone ya da DJI Live Bridge içinde ayarlanır.",
+    "Yerel alıcı adresi DJI Fly’a girilir. Platform hesabı veya yayın anahtarı Stream My Drone ya da Stream My Drone içinde ayarlanır.",
     "Avuç içi kontrolü, doğrudan telefon kontrolü ve QuickTransfer farklı amaçlara hizmet eder; bu rehber kumandalı RTMP kullanır ve 2.7K dikey kayıt, dikey canlı çıkışı doğrulamaz."
   ],
   "sections": [
@@ -33,12 +33,12 @@
               [
                 "DJI RC 2",
                 "Kumandanın ekranındaki DJI Fly",
-                "Ayrı telefonda Stream My Drone veya bilgisayarda DJI Live Bridge"
+                "Ayrı telefonda Stream My Drone veya bilgisayarda Stream My Drone"
               ],
               [
                 "DJI RC-N3",
                 "USB ile bağlı telefondaki DJI Fly",
-                "Ayrı Mac veya Windows bilgisayarda DJI Live Bridge"
+                "Ayrı Mac veya Windows bilgisayarda Stream My Drone"
               ],
               [
                 "DJI RC-N2",
@@ -64,7 +64,7 @@
           "p": "Bu canlı yayın kurulumu için RC 2, RC-N3 veya RC-N2 bağlayın, DJI Fly’ın uçuş ekranını açın ve Canlı Yayın Platformları → RTMP menüsünü kullanın. Flip’e doğrudan Wi-Fi bağlantısı, canlı kamera önizlemesi veya tamamlanmış bir avuç içi çekimi, RTMP görüntüsünün alıcınıza ulaştığını tek başına doğrulamaz."
         },
         {
-          "note": "QuickTransfer kayıtlı dosyaları kopyalar. Canlı bağlantıyı doğrulamak için Stream My Drone veya DJI Live Bridge’de hareketli görüntüyü kontrol edin. Yalnızca telefonla kurulumu araştıracaksanız güncel DJI Fly bağlantı modunuzda gerçekten sunulan kontrolleri inceleyin; aşağıdaki adımlar kumanda kullanır ve telefona doğrudan bağlantıda RTMP desteğini doğrulamaz."
+          "note": "QuickTransfer kayıtlı dosyaları kopyalar. Canlı bağlantıyı doğrulamak için Stream My Drone veya Stream My Drone’da hareketli görüntüyü kontrol edin. Yalnızca telefonla kurulumu araştıracaksanız güncel DJI Fly bağlantı modunuzda gerçekten sunulan kontrolleri inceleyin; aşağıdaki adımlar kumanda kullanır ve telefona doğrudan bağlantıda RTMP desteğini doğrulamaz."
         }
       ]
     },
@@ -107,13 +107,13 @@
       "h2": "Flip ve RC-N3 veya RC-N2: görüntüyü bilgisayarda alın",
       "blocks": [
         {
-          "p": "RC-N3 veya RC-N2 kullanıyorsanız DJI Fly, kumandaya bağlı telefonda açık kalsın. Mac veya Windows bilgisayara <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> kurun; bilgisayarı ve DJI Fly'ın çalıştığı telefonu aynı yerel ağa bağlayın. RC 2 de bu bilgisayarlı kurulumu kullanabilir."
+          "p": "RC-N3 veya RC-N2 kullanıyorsanız DJI Fly, kumandaya bağlı telefonda açık kalsın. Mac veya Windows bilgisayara <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> kurun; bilgisayarı ve DJI Fly'ın çalıştığı telefonu aynı yerel ağa bağlayın. RC 2 de bu bilgisayarlı kurulumu kullanabilir."
         },
         {
           "steps": [
             {
               "t": "Bilgisayarın RTMP adresini bulun",
-              "d": "DJI Live Bridge'i açıp Drone'u bağla bölümündeki adresi kopyalayın. <code>rtmp://192.168.1.20:1935/drone</code> yalnızca örnektir; uygulamanızda görünen adresi kullanın."
+              "d": "Stream My Drone'u açıp Drone'u bağla bölümündeki adresi kopyalayın. <code>rtmp://192.168.1.20:1935/drone</code> yalnızca örnektir; uygulamanızda görünen adresi kullanın."
             },
             {
               "t": "DJI Fly'ı bu adrese yönlendirin",
@@ -127,7 +127,7 @@
         },
         {
           "img": "go-live.png",
-          "alt": "DJI Live Bridge masaüstü uygulamasında yerel DJI Fly RTMP adresi, platform hedefleri ve Yayını Başlat düğmesi."
+          "alt": "Stream My Drone masaüstü uygulamasında yerel DJI Fly RTMP adresi, platform hedefleri ve Yayını Başlat düğmesi."
         }
       ]
     },
@@ -179,7 +179,7 @@
           "p": "DJI’ın <a href=\"https://repair.dji.com/help/content?customId=01700006877&amp;lang=en&amp;paperDocType=ARTICLE&amp;spaceId=17\">dikey çekim rehberi</a>, Flip’in görüntüyü kırparak 30 fps’de 2.7K’ya kadar dikey kayıt yaptığını açıklıyor. Bu kayıt modu, DJI Fly RTMP görüntüsünün teknik özelliği değildir. Drone’a kaydedilen dosya, kumanda önizlemesi, alıcı girişi ve platform çıkışı farklı çözünürlük ve kadrajlarda olabilir."
         },
         {
-          "p": "RC 2 kullanırken DJI’ın belirttiği 720p canlı yayın sınırını dikkate alın ve alıcıya gelen görüntüyü kontrol edin. Stream My Drone bu görüntüyü iletir; mobil önizlemeyi kırpmak dikey çıkış oluşturmaz. Dikey yayın için DJI Live Bridge’in dikey dönüşümünü kullanın, son kadrajı platformda kontrol edin ve kırpma için konunun çevresinde yeterli alan bırakın. Görüntüyü büyütmek, girişte olmayan ayrıntıyı geri getirmez."
+          "p": "RC 2 kullanırken DJI’ın belirttiği 720p canlı yayın sınırını dikkate alın ve alıcıya gelen görüntüyü kontrol edin. Stream My Drone bu görüntüyü iletir; mobil önizlemeyi kırpmak dikey çıkış oluşturmaz. Dikey yayın için Stream My Drone’un dikey dönüşümünü kullanın, son kadrajı platformda kontrol edin ve kırpma için konunun çevresinde yeterli alan bırakın. Görüntüyü büyütmek, girişte olmayan ayrıntıyı geri getirmez."
         },
         {
           "list": [
@@ -230,15 +230,15 @@
     },
     {
       "q": "RC-N3 veya RC-N2'ye zaten bağlı olan telefonu kullanabilir miyim?",
-      "a": "O telefon uçuş kontrolü için DJI Fly'ı çalıştırır. Bu rehber, DJI Fly açık kalabilsin diye alıcı olarak ayrı bilgisayarda DJI Live Bridge kullanır. İki uygulamanın uçuşu ve aktarımı tek telefonda birlikte yürütebildiğini varsaymaz."
+      "a": "O telefon uçuş kontrolü için DJI Fly'ı çalıştırır. Bu rehber, DJI Fly açık kalabilsin diye alıcı olarak ayrı bilgisayarda Stream My Drone kullanır. İki uygulamanın uçuşu ve aktarımı tek telefonda birlikte yürütebildiğini varsaymaz."
     },
     {
       "q": "DJI Fly'a hangi adresi yazmalıyım?",
-      "a": "Stream My Drone veya DJI Live Bridge'in gösterdiği yerel alıcı adresinin tamamını yazın. Platformun sunucu adresini ve yayın anahtarını ise alıcı uygulamadaki hedef ayarlarına girin."
+      "a": "Stream My Drone veya Stream My Drone'un gösterdiği yerel alıcı adresinin tamamını yazın. Platformun sunucu adresini ve yayın anahtarını ise alıcı uygulamadaki hedef ayarlarına girin."
     },
     {
       "q": "Flip’in 2.7K dikey kaydı RTMP görüntüsünü de dikey yapar mı?",
-      "a": "Drone’un dikey kayıt ayarı RTMP çıkış biçimini doğrulamaz. Uygulamanıza gelen görüntüyü kontrol edin. Stream My Drone gelen videoyu iletir; dikey çıkış dönüşümü gerektiğinde bilgisayarda DJI Live Bridge kullanın."
+      "a": "Drone’un dikey kayıt ayarı RTMP çıkış biçimini doğrulamaz. Uygulamanıza gelen görüntüyü kontrol edin. Stream My Drone gelen videoyu iletir; dikey çıkış dönüşümü gerektiğinde bilgisayarda Stream My Drone kullanın."
     },
     {
       "q": "Önizleme var ama izleyiciler neden yayını göremiyor?",

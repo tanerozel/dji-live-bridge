@@ -11,13 +11,13 @@
   <key>CFBundleInfoDictionaryVersion</key>
   <string>6.0</string>
   <key>CFBundleName</key>
-  <string>DJI Live Bridge Camera</string>
+  <string>Stream My Drone Camera</string>
   <key>CFBundlePackageType</key>
   <string>SYSX</string>
   <key>CFBundleShortVersionString</key>
-  <string>0.2.0</string>
+  <string>0.2.1</string>
   <key>CFBundleVersion</key>
-  <string>5</string>
+  <string>6</string>
   <key>CMIOExtension</key>
   <dict>
     <key>CMIOExtensionMachServiceName</key>
@@ -31,6 +31,6 @@
   <key>LSMinimumSystemVersion</key>
   <string>13.0</string>
   <key>NSSystemExtensionUsageDescription</key>
-  <string>DJI Live Bridge video output is exposed as a camera for TikTok LIVE Studio.</string>
+  <string>Stream My Drone video output is exposed as a camera for TikTok LIVE Studio.</string>
 </dict>
 </plist>

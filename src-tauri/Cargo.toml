@@ -2,7 +2,7 @@
 name = "dji-live-bridge"
 version = "0.2.7"
 description = "Local DJI RTMP to MediaMTX and OBS orchestration for macOS"
-authors = ["DJI Live Bridge contributors"]
+authors = ["Stream My Drone contributors"]
 edition = "2024"
 license = "MIT"
 rust-version = "1.98.1"

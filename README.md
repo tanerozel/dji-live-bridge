@@ -1,8 +1,10 @@
-# DJI Live Bridge
+# Stream My Drone
 
 **English** · [Türkçe](README.tr.md) · [Español](README.es.md) · [中文（简体）](README.zh.md) · [中文（繁體）](README.zh-Hant.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md)
 
 **Website:** https://streammydrone.com/
+
+> Formerly **DJI Live Bridge**. Upgrading: delete the old *DJI Live Bridge* app, install *Stream My Drone*, press **Start Virtual Camera** once, and pick **Stream My Drone Camera** in TikTok LIVE Studio, OBS or Zoom. Settings and saved stream keys carry over.
 
 A macOS app that receives the RTMP stream from DJI Fly on a Mac in the same LAN, shows a local preview through MediaMTX, and feeds a built-in FFmpeg production pipeline that needs no OBS. Rust only handles processes, state, security and orchestration; video frames never pass through Rust. OBS is an optional advanced integration.
 
@@ -15,7 +17,7 @@ A macOS app that receives the RTMP stream from DJI Fly on a Mac in the same LAN,
 5. Tries a direct WHEP preview. When a codec/ICE problem appears, or preview audio for AAC is required, it can start an H.264 + Opus FFmpeg fallback for `drone-preview` only.
 6. The built-in production pipeline applies the layout with VideoToolbox or libx264 based on an FFmpeg capability probe, mixes drone audio with an optional AVFoundation microphone, and produces the `/production` path.
 7. Direct RTMP starts only with `START LIVE`. One production encode is forwarded to several enabled Instagram/TikTok/custom RTMP destinations at once. Each stream key is read from the Keychain into memory, handed to a temporary MediaMTX forward list over the loopback Control API, and removed on `STOP LIVE`; it never appears in FFmpeg argv.
-8. The bundled Core Media I/O camera extension publishes `/drone` video as a 1080×1920/30 fps video-only camera named `DJI Live Bridge Camera`. TikTok LIVE Studio picks its microphone itself; OBS is not needed.
+8. The bundled Core Media I/O camera extension publishes `/drone` video as a 1080×1920/30 fps video-only camera named `Stream My Drone Camera`. TikTok LIVE Studio picks its microphone itself; OBS is not needed.
 9. The optional OBS WebSocket 5.x integration does runtime feature detection with `GetVersion.availableRequests`; scene, recording and OBS Virtual Camera features are available when OBS is installed.
 
 DJI Fly path: **GO FLY → Transmission → Live Streaming Platforms → RTMP**. RC 2 / DJI Fly 1.16+ may require a separate microphone connected to the RC 2 before it starts streaming. That microphone is not the Mac/OBS commentary microphone.
@@ -25,7 +27,7 @@ RC 2 input can be 720p, and the UI shows the real ffprobe metadata. Choosing a 1
 ## Install (users)
 
 1. Download the latest `.dmg` for your Mac from [Releases](https://github.com/tanerozel/dji-live-bridge/releases) — `aarch64` for Apple Silicon, `x86_64` for Intel.
-2. Drag **DJI Live Bridge** into **Applications**. The virtual camera only works from there.
+2. Drag **Stream My Drone** into **Applications**. The virtual camera only works from there.
 3. That is all. FFmpeg ships inside the app, so there is nothing else to install.
 
 The build is signed and notarized by Apple, so it opens without warnings.
@@ -34,7 +36,7 @@ The build is signed and notarized by Apple, so it opens without warnings.
 
 **Windows:** Windows 10/11 is supported, and every release includes a Windows installer.
 Streaming, preview, recording, diagnostics and the built-in virtual camera have all been tested.
-The installer registers a "DJI Live Bridge Camera" device for TikTok LIVE Studio, OBS and Zoom.
+The installer registers a "Stream My Drone Camera" device for TikTok LIVE Studio, OBS and Zoom.
 The optional OBS integration is also available for broadcasts using OBS scenes. The installer
 is not code-signed, so SmartScreen may show a warning on first run.
 
@@ -54,15 +56,15 @@ The app never signs in to a platform account and never clicks through the platfo
 
 This flow needs no TikTok server URL or stream key:
 
-1. Move the signed `DJI Live Bridge.app` to `/Applications` and open it from there.
+1. Move the signed `Stream My Drone.app` to `/Applications` and open it from there.
 2. Connect the Mac and the DJI controller to the same phone hotspot. Use the `rtmp://<hotspot-IP>:1935/drone` address shown in the app as the DJI Fly streaming address.
 3. Start the DJI Fly stream, or verify the picture with `Try with a video file`.
 4. In the `TikTok LIVE Studio` tab, press `Enable Virtual Camera` once.
 5. If macOS asks, allow the system extension under **System Settings → General → Login Items & Extensions → Camera Extensions**. When the card reads `Ready to start`, press `Start Virtual Camera`.
 6. Open TikTok LIVE Studio with the `Open / download LIVE Studio` button.
-7. In TikTok LIVE Studio add a Camera source and select **DJI Live Bridge Camera**.
+7. In TikTok LIVE Studio add a Camera source and select **Stream My Drone Camera**.
 8. Set that source's `More settings → Audio capture` to `None`.
-9. Select exactly one physical microphone in TikTok LIVE Studio's main microphone control. This camera deliberately carries video only; DJI Live Bridge captures no audio and sends none to TikTok in this mode.
+9. Select exactly one physical microphone in TikTok LIVE Studio's main microphone control. This camera deliberately carries video only; Stream My Drone captures no audio and sends none to TikTok in this mode.
 10. Use headphones if you monitor the stream, so the microphone does not pick the speakers up again.
 
 The picture path is:
@@ -70,7 +72,7 @@ The picture path is:
 ```text
 DJI / Test Drone → MediaMTX /drone → FFmpeg NV12 1080×1920@30
                  → Localhost NV12 stream → Core Media I/O Camera Extension
-                 → DJI Live Bridge Camera → TikTok LIVE Studio
+                 → Stream My Drone Camera → TikTok LIVE Studio
 ```
 
 Camera activation is part of the macOS security model: the app must live in `/Applications`, and the first use needs an administrator's approval. Replacing the app in `/Applications` makes macOS deactivate the extension, so press `Start Virtual Camera` again afterwards — the button re-requests activation itself. `Go Live` stays manual inside TikTok LIVE Studio.
@@ -101,7 +103,7 @@ Five themes are available: System (follows macOS), Light, Dark, Midnight and San
 - Test Drone keeps the video's own orientation (long side 1280, 30 fps); a vertical test clip is no longer squeezed into a landscape frame.
 - The microphone is captured through AVFoundation only when the user selects one. Volume, non-negative sync delay, FFT noise reduction, compressor and limiter are applied subject to a capability probe. The macOS Microphone permission is requested only then.
 - When the drone has no audio track and no microphone is selected, valid AAC stereo silence is produced. With a microphone selected it is mixed with the drone audio through `amix`.
-- Recording writes the real `/production` mix while live, otherwise the `/drone` stream, as a stream-copy MKV under `~/Movies/DJI Live Bridge/`.
+- Recording writes the real `/production` mix while live, otherwise the `/drone` stream, as a stream-copy MKV under `~/Movies/Stream My Drone/`.
 - Each Instagram/TikTok/custom RTMP stream key lives in its own macOS Keychain entry. The destination list is added at runtime through the MediaMTX Control API; keys never reach the config file or a child process argv.
 - The single FFmpeg production encode is forwarded by MediaMTX to each enabled destination separately. Every destination's `state`, `lastError` and `outboundBytes` come from real Control API data; one failing destination does not stop another.
 - Multi-destination streaming uses the built-in `NativeFfmpeg` engine. The optional OBS engine is limited to one RTMP destination from inside this app.
@@ -132,8 +134,8 @@ TikTok LIVE Studio's current official download page offers a macOS 12+ build. Th
 
 The Tauri CSP allows only the localhost WHEP address it needs. Capabilities are limited to core and the video file picker. `NSLocalNetworkUsageDescription` is present, and `NSMicrophoneUsageDescription` for the optional built-in commentary capture.
 
-Non-secret config: `~/Library/Application Support/DJI Live Bridge/`
-Logs: `~/Library/Logs/DJI Live Bridge/`
+Non-secret config: `~/Library/Application Support/Stream My Drone/`
+Logs: `~/Library/Logs/Stream My Drone/`
 Secrets: macOS Keychain
 
 ## Development
@@ -162,7 +164,7 @@ npm run build
 npm run build:mac
 ```
 
-> **`npm run build:mac` is the only supported build command.** A bare `tauri build` is blocked (`scripts/tauri.sh`), because Tauri applies the app's restricted entitlements (`system-extension.install`, `application-groups`) to the `mediamtx` sidecar as well. Without a provisioning profile macOS kills that sidecar at launch with `SIGKILL` (exit 137), and the app then fails with `error sending request for url (http://127.0.0.1:9997/v3/paths/list)`. `build:mac` re-signs the sidecar with empty entitlements, verifies the bundle inside both the `.app` and the `.dmg` with `scripts/verify-bundle.sh`, and refuses to call an unverified build successful. To audit an installed app: `npm run verify:bundle -- "/Applications/DJI Live Bridge.app"`.
+> **`npm run build:mac` is the only supported build command.** A bare `tauri build` is blocked (`scripts/tauri.sh`), because Tauri applies the app's restricted entitlements (`system-extension.install`, `application-groups`) to the `mediamtx` sidecar as well. Without a provisioning profile macOS kills that sidecar at launch with `SIGKILL` (exit 137), and the app then fails with `error sending request for url (http://127.0.0.1:9997/v3/paths/list)`. `build:mac` re-signs the sidecar with empty entitlements, verifies the bundle inside both the `.app` and the `.dmg` with `scripts/verify-bundle.sh`, and refuses to call an unverified build successful. To audit an installed app: `npm run verify:bundle -- "/Applications/Stream My Drone.app"`.
 
 RTMP config serialization, secret separation, URL validation and the case where one destination fails while another keeps running are covered by Rust unit tests. Live streaming to Instagram and TikTok has also been tested with valid platform keys.
 

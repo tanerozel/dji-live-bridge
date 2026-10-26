@@ -65,8 +65,8 @@ done
 
 echo "[4/5] Çalışan bir kopya aranıyor..."
 if pgrep -f "^($DEBUG_DIR/|target/debug/)dji-live-bridge" >/dev/null 2>&1 \
-    || pgrep -f "^/.*/DJI Live Bridge.app/Contents/MacOS/" >/dev/null 2>&1; then
-    echo "Hata: DJI Live Bridge zaten açık. Önce kapatın." >&2
+    || pgrep -f "^/.*/Stream My Drone.app/Contents/MacOS/" >/dev/null 2>&1; then
+    echo "Hata: Stream My Drone zaten açık. Önce kapatın." >&2
     exit 1
 fi
 if lsof -nP -iTCP:1935 -iTCP:8554 -iTCP:9997 -sTCP:LISTEN >/dev/null 2>&1; then

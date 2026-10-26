@@ -53,7 +53,7 @@ try {
   $licenseFile = Get-ChildItem -Path (Join-Path $work 'ffmpeg') -Filter 'LICENSE.txt' -Recurse | Select-Object -First 1
   if ($licenseFile) { Copy-Item $licenseFile.FullName (Join-Path $licenses 'FFmpeg-LICENSE-windows.txt') -Force }
   @(
-    "FFmpeg for Windows, bundled with DJI Live Bridge."
+    "FFmpeg for Windows, bundled with Stream My Drone."
     "Source: $ffmpegUrl"
     "sha256: $ffmpegSha"
     "Build:  BtbN FFmpeg-Builds, win64 LGPL variant (no --enable-gpl, no libx264)."

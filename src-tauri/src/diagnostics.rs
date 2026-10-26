@@ -179,7 +179,7 @@ pub fn collect(snapshot: &BridgeSnapshot, ffmpeg: &FfmpegCapabilities) -> Vec<Di
     });
     items.push(match snapshot.virtual_camera.status {
         ServiceStatus::Ready => item(
-            "DJI Live Bridge Camera",
+            "Stream My Drone Camera",
             DiagnosticLevel::Pass,
             format!(
                 "Core Media I/O extension enabled · {}x{} @ {} fps · feed {}",
@@ -195,7 +195,7 @@ pub fn collect(snapshot: &BridgeSnapshot, ffmpeg: &FfmpegCapabilities) -> Vec<Di
             None,
         ),
         ServiceStatus::Starting => item(
-            "DJI Live Bridge Camera",
+            "Stream My Drone Camera",
             DiagnosticLevel::Warning,
             snapshot
                 .virtual_camera
@@ -205,7 +205,7 @@ pub fn collect(snapshot: &BridgeSnapshot, ffmpeg: &FfmpegCapabilities) -> Vec<Di
             Some(camera_pending_action()),
         ),
         ServiceStatus::Failed | ServiceStatus::Unavailable => item(
-            "DJI Live Bridge Camera",
+            "Stream My Drone Camera",
             DiagnosticLevel::Warning,
             snapshot
                 .virtual_camera
@@ -345,7 +345,7 @@ fn item(
         "FFmpeg / ffprobe" => "ffmpeg",
         "Built-in production" => "productionCapabilities",
         "Production route" => "productionRoute",
-        "DJI Live Bridge Camera" => "camera",
+        "Stream My Drone Camera" => "camera",
         "OBS WebSocket" => "obs",
         "Commentary microphone" => "microphone",
         "TikTok LIVE Studio" => "tiktok",

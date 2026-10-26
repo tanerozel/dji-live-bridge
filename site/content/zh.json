@@ -1,8 +1,8 @@
 {
   "meta": {
-    "title": "DJI Live Bridge — 无人机直播推流到 Instagram 和 TikTok",
+    "title": "Stream My Drone — 无人机直播推流到 Instagram 和 TikTok",
     "description": "免费应用，接收 DJI Fly 发出的 RTMP 流，同时推流到 Instagram、TikTok 和任意 RTMP 目标；也能变成 TikTok LIVE Studio 的虚拟摄像头，无需推流密钥。支持 macOS 和 Windows。",
-    "ogTitle": "DJI Live Bridge",
+    "ogTitle": "Stream My Drone",
     "ogDescription": "把 DJI 无人机画面同时直播到 Instagram、TikTok 和任意 RTMP 目标。免费、开源，已签名并公证。",
     "keywords": "DJI 无人机直播, DJI Fly RTMP 推流, 无人机直播到 Instagram, 无人机 TikTok 直播, 虚拟摄像头, TikTok LIVE Studio 直播, RTMP 转推, 多平台同时直播"
   },
@@ -19,7 +19,7 @@
   "hero": {
     "pill": "免费 · 已由 Apple 签名并公证",
     "h1": "把 DJI 无人机画面直播到 Instagram、TikTok、YouTube、Facebook 和自定义 RTMP 目标",
-    "lead": "DJI Live Bridge 接收电脑上 DJI Fly 发来的 RTMP 流，同时推流到多个平台；也可以把它变成 TikTok LIVE Studio 的虚拟摄像头，在那里不需要推流密钥。",
+    "lead": "Stream My Drone 接收电脑上 DJI Fly 发来的 RTMP 流，同时推流到多个平台；也可以把它变成 TikTok LIVE Studio 的虚拟摄像头，在那里不需要推流密钥。",
     "ctaMac": "下载 macOS 版",
     "ctaWin": "Windows",
     "ctaAndroid": "Android 版（Google Play）",
@@ -43,7 +43,7 @@
       },
       {
         "h": "TikTok 不需要推流密钥",
-        "p": "内置的虚拟摄像头会在 TikTok LIVE Studio 中显示为“DJI Live Bridge Camera”，没有 RTMP 权限也能开播。"
+        "p": "内置的虚拟摄像头会在 TikTok LIVE Studio 中显示为“Stream My Drone Camera”，没有 RTMP 权限也能开播。"
       },
       {
         "h": "为竖屏视频而做",
@@ -106,10 +106,10 @@
   },
   "tiktok": {
     "h2": "TikTok 不用推流密钥",
-    "sub": "TikTok 只向部分账号开放 RTMP 密钥。TikTok LIVE Studio 没有这个限制，因为你是用自己的账号登录的——它只需要一个摄像头。DJI Live Bridge 提供的就是这个摄像头。",
+    "sub": "TikTok 只向部分账号开放 RTMP 密钥。TikTok LIVE Studio 没有这个限制，因为你是用自己的账号登录的——它只需要一个摄像头。Stream My Drone 提供的就是这个摄像头。",
     "items": [
       "启用一次虚拟摄像头；系统会在第一次时询问是否允许。",
-      "在 TikTok LIVE Studio 中添加一个摄像头来源，选择 <strong>DJI Live Bridge Camera</strong>。",
+      "在 TikTok LIVE Studio 中添加一个摄像头来源，选择 <strong>Stream My Drone Camera</strong>。",
       "把该来源的音频采集设为 <em>无</em>，并在 LIVE Studio 中选择一个麦克风。",
       "在 TikTok LIVE Studio 中点击开始直播。"
     ],
@@ -126,7 +126,7 @@
     "steps": [
       {
         "t": "下载 DMG",
-        "d": "Apple Silicon Mac（M1 及更新机型）选 <code>aarch64</code> 文件，Intel Mac 选 <code>x86_64</code> 文件，然后把 <strong>DJI Live Bridge</strong> 拖进“应用程序”文件夹——虚拟摄像头只有在那里才能工作。在 Windows 上，运行 <code>-setup.exe</code> 安装程序。"
+        "d": "Apple Silicon Mac（M1 及更新机型）选 <code>aarch64</code> 文件，Intel Mac 选 <code>x86_64</code> 文件，然后把 <strong>Stream My Drone</strong> 拖进“应用程序”文件夹——虚拟摄像头只有在那里才能工作。在 Windows 上，运行 <code>-setup.exe</code> 安装程序。"
       },
       {
         "t": "打开它",
@@ -161,7 +161,7 @@
       },
       {
         "q": "能在 Windows 上用吗？",
-        "a": "支持 Windows 10/11。推流、预览、录制、诊断和内置虚拟摄像头功能均已测试。安装程序会为 TikTok LIVE Studio、OBS 和 Zoom 注册一个“DJI Live Bridge Camera”设备。安装程序没有代码签名，因此 Windows SmartScreen 可能会显示警告。"
+        "a": "支持 Windows 10/11。推流、预览、录制、诊断和内置虚拟摄像头功能均已测试。安装程序会为 TikTok LIVE Studio、OBS 和 Zoom 注册一个“Stream My Drone Camera”设备。安装程序没有代码签名，因此 Windows SmartScreen 可能会显示警告。"
       },
       {
         "q": "它能识别并清点动物吗？",
@@ -185,6 +185,6 @@
     "role": "开发者与维护者",
     "issue": "报告问题",
     "privacy": "隐私政策",
-    "note": "以 MIT 许可证发布；内置的 FFmpeg 采用 LGPL，由源码编译且不含 GPL 组件。DJI Live Bridge 是独立项目，与 DJI、Instagram、TikTok 或 Apple 无隶属关系。DJI、Instagram 和 TikTok 是各自所有者的商标。 Google Play 是 Google LLC 的商标。"
+    "note": "以 MIT 许可证发布；内置的 FFmpeg 采用 LGPL，由源码编译且不含 GPL 组件。Stream My Drone 是独立项目，与 DJI、Instagram、TikTok 或 Apple 无隶属关系。DJI、Instagram 和 TikTok 是各自所有者的商标。 Google Play 是 Google LLC 的商标。"
   }
 }

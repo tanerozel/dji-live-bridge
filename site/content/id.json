@@ -1,8 +1,8 @@
 {
   "meta": {
-    "title": "DJI Live Bridge — siaran drone DJI ke Instagram & TikTok",
+    "title": "Stream My Drone — siaran drone DJI ke Instagram & TikTok",
     "description": "Aplikasi gratis yang menyiarkan aliran RTMP dari DJI Fly ke Instagram, TikTok, dan tujuan RTMP mana pun, atau menjadi kamera virtual untuk TikTok LIVE Studio.",
-    "ogTitle": "DJI Live Bridge",
+    "ogTitle": "Stream My Drone",
     "ogDescription": "Siarkan drone DJI Anda ke Instagram, TikTok, dan tujuan RTMP mana pun sekaligus. Gratis, sumber terbuka, bertanda tangan digital dan ternotarisasi.",
     "keywords": "live streaming drone DJI, DJI Fly RTMP, drone ke Instagram Live, drone ke TikTok Live, kamera virtual, TikTok LIVE Studio, restream RTMP, aplikasi siaran drone"
   },
@@ -19,7 +19,7 @@
   "hero": {
     "pill": "Gratis · Ditandatangani dan dinotarisasi oleh Apple",
     "h1": "Siarkan langsung dari drone DJI Anda ke Instagram, TikTok, YouTube, Facebook, dan tujuan RTMP kustom",
-    "lead": "DJI Live Bridge mengambil aliran RTMP dari DJI Fly di komputer Anda lalu mengirimkannya ke beberapa platform sekaligus — atau mengubahnya menjadi kamera virtual untuk TikTok LIVE Studio, yang tidak memerlukan stream key.",
+    "lead": "Stream My Drone mengambil aliran RTMP dari DJI Fly di komputer Anda lalu mengirimkannya ke beberapa platform sekaligus — atau mengubahnya menjadi kamera virtual untuk TikTok LIVE Studio, yang tidak memerlukan stream key.",
     "ctaMac": "Unduh untuk macOS",
     "ctaWin": "Windows",
     "ctaAndroid": "Android di Google Play",
@@ -43,7 +43,7 @@
       },
       {
         "h": "Tanpa stream key untuk TikTok",
-        "p": "Kamera virtual bawaan muncul di TikTok LIVE Studio sebagai “DJI Live Bridge Camera”, jadi Anda bisa siaran tanpa akses RTMP."
+        "p": "Kamera virtual bawaan muncul di TikTok LIVE Studio sebagai “Stream My Drone Camera”, jadi Anda bisa siaran tanpa akses RTMP."
       },
       {
         "h": "Dibuat untuk video vertikal",
@@ -106,10 +106,10 @@
   },
   "tiktok": {
     "h2": "TikTok tanpa stream key",
-    "sub": "TikTok hanya memberikan kunci RTMP kepada sebagian akun. TikTok LIVE Studio tidak punya batasan itu, karena Anda masuk dengan akun sendiri — yang dibutuhkannya hanya sebuah kamera. DJI Live Bridge menyediakan kamera itu.",
+    "sub": "TikTok hanya memberikan kunci RTMP kepada sebagian akun. TikTok LIVE Studio tidak punya batasan itu, karena Anda masuk dengan akun sendiri — yang dibutuhkannya hanya sebuah kamera. Stream My Drone menyediakan kamera itu.",
     "items": [
       "Aktifkan kamera virtual sekali saja; sistem Anda meminta izin pada kali pertama.",
-      "Di TikTok LIVE Studio tambahkan sumber Camera lalu pilih <strong>DJI Live Bridge Camera</strong>.",
+      "Di TikTok LIVE Studio tambahkan sumber Camera lalu pilih <strong>Stream My Drone Camera</strong>.",
       "Atur audio capture sumber itu ke <em>None</em> dan pilih satu mikrofon di LIVE Studio.",
       "Tekan Go Live di TikTok LIVE Studio."
     ],
@@ -126,7 +126,7 @@
     "steps": [
       {
         "t": "Unduh berkas DMG",
-        "d": "Ambil berkas <code>aarch64</code> untuk Mac Apple Silicon (M1 dan lebih baru) atau berkas <code>x86_64</code> untuk Mac Intel, lalu seret <strong>DJI Live Bridge</strong> ke folder Applications — kamera virtual hanya bekerja dari sana. Di Windows, jalankan pemasang <code>-setup.exe</code>."
+        "d": "Ambil berkas <code>aarch64</code> untuk Mac Apple Silicon (M1 dan lebih baru) atau berkas <code>x86_64</code> untuk Mac Intel, lalu seret <strong>Stream My Drone</strong> ke folder Applications — kamera virtual hanya bekerja dari sana. Di Windows, jalankan pemasang <code>-setup.exe</code>."
       },
       {
         "t": "Buka aplikasinya",
@@ -161,7 +161,7 @@
       },
       {
         "q": "Apakah bisa jalan di Windows?",
-        "a": "Ya. Windows 10/11 didukung. Siaran, pratinjau, perekaman, diagnostik, dan kamera virtual bawaan semuanya telah diuji. Pemasang mendaftarkan perangkat “DJI Live Bridge Camera” untuk TikTok LIVE Studio, OBS, dan Zoom. Pemasang tidak ditandatangani secara digital, sehingga Windows SmartScreen mungkin menampilkan peringatan."
+        "a": "Ya. Windows 10/11 didukung. Siaran, pratinjau, perekaman, diagnostik, dan kamera virtual bawaan semuanya telah diuji. Pemasang mendaftarkan perangkat “Stream My Drone Camera” untuk TikTok LIVE Studio, OBS, dan Zoom. Pemasang tidak ditandatangani secara digital, sehingga Windows SmartScreen mungkin menampilkan peringatan."
       },
       {
         "q": "Bisakah aplikasi ini mendeteksi dan menghitung hewan?",
@@ -185,6 +185,6 @@
     "role": "pengembang dan pengelola",
     "issue": "Laporkan masalah",
     "privacy": "Kebijakan privasi",
-    "note": "Dirilis di bawah lisensi MIT; FFmpeg bawaannya berlisensi LGPL, dibangun dari sumber tanpa komponen GPL. DJI Live Bridge adalah proyek independen dan tidak berafiliasi dengan DJI, Instagram, TikTok, atau Apple. DJI, Instagram, dan TikTok adalah merek dagang pemiliknya masing-masing. Google Play adalah merek dagang Google LLC."
+    "note": "Dirilis di bawah lisensi MIT; FFmpeg bawaannya berlisensi LGPL, dibangun dari sumber tanpa komponen GPL. Stream My Drone adalah proyek independen dan tidak berafiliasi dengan DJI, Instagram, TikTok, atau Apple. DJI, Instagram, dan TikTok adalah merek dagang pemiliknya masing-masing. Google Play adalah merek dagang Google LLC."
   }
 }

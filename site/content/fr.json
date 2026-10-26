@@ -1,8 +1,8 @@
 {
   "meta": {
-    "title": "DJI Live Bridge — drone en direct sur Instagram et TikTok",
+    "title": "Stream My Drone — drone en direct sur Instagram et TikTok",
     "description": "Application gratuite qui prend le flux RTMP de DJI Fly et le diffuse sur Instagram, TikTok et tout serveur RTMP, ou en caméra virtuelle pour TikTok LIVE Studio.",
-    "ogTitle": "DJI Live Bridge",
+    "ogTitle": "Stream My Drone",
     "ogDescription": "Diffusez votre drone DJI en direct sur Instagram, TikTok et tout serveur RTMP à la fois. Gratuit, open source, signé et notarisé.",
     "keywords": "diffuser un drone DJI en direct, DJI Fly RTMP, drone sur Instagram Live, drone sur TikTok Live, caméra virtuelle drone, TikTok LIVE Studio, rediffusion RTMP, logiciel de streaming drone"
   },
@@ -19,7 +19,7 @@
   "hero": {
     "pill": "Gratuit · Signé et notarisé par Apple",
     "h1": "Diffusez votre drone DJI en direct sur Instagram, TikTok, YouTube, Facebook et vers des destinations RTMP personnalisées",
-    "lead": "DJI Live Bridge récupère le flux RTMP de DJI Fly sur votre ordinateur et l'envoie vers plusieurs plateformes à la fois — ou le transforme en caméra virtuelle pour TikTok LIVE Studio, où aucune clé de stream n'est nécessaire.",
+    "lead": "Stream My Drone récupère le flux RTMP de DJI Fly sur votre ordinateur et l'envoie vers plusieurs plateformes à la fois — ou le transforme en caméra virtuelle pour TikTok LIVE Studio, où aucune clé de stream n'est nécessaire.",
     "ctaMac": "Télécharger pour macOS",
     "ctaWin": "Windows",
     "ctaAndroid": "Android sur Google Play",
@@ -43,7 +43,7 @@
       },
       {
         "h": "Pas de clé de stream pour TikTok",
-        "p": "La caméra virtuelle intégrée apparaît dans TikTok LIVE Studio sous le nom « DJI Live Bridge Camera », ce qui permet de passer en direct sans accès RTMP."
+        "p": "La caméra virtuelle intégrée apparaît dans TikTok LIVE Studio sous le nom « Stream My Drone Camera », ce qui permet de passer en direct sans accès RTMP."
       },
       {
         "h": "Pensée pour la vidéo verticale",
@@ -106,10 +106,10 @@
   },
   "tiktok": {
     "h2": "TikTok sans clé de stream",
-    "sub": "TikTok ne donne de clé RTMP qu'à certains comptes. TikTok LIVE Studio n'a pas cette limite, puisque vous vous connectez avec votre compte — il lui faut seulement une caméra. DJI Live Bridge fournit cette caméra.",
+    "sub": "TikTok ne donne de clé RTMP qu'à certains comptes. TikTok LIVE Studio n'a pas cette limite, puisque vous vous connectez avec votre compte — il lui faut seulement une caméra. Stream My Drone fournit cette caméra.",
     "items": [
       "Activez la caméra virtuelle une seule fois ; votre système demande une autorisation la première fois.",
-      "Dans TikTok LIVE Studio, ajoutez une source Caméra et choisissez <strong>DJI Live Bridge Camera</strong>.",
+      "Dans TikTok LIVE Studio, ajoutez une source Caméra et choisissez <strong>Stream My Drone Camera</strong>.",
       "Réglez la capture audio de cette source sur <em>Aucune</em> et choisissez un seul micro dans LIVE Studio.",
       "Appuyez sur Go Live dans TikTok LIVE Studio."
     ],
@@ -126,7 +126,7 @@
     "steps": [
       {
         "t": "Téléchargez le DMG",
-        "d": "Prenez le fichier <code>aarch64</code> pour un Mac Apple Silicon (M1 et plus récent) ou le fichier <code>x86_64</code> pour un Mac Intel, puis glissez <strong>DJI Live Bridge</strong> dans votre dossier Applications — la caméra virtuelle ne fonctionne que de là. Sous Windows, lancez le programme d'installation <code>-setup.exe</code>."
+        "d": "Prenez le fichier <code>aarch64</code> pour un Mac Apple Silicon (M1 et plus récent) ou le fichier <code>x86_64</code> pour un Mac Intel, puis glissez <strong>Stream My Drone</strong> dans votre dossier Applications — la caméra virtuelle ne fonctionne que de là. Sous Windows, lancez le programme d'installation <code>-setup.exe</code>."
       },
       {
         "t": "Ouvrez-la",
@@ -161,7 +161,7 @@
       },
       {
         "q": "Est-ce que ça marche sous Windows ?",
-        "a": "Oui. Windows 10/11 est pris en charge. La diffusion, l’aperçu, l’enregistrement, le diagnostic et la caméra virtuelle intégrée ont tous été testés. Le programme d’installation enregistre un périphérique « DJI Live Bridge Camera » pour TikTok LIVE Studio, OBS et Zoom. Il n’est pas signé numériquement, Windows SmartScreen peut donc afficher un avertissement."
+        "a": "Oui. Windows 10/11 est pris en charge. La diffusion, l’aperçu, l’enregistrement, le diagnostic et la caméra virtuelle intégrée ont tous été testés. Le programme d’installation enregistre un périphérique « Stream My Drone Camera » pour TikTok LIVE Studio, OBS et Zoom. Il n’est pas signé numériquement, Windows SmartScreen peut donc afficher un avertissement."
       },
       {
         "q": "Peut-elle détecter et compter des animaux ?",
@@ -185,6 +185,6 @@
     "role": "développeur et mainteneur",
     "issue": "Signaler un problème",
     "privacy": "Politique de confidentialité",
-    "note": "Publié sous licence MIT ; le FFmpeg intégré est sous LGPL, compilé depuis les sources sans composant GPL. DJI Live Bridge est un projet indépendant, sans lien avec DJI, Instagram, TikTok ni Apple. DJI, Instagram et TikTok sont des marques de leurs propriétaires respectifs. Google Play est une marque de Google LLC."
+    "note": "Publié sous licence MIT ; le FFmpeg intégré est sous LGPL, compilé depuis les sources sans composant GPL. Stream My Drone est un projet indépendant, sans lien avec DJI, Instagram, TikTok ni Apple. DJI, Instagram et TikTok sont des marques de leurs propriétaires respectifs. Google Play est une marque de Google LLC."
   }
 }

@@ -1,4 +1,4 @@
-# DJI Live Bridge
+# Stream My Drone
 
 [English](README.md) · [Türkçe](README.tr.md) · **Español** · [中文（简体）](README.zh.md) · [中文（繁體）](README.zh-Hant.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md)
 
@@ -9,7 +9,7 @@ Aplicación para macOS que recibe la transmisión RTMP de DJI Fly en un Mac de l
 ## Instalación
 
 1. Descarga el último archivo `.dmg` desde [Releases](https://github.com/tanerozel/dji-live-bridge/releases).
-2. Arrastra **DJI Live Bridge** a **Aplicaciones**. La cámara virtual solo funciona desde ahí.
+2. Arrastra **Stream My Drone** a **Aplicaciones**. La cámara virtual solo funciona desde ahí.
 3. Eso es todo. FFmpeg viene dentro de la aplicación, así que no hay nada más que instalar.
 
 La aplicación está firmada y notarizada por Apple, así que se abre sin advertencias.
@@ -35,7 +35,7 @@ Esta ruta no necesita URL de servidor ni clave de transmisión:
 1. En la pestaña `TikTok LIVE Studio`, pulsa una vez `Activar cámara virtual`.
 2. Si macOS lo pide, permite la extensión en **Ajustes del Sistema → General → Ítems de inicio y extensiones → Extensiones de cámara**.
 3. Cuando la tarjeta indique `Lista para iniciar`, pulsa `Iniciar cámara virtual`.
-4. En TikTok LIVE Studio añade una fuente de cámara y elige **DJI Live Bridge Camera**.
+4. En TikTok LIVE Studio añade una fuente de cámara y elige **Stream My Drone Camera**.
 5. Pon la captura de audio de esa fuente en `Ninguno` y selecciona un solo micrófono en el control de audio principal de LIVE Studio.
 
 Esta cámara transmite solo vídeo a propósito. Si sustituyes la aplicación en /Aplicaciones, macOS desactiva la extensión: vuelve a pulsar `Iniciar cámara virtual` y el botón solicitará la activación de nuevo. El botón «Go Live» sigue siendo manual dentro de TikTok LIVE Studio.
@@ -62,7 +62,7 @@ Hay cinco temas: Sistema, Claro, Oscuro, Medianoche y Arena.
 | 9997 | `127.0.0.1` | API de control de MediaMTX |
 | 9998 | `127.0.0.1` | Métricas de MediaMTX |
 
-Configuración: `~/Library/Application Support/DJI Live Bridge/` · Registros: `~/Library/Logs/DJI Live Bridge/` · Secretos: Llavero de macOS
+Configuración: `~/Library/Application Support/Stream My Drone/` · Registros: `~/Library/Logs/Stream My Drone/` · Secretos: Llavero de macOS
 
 ## Desarrollo
 

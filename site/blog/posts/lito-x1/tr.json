@@ -4,14 +4,14 @@
   "title": "DJI Lito X1 ile canlı yayın: telefon ve bilgisayar kurulumu (2026)",
   "description": "DJI Lito X1 ile RC 2, RC-N3 veya RC-N2 üzerinden canlı yayın: DJI Fly RTMP ayarları, telefon ve bilgisayar kurulumu, platform adımları ve sorun giderme.",
   "h1": "DJI Lito X1 ile canlı yayın nasıl yapılır?",
-  "lead": "<strong>DJI Lito X1</strong> uçuşunu DJI Fly RTMP üzerinden paylaşabilirsiniz. RC 2 ile görüntüyü ayrı telefondaki <strong>Stream My Drone</strong> alsın. RC-N3 veya RC-N2 ile DJI Fly kumandaya bağlı telefonda açık kalsın; yayını bilgisayardaki <strong>DJI Live Bridge</strong> alsın. Bu rehber cihazları bağlamayı, görüntüyü kontrol etmeyi ve seçtiğiniz platformda yayına geçmeyi anlatır.",
+  "lead": "<strong>DJI Lito X1</strong> uçuşunu DJI Fly RTMP üzerinden paylaşabilirsiniz. RC 2 ile görüntüyü ayrı telefondaki <strong>Stream My Drone</strong> alsın. RC-N3 veya RC-N2 ile DJI Fly kumandaya bağlı telefonda açık kalsın; yayını bilgisayardaki <strong>Stream My Drone</strong> alsın. Bu rehber cihazları bağlamayı, görüntüyü kontrol etmeyi ve seçtiğiniz platformda yayına geçmeyi anlatır.",
   "published": "2026-10-25",
   "updated": "2026-10-25",
   "summary": [
     "DJI, Lito X1 modelini canlı yayın uyumluluk listesinde gösteriyor; kumandanızı ve güncel DJI Fly sürümünü birlikte kontrol edin.",
     "RC 2, DJI Fly uygulamasını kendi ekranında çalıştırır; ayrı telefon yayını alabilir.",
     "RC-N3 ve RC-N2, DJI Fly için telefon kullanır. DJI Fly açık kalabilsin diye aşağıdaki ayrı bilgisayar kurulumunu izleyin.",
-    "Yerel alıcı adresi DJI Fly’a girilir. Platform hesabı veya yayın anahtarı Stream My Drone ya da DJI Live Bridge içinde ayarlanır.",
+    "Yerel alıcı adresi DJI Fly’a girilir. Platform hesabı veya yayın anahtarı Stream My Drone ya da Stream My Drone içinde ayarlanır.",
     "Önce alıcı önizlemesini, sonra platformun izleyici sayfasını kontrol edin; kayıt ayarları RTMP çıkışını belirlemez."
   ],
   "sections": [
@@ -33,12 +33,12 @@
               [
                 "DJI RC 2",
                 "Kumandanın ekranındaki DJI Fly",
-                "Ayrı telefonda Stream My Drone veya bilgisayarda DJI Live Bridge"
+                "Ayrı telefonda Stream My Drone veya bilgisayarda Stream My Drone"
               ],
               [
                 "DJI RC-N3",
                 "USB ile bağlı telefondaki DJI Fly",
-                "Ayrı Mac veya Windows bilgisayarda DJI Live Bridge"
+                "Ayrı Mac veya Windows bilgisayarda Stream My Drone"
               ],
               [
                 "DJI RC-N2",
@@ -92,13 +92,13 @@
       "h2": "Lito X1 ve RC-N3 veya RC-N2: görüntüyü bilgisayarda alın",
       "blocks": [
         {
-          "p": "RC-N3 veya RC-N2 kullanıyorsanız DJI Fly, kumandaya bağlı telefonda açık kalsın. Mac veya Windows bilgisayara <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> kurun; bilgisayarı ve DJI Fly'ın çalıştığı telefonu aynı yerel ağa bağlayın. RC 2 de bu bilgisayarlı kurulumu kullanabilir."
+          "p": "RC-N3 veya RC-N2 kullanıyorsanız DJI Fly, kumandaya bağlı telefonda açık kalsın. Mac veya Windows bilgisayara <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> kurun; bilgisayarı ve DJI Fly'ın çalıştığı telefonu aynı yerel ağa bağlayın. RC 2 de bu bilgisayarlı kurulumu kullanabilir."
         },
         {
           "steps": [
             {
               "t": "Bilgisayarın RTMP adresini bulun",
-              "d": "DJI Live Bridge'i açıp Drone'u bağla bölümündeki adresi kopyalayın. <code>rtmp://192.168.1.20:1935/drone</code> yalnızca örnektir; uygulamanızda görünen adresi kullanın."
+              "d": "Stream My Drone'u açıp Drone'u bağla bölümündeki adresi kopyalayın. <code>rtmp://192.168.1.20:1935/drone</code> yalnızca örnektir; uygulamanızda görünen adresi kullanın."
             },
             {
               "t": "DJI Fly'ı bu adrese yönlendirin",
@@ -112,7 +112,7 @@
         },
         {
           "img": "go-live.png",
-          "alt": "DJI Live Bridge masaüstü uygulamasında yerel DJI Fly RTMP adresi, platform hedefleri ve Yayını Başlat düğmesi."
+          "alt": "Stream My Drone masaüstü uygulamasında yerel DJI Fly RTMP adresi, platform hedefleri ve Yayını Başlat düğmesi."
         }
       ]
     },
@@ -211,15 +211,15 @@
     },
     {
       "q": "RC-N3 veya RC-N2'ye zaten bağlı olan telefonu kullanabilir miyim?",
-      "a": "O telefon uçuş kontrolü için DJI Fly'ı çalıştırır. Bu rehber, DJI Fly açık kalabilsin diye alıcı olarak ayrı bilgisayarda DJI Live Bridge kullanır. İki uygulamanın uçuşu ve aktarımı tek telefonda birlikte yürütebildiğini varsaymaz."
+      "a": "O telefon uçuş kontrolü için DJI Fly'ı çalıştırır. Bu rehber, DJI Fly açık kalabilsin diye alıcı olarak ayrı bilgisayarda Stream My Drone kullanır. İki uygulamanın uçuşu ve aktarımı tek telefonda birlikte yürütebildiğini varsaymaz."
     },
     {
       "q": "DJI Fly'a hangi adresi yazmalıyım?",
-      "a": "Stream My Drone veya DJI Live Bridge'in gösterdiği yerel alıcı adresinin tamamını yazın. Platformun sunucu adresini ve yayın anahtarını ise alıcı uygulamadaki hedef ayarlarına girin."
+      "a": "Stream My Drone veya Stream My Drone'un gösterdiği yerel alıcı adresinin tamamını yazın. Platformun sunucu adresini ve yayın anahtarını ise alıcı uygulamadaki hedef ayarlarına girin."
     },
     {
       "q": "Stream My Drone görüntüyü dikey yayına dönüştürür mü?",
-      "a": "Mobil uygulama aldığı videoyu iletir. Önizleme düzeni, gönderilen görüntüyü yeniden kodlamaz. Bilgisayardaki DJI Live Bridge dikey çıkış dönüşümü sunar."
+      "a": "Mobil uygulama aldığı videoyu iletir. Önizleme düzeni, gönderilen görüntüyü yeniden kodlamaz. Bilgisayardaki Stream My Drone dikey çıkış dönüşümü sunar."
     },
     {
       "q": "Önizleme var ama izleyiciler neden yayını göremiyor?",

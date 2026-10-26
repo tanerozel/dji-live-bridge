@@ -128,7 +128,7 @@ pub struct AudioRoutingNotice {
 pub fn routing_notice() -> AudioRoutingNotice {
     AudioRoutingNotice {
         virtual_camera_carries_audio: false,
-        physical_microphone_guidance: "DJI Live Bridge Camera carries video only. Set the camera source audio capture to None, then select exactly one physical microphone in TikTok LIVE Studio.",
+        physical_microphone_guidance: "Stream My Drone Camera carries video only. Set the camera source audio capture to None, then select exactly one physical microphone in TikTok LIVE Studio.",
         virtual_audio_automation: "UnsupportedAutomation: no third-party virtual-audio driver is installed or configured automatically.",
     }
 }

@@ -2,9 +2,9 @@
   "slug": "drone-ile-twitch-yayini-nasil-yapilir",
   "platform": "Twitch",
   "title": "Drone ile Twitch'te yayın nasıl yapılır? (RTMP kurulumu)",
-  "description": "Drone ile Twitch'te yayın: yayın anahtarını Twitch kontrol panelinden kopyalayın, Twitch'i DJI Live Bridge'e Özel RTMP hedefi olarak ekleyin ve yayına geçin.",
+  "description": "Drone ile Twitch'te yayın: yayın anahtarını Twitch kontrol panelinden kopyalayın, Twitch'i Stream My Drone'a Özel RTMP hedefi olarak ekleyin ve yayına geçin.",
   "h1": "Drone ile Twitch'te yayın nasıl yapılır?",
-  "lead": "Birincil yayın anahtarınızı Twitch'te <strong>İçerik Üreticisi Kontrol Paneli → Ayarlar → Yayın</strong> (Creator Dashboard → Settings → Stream) bölümünden kopyalayın, DJI Live Bridge'de <code>rtmp://live.twitch.tv/app</code> sunucusu ve bu anahtarla bir <strong>Özel RTMP</strong> hedefi ekleyin, drone görüntüsünü DJI Fly'dan uygulamaya gönderin ve YAYINI BAŞLAT'a basın. Twitch, yayını alır almaz kanalınızı canlıya alır.",
+  "lead": "Birincil yayın anahtarınızı Twitch'te <strong>İçerik Üreticisi Kontrol Paneli → Ayarlar → Yayın</strong> (Creator Dashboard → Settings → Stream) bölümünden kopyalayın, Stream My Drone'da <code>rtmp://live.twitch.tv/app</code> sunucusu ve bu anahtarla bir <strong>Özel RTMP</strong> hedefi ekleyin, drone görüntüsünü DJI Fly'dan uygulamaya gönderin ve YAYINI BAŞLAT'a basın. Twitch, yayını alır almaz kanalınızı canlıya alır.",
   "published": "2026-10-02",
   "updated": "2026-10-02",
   "summary": [
@@ -21,9 +21,9 @@
       "howto": true,
       "blocks": [
         { "steps": [
-          { "t": "Drone'u bağlayın", "d": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın ve DJI Live Bridge'in gösterdiği adresi girin." },
+          { "t": "Drone'u bağlayın", "d": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın ve Stream My Drone'un gösterdiği adresi girin." },
           { "t": "Yayın anahtarını kopyalayın", "d": "twitch.tv'de İçerik Üreticisi Kontrol Paneli → Ayarlar → Yayın bölümünü açın ve <em>Birincil Yayın anahtarı</em>'nı kopyalayın." },
-          { "t": "Özel RTMP hedefi ekleyin", "d": "DJI Live Bridge'de Özel RTMP'yi seçin, adını Twitch koyun, sunucu URL'si olarak <code>rtmp://live.twitch.tv/app</code> girin ve anahtarı yapıştırın." },
+          { "t": "Özel RTMP hedefi ekleyin", "d": "Stream My Drone'da Özel RTMP'yi seçin, adını Twitch koyun, sunucu URL'si olarak <code>rtmp://live.twitch.tv/app</code> girin ve anahtarı yapıştırın." },
           { "t": "Yatay 16:9'u seçin", "d": "1920×1080 yayın için <em>Görüntü ve ses</em> altında <em>Yatay 16:9</em>'u seçin." },
           { "t": "YAYINI BAŞLAT'a basın", "d": "Kanalınız birkaç saniye içinde canlıya geçer. Başlığı ve kategoriyi İçerik Üreticisi Kontrol Paneli'nden ayarlayın; bitirmek için uygulamada <em>Yayını bitir</em>'e basın." }
         ] }
@@ -50,7 +50,7 @@
       "id": "simulcast",
       "h2": "Twitch ve diğer platformlarda aynı anda yayın",
       "blocks": [
-        { "p": "DJI Live Bridge aynı görüntüyü Twitch, YouTube ve diğer platformlara aynı anda gönderebilir. Twitch'in eş zamanlı yayın kuralları yıllar içinde değişti ve Affiliate ile Partner'lar için farklı olabilir; birden fazla platformda yayın yapmadan önce güncel sözleşmenizi kontrol edin." }
+        { "p": "Stream My Drone aynı görüntüyü Twitch, YouTube ve diğer platformlara aynı anda gönderebilir. Twitch'in eş zamanlı yayın kuralları yıllar içinde değişti ve Affiliate ile Partner'lar için farklı olabilir; birden fazla platformda yayın yapmadan önce güncel sözleşmenizi kontrol edin." }
       ]
     },
     {
@@ -66,10 +66,10 @@
     }
   ],
   "faq": [
-    { "q": "DJI drone ile Twitch'te yayın yapabilir miyim?", "a": "Evet. DJI Fly'ın RTMP yayınını DJI Live Bridge'e gönderin ve Twitch'i rtmp://live.twitch.tv/app adresi ile yayın anahtarınızı kullanarak Özel RTMP hedefi olarak ekleyin." },
+    { "q": "DJI drone ile Twitch'te yayın yapabilir miyim?", "a": "Evet. DJI Fly'ın RTMP yayınını Stream My Drone'a gönderin ve Twitch'i rtmp://live.twitch.tv/app adresi ile yayın anahtarınızı kullanarak Özel RTMP hedefi olarak ekleyin." },
     { "q": "Twitch yayın anahtarımı nerede bulurum?", "a": "twitch.tv'de: İçerik Üreticisi Kontrol Paneli → Ayarlar → Yayın → Birincil Yayın anahtarı." },
     { "q": "Twitch'e dikey video mu göndermeliyim?", "a": "Genellikle hayır. Twitch çoğunlukla yatay izlenir; bu yüzden Yatay 16:9'u seçin." },
     { "q": "Twitch anahtarı değişir mi?", "a": "Hayır, yalnızca siz sıfırladığınızda değişir; yani bir kez ayarlamanız yeterli." },
-    { "q": "Twitch için OBS gerekli mi?", "a": "Hayır. DJI Live Bridge yayını doğrudan gönderir. Sahne veya kaplama eklemek isterseniz OBS'yi isteğe bağlı olarak kullanabilirsiniz." }
+    { "q": "Twitch için OBS gerekli mi?", "a": "Hayır. Stream My Drone yayını doğrudan gönderir. Sahne veya kaplama eklemek isterseniz OBS'yi isteğe bağlı olarak kullanabilirsiniz." }
   ]
 }

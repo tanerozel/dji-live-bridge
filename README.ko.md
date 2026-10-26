@@ -1,4 +1,4 @@
-# DJI Live Bridge
+# Stream My Drone
 
 [English](README.md) · [Türkçe](README.tr.md) · [Español](README.es.md) · [中文（简体）](README.zh.md) · [中文（繁體）](README.zh-Hant.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [日本語](README.ja.md) · **한국어** · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md)
 
@@ -9,7 +9,7 @@
 ## 설치
 
 1. [Releases](https://github.com/tanerozel/dji-live-bridge/releases)에서 최신 `.dmg`를 내려받으세요.
-2. **DJI Live Bridge**를 **응용 프로그램** 폴더로 끌어다 놓으세요. 가상 카메라는 이 위치에서만 동작합니다.
+2. **Stream My Drone**를 **응용 프로그램** 폴더로 끌어다 놓으세요. 가상 카메라는 이 위치에서만 동작합니다.
 3. 이것으로 끝입니다. FFmpeg가 앱에 포함되어 있어 따로 설치할 것이 없습니다.
 
 앱은 Apple의 서명과 공증을 받았으므로 경고 없이 열립니다.
@@ -35,7 +35,7 @@
 1. `TikTok LIVE Studio` 탭에서 `가상 카메라 활성화`를 한 번 누르세요.
 2. macOS가 물으면 **시스템 설정 → 일반 → 로그인 항목 및 확장 프로그램 → 카메라 확장 프로그램**에서 허용하세요.
 3. 카드에 `시작할 수 있음`이 표시되면 `가상 카메라 시작`을 누르세요.
-4. TikTok LIVE Studio에서 카메라 소스를 추가하고 **DJI Live Bridge Camera**를 선택하세요.
+4. TikTok LIVE Studio에서 카메라 소스를 추가하고 **Stream My Drone Camera**를 선택하세요.
 5. 해당 소스의 오디오 캡처를 `없음`으로 설정하고, LIVE Studio의 기본 오디오 설정에서 마이크를 하나만 고르세요.
 
 이 카메라는 의도적으로 영상만 전달합니다. 응용 프로그램 폴더의 앱을 교체하면 macOS가 확장 프로그램을 비활성화하므로, 이후 `가상 카메라 시작`을 다시 누르면 버튼이 직접 활성화를 요청합니다. 'Go Live'는 TikTok LIVE Studio에서 직접 눌러야 합니다.
@@ -62,7 +62,7 @@
 | 9997 | `127.0.0.1` | MediaMTX 제어 API |
 | 9998 | `127.0.0.1` | MediaMTX 지표 |
 
-설정: `~/Library/Application Support/DJI Live Bridge/` · 로그: `~/Library/Logs/DJI Live Bridge/` · 비밀 정보: macOS 키체인
+설정: `~/Library/Application Support/Stream My Drone/` · 로그: `~/Library/Logs/Stream My Drone/` · 비밀 정보: macOS 키체인
 
 ## 라이선스
 

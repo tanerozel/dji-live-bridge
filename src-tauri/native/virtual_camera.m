@@ -29,16 +29,16 @@ static void fireEvent(const char *event, NSString *message) {
 }
 
 - (void)requestNeedsUserApproval:(OSSystemExtensionRequest *)request {
-    NSLog(@"DJI Live Bridge camera extension is waiting for user approval");
+    NSLog(@"Stream My Drone camera extension is waiting for user approval");
     dispatch_async(dispatch_get_main_queue(), ^{
         NSURL *url = [NSURL URLWithString:@"x-apple.systempreferences:com.apple.preference.security?Privacy_SystemExtensions"];
         [[NSWorkspace sharedWorkspace] openURL:url];
     });
-    fireEvent("needs_approval", @"System Settings opened — allow DJI Live Bridge Camera under Privacy & Security.");
+    fireEvent("needs_approval", @"System Settings opened — allow Stream My Drone Camera under Privacy & Security.");
 }
 
 - (void)request:(OSSystemExtensionRequest *)request didFinishWithResult:(OSSystemExtensionRequestResult)result {
-    NSLog(@"DJI Live Bridge camera extension request finished: %ld", (long)result);
+    NSLog(@"Stream My Drone camera extension request finished: %ld", (long)result);
     if (result == OSSystemExtensionRequestCompleted) {
         fireEvent("activated", @"Camera extension activated successfully.");
     } else if (result == OSSystemExtensionRequestWillCompleteAfterReboot) {
@@ -47,7 +47,7 @@ static void fireEvent(const char *event, NSString *message) {
 }
 
 - (void)request:(OSSystemExtensionRequest *)request didFailWithError:(NSError *)error {
-    NSLog(@"DJI Live Bridge camera extension request failed: %@", error);
+    NSLog(@"Stream My Drone camera extension request failed: %@", error);
     NSString *message = [NSString stringWithFormat:@"code=%ld domain=%@ desc=%@",
         (long)error.code, error.domain, error.localizedDescription];
     fireEvent("failed", message);

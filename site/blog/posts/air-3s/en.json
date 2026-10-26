@@ -4,13 +4,13 @@
   "title": "DJI Air 3S live streaming: RC 2 and RC-N3 setup (2026)",
   "description": "Live stream a DJI Air 3S to YouTube, Instagram or Facebook. Choose a controller, connect DJI Fly RTMP to a phone or computer, and check the outgoing picture.",
   "h1": "How to live stream a DJI Air 3S",
-  "lead": "Your <strong>DJI Air 3S</strong> can send DJI Fly’s RTMP picture to <strong>Stream My Drone</strong> on a separate phone or to <strong>DJI Live Bridge</strong> on a Mac or Windows PC. The controller determines which device runs DJI Fly. Follow the matching setup below, then check the receiver, framing and destination before takeoff.",
+  "lead": "Your <strong>DJI Air 3S</strong> can send DJI Fly’s RTMP picture to <strong>Stream My Drone</strong> on a separate phone or to <strong>Stream My Drone</strong> on a Mac or Windows PC. The controller determines which device runs DJI Fly. Follow the matching setup below, then check the receiver, framing and destination before takeoff.",
   "published": "2026-10-25",
   "updated": "2026-10-25",
   "summary": [
     "DJI RC 2 keeps DJI Fly on its built-in screen; a separate phone can receive and forward the feed.",
     "RC-N3 and RC-N2 use a phone for DJI Fly. The desktop workflow keeps the receiver separate from that flight phone.",
-    "The local receiving address belongs in DJI Fly; platform credentials belong in Stream My Drone or DJI Live Bridge.",
+    "The local receiving address belongs in DJI Fly; platform credentials belong in Stream My Drone or Stream My Drone.",
     "Camera recording, the controller’s live view and the outgoing RTMP broadcast have separate quality settings.",
     "Test both the selected camera view and the platform’s viewer page before your flight."
   ],
@@ -33,12 +33,12 @@
               [
                 "DJI RC 2",
                 "DJI Fly on the built-in screen",
-                "Stream My Drone on a separate phone, or DJI Live Bridge on a computer"
+                "Stream My Drone on a separate phone, or Stream My Drone on a computer"
               ],
               [
                 "DJI RC-N3",
                 "DJI Fly on the phone connected by USB",
-                "DJI Live Bridge on a computer for the setup described here"
+                "Stream My Drone on a computer for the setup described here"
               ],
               [
                 "DJI RC-N2",
@@ -92,13 +92,13 @@
       "h2": "Air 3S with RC-N3 or RC-N2: receive on a computer",
       "blocks": [
         {
-          "p": "With RC-N3 or RC-N2, keep DJI Fly open on the phone attached to the controller. Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> on a Mac or Windows PC, then connect the computer and flight phone to the same local network. RC 2 can use this desktop workflow too."
+          "p": "With RC-N3 or RC-N2, keep DJI Fly open on the phone attached to the controller. Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> on a Mac or Windows PC, then connect the computer and flight phone to the same local network. RC 2 can use this desktop workflow too."
         },
         {
           "steps": [
             {
               "t": "Find the computer's RTMP address",
-              "d": "Open DJI Live Bridge and copy the address under Connect your drone. An address such as <code>rtmp://192.168.1.20:1935/drone</code> is an example; use the one your app displays."
+              "d": "Open Stream My Drone and copy the address under Connect your drone. An address such as <code>rtmp://192.168.1.20:1935/drone</code> is an example; use the one your app displays."
             },
             {
               "t": "Send DJI Fly to that address",
@@ -112,7 +112,7 @@
         },
         {
           "img": "go-live.png",
-          "alt": "DJI Live Bridge desktop showing the local DJI Fly RTMP address, platform destinations and the Start Live button."
+          "alt": "Stream My Drone desktop showing the local DJI Fly RTMP address, platform destinations and the Start Live button."
         }
       ]
     },
@@ -233,11 +233,11 @@
     },
     {
       "q": "Which address goes into DJI Fly?",
-      "a": "The full local receiving address displayed by Stream My Drone or DJI Live Bridge. Put the platform's server URL and stream key into the receiving app's destination settings."
+      "a": "The full local receiving address displayed by Stream My Drone or Stream My Drone. Put the platform's server URL and stream key into the receiving app's destination settings."
     },
     {
       "q": "Does Stream My Drone turn the video into a vertical broadcast?",
-      "a": "The mobile app forwards the video it receives. Its preview layout does not re-encode the outgoing picture. DJI Live Bridge on a computer offers vertical output conversion."
+      "a": "The mobile app forwards the video it receives. Its preview layout does not re-encode the outgoing picture. Stream My Drone on a computer offers vertical output conversion."
     },
     {
       "q": "Why can I see a preview but my audience cannot watch?",

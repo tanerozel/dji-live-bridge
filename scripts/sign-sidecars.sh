@@ -12,7 +12,7 @@ set -euo pipefail
 #   "error sending request for url (http://127.0.0.1:9997/v3/paths/list)".
 #
 # Do not call this by hand. `npm run build:mac` runs it (and verifies the
-# result). Usage: sign-sidecars.sh <path-to-DJI Live Bridge.app>
+# result). Usage: sign-sidecars.sh <path-to-Stream My Drone.app>
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 APP_PATH="${1:?usage: sign-sidecars.sh <path-to-app-bundle>}"

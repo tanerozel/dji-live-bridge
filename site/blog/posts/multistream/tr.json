@@ -4,7 +4,7 @@
   "title": "Drone ile aynı anda birden fazla platformda canlı yayın",
   "description": "Drone ile aynı anda birden fazla platformda canlı yayın: tek DJI yayınını TikTok, YouTube, Twitch ve Kick'e ücretsiz, restream hizmeti olmadan gönderin.",
   "h1": "DJI drone ile aynı anda birden fazla platformda canlı yayın",
-  "lead": "DJI Live Bridge ile drone'unuzun tek yayınını aynı anda birden fazla platforma gönderebilirsiniz; buna çoklu yayın (multistream) denir. DJI Fly tek bir RTMP yayını gönderir. DJI Live Bridge bunu bilgisayarınızda alır, <strong>görüntüyü bir kez kodlar ve açtığınız her hedefe iletir</strong>: TikTok, Instagram, YouTube, Facebook, Twitch, Kick veya herhangi bir RTMP sunucusu. Ücretli bir restream hizmetine gerek yoktur. Bir hedef başarısız olursa diğerleri çalışmaya devam eder.",
+  "lead": "Stream My Drone ile drone'unuzun tek yayınını aynı anda birden fazla platforma gönderebilirsiniz; buna çoklu yayın (multistream) denir. DJI Fly tek bir RTMP yayını gönderir. Stream My Drone bunu bilgisayarınızda alır, <strong>görüntüyü bir kez kodlar ve açtığınız her hedefe iletir</strong>: TikTok, Instagram, YouTube, Facebook, Twitch, Kick veya herhangi bir RTMP sunucusu. Ücretli bir restream hizmetine gerek yoktur. Bir hedef başarısız olursa diğerleri çalışmaya devam eder.",
   "published": "2026-10-02",
   "updated": "2026-10-02",
   "summary": [
@@ -21,7 +21,7 @@
       "howto": true,
       "blocks": [
         { "steps": [
-          { "t": "Drone'u bağlayın", "d": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın ve DJI Live Bridge'in gösterdiği adresi girin." },
+          { "t": "Drone'u bağlayın", "d": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın ve Stream My Drone'un gösterdiği adresi girin." },
           { "t": "Her platformu ekleyin", "d": "<em>Nereye yayın yapacaksın?</em> bölümünde her platform için <em>Başka hedef ekle</em>'yi kullanın: TikTok, Instagram, YouTube ve Facebook'un kendi türü vardır; Twitch, Kick ve diğerleri Özel RTMP olarak eklenir." },
           { "t": "Tek kullanımlık anahtarları yenileyin", "d": "Instagram (ve kalıcı anahtar kullanmıyorsanız Facebook) her yayın için yeni bir anahtar ister. Bu kartlarda <em>Anahtarı güncelle</em>'yi kullanın." },
           { "t": "Ana izleyici kitlenize göre yönü seçin", "d": "Tek bir kodlama tüm hedefleri besler; bu yüzden sizin için en önemli platforma göre <em>Dikey 9:16</em> ya da <em>Yatay 16:9</em> seçin." },
@@ -66,13 +66,13 @@
       "id": "rules",
       "h2": "Platformların kurallarını kontrol edin",
       "blocks": [
-        { "p": "Bazı platformlar eşzamanlı yayını (simulcast) iş ortakları için ya da kullanım koşullarında sınırlar; özellikle Twitch bu kuralları zaman içinde değiştirdi. DJI Live Bridge yalnızca ona söylediğiniz videoyu gönderir; hiçbir hesaba giriş yapmaz ve yayını sizin yerinize başlatmaz." }
+        { "p": "Bazı platformlar eşzamanlı yayını (simulcast) iş ortakları için ya da kullanım koşullarında sınırlar; özellikle Twitch bu kuralları zaman içinde değiştirdi. Stream My Drone yalnızca ona söylediğiniz videoyu gönderir; hiçbir hesaba giriş yapmaz ve yayını sizin yerinize başlatmaz." }
       ]
     }
   ],
   "faq": [
     { "q": "DJI drone'umla TikTok ve YouTube'da aynı anda yayın yapabilir miyim?", "a": "Evet. İkisini de hedef olarak ekleyin ve YAYINI BAŞLAT'a basın. İkisi aynı yönü paylaştığı için ana izleyici kitlenize uyanı seçin." },
-    { "q": "Restream hizmetine ihtiyacım var mı?", "a": "Hayır. DJI Live Bridge çoklu yayını kendi bilgisayarınızda ücretsiz yapar; yalnızca yeterli yükleme hızı gerekir." },
+    { "q": "Restream hizmetine ihtiyacım var mı?", "a": "Hayır. Stream My Drone çoklu yayını kendi bilgisayarınızda ücretsiz yapar; yalnızca yeterli yükleme hızı gerekir." },
     { "q": "Bir platform düşerse ne olur?", "a": "Yalnızca o hedefte Bağlantı başarısız görünür. Diğerleri yayına devam eder." },
     { "q": "Her ek platform daha fazla CPU gücü ister mi?", "a": "Neredeyse hiç. Görüntü bir kez kodlanır ve aynı veri her hedefe gönderilir." },
     { "q": "Çoklu yayın OBS modunda çalışır mı?", "a": "Hayır. Birden fazla hedef, doğrudan yayının bir özelliğidir; OBS modunda yayının nereye gideceğine OBS karar verir." }

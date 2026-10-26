@@ -1,4 +1,4 @@
-# DJI Live Bridge
+# Stream My Drone
 
 [English](README.md) · [Türkçe](README.tr.md) · [Español](README.es.md) · [中文（简体）](README.zh.md) · [中文（繁體）](README.zh-Hant.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Português](README.pt.md) · [Русский](README.ru.md) · **Français** · [Deutsch](README.de.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md)
 
@@ -9,7 +9,7 @@ Application macOS qui reçoit le flux RTMP de DJI Fly sur un Mac du même résea
 ## Installation
 
 1. Téléchargez le dernier fichier `.dmg` depuis [Releases](https://github.com/tanerozel/dji-live-bridge/releases).
-2. Glissez **DJI Live Bridge** dans **Applications**. La caméra virtuelle ne fonctionne que depuis cet emplacement.
+2. Glissez **Stream My Drone** dans **Applications**. La caméra virtuelle ne fonctionne que depuis cet emplacement.
 3. C'est tout. FFmpeg est inclus dans l'application, il n'y a rien d'autre à installer.
 
 L'application est signée et notarisée par Apple : elle s'ouvre sans avertissement.
@@ -35,7 +35,7 @@ Ce chemin ne demande ni adresse de serveur ni clé de stream :
 1. Dans l'onglet `TikTok LIVE Studio`, appuyez une fois sur `Activer la caméra virtuelle`.
 2. Si macOS le demande, autorisez l'extension dans **Réglages Système → Général → Ouverture et extensions → Extensions de caméra**.
 3. Quand la carte affiche `Prête à démarrer`, appuyez sur `Démarrer la caméra virtuelle`.
-4. Dans TikTok LIVE Studio, ajoutez une source caméra et choisissez **DJI Live Bridge Camera**.
+4. Dans TikTok LIVE Studio, ajoutez une source caméra et choisissez **Stream My Drone Camera**.
 5. Réglez la capture audio de cette source sur `Aucune` et sélectionnez un seul micro dans le contrôle audio principal de LIVE Studio.
 
 Cette caméra ne transporte que la vidéo, volontairement. Si vous remplacez l'application dans /Applications, macOS désactive l'extension : appuyez de nouveau sur `Démarrer la caméra virtuelle`, le bouton relance lui-même l'activation. Le « Go Live » reste manuel dans TikTok LIVE Studio.
@@ -62,7 +62,7 @@ Cinq thèmes sont disponibles : Système, Clair, Sombre, Minuit et Sable.
 | 9997 | `127.0.0.1` | API de contrôle MediaMTX |
 | 9998 | `127.0.0.1` | Métriques MediaMTX |
 
-Configuration : `~/Library/Application Support/DJI Live Bridge/` · Journaux : `~/Library/Logs/DJI Live Bridge/` · Secrets : trousseau macOS
+Configuration : `~/Library/Application Support/Stream My Drone/` · Journaux : `~/Library/Logs/Stream My Drone/` · Secrets : trousseau macOS
 
 ## Développement
 

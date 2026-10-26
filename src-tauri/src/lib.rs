@@ -443,7 +443,7 @@ pub fn run() {
             }
         })
         .build(tauri::generate_context!())
-        .expect("error while building DJI Live Bridge");
+        .expect("error while building Stream My Drone");
 
     app.run(move |app_handle, event| {
         // Quitting from the Dock/Cmd+Q/AppleScript on macOS emits Exit without

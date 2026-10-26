@@ -19,7 +19,10 @@ pub use macos::*;
 #[cfg(target_os = "windows")]
 pub use windows::*;
 
-pub const DEVICE_NAME: &str = "DJI Live Bridge Camera";
+pub const DEVICE_NAME: &str = "Stream My Drone Camera";
+/// The camera's name before the app was renamed; an extension that macOS has
+/// not replaced yet still shows up under it.
+pub const LEGACY_DEVICE_NAME: &str = "DJI Live Bridge Camera";
 /// Only macOS runs the feed under the process supervisor, so only macOS
 /// needs a name for it.
 #[cfg(target_os = "macos")]

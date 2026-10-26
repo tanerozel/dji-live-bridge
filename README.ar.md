@@ -1,4 +1,4 @@
-# DJI Live Bridge
+# Stream My Drone
 
 [English](README.md) · [Türkçe](README.tr.md) · [Español](README.es.md) · [中文（简体）](README.zh.md) · [中文（繁體）](README.zh-Hant.md) · **العربية** · [हिन्दी](README.hi.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md)
 
@@ -9,7 +9,7 @@
 ## التثبيت
 
 1. نزّل أحدث ملف `.dmg` من صفحة [Releases](https://github.com/tanerozel/dji-live-bridge/releases).
-2. اسحب **DJI Live Bridge** إلى مجلد **التطبيقات**. الكاميرا الافتراضية تعمل من هناك فقط.
+2. اسحب **Stream My Drone** إلى مجلد **التطبيقات**. الكاميرا الافتراضية تعمل من هناك فقط.
 3. هذا كل شيء. يأتي FFmpeg داخل التطبيق، فلا حاجة لتثبيت أي شيء آخر.
 
 التطبيق موقَّع وموثَّق (notarized) من Apple، لذلك يُفتح دون تحذيرات.
@@ -35,7 +35,7 @@
 1. في تبويب `TikTok LIVE Studio` اضغط مرة واحدة على `تفعيل الكاميرا الافتراضية`.
 2. إذا طلب macOS ذلك، اسمح بالامتداد من **إعدادات النظام ← عام ← عناصر تسجيل الدخول والامتدادات ← امتدادات الكاميرا**.
 3. عندما تُظهر البطاقة `جاهزة للتشغيل`، اضغط `تشغيل الكاميرا الافتراضية`.
-4. في TikTok LIVE Studio أضف مصدر كاميرا واختر **DJI Live Bridge Camera**.
+4. في TikTok LIVE Studio أضف مصدر كاميرا واختر **Stream My Drone Camera**.
 5. اضبط التقاط الصوت لذلك المصدر على `بدون`، واختر ميكروفونًا واحدًا فقط من عنصر التحكم الرئيسي بالصوت في LIVE Studio.
 
 هذه الكاميرا تنقل الصورة فقط عن قصد. إذا استبدلت التطبيق في مجلد التطبيقات، يوقف macOS الامتداد: اضغط `تشغيل الكاميرا الافتراضية` مرة أخرى وسيطلب الزر التفعيل من جديد. يبقى زر «Go Live» يدويًا داخل TikTok LIVE Studio.
@@ -62,7 +62,7 @@
 | 9997 | `127.0.0.1` | واجهة التحكم في MediaMTX |
 | 9998 | `127.0.0.1` | مقاييس MediaMTX |
 
-الإعدادات: `~/Library/Application Support/DJI Live Bridge/` · السجلات: `~/Library/Logs/DJI Live Bridge/` · الأسرار: سلسلة مفاتيح macOS
+الإعدادات: `~/Library/Application Support/Stream My Drone/` · السجلات: `~/Library/Logs/Stream My Drone/` · الأسرار: سلسلة مفاتيح macOS
 
 ## الترخيص
 

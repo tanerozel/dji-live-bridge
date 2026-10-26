@@ -63,7 +63,7 @@ pub fn inspect(feed_active: bool) -> VirtualCameraState {
             ServiceStatus::Unavailable,
             "camera.detail.windowsNotRegistered",
             Some(
-                "The camera was not registered. Reinstall DJI Live Bridge with the installer, \
+                "The camera was not registered. Reinstall Stream My Drone with the installer, \
                  which registers it, or use OBS Virtual Camera instead."
                     .into(),
             ),
@@ -91,7 +91,7 @@ pub fn request_activation() -> BridgeResult<()> {
         return Ok(());
     }
     Err(BridgeError::VirtualCamera(
-        "The camera is registered by the installer. Run the DJI Live Bridge installer again, \
+        "The camera is registered by the installer. Run the Stream My Drone installer again, \
          then restart the app."
             .into(),
     ))

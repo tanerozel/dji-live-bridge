@@ -1,4 +1,4 @@
-# DJI Live Bridge — agent instructions
+# Stream My Drone — agent instructions
 
 Applies to Codex, Claude Code and any other coding agent working in this repo.
 
@@ -16,7 +16,7 @@ Applies to Codex, Claude Code and any other coding agent working in this repo.
   app inside the DMG. If any check fails the build fails — do not work around it.
 - Do not run `scripts/sign-sidecars.sh` by hand, do not use the DMG Tauri generates, and do not add
   `--deep` to a `codesign` call (it re-applies the restricted entitlements to the sidecar).
-- Check any installed/built app: `npm run verify:bundle -- "<path to DJI Live Bridge.app>"`.
+- Check any installed/built app: `npm run verify:bundle -- "<path to Stream My Drone.app>"`.
 - `cargo` may be missing from `PATH`; `build:mac` finds the pinned toolchain itself. For manual cargo use
   `~/.rustup/toolchains/<channel from rust-toolchain.toml>-aarch64-apple-darwin/bin`.
 - Quit the app before building. `build:mac` refuses to run while it is open and stops an orphaned
@@ -35,7 +35,7 @@ and staples both the `.app` and the `.dmg` using the notarytool keychain profile
   Never commit the `.p8` key or put credentials in the repo.
 - `NOTARIZE=0 npm run build:mac` is only for UI-only iteration; that build's camera will not work.
 - After re-signing anything inside an already stapled app, the ticket is invalid: rebuild instead.
-- Replacing `/Applications/DJI Live Bridge.app` makes macOS deactivate the old camera extension; the
+- Replacing `/Applications/Stream My Drone.app` makes macOS deactivate the old camera extension; the
   user must press Start Virtual Camera (which re-requests activation) and may need to approve or reboot.
 
 ## Bundled FFmpeg

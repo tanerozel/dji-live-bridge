@@ -1,8 +1,8 @@
 {
   "meta": {
-    "title": "DJI Live Bridge — 드론 영상을 Instagram과 TikTok으로 방송",
+    "title": "Stream My Drone — 드론 영상을 Instagram과 TikTok으로 방송",
     "description": "DJI Fly의 RTMP 스트림을 받아 Instagram, TikTok, 모든 RTMP 대상으로 동시에 내보내는 무료 앱. TikTok LIVE Studio용 가상 카메라로도 쓸 수 있어 스트림 키가 필요 없습니다. macOS와 Windows 지원.",
-    "ogTitle": "DJI Live Bridge",
+    "ogTitle": "Stream My Drone",
     "ogDescription": "DJI 드론 영상을 Instagram, TikTok, 모든 RTMP 대상으로 동시에 방송하세요. 무료 오픈 소스이며 서명과 공증을 마쳤습니다.",
     "keywords": "DJI 드론 라이브 방송, DJI Fly RTMP 송출, 드론 Instagram 라이브, 드론 TikTok 라이브, 가상 카메라, TikTok LIVE Studio 방송, RTMP 동시 송출, 드론 방송 프로그램"
   },
@@ -19,7 +19,7 @@
   "hero": {
     "pill": "무료 · Apple 서명 및 공증 완료",
     "h1": "DJI 드론 영상을 Instagram, TikTok, YouTube, Facebook과 사용자 지정 RTMP 대상으로 방송하세요",
-    "lead": "DJI Live Bridge는 컴퓨터의 DJI Fly에서 오는 RTMP 스트림을 받아 여러 플랫폼으로 동시에 보냅니다. TikTok LIVE Studio용 가상 카메라로 바꿀 수도 있으며, 그쪽에서는 스트림 키가 필요 없습니다.",
+    "lead": "Stream My Drone은 컴퓨터의 DJI Fly에서 오는 RTMP 스트림을 받아 여러 플랫폼으로 동시에 보냅니다. TikTok LIVE Studio용 가상 카메라로 바꿀 수도 있으며, 그쪽에서는 스트림 키가 필요 없습니다.",
     "ctaMac": "macOS용 다운로드",
     "ctaWin": "Windows",
     "ctaAndroid": "Google Play의 Android 앱",
@@ -43,7 +43,7 @@
       },
       {
         "h": "TikTok에는 스트림 키가 필요 없음",
-        "p": "내장 가상 카메라가 TikTok LIVE Studio에 'DJI Live Bridge Camera'로 나타나므로, RTMP 권한이 없어도 방송할 수 있습니다."
+        "p": "내장 가상 카메라가 TikTok LIVE Studio에 'Stream My Drone Camera'로 나타나므로, RTMP 권한이 없어도 방송할 수 있습니다."
       },
       {
         "h": "세로 영상에 맞춘 설정",
@@ -106,10 +106,10 @@
   },
   "tiktok": {
     "h2": "스트림 키 없이 하는 TikTok 방송",
-    "sub": "TikTok은 일부 계정에만 RTMP 키를 내줍니다. TikTok LIVE Studio는 자기 계정으로 로그인하기 때문에 그런 제한이 없고, 카메라만 있으면 됩니다. DJI Live Bridge가 그 카메라 역할을 합니다.",
+    "sub": "TikTok은 일부 계정에만 RTMP 키를 내줍니다. TikTok LIVE Studio는 자기 계정으로 로그인하기 때문에 그런 제한이 없고, 카메라만 있으면 됩니다. Stream My Drone이 그 카메라 역할을 합니다.",
     "items": [
       "가상 카메라를 한 번 활성화하세요. 처음에는 시스템이 허용을 묻습니다.",
-      "TikTok LIVE Studio에서 카메라 소스를 추가하고 <strong>DJI Live Bridge Camera</strong>를 고르세요.",
+      "TikTok LIVE Studio에서 카메라 소스를 추가하고 <strong>Stream My Drone Camera</strong>를 고르세요.",
       "그 소스의 오디오 캡처를 <em>없음</em>으로 두고 LIVE Studio에서 마이크를 하나만 고르세요.",
       "TikTok LIVE Studio에서 Go Live를 누르세요."
     ],
@@ -126,7 +126,7 @@
     "steps": [
       {
         "t": "DMG 내려받기",
-        "d": "Apple Silicon Mac(M1 이상)은 <code>aarch64</code> 파일을, Intel Mac은 <code>x86_64</code> 파일을 받은 뒤 <strong>DJI Live Bridge</strong>를 응용 프로그램 폴더로 끌어다 놓으세요. 가상 카메라는 그 위치에서만 동작합니다. Windows에서는 <code>-setup.exe</code> 설치 프로그램을 실행하세요."
+        "d": "Apple Silicon Mac(M1 이상)은 <code>aarch64</code> 파일을, Intel Mac은 <code>x86_64</code> 파일을 받은 뒤 <strong>Stream My Drone</strong>를 응용 프로그램 폴더로 끌어다 놓으세요. 가상 카메라는 그 위치에서만 동작합니다. Windows에서는 <code>-setup.exe</code> 설치 프로그램을 실행하세요."
       },
       {
         "t": "실행하기",
@@ -161,7 +161,7 @@
       },
       {
         "q": "Windows에서도 되나요?",
-        "a": "네. Windows 10/11을 지원합니다. 송출, 미리보기, 녹화, 진단, 내장 가상 카메라 기능은 모두 테스트되었습니다. 설치 프로그램은 TikTok LIVE Studio, OBS, Zoom에서 사용할 수 있는 “DJI Live Bridge Camera” 장치를 등록합니다. 설치 프로그램에 코드 서명이 없어 Windows SmartScreen 경고가 표시될 수 있습니다."
+        "a": "네. Windows 10/11을 지원합니다. 송출, 미리보기, 녹화, 진단, 내장 가상 카메라 기능은 모두 테스트되었습니다. 설치 프로그램은 TikTok LIVE Studio, OBS, Zoom에서 사용할 수 있는 “Stream My Drone Camera” 장치를 등록합니다. 설치 프로그램에 코드 서명이 없어 Windows SmartScreen 경고가 표시될 수 있습니다."
       },
       {
         "q": "동물을 감지하고 셀 수 있나요?",
@@ -185,6 +185,6 @@
     "role": "개발자 및 관리자",
     "issue": "문제 신고",
     "privacy": "개인정보 처리방침",
-    "note": "MIT 라이선스로 배포합니다. 함께 들어 있는 FFmpeg는 LGPL이며 GPL 구성 요소 없이 소스에서 빌드했습니다. DJI Live Bridge는 독립적인 프로젝트로 DJI, Instagram, TikTok, Apple과 제휴 관계가 없습니다. DJI, Instagram, TikTok은 각 소유자의 상표입니다. Google Play는 Google LLC의 상표입니다."
+    "note": "MIT 라이선스로 배포합니다. 함께 들어 있는 FFmpeg는 LGPL이며 GPL 구성 요소 없이 소스에서 빌드했습니다. Stream My Drone은 독립적인 프로젝트로 DJI, Instagram, TikTok, Apple과 제휴 관계가 없습니다. DJI, Instagram, TikTok은 각 소유자의 상표입니다. Google Play는 Google LLC의 상표입니다."
   }
 }

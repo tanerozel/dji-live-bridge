@@ -1,5 +1,5 @@
 ; Registers the DirectShow camera filter so apps such as TikTok LIVE Studio,
-; OBS and Zoom list "DJI Live Bridge Camera" among their cameras.
+; OBS and Zoom list "Stream My Drone Camera" among their cameras.
 ;
 ; The filter is a 64-bit DLL, but NSIS itself runs as a 32-bit process, so its
 ; own regsvr32 would be the 32-bit one and could not register it. "Sysnative"
@@ -23,7 +23,7 @@
   IfFileExists "$WINDIR\Sysnative\regsvr32.exe" 0 dji_register_run
   StrCpy $0 "$WINDIR\Sysnative\regsvr32.exe"
 dji_register_run:
-  DetailPrint "Registering the DJI Live Bridge camera..."
+  DetailPrint "Registering the Stream My Drone camera..."
   ExecWait '"$0" /s "$INSTDIR\resources\dji_virtual_camera.dll"' $1
   StrCmp $1 "0" dji_register_done 0
   DetailPrint "The camera could not be registered (code $1). Streaming still works; use OBS Virtual Camera if you need a camera device."
@@ -38,7 +38,7 @@ dji_register_done:
   IfFileExists "$WINDIR\Sysnative\regsvr32.exe" 0 dji_unregister_run
   StrCpy $0 "$WINDIR\Sysnative\regsvr32.exe"
 dji_unregister_run:
-  DetailPrint "Removing the DJI Live Bridge camera..."
+  DetailPrint "Removing the Stream My Drone camera..."
   ; Unregister before the file is deleted, or the CLSID would be left behind
   ; pointing at a DLL that no longer exists.
   ExecWait '"$0" /s /u "$INSTDIR\resources\dji_virtual_camera.dll"'

@@ -2,9 +2,9 @@
   "slug": "drone-ile-youtube-canli-yayin-nasil-yapilir",
   "platform": "YouTube",
   "title": "Drone ile YouTube'da canlı yayın nasıl yapılır? (RTMP rehberi)",
-  "description": "Drone ile YouTube'da canlı yayın: canlı yayını etkinleştirin, YouTube Studio'dan yayın anahtarını alın, DJI Fly'ın RTMP yayınını DJI Live Bridge ile gönderin.",
+  "description": "Drone ile YouTube'da canlı yayın: canlı yayını etkinleştirin, YouTube Studio'dan yayın anahtarını alın, DJI Fly'ın RTMP yayınını Stream My Drone ile gönderin.",
   "h1": "Drone ile YouTube'da canlı yayın nasıl yapılır?",
-  "lead": "DJI drone ile YouTube'da canlı yayın yapmak için YouTube Studio'da <strong>Oluştur → Canlı yayın başlat → Yayın yazılımı</strong> yolunu açın ve yayın URL'sini ve yayın anahtarını kopyalayın. Bunları DJI Live Bridge'e bir YouTube hedefi olarak ekleyin, drone'un görüntüsünü DJI Fly'dan RTMP ile uygulamaya gönderin ve YAYINI BAŞLAT'a basın. YouTube'un anahtarı siz sıfırlayana kadar değişmez, yani ayarı bir kez yaparsınız.",
+  "lead": "DJI drone ile YouTube'da canlı yayın yapmak için YouTube Studio'da <strong>Oluştur → Canlı yayın başlat → Yayın yazılımı</strong> yolunu açın ve yayın URL'sini ve yayın anahtarını kopyalayın. Bunları Stream My Drone'a bir YouTube hedefi olarak ekleyin, drone'un görüntüsünü DJI Fly'dan RTMP ile uygulamaya gönderin ve YAYINI BAŞLAT'a basın. YouTube'un anahtarı siz sıfırlayana kadar değişmez, yani ayarı bir kez yaparsınız.",
   "published": "2026-10-02",
   "updated": "2026-10-02",
   "summary": [
@@ -33,7 +33,7 @@
           "steps": [
             {
               "t": "Drone'u bağlayın",
-              "d": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın ve DJI Live Bridge'in gösterdiği adresi girin."
+              "d": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın ve Stream My Drone'un gösterdiği adresi girin."
             },
             {
               "t": "Anahtarı YouTube Studio'dan kopyalayın",
@@ -41,7 +41,7 @@
             },
             {
               "t": "Bir YouTube hedefi ekleyin",
-              "d": "DJI Live Bridge'de YouTube'u seçin ve iki değeri de yapıştırın. Anahtar, sistem kasasında saklanır."
+              "d": "Stream My Drone'da YouTube'u seçin ve iki değeri de yapıştırın. Anahtar, sistem kasasında saklanır."
             },
             {
               "t": "Yönü seçin",
@@ -111,11 +111,11 @@
   "faq": [
     {
       "q": "DJI drone doğrudan YouTube'a yayın yapabilir mi?",
-      "a": "DJI Fly, RTMP yayınını doğrudan YouTube'un adresine gönderebilir; ama o zaman önizleme olmaz, biçim üzerinde kontrolünüz olmaz ve yalnızca tek bir hedefe yayın yaparsınız. Yayını önce DJI Live Bridge'e göndermek, aynı YouTube yayın anahtarıyla bu üçünü de size kazandırır."
+      "a": "DJI Fly, RTMP yayınını doğrudan YouTube'un adresine gönderebilir; ama o zaman önizleme olmaz, biçim üzerinde kontrolünüz olmaz ve yalnızca tek bir hedefe yayın yaparsınız. Yayını önce Stream My Drone'a göndermek, aynı YouTube yayın anahtarıyla bu üçünü de size kazandırır."
     },
     {
       "q": "YouTube'da yayın yapmak için 50 abone gerekiyor mu?",
-      "a": "Bu sınır, YouTube mobil uygulamasından canlı yayına geçmek için geçerlidir. DJI Live Bridge gibi yayın yazılımları için canlı yayını etkinleştirilmiş bir kanal yeterlidir."
+      "a": "Bu sınır, YouTube mobil uygulamasından canlı yayına geçmek için geçerlidir. Stream My Drone gibi yayın yazılımları için canlı yayını etkinleştirilmiş bir kanal yeterlidir."
     },
     {
       "q": "YouTube yayın anahtarı değişir mi?",

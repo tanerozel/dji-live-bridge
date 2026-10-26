@@ -802,7 +802,7 @@ impl AppState {
                 snapshot.virtual_camera.status = ServiceStatus::Starting;
                 snapshot.virtual_camera.detail_key = "camera.detail.activationRequested".into();
                 snapshot.virtual_camera.detail = Some(
-                    "Activation requested. Approve DJI Live Bridge Camera in System Settings if macOS asks."
+                    "Activation requested. Approve Stream My Drone Camera in System Settings if macOS asks."
                         .into(),
                 );
             })
@@ -837,7 +837,7 @@ impl AppState {
                     .await;
                 if awaiting_approval {
                     return Err(BridgeError::VirtualCamera(
-                        "macOS is waiting for you to allow DJI Live Bridge Camera in System Settings → General → Login Items & Extensions → Camera Extensions".into(),
+                        "macOS is waiting for you to allow Stream My Drone Camera in System Settings → General → Login Items & Extensions → Camera Extensions".into(),
                     ));
                 }
                 return self.activate_virtual_camera_extension(app).await;
@@ -849,7 +849,7 @@ impl AppState {
                     snapshot.virtual_camera.feed_active = true;
                     snapshot.virtual_camera.detail_key = "camera.detail.feedReady".into();
                     snapshot.virtual_camera.detail = Some(
-                        "Portrait video is ready. DJI Live Bridge audio is disabled; select one microphone only in TikTok LIVE Studio."
+                        "Portrait video is ready. Stream My Drone audio is disabled; select one microphone only in TikTok LIVE Studio."
                             .into(),
                     );
                 })

@@ -187,7 +187,7 @@ function App() {
             <svg viewBox="0 0 24 24"><path d="M12 12 7.5 8M12 12l4.5-4M12 12l-4.5 4M12 12l4.5 4" /><circle cx="7.5" cy="8" r="2.4" /><circle cx="16.5" cy="8" r="2.4" /><circle cx="7.5" cy="16" r="2.4" /><circle cx="16.5" cy="16" r="2.4" /><rect x="10" y="10" width="4" height="4" rx="1.2" className="fill" /></svg>
           </span>
           <div>
-            <h1>DJI Live Bridge</h1>
+            <h1>Stream My Drone</h1>
             <small>{snapshot.lanIpv4 ?? t("header.noLan")}</small>
           </div>
         </div>
@@ -1133,7 +1133,7 @@ function AboutCard({ act, t }: { act: Act; t: Translate }) {
         <button className="soft" onClick={() => void act("about-github", () => openAboutLink("github"))}>GitHub</button>
         <button className="soft" onClick={() => void act("about-linkedin", () => openAboutLink("linkedin"))}>LinkedIn</button>
       </div>
-      <p className="hint about-version">DJI Live Bridge {APP_VERSION} · {t("about.license")}</p>
+      <p className="hint about-version">Stream My Drone {APP_VERSION} · {t("about.license")}</p>
     </section>
   );
 }

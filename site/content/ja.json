@@ -1,8 +1,8 @@
 {
   "meta": {
-    "title": "DJI Live Bridge — ドローン映像を Instagram と TikTok へ配信",
+    "title": "Stream My Drone — ドローン映像を Instagram と TikTok へ配信",
     "description": "DJI Fly の RTMP 配信を受け取り、Instagram、TikTok、任意の RTMP 配信先へ同時に送る無料アプリ。TikTok LIVE Studio 用の仮想カメラにもなり、ストリームキーは不要。macOS と Windows 対応。",
-    "ogTitle": "DJI Live Bridge",
+    "ogTitle": "Stream My Drone",
     "ogDescription": "DJI ドローンの映像を Instagram、TikTok、任意の RTMP 配信先へ同時にライブ配信。無料・オープンソース、署名と公証済み。",
     "keywords": "DJI ドローン ライブ配信, DJI Fly RTMP 配信, ドローン Instagram ライブ, ドローン TikTok ライブ, 仮想カメラ, TikTok LIVE Studio 配信, RTMP 同時配信, ドローン 配信 アプリ"
   },
@@ -19,7 +19,7 @@
   "hero": {
     "pill": "無料 · Apple による署名と公証済み",
     "h1": "DJI ドローンの映像を Instagram、TikTok、YouTube、Facebook、カスタム RTMP 配信先へライブ配信",
-    "lead": "DJI Live Bridge は、パソコン上の DJI Fly から届く RTMP 配信を受け取り、複数のプラットフォームへ同時に送ります。TikTok LIVE Studio 用の仮想カメラにすることもでき、そちらではストリームキーが要りません。",
+    "lead": "Stream My Drone は、パソコン上の DJI Fly から届く RTMP 配信を受け取り、複数のプラットフォームへ同時に送ります。TikTok LIVE Studio 用の仮想カメラにすることもでき、そちらではストリームキーが要りません。",
     "ctaMac": "macOS 版をダウンロード",
     "ctaWin": "Windows",
     "ctaAndroid": "Android 版（Google Play）",
@@ -43,7 +43,7 @@
       },
       {
         "h": "TikTok にストリームキーは不要",
-        "p": "内蔵の仮想カメラは TikTok LIVE Studio に「DJI Live Bridge Camera」として現れるため、RTMP の利用権限がなくても配信できます。"
+        "p": "内蔵の仮想カメラは TikTok LIVE Studio に「Stream My Drone Camera」として現れるため、RTMP の利用権限がなくても配信できます。"
       },
       {
         "h": "縦型動画のために",
@@ -106,10 +106,10 @@
   },
   "tiktok": {
     "h2": "ストリームキーなしの TikTok",
-    "sub": "TikTok が RTMP のキーを出すのは一部のアカウントだけです。TikTok LIVE Studio には自分のアカウントでログインするのでその制限がなく、必要なのはカメラだけ。DJI Live Bridge がそのカメラになります。",
+    "sub": "TikTok が RTMP のキーを出すのは一部のアカウントだけです。TikTok LIVE Studio には自分のアカウントでログインするのでその制限がなく、必要なのはカメラだけ。Stream My Drone がそのカメラになります。",
     "items": [
       "仮想カメラを一度だけ有効にします。初回はシステムが許可を求めます。",
-      "TikTok LIVE Studio でカメラのソースを追加し、<strong>DJI Live Bridge Camera</strong> を選びます。",
+      "TikTok LIVE Studio でカメラのソースを追加し、<strong>Stream My Drone Camera</strong> を選びます。",
       "そのソースの音声取り込みを <em>なし</em> にして、LIVE Studio でマイクを 1 つ選びます。",
       "TikTok LIVE Studio で Go Live を押します。"
     ],
@@ -126,7 +126,7 @@
     "steps": [
       {
         "t": "DMG をダウンロード",
-        "d": "Apple Silicon の Mac（M1 以降）は <code>aarch64</code>、Intel の Mac は <code>x86_64</code> のファイルを選び、<strong>DJI Live Bridge</strong> をアプリケーションフォルダにドラッグします。仮想カメラはそこからでないと動きません。Windows では <code>-setup.exe</code> のインストーラーを実行します。"
+        "d": "Apple Silicon の Mac（M1 以降）は <code>aarch64</code>、Intel の Mac は <code>x86_64</code> のファイルを選び、<strong>Stream My Drone</strong> をアプリケーションフォルダにドラッグします。仮想カメラはそこからでないと動きません。Windows では <code>-setup.exe</code> のインストーラーを実行します。"
       },
       {
         "t": "開く",
@@ -161,7 +161,7 @@
       },
       {
         "q": "Windows でも動きますか？",
-        "a": "はい。Windows 10/11 に対応しています。配信、プレビュー、録画、診断、内蔵の仮想カメラはすべてテスト済みです。インストーラーは TikTok LIVE Studio、OBS、Zoom 向けに「DJI Live Bridge Camera」デバイスを登録します。インストーラーにはコード署名がないため、Windows SmartScreen が警告を表示する場合があります。"
+        "a": "はい。Windows 10/11 に対応しています。配信、プレビュー、録画、診断、内蔵の仮想カメラはすべてテスト済みです。インストーラーは TikTok LIVE Studio、OBS、Zoom 向けに「Stream My Drone Camera」デバイスを登録します。インストーラーにはコード署名がないため、Windows SmartScreen が警告を表示する場合があります。"
       },
       {
         "q": "動物を検出して数えられますか？",
@@ -185,6 +185,6 @@
     "role": "開発者・メンテナー",
     "issue": "問題を報告",
     "privacy": "プライバシーポリシー",
-    "note": "MIT ライセンスで公開しています。同梱の FFmpeg は LGPL で、GPL の部品を含まずソースからビルドしたものです。DJI Live Bridge は独立したプロジェクトで、DJI、Instagram、TikTok、Apple とは関係がありません。DJI、Instagram、TikTok はそれぞれの所有者の商標です。 Google Play は Google LLC の商標です。"
+    "note": "MIT ライセンスで公開しています。同梱の FFmpeg は LGPL で、GPL の部品を含まずソースからビルドしたものです。Stream My Drone は独立したプロジェクトで、DJI、Instagram、TikTok、Apple とは関係がありません。DJI、Instagram、TikTok はそれぞれの所有者の商標です。 Google Play は Google LLC の商標です。"
   }
 }

@@ -4,7 +4,7 @@
   "title": "DJI Mini 5 Pro live streaming: phone and computer setup (2026)",
   "description": "Live stream a DJI Mini 5 Pro with RC 2 or RC-N3. Set up DJI Fly RTMP, use a phone or computer, and send your drone feed to YouTube, Instagram or Facebook.",
   "h1": "How to live stream a DJI Mini 5 Pro",
-  "lead": "Want to share the view from your <strong>DJI Mini 5 Pro</strong> while you fly? Send DJI Fly's RTMP feed to <strong>Stream My Drone</strong> on a separate phone or to <strong>DJI Live Bridge</strong> on a Mac or Windows PC. This guide starts with the controller you own, then walks through receiving the picture and publishing it on your platform.",
+  "lead": "Want to share the view from your <strong>DJI Mini 5 Pro</strong> while you fly? Send DJI Fly's RTMP feed to <strong>Stream My Drone</strong> on a separate phone or to <strong>Stream My Drone</strong> on a Mac or Windows PC. This guide starts with the controller you own, then walks through receiving the picture and publishing it on your platform.",
   "published": "2026-10-21",
   "updated": "2026-10-21",
   "summary": [
@@ -23,8 +23,8 @@
         { "table": {
           "head": ["Controller", "Where you fly", "Where you receive the stream"],
           "rows": [
-            ["DJI RC 2", "DJI Fly on the built-in screen", "Stream My Drone on a separate phone, or DJI Live Bridge on a computer"],
-            ["DJI RC-N3", "DJI Fly on the phone connected by USB", "DJI Live Bridge on a computer for the setup described here"]
+            ["DJI RC 2", "DJI Fly on the built-in screen", "Stream My Drone on a separate phone, or Stream My Drone on a computer"],
+            ["DJI RC-N3", "DJI Fly on the phone connected by USB", "Stream My Drone on a computer for the setup described here"]
           ]
         } },
         { "note": "DJI RC and DJI RC 2 are different controllers. DJI's <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;pbc=BCQ9HQ1u&amp;pm=custom&amp;re=US&amp;spaceId=34\">livestream guide</a> says RC 2 requires a connected microphone from DJI Fly v1.16.0 and streams at 720p. Check the RTMP menu and available settings on your own firmware." }
@@ -49,13 +49,13 @@
       "id": "computer-setup",
       "h2": "Mini 5 Pro with RC-N3, or a desktop production setup",
       "blocks": [
-        { "p": "With RC-N3, keep DJI Fly open on the phone attached to the controller. Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> on a Mac or Windows PC and connect that computer and the DJI Fly phone to the same local network. RC 2 can use this desktop route too." },
+        { "p": "With RC-N3, keep DJI Fly open on the phone attached to the controller. Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> on a Mac or Windows PC and connect that computer and the DJI Fly phone to the same local network. RC 2 can use this desktop route too." },
         { "steps": [
-          { "t": "Find the computer's RTMP address", "d": "Open DJI Live Bridge and copy the address under Connect your drone. An address such as <code>rtmp://192.168.1.20:1935/drone</code> is an example; use the one your app displays." },
+          { "t": "Find the computer's RTMP address", "d": "Open Stream My Drone and copy the address under Connect your drone. An address such as <code>rtmp://192.168.1.20:1935/drone</code> is an example; use the one your app displays." },
           { "t": "Send DJI Fly to that address", "d": "Enter it in DJI Fly's RTMP settings and start the feed. Allow incoming connections on your private network if the computer's firewall asks. Check the preview before adding a destination." },
           { "t": "Set the output and platform", "d": "Choose landscape for a conventional YouTube or Facebook broadcast, or vertical output for an account using a portrait layout. Add the destination's current server URL and key, start the output, and verify the broadcast on the platform." }
         ] },
-        { "img": "go-live.png", "alt": "DJI Live Bridge desktop showing the local DJI Fly RTMP address, platform destinations and the Start Live button." }
+        { "img": "go-live.png", "alt": "Stream My Drone desktop showing the local DJI Fly RTMP address, platform destinations and the Start Live button." }
       ]
     },
     {
@@ -111,9 +111,9 @@
   ],
   "faq": [
     { "q": "Can I live stream a Mini 5 Pro without a computer?", "a": "With RC 2, use Stream My Drone on a separate phone connected to the same local network. DJI Fly runs on the controller, the phone receives its RTMP feed, and you configure the destination in Stream My Drone." },
-    { "q": "Can I use the phone already connected to RC-N3?", "a": "That phone runs DJI Fly for flight control. This guide uses DJI Live Bridge on a separate computer as the receiver, so you can keep DJI Fly open. It does not assume both apps can handle a live flight and relay on one phone." },
-    { "q": "Which address goes into DJI Fly?", "a": "The full local receiving address displayed by Stream My Drone or DJI Live Bridge. Put the platform's server URL and stream key into the receiving app's destination settings." },
-    { "q": "Does Stream My Drone turn the video into a vertical broadcast?", "a": "The mobile app forwards the video it receives. Its preview layout does not re-encode the outgoing picture. DJI Live Bridge on a computer offers vertical output conversion." },
+    { "q": "Can I use the phone already connected to RC-N3?", "a": "That phone runs DJI Fly for flight control. This guide uses Stream My Drone on a separate computer as the receiver, so you can keep DJI Fly open. It does not assume both apps can handle a live flight and relay on one phone." },
+    { "q": "Which address goes into DJI Fly?", "a": "The full local receiving address displayed by Stream My Drone or Stream My Drone. Put the platform's server URL and stream key into the receiving app's destination settings." },
+    { "q": "Does Stream My Drone turn the video into a vertical broadcast?", "a": "The mobile app forwards the video it receives. Its preview layout does not re-encode the outgoing picture. Stream My Drone on a computer offers vertical output conversion." },
     { "q": "Why can I see a preview but my audience cannot watch?", "a": "The preview proves only that the local drone feed has arrived. Start a destination output, confirm that the platform receives it, and complete any remaining Go Live step there." }
   ]
 }

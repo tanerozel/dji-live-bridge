@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "DJI Live Bridge",
+  "productName": "Stream My Drone",
   "version": "0.2.7",
   "identifier": "com.djilivebridge.desktop",
   "build": {
@@ -13,7 +13,7 @@
   "app": {
     "windows": [
       {
-        "title": "DJI Live Bridge",
+        "title": "Stream My Drone",
         "width": 1440,
         "height": 920,
         "minWidth": 820,

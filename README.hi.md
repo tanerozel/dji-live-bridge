@@ -1,4 +1,4 @@
-# DJI Live Bridge
+# Stream My Drone
 
 [English](README.md) · [Türkçe](README.tr.md) · [Español](README.es.md) · [中文（简体）](README.zh.md) · [中文（繁體）](README.zh-Hant.md) · [العربية](README.ar.md) · **हिन्दी** · [Português](README.pt.md) · [Русский](README.ru.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md)
 
@@ -9,7 +9,7 @@
 ## इंस्टॉल
 
 1. [Releases](https://github.com/tanerozel/dji-live-bridge/releases) से नवीनतम `.dmg` डाउनलोड करें।
-2. **DJI Live Bridge** को **Applications** फ़ोल्डर में खींचें। वर्चुअल कैमरा वहीं से काम करता है।
+2. **Stream My Drone** को **Applications** फ़ोल्डर में खींचें। वर्चुअल कैमरा वहीं से काम करता है।
 3. बस इतना ही। FFmpeg ऐप के भीतर ही आता है, और कुछ इंस्टॉल करने की ज़रूरत नहीं।
 
 ऐप Apple से हस्ताक्षरित और नोटराइज़्ड है, इसलिए बिना चेतावनी खुलता है।
@@ -35,7 +35,7 @@
 1. `TikTok LIVE Studio` टैब में एक बार `वर्चुअल कैमरा चालू करें` दबाएँ।
 2. macOS पूछे तो **System Settings → General → Login Items & Extensions → Camera Extensions** में एक्सटेंशन को अनुमति दें।
 3. कार्ड पर `शुरू करने के लिए तैयार` दिखे तो `वर्चुअल कैमरा शुरू करें` दबाएँ।
-4. TikTok LIVE Studio में कैमरा स्रोत जोड़ें और **DJI Live Bridge Camera** चुनें।
+4. TikTok LIVE Studio में कैमरा स्रोत जोड़ें और **Stream My Drone Camera** चुनें।
 5. उस स्रोत का ऑडियो कैप्चर `None` रखें और LIVE Studio के मुख्य ऑडियो नियंत्रण से सिर्फ़ एक माइक्रोफ़ोन चुनें।
 
 यह कैमरा जानबूझकर सिर्फ़ वीडियो भेजता है। Applications में ऐप बदलने पर macOS एक्सटेंशन बंद कर देता है: दोबारा `वर्चुअल कैमरा शुरू करें` दबाएँ, बटन खुद अनुमति माँग लेगा। “Go Live” TikTok LIVE Studio में मैनुअल ही रहता है।
@@ -62,7 +62,7 @@
 | 9997 | `127.0.0.1` | MediaMTX कंट्रोल API |
 | 9998 | `127.0.0.1` | MediaMTX मेट्रिक्स |
 
-कॉन्फ़िग: `~/Library/Application Support/DJI Live Bridge/` · लॉग: `~/Library/Logs/DJI Live Bridge/` · गोपनीय जानकारी: macOS Keychain
+कॉन्फ़िग: `~/Library/Application Support/Stream My Drone/` · लॉग: `~/Library/Logs/Stream My Drone/` · गोपनीय जानकारी: macOS Keychain
 
 ## लाइसेंस
 

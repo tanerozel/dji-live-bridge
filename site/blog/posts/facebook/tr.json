@@ -2,16 +2,16 @@
   "slug": "drone-ile-facebook-canli-yayin-nasil-yapilir",
   "platform": "Facebook",
   "title": "Drone ile Facebook'ta canlı yayın nasıl yapılır? (Live Producer)",
-  "description": "Drone ile Facebook'ta canlı yayın: Live Producer'dan RTMPS sunucu URL'si ve yayın anahtarını alın, DJI Fly görüntüsünü DJI Live Bridge ile yayına taşıyın.",
+  "description": "Drone ile Facebook'ta canlı yayın: Live Producer'dan RTMPS sunucu URL'si ve yayın anahtarını alın, DJI Fly görüntüsünü Stream My Drone ile yayına taşıyın.",
   "h1": "Drone ile Facebook'ta canlı yayın nasıl yapılır?",
-  "lead": "facebook.com'da <strong>Canlı video → Yayın yazılımı</strong> (Facebook'un Live Producer'ı) bölümünü açın, sunucu URL'sini ve yayın anahtarını DJI Live Bridge'deki bir Facebook hedefine kopyalayın, drone görüntüsünü DJI Fly'dan uygulamaya gönderin, YAYINI BAŞLAT'a basın ve ardından Live Producer'da <strong>Canlı yayına geç</strong> (Go live) düğmesine basın. Facebook yalnızca şifreli RTMPS kabul eder; bunu uygulama sizin yerinize halleder.",
+  "lead": "facebook.com'da <strong>Canlı video → Yayın yazılımı</strong> (Facebook'un Live Producer'ı) bölümünü açın, sunucu URL'sini ve yayın anahtarını Stream My Drone'daki bir Facebook hedefine kopyalayın, drone görüntüsünü DJI Fly'dan uygulamaya gönderin, YAYINI BAŞLAT'a basın ve ardından Live Producer'da <strong>Canlı yayına geç</strong> (Go live) düğmesine basın. Facebook yalnızca şifreli RTMPS kabul eder; bunu uygulama sizin yerinize halleder.",
   "published": "2026-10-02",
   "updated": "2026-10-02",
   "summary": [
     "Sunucu URL'si ve anahtar Live Producer'dan alınır: Canlı video → Yayın yazılımı.",
     "Sunucu URL'si: rtmps://live-api-s.facebook.com:443/rtmp/ — Facebook RTMPS ister.",
     "Kalıcı yayın anahtarını açmadıysanız Facebook her yayında yeni bir anahtar verir.",
-    "Facebook her 2 saniyede bir ana kare ister; DJI Live Bridge bunu her zaman gönderir.",
+    "Facebook her 2 saniyede bir ana kare ister; Stream My Drone bunu her zaman gönderir.",
     "Profilinizde, bir Sayfada ya da bir grupta yayın yapabilir, aynı anda başka platformlara da yayın gönderebilirsiniz."
   ],
   "sections": [
@@ -21,9 +21,9 @@
       "howto": true,
       "blocks": [
         { "steps": [
-          { "t": "Drone'u bağlayın", "d": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın ve DJI Live Bridge'in gösterdiği adresi girin. Önizleme uygulamada görünür." },
+          { "t": "Drone'u bağlayın", "d": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın ve Stream My Drone'un gösterdiği adresi girin. Önizleme uygulamada görünür." },
           { "t": "Live Producer'ı açın", "d": "facebook.com'da Canlı video'yu seçin, nerede paylaşacağınızı belirleyin (profiliniz, bir Sayfa ya da bir grup) ve <em>Yayın yazılımı</em>'nı seçin." },
-          { "t": "Sunucu URL'sini ve anahtarı kopyalayın", "d": "<em>Sunucu URL'si</em> (<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>) ile <em>Yayın anahtarı</em>'nı DJI Live Bridge'deki bir Facebook hedefine kopyalayın." },
+          { "t": "Sunucu URL'sini ve anahtarı kopyalayın", "d": "<em>Sunucu URL'si</em> (<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>) ile <em>Yayın anahtarı</em>'nı Stream My Drone'daki bir Facebook hedefine kopyalayın." },
           { "t": "YAYINI BAŞLAT'a basın", "d": "Önce yönü seçin: <em>Yatay 16:9</em> bilgisayardan izleyenlere, <em>Dikey 9:16</em> telefondan akışa bakanlara uygundur. Live Producer birkaç saniye sonra önizlemeyi gösterir." },
           { "t": "Facebook'ta Canlı yayına geç'e basın", "d": "Live Producer'da bir başlık ve açıklama ekleyin, ardından Canlı yayına geç'e basın. Bitirmek için videoyu orada sonlandırın ve uygulamada <em>Yayını bitir</em>'e basın." }
         ] }
@@ -33,8 +33,8 @@
       "id": "persistent-key",
       "h2": "Kalıcı yayın anahtarı kullanın",
       "blocks": [
-        { "p": "Facebook varsayılan olarak her yayın için yeni bir anahtar oluşturur; bu durumda anahtarı uygulamada her seferinde güncellemeniz gerekir. Live Producer'da kalıcı yayın anahtarı seçeneği (<em>persistent stream key</em>) var. Bunu açın, anahtarı DJI Live Bridge'e bir kez kaydedin; aynı yere yapacağınız sonraki yayınlarda da çalışmaya devam eder." },
-        { "note": "Kalıcı anahtara şifre gibi davranın: anahtarı bilen herkes sayfanızda yayın yapabilir. DJI Live Bridge anahtarı sistem kasasında saklar; hiçbir zaman bir dosyaya ya da günlüğe yazmaz." }
+        { "p": "Facebook varsayılan olarak her yayın için yeni bir anahtar oluşturur; bu durumda anahtarı uygulamada her seferinde güncellemeniz gerekir. Live Producer'da kalıcı yayın anahtarı seçeneği (<em>persistent stream key</em>) var. Bunu açın, anahtarı Stream My Drone'a bir kez kaydedin; aynı yere yapacağınız sonraki yayınlarda da çalışmaya devam eder." },
+        { "note": "Kalıcı anahtara şifre gibi davranın: anahtarı bilen herkes sayfanızda yayın yapabilir. Stream My Drone anahtarı sistem kasasında saklar; hiçbir zaman bir dosyaya ya da günlüğe yazmaz." }
       ]
     },
     {
@@ -66,10 +66,10 @@
     }
   ],
   "faq": [
-    { "q": "DJI drone ile Facebook'ta canlı yayın yapabilir miyim?", "a": "Evet. DJI Fly, RTMP yayınını bilgisayarınızdaki DJI Live Bridge'e gönderir; uygulama da bunu Live Producer'dan aldığınız anahtarla RTMPS üzerinden Facebook'a iletir." },
+    { "q": "DJI drone ile Facebook'ta canlı yayın yapabilir miyim?", "a": "Evet. DJI Fly, RTMP yayınını bilgisayarınızdaki Stream My Drone'a gönderir; uygulama da bunu Live Producer'dan aldığınız anahtarla RTMPS üzerinden Facebook'a iletir." },
     { "q": "Bir Facebook Sayfasında ya da grupta yayın yapabilir miyim?", "a": "Evet. Anahtarı kopyalamadan önce Live Producer'da nerede paylaşacağınızı seçin; anahtar o hedefe aittir." },
     { "q": "Facebook yayın anahtarım neden çalışmayı bırakıyor?", "a": "Facebook her yayın için ayrı bir anahtar verir. Aynı yere düzenli yayın yapıyorsanız Live Producer'da kalıcı yayın anahtarını açın." },
-    { "q": "Facebook ve Instagram'da aynı anda yayın yapabilir miyim?", "a": "Evet, DJI Live Bridge'de iki ayrı hedef olarak. İkisi de aynı görüntüyü alır; bu yüzden ana izleyici kitlenize uyan yönü seçin." },
-    { "q": "Ücretsiz mi?", "a": "Evet. DJI Live Bridge ücretsiz ve açık kaynaklıdır; DJI veya Meta ile bir bağlantısı yoktur." }
+    { "q": "Facebook ve Instagram'da aynı anda yayın yapabilir miyim?", "a": "Evet, Stream My Drone'da iki ayrı hedef olarak. İkisi de aynı görüntüyü alır; bu yüzden ana izleyici kitlenize uyan yönü seçin." },
+    { "q": "Ücretsiz mi?", "a": "Evet. Stream My Drone ücretsiz ve açık kaynaklıdır; DJI veya Meta ile bir bağlantısı yoktur." }
   ]
 }

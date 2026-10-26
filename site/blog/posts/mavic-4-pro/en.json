@@ -4,7 +4,7 @@
   "title": "DJI Mavic 4 Pro live streaming: RC 2 and RC Pro 2 guide (2026)",
   "description": "Stream your DJI Mavic 4 Pro with RC 2 or RC Pro 2 to a phone or computer. Check DJI Fly RTMP, microphone differences, 720p limits and platform setup.",
   "h1": "How to live stream a DJI Mavic 4 Pro",
-  "lead": "Your <strong>DJI Mavic 4 Pro</strong> can send DJI Fly’s RTMP picture to <strong>Stream My Drone</strong> on a separate phone or <strong>DJI Live Bridge</strong> on a computer. The useful starting point is your controller: RC 2 and RC Pro 2 both have screens, but their microphone hardware differs. Follow the route below to receive the picture, choose destinations and check what viewers actually see.",
+  "lead": "Your <strong>DJI Mavic 4 Pro</strong> can send DJI Fly’s RTMP picture to <strong>Stream My Drone</strong> on a separate phone or <strong>Stream My Drone</strong> on a computer. The useful starting point is your controller: RC 2 and RC Pro 2 both have screens, but their microphone hardware differs. Follow the route below to receive the picture, choose destinations and check what viewers actually see.",
   "summary": [
     "Use RC 2 or RC Pro 2; DJI’s current Mavic 4 Pro setup does not list an RC-N controller.",
     "A separate phone running Stream My Drone gives you a computer-free receiving and forwarding setup.",
@@ -31,7 +31,7 @@
               [
                 "DJI RC 2",
                 "DJI Fly on the built-in screen",
-                "Stream My Drone on a separate phone, or DJI Live Bridge on a computer"
+                "Stream My Drone on a separate phone, or Stream My Drone on a computer"
               ],
               [
                 "DJI RC Pro 2",
@@ -97,13 +97,13 @@
       "h2": "Mavic 4 Pro on Mac or Windows: desktop production",
       "blocks": [
         {
-          "p": "Keep DJI Fly running on your RC 2 or RC Pro 2. Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> on your Mac or Windows PC. The computer receives the DJI Fly RTMP feed over your local network; this setup does not use HDMI capture or a USB webcam connection from the controller."
+          "p": "Keep DJI Fly running on your RC 2 or RC Pro 2. Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> on your Mac or Windows PC. The computer receives the DJI Fly RTMP feed over your local network; this setup does not use HDMI capture or a USB webcam connection from the controller."
         },
         {
           "steps": [
             {
               "t": "Copy the computer’s local RTMP address",
-              "d": "Connect the computer and the device running DJI Fly to the same network. In DJI Live Bridge, copy the address under Connect your drone. <code>rtmp://192.168.1.20:1935/drone</code> is only an example: use the address displayed by your app."
+              "d": "Connect the computer and the device running DJI Fly to the same network. In Stream My Drone, copy the address under Connect your drone. <code>rtmp://192.168.1.20:1935/drone</code> is only an example: use the address displayed by your app."
             },
             {
               "t": "Send the feed and verify reception",
@@ -117,7 +117,7 @@
         },
         {
           "img": "go-live.png",
-          "alt": "DJI Live Bridge desktop showing the local receiving address, platform destinations and live output controls."
+          "alt": "Stream My Drone desktop showing the local receiving address, platform destinations and live output controls."
         }
       ]
     },
@@ -157,7 +157,7 @@
           }
         },
         {
-          "p": "Account eligibility comes from the platform. Neither app grants a stream key or bypasses access requirements. For a computer workflow in a compatible studio app, DJI Live Bridge also provides a <a href=\"../use-your-dji-drone-as-a-webcam/\">virtual camera</a>. A local preview proves reception; a working viewer page confirms publication."
+          "p": "Account eligibility comes from the platform. Neither app grants a stream key or bypasses access requirements. For a computer workflow in a compatible studio app, Stream My Drone also provides a <a href=\"../use-your-dji-drone-as-a-webcam/\">virtual camera</a>. A local preview proves reception; a working viewer page confirms publication."
         }
       ]
     },
@@ -227,11 +227,11 @@
     },
     {
       "q": "Where do my YouTube or Instagram credentials go?",
-      "a": "In the destination settings of Stream My Drone or DJI Live Bridge. DJI Fly receives the local RTMP address displayed by that app."
+      "a": "In the destination settings of Stream My Drone or Stream My Drone. DJI Fly receives the local RTMP address displayed by that app."
     },
     {
       "q": "Does rotating the controller screen guarantee a vertical broadcast?",
-      "a": "Check the image arriving in the receiver and the platform’s viewer page. The controller screen, camera recording orientation and outgoing video format are separate. Desktop DJI Live Bridge can convert output to a vertical layout."
+      "a": "Check the image arriving in the receiver and the platform’s viewer page. The controller screen, camera recording orientation and outgoing video format are separate. Desktop Stream My Drone can convert output to a vertical layout."
     }
   ],
   "published": "2026-10-25",

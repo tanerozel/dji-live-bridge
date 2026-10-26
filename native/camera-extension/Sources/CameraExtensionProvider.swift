@@ -4,8 +4,8 @@ import CoreVideo
 import Darwin
 import Foundation
 
-private let cameraName = "DJI Live Bridge Camera"
-private let cameraModel = "DJI Live Bridge Virtual Camera"
+private let cameraName = "Stream My Drone Camera"
+private let cameraModel = "Stream My Drone Virtual Camera"
 private let cameraWidth = 1080
 private let cameraHeight = 1920
 private let cameraFPS: Int32 = 30
@@ -30,7 +30,7 @@ final class CameraExtensionProviderSource: NSObject, CMIOExtensionProviderSource
     func providerProperties(forProperties properties: Set<CMIOExtensionProperty>) throws -> CMIOExtensionProviderProperties {
         let result = CMIOExtensionProviderProperties(dictionary: [:])
         if properties.contains(.providerManufacturer) {
-            result.manufacturer = "DJI Live Bridge"
+            result.manufacturer = "Stream My Drone"
         }
         return result
     }

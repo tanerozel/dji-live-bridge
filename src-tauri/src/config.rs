@@ -8,6 +8,8 @@ use crate::{
     vision::DetectionSettings,
 };
 
+/// The app's former name. Kept so existing settings, logs and recordings stay
+/// where they are; like the bundle ID and Keychain service, users never see it.
 pub const APP_DIR_NAME: &str = "DJI Live Bridge";
 
 #[derive(Debug, Clone, Copy, Default, Serialize, Deserialize)]

@@ -113,7 +113,7 @@ pub fn inspect(feed_active: bool) -> VirtualCameraState {
         (
             ServiceStatus::Unavailable,
             "camera.detail.moveToApplications",
-            Some("Move DJI Live Bridge.app to /Applications before enabling the camera".into()),
+            Some("Move Stream My Drone.app to /Applications before enabling the camera".into()),
         )
     } else {
         (
@@ -146,7 +146,7 @@ pub fn request_activation() -> BridgeResult<()> {
     }
     if !state.app_installed {
         return Err(BridgeError::VirtualCamera(
-            "DJI Live Bridge.app must run from /Applications before the camera extension can be enabled"
+            "Stream My Drone.app must run from /Applications before the camera extension can be enabled"
                 .into(),
         ));
     }

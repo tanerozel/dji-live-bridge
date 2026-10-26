@@ -4,14 +4,14 @@
   "title": "DJI Flip live streaming: phone and computer setup (2026)",
   "description": "Live stream DJI Flip with RC 2, RC-N3 or RC-N2: phone and computer RTMP setup, palm and phone-control distinctions, vertical framing and platform checks.",
   "h1": "How to live stream a DJI Flip",
-  "lead": "<strong>DJI Flip</strong> can send a live flight picture through DJI Fly RTMP with a supported controller. With RC 2, use <strong>Stream My Drone</strong> on a separate phone. With RC-N3 or RC-N2, keep DJI Fly on the flight phone and receive the feed in <strong>DJI Live Bridge</strong> on a computer. This guide covers those controller-based routes and explains how they differ from Flip’s palm control, direct phone control and vertical recording.",
+  "lead": "<strong>DJI Flip</strong> can send a live flight picture through DJI Fly RTMP with a supported controller. With RC 2, use <strong>Stream My Drone</strong> on a separate phone. With RC-N3 or RC-N2, keep DJI Fly on the flight phone and receive the feed in <strong>Stream My Drone</strong> on a computer. This guide covers those controller-based routes and explains how they differ from Flip’s palm control, direct phone control and vertical recording.",
   "published": "2026-10-25",
   "updated": "2026-10-25",
   "summary": [
     "DJI lists Flip in its livestream compatibility guide and lists RC 2, RC-N3 and RC-N2 as compatible controllers.",
     "RC 2 keeps DJI Fly on its built-in screen, leaving a separate phone free to receive the stream.",
     "RC-N3 and RC-N2 use a phone for DJI Fly. Use the separate computer receiver described below so DJI Fly stays open.",
-    "The local receiver address belongs in DJI Fly. Configure platform accounts or stream keys in Stream My Drone or DJI Live Bridge.",
+    "The local receiver address belongs in DJI Fly. Configure platform accounts or stream keys in Stream My Drone or Stream My Drone.",
     "Palm control, direct phone control and QuickTransfer serve different purposes; this guide uses controller-based RTMP, and 2.7K vertical recording does not establish a vertical live output."
   ],
   "sections": [
@@ -33,12 +33,12 @@
               [
                 "DJI RC 2",
                 "DJI Fly on the built-in screen",
-                "Stream My Drone on a separate phone, or DJI Live Bridge on a computer"
+                "Stream My Drone on a separate phone, or Stream My Drone on a computer"
               ],
               [
                 "DJI RC-N3",
                 "DJI Fly on the phone connected by USB",
-                "DJI Live Bridge on a separate Mac or Windows PC"
+                "Stream My Drone on a separate Mac or Windows PC"
               ],
               [
                 "DJI RC-N2",
@@ -64,7 +64,7 @@
           "p": "For this live broadcast, connect RC 2, RC-N3 or RC-N2, open DJI Fly’s flight view and use its Live Streaming Platforms → RTMP menu. A direct Wi-Fi connection to Flip, a live camera preview or a completed palm-control recording does not by itself confirm that an RTMP feed has reached your receiver."
         },
         {
-          "note": "QuickTransfer copies recorded media. Check a moving picture in Stream My Drone or DJI Live Bridge to verify a live connection. If you want to investigate a phone-only setup, check the controls actually available in your current DJI Fly connection mode; the steps below use a controller and do not establish phone-only RTMP support."
+          "note": "QuickTransfer copies recorded media. Check a moving picture in Stream My Drone or Stream My Drone to verify a live connection. If you want to investigate a phone-only setup, check the controls actually available in your current DJI Fly connection mode; the steps below use a controller and do not establish phone-only RTMP support."
         }
       ]
     },
@@ -107,13 +107,13 @@
       "h2": "Flip with RC-N3 or RC-N2: receive the feed on a computer",
       "blocks": [
         {
-          "p": "With RC-N3 or RC-N2, keep DJI Fly open on the phone attached to the controller. Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> on a Mac or Windows PC and connect that computer and the DJI Fly phone to the same local network. RC 2 can use this desktop route too."
+          "p": "With RC-N3 or RC-N2, keep DJI Fly open on the phone attached to the controller. Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> on a Mac or Windows PC and connect that computer and the DJI Fly phone to the same local network. RC 2 can use this desktop route too."
         },
         {
           "steps": [
             {
               "t": "Find the computer's RTMP address",
-              "d": "Open DJI Live Bridge and copy the address under Connect your drone. An address such as <code>rtmp://192.168.1.20:1935/drone</code> is an example; use the one your app displays."
+              "d": "Open Stream My Drone and copy the address under Connect your drone. An address such as <code>rtmp://192.168.1.20:1935/drone</code> is an example; use the one your app displays."
             },
             {
               "t": "Send DJI Fly to that address",
@@ -127,7 +127,7 @@
         },
         {
           "img": "go-live.png",
-          "alt": "DJI Live Bridge desktop showing the local DJI Fly RTMP address, platform destinations and the Start Live button."
+          "alt": "Stream My Drone desktop showing the local DJI Fly RTMP address, platform destinations and the Start Live button."
         }
       ]
     },
@@ -179,7 +179,7 @@
           "p": "DJI’s <a href=\"https://repair.dji.com/help/content?customId=01700006877&amp;lang=en&amp;paperDocType=ARTICLE&amp;spaceId=17\">vertical-shooting guide</a> explains that Flip crops the picture for vertical recording up to 2.7K at 30 fps. That recording mode is not a specification for the DJI Fly RTMP feed. The file recorded on the aircraft, controller preview, receiver input and platform output can differ in resolution and framing."
         },
         {
-          "p": "With RC 2, plan around DJI’s stated 720p livestream limit and inspect the incoming picture at the receiver. Stream My Drone relays that picture; selecting a cropped mobile preview does not create a portrait output. For a portrait broadcast, use DJI Live Bridge’s vertical conversion, check the final framing on the platform and leave enough room around the subject for the crop. Upscaling cannot recover detail absent from the incoming feed."
+          "p": "With RC 2, plan around DJI’s stated 720p livestream limit and inspect the incoming picture at the receiver. Stream My Drone relays that picture; selecting a cropped mobile preview does not create a portrait output. For a portrait broadcast, use Stream My Drone’s vertical conversion, check the final framing on the platform and leave enough room around the subject for the crop. Upscaling cannot recover detail absent from the incoming feed."
         },
         {
           "list": [
@@ -230,15 +230,15 @@
     },
     {
       "q": "Can I use the phone already connected to RC-N3 or RC-N2?",
-      "a": "That phone runs DJI Fly for flight control. This guide uses DJI Live Bridge on a separate computer as the receiver, so you can keep DJI Fly open. It does not assume both apps can handle a live flight and relay on one phone."
+      "a": "That phone runs DJI Fly for flight control. This guide uses Stream My Drone on a separate computer as the receiver, so you can keep DJI Fly open. It does not assume both apps can handle a live flight and relay on one phone."
     },
     {
       "q": "Which address goes into DJI Fly?",
-      "a": "The full local receiving address displayed by Stream My Drone or DJI Live Bridge. Put the platform's server URL and stream key into the receiving app's destination settings."
+      "a": "The full local receiving address displayed by Stream My Drone or Stream My Drone. Put the platform's server URL and stream key into the receiving app's destination settings."
     },
     {
       "q": "Does Flip’s 2.7K vertical recording make the RTMP feed vertical?",
-      "a": "The aircraft’s vertical recording setting does not establish the RTMP output format. Check the feed received by your app. Stream My Drone relays the incoming video; use DJI Live Bridge on a computer when you need vertical output conversion."
+      "a": "The aircraft’s vertical recording setting does not establish the RTMP output format. Check the feed received by your app. Stream My Drone relays the incoming video; use Stream My Drone on a computer when you need vertical output conversion."
     },
     {
       "q": "Why can I see a preview but my audience cannot watch?",

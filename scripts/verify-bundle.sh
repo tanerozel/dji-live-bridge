@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Fail (non-zero) if a built .app would ship a broken sidecar signature.
 # Works on any bundle: build output, a mounted DMG, or /Applications.
-# Usage: verify-bundle.sh <path-to-DJI Live Bridge.app>
+# Usage: verify-bundle.sh <path-to-Stream My Drone.app>
 
 APP_PATH="${1:?usage: verify-bundle.sh <path-to-app-bundle>}"
 MACOS_DIR="$APP_PATH/Contents/MacOS"

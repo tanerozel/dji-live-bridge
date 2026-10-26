@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# The ONLY supported way to build DJI Live Bridge for macOS: `npm run build:mac`.
+# The ONLY supported way to build Stream My Drone for macOS: `npm run build:mac`.
 # A bare `tauri build` produces an app whose mediamtx sidecar is killed by macOS
 # at launch (see scripts/sign-sidecars.sh), so the app cannot reach
 # http://127.0.0.1:9997. This script builds, fixes signing, verifies the .app,
@@ -18,7 +18,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT_DIR"
 
-PRODUCT="DJI Live Bridge"
+PRODUCT="Stream My Drone"
 HOST_ARCH="$(uname -m | sed 's/arm64/aarch64/')"
 TARGET="${1:-${HOST_ARCH}-apple-darwin}"
 IDENTITY="${APPLE_SIGNING_IDENTITY:-Developer ID Application: Taner Ozel (GXDXLCQ92M)}"
@@ -95,7 +95,8 @@ if pgrep -f "$PRODUCT.app/Contents/MacOS/dji-live-bridge" >/dev/null 2>&1; then
   die "$PRODUCT is running; quit it before building"
 fi
 # An orphaned sidecar from a crashed/force-quit run holds those ports too.
-# Only processes started with this app's own config file are touched.
+# Only processes started with this app's own config file are touched. The
+# config folder keeps the app's former name (config::APP_DIR_NAME).
 if pkill -f "DJI Live Bridge/mediamtx.yml" 2>/dev/null; then
   echo "stopped a stale MediaMTX left over from a previous run"
   sleep 1

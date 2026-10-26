@@ -2,9 +2,9 @@
   "slug": "dji-neo-live-stream",
   "platform": "DJI Neo",
   "title": "DJI Neo live stream: Instagram, TikTok and YouTube setup (2026)",
-  "description": "How to live stream a DJI Neo: which control mode works (phone, RC-N3, goggles), RTMP in DJI Fly, and going live on Instagram, TikTok or YouTube with DJI Live Bridge.",
+  "description": "How to live stream a DJI Neo: which control mode works (phone, RC-N3, goggles), RTMP in DJI Fly, and going live on Instagram, TikTok or YouTube with Stream My Drone.",
   "h1": "How to live stream a DJI Neo",
-  "lead": "The DJI Neo streams through <strong>DJI Fly's RTMP option</strong>, like DJI's bigger drones. The catch is the way you fly it: when the phone controls the Neo directly over Wi-Fi, that Wi-Fi is taken by the drone. Fly with the <strong>RC-N3</strong> (or goggles cabled to the phone) and the phone is free to send the stream to <strong>DJI Live Bridge</strong> on your computer, which takes it on to Instagram, TikTok, YouTube or several platforms at once.",
+  "lead": "The DJI Neo streams through <strong>DJI Fly's RTMP option</strong>, like DJI's bigger drones. The catch is the way you fly it: when the phone controls the Neo directly over Wi-Fi, that Wi-Fi is taken by the drone. Fly with the <strong>RC-N3</strong> (or goggles cabled to the phone) and the phone is free to send the stream to <strong>Stream My Drone</strong> on your computer, which takes it on to Instagram, TikTok, YouTube or several platforms at once.",
   "published": "2026-10-03",
   "updated": "2026-10-21",
   "summary": [
@@ -12,14 +12,14 @@
     "Use the <strong>RC-N3</strong>: the phone is connected to the controller by cable, so its Wi-Fi can join the computer's network.",
     "In phone-only mode the phone's Wi-Fi is connected to the Neo itself, so it usually cannot reach a computer.",
     "With goggles, cable them to the phone running DJI Fly and stream from there.",
-    "DJI Live Bridge turns the stream into vertical 1080×1920 for Instagram and TikTok, and reaches Instagram over RTMPS."
+    "Stream My Drone turns the stream into vertical 1080×1920 for Instagram and TikTok, and reaches Instagram over RTMPS."
   ],
   "sections": [
     {
       "id": "modes",
       "h2": "Which Neo control mode can stream?",
       "blocks": [
-        { "p": "The Neo can be flown three ways, and that decides how the stream leaves the phone. In every case DJI Fly on the phone does the streaming; DJI Live Bridge on the computer receives it." },
+        { "p": "The Neo can be flown three ways, and that decides how the stream leaves the phone. In every case DJI Fly on the phone does the streaming; Stream My Drone on the computer receives it." },
         { "table": {
           "head": ["How you fly", "Streams to a computer?", "Why"],
           "rows": [
@@ -39,11 +39,11 @@
         { "steps": [
           { "t": "Connect the phone to the RC-N3", "d": "Fly the Neo with the RC-N3 as usual, phone attached by cable, DJI Fly open." },
           { "t": "Join phone and computer to one network", "d": "Connect the phone's Wi-Fi and the computer to the same Wi-Fi. In the field, turn on a second phone's hotspot or a travel router and join both to it." },
-          { "t": "Open DJI Live Bridge", "d": "Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> on a Mac or Windows PC. It shows an address like <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Open Stream My Drone", "d": "Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> on a Mac or Windows PC. It shows an address like <code>rtmp://192.168.1.20:1935/drone</code>." },
           { "t": "Enter the address in DJI Fly", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, type the address and start. The preview appears in the app." },
           { "t": "Choose platforms and go live", "d": "Add Instagram, TikTok, YouTube or any RTMP server, keep <em>Vertical 9:16</em> for Instagram and TikTok, and press START LIVE." }
         ] },
-        { "img": "go-live.png", "alt": "The Go live tab of DJI Live Bridge with the RTMP address for DJI Fly, the destinations and the START LIVE button." },
+        { "img": "go-live.png", "alt": "The Go live tab of Stream My Drone with the RTMP address for DJI Fly, the destinations and the START LIVE button." },
         { "note": "More detail on the DJI Fly side, networks and firewalls is in <a href=\"../dji-fly-rtmp-live-streaming-setup/\">the DJI Fly RTMP guide</a>." }
       ]
     },
@@ -55,7 +55,7 @@
           "<strong>An Android phone streams at a higher bitrate.</strong> DJI lists 5 or 3 Mbps for Android and 2 or 1 Mbps for iOS.",
           "<strong>Keep the phone's Wi-Fi strong.</strong> The stream travels from the phone over Wi-Fi to the computer; stay close to the router or hotspot.",
           "<strong>Vertical for social.</strong> The Neo films landscape; <em>Whole picture</em> keeps the full frame with a blurred fill, <em>Fill screen</em> crops it.",
-          "<strong>Rehearse on the ground.</strong> <em>Try with a video file</em> in DJI Live Bridge checks the platform side before the Neo takes off."
+          "<strong>Rehearse on the ground.</strong> <em>Try with a video file</em> in Stream My Drone checks the platform side before the Neo takes off."
         ] }
       ]
     },
@@ -75,7 +75,7 @@
   "faq": [
     { "q": "Can the DJI Neo live stream?", "a": "Yes, through RTMP in DJI Fly. For streaming to a computer, fly it with the RC-N3 or with goggles cabled to the phone, so the phone's Wi-Fi is free to join the computer's network." },
     { "q": "Can I live stream the Neo when controlling it with just my phone?", "a": "In phone-only control mode, the phone’s Wi-Fi is connected to the Neo. A computer can receive the feed through the phone’s hotspot if the Android phone supports Wi-Fi and hotspot sharing at the same time. Availability depends on the phone." },
-    { "q": "Can the DJI Neo stream to Instagram or TikTok?", "a": "Not from DJI Fly directly. Send DJI Fly's RTMP stream to DJI Live Bridge, which forwards it to Instagram over RTMPS and to TikTok in vertical 1080×1920." },
-    { "q": "Does it work with the Neo 2?", "a": "If DJI Fly shows RTMP under Live Streaming Platforms for your drone and controller, it works: DJI Live Bridge only receives the RTMP stream and never talks to the drone." }
+    { "q": "Can the DJI Neo stream to Instagram or TikTok?", "a": "Not from DJI Fly directly. Send DJI Fly's RTMP stream to Stream My Drone, which forwards it to Instagram over RTMPS and to TikTok in vertical 1080×1920." },
+    { "q": "Does it work with the Neo 2?", "a": "If DJI Fly shows RTMP under Live Streaming Platforms for your drone and controller, it works: Stream My Drone only receives the RTMP stream and never talks to the drone." }
   ]
 }

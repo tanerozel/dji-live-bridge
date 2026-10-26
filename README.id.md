@@ -1,4 +1,4 @@
-# DJI Live Bridge
+# Stream My Drone
 
 [English](README.md) · [Türkçe](README.tr.md) · [Español](README.es.md) · [中文（简体）](README.zh.md) · [中文（繁體）](README.zh-Hant.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · **Bahasa Indonesia** · [Italiano](README.it.md)
 
@@ -9,7 +9,7 @@ Aplikasi macOS yang menerima siaran RTMP dari DJI Fly di Mac pada jaringan yang 
 ## Pemasangan
 
 1. Unduh berkas `.dmg` terbaru dari [Releases](https://github.com/tanerozel/dji-live-bridge/releases).
-2. Seret **DJI Live Bridge** ke folder **Applications**. Kamera virtual hanya bekerja dari sana.
+2. Seret **Stream My Drone** ke folder **Applications**. Kamera virtual hanya bekerja dari sana.
 3. Selesai. FFmpeg sudah ada di dalam aplikasi, tidak ada lagi yang perlu dipasang.
 
 Aplikasi sudah ditandatangani dan dinotarisasi oleh Apple, jadi terbuka tanpa peringatan.
@@ -35,7 +35,7 @@ Jalur ini tidak butuh alamat server atau stream key:
 1. Di tab `TikTok LIVE Studio`, tekan sekali `Aktifkan kamera virtual`.
 2. Bila macOS meminta, izinkan ekstensi di **System Settings → General → Login Items & Extensions → Camera Extensions**.
 3. Saat kartu menampilkan `Siap dimulai`, tekan `Mulai kamera virtual`.
-4. Di TikTok LIVE Studio tambahkan sumber kamera dan pilih **DJI Live Bridge Camera**.
+4. Di TikTok LIVE Studio tambahkan sumber kamera dan pilih **Stream My Drone Camera**.
 5. Atur audio capture sumber itu ke `None`, lalu pilih satu mikrofon saja di kontrol audio utama LIVE Studio.
 
 Kamera ini sengaja hanya membawa video. Jika aplikasi di folder Applications diganti, macOS menonaktifkan ekstensinya: tekan `Mulai kamera virtual` sekali lagi dan tombol itu akan meminta aktivasi sendiri. “Go Live” tetap ditekan manual di TikTok LIVE Studio.
@@ -62,7 +62,7 @@ Ada lima tema: Sistem, Terang, Gelap, Tengah malam, dan Pasir.
 | 9997 | `127.0.0.1` | Control API MediaMTX |
 | 9998 | `127.0.0.1` | Metrik MediaMTX |
 
-Konfigurasi: `~/Library/Application Support/DJI Live Bridge/` · Log: `~/Library/Logs/DJI Live Bridge/` · Rahasia: Keychain macOS
+Konfigurasi: `~/Library/Application Support/Stream My Drone/` · Log: `~/Library/Logs/Stream My Drone/` · Rahasia: Keychain macOS
 
 ## Pengembangan
 

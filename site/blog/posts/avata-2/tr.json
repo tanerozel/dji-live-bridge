@@ -4,14 +4,14 @@
   "title": "DJI Avata 2 ve Goggles 3 ile canlı yayın: Instagram, TikTok, YouTube",
   "description": "DJI Avata 2 ile FPV canlı yayın: Goggles 3 görüntüsünü telefondaki DJI Fly'a aktarın, RTMP ile yayınlayın ve Instagram, TikTok veya YouTube'da canlıya çıkın.",
   "h1": "DJI Avata 2 ile canlı yayın nasıl yapılır?",
-  "lead": "Avata 2'nin ekranlı bir kumandası yoktur; yayın telefonunuzdan çıkar: <strong>Goggles 3 canlı görüntüyü DJI Fly ile paylaşır</strong>, DJI Fly da onu <strong>RTMP</strong> ile gönderir. Bunu bilgisayardaki <strong>DJI Live Bridge</strong>'e yönlendirin; FPV görüntüsü Instagram, TikTok, YouTube'a ya da aynı anda birkaç platforma gider.",
+  "lead": "Avata 2'nin ekranlı bir kumandası yoktur; yayın telefonunuzdan çıkar: <strong>Goggles 3 canlı görüntüyü DJI Fly ile paylaşır</strong>, DJI Fly da onu <strong>RTMP</strong> ile gönderir. Bunu bilgisayardaki <strong>Stream My Drone</strong>'e yönlendirin; FPV görüntüsü Instagram, TikTok, YouTube'a ya da aynı anda birkaç platforma gider.",
   "published": "2026-10-03",
   "updated": "2026-10-03",
   "summary": [
     "DJI Goggles 3'ü telefonunuza bağlayın — en güvenilir yol USB-C kablodur — ve canlı görüntüyü görmek için DJI Fly'ı açın.",
-    "DJI Fly'da: GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP; adres olarak DJI Live Bridge'in gösterdiğini girin.",
+    "DJI Fly'da: GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP; adres olarak Stream My Drone'un gösterdiğini girin.",
     "Telefonun Wi-Fi'si bilgisayarla aynı ağda olmalı; kablo, Wi-Fi'yi bu iş için boş bırakır.",
-    "DJI Live Bridge yatay FPV görüntüsünü Instagram ve TikTok için dikey 1080×1920'ye çevirir.",
+    "Stream My Drone yatay FPV görüntüsünü Instagram ve TikTok için dikey 1080×1920'ye çevirir.",
     "Yayını bir gözcü ya da ikinci bir kişi takip etmeli — pilotun gözünde gözlük var."
   ],
   "sections": [
@@ -38,11 +38,11 @@
         { "steps": [
           { "t": "Gözlüğü telefona kabloyla bağlayın", "d": "DJI Goggles 3'ün USB-C portunu OTG destekli bir kabloyla telefona bağlayın ve DJI Fly'ı açın; GO FLY'a dokunup canlı görüntünün geldiğini doğrulayın." },
           { "t": "Telefonu ve bilgisayarı tek ağa bağlayın", "d": "Telefonun Wi-Fi'sini ve bilgisayarı aynı Wi-Fi ağına, sahadaysanız bir seyahat router'ına ya da başka bir telefonun hotspot'una bağlayın." },
-          { "t": "DJI Live Bridge'i açın", "d": "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a>'i bir Mac'e veya Windows bilgisayara kurun ve gösterdiği adresi not edin, örneğin <code>rtmp://192.168.1.20:1935/drone</code>." },
-          { "t": "DJI Fly'da RTMP'yi başlatın", "d": "GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın, adresi girin ve başlatın. Önizleme DJI Live Bridge'de görünür." },
+          { "t": "Stream My Drone'u açın", "d": "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>'i bir Mac'e veya Windows bilgisayara kurun ve gösterdiği adresi not edin, örneğin <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "DJI Fly'da RTMP'yi başlatın", "d": "GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın, adresi girin ve başlatın. Önizleme Stream My Drone'da görünür." },
           { "t": "Yayına çıkın", "d": "Instagram, TikTok, YouTube ya da herhangi bir RTMP sunucusunu ekleyin, dikey veya yatay seçin ve kalkıştan önce YAYINI BAŞLAT'a basın." }
         ] },
-        { "img": "go-live.png", "alt": "DJI Live Bridge'in Canlı yayın sekmesi: DJI Fly için RTMP adresi, hedefler ve YAYINI BAŞLAT düğmesi." },
+        { "img": "go-live.png", "alt": "Stream My Drone'un Canlı yayın sekmesi: DJI Fly için RTMP adresi, hedefler ve YAYINI BAŞLAT düğmesi." },
         { "note": "Genel DJI Fly ayarları, ağlar ve güvenlik duvarı uyarıları <a href=\"../dji-fly-rtmp-canli-yayin-ayarlari/\">DJI Fly RTMP rehberinde</a> anlatılıyor." }
       ]
     },
@@ -72,9 +72,9 @@
     }
   ],
   "faq": [
-    { "q": "DJI Avata 2 canlı yayın yapabilir mi?", "a": "Evet. DJI Goggles 3 canlı görüntüyü telefondaki DJI Fly ile paylaşır, DJI Fly da onu RTMP ile DJI Live Bridge'e gönderir; uygulama da platformlarınıza iletir." },
+    { "q": "DJI Avata 2 canlı yayın yapabilir mi?", "a": "Evet. DJI Goggles 3 canlı görüntüyü telefondaki DJI Fly ile paylaşır, DJI Fly da onu RTMP ile Stream My Drone'a gönderir; uygulama da platformlarınıza iletir." },
     { "q": "Gözlük ile telefon arasında kablo gerekli mi?", "a": "Goggles 3 kablosuz da paylaşabilir, ama kablo daha güvenilirdir ve telefonun Wi-Fi'sini bilgisayara ulaşmak için boş bırakır." },
-    { "q": "Avata 2 ile Instagram'a veya TikTok'a yayın yapabilir miyim?", "a": "Evet, DJI Live Bridge üzerinden. Yatay FPV görüntüsünü dikey 1080×1920'ye çevirir ve DJI Fly'ın kendi başına yapamadığı şekilde Instagram'a RTMPS ile ulaşır." },
+    { "q": "Avata 2 ile Instagram'a veya TikTok'a yayın yapabilir miyim?", "a": "Evet, Stream My Drone üzerinden. Yatay FPV görüntüsünü dikey 1080×1920'ye çevirir ve DJI Fly'ın kendi başına yapamadığı şekilde Instagram'a RTMPS ile ulaşır." },
     { "q": "Ben uçarken yayını kim yönetmeli?", "a": "Yayını kalkıştan önce başlatın ve mümkünse bilgisayarı bir gözcü izlesin. Pilotun gözünde gözlük var, hedef kartlarını göremez." }
   ]
 }

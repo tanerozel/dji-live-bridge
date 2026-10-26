@@ -2,9 +2,9 @@
   "slug": "drone-ile-instagram-canli-yayin-nasil-yapilir",
   "platform": "Instagram",
   "title": "Drone ile Instagram'da canlı yayın nasıl yapılır? (Adım adım)",
-  "description": "Drone ile Instagram'da canlı yayın: instagram.com'dan yayın URL'si ve anahtarını alın, DJI Fly'ın RTMP yayınını DJI Live Bridge ile gönderin, Go live'a basın.",
+  "description": "Drone ile Instagram'da canlı yayın: instagram.com'dan yayın URL'si ve anahtarını alın, DJI Fly'ın RTMP yayınını Stream My Drone ile gönderin, Go live'a basın.",
   "h1": "Drone ile Instagram'da canlı yayın nasıl yapılır?",
-  "lead": "Instagram Live, yayın yazılımlarından gelen yayınları kabul eder. <strong>instagram.com → Oluştur (+) → Canlı video</strong> yolunu açın, yayın URL'sini ve yayın anahtarını DJI Live Bridge'e kopyalayın, drone'un görüntüsünü DJI Fly'dan uygulamaya gönderin, YAYINI BAŞLAT'a basın ve son olarak Instagram'da <strong>Go live</strong>'a basın. Instagram her yayın için yeni bir anahtar verir.",
+  "lead": "Instagram Live, yayın yazılımlarından gelen yayınları kabul eder. <strong>instagram.com → Oluştur (+) → Canlı video</strong> yolunu açın, yayın URL'sini ve yayın anahtarını Stream My Drone'a kopyalayın, drone'un görüntüsünü DJI Fly'dan uygulamaya gönderin, YAYINI BAŞLAT'a basın ve son olarak Instagram'da <strong>Go live</strong>'a basın. Instagram her yayın için yeni bir anahtar verir.",
   "published": "2026-10-02",
   "updated": "2026-10-02",
   "summary": [
@@ -22,7 +22,7 @@
         {
           "list": [
             "DJI Fly uygulamasında Canlı Yayın Platformları altında RTMP seçeneği olan bir DJI drone.",
-            "Kumandayla aynı Wi-Fi ağında veya aynı hotspot'ta olan bir Mac ya da Windows bilgisayarda <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a>.",
+            "Kumandayla aynı Wi-Fi ağında veya aynı hotspot'ta olan bir Mac ya da Windows bilgisayarda <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>.",
             "instagram.com'da Oluştur altında <em>Canlı video</em> seçeneğini gösteren bir Instagram hesabı. Görünmüyorsa Instagram bu seçeneği o hesaba henüz açmamış demektir."
           ]
         }
@@ -37,7 +37,7 @@
           "steps": [
             {
               "t": "Drone'u bağlayın",
-              "d": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın, DJI Live Bridge'in gösterdiği adresi girin ve yayını başlatın. Önizleme uygulamada belirir."
+              "d": "DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP yolunu açın, Stream My Drone'un gösterdiği adresi girin ve yayını başlatın. Önizleme uygulamada belirir."
             },
             {
               "t": "Instagram'da canlı videoyu oluşturun",
@@ -45,7 +45,7 @@
             },
             {
               "t": "Yayın URL'sini ve anahtarını kopyalayın",
-              "d": "Instagram bir <em>Yayın URL'si</em> (<code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code> gibi) ve bir <em>Yayın anahtarı</em> gösterir. İkisini de DJI Live Bridge'deki bir Instagram hedefine yapıştırın."
+              "d": "Instagram bir <em>Yayın URL'si</em> (<code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code> gibi) ve bir <em>Yayın anahtarı</em> gösterir. İkisini de Stream My Drone'daki bir Instagram hedefine yapıştırın."
             },
             {
               "t": "YAYINI BAŞLAT'a basın",
@@ -70,7 +70,7 @@
           "table": {
             "head": [
               "Ayar",
-              "DJI Live Bridge"
+              "Stream My Drone"
             ],
             "rows": [
               [
@@ -119,7 +119,7 @@
   "faq": [
     {
       "q": "DJI drone ile Instagram'da canlı yayın yapabilir miyim?",
-      "a": "Evet. DJI Fly, RTMP yayınını bilgisayarınızdaki DJI Live Bridge'e gönderir; uygulama da instagram.com'dan aldığınız yayın URL'si ve anahtarıyla bu yayını Instagram'a iletir."
+      "a": "Evet. DJI Fly, RTMP yayınını bilgisayarınızdaki Stream My Drone'a gönderir; uygulama da instagram.com'dan aldığınız yayın URL'si ve anahtarıyla bu yayını Instagram'a iletir."
     },
     {
       "q": "Instagram neden her seferinde yeni bir yayın anahtarı istiyor?",
@@ -131,7 +131,7 @@
     },
     {
       "q": "OBS gerekiyor mu?",
-      "a": "Hayır. DJI Live Bridge yayını doğrudan Instagram'a gönderir; OBS isteğe bağlıdır."
+      "a": "Hayır. Stream My Drone yayını doğrudan Instagram'a gönderir; OBS isteğe bağlıdır."
     },
     {
       "q": "Drone'un sesi yayına dahil mi?",

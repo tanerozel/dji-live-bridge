@@ -1,4 +1,4 @@
-# DJI Live Bridge
+# Stream My Drone
 
 [English](README.md) · [Türkçe](README.tr.md) · [Español](README.es.md) · [中文（简体）](README.zh.md) · [中文（繁體）](README.zh-Hant.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Português](README.pt.md) · **Русский** · [Français](README.fr.md) · [Deutsch](README.de.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md)
 
@@ -9,7 +9,7 @@
 ## Установка
 
 1. Скачайте свежий файл `.dmg` со страницы [Releases](https://github.com/tanerozel/dji-live-bridge/releases).
-2. Перетащите **DJI Live Bridge** в папку **Программы**. Виртуальная камера работает только оттуда.
+2. Перетащите **Stream My Drone** в папку **Программы**. Виртуальная камера работает только оттуда.
 3. Это всё. FFmpeg входит в состав приложения, больше ничего устанавливать не нужно.
 
 Приложение подписано и нотаризовано Apple, поэтому открывается без предупреждений.
@@ -35,7 +35,7 @@
 1. На вкладке `TikTok LIVE Studio` один раз нажмите `Включить виртуальную камеру`.
 2. Если macOS спросит, разрешите расширение в **Системных настройках → Основные → Объекты входа и расширения → Расширения камеры**.
 3. Когда на карточке появится `Готова к запуску`, нажмите `Запустить виртуальную камеру`.
-4. В TikTok LIVE Studio добавьте источник камеры и выберите **DJI Live Bridge Camera**.
+4. В TikTok LIVE Studio добавьте источник камеры и выберите **Stream My Drone Camera**.
 5. Установите захват звука этого источника в `Нет` и выберите ровно один микрофон в главном аудиоуправлении LIVE Studio.
 
 Эта камера намеренно передаёт только видео. Если заменить приложение в папке «Программы», macOS отключает расширение: нажмите `Запустить виртуальную камеру` ещё раз, кнопка сама запросит включение. Кнопка «Go Live» по-прежнему нажимается вручную в TikTok LIVE Studio.
@@ -62,7 +62,7 @@
 | 9997 | `127.0.0.1` | Control API MediaMTX |
 | 9998 | `127.0.0.1` | Метрики MediaMTX |
 
-Настройки: `~/Library/Application Support/DJI Live Bridge/` · Журналы: `~/Library/Logs/DJI Live Bridge/` · Секреты: связка ключей macOS
+Настройки: `~/Library/Application Support/Stream My Drone/` · Журналы: `~/Library/Logs/Stream My Drone/` · Секреты: связка ключей macOS
 
 ## Разработка
 

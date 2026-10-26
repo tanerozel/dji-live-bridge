@@ -4,7 +4,7 @@
   "title": "DJI Mini 5 Pro ile canlı yayın: telefon ve bilgisayar kurulumu (2026)",
   "description": "DJI Mini 5 Pro ile RC 2 veya RC-N3 üzerinden canlı yayın yapın. DJI Fly RTMP ayarları, telefon ve bilgisayar kurulumu, YouTube, Instagram ve Facebook adımları.",
   "h1": "DJI Mini 5 Pro ile canlı yayın nasıl yapılır?",
-  "lead": "<strong>DJI Mini 5 Pro</strong> ile uçarken gördüğünüz manzarayı paylaşmak mı istiyorsunuz? DJI Fly'ın RTMP görüntüsünü ayrı bir telefondaki <strong>Stream My Drone</strong>'a veya Mac ya da Windows bilgisayardaki <strong>DJI Live Bridge</strong>'e gönderin. Bu rehber, kumandanızı seçmekten başlayıp görüntüyü almaya ve platformda yayına çıkmaya kadar kurulumu anlatır.",
+  "lead": "<strong>DJI Mini 5 Pro</strong> ile uçarken gördüğünüz manzarayı paylaşmak mı istiyorsunuz? DJI Fly'ın RTMP görüntüsünü ayrı bir telefondaki <strong>Stream My Drone</strong>'a veya Mac ya da Windows bilgisayardaki <strong>Stream My Drone</strong>'e gönderin. Bu rehber, kumandanızı seçmekten başlayıp görüntüyü almaya ve platformda yayına çıkmaya kadar kurulumu anlatır.",
   "published": "2026-10-21",
   "updated": "2026-10-21",
   "summary": [
@@ -23,8 +23,8 @@
         { "table": {
           "head": ["Kumanda", "Uçuşu nereden yönetirsiniz?", "Yayını hangi cihaz alır?"],
           "rows": [
-            ["DJI RC 2", "Kumandanın ekranındaki DJI Fly", "Ayrı telefonda Stream My Drone veya bilgisayarda DJI Live Bridge"],
-            ["DJI RC-N3", "USB ile bağlı telefondaki DJI Fly", "Burada anlatılan kurulumda bilgisayardaki DJI Live Bridge"]
+            ["DJI RC 2", "Kumandanın ekranındaki DJI Fly", "Ayrı telefonda Stream My Drone veya bilgisayarda Stream My Drone"],
+            ["DJI RC-N3", "USB ile bağlı telefondaki DJI Fly", "Burada anlatılan kurulumda bilgisayardaki Stream My Drone"]
           ]
         } },
         { "note": "DJI RC ile DJI RC 2 farklı kumandalardır. DJI'ın <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;pbc=BCQ9HQ1u&amp;pm=custom&amp;re=US&amp;spaceId=34\">canlı yayın rehberine</a> göre RC 2, DJI Fly v1.16.0'dan itibaren bağlı mikrofon gerektirir ve 720p yayın yapar. Kendi yazılım sürümünüzde RTMP menüsünü ve sunulan ayarları kontrol edin." }
@@ -49,13 +49,13 @@
       "id": "computer-setup",
       "h2": "Mini 5 Pro ve RC-N3 ile ya da masaüstünden yayın kurulumu",
       "blocks": [
-        { "p": "RC-N3 kullanıyorsanız DJI Fly, kumandaya bağlı telefonda açık kalsın. Mac veya Windows bilgisayara <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> kurun; bilgisayarı ve DJI Fly'ın çalıştığı telefonu aynı yerel ağa bağlayın. RC 2 de bu bilgisayarlı kurulumu kullanabilir." },
+        { "p": "RC-N3 kullanıyorsanız DJI Fly, kumandaya bağlı telefonda açık kalsın. Mac veya Windows bilgisayara <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> kurun; bilgisayarı ve DJI Fly'ın çalıştığı telefonu aynı yerel ağa bağlayın. RC 2 de bu bilgisayarlı kurulumu kullanabilir." },
         { "steps": [
-          { "t": "Bilgisayarın RTMP adresini bulun", "d": "DJI Live Bridge'i açıp Drone'u bağla bölümündeki adresi kopyalayın. <code>rtmp://192.168.1.20:1935/drone</code> yalnızca örnektir; uygulamanızda görünen adresi kullanın." },
+          { "t": "Bilgisayarın RTMP adresini bulun", "d": "Stream My Drone'u açıp Drone'u bağla bölümündeki adresi kopyalayın. <code>rtmp://192.168.1.20:1935/drone</code> yalnızca örnektir; uygulamanızda görünen adresi kullanın." },
           { "t": "DJI Fly'ı bu adrese yönlendirin", "d": "Adresi DJI Fly'ın RTMP ayarlarına girip aktarımı başlatın. Bilgisayarın güvenlik duvarı sorarsa özel ağda gelen bağlantılara izin verin. Hedef eklemeden önce önizlemeyi kontrol edin." },
           { "t": "Çıkış biçimini ve platformu ayarlayın", "d": "Klasik YouTube veya Facebook yayını için yatay, dikey düzen kullanan bir hesap için dikey çıkış seçin. Hedefin güncel sunucu adresini ve anahtarını ekleyip çıkışı başlatın; platformdan yayını doğrulayın." }
         ] },
-        { "img": "go-live.png", "alt": "DJI Live Bridge masaüstü uygulamasında yerel DJI Fly RTMP adresi, platform hedefleri ve Yayını Başlat düğmesi." }
+        { "img": "go-live.png", "alt": "Stream My Drone masaüstü uygulamasında yerel DJI Fly RTMP adresi, platform hedefleri ve Yayını Başlat düğmesi." }
       ]
     },
     {
@@ -111,9 +111,9 @@
   ],
   "faq": [
     { "q": "Mini 5 Pro ile bilgisayarsız canlı yayın yapabilir miyim?", "a": "RC 2 ile aynı yerel ağa bağlı ayrı bir telefonda Stream My Drone kullanabilirsiniz. DJI Fly kumandada çalışır, telefon RTMP görüntüsünü alır ve hedefi Stream My Drone'da ayarlarsınız." },
-    { "q": "RC-N3'e zaten bağlı olan telefonu kullanabilir miyim?", "a": "O telefon uçuş kontrolü için DJI Fly'ı çalıştırır. Bu rehber, DJI Fly açık kalabilsin diye alıcı olarak ayrı bilgisayarda DJI Live Bridge kullanır. İki uygulamanın uçuşu ve aktarımı tek telefonda birlikte yürütebildiğini varsaymaz." },
-    { "q": "DJI Fly'a hangi adresi yazmalıyım?", "a": "Stream My Drone veya DJI Live Bridge'in gösterdiği yerel alıcı adresinin tamamını yazın. Platformun sunucu adresini ve yayın anahtarını ise alıcı uygulamadaki hedef ayarlarına girin." },
-    { "q": "Stream My Drone görüntüyü dikey yayına dönüştürür mü?", "a": "Mobil uygulama aldığı videoyu iletir. Önizleme düzeni, gönderilen görüntüyü yeniden kodlamaz. Bilgisayardaki DJI Live Bridge dikey çıkış dönüşümü sunar." },
+    { "q": "RC-N3'e zaten bağlı olan telefonu kullanabilir miyim?", "a": "O telefon uçuş kontrolü için DJI Fly'ı çalıştırır. Bu rehber, DJI Fly açık kalabilsin diye alıcı olarak ayrı bilgisayarda Stream My Drone kullanır. İki uygulamanın uçuşu ve aktarımı tek telefonda birlikte yürütebildiğini varsaymaz." },
+    { "q": "DJI Fly'a hangi adresi yazmalıyım?", "a": "Stream My Drone veya Stream My Drone'un gösterdiği yerel alıcı adresinin tamamını yazın. Platformun sunucu adresini ve yayın anahtarını ise alıcı uygulamadaki hedef ayarlarına girin." },
+    { "q": "Stream My Drone görüntüyü dikey yayına dönüştürür mü?", "a": "Mobil uygulama aldığı videoyu iletir. Önizleme düzeni, gönderilen görüntüyü yeniden kodlamaz. Bilgisayardaki Stream My Drone dikey çıkış dönüşümü sunar." },
     { "q": "Önizleme var ama izleyiciler neden yayını göremiyor?", "a": "Önizleme yalnızca yerel drone görüntüsünün ulaştığını gösterir. Bir hedef çıkışı başlatın, platformun görüntüyü aldığını doğrulayın ve varsa oradaki son Yayına Geç adımını tamamlayın." }
   ]
 }

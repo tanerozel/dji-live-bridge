@@ -2,9 +2,9 @@
   "slug": "count-animals-with-a-dji-drone-ai-detection",
   "platform": "AI Vision",
   "title": "Count goats, sheep and cattle live from a DJI drone with AI",
-  "description": "DJI Live Bridge spots goats, sheep, cows, horses, donkeys and poultry in your drone's live picture, marks them on the stream and counts them, all on your own computer.",
+  "description": "Stream My Drone spots goats, sheep, cows, horses, donkeys and poultry in your drone's live picture, marks them on the stream and counts them, all on your own computer.",
   "h1": "Spot and count animals live from your DJI drone",
-  "lead": "DJI Live Bridge can now look at your drone's live picture for you. <strong>AI Vision</strong> finds goats, sheep, cattle, horses, donkeys, poultry and other animals, draws a labelled box around each one on your stream and the virtual camera, and keeps a count. It runs on your own computer; no picture or result is sent anywhere.",
+  "lead": "Stream My Drone can now look at your drone's live picture for you. <strong>AI Vision</strong> finds goats, sheep, cattle, horses, donkeys, poultry and other animals, draws a labelled box around each one on your stream and the virtual camera, and keeps a count. It runs on your own computer; no picture or result is sent anywhere.",
   "published": "2026-10-07",
   "updated": "2026-10-21",
   "summary": [
@@ -87,12 +87,12 @@
     }
   ],
   "faq": [
-    { "q": "Can my DJI drone count animals?", "a": "The drone itself does not, but with DJI Live Bridge on your computer the live picture from DJI Fly is analysed there: each animal gets a box and a label, and a counter shows how many are visible and how many different ones were seen." },
+    { "q": "Can my DJI drone count animals?", "a": "The drone itself does not, but with Stream My Drone on your computer the live picture from DJI Fly is analysed there: each animal gets a box and a label, and a counter shows how many are visible and how many different ones were seen." },
     { "q": "Does it recognise goats?", "a": "Yes, with the OWLv2 model, the default on a Mac. It tells goats from sheep at normal flying heights. The other models have no goat class at all." },
     { "q": "Do the boxes appear on my Instagram, TikTok or YouTube stream?", "a": "Yes. They are drawn into every output: the live stream to all destinations, the virtual camera and the in-app preview. You can switch the boxes or the counter off at any time." },
     { "q": "Is my video sent to an AI service?", "a": "No. Everything runs on your own computer. Only the model file is downloaded once, from a public source, and it is checked before use." },
     { "q": "Does it slow down my stream?", "a": "No. The video keeps its frame rate; the analysis runs beside it and the boxes are updated whenever a new result is ready." },
     { "q": "How accurate is the count?", "a": "Good for an overview of a herd, not a certified census. Very distant animals may get the wrong species, and an animal that leaves the picture and comes back can be counted twice." },
-    { "q": "Is it free?", "a": "Yes. AI Vision is part of DJI Live Bridge, which is free and open source under the MIT licence. The models are released under the Apache 2.0 licence." }
+    { "q": "Is it free?", "a": "Yes. AI Vision is part of Stream My Drone, which is free and open source under the MIT licence. The models are released under the Apache 2.0 licence." }
   ]
 }

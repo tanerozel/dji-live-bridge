@@ -2,9 +2,9 @@
   "slug": "stream-a-dji-drone-to-multiple-platforms-at-once",
   "platform": "Multistream",
   "title": "Stream a DJI drone to several platforms at once (multistream)",
-  "description": "Send one DJI drone live stream to TikTok, Instagram, YouTube, Facebook, Twitch and Kick at the same time with DJI Live Bridge — free, local, no restream service.",
+  "description": "Send one DJI drone live stream to TikTok, Instagram, YouTube, Facebook, Twitch and Kick at the same time with Stream My Drone — free, local, no restream service.",
   "h1": "Stream a DJI drone to several platforms at once",
-  "lead": "DJI Fly sends one RTMP stream. DJI Live Bridge receives it on your computer, <strong>encodes the picture once and forwards it to every destination you enable</strong> — TikTok, Instagram, YouTube, Facebook, Twitch, Kick or any RTMP server — without a paid restream service. If one destination fails, the others keep running.",
+  "lead": "DJI Fly sends one RTMP stream. Stream My Drone receives it on your computer, <strong>encodes the picture once and forwards it to every destination you enable</strong> — TikTok, Instagram, YouTube, Facebook, Twitch, Kick or any RTMP server — without a paid restream service. If one destination fails, the others keep running.",
   "published": "2026-10-02",
   "updated": "2026-10-02",
   "summary": [
@@ -21,7 +21,7 @@
       "howto": true,
       "blocks": [
         { "steps": [
-          { "t": "Connect the drone", "d": "In DJI Fly open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP and enter the address DJI Live Bridge shows." },
+          { "t": "Connect the drone", "d": "In DJI Fly open GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP and enter the address Stream My Drone shows." },
           { "t": "Add each platform", "d": "Under <em>Where do you want to stream?</em> use <em>Add another destination</em> for every platform: TikTok, Instagram, YouTube and Facebook have their own type; Twitch, Kick and others are Custom RTMP." },
           { "t": "Refresh single-use keys", "d": "Instagram (and Facebook without a persistent key) need a new key for every broadcast. Use <em>Update key</em> on those cards." },
           { "t": "Pick the orientation for your main audience", "d": "One encode feeds every destination, so choose <em>Vertical 9:16</em> or <em>Horizontal 16:9</em> for the platform that matters most." },
@@ -66,13 +66,13 @@
       "id": "rules",
       "h2": "Check the platforms' rules",
       "blocks": [
-        { "p": "Some platforms limit simulcasting for partners or in their terms; Twitch in particular has changed its rules over time. DJI Live Bridge only sends the video you tell it to — it never signs in to an account or presses Go live for you." }
+        { "p": "Some platforms limit simulcasting for partners or in their terms; Twitch in particular has changed its rules over time. Stream My Drone only sends the video you tell it to — it never signs in to an account or presses Go live for you." }
       ]
     }
   ],
   "faq": [
     { "q": "Can I stream my DJI drone to TikTok and YouTube at the same time?", "a": "Yes. Add both as destinations and press START LIVE. Because both share one orientation, choose the one that suits your main audience." },
-    { "q": "Do I need a restream service?", "a": "No. DJI Live Bridge does the multistreaming on your own computer, for free; it only needs enough upload bandwidth." },
+    { "q": "Do I need a restream service?", "a": "No. Stream My Drone does the multistreaming on your own computer, for free; it only needs enough upload bandwidth." },
     { "q": "What happens if one platform drops?", "a": "Only that destination shows Connection failed. The others keep streaming." },
     { "q": "Does each extra platform need more CPU?", "a": "Hardly. The picture is encoded once and the same data is sent to every destination." },
     { "q": "Does multistream work in OBS mode?", "a": "No. Several destinations are a feature of direct streaming; in OBS mode, OBS decides where the stream goes." }

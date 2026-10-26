@@ -1,4 +1,4 @@
-# DJI Live Bridge
+# Stream My Drone
 
 [English](README.md) · [Türkçe](README.tr.md) · [Español](README.es.md) · [中文（简体）](README.zh.md) · **中文（繁體）** · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Bahasa Indonesia](README.id.md) · [Italiano](README.it.md)
 
@@ -9,7 +9,7 @@
 ## 安裝
 
 1. 到 [Releases](https://github.com/tanerozel/dji-live-bridge/releases) 下載最新的 `.dmg` 檔案。
-2. 把 **DJI Live Bridge** 拖到 **應用程式** 資料夾。虛擬攝影機只有放在該位置才能運作。
+2. 把 **Stream My Drone** 拖到 **應用程式** 資料夾。虛擬攝影機只有放在該位置才能運作。
 3. 就這樣。FFmpeg 已隨應用程式附帶，不需要再安裝其他東西。
 
 應用程式已由 Apple 簽署並完成公證，開啟時不會出現警告。
@@ -35,7 +35,7 @@
 1. 在 `TikTok LIVE Studio` 分頁按一次 `啟用虛擬攝影機`。
 2. 若 macOS 詢問，請到 **系統設定 → 一般 → 登入項目與延伸功能 → 攝影機延伸功能** 允許。
 3. 當卡片顯示 `可以啟動` 時，按下 `啟動虛擬攝影機`。
-4. 在 TikTok LIVE Studio 新增攝影機來源，選擇 **DJI Live Bridge Camera**。
+4. 在 TikTok LIVE Studio 新增攝影機來源，選擇 **Stream My Drone Camera**。
 5. 把該來源的音訊擷取設為 `無`，並在 LIVE Studio 的主音訊控制中只選一個麥克風。
 
 這個攝影機刻意只傳送影像。如果更換了「應用程式」資料夾中的程式，macOS 會停用該延伸功能：再按一次 `啟動虛擬攝影機` 即可，按鈕會自動重新要求啟用。「開始直播」仍需在 TikTok LIVE Studio 手動按下。
@@ -62,7 +62,7 @@
 | 9997 | `127.0.0.1` | MediaMTX 控制 API |
 | 9998 | `127.0.0.1` | MediaMTX 指標 |
 
-設定：`~/Library/Application Support/DJI Live Bridge/` · 記錄：`~/Library/Logs/DJI Live Bridge/` · 機密：macOS 鑰匙圈
+設定：`~/Library/Application Support/Stream My Drone/` · 記錄：`~/Library/Logs/Stream My Drone/` · 機密：macOS 鑰匙圈
 
 ## 授權
 

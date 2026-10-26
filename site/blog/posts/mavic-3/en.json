@@ -8,7 +8,7 @@
   "summary": [
     "This guide covers the consumer Mavic 3, Mavic 3 Cine, Mavic 3 Classic and Mavic 3 Pro family, not Mavic 3 Enterprise.",
     "RC-N1 uses a phone for DJI Fly; the desktop route keeps reception on a separate computer.",
-    "RC Pro can send RTMP to Stream My Drone on another phone or to DJI Live Bridge on a computer.",
+    "RC Pro can send RTMP to Stream My Drone on another phone or to Stream My Drone on a computer.",
     "DJI RC is compatible for flight but does not support DJI Fly livestreaming.",
     "Check the RTMP feed itself: camera recording quality and the controller’s live view do not define the broadcast resolution."
   ],
@@ -31,7 +31,7 @@
               [
                 "DJI RC-N1",
                 "Phone attached by USB",
-                "RTMP from that phone to DJI Live Bridge on a computer"
+                "RTMP from that phone to Stream My Drone on a computer"
               ],
               [
                 "DJI RC Pro",
@@ -102,13 +102,13 @@
       "h2": "Mavic 3 with RC-N1: use a separate computer receiver",
       "blocks": [
         {
-          "p": "With RC-N1, keep DJI Fly open on the phone connected to the controller by USB. RC Pro can also send to this desktop receiver. Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> on your Mac or Windows PC. The computer receives the DJI Fly RTMP feed over your local network; this setup does not use HDMI capture or a USB webcam connection from the controller."
+          "p": "With RC-N1, keep DJI Fly open on the phone connected to the controller by USB. RC Pro can also send to this desktop receiver. Install <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> on your Mac or Windows PC. The computer receives the DJI Fly RTMP feed over your local network; this setup does not use HDMI capture or a USB webcam connection from the controller."
         },
         {
           "steps": [
             {
               "t": "Copy the computer’s local RTMP address",
-              "d": "Connect the computer and the device running DJI Fly to the same network. In DJI Live Bridge, copy the address under Connect your drone. <code>rtmp://192.168.1.20:1935/drone</code> is only an example: use the address displayed by your app."
+              "d": "Connect the computer and the device running DJI Fly to the same network. In Stream My Drone, copy the address under Connect your drone. <code>rtmp://192.168.1.20:1935/drone</code> is only an example: use the address displayed by your app."
             },
             {
               "t": "Send the feed and verify reception",
@@ -122,7 +122,7 @@
         },
         {
           "img": "go-live.png",
-          "alt": "DJI Live Bridge desktop showing the local receiving address, platform destinations and live output controls."
+          "alt": "Stream My Drone desktop showing the local receiving address, platform destinations and live output controls."
         }
       ]
     },
@@ -162,7 +162,7 @@
           }
         },
         {
-          "p": "Account eligibility comes from the platform. Neither app grants a stream key or bypasses access requirements. For a computer workflow in a compatible studio app, DJI Live Bridge also provides a <a href=\"../use-your-dji-drone-as-a-webcam/\">virtual camera</a>. A local preview proves reception; a working viewer page confirms publication."
+          "p": "Account eligibility comes from the platform. Neither app grants a stream key or bypasses access requirements. For a computer workflow in a compatible studio app, Stream My Drone also provides a <a href=\"../use-your-dji-drone-as-a-webcam/\">virtual camera</a>. A local preview proves reception; a working viewer page confirms publication."
         }
       ]
     },
@@ -174,7 +174,7 @@
           "p": "The Mavic 3 family’s high-resolution camera recordings and O3+ controller view are separate from the RTMP encoder output. A receiver cannot recover detail the encoder did not send. Check the received video dimensions and the destination’s playback quality rather than promising the aircraft’s recording specification as a livestream."
         },
         {
-          "p": "This is particularly useful with Mavic 3 Pro’s different lenses: test your intended lens and framing in the receiver before going live. Changing camera or recording settings is not a substitute for checking the outgoing stream. For a portrait destination, desktop DJI Live Bridge can crop or fit the picture into vertical output; the mobile app forwards the incoming video as received."
+          "p": "This is particularly useful with Mavic 3 Pro’s different lenses: test your intended lens and framing in the receiver before going live. Changing camera or recording settings is not a substitute for checking the outgoing stream. For a portrait destination, desktop Stream My Drone can crop or fit the picture into vertical output; the mobile app forwards the incoming video as received."
         },
         {
           "list": [
@@ -228,7 +228,7 @@
     },
     {
       "q": "Can the RC-N1 flight phone also be the receiver?",
-      "a": "That phone is already running DJI Fly for the flight. This guide uses DJI Live Bridge on a separate computer so the flight app can remain open; it does not assume both apps can manage the flight and relay on one phone."
+      "a": "That phone is already running DJI Fly for the flight. This guide uses Stream My Drone on a separate computer so the flight app can remain open; it does not assume both apps can manage the flight and relay on one phone."
     },
     {
       "q": "Why does an older RC Pro guide show a higher resolution?",
@@ -236,7 +236,7 @@
     },
     {
       "q": "Do I enter the platform’s stream key in DJI Fly?",
-      "a": "For this relay setup, enter the local address shown by Stream My Drone or DJI Live Bridge in DJI Fly. Put the platform server URL and stream key in the receiving app’s destination settings."
+      "a": "For this relay setup, enter the local address shown by Stream My Drone or Stream My Drone in DJI Fly. Put the platform server URL and stream key in the receiving app’s destination settings."
     }
   ],
   "published": "2026-10-25",

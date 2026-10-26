@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// DJI Live Bridge Camera — a DirectShow capture source for Windows.
+// Stream My Drone Camera — a DirectShow capture source for Windows.
 //
 // Apps such as TikTok LIVE Studio, OBS, Zoom and Discord enumerate DirectShow
 // video input devices, so this is what makes the drone picture selectable as a
@@ -21,7 +21,7 @@
 DEFINE_GUID(CLSID_DjiLiveBridgeCamera,
     0x6f1d9a0c, 0x6b2e, 0x4f0b, 0x9e, 0x2e, 0x2c, 0x8b, 0x3f, 0x5a, 0x7d, 0x41);
 
-static const WCHAR kFilterName[] = L"DJI Live Bridge Camera";
+static const WCHAR kFilterName[] = L"Stream My Drone Camera";
 
 // The frame rate in 100-ns units, which is how DirectShow measures time.
 static const REFERENCE_TIME kFrameDuration = UNITS / DJI_FRAME_FPS;

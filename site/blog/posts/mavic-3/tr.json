@@ -8,7 +8,7 @@
   "summary": [
     "Bu rehber tüketici modelleri Mavic 3, Mavic 3 Cine, Mavic 3 Classic ve Mavic 3 Pro ailesini kapsar; Mavic 3 Enterprise'ı kapsamaz.",
     "RC-N1, DJI Fly için telefon kullanır; bilgisayarlı kurulum alıcıyı ayrı bilgisayarda tutar.",
-    "RC Pro, RTMP görüntüsünü başka telefondaki Stream My Drone'a veya bilgisayardaki DJI Live Bridge'e gönderebilir.",
+    "RC Pro, RTMP görüntüsünü başka telefondaki Stream My Drone'a veya bilgisayardaki Stream My Drone'a gönderebilir.",
     "DJI RC uçuş için uyumlu olsa da DJI Fly canlı yayınını desteklemez.",
     "RTMP görüntüsünü doğrudan kontrol edin: kamera kayıt kalitesi ve kumandanın canlı görüntüsü, yayın çözünürlüğünü belirlemez."
   ],
@@ -31,7 +31,7 @@
               [
                 "DJI RC-N1",
                 "USB ile bağlı telefonda",
-                "Telefondan bilgisayardaki DJI Live Bridge'e RTMP"
+                "Telefondan bilgisayardaki Stream My Drone'a RTMP"
               ],
               [
                 "DJI RC Pro",
@@ -102,13 +102,13 @@
       "h2": "Mavic 3 ve RC-N1: ayrı bilgisayarda görüntüyü alın",
       "blocks": [
         {
-          "p": "RC-N1 kullanıyorsanız DJI Fly, kumandaya USB ile bağlı telefonda açık kalsın. RC Pro da bu bilgisayar alıcısına görüntü gönderebilir. Mac veya Windows bilgisayara <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">DJI Live Bridge</a> kurun. Bilgisayar, DJI Fly RTMP görüntüsünü yerel ağdan alır; bu kurulum kumandadan HDMI yakalama veya USB web kamerası bağlantısı kullanmaz."
+          "p": "RC-N1 kullanıyorsanız DJI Fly, kumandaya USB ile bağlı telefonda açık kalsın. RC Pro da bu bilgisayar alıcısına görüntü gönderebilir. Mac veya Windows bilgisayara <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> kurun. Bilgisayar, DJI Fly RTMP görüntüsünü yerel ağdan alır; bu kurulum kumandadan HDMI yakalama veya USB web kamerası bağlantısı kullanmaz."
         },
         {
           "steps": [
             {
               "t": "Bilgisayarın yerel RTMP adresini kopyalayın",
-              "d": "Bilgisayarı ve DJI Fly'ın çalıştığı cihazı aynı ağa bağlayın. DJI Live Bridge'de Drone'u bağla bölümündeki adresi kopyalayın. <code>rtmp://192.168.1.20:1935/drone</code> yalnızca örnektir; uygulamanızda görünen adresi kullanın."
+              "d": "Bilgisayarı ve DJI Fly'ın çalıştığı cihazı aynı ağa bağlayın. Stream My Drone'da Drone'u bağla bölümündeki adresi kopyalayın. <code>rtmp://192.168.1.20:1935/drone</code> yalnızca örnektir; uygulamanızda görünen adresi kullanın."
             },
             {
               "t": "Görüntüyü gönderip alındığını doğrulayın",
@@ -122,7 +122,7 @@
         },
         {
           "img": "go-live.png",
-          "alt": "DJI Live Bridge masaüstünde yerel alıcı adresi, platform hedefleri ve canlı yayın denetimleri."
+          "alt": "Stream My Drone masaüstünde yerel alıcı adresi, platform hedefleri ve canlı yayın denetimleri."
         }
       ]
     },
@@ -162,7 +162,7 @@
           }
         },
         {
-          "p": "Hesabın uygunluğunu platform belirler. Uygulamalar yayın anahtarı vermez veya erişim koşullarını kaldırmaz. Bilgisayarda uygun bir stüdyo uygulamasıyla çalışacaksanız DJI Live Bridge'in <a href=\"../drone-u-bilgisayarin-harici-kamerasi-yapin/\">sanal kamera</a> seçeneği de vardır. Yerel önizleme görüntünün alındığını, çalışan izleyici sayfası ise yayının yayınlandığını doğrular."
+          "p": "Hesabın uygunluğunu platform belirler. Uygulamalar yayın anahtarı vermez veya erişim koşullarını kaldırmaz. Bilgisayarda uygun bir stüdyo uygulamasıyla çalışacaksanız Stream My Drone'un <a href=\"../drone-u-bilgisayarin-harici-kamerasi-yapin/\">sanal kamera</a> seçeneği de vardır. Yerel önizleme görüntünün alındığını, çalışan izleyici sayfası ise yayının yayınlandığını doğrular."
         }
       ]
     },
@@ -174,7 +174,7 @@
           "p": "Mavic 3 ailesinin yüksek çözünürlüklü kamera kayıtları ve O3+ kumanda görüntüsü, RTMP kodlayıcı çıkışından ayrıdır. Alıcı, kodlayıcının göndermediği ayrıntıyı geri getiremez. Drone'un kayıt özelliğini canlı yayın çözünürlüğü olarak vaat etmek yerine alınan videonun boyutlarını ve hedefin oynatma kalitesini kontrol edin."
         },
         {
-          "p": "Bu kontrol, Mavic 3 Pro'nun farklı lenslerini kullanırken özellikle yararlıdır: yayına geçmeden önce kullanacağınız lensi ve kadrajı alıcıda deneyin. Kamera veya kayıt ayarını değiştirmek, gönderilen yayını kontrol etmenin yerine geçmez. Dikey hedef için masaüstü DJI Live Bridge görüntüyü kırpabilir veya dikey çıkışa sığdırabilir; mobil uygulama gelen videoyu aldığı biçimde iletir."
+          "p": "Bu kontrol, Mavic 3 Pro'nun farklı lenslerini kullanırken özellikle yararlıdır: yayına geçmeden önce kullanacağınız lensi ve kadrajı alıcıda deneyin. Kamera veya kayıt ayarını değiştirmek, gönderilen yayını kontrol etmenin yerine geçmez. Dikey hedef için masaüstü Stream My Drone görüntüyü kırpabilir veya dikey çıkışa sığdırabilir; mobil uygulama gelen videoyu aldığı biçimde iletir."
         },
         {
           "list": [
@@ -228,7 +228,7 @@
     },
     {
       "q": "RC-N1'in uçuş telefonu aynı zamanda alıcı olabilir mi?",
-      "a": "Bu telefon uçuş için zaten DJI Fly çalıştırır. Rehber, uçuş uygulaması açık kalabilsin diye ayrı bilgisayarda DJI Live Bridge kullanır; iki uygulamanın uçuşu ve aktarımı tek telefonda yürütebildiğini varsaymaz."
+      "a": "Bu telefon uçuş için zaten DJI Fly çalıştırır. Rehber, uçuş uygulaması açık kalabilsin diye ayrı bilgisayarda Stream My Drone kullanır; iki uygulamanın uçuşu ve aktarımı tek telefonda yürütebildiğini varsaymaz."
     },
     {
       "q": "Eski bir RC Pro rehberinde neden daha yüksek çözünürlük var?",
@@ -236,7 +236,7 @@
     },
     {
       "q": "Platformun yayın anahtarını DJI Fly'a mı gireceğim?",
-      "a": "Bu aktarıcı kurulumunda DJI Fly'a Stream My Drone veya DJI Live Bridge'in gösterdiği yerel adres yazılır. Platformun sunucu adresi ve yayın anahtarı alıcı uygulamadaki hedef ayarlarına girilir."
+      "a": "Bu aktarıcı kurulumunda DJI Fly'a Stream My Drone veya Stream My Drone'un gösterdiği yerel adres yazılır. Platformun sunucu adresi ve yayın anahtarı alıcı uygulamadaki hedef ayarlarına girilir."
     }
   ],
   "published": "2026-10-25",

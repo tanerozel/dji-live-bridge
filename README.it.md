@@ -1,4 +1,4 @@
-# DJI Live Bridge
+# Stream My Drone
 
 [English](README.md) · [Türkçe](README.tr.md) · [Español](README.es.md) · [中文（简体）](README.zh.md) · [中文（繁體）](README.zh-Hant.md) · [العربية](README.ar.md) · [हिन्दी](README.hi.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Bahasa Indonesia](README.id.md) · **Italiano**
 
@@ -9,7 +9,7 @@ App per macOS che riceve la trasmissione RTMP di DJI Fly su un Mac della stessa 
 ## Installazione
 
 1. Scarica l'ultimo file `.dmg` dalla pagina [Releases](https://github.com/tanerozel/dji-live-bridge/releases).
-2. Trascina **DJI Live Bridge** in **Applicazioni**. La fotocamera virtuale funziona solo da lì.
+2. Trascina **Stream My Drone** in **Applicazioni**. La fotocamera virtuale funziona solo da lì.
 3. Tutto qui. FFmpeg è incluso nell'app, non c'è altro da installare.
 
 L'app è firmata e autenticata (notarized) da Apple, quindi si apre senza avvisi.
@@ -35,7 +35,7 @@ Questo percorso non richiede indirizzo del server né chiave di streaming:
 1. Nella scheda `TikTok LIVE Studio` premi una volta `Attiva la fotocamera virtuale`.
 2. Se macOS lo chiede, autorizza l'estensione in **Impostazioni di Sistema → Generali → Elementi login ed estensioni → Estensioni fotocamera**.
 3. Quando la scheda mostra `Pronta all'avvio`, premi `Avvia fotocamera virtuale`.
-4. In TikTok LIVE Studio aggiungi una sorgente fotocamera e scegli **DJI Live Bridge Camera**.
+4. In TikTok LIVE Studio aggiungi una sorgente fotocamera e scegli **Stream My Drone Camera**.
 5. Imposta l'acquisizione audio di quella sorgente su `Nessuna` e seleziona un solo microfono nel controllo audio principale di LIVE Studio.
 
 Questa fotocamera trasporta volutamente solo il video. Se sostituisci l'app in /Applicazioni, macOS disattiva l'estensione: premi di nuovo `Avvia fotocamera virtuale` e il pulsante richiederà da solo l'attivazione. «Go Live» resta manuale dentro TikTok LIVE Studio.
@@ -62,7 +62,7 @@ Ci sono cinque temi: Sistema, Chiaro, Scuro, Mezzanotte e Sabbia.
 | 9997 | `127.0.0.1` | API di controllo MediaMTX |
 | 9998 | `127.0.0.1` | Metriche MediaMTX |
 
-Configurazione: `~/Library/Application Support/DJI Live Bridge/` · Log: `~/Library/Logs/DJI Live Bridge/` · Segreti: portachiavi macOS
+Configurazione: `~/Library/Application Support/Stream My Drone/` · Log: `~/Library/Logs/Stream My Drone/` · Segreti: portachiavi macOS
 
 ## Sviluppo
 

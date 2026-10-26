@@ -129,7 +129,7 @@ function head(locale, content) {
   const software = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "DJI Live Bridge",
+    name: "Stream My Drone",
     description: stripTags(content.meta.description),
     applicationCategory: "MultimediaApplication",
     operatingSystem: "macOS 13 or newer, Windows 10/11",
@@ -184,7 +184,7 @@ ${alternates}
 <link rel="alternate" hreflang="x-default" href="${BASE}/">
 <link rel="icon" href="${asset}img/icon.png">
 <link rel="apple-touch-icon" href="${asset}img/icon.png">
-<meta property="og:site_name" content="DJI Live Bridge">
+<meta property="og:site_name" content="Stream My Drone">
 <meta property="og:title" content="${escapeHtml(content.meta.ogTitle)}">
 <meta property="og:description" content="${escapeHtml(stripTags(content.meta.ogDescription))}">
 <meta property="og:image" content="${BASE}/img/go-live.png">
@@ -259,7 +259,7 @@ ${head(locale, content)}
 
 <header>
   <div class="wrap bar">
-    <a class="brand" href="${urlFor(locale.code)}"><img src="${asset}img/icon.png" alt="" width="30" height="30">DJI Live Bridge</a>
+    <a class="brand" href="${urlFor(locale.code)}"><img src="${asset}img/icon.png" alt="" width="30" height="30">Stream My Drone</a>
     <nav>
       <a href="#features">${content.nav.features}</a>
       <a href="#how">${content.nav.how}</a>
@@ -467,7 +467,7 @@ ${links}
 <link rel="alternate" hreflang="x-default" href="${fallback.href}">
 <link rel="icon" href="${asset}img/icon.png">
 <link rel="apple-touch-icon" href="${asset}img/icon.png">
-<meta property="og:site_name" content="DJI Live Bridge">
+<meta property="og:site_name" content="Stream My Drone">
 <meta property="og:title" content="${escapeHtml(title)}">
 <meta property="og:description" content="${escapeHtml(stripTags(description))}">
 <meta property="og:image" content="${BASE}/img/go-live.png">
@@ -489,7 +489,7 @@ function blogHeader(locale, labels, menuLinks, asset) {
 
 <header>
   <div class="wrap bar">
-    <a class="brand" href="${urlFor(locale.code)}"><img src="${asset}img/icon.png" alt="" width="30" height="30">DJI Live Bridge</a>
+    <a class="brand" href="${urlFor(locale.code)}"><img src="${asset}img/icon.png" alt="" width="30" height="30">Stream My Drone</a>
     <nav>
       <a href="${urlFor(locale.code)}">${labels.home}</a>
       <a href="${blogUrl(locale.code)}">${labels.blog}</a>
@@ -587,7 +587,7 @@ function postPage(locale, labels, post, content) {
     author,
     publisher: author,
     isPartOf: { "@type": "Blog", name: stripTags(labels.meta.title), url: blogUrl(locale.code) },
-    about: { "@type": "SoftwareApplication", name: "DJI Live Bridge", url: urlFor(locale.code) },
+    about: { "@type": "SoftwareApplication", name: "Stream My Drone", url: urlFor(locale.code) },
   };
   const howtoSection = content.sections.find((section) => section.howto);
   const howtoSteps = howtoSection ? howtoSection.blocks.find((block) => block.steps).steps : [];
@@ -596,7 +596,7 @@ function postPage(locale, labels, post, content) {
     "@type": "HowTo",
     name: stripTags(howtoSection.h2),
     inLanguage: locale.hreflang,
-    tool: [{ "@type": "HowToTool", name: "DJI Live Bridge" }, { "@type": "HowToTool", name: "DJI Fly" }],
+    tool: [{ "@type": "HowToTool", name: "Stream My Drone" }, { "@type": "HowToTool", name: "DJI Fly" }],
     step: howtoSteps.map((step, index) => ({
       "@type": "HowToStep",
       position: index + 1,
@@ -804,11 +804,11 @@ Sitemap: ${BASE}/sitemap.xml
 // llmstxt.org format: a short, factual map of the project for language models,
 // which otherwise have to guess from the rendered page.
 function llms(content) {
-  return `# DJI Live Bridge
+  return `# Stream My Drone
 
 > A free, open-source desktop app (macOS and Windows) that receives the RTMP stream DJI Fly sends
 > from a DJI drone and restreams it to Instagram, TikTok and any other RTMP destination at the same
-> time, or exposes it as a virtual camera named "DJI Live Bridge Camera" for TikTok LIVE Studio,
+> time, or exposes it as a virtual camera named "Stream My Drone Camera" for TikTok LIVE Studio,
 > OBS and Zoom.
 
 Everything runs locally: the drone video never passes through a third-party server. FFmpeg and the

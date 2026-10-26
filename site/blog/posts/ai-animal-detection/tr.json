@@ -2,9 +2,9 @@
   "slug": "dji-drone-ile-yapay-zeka-hayvan-sayimi",
   "platform": "AI Vision",
   "title": "DJI drone ile keçi, koyun ve sığırları yapay zekâyla canlı sayın",
-  "description": "DJI Live Bridge, drone'unuzun canlı görüntüsündeki keçi, koyun, inek, at, eşek ve kümes hayvanlarını bulur, yayında işaretler ve sayar. Hepsi kendi bilgisayarınızda.",
+  "description": "Stream My Drone, drone'unuzun canlı görüntüsündeki keçi, koyun, inek, at, eşek ve kümes hayvanlarını bulur, yayında işaretler ve sayar. Hepsi kendi bilgisayarınızda.",
   "h1": "DJI drone'unuzla hayvanları canlı bulun ve sayın",
-  "lead": "DJI Live Bridge artık drone'unuzun canlı görüntüsüne sizin yerinize bakabiliyor. <strong>AI Vision</strong> keçi, koyun, sığır, at, eşek, kümes hayvanları ve diğer hayvanları bulur, yayında ve sanal kamerada her birinin etrafına etiketli bir kutu çizer ve sayar. Kendi bilgisayarınızda çalışır; hiçbir görüntü veya sonuç bir yere gönderilmez.",
+  "lead": "Stream My Drone artık drone'unuzun canlı görüntüsüne sizin yerinize bakabiliyor. <strong>AI Vision</strong> keçi, koyun, sığır, at, eşek, kümes hayvanları ve diğer hayvanları bulur, yayında ve sanal kamerada her birinin etrafına etiketli bir kutu çizer ve sayar. Kendi bilgisayarınızda çalışır; hiçbir görüntü veya sonuç bir yere gönderilmez.",
   "published": "2026-10-07",
   "updated": "2026-10-21",
   "summary": [
@@ -87,12 +87,12 @@
     }
   ],
   "faq": [
-    { "q": "DJI drone'um hayvan sayabilir mi?", "a": "Drone'un kendisi saymaz, ama bilgisayarınızda DJI Live Bridge açıkken DJI Fly'dan gelen canlı görüntü orada incelenir: her hayvan bir kutu ve etiket alır, bir sayaç da kaç hayvanın göründüğünü ve kaç farklı hayvan görüldüğünü gösterir." },
+    { "q": "DJI drone'um hayvan sayabilir mi?", "a": "Drone'un kendisi saymaz, ama bilgisayarınızda Stream My Drone açıkken DJI Fly'dan gelen canlı görüntü orada incelenir: her hayvan bir kutu ve etiket alır, bir sayaç da kaç hayvanın göründüğünü ve kaç farklı hayvan görüldüğünü gösterir." },
     { "q": "Keçiyi tanıyor mu?", "a": "Evet, Mac'te varsayılan olan OWLv2 modeliyle. Normal uçuş yüksekliklerinde keçiyi koyundan ayırır. Diğer modellerde keçi sınıfı hiç yoktur." },
     { "q": "Kutular Instagram, TikTok veya YouTube yayınımda görünür mü?", "a": "Evet. Her çıkışa çizilirler: tüm hedeflere giden canlı yayın, sanal kamera ve uygulamadaki önizleme. Kutuları veya sayacı istediğiniz an kapatabilirsiniz." },
     { "q": "Videom bir yapay zekâ servisine gönderiliyor mu?", "a": "Hayır. Her şey kendi bilgisayarınızda çalışır. Yalnızca model dosyası bir kez, herkese açık bir kaynaktan indirilir ve kullanılmadan önce doğrulanır." },
     { "q": "Yayınımı yavaşlatır mı?", "a": "Hayır. Video kare hızını korur; analiz onun yanında çalışır ve yeni bir sonuç hazır oldukça kutular güncellenir." },
     { "q": "Sayım ne kadar doğru?", "a": "Bir sürüye genel bakış için iyidir, resmî bir sayım yerine geçmez. Çok uzaktaki hayvanların türü yanlış çıkabilir; görüntüden çıkıp geri gelen bir hayvan iki kez sayılabilir." },
-    { "q": "Ücretsiz mi?", "a": "Evet. AI Vision, MIT lisansıyla ücretsiz ve açık kaynak olan DJI Live Bridge'in bir parçasıdır. Modeller Apache 2.0 lisansıyla yayımlanmıştır." }
+    { "q": "Ücretsiz mi?", "a": "Evet. AI Vision, MIT lisansıyla ücretsiz ve açık kaynak olan Stream My Drone'un bir parçasıdır. Modeller Apache 2.0 lisansıyla yayımlanmıştır." }
   ]
 }

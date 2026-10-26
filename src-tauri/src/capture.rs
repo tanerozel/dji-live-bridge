@@ -54,7 +54,10 @@ pub async fn discover_video_devices() -> BridgeResult<Vec<VideoInputDevice>> {
         .output()
         .await?;
     let mut names = parse_video_devices(&String::from_utf8_lossy(&output.stderr));
-    names.retain(|name| name != crate::virtual_camera::DEVICE_NAME);
+    names.retain(|name| {
+        name != crate::virtual_camera::DEVICE_NAME
+            && name != crate::virtual_camera::LEGACY_DEVICE_NAME
+    });
     names.dedup();
     Ok(names
         .into_iter()
@@ -179,7 +182,7 @@ async fn probe_mode(ffmpeg: &Path, device: &str) -> BridgeResult<CaptureMode> {
     choose_mode(&parse_modes(&text)).ok_or_else(|| {
         let last = text.lines().last().unwrap_or_default().trim();
         BridgeError::Ffmpeg(format!(
-            "{device} could not be opened ({last}). Allow DJI Live Bridge in \
+            "{device} could not be opened ({last}). Allow Stream My Drone in \
              System Settings → Privacy & Security → Camera."
         ))
     })
@@ -346,7 +349,7 @@ Error opening input file FaceTime HD Camera.
     #[test]
     fn lists_cameras_without_screens_or_audio() {
         let listing = "[AVFoundation indev @ 0x9ff008140] AVFoundation video devices:
-[AVFoundation indev @ 0x9ff008140] [0] DJI Live Bridge Camera
+[AVFoundation indev @ 0x9ff008140] [0] Stream My Drone Camera
 [AVFoundation indev @ 0x9ff008140] [1] Cam Link 4K
 [AVFoundation indev @ 0x9ff008140] [2] Capture screen 0
 [AVFoundation indev @ 0x9ff008140] AVFoundation audio devices:
@@ -355,7 +358,7 @@ Error opening input file .
 ";
         assert_eq!(
             parse_video_devices(listing),
-            ["DJI Live Bridge Camera", "Cam Link 4K"]
+            ["Stream My Drone Camera", "Cam Link 4K"]
         );
     }
 

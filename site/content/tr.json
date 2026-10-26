@@ -1,8 +1,8 @@
 {
   "meta": {
-    "title": "Drone ile sosyal medyada canlı yayın — DJI Live Bridge",
+    "title": "Drone ile sosyal medyada canlı yayın — Stream My Drone",
     "description": "DJI drone ile Instagram, TikTok, YouTube ve Facebook'ta aynı anda canlı yayın yapın. DJI Fly RTMP yayınını alan ücretsiz uygulama; TikTok LIVE Studio için sanal kamera.",
-    "ogTitle": "DJI Live Bridge",
+    "ogTitle": "Stream My Drone",
     "ogDescription": "DJI drone'unuzdan Instagram, TikTok ve istediğiniz RTMP hedefine aynı anda canlı yayın yapın. Ücretsiz, açık kaynak, imzalı ve Apple onaylı.",
     "keywords": "drone ile canlı yayın, drone ile sosyal medyada canlı yayın, DJI Fly RTMP ayarı, drone ile Instagram canlı yayın, drone ile TikTok canlı yayın, drone ile YouTube canlı yayın, sanal kamera, TikTok LIVE Studio"
   },
@@ -19,7 +19,7 @@
   "hero": {
     "pill": "Ücretsiz · Apple tarafından imzalı ve onaylı",
     "h1": "DJI drone’unuzdan Instagram, TikTok, YouTube, Facebook ve özel RTMP hedeflerine canlı yayın yapın",
-    "lead": "DJI Fly'daki RTMP yayınını bilgisayarınıza gönderin; DJI Live Bridge onu Instagram, TikTok, YouTube, Facebook ve diğer platformlara aynı anda iletir. TikTok için yayın anahtarı gerekmeyen sanal kamera da var.",
+    "lead": "DJI Fly'daki RTMP yayınını bilgisayarınıza gönderin; Stream My Drone onu Instagram, TikTok, YouTube, Facebook ve diğer platformlara aynı anda iletir. TikTok için yayın anahtarı gerekmeyen sanal kamera da var.",
     "ctaMac": "macOS için indir",
     "ctaWin": "Windows",
     "ctaAndroid": "Android – Google Play",
@@ -43,7 +43,7 @@
       },
       {
         "h": "TikTok için yayın anahtarı gerekmez",
-        "p": "Yerleşik sanal kamera TikTok LIVE Studio'da “DJI Live Bridge Camera” olarak görünür, böylece RTMP erişimi olmadan canlı yayın yapabilirsiniz."
+        "p": "Yerleşik sanal kamera TikTok LIVE Studio'da “Stream My Drone Camera” olarak görünür, böylece RTMP erişimi olmadan canlı yayın yapabilirsiniz."
       },
       {
         "h": "Dikey video için yapıldı",
@@ -106,10 +106,10 @@
   },
   "tiktok": {
     "h2": "Yayın anahtarı olmadan TikTok",
-    "sub": "TikTok RTMP anahtarlarını yalnızca bazı hesaplara veriyor. TikTok LIVE Studio'da böyle bir sınır yok, çünkü kendi hesabınızla giriş yapıyorsunuz — tek ihtiyacı bir kamera. DJI Live Bridge o kamerayı sağlıyor.",
+    "sub": "TikTok RTMP anahtarlarını yalnızca bazı hesaplara veriyor. TikTok LIVE Studio'da böyle bir sınır yok, çünkü kendi hesabınızla giriş yapıyorsunuz — tek ihtiyacı bir kamera. Stream My Drone o kamerayı sağlıyor.",
     "items": [
       "Sanal kamerayı bir kez etkinleştirin; sistem ilk seferde izin ister.",
-      "TikTok LIVE Studio'da bir Kamera kaynağı ekleyip <strong>DJI Live Bridge Camera</strong>'yı seçin.",
+      "TikTok LIVE Studio'da bir Kamera kaynağı ekleyip <strong>Stream My Drone Camera</strong>'yı seçin.",
       "Bu kaynağın ses yakalamasını <em>None</em> yapın ve LIVE Studio'da tek bir mikrofon seçin.",
       "TikTok LIVE Studio'da Go Live'a basın."
     ],
@@ -126,7 +126,7 @@
     "steps": [
       {
         "t": "DMG'yi indirin",
-        "d": "Apple Silicon Mac (M1 ve sonrası) için <code>aarch64</code>, Intel Mac için <code>x86_64</code> dosyasını alın, sonra <strong>DJI Live Bridge</strong>'i Uygulamalar klasörüne sürükleyin — sanal kamera yalnızca oradan çalışır. Windows'ta <code>-setup.exe</code> kurulum dosyasını çalıştırın."
+        "d": "Apple Silicon Mac (M1 ve sonrası) için <code>aarch64</code>, Intel Mac için <code>x86_64</code> dosyasını alın, sonra <strong>Stream My Drone</strong>'i Uygulamalar klasörüne sürükleyin — sanal kamera yalnızca oradan çalışır. Windows'ta <code>-setup.exe</code> kurulum dosyasını çalıştırın."
       },
       {
         "t": "Açın",
@@ -161,7 +161,7 @@
       },
       {
         "q": "Windows'ta çalışır mı?",
-        "a": "Evet. Windows 10/11 desteklenir. Canlı yayın, önizleme, kayıt, tanılama ve yerleşik sanal kamera özelliklerinin tamamı test edildi. Kurulum dosyası TikTok LIVE Studio, OBS ve Zoom için bir “DJI Live Bridge Camera” aygıtı kaydeder. Kurulum dosyası kod imzalı olmadığı için Windows SmartScreen uyarı gösterebilir."
+        "a": "Evet. Windows 10/11 desteklenir. Canlı yayın, önizleme, kayıt, tanılama ve yerleşik sanal kamera özelliklerinin tamamı test edildi. Kurulum dosyası TikTok LIVE Studio, OBS ve Zoom için bir “Stream My Drone Camera” aygıtı kaydeder. Kurulum dosyası kod imzalı olmadığı için Windows SmartScreen uyarı gösterebilir."
       },
       {
         "q": "Hayvanları tespit edip sayabilir mi?",
@@ -185,6 +185,6 @@
     "role": "geliştirici ve bakımcı",
     "issue": "Sorun bildir",
     "privacy": "Gizlilik politikası",
-    "note": "MIT lisansıyla yayımlanmıştır; paketlenen FFmpeg LGPL'dir ve GPL bileşenleri olmadan kaynaktan derlenmiştir. DJI Live Bridge bağımsız bir projedir; DJI, Instagram, TikTok veya Apple ile bağlantısı yoktur. DJI, Instagram ve TikTok kendi sahiplerinin ticari markalarıdır. Google Play, Google LLC'nin ticari markasıdır."
+    "note": "MIT lisansıyla yayımlanmıştır; paketlenen FFmpeg LGPL'dir ve GPL bileşenleri olmadan kaynaktan derlenmiştir. Stream My Drone bağımsız bir projedir; DJI, Instagram, TikTok veya Apple ile bağlantısı yoktur. DJI, Instagram ve TikTok kendi sahiplerinin ticari markalarıdır. Google Play, Google LLC'nin ticari markasıdır."
   }
 }
