@@ -1,4 +1,4 @@
-use jni::objects::{JClass, JString};
+use jni::objects::{JByteArray, JClass, JString};
 use jni::sys::{jbyteArray, jint, jlong, jstring};
 use jni::JNIEnv;
 use librtmp2::client::Client;
@@ -16,6 +16,7 @@ use std::time::{Duration, Instant};
 #[cfg(target_vendor = "apple")]
 mod apple_trust;
 pub mod ffi;
+pub mod phone_audio;
 mod preview;
 
 const DEFAULT_BIND_ADDRESS: &str = "0.0.0.0:1935";
@@ -65,6 +66,10 @@ pub struct RelaySnapshot {
     pub source_reconnects: u64,
     /// Stalls and reconnects in the last minute, for the app's weak-link tip.
     pub recent_interruptions: u64,
+    /// The phone's microphone replaces DJI Fly's audio.
+    pub phone_audio: bool,
+    /// Microphone frames sent on the drone's timeline since the app started.
+    pub phone_audio_frames: u64,
     /// One entry per platform the stream is going to.
     pub outputs: Vec<OutputSnapshot>,
 }
@@ -102,6 +107,8 @@ impl RelaySnapshot {
             longest_stall_ms: 0,
             source_reconnects: 0,
             recent_interruptions: 0,
+            phone_audio: false,
+            phone_audio_frames: 0,
             outputs: Vec::new(),
         }
     }
@@ -416,8 +423,17 @@ fn handle_frame(frame: &Frame) {
         // librtmp2 guarantees Frame.data remains valid for the duration of this callback.
         unsafe { std::slice::from_raw_parts(frame.data, frame.size as usize) }
     };
-    if matches!(frame.frame_type, FrameType::Video) {
-        preview::offer(frame.timestamp, payload);
+    let source = SOURCE_GENERATION.load(Ordering::Relaxed);
+    match frame.frame_type {
+        FrameType::Video => {
+            preview::offer(frame.timestamp, payload);
+            phone_audio::video_arrived(source, frame.timestamp);
+        }
+        // The phone's microphone may stand in for DJI Fly's audio.
+        FrameType::Audio if !phone_audio::pass_drone_audio(source, frame.timestamp, payload) => {
+            return;
+        }
+        _ => {}
     }
     // Observed before the outputs are read: see attach_destination.
     if let Ok(mut bootstrap) = source_bootstrap().lock() {
@@ -427,16 +443,47 @@ fn handle_frame(frame: &Frame) {
     let Ok(handles) = outputs().read() else {
         return;
     };
+    send_to_outputs(&handles, source, frame.frame_type, frame.timestamp, payload);
+}
+
+/// Relays frames the app made itself (the phone's microphone) as part of source `generation`;
+/// false when that source has ended meanwhile and the frames were dropped.
+pub(crate) fn inject_frames(generation: u64, frames: &[(FrameType, u32, &[u8])]) -> bool {
+    // Under the bootstrap lock, as reset_source changes the generation under it: no output can
+    // see these frames after the first frame of a newer source.
+    let Ok(mut bootstrap) = source_bootstrap().lock() else {
+        return false;
+    };
+    if SOURCE_GENERATION.load(Ordering::Relaxed) != generation {
+        return false;
+    }
+    for &(frame_type, _, payload) in frames {
+        bootstrap.observe(frame_type, payload);
+    }
+    if let Ok(handles) = outputs().read() {
+        for &(frame_type, timestamp, payload) in frames {
+            send_to_outputs(&handles, generation, frame_type, timestamp, payload);
+        }
+    }
+    true
+}
+
+fn send_to_outputs(
+    handles: &[OutputHandle],
+    source: u64,
+    frame_type: FrameType,
+    timestamp: u32,
+    payload: &[u8],
+) {
     if handles.is_empty() {
         return;
     }
-    let source = SOURCE_GENERATION.load(Ordering::Relaxed);
     let shared: Arc<[u8]> = Arc::from(payload);
-    for handle in handles.iter() {
+    for handle in handles {
         let message = OutboundFrame {
             source,
-            frame_type: frame.frame_type,
-            timestamp: frame.timestamp,
+            frame_type,
+            timestamp,
             payload: Arc::clone(&shared),
         };
         match handle.sender.try_send(message) {
@@ -852,6 +899,8 @@ fn run_server(bind_address: &str, stop: Arc<AtomicBool>) {
             video_frames: VIDEO_FRAMES.load(Ordering::Relaxed),
             audio_frames: AUDIO_FRAMES.load(Ordering::Relaxed),
             rejected_publish_attempts: REJECTED_PUBLISH_ATTEMPTS.load(Ordering::Relaxed),
+            phone_audio: phone_audio::is_on(),
+            phone_audio_frames: phone_audio::frames_sent(),
             ..RelaySnapshot::stopped()
         };
         if let Ok(mut health) = ingest_health().lock() {
@@ -1502,6 +1551,47 @@ pub extern "system" fn Java_com_streammydrone_app_NativeRelay_nativeStop(
     _class: JClass<'_>,
 ) {
     stop_server();
+}
+
+/// Sends the phone's microphone in place of DJI Fly's audio; `config` is the AAC encoder's
+/// AudioSpecificConfig. Returns an error message or an empty string.
+#[no_mangle]
+pub extern "system" fn Java_com_streammydrone_app_NativeRelay_nativePhoneAudioStart(
+    env: JNIEnv<'_>,
+    _class: JClass<'_>,
+    config: JByteArray<'_>,
+) -> jstring {
+    let result = match env.convert_byte_array(&config) {
+        Ok(config) => phone_audio::start(&config).err().unwrap_or_default(),
+        Err(_) => "jni_argument".to_owned(),
+    };
+    java_string(env, &result)
+}
+
+/// One encoded AAC frame of the microphone: the first `length` bytes of `data`, captured at
+/// `pts_us`.
+#[no_mangle]
+pub extern "system" fn Java_com_streammydrone_app_NativeRelay_nativePhoneAudioFrame(
+    env: JNIEnv<'_>,
+    _class: JClass<'_>,
+    pts_us: jlong,
+    data: JByteArray<'_>,
+    length: jint,
+) {
+    let Ok(frame) = env.convert_byte_array(&data) else {
+        return;
+    };
+    let length = usize::try_from(length).unwrap_or(0).min(frame.len());
+    phone_audio::frame(pts_us, &frame[..length]);
+}
+
+/// Goes back to DJI Fly's audio.
+#[no_mangle]
+pub extern "system" fn Java_com_streammydrone_app_NativeRelay_nativePhoneAudioStop(
+    _env: JNIEnv<'_>,
+    _class: JClass<'_>,
+) {
+    phone_audio::stop();
 }
 
 /// Starts an in-app preview session and returns its number for the calls below.

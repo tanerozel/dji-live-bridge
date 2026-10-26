@@ -470,4 +470,9 @@
     <string name="vmic_how_it_works">如何使用？</string>
     <string name="vmic_steps">1. 在蓝牙设置中将 RC 2 与这部手机配对（只需一次）。\n2. 在这里选中它，然后点按“连接 RC 2”。\n3. 在 RC 2 上打开 DJI Fly 的直播设置：麦克风警告已消失。</string>
     <string name="vmic_chip">麦克风</string>
+    <string name="phone_mic">手机麦克风</string>
+    <string name="phone_mic_chip">麦克风已开</string>
+    <string name="phone_mic_on">手机麦克风已开启：直播中用你的声音代替无人机的声音。</string>
+    <string name="phone_mic_permission">要在直播时讲话，请允许使用麦克风。如果没有出现提示，请在手机设置中允许。</string>
+    <string name="phone_mic_failed">手机麦克风已停止：%1$s</string>
 </resources>

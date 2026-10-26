@@ -485,4 +485,9 @@
     <string name="vmic_how_it_works">Как это работает?</string>
     <string name="vmic_steps">1. Создайте пару RC 2 с этим телефоном в настройках Bluetooth (один раз).\n2. Выберите его здесь и нажмите «Подключиться к RC 2».\n3. На RC 2 откройте настройки прямой трансляции в DJI Fly: предупреждения о микрофоне больше нет.</string>
     <string name="vmic_chip">Микрофон</string>
+    <string name="phone_mic">Микрофон телефона</string>
+    <string name="phone_mic_chip">Микрофон вкл.</string>
+    <string name="phone_mic_on">Микрофон телефона включён: в трансляции вместо звука дрона звучит ваш голос.</string>
+    <string name="phone_mic_permission">Разрешите доступ к микрофону, чтобы говорить во время трансляции. Если запрос не появился, разрешите его в настройках телефона.</string>
+    <string name="phone_mic_failed">Микрофон телефона остановился: %1$s</string>
 </resources>

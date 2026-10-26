@@ -22,6 +22,8 @@ final class RelayController {
     @ObservationIgnored private var pollTask: Task<Void, Never>?
     @ObservationIgnored private var testVideoTask: Task<Void, Never>?
     @ObservationIgnored private var converter: TestVideoConverter?
+    /// Records while the pilot talks over the broadcast.
+    @ObservationIgnored private var microphone: PhoneMicrophone?
     @ObservationIgnored let youtube = YouTubeBroadcastManager.shared
     @ObservationIgnored let facebook = FacebookBroadcastManager.shared
     @ObservationIgnored private var liveAttempts: [String: UUID] = [:]
@@ -83,6 +85,7 @@ final class RelayController {
         liveFailures.removeAll()
         finishRemote(attempts)
         stopTestVideoWork()
+        stopMicrophone()
         pollTask?.cancel()
         pollTask = nil
         let wasStarted = receiverStarted
@@ -240,6 +243,42 @@ final class RelayController {
                 catch { state.notice = RelayNotice(title: .tr("facebook_error_end"), message: .tr("facebook_error_end")) }
             }
         }
+    }
+
+    // MARK: Microphone
+
+    /// The pilot's voice from the phone in place of DJI Fly's audio, or DJI Fly's audio again.
+    /// The caller has the microphone permission.
+    func setMicrophone(_ on: Bool) {
+        guard on != (microphone != nil), receiverStarted || !on else { return }
+        guard on else {
+            stopMicrophone()
+            return
+        }
+        var started: PhoneMicrophone?
+        let phoneMicrophone = PhoneMicrophone { [weak self] message in
+            guard let self, self.microphone === started else { return }
+            self.microphone = nil
+            self.state.microphoneOn = false
+            self.state.notice = RelayNotice(title: .tr("phone_mic"), message: message)
+        }
+        started = phoneMicrophone
+        do {
+            try phoneMicrophone.start()
+        } catch {
+            Logger.bridge.error("The phone's microphone could not start: \(error.localizedDescription, privacy: .public)")
+            phoneMicrophone.stop()
+            state.notice = RelayNotice(title: .tr("phone_mic"), message: .tr("phone_mic_failed", .string(error.localizedDescription)))
+            return
+        }
+        microphone = phoneMicrophone
+        state.microphoneOn = true
+    }
+
+    private func stopMicrophone() {
+        microphone?.stop()
+        microphone = nil
+        state.microphoneOn = false
     }
 
     func dismissNotice() {

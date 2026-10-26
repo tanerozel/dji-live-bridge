@@ -2,3 +2,4 @@
 
 "NSLocalNetworkUsageDescription" = "Kumandandaki DJI Fly, dronun görüntüsünü yerel ağ üzerinden bu telefona gönderir.";
 "NSBluetoothAlwaysUsageDescription" = "RC 2 bağlantı tanılaması için Bluetooth kullanılabilirliğini kontrol eder. Bu kontrol ses kaydetmez veya mikrofon olarak bağlanmaz.";
+"NSMicrophoneUsageDescription" = "Telefon mikrofonunu açtığında yayında drone sesi yerine senin sesin gider.";

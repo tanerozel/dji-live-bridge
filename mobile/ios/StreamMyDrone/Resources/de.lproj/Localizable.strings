@@ -241,6 +241,11 @@
 "output_ready" = "Die Plattform hat den Stream angenommen";
 "output_ready_secure" = "Zertifikat verifiziert; die Plattform hat den Stream angenommen";
 "output_stopped" = "Weiterleitung gestoppt";
+"phone_mic" = "Handymikrofon";
+"phone_mic_chip" = "Mikro an";
+"phone_mic_failed" = "Das Handymikrofon wurde beendet: %1$@";
+"phone_mic_on" = "Handymikrofon an: Deine Stimme ersetzt in der Übertragung den Ton der Drohne.";
+"phone_mic_permission" = "Erlaube den Mikrofonzugriff, um während der Übertragung zu sprechen. Erscheint keine Abfrage, erlaube ihn in den Einstellungen des Handys.";
 "pick_platform_first" = "Wähle zuerst eine Plattform";
 "pick_platforms_hint" = "Tippe auf eine oder mehrere Plattformen; der Stream geht an alle gleichzeitig. Die Server-Adresse ist schon eingetragen, du gibst nur den Stream-Schlüssel ein.";
 "picture_fill" = "Bildschirm füllen";

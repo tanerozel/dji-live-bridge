@@ -475,4 +475,9 @@
     <string name="vmic_how_it_works">Nasıl çalışır?</string>
     <string name="vmic_steps">1. RC 2’yi Bluetooth ayarlarından bu telefonla eşleştir (yalnızca bir kez).\n2. Burada seç ve RC 2’ye bağlan’a dokun.\n3. RC 2’de DJI Fly’ın canlı yayın ayarlarını aç: mikrofon uyarısı kaybolmuş olur.</string>
     <string name="vmic_chip">Mik</string>
+    <string name="phone_mic">Telefon mikrofonu</string>
+    <string name="phone_mic_chip">Mikrofon açık</string>
+    <string name="phone_mic_on">Telefon mikrofonu açık: yayında drone sesi yerine senin sesin gidiyor.</string>
+    <string name="phone_mic_permission">Yayında konuşmak için mikrofon izni ver. İzin penceresi çıkmazsa telefonun ayarlarından izin ver.</string>
+    <string name="phone_mic_failed">Telefon mikrofonu durdu: %1$s</string>
 </resources>

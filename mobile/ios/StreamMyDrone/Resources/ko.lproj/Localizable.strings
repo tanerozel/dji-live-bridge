@@ -241,6 +241,11 @@
 "output_ready" = "플랫폼이 방송을 수락했습니다";
 "output_ready_secure" = "인증서가 검증되었고 플랫폼이 방송을 수락했습니다";
 "output_stopped" = "송출 중지됨";
+"phone_mic" = "휴대폰 마이크";
+"phone_mic_chip" = "마이크 켜짐";
+"phone_mic_failed" = "휴대폰 마이크가 중지되었습니다: %1$@";
+"phone_mic_on" = "휴대폰 마이크 켜짐: 방송에서 드론 소리 대신 내 목소리가 나갑니다.";
+"phone_mic_permission" = "방송 중에 말하려면 마이크 접근을 허용하세요. 요청이 나타나지 않으면 휴대폰 설정에서 허용하세요.";
 "pick_platform_first" = "먼저 플랫폼을 선택하세요";
 "pick_platforms_hint" = "플랫폼을 하나 이상 누르세요. 선택한 모든 플랫폼에 동시에 방송됩니다. 서버 주소는 준비되어 있으니 스트림 키만 입력하면 됩니다.";
 "picture_fill" = "화면 채우기";

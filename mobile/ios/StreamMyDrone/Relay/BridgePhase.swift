@@ -41,6 +41,8 @@ struct RelayUiState: Equatable {
     var testVideoConverting: Int?
     /// Why the last attempt to go live or play a test video failed; cleared by the next one.
     var notice: RelayNotice?
+    /// The phone's microphone replaces DJI Fly's audio.
+    var microphoneOn = false
 
     var isLive: Bool { !liveProfileIds.isEmpty }
 }

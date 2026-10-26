@@ -475,4 +475,9 @@
     <string name="vmic_how_it_works">यह कैसे काम करता है?</string>
     <string name="vmic_steps">1. ब्लूटूथ सेटिंग में RC 2 को इस फ़ोन से पेयर करें (सिर्फ़ एक बार)।\n2. उसे यहाँ चुनें और RC 2 से कनेक्ट करें पर टैप करें।\n3. RC 2 पर DJI Fly की लाइव स्ट्रीम सेटिंग खोलें: माइक्रोफ़ोन की चेतावनी हट चुकी होगी।</string>
     <string name="vmic_chip">माइक</string>
+    <string name="phone_mic">फ़ोन का माइक्रोफ़ोन</string>
+    <string name="phone_mic_chip">माइक चालू</string>
+    <string name="phone_mic_on">फ़ोन का माइक्रोफ़ोन चालू: प्रसारण में ड्रोन की आवाज़ की जगह आपकी आवाज़ जाएगी।</string>
+    <string name="phone_mic_permission">प्रसारण के दौरान बोलने के लिए माइक्रोफ़ोन की अनुमति दें। अगर अनुरोध न दिखे, तो फ़ोन की सेटिंग में अनुमति दें।</string>
+    <string name="phone_mic_failed">फ़ोन का माइक्रोफ़ोन रुक गया: %1$s</string>
 </resources>

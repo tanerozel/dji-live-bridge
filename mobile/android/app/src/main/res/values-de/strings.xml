@@ -475,4 +475,9 @@
     <string name="vmic_how_it_works">Wie funktioniert das?</string>
     <string name="vmic_steps">1. Kopple die RC 2 in den Bluetooth-Einstellungen mit diesem Handy (nur einmal).\n2. Wähle sie hier aus und tippe auf Mit RC 2 verbinden.\n3. Öffne auf der RC 2 die Livestream-Einstellungen in DJI Fly: Die Mikrofonwarnung ist weg.</string>
     <string name="vmic_chip">Mikro</string>
+    <string name="phone_mic">Handymikrofon</string>
+    <string name="phone_mic_chip">Mikro an</string>
+    <string name="phone_mic_on">Handymikrofon an: Deine Stimme ersetzt in der Übertragung den Ton der Drohne.</string>
+    <string name="phone_mic_permission">Erlaube den Mikrofonzugriff, um während der Übertragung zu sprechen. Erscheint keine Abfrage, erlaube ihn in den Einstellungen des Handys.</string>
+    <string name="phone_mic_failed">Das Handymikrofon wurde beendet: %1$s</string>
 </resources>

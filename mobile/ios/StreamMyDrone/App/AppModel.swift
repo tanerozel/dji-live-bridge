@@ -1,3 +1,4 @@
+import AVFoundation
 import Foundation
 import Observation
 import SwiftUI
@@ -594,6 +595,31 @@ final class AppModel {
 
     func startReceiver(restart: Bool) {
         relay.startReceiver(restart: restart)
+    }
+
+    /// Turns the phone's microphone on or off for the broadcast, asking for it the first time.
+    func toggleMicrophone() {
+        if relay.state.microphoneOn {
+            relay.setMicrophone(false)
+            return
+        }
+        switch AVAudioApplication.shared.recordPermission {
+        case .granted:
+            microphoneOn()
+        case .undetermined:
+            AVAudioApplication.requestRecordPermission { [weak self] granted in
+                Task { @MainActor in
+                    if granted { self?.microphoneOn() } else { self?.showMessage(.tr("phone_mic_permission")) }
+                }
+            }
+        default:
+            showMessage(.tr("phone_mic_permission"))
+        }
+    }
+
+    private func microphoneOn() {
+        relay.setMicrophone(true)
+        if relay.state.microphoneOn { showMessage(.tr("phone_mic_on")) }
     }
 
     func startTestVideo(_ selection: TestVideoSelection) {

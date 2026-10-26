@@ -106,6 +106,43 @@ pub extern "C" fn djr_stop() {
     crate::stop_server();
 }
 
+/// Sends the phone's microphone in place of DJI Fly's audio; `config` is the AAC encoder's
+/// AudioSpecificConfig. Returns an error code or null.
+///
+/// # Safety
+/// `config` is valid for reads of `length` bytes, or null with a length of 0.
+#[no_mangle]
+pub unsafe extern "C" fn djr_phone_audio_start(config: *const u8, length: usize) -> *mut c_char {
+    // SAFETY: guaranteed by the caller.
+    result_string(crate::phone_audio::start(unsafe { bytes(config, length) }))
+}
+
+/// One encoded AAC frame of the microphone (raw, without ADTS), captured at `pts_us`.
+///
+/// # Safety
+/// `data` is valid for reads of `length` bytes, or null with a length of 0.
+#[no_mangle]
+pub unsafe extern "C" fn djr_phone_audio_frame(pts_us: i64, data: *const u8, length: usize) {
+    // SAFETY: guaranteed by the caller.
+    crate::phone_audio::frame(pts_us, unsafe { bytes(data, length) });
+}
+
+/// Goes back to DJI Fly's audio.
+#[no_mangle]
+pub extern "C" fn djr_phone_audio_stop() {
+    crate::phone_audio::stop();
+}
+
+/// # Safety
+/// `data` is valid for reads of `length` bytes, or null.
+unsafe fn bytes<'a>(data: *const u8, length: usize) -> &'a [u8] {
+    if data.is_null() {
+        return &[];
+    }
+    // SAFETY: guaranteed by the caller.
+    unsafe { std::slice::from_raw_parts(data, length) }
+}
+
 /// Frees a string returned by this library; null is ignored.
 ///
 /// # Safety
@@ -217,6 +254,9 @@ mod tests {
         unsafe { djr_end_live(ptr::null()) };
         unsafe { djr_string_free(ptr::null_mut()) };
         unsafe { djr_bytes_free(ptr::null_mut(), 0) };
+        let error = take(unsafe { djr_phone_audio_start(ptr::null(), 0) });
+        assert_eq!(error.as_deref(), Some("audio_config_invalid"));
+        unsafe { djr_phone_audio_frame(0, ptr::null(), 0) };
     }
 
     #[test]

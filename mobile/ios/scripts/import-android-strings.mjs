@@ -67,6 +67,7 @@ const ANDROID_ONLY = new Set([
 const INFO_PLIST = {
   NSLocalNetworkUsageDescription: 'ios_local_network_usage',
   NSBluetoothAlwaysUsageDescription: 'ios_vmic_bluetooth_usage',
+  NSMicrophoneUsageDescription: 'ios_microphone_usage',
 };
 
 const PLURAL_FORMS = ['zero', 'one', 'two', 'few', 'many', 'other'];

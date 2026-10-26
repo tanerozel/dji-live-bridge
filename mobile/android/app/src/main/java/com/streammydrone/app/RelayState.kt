@@ -31,6 +31,18 @@ object NativeRelay {
     /** Stops sending to the platform [outputId], or to all of them when it is ""; the drone stays connected. */
     external fun nativeEndLive(outputId: String)
 
+    /**
+     * Sends the phone's microphone in place of DJI Fly's audio; [config] is the AAC encoder's
+     * AudioSpecificConfig (csd-0). Returns an error message or "".
+     */
+    external fun nativePhoneAudioStart(config: ByteArray): String
+
+    /** One AAC frame of the microphone: the first [length] bytes of [data], captured at [ptsUs]. */
+    external fun nativePhoneAudioFrame(ptsUs: Long, data: ByteArray, length: Int)
+
+    /** Gives the broadcast DJI Fly's audio back. */
+    external fun nativePhoneAudioStop()
+
     external fun nativeSnapshot(): String
     external fun nativeStop()
 
@@ -154,6 +166,8 @@ data class RelayServiceUiState(
     val testVideoConverting: Int? = null,
     /** Why the last attempt to go live or play a test video failed; cleared by the next one. */
     val notice: RelayNotice? = null,
+    /** The phone's microphone replaces DJI Fly's audio. */
+    val microphoneOn: Boolean = false,
 ) {
     val isLive: Boolean
         get() = liveProfileIds.isNotEmpty()
@@ -201,6 +215,10 @@ object RelayServiceState {
             liveSinceElapsedMillis = value.liveSinceElapsedMillis.takeIf { live.isNotEmpty() },
             notice = notice,
         )
+    }
+
+    fun microphone(on: Boolean, notice: RelayNotice? = null) {
+        value = value.copy(microphoneOn = on, notice = notice ?: value.notice)
     }
 
     fun testVideo(name: UiText?, notice: RelayNotice? = null) {

@@ -241,6 +241,11 @@
 "output_ready" = "La plateforme a accepté le flux";
 "output_ready_secure" = "Certificat vérifié ; la plateforme a accepté le flux";
 "output_stopped" = "Envoi arrêté";
+"phone_mic" = "Micro du téléphone";
+"phone_mic_chip" = "Micro activé";
+"phone_mic_failed" = "Le micro du téléphone s'est arrêté : %1$@";
+"phone_mic_on" = "Micro du téléphone activé : votre voix remplace le son du drone dans la diffusion.";
+"phone_mic_permission" = "Autorisez l'accès au micro pour parler pendant la diffusion. Si aucune demande n'apparaît, autorisez-le dans les réglages du téléphone.";
 "pick_platform_first" = "Choisissez d'abord une plateforme";
 "pick_platforms_hint" = "Appuyez sur une ou plusieurs plateformes : le direct est envoyé à toutes en même temps. L'adresse du serveur est déjà renseignée, il ne reste qu'à saisir la clé de stream.";
 "picture_fill" = "Remplir l'écran";

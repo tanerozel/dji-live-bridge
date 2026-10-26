@@ -2,3 +2,4 @@
 
 "NSLocalNetworkUsageDescription" = "يرسل تطبيق DJI Fly على وحدة التحكم صورة الطائرة المسيّرة إلى هذا الهاتف عبر الشبكة المحلية.";
 "NSBluetoothAlwaysUsageDescription" = "التحقق من توفر Bluetooth لتشخيص الاتصال بوحدة RC 2. لا يسجل هذا الفحص الصوت ولا يتصل كميكروفون.";
+"NSMicrophoneUsageDescription" = "عند تشغيل ميكروفون الهاتف، يُبث صوتك بدلًا من صوت الدرون.";

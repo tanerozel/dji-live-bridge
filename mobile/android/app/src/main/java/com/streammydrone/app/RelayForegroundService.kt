@@ -1,5 +1,6 @@
 package com.streammydrone.app
 
+import android.Manifest
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -7,6 +8,7 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
 import android.content.res.Configuration
 import android.net.Uri
@@ -54,6 +56,8 @@ class RelayForegroundService : Service() {
     private var wakeLock: PowerManager.WakeLock? = null
     private var wifiLock: WifiManager.WifiLock? = null
     private var shownNotification: Pair<String, Boolean>? = null
+    /** Records while the pilot talks over the broadcast. Main thread only. */
+    private var microphone: PhoneMicrophone? = null
     private lateinit var youtube: YouTubeBroadcastManager
     private lateinit var facebook: FacebookBroadcastManager
 
@@ -92,6 +96,7 @@ class RelayForegroundService : Service() {
             }
             ACTION_END_LIVE -> endLive(intent.getStringExtra(EXTRA_DESTINATION_PROFILE_ID))
             ACTION_STOP_TEST_VIDEO -> stopTestVideo()
+            ACTION_MICROPHONE -> if (receiverStarted) setMicrophone(intent.getBooleanExtra(EXTRA_ON, false))
             ACTION_STOP -> requestStop()
         }
         // A stray end-live or stop-video command must not leave an idle service behind.
@@ -118,6 +123,7 @@ class RelayForegroundService : Service() {
         facebook.close()
         pollThread?.interrupt()
         stopTestVideoWork()
+        stopMicrophone()
         commands.shutdown()
         NativeRelay.nativeStop()
         deleteTlsCaBundle()
@@ -128,22 +134,67 @@ class RelayForegroundService : Service() {
     }
 
     private fun enterForeground(): Boolean = try {
-        val text = shownNotification?.first ?: getString(R.string.notification_waiting)
-        ServiceCompat.startForeground(
-            this,
-            NOTIFICATION_ID,
-            buildNotification(text, live = liveProfileIds.isNotEmpty()),
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
-            } else {
-                0
-            },
-        )
+        startForegroundAs(microphone != null)
         true
     } catch (error: RuntimeException) {
         RelayServiceState.failed(withCause(R.string.error_service_start, error))
         stopSelf()
         false
+    }
+
+    /** Recording in the background needs the microphone type, and only while it records. */
+    private fun startForegroundAs(recording: Boolean) {
+        val text = shownNotification?.first ?: getString(R.string.notification_waiting)
+        val type = when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && recording ->
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC or ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
+            else -> 0
+        }
+        ServiceCompat.startForeground(this, NOTIFICATION_ID, buildNotification(text, live = liveProfileIds.isNotEmpty()), type)
+    }
+
+    /** The pilot's voice from the phone in place of DJI Fly's audio, or DJI Fly's audio again. */
+    private fun setMicrophone(on: Boolean) {
+        if (on == (microphone != null)) return
+        if (!on) {
+            stopMicrophone()
+            runCatching { startForegroundAs(false) }
+            RelayServiceState.microphone(false)
+            return
+        }
+        fun failed(message: UiText) {
+            RelayServiceState.microphone(false, RelayNotice(uiText(R.string.phone_mic), message))
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            failed(uiText(R.string.phone_mic_permission))
+            return
+        }
+        try {
+            // Android allows this only while the app is on screen, which a tap on its button is.
+            startForegroundAs(true)
+        } catch (error: RuntimeException) {
+            Log.w(LOG_TAG, "The microphone could not be added to the foreground service", error)
+            failed(uiText(R.string.phone_mic_failed, error.message ?: error.javaClass.simpleName))
+            return
+        }
+        lateinit var started: PhoneMicrophone
+        started = PhoneMicrophone { message ->
+            mainHandler.post {
+                if (microphone === started) {
+                    microphone = null
+                    runCatching { startForegroundAs(false) }
+                    failed(message)
+                }
+            }
+        }
+        microphone = started
+        RelayServiceState.microphone(true)
+    }
+
+    private fun stopMicrophone() {
+        microphone?.stop()
+        microphone = null
     }
 
     private fun startReceiver() {
@@ -175,6 +226,7 @@ class RelayForegroundService : Service() {
         if (liveProfileIds.isNotEmpty()) return
         stopTestVideoWork()
         RelayServiceState.starting()
+        RelayServiceState.microphone(microphone != null)
         commands.execute { NativeRelay.nativeStartReceiver() }
     }
 
@@ -454,6 +506,7 @@ class RelayForegroundService : Service() {
         liveAttempts.clear()
         liveProfileIds.clear()
         stopTestVideoWork()
+        stopMicrophone()
         pollThread?.interrupt()
         if (!receiverStarted) {
             finishService()
@@ -632,6 +685,8 @@ class RelayForegroundService : Service() {
         private const val ACTION_END_LIVE = "com.streammydrone.app.action.END_LIVE"
         private const val ACTION_STOP_TEST_VIDEO = "com.streammydrone.app.action.STOP_TEST_VIDEO"
         private const val ACTION_STOP = "com.streammydrone.app.action.STOP_RELAY"
+        private const val ACTION_MICROPHONE = "com.streammydrone.app.action.MICROPHONE"
+        private const val EXTRA_ON = "on"
         private const val EXTRA_DESTINATION_PROFILE_ID = "destination_profile_id"
         private const val EXTRA_BROADCAST_TITLE = "broadcast_title"
         private const val EXTRA_DESTINATION_PROFILE_IDS = "destination_profile_ids"
@@ -689,6 +744,15 @@ class RelayForegroundService : Service() {
                 Intent(context, RelayForegroundService::class.java)
                     .setAction(ACTION_END_LIVE)
                     .putExtra(EXTRA_DESTINATION_PROFILE_ID, destinationProfileId),
+            )
+        }
+
+        /** Turns the phone's microphone on or off for the broadcast; needs RECORD_AUDIO to turn on. */
+        fun setMicrophone(context: Context, on: Boolean) {
+            context.startService(
+                Intent(context, RelayForegroundService::class.java)
+                    .setAction(ACTION_MICROPHONE)
+                    .putExtra(EXTRA_ON, on),
             )
         }
 

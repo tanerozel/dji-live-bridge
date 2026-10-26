@@ -476,4 +476,9 @@
     <string name="vmic_how_it_works">How does it work?</string>
     <string name="vmic_steps">1. Pair RC 2 with this phone in Bluetooth settings (only once).\n2. Choose it here and tap Connect to RC 2.\n3. On RC 2, open the live stream settings in DJI Fly: the microphone warning is gone.</string>
     <string name="vmic_chip">Mic</string>
+    <string name="phone_mic">Phone microphone</string>
+    <string name="phone_mic_chip">Mic on</string>
+    <string name="phone_mic_on">Phone microphone on: your voice replaces the drone\'s sound on the broadcast.</string>
+    <string name="phone_mic_permission">Allow microphone access to talk over the broadcast. If no prompt appears, allow it in the phone\'s settings.</string>
+    <string name="phone_mic_failed">The phone\'s microphone stopped: %1$s</string>
 </resources>

@@ -59,6 +59,7 @@ broadcast still need verification on a physical iPhone/iPad.
 | Key screen privacy | `FLAG_SECURE` | The key stays masked; the screen is covered while recorded or mirrored and in the app switcher |
 | Language | Android 13+ per-app language | In-app picker, applied at once; "Phone's language" also follows iOS Settings → Stream My Drone → Language |
 | Phone Wi-Fi in details | Signal, band and link speed | Not available to apps on iOS; only "this phone's hotspot" is shown |
+| Phone microphone on the broadcast | `AudioRecord` + MediaCodec AAC, foreground service with the `microphone` type | `AVAudioEngine` + `AVAudioConverter` AAC (`Media/PhoneMicrophone.swift`); the audio session becomes play-and-record while it is on. Both feed relay-core's `phone_audio` |
 | RC 2 microphone recognition | Explicit persistent HFP control connection | Availability and Bluetooth status diagnostics only; the public iOS SDK has no documented equivalent for this app's RFCOMM/HFP control transport |
 
 ### Virtual Bluetooth microphone availability

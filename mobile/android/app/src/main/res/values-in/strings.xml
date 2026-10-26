@@ -470,4 +470,9 @@
     <string name="vmic_how_it_works">Bagaimana cara kerjanya?</string>
     <string name="vmic_steps">1. Sambungkan RC 2 dengan ponsel ini di setelan Bluetooth (cukup sekali).\n2. Pilih di sini lalu ketuk Hubungkan ke RC 2.\n3. Di RC 2, buka pengaturan siaran langsung DJI Fly: peringatan mikrofon sudah hilang.</string>
     <string name="vmic_chip">Mik</string>
+    <string name="phone_mic">Mikrofon ponsel</string>
+    <string name="phone_mic_chip">Mik aktif</string>
+    <string name="phone_mic_on">Mikrofon ponsel aktif: suara Anda menggantikan suara drone dalam siaran.</string>
+    <string name="phone_mic_permission">Izinkan akses mikrofon untuk berbicara selama siaran. Jika permintaan tidak muncul, izinkan di pengaturan ponsel.</string>
+    <string name="phone_mic_failed">Mikrofon ponsel berhenti: %1$s</string>
 </resources>

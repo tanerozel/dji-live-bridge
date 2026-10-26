@@ -495,4 +495,9 @@
     <string name="vmic_how_it_works">كيف يعمل؟</string>
     <string name="vmic_steps">1. اقرن RC 2 بهذا الهاتف من إعدادات البلوتوث (مرة واحدة فقط).\n2. اختره هنا واضغط على الاتصال بـ RC 2.\n3. على RC 2، افتح إعدادات البث المباشر في DJI Fly: سيكون تحذير الميكروفون قد اختفى.</string>
     <string name="vmic_chip">ميكروفون</string>
+    <string name="phone_mic">ميكروفون الهاتف</string>
+    <string name="phone_mic_chip">الميكروفون مفعّل</string>
+    <string name="phone_mic_on">ميكروفون الهاتف مفعّل: صوتك يحل محل صوت الدرون في البث.</string>
+    <string name="phone_mic_permission">اسمح بالوصول إلى الميكروفون لتتحدث أثناء البث. إذا لم يظهر الطلب، فاسمح به من إعدادات الهاتف.</string>
+    <string name="phone_mic_failed">توقف ميكروفون الهاتف: %1$s</string>
 </resources>

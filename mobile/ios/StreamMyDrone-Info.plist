@@ -62,6 +62,8 @@
 	</array>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>DJI Fly on your remote controller sends the drone's picture to this phone over the local network.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>When you turn on the phone microphone, your voice goes out on the broadcast in place of the drone's sound.</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Check Bluetooth availability for the RC 2 connection diagnostics. This check does not record audio or connect as a microphone.</string>
 	<key>UIApplicationSceneManifest</key>

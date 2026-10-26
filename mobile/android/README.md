@@ -10,6 +10,13 @@ with explicit connect/disconnect controls; the notification can disconnect it to
 diagnostics show cached UUIDs, SDP queries and actual HFP stages. Phone microphone/SCO audio is
 not started. See the [recognition-only implementation and verification](../../research/virtual-microphone/RC2_RECOGNITION_ONLY.md).
 
+The **microphone button** beside "Go live" sends the phone's own microphone in place of DJI Fly's
+audio (silence on an RC 2), so the pilot can talk over the broadcast. `PhoneMicrophone.kt` records
+48 kHz mono and encodes AAC-LC with MediaCodec, the format DJI Fly sends; relay-core
+(`phone_audio.rs`) puts the frames on the drone's timeline and drops DJI Fly's audio until the
+button is off again. Frames go out only while the drone's picture comes in. While it is on, the
+foreground service adds the `microphone` type, so the voice keeps going with the screen off.
+
 The Android app does not use DJI SDK, Tauri, or a WebView. Phase 8 contains a secure,
 reconnecting single-target stream-copy relay hosted by an Android foreground service:
 

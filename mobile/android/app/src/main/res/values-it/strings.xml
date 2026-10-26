@@ -480,4 +480,9 @@
     <string name="vmic_how_it_works">Come funziona?</string>
     <string name="vmic_steps">1. Abbina RC 2 a questo telefono nelle impostazioni Bluetooth (solo una volta).\n2. Sceglilo qui e tocca Collega a RC 2.\n3. Su RC 2, apri le impostazioni della diretta in DJI Fly: l’avviso del microfono è sparito.</string>
     <string name="vmic_chip">Mic</string>
+    <string name="phone_mic">Microfono del telefono</string>
+    <string name="phone_mic_chip">Micro attivo</string>
+    <string name="phone_mic_on">Microfono del telefono attivo: la tua voce sostituisce l\'audio del drone nella diretta.</string>
+    <string name="phone_mic_permission">Consenti l\'accesso al microfono per parlare durante la diretta. Se la richiesta non compare, consentilo nelle impostazioni del telefono.</string>
+    <string name="phone_mic_failed">Il microfono del telefono si è fermato: %1$s</string>
 </resources>

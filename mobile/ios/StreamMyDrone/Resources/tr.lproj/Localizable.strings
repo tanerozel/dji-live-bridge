@@ -241,6 +241,11 @@
 "output_ready" = "Harici RTMP hedefi yayını kabul etti";
 "output_ready_secure" = "TLS sertifikası doğrulandı; harici hedef yayını kabul etti";
 "output_stopped" = "Aktarım durduruldu";
+"phone_mic" = "Telefon mikrofonu";
+"phone_mic_chip" = "Mikrofon açık";
+"phone_mic_failed" = "Telefon mikrofonu durdu: %1$@";
+"phone_mic_on" = "Telefon mikrofonu açık: yayında drone sesi yerine senin sesin gidiyor.";
+"phone_mic_permission" = "Yayında konuşmak için mikrofon izni ver. İzin penceresi çıkmazsa telefonun ayarlarından izin ver.";
 "pick_platform_first" = "Önce bir platform seç";
 "pick_platforms_hint" = "Bir ya da birkaç platforma dokun; hepsine aynı anda yayın yapılır. Sunucu adresi hazır, yalnızca yayın anahtarını gireceksin.";
 "picture_fill" = "Ekranı doldur";

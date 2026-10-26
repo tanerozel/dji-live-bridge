@@ -2,3 +2,4 @@
 
 "NSLocalNetworkUsageDescription" = "DJI Fly sul radiocomando invia l'immagine del drone a questo telefono tramite la rete locale.";
 "NSBluetoothAlwaysUsageDescription" = "Verifica la disponibilità del Bluetooth per la diagnostica della connessione a RC 2. Questa verifica non registra audio e non stabilisce una connessione come microfono.";
+"NSMicrophoneUsageDescription" = "Quando attivi il microfono del telefono, la tua voce va in diretta al posto dell'audio del drone.";

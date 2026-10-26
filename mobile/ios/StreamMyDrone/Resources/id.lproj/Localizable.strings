@@ -241,6 +241,11 @@
 "output_ready" = "Platform sudah menerima siaran";
 "output_ready_secure" = "Sertifikat terverifikasi; platform sudah menerima siaran";
 "output_stopped" = "Penerusan dihentikan";
+"phone_mic" = "Mikrofon ponsel";
+"phone_mic_chip" = "Mik aktif";
+"phone_mic_failed" = "Mikrofon ponsel berhenti: %1$@";
+"phone_mic_on" = "Mikrofon ponsel aktif: suara Anda menggantikan suara drone dalam siaran.";
+"phone_mic_permission" = "Izinkan akses mikrofon untuk berbicara selama siaran. Jika permintaan tidak muncul, izinkan di pengaturan ponsel.";
 "pick_platform_first" = "Pilih platform dulu";
 "pick_platforms_hint" = "Ketuk satu atau beberapa platform; siaran dikirim ke semuanya sekaligus. Alamat server sudah siap, Anda cukup memasukkan stream key.";
 "picture_fill" = "Penuhi layar";

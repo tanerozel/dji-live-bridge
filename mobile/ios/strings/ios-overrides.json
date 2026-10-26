@@ -458,5 +458,22 @@
     "id": "Laporan berisi kode status dan versi iOS, tanpa nama, pengenal, atau alamat perangkat.",
     "it": "Il rapporto contiene codici di stato e la versione di iOS, senza nomi, identificativi o indirizzi dei dispositivi.",
     "tr": "Rapor durum kodlarını ve iOS sürümünü içerir; cihaz adı, kimlik veya adres içermez."
+  },
+  "ios_microphone_usage": {
+    "en": "When you turn on the phone microphone, your voice goes out on the broadcast in place of the drone's sound.",
+    "es": "Cuando activas el micrófono del teléfono, tu voz sale en la emisión en lugar del sonido del dron.",
+    "zh-Hans": "开启手机麦克风后，直播中将用你的声音代替无人机的声音。",
+    "zh-Hant": "開啟手機麥克風後，直播中將以你的聲音取代無人機的聲音。",
+    "ar": "عند تشغيل ميكروفون الهاتف، يُبث صوتك بدلًا من صوت الدرون.",
+    "hi": "जब आप फ़ोन का माइक्रोफ़ोन चालू करते हैं, तो प्रसारण में ड्रोन की आवाज़ की जगह आपकी आवाज़ जाती है।",
+    "pt": "Quando você liga o microfone do celular, sua voz vai para a transmissão no lugar do som do drone.",
+    "ru": "Когда вы включаете микрофон телефона, в трансляции вместо звука дрона звучит ваш голос.",
+    "fr": "Lorsque vous activez le micro du téléphone, votre voix est diffusée à la place du son du drone.",
+    "de": "Wenn du das Handymikrofon einschaltest, geht deine Stimme statt des Drohnentons in die Übertragung.",
+    "ja": "スマートフォンのマイクをオンにすると、配信ではドローンの音の代わりにあなたの声が流れます。",
+    "ko": "휴대폰 마이크를 켜면 방송에서 드론 소리 대신 내 목소리가 나갑니다.",
+    "id": "Saat Anda menyalakan mikrofon ponsel, suara Anda disiarkan sebagai pengganti suara drone.",
+    "it": "Quando attivi il microfono del telefono, la tua voce va in diretta al posto dell'audio del drone.",
+    "tr": "Telefon mikrofonunu açtığında yayında drone sesi yerine senin sesin gider."
   }
 }

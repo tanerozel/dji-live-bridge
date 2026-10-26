@@ -105,7 +105,8 @@ struct DroneControls: View {
         InfoChips(
             videoSize: showPicture ? model.picture.videoSize : nil,
             bitrateKbps: state.snapshot.bitrateKbps,
-            lan: model.lan
+            lan: model.lan,
+            phoneMicrophone: state.microphoneOn
         )
     }
 
@@ -358,11 +359,13 @@ private struct StatusCard: View {
     }
 }
 
-/// The picture's size, the incoming bitrate and how the phone is connected.
+/// The picture's size, the incoming bitrate, how the phone is connected and whether the phone's
+/// microphone is on air.
 private struct InfoChips: View {
     let videoSize: CGSize?
     let bitrateKbps: Double
     let lan: LanAddress?
+    let phoneMicrophone: Bool
 
     var body: some View {
         HStack(spacing: 6) {
@@ -376,6 +379,7 @@ private struct InfoChips: View {
                 case .wired, .other: chip("network", tr("net_local"))
                 }
             }
+            if phoneMicrophone { MicrophoneChip() }
             Spacer(minLength: 0)
         }
     }
@@ -385,6 +389,29 @@ private struct InfoChips: View {
             Image(systemName: systemImage).font(.system(size: 11, weight: .semibold))
             Text(text).font(.caption.weight(.medium)).lineLimit(1)
                 .environment(\.layoutDirection, numbers ? .leftToRight : Localizer.shared.isRightToLeft ? .rightToLeft : .leftToRight)
+        }
+        .foregroundStyle(.white)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 5)
+        .glass(Capsule())
+    }
+}
+
+/// The phone's microphone is on, with a meter so the pilot sees their voice reaching it.
+private struct MicrophoneChip: View {
+    private var level: Float { PhoneMicrophoneLevel.shared.value }
+
+    var body: some View {
+        HStack(spacing: 5) {
+            Image(systemName: "mic.fill").font(.system(size: 11, weight: .semibold)).foregroundStyle(DroneColors.ready)
+            Text(tr("phone_mic_chip")).font(.caption.weight(.medium)).lineLimit(1)
+            Capsule()
+                .fill(.white.opacity(0.2))
+                .frame(width: 28, height: 4)
+                .overlay(alignment: .leading) {
+                    Capsule().fill(DroneColors.ready).frame(width: 28 * CGFloat(min(max(level, 0), 1)))
+                }
+                .animation(.linear(duration: 0.1), value: level)
         }
         .foregroundStyle(.white)
         .padding(.horizontal, 10)
@@ -863,6 +890,7 @@ private struct ActionRow: View {
                     }
                 }
             }
+            if model.relay.state.isActive { MicrophoneButton() }
             Menu {
                 if !live { Button { onPlatforms() } label: { Label(tr("platforms"), systemImage: "square.grid.2x2") } }
                 Button { onDetails() } label: { Label(tr("technical_details"), systemImage: "info.circle") }
@@ -877,6 +905,28 @@ private struct ActionRow: View {
             }
             .accessibilityLabel(tr("more"))
         }
+    }
+}
+
+/// Turns the phone's microphone on air or off; green while the pilot's voice goes out.
+private struct MicrophoneButton: View {
+    @Environment(AppModel.self) private var model
+
+    var body: some View {
+        let on = model.relay.state.microphoneOn
+        Button { model.toggleMicrophone() } label: {
+            let icon = Image(systemName: on ? "mic.fill" : "mic.slash.fill")
+                .font(.system(size: 20, weight: .semibold))
+                .frame(width: Metrics.squareAction, height: Metrics.squareAction)
+            if on {
+                icon.foregroundStyle(.black).background(DroneColors.ready, in: Circle())
+            } else {
+                icon.foregroundStyle(.white).glass(Circle())
+            }
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(tr("phone_mic"))
+        .accessibilityAddTraits(on ? [.isToggle, .isSelected] : .isToggle)
     }
 }
 

@@ -29,6 +29,16 @@ char *_Nonnull djr_snapshot_json(void);
 /// Stops every platform output and the receiver.
 void djr_stop(void);
 
+/// Sends the phone's microphone in place of DJI Fly's audio; config is the AAC encoder's
+/// AudioSpecificConfig. An error code or NULL.
+char *_Nullable djr_phone_audio_start(const uint8_t *_Nullable config, size_t length);
+
+/// One raw AAC frame (no ADTS header) of the microphone, captured at pts_us on the app's clock.
+void djr_phone_audio_frame(int64_t pts_us, const uint8_t *_Nullable data, size_t length);
+
+/// Gives the broadcast DJI Fly's audio back.
+void djr_phone_audio_stop(void);
+
 void djr_string_free(char *_Nullable value);
 
 /// One video tag of the preview: its RTMP timestamp and the FLV video tag body.

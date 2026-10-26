@@ -241,6 +241,11 @@
 "output_ready" = "平台已接受推流";
 "output_ready_secure" = "证书已验证；平台已接受推流";
 "output_stopped" = "转发已停止";
+"phone_mic" = "手机麦克风";
+"phone_mic_chip" = "麦克风已开";
+"phone_mic_failed" = "手机麦克风已停止：%1$@";
+"phone_mic_on" = "手机麦克风已开启：直播中用你的声音代替无人机的声音。";
+"phone_mic_permission" = "要在直播时讲话，请允许使用麦克风。如果没有出现提示，请在手机设置中允许。";
 "pick_platform_first" = "请先选择一个平台";
 "pick_platforms_hint" = "点击一个或多个平台，直播会同时推送到所有选中的平台。服务器地址已预先填好，你只需输入推流密钥。";
 "picture_fill" = "填满屏幕";

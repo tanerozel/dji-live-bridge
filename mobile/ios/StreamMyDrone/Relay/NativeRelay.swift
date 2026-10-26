@@ -21,6 +21,24 @@ enum NativeRelay {
         djr_end_live(outputId ?? "")
     }
 
+    /// Sends the phone's microphone in place of DJI Fly's audio; `config` is the AAC encoder's
+    /// AudioSpecificConfig. An error code or nil.
+    static func phoneAudioStart(config: Data) -> String? {
+        config.withUnsafeBytes { bytes in
+            take(djr_phone_audio_start(bytes.bindMemory(to: UInt8.self).baseAddress, bytes.count))
+        }
+    }
+
+    /// One raw AAC frame of the microphone, captured at `ptsUs` on the app's own clock.
+    static func phoneAudioFrame(ptsUs: Int64, bytes: UnsafePointer<UInt8>, length: Int) {
+        djr_phone_audio_frame(ptsUs, bytes, length)
+    }
+
+    /// Gives the broadcast DJI Fly's audio back.
+    static func phoneAudioStop() {
+        djr_phone_audio_stop()
+    }
+
     static func snapshotJson() -> Data {
         let json = djr_snapshot_json()
         defer { djr_string_free(json) }

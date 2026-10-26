@@ -270,6 +270,28 @@ internal fun RelayScreen(
         request?.let(::goLive)
     }
 
+    val microphonePermissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission(),
+    ) { granted ->
+        if (granted) {
+            RelayForegroundService.setMicrophone(context, true)
+            showMessage(uiText(R.string.phone_mic_on))
+        } else {
+            showMessage(uiText(R.string.phone_mic_permission))
+        }
+    }
+
+    fun toggleMicrophone() {
+        when {
+            RelayServiceState.value.microphoneOn -> RelayForegroundService.setMicrophone(context, false)
+            ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED -> {
+                RelayForegroundService.setMicrophone(context, true)
+                showMessage(uiText(R.string.phone_mic_on))
+            }
+            else -> microphonePermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+        }
+    }
+
     fun continueStart(request: BroadcastStartRequest) {
         val needsNotificationPermission = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
             ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
@@ -528,6 +550,7 @@ internal fun RelayScreen(
                         onShowLanguagePicker = { showLanguagePicker = true },
                         onShowThemePicker = { showThemePicker = true },
                         onShowGuide = { showGuide = true },
+                        onMicrophoneToggle = ::toggleMicrophone,
                     )
                 }
             }

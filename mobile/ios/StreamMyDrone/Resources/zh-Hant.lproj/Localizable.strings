@@ -241,6 +241,11 @@
 "output_ready" = "平台已接受串流";
 "output_ready_secure" = "憑證已驗證；平台已接受串流";
 "output_stopped" = "轉送已停止";
+"phone_mic" = "手機麥克風";
+"phone_mic_chip" = "麥克風已開";
+"phone_mic_failed" = "手機麥克風已停止：%1$@";
+"phone_mic_on" = "手機麥克風已開啟：直播中以你的聲音取代無人機的聲音。";
+"phone_mic_permission" = "要在直播時說話，請允許使用麥克風。如果沒有出現提示，請在手機設定中允許。";
 "pick_platform_first" = "請先選擇平台";
 "pick_platforms_hint" = "點選一個或多個平台，直播會同時傳送到所有平台。伺服器位址已設定好，你只需要輸入串流金鑰。";
 "picture_fill" = "填滿螢幕";

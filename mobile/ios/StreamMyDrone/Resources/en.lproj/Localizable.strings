@@ -241,6 +241,11 @@
 "output_ready" = "The platform accepted the stream";
 "output_ready_secure" = "Certificate verified; the platform accepted the stream";
 "output_stopped" = "Forwarding stopped";
+"phone_mic" = "Phone microphone";
+"phone_mic_chip" = "Mic on";
+"phone_mic_failed" = "The phone's microphone stopped: %1$@";
+"phone_mic_on" = "Phone microphone on: your voice replaces the drone's sound on the broadcast.";
+"phone_mic_permission" = "Allow microphone access to talk over the broadcast. If no prompt appears, allow it in the phone's settings.";
 "pick_platform_first" = "Pick a platform first";
 "pick_platforms_hint" = "Tap one or more platforms; the stream goes to all of them at once. The server address is ready, you only enter the stream key.";
 "picture_fill" = "Fill the screen";

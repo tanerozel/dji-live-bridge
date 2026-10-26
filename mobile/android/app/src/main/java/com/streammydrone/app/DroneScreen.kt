@@ -68,6 +68,7 @@ import androidx.compose.material.icons.rounded.Lan
 import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.Lightbulb
 import androidx.compose.material.icons.rounded.Mic
+import androidx.compose.material.icons.rounded.MicOff
 import androidx.compose.material.icons.rounded.MoreHoriz
 import androidx.compose.material.icons.rounded.Movie
 import androidx.compose.material.icons.rounded.Palette
@@ -191,6 +192,8 @@ internal fun DroneScreen(
     onShowLanguagePicker: () -> Unit,
     onShowThemePicker: () -> Unit,
     onShowGuide: () -> Unit,
+    /** Turns the phone's microphone on or off for the broadcast. */
+    onMicrophoneToggle: () -> Unit = {},
 ) {
     val snapshot = serviceState.snapshot
     val liveDestinations = serviceState.liveProfileIds.mapNotNull { id -> destinations.profiles.firstOrNull { it.id == id } }
@@ -268,6 +271,7 @@ internal fun DroneScreen(
                     onShowLanguagePicker = onShowLanguagePicker,
                     onShowThemePicker = onShowThemePicker,
                     onShowGuide = onShowGuide,
+                    onMicrophoneToggle = onMicrophoneToggle,
                 )
             }
         }
@@ -340,6 +344,7 @@ private fun Controls(
     onShowLanguagePicker: () -> Unit,
     onShowThemePicker: () -> Unit,
     onShowGuide: () -> Unit,
+    onMicrophoneToggle: () -> Unit,
 ) {
     val snapshot = serviceState.snapshot
     val live = serviceState.isLive
@@ -376,6 +381,7 @@ private fun Controls(
             bitrateKbps = snapshot.bitrateKbps,
             lan = lan,
             microphone = VirtualMicrophoneControlState.value.phase == VirtualMicrophoneControlPhase.CONNECTED,
+            phoneMicrophone = serviceState.microphoneOn,
         )
     }
     val connect: @Composable (Modifier) -> Unit = { modifier ->
@@ -483,6 +489,9 @@ private fun Controls(
             onPlatforms = onPlatforms,
             onDetails = onDetails,
             onVirtualMicrophone = onVirtualMicrophone,
+            // Only a running receiver can record; the button comes with it.
+            microphoneOn = serviceState.microphoneOn.takeIf { serviceState.isActive },
+            onMicrophone = onMicrophoneToggle,
             modifier = modifier,
         )
     }
@@ -976,10 +985,13 @@ private fun StatusCaption(text: String) {
     )
 }
 
-/** The picture's size, the incoming bitrate, how the phone is connected and whether RC 2 has it as its microphone. */
+/**
+ * The picture's size, the incoming bitrate, how the phone is connected, whether RC 2 has it as its
+ * microphone and whether the phone's own microphone is on air.
+ */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun InfoChips(videoSize: String?, bitrateKbps: Double, lan: LanAddress?, microphone: Boolean) {
+private fun InfoChips(videoSize: String?, bitrateKbps: Double, lan: LanAddress?, microphone: Boolean, phoneMicrophone: Boolean) {
     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
         // Numbers read left to right in every language: "1280×720" must not turn into "720×1280".
         videoSize?.let { InfoChip(Icons.Rounded.Hd, it, numbers = true) }
@@ -993,6 +1005,36 @@ private fun InfoChips(videoSize: String?, bitrateKbps: Double, lan: LanAddress?,
             InfoChip(icon, networkName(kind))
         }
         if (microphone) InfoChip(Icons.Rounded.Mic, stringResource(R.string.vmic_chip), tint = ReadyColor)
+        if (phoneMicrophone) MicrophoneChip()
+    }
+}
+
+/** The phone's microphone is on, with a meter so the pilot sees their voice reaching it. */
+@Composable
+private fun MicrophoneChip() {
+    val level by animateFloatAsState(PhoneMicrophoneLevel.value.coerceIn(0f, 1f), label = "level")
+    Row(
+        modifier = Modifier
+            .glass(CircleShape)
+            .padding(horizontal = 10.dp, vertical = 5.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(5.dp),
+    ) {
+        Icon(Icons.Rounded.Mic, contentDescription = null, tint = ReadyColor, modifier = Modifier.size(14.dp))
+        Text(text = stringResource(R.string.phone_mic_chip), color = Color.White, style = MaterialTheme.typography.labelMedium, maxLines = 1)
+        Box(
+            modifier = Modifier
+                .size(width = 28.dp, height = 4.dp)
+                .clip(CircleShape)
+                .background(Color.White.copy(alpha = 0.2f)),
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth(level)
+                    .background(ReadyColor),
+            )
+        }
     }
 }
 
@@ -1647,6 +1689,9 @@ private fun ActionRow(
     onPlatforms: () -> Unit,
     onDetails: () -> Unit,
     onVirtualMicrophone: () -> Unit,
+    /** Whether the phone's microphone is on, or null when there is no button for it. */
+    microphoneOn: Boolean?,
+    onMicrophone: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -1680,6 +1725,7 @@ private fun ActionRow(
                 modifier = Modifier.weight(1f),
             )
         }
+        microphoneOn?.let { on -> MicrophoneAction(on = on, onClick = onMicrophone) }
         MenuButton(
             items = buildList {
                 if (!live) add(MenuEntry(R.string.platforms, Icons.Rounded.GridView, onPlatforms))
@@ -1702,6 +1748,30 @@ private fun SquareAction(icon: ImageVector, label: String, onClick: () -> Unit) 
         contentAlignment = Alignment.Center,
     ) {
         Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(ICON))
+    }
+}
+
+/** Turns the phone's microphone on air or off; green while the pilot's voice goes out. */
+@Composable
+private fun MicrophoneAction(on: Boolean, onClick: () -> Unit) {
+    val label = stringResource(R.string.phone_mic)
+    Box(
+        modifier = Modifier
+            .size(SQUARE_ACTION_SIZE)
+            .then(if (on) Modifier.clip(CircleShape).background(ReadyColor) else Modifier.glass(CircleShape))
+            .clickable(role = Role.Switch, onClick = onClick)
+            .semantics {
+                contentDescription = label
+                toggleableState = ToggleableState(on)
+            },
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            if (on) Icons.Rounded.Mic else Icons.Rounded.MicOff,
+            contentDescription = null,
+            tint = if (on) Color.Black else Color.White,
+            modifier = Modifier.size(ICON),
+        )
     }
 }
 

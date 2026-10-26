@@ -2,3 +2,4 @@
 
 "NSLocalNetworkUsageDescription" = "遙控器上的 DJI Fly 會透過區域網路將無人機畫面傳送到這支手機。";
 "NSBluetoothAlwaysUsageDescription" = "檢查藍牙是否可用於 RC 2 連線診斷。此檢查不會錄音，也不會以麥克風身分連接。";
+"NSMicrophoneUsageDescription" = "開啟手機麥克風後，直播中將以你的聲音取代無人機的聲音。";

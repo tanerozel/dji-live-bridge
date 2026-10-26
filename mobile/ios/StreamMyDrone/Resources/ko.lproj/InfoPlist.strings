@@ -2,3 +2,4 @@
 
 "NSLocalNetworkUsageDescription" = "조종기의 DJI Fly가 로컬 네트워크를 통해 드론 영상을 이 휴대폰으로 보냅니다.";
 "NSBluetoothAlwaysUsageDescription" = "RC 2 연결 진단을 위해 Bluetooth 사용 가능 여부를 확인합니다. 이 검사는 오디오를 녹음하거나 마이크로 연결하지 않습니다.";
+"NSMicrophoneUsageDescription" = "휴대폰 마이크를 켜면 방송에서 드론 소리 대신 내 목소리가 나갑니다.";

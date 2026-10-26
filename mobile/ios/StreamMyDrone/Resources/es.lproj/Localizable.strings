@@ -241,6 +241,11 @@
 "output_ready" = "La plataforma aceptó la transmisión";
 "output_ready_secure" = "Certificado verificado; la plataforma aceptó la transmisión";
 "output_stopped" = "Reenvío detenido";
+"phone_mic" = "Micrófono del teléfono";
+"phone_mic_chip" = "Micro activo";
+"phone_mic_failed" = "El micrófono del teléfono se detuvo: %1$@";
+"phone_mic_on" = "Micrófono del teléfono activado: tu voz sustituye al sonido del dron en la emisión.";
+"phone_mic_permission" = "Permite el acceso al micrófono para hablar durante la emisión. Si no aparece la solicitud, permítelo en los ajustes del teléfono.";
 "pick_platform_first" = "Elige primero una plataforma";
 "pick_platforms_hint" = "Toca una o varias plataformas; la transmisión llega a todas a la vez. La dirección del servidor ya está configurada: solo tienes que introducir la clave de transmisión.";
 "picture_fill" = "Llenar la pantalla";

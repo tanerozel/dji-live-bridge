@@ -200,11 +200,23 @@ private struct DronePictureLayer: UIViewRepresentable {
 }
 
 /// Picture in Picture needs a playback audio session. The app plays no sound, so it mixes with
-/// whatever else plays instead of interrupting it.
+/// whatever else plays instead of interrupting it. While the phone's microphone is on the
+/// broadcast, the session records as well.
+@MainActor
 enum PlaybackSession {
+    static var recording = false
+
     static func activate() {
+        try? configure()
+    }
+
+    static func configure() throws {
         let session = AVAudioSession.sharedInstance()
-        try? session.setCategory(.playback, mode: .moviePlayback, options: [.mixWithOthers])
-        try? session.setActive(true)
+        if recording {
+            try session.setCategory(.playAndRecord, mode: .default, options: [.mixWithOthers, .defaultToSpeaker])
+        } else {
+            try session.setCategory(.playback, mode: .moviePlayback, options: [.mixWithOthers])
+        }
+        try session.setActive(true)
     }
 }
