@@ -790,7 +790,7 @@ private struct StreamToCard: View {
     }
 }
 
-private let mainPlatforms: Set<DestinationKind> = [.instagram, .tiktok, .youtube, .facebook]
+private let mainPlatforms: Set<DestinationKind> = [.youtube, .instagram, .facebook, .tiktok]
 /// A tile's height: padding, the platform tile, its name and the switch.
 private let platformSwitchHeight: CGFloat = 8 + Metrics.tileIcon + 6 + 16 + 6 + 18 + 8
 

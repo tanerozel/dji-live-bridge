@@ -66,9 +66,7 @@ struct FacebookProfileEditor: View {
                         HowItWorksCard(steps: [tr("facebook_step_account"), tr("facebook_step_prepare"), tr("facebook_auto_hint")])
                     }
                     if let error { AlertBanner(title: tr("save_failed"), message: error.resolve()) }
-                    if request.profile == nil {
-                        Button(tr("youtube_manual"), action: onManual).font(.subheadline.weight(.semibold)).foregroundStyle(palette.link).disabled(busy)
-                    } else {
+                    if request.profile != nil {
                         Button(tr("facebook_disconnect"), role: .destructive) { disconnect = true }
                             .font(.subheadline.weight(.semibold)).foregroundStyle(palette.dangerText).disabled(busy)
                     }
@@ -82,7 +80,15 @@ struct FacebookProfileEditor: View {
                 if user != nil {
                     PrimaryButton(title: tr("save"), enabled: !busy && (onPage || privacy != nil)) { save() }
                 } else {
-                    PrimaryButton(title: tr("facebook_connect"), enabled: !busy && !model.liveFacebook) { connect() }
+                    // Both ways in sit together: connect the account, or paste a key by hand.
+                    VStack(spacing: 4) {
+                        ConnectButton(kind: .facebook, title: tr("facebook_connect"), enabled: !busy && !model.liveFacebook) { connect() }
+                        if request.profile == nil {
+                            Button(tr("youtube_manual"), action: onManual)
+                                .font(.subheadline.weight(.semibold)).foregroundStyle(palette.link)
+                                .frame(maxWidth: .infinity, minHeight: 44).disabled(busy)
+                        }
+                    }
                 }
             }
             .frame(maxWidth: 560).padding(.horizontal, 20).padding(.vertical, 12)

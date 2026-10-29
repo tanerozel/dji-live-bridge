@@ -1,4 +1,3 @@
-import GoogleSignInSwift
 import SwiftUI
 
 /// The screen for one platform: Instagram, YouTube and Facebook connect themselves, the others take a key.
@@ -108,9 +107,7 @@ struct YouTubeProfileEditor: View {
                         }
                     }
                     if let error { AlertBanner(title: tr("save_failed"), message: error.resolve()) }
-                    if request.profile == nil {
-                        Button(tr("youtube_manual"), action: onManual).font(.subheadline.weight(.semibold)).foregroundStyle(palette.link).disabled(busy)
-                    } else {
+                    if request.profile != nil {
                         Button(tr("youtube_disconnect"), role: .destructive) { disconnect = true }
                             .font(.subheadline.weight(.semibold)).foregroundStyle(palette.dangerText).disabled(busy)
                     }
@@ -124,9 +121,15 @@ struct YouTubeProfileEditor: View {
                 if connected {
                     PrimaryButton(title: tr("save"), enabled: !busy && !channelId.isEmpty && kids != nil) { save() }
                 } else {
-                    // Google's own button, as its sign-in guidelines ask.
-                    GoogleSignInButton(scheme: palette.isDark ? .dark : .light, style: .wide) { connect() }
-                        .disabled(busy || model.liveYouTube)
+                    // Both ways in sit together: connect the account, or paste a key by hand.
+                    VStack(spacing: 4) {
+                        ConnectButton(kind: .youtube, title: tr("youtube_connect"), enabled: !busy && !model.liveYouTube) { connect() }
+                        if request.profile == nil {
+                            Button(tr("youtube_manual"), action: onManual)
+                                .font(.subheadline.weight(.semibold)).foregroundStyle(palette.link)
+                                .frame(maxWidth: .infinity, minHeight: 44).disabled(busy)
+                        }
+                    }
                 }
             }
             .frame(maxWidth: 560).padding(.horizontal, 20).padding(.vertical, 12)

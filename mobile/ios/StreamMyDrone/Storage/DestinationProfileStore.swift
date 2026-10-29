@@ -7,7 +7,7 @@ import Security
  * TikTok and custom servers hand out their own address, so they have none.
  */
 enum DestinationKind: String, CaseIterable, Identifiable {
-    case instagram, tiktok, youtube, facebook, twitch, kick, custom
+    case youtube, instagram, facebook, tiktok, twitch, kick, custom
 
     var id: String { rawValue }
 

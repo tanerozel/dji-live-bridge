@@ -103,7 +103,7 @@ private struct FlowIllustration: View {
             IllustrationCircle { Image(systemName: "iphone").resizable().scaledToFit() }
             arrow
             HStack(spacing: -10) {
-                ForEach([DestinationKind.instagram, .tiktok, .youtube]) { kind in
+                ForEach([DestinationKind.youtube, .instagram, .facebook]) { kind in
                     PlatformTile(kind: kind, size: 44)
                         .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).strokeBorder(palette.background, lineWidth: 2))
                 }

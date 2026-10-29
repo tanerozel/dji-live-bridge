@@ -60,6 +60,29 @@ extension DestinationKind {
     }
 }
 
+/// "Connect account" in the platform's own colors: brand background, white glyph and title.
+struct ConnectButton: View {
+    let kind: DestinationKind
+    let title: String
+    var enabled = true
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 10) {
+                Image("platform-\(kind.rawValue)").resizable().renderingMode(.template).frame(width: 24, height: 24)
+                Text(title).font(.headline)
+            }
+            .foregroundStyle(.white)
+            .frame(maxWidth: .infinity, minHeight: 54)
+            .background(kind.tileBackground, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .opacity(enabled ? 1 : 0.45)
+        }
+        .buttonStyle(.plain)
+        .disabled(!enabled)
+    }
+}
+
 /// The platform's app-icon style tile: brand background with a white glyph.
 struct PlatformTile: View {
     let kind: DestinationKind

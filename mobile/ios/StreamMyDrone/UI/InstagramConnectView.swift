@@ -31,7 +31,6 @@ struct InstagramConnectView: View {
                     }
                     HowItWorksCard(steps: [tr("instagram_step_signin"), tr("instagram_step_prepare"), tr("instagram_modal_help")])
                     if let error { AlertBanner(title: error.resolve()) }
-                    Button(tr("instagram_manual"), action: onManual).font(.subheadline.weight(.semibold)).foregroundStyle(palette.link)
                     if request.profile != nil {
                         Button(role: .destructive) { showDelete = true } label: {
                             Label(tr("delete_platform"), systemImage: "trash").foregroundStyle(palette.dangerText)
@@ -42,10 +41,16 @@ struct InstagramConnectView: View {
                 .padding(.horizontal, 20)
                 .frame(maxWidth: .infinity)
             }
-            PrimaryButton(title: tr("instagram_connect")) { error = model.connectInstagram(request) }
-                .frame(maxWidth: 560)
-                .padding(.horizontal, 20)
-                .padding(.vertical, 12)
+            // Both ways in sit together: connect the account, or paste a key by hand.
+            VStack(spacing: 4) {
+                ConnectButton(kind: .instagram, title: tr("instagram_connect")) { error = model.connectInstagram(request) }
+                Button(tr("instagram_manual"), action: onManual)
+                    .font(.subheadline.weight(.semibold)).foregroundStyle(palette.link)
+                    .frame(maxWidth: .infinity, minHeight: 44)
+            }
+            .frame(maxWidth: 560)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
         }
         .foregroundStyle(palette.text)
         .background(palette.background.ignoresSafeArea())
