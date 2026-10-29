@@ -1,0 +1,245 @@
+{
+  "slug": "dji-air-3-live-stream",
+  "platform": "DJI Air 3",
+  "title": "Transmitir en directo con el DJI Air 3: RC 2 y RC-N2 (guía 2026)",
+  "description": "Haz un directo con tu DJI Air 3 en YouTube, Instagram o Facebook: elige el control, envía el RTMP de DJI Fly a un teléfono u ordenador y comprueba la imagen de salida.",
+  "h1": "Cómo transmitir en directo con un DJI Air 3",
+  "lead": "Tu <strong>DJI Air 3</strong> puede enviar la imagen RTMP de DJI Fly a <strong>Stream My Drone</strong> en un teléfono aparte o a <strong>Stream My Drone</strong> en un Mac o un PC con Windows. El control determina qué dispositivo ejecuta DJI Fly. Sigue la configuración que te corresponda y, antes de despegar, revisa el receptor, el encuadre y el destino.",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "El DJI RC 2 mantiene DJI Fly en su pantalla integrada; un teléfono aparte puede recibir y reenviar la señal.",
+    "El RC-N2 usa un teléfono para DJI Fly. Usa aquí el flujo de escritorio para que la app receptora esté en otro dispositivo.",
+    "La dirección local de recepción va en DJI Fly; las credenciales de las plataformas van en Stream My Drone, en el teléfono o en el ordenador.",
+    "La grabación de la cámara, la vista en directo del control y la transmisión RTMP de salida tienen ajustes de calidad distintos.",
+    "Antes del vuelo, prueba tanto la vista de cámara elegida como la página de visualización de la plataforma."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Controles del Air 3: DJI RC 2 o RC-N2",
+      "blocks": [
+        {
+          "p": "Las <a href=\"https://www.dji.com/air-3/faq\">preguntas frecuentes oficiales del Air 3</a> citan el DJI RC 2 y el DJI RC-N2. Comprueba el modelo impreso en tu control: el DJI RC, el RC-N1 y el RC-N3 son productos distintos, así que sus instrucciones no sustituyen una comprobación de compatibilidad con el Air 3."
+        },
+        {
+          "table": {
+            "head": [
+              "Control",
+              "Dónde vuelas",
+              "Dónde recibes la transmisión"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "DJI Fly en la pantalla integrada",
+                "Stream My Drone en un teléfono aparte, o Stream My Drone en un ordenador"
+              ],
+              [
+                "DJI RC-N2",
+                "DJI Fly en el teléfono conectado por USB",
+                "Stream My Drone en un ordenador, para la configuración que se describe aquí"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "La <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">guía de directos de DJI</a> limita el directo con el RC 2 a 720p y exige un micrófono conectado a partir de DJI Fly v1.16.0. Comprueba los ajustes disponibles en tu control."
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Air 3 con RC 2: transmite en directo sin ordenador",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Instala Stream My Drone en tu teléfono",
+              "d": "Descarga la app desde <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> o el <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a>. El teléfono recibe la transmisión mientras DJI Fly sigue abierto en el RC 2."
+            },
+            {
+              "t": "Conecta el RC 2 y el teléfono",
+              "d": "Conecta los dos a la misma red Wi-Fi con acceso a internet. En el campo, un teléfono Android puede crear el punto de acceso y recibir la transmisión a la vez. Abre Stream My Drone después de elegir la red; en iPhone, permite el acceso a la red local cuando te lo pida."
+            },
+            {
+              "t": "Copia la dirección de recepción en DJI Fly",
+              "d": "Copia la dirección local de recepción completa que muestra Stream My Drone. En DJI Fly, abre GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP e introdúcela. Consulta la <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guía RTMP de DJI Fly</a> para recorrer el menú paso a paso."
+            },
+            {
+              "t": "Inicia la señal de DJI Fly y revisa la vista previa",
+              "d": "Inicia la señal en el control y confirma que llega al teléfono una imagen del dron en movimiento. Comprueba también el sonido, con el micrófono que exija DJI Fly conectado. Mantén Stream My Drone abierta durante la prueba."
+            },
+            {
+              "t": "Elige un destino y confirma la publicación",
+              "d": "Añade una plataforma en Stream My Drone conectando tu cuenta cuando sea posible, o con su URL de servidor y su clave de transmisión. Empieza a reenviar y abre el panel de directos o la página de visualización de la plataforma. Completa cualquier paso de «Go Live» que la plataforma siga pidiendo."
+            }
+          ]
+        },
+        {
+          "note": "El teléfono reenvía el vídeo entrante sin volver a codificarlo. El recorte o el fondo desenfocado de la vista previa no convierten la señal de salida en un vertical 1080×1920. Usa la aplicación de escritorio cuando necesites esa conversión. En iPhone, mantén la app en primer plano durante la configuración; para seguir transmitiendo en segundo plano hace falta Imagen dentro de imagen."
+        }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Air 3 con RC-N2, o una configuración de producción en el escritorio",
+      "blocks": [
+        {
+          "p": "Con el RC-N2, deja DJI Fly abierto en el teléfono conectado al control. Instala <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> en un Mac o un PC con Windows y conecta ese ordenador y el teléfono con DJI Fly a la misma red local. El RC 2 también puede usar esta ruta de escritorio."
+        },
+        {
+          "steps": [
+            {
+              "t": "Busca la dirección RTMP del ordenador",
+              "d": "Abre Stream My Drone y copia la dirección que aparece en Conecta tu dron. Una dirección como <code>rtmp://192.168.1.20:1935/drone</code> es solo un ejemplo; usa la que muestre tu aplicación."
+            },
+            {
+              "t": "Envía DJI Fly a esa dirección",
+              "d": "Introdúcela en los ajustes RTMP de DJI Fly e inicia la señal. Si el cortafuegos del ordenador pregunta, permite las conexiones entrantes en tu red privada. Comprueba la vista previa antes de añadir un destino."
+            },
+            {
+              "t": "Configura la salida y la plataforma",
+              "d": "Elige horizontal para un directo convencional en YouTube o Facebook, o salida vertical para una cuenta con formato vertical. Añade la URL de servidor y la clave actuales del destino, inicia la salida y comprueba el directo en la plataforma."
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "Stream My Drone de escritorio con la dirección RTMP local para DJI Fly, los destinos de las plataformas y el botón para iniciar el directo."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "¿A qué plataforma quieres llegar?",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Plataforma",
+              "Qué preparar",
+              "Guía detallada"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "Una cuenta con las emisiones en directo activadas y una emisión preparada",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Configurar YouTube</a>"
+              ],
+              [
+                "Instagram",
+                "Acceso a Live Producer y credenciales RTMPS vigentes",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Configurar Instagram</a>"
+              ],
+              [
+                "Facebook",
+                "Un directo con su URL de servidor y su clave",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Configurar Facebook</a>"
+              ],
+              [
+                "TikTok",
+                "Acceso RTMP en tu cuenta, o un ordenador con acceso a LIVE Studio",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Configurar TikTok</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "El acceso a cada plataforma depende de tu cuenta. Recibir la señal del dron en la app no te da una clave de transmisión ni publica un directo. Para TikTok LIVE Studio, la aplicación de escritorio también ofrece una <a href=\"../use-your-dji-drone-as-a-webcam/\">cámara virtual</a>. Revisa el panel de cada plataforma para ver el paso de publicación vigente."
+        }
+      ]
+    },
+    {
+      "id": "camera-framing",
+      "h2": "Planifica tus tomas en gran angular, tele y vertical",
+      "blocks": [
+        {
+          "p": "El Air 3 tiene una cámara gran angular y un teleobjetivo medio. Las <a href=\"https://www.dji.com/air-3/faq\">preguntas frecuentes sobre la cámara</a> de DJI también describen la grabación en 9:16 hasta 2.7K/60fps. Son capacidades de la cámara; no determinan la resolución ni la orientación de la señal RTMP que recibe tu app."
+        },
+        {
+          "list": [
+            "<strong>Ensaya cada vista de cámara.</strong> Con el dron en el suelo, selecciona las vistas gran angular y tele en DJI Fly y observa el receptor. Comprueba el encuadre y cualquier transición antes de usarla en un directo.",
+            "<strong>Encuadra pensando en la audiencia.</strong> Un sujeto cerca del borde de una imagen horizontal puede desaparecer con un recorte vertical en el escritorio. Deja margen alrededor del sujeto y revisa la salida real.",
+            "<strong>Comprueba el color en el receptor.</strong> Elige una exposición y un ajuste de color que se vean bien en la señal recibida. Grabar un archivo para etalonarlo después y entregar una imagen en directo lista para ver son tareas distintas."
+          ]
+        },
+        {
+          "note": "Para Instagram o TikTok, revisa las dimensiones reales de entrada en lugar de suponer que el ajuste de grabación vertical del dron produce una señal RTMP vertical. La disposición de la vista previa en la app del teléfono no cambia el vídeo de salida; usa los controles de salida del escritorio cuando necesites convertirlo."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Calidad del directo del Air 3 y datos móviles",
+      "blocks": [
+        {
+          "p": "El archivo grabado por el dron, la vista en directo del control y el vídeo enviado al receptor son salidas distintas. Revisa la resolución de entrada del receptor antes de elegir los ajustes de salida. Reescalar cambia el tamaño de la imagen; no recupera detalle que no está en la señal entrante. El procesamiento de la plataforma puede añadir otro cambio de calidad y más retraso."
+        },
+        {
+          "list": [
+            "<strong>Prueba antes de despegar.</strong> Comprueba el movimiento, el sonido y la página de visualización de la plataforma con el dron todavía en el suelo.",
+            "<strong>Calcula la subida.</strong> Una salida continua de 5 Mbps consume unos 2,25 GB por hora sin contar la sobrecarga de red. Dos destinos así necesitan unos 10 Mbps de subida en total y 4,5 GB por hora.",
+            "<strong>Mantén fuerte el enlace local.</strong> Deja el teléfono o el ordenador cerca del punto de acceso. Una conexión estable importa más que la velocidad máxima anunciada de la red.",
+            "<strong>Vigila el encuadre real de salida.</strong> En el móvil, la disposición de la vista previa es solo local. En el escritorio, comprueba el recorte elegido o la salida con la imagen completa antes de publicar."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Solución de problemas en un directo con el Air 3",
+      "blocks": [
+        {
+          "list": [
+            "<strong>No aparece el menú RTMP:</strong> comprueba el modelo de control, actualiza su firmware y DJI Fly, y busca dentro de Transmission. La app receptora no puede añadir una función que falta en DJI Fly.",
+            "<strong>La imagen es más blanda que la grabación:</strong> compara la entrada del receptor con el ajuste de transmisión de DJI Fly. Un modo de grabación de alta resolución no elimina el límite de directo del control.",
+            "<strong>Falla la conexión:</strong> vuelve a copiar la dirección de la app después de un cambio de red. Usa una red local compartida sin aislamiento de invitados; <code>localhost</code> en el control apunta al propio control.",
+            "<strong>Hay imagen en el teléfono, pero los espectadores no ven nada:</strong> revisa la conexión del destino, la clave de transmisión vigente y el último paso de publicación de la plataforma. Que se reenvíen datos no confirma por sí solo un directo público.",
+            "<strong>La transmisión se corta al cambiar de app en el iPhone:</strong> vuelve a Stream My Drone y comprueba Imagen dentro de imagen. Sin ella, iOS puede suspender el receptor.",
+            "<strong>El directo va a saltos:</strong> prueba primero con un solo destino, revisa la estabilidad de la subida por datos móviles y acerca el receptor al punto de acceso."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Fuentes y guías de modelos relacionados",
+      "blocks": [
+        {
+          "p": "Detalles oficiales del modelo: <a href=\"https://www.dji.com/air-3/faq\">preguntas frecuentes del DJI Air 3</a>. Procedimiento RTMP y límites de los controles: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Firmware y manuales: <a href=\"https://www.dji.com/air-3/downloads\">descargas del DJI Air 3</a>. Consultado el 25 de octubre de 2026; los menús disponibles pueden cambiar con el firmware."
+        },
+        {
+          "p": "Compara con la <a href=\"../dji-air-3s-live-stream/\">guía de directo del Air 3S</a> o la <a href=\"../dji-mini-5-pro-live-stream/\">guía del Mini 5 Pro</a>. Para enviar la misma imagen a varios destinos, sigue la <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">guía de multistreaming</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "¿Puedo transmitir en directo con un Air 3 sin ordenador?",
+      "a": "Con el RC 2, usa Stream My Drone en un teléfono aparte conectado a la misma red local. DJI Fly funciona en el control, el teléfono recibe su señal RTMP y el destino se configura en Stream My Drone."
+    },
+    {
+      "q": "¿Puedo usar como receptor el teléfono conectado al RC-N2?",
+      "a": "Ese teléfono ejecuta DJI Fly para controlar el vuelo. Esta guía usa un ordenador aparte para Stream My Drone, para que DJI Fly pueda seguir abierto. No da por hecho que el teléfono pueda ejecutar a la vez y de forma fiable la app de vuelo y la de reenvío."
+    },
+    {
+      "q": "¿Qué dirección va en DJI Fly?",
+      "a": "La dirección local de recepción completa que muestra Stream My Drone, en el teléfono o en el ordenador. La URL de servidor y la clave de transmisión de la plataforma van en los ajustes de destino de la app receptora."
+    },
+    {
+      "q": "¿Stream My Drone convierte el vídeo en un directo vertical?",
+      "a": "La app móvil reenvía el vídeo que recibe. La disposición de su vista previa no vuelve a codificar la imagen de salida. Stream My Drone en un ordenador ofrece conversión de la salida a vertical."
+    },
+    {
+      "q": "¿Por qué veo la vista previa pero mi audiencia no puede ver el directo?",
+      "a": "La vista previa solo demuestra que la señal local del dron ha llegado. Inicia la salida a un destino, confirma que la plataforma la recibe y completa allí cualquier paso de «Go Live» pendiente."
+    },
+    {
+      "q": "¿La grabación vertical del Air 3 garantiza un directo vertical?",
+      "a": "Comprueba la señal que llega realmente al receptor. El formato de grabación de la cámara y la salida RTMP son cosas distintas. La app móvil reenvía el vídeo entrante, mientras que la app de escritorio ofrece conversión de la salida y controles de encuadre."
+    }
+  ]
+}

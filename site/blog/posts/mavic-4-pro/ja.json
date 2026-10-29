@@ -1,0 +1,239 @@
+{
+  "slug": "dji-mavic-4-pro-live-stream",
+  "platform": "DJI Mavic 4 Pro",
+  "title": "DJI Mavic 4 Pro でライブ配信する方法：RC 2・RC Pro 2 ガイド（2026年）",
+  "description": "DJI Mavic 4 Pro の映像を RC 2 や RC Pro 2 からスマートフォンやパソコンへ送ってライブ配信する方法。DJI Fly の RTMP、マイクの違い、720p の上限、配信先の設定を確認します。",
+  "h1": "DJI Mavic 4 Pro でライブ配信する方法",
+  "lead": "<strong>DJI Mavic 4 Pro</strong> は、DJI Fly の RTMP 映像を別のスマートフォンの <strong>Stream My Drone</strong> や、パソコンの <strong>Stream My Drone</strong> に送れます。出発点はお使いの送信機です。RC 2 と RC Pro 2 はどちらも画面付きですが、マイクのハードウェアが異なります。以下の手順で映像を受信し、配信先を選び、視聴者に実際に何が見えているかを確認しましょう。",
+  "summary": [
+    "RC 2 または RC Pro 2 を使います。DJI の現在の Mavic 4 Pro の設定情報には RC-N 系の送信機は載っていません。",
+    "別のスマートフォンで Stream My Drone を使えば、パソコンなしで受信と転送ができます。",
+    "DJI Fly の RTMP 配信は、機体に記録される高解像度の録画とは別の出力です。",
+    "DJI Fly には受信アプリのローカルアドレスを、受信アプリには配信先の認証情報を入力します。",
+    "離陸前に実際の RTMP メニューとマイクの案内を確認し、そのあと配信先の視聴ページを確認してください。"
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Mavic 4 Pro の映像を送れる送信機は？",
+      "blocks": [
+        {
+          "p": "DJI の<a href=\"https://repair.dji.com/help/content?customId=en-us03400006734&amp;lang=en&amp;re=us&amp;spaceId=34\">機体リンクガイド</a>では、Mavic 4 Pro 用として <strong>DJI RC 2</strong> と <strong>DJI RC Pro 2</strong> が挙げられています。どちらも内蔵画面で DJI Fly が動きます。ほかの機体で使った RC-N1、RC-N2、RC-N3 の手順を流用しないでください。これらはこの機種向けに案内されている送信機ではありません。"
+        },
+        {
+          "table": {
+            "head": [
+              "送信機",
+              "操縦アプリ",
+              "このガイドでの受信側"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "内蔵画面の DJI Fly",
+                "別のスマートフォンの Stream My Drone、またはパソコンの Stream My Drone"
+              ],
+              [
+                "DJI RC Pro 2",
+                "内蔵画面の DJI Fly",
+                "同じく別のスマートフォンまたはパソコンで受信"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "DJI RC Pro 2 は DJI RC Pro とは別の製品です。<a href=\"https://www.dji.com/rc-pro-2/faq\">公式 FAQ</a> でマイクの内蔵が確認できます。RC 2 をお使いの方は外部マイクを用意し、配信を始める前に、お使いの DJI Fly のバージョンで表示される案内に従ってください。"
+        }
+      ]
+    },
+    {
+      "id": "rtmp-check",
+      "h2": "配信を計画する前に RTMP メニューを確認する",
+      "blocks": [
+        {
+          "p": "機体、送信機、DJI Fly を更新し、機体とリンクしてカメラビューに入ります。GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP を開いてください。メニューの名前はバージョンや言語によって異なることがあります。お使いのファームウェアに RTMP がなければ、受信アプリで追加することはできません。"
+        },
+        {
+          "note": "DJI の<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">最新のライブ配信操作ガイド</a>では、RC 2 と RC Pro 2 のどちらも RTMP 出力は <strong>720p</strong> までです。また、DJI Fly v1.16.0 以降の RC 2 ではマイクの接続が必要です。お使いの送信機で選べる出力設定を確認してください。画面が 1080p でも、機体の録画設定が高解像度でも、この上限は変わりません。"
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "パソコンなしの Mavic 4 Pro：スマートフォンで受信する",
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "別のスマートフォンに Stream My Drone を入れる",
+              "d": "<a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> または <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a> からダウンロードします。DJI Fly は RC 2 または RC Pro 2 で開いたままにし、スマートフォンでその映像を受信して転送します。"
+            },
+            {
+              "t": "送信機と受信側を同じネットワークにつなぐ",
+              "d": "インターネットにつながる Wi-Fi を使います。屋外では、受信用の Android スマートフォンがテザリングを兼ねることもできます。ネットワークを選んでから Stream My Drone を開き、iPhone ではローカルネットワークへのアクセスを求められたら許可します。ネットワークを変えたら、表示されるアドレスをもう一度確認してください。"
+            },
+            {
+              "t": "受信アドレスを DJI Fly に入力する",
+              "d": "Stream My Drone に表示されるローカル RTMP アドレスを省略せずにコピーします。DJI Fly で GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP を開きます。表示されるラベルはバージョンによって異なり、アドレスとキーを別々に入力する画面と、RTMP URL をまとめて入力する画面があります。ローカルの受信アドレスに YouTube や Instagram のキーを付け足さないでください。メニューの手順は <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP ガイド</a>を参照してください。"
+            },
+            {
+              "t": "ローカル配信を始めて音声を確認する",
+              "d": "DJI Fly でライブ配信を始め、Stream My Drone に動く映像が表示されることを確認します。地上テストの間に、送信機で選ばれているマイクを確認し、配信先で音声を聞いてみてください。映像は届いても音声が使えない問題は、離陸前のほうが原因を突き止めやすくなります。"
+            },
+            {
+              "t": "配信先を追加して公開する",
+              "d": "アカウント連携が使える配信先ならアカウントを接続し、そうでなければ最新のサーバー URL とストリームキーを Stream My Drone に入力します。転送を始めて配信先のダッシュボードを開きます。別途「ライブ開始」の操作があれば済ませ、実際の視聴ページで見られることを確認してください。"
+            }
+          ]
+        },
+        {
+          "note": "受信用のスマートフォンは送信機とは別の端末です。スマートフォンでの転送では届いた映像がそのまま送られ、プレビューの切り抜きやぼかし背景で新しい縦型の配信が作られるわけではありません。iPhone では設定中はアプリを開いたままにしてください。バックグラウンドで受信を続けられるかはピクチャ・イン・ピクチャに左右されます。"
+        }
+      ],
+      "howto": true
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Mac や Windows で Mavic 4 Pro を本格的に配信する",
+      "blocks": [
+        {
+          "p": "DJI Fly は RC 2 または RC Pro 2 で動かしたままにします。Mac または Windows PC に <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> を入れます。パソコンはローカルネットワーク経由で DJI Fly の RTMP 映像を受信します。この方法では HDMI キャプチャも、送信機からの USB ウェブカメラ接続も使いません。"
+        },
+        {
+          "steps": [
+            {
+              "t": "パソコンのローカル RTMP アドレスをコピーする",
+              "d": "パソコンと DJI Fly を動かす端末を同じネットワークにつなぎます。Stream My Drone で「ドローンを接続」の下にあるアドレスをコピーします。<code>rtmp://192.168.1.20:1935/drone</code> は一例にすぎないので、アプリに表示されたアドレスを使ってください。"
+            },
+            {
+              "t": "映像を送り、受信できたか確かめる",
+              "d": "そのローカルアドレスを DJI Fly に入力して配信を始めます。ファイアウォールに聞かれたら、プライベートネットワークでの接続の受信をアプリに許可してください。配信先を設定する前に、プレビューで映像が動いていることを確認します。"
+            },
+            {
+              "t": "出力を選び、配信先への送信を始める",
+              "d": "横向きか、パソコンでの縦型レイアウトを選び、配信先のサーバー URL とキーを追加します。出力を始め、配信先が受信していることを確かめて公開の操作を済ませます。複数の配信先を同時に有効にする前に、合計で必要なアップロード速度を確認してください。"
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "Stream My Drone のデスクトップ画面。ローカル受信アドレス、配信先、ライブ出力の操作ボタンが表示されています。"
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Mavic 4 Pro の配信をプラットフォームへ送る",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "配信先",
+              "必要なもの",
+              "ガイド"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "ライブ配信の有効化と、準備済みの配信枠",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube の設定</a>"
+              ],
+              [
+                "Instagram",
+                "Live Producer へのアクセスと最新の RTMPS 認証情報",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram の設定</a>"
+              ],
+              [
+                "Facebook",
+                "準備済みのライブ配信と、そのサーバー URL とキー",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Facebook の設定</a>"
+              ],
+              [
+                "TikTok",
+                "アカウントの RTMP 権限、またはパソコンで使える LIVE Studio",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok の設定</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "配信できるかどうかはプラットフォームがアカウントごとに決めます。どちらのアプリも、ストリームキーを発行したり利用条件を回避したりはできません。対応する配信スタジオアプリをパソコンで使う場合は、Stream My Drone の<a href=\"../use-your-dji-drone-as-a-webcam/\">仮想カメラ</a>も使えます。ローカルのプレビューで分かるのは受信できたことで、公開できたことは視聴ページが見られることで確かめます。"
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "録画画質、縦向き撮影と配信",
+      "blocks": [
+        {
+          "p": "機体に記録されるファイル、送信機のライブビュー、受信側に届く RTMP 映像の 3 つは分けて考えてください。配信の画質は、受信した映像のサイズとビットレートで判断します。パソコンで出力を大きくしても、届いた映像にない細部は再現できません。"
+        },
+        {
+          "p": "Mavic 4 Pro は縦向きで撮影でき、DJI は<a href=\"https://repair.dji.com/help/content?customId=01700006877&amp;lang=en&amp;paperDocType=ARTICLE&amp;spaceId=17\">縦向きモードのガイド</a>でその操作を説明しています。向きを変えたあと、RTMP の受信側に実際に何が届くかをテストしてください。縦向き録画の設定、送信機の画面の回転、9:16 での配信は、それぞれ別に確認すべきものです。"
+        },
+        {
+          "list": [
+            "<strong>構図を意識して決める。</strong>送り出される映像を配信先で確認します。スマートフォンではプレビューのレイアウトで再エンコードはされません。パソコンでは、公開したい切り抜きまたは全体表示の出力を選びます。",
+            "<strong>配信先ごとに通信量を見積もる。</strong>5 Mbps で出力し続けると、オーバーヘッドを除いて 1 時間あたり約 2.25 GB を使います。出力が 2 つなら、合計で約 10 Mbps のアップロード速度と 1 時間あたり 4.5 GB が必要です。",
+            "<strong>地上でテストする。</strong>動き、音声、実際の視聴ページを確認します。受信用のスマートフォンはテザリング元の近くに置き、長時間の配信ではバッテリーと温度に気を配ってください。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Mavic 4 Pro のライブ配信がうまくいかないとき",
+      "blocks": [
+        {
+          "list": [
+            "<strong>RTMP の項目がない：</strong>DJI Fly で送信機の機種とソフトウェアのバージョンを確認してください。RC 2 と旧型の DJI RC では機能が異なります。受信側を変えても、送信機でできることは変わりません。",
+            "<strong>DJI Fly がマイクを求める：</strong>RC 2 では対応マイクを接続し、入力をもう一度確認します。RC Pro 2 では、RC 2 の手順が当てはまると考えず、選ばれている入力とマイクの権限を確認してください。",
+            "<strong>接続に失敗する：</strong>受信側の現在のローカル IP アドレスを使ってください。ゲスト Wi-Fi の分離、ファイアウォール、テザリングの切り替えでローカル接続が切れることがあります。<code>localhost</code> は送信機自身を指します。",
+            "<strong>プレビューは動くのに視聴者には何も見えない：</strong>転送の状態、配信先の認証情報、配信先に残っている「ライブ開始」の操作を確認します。",
+            "<strong>iPhone での受信が止まる：</strong>Stream My Drone に戻り、ピクチャ・イン・ピクチャを確認します。これがないと、アプリがバックグラウンドにあるときに iOS が受信を一時停止することがあります。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "公式情報と関連ガイド",
+      "blocks": [
+        {
+          "p": "2026年10月25日に確認：送信機の選択肢は <a href=\"https://repair.dji.com/help/content?customId=en-us03400006734&amp;lang=en&amp;re=us&amp;spaceId=34\">DJI 機体リンクガイド</a>、マイクのハードウェアは <a href=\"https://www.dji.com/rc-pro-2/faq\">DJI RC Pro 2 FAQ</a>、RTMP の制限は <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly ライブ配信操作ガイド</a>、縦向き撮影の操作は <a href=\"https://repair.dji.com/help/content?customId=01700006877&amp;lang=en&amp;paperDocType=ARTICLE&amp;spaceId=17\">DJI 縦向きモード</a>を参照しました。ファームウェアやメニューの内容は変わることがあるので、お使いの組み合わせで確認してください。"
+        },
+        {
+          "p": "前の世代については <a href=\"../dji-mavic-3-live-stream/\">Mavic 3、Classic、Pro の配信ガイド</a>をご覧ください。同じ映像を複数のサービスへ送るなら、<a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">DJI ドローンの同時配信</a>へ進みましょう。"
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "パソコンなしで Mavic 4 Pro のライブ配信はできますか？",
+      "a": "はい。RC 2 または RC Pro 2 で DJI Fly を使い、同じローカルネットワーク上の別のスマートフォンの Stream My Drone でその RTMP 映像を受信します。配信先はスマートフォンアプリで設定し、各プラットフォームで公開されたことを確認してください。"
+    },
+    {
+      "q": "Mavic 4 Pro で RC-N3 とスマートフォンの構成は使えますか？",
+      "a": "DJI の現在のリンクガイドでは、この機体用に RC 2 と RC Pro 2 が挙げられています。このガイドでは、ほかの機種の情報から RC-N 系にも対応していると決めつけず、対応する画面付き送信機を使います。"
+    },
+    {
+      "q": "どちらの送信機にも外部マイクが必要ですか？",
+      "a": "RC Pro 2 にはマイクが内蔵されています。RC 2 については、DJI は Fly v1.16.0 以降でマイクの接続が必要だとしています。飛行前に音声をテストし、お使いの送信機に表示される案内に従ってください。"
+    },
+    {
+      "q": "6K で録画できるなら 6K でライブ配信できますか？",
+      "a": "いいえ。カメラが記録するファイルと DJI Fly の RTMP 出力は別のものです。受信アプリに届いた実際の入力と、配信先で見える映像を確認してください。"
+    },
+    {
+      "q": "YouTube や Instagram の認証情報はどこに入力しますか？",
+      "a": "スマートフォン版またはパソコン版の Stream My Drone の配信先設定に入力します。DJI Fly には、そのアプリに表示されるローカル RTMP アドレスを入力します。"
+    },
+    {
+      "q": "送信機の画面を回転させれば縦型の配信になりますか？",
+      "a": "受信側に届く映像と配信先の視聴ページを確認してください。送信機の画面、カメラの録画の向き、送り出す映像の形式はそれぞれ別のものです。パソコン版の Stream My Drone なら、出力を縦型レイアウトに変換できます。"
+    }
+  ],
+  "published": "2026-10-25",
+  "updated": "2026-10-25"
+}

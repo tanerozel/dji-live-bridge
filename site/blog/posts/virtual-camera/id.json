@@ -1,0 +1,124 @@
+{
+  "slug": "use-your-dji-drone-as-a-webcam",
+  "platform": "Virtual camera",
+  "title": "Jadikan drone DJI sebagai webcam di Mac dan Windows (kamera virtual)",
+  "description": "Ubah drone DJI menjadi webcam untuk TikTok LIVE Studio, OBS, Zoom, Google Meet, atau Teams dengan kamera virtual Stream My Drone. Cara pasang, ide, dan solusi masalah.",
+  "h1": "Ubah drone DJI Anda menjadi webcam komputer",
+  "lead": "Stream My Drone bukan sekadar alat restream. <strong>Kamera virtual</strong>-nya menyerahkan gambar langsung dari DJI Fly ke komputer Anda sebagai kamera biasa bernama <strong>Stream My Drone Camera</strong>, sehingga aplikasi apa pun yang punya menu kamera — TikTok LIVE Studio, OBS, Zoom, Google Meet, Microsoft Teams — bisa menampilkan apa yang dilihat drone Anda. Tanpa stream key, tanpa akun streaming.",
+  "published": "2026-10-02",
+  "updated": "2026-10-21",
+  "summary": [
+    "Stream My Drone menambahkan kamera bernama <strong>Stream My Drone Camera</strong> ke komputer Anda yang menampilkan gambar langsung drone.",
+    "Aplikasi apa pun yang memungkinkan Anda memilih kamera bisa memakainya: TikTok LIVE Studio, OBS, Zoom, Google Meet, Microsoft Teams, atau studio berbasis browser.",
+    "Tidak perlu stream key atau akun platform — drone cukup menjadi sebuah kamera.",
+    "Kameranya vertikal, 1080×1920 pada 30 fps, dan hanya membawa video; mikrofon Anda pilih di aplikasi yang memakainya.",
+    "Untuk panggilan video lanskap, kirim drone lewat OBS dengan tata letak horizontal 16:9 dan gunakan OBS Virtual Camera."
+  ],
+  "sections": [
+    {
+      "id": "what",
+      "h2": "Apa yang dilakukan kamera virtual",
+      "blocks": [
+        { "p": "Biasanya gambar langsung drone dikirim ke platform streaming. Kamera virtual menempuh jalur lain: DJI Fly mengirim gambar lewat RTMP ke Stream My Drone di komputer Anda, lalu aplikasi menyerahkannya ke sistem operasi sebagai kamera. Bagi aplikasi lain, drone Anda terlihat seperti webcam yang tercolok ke komputer." },
+        { "p": "Jadi aplikasi lain itu tidak memerlukan stream key, akun streaming, atau dukungan RTMP. Selama ada menu kamera, drone bisa muncul di sana." },
+        { "list": [
+          "<strong>Nama:</strong> Stream My Drone Camera.",
+          "<strong>Gambar:</strong> vertikal 1080×1920 pada 30 fps. Gambar drone lanskap berada di tengah bingkai dengan bidang hitam di atas dan bawah; tidak ada yang dipotong.",
+          "<strong>Suara:</strong> tidak ada, dan memang disengaja. Anda memilih mikrofon di aplikasi yang memakai kamera, jadi audio tidak pernah terdengar dua kali.",
+          "<strong>Sistem:</strong> macOS 13 atau lebih baru (aplikasi harus berada di folder Applications), serta Windows 10/11."
+        ] }
+      ]
+    },
+    {
+      "id": "uses",
+      "h2": "Apa yang bisa Anda lakukan dengannya",
+      "blocks": [
+        { "p": "Beberapa ide — apa pun yang menerima webcam bisa menampilkan pemandangan dari drone Anda." },
+        { "list": [
+          "<strong>Live di TikTok tanpa stream key.</strong> Pilih kamera di TikTok LIVE Studio dan siaran dari sana. Panduan lengkapnya ada di <a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">panduan TikTok</a>.",
+          "<strong>Buat acara di OBS.</strong> Tambahkan kamera sebagai sumber video dan taruh teks, logo, peta, atau kamera wajah Anda di atas gambar udara, lalu siarkan atau rekam dari OBS.",
+          "<strong>Tunjukkan lokasi lewat panggilan video.</strong> Biarkan klien, tim, atau pihak asuransi melihat atap, lokasi proyek, ladang panel surya, atau lahan secara langsung di Zoom, Google Meet, atau Microsoft Teams, alih-alih mengirim foto setelahnya.",
+          "<strong>Berikan tur virtual.</strong> Ajak penonton melihat properti, area perkemahan, tempat acara, atau sebuah rute dari udara sambil Anda menjelaskannya.",
+          "<strong>Mengajar dan presentasi.</strong> Gunakan pemandangan udara dalam pelajaran, webinar, atau presentasi tentang geografi, pertanian, survei, atau dunia penerbangan itu sendiri.",
+          "<strong>Bergabung ke studio browser.</strong> Studio berbasis browser seperti StreamYard atau Restream Studio biasanya bisa memilih kamera ini seperti webcam lain, jadi drone bisa menjadi salah satu tamu dalam acara multikamera."
+        ] },
+        { "note": "Kamera menampilkan gambar drone selama Stream My Drone terbuka dan DJI Fly sedang mengirim. Jika tidak ada gambar yang masuk, kameranya hitam." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Cara mengubah drone Anda menjadi webcam",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Pasang aplikasi di tempat yang tepat", "d": "Di Mac, seret <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> ke folder Applications; macOS hanya mengizinkan ekstensi kamera dari sana. Di Windows, pemasang mendaftarkan kameranya." },
+          { "t": "Kirim gambar drone ke komputer", "d": "Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP dan tempel alamat yang ditampilkan di tab Siaran aplikasi. Remote dan komputer harus berada di Wi-Fi atau hotspot yang sama. Detailnya ada di <a href=\"../dji-fly-rtmp-live-streaming-setup/\">panduan RTMP DJI Fly</a>." },
+          { "t": "Aktifkan kamera sekali", "d": "Di tab TikTok LIVE Studio, tekan <em>Aktifkan kamera virtual — sekali saja</em>. macOS meminta persetujuan satu kali, di System Settings → General → Login Items &amp; Extensions → Camera Extensions." },
+          { "t": "Mulai kamera", "d": "Saat kartu menunjukkan <em>Siap dimulai</em>, tekan <em>Mulai kamera virtual</em>." },
+          { "t": "Pilih kamera di aplikasi Anda", "d": "Di TikTok LIVE Studio, OBS, Zoom, Meet, atau Teams, buka menu kamera dan pilih <strong>Stream My Drone Camera</strong>. Pilih juga mikrofon Anda di sana." }
+        ] },
+        { "img": "virtual-camera.png", "alt": "Tab TikTok LIVE Studio di Stream My Drone, tempat kamera virtual diaktifkan dan dimulai." },
+        { "note": "Tidak ada drone di dekat Anda? <em>Coba dengan berkas video</em> di tab Siaran mengirim klip rekaman melalui jalur yang sama, jadi Anda bisa menyiapkan kamera di aplikasi sebelum terbang." }
+      ]
+    },
+    {
+      "id": "landscape",
+      "h2": "Panggilan video lanskap: lewat OBS",
+      "blocks": [
+        { "p": "Kamera bawaannya vertikal, karena TikTok LIVE Studio dan platform yang mengutamakan ponsel juga vertikal. Zoom, Meet, dan Teams dirancang untuk kamera lanskap, jadi tergantung aplikasi dan tata letaknya, bingkai tinggi itu ditampilkan dengan bilah lebar atau dipotong, dan gambar drone jadi kecil. Untuk panggilan lanskap, gunakan integrasi OBS opsional: OBS menerima gambar drone utuh di kanvas 1920×1080." },
+        { "steps": [
+          { "t": "Aktifkan OBS WebSocket", "d": "Di OBS, buka Tools → WebSocket Server Settings dan aktifkan servernya (port 4455 secara default)." },
+          { "t": "Hubungkan Stream My Drone ke OBS", "d": "Di tab Lanjutan, di bawah <em>Integrasi OBS opsional</em>, masukkan host, port, dan kata sandi, lalu tekan <em>Simpan koneksi</em>." },
+          { "t": "Pilih tata letak horizontal", "d": "Di tab Siaran, di bawah <em>Gambar dan suara</em>, atur orientasi ke <em>Horizontal 16:9</em>." },
+          { "t": "Siapkan scene", "d": "Saat video drone sudah masuk, tekan <em>Siapkan scene OBS</em>. Aplikasi membuat scene bernama <strong>DJI LIVE</strong>, mengatur kanvas OBS ke 1920×1080, dan menyesuaikan gambar drone ke dalamnya." },
+          { "t": "Mulai OBS Virtual Camera", "d": "Tekan <em>Mulai kamera virtual</em> di samping <em>Kamera virtual OBS</em> pada kartu yang sama, lalu pilih <strong>OBS Virtual Camera</strong> di Zoom, Meet, atau Teams." }
+        ] },
+        { "table": {
+          "head": ["", "Stream My Drone Camera", "OBS Virtual Camera"],
+          "rows": [
+            ["Bentuk", "Vertikal 1080×1920", "Mengikuti tata letak: 1920×1080 atau 1080×1920"],
+            ["Perlu OBS", "Tidak", "Ya, dengan WebSocket aktif"],
+            ["Overlay dan scene", "Tidak", "Ya, semua yang ditawarkan OBS"],
+            ["Paling cocok untuk", "TikTok LIVE Studio, acara vertikal", "Zoom, Meet, Teams, acara lanskap"]
+          ]
+        } },
+        { "img": "advanced.png", "alt": "Tab Lanjutan di Stream My Drone dengan integrasi OBS opsional, tombol Siapkan scene OBS, dan kamera virtual OBS." }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "Tips agar gambarnya bersih",
+      "blocks": [
+        { "list": [
+          "<strong>Pilih satu mikrofon</strong> di aplikasi yang memakai kamera. Kamera drone tidak bersuara, jadi tidak ada yang perlu dibisukan.",
+          "<strong>Wajar ada sedikit jeda.</strong> Gambar berjalan dari drone ke remote, lewat Wi-Fi ke komputer, lalu masuk ke kamera, jadi sedikit tertinggal dari waktu nyata. Itu tidak masalah untuk menunjukkan suatu tempat, tetapi tidak cocok untuk hal yang butuh ketepatan waktu.",
+          "<strong>Gunakan jaringan yang stabil.</strong> Tautan yang lemah antara remote dan komputer terlihat sebagai gambar tersendat. Hotspot ponsel tepat di samping komputer sering lebih baik daripada router yang jauh.",
+          "<strong>720p itu normal.</strong> Remote sering mengirim 720p; kamera menyesuaikannya ke bingkai dan tidak berpura-pura itu 1080p asli.",
+          "<strong>Biarkan aplikasi tetap terbuka.</strong> Menutup Stream My Drone akan menghentikan kamera."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Jika kamera tidak muncul",
+      "blocks": [
+        { "list": [
+          "<strong>Tidak ada di daftar kamera:</strong> mulai kamera virtual terlebih dahulu, lalu tutup dan buka lagi aplikasi yang akan memakainya — banyak aplikasi hanya membaca daftar kamera saat dibuka.",
+          "<strong>macOS tidak pernah meminta persetujuan:</strong> pastikan Stream My Drone dijalankan dari folder Applications, lalu lihat di System Settings → General → Login Items &amp; Extensions → Camera Extensions.",
+          "<strong>Berhenti setelah pembaruan:</strong> mengganti aplikasi membuat macOS mematikan kamera lama. Tekan <em>Mulai kamera virtual</em> lagi; tombol itu meminta aktivasi dengan sendirinya. Jika macOS memintanya, mulai ulang Mac.",
+          "<strong>Gambarnya hitam:</strong> tidak ada video drone yang masuk. Periksa pratinjau di tab Siaran dan alamat RTMP di DJI Fly.",
+          "<strong>Browser tidak menampilkannya:</strong> izinkan akses kamera untuk situs tersebut dan muat ulang halamannya.",
+          "<strong>Windows:</strong> kamera bawaan sudah diuji dengan TikTok LIVE Studio, OBS, dan Zoom. Pilih “Stream My Drone Camera” sebagai sumber video."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Bisakah drone DJI saya dipakai sebagai webcam?", "a": "Bisa. Selama Stream My Drone berjalan dan DJI Fly mengirim RTMP ke sana, drone muncul sebagai kamera bernama Stream My Drone Camera di aplikasi apa pun yang memungkinkan Anda memilih kamera." },
+    { "q": "Apakah bisa dipakai di Zoom, Google Meet, dan Microsoft Teams?", "a": "Aplikasi-aplikasi itu bisa memilih kamera ini seperti webcam lain. Karena kamera bawaannya vertikal, panggilan lanskap akan terlihat lebih baik lewat OBS: siapkan scene OBS dengan tata letak horizontal 16:9 dan pilih OBS Virtual Camera di panggilan." },
+    { "q": "Apakah saya perlu stream key atau akun streaming?", "a": "Tidak. Kamera virtual tetap di komputer Anda dan tidak mengirim apa pun ke platform. Stream key hanya diperlukan saat Stream My Drone sendiri melakukan streaming lewat RTMP." },
+    { "q": "Apakah kamera virtual membawa suara?", "a": "Tidak, hanya video. Pilih mikrofon Anda di aplikasi yang memakai kamera." },
+    { "q": "Drone mana saja yang bisa?", "a": "Drone DJI apa pun yang versi DJI Fly-nya menyediakan RTMP di bawah Live Streaming Platforms. Aplikasi tidak pernah berkomunikasi langsung dengan drone; ia hanya menerima aliran RTMP." },
+    { "q": "Apakah gratis?", "a": "Ya. Stream My Drone gratis dan bersumber terbuka di bawah lisensi MIT, serta tidak berafiliasi dengan DJI, Zoom, Google, atau Microsoft." }
+  ]
+}

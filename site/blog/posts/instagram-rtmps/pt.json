@@ -1,0 +1,82 @@
+{
+  "slug": "why-dji-fly-cannot-stream-to-instagram",
+  "platform": "Instagram problem",
+  "title": "Por que o DJI Fly não faz live no Instagram — e como resolver",
+  "description": "O DJI Fly não tem opção para o Instagram e o cliente RTMP dele não faz o RTMPS criptografado que o Instagram exige. Veja o motivo e como fazer live no Instagram com drone DJI.",
+  "h1": "Por que o DJI Fly não transmite ao vivo no Instagram (e a solução)",
+  "lead": "Você cola a URL de transmissão do Instagram no DJI Fly e nada acontece. O motivo é técnico: <strong>o Instagram só aceita RTMPS</strong>, uma conexão criptografada, e <strong>o DJI Fly só consegue enviar RTMP simples</strong>. A solução é um intermediário que recebe o RTMP do DJI Fly e o repassa ao Instagram por RTMPS — o Stream My Drone faz isso no seu próprio computador, de graça.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "A URL de transmissão do Instagram começa com <code>rtmps://</code> e usa a porta 443; a opção RTMP do DJI Fly não consegue abrir esse tipo de conexão.",
+    "O DJI Fly não lista o Instagram entre as suas plataformas, e o Instagram não tem nenhuma opção para aceitar RTMP simples.",
+    "O Instagram também gera uma chave de transmissão nova a cada live e espera vídeo vertical.",
+    "Solução: DJI Fly → RTMP → Stream My Drone no seu computador → RTMPS → Instagram, em vertical 1080×1920.",
+    "Sem computador, o app Stream My Drone para Android faz o mesmo com um DJI RC 2."
+  ],
+  "sections": [
+    {
+      "id": "why",
+      "h2": "Por que não funciona",
+      "blocks": [
+        { "list": [
+          "<strong>Criptografia.</strong> A URL de transmissão do Instagram tem esta cara: <code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code>. O <em>s</em> significa que o vídeo precisa viajar dentro de uma conexão criptografada (TLS). O cliente RTMP do DJI Fly só envia RTMP sem criptografia, então o Instagram nunca aceita a conexão.",
+          "<strong>Sem opção para o Instagram.</strong> O DJI Fly lista RTMP (e, em alguns controles, outras plataformas regionais) em Live Streaming Platforms, mas não o Instagram.",
+          "<strong>Chaves de uso único.</strong> O Instagram cria uma chave de transmissão nova para cada vídeo ao vivo, então uma chave salva no DJI Fly para de funcionar depois de uma live.",
+          "<strong>Vídeo vertical.</strong> O Instagram é assistido em pé; uma imagem horizontal de drone precisa ser adaptada para ficar boa."
+        ] },
+        { "p": "Nada disso é defeito do seu drone ou da sua conta. Os dois sistemas simplesmente falam versões diferentes do mesmo protocolo." }
+      ]
+    },
+    {
+      "id": "fix",
+      "h2": "A solução: repassar a transmissão do DJI Fly pelo Stream My Drone",
+      "howto": true,
+      "blocks": [
+        { "p": "O Stream My Drone roda um pequeno servidor RTMP no seu Mac ou PC. O DJI Fly transmite para ele pela sua rede local; o app recodifica a imagem em vertical 1080×1920 e a envia ao Instagram por RTMPS." },
+        { "steps": [
+          { "t": "Instale o Stream My Drone", "d": "Baixe para <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS ou Windows</a>. É gratuito e não precisa de mais nada instalado." },
+          { "t": "Envie o drone para o computador", "d": "Coloque o controle e o computador no mesmo Wi-Fi ou ponto de acesso. No DJI Fly, abra GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP e digite o endereço que o app mostra." },
+          { "t": "Crie o vídeo ao vivo no Instagram", "d": "No instagram.com, clique em Criar (+) → Vídeo ao vivo e copie a URL de transmissão e a chave de transmissão." },
+          { "t": "Adicione o Instagram no app", "d": "Cole as duas em um destino do Instagram, deixe <em>Vertical 9:16</em> ativado e pressione INICIAR TRANSMISSÃO." },
+          { "t": "Pressione “Iniciar live” no Instagram", "d": "A janela do Instagram mostra a imagem do drone; pressione “Iniciar live” ali para deixar a transmissão pública." }
+        ] },
+        { "note": "Todos os detalhes do lado do Instagram, incluindo a chave que muda a cada vez, estão no <a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">guia do Instagram</a>." }
+      ]
+    },
+    {
+      "id": "options",
+      "h2": "Outras formas de contornar o problema",
+      "blocks": [
+        { "table": {
+          "head": ["Opção", "Custo", "Bom saber"],
+          "rows": [
+            ["Stream My Drone (Mac, Windows)", "Gratuito, código aberto", "Roda no seu computador; o vídeo nunca passa por servidor de terceiros; várias plataformas ao mesmo tempo."],
+            ["Stream My Drone (Android)", "Compra única", "Substitui o computador quando você voa com o DJI RC 2; repassa para destinos RTMPS."],
+            ["Serviço de retransmissão na nuvem", "Normalmente uma assinatura", "O DJI Fly transmite para o serviço, que repassa ao Instagram; confira se o seu plano permite destinos RTMP personalizados."],
+            ["Controle com HDMI + placa de captura + OBS", "Custo de hardware", "Precisa de um controle com saída HDMI (como o DJI RC Pro) e de uma placa de captura."]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Ainda não está ao vivo?",
+      "blocks": [
+        { "list": [
+          "<strong>Não aparece Vídeo ao vivo em Criar no instagram.com:</strong> o Instagram ainda não liberou a opção para essa conta.",
+          "<strong>A conexão falha na hora:</strong> a chave já foi usada. Abra um novo vídeo ao vivo e atualize a chave.",
+          "<strong>A prévia do Instagram fica preta:</strong> confira primeiro se a prévia do próprio Stream My Drone mostra o drone.",
+          "<strong>Os seguidores não veem nada:</strong> pressione “Iniciar live” no Instagram; receber a transmissão não é o mesmo que publicá-la."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Por que o DJI Fly não transmite para o Instagram?", "a": "O Instagram só aceita RTMPS, uma conexão criptografada, e o DJI Fly envia RTMP simples. Um intermediário como o Stream My Drone recebe a transmissão RTMP e a repassa ao Instagram por RTMPS." },
+    { "q": "Posso só trocar rtmps:// por rtmp:// na URL do Instagram?", "a": "Não. Os servidores de recepção do Instagram esperam a conexão criptografada; uma conexão RTMP sem criptografia é recusada." },
+    { "q": "Preciso do OBS para fazer live no Instagram com drone?", "a": "Não. O Stream My Drone envia a transmissão direto para o Instagram. O OBS só é necessário se você quiser as cenas e sobreposições dele." },
+    { "q": "Posso transmitir no Instagram e no TikTok ao mesmo tempo?", "a": "Sim. Adicione os dois como destinos no Stream My Drone; os dois esperam vídeo vertical, então uma única configuração serve para ambos." },
+    { "q": "É gratuito?", "a": "O Stream My Drone é gratuito e de código aberto. Ele não tem vínculo com a DJI nem com o Instagram." }
+  ]
+}

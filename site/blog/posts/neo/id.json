@@ -1,0 +1,81 @@
+{
+  "slug": "dji-neo-live-stream",
+  "platform": "DJI Neo",
+  "title": "Live streaming DJI Neo: pengaturan Instagram, TikTok, dan YouTube (2026)",
+  "description": "Cara live streaming DJI Neo: mode kontrol yang bisa (ponsel, RC-N3, goggles), RTMP di DJI Fly, dan siaran ke Instagram, TikTok, atau YouTube dengan Stream My Drone.",
+  "h1": "Cara live streaming dengan DJI Neo",
+  "lead": "DJI Neo melakukan streaming lewat <strong>opsi RTMP di DJI Fly</strong>, sama seperti drone DJI yang lebih besar. Kendalanya ada pada cara Anda menerbangkannya: saat ponsel mengendalikan Neo langsung lewat Wi-Fi, Wi-Fi itu terpakai oleh drone. Terbangkan dengan <strong>RC-N3</strong> (atau goggles yang dikabelkan ke ponsel), maka ponsel bebas mengirim siaran ke <strong>Stream My Drone</strong> di komputer Anda, yang meneruskannya ke Instagram, TikTok, YouTube, atau beberapa platform sekaligus.",
+  "published": "2026-10-03",
+  "updated": "2026-10-21",
+  "summary": [
+    "Neo melakukan streaming dari DJI Fly di ponsel Anda: GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP.",
+    "Gunakan <strong>RC-N3</strong>: ponsel tersambung ke remote lewat kabel, sehingga Wi-Fi-nya bisa bergabung ke jaringan komputer.",
+    "Dalam mode hanya ponsel, Wi-Fi ponsel tersambung ke Neo itu sendiri, jadi biasanya tidak bisa menjangkau komputer.",
+    "Dengan goggles, sambungkan goggles ke ponsel yang menjalankan DJI Fly memakai kabel, lalu siarkan dari sana.",
+    "Stream My Drone mengubah siaran menjadi vertikal 1080×1920 untuk Instagram dan TikTok, serta menjangkau Instagram lewat RTMPS."
+  ],
+  "sections": [
+    {
+      "id": "modes",
+      "h2": "Mode kontrol Neo mana yang bisa streaming?",
+      "blocks": [
+        { "p": "Neo bisa diterbangkan dengan tiga cara, dan cara itulah yang menentukan bagaimana siaran keluar dari ponsel. Dalam semua kasus, DJI Fly di ponsel yang melakukan streaming; Stream My Drone di komputer yang menerimanya." },
+        { "table": {
+          "head": ["Cara menerbangkan", "Bisa streaming ke komputer?", "Alasannya"],
+          "rows": [
+            ["Hanya ponsel (Wi-Fi, jarak pendek)", "Biasanya tidak", "Wi-Fi ponsel tersambung ke Neo, jadi tidak berada di jaringan komputer."],
+            ["RC-N3 + ponsel", "Ya — disarankan", "Ponsel berkomunikasi dengan remote lewat kabel; Wi-Fi-nya bergabung ke jaringan yang sama dengan komputer."],
+            ["Goggles + ponsel dengan kabel USB-C", "Ya", "DJI Fly di ponsel menampilkan tampilan langsung dari goggles dan bisa menyiarkannya."]
+          ]
+        } },
+        { "note": "Beberapa ponsel Android bisa menyalakan hotspot sendiri sambil tersambung ke jaringan Wi-Fi. Pada ponsel yang mendukung kedua koneksi sekaligus, sambungkan komputer ke hotspot itu agar bisa menerima siaran DJI Fly. Jalur ini bergantung pada kemampuan berbagi Wi-Fi ponsel tersebut." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Mengatur live streaming Neo dengan RC-N3",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Sambungkan ponsel ke RC-N3", "d": "Terbangkan Neo dengan RC-N3 seperti biasa, ponsel tersambung lewat kabel, DJI Fly terbuka." },
+          { "t": "Satukan ponsel dan komputer di satu jaringan", "d": "Sambungkan Wi-Fi ponsel dan komputer ke Wi-Fi yang sama. Di lapangan, nyalakan hotspot di ponsel kedua atau travel router, lalu sambungkan keduanya ke sana." },
+          { "t": "Buka Stream My Drone", "d": "Pasang <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> di Mac atau PC Windows. Aplikasi menampilkan alamat seperti <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Masukkan alamat di DJI Fly", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, ketik alamatnya lalu mulai. Pratinjau muncul di aplikasi." },
+          { "t": "Pilih platform dan mulai siaran", "d": "Tambahkan Instagram, TikTok, YouTube, atau server RTMP mana pun, biarkan <em>Vertikal 9:16</em> untuk Instagram dan TikTok, lalu tekan MULAI SIARAN." }
+        ] },
+        { "img": "go-live.png", "alt": "Tab Siaran di Stream My Drone dengan alamat RTMP untuk DJI Fly, daftar tujuan, dan tombol MULAI SIARAN." },
+        { "note": "Detail lebih lanjut tentang sisi DJI Fly, jaringan, dan firewall ada di <a href=\"../dji-fly-rtmp-live-streaming-setup/\">panduan RTMP DJI Fly</a>." }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "Tips streaming dengan Neo",
+      "blocks": [
+        { "list": [
+          "<strong>Ponsel Android melakukan streaming dengan bitrate lebih tinggi.</strong> DJI mencantumkan 5 atau 3 Mbps untuk Android dan 2 atau 1 Mbps untuk iOS.",
+          "<strong>Jaga sinyal Wi-Fi ponsel tetap kuat.</strong> Siaran berjalan dari ponsel lewat Wi-Fi ke komputer; tetaplah dekat dengan router atau hotspot.",
+          "<strong>Vertikal untuk media sosial.</strong> Neo merekam lanskap; <em>Gambar utuh</em> mempertahankan seluruh bingkai dengan latar buram, <em>Penuhi layar</em> memotongnya.",
+          "<strong>Latihan di darat.</strong> <em>Coba dengan berkas video</em> di Stream My Drone memeriksa sisi platform sebelum Neo lepas landas."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Jika tidak berhasil",
+      "blocks": [
+        { "list": [
+          "<strong>DJI Fly tidak bisa terhubung:</strong> pastikan Wi-Fi ponsel berada di jaringan komputer, bukan di Wi-Fi milik Neo.",
+          "<strong>Tidak ada opsi RTMP:</strong> perbarui DJI Fly dan firmware Neo; opsinya bergantung pada versi DJI Fly.",
+          "<strong>Gambar tersendat:</strong> ponsel terlalu jauh dari router, atau jaringan berpindah-pindah antara 2,4 dan 5 GHz.",
+          "<strong>Instagram menolak siaran:</strong> buat video live baru di instagram.com dan perbarui kuncinya; setiap kunci hanya berlaku sekali."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Bisakah DJI Neo live streaming?", "a": "Bisa, lewat RTMP di DJI Fly. Untuk streaming ke komputer, terbangkan dengan RC-N3 atau dengan goggles yang dikabelkan ke ponsel, agar Wi-Fi ponsel bebas bergabung ke jaringan komputer." },
+    { "q": "Bisakah saya live streaming Neo saat mengendalikannya hanya dengan ponsel?", "a": "Dalam mode kontrol hanya ponsel, Wi-Fi ponsel tersambung ke Neo. Komputer bisa menerima siaran lewat hotspot ponsel jika ponsel Android tersebut mendukung Wi-Fi dan berbagi hotspot secara bersamaan. Ketersediaannya bergantung pada ponsel." },
+    { "q": "Bisakah DJI Neo siaran ke Instagram atau TikTok?", "a": "Tidak langsung dari DJI Fly. Kirim aliran RTMP DJI Fly ke Stream My Drone, yang meneruskannya ke Instagram lewat RTMPS dan ke TikTok dalam format vertikal 1080×1920." },
+    { "q": "Apakah bisa dengan Neo 2?", "a": "Jika DJI Fly menampilkan RTMP di bawah Live Streaming Platforms untuk drone dan remote Anda, berarti bisa: Stream My Drone hanya menerima aliran RTMP dan tidak pernah berkomunikasi dengan drone." }
+  ]
+}

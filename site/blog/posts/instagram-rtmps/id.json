@@ -1,0 +1,82 @@
+{
+  "slug": "why-dji-fly-cannot-stream-to-instagram",
+  "platform": "Instagram problem",
+  "title": "Kenapa DJI Fly tidak bisa live ke Instagram — dan cara mengatasinya",
+  "description": "DJI Fly tidak punya opsi Instagram dan klien RTMP-nya tidak mendukung RTMPS terenkripsi yang diwajibkan Instagram. Ini penyebabnya, dan cara tetap live dari drone DJI.",
+  "h1": "Kenapa DJI Fly tidak bisa live streaming ke Instagram (dan solusinya)",
+  "lead": "Tempel URL stream Instagram ke DJI Fly, dan tidak terjadi apa-apa. Penyebabnya teknis: <strong>Instagram hanya menerima RTMPS</strong>, koneksi terenkripsi, sedangkan <strong>DJI Fly hanya bisa mengirim RTMP biasa</strong>. Solusinya adalah relay yang menerima RTMP dari DJI Fly lalu meneruskannya ke Instagram lewat RTMPS — Stream My Drone melakukan itu di komputer Anda sendiri, secara gratis.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "URL stream Instagram diawali <code>rtmps://</code> dan memakai port 443; opsi RTMP di DJI Fly tidak bisa membuka koneksi semacam itu.",
+    "DJI Fly tidak mencantumkan Instagram di daftar platformnya, dan Instagram tidak punya pengaturan untuk menerima RTMP biasa.",
+    "Instagram juga memberi stream key baru untuk setiap siaran dan mengharapkan video vertikal.",
+    "Solusi: DJI Fly → RTMP → Stream My Drone di komputer Anda → RTMPS → Instagram, dalam format vertikal 1080×1920.",
+    "Tanpa komputer, aplikasi Android Stream My Drone melakukan hal yang sama dengan DJI RC 2."
+  ],
+  "sections": [
+    {
+      "id": "why",
+      "h2": "Kenapa tidak berhasil",
+      "blocks": [
+        { "list": [
+          "<strong>Enkripsi.</strong> URL stream Instagram terlihat seperti <code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code>. Huruf <em>s</em> berarti video harus dikirim di dalam koneksi terenkripsi (TLS). Klien RTMP DJI Fly hanya mengirim RTMP tanpa enkripsi, jadi Instagram tidak pernah menerima koneksinya.",
+          "<strong>Tidak ada opsi Instagram bawaan.</strong> DJI Fly mencantumkan RTMP (dan di beberapa remote, platform regional lain) di bawah Live Streaming Platforms, tetapi tidak Instagram.",
+          "<strong>Kunci sekali pakai.</strong> Instagram membuat stream key baru untuk setiap video live, jadi kunci yang disimpan di DJI Fly berhenti berfungsi setelah satu siaran.",
+          "<strong>Video vertikal.</strong> Instagram ditonton dalam mode potret; gambar drone lanskap perlu diubah bentuknya agar tampil pas."
+        ] },
+        { "p": "Semua ini bukan kesalahan drone atau akun Anda. Kedua sistem hanya memakai versi berbeda dari protokol yang sama." }
+      ]
+    },
+    {
+      "id": "fix",
+      "h2": "Solusinya: teruskan siaran DJI Fly lewat Stream My Drone",
+      "howto": true,
+      "blocks": [
+        { "p": "Stream My Drone menjalankan server RTMP kecil di Mac atau PC Anda. DJI Fly melakukan streaming ke sana lewat jaringan lokal; aplikasi mengenkode ulang gambar menjadi vertikal 1080×1920 dan mengirimkannya ke Instagram lewat RTMPS." },
+        { "steps": [
+          { "t": "Pasang Stream My Drone", "d": "Unduh untuk <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS atau Windows</a>. Gratis dan tidak perlu memasang apa pun lagi." },
+          { "t": "Kirim siaran drone ke komputer Anda", "d": "Sambungkan remote dan komputer ke satu Wi-Fi atau hotspot. Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP dan masukkan alamat yang ditampilkan aplikasi." },
+          { "t": "Buat video live di Instagram", "d": "Di instagram.com, klik Buat (+) → Video live, lalu salin URL stream dan stream key." },
+          { "t": "Tambahkan Instagram di aplikasi", "d": "Tempel keduanya ke tujuan Instagram, biarkan <em>Vertikal 9:16</em> aktif, lalu tekan MULAI SIARAN." },
+          { "t": "Tekan Go live di Instagram", "d": "Jendela Instagram menampilkan gambar drone; tekan Go live di sana agar siaran menjadi publik." }
+        ] },
+        { "note": "Semua detail di sisi Instagram, termasuk kunci yang berganti setiap kali, ada di <a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">panduan Instagram</a>." }
+      ]
+    },
+    {
+      "id": "options",
+      "h2": "Cara lain untuk mengakalinya",
+      "blocks": [
+        { "table": {
+          "head": ["Pilihan", "Biaya", "Perlu diketahui"],
+          "rows": [
+            ["Stream My Drone (Mac, Windows)", "Gratis, sumber terbuka", "Berjalan di komputer Anda; video tidak pernah melewati server pihak ketiga; beberapa platform sekaligus."],
+            ["Stream My Drone (Android)", "Sekali beli", "Menggantikan komputer saat Anda terbang dengan DJI RC 2; meneruskan ke tujuan RTMPS."],
+            ["Layanan restream berbasis cloud", "Biasanya berlangganan", "DJI Fly melakukan streaming ke layanan itu, lalu layanan meneruskannya ke Instagram; pastikan paket Anda mengizinkan tujuan RTMP kustom."],
+            ["Remote HDMI + capture card + OBS", "Biaya perangkat keras", "Memerlukan remote dengan output HDMI (seperti DJI RC Pro) dan capture card."]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Masih belum live?",
+      "blocks": [
+        { "list": [
+          "<strong>Tidak ada Video live di bawah Buat di instagram.com:</strong> Instagram belum mengaktifkan opsi itu untuk akun tersebut.",
+          "<strong>Koneksi langsung gagal:</strong> kuncinya sudah pernah dipakai. Buka video live baru dan perbarui kuncinya.",
+          "<strong>Pratinjau Instagram tetap hitam:</strong> pastikan dulu pratinjau Stream My Drone sendiri sudah menampilkan drone.",
+          "<strong>Pengikut tidak melihat apa-apa:</strong> tekan Go live di Instagram; menerima siaran tidak sama dengan menayangkannya."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Kenapa DJI Fly tidak bisa streaming ke Instagram?", "a": "Instagram hanya menerima RTMPS, koneksi terenkripsi, sedangkan DJI Fly mengirim RTMP biasa. Relay seperti Stream My Drone menerima aliran RTMP lalu meneruskannya ke Instagram lewat RTMPS." },
+    { "q": "Bisakah saya cukup mengganti rtmps:// menjadi rtmp:// di URL Instagram?", "a": "Tidak. Server penerima Instagram mengharapkan koneksi terenkripsi; koneksi RTMP tanpa enkripsi akan ditolak." },
+    { "q": "Apakah saya perlu OBS untuk live di Instagram dari drone?", "a": "Tidak. Stream My Drone mengirim siaran langsung ke Instagram. OBS hanya diperlukan jika Anda menginginkan scene dan overlay-nya." },
+    { "q": "Bisakah saya siaran ke Instagram dan TikTok sekaligus?", "a": "Bisa. Tambahkan keduanya sebagai tujuan di Stream My Drone; keduanya mengharapkan video vertikal, jadi satu pengaturan cocok untuk keduanya." },
+    { "q": "Apakah gratis?", "a": "Stream My Drone gratis dan bersumber terbuka. Aplikasi ini tidak berafiliasi dengan DJI maupun Instagram." }
+  ]
+}

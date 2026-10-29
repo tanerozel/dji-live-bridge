@@ -1,0 +1,119 @@
+{
+  "slug": "dji-mini-5-pro-live-stream",
+  "platform": "DJI Mini 5 Pro",
+  "title": "DJI Mini 5 Pro でライブ配信する方法：スマホとパソコンの設定（2026年）",
+  "description": "DJI Mini 5 Pro を RC 2 または RC-N3 でライブ配信する方法。DJI Fly の RTMP 設定、スマホまたはパソコンでの受信、YouTube・Instagram・Facebook への配信までを解説します。",
+  "h1": "DJI Mini 5 Pro でライブ配信する方法",
+  "lead": "<strong>DJI Mini 5 Pro</strong> で飛ばしながら、その景色をみんなと共有したいですか？ DJI Fly の RTMP 配信を、別のスマホの <strong>Stream My Drone</strong>、または Mac や Windows パソコンの <strong>Stream My Drone</strong> に送りましょう。このガイドでは、まずお持ちの送信機を確認し、映像の受信からプラットフォームでの公開までを順に説明します。",
+  "published": "2026-10-21",
+  "updated": "2026-10-21",
+  "summary": [
+    "画面付きの DJI RC 2 なら、別のスマホで映像を受信できます。パソコンは不要です。",
+    "RC-N3 では DJI Fly がスマホ上で動きます。以下のパソコンでの設定なら、受信を別のデバイスに任せられます。",
+    "DJI Fly にはローカルの RTMP アドレスを入力し、プラットフォームのサーバー URL とストリームキーは受信アプリに入力します。",
+    "プレビューで分かるのは映像が届いたことだけです。視聴者が見られるかは、プラットフォームのライブページで確認してください。",
+    "カメラの録画解像度が高くても、RTMP 配信の解像度が高くなるわけではありません。"
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "まず送信機を確認：RC 2 か RC-N3 か",
+      "blocks": [
+        { "p": "DJI は <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">DJI Fly のライブ配信対応ガイド</a>に Mini 5 Pro を載せています。<a href=\"https://www.dji.com/my/mini-5-pro/downloads\">公式ダウンロード</a>には DJI RC 2 と DJI RC-N3 の設定ガイドがあります。手順に進む前に、お手元の送信機のラベルを確認してください。" },
+        { "table": {
+          "head": ["送信機", "操縦する場所", "配信を受信する場所"],
+          "rows": [
+            ["DJI RC 2", "内蔵画面の DJI Fly", "別のスマホの Stream My Drone、またはパソコンの Stream My Drone"],
+            ["DJI RC-N3", "USB で接続したスマホの DJI Fly", "ここで説明する設定では、パソコンの Stream My Drone"]
+          ]
+        } },
+        { "note": "DJI RC と DJI RC 2 は別の送信機です。DJI の<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;pbc=BCQ9HQ1u&amp;pm=custom&amp;re=US&amp;spaceId=34\">ライブ配信ガイド</a>によると、RC 2 は DJI Fly v1.16.0 以降でマイクの接続が必要で、720p で配信します。RTMP メニューと使える設定は、お使いのファームウェアで確認してください。" }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Mini 5 Pro と RC 2：パソコンなしでライブ配信",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "スマホに Stream My Drone をインストール", "d": "<a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> または <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a> からアプリを入手します。DJI Fly は RC 2 で開いたまま、スマホが配信を受信します。" },
+          { "t": "RC 2 とスマホを接続", "d": "両方をインターネットにつながる同じ Wi-Fi に接続します。屋外では Android スマホがテザリングのホストになり、そのまま配信を受信できます。ネットワークを選んだら Stream My Drone を開きます。iPhone ではローカルネットワークへのアクセスを求められたら許可してください。" },
+          { "t": "受信アドレスを DJI Fly にコピー", "d": "Stream My Drone に表示されるローカルアドレスをそのまま使います。DJI Fly で GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP を開き、そこにアドレスを入力します。メニューの詳しい手順は <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly の RTMP 設定ガイド</a>にあります。DJI Fly がマイクを求めたら接続してください。" },
+          { "t": "DJI Fly の配信を始めてプレビューを確認", "d": "送信機で配信を開始し、動いているドローン映像がスマホに表示されることを確認します。接続を確かめている間は Stream My Drone を開いたままにしてください。これでローカルの映像リンクができあがります。" },
+          { "t": "配信先を選び、公開されたか確認", "d": "Stream My Drone でプラットフォームを追加します。アカウント連携があればそれを使い、なければサーバー URL とストリームキーを入力します。転送を開始したら、プラットフォームのライブダッシュボードか視聴ページを開きます。プラットフォーム側で Go Live の操作がまだ必要なら、それも済ませてください。" }
+        ] },
+        { "note": "スマホは受け取った映像を再エンコードせずにそのまま転送します。プレビューの切り抜きやぼかし背景によって、送信される映像が縦型 1080×1920 になるわけではありません。その変換が必要ならデスクトップ版を使ってください。iPhone では設定中はアプリを前面に出しておきます。バックグラウンドで配信を続けられるかはピクチャ・イン・ピクチャ次第です。" }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Mini 5 Pro と RC-N3、またはパソコンで本格的に配信",
+      "blocks": [
+        { "p": "RC-N3 の場合は、送信機につないだスマホで DJI Fly を開いたままにします。Mac または Windows パソコンに <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> をインストールし、そのパソコンと DJI Fly のスマホを同じローカルネットワークに接続します。RC 2 でもこのパソコン経由の方法が使えます。" },
+        { "steps": [
+          { "t": "パソコンの RTMP アドレスを確認", "d": "Stream My Drone を開き、「ドローンを接続」の下にあるアドレスをコピーします。<code>rtmp://192.168.1.20:1935/drone</code> のようなアドレスはあくまで例です。アプリに表示されたものを使ってください。" },
+          { "t": "DJI Fly からそのアドレスへ送る", "d": "DJI Fly の RTMP 設定にアドレスを入力し、配信を開始します。パソコンのファイアウォールに聞かれたら、プライベートネットワークでの受信接続を許可してください。配信先を追加する前にプレビューを確認します。" },
+          { "t": "出力とプラットフォームを設定", "d": "一般的な YouTube や Facebook の配信なら横向き、縦型レイアウトのアカウントなら縦向きの出力を選びます。配信先の最新のサーバー URL とキーを追加して出力を開始し、プラットフォーム側で配信を確認します。" }
+        ] },
+        { "img": "go-live.png", "alt": "DJI Fly 用のローカル RTMP アドレス、プラットフォームの配信先、配信を開始ボタンが表示された Stream My Drone のデスクトップ画面。" }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "どのプラットフォームで配信しますか？",
+      "blocks": [
+        { "table": {
+          "head": ["プラットフォーム", "準備するもの", "詳しいガイド"],
+          "rows": [
+            ["YouTube", "ライブ配信が有効なアカウントと、準備済みの配信枠", "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube の設定</a>"],
+            ["Instagram", "Live Producer の利用権限と最新の RTMPS 接続情報", "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram の設定</a>"],
+            ["Facebook", "サーバー URL とキーのあるライブ配信", "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Facebook の設定</a>"],
+            ["TikTok", "アカウントの RTMP 利用権限、または LIVE Studio が使えるパソコン", "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok の設定</a>"]
+          ]
+        } },
+        { "p": "プラットフォームの利用権限はアカウントに属するものです。アプリでドローン映像を受信しても、ストリームキーがもらえたり配信が公開されたりはしません。TikTok LIVE Studio 向けには、デスクトップ版に<a href=\"../use-your-dji-drone-as-a-webcam/\">仮想カメラ</a>もあります。公開のための最新の手順は、各プラットフォームのダッシュボードで確認してください。" }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "画質とモバイル通信量について現実的に考える",
+      "blocks": [
+        { "p": "ドローンで録画されるファイル、送信機に映る映像、RTMP 配信はそれぞれ別の出力です。配信の画質は、受信側に届く入力の解像度とビットレートで判断してください。デスクトップで 720p の入力を拡大すると出力サイズは変わりますが、入力にない細部が戻るわけではありません。" },
+        { "list": [
+          "<strong>離陸前にテストする。</strong>ドローンが地上にある間に、動き、音、プラットフォームの視聴ページを確認します。",
+          "<strong>アップロード量を見込む。</strong>5 Mbps の出力を続けると、ネットワークのオーバーヘッドを除いても 1 時間で約 2.25 GB を使います。同じ配信先が 2 つなら合計約 10 Mbps のアップロードと 1 時間あたり 4.5 GB が必要です。",
+          "<strong>ローカルの接続を安定させる。</strong>スマホやパソコンはテザリングのホストの近くに置きます。ネットワークの公称最大速度より、接続の安定性のほうが大切です。",
+          "<strong>実際に送信される構図を確認する。</strong>モバイルではプレビューのレイアウトは手元だけのものです。デスクトップでは、公開前に選んだ切り抜きか全体表示の出力を確認してください。"
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Mini 5 Pro の配信トラブルシューティング",
+      "blocks": [
+        { "list": [
+          "<strong>RTMP メニューがない：</strong>送信機の機種を確認し、ファームウェアと DJI Fly を更新して、Transmission の中を探してください。DJI Fly にない機能を受信アプリが追加することはできません。",
+          "<strong>接続できない：</strong>ネットワークを変えたら、アプリのアドレスをもう一度コピーします。ゲスト分離のない共有のローカルネットワークを使ってください。送信機で <code>localhost</code> と入れると、送信機自身を指します。",
+          "<strong>スマホには映るのに視聴者には何も見えない：</strong>配信先の接続、最新のストリームキー、プラットフォームでの最後の公開手順を確認します。データが転送されているだけでは、公開配信になっている証拠にはなりません。",
+          "<strong>iPhone でアプリを切り替えると配信が止まる：</strong>Stream My Drone に戻り、ピクチャ・イン・ピクチャを確認します。これがないと iOS が受信アプリを一時停止することがあります。",
+          "<strong>配信がカクつく：</strong>まず配信先を 1 つにして試し、モバイル回線のアップロードの安定性を確認し、受信側をテザリングのホストに近づけます。"
+        ] }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "出典と関連する機種別ガイド",
+      "blocks": [
+        { "p": "送信機の要件と RTMP の制限：<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;pbc=BCQ9HQ1u&amp;pm=custom&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>。対応機種一覧：<a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">DJI の対応ガイド（中国語）</a>。送信機のマニュアル：<a href=\"https://www.dji.com/my/mini-5-pro/downloads\">Mini 5 Pro のダウンロード</a>。2026年10月21日に確認。使えるメニューはファームウェアによって変わることがあります。" },
+        { "p": "1 つ前の機種をお使いですか？ <a href=\"../dji-mini-4-pro-live-stream/\">Mini 4 Pro のライブ配信ガイド</a>をご覧ください。1 つの映像を複数の配信先に送るなら、<a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">同時配信ガイド</a>に進んでください。" }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Mini 5 Pro はパソコンなしでライブ配信できますか？", "a": "RC 2 なら、同じローカルネットワークにつないだ別のスマホで Stream My Drone を使います。DJI Fly は送信機で動き、スマホがその RTMP 配信を受信し、配信先は Stream My Drone で設定します。" },
+    { "q": "RC-N3 につないでいるスマホをそのまま使えますか？", "a": "そのスマホは操縦用の DJI Fly を動かしています。このガイドでは別のパソコンの Stream My Drone を受信側にするので、DJI Fly は開いたままにできます。1 台のスマホで飛行中の操縦と中継の両方をこなせることは前提にしていません。" },
+    { "q": "DJI Fly にはどのアドレスを入力しますか？", "a": "Stream My Drone（スマホ版またはパソコン版）に表示される、ローカルの受信アドレス全体です。プラットフォームのサーバー URL とストリームキーは、受信アプリの配信先設定に入力します。" },
+    { "q": "Stream My Drone は映像を縦型の配信に変換しますか？", "a": "モバイルアプリは受け取った映像をそのまま転送します。プレビューのレイアウトによって送信映像が再エンコードされることはありません。縦型出力への変換は、パソコン版の Stream My Drone にあります。" },
+    { "q": "プレビューは見えるのに、視聴者が見られないのはなぜですか？", "a": "プレビューで分かるのは、ローカルのドローン映像が届いたことだけです。配信先への出力を開始し、プラットフォームが受信していることを確認して、残っている Go Live の操作をそちらで済ませてください。" }
+  ]
+}

@@ -1,0 +1,239 @@
+{
+  "slug": "dji-mavic-4-pro-live-stream",
+  "platform": "DJI Mavic 4 Pro",
+  "title": "Live streaming DJI Mavic 4 Pro: panduan RC 2 dan RC Pro 2 (2026)",
+  "description": "Siarkan DJI Mavic 4 Pro dengan RC 2 atau RC Pro 2 ke ponsel atau komputer. Cek RTMP di DJI Fly, beda mikrofon kedua remote, batas 720p, dan pengaturan platform.",
+  "h1": "Cara live streaming dengan DJI Mavic 4 Pro",
+  "lead": "<strong>DJI Mavic 4 Pro</strong> Anda dapat mengirim gambar RTMP dari DJI Fly ke <strong>Stream My Drone</strong> di ponsel terpisah atau <strong>Stream My Drone</strong> di komputer. Titik awal yang paling berguna adalah remote Anda: RC 2 dan RC Pro 2 sama-sama punya layar, tetapi perangkat keras mikrofonnya berbeda. Ikuti rute di bawah untuk menerima gambar, memilih tujuan, dan memeriksa apa yang benar-benar dilihat penonton.",
+  "summary": [
+    "Gunakan RC 2 atau RC Pro 2; pengaturan Mavic 4 Pro dari DJI saat ini tidak mencantumkan remote RC-N.",
+    "Ponsel terpisah yang menjalankan Stream My Drone memberi Anda pengaturan penerima dan penerus siaran tanpa komputer.",
+    "Siaran RTMP dari DJI Fly adalah keluaran yang terpisah dari rekaman resolusi tinggi di drone.",
+    "Masukkan alamat lokal aplikasi penerima ke DJI Fly, dan kredensial platform ke aplikasi penerima.",
+    "Periksa menu RTMP dan permintaan mikrofon yang sebenarnya sebelum lepas landas, lalu pastikan halaman penonton platform berfungsi."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Remote Mavic 4 Pro mana yang bisa mengirim siaran?",
+      "blocks": [
+        {
+          "p": "<a href=\"https://repair.dji.com/help/content?customId=en-us03400006734&amp;lang=en&amp;re=us&amp;spaceId=34\">Panduan pemasangan drone</a> dari DJI mencantumkan <strong>DJI RC 2</strong> dan <strong>DJI RC Pro 2</strong> untuk Mavic 4 Pro. Keduanya menjalankan DJI Fly di layar bawaannya. Jangan memakai ulang alur kerja RC-N1, RC-N2, atau RC-N3 dari drone lain: remote itu bukan pilihan yang didokumentasikan untuk model ini."
+        },
+        {
+          "table": {
+            "head": [
+              "Remote",
+              "Aplikasi terbang",
+              "Penerima dalam panduan ini"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "DJI Fly di layar bawaan",
+                "Stream My Drone di ponsel terpisah, atau Stream My Drone di komputer"
+              ],
+              [
+                "DJI RC Pro 2",
+                "DJI Fly di layar bawaan",
+                "Rute penerima yang sama: ponsel terpisah atau desktop"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "DJI RC Pro 2 berbeda dari DJI RC Pro. <a href=\"https://www.dji.com/rc-pro-2/faq\">FAQ resminya</a> memastikan adanya mikrofon bawaan. Pengguna RC 2 sebaiknya menyiapkan mikrofon eksternal; ikuti permintaan yang muncul di versi DJI Fly Anda sebelum memulai siaran."
+        }
+      ]
+    },
+    {
+      "id": "rtmp-check",
+      "h2": "Periksa menu RTMP sebelum merencanakan siaran",
+      "blocks": [
+        {
+          "p": "Perbarui drone, remote, dan DJI Fly, pasangkan drone, lalu masuk ke tampilan kameranya. Buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Nama menu bisa berbeda menurut versi dan bahasa. Jika firmware Anda tidak menampilkan RTMP, aplikasi penerima tidak bisa menambahkannya."
+        },
+        {
+          "note": "<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">Panduan operasi livestream terbaru</a> dari DJI membatasi keluaran RTMP RC 2 dan RC Pro 2 hingga <strong>720p</strong>. Panduan itu juga mewajibkan mikrofon tersambung pada RC 2 sejak DJI Fly v1.16.0. Periksa pengaturan keluaran yang tersedia di remote Anda; layar 1080p atau pengaturan rekam drone yang lebih tinggi tidak mengesampingkan batas ini."
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Mavic 4 Pro tanpa komputer: terima siaran di ponsel",
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Pasang Stream My Drone di ponsel terpisah",
+              "d": "Unduh dari <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> atau <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a>. Biarkan DJI Fly terbuka di RC 2 atau RC Pro 2 Anda; ponsel akan menerima dan meneruskan videonya."
+            },
+            {
+              "t": "Hubungkan remote dan penerima ke jaringan yang sama",
+              "d": "Gunakan jaringan Wi-Fi dengan akses internet. Di lapangan, ponsel Android penerima juga bisa menjadi hotspot. Buka Stream My Drone setelah memilih jaringan dan izinkan akses jaringan lokal di iPhone saat diminta. Periksa lagi alamat yang ditampilkan jika Anda berganti jaringan."
+            },
+            {
+              "t": "Masukkan alamat penerima di DJI Fly",
+              "d": "Salin alamat RTMP lokal lengkap yang ditampilkan Stream My Drone. Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Ikuti label di versi Anda: layar yang meminta kolom alamat dan kunci secara terpisah berbeda dengan layar yang meminta URL RTMP lengkap. Jangan tambahkan kunci YouTube atau Instagram Anda ke alamat penerima lokal. Lihat <a href=\"../dji-fly-rtmp-live-streaming-setup/\">panduan RTMP DJI Fly</a> untuk penjelasan menunya."
+            },
+            {
+              "t": "Mulai siaran lokal dan periksa suara",
+              "d": "Mulai livestreaming di DJI Fly, lalu pastikan gambar bergerak muncul di Stream My Drone. Periksa mikrofon yang dipilih di remote dan dengarkan suaranya di platform selama uji darat. Gambar tanpa suara yang layak lebih mudah ditelusuri penyebabnya sebelum lepas landas."
+            },
+            {
+              "t": "Tambahkan tujuan dan tayangkan",
+              "d": "Sambungkan akun platform jika opsi itu tersedia, atau masukkan URL server dan stream key terbaru di Stream My Drone. Mulai penerusan dan buka dasbor platform. Selesaikan langkah Go Live yang terpisah, lalu pastikan halaman penonton benar-benar berfungsi."
+            }
+          ]
+        },
+        {
+          "note": "Ponsel penerima adalah perangkat yang terpisah dari remote. Penerusan di ponsel mempertahankan video yang masuk apa adanya; potongan pratinjau atau latar belakang buram tidak menghasilkan siaran vertikal baru. Di iPhone, biarkan aplikasi tetap terbuka selama pengaturan; penerimaan yang terus berjalan di latar belakang bergantung pada Picture in Picture."
+        }
+      ],
+      "howto": true
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Mavic 4 Pro di Mac atau Windows: produksi lewat desktop",
+      "blocks": [
+        {
+          "p": "Biarkan DJI Fly tetap berjalan di RC 2 atau RC Pro 2 Anda. Pasang <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> di Mac atau PC Windows Anda. Komputer menerima aliran RTMP dari DJI Fly lewat jaringan lokal; pengaturan ini tidak memakai capture HDMI atau koneksi webcam USB dari remote."
+        },
+        {
+          "steps": [
+            {
+              "t": "Salin alamat RTMP lokal komputer",
+              "d": "Sambungkan komputer dan perangkat yang menjalankan DJI Fly ke jaringan yang sama. Di Stream My Drone, salin alamat di bawah Hubungkan drone Anda. <code>rtmp://192.168.1.20:1935/drone</code> hanyalah contoh: gunakan alamat yang ditampilkan aplikasi Anda."
+            },
+            {
+              "t": "Kirim siaran dan pastikan sudah diterima",
+              "d": "Masukkan alamat lokal itu di DJI Fly dan mulai streaming. Jika firewall bertanya, izinkan aplikasi menerima koneksi di jaringan pribadi Anda. Periksa pratinjau yang bergerak sebelum mengatur platform."
+            },
+            {
+              "t": "Pilih keluaran dan mulai tujuan",
+              "d": "Pilih lanskap atau tata letak vertikal desktop, lalu tambahkan URL server dan kunci platform. Mulai keluaran, pastikan platform menerimanya, dan selesaikan langkah penayangannya. Untuk beberapa tujuan, periksa total kebutuhan unggahan sebelum mengaktifkannya bersamaan."
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "Stream My Drone versi desktop menampilkan alamat penerima lokal, daftar tujuan platform, dan kontrol keluaran siaran langsung."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Kirim siaran Mavic 4 Pro Anda ke platform",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Tujuan",
+              "Yang Anda butuhkan",
+              "Panduan"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "Akses live sudah aktif dan siaran yang sudah disiapkan",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Pengaturan YouTube</a>"
+              ],
+              [
+                "Instagram",
+                "Akses Live Producer dan kredensial RTMPS terbaru",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Pengaturan Instagram</a>"
+              ],
+              [
+                "Facebook",
+                "Siaran langsung yang sudah disiapkan beserta URL server dan kuncinya",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Pengaturan Facebook</a>"
+              ],
+              [
+                "TikTok",
+                "Akses RTMP di akun Anda, atau akses LIVE Studio di komputer",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Pengaturan TikTok</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "Kelayakan akun ditentukan oleh platform. Kedua aplikasi tidak memberikan stream key dan tidak bisa melewati persyaratan akses. Untuk alur kerja komputer dengan aplikasi studio yang kompatibel, Stream My Drone juga menyediakan <a href=\"../use-your-dji-drone-as-a-webcam/\">kamera virtual</a>. Pratinjau lokal membuktikan siaran sudah diterima; halaman penonton yang berfungsi membuktikan siaran sudah tayang."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Kualitas rekaman, pengambilan gambar potret, dan siaran Anda",
+      "blocks": [
+        {
+          "p": "Bedakan tiga gambar: berkas yang direkam di drone, tampilan langsung di remote, dan video RTMP yang sampai ke penerima. Nilai siaran berdasarkan ukuran gambar dan bitrate yang diterima. Keluaran desktop yang lebih besar tidak bisa menciptakan kembali detail yang tidak ada di gambar masuk."
+        },
+        {
+          "p": "Mavic 4 Pro bisa merekam secara vertikal, dan DJI menjelaskan kontrolnya di <a href=\"https://repair.dji.com/help/content?customId=01700006877&amp;lang=en&amp;paperDocType=ARTICLE&amp;spaceId=17\">panduan mode potret</a>. Uji apa yang benar-benar diterima penerima RTMP setelah mengubah orientasi. Pengaturan rekam vertikal, layar remote yang diputar, dan siaran 9:16 di platform adalah tiga pemeriksaan yang tidak bisa saling menggantikan."
+        },
+        {
+          "list": [
+            "<strong>Atur bingkai dengan sengaja.</strong> Periksa gambar yang dikirim di platform. Di ponsel, tata letak pratinjau tidak mengenkode ulang gambar; di desktop, pilih potongan atau keluaran gambar utuh yang memang ingin Anda tayangkan.",
+            "<strong>Hitung kebutuhan per tujuan.</strong> Keluaran 5 Mbps yang terus-menerus memakai sekitar 2,25 GB per jam, belum termasuk overhead. Dua keluaran seperti itu membutuhkan unggahan gabungan sekitar 10 Mbps dan 4,5 GB per jam.",
+            "<strong>Uji di darat.</strong> Periksa gerakan, suara, dan halaman penonton yang sebenarnya. Letakkan ponsel penerima dekat hotspot dan pantau daya serta suhunya selama siaran yang lebih lama."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Mengatasi masalah siaran langsung Mavic 4 Pro",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Opsi RTMP tidak ada:</strong> pastikan model remote dan versi perangkat lunak di DJI Fly. RC 2 dan DJI RC yang lebih lama punya fitur yang berbeda; mengganti penerima tidak mengubah kemampuan remote.",
+            "<strong>DJI Fly meminta mikrofon:</strong> dengan RC 2, sambungkan mikrofon yang didukung dan periksa lagi masukannya. Dengan RC Pro 2, periksa masukan yang dipilih dan izin mikrofon, jangan berasumsi petunjuk RC 2 berlaku.",
+            "<strong>Koneksi gagal:</strong> gunakan alamat IP lokal penerima yang terbaru. Isolasi Wi-Fi tamu, firewall, atau berganti hotspot bisa memutus koneksi lokal. <code>localhost</code> mengarah ke remote itu sendiri.",
+            "<strong>Pratinjau berjalan, tapi penonton tidak melihat apa-apa:</strong> periksa penerusan, kredensial tujuan, dan langkah Go Live di platform yang mungkin belum selesai.",
+            "<strong>Penerimaan di iPhone berhenti:</strong> kembali ke Stream My Drone dan periksa Picture in Picture. Tanpa itu, iOS bisa menangguhkan penerimaan saat aplikasi berada di latar belakang."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Sumber resmi dan panduan terkait",
+      "blocks": [
+        {
+          "p": "Diperiksa pada 25 Oktober 2026: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006734&amp;lang=en&amp;re=us&amp;spaceId=34\">Panduan pemasangan drone DJI</a> untuk pilihan remote; <a href=\"https://www.dji.com/rc-pro-2/faq\">FAQ DJI RC Pro 2</a> untuk perangkat keras mikrofon; <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">panduan operasi livestream DJI Fly</a> untuk batasan RTMP; dan <a href=\"https://repair.dji.com/help/content?customId=01700006877&amp;lang=en&amp;paperDocType=ARTICLE&amp;spaceId=17\">mode potret DJI</a> untuk kontrol perekaman vertikal. Ketersediaan firmware dan menu bisa berubah; periksa kombinasi perangkat Anda sendiri."
+        },
+        {
+          "p": "Untuk generasi sebelumnya, baca <a href=\"../dji-mavic-3-live-stream/\">panduan streaming Mavic 3, Classic, dan Pro</a>. Untuk mengirim siaran yang sama ke beberapa layanan, lanjutkan ke <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">multistreaming dengan drone DJI</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Bisakah saya live streaming dengan Mavic 4 Pro tanpa komputer?",
+      "a": "Bisa. Gunakan DJI Fly di RC 2 atau RC Pro 2 dan terima aliran RTMP-nya di Stream My Drone pada ponsel terpisah di jaringan lokal yang sama. Atur tujuan di aplikasi ponsel dan pastikan siaran tayang di setiap platform."
+    },
+    {
+      "q": "Bisakah saya memakai pengaturan ponsel dengan RC-N3 untuk Mavic 4 Pro?",
+      "a": "Panduan pemasangan DJI saat ini mencantumkan RC 2 dan RC Pro 2 untuk drone ini. Panduan ini memakai remote berlayar yang didukung tersebut, bukan mengasumsikan kompatibilitas RC-N dari model lain."
+    },
+    {
+      "q": "Apakah kedua remote membutuhkan mikrofon eksternal?",
+      "a": "RC Pro 2 punya mikrofon bawaan. Untuk RC 2, DJI mendokumentasikan kewajiban mikrofon tersambung sejak Fly v1.16.0. Uji audio dan ikuti permintaan yang muncul di remote Anda sebelum terbang."
+    },
+    {
+      "q": "Apakah rekaman 6K berarti livestream 6K?",
+      "a": "Tidak. Berkas yang direkam kamera terpisah dari keluaran RTMP DJI Fly. Periksa masukan yang sebenarnya di aplikasi penerima dan siaran yang dilihat platform."
+    },
+    {
+      "q": "Di mana kredensial YouTube atau Instagram saya dimasukkan?",
+      "a": "Di pengaturan tujuan Stream My Drone atau Stream My Drone. DJI Fly menerima alamat RTMP lokal yang ditampilkan aplikasi itu."
+    },
+    {
+      "q": "Apakah memutar layar remote menjamin siaran vertikal?",
+      "a": "Periksa gambar yang sampai ke penerima dan halaman penonton platform. Layar remote, orientasi rekaman kamera, dan format video yang dikirim adalah hal yang terpisah. Stream My Drone versi desktop bisa mengubah keluaran menjadi tata letak vertikal."
+    }
+  ],
+  "published": "2026-10-25",
+  "updated": "2026-10-25"
+}

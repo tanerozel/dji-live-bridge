@@ -1,0 +1,234 @@
+{
+  "slug": "dji-lito-1-live-stream",
+  "platform": "DJI Lito 1",
+  "title": "DJI Lito 1 でライブ配信する方法：スマホとパソコンの設定（2026年）",
+  "description": "DJI Lito 1 を RC 2、RC-N3、RC-N2 でライブ配信する方法。DJI Fly の RTMP 設定、スマートフォンとパソコンでの手順、配信先の設定、実践的なトラブル対処を解説します。",
+  "h1": "DJI Lito 1 でライブ配信する方法",
+  "lead": "標準の <strong>DJI Lito 1</strong> には RC-N3 が付属しているので、まずは送信機に取り付けたスマートフォンで DJI Fly を使い、別のパソコンで <strong>Stream My Drone</strong> を動かす方法から始めましょう。対応する RC 2 をすでにお持ちなら、<strong>Stream My Drone</strong> を入れた 2 台目のスマートフォンで受信することもできます。このガイドでは、ローカルの RTMP アドレスから視聴者が見られる配信まで、両方の方法を説明します。",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "DJI はライブ配信対応ガイドに Lito 1 を掲載しています。送信機と現在の DJI Fly のバージョンをあわせて確認してください。",
+    "RC 2 では DJI Fly が内蔵画面で動くため、別のスマートフォンを配信の受信に使えます。",
+    "RC-N3 と RC-N2 では DJI Fly をスマートフォンで使います。DJI Fly を開いたままにできるよう、以下で説明する別のパソコンで受信する方法を使ってください。",
+    "DJI Fly に入力するのはローカルの受信アドレスです。配信先のアカウントやストリームキーは、スマートフォン版またはパソコン版の Stream My Drone で設定します。",
+    "まず受信側のプレビュー、次に配信先の視聴ページを確認します。録画の設定で RTMP の出力が決まるわけではありません。"
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "RC 2、RC-N3、RC-N2 に合った配信方法を選ぶ",
+      "blocks": [
+        {
+          "p": "DJI の <a href=\"https://store.dji.com/ee/product/dji-lito-1?from=events-dji-monthly-picks&amp;set_region=EE\">Lito 1 公式製品 FAQ</a> には DJI RC 2、DJI RC-N3、DJI RC-N2 が載っています。<a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">DJI Fly ライブ配信対応ガイド</a>にも Lito 1 の名前があります。お使いの送信機に書かれた機種名を見て、以下の方法を選んでください。同じ機体に対応していても、送信機どうしを置き換えられるとは限りません。"
+        },
+        {
+          "table": {
+            "head": [
+              "送信機",
+              "操縦する場所",
+              "配信を受信する場所"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "内蔵画面の DJI Fly",
+                "別のスマートフォンの Stream My Drone、またはパソコンの Stream My Drone"
+              ],
+              [
+                "DJI RC-N3",
+                "USB で接続したスマートフォンの DJI Fly",
+                "別の Mac または Windows PC の Stream My Drone"
+              ],
+              [
+                "DJI RC-N2",
+                "USB で接続したスマートフォンの DJI Fly",
+                "RC-N3 と同じく別のパソコンで受信"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI のライブ配信ガイド</a>によると、RC 2 のライブ配信は 720p までで、DJI Fly v1.16.0 以降はマイクの接続が必要です。配信に出かける前にこれらの条件を確認してください。Stream My Drone は受信用のスマートフォンに入れます。RC 2 上では動きません。"
+        }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Lito 1 と RC-N3 / RC-N2：パソコンで映像を受信する",
+      "blocks": [
+        {
+          "p": "RC-N3 や RC-N2 では、送信機に取り付けたスマートフォンで DJI Fly を開いたままにします。Mac または Windows PC に <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> を入れ、そのパソコンと DJI Fly のスマートフォンを同じローカルネットワークにつなぎます。RC 2 でもこのパソコンでの方法を使えます。"
+        },
+        {
+          "steps": [
+            {
+              "t": "パソコンの RTMP アドレスを確認する",
+              "d": "Stream My Drone を開き、「ドローンを接続」の下にあるアドレスをコピーします。<code>rtmp://192.168.1.20:1935/drone</code> のようなアドレスは一例なので、アプリに表示されたものを使ってください。"
+            },
+            {
+              "t": "DJI Fly の送信先をそのアドレスにする",
+              "d": "DJI Fly で GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP を開き、受信アドレスを入力して配信を始めます。メニューの説明は <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP ガイド</a>にあります。パソコンのファイアウォールに聞かれたら、プライベートネットワークでの受信接続を許可してください。配信先を追加する前にプレビューを確認します。"
+            },
+            {
+              "t": "出力と配信先を設定する",
+              "d": "通常の YouTube や Facebook の配信なら横向き、縦型レイアウトのアカウントなら縦向きの出力を選びます。配信先の最新のサーバー URL とキーを追加して出力を始め、配信先で配信を確認します。"
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "Stream My Drone のデスクトップ画面。DJI Fly 用のローカル RTMP アドレス、配信先、配信開始ボタンが表示されています。"
+        }
+      ],
+      "howto": true
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Lito 1 と RC 2：パソコンなしで別のスマートフォンを使う",
+      "howto": false,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "スマートフォンに Stream My Drone を入れる",
+              "d": "<a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> または <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a> からアプリを入手します。DJI Fly は RC 2 で開いたまま、スマートフォンが配信を受信します。"
+            },
+            {
+              "t": "RC 2 とスマートフォンを接続する",
+              "d": "両方をインターネットにつながる同じ Wi-Fi に接続します。屋外では、Android スマートフォンがテザリングをしながら配信を受信することもできます。ネットワークを選んでから Stream My Drone を開き、iPhone ではローカルネットワークへのアクセスを求められたら許可します。"
+            },
+            {
+              "t": "受信アドレスを DJI Fly にコピーする",
+              "d": "Stream My Drone に表示されるローカルアドレスを省略せずに使います。DJI Fly で GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP を開き、そこにアドレスを入力します。メニューの詳しい手順は <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 設定ガイド</a>にあります。DJI Fly がマイクを求めたら接続してください。"
+            },
+            {
+              "t": "DJI Fly の配信を始めてプレビューを確認する",
+              "d": "送信機で配信を始め、ドローンの動く映像がスマートフォンに表示されることを確認します。接続を確かめている間は Stream My Drone を開いたままにしてください。これでローカルの映像リンクができあがります。"
+            },
+            {
+              "t": "配信先を選び、公開されたことを確認する",
+              "d": "Stream My Drone で配信先を追加します。アカウント連携があればそれを使い、なければサーバー URL とストリームキーを入力します。転送を始めたら、配信先のライブダッシュボードや視聴ページを開きます。配信先でまだ「ライブ開始」の操作が必要なら済ませてください。"
+            }
+          ]
+        },
+        {
+          "note": "スマートフォンは受け取った映像を再エンコードせずにそのまま転送します。プレビューで切り抜きやぼかし背景を選んでも、送り出す映像が縦型 1080×1920 になるわけではありません。その変換が必要なときはデスクトップアプリを使ってください。iPhone では設定中はアプリを前面に表示しておきます。バックグラウンドで配信を続けられるかはピクチャ・イン・ピクチャに左右されます。"
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "どのプラットフォームで配信しますか？",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "プラットフォーム",
+              "準備するもの",
+              "詳しいガイド"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "ライブ配信が有効なアカウントと、準備済みの配信枠",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube の設定</a>"
+              ],
+              [
+                "Instagram",
+                "Live Producer へのアクセスと最新の RTMPS 認証情報",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram の設定</a>"
+              ],
+              [
+                "Facebook",
+                "サーバー URL とキーのあるライブ配信",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Facebook の設定</a>"
+              ],
+              [
+                "TikTok",
+                "アカウントの RTMP 権限、または LIVE Studio を使えるパソコン",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok の設定</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "配信プラットフォームの利用権限はアカウントごとに決まります。アプリでドローンの映像を受信できても、ストリームキーがもらえたり配信が公開されたりするわけではありません。TikTok LIVE Studio 向けには、デスクトップアプリに<a href=\"../use-your-dji-drone-as-a-webcam/\">仮想カメラ</a>もあります。現在の公開手順は各プラットフォームのダッシュボードで確認してください。"
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Lito 1 の録画画質、ライブビュー、RTMP 出力",
+      "blocks": [
+        {
+          "p": "DJI の <a href=\"https://store.dji.com/ee/product/dji-lito-1?from=events-dji-monthly-picks&amp;set_region=EE\">Lito 1 製品ページ</a>には、4K 録画と O4 のライブビューが記載されています。これらの仕様は、配信の流れの中でそれぞれ別の部分を指しています。機体に記録される映像、送信機の画面、RTMP の入力、配信先への出力では、解像度が異なることがあります。受信側が表示する入力を確認してください。パソコンで拡大しても、失われた細部は戻りません。"
+        },
+        {
+          "list": [
+            "<strong>離陸前にテストする。</strong>ドローンが地上にある間に、動き、音声、配信先の視聴ページを確認します。",
+            "<strong>アップロード量を見積もる。</strong>5 Mbps で出力し続けると、通信のオーバーヘッドを除いて 1 時間あたり約 2.25 GB を使います。配信先が 2 つなら、合計で約 10 Mbps のアップロード速度と 1 時間あたり 4.5 GB が必要です。",
+            "<strong>ローカル接続を安定させる。</strong>スマートフォンやパソコンをテザリング元の近くに置きます。回線の公称最大速度より、接続の安定性のほうが大切です。",
+            "<strong>実際に送り出される構図を確認する。</strong>スマートフォンではプレビューのレイアウトは手元だけのものです。パソコンでは、公開前に選んだ切り抜きまたは全体表示の出力を確認します。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Lito 1 の配信がうまくいかないとき",
+      "blocks": [
+        {
+          "list": [
+            "<strong>RTMP のメニューがない：</strong>送信機の機種を確認し、ファームウェアと DJI Fly を更新して、Transmission の中を探してください。DJI Fly にない機能を受信アプリで追加することはできません。",
+            "<strong>接続できない：</strong>ネットワークを変えたらアプリのアドレスをコピーし直します。ゲスト分離のない共有ローカルネットワークを使ってください。送信機で <code>localhost</code> と入力すると、送信機自身を指してしまいます。",
+            "<strong>スマートフォンには映るのに視聴者には見えない：</strong>配信先との接続、現在のストリームキー、配信先での最後の公開手順を確認します。データが転送されているだけでは、公開配信が始まったことにはなりません。",
+            "<strong>iPhone でアプリを切り替えたら配信が止まる：</strong>Stream My Drone に戻り、ピクチャ・イン・ピクチャを確認します。これがないと iOS が受信アプリを一時停止することがあります。",
+            "<strong>配信がカクつく：</strong>まず配信先を 1 つに絞り、モバイル回線のアップロードの安定性を確認し、受信端末をテザリング元に近づけます。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "参考資料と関連する機種別ガイド",
+      "blocks": [
+        {
+          "p": "機体と送信機の詳細：<a href=\"https://store.dji.com/ee/product/dji-lito-1?from=events-dji-monthly-picks&amp;set_region=EE\">Lito 1 公式製品ページと FAQ</a>。対応機体の一覧：<a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">DJI Fly ライブ配信対応ガイド（中国語）</a>。送信機の条件とメニューの手順：<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>。2026年10月25日に確認しました。ファームウェア更新後は、最新のメニューをあらためて確認してください。"
+        },
+        {
+          "p": "もう一つの Lito と比べてみてください：<a href=\"../dji-lito-x1-live-stream/\">Lito X1 の設定</a>。"
+        },
+        {
+          "p": "Mini シリーズの機体については <a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro ガイド</a>をご覧ください。受信した映像を複数の配信先へ送るなら、<a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">同時配信ガイド</a>へ進みましょう。"
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "パソコンなしで Lito 1 のライブ配信はできますか？",
+      "a": "RC 2 なら、同じローカルネットワークにつないだ別のスマートフォンで Stream My Drone を使えます。DJI Fly は送信機で動き、スマートフォンがその RTMP 配信を受信し、配信先は Stream My Drone で設定します。"
+    },
+    {
+      "q": "RC-N3 や RC-N2 につないでいるスマートフォンをそのまま使えますか？",
+      "a": "そのスマートフォンは操縦用の DJI Fly を動かしています。このガイドでは DJI Fly を開いたままにできるよう、別のパソコンの Stream My Drone を受信側として使います。1 台のスマートフォンで飛行と中継の両方をこなせることは前提にしていません。"
+    },
+    {
+      "q": "DJI Fly にはどのアドレスを入力しますか？",
+      "a": "スマートフォン版またはパソコン版の Stream My Drone に表示されるローカル受信アドレスを省略せずに入力します。配信先のサーバー URL とストリームキーは、受信アプリの配信先設定に入力します。"
+    },
+    {
+      "q": "Stream My Drone で映像を縦型の配信にできますか？",
+      "a": "スマートフォンアプリは受信した映像をそのまま転送します。プレビューのレイアウトで送り出す映像が再エンコードされることはありません。縦型への変換は、パソコンの Stream My Drone で行えます。"
+    },
+    {
+      "q": "プレビューは見えるのに視聴者が見られないのはなぜですか？",
+      "a": "プレビューで分かるのは、ドローンの映像が手元に届いたことだけです。配信先への出力を始め、配信先が受信していることを確かめ、残っている「ライブ開始」の操作を済ませてください。"
+    },
+    {
+      "q": "Lito 1 のライブ配信に QuickTransfer は使えますか？",
+      "a": "QuickTransfer は録画済みのファイルを転送する機能です。飛行中のライブ映像には、DJI Fly の RTMP メニューとアプリに表示される受信アドレスを使います。まず動く映像が受信側に届くことを確かめてから、配信先への出力を始めてください。"
+    }
+  ]
+}

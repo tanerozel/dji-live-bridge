@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "title": "Guides de diffusion en direct pour drones DJI — blog Stream My Drone",
+    "description": "Guides de live pour DJI Flip, Lito, Air, Mavic et Mini : compatibilité des radiocommandes, réglages téléphone et ordinateur, RTMP dans DJI Fly, YouTube, Instagram et Facebook."
+  },
+  "h1": "Guides de diffusion en direct pour drones",
+  "lead": "Choisissez votre drone ou votre plateforme : réglages des radiocommandes pour Flip, Lito X1 et Lito 1, Air, Mavic et Mini, méthodes sur téléphone et sur ordinateur, réglages RTMP de DJI Fly et vérifications avant de passer en direct.",
+  "language": "Langue",
+  "skip": "Aller au contenu",
+  "home": "Accueil",
+  "blog": "Blog",
+  "download": "Télécharger",
+  "breadcrumb": "Fil d'Ariane",
+  "by": "Par",
+  "updated": "Mis à jour",
+  "keyFacts": "En bref",
+  "toc": "Sur cette page",
+  "faq": "Questions",
+  "related": "Autres guides",
+  "cta": {
+    "h": "Essayez avec votre drone",
+    "p": "Stream My Drone est gratuit et open source, pour macOS et Windows. FFmpeg est intégré : il n'y a rien d'autre à installer.",
+    "button": "Télécharger Stream My Drone",
+    "more": "Comment fonctionne l'application"
+  },
+  "guides": {
+    "h2": "Guides",
+    "sub": "Des instructions pas à pas pour votre drone, votre radiocommande et votre plateforme.",
+    "all": "Tous les guides"
+  }
+}

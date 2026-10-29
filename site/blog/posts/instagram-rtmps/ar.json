@@ -1,0 +1,82 @@
+{
+  "slug": "why-dji-fly-cannot-stream-to-instagram",
+  "platform": "مشكلة Instagram",
+  "title": "لماذا لا يبث DJI Fly إلى Instagram Live — وما الحل",
+  "description": "لا يحتوي DJI Fly على خيار Instagram، ولا يدعم عميل RTMP فيه اتصال RTMPS المشفّر الذي يتطلبه Instagram. إليك السبب، وكيف تبدأ بثًا مباشرًا على Instagram من درون DJI رغم ذلك.",
+  "h1": "لماذا لا يستطيع DJI Fly البث المباشر إلى Instagram (والحل)",
+  "lead": "تلصق عنوان البث من Instagram في DJI Fly فلا يحدث شيء. والسبب تقني: <strong>Instagram لا يقبل إلا RTMPS</strong>، وهو اتصال مشفّر، بينما <strong>DJI Fly لا يرسل إلا RTMP عاديًا</strong>. والحل وسيط يستقبل بث RTMP من DJI Fly ويعيد إرساله إلى Instagram عبر RTMPS — وهذا ما يفعله Stream My Drone على حاسوبك أنت، مجانًا.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "يبدأ عنوان البث في Instagram بـ <code>rtmps://</code> ويستخدم المنفذ 443؛ وخيار RTMP في DJI Fly لا يستطيع فتح هذا النوع من الاتصالات.",
+    "لا يُدرج DJI Fly منصة Instagram ضمن منصاته، ولا يوجد في Instagram إعداد لقبول RTMP العادي.",
+    "يعطي Instagram أيضًا مفتاح بث جديدًا لكل بث، ويتوقع فيديو عموديًا.",
+    "الحل: DJI Fly → RTMP → Stream My Drone على حاسوبك → RTMPS → Instagram، بتنسيق عمودي 1080×1920.",
+    "ومن دون حاسوب، يفعل تطبيق أندرويد Stream My Drone الشيء نفسه مع DJI RC 2."
+  ],
+  "sections": [
+    {
+      "id": "why",
+      "h2": "لماذا لا يعمل",
+      "blocks": [
+        { "list": [
+          "<strong>التشفير.</strong> يبدو عنوان البث في Instagram هكذا: <code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code>. وحرف <em>s</em> يعني أن الفيديو يجب أن ينتقل داخل اتصال مشفّر (TLS). وعميل RTMP في DJI Fly لا يرسل إلا RTMP غير مشفّر، فلا يقبل Instagram الاتصال أبدًا.",
+          "<strong>لا يوجد خيار Instagram مدمج.</strong> يُدرج DJI Fly خيار RTMP (ومنصات إقليمية أخرى على بعض وحدات التحكم) تحت Live Streaming Platforms، لكن Instagram ليس بينها.",
+          "<strong>مفاتيح لمرة واحدة.</strong> ينشئ Instagram مفتاح بث جديدًا لكل فيديو مباشر، لذا يتوقف المفتاح المحفوظ في DJI Fly عن العمل بعد بث واحد.",
+          "<strong>فيديو عمودي.</strong> يُشاهَد Instagram بالوضع الطولي؛ وصورة الدرون الأفقية تحتاج إلى إعادة تشكيل لتبدو صحيحة."
+        ] },
+        { "p": "لا شيء من هذا عيب في الدرون أو في حسابك. كل ما في الأمر أن النظامين يتحدثان نسختين مختلفتين من البروتوكول نفسه." }
+      ]
+    },
+    {
+      "id": "fix",
+      "h2": "الحل: مرّر بث DJI Fly عبر Stream My Drone",
+      "howto": true,
+      "blocks": [
+        { "p": "يشغّل Stream My Drone خادم RTMP صغيرًا على جهاز Mac أو الحاسوب الشخصي. يبث DJI Fly إليه عبر شبكتك المحلية؛ ويعيد التطبيق ترميز الصورة بتنسيق عمودي 1080×1920 ويرسلها إلى Instagram عبر RTMPS." },
+        { "steps": [
+          { "t": "ثبّت Stream My Drone", "d": "نزّله لنظام <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS أو Windows</a>. إنه مجاني ولا يحتاج إلى تثبيت أي شيء آخر." },
+          { "t": "أرسل الدرون إلى حاسوبك", "d": "ضع وحدة التحكم والحاسوب على شبكة Wi-Fi واحدة أو نقطة اتصال واحدة. في DJI Fly افتح GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP واكتب العنوان الذي يعرضه التطبيق." },
+          { "t": "أنشئ الفيديو المباشر على Instagram", "d": "على instagram.com انقر Create (+) → Live video وانسخ عنوان البث ومفتاح البث." },
+          { "t": "أضف Instagram في التطبيق", "d": "الصقهما في وجهة Instagram، وأبقِ <em>عمودي 9:16</em> مفعّلًا، واضغط «ابدأ البث»." },
+          { "t": "اضغط Go live على Instagram", "d": "تعرض نافذة Instagram صورة الدرون؛ اضغط Go live هناك ليصبح البث عامًا." }
+        ] },
+        { "note": "كل تفاصيل الجانب الخاص بـ Instagram، بما فيها المفتاح الذي يتغير في كل مرة، موجودة في <a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">دليل Instagram</a>." }
+      ]
+    },
+    {
+      "id": "options",
+      "h2": "طرق أخرى للالتفاف على المشكلة",
+      "blocks": [
+        { "table": {
+          "head": ["الخيار", "التكلفة", "ما يجب معرفته"],
+          "rows": [
+            ["‏Stream My Drone ‏(Mac، Windows)", "مجاني، مفتوح المصدر", "يعمل على حاسوبك؛ لا يمر الفيديو أبدًا عبر خادم طرف ثالث؛ عدة منصات في آن واحد."],
+            ["‏Stream My Drone (أندرويد)", "شراء لمرة واحدة", "يحل محل الحاسوب عندما تطير مع DJI RC 2؛ ويعيد الإرسال إلى وجهات RTMPS."],
+            ["خدمة إعادة بث سحابية", "اشتراك في الغالب", "يبث DJI Fly إلى الخدمة، وهي تعيد الإرسال إلى Instagram؛ تحقّق من أن خطتك تسمح بوجهات RTMP مخصصة."],
+            ["وحدة تحكم بمخرج HDMI + بطاقة التقاط + OBS", "تكلفة العتاد", "يحتاج إلى وحدة تحكم بمخرج HDMI (مثل DJI RC Pro) وبطاقة التقاط."]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "ما زلت لا تبث؟",
+      "blocks": [
+        { "list": [
+          "<strong>لا يوجد Live video تحت Create على instagram.com:</strong> لم يفعّل Instagram هذا الخيار لذلك الحساب بعد.",
+          "<strong>فشل الاتصال فورًا:</strong> المفتاح استُخدم من قبل. افتح فيديو مباشرًا جديدًا وحدّث المفتاح.",
+          "<strong>معاينة Instagram تبقى سوداء:</strong> تأكد أولًا من أن معاينة Stream My Drone نفسها تعرض صورة الدرون.",
+          "<strong>المتابعون لا يرون شيئًا:</strong> اضغط Go live على Instagram؛ فاستقبال البث ليس هو نشره."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "لماذا لا يستطيع DJI Fly البث إلى Instagram؟", "a": "يقبل Instagram بروتوكول RTMPS المشفّر فقط، بينما يرسل DJI Fly بروتوكول RTMP عاديًا. ووسيط مثل Stream My Drone يستقبل بث RTMP ويعيد إرساله إلى Instagram عبر RTMPS." },
+    { "q": "هل يكفي أن أغيّر rtmps:// إلى rtmp:// في عنوان Instagram؟", "a": "لا. خوادم الاستقبال في Instagram تتوقع الاتصال المشفّر، ويُرفض أي اتصال RTMP غير مشفّر." },
+    { "q": "هل أحتاج إلى OBS للبث المباشر على Instagram من درون؟", "a": "لا. يرسل Stream My Drone البث إلى Instagram مباشرةً. ولا تحتاج إلى OBS إلا إذا أردت مشاهده وطبقاته الإضافية." },
+    { "q": "هل يمكنني البث إلى Instagram و TikTok في الوقت نفسه؟", "a": "نعم. أضف الاثنين كوجهتين في Stream My Drone؛ وكلاهما يتوقع فيديو عموديًا، فيناسبهما إعداد واحد." },
+    { "q": "هل هو مجاني؟", "a": "‏Stream My Drone مجاني ومفتوح المصدر. وهو غير تابع لـ DJI ولا لـ Instagram." }
+  ]
+}

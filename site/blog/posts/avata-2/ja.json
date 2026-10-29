@@ -1,0 +1,80 @@
+{
+  "slug": "dji-avata-2-live-stream",
+  "platform": "DJI Avata 2",
+  "title": "DJI Avata 2 と Goggles 3 で FPV ライブ配信する方法",
+  "description": "DJI Avata 2 の FPV 映像をライブ配信する方法。Goggles 3 の映像をスマホの DJI Fly に共有し、RTMP で送って、Instagram・TikTok・YouTube でライブ配信します。",
+  "h1": "DJI Avata 2 でライブ配信する方法",
+  "lead": "Avata 2 には画面付きの送信機がないので、配信はスマホから出ていきます。<strong>Goggles 3 がライブビューを DJI Fly に共有し</strong>、DJI Fly がそれを <strong>RTMP</strong> で送るのです。送り先をパソコンの <strong>Stream My Drone</strong> にすれば、FPV 映像を Instagram、TikTok、YouTube へ、あるいは複数のプラットフォームへ同時に届けられます。",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "DJI Goggles 3 をスマホに接続し（最も確実なのは USB-C ケーブル）、DJI Fly を開いてライブビューを表示します。",
+    "DJI Fly で GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP を開き、Stream My Drone に表示されたアドレスを入力します。",
+    "スマホの Wi-Fi はパソコンと同じネットワークにつなぐ必要があります。ケーブル接続なら Wi-Fi をそのために空けておけます。",
+    "Stream My Drone は横長の FPV 映像を、Instagram と TikTok 向けに縦型 1080×1920 に整えます。",
+    "パイロットはゴーグルを着けているので、配信は補助者などもう 1 人に任せましょう。"
+  ],
+  "sections": [
+    {
+      "id": "how",
+      "h2": "FPV ドローンでの配信のしくみ",
+      "blocks": [
+        { "p": "Avata 2 では、映像はドローンからゴーグルへ届きます。DJI Goggles 3 はそのライブビューをケーブルか Wi-Fi でスマホの DJI Fly に共有でき、DJI Fly の RTMP 機能が表示中の映像を配信します。同じ経路は、ゴーグルを使う Neo でも案内されています。" },
+        { "table": {
+          "head": ["ゴーグルとスマホの接続", "配信に向いている？", "メモ"],
+          "rows": [
+            ["USB-C ケーブル（OTG）", "はい（おすすめ）", "安定していて、スマホの Wi-Fi をパソコンとの通信用に空けておけます。"],
+            ["ワイヤレス共有（Goggles 3）", "可能", "共有自体が無線を使うため干渉することがあります。ケーブルがおすすめです。"]
+          ]
+        } },
+        { "note": "この経路の説明を確認できたのは DJI Goggles 3 です。ほかのゴーグルでは、スマホの DJI Fly にライブビューが表示され、RTMP が使えるかを確認してください。" }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Avata 2 のライブ配信を設定する",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "ゴーグルとスマホをケーブルでつなぐ", "d": "DJI Goggles 3 の USB-C ポートとスマホを OTG 対応のケーブルで接続し、DJI Fly を開きます。GO FLY をタップして、ライブビューが表示されることを確認します。" },
+          { "t": "スマホとパソコンを同じネットワークに", "d": "スマホの Wi-Fi とパソコンを同じ Wi-Fi に接続します。屋外ではトラベルルーターか別のスマホのテザリングを使います。" },
+          { "t": "Stream My Drone を開く", "d": "Mac または Windows パソコンに <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> をインストールし、表示される <code>rtmp://192.168.1.20:1935/drone</code> のようなアドレスを控えます。" },
+          { "t": "DJI Fly で RTMP を開始", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP でアドレスを入力して開始します。Stream My Drone にプレビューが表示されます。" },
+          { "t": "配信を始める", "d": "Instagram、TikTok、YouTube、任意の RTMP サーバーを追加し、縦か横かを選んで、離陸前に「配信を開始」を押します。" }
+        ] },
+        { "img": "go-live.png", "alt": "Stream My Drone の「配信」タブ。DJI Fly 用の RTMP アドレス、配信先、配信を開始ボタンが表示されています。" },
+        { "note": "DJI Fly の一般的な設定、ネットワーク、ファイアウォールの確認画面については <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly の RTMP ガイド</a>で説明しています。" }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "FPV ライブ配信のコツ",
+      "blocks": [
+        { "list": [
+          "<strong>配信は離陸前に始める。</strong>ゴーグルを着けるとパソコンは見えません。先にプレビューと配信先を確認しておきましょう。",
+          "<strong>配信の監視はほかの人に。</strong>補助者が配信先のカードを見守り、必要なら配信を終了できます。",
+          "<strong>縦型の FPV。</strong><em>全体を表示</em>なら余白をぼかしで埋めて水平線全体を残せます。左右を切り取る<em>画面いっぱい</em>より、FPV にはたいていこちらが向いています。",
+          "<strong>Android スマホのほうが高いビットレートで配信できます。</strong>DJI の公表値は Android が 5 または 3 Mbps、iOS が 2 または 1 Mbps です。FPV の速い動きには、少しでも多くのビットレートが必要です。"
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "うまくいかないとき",
+      "blocks": [
+        { "list": [
+          "<strong>DJI Fly にライブビューが出ない：</strong>別の USB-C ケーブルを試してください。充電専用ではなく、データ通信に対応したものが必要です。",
+          "<strong>DJI Fly がパソコンに接続できない：</strong>スマホの Wi-Fi が別のネットワークにあるか、パソコンのアドレスが変わっています。アドレスをもう一度コピーしてください。",
+          "<strong>映像がカクつく：</strong>ワイヤレス共有ではなくケーブルを使い、スマホをルーターの近くに置きます。",
+          "<strong>Instagram が配信を受け付けない：</strong>Instagram のキーは一度しか使えません。新しいライブ動画を作成してキーを更新します。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI Avata 2 はライブ配信できますか？", "a": "はい。DJI Goggles 3 がライブビューをスマホの DJI Fly に共有し、DJI Fly がそれを RTMP で Stream My Drone へ送り、Stream My Drone が各プラットフォームへ届けます。" },
+    { "q": "ゴーグルとスマホをケーブルでつなぐ必要はありますか？", "a": "Goggles 3 はワイヤレスでも共有できますが、ケーブルのほうが確実で、スマホの Wi-Fi をパソコンとの通信用に空けておけます。" },
+    { "q": "Avata 2 から Instagram や TikTok に配信できますか？", "a": "はい、Stream My Drone を使えばできます。横長の FPV 映像を縦型 1080×1920 にして、DJI Fly だけではできない RTMPS で Instagram に届けます。" },
+    { "q": "飛ばしている間、誰が配信を操作すればいいですか？", "a": "配信は離陸前に始め、できれば補助者にパソコンを見てもらいましょう。パイロットはゴーグルを着けているので、配信先のカードが見えません。" }
+  ]
+}

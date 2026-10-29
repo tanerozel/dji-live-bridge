@@ -1,0 +1,98 @@
+{
+  "slug": "count-animals-with-a-dji-drone-ai-detection",
+  "platform": "AI Vision",
+  "title": "Hitung kambing, domba, dan sapi secara langsung dari drone DJI dengan AI",
+  "description": "Stream My Drone mengenali kambing, domba, sapi, kuda, keledai, dan unggas di gambar langsung drone, menandainya di siaran, dan menghitungnya, semua di komputer Anda.",
+  "h1": "Kenali dan hitung hewan secara langsung dari drone DJI Anda",
+  "lead": "Kini Stream My Drone bisa mengamati gambar langsung drone untuk Anda. <strong>AI Vision</strong> menemukan kambing, domba, sapi, kuda, keledai, unggas, dan hewan lain, menggambar kotak berlabel di sekeliling setiap hewan pada siaran dan kamera virtual, lalu terus menghitungnya. Semuanya berjalan di komputer Anda sendiri; tidak ada gambar atau hasil yang dikirim ke mana pun.",
+  "published": "2026-10-07",
+  "updated": "2026-10-21",
+  "summary": [
+    "Aktifkan <strong>AI Vision · Deteksi Hewan</strong> di tab Siaran, dan aplikasi menandai setiap hewan yang ditemukannya dengan kotak dan label seperti <em>Kambing #12 85%</em>.",
+    "Aplikasi mengenal 15 jenis hewan, dengan hewan ternak lebih dulu: kambing, domba, sapi, kuda, keledai, anjing, kucing, ayam, bebek, angsa, babi, rusa, babi hutan, burung, dan beruang.",
+    "Penghitung menunjukkan berapa hewan yang ada di gambar saat ini dan berapa hewan berbeda yang sudah terlihat.",
+    "Semuanya berjalan di komputer Anda. Model diunduh sekali; setelah itu tidak ada yang keluar dari perangkat.",
+    "Video drone tidak pernah diperlambat. Di Mac, model bawaan memeriksa gambar sekitar sekali atau dua kali per detik, cukup untuk kawanan yang sedang merumput."
+  ],
+  "sections": [
+    {
+      "id": "what",
+      "h2": "Apa yang dilakukan AI Vision",
+      "blocks": [
+        { "p": "Saat terbang di atas padang rumput, menghitung kawanan atau menemukan satu kambing di balik semak sulit dilakukan di layar remote yang kecil. AI Vision yang mengamati untuk Anda: ia memeriksa gambar langsung berulang kali, sekali atau dua kali per detik dengan OWLv2 dan hingga sepuluh kali per detik dengan model yang lebih ringan, lalu menandai setiap hewan yang dikenalinya." },
+        { "list": [
+          "<strong>Kotak dan label</strong> berisi spesies, nomor untuk setiap hewan, dan seberapa yakin modelnya, misalnya <em>Domba #7 78%</em>.",
+          "<strong>Penghitung hewan</strong> di sudut gambar: berapa yang terlihat saat ini, per spesies, dan berapa hewan berbeda yang sudah terlihat sejak hitungan terakhir diatur ulang.",
+          "<strong>Di setiap output.</strong> Kotak digambar ke siaran langsung ke Instagram, TikTok, YouTube, dan tujuan lain, ke kamera virtual, serta ke pratinjau di aplikasi.",
+          "<strong>Kotak bersifat opsional.</strong> Anda bisa menyembunyikan kotak atau penghitung dan tetap menjalankan penghitungan di aplikasi."
+        ] },
+        { "note": "AI Vision hanya menambahkan lapisan di atas gambar. Video drone itu sendiri tidak pernah ditahan untuk menunggu hasil analisis." }
+      ]
+    },
+    {
+      "id": "animals",
+      "h2": "Hewan apa saja yang dikenali",
+      "blocks": [
+        { "p": "Sebagian besar model deteksi siap pakai dilatih dengan koleksi foto publik yang sama, dan koleksi itu sama sekali tidak memuat kambing. Kambing terbaca sebagai domba, atau tidak terbaca sama sekali. Karena itulah model bawaan di Mac adalah <strong>OWLv2</strong>, model yang diberi tahu nama hewan yang harus dicarinya." },
+        { "table": {
+          "head": ["Model", "Hewan", "Kecepatan di Mac", "Ukuran unduhan"],
+          "rows": [
+            ["OWLv2 (bawaan di Mac)", "Kambing, domba, sapi, kuda, keledai, anjing, kucing, ayam, bebek, angsa, babi, rusa, babi hutan, burung", "Sekitar 0,5 detik per gambar", "586 MB"],
+            ["D-FINE X, RF-DETR Large", "Domba, sapi, kuda, anjing, kucing, burung, beruang", "Sekitar 0,1–0,2 detik per gambar", "240–464 MB"],
+            ["YOLOX (Nano hingga X)", "Domba, sapi, kuda, anjing, kucing, burung, beruang", "Paling cepat; Nano, Tiny, dan S juga berjalan di Windows", "3–378 MB"]
+          ]
+        } },
+        { "p": "Anda bisa mengganti model di <em>Pengaturan deteksi → Model</em>; daftarnya menunjukkan berapa spesies yang dikenal tiap model. Untuk kawanan campuran kambing dan domba, gunakan OWLv2. Untuk sapi dan kuda saja, D-FINE X sekitar lima kali lebih cepat. Di <em>Spesies yang dideteksi</em>, Anda bisa membatasi pencarian hanya pada hewan yang Anda perlukan." },
+        { "note": "Hewan liar sabana seperti jerapah, zebra, dan gajah sengaja tidak dimasukkan: di atas kawanan sapi, mereka hanya memicu alarm palsu." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Cara mengaktifkan deteksi hewan",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Hubungkan drone Anda", "d": "Kirim gambar langsung dari DJI Fly ke aplikasi lewat RTMP seperti biasa; alamatnya ada di tab Siaran. Detailnya ada di <a href=\"../dji-fly-rtmp-live-streaming-setup/\">panduan RTMP DJI Fly</a>." },
+          { "t": "Nyalakan AI Vision", "d": "Di tab Siaran, cari kartu <strong>AI Vision · Deteksi Hewan</strong> lalu aktifkan <em>Deteksi hewan</em>." },
+          { "t": "Biarkan model diunduh dan disiapkan", "d": "Pada penggunaan pertama, model diunduh dan disiapkan untuk komputer Anda. Dengan OWLv2 proses ini bisa memakan beberapa menit; kartu menampilkan kemajuannya. Setelah itu, setiap mulai hanya butuh sekitar satu menit." },
+          { "t": "Atur ambang batas", "d": "Turunkan <em>Ambang keyakinan</em> ke sekitar 0,25–0,35 untuk gambar dari udara, saat hewan terlihat kecil. Naikkan jika muncul kotak pada semak atau batu." },
+          { "t": "Mulai siaran", "d": "Mulai siaran atau kamera virtual. Jika Anda sudah sedang live, kotak akan ikut tampil di siaran saat Anda memulainya lagi; kamera virtual langsung menampilkannya." }
+        ] },
+        { "note": "Tidak ada drone di dekat Anda? <em>Coba dengan berkas video</em> di tab Siaran memutar klip rekaman melalui jalur yang sama, jadi Anda bisa mencoba AI Vision dari meja kerja." }
+      ]
+    },
+    {
+      "id": "flying",
+      "h2": "Cara terbang agar hitungannya bagus",
+      "blocks": [
+        { "list": [
+          "<strong>Ketinggian paling menentukan.</strong> Dari tempat yang sangat tinggi, seekor hewan hanya beberapa piksel. Aplikasi tetap menemukannya, tetapi apakah itu kambing atau anak sapi menjadi tebakan. Terbanglah lebih rendah, atau perbesar gambar, jika spesiesnya penting.",
+          "<strong>Terbanglah perlahan.</strong> Model bawaan melihat sekitar sekali atau dua kali per detik. Lintasan yang lambat membuatnya bisa mengikuti setiap hewan, bukan kehilangan lalu menemukannya lagi.",
+          "<strong>Atur ulang sebelum menghitung.</strong> Tekan <em>Atur ulang hitungan</em> saat Anda mulai melintas di atas kawanan. Hewan yang keluar dari gambar beberapa detik lalu kembali bisa terhitung lagi, jadi anggap hitungan unik sebagai perkiraan yang baik, bukan sensus.",
+          "<strong>Gunakan layar penuh.</strong> Klik dua kali pratinjau, atau tekan tombol di sudutnya, untuk melihat gambar dan kotak di seluruh layar. Tekan Esc untuk kembali."
+        ] }
+      ]
+    },
+    {
+      "id": "privacy",
+      "h2": "Privasi dan persyaratan",
+      "blocks": [
+        { "list": [
+          "<strong>Hanya di komputer Anda.</strong> Deteksi berjalan secara lokal. Tidak ada gambar, hasil deteksi, atau hitungan yang diunggah. Satu-satunya pemakaian jaringan adalah unduhan model satu kali.",
+          "<strong>Mac:</strong> model berjalan di perangkat keras grafis dan neural Mac. Mac Apple Silicon disarankan. OWLv2 memerlukan sekitar 4 GB ruang disk kosong setelah disiapkan.",
+          "<strong>Windows:</strong> model YOLOX yang lebih ringan berjalan di prosesor. OWLv2 dan model besar lainnya hanya tersedia di Mac, jadi kambing, keledai, dan unggas belum dikenali di Windows.",
+          "<strong>Mati berarti mati.</strong> Selama AI Vision dimatikan, tidak ada model yang dimuat dan siaran Anda persis seperti sebelumnya."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Bisakah drone DJI saya menghitung hewan?", "a": "Drone-nya sendiri tidak, tetapi dengan Stream My Drone di komputer Anda, gambar langsung dari DJI Fly dianalisis di sana: setiap hewan diberi kotak dan label, dan penghitung menunjukkan berapa yang terlihat dan berapa hewan berbeda yang sudah terlihat." },
+    { "q": "Apakah kambing bisa dikenali?", "a": "Ya, dengan model OWLv2 yang menjadi bawaan di Mac. Model ini bisa membedakan kambing dari domba pada ketinggian terbang normal. Model lain sama sekali tidak memiliki kelas kambing." },
+    { "q": "Apakah kotaknya muncul di siaran Instagram, TikTok, atau YouTube saya?", "a": "Ya. Kotak digambar ke setiap output: siaran langsung ke semua tujuan, kamera virtual, dan pratinjau di aplikasi. Anda bisa mematikan kotak atau penghitung kapan saja." },
+    { "q": "Apakah video saya dikirim ke layanan AI?", "a": "Tidak. Semuanya berjalan di komputer Anda sendiri. Hanya berkas model yang diunduh sekali dari sumber publik, dan berkas itu diperiksa sebelum dipakai." },
+    { "q": "Apakah fitur ini memperlambat siaran saya?", "a": "Tidak. Video tetap pada frame rate-nya; analisis berjalan di sampingnya dan kotak diperbarui setiap kali hasil baru siap." },
+    { "q": "Seberapa akurat hitungannya?", "a": "Cukup baik untuk gambaran umum sebuah kawanan, tetapi bukan sensus resmi. Hewan yang sangat jauh bisa salah dikenali spesiesnya, dan hewan yang keluar dari gambar lalu kembali bisa terhitung dua kali." },
+    { "q": "Apakah gratis?", "a": "Ya. AI Vision adalah bagian dari Stream My Drone, yang gratis dan bersumber terbuka di bawah lisensi MIT. Modelnya dirilis di bawah lisensi Apache 2.0." }
+  ]
+}

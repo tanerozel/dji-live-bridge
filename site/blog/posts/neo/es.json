@@ -1,0 +1,81 @@
+{
+  "slug": "dji-neo-live-stream",
+  "platform": "DJI Neo",
+  "title": "Directo con DJI Neo: configuración para Instagram, TikTok y YouTube (2026)",
+  "description": "Cómo transmitir en directo con un DJI Neo: qué modo de control funciona (móvil, RC-N3, gafas), RTMP en DJI Fly y cómo emitir en Instagram, TikTok o YouTube con Stream My Drone.",
+  "h1": "Cómo transmitir en directo con un DJI Neo",
+  "lead": "El DJI Neo transmite mediante <strong>la opción RTMP de DJI Fly</strong>, igual que los drones más grandes de DJI. El problema está en cómo lo pilotas: cuando el teléfono controla el Neo directamente por wifi, ese wifi lo ocupa el dron. Vuela con el <strong>RC-N3</strong> (o con unas gafas conectadas al teléfono por cable) y el teléfono queda libre para enviar la transmisión a <strong>Stream My Drone</strong> en tu ordenador, que la lleva a Instagram, TikTok, YouTube o a varias plataformas a la vez.",
+  "published": "2026-10-03",
+  "updated": "2026-10-21",
+  "summary": [
+    "El Neo transmite desde DJI Fly en tu teléfono: GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP.",
+    "Usa el <strong>RC-N3</strong>: el teléfono va conectado al control remoto por cable, así que su wifi puede unirse a la red del ordenador.",
+    "En el modo solo con teléfono, el wifi del teléfono está conectado al propio Neo, así que normalmente no puede llegar a un ordenador.",
+    "Con gafas, conéctalas por cable al teléfono que ejecuta DJI Fly y transmite desde ahí.",
+    "Stream My Drone convierte la transmisión a vertical de 1080×1920 para Instagram y TikTok, y llega a Instagram por RTMPS."
+  ],
+  "sections": [
+    {
+      "id": "modes",
+      "h2": "¿Qué modo de control del Neo puede transmitir?",
+      "blocks": [
+        { "p": "El Neo se puede pilotar de tres formas, y eso decide cómo sale la transmisión del teléfono. En todos los casos es DJI Fly en el teléfono quien transmite; Stream My Drone en el ordenador la recibe." },
+        { "table": {
+          "head": ["Cómo pilotas", "¿Transmite a un ordenador?", "Por qué"],
+          "rows": [
+            ["Solo con el teléfono (wifi, corto alcance)", "Normalmente no", "El wifi del teléfono está conectado al Neo, así que no está en la red del ordenador."],
+            ["RC-N3 + teléfono", "Sí, la opción recomendada", "El teléfono se comunica con el control remoto por cable; su wifi se une a la misma red que el ordenador."],
+            ["Gafas + teléfono con cable USB-C", "Sí", "DJI Fly en el teléfono muestra la vista en directo de las gafas y puede transmitirla."]
+          ]
+        } },
+        { "note": "Algunos teléfonos Android pueden crear su propio punto de acceso mientras están conectados a una red wifi. En un teléfono que admita ambas conexiones a la vez, conecta el ordenador a ese punto de acceso para que pueda recibir la señal de DJI Fly. Esta vía depende de la capacidad del teléfono para compartir el wifi." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Configura el directo del Neo con el RC-N3",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Conecta el teléfono al RC-N3", "d": "Vuela el Neo con el RC-N3 como siempre, con el teléfono conectado por cable y DJI Fly abierta." },
+          { "t": "Conecta el teléfono y el ordenador a la misma red", "d": "Conecta el wifi del teléfono y el ordenador a la misma red wifi. En el campo, activa el punto de acceso de un segundo teléfono o un router de viaje y conecta ambos a él." },
+          { "t": "Abre Stream My Drone", "d": "Instala <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> en un Mac o un PC con Windows. Muestra una dirección como <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Introduce la dirección en DJI Fly", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, escribe la dirección y empieza. La vista previa aparece en la app." },
+          { "t": "Elige las plataformas y sal en directo", "d": "Añade Instagram, TikTok, YouTube o cualquier servidor RTMP, deja <em>Vertical 9:16</em> para Instagram y TikTok y pulsa INICIAR TRANSMISIÓN." }
+        ] },
+        { "img": "go-live.png", "alt": "La pestaña Transmitir de Stream My Drone con la dirección RTMP para DJI Fly, los destinos y el botón INICIAR TRANSMISIÓN." },
+        { "note": "Tienes más detalles sobre la parte de DJI Fly, las redes y los cortafuegos en <a href=\"../dji-fly-rtmp-live-streaming-setup/\">la guía RTMP de DJI Fly</a>." }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "Consejos para transmitir con un Neo",
+      "blocks": [
+        { "list": [
+          "<strong>Un teléfono Android transmite con más bitrate.</strong> DJI indica 5 o 3 Mbps en Android y 2 o 1 Mbps en iOS.",
+          "<strong>Mantén fuerte el wifi del teléfono.</strong> La transmisión va del teléfono al ordenador por wifi; quédate cerca del router o del punto de acceso.",
+          "<strong>Vertical para redes sociales.</strong> El Neo graba en horizontal; <em>Imagen completa</em> mantiene todo el encuadre con un relleno difuminado y <em>Llenar la pantalla</em> lo recorta.",
+          "<strong>Ensaya en tierra.</strong> <em>Probar con un archivo de vídeo</em> en Stream My Drone comprueba la parte de la plataforma antes de que despegue el Neo."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Cuando no funciona",
+      "blocks": [
+        { "list": [
+          "<strong>DJI Fly no puede conectarse:</strong> comprueba que el wifi del teléfono está en la red del ordenador y no en el wifi propio del Neo.",
+          "<strong>No aparece la opción RTMP:</strong> actualiza DJI Fly y el firmware del Neo; la opción depende de la versión de DJI Fly.",
+          "<strong>La imagen va a tirones:</strong> el teléfono está demasiado lejos del router, o la red salta entre 2,4 y 5 GHz.",
+          "<strong>Instagram rechaza la transmisión:</strong> crea un nuevo vídeo en directo en instagram.com y actualiza la clave; cada clave solo funciona una vez."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "¿Puede el DJI Neo transmitir en directo?", "a": "Sí, mediante RTMP en DJI Fly. Para transmitir a un ordenador, vuélalo con el RC-N3 o con unas gafas conectadas al teléfono por cable, para que el wifi del teléfono quede libre y pueda unirse a la red del ordenador." },
+    { "q": "¿Puedo transmitir en directo con el Neo si lo controlo solo con el teléfono?", "a": "En el modo de control solo con teléfono, el wifi del teléfono está conectado al Neo. Un ordenador puede recibir la señal a través del punto de acceso del teléfono si el teléfono Android admite compartir wifi y punto de acceso a la vez. Depende del teléfono." },
+    { "q": "¿Puede el DJI Neo transmitir a Instagram o TikTok?", "a": "No directamente desde DJI Fly. Envía la transmisión RTMP de DJI Fly a Stream My Drone, que la reenvía a Instagram por RTMPS y a TikTok en vertical de 1080×1920." },
+    { "q": "¿Funciona con el Neo 2?", "a": "Si DJI Fly muestra RTMP en Live Streaming Platforms para tu dron y tu control remoto, funciona: Stream My Drone solo recibe la transmisión RTMP y nunca se comunica con el dron." }
+  ]
+}

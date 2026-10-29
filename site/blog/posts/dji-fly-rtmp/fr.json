@@ -1,0 +1,86 @@
+{
+  "slug": "dji-fly-rtmp-live-streaming-setup",
+  "platform": "DJI Fly RTMP",
+  "title": "Direct RTMP avec DJI Fly : guide de configuration pas à pas",
+  "description": "Configurer le direct RTMP dans DJI Fly : où trouver le réglage, quelle adresse saisir, comment relier radiocommande et ordinateur au même réseau, et que faire en cas de problème.",
+  "h1": "Direct RTMP avec DJI Fly : la configuration complète",
+  "lead": "DJI Fly peut envoyer l'image en direct du drone vers n'importe quelle adresse RTMP : <strong>GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP</strong>. Dirigez-la vers un ordinateur qui fait tourner Stream My Drone sur le même réseau ; de là, l'image peut partir vers TikTok, Instagram, YouTube, Facebook, Twitch, Kick ou plusieurs d'entre eux à la fois.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "L'option RTMP se trouve dans DJI Fly sous GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP.",
+    "DJI Fly a besoin d'une adresse du type rtmp://192.168.1.20:1935/drone ; Stream My Drone affiche la bonne adresse pour votre ordinateur, avec un QR code.",
+    "La radiocommande et l'ordinateur doivent être sur le même Wi-Fi ou sur le même partage de connexion d'un téléphone.",
+    "La radiocommande envoie généralement du H.264 en 720p avec un son AAC ; l'application en fait un flux propre en 1080p, vertical ou horizontal.",
+    "Les Wi-Fi invités empêchent souvent les appareils de communiquer entre eux : utilisez un réseau normal ou un partage de connexion."
+  ],
+  "sections": [
+    {
+      "id": "how-it-works",
+      "h2": "Comment fonctionne le direct RTMP de DJI Fly",
+      "blocks": [
+        { "p": "RTMP est le protocole qu'utilisent les plateformes de direct pour recevoir la vidéo. DJI Fly contient un client RTMP : il pousse l'image que la radiocommande reçoit du drone vers l'adresse que vous saisissez. Les plateformes sont exigeantes sur ce flux (orientation, images clés, débit) et beaucoup fournissent une adresse différente à chaque diffusion ; saisir directement l'adresse d'une plateforme dans DJI Fly fonctionne donc rarement bien." },
+        { "p": "Stream My Drone se place entre les deux. Il fait tourner un petit serveur RTMP sur votre Mac ou PC, y reçoit le flux de DJI Fly, affiche un aperçu et le réencode dans le format qu'attend chaque plateforme. Tout reste sur votre ordinateur ; la vidéo ne transite par le serveur de personne d'autre." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Configurer le RTMP dans DJI Fly",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Mettez les deux appareils sur un même réseau", "d": "Connectez la radiocommande DJI et l'ordinateur au même Wi-Fi, ou activez le partage de connexion de votre téléphone et connectez-y les deux." },
+          { "t": "Ouvrez Stream My Drone", "d": "L'étape <em>Connectez votre drone</em> affiche une adresse comme <code>rtmp://192.168.1.20:1935/drone</code> et un QR code. Le nombre correspond à l'adresse de votre ordinateur sur ce réseau." },
+          { "t": "Ouvrez l'écran RTMP dans DJI Fly", "d": "Touchez GO FLY, puis ••• (les trois points), puis Transmission → Live Streaming Platforms → RTMP." },
+          { "t": "Saisissez l'adresse", "d": "Tapez l'adresse exactement comme elle s'affiche, ou scannez le QR code si votre version de DJI Fly le propose." },
+          { "t": "Lancez la diffusion", "d": "Démarrez le flux dans DJI Fly. Dans Stream My Drone, la première étape passe au vert et l'aperçu apparaît en quelques secondes." }
+        ] },
+        { "img": "go-live.png", "alt": "L'onglet Direct de Stream My Drone : l'adresse RTMP pour DJI Fly, les destinations et le bouton DÉMARRER LE DIRECT." }
+      ]
+    },
+    {
+      "id": "networks",
+      "h2": "Quel réseau utiliser",
+      "blocks": [
+        { "table": {
+          "head": ["Configuration", "Ça marche ?", "Remarques"],
+          "rows": [
+            ["Wi-Fi de la maison ou du bureau", "Oui", "Idéal pour s'entraîner. L'envoi vers les plateformes passe par votre connexion Internet."],
+            ["Partage de connexion d'un téléphone", "Oui", "Idéal sur le terrain. La radiocommande et l'ordinateur s'y connectent tous les deux ; l'envoi utilise les données mobiles."],
+            ["Wi-Fi invité", "Souvent non", "Les réseaux invités isolent généralement les appareils, donc DJI Fly ne peut pas joindre l'ordinateur."],
+            ["Radiocommande sur données mobiles, ordinateur ailleurs", "Non", "L'adresse locale de l'ordinateur n'est pas joignable depuis l'extérieur de son réseau."]
+          ]
+        } },
+        { "p": "La liaison entre la radiocommande et l'ordinateur transporte tout le flux : gardez donc l'ordinateur près du routeur ou du point d'accès. L'envoi vers les plateformes demande environ 10 Mbit/s de débit stable par destination." }
+      ]
+    },
+    {
+      "id": "drones",
+      "h2": "Quels drones prennent en charge le RTMP",
+      "blocks": [
+        { "p": "Cela dépend du drone, de la radiocommande et de la version de DJI Fly, pas de Stream My Drone. Si DJI Fly affiche <em>RTMP</em> sous <em>Live Streaming Platforms</em>, ça fonctionnera : l'application reçoit un flux RTMP ordinaire et ne communique jamais avec le drone lui-même. DJI ajoute et retire l'option d'une version à l'autre ; vérifiez donc sur votre propre radiocommande." },
+        { "note": "Sur la DJI RC 2, certaines versions de DJI Fly refusent de lancer la diffusion tant qu'aucun microphone n'est branché à la radiocommande." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Dépannage",
+      "blocks": [
+        { "list": [
+          "<strong>DJI Fly indique qu'il ne peut pas se connecter :</strong> vérifiez que les deux appareils sont sur le même réseau et que l'adresse correspond à celle de l'application, <code>:1935/drone</code> compris.",
+          "<strong>Ça marchait hier mais plus aujourd'hui :</strong> l'ordinateur a peut-être une nouvelle adresse réseau. Copiez à nouveau l'adresse depuis l'application.",
+          "<strong>Un pare-feu demande une autorisation :</strong> autorisez Stream My Drone à accepter les connexions entrantes sur les réseaux privés.",
+          "<strong>L'image saccade :</strong> rapprochez l'ordinateur du Wi-Fi ou passez sur un réseau 5 GHz. Un Wi-Fi qui bascule d'une bande à l'autre provoque de courtes coupures.",
+          "<strong>L'aperçu indique 720p :</strong> c'est ce qu'envoie la radiocommande. L'application affiche la vraie entrée et ne prétend pas qu'il s'agit de 1080p natif."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Où se trouve le réglage RTMP dans DJI Fly ?", "a": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Si RTMP n'y apparaît pas, votre drone, votre radiocommande ou votre version de DJI Fly ne le propose pas." },
+    { "q": "Quelle adresse RTMP saisir dans DJI Fly ?", "a": "Celle qu'affiche Stream My Drone, sous la forme rtmp://<adresse de l'ordinateur>:1935/drone. Elle change quand l'ordinateur se connecte à un autre réseau." },
+    { "q": "DJI Fly peut-il diffuser directement sur YouTube ou Facebook ?", "a": "DJI Fly peut pousser du RTMP vers n'importe quelle adresse, mais les plateformes attendent des réglages précis et certaines exigent une nouvelle clé à chaque diffusion. Passer d'abord par Stream My Drone vous donne un aperçu, le bon format, plusieurs destinations à la fois et la gestion automatique des particularités de chaque plateforme." },
+    { "q": "Faut-il une connexion Internet ?", "a": "La liaison entre DJI Fly et l'ordinateur est locale. Seul le flux de l'ordinateur vers les plateformes utilise Internet." },
+    { "q": "La vidéo est-elle envoyée à un serveur tiers ?", "a": "Non. Stream My Drone tourne entièrement sur votre ordinateur et n'envoie le flux qu'aux destinations que vous ajoutez." }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "slug": "dji-fly-rtmp-live-streaming-setup",
+  "platform": "DJI Fly RTMP",
+  "title": "Cara live streaming RTMP di DJI Fly: panduan langkah demi langkah",
+  "description": "Cara mengatur live streaming RTMP di DJI Fly: letak pengaturannya, alamat yang harus dimasukkan, menghubungkan remote dan komputer, serta cara mengatasi masalahnya.",
+  "h1": "Live streaming RTMP di DJI Fly: pengaturan lengkap",
+  "lead": "DJI Fly bisa mengirim gambar langsung drone ke alamat RTMP mana pun: <strong>GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP</strong>. Arahkan ke komputer yang menjalankan Stream My Drone di jaringan yang sama, dan dari sana gambarnya bisa dikirim ke TikTok, Instagram, YouTube, Facebook, Twitch, Kick, atau beberapa di antaranya sekaligus.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Opsi RTMP ada di GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP di DJI Fly.",
+    "DJI Fly memerlukan alamat seperti rtmp://192.168.1.20:1935/drone; Stream My Drone menampilkan alamat yang tepat untuk komputer Anda, lengkap dengan kode QR.",
+    "Remote dan komputer harus berada di Wi-Fi yang sama atau hotspot ponsel yang sama.",
+    "Remote biasanya mengirim H.264 720p dengan audio AAC; aplikasi mengubahnya menjadi siaran 1080p vertikal atau horizontal yang rapi.",
+    "Wi-Fi tamu sering memblokir perangkat agar tidak saling terhubung — gunakan jaringan biasa atau hotspot."
+  ],
+  "sections": [
+    {
+      "id": "how-it-works",
+      "h2": "Cara kerja streaming RTMP di DJI Fly",
+      "blocks": [
+        { "p": "RTMP adalah protokol yang dipakai platform live untuk menerima video. DJI Fly memiliki klien RTMP: ia mendorong gambar yang diterima remote dari drone ke alamat apa pun yang Anda ketik. Platform cukup rewel soal siaran itu — orientasi, keyframe, bitrate — dan banyak di antaranya memberi alamat berbeda untuk setiap siaran, jadi mengetik alamat platform langsung ke DJI Fly jarang berhasil dengan baik." },
+        { "p": "Stream My Drone berada di tengah-tengahnya. Aplikasi ini menjalankan server RTMP kecil di Mac atau PC Anda, menerima siaran DJI Fly di sana, menampilkan pratinjau, lalu mengenkode ulang sesuai kebutuhan tiap platform. Semuanya tetap di komputer Anda; video tidak melewati server pihak lain." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Mengatur RTMP di DJI Fly",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Satukan kedua perangkat di satu jaringan", "d": "Sambungkan remote DJI dan komputer ke Wi-Fi yang sama, atau nyalakan hotspot ponsel dan sambungkan keduanya ke sana." },
+          { "t": "Buka Stream My Drone", "d": "Langkah <em>Hubungkan drone Anda</em> menampilkan alamat seperti <code>rtmp://192.168.1.20:1935/drone</code> beserta kode QR. Angka itu adalah alamat komputer Anda di jaringan tersebut." },
+          { "t": "Buka layar RTMP di DJI Fly", "d": "Ketuk GO FLY, lalu ••• (tiga titik), kemudian Transmission → Live Streaming Platforms → RTMP." },
+          { "t": "Masukkan alamatnya", "d": "Ketik alamatnya persis seperti yang ditampilkan, atau pindai kode QR jika versi DJI Fly Anda menyediakannya." },
+          { "t": "Mulai streaming", "d": "Mulai siaran di DJI Fly. Di Stream My Drone, langkah pertama berubah hijau dan pratinjau muncul dalam beberapa detik." }
+        ] },
+        { "img": "go-live.png", "alt": "Tab Siaran di Stream My Drone: alamat RTMP untuk DJI Fly, daftar tujuan, dan tombol MULAI SIARAN." }
+      ]
+    },
+    {
+      "id": "networks",
+      "h2": "Jaringan mana yang dipakai",
+      "blocks": [
+        { "table": {
+          "head": ["Pengaturan", "Bisa?", "Catatan"],
+          "rows": [
+            ["Wi-Fi rumah atau kantor", "Ya", "Paling cocok untuk latihan. Unggahan ke platform memakai koneksi internet Anda."],
+            ["Hotspot ponsel", "Ya", "Paling cocok di lapangan. Remote dan komputer sama-sama tersambung ke hotspot; unggahan memakai data seluler."],
+            ["Wi-Fi tamu", "Sering tidak", "Jaringan tamu biasanya mengisolasi perangkat, sehingga DJI Fly tidak bisa menjangkau komputer."],
+            ["Remote memakai data seluler, komputer di jaringan lain", "Tidak", "Alamat lokal komputer tidak bisa dijangkau dari luar jaringannya."]
+          ]
+        } },
+        { "p": "Tautan dari remote ke komputer membawa seluruh siaran, jadi letakkan komputer dekat router atau hotspot. Unggahan ke platform memerlukan bandwidth stabil sekitar 10 Mbps per tujuan." }
+      ]
+    },
+    {
+      "id": "drones",
+      "h2": "Drone mana yang mendukung RTMP",
+      "blocks": [
+        { "p": "Itu bergantung pada drone, remote, dan versi DJI Fly, bukan pada Stream My Drone. Jika DJI Fly menampilkan <em>RTMP</em> di bawah <em>Live Streaming Platforms</em>, berarti bisa: aplikasi menerima aliran RTMP biasa dan tidak pernah berkomunikasi langsung dengan drone. DJI menambah dan menghapus opsi ini antarversi, jadi periksa remote Anda sendiri." },
+        { "note": "Di DJI RC 2, beberapa versi DJI Fly menolak memulai streaming sampai ada mikrofon yang tersambung ke remote." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Mengatasi masalah",
+      "blocks": [
+        { "list": [
+          "<strong>DJI Fly bilang tidak bisa terhubung:</strong> pastikan kedua perangkat berada di jaringan yang sama dan alamatnya sama dengan yang ada di aplikasi, termasuk <code>:1935/drone</code>.",
+          "<strong>Kemarin bisa, hari ini tidak:</strong> komputer mungkin mendapat alamat jaringan baru. Salin lagi alamat dari aplikasi.",
+          "<strong>Firewall meminta izin:</strong> izinkan Stream My Drone menerima koneksi masuk di jaringan pribadi.",
+          "<strong>Gambar tersendat:</strong> dekatkan komputer ke Wi-Fi, atau beralih ke jaringan 5 GHz. Wi-Fi yang berpindah-pindah band menyebabkan putus sesaat.",
+          "<strong>Pratinjau menunjukkan 720p:</strong> memang itu yang dikirim remote. Aplikasi menampilkan input sebenarnya dan tidak berpura-pura bahwa itu 1080p asli."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Di mana pengaturan RTMP di DJI Fly?", "a": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Jika RTMP tidak muncul di sana, drone, remote, atau versi DJI Fly Anda tidak menyediakannya." },
+    { "q": "Alamat RTMP apa yang dimasukkan ke DJI Fly?", "a": "Alamat yang ditampilkan Stream My Drone, dengan format rtmp://<alamat komputer>:1935/drone. Alamat ini berubah ketika komputer tersambung ke jaringan lain." },
+    { "q": "Bisakah DJI Fly siaran langsung ke YouTube atau Facebook?", "a": "DJI Fly bisa mendorong RTMP ke alamat mana pun, tetapi platform mengharapkan pengaturan tertentu, dan sebagian memerlukan kunci baru untuk setiap siaran. Mengirim ke Stream My Drone terlebih dahulu memberi Anda pratinjau, format yang tepat, beberapa tujuan sekaligus, dan penanganan otomatis untuk keanehan tiap platform." },
+    { "q": "Apakah perlu koneksi internet?", "a": "Tautan dari DJI Fly ke komputer bersifat lokal. Hanya siaran dari komputer ke platform yang memakai internet." },
+    { "q": "Apakah video dikirim ke server pihak ketiga?", "a": "Tidak. Stream My Drone berjalan sepenuhnya di komputer Anda dan hanya mengirim siaran ke tujuan yang Anda tambahkan." }
+  ]
+}

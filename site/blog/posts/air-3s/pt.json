@@ -1,0 +1,251 @@
+{
+  "slug": "dji-air-3s-live-stream",
+  "platform": "DJI Air 3S",
+  "title": "Live com DJI Air 3S: configuração com RC 2 e RC-N3 (2026)",
+  "description": "Faça transmissão ao vivo com o DJI Air 3S no YouTube, Instagram ou Facebook. Escolha o controle, envie o RTMP do DJI Fly ao celular ou computador e confira a imagem.",
+  "h1": "Como fazer uma transmissão ao vivo com o DJI Air 3S",
+  "lead": "O seu <strong>DJI Air 3S</strong> pode enviar a imagem RTMP do DJI Fly para o <strong>Stream My Drone</strong> em um segundo celular ou para o <strong>Stream My Drone</strong> em um Mac ou PC com Windows. O controle define qual aparelho roda o DJI Fly. Siga a configuração correspondente abaixo e confira o receptor, o enquadramento e o destino antes de decolar.",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "O DJI RC 2 mantém o DJI Fly na própria tela; um segundo celular pode receber e repassar a imagem.",
+    "O RC-N3 e o RC-N2 usam um celular para o DJI Fly. O fluxo com computador mantém o receptor separado desse celular de voo.",
+    "O endereço local de recepção vai no DJI Fly; as credenciais das plataformas vão no Stream My Drone, no celular ou no computador.",
+    "A gravação da câmera, a imagem ao vivo no controle e a transmissão RTMP de saída têm ajustes de qualidade separados.",
+    "Antes do voo, teste a câmera escolhida e a página de visualização da plataforma."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Controles do Air 3S: RC 2, RC-N3 e RC-N2",
+      "blocks": [
+        {
+          "p": "O <a href=\"https://www.dji.com/air-3s/faq\">FAQ do Air 3S</a> atual da DJI lista o DJI RC 2, o RC-N3 e o RC-N2. Se você vai reaproveitar um RC-N2, atualize o drone, o controle e o DJI Fly antes de verificar se eles pareiam. Escolha o fluxo pelo controle que você realmente usa, e não pelo nome do kit."
+        },
+        {
+          "table": {
+            "head": [
+              "Controle",
+              "Onde você pilota",
+              "Onde você recebe a transmissão"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "DJI Fly na tela integrada",
+                "Stream My Drone em um segundo celular ou Stream My Drone em um computador"
+              ],
+              [
+                "DJI RC-N3",
+                "DJI Fly no celular conectado por USB",
+                "Stream My Drone em um computador, na configuração descrita aqui"
+              ],
+              [
+                "DJI RC-N2",
+                "DJI Fly no celular conectado por USB",
+                "O mesmo fluxo de recepção no computador do RC-N3"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "O <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">guia de transmissão ao vivo</a> da DJI limita a transmissão do RC 2 a 720p e exige um microfone conectado a partir do DJI Fly v1.16.0. Confira os ajustes disponíveis no seu controle."
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Air 3S com RC 2: transmissão ao vivo sem computador",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Instale o Stream My Drone no celular",
+              "d": "Baixe o app no <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> ou na <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a>. O celular recebe a transmissão enquanto o DJI Fly continua aberto no RC 2."
+            },
+            {
+              "t": "Conecte o RC 2 e o celular",
+              "d": "Coloque os dois na mesma rede Wi-Fi com acesso à internet. Em campo, um celular Android pode criar o ponto de acesso e também receber a transmissão. Abra o Stream My Drone depois de escolher a rede; no iPhone, permita o acesso à rede local quando for solicitado."
+            },
+            {
+              "t": "Copie o endereço de recepção para o DJI Fly",
+              "d": "Copie o endereço local de recepção completo que o Stream My Drone mostra. No DJI Fly, abra GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP e digite o endereço. Use o <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guia de RTMP do DJI Fly</a> para o passo a passo do menu."
+            },
+            {
+              "t": "Inicie a transmissão no DJI Fly e confira a prévia",
+              "d": "Inicie a transmissão no controle e confirme que a imagem do drone em movimento chega ao celular. Confira também o som, com o microfone que o DJI Fly exigir conectado. Mantenha o Stream My Drone aberto durante o teste."
+            },
+            {
+              "t": "Escolha um destino e confirme a publicação",
+              "d": "Adicione uma plataforma no Stream My Drone conectando a conta, quando disponível, ou com a URL do servidor e a chave de transmissão. Comece o envio e abra o painel ao vivo ou a página de visualização da plataforma. Conclua qualquer etapa de Go Live que a plataforma ainda exija."
+            }
+          ]
+        },
+        {
+          "note": "O celular repassa o vídeo recebido sem recodificá-lo. O corte ou o fundo desfocado da prévia não transforma a saída em vertical 1080×1920. Use o app para computador quando precisar dessa conversão. No iPhone, mantenha o app em primeiro plano durante a configuração; para continuar transmitindo em segundo plano, é preciso o Picture in Picture."
+        }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Air 3S com RC-N3 ou RC-N2: receba no computador",
+      "blocks": [
+        {
+          "p": "Com o RC-N3 ou o RC-N2, mantenha o DJI Fly aberto no celular preso ao controle. Instale o <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> em um Mac ou PC com Windows e coloque o computador e o celular de voo na mesma rede local. O RC 2 também pode usar esse fluxo pelo computador."
+        },
+        {
+          "steps": [
+            {
+              "t": "Encontre o endereço RTMP do computador",
+              "d": "Abra o Stream My Drone e copie o endereço em Conecte seu drone. Um endereço como <code>rtmp://192.168.1.20:1935/drone</code> é só um exemplo; use o que o seu app mostrar."
+            },
+            {
+              "t": "Envie o DJI Fly para esse endereço",
+              "d": "Digite o endereço nas configurações RTMP do DJI Fly e inicie a transmissão. Se o firewall do computador perguntar, permita conexões de entrada na sua rede privada. Confira a prévia antes de adicionar um destino."
+            },
+            {
+              "t": "Defina a saída e a plataforma",
+              "d": "Escolha horizontal para uma transmissão tradicional no YouTube ou no Facebook, ou saída vertical para uma conta com layout em retrato. Adicione a URL do servidor e a chave atuais do destino, inicie a saída e confira a transmissão na plataforma."
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "Stream My Drone no computador mostrando o endereço RTMP local para o DJI Fly, os destinos das plataformas e o botão de iniciar a live."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Em qual plataforma você quer transmitir?",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Plataforma",
+              "O que preparar",
+              "Guia detalhado"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "Uma conta com transmissão ao vivo ativada e uma transmissão preparada",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Configuração do YouTube</a>"
+              ],
+              [
+                "Instagram",
+                "Acesso ao Live Producer e credenciais RTMPS atuais",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Configuração do Instagram</a>"
+              ],
+              [
+                "Facebook",
+                "Uma transmissão ao vivo com a URL do servidor e a chave",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Configuração do Facebook</a>"
+              ],
+              [
+                "TikTok",
+                "Acesso RTMP na sua conta ou um computador com acesso ao LIVE Studio",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Configuração do TikTok</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "O acesso à plataforma depende da sua conta. Receber a imagem do drone no app não gera uma chave de transmissão nem publica uma live. Para o TikTok LIVE Studio, o app para computador também oferece uma <a href=\"../use-your-dji-drone-as-a-webcam/\">câmera virtual</a>. Confira no painel de cada plataforma qual é a etapa de publicação atual."
+        }
+      ]
+    },
+    {
+      "id": "camera-framing",
+      "h2": "O que a câmera melhor do Air 3S muda na sua live",
+      "blocks": [
+        {
+          "p": "O <a href=\"https://www.dji.com/air-3s/faq\">FAQ do Air 3S</a> da DJI descreve a câmera principal de 1 polegada e a gravação vertical com as duas câmeras. Essa melhoria de câmera não aumenta o limite de transmissão do RC 2 nem garante uma imagem RTMP em retrato. Avalie a transmissão pelo que chega ao seu receptor."
+        },
+        {
+          "list": [
+            "<strong>Ensaie as visões grande-angular e tele.</strong> Selecione cada câmera no DJI Fly com o drone no chão. Observe no receptor a exposição, o enquadramento e a transição entre as visões.",
+            "<strong>Confira a luz mudando.</strong> Ao filmar um pôr do sol ou um horizonte de prédios muito iluminado, observe a imagem recebida, além da tela de voo. Ajuste para uma imagem que o público possa assistir na hora, em vez de contar com a edição depois.",
+            "<strong>Teste a entrega em retrato à parte.</strong> Confira as dimensões de entrada, escolha no computador o corte ou o layout com a imagem inteira, se precisar, e verifique a prévia da plataforma antes de publicar."
+          ]
+        },
+        {
+          "note": "Se você trocou um Air 3 pelo Air 3S, faça um novo teste no chão com o Air 3S depois de parear e atualizar. Salve um endereço de recepção novo depois de qualquer mudança de rede e confira as credenciais do destino; uma transmissão que funcionava com o drone anterior não prova que a nova configuração funciona."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Qualidade da live do Air 3S e dados móveis",
+      "blocks": [
+        {
+          "p": "O arquivo gravado no drone, a imagem ao vivo no controle e o vídeo enviado ao receptor são saídas separadas. Verifique a resolução de entrada do receptor antes de escolher os ajustes de saída. Ampliar muda o tamanho da imagem; não recupera detalhes que não vieram na transmissão. O processamento da plataforma pode trazer outra mudança de qualidade e mais atraso."
+        },
+        {
+          "list": [
+            "<strong>Teste antes de decolar.</strong> Verifique o movimento, o som e a página de visualização da plataforma com o drone ainda no chão.",
+            "<strong>Calcule o upload.</strong> Uma saída contínua de 5 Mbps usa cerca de 2,25 GB por hora, sem contar a sobrecarga da rede. Dois destinos assim precisam de cerca de 10 Mbps de upload no total e 4,5 GB por hora.",
+            "<strong>Mantenha o link local forte.</strong> Deixe o celular ou o computador perto do ponto de acesso. Uma conexão estável importa mais que a velocidade máxima anunciada da rede.",
+            "<strong>Observe o enquadramento real da saída.</strong> No celular, o layout da prévia é só local. No computador, confira o corte escolhido ou a saída com a imagem inteira antes de publicar."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Como resolver problemas na live do Air 3S",
+      "blocks": [
+        {
+          "list": [
+            "<strong>O RC-N2 não pareia:</strong> confirme que o Air 3S está selecionado, atualize o firmware do drone e do controle e o DJI Fly e tente vincular de novo seguindo as instruções atuais da DJI. Resolva o pareamento do drone antes de investigar o receptor RTMP.",
+            "<strong>A imagem está menos nítida que a gravação:</strong> compare a entrada do receptor com o ajuste de transmissão do DJI Fly. Um modo de gravação em alta resolução não elimina o limite de transmissão do controle.",
+            "<strong>A conexão falha:</strong> copie de novo o endereço do app depois de trocar de rede. Use uma rede local compartilhada sem isolamento de convidados; <code>localhost</code> no controle aponta para o próprio controle.",
+            "<strong>Imagem no celular, mas nada para o público:</strong> confira a conexão do destino, a chave de transmissão atual e a etapa final de publicação da plataforma. Enviar dados, por si só, não confirma uma transmissão pública.",
+            "<strong>A transmissão para ao trocar de app no iPhone:</strong> volte ao Stream My Drone e confira o Picture in Picture. Sem ele, o iOS pode suspender o receptor.",
+            "<strong>Live travando:</strong> comece com um único destino, confira a estabilidade do upload da rede móvel e aproxime o receptor do ponto de acesso.",
+            "<strong>O menu RTMP não aparece:</strong> primeiro confirme a conexão com o drone e o modelo do controle, depois verifique as atualizações de firmware e do DJI Fly. O receptor não consegue adicionar um menu de transmissão que falta."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Fontes e guias de modelos relacionados",
+      "blocks": [
+        {
+          "p": "Detalhes oficiais do modelo: <a href=\"https://www.dji.com/air-3s/faq\">FAQ do DJI Air 3S</a>. Procedimento RTMP e limites dos controles: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Firmware e manuais: <a href=\"https://www.dji.com/air-3s/downloads\">downloads do DJI Air 3S</a>. Verificado em 25 de outubro de 2026; os menus disponíveis podem mudar com o firmware."
+        },
+        {
+          "p": "Compare com o <a href=\"../dji-air-3-live-stream/\">guia de transmissão do Air 3</a> ou o <a href=\"../dji-mini-5-pro-live-stream/\">guia do Mini 5 Pro</a>. Para enviar a mesma imagem para vários destinos, siga o <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">guia de multistreaming</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Dá para fazer live com o Air 3S sem computador?",
+      "a": "Com o RC 2, use o Stream My Drone em um segundo celular conectado à mesma rede local. O DJI Fly roda no controle, o celular recebe a transmissão RTMP e você configura o destino no Stream My Drone."
+    },
+    {
+      "q": "Posso usar um RC-N2 com o Air 3S?",
+      "a": "O FAQ atual do Air 3S da DJI lista o RC-N2 junto com o RC-N3 e o RC 2. Atualize os aparelhos e confirme o pareamento primeiro. Com o RC-N2, mantenha o DJI Fly no celular preso ao controle e use o mesmo fluxo de recepção no computador descrito para o RC-N3."
+    },
+    {
+      "q": "Qual endereço vai no DJI Fly?",
+      "a": "O endereço local de recepção completo que o Stream My Drone mostra, no celular ou no computador. A URL do servidor e a chave de transmissão da plataforma vão nas configurações de destino do app receptor."
+    },
+    {
+      "q": "O Stream My Drone transforma o vídeo em uma transmissão vertical?",
+      "a": "O app para celular repassa o vídeo que recebe. O layout da prévia não recodifica a imagem de saída. O Stream My Drone no computador oferece a conversão da saída para vertical."
+    },
+    {
+      "q": "Por que eu vejo a prévia, mas o público não consegue assistir?",
+      "a": "A prévia só prova que a imagem local do drone chegou. Inicie a saída para um destino, confirme que a plataforma está recebendo e conclua ali qualquer etapa de Go Live que ainda falte."
+    },
+    {
+      "q": "A gravação vertical do Air 3S garante uma live na vertical?",
+      "a": "Confira a imagem que realmente chega ao receptor. O formato de gravação da câmera e a saída RTMP são coisas separadas. O app para celular repassa o vídeo recebido, enquanto o app para computador oferece conversão de saída e controles de enquadramento."
+    }
+  ]
+}

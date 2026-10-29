@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "title": "DJI ड्रोन लाइव स्ट्रीम गाइड — Stream My Drone ब्लॉग",
+    "description": "DJI Flip, Lito, Air, Mavic और Mini से लाइव स्ट्रीम गाइड: controller संगतता, फ़ोन और कंप्यूटर सेटअप, DJI Fly RTMP, YouTube, Instagram और Facebook।"
+  },
+  "h1": "ड्रोन लाइव स्ट्रीमिंग गाइड",
+  "lead": "अपना ड्रोन या प्लेटफ़ॉर्म चुनें: Flip, Lito X1 और Lito 1, Air, Mavic और Mini के controller सेटअप, फ़ोन और कंप्यूटर के तरीके, DJI Fly RTMP सेटिंग और लाइव जाने से पहले की जाँच।",
+  "language": "भाषा",
+  "skip": "सामग्री पर जाएँ",
+  "home": "होम",
+  "blog": "ब्लॉग",
+  "download": "डाउनलोड",
+  "breadcrumb": "ब्रेडक्रंब",
+  "by": "लेखक",
+  "updated": "अपडेट",
+  "keyFacts": "संक्षेप में",
+  "toc": "इस पेज पर",
+  "faq": "सवाल",
+  "related": "और गाइड",
+  "cta": {
+    "h": "अपने ड्रोन के साथ आज़माएँ",
+    "p": "Stream My Drone macOS और Windows के लिए मुफ़्त और ओपन सोर्स है। FFmpeg ऐप में ही शामिल है, इसलिए और कुछ इंस्टॉल नहीं करना पड़ता।",
+    "button": "Stream My Drone डाउनलोड करें",
+    "more": "ऐप कैसे काम करता है"
+  },
+  "guides": {
+    "h2": "गाइड",
+    "sub": "आपके ड्रोन, controller और प्लेटफ़ॉर्म के लिए चरण-दर-चरण निर्देश।",
+    "all": "सभी गाइड"
+  }
+}

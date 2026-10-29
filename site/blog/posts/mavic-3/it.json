@@ -1,0 +1,244 @@
+{
+  "slug": "dji-mavic-3-live-stream",
+  "platform": "DJI Mavic 3 Series",
+  "title": "Diretta con DJI Mavic 3, Classic e Pro: guida ai radiocomandi (2026)",
+  "description": "Diretta streaming con DJI Mavic 3, Classic o Pro con RC-N1 o RC Pro: perché DJI RC non trasmette, ricezione su telefono, RTMP su computer e limiti di qualità.",
+  "h1": "Come andare in diretta con un DJI Mavic 3, Classic o Pro",
+  "lead": "La <strong>famiglia DJI Mavic 3</strong> può inviare la visione live della fotocamera tramite DJI Fly, ma è il radiocomando a decidere quale percorso è disponibile. Usa l'<strong>RC-N1</strong> con un telefono di volo e un computer come ricevitore, oppure l'<strong>RC Pro</strong> con un secondo telefono su cui gira Stream My Drone. Il <strong>DJI RC</strong> con schermo è un caso a parte: DJI non supporta le dirette con questo radiocomando.",
+  "summary": [
+    "Questa guida riguarda la famiglia consumer Mavic 3, Mavic 3 Cine, Mavic 3 Classic e Mavic 3 Pro, non il Mavic 3 Enterprise.",
+    "L'RC-N1 usa un telefono per DJI Fly; il metodo desktop lascia la ricezione a un computer separato.",
+    "L'RC Pro può inviare l'RTMP a Stream My Drone su un altro telefono o a Stream My Drone su un computer.",
+    "Il DJI RC è compatibile per il volo, ma non supporta le dirette di DJI Fly.",
+    "Controlla il segnale RTMP in sé: la qualità di registrazione della fotocamera e la visione live sul radiocomando non definiscono la risoluzione della diretta."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Controlla insieme drone e radiocomando",
+      "blocks": [
+        {
+          "p": "Per la famiglia consumer, DJI elenca <strong>RC-N1, DJI RC e DJI RC Pro</strong> nelle <a href=\"https://www.dji.com/support/product/mavic-3-pro\">FAQ di assistenza del Mavic 3 Pro</a>. Anche la <a href=\"https://www.dji.com/support/product/mavic-3-classic\">pagina di assistenza del Mavic 3 Classic</a> li documenta tutti e tre. L'<a href=\"https://www.dji.com/mavic-3/specs\">assistenza del Mavic 3 originale</a> documenta RC-N1 e RC Pro; le <a href=\"https://www.dji.com/rc/faq\">FAQ di DJI RC</a> confermano anche la compatibilità del DJI RC con Mavic 3 e Mavic 3 Cine. Si tratta di compatibilità di volo, non della promessa che ogni radiocomando possa trasmettere."
+        },
+        {
+          "table": {
+            "head": [
+              "Radiocomando",
+              "Dove gira DJI Fly",
+              "Percorso per la diretta"
+            ],
+            "rows": [
+              [
+                "DJI RC-N1",
+                "Telefono collegato via USB",
+                "RTMP da quel telefono a Stream My Drone su un computer"
+              ],
+              [
+                "DJI RC Pro",
+                "Schermo integrato del radiocomando",
+                "RTMP verso un secondo telefono con Stream My Drone, oppure verso un computer"
+              ],
+              [
+                "DJI RC",
+                "Schermo integrato del radiocomando",
+                "Le dirette di DJI Fly non sono supportate"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "Non confondere DJI RC con RC 2, né RC Pro con RC Pro 2. Un metodo per i radiocomandi del Mavic 4 Pro non dimostra la compatibilità con un Mavic 3. I modelli Mavic 3 Enterprise e Thermal usano un prodotto e un'app diversi, non trattati in questa guida."
+        }
+      ]
+    },
+    {
+      "id": "rtmp-check",
+      "h2": "Verifica il menu RTMP e l'audio sul tuo software",
+      "blocks": [
+        {
+          "p": "Con un radiocomando che supporta le dirette, associa il drone e apri la vista della fotocamera di DJI Fly. Cerca in GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Se serve, aggiorna drone, radiocomando e DJI Fly, poi ricontrolla il menu prima di pianificare un evento in diretta."
+        },
+        {
+          "note": "La <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">guida DJI alle dirette</a> richiede un microfono collegato sull'RC Pro da DJI Fly v1.16.0; sull'RC Pro con Fly v1.18.0 o successiva è supportato solo l'RTMP a 720p. L'RC-N1 usa le impostazioni disponibili sul telefono collegato. Verifica queste impostazioni invece di copiare un vecchio tutorial a 1080p."
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Mavic 3 con RC Pro: ricevi la diretta su un telefono",
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Installa Stream My Drone su un secondo telefono",
+              "d": "Scaricala da <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> o dall'<a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a>. Tieni DJI Fly aperta sul tuo RC Pro; il telefono riceverà e inoltrerà il suo video."
+            },
+            {
+              "t": "Metti radiocomando e ricevitore sulla stessa rete",
+              "d": "Usa una rete Wi-Fi con accesso a internet. Sul campo il telefono Android che riceve può anche fare da hotspot. Apri Stream My Drone dopo aver scelto la rete e su iPhone consenti l'accesso alla rete locale quando richiesto. Se cambi rete, ricontrolla l'indirizzo mostrato."
+            },
+            {
+              "t": "Inserisci l'indirizzo del ricevitore in DJI Fly",
+              "d": "Copia l'indirizzo RTMP locale completo mostrato da Stream My Drone. In DJI Fly apri GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Segui le etichette della tua versione: una schermata con campi separati per indirizzo e chiave è diversa da una che chiede un URL RTMP completo. Non aggiungere la tua chiave di YouTube o Instagram all'indirizzo del ricevitore locale. Il percorso nei menu è nella <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guida RTMP di DJI Fly</a>."
+            },
+            {
+              "t": "Avvia il segnale locale e controlla l'audio",
+              "d": "Avvia la diretta in DJI Fly, poi verifica che in Stream My Drone compaia un'immagine in movimento. Controlla il microfono selezionato sul radiocomando e ascolta l'audio sulla piattaforma durante la prova a terra. Un'immagine senza audio utilizzabile si diagnostica più facilmente prima del decollo."
+            },
+            {
+              "t": "Aggiungi le destinazioni e pubblica",
+              "d": "Collega l'account di una piattaforma, dove possibile, oppure inserisci in Stream My Drone l'URL del server e la chiave di streaming attuali. Avvia l'inoltro e apri la dashboard della piattaforma. Completa l'eventuale passaggio Vai in diretta separato, poi verifica che la pagina di visione funzioni davvero."
+            }
+          ]
+        },
+        {
+          "note": "Il telefono che riceve è un dispositivo separato dal radiocomando. L'inoltro da telefono mantiene il video in arrivo così com'è; il ritaglio dell'anteprima o uno sfondo sfocato non creano una nuova diretta verticale. Su iPhone tieni l'app aperta durante la configurazione; per continuare a ricevere in background serve Picture in Picture."
+        }
+      ],
+      "howto": true
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Mavic 3 con RC-N1: usa un computer separato come ricevitore",
+      "blocks": [
+        {
+          "p": "Con l'RC-N1 tieni DJI Fly aperta sul telefono collegato via USB al radiocomando. Anche l'RC Pro può inviare a questo ricevitore desktop. Installa <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> sul tuo Mac o PC Windows. Il computer riceve il segnale RTMP di DJI Fly sulla rete locale; questa configurazione non usa una scheda di acquisizione HDMI né un collegamento webcam USB dal radiocomando."
+        },
+        {
+          "steps": [
+            {
+              "t": "Copia l'indirizzo RTMP locale del computer",
+              "d": "Collega il computer e il dispositivo con DJI Fly alla stessa rete. In Stream My Drone copia l'indirizzo sotto Collega il drone. <code>rtmp://192.168.1.20:1935/drone</code> è solo un esempio: usa l'indirizzo mostrato dalla tua app."
+            },
+            {
+              "t": "Invia il segnale e verifica la ricezione",
+              "d": "Inserisci quell'indirizzo locale in DJI Fly e avvia lo streaming. Se il firewall lo chiede, consenti all'app di ricevere connessioni sulla rete privata. Controlla che l'anteprima si muova prima di configurare una piattaforma."
+            },
+            {
+              "t": "Scegli l'uscita e avvia una destinazione",
+              "d": "Scegli l'orizzontale o un formato verticale desktop, poi aggiungi l'URL del server e la chiave della piattaforma. Avvia l'uscita, verifica che la piattaforma la riceva e completa il suo passaggio di pubblicazione. Se usi più destinazioni, controlla la banda totale in upload necessaria prima di attivarle insieme."
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "Stream My Drone su desktop con l'indirizzo di ricezione locale, le destinazioni delle piattaforme e i controlli dell'uscita in diretta."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Pubblica su YouTube, Instagram, Facebook o TikTok",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Destinazione",
+              "Cosa ti serve",
+              "Guida"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "Dirette attivate e una diretta già preparata",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Configurazione YouTube</a>"
+              ],
+              [
+                "Instagram",
+                "Accesso a Live Producer e credenziali RTMPS aggiornate",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Configurazione Instagram</a>"
+              ],
+              [
+                "Facebook",
+                "Una diretta preparata con il suo URL del server e la sua chiave",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Configurazione Facebook</a>"
+              ],
+              [
+                "TikTok",
+                "Accesso RTMP sul tuo account, oppure accesso a LIVE Studio su un computer",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Configurazione TikTok</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "I requisiti dell'account li decide la piattaforma. Nessuna delle due app fornisce una chiave di streaming o aggira i requisiti di accesso. Per lavorare al computer con un'app di regia compatibile, Stream My Drone offre anche una <a href=\"../use-your-dji-drone-as-a-webcam/\">fotocamera virtuale</a>. Un'anteprima locale dimostra la ricezione; una pagina di visione funzionante conferma la pubblicazione."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Quale risoluzione riceveranno davvero gli spettatori?",
+      "blocks": [
+        {
+          "p": "Le registrazioni ad alta risoluzione della famiglia Mavic 3 e la visione O3+ sul radiocomando sono separate dall'uscita del codificatore RTMP. Un ricevitore non può recuperare dettagli che il codificatore non ha inviato. Controlla le dimensioni del video ricevuto e la qualità di riproduzione sulla destinazione, invece di promettere in diretta le specifiche di registrazione del drone."
+        },
+        {
+          "p": "Questo è particolarmente utile con i diversi obiettivi del Mavic 3 Pro: prova sul ricevitore l'obiettivo e l'inquadratura che vuoi usare prima di andare in diretta. Cambiare fotocamera o impostazioni di registrazione non sostituisce il controllo dello streaming in uscita. Per una destinazione verticale, Stream My Drone su desktop può ritagliare o adattare l'immagine a un'uscita verticale; l'app per telefono inoltra il video così come lo riceve."
+        },
+        {
+          "list": [
+            "<strong>Distingui la ricezione locale dall'upload su internet.</strong> Il radiocomando deve raggiungere il ricevitore sulla rete locale, e il ricevitore deve avere abbastanza banda in upload per le sue destinazioni.",
+            "<strong>Somma la banda in upload necessaria.</strong> Due uscite da 5 Mbps richiedono in tutto circa 10 Mbps in upload e consumano circa 4,5 GB all'ora, senza contare l'overhead. Durante le prove parti con una sola destinazione.",
+            "<strong>Ascolta, oltre a guardare.</strong> Controlla il microfono selezionato sul radiocomando o sul telefono di volo, poi ascolta sulla piattaforma. Non dare per scontato che la vista della fotocamera includa un audio utile del drone."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Risolvere i problemi di diretta con Mavic 3, Classic e Pro",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Il DJI RC non ha il menu RTMP:</strong> è un limite documentato, anche se quel radiocomando pilota il tuo drone. Stream My Drone non può aggiungere le dirette al DJI RC. Per il metodo descritto qui usa un RC-N1 o un RC Pro compatibili.",
+            "<strong>L'RC Pro non avvia la diretta:</strong> controlla il collegamento del microfono e la richiesta di DJI Fly, poi verifica le impostazioni RTMP attuali.",
+            "<strong>Il telefono dell'RC-N1 si disconnette:</strong> verifica che DJI Fly mostri ancora il collegamento al drone e controlla il cavo USB prima di cercare problemi nel ricevitore.",
+            "<strong>Il ricevitore non è raggiungibile:</strong> dopo ogni cambio di rete ricopia l'indirizzo locale attuale. Evita reti Wi-Fi ospiti con isolamento dei dispositivi e controlla il firewall del computer. <code>localhost</code> sul dispositivo di volo indica quel dispositivo stesso.",
+            "<strong>L'immagine arriva ma nessuno riesce a guardare:</strong> avvia l'uscita verso la destinazione, verifica le credenziali attuali della piattaforma e completa il suo passaggio di pubblicazione. La sola anteprima in ricezione non pubblica la diretta."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Riferimenti ufficiali e prossimi passi",
+      "blocks": [
+        {
+          "p": "Verificato il 25 ottobre 2026: <a href=\"https://www.dji.com/support/product/mavic-3-pro\">assistenza Mavic 3 Pro</a>, <a href=\"https://www.dji.com/support/product/mavic-3-classic\">assistenza Mavic 3 Classic</a>, <a href=\"https://www.dji.com/mavic-3/specs\">assistenza Mavic 3 originale</a> e <a href=\"https://www.dji.com/rc/faq\">FAQ di DJI RC</a> per le differenze tra modelli e radiocomandi; <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">guida DJI Fly alle dirette</a> per supporto e limiti dello streaming. Controlla il firmware di drone e radiocomando per sapere quale menu è davvero disponibile."
+        },
+        {
+          "p": "Per la generazione più recente, leggi la <a href=\"../dji-mavic-4-pro-live-stream/\">guida alla diretta con Mavic 4 Pro</a>. Per una configurazione più compatta con radiocomando a schermo, vedi <a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro</a>. Prosegui con la <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">guida al multistreaming</a> per pubblicare su più destinazioni."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Il Mavic 3 Pro può andare in diretta con il DJI RC incluso in alcune confezioni?",
+      "a": "Il DJI RC può pilotare il Mavic 3 Pro, ma DJI non supporta le dirette con quel radiocomando. Per il metodo RTMP di questa guida usa un RC-N1 compatibile con il suo telefono di volo oppure un RC Pro compatibile."
+    },
+    {
+      "q": "Questa guida vale anche per Mavic 3 Classic e Mavic 3 Cine?",
+      "a": "Sì, per i modelli consumer e le combinazioni di radiocomandi compatibili descritte sopra. Non copre il flusso separato di Mavic 3 Enterprise o Thermal."
+    },
+    {
+      "q": "Posso ricevere il segnale dell'RC Pro su un telefono senza computer?",
+      "a": "Usa Stream My Drone su un secondo telefono nella stessa rete locale, mentre DJI Fly resta aperta sull'RC Pro. Inserisci in DJI Fly l'indirizzo di ricezione dell'app e configura la piattaforma in Stream My Drone."
+    },
+    {
+      "q": "Il telefono di volo dell'RC-N1 può fare anche da ricevitore?",
+      "a": "Quel telefono esegue già DJI Fly per il volo. Questa guida usa Stream My Drone su un computer separato, così l'app di volo può restare aperta; non dà per scontato che entrambe le app riescano a gestire volo e inoltro sullo stesso telefono."
+    },
+    {
+      "q": "Perché una vecchia guida per RC Pro indica una risoluzione più alta?",
+      "a": "Le funzioni di DJI Fly cambiano con le versioni del software. Controlla le impostazioni attuali del radiocomando e la guida ufficiale alle dirette, poi verifica il video ricevuto invece di affidarti alle specifiche di registrazione o a un vecchio tutorial."
+    },
+    {
+      "q": "Devo inserire la chiave di streaming della piattaforma in DJI Fly?",
+      "a": "Con questa configurazione di inoltro, in DJI Fly va l'indirizzo locale mostrato da Stream My Drone, su telefono o su computer. L'URL del server e la chiave di streaming della piattaforma vanno nelle impostazioni della destinazione dell'app che riceve."
+    }
+  ],
+  "published": "2026-10-25",
+  "updated": "2026-10-25"
+}

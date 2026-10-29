@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "title": "DJI 드론 라이브 방송 가이드 — Stream My Drone 블로그",
+    "description": "DJI Flip, Lito, Air, Mavic, Mini 드론 라이브 방송 가이드: 조종기 호환성, 휴대폰과 컴퓨터 설정, DJI Fly RTMP, YouTube, Instagram, Facebook 송출 방법을 정리했습니다."
+  },
+  "h1": "드론 라이브 방송 가이드",
+  "lead": "드론이나 플랫폼을 골라 보세요. Flip, Lito X1과 Lito 1, Air, Mavic, Mini의 조종기 설정, 휴대폰과 컴퓨터 방송 방법, DJI Fly RTMP 설정, 방송 전 점검 사항을 다룹니다.",
+  "language": "언어",
+  "skip": "본문으로 건너뛰기",
+  "home": "홈",
+  "blog": "블로그",
+  "download": "다운로드",
+  "breadcrumb": "현재 위치",
+  "by": "작성자",
+  "updated": "업데이트",
+  "keyFacts": "요약",
+  "toc": "이 페이지의 내용",
+  "faq": "자주 묻는 질문",
+  "related": "다른 가이드",
+  "cta": {
+    "h": "내 드론으로 직접 해 보세요",
+    "p": "Stream My Drone은 macOS와 Windows용 무료 오픈 소스 앱입니다. FFmpeg가 들어 있어 따로 설치할 것이 없습니다.",
+    "button": "Stream My Drone 다운로드",
+    "more": "앱 작동 방식"
+  },
+  "guides": {
+    "h2": "가이드",
+    "sub": "드론, 조종기, 플랫폼별 단계별 안내입니다.",
+    "all": "모든 가이드"
+  }
+}

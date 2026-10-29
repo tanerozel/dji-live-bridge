@@ -1,0 +1,98 @@
+{
+  "slug": "count-animals-with-a-dji-drone-ai-detection",
+  "platform": "AI Vision",
+  "title": "Compter chèvres, moutons et vaches en direct avec un drone DJI et l'IA",
+  "description": "Stream My Drone repère chèvres, moutons, vaches, chevaux, ânes et volailles dans l'image en direct de votre drone, les marque dans le live et les compte, sur votre ordinateur.",
+  "h1": "Repérez et comptez les animaux en direct depuis votre drone DJI",
+  "lead": "Stream My Drone peut désormais observer l'image en direct de votre drone à votre place. <strong>AI Vision</strong> trouve chèvres, moutons, bovins, chevaux, ânes, volailles et d'autres animaux, encadre chacun d'eux avec une étiquette dans votre direct et dans la caméra virtuelle, et tient le compte. Tout tourne sur votre propre ordinateur ; aucune image ni aucun résultat n'est envoyé ailleurs.",
+  "published": "2026-10-07",
+  "updated": "2026-10-21",
+  "summary": [
+    "Activez <strong>AI Vision · Détection d'animaux</strong> dans l'onglet Direct et l'application marque chaque animal trouvé d'un cadre et d'une étiquette comme <em>Chèvre n° 12 85 %</em>.",
+    "Elle connaît 15 sortes d'animaux, les animaux de ferme en premier : chèvre, mouton, vache, cheval, âne, chien, chat, poule, canard, oie, cochon, cerf, sanglier, oiseau et ours.",
+    "Un compteur indique combien d'animaux sont dans l'image en ce moment et combien d'animaux différents ont été vus.",
+    "Tout tourne sur votre ordinateur. Le modèle est téléchargé une fois ; ensuite, rien ne quitte la machine.",
+    "La vidéo du drone n'est jamais ralentie. Sur Mac, le modèle par défaut analyse l'image une à deux fois par seconde, ce qui convient aux troupeaux au pâturage."
+  ],
+  "sections": [
+    {
+      "id": "what",
+      "h2": "Ce que fait AI Vision",
+      "blocks": [
+        { "p": "Quand vous survolez un pâturage, compter le troupeau ou retrouver la seule chèvre cachée derrière un buisson est difficile sur le petit écran d'une radiocommande. AI Vision regarde pour vous : elle analyse l'image en direct encore et encore, une à deux fois par seconde avec OWLv2 et jusqu'à dix fois par seconde avec les modèles plus légers, et marque chaque animal qu'elle reconnaît." },
+        { "list": [
+          "<strong>Des cadres et des étiquettes</strong> avec l'espèce, un numéro pour chaque animal et le degré de certitude du modèle, par exemple <em>Mouton n° 7 78 %</em>.",
+          "<strong>Un compteur d'animaux</strong> dans un coin de l'image : combien sont visibles maintenant, par espèce, et combien d'animaux différents ont été vus depuis la dernière remise à zéro.",
+          "<strong>Sur toutes les sorties.</strong> Les cadres sont dessinés dans le direct envoyé à Instagram, TikTok, YouTube et vos autres destinations, dans la caméra virtuelle et dans l'aperçu de l'application.",
+          "<strong>Les cadres sont facultatifs.</strong> Vous pouvez masquer les cadres ou le compteur et laisser le comptage tourner dans l'application."
+        ] },
+        { "note": "AI Vision ajoute seulement une couche par-dessus l'image. La vidéo du drone elle-même n'est jamais retenue pour attendre l'analyse." }
+      ]
+    },
+    {
+      "id": "animals",
+      "h2": "Quels animaux elle reconnaît",
+      "blocks": [
+        { "p": "La plupart des modèles de détection prêts à l'emploi sont entraînés sur les mêmes collections de photos publiques, et celles-ci ne contiennent aucune chèvre. Une chèvre y devient un mouton, ou rien du tout. C'est pourquoi le modèle par défaut sur Mac est <strong>OWLv2</strong>, un modèle à qui l'on indique par leur nom les animaux à chercher." },
+        { "table": {
+          "head": ["Modèle", "Animaux", "Vitesse sur Mac", "Téléchargement"],
+          "rows": [
+            ["OWLv2 (par défaut sur Mac)", "Chèvre, mouton, vache, cheval, âne, chien, chat, poule, canard, oie, cochon, cerf, sanglier, oiseau", "Environ 0,5 s par image", "586 Mo"],
+            ["D-FINE X, RF-DETR Large", "Mouton, vache, cheval, chien, chat, oiseau, ours", "Environ 0,1 à 0,2 s par image", "240 à 464 Mo"],
+            ["YOLOX (de Nano à X)", "Mouton, vache, cheval, chien, chat, oiseau, ours", "Le plus rapide ; Nano, Tiny et S tournent aussi sous Windows", "3 à 378 Mo"]
+          ]
+        } },
+        { "p": "Vous pouvez changer de modèle dans <em>Réglages de détection → Modèle</em> ; la liste indique combien d'espèces chacun connaît. Pour des troupeaux mixtes de chèvres et de moutons, utilisez OWLv2. Pour des bovins et des chevaux seulement, D-FINE X est environ cinq fois plus rapide. Dans <em>Espèces détectées</em>, vous pouvez limiter la recherche aux animaux qui vous intéressent." },
+        { "note": "Les animaux sauvages de la savane, comme les girafes, les zèbres et les éléphants, sont volontairement absents de la liste : au-dessus d'un troupeau de bovins, ils ne produisaient que de fausses alertes." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Comment activer la détection d'animaux",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Connectez votre drone", "d": "Envoyez l'image en direct de DJI Fly vers l'application en RTMP, comme d'habitude ; l'adresse se trouve dans l'onglet Direct. Les détails sont dans <a href=\"../dji-fly-rtmp-live-streaming-setup/\">le guide RTMP de DJI Fly</a>." },
+          { "t": "Activez AI Vision", "d": "Dans l'onglet Direct, repérez la carte <strong>AI Vision · Détection d'animaux</strong> et activez <em>Détection d'animaux</em>." },
+          { "t": "Laissez le modèle se télécharger et se préparer", "d": "La première fois, le modèle est téléchargé et préparé pour votre ordinateur. Avec OWLv2, cela peut prendre plusieurs minutes ; la carte affiche la progression. Les démarrages suivants prennent environ une minute." },
+          { "t": "Réglez le seuil", "d": "Abaissez le <em>Seuil de confiance</em> vers 0,25 à 0,35 pour les prises de vue aériennes, où les animaux sont petits. Remontez-le si des cadres apparaissent sur des buissons ou des rochers." },
+          { "t": "Passez en direct", "d": "Lancez la diffusion ou la caméra virtuelle. Si vous étiez déjà en direct, les cadres apparaîtront dans le flux au prochain démarrage ; la caméra virtuelle les affiche immédiatement." }
+        ] },
+        { "note": "Pas de drone sous la main ? <em>Essayer avec un fichier vidéo</em> dans l'onglet Direct fait passer un clip enregistré par le même chemin, pour essayer AI Vision depuis votre bureau." }
+      ]
+    },
+    {
+      "id": "flying",
+      "h2": "Bien piloter pour bien compter",
+      "blocks": [
+        { "list": [
+          "<strong>L'altitude compte avant tout.</strong> De très haut, un animal ne fait que quelques pixels. L'application le trouve quand même, mais savoir si c'est une chèvre ou un veau devient une supposition. Volez plus bas, ou zoomez, quand l'espèce compte.",
+          "<strong>Volez lentement.</strong> Le modèle par défaut regarde environ une à deux fois par seconde. Un passage lent lui permet de suivre chaque animal au lieu de le perdre puis de le retrouver.",
+          "<strong>Remettez à zéro avant de compter.</strong> Appuyez sur <em>Remettre à zéro</em> au début d'un passage au-dessus du troupeau. Un animal qui sort de l'image quelques secondes puis revient peut être compté deux fois : considérez le total d'animaux différents comme une bonne estimation, pas comme un recensement.",
+          "<strong>Passez en plein écran.</strong> Double-cliquez sur l'aperçu, ou appuyez sur le bouton dans son coin, pour voir l'image et les cadres sur tout l'écran. Appuyez sur Échap pour revenir."
+        ] }
+      ]
+    },
+    {
+      "id": "privacy",
+      "h2": "Confidentialité et configuration requise",
+      "blocks": [
+        { "list": [
+          "<strong>Uniquement sur votre ordinateur.</strong> La détection tourne en local. Aucune image, détection ni aucun comptage n'est envoyé. Le seul usage du réseau est le téléchargement unique du modèle.",
+          "<strong>Mac :</strong> les modèles tournent sur la puce graphique et le moteur neuronal du Mac. Un Mac Apple Silicon est recommandé. Une fois préparé, OWLv2 demande environ 4 Go d'espace disque libre.",
+          "<strong>Windows :</strong> les modèles YOLOX légers tournent sur le processeur. OWLv2 et les autres grands modèles ne sont proposés que sur Mac ; chèvres, ânes et volailles ne sont donc pas encore reconnus sous Windows.",
+          "<strong>Désactivé veut dire désactivé.</strong> Tant qu'AI Vision est désactivée, aucun modèle n'est chargé et votre diffusion est exactement la même qu'avant."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Mon drone DJI peut-il compter des animaux ?", "a": "Le drone lui-même non, mais avec Stream My Drone sur votre ordinateur, l'image en direct de DJI Fly y est analysée : chaque animal reçoit un cadre et une étiquette, et un compteur indique combien sont visibles et combien d'animaux différents ont été vus." },
+    { "q": "Reconnaît-elle les chèvres ?", "a": "Oui, avec le modèle OWLv2, celui par défaut sur Mac. Il distingue les chèvres des moutons aux hauteurs de vol habituelles. Les autres modèles n'ont aucune classe chèvre." },
+    { "q": "Les cadres apparaissent-ils dans mon direct Instagram, TikTok ou YouTube ?", "a": "Oui. Ils sont dessinés dans toutes les sorties : le direct vers toutes les destinations, la caméra virtuelle et l'aperçu dans l'application. Vous pouvez désactiver les cadres ou le compteur à tout moment." },
+    { "q": "Ma vidéo est-elle envoyée à un service d'IA ?", "a": "Non. Tout tourne sur votre propre ordinateur. Seul le fichier du modèle est téléchargé une fois, depuis une source publique, et il est vérifié avant utilisation." },
+    { "q": "Cela ralentit-il mon direct ?", "a": "Non. La vidéo garde sa fréquence d'images ; l'analyse tourne à côté et les cadres sont mis à jour dès qu'un nouveau résultat est prêt." },
+    { "q": "Le comptage est-il précis ?", "a": "Assez pour avoir une vue d'ensemble d'un troupeau, pas pour un recensement officiel. Les animaux très éloignés peuvent recevoir la mauvaise espèce, et un animal qui sort de l'image puis revient peut être compté deux fois." },
+    { "q": "Est-ce gratuit ?", "a": "Oui. AI Vision fait partie de Stream My Drone, gratuit et open source sous licence MIT. Les modèles sont publiés sous licence Apache 2.0." }
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "slug": "dji-flip-live-stream",
+  "platform": "DJI Flip",
+  "title": "Diretta streaming con DJI Flip: configurazione telefono e computer (2026)",
+  "description": "Diretta streaming con DJI Flip e RC 2, RC-N3 o RC-N2: configurazione RTMP su telefono e computer, differenze dal controllo con il palmo, formato verticale e piattaforme.",
+  "h1": "Come andare in diretta con un DJI Flip",
+  "lead": "<strong>DJI Flip</strong> può inviare l'immagine del volo in diretta tramite DJI Fly RTMP con un radiocomando compatibile. Con RC 2 usa <strong>Stream My Drone</strong> su un secondo telefono. Con RC-N3 o RC-N2 tieni DJI Fly sul telefono di volo e ricevi il segnale con <strong>Stream My Drone</strong> su un computer. Questa guida spiega questi percorsi basati sul radiocomando e come si distinguono dal controllo con il palmo, dal controllo diretto da telefono e dalla registrazione verticale del Flip.",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "DJI include il Flip nella sua guida alla compatibilità delle dirette e indica come radiocomandi compatibili RC 2, RC-N3 e RC-N2.",
+    "Con RC 2 DJI Fly gira sullo schermo integrato, così un secondo telefono resta libero per ricevere lo streaming.",
+    "RC-N3 e RC-N2 usano un telefono per DJI Fly. Usa il computer come ricevitore separato, come descritto più avanti, così DJI Fly resta aperta.",
+    "In DJI Fly va l'indirizzo del ricevitore locale. Gli account delle piattaforme o le chiavi di streaming si configurano in Stream My Drone, su telefono o su computer.",
+    "Controllo con il palmo, controllo diretto da telefono e QuickTransfer servono ad altro; questa guida usa l'RTMP tramite radiocomando, e la registrazione verticale a 2.7K non rende verticale la diretta."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Scegli il metodo per il tuo RC 2, RC-N3 o RC-N2",
+      "blocks": [
+        {
+          "p": "La <a href=\"https://repair.dji.com/help/content?customId=01700011789&amp;lang=en&amp;paperDocType=ARTICLE&amp;re=US&amp;spaceId=17\">guida per principianti di DJI Flip</a> elenca DJI RC 2, DJI RC-N3 e DJI RC-N2. Anche la <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">guida alla compatibilità delle dirette di DJI Fly</a> cita il Flip. Scegli il ricevitore in base al radiocomando, così il dispositivo su cui gira DJI Fly resta disponibile per tutto il volo."
+        },
+        {
+          "table": {
+            "head": [
+              "Radiocomando",
+              "Dove piloti",
+              "Dove ricevi lo streaming"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "DJI Fly sullo schermo integrato",
+                "Stream My Drone su un secondo telefono, oppure Stream My Drone su un computer"
+              ],
+              [
+                "DJI RC-N3",
+                "DJI Fly sul telefono collegato via USB",
+                "Stream My Drone su un Mac o PC Windows separato"
+              ],
+              [
+                "DJI RC-N2",
+                "DJI Fly sul telefono collegato via USB",
+                "Lo stesso metodo con computer separato di RC-N3"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "La <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">guida DJI alle dirette</a> indica per RC 2 un limite di 720p in diretta e, da DJI Fly v1.16.0, un microfono collegato. Verifica questi requisiti prima di partire per una diretta. Installa Stream My Drone sul telefono che riceve: non funziona su RC 2."
+        }
+      ]
+    },
+    {
+      "id": "control-modes",
+      "h2": "Controllo con il palmo, controllo da telefono e QuickTransfer: scegli il metodo giusto",
+      "blocks": [
+        {
+          "p": "Il Flip può volare con il controllo con il palmo o collegarsi direttamente a un telefono, come spiegano le <a href=\"https://www.dji.com/flip/faq\">FAQ ufficiali del Flip</a>. Sono opzioni utili per girare una clip breve o pilotare il drone senza un radiocomando tradizionale, ma non fanno parte della configurazione RTMP con radiocomando descritta qui."
+        },
+        {
+          "p": "Per questa diretta collega RC 2, RC-N3 o RC-N2, apri la vista di volo di DJI Fly e usa il menu Live Streaming Platforms → RTMP. Un collegamento Wi-Fi diretto al Flip, un'anteprima live della fotocamera o una registrazione completata con il controllo con il palmo non bastano a dimostrare che un segnale RTMP sia arrivato al tuo ricevitore."
+        },
+        {
+          "note": "QuickTransfer copia i contenuti registrati. Per verificare un collegamento in diretta, controlla che in Stream My Drone (su telefono o computer) compaia un'immagine in movimento. Se vuoi provare una configurazione con il solo telefono, controlla i comandi davvero disponibili nella tua attuale modalità di collegamento di DJI Fly; i passaggi qui sotto usano un radiocomando e non dimostrano il supporto RTMP con il solo telefono."
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Flip con RC 2: usa un secondo telefono senza computer",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Installa Stream My Drone sul telefono",
+              "d": "Scarica l'app da <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> o dall'<a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a>. Il telefono riceve lo streaming mentre DJI Fly resta aperta sull'RC 2."
+            },
+            {
+              "t": "Collega l'RC 2 e il telefono",
+              "d": "Connetti entrambi alla stessa rete Wi-Fi con accesso a internet. Sul campo un telefono Android può fare da hotspot e ricevere lo streaming. Apri Stream My Drone dopo aver scelto la rete; su iPhone consenti l'accesso alla rete locale quando richiesto."
+            },
+            {
+              "t": "Copia l'indirizzo di ricezione in DJI Fly",
+              "d": "Usa l'indirizzo locale completo mostrato da Stream My Drone. In DJI Fly apri GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP e inseriscilo lì. Il percorso completo dei menu è nella <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guida alla configurazione RTMP di DJI Fly</a>. Collega un microfono se DJI Fly lo richiede."
+            },
+            {
+              "t": "Avvia il segnale di DJI Fly e controlla l'anteprima",
+              "d": "Avvia lo streaming sul radiocomando, poi verifica che l'immagine in movimento del drone compaia sul telefono. Tieni Stream My Drone aperta mentre controlli il collegamento. Così il collegamento video locale è stabilito."
+            },
+            {
+              "t": "Scegli una destinazione e verifica la pubblicazione",
+              "d": "Aggiungi una piattaforma in Stream My Drone collegando l'account, dove possibile, oppure con l'URL del server e la chiave di streaming. Avvia l'inoltro, poi apri la dashboard della diretta o la pagina di visione della piattaforma. Completa l'eventuale passaggio Vai in diretta che la piattaforma richiede ancora."
+            }
+          ]
+        },
+        {
+          "note": "Il telefono inoltra il video in arrivo senza ricodificarlo. Il ritaglio o lo sfondo sfocato dell'anteprima non trasformano il segnale in uscita in un verticale 1080×1920: per questa conversione usa l'app desktop. Su iPhone tieni l'app in primo piano durante la configurazione; per continuare lo streaming in background serve Picture in Picture."
+        }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Flip con RC-N3 o RC-N2: ricevi il segnale su un computer",
+      "blocks": [
+        {
+          "p": "Con RC-N3 o RC-N2 tieni DJI Fly aperta sul telefono collegato al radiocomando. Installa <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> su un Mac o un PC Windows e collega quel computer e il telefono con DJI Fly alla stessa rete locale. Anche con RC 2 puoi usare questo metodo desktop."
+        },
+        {
+          "steps": [
+            {
+              "t": "Trova l'indirizzo RTMP del computer",
+              "d": "Apri Stream My Drone e copia l'indirizzo sotto Collega il drone. Un indirizzo come <code>rtmp://192.168.1.20:1935/drone</code> è solo un esempio: usa quello mostrato dalla tua app."
+            },
+            {
+              "t": "Invia DJI Fly a quell'indirizzo",
+              "d": "In DJI Fly apri GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, inserisci l'indirizzo del ricevitore e avvia il segnale. La <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guida RTMP di DJI Fly</a> spiega il menu. Se il firewall del computer lo chiede, consenti le connessioni in entrata sulla rete privata. Controlla l'anteprima prima di aggiungere una destinazione."
+            },
+            {
+              "t": "Imposta l'uscita e la piattaforma",
+              "d": "Scegli l'orizzontale per una diretta classica su YouTube o Facebook, oppure l'uscita verticale per un account con formato in verticale. Aggiungi l'URL del server e la chiave attuali della destinazione, avvia l'uscita e verifica la diretta sulla piattaforma."
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "Stream My Drone su desktop con l'indirizzo RTMP locale per DJI Fly, le destinazioni delle piattaforme e il pulsante per avviare la diretta."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Su quale piattaforma vuoi andare in diretta?",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Piattaforma",
+              "Cosa preparare",
+              "Guida dettagliata"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "Un account con le dirette attivate e una diretta già preparata",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Configurazione YouTube</a>"
+              ],
+              [
+                "Instagram",
+                "Accesso a Live Producer e credenziali RTMPS aggiornate",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Configurazione Instagram</a>"
+              ],
+              [
+                "Facebook",
+                "Una diretta con il suo URL del server e la sua chiave",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Configurazione Facebook</a>"
+              ],
+              [
+                "TikTok",
+                "Accesso RTMP sul tuo account, oppure un computer con accesso a LIVE Studio",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Configurazione TikTok</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "L'accesso alle piattaforme dipende dal tuo account. Ricevere il segnale del drone nell'app non ti dà una chiave di streaming e non pubblica nessuna diretta. Per TikTok LIVE Studio l'app desktop offre anche una <a href=\"../use-your-dji-drone-as-a-webcam/\">fotocamera virtuale</a>. Controlla nella dashboard di ogni piattaforma il passaggio di pubblicazione attuale."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "La registrazione verticale a 2.7K del Flip e l'inquadratura della diretta",
+      "blocks": [
+        {
+          "p": "La <a href=\"https://repair.dji.com/help/content?customId=01700006877&amp;lang=en&amp;paperDocType=ARTICLE&amp;spaceId=17\">guida DJI alle riprese verticali</a> spiega che il Flip ritaglia l'immagine per registrare in verticale fino a 2.7K a 30 fps. Quella modalità di registrazione non descrive il segnale RTMP di DJI Fly. Il file registrato sul drone, l'anteprima sul radiocomando, l'ingresso del ricevitore e l'uscita verso la piattaforma possono avere risoluzione e inquadratura diverse."
+        },
+        {
+          "p": "Con RC 2 tieni conto del limite di 720p in diretta indicato da DJI e controlla l'immagine in arrivo sul ricevitore. Stream My Drone inoltra quell'immagine; scegliere un'anteprima ritagliata sul telefono non crea un'uscita verticale. Per una diretta in verticale usa la conversione verticale di Stream My Drone su computer, controlla l'inquadratura finale sulla piattaforma e lascia abbastanza spazio attorno al soggetto per il ritaglio. L'upscaling non può recuperare dettagli che mancano nel segnale in arrivo."
+        },
+        {
+          "list": [
+            "<strong>Fai una prova prima del decollo.</strong> Controlla movimento, audio e la pagina di visione della piattaforma con il drone ancora a terra.",
+            "<strong>Calcola la banda in upload.</strong> Un'uscita continua a 5 Mbps consuma circa 2,25 GB all'ora, senza contare l'overhead di rete. Due destinazioni così richiedono in tutto circa 10 Mbps in upload e 4,5 GB all'ora.",
+            "<strong>Mantieni forte il collegamento locale.</strong> Tieni il telefono o il computer vicino all'hotspot. Una connessione stabile conta più della velocità massima dichiarata della rete.",
+            "<strong>Guarda l'inquadratura che esce davvero.</strong> Sul telefono la disposizione dell'anteprima è solo locale. Su desktop controlla il ritaglio scelto o l'uscita con l'immagine intera prima di pubblicare."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Risolvere i problemi di una diretta con il Flip",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Il menu RTMP non c'è:</strong> controlla il modello di radiocomando, aggiorna il suo firmware e DJI Fly e cerca sotto Transmission. L'app che riceve non può aggiungere una funzione che manca in DJI Fly.",
+            "<strong>Vedi solo i comandi con il palmo o da telefono:</strong> usa il metodo con radiocomando di questa guida e apri la vista di volo di DJI Fly. Non considerare l'anteprima Wi-Fi diretta della fotocamera o la schermata di QuickTransfer come conferma di un collegamento RTMP in diretta.",
+            "<strong>La connessione non riesce:</strong> dopo un cambio di rete copia di nuovo l'indirizzo dell'app. Usa una rete locale condivisa senza isolamento degli ospiti; <code>localhost</code> sul radiocomando punta al radiocomando stesso.",
+            "<strong>L'immagine c'è sul telefono, ma gli spettatori non vedono niente:</strong> controlla il collegamento alla destinazione, la chiave di streaming attuale e il passaggio finale di pubblicazione sulla piattaforma. I dati inoltrati da soli non confermano una diretta pubblica.",
+            "<strong>Lo streaming si ferma quando cambi app su iPhone:</strong> torna a Stream My Drone e controlla Picture in Picture. Senza, iOS può sospendere il ricevitore.",
+            "<strong>Diretta a scatti:</strong> prova prima con una sola destinazione, controlla la stabilità dell'upload sulla rete cellulare e avvicina il ricevitore all'hotspot."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Fonti e guide per altri modelli",
+      "blocks": [
+        {
+          "p": "Compatibilità dei radiocomandi: <a href=\"https://repair.dji.com/help/content?customId=01700011789&amp;lang=en&amp;paperDocType=ARTICLE&amp;re=US&amp;spaceId=17\">guida per principianti di DJI Flip</a>. Controllo con il palmo e da telefono: <a href=\"https://www.dji.com/flip/faq\">FAQ di DJI Flip</a>. Elenco dei droni compatibili con le dirette: <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">guida alla compatibilità delle dirette di DJI Fly (in cinese)</a>."
+        },
+        {
+          "p": "Menu RTMP, risoluzione con RC 2 e requisiti del microfono: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Registrazione verticale: <a href=\"https://repair.dji.com/help/content?customId=01700006877&amp;lang=en&amp;paperDocType=ARTICLE&amp;spaceId=17\">guida DJI alle riprese verticali</a>. Verificato il 25 ottobre 2026; ricontrolla i menu dopo gli aggiornamenti del firmware."
+        },
+        {
+          "p": "Confronta i metodi per <a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro</a> e <a href=\"../dji-lito-x1-live-stream/\">Lito X1</a>. Per inviare la stessa immagine a più destinazioni, prosegui con la <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">guida al multistreaming</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Posso andare in diretta con il Flip senza computer?",
+      "a": "Con RC 2 usa Stream My Drone su un secondo telefono collegato alla stessa rete locale. DJI Fly gira sul radiocomando, il telefono riceve il suo segnale RTMP e la destinazione la configuri in Stream My Drone."
+    },
+    {
+      "q": "Posso usare il telefono già collegato all'RC-N3 o all'RC-N2?",
+      "a": "Quel telefono esegue DJI Fly per pilotare il drone. Questa guida usa come ricevitore Stream My Drone su un computer separato, così DJI Fly resta aperta. Non dà per scontato che entrambe le app riescano a gestire volo in diretta e inoltro sullo stesso telefono."
+    },
+    {
+      "q": "Quale indirizzo va inserito in DJI Fly?",
+      "a": "L'indirizzo locale di ricezione completo mostrato da Stream My Drone, su telefono o su computer. L'URL del server e la chiave di streaming della piattaforma vanno invece nelle impostazioni della destinazione dell'app che riceve."
+    },
+    {
+      "q": "La registrazione verticale a 2.7K del Flip rende verticale il segnale RTMP?",
+      "a": "L'impostazione di registrazione verticale del drone non determina il formato dell'uscita RTMP. Controlla il segnale ricevuto dalla tua app. Stream My Drone su telefono inoltra il video in arrivo; usa Stream My Drone su computer quando ti serve la conversione in verticale."
+    },
+    {
+      "q": "Perché vedo l'anteprima ma il pubblico non riesce a guardare?",
+      "a": "L'anteprima dimostra solo che il segnale locale del drone è arrivato. Avvia l'uscita verso una destinazione, verifica che la piattaforma la riceva e completa lì l'eventuale passaggio Vai in diretta rimasto."
+    },
+    {
+      "q": "Posso seguire questa guida solo con il controllo con il palmo o un collegamento diretto al telefono?",
+      "a": "Questa guida usa RC 2, RC-N3 o RC-N2 e il menu RTMP di DJI Fly. Il Flip supporta il controllo con il palmo e il controllo diretto da telefono, ma queste modalità da sole non verificano lo stesso flusso RTMP. QuickTransfer trasferisce i file registrati; per una diretta verifica che sul ricevitore compaia un'immagine in movimento."
+    }
+  ]
+}

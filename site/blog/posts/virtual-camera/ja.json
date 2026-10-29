@@ -1,0 +1,124 @@
+{
+  "slug": "use-your-dji-drone-as-a-webcam",
+  "platform": "Virtual camera",
+  "title": "DJI ドローンを Mac・Windows の Web カメラにする方法（仮想カメラ）",
+  "description": "Stream My Drone の仮想カメラで、DJI ドローンを TikTok LIVE Studio、OBS、Zoom、Google Meet、Teams 用の Web カメラにできます。設定方法、活用アイデア、トラブル対処を紹介します。",
+  "h1": "DJI ドローンをパソコンの Web カメラにする",
+  "lead": "Stream My Drone は再配信だけのアプリではありません。<strong>仮想カメラ</strong>を使うと、DJI Fly から届くライブ映像が <strong>Stream My Drone Camera</strong> という普通のカメラとしてパソコンに渡されます。TikTok LIVE Studio、OBS、Zoom、Google Meet、Microsoft Teams など、カメラを選べるアプリならどれでもドローンの視点を映せます。ストリームキーも配信用アカウントも要りません。",
+  "published": "2026-10-02",
+  "updated": "2026-10-21",
+  "summary": [
+    "Stream My Drone は、ドローンのライブ映像を映す <strong>Stream My Drone Camera</strong> というカメラをパソコンに追加します。",
+    "カメラを選べるアプリならどれでも使えます：TikTok LIVE Studio、OBS、Zoom、Google Meet、Microsoft Teams、ブラウザ上の配信スタジオなど。",
+    "ストリームキーもプラットフォームのアカウントも不要です。ドローンがそのままカメラになります。",
+    "カメラは縦型の 1080×1920、30 fps で、映像だけを運びます。マイクはカメラを使うアプリの側で選びます。",
+    "横長のビデオ通話では、横 16:9 のレイアウトで OBS を経由し、OBS 仮想カメラを使ってください。"
+  ],
+  "sections": [
+    {
+      "id": "what",
+      "h2": "仮想カメラでできること",
+      "blocks": [
+        { "p": "ふつう、ドローンのライブ映像は配信プラットフォームへ送られます。仮想カメラは別の道を通ります。DJI Fly がパソコンの Stream My Drone へ RTMP で映像を送り、アプリがそれをカメラとして OS に渡すのです。ほかのアプリから見ると、ドローンはパソコンにつないだ Web カメラと同じです。" },
+        { "p": "そのため、相手のアプリにはストリームキーも配信用アカウントも RTMP 対応も必要ありません。カメラのメニューさえあれば、そこにドローンが並びます。" },
+        { "list": [
+          "<strong>名前：</strong>Stream My Drone Camera。",
+          "<strong>映像：</strong>縦型の 1080×1920、30 fps。横長のドローン映像は画面の中央に置かれ、上下は黒になります。切り抜きはしません。",
+          "<strong>音声：</strong>意図的になしにしています。マイクはカメラを使うアプリで選ぶので、音が二重に聞こえることはありません。",
+          "<strong>対応 OS：</strong>macOS 13 以降（アプリをアプリケーションフォルダに入れる必要があります）と Windows 10/11。"
+        ] }
+      ]
+    },
+    {
+      "id": "uses",
+      "h2": "活用アイデア",
+      "blocks": [
+        { "p": "いくつかの例を挙げます。Web カメラを受け付けるものなら、何でもドローンからの景色を映せます。" },
+        { "list": [
+          "<strong>ストリームキーなしで TikTok ライブ。</strong>TikTok LIVE Studio でこのカメラを選び、そこから配信します。詳しい手順は <a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok のガイド</a>にあります。",
+          "<strong>OBS で番組を作る。</strong>カメラを映像ソースとして追加し、空撮映像の上にテキスト、ロゴ、地図、自分の顔を映すカメラなどを重ねて、OBS から配信や録画をします。",
+          "<strong>ビデオ通話で現場を見せる。</strong>屋根、工事現場、太陽光発電所、畑などを、あとで写真を送る代わりに、Zoom、Google Meet、Microsoft Teams で顧客やチーム、保険会社にライブで見てもらえます。",
+          "<strong>バーチャルツアーを行う。</strong>物件、キャンプ場、会場、ルートの上空へ視聴者を案内しながら、話して説明できます。",
+          "<strong>授業やプレゼンに。</strong>地理、農業、測量、あるいはドローンの飛行そのものについての授業、ウェビナー、プレゼンで空からの映像を使えます。",
+          "<strong>ブラウザのスタジオに参加。</strong>StreamYard や Restream Studio のようなブラウザ上の配信スタジオでも、たいていほかの Web カメラと同じようにこのカメラを選べるので、マルチカメラの番組でドローンをゲストの 1 人にできます。"
+        ] },
+        { "note": "カメラにドローンの映像が映るのは、Stream My Drone が開いていて DJI Fly が送信している間だけです。映像が届いていないときは、カメラは黒くなります。" }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "ドローンを Web カメラにする方法",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "アプリを正しい場所にインストール", "d": "Mac では <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> をアプリケーションフォルダにドラッグします。macOS がカメラ機能拡張を許可するのはそこからだけです。Windows ではインストーラーがカメラを登録します。" },
+          { "t": "ドローンの映像をパソコンへ送る", "d": "DJI Fly で GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP を開き、アプリの「配信」タブに表示されたアドレスを貼り付けます。送信機とパソコンは同じ Wi-Fi かテザリングにつなぐ必要があります。詳しくは <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly の RTMP ガイド</a>をご覧ください。" },
+          { "t": "カメラを一度だけ有効にする", "d": "TikTok LIVE Studio タブで<em>仮想カメラを有効にする — 初回のみ</em>を押します。macOS が一度だけ、システム設定 → 一般 → ログイン項目と機能拡張 → カメラ機能拡張 で承認を求めます。" },
+          { "t": "カメラを開始する", "d": "カードに<em>開始できます</em>と表示されたら、<em>仮想カメラを開始</em>を押します。" },
+          { "t": "アプリでカメラを選ぶ", "d": "TikTok LIVE Studio、OBS、Zoom、Meet、Teams でカメラのメニューを開き、<strong>Stream My Drone Camera</strong> を選びます。マイクもそこで選んでください。" }
+        ] },
+        { "img": "virtual-camera.png", "alt": "仮想カメラを有効にして開始する、Stream My Drone の TikTok LIVE Studio タブ。" },
+        { "note": "近くにドローンがない？ 「配信」タブの<em>動画ファイルで試す</em>を使うと、録画したクリップが同じ経路で送られるので、飛行前にアプリ側でカメラを設定しておけます。" }
+      ]
+    },
+    {
+      "id": "landscape",
+      "h2": "横長のビデオ通話は OBS 経由で",
+      "blocks": [
+        { "p": "内蔵カメラが縦型なのは、TikTok LIVE Studio やスマホ中心のプラットフォームが縦型だからです。Zoom、Meet、Teams は横長のカメラを前提に作られているので、アプリやレイアウトによっては縦長の画面の左右に広い帯が入ったり切り抜かれたりして、ドローンの映像が小さくなります。横長の通話には、任意の OBS 連携を使ってください。OBS に 1920×1080 のキャンバスでドローンの映像全体を渡します。" },
+        { "steps": [
+          { "t": "OBS WebSocket をオンにする", "d": "OBS でツール → WebSocket サーバー設定を開き、サーバーを有効にします（標準のポートは 4455）。" },
+          { "t": "Stream My Drone を OBS に接続", "d": "詳細設定タブの<em>任意の OBS 連携</em>で、ホスト、ポート、パスワードを入力し、<em>接続先を保存</em>を押します。" },
+          { "t": "横型のレイアウトを選ぶ", "d": "「配信」タブの<em>映像と音声</em>で、向きを<em>横 16:9</em> にします。" },
+          { "t": "シーンを準備する", "d": "ドローンの映像が届いている状態で <em>OBS シーンを準備</em>を押します。アプリが <strong>DJI LIVE</strong> というシーンを作り、OBS のキャンバスを 1920×1080 にして、ドローンの映像をそこに収めます。" },
+          { "t": "OBS 仮想カメラを開始", "d": "同じカードの <em>OBS 仮想カメラ</em>の横にある<em>仮想カメラを開始</em>を押し、Zoom、Meet、Teams で <strong>OBS Virtual Camera</strong> を選びます。" }
+        ] },
+        { "table": {
+          "head": ["", "Stream My Drone Camera", "OBS 仮想カメラ"],
+          "rows": [
+            ["形", "縦型 1080×1920", "レイアウトに従う：1920×1080 または 1080×1920"],
+            ["OBS が必要", "いいえ", "はい（WebSocket を有効にして）"],
+            ["オーバーレイとシーン", "なし", "あり（OBS でできることすべて）"],
+            ["向いている用途", "TikTok LIVE Studio、縦型の番組", "Zoom、Meet、Teams、横型の番組"]
+          ]
+        } },
+        { "img": "advanced.png", "alt": "任意の OBS 連携、OBS シーンを準備ボタン、OBS 仮想カメラが並ぶ Stream My Drone の詳細設定タブ。" }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "きれいな映像にするコツ",
+      "blocks": [
+        { "list": [
+          "<strong>マイクは 1 つだけ選ぶ。</strong>カメラを使うアプリの側で選びます。ドローンのカメラには音声がないので、ミュートするものはありません。",
+          "<strong>少しの遅延は想定しておく。</strong>映像はドローンから送信機へ、Wi-Fi でパソコンへ、そしてカメラへと渡るので、実際より少し遅れます。場所を見せるには問題ありませんが、正確なタイミングが必要な用途には向きません。",
+          "<strong>安定したネットワークを使う。</strong>送信機とパソコンの間の接続が弱いと、映像がカクつきます。遠くのルーターより、パソコンのすぐそばのスマホのテザリングのほうが良いことがよくあります。",
+          "<strong>720p は普通です。</strong>送信機はよく 720p で送ってきます。カメラはそれを画面に合わせて拡大しますが、ネイティブの 1080p であるかのように見せかけることはしません。",
+          "<strong>アプリは開いたままに。</strong>Stream My Drone を終了するとカメラも止まります。"
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "カメラが表示されないとき",
+      "blocks": [
+        { "list": [
+          "<strong>カメラの一覧にない：</strong>先に仮想カメラを開始し、それを使うアプリを終了して開き直します。多くのアプリは起動時にしかカメラの一覧を読み込みません。",
+          "<strong>macOS が承認を求めてこなかった：</strong>Stream My Drone がアプリケーションフォルダから起動しているか確認し、システム設定 → 一般 → ログイン項目と機能拡張 → カメラ機能拡張 を見てください。",
+          "<strong>アップデート後に止まった：</strong>アプリを置き換えると、macOS は古いカメラを無効にします。<em>仮想カメラを開始</em>をもう一度押すと、アプリが自分で有効化を求めます。macOS に求められたら、Mac を再起動してください。",
+          "<strong>映像が黒い：</strong>ドローンの映像が届いていません。「配信」タブのプレビューと、DJI Fly の RTMP アドレスを確認します。",
+          "<strong>ブラウザに表示されない：</strong>そのサイトにカメラへのアクセスを許可し、ページを再読み込みします。",
+          "<strong>Windows：</strong>内蔵カメラは TikTok LIVE Studio、OBS、Zoom でテスト済みです。映像ソースとして「Stream My Drone Camera」を選んでください。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI ドローンを Web カメラとして使えますか？", "a": "はい。Stream My Drone を起動し、DJI Fly からそこへ RTMP を送っていれば、カメラを選べるどのアプリでも、ドローンは Stream My Drone Camera という名前のカメラとして表示されます。" },
+    { "q": "Zoom、Google Meet、Microsoft Teams で使えますか？", "a": "ほかの Web カメラと同じように選べます。内蔵カメラは縦型なので、横長の通話では OBS 経由のほうがきれいに見えます。横 16:9 のレイアウトで OBS シーンを準備し、通話アプリで OBS Virtual Camera を選んでください。" },
+    { "q": "ストリームキーや配信用アカウントは必要ですか？", "a": "いいえ。仮想カメラはパソコンの中だけで動き、プラットフォームには何も送りません。ストリームキーが必要なのは、Stream My Drone 自体が RTMP で配信するときだけです。" },
+    { "q": "仮想カメラに音声は入りますか？", "a": "いいえ、映像だけです。マイクはカメラを使うアプリの側で選んでください。" },
+    { "q": "どのドローンで使えますか？", "a": "DJI Fly の Live Streaming Platforms に RTMP がある DJI ドローンなら、どれでも使えます。アプリはドローンと直接やり取りせず、RTMP の配信を受け取るだけです。" },
+    { "q": "無料ですか？", "a": "はい。Stream My Drone は MIT ライセンスの無料オープンソースで、DJI、Zoom、Google、Microsoft とは提携していません。" }
+  ]
+}

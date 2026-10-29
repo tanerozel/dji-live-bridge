@@ -1,0 +1,233 @@
+{
+  "slug": "dji-lito-x1-live-stream",
+  "platform": "DJI Lito X1",
+  "title": "Live streaming DJI Lito X1: cara siaran lewat ponsel dan komputer",
+  "description": "Cara live streaming DJI Lito X1 dengan RC 2, RC-N3 atau RC-N2: pengaturan RTMP di DJI Fly, alur ponsel dan komputer, pengaturan platform, serta solusi masalah umum.",
+  "h1": "Cara live streaming dengan DJI Lito X1",
+  "lead": "<strong>DJI Lito X1</strong> dapat membagikan penerbangan secara langsung lewat RTMP di DJI Fly. Dengan RC 2, biarkan ponsel terpisah yang menjalankan <strong>Stream My Drone</strong> menerima gambarnya. Dengan RC-N3 atau RC-N2, biarkan DJI Fly tetap di ponsel remote dan gunakan <strong>Stream My Drone</strong> di komputer. Berikut cara menyambungkan perangkat, memeriksa siaran, dan mulai live di platform pilihan Anda.",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "DJI mencantumkan Lito X1 dalam panduan kompatibilitas livestream-nya; periksa remote dan versi DJI Fly terbaru secara bersamaan.",
+    "RC 2 menjalankan DJI Fly di layar bawaannya, sehingga ponsel terpisah tetap bebas untuk menerima siaran.",
+    "RC-N3 dan RC-N2 memakai ponsel untuk DJI Fly. Gunakan komputer terpisah sebagai penerima seperti dijelaskan di bawah agar DJI Fly tetap terbuka.",
+    "Alamat penerima lokal dimasukkan ke DJI Fly. Akun platform atau stream key diatur di Stream My Drone atau Stream My Drone.",
+    "Periksa dulu pratinjau di penerima, lalu halaman penonton di platform; pengaturan perekaman tidak menentukan keluaran RTMP."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Pilih alur kerja untuk RC 2, RC-N3, atau RC-N2 Anda",
+      "blocks": [
+        {
+          "p": "<a href=\"https://store.dji.com/ph/product/dji-lito-x1-fly-more-combo-dji-rc-n3?vid=220431\">FAQ produk resmi Lito X1</a> dari DJI mencantumkan DJI RC 2, DJI RC-N3, dan DJI RC-N2. <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">Panduan kompatibilitas livestream DJI Fly</a> juga menyebut Lito X1. Lihat label pada remote Anda untuk memilih rute di bawah; nama drone yang sama tidak berarti semua remote bisa saling menggantikan."
+        },
+        {
+          "table": {
+            "head": [
+              "Remote",
+              "Tempat Anda menerbangkan",
+              "Tempat Anda menerima siaran"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "DJI Fly di layar bawaan",
+                "Stream My Drone di ponsel terpisah, atau Stream My Drone di komputer"
+              ],
+              [
+                "DJI RC-N3",
+                "DJI Fly di ponsel yang tersambung lewat USB",
+                "Stream My Drone di Mac atau PC Windows terpisah"
+              ],
+              [
+                "DJI RC-N2",
+                "DJI Fly di ponsel yang tersambung lewat USB",
+                "Alur kerja komputer terpisah yang sama seperti RC-N3"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">Panduan livestream DJI</a> menyebut batas livestream 720p untuk RC 2 dan kewajiban mikrofon tersambung sejak DJI Fly v1.16.0. Periksa persyaratan itu sebelum berangkat untuk siaran. Pasang Stream My Drone di ponsel penerima; aplikasi ini tidak berjalan di RC 2."
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Lito X1 dengan RC 2: pakai ponsel terpisah tanpa komputer",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Pasang Stream My Drone di ponsel Anda",
+              "d": "Unduh aplikasinya dari <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> atau <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a>. Ponsel menerima siaran sementara DJI Fly tetap terbuka di RC 2."
+            },
+            {
+              "t": "Sambungkan RC 2 dan ponsel",
+              "d": "Hubungkan keduanya ke Wi-Fi yang sama dengan akses internet. Di lapangan, ponsel Android bisa sekaligus menjadi hotspot dan menerima siaran. Buka Stream My Drone setelah memilih jaringan; di iPhone, izinkan akses jaringan lokal saat diminta."
+            },
+            {
+              "t": "Salin alamat penerima ke DJI Fly",
+              "d": "Gunakan alamat lokal lengkap yang ditampilkan Stream My Drone. Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Masukkan alamatnya di sana. Penjelasan menu selengkapnya ada di <a href=\"../dji-fly-rtmp-live-streaming-setup/\">panduan pengaturan RTMP DJI Fly</a>. Sambungkan mikrofon jika DJI Fly memintanya."
+            },
+            {
+              "t": "Mulai siaran DJI Fly dan periksa pratinjau",
+              "d": "Mulai streaming di remote, lalu pastikan gambar drone yang bergerak muncul di ponsel Anda. Biarkan Stream My Drone terbuka selama memeriksa koneksi. Dengan begitu tautan video lokal sudah terbentuk."
+            },
+            {
+              "t": "Pilih tujuan dan pastikan siaran tayang",
+              "d": "Tambahkan platform di Stream My Drone melalui sambungan akun bila tersedia, atau dengan URL server dan stream key-nya. Mulai penerusan, lalu buka dasbor live atau halaman penonton platform tersebut. Selesaikan langkah Go Live yang masih diminta platform."
+            }
+          ]
+        },
+        {
+          "note": "Ponsel meneruskan video yang masuk tanpa mengenkode ulang. Potongan pratinjau atau latar belakang buram tidak mengubah siaran keluar menjadi vertikal 1080×1920. Gunakan aplikasi desktop bila Anda membutuhkan konversi itu. Di iPhone, biarkan aplikasi tetap di depan selama pengaturan; siaran yang terus berjalan di latar belakang bergantung pada Picture in Picture."
+        }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Lito X1 dengan RC-N3 atau RC-N2: terima siaran di komputer",
+      "blocks": [
+        {
+          "p": "Dengan RC-N3 atau RC-N2, biarkan DJI Fly terbuka di ponsel yang terpasang pada remote. Pasang <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> di Mac atau PC Windows, lalu sambungkan komputer itu dan ponsel DJI Fly ke jaringan lokal yang sama. RC 2 juga bisa memakai rute desktop ini."
+        },
+        {
+          "steps": [
+            {
+              "t": "Temukan alamat RTMP komputer",
+              "d": "Buka Stream My Drone dan salin alamat di bawah Hubungkan drone Anda. Alamat seperti <code>rtmp://192.168.1.20:1935/drone</code> hanyalah contoh; gunakan alamat yang ditampilkan aplikasi Anda."
+            },
+            {
+              "t": "Arahkan DJI Fly ke alamat itu",
+              "d": "Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, masukkan alamat penerima, lalu mulai siaran. <a href=\"../dji-fly-rtmp-live-streaming-setup/\">Panduan RTMP DJI Fly</a> menjelaskan menunya. Izinkan koneksi masuk di jaringan pribadi jika firewall komputer menanyakannya. Periksa pratinjau sebelum menambahkan tujuan."
+            },
+            {
+              "t": "Atur keluaran dan platform",
+              "d": "Pilih lanskap untuk siaran YouTube atau Facebook biasa, atau keluaran vertikal untuk akun yang memakai tata letak potret. Tambahkan URL server dan kunci terbaru dari tujuan, mulai keluaran, lalu periksa siarannya di platform."
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "Stream My Drone versi desktop menampilkan alamat RTMP lokal untuk DJI Fly, daftar tujuan platform, dan tombol Mulai Siaran."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Platform mana yang ingin Anda tuju?",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Platform",
+              "Yang perlu disiapkan",
+              "Panduan lengkap"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "Akun dengan fitur live streaming aktif dan siaran yang sudah disiapkan",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Pengaturan YouTube</a>"
+              ],
+              [
+                "Instagram",
+                "Akses ke Live Producer dan kredensial RTMPS terbaru",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Pengaturan Instagram</a>"
+              ],
+              [
+                "Facebook",
+                "Siaran langsung beserta URL server dan kuncinya",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Pengaturan Facebook</a>"
+              ],
+              [
+                "TikTok",
+                "Akses RTMP di akun Anda, atau komputer dengan akses ke LIVE Studio",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Pengaturan TikTok</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "Akses platform melekat pada akun Anda. Menerima siaran drone di aplikasi tidak memberi Anda stream key dan tidak menayangkan siaran. Untuk TikTok LIVE Studio, aplikasi desktop juga menyediakan <a href=\"../use-your-dji-drone-as-a-webcam/\">kamera virtual</a>. Periksa dasbor tiap platform untuk langkah penayangan terbaru."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Kualitas rekaman Lito X1, tampilan langsung, dan keluaran RTMP",
+      "blocks": [
+        {
+          "p": "<a href=\"https://store.dji.com/ph/product/dji-lito-x1-fly-more-combo-dji-rc-n3?vid=220431\">Halaman produk Lito X1</a> dari DJI menyebut perekaman 4K dan tampilan langsung O4. Spesifikasi itu menggambarkan bagian alur kerja yang berbeda. Video yang direkam di drone, tampilan di remote, masukan RTMP, dan keluaran platform bisa berbeda resolusinya. Periksa resolusi masukan yang dilaporkan penerima Anda; memperbesarnya di desktop tidak mengembalikan detail yang hilang."
+        },
+        {
+          "list": [
+            "<strong>Uji sebelum lepas landas.</strong> Periksa gerakan, suara, dan halaman penonton platform saat drone masih di darat.",
+            "<strong>Perhitungkan kapasitas unggah.</strong> Keluaran 5 Mbps yang terus-menerus memakai sekitar 2,25 GB per jam, belum termasuk overhead jaringan. Dua tujuan seperti itu membutuhkan unggahan gabungan sekitar 10 Mbps dan 4,5 GB per jam.",
+            "<strong>Jaga koneksi lokal tetap kuat.</strong> Letakkan ponsel atau komputer dekat hotspot. Koneksi yang stabil lebih penting daripada kecepatan puncak yang diiklankan jaringan.",
+            "<strong>Perhatikan bingkai keluaran yang sebenarnya.</strong> Di ponsel, tata letak pratinjau hanya bersifat lokal. Di desktop, periksa potongan atau keluaran gambar utuh yang dipilih sebelum menayangkan."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Mengatasi masalah siaran Lito X1",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Menu RTMP tidak ada:</strong> periksa model remote, perbarui firmware dan DJI Fly, lalu cari di bawah Transmission. Aplikasi penerima tidak bisa menambahkan fitur DJI Fly yang tidak tersedia.",
+            "<strong>Koneksi gagal:</strong> salin lagi alamat dari aplikasi setelah jaringan berganti. Gunakan jaringan lokal bersama tanpa isolasi tamu; <code>localhost</code> di remote mengarah ke remote itu sendiri.",
+            "<strong>Gambar muncul di ponsel, tapi penonton tidak melihat apa-apa:</strong> periksa koneksi tujuan, stream key terbaru, dan langkah penayangan terakhir di platform. Data yang terkirim saja belum membuktikan siaran publik.",
+            "<strong>Siaran berhenti setelah berpindah aplikasi di iPhone:</strong> kembali ke Stream My Drone dan periksa Picture in Picture. Tanpa itu, iOS bisa menangguhkan penerima.",
+            "<strong>Siaran patah-patah:</strong> coba satu tujuan dulu, periksa kestabilan unggahan seluler, dan dekatkan penerima ke hotspot."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Sumber dan panduan model terkait",
+      "blocks": [
+        {
+          "p": "Detail model dan remote: <a href=\"https://store.dji.com/ph/product/dji-lito-x1-fly-more-combo-dji-rc-n3?vid=220431\">halaman produk dan FAQ resmi Lito X1</a>. Daftar drone: <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">Panduan kompatibilitas livestream DJI Fly (bahasa Tionghoa)</a>. Persyaratan remote dan petunjuk menu: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Diperiksa pada 25 Oktober 2026; periksa lagi menu terbaru setelah pembaruan firmware."
+        },
+        {
+          "p": "Bandingkan dengan model Lito lainnya: <a href=\"../dji-lito-1-live-stream/\">pengaturan Lito 1</a>."
+        },
+        {
+          "p": "Untuk drone seri Mini, lihat <a href=\"../dji-mini-5-pro-live-stream/\">panduan Mini 5 Pro</a>. Untuk mengirim satu gambar masuk ke beberapa tujuan, lanjutkan ke <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">panduan multistreaming</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Bisakah saya live streaming dengan Lito X1 tanpa komputer?",
+      "a": "Dengan RC 2, gunakan Stream My Drone di ponsel terpisah yang tersambung ke jaringan lokal yang sama. DJI Fly berjalan di remote, ponsel menerima aliran RTMP-nya, dan Anda mengatur tujuan di Stream My Drone."
+    },
+    {
+      "q": "Bisakah saya memakai ponsel yang sudah tersambung ke RC-N3 atau RC-N2?",
+      "a": "Ponsel itu menjalankan DJI Fly untuk mengendalikan penerbangan. Panduan ini memakai Stream My Drone di komputer terpisah sebagai penerima, jadi DJI Fly tetap bisa terbuka. Panduan ini tidak mengasumsikan kedua aplikasi sanggup menangani penerbangan langsung dan penerusan siaran di satu ponsel."
+    },
+    {
+      "q": "Alamat apa yang dimasukkan ke DJI Fly?",
+      "a": "Alamat penerima lokal lengkap yang ditampilkan Stream My Drone atau Stream My Drone. URL server dan stream key platform dimasukkan di pengaturan tujuan pada aplikasi penerima."
+    },
+    {
+      "q": "Apakah Stream My Drone mengubah video menjadi siaran vertikal?",
+      "a": "Aplikasi ponsel meneruskan video yang diterimanya. Tata letak pratinjaunya tidak mengenkode ulang gambar yang dikirim. Stream My Drone di komputer menyediakan konversi ke keluaran vertikal."
+    },
+    {
+      "q": "Kenapa saya bisa melihat pratinjau, tapi penonton tidak bisa menonton?",
+      "a": "Pratinjau hanya membuktikan bahwa siaran drone lokal sudah sampai. Mulai keluaran ke tujuan, pastikan platform menerimanya, lalu selesaikan langkah Go Live yang tersisa di sana."
+    },
+    {
+      "q": "Bisakah saya memakai QuickTransfer untuk siaran langsung Lito X1?",
+      "a": "QuickTransfer memindahkan berkas rekaman. Untuk gambar penerbangan secara langsung, gunakan menu RTMP di DJI Fly dan alamat penerima yang ditampilkan aplikasi Anda. Pastikan dulu video bergerak sampai ke penerima, lalu mulai keluaran ke platform."
+    }
+  ]
+}

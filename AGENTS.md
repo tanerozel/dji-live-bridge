@@ -95,8 +95,9 @@ production and virtual-camera FFmpegs read as an extra input (`ffmpeg::video_fil
 - `docs/sitemap.xml`, `docs/robots.txt`, `docs/llms.txt` and `docs/llms-full.txt` are generated too.
 - Blog: `site/blog/<lang>.json` (labels; a language without one has no blog), `site/blog/posts.json` (order)
   and `site/blog/posts/<id>/<lang>.json` (one post). English is required; every translation must have the
-  same shape as `en.json` (same sections, blocks and steps) and its own slug. Posts are in English and
-  Turkish today; adding a language means adding its labels file and post files, nothing in the generator.
+  same shape as `en.json` (same sections, blocks and steps) and its own slug. Posts are in all 15 site
+  languages; a new post needs a file per language. Slugs are translated for Latin-script languages and stay
+  English for ar, hi, ja, ko, ru, zh and zh-Hant. A post must link to other posts by the slug of its own language.
 - CI (`.github/workflows/site.yml`) rebuilds the site and fails if the committed `docs/` differs.
 
 ## Checks before finishing a change

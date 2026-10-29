@@ -1,0 +1,98 @@
+{
+  "slug": "count-animals-with-a-dji-drone-ai-detection",
+  "platform": "AI Vision",
+  "title": "Contar cabras, ovelhas e gado ao vivo com drone DJI e IA",
+  "description": "O Stream My Drone encontra cabras, ovelhas, vacas, cavalos, burros e aves na imagem ao vivo do drone, marca cada animal na transmissão e faz a contagem no seu computador.",
+  "h1": "Encontre e conte animais ao vivo com o seu drone DJI",
+  "lead": "Agora o Stream My Drone pode olhar a imagem ao vivo do drone por você. O <strong>AI Vision</strong> encontra cabras, ovelhas, bovinos, cavalos, burros, aves e outros animais, desenha uma caixa com etiqueta em volta de cada um na sua transmissão e na câmera virtual e mantém a contagem. Tudo roda no seu próprio computador; nenhuma imagem ou resultado é enviado para lugar nenhum.",
+  "published": "2026-10-07",
+  "updated": "2026-10-21",
+  "summary": [
+    "Ative o <strong>AI Vision · Detecção de animais</strong> na aba Transmitir e o app marca cada animal que encontra com uma caixa e uma etiqueta como <em>Cabra #12 85%</em>.",
+    "Ele reconhece 15 tipos de animal, começando pelos de fazenda: cabra, ovelha, vaca, cavalo, burro, cachorro, gato, galinha, pato, ganso, porco, veado, javali, pássaro e urso.",
+    "Um contador mostra quantos animais estão na imagem agora e quantos animais diferentes ele já viu.",
+    "Tudo roda no seu computador. O modelo é baixado uma vez; depois disso, nada sai da máquina.",
+    "O vídeo do drone nunca fica mais lento. No Mac, o modelo padrão analisa a imagem cerca de uma ou duas vezes por segundo, o que serve bem para rebanhos pastando."
+  ],
+  "sections": [
+    {
+      "id": "what",
+      "h2": "O que o AI Vision faz",
+      "blocks": [
+        { "p": "Quando você sobrevoa um pasto, contar o rebanho ou achar aquela cabra atrás de um arbusto é difícil na tela pequena do controle. O AI Vision olha por você: ele analisa a imagem ao vivo sem parar, uma ou duas vezes por segundo com o OWLv2 e até dez vezes por segundo com os modelos mais leves, e marca cada animal que reconhece." },
+        { "list": [
+          "<strong>Caixas e etiquetas</strong> com a espécie, um número para cada animal e o grau de certeza do modelo, por exemplo <em>Ovelha #7 78%</em>.",
+          "<strong>Um contador de animais</strong> no canto da imagem: quantos estão visíveis agora, por espécie, e quantos animais diferentes ele viu desde que você zerou a contagem.",
+          "<strong>Em todas as saídas.</strong> As caixas são desenhadas na transmissão ao vivo para Instagram, TikTok, YouTube e seus outros destinos, na câmera virtual e na prévia do app.",
+          "<strong>As caixas são opcionais.</strong> Você pode esconder as caixas ou o contador e continuar com a contagem rodando no app."
+        ] },
+        { "note": "O AI Vision só adiciona uma camada por cima da imagem. O vídeo do drone nunca fica parado esperando a análise." }
+      ]
+    },
+    {
+      "id": "animals",
+      "h2": "Quais animais ele reconhece",
+      "blocks": [
+        { "p": "A maioria dos modelos de detecção prontos é treinada com as mesmas coleções públicas de fotos, e nelas não existe cabra. Uma cabra vira ovelha, ou nada. Por isso o modelo padrão no Mac é o <strong>OWLv2</strong>, um modelo a quem se diz pelo nome quais animais procurar." },
+        { "table": {
+          "head": ["Modelo", "Animais", "Velocidade no Mac", "Download"],
+          "rows": [
+            ["OWLv2 (padrão no Mac)", "Cabra, ovelha, vaca, cavalo, burro, cachorro, gato, galinha, pato, ganso, porco, veado, javali, pássaro", "Cerca de 0,5 s por imagem", "586 MB"],
+            ["D-FINE X, RF-DETR Large", "Ovelha, vaca, cavalo, cachorro, gato, pássaro, urso", "Cerca de 0,1–0,2 s por imagem", "240–464 MB"],
+            ["YOLOX (Nano a X)", "Ovelha, vaca, cavalo, cachorro, gato, pássaro, urso", "O mais rápido; Nano, Tiny e S também rodam no Windows", "3–378 MB"]
+          ]
+        } },
+        { "p": "Você pode trocar de modelo em <em>Configurações de detecção → Modelo</em>; a lista mostra quantas espécies cada um conhece. Para rebanhos mistos de cabras e ovelhas, use o OWLv2. Só para bovinos e cavalos, o D-FINE X é cerca de cinco vezes mais rápido. Em <em>Espécies detectadas</em> você pode limitar a busca aos animais que importam para você." },
+        { "note": "Animais selvagens da savana, como girafas, zebras e elefantes, ficaram de fora de propósito: sobre um rebanho de gado eles só geravam alarmes falsos." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Como ativar a detecção de animais",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Conecte seu drone", "d": "Envie a imagem ao vivo do DJI Fly para o app por RTMP, como sempre; o endereço fica na aba Transmitir. Os detalhes estão no <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guia RTMP do DJI Fly</a>." },
+          { "t": "Ligue o AI Vision", "d": "Na aba Transmitir, encontre o cartão <strong>AI Vision · Detecção de animais</strong> e ative <em>Detecção de animais</em>." },
+          { "t": "Deixe o modelo baixar e se preparar", "d": "Na primeira vez, o modelo é baixado e preparado para o seu computador. Com o OWLv2 isso pode levar vários minutos; o cartão mostra o progresso. Nas próximas vezes, o início leva cerca de um minuto." },
+          { "t": "Ajuste o limite", "d": "Baixe o <em>Limite de confiança</em> para algo entre 0,25 e 0,35 em imagens aéreas, em que os animais aparecem pequenos. Aumente se surgirem caixas em arbustos ou pedras." },
+          { "t": "Entre ao vivo", "d": "Inicie a transmissão ou a câmera virtual. Se você já estava ao vivo, as caixas entram na transmissão na próxima vez que você iniciá-la; a câmera virtual as mostra na hora." }
+        ] },
+        { "note": "Sem drone por perto? <em>Testar com um arquivo de vídeo</em>, na aba Transmitir, reproduz um vídeo gravado pelo mesmo caminho, para você experimentar o AI Vision na sua mesa." }
+      ]
+    },
+    {
+      "id": "flying",
+      "h2": "Como voar para uma boa contagem",
+      "blocks": [
+        { "list": [
+          "<strong>A altura é o que mais importa.</strong> Lá do alto, um animal ocupa só alguns pixels. O app ainda o encontra, mas dizer se é cabra ou bezerro vira palpite. Voe mais baixo, ou use o zoom, quando a espécie importar.",
+          "<strong>Voe devagar.</strong> O modelo padrão olha cerca de uma ou duas vezes por segundo. Uma passagem lenta permite acompanhar cada animal em vez de perdê-lo e reencontrá-lo.",
+          "<strong>Zere antes de contar.</strong> Pressione <em>Zerar contagem</em> ao começar uma passagem sobre o rebanho. Um animal que sai da imagem por alguns segundos e volta pode ser contado de novo, então trate a contagem de animais únicos como uma boa estimativa, não como um censo.",
+          "<strong>Use a tela cheia.</strong> Clique duas vezes na prévia, ou pressione o botão no canto dela, para ver a imagem e as caixas na tela inteira. Pressione Esc para voltar."
+        ] }
+      ]
+    },
+    {
+      "id": "privacy",
+      "h2": "Privacidade e requisitos",
+      "blocks": [
+        { "list": [
+          "<strong>Só no seu computador.</strong> A detecção roda localmente. Nenhuma imagem, detecção ou contagem é enviada. O único uso da rede é o download do modelo, feito uma vez.",
+          "<strong>Mac:</strong> os modelos rodam no hardware gráfico e neural do Mac. Recomenda-se um Mac com Apple Silicon. Depois de preparado, o OWLv2 precisa de cerca de 4 GB livres em disco.",
+          "<strong>Windows:</strong> os modelos YOLOX mais leves rodam no processador. O OWLv2 e os outros modelos grandes só estão disponíveis no Mac, então cabras, burros e aves ainda não são reconhecidos no Windows.",
+          "<strong>Desligado é desligado.</strong> Enquanto o AI Vision está desligado, nenhum modelo é carregado e a sua transmissão fica exatamente como antes."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Meu drone DJI consegue contar animais?", "a": "O drone em si, não, mas com o Stream My Drone no computador a imagem ao vivo do DJI Fly é analisada ali: cada animal ganha uma caixa e uma etiqueta, e um contador mostra quantos estão visíveis e quantos animais diferentes foram vistos." },
+    { "q": "Ele reconhece cabras?", "a": "Sim, com o modelo OWLv2, o padrão no Mac. Ele diferencia cabras de ovelhas nas alturas normais de voo. Os outros modelos simplesmente não têm a classe cabra." },
+    { "q": "As caixas aparecem na minha live do Instagram, TikTok ou YouTube?", "a": "Sim. Elas são desenhadas em todas as saídas: a transmissão ao vivo para todos os destinos, a câmera virtual e a prévia do app. Você pode desligar as caixas ou o contador a qualquer momento." },
+    { "q": "Meu vídeo é enviado para algum serviço de IA?", "a": "Não. Tudo roda no seu próprio computador. Só o arquivo do modelo é baixado uma vez, de uma fonte pública, e verificado antes do uso." },
+    { "q": "Isso deixa a minha transmissão mais lenta?", "a": "Não. O vídeo mantém a taxa de quadros; a análise roda ao lado dele e as caixas são atualizadas sempre que um novo resultado fica pronto." },
+    { "q": "Quão precisa é a contagem?", "a": "Boa para ter uma visão geral do rebanho, não para um censo oficial. Animais muito distantes podem receber a espécie errada, e um animal que sai da imagem e volta pode ser contado duas vezes." },
+    { "q": "É gratuito?", "a": "Sim. O AI Vision faz parte do Stream My Drone, que é gratuito e de código aberto sob a licença MIT. Os modelos são distribuídos sob a licença Apache 2.0." }
+  ]
+}

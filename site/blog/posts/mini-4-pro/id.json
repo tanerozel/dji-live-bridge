@@ -1,0 +1,120 @@
+{
+  "slug": "dji-mini-4-pro-live-stream",
+  "platform": "DJI Mini 4 Pro",
+  "title": "Live streaming DJI Mini 4 Pro: pengaturan RC 2 dan RC-N2 (2026)",
+  "description": "Cara live streaming DJI Mini 4 Pro dengan RC 2 atau RC-N2: pengaturan lewat ponsel dan komputer, RTMP di DJI Fly, syarat mikrofon, dan pengecekan di platform.",
+  "h1": "Cara live streaming dengan DJI Mini 4 Pro",
+  "lead": "<strong>DJI Mini 4 Pro</strong> bisa mengirim tampilan langsungnya dari DJI Fly lewat RTMP. Dengan <strong>DJI RC 2</strong>, terima siarannya di ponsel terpisah memakai <strong>Stream My Drone</strong>, atau di komputer memakai <strong>Stream My Drone</strong>. Dengan <strong>RC-N2</strong>, jalur komputer di bawah ini membuat DJI Fly tetap terbuka di ponsel penerbangan Anda. Setelah itu, atur YouTube, Instagram, Facebook, atau tujuan lain di aplikasi penerima.",
+  "published": "2026-10-03",
+  "updated": "2026-10-21",
+  "summary": [
+    "DJI Fly mengirim siaran lokal; Stream My Drone atau Stream My Drone meneruskannya ke platform Anda.",
+    "RC 2 bisa memakai ponsel penerima terpisah; RC-N2 memakai ponsel Anda untuk DJI Fly, dan dalam panduan ini komputer yang menerima siaran.",
+    "Output RTMP remote bisa beresolusi lebih rendah daripada tampilan langsungnya atau berkas yang direkam di drone.",
+    "Aplikasi seluler meneruskan video yang masuk; output desktop bisa mengubahnya ke format vertikal.",
+    "Periksa halaman penonton platform setelah memulai output: meneruskan dan menayangkan adalah dua langkah yang berbeda."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Bisakah DJI Mini 4 Pro live streaming?",
+      "blocks": [
+        { "p": "Pilihan remote standarnya adalah DJI RC 2 dan RC-N2. DJI Fly berjalan di layar bawaan RC 2 atau di ponsel yang terpasang ke RC-N2. Kedua jalur bisa mengirim siaran ke penerima terpisah." },
+        { "table": {
+          "head": ["Remote", "Tempat DJI Fly berjalan", "Kualitas siaran (DJI)", "Yang perlu diperhatikan"],
+          "rows": [
+            ["DJI RC 2", "Di layar remote itu sendiri", "720p", "Wajib mikrofon sejak DJI Fly v1.16.0"],
+            ["DJI RC-N2", "Di ponsel Anda", "1080p atau 720p; Android 5/3 Mbps, iOS 2/1 Mbps", "Wi-Fi ponsel harus berada di jaringan yang sama dengan komputer"]
+          ]
+        } },
+        { "note": "Menurut <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;pbc=BCQ9HQ1u&amp;pm=custom&amp;re=US&amp;spaceId=34\">panduan livestream DJI</a>, RC 2 dibatasi 720p dan memerlukan mikrofon yang tersambung sejak DJI Fly v1.16.0. Pilihan ponsel untuk RC-N2 adalah 1080p atau 720p, dengan Android 5/3 Mbps dan iOS 2/1 Mbps; ketersediaannya bergantung pada frame rate transmisi." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Atur siaran Mini 4 Pro di komputer",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Satukan semua perangkat di satu jaringan", "d": "Sambungkan DJI RC 2 (atau, dengan RC-N2, ponsel Anda) dan komputer ke Wi-Fi yang sama, atau ke satu hotspot ponsel." },
+          { "t": "Buka Stream My Drone", "d": "Pasang <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> di Mac atau PC Windows. Langkah <em>Hubungkan drone Anda</em> menampilkan alamat seperti <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Pasang mikrofon (hanya DJI RC 2)", "d": "Tanpa mikrofon, DJI Fly di RC 2 menolak memulai siaran." },
+          { "t": "Masukkan alamat di DJI Fly", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, ketik alamatnya lalu mulai. Pratinjau muncul di aplikasi dalam hitungan detik." },
+          { "t": "Tambahkan platform dan mulai siaran", "d": "Tambahkan platform dengan URL stream dan kunci terbarunya. Pilih format output desktop, mulai output, lalu periksa dasbor platform. Selesaikan langkah Go Live tambahan sebelum memberi tahu penonton bahwa siaran sudah dimulai." }
+        ] },
+        { "img": "go-live.png", "alt": "Tab Siaran di Stream My Drone dengan alamat RTMP untuk DJI Fly, daftar tujuan, dan tombol MULAI SIARAN." },
+        { "note": "Untuk pengaturan RC 2 hanya dengan ponsel, ikuti bagian berikutnya. Untuk tangkapan layar dan detail jaringan lebih lanjut, lihat <a href=\"../dji-fly-rtmp-live-streaming-setup/\">panduan RTMP DJI Fly</a>." }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Mini 4 Pro dengan RC 2: siaran dari ponsel tanpa komputer",
+      "blocks": [
+        { "p": "Biarkan DJI Fly di RC 2 dan gunakan ponsel terpisah sebagai penerima. Pasang Stream My Drone dari <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> atau <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a>." },
+        { "steps": [
+          { "t": "Pilih jaringan lokal", "d": "Sambungkan RC 2 dan ponsel ke Wi-Fi yang sama dengan akses internet. Di lapangan, ponsel Android bisa menjadi hotspot sekaligus menerima siaran. Di iPhone, izinkan akses jaringan lokal saat diminta." },
+          { "t": "Baca alamat penerima dari aplikasi", "d": "Buka Stream My Drone setelah tersambung ke jaringan. Gunakan alamat lengkap yang ditampilkannya; jangan memakai contoh alamat IP dari sebuah panduan." },
+          { "t": "Mulai siaran DJI Fly", "d": "Masukkan alamat itu di DJI Fly → GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Sambungkan mikrofon jika diminta, mulai siaran, lalu periksa pratinjau di ponsel." },
+          { "t": "Tambahkan platform di Stream My Drone", "d": "Gunakan sambungan akun jika tersedia, atau masukkan URL server dan stream key platform di pengaturan tujuan. Alamat penerima lokal dimasukkan ke DJI Fly; kredensial platform dimasukkan di sini." },
+          { "t": "Pastikan penonton bisa menonton", "d": "Mulai penerusan dan periksa dasbor atau halaman penonton platform. Selesaikan langkah Go Live yang tersisa. Pratinjau atau koneksi transport yang aktif saja tidak membuktikan siaran sudah tayang." }
+        ] },
+        { "note": "Aplikasi seluler meneruskan gambar yang masuk tanpa mengenkode ulang. Memotong pratinjaunya tidak menghasilkan output vertikal 1080×1920; gunakan aplikasi desktop untuk konversi itu. Biarkan aplikasi iPhone tetap di depan selama pengaturan; streaming di latar belakang bergantung pada Picture in Picture." }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Platform mana yang ingin Anda jangkau?",
+      "blocks": [
+        { "table": {
+          "head": ["Platform", "Yang perlu disiapkan", "Panduan lengkap"],
+          "rows": [
+            ["YouTube", "Akun dengan fitur live streaming aktif dan siaran yang sudah disiapkan", "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Pengaturan YouTube</a>"],
+            ["Instagram", "Akses ke Live Producer dan kredensial RTMPS terbaru", "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Pengaturan Instagram</a>"],
+            ["Facebook", "Siaran langsung beserta URL server dan kuncinya", "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Pengaturan Facebook</a>"],
+            ["TikTok", "Akses RTMP di akun Anda, atau komputer dengan akses ke LIVE Studio", "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Pengaturan TikTok</a>"]
+          ]
+        } },
+        { "p": "Akses platform melekat pada akun Anda. Menerima siaran drone di aplikasi tidak memberi Anda stream key dan tidak menayangkan siaran. Untuk TikTok LIVE Studio, aplikasi desktop juga menyediakan <a href=\"../use-your-dji-drone-as-a-webcam/\">kamera virtual</a>. Periksa dasbor tiap platform untuk langkah penayangan terbaru." }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Mendapatkan gambar terbaik dari Mini 4 Pro",
+      "blocks": [
+        { "list": [
+          "<strong>720p adalah batas atas di DJI RC 2.</strong> Stream My Drone memperbesarnya ke 1080×1920 untuk platform vertikal dan menampilkan resolusi input sebenarnya, jadi Anda tahu apa yang Anda kirim.",
+          "<strong>Di RC-N2, ponsel Android lebih menguntungkan.</strong> DJI mencantumkan 5 atau 3 Mbps untuk Android dan hanya 2 atau 1 Mbps untuk iOS, dan bedanya terlihat pada gerakan cepat.",
+          "<strong>Jaga jarak tautan tetap pendek.</strong> Siaran berjalan dari remote lewat Wi-Fi ke komputer; jaringan 5 GHz atau hotspot di dekat komputer mencegah putus-putus.",
+          "<strong>Vertikal atau horizontal.</strong> Mini 4 Pro merekam lanskap secara default. Untuk Instagram dan TikTok, <em>Gambar utuh</em> mempertahankan seluruh bingkai dengan latar buram; <em>Penuhi layar</em> memotong gambar agar memenuhi layar ponsel."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Jika tidak berhasil",
+      "blocks": [
+        { "list": [
+          "<strong>DJI Fly tidak mau memulai siaran di RC 2:</strong> pasang mikrofon terlebih dahulu.",
+          "<strong>DJI Fly bilang tidak bisa terhubung:</strong> remote (atau ponsel) dan komputer berada di jaringan berbeda, atau komputer mendapat alamat baru. Salin lagi alamat dari aplikasi.",
+          "<strong>Tidak ada opsi RTMP:</strong> pastikan remote Anda RC 2, bukan DJI RC; perbarui DJI Fly dan firmware remote. Aplikasi penerima tidak bisa menambahkan menu RTMP yang tidak ada.",
+          "<strong>Pratinjau jalan tetapi platform tidak:</strong> periksa URL tujuan, kunci terbaru, dan langkah penayangan terakhir di dasbor platform."
+        ] }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Sumber dan panduan Mini 5 Pro",
+      "blocks": [
+        { "p": "Referensi resmi: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;pbc=BCQ9HQ1u&amp;pm=custom&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a> dan <a href=\"https://www.dji.com/mini-4-pro/faq\">FAQ DJI Mini 4 Pro</a>. Diperiksa pada 21 Oktober 2026. Menu dan pengaturan yang tersedia bisa berubah seiring firmware." },
+        { "p": "Mencari model yang lebih baru? <a href=\"../dji-mini-5-pro-live-stream/\">Panduan live streaming Mini 5 Pro</a> membahas RC 2 dan RC-N3, penerimaan lewat ponsel, dan jalur desktop." }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Bisakah DJI Mini 4 Pro live streaming ke Instagram?", "a": "Tidak dengan DJI Fly saja, karena Instagram memerlukan koneksi RTMPS terenkripsi sedangkan DJI Fly mengirim RTMP biasa. Kirim siaran DJI Fly ke Stream My Drone, yang meneruskannya ke Instagram lewat RTMPS dalam format vertikal 1080×1920." },
+    { "q": "Mengapa DJI RC 2 butuh mikrofon untuk live streaming?", "a": "DJI mencantumkan mikrofon yang tersambung sebagai syarat streaming di RC 2 sejak DJI Fly v1.16.0. Sambungkan mikrofon yang kompatibel dan pastikan DJI Fly mengenalinya sebelum memulai." },
+    { "q": "Berapa resolusi siaran Mini 4 Pro?", "a": "720p dengan DJI RC 2. Dengan RC-N2, DJI Fly menawarkan 1080p atau 720p, pada 5 atau 3 Mbps di Android dan 2 atau 1 Mbps di iOS." },
+    { "q": "Bisakah saya live streaming Mini 4 Pro tanpa komputer?", "a": "Dengan RC 2, gunakan Stream My Drone di ponsel Android atau iPhone terpisah pada jaringan lokal yang sama. Dengan RC-N2, panduan ini memakai Stream My Drone di komputer agar DJI Fly tetap terbuka di ponsel penerbangan Anda." },
+    { "q": "Bisakah saya siaran ke Instagram dan TikTok sekaligus?", "a": "Anda bisa menambahkan keduanya sebagai tujuan jika akun Anda memiliki akses streaming yang diperlukan. Setiap tujuan memakai bandwidth unggah. Di desktop, gambar dienkode sekali; di ponsel, gambar yang masuk diteruskan tanpa dienkode ulang." }
+  ]
+}

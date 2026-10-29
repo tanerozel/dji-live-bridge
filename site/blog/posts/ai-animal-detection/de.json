@@ -1,0 +1,98 @@
+{
+  "slug": "count-animals-with-a-dji-drone-ai-detection",
+  "platform": "AI Vision",
+  "title": "Ziegen, Schafe und Rinder mit KI live per DJI-Drohne zählen",
+  "description": "Stream My Drone erkennt Ziegen, Schafe, Kühe, Pferde, Esel und Geflügel im Livebild Ihrer Drohne, markiert sie im Stream und zählt sie – alles auf Ihrem eigenen Computer.",
+  "h1": "Tiere live mit Ihrer DJI-Drohne erkennen und zählen",
+  "lead": "Stream My Drone kann jetzt für Sie ins Livebild Ihrer Drohne schauen. <strong>AI Vision</strong> findet Ziegen, Schafe, Rinder, Pferde, Esel, Geflügel und weitere Tiere, zeichnet in Ihrem Stream und in der virtuellen Kamera einen beschrifteten Rahmen um jedes Tier und zählt mit. Es läuft auf Ihrem eigenen Computer; kein Bild und kein Ergebnis wird irgendwohin gesendet.",
+  "published": "2026-10-07",
+  "updated": "2026-10-21",
+  "summary": [
+    "Schalten Sie im Tab „Live gehen“ <strong>AI Vision · Tiererkennung</strong> ein, und die App markiert jedes gefundene Tier mit einem Rahmen und einer Beschriftung wie <em>Ziege #12 85%</em>.",
+    "Sie kennt 15 Tierarten, Nutztiere zuerst: Ziege, Schaf, Kuh, Pferd, Esel, Hund, Katze, Huhn, Ente, Gans, Schwein, Hirsch, Wildschwein, Vogel und Bär.",
+    "Ein Zähler zeigt, wie viele Tiere gerade im Bild sind und wie viele verschiedene sie insgesamt gesehen hat.",
+    "Alles läuft auf Ihrem Computer. Das Modell wird einmal heruntergeladen; danach verlässt nichts mehr den Rechner.",
+    "Das Drohnenvideo wird nie gebremst. Auf dem Mac prüft das Standardmodell das Bild etwa ein- bis zweimal pro Sekunde, was zu grasenden Herden passt."
+  ],
+  "sections": [
+    {
+      "id": "what",
+      "h2": "Was AI Vision macht",
+      "blocks": [
+        { "p": "Wenn Sie über eine Weide fliegen, ist es auf dem kleinen Bildschirm der Fernsteuerung mühsam, die Herde zu zählen oder die eine Ziege hinter dem Busch zu finden. AI Vision übernimmt das Hinschauen: Es prüft das Livebild immer wieder, mit OWLv2 ein- bis zweimal pro Sekunde und mit den leichteren Modellen bis zu zehnmal pro Sekunde, und markiert jedes Tier, das es erkennt." },
+        { "list": [
+          "<strong>Rahmen und Beschriftungen</strong> mit der Tierart, einer Nummer für jedes Tier und der Sicherheit des Modells, zum Beispiel <em>Schaf #7 78%</em>.",
+          "<strong>Ein Tierzähler</strong> in der Bildecke: wie viele Tiere gerade zu sehen sind, nach Art getrennt, und wie viele verschiedene Tiere seit dem letzten Zurücksetzen gesehen wurden.",
+          "<strong>In jeder Ausgabe.</strong> Die Rahmen erscheinen im Livestream an Instagram, TikTok, YouTube und Ihre anderen Ziele, in der virtuellen Kamera und in der Vorschau der App.",
+          "<strong>Rahmen sind optional.</strong> Sie können Rahmen oder Zähler ausblenden und in der App trotzdem weiterzählen lassen."
+        ] },
+        { "note": "AI Vision legt nur eine Ebene über das Bild. Das Drohnenvideo selbst wird nie zurückgehalten, um auf die Analyse zu warten." }
+      ]
+    },
+    {
+      "id": "animals",
+      "h2": "Welche Tiere erkannt werden",
+      "blocks": [
+        { "p": "Die meisten fertigen Erkennungsmodelle sind mit denselben öffentlichen Fotosammlungen trainiert, und darin kommt überhaupt keine Ziege vor. Eine Ziege wird dann als Schaf erkannt – oder gar nicht. Deshalb ist das Standardmodell auf dem Mac <strong>OWLv2</strong>, ein Modell, dem man beim Namen sagt, nach welchen Tieren es suchen soll." },
+        { "table": {
+          "head": ["Modell", "Tiere", "Tempo auf dem Mac", "Download"],
+          "rows": [
+            ["OWLv2 (Standard auf dem Mac)", "Ziege, Schaf, Kuh, Pferd, Esel, Hund, Katze, Huhn, Ente, Gans, Schwein, Hirsch, Wildschwein, Vogel", "Etwa 0,5 s pro Bild", "586 MB"],
+            ["D-FINE X, RF-DETR Large", "Schaf, Kuh, Pferd, Hund, Katze, Vogel, Bär", "Etwa 0,1–0,2 s pro Bild", "240–464 MB"],
+            ["YOLOX (Nano bis X)", "Schaf, Kuh, Pferd, Hund, Katze, Vogel, Bär", "Am schnellsten; Nano, Tiny und S laufen auch unter Windows", "3–378 MB"]
+          ]
+        } },
+        { "p": "Das Modell wechseln Sie unter <em>Erkennungseinstellungen → Modell</em>; die Liste zeigt, wie viele Arten jedes Modell kennt. Für gemischte Herden aus Ziegen und Schafen nehmen Sie OWLv2. Nur für Rinder und Pferde ist D-FINE X etwa fünfmal schneller. Unter <em>Erkannte Arten</em> können Sie die Suche auf die Tiere beschränken, die Sie interessieren." },
+        { "note": "Wildtiere der Savanne wie Giraffen, Zebras und Elefanten fehlen absichtlich in der Liste: Über einer Rinderherde haben sie nur Fehlalarme ausgelöst." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "So schalten Sie die Tiererkennung ein",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Drohne verbinden", "d": "Senden Sie das Livebild wie gewohnt per RTMP aus DJI Fly an die App; die Adresse steht im Tab „Live gehen“. Die Einzelheiten finden Sie in <a href=\"../dji-fly-rtmp-live-streaming-setup/\">der Anleitung zu DJI Fly RTMP</a>." },
+          { "t": "AI Vision einschalten", "d": "Suchen Sie im Tab „Live gehen“ die Karte <strong>AI Vision · Tiererkennung</strong> und schalten Sie <em>Tiererkennung</em> ein." },
+          { "t": "Modell laden und vorbereiten lassen", "d": "Beim ersten Mal wird das Modell heruntergeladen und für Ihren Computer vorbereitet. Mit OWLv2 kann das einige Minuten dauern; die Karte zeigt den Fortschritt. Spätere Starts dauern etwa eine Minute." },
+          { "t": "Schwelle einstellen", "d": "Ziehen Sie die <em>Konfidenzschwelle</em> für Luftaufnahmen, auf denen Tiere klein sind, auf etwa 0,25–0,35 herunter. Erhöhen Sie sie, wenn Rahmen auf Büschen oder Steinen erscheinen." },
+          { "t": "Live gehen", "d": "Starten Sie die Übertragung oder die virtuelle Kamera. Wenn Sie schon live waren, erscheinen die Rahmen beim nächsten Start im Stream; die virtuelle Kamera zeigt sie sofort." }
+        ] },
+        { "note": "Keine Drohne zur Hand? <em>Mit einer Videodatei testen</em> im Tab „Live gehen“ spielt einen aufgezeichneten Clip über denselben Weg ab, sodass Sie AI Vision am Schreibtisch ausprobieren können." }
+      ]
+    },
+    {
+      "id": "flying",
+      "h2": "So fliegen Sie für eine gute Zählung",
+      "blocks": [
+        { "list": [
+          "<strong>Die Höhe ist entscheidend.</strong> Aus großer Höhe besteht ein Tier nur aus wenigen Pixeln. Die App findet es trotzdem, aber ob es eine Ziege oder ein Kalb ist, wird zum Raten. Fliegen Sie tiefer oder zoomen Sie, wenn die Art wichtig ist.",
+          "<strong>Langsam fliegen.</strong> Das Standardmodell schaut etwa ein- bis zweimal pro Sekunde hin. Ein langsamer Überflug lässt es jedes Tier verfolgen, statt es zu verlieren und neu zu finden.",
+          "<strong>Vor dem Zählen zurücksetzen.</strong> Drücken Sie <em>Zähler zurücksetzen</em>, wenn Sie einen Überflug über die Herde beginnen. Ein Tier, das für ein paar Sekunden aus dem Bild verschwindet und zurückkommt, kann erneut gezählt werden; betrachten Sie die eindeutige Zahl also als gute Schätzung, nicht als Bestandsaufnahme.",
+          "<strong>Vollbild nutzen.</strong> Doppelklicken Sie auf die Vorschau oder drücken Sie die Taste in ihrer Ecke, um Bild und Rahmen über den ganzen Bildschirm zu sehen. Mit Esc kehren Sie zurück."
+        ] }
+      ]
+    },
+    {
+      "id": "privacy",
+      "h2": "Datenschutz und Voraussetzungen",
+      "blocks": [
+        { "list": [
+          "<strong>Nur auf Ihrem Computer.</strong> Die Erkennung läuft lokal. Kein Bild, keine Erkennung und keine Zählung wird hochgeladen. Das Netzwerk wird nur für den einmaligen Download des Modells genutzt.",
+          "<strong>Mac:</strong> Die Modelle laufen auf der Grafik- und Neural-Hardware des Mac. Empfohlen wird ein Mac mit Apple Silicon. OWLv2 braucht nach der Vorbereitung etwa 4 GB freien Speicherplatz.",
+          "<strong>Windows:</strong> Die leichteren YOLOX-Modelle laufen auf dem Prozessor. OWLv2 und die anderen großen Modelle gibt es nur auf dem Mac, daher werden Ziegen, Esel und Geflügel unter Windows noch nicht erkannt.",
+          "<strong>Aus heißt aus.</strong> Solange AI Vision ausgeschaltet ist, wird kein Modell geladen, und Ihr Stream bleibt genau wie zuvor."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Kann meine DJI-Drohne Tiere zählen?", "a": "Die Drohne selbst nicht, aber mit Stream My Drone auf Ihrem Computer wird das Livebild aus DJI Fly dort analysiert: Jedes Tier bekommt einen Rahmen und eine Beschriftung, und ein Zähler zeigt, wie viele zu sehen sind und wie viele verschiedene gesehen wurden." },
+    { "q": "Erkennt es Ziegen?", "a": "Ja, mit dem Modell OWLv2, dem Standard auf dem Mac. Es unterscheidet Ziegen bei normalen Flughöhen von Schafen. Die anderen Modelle haben überhaupt keine Klasse für Ziegen." },
+    { "q": "Erscheinen die Rahmen in meinem Stream auf Instagram, TikTok oder YouTube?", "a": "Ja. Sie werden in jede Ausgabe gezeichnet: den Livestream an alle Ziele, die virtuelle Kamera und die Vorschau in der App. Rahmen oder Zähler lassen sich jederzeit ausschalten." },
+    { "q": "Wird mein Video an einen KI-Dienst gesendet?", "a": "Nein. Alles läuft auf Ihrem eigenen Computer. Nur die Modelldatei wird einmal aus einer öffentlichen Quelle heruntergeladen und vor der Verwendung geprüft." },
+    { "q": "Bremst es meinen Stream?", "a": "Nein. Das Video behält seine Bildrate; die Analyse läuft daneben, und die Rahmen werden aktualisiert, sobald ein neues Ergebnis vorliegt." },
+    { "q": "Wie genau ist die Zählung?", "a": "Gut für einen Überblick über eine Herde, aber keine amtliche Zählung. Sehr weit entfernte Tiere können der falschen Art zugeordnet werden, und ein Tier, das das Bild verlässt und zurückkommt, kann doppelt gezählt werden." },
+    { "q": "Ist es kostenlos?", "a": "Ja. AI Vision gehört zu Stream My Drone, das kostenlos und quelloffen unter der MIT-Lizenz ist. Die Modelle stehen unter der Apache-2.0-Lizenz." }
+  ]
+}

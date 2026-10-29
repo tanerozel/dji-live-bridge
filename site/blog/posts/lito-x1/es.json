@@ -1,0 +1,233 @@
+{
+  "slug": "dji-lito-x1-live-stream",
+  "platform": "DJI Lito X1",
+  "title": "Cómo hacer un directo con el DJI Lito X1: teléfono u ordenador (2026)",
+  "description": "Transmite en directo con un DJI Lito X1 y RC 2, RC-N3 o RC-N2: ajustes RTMP de DJI Fly, flujos con teléfono u ordenador, plataformas y solución de problemas.",
+  "h1": "Cómo transmitir en directo con un DJI Lito X1",
+  "lead": "<strong>DJI Lito X1</strong> puede compartir un vuelo en directo mediante el RTMP de DJI Fly. Con un RC 2, deja que un teléfono aparte con <strong>Stream My Drone</strong> reciba la imagen. Con un RC-N3 o un RC-N2, mantén DJI Fly en el teléfono del control y usa <strong>Stream My Drone</strong> en un ordenador. Aquí verás cómo conectar los dispositivos, comprobar la señal y salir en directo en la plataforma que elijas.",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "DJI incluye el Lito X1 en su guía de compatibilidad de directos; comprueba a la vez el control y la versión actual de DJI Fly.",
+    "El RC 2 mantiene DJI Fly en su pantalla integrada, así que un teléfono aparte queda libre para recibir la transmisión.",
+    "El RC-N3 y el RC-N2 usan un teléfono para DJI Fly. Usa el receptor en un ordenador aparte que se describe abajo para que DJI Fly siga abierto.",
+    "La dirección del receptor local va en DJI Fly. Las cuentas de las plataformas o las claves de transmisión se configuran en Stream My Drone, en el teléfono o en el ordenador.",
+    "Revisa primero la vista previa del receptor y después la página de visualización de la plataforma; los ajustes de grabación no determinan la salida RTMP."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Elige el flujo para tu RC 2, RC-N3 o RC-N2",
+      "blocks": [
+        {
+          "p": "Las <a href=\"https://store.dji.com/ph/product/dji-lito-x1-fly-more-combo-dji-rc-n3?vid=220431\">preguntas frecuentes oficiales del Lito X1</a> citan el DJI RC 2, el DJI RC-N3 y el DJI RC-N2. La <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">guía de compatibilidad de directos de DJI Fly</a> también menciona el Lito X1. Fíjate en la etiqueta real de tu control para elegir la ruta de abajo; que compartan el nombre de la aeronave no hace que todos los controles sean intercambiables."
+        },
+        {
+          "table": {
+            "head": [
+              "Control",
+              "Dónde vuelas",
+              "Dónde recibes la transmisión"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "DJI Fly en la pantalla integrada",
+                "Stream My Drone en un teléfono aparte, o Stream My Drone en un ordenador"
+              ],
+              [
+                "DJI RC-N3",
+                "DJI Fly en el teléfono conectado por USB",
+                "Stream My Drone en un Mac o PC con Windows aparte"
+              ],
+              [
+                "DJI RC-N2",
+                "DJI Fly en el teléfono conectado por USB",
+                "El mismo flujo con un ordenador aparte que con el RC-N3"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "La <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">guía de directos de DJI</a> fija un límite de 720p para el directo con el RC 2 y exige un micrófono conectado a partir de DJI Fly v1.16.0. Comprueba esos requisitos antes de salir a emitir. Instala Stream My Drone en el teléfono receptor; no funciona en el RC 2."
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Lito X1 con RC 2: usa un teléfono aparte, sin ordenador",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Instala Stream My Drone en tu teléfono",
+              "d": "Descarga la app desde <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> o el <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a>. El teléfono recibe la transmisión mientras DJI Fly sigue abierto en el RC 2."
+            },
+            {
+              "t": "Conecta el RC 2 y el teléfono",
+              "d": "Conecta los dos a la misma red Wi-Fi con acceso a internet. En el campo, un teléfono Android puede crear el punto de acceso y recibir la transmisión a la vez. Abre Stream My Drone después de elegir la red; en iPhone, permite el acceso a la red local cuando te lo pida."
+            },
+            {
+              "t": "Copia la dirección de recepción en DJI Fly",
+              "d": "Usa la dirección local completa que muestra Stream My Drone. En DJI Fly, abre GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP e introduce ahí la dirección. El recorrido completo por el menú está en la <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guía de configuración RTMP de DJI Fly</a>. Conecta un micrófono si DJI Fly lo pide."
+            },
+            {
+              "t": "Inicia la señal de DJI Fly y revisa la vista previa",
+              "d": "Inicia la transmisión en el control y confirma que la imagen del dron en movimiento aparece en tu teléfono. Mantén Stream My Drone abierta mientras compruebas la conexión. Así queda establecido el enlace de vídeo local."
+            },
+            {
+              "t": "Elige un destino y confirma la publicación",
+              "d": "Añade una plataforma en Stream My Drone conectando tu cuenta cuando sea posible, o con su URL de servidor y su clave de transmisión. Empieza a reenviar y abre el panel de directos o la página de visualización de la plataforma. Completa cualquier paso de «Go Live» que la plataforma siga pidiendo."
+            }
+          ]
+        },
+        {
+          "note": "El teléfono reenvía el vídeo entrante sin volver a codificarlo. El recorte o el fondo desenfocado de la vista previa no convierten la señal de salida en un vertical 1080×1920. Usa la aplicación de escritorio cuando necesites esa conversión. En iPhone, mantén la app en primer plano durante la configuración; para seguir transmitiendo en segundo plano hace falta Imagen dentro de imagen."
+        }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Lito X1 con RC-N3 o RC-N2: recibe la señal en un ordenador",
+      "blocks": [
+        {
+          "p": "Con el RC-N3 o el RC-N2, deja DJI Fly abierto en el teléfono conectado al control. Instala <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> en un Mac o un PC con Windows y conecta ese ordenador y el teléfono con DJI Fly a la misma red local. El RC 2 también puede usar esta ruta de escritorio."
+        },
+        {
+          "steps": [
+            {
+              "t": "Busca la dirección RTMP del ordenador",
+              "d": "Abre Stream My Drone y copia la dirección que aparece en Conecta tu dron. Una dirección como <code>rtmp://192.168.1.20:1935/drone</code> es solo un ejemplo; usa la que muestre tu aplicación."
+            },
+            {
+              "t": "Envía DJI Fly a esa dirección",
+              "d": "En DJI Fly, abre GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, introduce la dirección del receptor e inicia la señal. La <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guía RTMP de DJI Fly</a> explica el menú. Si el cortafuegos del ordenador pregunta, permite las conexiones entrantes en tu red privada. Comprueba la vista previa antes de añadir un destino."
+            },
+            {
+              "t": "Configura la salida y la plataforma",
+              "d": "Elige horizontal para un directo convencional en YouTube o Facebook, o salida vertical para una cuenta con formato vertical. Añade la URL de servidor y la clave actuales del destino, inicia la salida y comprueba el directo en la plataforma."
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "Stream My Drone de escritorio con la dirección RTMP local para DJI Fly, los destinos de las plataformas y el botón para iniciar el directo."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "¿A qué plataforma quieres llegar?",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Plataforma",
+              "Qué preparar",
+              "Guía detallada"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "Una cuenta con las emisiones en directo activadas y una emisión preparada",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Configurar YouTube</a>"
+              ],
+              [
+                "Instagram",
+                "Acceso a Live Producer y credenciales RTMPS vigentes",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Configurar Instagram</a>"
+              ],
+              [
+                "Facebook",
+                "Un directo con su URL de servidor y su clave",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Configurar Facebook</a>"
+              ],
+              [
+                "TikTok",
+                "Acceso RTMP en tu cuenta, o un ordenador con acceso a LIVE Studio",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Configurar TikTok</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "El acceso a cada plataforma depende de tu cuenta. Recibir la señal del dron en la app no te da una clave de transmisión ni publica un directo. Para TikTok LIVE Studio, la aplicación de escritorio también ofrece una <a href=\"../use-your-dji-drone-as-a-webcam/\">cámara virtual</a>. Revisa el panel de cada plataforma para ver el paso de publicación vigente."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Calidad de grabación, vista en directo y salida RTMP del Lito X1",
+      "blocks": [
+        {
+          "p": "La <a href=\"https://store.dji.com/ph/product/dji-lito-x1-fly-more-combo-dji-rc-n3?vid=220431\">página de producto del Lito X1</a> describe grabación en 4K y una vista en directo O4. Esas especificaciones se refieren a partes distintas del flujo. El vídeo grabado en la aeronave, la vista en el control, la entrada RTMP y la salida a la plataforma pueden tener resoluciones diferentes. Revisa la entrada que indica tu receptor; ampliarla en el escritorio no recupera el detalle que falta."
+        },
+        {
+          "list": [
+            "<strong>Prueba antes de despegar.</strong> Comprueba el movimiento, el sonido y la página de visualización de la plataforma con el dron todavía en el suelo.",
+            "<strong>Calcula la subida.</strong> Una salida continua de 5 Mbps consume unos 2,25 GB por hora sin contar la sobrecarga de red. Dos destinos así necesitan unos 10 Mbps de subida en total y 4,5 GB por hora.",
+            "<strong>Mantén fuerte el enlace local.</strong> Deja el teléfono o el ordenador cerca del punto de acceso. Una conexión estable importa más que la velocidad máxima anunciada de la red.",
+            "<strong>Vigila el encuadre real de salida.</strong> En el móvil, la disposición de la vista previa es solo local. En el escritorio, comprueba el recorte elegido o la salida con la imagen completa antes de publicar."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Solución de problemas en un directo con el Lito X1",
+      "blocks": [
+        {
+          "list": [
+            "<strong>No aparece el menú RTMP:</strong> comprueba el modelo de control, actualiza su firmware y DJI Fly, y busca dentro de Transmission. La app receptora no puede añadir una función que falta en DJI Fly.",
+            "<strong>Falla la conexión:</strong> vuelve a copiar la dirección de la app después de un cambio de red. Usa una red local compartida sin aislamiento de invitados; <code>localhost</code> en el control apunta al propio control.",
+            "<strong>Hay imagen en el teléfono, pero los espectadores no ven nada:</strong> revisa la conexión del destino, la clave de transmisión vigente y el último paso de publicación de la plataforma. Que se reenvíen datos no confirma por sí solo un directo público.",
+            "<strong>La transmisión se corta al cambiar de app en el iPhone:</strong> vuelve a Stream My Drone y comprueba Imagen dentro de imagen. Sin ella, iOS puede suspender el receptor.",
+            "<strong>El directo va a saltos:</strong> prueba primero con un solo destino, revisa la estabilidad de la subida por datos móviles y acerca el receptor al punto de acceso."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Fuentes y guías de modelos relacionados",
+      "blocks": [
+        {
+          "p": "Detalles del modelo y de los controles: <a href=\"https://store.dji.com/ph/product/dji-lito-x1-fly-more-combo-dji-rc-n3?vid=220431\">página de producto y preguntas frecuentes oficiales del Lito X1</a>. Aeronaves compatibles: <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">guía de compatibilidad de directos de DJI Fly (en chino)</a>. Requisitos de los controles e instrucciones del menú: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Consultado el 25 de octubre de 2026; vuelve a revisar el menú tras cada actualización de firmware."
+        },
+        {
+          "p": "Compara con el otro modelo Lito: <a href=\"../dji-lito-1-live-stream/\">configuración del Lito 1</a>."
+        },
+        {
+          "p": "Para una aeronave de la serie Mini, consulta la <a href=\"../dji-mini-5-pro-live-stream/\">guía del Mini 5 Pro</a>. Para enviar una misma imagen entrante a varios destinos, sigue con la <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">guía de multistreaming</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "¿Puedo transmitir en directo con un Lito X1 sin ordenador?",
+      "a": "Con el RC 2, usa Stream My Drone en un teléfono aparte conectado a la misma red local. DJI Fly funciona en el control, el teléfono recibe su señal RTMP y el destino se configura en Stream My Drone."
+    },
+    {
+      "q": "¿Puedo usar el teléfono que ya está conectado al RC-N3 o al RC-N2?",
+      "a": "Ese teléfono ejecuta DJI Fly para controlar el vuelo. Esta guía usa Stream My Drone en un ordenador aparte como receptor, para que DJI Fly siga abierto. No da por hecho que las dos apps puedan gestionar a la vez un vuelo en directo y el reenvío en un mismo teléfono."
+    },
+    {
+      "q": "¿Qué dirección va en DJI Fly?",
+      "a": "La dirección local de recepción completa que muestra Stream My Drone, en el teléfono o en el ordenador. La URL de servidor y la clave de transmisión de la plataforma van en los ajustes de destino de la app receptora."
+    },
+    {
+      "q": "¿Stream My Drone convierte el vídeo en un directo vertical?",
+      "a": "La app móvil reenvía el vídeo que recibe. La disposición de su vista previa no vuelve a codificar la imagen de salida. Stream My Drone en un ordenador ofrece conversión de la salida a vertical."
+    },
+    {
+      "q": "¿Por qué veo la vista previa pero mi audiencia no puede ver el directo?",
+      "a": "La vista previa solo demuestra que la señal local del dron ha llegado. Inicia la salida a un destino, confirma que la plataforma la recibe y completa allí cualquier paso de «Go Live» pendiente."
+    },
+    {
+      "q": "¿Puedo usar QuickTransfer para un directo con el Lito X1?",
+      "a": "QuickTransfer transfiere archivos grabados. Para la imagen del vuelo en directo, usa el menú RTMP de DJI Fly y la dirección del receptor que muestra tu app. Comprueba primero que llega vídeo en movimiento al receptor y luego inicia la salida a una plataforma."
+    }
+  ]
+}

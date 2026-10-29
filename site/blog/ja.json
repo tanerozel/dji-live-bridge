@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "title": "DJI ドローン ライブ配信ガイド — Stream My Drone ブログ",
+    "description": "DJI Flip、Lito、Air、Mavic、Mini のライブ配信ガイド。送信機の対応状況、スマートフォンとパソコンの設定、DJI Fly の RTMP、YouTube、Instagram、Facebook への配信方法を解説します。"
+  },
+  "h1": "ドローン ライブ配信ガイド",
+  "lead": "ドローンまたは配信プラットフォームを選んでください。Flip、Lito X1・Lito 1、Air、Mavic、Mini の送信機ごとの設定、スマートフォンとパソコンでの配信手順、DJI Fly の RTMP 設定、配信前のチェックをまとめています。",
+  "language": "言語",
+  "skip": "本文へ移動",
+  "home": "ホーム",
+  "blog": "ブログ",
+  "download": "ダウンロード",
+  "breadcrumb": "パンくずリスト",
+  "by": "著者",
+  "updated": "更新日",
+  "keyFacts": "要点",
+  "toc": "このページの内容",
+  "faq": "よくある質問",
+  "related": "ほかのガイド",
+  "cta": {
+    "h": "お手持ちのドローンで試す",
+    "p": "Stream My Drone は macOS と Windows 向けの無料・オープンソースアプリです。FFmpeg を内蔵しているので、ほかに入れるものはありません。",
+    "button": "Stream My Drone をダウンロード",
+    "more": "アプリのしくみ"
+  },
+  "guides": {
+    "h2": "ガイド",
+    "sub": "ドローン、送信機、配信プラットフォームごとの手順を一つずつ説明します。",
+    "all": "すべてのガイド"
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "slug": "use-your-dji-drone-as-a-webcam",
+  "platform": "Virtual camera",
+  "title": "Usare il drone DJI come webcam su Mac e Windows (fotocamera virtuale)",
+  "description": "Trasforma il tuo drone DJI in una webcam per TikTok LIVE Studio, OBS, Zoom, Google Meet o Teams con la fotocamera virtuale di Stream My Drone. Configurazione, idee e soluzioni.",
+  "h1": "Trasforma il tuo drone DJI nella webcam del computer",
+  "lead": "Stream My Drone non fa solo restreaming. La sua <strong>fotocamera virtuale</strong> passa al computer l'immagine dal vivo di DJI Fly come una normale fotocamera chiamata <strong>Stream My Drone Camera</strong>, così qualsiasi app con un menu fotocamera (TikTok LIVE Studio, OBS, Zoom, Google Meet, Microsoft Teams) può mostrare quello che vede il tuo drone. Nessuna chiave di streaming, nessun account di streaming.",
+  "published": "2026-10-02",
+  "updated": "2026-10-21",
+  "summary": [
+    "Stream My Drone aggiunge al computer una fotocamera chiamata <strong>Stream My Drone Camera</strong> che mostra l'immagine dal vivo del drone.",
+    "Qualsiasi app che ti fa scegliere una fotocamera può usarla: TikTok LIVE Studio, OBS, Zoom, Google Meet, Microsoft Teams o uno studio nel browser.",
+    "Non servono chiave di streaming né account sulla piattaforma: il drone diventa semplicemente una fotocamera.",
+    "La fotocamera è verticale, 1080×1920 a 30 fps, e porta solo il video; il microfono lo scegli nell'app che la usa.",
+    "Per le videochiamate in orizzontale, fai passare il drone da OBS con il layout orizzontale 16:9 e usa la fotocamera virtuale di OBS."
+  ],
+  "sections": [
+    {
+      "id": "what",
+      "h2": "Che cosa fa la fotocamera virtuale",
+      "blocks": [
+        { "p": "Di solito l'immagine dal vivo di un drone va a una piattaforma di streaming. La fotocamera virtuale prende un'altra strada: DJI Fly manda l'immagine via RTMP a Stream My Drone sul tuo computer, e l'app la consegna al sistema operativo come fotocamera. Per tutte le altre app, il tuo drone sembra una webcam collegata al computer." },
+        { "p": "Quindi l'altra app non ha bisogno di una chiave di streaming, di un account di streaming o del supporto RTMP. Se ha un menu fotocamera, il drone può comparire lì." },
+        { "list": [
+          "<strong>Nome:</strong> Stream My Drone Camera.",
+          "<strong>Immagine:</strong> verticale 1080×1920 a 30 fps. Un'immagine orizzontale del drone sta al centro del fotogramma con il nero sopra e sotto; non viene ritagliato niente.",
+          "<strong>Audio:</strong> nessuno, di proposito. Il microfono lo scegli nell'app che usa la fotocamera, così non senti mai l'audio due volte.",
+          "<strong>Sistemi:</strong> macOS 13 o successivo (l'app deve stare nella cartella Applicazioni) e Windows 10/11."
+        ] }
+      ]
+    },
+    {
+      "id": "uses",
+      "h2": "Che cosa puoi farci",
+      "blocks": [
+        { "p": "Qualche idea: tutto ciò che accetta una webcam può mostrare la vista dal tuo drone." },
+        { "list": [
+          "<strong>Andare in diretta su TikTok senza chiave di streaming.</strong> Scegli la fotocamera in TikTok LIVE Studio e trasmetti da lì. La procedura completa è nella <a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">guida a TikTok</a>.",
+          "<strong>Costruire uno show in OBS.</strong> Aggiungi la fotocamera come sorgente video e metti testo, logo, una mappa o la tua webcam sopra la ripresa aerea, poi trasmetti o registra da OBS.",
+          "<strong>Mostrare un luogo in videochiamata.</strong> Fai vedere dal vivo su Zoom, Google Meet o Microsoft Teams un tetto, un cantiere, un impianto fotovoltaico o un campo a un cliente, al tuo team o a un perito assicurativo, invece di mandare le foto dopo.",
+          "<strong>Fare un tour virtuale.</strong> Porta il pubblico sopra un immobile, un campeggio, una location o un percorso, vista dall'alto, mentre racconti cosa stanno guardando.",
+          "<strong>Insegnare e presentare.</strong> Usa la vista aerea in una lezione, un webinar o una presentazione di geografia, agricoltura, rilievi o sul volo stesso.",
+          "<strong>Entrare in uno studio nel browser.</strong> Gli studi nel browser come StreamYard o Restream Studio di solito possono scegliere la fotocamera come qualsiasi altra webcam, così il drone può essere uno degli ospiti di uno show multicamera."
+        ] },
+        { "note": "La fotocamera mostra l'immagine del drone finché Stream My Drone è aperta e DJI Fly sta trasmettendo. Quando non arriva nessuna immagine, la fotocamera è nera." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Come trasformare il drone in una webcam",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Installa l'app nel posto giusto", "d": "Su Mac trascina <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> nella cartella Applicazioni; macOS consente un'estensione fotocamera solo da lì. Su Windows è il programma di installazione a registrare la fotocamera." },
+          { "t": "Manda l'immagine del drone al computer", "d": "In DJI Fly apri GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP e incolla l'indirizzo mostrato nella scheda Diretta dell'app. Radiocomando e computer devono essere sulla stessa rete Wi-Fi o sullo stesso hotspot. I dettagli sono nella <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guida RTMP di DJI Fly</a>." },
+          { "t": "Attiva la fotocamera una volta", "d": "Nella scheda TikTok LIVE Studio premi <em>Attiva la fotocamera virtuale — una sola volta</em>. macOS chiede l'autorizzazione una volta sola, in Impostazioni di Sistema → Generali → Elementi di login ed estensioni → Estensioni fotocamera." },
+          { "t": "Avvia la fotocamera", "d": "Quando la scheda indica <em>Pronta all'avvio</em>, premi <em>Avvia fotocamera virtuale</em>." },
+          { "t": "Sceglila nella tua app", "d": "In TikTok LIVE Studio, OBS, Zoom, Meet o Teams apri il menu della fotocamera e scegli <strong>Stream My Drone Camera</strong>. Scegli lì anche il microfono." }
+        ] },
+        { "img": "virtual-camera.png", "alt": "La scheda TikTok LIVE Studio di Stream My Drone, dove si attiva e si avvia la fotocamera virtuale." },
+        { "note": "Nessun drone a portata di mano? <em>Prova con un file video</em> nella scheda Diretta manda una clip registrata lungo lo stesso percorso, così puoi configurare la fotocamera nella tua app prima del volo." }
+      ]
+    },
+    {
+      "id": "landscape",
+      "h2": "Videochiamate in orizzontale: passa da OBS",
+      "blocks": [
+        { "p": "La fotocamera integrata è verticale, perché lo sono TikTok LIVE Studio e le piattaforme pensate per il telefono. Zoom, Meet e Teams sono costruiti attorno a fotocamere orizzontali, quindi a seconda dell'app e del layout mostrano il fotogramma alto con larghe bande o lo ritagliano, e l'immagine del drone finisce per essere piccola. Per una chiamata in orizzontale usa l'integrazione facoltativa con OBS: dà a OBS l'immagine completa del drone su una tela 1920×1080." },
+        { "steps": [
+          { "t": "Attiva OBS WebSocket", "d": "In OBS apri Strumenti → Impostazioni del server WebSocket e attiva il server (porta 4455 per impostazione predefinita)." },
+          { "t": "Collega Stream My Drone a OBS", "d": "Nella scheda Avanzate, sotto <em>Integrazione OBS facoltativa</em>, inserisci host, porta e password, poi premi <em>Salva connessione</em>." },
+          { "t": "Scegli il layout orizzontale", "d": "Nella scheda Diretta, sotto <em>Immagine e audio</em>, imposta l'orientamento su <em>Orizzontale 16:9</em>." },
+          { "t": "Prepara la scena", "d": "Con il video del drone in arrivo, premi <em>Prepara la scena OBS</em>. L'app crea una scena chiamata <strong>DJI LIVE</strong>, imposta la tela di OBS a 1920×1080 e vi adatta l'immagine del drone." },
+          { "t": "Avvia la fotocamera virtuale di OBS", "d": "Premi <em>Avvia fotocamera virtuale</em> accanto a <em>Fotocamera virtuale OBS</em> nella stessa scheda, poi scegli <strong>OBS Virtual Camera</strong> in Zoom, Meet o Teams." }
+        ] },
+        { "table": {
+          "head": ["", "Stream My Drone Camera", "OBS Virtual Camera"],
+          "rows": [
+            ["Formato", "Verticale 1080×1920", "Segue il layout: 1920×1080 o 1080×1920"],
+            ["Serve OBS", "No", "Sì, con WebSocket attivo"],
+            ["Overlay e scene", "No", "Sì, tutto quello che offre OBS"],
+            ["Ideale per", "TikTok LIVE Studio, show verticali", "Zoom, Meet, Teams, show orizzontali"]
+          ]
+        } },
+        { "img": "advanced.png", "alt": "La scheda Avanzate di Stream My Drone con l'integrazione OBS facoltativa, il pulsante Prepara la scena OBS e la fotocamera virtuale di OBS." }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "Consigli per un'immagine pulita",
+      "blocks": [
+        { "list": [
+          "<strong>Scegli un solo microfono</strong> nell'app che usa la fotocamera. La fotocamera del drone non ha audio, quindi non c'è niente da silenziare.",
+          "<strong>Aspettati un piccolo ritardo.</strong> L'immagine va dal drone al radiocomando, poi via Wi-Fi al computer e infine nella fotocamera, quindi è un po' indietro rispetto al tempo reale. Va bene per mostrare un luogo, non per qualcosa che richiede tempi precisi.",
+          "<strong>Usa una rete stabile.</strong> Un collegamento debole tra radiocomando e computer si vede come scatti. Un hotspot del telefono proprio accanto al computer spesso batte un router lontano.",
+          "<strong>720p è normale.</strong> Il radiocomando invia spesso 720p; la fotocamera lo adatta al fotogramma e non lo spaccia per un 1080p nativo.",
+          "<strong>Tieni l'app aperta.</strong> Chiudere Stream My Drone ferma la fotocamera."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Quando la fotocamera non compare",
+      "blocks": [
+        { "list": [
+          "<strong>Non è nell'elenco delle fotocamere:</strong> avvia prima la fotocamera virtuale, poi chiudi e riapri l'app che deve usarla; molte app leggono l'elenco delle fotocamere solo all'avvio.",
+          "<strong>macOS non ha mai chiesto l'autorizzazione:</strong> verifica che Stream My Drone venga avviata dalla cartella Applicazioni, poi guarda in Impostazioni di Sistema → Generali → Elementi di login ed estensioni → Estensioni fotocamera.",
+          "<strong>Ha smesso di funzionare dopo un aggiornamento:</strong> quando sostituisci l'app, macOS disattiva la vecchia fotocamera. Premi di nuovo <em>Avvia fotocamera virtuale</em>; l'app richiede da sola l'attivazione. Se macOS lo chiede, riavvia il Mac.",
+          "<strong>L'immagine è nera:</strong> non arriva nessun video dal drone. Controlla l'anteprima nella scheda Diretta e l'indirizzo RTMP in DJI Fly.",
+          "<strong>Il browser non la mostra:</strong> consenti al sito l'accesso alla fotocamera e ricarica la pagina.",
+          "<strong>Windows:</strong> la fotocamera integrata è stata provata con TikTok LIVE Studio, OBS e Zoom. Seleziona «Stream My Drone Camera» come sorgente video."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Posso usare il mio drone DJI come webcam?", "a": "Sì. Con Stream My Drone aperta e DJI Fly che le invia l'RTMP, il drone compare come una fotocamera chiamata Stream My Drone Camera in qualsiasi app che ti fa scegliere una fotocamera." },
+    { "q": "Funziona con Zoom, Google Meet e Microsoft Teams?", "a": "Possono selezionare la fotocamera come qualsiasi webcam. Dato che la fotocamera integrata è verticale, una chiamata in orizzontale rende meglio passando da OBS: prepara la scena OBS con il layout orizzontale 16:9 e scegli OBS Virtual Camera nella chiamata." },
+    { "q": "Mi servono una chiave di streaming o un account di streaming?", "a": "No. La fotocamera virtuale resta sul tuo computer e non invia niente a nessuna piattaforma. La chiave di streaming serve solo quando è Stream My Drone stessa a trasmettere via RTMP." },
+    { "q": "La fotocamera virtuale trasmette anche l'audio?", "a": "No, porta solo il video. Scegli il microfono nell'app che usa la fotocamera." },
+    { "q": "Quali droni funzionano?", "a": "Qualsiasi drone DJI la cui versione di DJI Fly offra RTMP sotto Live Streaming Platforms. L'app non dialoga mai con il drone; riceve solo il flusso RTMP." },
+    { "q": "È gratis?", "a": "Sì. Stream My Drone è gratuita e open source con licenza MIT, e non è affiliata a DJI, Zoom, Google o Microsoft." }
+  ]
+}

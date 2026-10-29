@@ -1,0 +1,239 @@
+{
+  "slug": "dji-mavic-4-pro-live-stream",
+  "platform": "DJI Mavic 4 Pro",
+  "title": "Diretta streaming con DJI Mavic 4 Pro: guida RC 2 e RC Pro 2 (2026)",
+  "description": "Diretta con DJI Mavic 4 Pro e RC 2 o RC Pro 2 verso telefono o computer: verifica DJI Fly RTMP, le differenze del microfono, il limite di 720p e le piattaforme.",
+  "h1": "Come andare in diretta con un DJI Mavic 4 Pro",
+  "lead": "Il tuo <strong>DJI Mavic 4 Pro</strong> può inviare l'immagine RTMP di DJI Fly a <strong>Stream My Drone</strong> su un secondo telefono o a <strong>Stream My Drone</strong> su un computer. Il punto di partenza è il radiocomando: RC 2 e RC Pro 2 hanno entrambi uno schermo, ma un hardware del microfono diverso. Segui il percorso qui sotto per ricevere l'immagine, scegliere le destinazioni e controllare cosa vedono davvero gli spettatori.",
+  "summary": [
+    "Usa RC 2 o RC Pro 2: l'attuale configurazione DJI per il Mavic 4 Pro non prevede radiocomandi RC-N.",
+    "Un secondo telefono con Stream My Drone ti permette di ricevere e inoltrare la diretta senza computer.",
+    "La diretta RTMP di DJI Fly è un'uscita separata dalla registrazione ad alta risoluzione sul drone.",
+    "In DJI Fly va l'indirizzo locale dell'app che riceve; le credenziali delle piattaforme vanno nell'app che riceve.",
+    "Prima del decollo controlla il menu RTMP e la richiesta del microfono, poi verifica la pagina di visione della piattaforma."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Quale radiocomando del Mavic 4 Pro può inviare il segnale?",
+      "blocks": [
+        {
+          "p": "La <a href=\"https://repair.dji.com/help/content?customId=en-us03400006734&amp;lang=en&amp;re=us&amp;spaceId=34\">guida DJI all'associazione del drone</a> indica per il Mavic 4 Pro <strong>DJI RC 2</strong> e <strong>DJI RC Pro 2</strong>. Entrambi eseguono DJI Fly sullo schermo integrato. Non riutilizzare un metodo per RC-N1, RC-N2 o RC-N3 pensato per un altro drone: non sono i radiocomandi documentati per questo modello."
+        },
+        {
+          "table": {
+            "head": [
+              "Radiocomando",
+              "App di volo",
+              "Ricevitore in questa guida"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "DJI Fly sullo schermo integrato",
+                "Stream My Drone su un secondo telefono, oppure Stream My Drone su un computer"
+              ],
+              [
+                "DJI RC Pro 2",
+                "DJI Fly sullo schermo integrato",
+                "Gli stessi metodi di ricezione, con secondo telefono o desktop"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "DJI RC Pro 2 è diverso da DJI RC Pro. Le sue <a href=\"https://www.dji.com/rc-pro-2/faq\">FAQ ufficiali</a> confermano un microfono integrato. Con RC 2 prepara un microfono esterno; prima di avviare una diretta segui la richiesta che compare nella tua versione di DJI Fly."
+        }
+      ]
+    },
+    {
+      "id": "rtmp-check",
+      "h2": "Controlla il menu RTMP prima di pianificare la diretta",
+      "blocks": [
+        {
+          "p": "Aggiorna drone, radiocomando e DJI Fly, associa il drone ed entra nella vista della fotocamera. Apri GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. I nomi dei menu possono cambiare con la versione e la lingua. Se il tuo firmware non mostra l'RTMP, l'app che riceve non può aggiungerlo."
+        },
+        {
+          "note": "L'<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">attuale guida DJI alle dirette</a> limita a <strong>720p</strong> l'uscita RTMP sia di RC 2 sia di RC Pro 2. Richiede inoltre un microfono collegato su RC 2 da DJI Fly v1.16.0. Verifica le impostazioni di uscita disponibili sul tuo radiocomando: uno schermo a 1080p o una risoluzione di registrazione più alta sul drone non superano questo limite."
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Mavic 4 Pro senza computer: ricevi su un telefono",
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Installa Stream My Drone su un secondo telefono",
+              "d": "Scaricala da <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> o dall'<a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a>. Tieni DJI Fly aperta sul tuo RC 2 o RC Pro 2; il telefono riceverà e inoltrerà il suo video."
+            },
+            {
+              "t": "Metti radiocomando e ricevitore sulla stessa rete",
+              "d": "Usa una rete Wi-Fi con accesso a internet. Sul campo il telefono Android che riceve può anche fare da hotspot. Apri Stream My Drone dopo aver scelto la rete e su iPhone consenti l'accesso alla rete locale quando richiesto. Se cambi rete, ricontrolla l'indirizzo mostrato."
+            },
+            {
+              "t": "Inserisci l'indirizzo del ricevitore in DJI Fly",
+              "d": "Copia l'indirizzo RTMP locale completo mostrato da Stream My Drone. In DJI Fly apri GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Segui le etichette della tua versione: una schermata con campi separati per indirizzo e chiave è diversa da una che chiede un URL RTMP completo. Non aggiungere la tua chiave di YouTube o Instagram all'indirizzo del ricevitore locale. Il percorso nei menu è nella <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guida RTMP di DJI Fly</a>."
+            },
+            {
+              "t": "Avvia il segnale locale e controlla l'audio",
+              "d": "Avvia la diretta in DJI Fly, poi verifica che in Stream My Drone compaia un'immagine in movimento. Controlla il microfono selezionato sul radiocomando e ascolta l'audio sulla piattaforma durante la prova a terra. Un'immagine senza audio utilizzabile si diagnostica più facilmente prima del decollo."
+            },
+            {
+              "t": "Aggiungi le destinazioni e pubblica",
+              "d": "Collega l'account di una piattaforma, dove possibile, oppure inserisci in Stream My Drone l'URL del server e la chiave di streaming attuali. Avvia l'inoltro e apri la dashboard della piattaforma. Completa l'eventuale passaggio Vai in diretta separato, poi verifica che la pagina di visione funzioni davvero."
+            }
+          ]
+        },
+        {
+          "note": "Il telefono che riceve è un dispositivo separato dal radiocomando. L'inoltro da telefono mantiene il video in arrivo così com'è; il ritaglio dell'anteprima o uno sfondo sfocato non creano una nuova diretta verticale. Su iPhone tieni l'app aperta durante la configurazione; per continuare a ricevere in background serve Picture in Picture."
+        }
+      ],
+      "howto": true
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Mavic 4 Pro su Mac o Windows: regia dal desktop",
+      "blocks": [
+        {
+          "p": "Tieni DJI Fly aperta sul tuo RC 2 o RC Pro 2. Installa <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> sul tuo Mac o PC Windows. Il computer riceve il segnale RTMP di DJI Fly sulla rete locale; questa configurazione non usa una scheda di acquisizione HDMI né un collegamento webcam USB dal radiocomando."
+        },
+        {
+          "steps": [
+            {
+              "t": "Copia l'indirizzo RTMP locale del computer",
+              "d": "Collega il computer e il dispositivo con DJI Fly alla stessa rete. In Stream My Drone copia l'indirizzo sotto Collega il drone. <code>rtmp://192.168.1.20:1935/drone</code> è solo un esempio: usa l'indirizzo mostrato dalla tua app."
+            },
+            {
+              "t": "Invia il segnale e verifica la ricezione",
+              "d": "Inserisci quell'indirizzo locale in DJI Fly e avvia lo streaming. Se il firewall lo chiede, consenti all'app di ricevere connessioni sulla rete privata. Controlla che l'anteprima si muova prima di configurare una piattaforma."
+            },
+            {
+              "t": "Scegli l'uscita e avvia una destinazione",
+              "d": "Scegli l'orizzontale o un formato verticale desktop, poi aggiungi l'URL del server e la chiave della piattaforma. Avvia l'uscita, verifica che la piattaforma la riceva e completa il suo passaggio di pubblicazione. Se usi più destinazioni, controlla la banda totale in upload necessaria prima di attivarle insieme."
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "Stream My Drone su desktop con l'indirizzo di ricezione locale, le destinazioni delle piattaforme e i controlli dell'uscita in diretta."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Invia la diretta del Mavic 4 Pro a una piattaforma",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Destinazione",
+              "Cosa ti serve",
+              "Guida"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "Dirette attivate e una diretta già preparata",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Configurazione YouTube</a>"
+              ],
+              [
+                "Instagram",
+                "Accesso a Live Producer e credenziali RTMPS aggiornate",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Configurazione Instagram</a>"
+              ],
+              [
+                "Facebook",
+                "Una diretta preparata con il suo URL del server e la sua chiave",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Configurazione Facebook</a>"
+              ],
+              [
+                "TikTok",
+                "Accesso RTMP sul tuo account, oppure accesso a LIVE Studio su un computer",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Configurazione TikTok</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "I requisiti dell'account li decide la piattaforma. Nessuna delle due app fornisce una chiave di streaming o aggira i requisiti di accesso. Per lavorare al computer con un'app di regia compatibile, Stream My Drone offre anche una <a href=\"../use-your-dji-drone-as-a-webcam/\">fotocamera virtuale</a>. Un'anteprima locale dimostra la ricezione; una pagina di visione funzionante conferma la pubblicazione."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Qualità di registrazione, riprese in verticale e la tua diretta",
+      "blocks": [
+        {
+          "p": "Tieni distinte tre immagini: il file registrato sul drone, la visione live sul radiocomando e il video RTMP che arriva al ricevitore. Valuta la diretta in base a dimensioni e bitrate ricevuti. Un'uscita desktop più grande non può ricreare dettagli che mancano nell'immagine in arrivo."
+        },
+        {
+          "p": "Il Mavic 4 Pro può riprendere in verticale e DJI descrive i comandi nella sua <a href=\"https://repair.dji.com/help/content?customId=01700006877&amp;lang=en&amp;paperDocType=ARTICLE&amp;spaceId=17\">guida alla modalità verticale</a>. Dopo aver cambiato orientamento, verifica cosa riceve davvero il ricevitore RTMP. Un'impostazione di registrazione verticale, lo schermo del radiocomando ruotato e una diretta 9:16 sulla piattaforma non sono verifiche equivalenti."
+        },
+        {
+          "list": [
+            "<strong>Inquadra con intenzione.</strong> Controlla l'immagine in uscita sulla piattaforma. Sul telefono la disposizione dell'anteprima non la ricodifica; su desktop scegli il ritaglio o l'immagine intera che vuoi pubblicare.",
+            "<strong>Calcola la banda per ogni destinazione.</strong> Un'uscita continua a 5 Mbps consuma circa 2,25 GB all'ora, senza contare l'overhead. Due uscite così richiedono in tutto circa 10 Mbps in upload e 4,5 GB all'ora.",
+            "<strong>Fai una prova a terra.</strong> Controlla movimento, audio e la vera pagina di visione. Tieni il telefono che riceve vicino all'hotspot e tieni d'occhio batteria e temperatura nelle dirette più lunghe."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Risolvere i problemi della diretta con il Mavic 4 Pro",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Nessuna opzione RTMP:</strong> verifica in DJI Fly il modello di radiocomando e la versione del software. RC 2 e il vecchio DJI RC hanno funzioni diverse; cambiare ricevitore non cambia le capacità del radiocomando.",
+            "<strong>DJI Fly chiede un microfono:</strong> con RC 2 collega un microfono supportato e ricontrolla l'ingresso. Con RC Pro 2 controlla l'ingresso selezionato e i permessi del microfono, senza dare per scontato che valgano le istruzioni per RC 2.",
+            "<strong>Connessione non riuscita:</strong> usa l'indirizzo IP locale attuale del ricevitore. L'isolamento della rete Wi-Fi ospiti, un firewall o il passaggio a un altro hotspot possono interrompere la connessione locale. <code>localhost</code> indica il radiocomando stesso.",
+            "<strong>L'anteprima funziona ma il pubblico non vede niente:</strong> controlla l'inoltro, le credenziali della destinazione e l'eventuale passaggio Vai in diretta rimasto sulla piattaforma.",
+            "<strong>La ricezione su iPhone si interrompe:</strong> torna a Stream My Drone e controlla Picture in Picture. Senza, iOS può sospendere la ricezione quando l'app è in background."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Fonti ufficiali e guide correlate",
+      "blocks": [
+        {
+          "p": "Verificato il 25 ottobre 2026: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006734&amp;lang=en&amp;re=us&amp;spaceId=34\">guida DJI all'associazione del drone</a> per i radiocomandi; <a href=\"https://www.dji.com/rc-pro-2/faq\">FAQ di DJI RC Pro 2</a> per l'hardware del microfono; <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">guida DJI Fly alle dirette</a> per i limiti RTMP; e <a href=\"https://repair.dji.com/help/content?customId=01700006877&amp;lang=en&amp;paperDocType=ARTICLE&amp;spaceId=17\">modalità verticale DJI</a> per i comandi di ripresa verticale. Firmware e menu disponibili possono cambiare; verifica la tua combinazione."
+        },
+        {
+          "p": "Per la generazione precedente, leggi la <a href=\"../dji-mavic-3-live-stream/\">guida alla diretta con Mavic 3, Classic e Pro</a>. Per inviare lo stesso segnale a più servizi, prosegui con il <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">multistreaming con un drone DJI</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Posso andare in diretta con il Mavic 4 Pro senza computer?",
+      "a": "Sì: usa DJI Fly su RC 2 o RC Pro 2 e ricevi il suo segnale RTMP in Stream My Drone su un secondo telefono nella stessa rete locale. Configura le destinazioni nell'app per telefono e verifica la pubblicazione su ogni piattaforma."
+    },
+    {
+      "q": "Posso usare con il Mavic 4 Pro una configurazione RC-N3 con telefono?",
+      "a": "L'attuale guida DJI all'associazione indica RC 2 e RC Pro 2 per questo drone. Questa guida usa questi radiocomandi con schermo supportati, invece di dare per scontata la compatibilità RC-N di un altro modello."
+    },
+    {
+      "q": "Entrambi i radiocomandi hanno bisogno di un microfono esterno?",
+      "a": "L'RC Pro 2 ha un microfono integrato. Per l'RC 2 DJI indica l'obbligo di un microfono collegato da Fly v1.16.0. Prova l'audio e segui la richiesta mostrata dal tuo radiocomando prima del volo."
+    },
+    {
+      "q": "Una registrazione in 6K significa una diretta in 6K?",
+      "a": "No. Il file registrato dalla fotocamera è separato dall'uscita RTMP di DJI Fly. Controlla l'ingresso reale nell'app che riceve e lo streaming visto dalla piattaforma."
+    },
+    {
+      "q": "Dove vanno le credenziali di YouTube o Instagram?",
+      "a": "Nelle impostazioni della destinazione di Stream My Drone, su telefono o su computer. DJI Fly riceve invece l'indirizzo RTMP locale mostrato da quell'app."
+    },
+    {
+      "q": "Ruotare lo schermo del radiocomando garantisce una diretta verticale?",
+      "a": "Controlla l'immagine che arriva al ricevitore e la pagina di visione della piattaforma. Schermo del radiocomando, orientamento di registrazione della fotocamera e formato del video in uscita sono cose separate. Stream My Drone su desktop può convertire l'uscita in un formato verticale."
+    }
+  ],
+  "published": "2026-10-25",
+  "updated": "2026-10-25"
+}

@@ -828,7 +828,7 @@ Key facts:
 ## Documentation
 - [Home page](${BASE}/): what the app does, how to set it up, FAQ.
 - [Full site text](${BASE}/llms-full.txt): every section of the home page and every guide as plain text.
-- [Blog](${BASE}/blog/): step-by-step guides for each streaming platform, in English and Turkish.
+- [Blog](${BASE}/blog/): step-by-step guides for each drone and streaming platform, in ${BLOG.length} languages.
 - [README](${REPO}/blob/main/README.md): installation, streaming guide, development notes.
 - [Turkish README](${REPO}/blob/main/README.tr.md): the same document in Turkish; 13 further languages sit beside it.
 - [Releases](${RELEASES}): downloads for macOS and Windows.
