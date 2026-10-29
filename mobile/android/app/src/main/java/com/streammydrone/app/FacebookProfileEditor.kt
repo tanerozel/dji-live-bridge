@@ -215,12 +215,15 @@ internal fun FacebookProfileEditor(
                         enabled = !editor.busy && (onPage || editor.privacy != null),
                     )
                 } else {
-                    PrimaryButton(
-                        modifier = Modifier.widthIn(max = 560.dp),
-                        text = stringResource(R.string.facebook_connect),
-                        onClick = ::connect,
-                        enabled = !editor.busy,
-                    )
+                    // Both ways in sit together: connect the account, or paste a key by hand.
+                    Column(Modifier.widthIn(max = 560.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                        ConnectButton(DestinationKind.FACEBOOK, stringResource(R.string.facebook_connect), ::connect, enabled = !editor.busy)
+                        if (original == null) {
+                            TextButton(onClick = onManual, enabled = !editor.busy) {
+                                Text(stringResource(R.string.youtube_manual))
+                            }
+                        }
+                    }
                 }
             }
         },
@@ -287,11 +290,6 @@ internal fun FacebookProfileEditor(
                     }
                 }
                 editor.error?.let { AlertBanner(title = it.asString()) }
-                if (original == null) {
-                    TextButton(onClick = onManual, enabled = !editor.busy) {
-                        Text(stringResource(R.string.youtube_manual))
-                    }
-                }
                 if (original != null && onDelete != null) {
                     TextButton(
                         onClick = { editor.confirmDisconnect = true },

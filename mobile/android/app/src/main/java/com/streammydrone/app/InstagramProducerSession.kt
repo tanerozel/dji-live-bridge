@@ -36,7 +36,7 @@ internal class InstagramCredentials(val serverUrl: String, val streamKey: String
 internal fun instagramCaptureOrigin(url: String?): Boolean = try {
     val uri = URI(url.orEmpty())
     uri.scheme == "https" && uri.host == "www.instagram.com" && uri.rawUserInfo == null && uri.port in listOf(-1, 443) &&
-        !Regex("^/(accounts|challenge|checkpoint)(/|$)").containsMatchIn(uri.path.orEmpty())
+        !Regex("^/(accounts|auth_platform|challenge|checkpoint)(/|$)").containsMatchIn(uri.path.orEmpty())
 } catch (_: Exception) { false }
 
 internal fun instagramNavigationAllowed(url: String): Boolean = try {

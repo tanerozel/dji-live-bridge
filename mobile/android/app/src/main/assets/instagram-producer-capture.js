@@ -3,7 +3,7 @@
   const pending = () => JSON.stringify({ status: 'waiting' });
   // Never inspect a login, checkpoint, 2FA page, another origin or a child frame.
   if (window.top !== window || location.origin !== 'https://www.instagram.com' ||
-      /^\/(accounts|challenge|checkpoint)(\/|$)/.test(location.pathname)) return pending();
+      /^\/(accounts|auth_platform|challenge|checkpoint)(\/|$)/.test(location.pathname)) return pending();
   if (document.querySelector('input[name="password"], input[autocomplete="current-password"], input[autocomplete="one-time-code"]')) return pending();
   const visible = node => node.getClientRects().length > 0 && getComputedStyle(node).visibility !== 'hidden' && getComputedStyle(node).display !== 'none';
   const directLabel = node => [node.getAttribute('aria-label'), node.getAttribute('placeholder'), node.getAttribute('name'),

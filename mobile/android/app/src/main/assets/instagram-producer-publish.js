@@ -3,7 +3,7 @@
   // Probe can observe a manual start. Only an explicit, unexpired app Start can commit.
   // Never read form values or choose an audience.
   if (window.top !== window || location.origin !== 'https://www.instagram.com' ||
-      /^\/(accounts|challenge|checkpoint)(\/|$)/.test(location.pathname) ||
+      /^\/(accounts|auth_platform|challenge|checkpoint)(\/|$)/.test(location.pathname) ||
       document.querySelector('input[autocomplete="current-password"], input[autocomplete="one-time-code"], input[name="username"]')) return 'blocked';
   // Live Producer can keep its readonly stream key in a password-type input.
   // That field is not a login prompt. Only its label/readonly metadata is inspected.

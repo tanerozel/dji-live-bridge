@@ -411,6 +411,14 @@ impl Client {
             return Err(ErrorCode::Protocol);
         }
         let deadline = self.command_io_deadline()?;
+        // Announce the stream first, as FMLE, OBS and FFmpeg do: ingest servers built for
+        // those encoders (Facebook/Instagram's among them) may not answer a bare publish.
+        let mut amf = Buffer::with_capacity(256);
+        command::build_release_stream(&mut amf, &self.stream_key)?;
+        self.send_command_msg(0, amf.as_slice(), Some(deadline))?;
+        let mut amf = Buffer::with_capacity(256);
+        command::build_fcpublish(&mut amf, &self.stream_key)?;
+        self.send_command_msg(0, amf.as_slice(), Some(deadline))?;
         let mut amf = Buffer::with_capacity(256);
         command::build_publish(&mut amf, &self.stream_key, "live")?;
         self.send_command_msg(self.stream_id, amf.as_slice(), Some(deadline))?;

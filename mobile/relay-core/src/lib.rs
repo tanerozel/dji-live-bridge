@@ -26,6 +26,7 @@ const OUTBOUND_QUEUE_CAPACITY: usize = 256;
 const BRIDGE_OUTPUT_ID: &str = "bridge";
 const MAX_QUEUED_FRAME_BYTES: usize = 16 * 1024 * 1024;
 const OUTPUT_CONNECT_TIMEOUT: Duration = Duration::from_secs(3);
+const OUTPUT_PUBLISH_TIMEOUT: Duration = Duration::from_secs(10);
 const OUTPUT_RETRY_MAX_DELAY: Duration = Duration::from_secs(15);
 /// How long the platform connection stays open while the drone reconnects. DJI Fly usually
 /// returns within a few seconds after a Wi-Fi drop; closing at once can end the broadcast.
@@ -1028,6 +1029,8 @@ fn connect_output(destination: &Destination) -> Result<Client, Failure> {
         };
         Failure::new(reason, error)
     })?;
+    // The platform checks the key before it answers publish, which can take longer than connecting.
+    client.set_connect_timeout(OUTPUT_PUBLISH_TIMEOUT);
     client
         .publish()
         .map_err(|error| Failure::new("publish_rejected", error))?;

@@ -54,7 +54,7 @@ func instagramCaptureOrigin(_ url: URL?) -> Bool {
     guard let url, let components = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return false }
     guard components.scheme == "https", components.host == "www.instagram.com", components.user == nil,
           components.password == nil, components.port == nil || components.port == 443 else { return false }
-    return components.path.range(of: "^/(accounts|challenge|checkpoint)(/|$)", options: .regularExpression) == nil
+    return components.path.range(of: "^/(accounts|auth_platform|challenge|checkpoint)(/|$)", options: .regularExpression) == nil
 }
 
 /// The retained page may only go to Instagram and the Facebook sign-in it offers.

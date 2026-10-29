@@ -195,7 +195,7 @@ private fun FlowIllustration() {
         IllustrationCircle(rememberVectorPainter(Icons.Rounded.PhoneAndroid))
         FlowArrow()
         Row(horizontalArrangement = Arrangement.spacedBy((-10).dp)) {
-            listOf(DestinationKind.INSTAGRAM, DestinationKind.TIKTOK, DestinationKind.YOUTUBE).forEach { kind ->
+            listOf(DestinationKind.YOUTUBE, DestinationKind.INSTAGRAM, DestinationKind.FACEBOOK).forEach { kind ->
                 PlatformTile(
                     kind = kind,
                     size = 44.dp,

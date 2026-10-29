@@ -173,11 +173,13 @@ internal fun DestinationProfileEditor(
                 contentAlignment = Alignment.Center,
             ) {
                 if (automaticInstagram) {
-                    PrimaryButton(
-                        modifier = Modifier.widthIn(max = 560.dp),
-                        text = stringResource(R.string.instagram_connect),
-                        onClick = { onOpenInstagram?.invoke() },
-                    )
+                    // Both ways in sit together: connect the account, or paste a key by hand.
+                    Column(Modifier.widthIn(max = 560.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                        ConnectButton(DestinationKind.INSTAGRAM, stringResource(R.string.instagram_connect), { onOpenInstagram?.invoke() })
+                        TextButton(onClick = { state.instagramManual = true }) {
+                            Text(stringResource(R.string.instagram_manual))
+                        }
+                    }
                 } else if (kind != DestinationKind.INSTAGRAM || state.instagramManual) {
                     PrimaryButton(
                         modifier = Modifier.widthIn(max = 560.dp),
@@ -359,10 +361,10 @@ internal fun DestinationProfileEditor(
                     }
                 }
                 editorError?.let { AlertBanner(title = stringResource(R.string.save_failed), message = it.asString()) }
-                if (onOpenInstagram != null) {
-                    // The other way to set up Instagram, and back.
-                    TextButton(onClick = { state.instagramManual = !state.instagramManual }) {
-                        Text(stringResource(if (state.instagramManual) R.string.instagram_connect else R.string.instagram_manual))
+                if (onOpenInstagram != null && state.instagramManual) {
+                    // Back to the automatic way.
+                    TextButton(onClick = { state.instagramManual = false }) {
+                        Text(stringResource(R.string.instagram_connect))
                     }
                 }
 

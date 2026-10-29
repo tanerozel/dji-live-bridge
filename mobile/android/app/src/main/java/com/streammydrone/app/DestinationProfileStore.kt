@@ -23,10 +23,10 @@ import javax.crypto.spec.GCMParameterSpec
  * so they have none.
  */
 enum class DestinationKind(val storageValue: String, val brandName: String?, val defaultServerUrl: String?) {
-    INSTAGRAM("instagram", "Instagram", null),
-    TIKTOK("tiktok", "TikTok", null),
     YOUTUBE("youtube", "YouTube", "rtmps://a.rtmps.youtube.com/live2"),
+    INSTAGRAM("instagram", "Instagram", null),
     FACEBOOK("facebook", "Facebook", "rtmps://live-api-s.facebook.com:443/rtmp"),
+    TIKTOK("tiktok", "TikTok", null),
     TWITCH("twitch", "Twitch", "rtmp://live.twitch.tv/app"),
     KICK("kick", "Kick", "rtmps://fa723fc1b171.global-contribute.live-video.net:443/app"),
     CUSTOM("custom", null, null);

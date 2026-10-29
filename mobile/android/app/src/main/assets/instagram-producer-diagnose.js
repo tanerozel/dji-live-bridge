@@ -2,7 +2,7 @@
   'use strict';
   // Fixed structural codes only. Never read input values, page titles, credentials or cookies.
   if (window.top !== window || location.origin !== 'https://www.instagram.com' ||
-      /^\/(accounts|challenge|checkpoint)(\/|$)/.test(location.pathname)) return 'blocked';
+      /^\/(accounts|auth_platform|challenge|checkpoint)(\/|$)/.test(location.pathname)) return 'blocked';
   const visible = node => node.getClientRects().length > 0 && getComputedStyle(node).display !== 'none' && getComputedStyle(node).visibility !== 'hidden';
   const words = {
     practice: /^(practice|alıştırma)$/i, public: /^(public|herkese açık)$/i,

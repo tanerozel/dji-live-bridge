@@ -4,8 +4,10 @@
   // Go live and End are handled by separate, explicitly armed requests.
   if (window.top !== window || location.origin !== 'https://www.instagram.com') return 'blocked';
   // A signed-out start page has no form, only links to sign in or sign up: the user signs in.
-  if (/^\/(accounts|challenge|checkpoint)(\/|$)/.test(location.pathname) ||
+  // A captcha after signing in is the user's too.
+  if (/^\/(accounts|auth_platform|challenge|checkpoint)(\/|$)/.test(location.pathname) ||
       document.querySelector('input[name="username"], input[autocomplete="one-time-code"], input[autocomplete="current-password"], ' +
+        'iframe[src*="captcha" i], iframe[title*="captcha" i], ' +
         'a[href^="/accounts/login"], a[href^="https://www.instagram.com/accounts/login"], a[href^="/accounts/emailsignup"]')) return 'auth';
   const visible = node => node.getClientRects().length > 0 && getComputedStyle(node).display !== 'none' && getComputedStyle(node).visibility !== 'hidden';
   const label = node => String(node.getAttribute('aria-label') || node.textContent || '').trim().replace(/\s+/g, ' ');

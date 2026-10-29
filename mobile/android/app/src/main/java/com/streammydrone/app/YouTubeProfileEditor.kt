@@ -232,12 +232,15 @@ internal fun YouTubeProfileEditor(
                         enabled = !editor.busy && editor.madeForKids != null,
                     )
                 } else {
-                    PrimaryButton(
-                        modifier = Modifier.widthIn(max = 560.dp),
-                        text = stringResource(R.string.youtube_connect),
-                        onClick = ::connect,
-                        enabled = !editor.busy,
-                    )
+                    // Both ways in sit together: connect the account, or paste a key by hand.
+                    Column(Modifier.widthIn(max = 560.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                        ConnectButton(DestinationKind.YOUTUBE, stringResource(R.string.youtube_connect), ::connect, enabled = !editor.busy)
+                        if (original == null) {
+                            TextButton(onClick = { editor.clearSecret(); onManual() }, enabled = !editor.busy) {
+                                Text(stringResource(R.string.youtube_manual))
+                            }
+                        }
+                    }
                 }
             }
         },
@@ -317,11 +320,6 @@ internal fun YouTubeProfileEditor(
                     }
                 }
                 editor.error?.let { AlertBanner(title = it.asString()) }
-                if (original == null) {
-                    TextButton(onClick = { editor.clearSecret(); onManual() }, enabled = !editor.busy) {
-                        Text(stringResource(R.string.youtube_manual))
-                    }
-                }
                 if (original != null && onDelete != null) {
                     TextButton(
                         onClick = { editor.confirmDisconnect = true },

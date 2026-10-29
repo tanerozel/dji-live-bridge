@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   if (window.top !== window || location.origin !== 'https://www.instagram.com' ||
-      /^\/(accounts|challenge|checkpoint)(\/|$)/.test(location.pathname)) return 'blocked';
+      /^\/(accounts|auth_platform|challenge|checkpoint)(\/|$)/.test(location.pathname)) return 'blocked';
   if (document.querySelector('input[type="password"], input[name="username"], input[autocomplete="one-time-code"]')) return 'blocked';
   const visible = node => node.getClientRects().length > 0 &&
     getComputedStyle(node).visibility !== 'hidden' && getComputedStyle(node).display !== 'none';
@@ -32,7 +32,7 @@
   const record = { actual: field.value, desired, revision };
   // Keep the last title edit, not a reference to an input React may reuse as the key field.
   const changed = () => {
-    if (location.origin !== 'https://www.instagram.com' || /^\/(accounts|challenge|checkpoint)(\/|$)/.test(location.pathname) ||
+    if (location.origin !== 'https://www.instagram.com' || /^\/(accounts|auth_platform|challenge|checkpoint)(\/|$)/.test(location.pathname) ||
         document.querySelector('input[type="password"], input[name="username"], input[autocomplete="one-time-code"]') ||
         field.readOnly || field.disabled || !['text', ''].includes((field.getAttribute('type') || '').toLowerCase()) ||
         /username|email|password|one-time-code/i.test([field.getAttribute('name'), field.getAttribute('autocomplete')].join(' '))) return;

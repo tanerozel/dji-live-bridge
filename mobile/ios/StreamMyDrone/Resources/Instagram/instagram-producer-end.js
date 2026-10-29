@@ -2,7 +2,7 @@
   'use strict';
   // Only an explicit app End request can commit either step. Never start, share or delete.
   if (window.top !== window || location.origin !== 'https://www.instagram.com' ||
-      /^\/(accounts|challenge|checkpoint)(\/|$)/.test(location.pathname) ||
+      /^\/(accounts|auth_platform|challenge|checkpoint)(\/|$)/.test(location.pathname) ||
       document.querySelector('input[autocomplete="current-password"], input[autocomplete="one-time-code"], input[name="username"]')) return 'blocked';
   // Live Producer can keep its readonly stream key in a password-type input.
   // That field is not a login prompt. Only its label/readonly metadata is inspected.
