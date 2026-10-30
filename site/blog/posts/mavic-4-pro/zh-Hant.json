@@ -1,0 +1,239 @@
+{
+  "slug": "dji-mavic-4-pro-live-stream",
+  "platform": "DJI Mavic 4 Pro",
+  "title": "DJI Mavic 4 Pro 直播：RC 2 與 RC Pro 2 教學（2026）",
+  "description": "用 RC 2 或 RC Pro 2 把 DJI Mavic 4 Pro 畫面送到手機或電腦直播。確認 DJI Fly RTMP、麥克風差異、720p 上限和平台設定。",
+  "h1": "DJI Mavic 4 Pro 怎麼直播",
+  "lead": "<strong>DJI Mavic 4 Pro</strong> 可以把 DJI Fly 的 RTMP 畫面送到另一支手機上的 <strong>Stream My Drone</strong>，或電腦上的 <strong>Stream My Drone</strong>。最好的起點是你的遙控器：RC 2 和 RC Pro 2 都有螢幕，但麥克風硬體不同。請照下方的做法接收畫面、選擇直播目的地，並確認觀眾實際看到的內容。",
+  "summary": [
+    "請使用 RC 2 或 RC Pro 2；DJI 目前的 Mavic 4 Pro 設定說明並未列出 RC-N 系列遙控器。",
+    "用另一支執行 Stream My Drone 的手機，就能不靠電腦完成接收和轉送。",
+    "DJI Fly 的 RTMP 直播，與飛機上的高解析度錄影是各自獨立的輸出。",
+    "DJI Fly 裡填接收端 App 的本機位址，平台憑證則填在接收端 App 裡。",
+    "起飛前先確認實際的 RTMP 選單和麥克風提示，再確認平台的觀看頁面。"
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Mavic 4 Pro 的哪款遙控器能送出串流？",
+      "blocks": [
+        {
+          "p": "DJI 的<a href=\"https://repair.dji.com/help/content?customId=en-us03400006734&amp;lang=en&amp;re=us&amp;spaceId=34\">飛機對頻說明</a>列出 Mavic 4 Pro 可用 <strong>DJI RC 2</strong> 和 <strong>DJI RC Pro 2</strong>。兩者都在內建螢幕上執行 DJI Fly。請不要沿用其他機型搭配 RC-N1、RC-N2 或 RC-N3 的流程：這些並不是官方為此機型列出的遙控器。"
+        },
+        {
+          "table": {
+            "head": [
+              "遙控器",
+              "飛行 App",
+              "本文採用的接收端"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "內建螢幕上的 DJI Fly",
+                "另一支手機上的 Stream My Drone，或電腦上的 Stream My Drone"
+              ],
+              [
+                "DJI RC Pro 2",
+                "內建螢幕上的 DJI Fly",
+                "同樣可用另一支手機或電腦接收"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "DJI RC Pro 2 和 DJI RC Pro 是不同的產品。它的<a href=\"https://www.dji.com/rc-pro-2/faq\">官方常見問題</a>確認內建麥克風。RC 2 使用者請準備外接麥克風；開始直播前，請依實際 DJI Fly 版本的提示操作。"
+        }
+      ]
+    },
+    {
+      "id": "rtmp-check",
+      "h2": "規劃直播前，先確認 RTMP 選單",
+      "blocks": [
+        {
+          "p": "更新飛機、遙控器和 DJI Fly，完成飛機對頻並進入相機畫面。打開 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP。選單名稱可能因版本和語言而不同。如果你的韌體沒有 RTMP 選項，接收端 App 也無法補上。"
+        },
+        {
+          "note": "DJI <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">目前的直播操作指南</a>將 RC 2 和 RC Pro 2 的 RTMP 輸出都限制在 <strong>720p</strong>，並要求 RC 2 從 DJI Fly v1.16.0 起連接麥克風。請在你的遙控器上確認可用的輸出設定；1080p 螢幕或更高的飛機錄影設定，都不會解除這個限制。"
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Mavic 4 Pro 不用電腦：用手機接收",
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "在另一支手機上安裝 Stream My Drone",
+              "d": "從 <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> 或 <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a> 下載。讓 DJI Fly 在 RC 2 或 RC Pro 2 上保持開啟；手機負責接收並轉送影像。"
+            },
+            {
+              "t": "讓遙控器和接收端連上同一個網路",
+              "d": "使用可以上網的 Wi-Fi。在戶外時，負責接收的 Android 手機也可以同時開熱點。選好網路後再開啟 Stream My Drone，在 iPhone 上系統詢問時請允許存取區域網路。換了網路的話，請再確認一次顯示的位址。"
+            },
+            {
+              "t": "在 DJI Fly 中輸入接收位址",
+              "d": "複製 Stream My Drone 顯示的完整本機 RTMP 位址。在 DJI Fly 中打開 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP。請依你的版本上的欄位名稱填寫：要求分開填位址和金鑰的畫面，和要求填完整 RTMP 網址的畫面並不一樣。不要把 YouTube 或 Instagram 的金鑰加到本機接收位址裡。選單的詳細步驟請見 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 教學</a>。"
+            },
+            {
+              "t": "開始本機串流並檢查聲音",
+              "d": "在 DJI Fly 中開始直播，確認 Stream My Drone 中出現會動的畫面。地面測試時，檢查遙控器上選擇的麥克風，並到平台上聽聽聲音。有畫面卻沒有可用的聲音，在起飛前比較容易找出原因。"
+            },
+            {
+              "t": "加入直播目的地並開播",
+              "d": "平台有提供帳號連結時就直接連結，否則在 Stream My Drone 中填入目前的伺服器網址和串流金鑰。開始轉送並打開平台後台。如果另外需要按「開始直播」，請完成這一步，再確認實際的觀看頁面正常。"
+            }
+          ]
+        },
+        {
+          "note": "負責接收的手機是和遙控器分開的另一個裝置。手機版轉送時會保留收到的影像原樣；預覽的裁切或模糊背景，並不會產生新的直向直播。在 iPhone 上，設定期間請讓 App 保持開啟；要在背景持續接收，需要靠子母畫面。"
+        }
+      ],
+      "howto": true
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Mavic 4 Pro 搭配 Mac 或 Windows：用電腦製作直播",
+      "blocks": [
+        {
+          "p": "讓 DJI Fly 在 RC 2 或 RC Pro 2 上持續執行。在 Mac 或 Windows 電腦上安裝 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>。電腦透過區域網路接收 DJI Fly 的 RTMP 串流；這個做法不需要 HDMI 擷取，也不需要從遙控器以 USB 網路攝影機的方式連接。"
+        },
+        {
+          "steps": [
+            {
+              "t": "複製電腦的本機 RTMP 位址",
+              "d": "讓電腦和執行 DJI Fly 的裝置連上同一個網路。在 Stream My Drone 中，複製「連接無人機」下方的位址。<code>rtmp://192.168.1.20:1935/drone</code> 只是範例，請使用 App 實際顯示的位址。"
+            },
+            {
+              "t": "送出串流並確認已收到",
+              "d": "在 DJI Fly 中輸入這個本機位址並開始串流。如果防火牆詢問，請允許 App 在私人網路上接收連線。設定平台之前，先確認預覽畫面在動。"
+            },
+            {
+              "t": "選擇輸出並啟動直播目的地",
+              "d": "選擇橫向或電腦版的直向版面，再加入平台的伺服器網址和金鑰。開始輸出，確認平台有收到，並完成平台的開播步驟。若要同時送到多個目的地，啟用前請先確認合計需要的上傳頻寬。"
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "Stream My Drone 電腦版畫面，顯示本機接收位址、直播平台目的地和直播輸出控制項。"
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "把 Mavic 4 Pro 直播送到平台",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "直播目的地",
+              "需要什麼",
+              "教學"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "已開通直播權限，並建立好一場直播",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube 設定</a>"
+              ],
+              [
+                "Instagram",
+                "可使用 Live Producer，以及目前有效的 RTMPS 憑證",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram 設定</a>"
+              ],
+              [
+                "Facebook",
+                "建立好的直播及其伺服器網址與金鑰",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Facebook 設定</a>"
+              ],
+              [
+                "TikTok",
+                "帳號具備 RTMP 權限，或可在電腦上使用 LIVE Studio",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok 設定</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "帳號是否符合資格由平台決定。兩個 App 都不會提供串流金鑰，也無法繞過權限要求。若要在相容的直播軟體中使用電腦流程，Stream My Drone 也提供<a href=\"../use-your-dji-drone-as-a-webcam/\">虛擬攝影機</a>。本機預覽只證明已收到畫面；觀看頁面正常，才代表已經開播。"
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "錄影畫質、直向拍攝與你的直播",
+      "blocks": [
+        {
+          "p": "請把三種畫面分開看待：飛機上錄下的檔案、遙控器的即時畫面，以及送到接收端的 RTMP 影片。評估串流時，請看接收到的畫面尺寸和位元率。電腦版輸出得再大，也無法重現原始畫面中沒有的細節。"
+        },
+        {
+          "p": "Mavic 4 Pro 可以直向拍攝，DJI 在<a href=\"https://repair.dji.com/help/content?customId=01700006877&amp;lang=en&amp;paperDocType=ARTICLE&amp;spaceId=17\">直拍模式說明</a>中介紹了相關操作。切換方向後，請測試 RTMP 接收端實際收到的畫面。直向錄影設定、旋轉的遙控器螢幕和 9:16 的平台直播，是三項不能互相取代的檢查。"
+        },
+        {
+          "list": [
+            "<strong>刻意安排構圖。</strong>到平台上檢查送出的畫面。手機版的預覽版面不會重新編碼畫面；電腦版則請選擇你想發布的裁切或完整畫面輸出。",
+            "<strong>依目的地估算流量。</strong>持續 5 Mbps 的輸出每小時約用掉 2.25 GB，還不含額外負擔。兩路這樣的輸出合計需要約 10 Mbps 上傳頻寬，每小時約 4.5 GB。",
+            "<strong>在地面上測試。</strong>檢查畫面動態、聲音和真正的觀看頁面。讓接收用的手機靠近熱點，長時間直播時留意它的電量和溫度。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Mavic 4 Pro 直播疑難排解",
+      "blocks": [
+        {
+          "list": [
+            "<strong>沒有 RTMP 選項：</strong>在 DJI Fly 中確認遙控器型號和軟體版本。RC 2 和舊款 DJI RC 的功能不同；換接收端並不會改變遙控器的能力。",
+            "<strong>DJI Fly 要求麥克風：</strong>使用 RC 2 時，接上支援的麥克風並重新確認輸入。使用 RC Pro 2 時，請檢查選擇的輸入來源和麥克風權限，不要直接套用 RC 2 的說明。",
+            "<strong>連線失敗：</strong>使用接收端目前的本機 IP 位址。訪客 Wi-Fi 的隔離、防火牆或切換熱點，都可能中斷本機連線。<code>localhost</code> 指的是遙控器自己。",
+            "<strong>預覽正常，觀眾卻看不到：</strong>檢查轉送狀態、目的地憑證，以及平台上是否還有「開始直播」步驟沒完成。",
+            "<strong>iPhone 停止接收：</strong>回到 Stream My Drone 並確認子母畫面。沒有子母畫面時，App 一進入背景，iOS 就可能暫停接收。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "官方資料來源與相關教學",
+      "blocks": [
+        {
+          "p": "查核日期為 2026 年 10 月 25 日：遙控器選擇參考 <a href=\"https://repair.dji.com/help/content?customId=en-us03400006734&amp;lang=en&amp;re=us&amp;spaceId=34\">DJI 飛機對頻說明</a>；麥克風硬體參考 <a href=\"https://www.dji.com/rc-pro-2/faq\">DJI RC Pro 2 常見問題</a>；RTMP 限制參考 <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly 直播操作指南</a>；直向拍攝操作參考 <a href=\"https://repair.dji.com/help/content?customId=01700006877&amp;lang=en&amp;paperDocType=ARTICLE&amp;spaceId=17\">DJI 直拍模式</a>。韌體和選單可能會改變，請以你自己的設備組合實際確認。"
+        },
+        {
+          "p": "上一代機型請看 <a href=\"../dji-mavic-3-live-stream/\">Mavic 3、Classic 與 Pro 直播教學</a>。如果想把同一個串流送到多個服務，請接著看 <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">DJI 空拍機多平台同時直播</a>。"
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "不用電腦也能讓 Mavic 4 Pro 直播嗎？",
+      "a": "可以。在 RC 2 或 RC Pro 2 上使用 DJI Fly，再用同一個區域網路上另一支手機的 Stream My Drone 接收它的 RTMP 串流。在手機 App 中設定直播目的地，並到各平台確認已經開播。"
+    },
+    {
+      "q": "Mavic 4 Pro 可以用 RC-N3 搭配手機嗎？",
+      "a": "DJI 目前的對頻說明為這款飛機列出的是 RC 2 和 RC Pro 2。本文使用這兩款官方支援的帶螢幕遙控器，而不是從其他機型推測 RC-N 系列也相容。"
+    },
+    {
+      "q": "兩款遙控器都需要外接麥克風嗎？",
+      "a": "RC Pro 2 內建麥克風。RC 2 方面，DJI 說明從 Fly v1.16.0 起需要連接麥克風。飛行前請測試聲音，並依遙控器顯示的提示操作。"
+    },
+    {
+      "q": "能錄 6K，就代表能 6K 直播嗎？",
+      "a": "不是。相機錄下的檔案和 DJI Fly 的 RTMP 輸出是分開的。請檢查接收端 App 實際收到的輸入，以及平台看到的串流。"
+    },
+    {
+      "q": "YouTube 或 Instagram 的憑證要填在哪裡？",
+      "a": "填在 Stream My Drone（手機或電腦版）的目的地設定中。DJI Fly 裡填的是該 App 顯示的本機 RTMP 位址。"
+    },
+    {
+      "q": "把遙控器螢幕轉成直向，就能保證直向直播嗎？",
+      "a": "請檢查接收端收到的畫面和平台的觀看頁面。遙控器螢幕、相機錄影方向和送出的影片格式是三回事。Stream My Drone 電腦版可以把輸出轉成直向版面。"
+    }
+  ],
+  "published": "2026-10-25",
+  "updated": "2026-10-25"
+}

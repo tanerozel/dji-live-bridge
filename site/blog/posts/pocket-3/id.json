@@ -1,0 +1,80 @@
+{
+  "slug": "live-streaming-osmo-pocket-3",
+  "platform": "Osmo Pocket 3",
+  "title": "Cara live streaming Osmo Pocket 3 ke Instagram, TikTok, dan YouTube",
+  "description": "Cara live streaming DJI Osmo Pocket 3 lewat RTMP dari DJI Mimo ke Instagram, TikTok, dan YouTube sekaligus, serta menjadikannya webcam nirkabel, dengan Stream My Drone.",
+  "h1": "Cara live streaming Osmo Pocket 3 ke Instagram dan TikTok",
+  "lead": "Osmo Pocket 3 melakukan streaming lewat <strong>RTMP dari DJI Mimo</strong> hingga 1080p. Sendirian, DJI Mimo hanya menjangkau Facebook, YouTube, atau alamat RTMP. Kirim aliran RTMP itu ke <strong>Stream My Drone</strong> di komputer Anda, dan Pocket 3 juga bisa live di <strong>Instagram dan TikTok</strong> — beberapa platform sekaligus — atau menjadi webcam nirkabel untuk Zoom, OBS, dan TikTok LIVE Studio.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Di DJI Mimo (1.2.20 atau lebih baru), Pocket 3 menyiarkan RTMP dalam 480p, 720p, atau 1080p, 30 fps, hingga 6 Mbps.",
+    "Pocket 3 tersambung sendiri ke jaringan Wi-Fi; sambungkan ke jaringan yang sama dengan komputer yang menjalankan Stream My Drone.",
+    "Stream My Drone meneruskan siaran ke Instagram lewat RTMPS, ke TikTok, dan ke platform RTMP mana pun secara bersamaan.",
+    "Output vertikal 1080×1920 untuk Instagram dan TikTok, dengan latar buram saat gambar datang dalam format lanskap.",
+    "Kamera virtual bawaan mengubah Pocket 3 menjadi webcam nirkabel — tanpa kabel USB ke komputer."
+  ],
+  "sections": [
+    {
+      "id": "setup",
+      "h2": "Mengatur live streaming Pocket 3",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Buka Stream My Drone", "d": "Pasang <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> di Mac atau PC Windows dan catat alamat yang ditampilkannya, misalnya <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Sambungkan Pocket 3 ke DJI Mimo", "d": "Perbarui DJI Mimo dan firmware Pocket 3, sambungkan kamera, lalu buka opsi livestream." },
+          { "t": "Pilih RTMP dan jaringan Wi-Fi", "d": "Pilih RTMP sebagai platform dan Wi-Fi yang akan dipakai Pocket 3 — jaringan yang sama dengan komputer, atau hotspot yang dipakai keduanya." },
+          { "t": "Masukkan alamat dan mulai", "d": "Ketik alamat dari Stream My Drone, pilih 1080p pada 6 Mbps jika Wi-Fi Anda memungkinkan, lalu mulai. Gambarnya muncul di pratinjau aplikasi." },
+          { "t": "Siaran ke mana-mana", "d": "Tambahkan Instagram, TikTok, YouTube, atau server RTMP mana pun, biarkan <em>Vertikal 9:16</em> untuk Instagram dan TikTok, lalu tekan MULAI SIARAN." }
+        ] },
+        { "img": "go-live.png", "alt": "Tab Siaran di Stream My Drone dengan alamat RTMP, daftar tujuan, dan tombol MULAI SIARAN." },
+        { "note": "Daftar lengkap kamera DJI yang bisa melakukan ini ada di <a href=\"../live-dji-osmo-instagram-tiktok/\">panduan kamera Osmo</a>." }
+      ]
+    },
+    {
+      "id": "ideas",
+      "h2": "Apa yang dilakukan kreator dengannya",
+      "blocks": [
+        { "list": [
+          "<strong>Live sambil berjalan dan bicara.</strong> Gimbal menjaga gambar tetap stabil saat Anda bergerak; siaran yang sama sampai ke Instagram dan TikTok bersamaan.",
+          "<strong>Acara dan pasar.</strong> Siarkan talkshow, konser, atau lapak ke beberapa platform dari satu kamera kecil.",
+          "<strong>Kamera meja nirkabel.</strong> Pasang Pocket 3 di tripod dan pilih <strong>Stream My Drone Camera</strong> di Zoom, Meet, OBS, atau TikTok LIVE Studio. Pocket 3 juga bisa menjadi webcam USB; dengan cara ini, tidak perlu kabel. Lihat <a href=\"../jadikan-drone-dji-sebagai-webcam/\">panduan webcam</a>.",
+          "<strong>Rekam sambil live.</strong> Stream My Drone merekam siaran di komputer selagi siaran dikirim."
+        ] }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Pengaturan terbaik",
+      "blocks": [
+        { "table": {
+          "head": ["Pengaturan", "Rekomendasi", "Alasannya"],
+          "rows": [
+            ["Resolusi di DJI Mimo", "1080p", "Resolusi tertinggi yang ditawarkan DJI Mimo untuk livestream."],
+            ["Bitrate di DJI Mimo", "6 Mbps", "Jelas lebih tajam daripada 3 Mbps; turunkan hanya jika Wi-Fi kewalahan."],
+            ["Output di Stream My Drone", "Vertikal 9:16 untuk Instagram dan TikTok", "Penonton di ponsel menonton dalam mode potret; 1080×1920 pada 30 fps."],
+            ["Jaringan", "Wi-Fi 5 GHz atau hotspot di dekatnya", "Tautan kamera ke komputer membawa seluruh siaran."]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Jika tidak berhasil",
+      "blocks": [
+        { "list": [
+          "<strong>Pocket 3 tidak bisa terhubung:</strong> kamera dan komputer berada di jaringan berbeda, atau jaringan tamu mengisolasi keduanya.",
+          "<strong>Tidak ada opsi livestream:</strong> perbarui DJI Mimo ke 1.2.20 atau lebih baru, serta firmware kamera.",
+          "<strong>Instagram menolak siaran:</strong> setiap kunci Instagram hanya berlaku sekali; buat video live baru di instagram.com dan perbarui kuncinya.",
+          "<strong>Gambar tersendat:</strong> turunkan bitrate di DJI Mimo atau mendekatlah ke router."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Bisakah Osmo Pocket 3 live streaming ke Instagram?", "a": "Tidak dengan DJI Mimo saja. Siarkan lewat RTMP ke Stream My Drone, yang meneruskannya ke Instagram lewat RTMPS dalam format vertikal 1080×1920." },
+    { "q": "Berapa resolusi live streaming Pocket 3?", "a": "DJI Mimo menawarkan 480p, 720p, atau 1080p pada 30 fps, dengan 3 atau 6 Mbps pada 1080p." },
+    { "q": "Bisakah saya siaran Pocket 3 ke TikTok dan YouTube sekaligus?", "a": "Bisa. Tambahkan kedua tujuan di Stream My Drone; gambar dienkode sekali lalu dikirim ke masing-masing." },
+    { "q": "Bisakah Pocket 3 dipakai sebagai webcam nirkabel?", "a": "Bisa. Saat siaran sudah masuk ke Stream My Drone, mulai kamera virtual dan pilih Stream My Drone Camera di aplikasi video Anda." }
+  ]
+}

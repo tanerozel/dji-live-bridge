@@ -1,0 +1,80 @@
+{
+  "slug": "osmo-action-livestream",
+  "platform": "Osmo Action",
+  "title": "Osmo Action 5 Pro, 6 und 4: Livestream auf Instagram und TikTok",
+  "description": "Streamen Sie eine DJI Osmo Action 6, 5 Pro, 4 oder 3 per RTMP aus DJI Mimo mit Stream My Drone gleichzeitig auf Instagram, TikTok, YouTube und Twitch. Einrichtung und Einstellungen.",
+  "h1": "So streamen Sie eine Osmo Action live auf Instagram und TikTok",
+  "lead": "Osmo-Action-Kameras streamen per <strong>RTMP aus DJI Mimo</strong> mit bis zu 1080p – vom Helm, vom Lenker, aus dem Auto oder vom Stativ. DJI Mimo allein erreicht Facebook, YouTube oder eine RTMP-Adresse; senden Sie diesen RTMP-Stream an <strong>Stream My Drone</strong> auf einem Computer, und dasselbe Bild geht gleichzeitig an <strong>Instagram, TikTok, YouTube, Twitch oder Kick</strong>.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Osmo Action 6, 5 Pro, 4 und 3 streamen RTMP aus DJI Mimo (1.2.20 oder neuer) in 480p, 720p oder 1080p mit bis zu 6 Mbit/s.",
+    "Die Kamera verbindet sich selbst mit einem WLAN; bringen Sie sie ins Netz des Computers oder in einen gemeinsamen Hotspot.",
+    "Stream My Drone sendet den Stream an mehrere Plattformen gleichzeitig, Instagram per RTMPS eingeschlossen.",
+    "Hochformat 1080×1920 mit unscharfer Füllung behält die ganze Action-Aufnahme auf Handybildschirmen.",
+    "Die virtuelle Kamera macht die Osmo Action außerdem zur kabellosen Kamera für OBS, Zoom oder TikTok LIVE Studio."
+  ],
+  "sections": [
+    {
+      "id": "setup",
+      "h2": "Den Livestream der Osmo Action einrichten",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Stream My Drone öffnen", "d": "Installieren Sie <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> auf einem Mac oder Windows-PC und notieren Sie die angezeigte Adresse, etwa <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Kamera in DJI Mimo verbinden", "d": "Aktualisieren Sie DJI Mimo und die Firmware der Kamera, verbinden Sie die Osmo Action und öffnen Sie die Livestream-Option." },
+          { "t": "RTMP und WLAN wählen", "d": "Wählen Sie RTMP und das WLAN, mit dem sich die Kamera verbinden soll – das Netz des Computers oder einen Handy-Hotspot, den auch der Computer nutzt." },
+          { "t": "Adresse eingeben und starten", "d": "Tippen Sie die Adresse aus Stream My Drone ein, wählen Sie 1080p und die höchste Bitrate, die das Netz hält, und starten Sie. Die Vorschau erscheint in der App." },
+          { "t": "Plattformen hinzufügen und live gehen", "d": "Fügen Sie Instagram, TikTok, YouTube, Twitch oder einen beliebigen RTMP-Server hinzu und drücken Sie LIVE STARTEN." }
+        ] },
+        { "img": "go-live.png", "alt": "Der Tab „Live gehen“ von Stream My Drone mit der RTMP-Adresse, den Zielen und der Taste LIVE STARTEN." },
+        { "note": "Weitere DJI-Kameras mit RTMP-Livestreaming finden Sie in <a href=\"../dji-osmo-livestream-instagram-tiktok/\">der Anleitung zu den Osmo-Kameras</a>." }
+      ]
+    },
+    {
+      "id": "ideas",
+      "h2": "Wo ein Livestream mit der Action-Kamera glänzt",
+      "blocks": [
+        { "list": [
+          "<strong>Sport und Touren.</strong> Radfahren, Motorrad, Skifahren oder Laufen – eine Perspektive, live auf mehreren Plattformen.",
+          "<strong>Hinter den Kulissen.</strong> Montieren Sie die Kamera an einem Set oder einer Werkstattwand und streamen Sie, während Sie arbeiten.",
+          "<strong>Ein zweiter Blickwinkel.</strong> Fügen Sie die Osmo Action mit der virtuellen Kamera als kabellose Quelle in OBS neben Ihrer Hauptkamera hinzu – siehe <a href=\"../dji-drohne-als-webcam-nutzen/\">die Webcam-Anleitung</a>.",
+          "<strong>Wetterfeste Streams.</strong> Die Kamera verträgt Regen und Staub; der Computer bleibt im Auto oder Zelt trocken."
+        ] }
+      ]
+    },
+    {
+      "id": "range",
+      "h2": "Reichweite und Netzwerk",
+      "blocks": [
+        { "p": "Die Kamera sendet ihren Stream per WLAN an den Computer, sie muss also in Reichweite dieses Netzes bleiben. Bei Aufnahmen in Bewegung hält ein Handy-Hotspot nahe an der Kamera – mit dem Computer im selben Hotspot – die Verbindung kurz. Der Upload zu den Plattformen nutzt dann die mobilen Daten des Hotspots, etwa 6 Mbit/s pro Ziel." },
+        { "table": {
+          "head": ["Aufbau", "Gut für"],
+          "rows": [
+            ["WLAN zu Hause oder am Veranstaltungsort", "Feste Blickwinkel, Werkstätten, Veranstaltungen"],
+            ["Handy-Hotspot nahe an Kamera und Computer", "Aufnahmen im Freien und kurze Bewegungsaufnahmen"],
+            ["Reiserouter im Auto oder Van", "Touren, bei denen der Computer mitfährt"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Wenn es nicht funktioniert",
+      "blocks": [
+        { "list": [
+          "<strong>Die Kamera kann keine Verbindung herstellen:</strong> Sie ist nicht im Netz des Computers, oder ein Gastnetz isoliert die Geräte.",
+          "<strong>Der Stream bricht in Bewegung ab:</strong> Die Kamera hat die WLAN-Reichweite verlassen; halten Sie den Hotspot näher oder senken Sie die Bitrate.",
+          "<strong>Keine Livestream-Option:</strong> Aktualisieren Sie DJI Mimo auf 1.2.20 oder neuer und die Firmware der Kamera.",
+          "<strong>Instagram lehnt den Stream ab:</strong> Erstellen Sie auf instagram.com ein neues Live-Video und aktualisieren Sie den Schlüssel; jeder Schlüssel funktioniert nur einmal."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Kann die Osmo Action 5 Pro auf Instagram live streamen?", "a": "Nicht allein mit DJI Mimo. Streamen Sie per RTMP an Stream My Drone, und die App leitet das Bild per RTMPS an Instagram weiter." },
+    { "q": "Welche Osmo-Action-Kameras unterstützen RTMP-Livestreaming?", "a": "Laut DJI: Osmo Action 6, 5 Pro, 4 und 3, DJI Action 2 und die erste Osmo Action (höchstens 720p)." },
+    { "q": "Kann ich eine Osmo Action gleichzeitig auf Twitch und YouTube streamen?", "a": "Ja. Fügen Sie beide Ziele in Stream My Drone hinzu und drücken Sie LIVE STARTEN." },
+    { "q": "Wie weit darf die Kamera vom Computer entfernt sein?", "a": "So weit das WLAN reicht. Die Kamera streamt über dieses Netz zum Computer, halten Sie sie also in Reichweite oder nehmen Sie einen Hotspot mit." }
+  ]
+}

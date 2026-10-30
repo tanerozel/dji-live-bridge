@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "title": "DJI 空拍機直播教學 — Stream My Drone 部落格",
+    "description": "DJI Flip、Lito、Air、Mavic 與 Mini 空拍機直播教學：遙控器相容性、手機與電腦設定、DJI Fly RTMP，以及直播到 YouTube、Instagram 和 Facebook。"
+  },
+  "h1": "空拍機直播教學",
+  "lead": "選擇你的空拍機或直播平台：Flip、Lito X1 與 Lito 1、Air、Mavic 和 Mini 的遙控器設定，手機與電腦的操作流程，DJI Fly RTMP 設定，以及開播前的檢查項目。",
+  "language": "語言",
+  "skip": "跳到內容",
+  "home": "首頁",
+  "blog": "部落格",
+  "download": "下載",
+  "breadcrumb": "導覽路徑",
+  "by": "作者",
+  "updated": "更新於",
+  "keyFacts": "重點整理",
+  "toc": "本頁內容",
+  "faq": "常見問題",
+  "related": "更多教學",
+  "cta": {
+    "h": "用你的空拍機試試看",
+    "p": "Stream My Drone 免費且開源，支援 macOS 與 Windows。已內建 FFmpeg，不必另外安裝任何東西。",
+    "button": "下載 Stream My Drone",
+    "more": "App 的運作方式"
+  },
+  "guides": {
+    "h2": "教學",
+    "sub": "依你的空拍機、遙控器和直播平台，一步步完成設定。",
+    "all": "所有教學"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "slug": "how-to-stream-a-dji-drone-on-twitch",
+  "platform": "Twitch",
+  "title": "DJI ドローンを Twitch でライブ配信する方法（RTMP 設定）",
+  "description": "DJI ドローンの映像を Twitch でライブ配信する方法。クリエイターダッシュボードでストリームキーをコピーし、Stream My Drone にカスタム RTMP の配信先として Twitch を追加して配信します。",
+  "h1": "DJI ドローンを Twitch で配信する方法",
+  "lead": "Twitch の<strong>クリエイターダッシュボード → 設定 → 配信</strong>でプライマリストリームキーをコピーし、Stream My Drone にサーバー <code>rtmp://live.twitch.tv/app</code> とそのキーで<strong>カスタム RTMP</strong> の配信先を追加します。DJI Fly からドローンの映像をアプリに送って「配信を開始」を押せば、Twitch は配信を受け取った時点でライブになります。",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Twitch はカスタム RTMP の配信先として追加します：サーバーは rtmp://live.twitch.tv/app、それにストリームキー。",
+    "ストリームキーはクリエイターダッシュボード → 設定 → 配信にあり、リセットするまで変わりません。",
+    "横 16:9 を使いましょう。Twitch の視聴者はほとんどが横向きで見ています。",
+    "1080p30、6 Mbps、キーフレーム 2 秒は Twitch の推奨に合っています。",
+    "Twitch は配信が届いた時点で放送を始めます。別の Go live ボタンはありません。"
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Twitch に配信する手順",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "ドローンを接続", "d": "DJI Fly で GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP を開き、Stream My Drone に表示されたアドレスを入力します。" },
+          { "t": "ストリームキーをコピー", "d": "twitch.tv でクリエイターダッシュボード → 設定 → 配信を開き、<em>プライマリストリームキー</em>をコピーします。" },
+          { "t": "カスタム RTMP の配信先を追加", "d": "Stream My Drone でカスタム RTMP を選び、名前を Twitch にして、サーバーアドレスに <code>rtmp://live.twitch.tv/app</code> を入力し、キーを貼り付けます。" },
+          { "t": "横 16:9 を選ぶ", "d": "<em>映像と音声</em>で<em>横 16:9</em> を選ぶと、1920×1080 で配信されます。" },
+          { "t": "「配信を開始」を押す", "d": "数秒でチャンネルがライブになります。タイトルとカテゴリーはクリエイターダッシュボードで設定し、終えるときはアプリで<em>配信を終了</em>を押します。" }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Twitch の設定",
+      "blocks": [
+        { "table": {
+          "head": ["設定", "値"],
+          "rows": [
+            ["サーバー URL", "<code>rtmp://live.twitch.tv/app</code>（Twitch が最寄りのサーバーを選びます）"],
+            ["解像度", "1920×1080、横向き"],
+            ["フレームレート", "30 fps"],
+            ["ビットレート", "6 Mbps CBR"],
+            ["キーフレーム", "2 秒ごと"]
+          ]
+        } },
+        { "p": "Twitch はヘルプページに地域ごとの配信サーバーも載せています。自動のアドレスで接続が遅いときは、近くの地域のサーバーを入力してください。" }
+      ]
+    },
+    {
+      "id": "simulcast",
+      "h2": "Twitch とほかのプラットフォームへ同時に配信する",
+      "blocks": [
+        { "p": "Stream My Drone は同じ映像を Twitch、YouTube などへ同時に送れます。Twitch の同時配信に関するルールはこれまでに何度も変わっており、アフィリエイトとパートナーで異なることもあるので、複数のプラットフォームへ配信する前に現在の契約内容を確認してください。" }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "よくある問題",
+      "blocks": [
+        { "list": [
+          "<strong>接続に失敗する：</strong>サーバー URL が正確に <code>rtmp://live.twitch.tv/app</code> になっているか、キーに余分な空白がないかを確認してください。",
+          "<strong>視聴者側でバッファリングする：</strong>アップロードが十分に安定していません。ほかのアップロードを止めるか、パソコンを有線接続にしてください。",
+          "<strong>キーが漏れてしまった：</strong>クリエイターダッシュボードでリセットし、アプリで更新してください。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI ドローンを Twitch で配信できますか？", "a": "はい。DJI Fly の RTMP 配信を Stream My Drone に送り、rtmp://live.twitch.tv/app とストリームキーで Twitch をカスタム RTMP の配信先として追加してください。" },
+    { "q": "Twitch のストリームキーはどこにありますか？", "a": "twitch.tv の、クリエイターダッシュボード → 設定 → 配信 → プライマリストリームキーです。" },
+    { "q": "Twitch に縦型の映像を配信すべきですか？", "a": "たいていは不要です。Twitch はほとんど横向きで視聴されるので、横 16:9 を選んでください。" },
+    { "q": "Twitch のキーは変わりますか？", "a": "いいえ、リセットしたときだけです。設定は一度で済みます。" },
+    { "q": "Twitch に OBS は必要ですか？", "a": "いいえ。Stream My Drone が直接配信します。シーンやオーバーレイを使いたいなら、OBS を任意で使えます。" }
+  ]
+}

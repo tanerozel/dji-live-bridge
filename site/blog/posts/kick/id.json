@@ -1,0 +1,65 @@
+{
+  "slug": "cara-streaming-drone-dji-di-kick",
+  "platform": "Kick",
+  "title": "Cara streaming drone DJI di Kick (URL stream dan kunci)",
+  "description": "Siaran langsung drone DJI di Kick: salin URL stream dan kunci dari dasbor Kick, tambahkan sebagai tujuan RTMP khusus di Stream My Drone, lalu mulai live.",
+  "h1": "Cara streaming drone DJI di Kick",
+  "lead": "Di dasbor kreator Kick, buka <strong>Settings → Stream URL &amp; Key</strong>, salin keduanya ke tujuan <strong>RTMP khusus</strong> di Stream My Drone, kirim gambar drone dari DJI Fly ke aplikasi, lalu tekan MULAI SIARAN. Kick memakai alamat RTMPS terenkripsi, dan aplikasi mendukungnya.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Kick ditambahkan sebagai tujuan RTMP khusus dengan Stream URL dan Stream key dari dasbor Kick.",
+    "URL stream Kick adalah alamat rtmps://; selalu salin dari dasbor Anda sendiri.",
+    "Kick mungkin meminta Anda mengaktifkan autentikasi dua faktor sebelum menampilkan kuncinya.",
+    "Gunakan Horizontal 16:9 untuk siaran 1920×1080 pada 30 fps dan 6 Mbps.",
+    "Gambar yang sama bisa dikirim ke Kick dan platform lain sekaligus."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Streaming ke Kick, langkah demi langkah",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Hubungkan drone", "d": "Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP dan masukkan alamat yang ditampilkan Stream My Drone." },
+          { "t": "Salin URL stream dan kuncinya", "d": "Di kick.com, buka dasbor kreator → Settings → Stream URL &amp; Key. Salin <em>Stream URL</em> (diawali <code>rtmps://</code> dan diakhiri <code>/app</code>) dan <em>Stream key</em>." },
+          { "t": "Tambahkan tujuan RTMP khusus", "d": "Di Stream My Drone, pilih RTMP khusus, beri nama Kick, lalu tempel kedua nilai itu." },
+          { "t": "Pilih Horizontal 16:9", "d": "Di bawah <em>Gambar dan suara</em>, pilih <em>Horizontal 16:9</em>." },
+          { "t": "Tekan MULAI SIARAN", "d": "Channel live saat Kick menerima siaran. Atur judul dan kategori di dasbor; tekan <em>Akhiri siaran</em> di aplikasi untuk selesai." }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Pengaturan Kick",
+      "blocks": [
+        { "table": {
+          "head": ["Pengaturan", "Nilai"],
+          "rows": [
+            ["URL stream", "Dari dasbor Kick, <code>rtmps://…/app</code>"],
+            ["Resolusi", "1920×1080, horizontal"],
+            ["Frame rate", "30 fps"],
+            ["Video", "H.264, 6 Mbps CBR, keyframe setiap 2 detik"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Masalah yang sering terjadi",
+      "blocks": [
+        { "list": [
+          "<strong>Kuncinya tersembunyi:</strong> aktifkan autentikasi dua faktor di pengaturan akun Kick, lalu buka lagi halamannya.",
+          "<strong>Koneksi gagal:</strong> salin lagi URL stream lengkap dengan <code>rtmps://</code>, port, dan <code>/app</code>.",
+          "<strong>Kuncinya tidak sengaja terbagikan:</strong> atur ulang di Kick dan perbarui di aplikasi."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Bisakah saya streaming drone DJI di Kick?", "a": "Bisa. Kirim aliran RTMP DJI Fly ke Stream My Drone dan tambahkan Kick sebagai tujuan RTMP khusus dengan URL stream dan kunci dari dasbor Kick Anda." },
+    { "q": "Apakah Kick mendukung RTMPS?", "a": "Ya, URL stream Kick adalah alamat rtmps://, dan Stream My Drone menerima tujuan rtmps://." },
+    { "q": "Bisakah saya siaran ke Kick dan Twitch sekaligus?", "a": "Stream My Drone bisa mengirim ke keduanya sekaligus. Periksa dulu aturan simulcast terbaru di masing-masing platform." },
+    { "q": "Apakah Stream My Drone berafiliasi dengan Kick?", "a": "Tidak. Ini adalah aplikasi independen, gratis, dan bersumber terbuka." }
+  ]
+}

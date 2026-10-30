@@ -1,0 +1,81 @@
+{
+  "slug": "dji-neo-live-stream",
+  "platform": "DJI Neo",
+  "title": "DJI Neo 直播教學：Instagram、TikTok、YouTube（2026）",
+  "description": "DJI Neo 如何直播：哪種操控模式可以用（手機、RC-N3、飛行眼鏡）、DJI Fly 的 RTMP 設定，以及用 Stream My Drone 直播到 Instagram、TikTok 或 YouTube。",
+  "h1": "DJI Neo 如何直播",
+  "lead": "DJI Neo 和 DJI 較大的空拍機一樣，透過 <strong>DJI Fly 的 RTMP 選項</strong>直播。問題出在操控方式：用手機透過 Wi-Fi 直接控制 Neo 時，手機的 Wi-Fi 已經被空拍機佔用。改用 <strong>RC-N3</strong>（或以線材連接手機的飛行眼鏡）飛行，手機就能把串流送到你電腦上的 <strong>Stream My Drone</strong>，再由它送往 Instagram、TikTok、YouTube，或同時送往多個平台。",
+  "published": "2026-10-03",
+  "updated": "2026-10-21",
+  "summary": [
+    "Neo 從手機上的 DJI Fly 直播：GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP。",
+    "使用 <strong>RC-N3</strong>：手機以線材連接遙控器，它的 Wi-Fi 就能連上電腦所在的網路。",
+    "在純手機模式下，手機的 Wi-Fi 連著 Neo 本身，通常連不到電腦。",
+    "使用飛行眼鏡時，以線材把眼鏡接到執行 DJI Fly 的手機，再從手機直播。",
+    "Stream My Drone 會把串流轉成 1080×1920 直向畫面給 Instagram 和 TikTok，並透過 RTMPS 送到 Instagram。"
+  ],
+  "sections": [
+    {
+      "id": "modes",
+      "h2": "Neo 的哪種操控模式可以直播？",
+      "blocks": [
+        { "p": "Neo 有三種飛行方式，這決定了串流如何從手機送出。無論哪一種，都是由手機上的 DJI Fly 負責串流，電腦上的 Stream My Drone 負責接收。" },
+        { "table": {
+          "head": ["飛行方式", "能串流到電腦嗎？", "原因"],
+          "rows": [
+            ["只用手機（Wi-Fi，近距離）", "通常不行", "手機的 Wi-Fi 連著 Neo，所以不在電腦的網路上。"],
+            ["RC-N3 + 手機", "可以，推薦使用", "手機透過線材與遙控器溝通；它的 Wi-Fi 可以和電腦連上同一個網路。"],
+            ["飛行眼鏡 + 以 USB-C 線連接的手機", "可以", "手機上的 DJI Fly 會顯示眼鏡的即時畫面，並能把它串流出去。"]
+          ]
+        } },
+        { "note": "有些 Android 手機可以在連著 Wi-Fi 網路的同時開啟自己的熱點。如果你的手機支援同時使用這兩種連線，就讓電腦連上那個熱點，接收 DJI Fly 的串流。這條路是否可行，取決於手機的 Wi-Fi 分享功能。" }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "用 RC-N3 設定 Neo 直播",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "把手機接上 RC-N3", "d": "照平常方式用 RC-N3 飛 Neo，手機以線材連接，並開著 DJI Fly。" },
+          { "t": "讓手機和電腦連上同一個網路", "d": "把手機的 Wi-Fi 和電腦連上同一個 Wi-Fi。在戶外，可以開啟另一支手機的熱點或使用旅行用路由器，讓兩者都連上去。" },
+          { "t": "開啟 Stream My Drone", "d": "在 Mac 或 Windows 電腦上安裝 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>。它會顯示類似 <code>rtmp://192.168.1.20:1935/drone</code> 的位址。" },
+          { "t": "在 DJI Fly 中輸入位址", "d": "進入 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，輸入位址後開始。App 中就會出現預覽。" },
+          { "t": "選擇平台並開始直播", "d": "加入 Instagram、TikTok、YouTube 或任何 RTMP 伺服器；Instagram 和 TikTok 請保持<em>直向 9:16</em>，然後按下「開始直播」。" }
+        ] },
+        { "img": "go-live.png", "alt": "Stream My Drone 的「開始直播」分頁，顯示 DJI Fly 用的 RTMP 位址、直播目的地和「開始直播」按鈕。" },
+        { "note": "DJI Fly 端、網路和防火牆的更多細節，請見 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 指南</a>。" }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "Neo 直播小技巧",
+      "blocks": [
+        { "list": [
+          "<strong>Android 手機的串流位元率較高。</strong>DJI 列出 Android 為 5 或 3 Mbps，iOS 為 2 或 1 Mbps。",
+          "<strong>讓手機的 Wi-Fi 訊號保持良好。</strong>串流從手機經 Wi-Fi 傳到電腦；請待在路由器或熱點附近。",
+          "<strong>社群平台用直向。</strong>Neo 拍攝的是橫向畫面；<em>完整畫面</em>會保留整個畫面並以模糊背景填滿，<em>填滿螢幕</em>則會裁切。",
+          "<strong>先在地面預演。</strong>在 Neo 起飛前，用 Stream My Drone 的<em>用影片檔試試看</em>檢查平台端是否正常。"
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "無法直播時怎麼辦",
+      "blocks": [
+        { "list": [
+          "<strong>DJI Fly 無法連線：</strong>確認手機的 Wi-Fi 連的是電腦所在的網路，而不是 Neo 自己的 Wi-Fi。",
+          "<strong>沒有 RTMP 選項：</strong>更新 DJI Fly 和 Neo 的韌體；這個選項取決於 DJI Fly 版本。",
+          "<strong>畫面卡頓：</strong>手機離路由器太遠，或網路在 2.4 GHz 和 5 GHz 之間切換。",
+          "<strong>Instagram 拒絕串流：</strong>在 instagram.com 建立新的直播並更新金鑰；每組金鑰只能用一次。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI Neo 可以直播嗎？", "a": "可以，透過 DJI Fly 的 RTMP。要串流到電腦時，請用 RC-N3 或以線材連接手機的飛行眼鏡來飛，讓手機的 Wi-Fi 可以連上電腦所在的網路。" },
+    { "q": "只用手機控制 Neo 時可以直播嗎？", "a": "在純手機操控模式下，手機的 Wi-Fi 連著 Neo。如果 Android 手機支援同時使用 Wi-Fi 和熱點分享，電腦就能透過手機熱點接收串流。是否可行取決於手機。" },
+    { "q": "DJI Neo 可以直播到 Instagram 或 TikTok 嗎？", "a": "無法直接從 DJI Fly 直播。請把 DJI Fly 的 RTMP 串流送到 Stream My Drone，它會透過 RTMPS 轉送到 Instagram，並以 1080×1920 直向畫面轉送到 TikTok。" },
+    { "q": "Neo 2 也可以用嗎？", "a": "只要 DJI Fly 在你的空拍機和遙控器上，於 Live Streaming Platforms 底下顯示 RTMP，就能使用：Stream My Drone 只接收 RTMP 串流，從不直接和空拍機溝通。" }
+  ]
+}

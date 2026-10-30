@@ -1,0 +1,111 @@
+{
+  "slug": "faire-un-live-tiktok-avec-un-drone-dji",
+  "platform": "TikTok",
+  "title": "Comment passer en live sur TikTok avec un drone DJI (guide 2026)",
+  "description": "Diffusez un drone DJI en direct sur TikTok depuis DJI Fly : avec une clé de stream TikTok, ou sans clé grâce à TikTok LIVE Studio et une caméra virtuelle. Réglages et dépannage.",
+  "h1": "Comment passer en live sur TikTok avec un drone DJI",
+  "lead": "DJI Fly ne peut pas diffuser seul sur TikTok, mais il peut envoyer du RTMP vers un ordinateur. Stream My Drone reçoit ce flux et l'amène sur TikTok de deux façons : <strong>directement avec une URL de serveur et une clé de stream TikTok</strong>, si votre compte en a une, ou <strong>via TikTok LIVE Studio</strong>, où le drone apparaît comme une caméra et où aucune clé de stream n'est nécessaire.",
+  "published": "2026-10-02",
+  "updated": "2026-10-21",
+  "summary": [
+    "Il vous faut un drone DJI dont l'application DJI Fly propose RTMP sous Live Streaming Platforms, et un Mac ou un PC Windows sur le même Wi-Fi ou partage de connexion que la radiocommande.",
+    "Avec une clé de stream : ajoutez une destination TikTok dans Stream My Drone et appuyez sur DÉMARRER LE DIRECT.",
+    "Sans clé de stream : sélectionnez « Stream My Drone Camera » comme source caméra dans TikTok LIVE Studio et passez en live depuis là.",
+    "TikTok attend une vidéo verticale ; l'application envoie du 1080×1920 à 30 images/s et remplit l'espace vide avec une copie floutée de l'image.",
+    "C'est TikTok qui décide qui peut passer en LIVE et qui obtient une clé de stream ; les conditions dépendent de votre compte et de votre région."
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "Ce qu'il vous faut",
+      "blocks": [
+        { "list": [
+          "Un drone DJI et une radiocommande où DJI Fly affiche <strong>RTMP</strong> sous <em>Live Streaming Platforms</em>. Si votre version de DJI Fly le propose, le drone fonctionne : l'application ne communique jamais avec le drone lui-même.",
+          "Un Mac (macOS 13 ou plus récent, Apple Silicon ou Intel) ou un PC Windows 10/11 avec <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> installé.",
+          "La radiocommande et l'ordinateur sur le même réseau Wi-Fi, ou tous deux sur le partage de connexion de votre téléphone.",
+          "Un compte TikTok qui peut passer en LIVE. Pour la méthode directe, il lui faut aussi l'accès RTMP (une URL de serveur et une clé de stream) ; pour la méthode LIVE Studio, il lui faut l'accès à TikTok LIVE Studio."
+        ] }
+      ]
+    },
+    {
+      "id": "connect",
+      "h2": "Étape 1 : envoyer l'image du drone vers votre ordinateur",
+      "blocks": [
+        { "steps": [
+          { "t": "Ouvrez Stream My Drone", "d": "L'onglet Direct affiche une adresse comme <code>rtmp://192.168.1.20:1935/drone</code> et un QR code." },
+          { "t": "Ouvrez l'écran RTMP dans DJI Fly", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP." },
+          { "t": "Collez l'adresse et lancez", "d": "Quand l'image arrive, la première étape de l'application passe au vert et l'aperçu en direct apparaît." }
+        ] },
+        { "note": "Pas de drone sous la main ? Utilisez <em>Essayer avec un fichier vidéo</em> dans l'application pour répéter tout le parcours avec un clip enregistré." }
+      ]
+    },
+    {
+      "id": "stream-key",
+      "h2": "Méthode A : passer en live sur TikTok avec une clé de stream",
+      "howto": true,
+      "blocks": [
+        { "p": "Utilisez cette méthode si TikTok vous affiche une URL de serveur et une clé de stream. Tous les comptes n'en reçoivent pas ; si vous ne la trouvez pas, passez à la méthode B." },
+        { "steps": [
+          { "t": "Copiez l'URL du serveur et la clé de stream depuis TikTok", "d": "Ouvrez l'écran de la clé de stream dans TikTok LIVE Center ou TikTok LIVE Studio et copiez l'<em>URL du serveur</em> (elle ressemble à <code>rtmp://push-rtmp-….tiktokcdn.com/game/</code>) et la <em>clé de stream</em>." },
+          { "t": "Ajoutez une destination TikTok", "d": "Dans Stream My Drone, sous <em>Où voulez-vous diffuser ?</em>, choisissez TikTok et collez les deux valeurs. La clé est stockée dans le coffre d'identifiants de votre système, pas dans un fichier." },
+          { "t": "Gardez l'image verticale", "d": "Sous <em>Image et son</em>, laissez <em>Vertical 9:16</em> activé. <em>Image entière</em> remplit l'espace vide avec une copie floutée du plan ; <em>Remplir l'écran</em> recadre à la place." },
+          { "t": "Appuyez sur DÉMARRER LE DIRECT", "d": "Le bouton se déverrouille dès que le serveur local tourne, que la vidéo du drone arrive et qu'une destination est sélectionnée. La carte de la destination affiche alors <em>En direct</em>." },
+          { "t": "Vérifiez le direct sur TikTok", "d": "Vérifiez dans TikTok que le flux est bien reçu et public. Appuyez sur <em>Arrêter le direct</em> dans l'application quand vous avez terminé." }
+        ] }
+      ]
+    },
+    {
+      "id": "live-studio",
+      "h2": "Méthode B : TikTok LIVE Studio sans clé de stream",
+      "blocks": [
+        { "p": "TikTok LIVE Studio est l'application de bureau de TikTok. Vous vous y connectez avec votre compte TikTok ; elle n'a donc pas besoin de l'accès RTMP, seulement d'une caméra. Stream My Drone en fournit une, appelée <strong>Stream My Drone Camera</strong>." },
+        { "steps": [
+          { "t": "Activez la caméra virtuelle", "d": "Dans l'onglet TikTok LIVE Studio, appuyez sur <em>Activer la caméra virtuelle</em>. Sur Mac, l'application doit être dans le dossier Applications, et macOS demande une autorisation une seule fois dans Réglages Système → Général → Ouverture et extensions → Extensions de caméra." },
+          { "t": "Démarrez la caméra", "d": "Quand la carte indique <em>Prête à démarrer</em>, appuyez sur <em>Démarrer la caméra virtuelle</em>." },
+          { "t": "Ajoutez la caméra dans LIVE Studio", "d": "Ajoutez une source Caméra et choisissez <strong>Stream My Drone Camera</strong>." },
+          { "t": "Réglez le son", "d": "Réglez la capture audio de cette source sur <em>Aucune</em> et choisissez un seul microphone dans LIVE Studio. La caméra ne transporte que la vidéo, vous n'aurez donc jamais le son en double." },
+          { "t": "Passez en live", "d": "Appuyez sur « Passer en LIVE » dans TikTok LIVE Studio. Le lancement du direct reste toujours entre vos mains." }
+        ] },
+        { "img": "virtual-camera.png", "alt": "L'onglet TikTok LIVE Studio de Stream My Drone avec le bouton Démarrer la caméra virtuelle." },
+        { "note": "La caméra virtuelle intégrée sous Windows a été testée avec TikTok LIVE Studio. Sélectionnez « Stream My Drone Camera » comme source vidéo. L'intégration OBS facultative est aussi disponible pour les diffusions qui utilisent des scènes OBS." }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Réglages recommandés pour TikTok",
+      "blocks": [
+        { "table": {
+          "head": ["Réglage", "Valeur", "Pourquoi"],
+          "rows": [
+            ["Orientation", "Vertical 9:16, 1080×1920", "TikTok se regarde sur téléphone, en portrait."],
+            ["Fréquence d'images", "30 images/s", "Fluide, et léger pour le débit montant."],
+            ["Débit", "6 Mbit/s CBR", "Un débit constant convient au serveur de réception."],
+            ["Codec vidéo", "H.264 High, images clés toutes les 2 secondes", "Ce qu'attendent les serveurs de réception des directs."],
+            ["Cadrage", "Image entière", "Pas de bandes noires ni de bords perdus."]
+          ]
+        } },
+        { "p": "L'application applique ces valeurs automatiquement ; vous choisissez seulement l'orientation et le cadrage. Prévoyez au moins 10 Mbit/s de débit montant stable par destination." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Quand ça ne marche pas",
+      "blocks": [
+        { "list": [
+          "<strong>L'aperçu reste vide :</strong> la radiocommande et l'ordinateur sont probablement sur des réseaux différents. Mettez-les sur le même Wi-Fi ou partage de connexion et vérifiez l'adresse dans DJI Fly.",
+          "<strong>DJI Fly ne lance pas la diffusion sur la RC 2 :</strong> certaines versions de DJI Fly exigent d'abord un microphone branché à la radiocommande.",
+          "<strong>La carte TikTok indique Échec de connexion :</strong> copiez à nouveau l'URL du serveur et la clé ; une clé peut expirer ou être réinitialisée.",
+          "<strong>La caméra n'apparaît pas dans LIVE Studio :</strong> démarrez d'abord la caméra virtuelle, puis relancez LIVE Studio pour qu'il recharge la liste des caméras.",
+          "<strong>L'image est en 720p :</strong> la radiocommande envoie souvent du 720p. L'application affiche la vraie résolution d'entrée et ne prétend pas qu'il s'agit de 1080p natif."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Puis-je passer en live sur TikTok avec un drone DJI sans clé de stream ?", "a": "Oui. Utilisez TikTok LIVE Studio et choisissez Stream My Drone Camera comme source caméra. Vous vous connectez à LIVE Studio avec votre propre compte ; aucune URL de serveur ni clé de stream n'est donc nécessaire." },
+    { "q": "Pourquoi n'ai-je pas de clé de stream TikTok ?", "a": "TikTok ne fournit des clés de stream RTMP qu'à certains comptes, et les règles varient selon la région et évoluent avec le temps. TikTok LIVE Studio est l'alternative quand vous n'en avez pas." },
+    { "q": "Puis-je diffuser sur TikTok et Instagram en même temps ?", "a": "Oui, avec des clés de stream pour les deux. Stream My Drone encode l'image une seule fois et l'envoie à chaque destination activée ; une destination en échec n'arrête pas les autres." },
+    { "q": "Stream My Drone se connecte-t-il à mon compte TikTok ?", "a": "Non. Il ne se connecte jamais à une plateforme et n'appuie jamais sur « Passer en LIVE » à votre place ; il envoie seulement la vidéo à l'adresse que vous lui donnez, ou fournit une caméra à LIVE Studio." },
+    { "q": "Stream My Drone est-il gratuit ?", "a": "Oui. Il est gratuit et open source sous licence MIT, et n'est affilié ni à DJI ni à TikTok." }
+  ]
+}

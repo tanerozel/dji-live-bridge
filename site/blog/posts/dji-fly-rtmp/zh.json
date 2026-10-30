@@ -1,0 +1,86 @@
+{
+  "slug": "dji-fly-rtmp-live-streaming-setup",
+  "platform": "DJI Fly RTMP",
+  "title": "DJI Fly RTMP 直播推流设置教程（图文步骤）",
+  "description": "DJI Fly RTMP 直播推流怎么设置：设置项在哪里、地址该填什么、遥控器和电脑如何联网，以及推流失败时的常见问题和解决方法。",
+  "h1": "DJI Fly RTMP 直播推流：完整设置指南",
+  "lead": "DJI Fly 可以把无人机的实时画面推流到任意 RTMP 地址：<strong>GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP</strong>。把它指向同一网络中运行 Stream My Drone 的电脑，画面就能从电脑发往 TikTok、Instagram、YouTube、Facebook、Twitch、Kick，或同时发往其中多个平台。",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "RTMP 选项位于 DJI Fly 的 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP。",
+    "DJI Fly 需要类似 rtmp://192.168.1.20:1935/drone 的地址；Stream My Drone 会显示适合你电脑的正确地址，并附带二维码。",
+    "遥控器和电脑必须连在同一个 Wi-Fi 或同一个手机热点上。",
+    "遥控器通常发送 720p H.264 视频和 AAC 音频；应用会把它转成干净的 1080p 竖屏或横屏推流。",
+    "访客 Wi-Fi 通常会阻止设备互相访问——请使用普通网络或手机热点。"
+  ],
+  "sections": [
+    {
+      "id": "how-it-works",
+      "h2": "DJI Fly RTMP 推流的工作原理",
+      "blocks": [
+        { "p": "RTMP 是直播平台接收视频所用的协议。DJI Fly 内置了 RTMP 客户端：它会把遥控器从无人机收到的画面推送到你填写的任意地址。平台对推流要求很严格——画面方向、关键帧、码率都有讲究——而且很多平台每场直播都会给出不同的地址，所以直接把平台地址填进 DJI Fly，效果往往不理想。" },
+        { "p": "Stream My Drone 处在两者之间。它在你的 Mac 或 PC 上运行一个小型 RTMP 服务器，在那里接收 DJI Fly 的推流，显示预览，再重新编码成每个平台需要的格式。一切都留在你的电脑上，视频不会经过别人的服务器。" }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "在 DJI Fly 中设置 RTMP",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "让两台设备连上同一网络", "d": "把 DJI 遥控器和电脑连到同一个 Wi-Fi，或者打开手机热点，让两者都连上它。" },
+          { "t": "打开 Stream My Drone", "d": "<em>连接无人机</em>这一步会显示类似 <code>rtmp://192.168.1.20:1935/drone</code> 的地址和一个二维码。其中的数字是你的电脑在该网络中的地址。" },
+          { "t": "在 DJI Fly 中打开 RTMP 页面", "d": "点击 GO FLY，再点击 •••（三个点），然后进入 Transmission → Live Streaming Platforms → RTMP。" },
+          { "t": "填入地址", "d": "按显示的内容原样输入地址；如果你的 DJI Fly 版本支持，也可以扫描二维码。" },
+          { "t": "开始推流", "d": "在 DJI Fly 中开始推流。几秒钟内，Stream My Drone 的第一步会变成绿色，并出现预览。" }
+        ] },
+        { "img": "go-live.png", "alt": "Stream My Drone 的“开始直播”标签页：供 DJI Fly 使用的 RTMP 地址、推流目标和“开始直播”按钮。" }
+      ]
+    },
+    {
+      "id": "networks",
+      "h2": "该用哪种网络",
+      "blocks": [
+        { "table": {
+          "head": ["连接方式", "能用吗？", "说明"],
+          "rows": [
+            ["家庭或办公室 Wi-Fi", "能", "最适合练习。推流到平台时使用你的宽带上行。"],
+            ["手机热点", "能", "最适合户外。遥控器和电脑都连上热点；上行使用手机流量。"],
+            ["访客 Wi-Fi", "通常不能", "访客网络通常会隔离设备，DJI Fly 无法访问电脑。"],
+            ["遥控器用移动数据，电脑在别的网络", "不能", "电脑的本地地址无法从它所在网络之外访问。"]
+          ]
+        } },
+        { "p": "从遥控器到电脑的链路承载完整的推流，所以请让电脑靠近路由器或热点。推流到平台时，每个推流目标需要约 10 Mbps 的稳定上行带宽。" }
+      ]
+    },
+    {
+      "id": "drones",
+      "h2": "哪些无人机支持 RTMP",
+      "blocks": [
+        { "p": "这取决于无人机、遥控器和 DJI Fly 版本，与 Stream My Drone 无关。只要 DJI Fly 在 <em>Live Streaming Platforms</em> 下显示 <em>RTMP</em>，就能使用：应用接收的是普通 RTMP 推流，从不直接与无人机通信。DJI 会在不同版本之间增加或移除这个选项，所以请以你自己的遥控器为准。" },
+        { "note": "在 DJI RC 2 上，某些 DJI Fly 版本要求遥控器先连接麦克风，否则不会开始推流。" }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "故障排查",
+      "blocks": [
+        { "list": [
+          "<strong>DJI Fly 提示无法连接：</strong>确认两台设备在同一网络，并且地址与应用中显示的一致，包括 <code>:1935/drone</code>。",
+          "<strong>昨天还能用，今天不行了：</strong>电脑可能获得了新的网络地址。请重新从应用中复制地址。",
+          "<strong>防火墙请求权限：</strong>允许 Stream My Drone 在私有网络上接受传入连接。",
+          "<strong>画面卡顿：</strong>让电脑更靠近 Wi-Fi，或改用 5 GHz 网络。在不同频段之间来回切换的 Wi-Fi 会造成短暂掉线。",
+          "<strong>预览显示 720p：</strong>这就是遥控器发送的分辨率。应用显示的是真实输入，不会假装它是原生 1080p。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI Fly 的 RTMP 设置在哪里？", "a": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP。如果那里没有 RTMP，说明你的无人机、遥控器或 DJI Fly 版本不提供这个功能。" },
+    { "q": "DJI Fly 里该填什么 RTMP 地址？", "a": "填 Stream My Drone 显示的地址，格式为 rtmp://<电脑地址>:1935/drone。电脑连到其他网络时，这个地址会改变。" },
+    { "q": "DJI Fly 能直接推流到 YouTube 或 Facebook 吗？", "a": "DJI Fly 可以把 RTMP 推送到任意地址，但平台对设置有特定要求，有些平台每场直播都需要新的密钥。先发送到 Stream My Drone，你就能获得预览、正确的格式、同时推流到多个目标，并自动处理各平台的特殊要求。" },
+    { "q": "需要联网吗？", "a": "从 DJI Fly 到电脑的链路是本地连接。只有从电脑推流到平台时才需要互联网。" },
+    { "q": "视频会被发送到第三方服务器吗？", "a": "不会。Stream My Drone 完全在你的电脑上运行，只把推流发送到你添加的推流目标。" }
+  ]
+}

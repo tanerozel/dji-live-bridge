@@ -1,5 +1,5 @@
 {
-  "slug": "dji-mavic-3-live-stream",
+  "slug": "live-streaming-dji-mavic-3",
   "platform": "DJI Mavic 3 Series",
   "title": "Cara live streaming DJI Mavic 3, Classic, dan Pro: panduan remote (2026)",
   "description": "Live streaming DJI Mavic 3, Classic, atau Pro dengan RC-N1 atau RC Pro. Pelajari kenapa DJI RC tidak bisa siaran, plus penerima di ponsel, RTMP desktop, dan batas kualitas.",
@@ -79,7 +79,7 @@
             },
             {
               "t": "Masukkan alamat penerima di DJI Fly",
-              "d": "Salin alamat RTMP lokal lengkap yang ditampilkan Stream My Drone. Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Ikuti label di versi Anda: layar yang meminta kolom alamat dan kunci secara terpisah berbeda dengan layar yang meminta URL RTMP lengkap. Jangan tambahkan kunci YouTube atau Instagram Anda ke alamat penerima lokal. Lihat <a href=\"../dji-fly-rtmp-live-streaming-setup/\">panduan RTMP DJI Fly</a> untuk penjelasan menunya."
+              "d": "Salin alamat RTMP lokal lengkap yang ditampilkan Stream My Drone. Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Ikuti label di versi Anda: layar yang meminta kolom alamat dan kunci secara terpisah berbeda dengan layar yang meminta URL RTMP lengkap. Jangan tambahkan kunci YouTube atau Instagram Anda ke alamat penerima lokal. Lihat <a href=\"../pengaturan-live-streaming-rtmp-dji-fly/\">panduan RTMP DJI Fly</a> untuk penjelasan menunya."
             },
             {
               "t": "Mulai siaran lokal dan periksa suara",
@@ -141,28 +141,28 @@
               [
                 "YouTube",
                 "Akses live sudah aktif dan siaran yang sudah disiapkan",
-                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Pengaturan YouTube</a>"
+                "<a href=\"../cara-live-streaming-drone-dji-ke-youtube/\">Pengaturan YouTube</a>"
               ],
               [
                 "Instagram",
                 "Akses Live Producer dan kredensial RTMPS terbaru",
-                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Pengaturan Instagram</a>"
+                "<a href=\"../cara-live-instagram-dengan-drone-dji/\">Pengaturan Instagram</a>"
               ],
               [
                 "Facebook",
                 "Siaran langsung yang sudah disiapkan beserta URL server dan kuncinya",
-                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Pengaturan Facebook</a>"
+                "<a href=\"../cara-live-facebook-dengan-drone-dji/\">Pengaturan Facebook</a>"
               ],
               [
                 "TikTok",
                 "Akses RTMP di akun Anda, atau akses LIVE Studio di komputer",
-                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Pengaturan TikTok</a>"
+                "<a href=\"../cara-live-tiktok-dengan-drone-dji/\">Pengaturan TikTok</a>"
               ]
             ]
           }
         },
         {
-          "p": "Kelayakan akun ditentukan oleh platform. Kedua aplikasi tidak memberikan stream key dan tidak bisa melewati persyaratan akses. Untuk alur kerja komputer dengan aplikasi studio yang kompatibel, Stream My Drone juga menyediakan <a href=\"../use-your-dji-drone-as-a-webcam/\">kamera virtual</a>. Pratinjau lokal membuktikan siaran sudah diterima; halaman penonton yang berfungsi membuktikan siaran sudah tayang."
+          "p": "Kelayakan akun ditentukan oleh platform. Kedua aplikasi tidak memberikan stream key dan tidak bisa melewati persyaratan akses. Untuk alur kerja komputer dengan aplikasi studio yang kompatibel, Stream My Drone juga menyediakan <a href=\"../jadikan-drone-dji-sebagai-webcam/\">kamera virtual</a>. Pratinjau lokal membuktikan siaran sudah diterima; halaman penonton yang berfungsi membuktikan siaran sudah tayang."
         }
       ]
     },
@@ -208,7 +208,7 @@
           "p": "Diperiksa pada 25 Oktober 2026: <a href=\"https://www.dji.com/support/product/mavic-3-pro\">dukungan Mavic 3 Pro</a>, <a href=\"https://www.dji.com/support/product/mavic-3-classic\">dukungan Mavic 3 Classic</a>, <a href=\"https://www.dji.com/mavic-3/specs\">dukungan Mavic 3 versi asli</a>, dan <a href=\"https://www.dji.com/rc/faq\">FAQ DJI RC</a> untuk perbedaan model/remote; <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">panduan operasi livestream DJI Fly</a> untuk dukungan dan batasan streaming. Periksa firmware drone dan remote Anda untuk menu yang benar-benar tersedia."
         },
         {
-          "p": "Untuk generasi yang lebih baru, baca <a href=\"../dji-mavic-4-pro-live-stream/\">panduan livestream Mavic 4 Pro</a>. Untuk pengaturan remote berlayar yang lebih ringkas, lihat <a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro</a>. Lanjutkan ke <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">panduan multistreaming</a> untuk menayangkan ke beberapa tujuan."
+          "p": "Untuk generasi yang lebih baru, baca <a href=\"../live-streaming-dji-mavic-4-pro/\">panduan livestream Mavic 4 Pro</a>. Untuk pengaturan remote berlayar yang lebih ringkas, lihat <a href=\"../live-streaming-dji-mini-5-pro/\">Mini 5 Pro</a>. Lanjutkan ke <a href=\"../live-drone-dji-ke-beberapa-platform-sekaligus/\">panduan multistreaming</a> untuk menayangkan ke beberapa tujuan."
         }
       ]
     }
@@ -236,7 +236,7 @@
     },
     {
       "q": "Apakah stream key platform dimasukkan di DJI Fly?",
-      "a": "Untuk pengaturan penerusan ini, masukkan alamat lokal yang ditampilkan Stream My Drone atau Stream My Drone di DJI Fly. URL server dan stream key platform dimasukkan di pengaturan tujuan pada aplikasi penerima."
+      "a": "Untuk pengaturan penerusan ini, masukkan alamat lokal yang ditampilkan Stream My Drone (ponsel atau komputer) di DJI Fly. URL server dan stream key platform dimasukkan di pengaturan tujuan pada aplikasi penerima."
     }
   ],
   "published": "2026-10-25",

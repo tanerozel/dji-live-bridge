@@ -1,0 +1,65 @@
+{
+  "slug": "how-to-stream-a-dji-drone-on-kick",
+  "platform": "Kick",
+  "title": "DJI 드론으로 Kick 방송하는 방법 (스트림 URL과 키)",
+  "description": "DJI 드론을 Kick으로 생중계하기: Kick 대시보드에서 스트림 URL과 키를 복사해 Stream My Drone에 사용자 지정 RTMP 대상으로 추가하고 방송을 시작하세요.",
+  "h1": "DJI 드론으로 Kick 방송하는 방법",
+  "lead": "Kick 크리에이터 대시보드에서 <strong>Settings → Stream URL &amp; Key</strong>를 열고, 두 값을 Stream My Drone의 <strong>사용자 지정 RTMP</strong> 방송 대상에 복사하세요. DJI Fly에서 드론 화면을 앱으로 보내고 방송 시작을 누르면 됩니다. Kick은 암호화된 RTMPS 주소를 쓰며, 앱이 이를 지원합니다.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Kick은 Kick 대시보드의 Stream URL과 Stream key로 사용자 지정 RTMP 대상으로 추가합니다.",
+    "Kick의 스트림 URL은 rtmps:// 주소입니다. 항상 본인 대시보드에서 복사하세요.",
+    "Kick은 키를 보여 주기 전에 2단계 인증을 켜라고 요청할 수 있습니다.",
+    "가로 16:9로 1920×1080, 30 fps, 6 Mbps 스트림을 보내세요.",
+    "같은 화면을 Kick과 다른 플랫폼에 동시에 보낼 수 있습니다."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Kick으로 방송하기, 단계별로",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "드론 연결", "d": "DJI Fly에서 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP를 열고 Stream My Drone에 표시된 주소를 입력하세요." },
+          { "t": "스트림 URL과 키 복사", "d": "kick.com에서 크리에이터 대시보드 → Settings → Stream URL &amp; Key를 여세요. <em>Stream URL</em>(<code>rtmps://</code>로 시작해 <code>/app</code>으로 끝남)과 <em>Stream key</em>를 복사하세요." },
+          { "t": "사용자 지정 RTMP 대상 추가", "d": "Stream My Drone에서 사용자 지정 RTMP를 고르고 이름을 Kick으로 정한 뒤 두 값을 붙여넣으세요." },
+          { "t": "가로 16:9 선택", "d": "<em>화면과 소리</em>에서 <em>가로 16:9</em>를 고르세요." },
+          { "t": "방송 시작 누르기", "d": "Kick이 스트림을 받으면 채널이 방송을 시작합니다. 제목과 카테고리는 대시보드에서 정하고, 끝낼 때는 앱에서 <em>방송 종료</em>를 누르세요." }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Kick 설정",
+      "blocks": [
+        { "table": {
+          "head": ["설정", "값"],
+          "rows": [
+            ["스트림 URL", "Kick 대시보드에서 복사, <code>rtmps://…/app</code>"],
+            ["해상도", "1920×1080, 가로"],
+            ["프레임 레이트", "30 fps"],
+            ["영상", "H.264, 6 Mbps CBR, 2초마다 키프레임"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "자주 생기는 문제",
+      "blocks": [
+        { "list": [
+          "<strong>키가 보이지 않음:</strong> Kick 계정 설정에서 2단계 인증을 켠 뒤 페이지를 다시 여세요.",
+          "<strong>연결 실패:</strong> <code>rtmps://</code>, 포트, <code>/app</code>까지 포함해 스트림 URL을 다시 복사하세요.",
+          "<strong>실수로 키를 공유함:</strong> Kick에서 키를 재설정하고 앱에서 업데이트하세요."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI 드론으로 Kick 방송을 할 수 있나요?", "a": "네. DJI Fly의 RTMP 스트림을 Stream My Drone으로 보내고, Kick 대시보드의 스트림 URL과 키로 Kick을 사용자 지정 RTMP 대상으로 추가하세요." },
+    { "q": "Kick은 RTMPS를 지원하나요?", "a": "네. Kick의 스트림 URL은 rtmps:// 주소이며, Stream My Drone은 rtmps:// 방송 대상을 지원합니다." },
+    { "q": "Kick과 Twitch에 동시에 방송할 수 있나요?", "a": "Stream My Drone은 두 곳에 동시에 보낼 수 있습니다. 먼저 각 플랫폼의 현재 동시 송출 규정을 확인하세요." },
+    { "q": "Stream My Drone은 Kick과 관련이 있나요?", "a": "아니요. 독립적인 무료 오픈 소스 앱입니다." }
+  ]
+}

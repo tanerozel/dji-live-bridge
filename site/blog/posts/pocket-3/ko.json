@@ -1,0 +1,80 @@
+{
+  "slug": "osmo-pocket-3-live-stream",
+  "platform": "Osmo Pocket 3",
+  "title": "Osmo Pocket 3 라이브 방송: Instagram·TikTok·YouTube (2026)",
+  "description": "Stream My Drone으로 DJI Osmo Pocket 3를 DJI Mimo의 RTMP로 Instagram, TikTok, YouTube에 동시에 라이브 방송하고, 무선 웹캠으로 쓰는 방법을 알려 드립니다.",
+  "h1": "Osmo Pocket 3로 Instagram과 TikTok에 라이브 방송하는 방법",
+  "lead": "Osmo Pocket 3는 <strong>DJI Mimo에서 RTMP로</strong> 최대 1080p로 방송합니다. DJI Mimo만으로는 Facebook, YouTube, RTMP 주소로만 보낼 수 있습니다. 그 RTMP 스트림을 컴퓨터의 <strong>Stream My Drone</strong>으로 보내면 Pocket 3로 <strong>Instagram과 TikTok</strong>에도 여러 플랫폼에 동시에 방송할 수 있고, Zoom, OBS, TikTok LIVE Studio용 무선 웹캠으로도 쓸 수 있습니다.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "DJI Mimo(1.2.20 이상)에서 Pocket 3는 480p, 720p, 1080p, 30 fps, 최대 6 Mbps로 RTMP 방송을 합니다.",
+    "Pocket 3는 직접 Wi-Fi 네트워크에 연결합니다. Stream My Drone을 실행하는 컴퓨터와 같은 네트워크에 연결하세요.",
+    "Stream My Drone이 스트림을 Instagram에는 RTMPS로, TikTok과 모든 RTMP 플랫폼에는 동시에 전달합니다.",
+    "Instagram과 TikTok용 세로 1080×1920 출력을 제공하며, 가로로 들어온 화면은 흐린 배경으로 채웁니다.",
+    "내장 가상 카메라가 Pocket 3를 무선 웹캠으로 바꿔 줍니다. 컴퓨터에 USB 케이블을 연결할 필요가 없습니다."
+  ],
+  "sections": [
+    {
+      "id": "setup",
+      "h2": "Pocket 3 라이브 방송 설정하기",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Stream My Drone 열기", "d": "Mac 또는 Windows PC에 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>을 설치하고 <code>rtmp://192.168.1.20:1935/drone</code> 같은 표시된 주소를 확인하세요." },
+          { "t": "Pocket 3를 DJI Mimo에 연결", "d": "DJI Mimo와 Pocket 3 펌웨어를 업데이트하고, 카메라를 연결한 뒤 라이브 방송 옵션을 여세요." },
+          { "t": "RTMP와 Wi-Fi 네트워크 선택", "d": "플랫폼으로 RTMP를 고르고 Pocket 3가 연결할 Wi-Fi를 선택하세요. 컴퓨터와 같은 네트워크나 두 기기가 모두 연결된 핫스팟이어야 합니다." },
+          { "t": "주소를 입력하고 시작", "d": "Stream My Drone의 주소를 입력하고, Wi-Fi가 받쳐 준다면 1080p 6 Mbps를 고른 뒤 시작하세요. 앱의 미리보기에 화면이 나타납니다." },
+          { "t": "모든 곳에 방송 시작", "d": "Instagram, TikTok, YouTube 또는 아무 RTMP 서버나 추가하고, Instagram과 TikTok에는 <em>세로 9:16</em>을 유지한 채 방송 시작을 누르세요." }
+        ] },
+        { "img": "go-live.png", "alt": "RTMP 주소, 방송 대상, 방송 시작 버튼이 보이는 Stream My Drone의 '방송' 탭." },
+        { "note": "이 기능을 쓸 수 있는 DJI 카메라 전체 목록은 <a href=\"../dji-osmo-live-stream-instagram-tiktok/\">Osmo 카메라 가이드</a>에 있습니다." }
+      ]
+    },
+    {
+      "id": "ideas",
+      "h2": "크리에이터들의 활용법",
+      "blocks": [
+        { "list": [
+          "<strong>걸으며 말하는 라이브.</strong> 움직이는 동안 짐벌이 화면을 안정적으로 잡아 주고, 같은 스트림이 Instagram과 TikTok에 함께 나갑니다.",
+          "<strong>행사와 시장.</strong> 작은 카메라 하나로 강연, 공연, 매장을 여러 플랫폼에 방송하세요.",
+          "<strong>무선 책상 카메라.</strong> Pocket 3를 삼각대에 올리고 Zoom, Meet, OBS, TikTok LIVE Studio에서 <strong>Stream My Drone Camera</strong>를 고르세요. Pocket 3는 USB 웹캠으로도 쓸 수 있지만, 이 방법은 케이블이 필요 없습니다. <a href=\"../use-your-dji-drone-as-a-webcam/\">웹캠 가이드</a>를 참고하세요.",
+          "<strong>방송하면서 녹화.</strong> Stream My Drone이 송출되는 스트림을 컴퓨터에 녹화합니다."
+        ] }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "추천 설정",
+      "blocks": [
+        { "table": {
+          "head": ["설정", "권장값", "이유"],
+          "rows": [
+            ["DJI Mimo 해상도", "1080p", "DJI Mimo가 라이브 방송에 제공하는 최고 해상도입니다."],
+            ["DJI Mimo 비트레이트", "6 Mbps", "3 Mbps보다 확실히 선명합니다. Wi-Fi가 버거울 때만 낮추세요."],
+            ["Stream My Drone 출력", "Instagram과 TikTok에는 세로 9:16", "휴대폰은 세로로 시청합니다. 1080×1920, 30 fps."],
+            ["네트워크", "5 GHz Wi-Fi 또는 가까운 핫스팟", "카메라와 컴퓨터 사이의 연결에 스트림 전체가 실립니다."]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "작동하지 않을 때",
+      "blocks": [
+        { "list": [
+          "<strong>Pocket 3가 연결하지 못함:</strong> 카메라와 컴퓨터가 서로 다른 네트워크에 있거나, 게스트 네트워크가 둘을 격리하고 있습니다.",
+          "<strong>라이브 방송 옵션이 없음:</strong> DJI Mimo를 1.2.20 이상으로, 카메라 펌웨어도 최신으로 업데이트하세요.",
+          "<strong>Instagram이 스트림을 거부함:</strong> Instagram 키는 한 번만 쓸 수 있습니다. instagram.com에서 새 라이브 방송을 만들고 키를 업데이트하세요.",
+          "<strong>화면이 끊김:</strong> DJI Mimo에서 비트레이트를 낮추거나 공유기 가까이로 이동하세요."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Osmo Pocket 3로 Instagram 라이브를 할 수 있나요?", "a": "DJI Mimo만으로는 안 됩니다. RTMP로 Stream My Drone에 송출하면 앱이 세로 1080×1920으로 RTMPS를 통해 Instagram에 전달합니다." },
+    { "q": "Pocket 3의 라이브 방송 해상도는 얼마인가요?", "a": "DJI Mimo는 480p, 720p, 1080p, 30 fps를 제공하며, 1080p에서는 3 또는 6 Mbps입니다." },
+    { "q": "Pocket 3로 TikTok과 YouTube에 동시에 방송할 수 있나요?", "a": "네. Stream My Drone에 두 방송 대상을 추가하세요. 영상을 한 번 인코딩해 각 대상으로 보냅니다." },
+    { "q": "Pocket 3를 무선 웹캠으로 쓸 수 있나요?", "a": "네. Stream My Drone에 스트림이 들어오는 상태에서 가상 카메라를 시작하고, 화상 앱에서 Stream My Drone Camera를 고르세요." }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "slug": "cara-live-tiktok-dengan-drone-dji",
+  "platform": "TikTok",
+  "title": "Cara live TikTok dengan drone DJI (panduan 2026)",
+  "description": "Siaran langsung drone DJI di TikTok dari DJI Fly: dengan stream key TikTok, atau tanpa stream key lewat TikTok LIVE Studio dan kamera virtual. Pengaturan dan solusi masalah.",
+  "h1": "Cara live di TikTok dengan drone DJI",
+  "lead": "DJI Fly tidak bisa streaming ke TikTok sendiri, tetapi bisa mengirim RTMP ke komputer. Stream My Drone menerima siaran itu dan meneruskannya ke TikTok dengan salah satu dari dua cara: <strong>langsung dengan URL server dan stream key TikTok</strong>, jika akun Anda memilikinya, atau <strong>lewat TikTok LIVE Studio</strong>, tempat drone muncul sebagai kamera dan stream key tidak diperlukan.",
+  "published": "2026-10-02",
+  "updated": "2026-10-21",
+  "summary": [
+    "Anda memerlukan drone DJI yang aplikasi DJI Fly-nya menyediakan RTMP di bawah Live Streaming Platforms, serta Mac atau PC Windows di Wi-Fi atau hotspot yang sama dengan remote.",
+    "Dengan stream key: tambahkan tujuan TikTok di Stream My Drone lalu tekan MULAI SIARAN.",
+    "Tanpa stream key: pilih “Stream My Drone Camera” sebagai sumber kamera di TikTok LIVE Studio dan mulai live dari sana.",
+    "TikTok mengharapkan video vertikal; aplikasi mengirim 1080×1920 pada 30 fps dan mengisi ruang kosong dengan salinan gambar yang diburamkan.",
+    "TikTok yang menentukan siapa yang boleh LIVE dan siapa yang mendapat stream key; persyaratannya bergantung pada akun dan wilayah Anda."
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "Yang Anda butuhkan",
+      "blocks": [
+        { "list": [
+          "Drone dan remote DJI yang DJI Fly-nya menampilkan <strong>RTMP</strong> di bawah <em>Live Streaming Platforms</em>. Jika versi DJI Fly Anda memilikinya, drone Anda bisa dipakai — aplikasi tidak pernah berkomunikasi langsung dengan drone.",
+          "Mac (macOS 13 atau lebih baru, Apple Silicon atau Intel) atau PC Windows 10/11 dengan <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> terpasang.",
+          "Remote dan komputer di jaringan Wi-Fi yang sama, atau keduanya di hotspot ponsel Anda.",
+          "Akun TikTok yang bisa LIVE. Untuk cara langsung, akun juga memerlukan akses RTMP (URL server dan stream key); untuk cara LIVE Studio, akun memerlukan akses ke TikTok LIVE Studio."
+        ] }
+      ]
+    },
+    {
+      "id": "connect",
+      "h2": "Langkah 1: kirim gambar drone ke komputer Anda",
+      "blocks": [
+        { "steps": [
+          { "t": "Buka Stream My Drone", "d": "Tab Siaran menampilkan alamat seperti <code>rtmp://192.168.1.20:1935/drone</code> beserta kode QR." },
+          { "t": "Buka layar RTMP di DJI Fly", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP." },
+          { "t": "Tempel alamatnya dan mulai", "d": "Saat gambar sudah masuk, langkah pertama di aplikasi berubah hijau dan pratinjau langsung muncul." }
+        ] },
+        { "note": "Tidak ada drone di dekat Anda? Gunakan <em>Coba dengan berkas video</em> di aplikasi untuk berlatih seluruh jalurnya dengan klip rekaman." }
+      ]
+    },
+    {
+      "id": "stream-key",
+      "h2": "Cara A: live di TikTok dengan stream key",
+      "howto": true,
+      "blocks": [
+        { "p": "Gunakan cara ini jika TikTok menampilkan URL server dan stream key untuk Anda. Tidak semua akun mendapatkannya; jika Anda tidak menemukannya, gunakan Cara B." },
+        { "steps": [
+          { "t": "Salin URL server dan stream key dari TikTok", "d": "Buka layar stream key di TikTok LIVE Center atau TikTok LIVE Studio, lalu salin <em>Server URL</em> (bentuknya seperti <code>rtmp://push-rtmp-….tiktokcdn.com/game/</code>) dan <em>Stream key</em>." },
+          { "t": "Tambahkan tujuan TikTok", "d": "Di Stream My Drone, di bawah <em>Mau siaran ke mana?</em>, pilih TikTok lalu tempel kedua nilai itu. Kuncinya disimpan di brankas kredensial sistem Anda, bukan di berkas." },
+          { "t": "Biarkan gambar tetap vertikal", "d": "Di bawah <em>Gambar dan suara</em>, biarkan <em>Vertikal 9:16</em> aktif. <em>Gambar utuh</em> mengisi ruang kosong dengan salinan gambar yang diburamkan; <em>Penuhi layar</em> memotongnya." },
+          { "t": "Tekan MULAI SIARAN", "d": "Tombol terbuka saat server lokal berjalan, video drone sudah masuk, dan satu tujuan sudah dipilih. Kartu tujuan kemudian menunjukkan <em>Siaran</em>." },
+          { "t": "Periksa siaran di TikTok", "d": "Pastikan di TikTok bahwa siaran sudah diterima dan bersifat publik. Tekan <em>Akhiri siaran</em> di aplikasi setelah selesai." }
+        ] }
+      ]
+    },
+    {
+      "id": "live-studio",
+      "h2": "Cara B: TikTok LIVE Studio tanpa stream key",
+      "blocks": [
+        { "p": "TikTok LIVE Studio adalah aplikasi desktop resmi TikTok. Anda masuk dengan akun TikTok, jadi tidak perlu akses RTMP — cukup sebuah kamera. Stream My Drone menyediakan kamera bernama <strong>Stream My Drone Camera</strong>." },
+        { "steps": [
+          { "t": "Aktifkan kamera virtual", "d": "Di tab TikTok LIVE Studio, tekan <em>Aktifkan kamera virtual</em>. Di Mac, aplikasi harus berada di folder Applications, dan macOS meminta persetujuan sekali di System Settings → General → Login Items &amp; Extensions → Camera Extensions." },
+          { "t": "Mulai kamera", "d": "Saat kartu menunjukkan <em>Siap dimulai</em>, tekan <em>Mulai kamera virtual</em>." },
+          { "t": "Tambahkan kamera di LIVE Studio", "d": "Tambahkan sumber Camera dan pilih <strong>Stream My Drone Camera</strong>." },
+          { "t": "Atur suaranya", "d": "Atur audio capture sumber itu ke <em>None</em> dan pilih satu mikrofon di LIVE Studio. Kamera hanya membawa video, jadi audio tidak pernah terdengar ganda." },
+          { "t": "Mulai live", "d": "Tekan Go Live di TikTok LIVE Studio. Keputusan untuk mulai live selalu ada di tangan Anda." }
+        ] },
+        { "img": "virtual-camera.png", "alt": "Tab TikTok LIVE Studio di Stream My Drone dengan tombol Mulai kamera virtual." },
+        { "note": "Kamera virtual bawaan di Windows sudah diuji dengan TikTok LIVE Studio. Pilih “Stream My Drone Camera” sebagai sumber video. Integrasi OBS opsional juga tersedia untuk siaran yang memakai scene OBS." }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Pengaturan yang disarankan untuk TikTok",
+      "blocks": [
+        { "table": {
+          "head": ["Pengaturan", "Nilai", "Alasannya"],
+          "rows": [
+            ["Orientasi", "Vertikal 9:16, 1080×1920", "TikTok ditonton di ponsel dalam mode potret."],
+            ["Frame rate", "30 fps", "Mulus, dan ringan untuk bandwidth unggah."],
+            ["Bitrate", "6 Mbps CBR", "Laju yang konstan membuat server penerima tetap stabil."],
+            ["Codec video", "H.264 High, keyframe tiap 2 detik", "Sesuai harapan server penerima siaran langsung."],
+            ["Pembingkaian", "Gambar utuh", "Tanpa bilah hitam dan tanpa tepi yang hilang."]
+          ]
+        } },
+        { "p": "Aplikasi memakai nilai-nilai ini secara otomatis; Anda hanya memilih orientasi dan pembingkaian. Siapkan unggahan stabil minimal 10 Mbps per tujuan." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Jika tidak berhasil",
+      "blocks": [
+        { "list": [
+          "<strong>Pratinjau tetap kosong:</strong> remote dan komputer kemungkinan berada di jaringan berbeda. Sambungkan keduanya ke Wi-Fi atau hotspot yang sama dan periksa alamat di DJI Fly.",
+          "<strong>DJI Fly tidak mau mulai streaming di RC 2:</strong> beberapa versi DJI Fly meminta mikrofon tersambung ke remote terlebih dahulu.",
+          "<strong>Kartu TikTok menunjukkan Koneksi gagal:</strong> salin lagi URL server dan kuncinya — kunci bisa kedaluwarsa atau diatur ulang.",
+          "<strong>Kamera tidak muncul di LIVE Studio:</strong> mulai kamera virtual terlebih dahulu, lalu mulai ulang LIVE Studio agar daftar kamera dibaca lagi.",
+          "<strong>Gambarnya 720p:</strong> remote sering mengirim 720p. Aplikasi menampilkan resolusi input sebenarnya dan tidak berpura-pura bahwa itu 1080p asli."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Bisakah saya live di TikTok dari drone DJI tanpa stream key?", "a": "Bisa. Gunakan TikTok LIVE Studio dan pilih Stream My Drone Camera sebagai sumber kameranya. Anda masuk ke LIVE Studio dengan akun Anda sendiri, jadi URL server atau stream key tidak diperlukan." },
+    { "q": "Kenapa saya tidak punya stream key TikTok?", "a": "TikTok hanya memberikan stream key RTMP kepada sebagian akun, dan aturannya berbeda di tiap wilayah serta berubah dari waktu ke waktu. TikTok LIVE Studio adalah alternatifnya jika Anda tidak memilikinya." },
+    { "q": "Bisakah saya siaran ke TikTok dan Instagram sekaligus?", "a": "Bisa, dengan stream key untuk keduanya. Stream My Drone mengenkode gambar sekali lalu mengirimkannya ke setiap tujuan yang aktif; satu tujuan yang gagal tidak menghentikan yang lain." },
+    { "q": "Apakah Stream My Drone masuk ke akun TikTok saya?", "a": "Tidak. Aplikasi ini tidak pernah masuk ke platform dan tidak pernah menekan Go Live untuk Anda; ia hanya mengirim video ke alamat yang Anda berikan, atau menyediakan kamera untuk LIVE Studio." },
+    { "q": "Apakah Stream My Drone gratis?", "a": "Ya. Gratis dan bersumber terbuka di bawah lisensi MIT, serta tidak berafiliasi dengan DJI maupun TikTok." }
+  ]
+}

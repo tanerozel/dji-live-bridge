@@ -1,0 +1,80 @@
+{
+  "slug": "drone-dji-ke-obs-tanpa-nginx",
+  "platform": "Tanpa NGINX",
+  "title": "Siaran drone DJI tanpa repot mengatur NGINX dan OBS (2026)",
+  "description": "Cara umum memasukkan DJI Fly ke OBS adalah server RTMP NGINX, berkas konfigurasi, dan media source. Ini yang perlu dikerjakan, dan cara satu aplikasi untuk melewatinya.",
+  "h1": "Siaran drone DJI tanpa mengatur NGINX dan OBS",
+  "lead": "Cari cara memasukkan drone DJI ke OBS, dan sebagian besar panduan dimulai dengan cara yang sama: pasang <strong>server RTMP NGINX</strong>, ubah konfigurasinya, buka firewall, arahkan DJI Fly ke sana, lalu tarik siarannya ke <strong>OBS</strong> sebagai media source. Cara ini berhasil, tetapi sudah seperti proyek server kecil. <strong>Stream My Drone</strong> menggabungkan server RTMP, pratinjau, enkode, dan output ke platform dalam satu aplikasi — dan tetap bisa menyerahkan gambar ke OBS kalau Anda mau.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Resep klasiknya adalah DJI Fly → NGINX dengan modul RTMP → media source OBS → satu platform.",
+    "Artinya memasang server, mengubah nginx.conf, mengizinkan port 1935, dan menyusun scene secara manual.",
+    "Beberapa platform sekaligus memerlukan plugin OBS atau layanan cloud; kanvas vertikal memerlukan pengaturan tambahan.",
+    "Stream My Drone menerima DJI Fly secara langsung dan menyiarkan ke beberapa platform, vertikal atau horizontal, tanpa memasang apa pun lagi.",
+    "Jika tetap ingin memakai OBS, <em>Siapkan scene OBS</em> membuatkan scene DJI LIVE berisi siaran drone untuk Anda."
+  ],
+  "sections": [
+    {
+      "id": "diy",
+      "h2": "Resep NGINX + OBS yang biasa",
+      "blocks": [
+        { "steps": [
+          { "t": "Pasang server RTMP", "d": "NGINX dengan modul RTMP (di Windows sering berupa paket siap pakai), atau server RTMP lain." },
+          { "t": "Ubah konfigurasi", "d": "Tambahkan blok <code>rtmp</code> dengan application seperti <code>live</code> ke nginx.conf lalu jalankan servernya." },
+          { "t": "Buka firewall", "d": "Izinkan koneksi masuk di port 1935 dan cari alamat lokal komputer." },
+          { "t": "Arahkan DJI Fly ke sana", "d": "Masukkan alamat seperti <code>rtmp://192.168.1.20/live/drone</code> di bawah Live Streaming Platforms → RTMP." },
+          { "t": "Tarik ke OBS", "d": "Tambahkan Media Source dengan alamat yang sama, atur ukurannya di kanvas, lalu isi URL stream dan kunci OBS untuk platform Anda." }
+        ] },
+        { "p": "Setelah itu, setiap perubahan harus dilakukan manual: jaringan baru berarti alamat baru, platform kedua berarti plugin atau layanan relay, dan siaran vertikal berarti kanvas kedua atau profil terpisah." }
+      ]
+    },
+    {
+      "id": "compare",
+      "h2": "Apa yang digantikan Stream My Drone",
+      "blocks": [
+        { "table": {
+          "head": ["Tugas", "NGINX + OBS", "Stream My Drone"],
+          "rows": [
+            ["Server RTMP untuk DJI Fly", "Pasang dan konfigurasikan NGINX", "Bawaan; alamatnya ditampilkan dengan kode QR"],
+            ["Pratinjau drone", "Media source OBS", "Bawaan, dengan resolusi dan bitrate"],
+            ["Beberapa platform sekaligus", "Plugin atau layanan cloud", "Bawaan"],
+            ["Instagram (RTMPS)", "OBS bisa mengirim RTMPS ke satu tujuan", "Bawaan, bersama tujuan lainnya"],
+            ["Vertikal 1080×1920", "Susun kanvas vertikal", "Satu tombol, dengan latar buram"],
+            ["TikTok tanpa stream key", "OBS Virtual Camera + LIVE Studio", "Kamera virtual bawaan"],
+            ["Stream key", "Di pengaturan OBS", "Di brankas kredensial sistem"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Pengaturan dengan satu aplikasi",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Pasang Stream My Drone", "d": "Unduh untuk <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS atau Windows</a>; FFmpeg dan server media sudah ada di dalamnya." },
+          { "t": "Salin alamat ke DJI Fly", "d": "Aplikasi menampilkan alamat seperti <code>rtmp://192.168.1.20:1935/drone</code>. Masukkan di DJI Fly pada GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP." },
+          { "t": "Tambahkan platform Anda", "d": "Instagram, TikTok, YouTube, Facebook, Twitch, Kick, atau server RTMP mana pun, masing-masing dengan URL dan kuncinya." },
+          { "t": "Tekan MULAI SIARAN", "d": "Gambar dienkode sekali lalu dikirim ke setiap tujuan yang aktif." }
+        ] },
+        { "img": "go-live.png", "alt": "Tab Siaran di Stream My Drone dengan alamat RTMP untuk DJI Fly, daftar tujuan, dan tombol MULAI SIARAN." }
+      ]
+    },
+    {
+      "id": "obs",
+      "h2": "Jika Anda tetap ingin memakai OBS",
+      "blocks": [
+        { "p": "OBS tak tertandingi untuk scene, overlay, dan transisi. Stream My Drone tidak menggantikan itu — yang digantikannya adalah bagian NGINX. Aktifkan OBS WebSocket (Tools → WebSocket Server Settings), hubungkan di tab Lanjutan aplikasi, lalu tekan <em>Siapkan scene OBS</em>: aplikasi membuat scene bernama <strong>DJI LIVE</strong> yang sudah berisi siaran drone, disesuaikan dengan kanvas horizontal atau vertikal." },
+        { "img": "advanced.png", "alt": "Tab Lanjutan di Stream My Drone dengan integrasi OBS opsional dan tombol Siapkan scene OBS." },
+        { "note": "Untuk panggilan di Zoom, Meet, atau Teams lewat OBS Virtual Camera, lihat <a href=\"../jadikan-drone-dji-sebagai-webcam/\">panduan webcam</a>." }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Apakah saya perlu NGINX untuk menyiarkan drone DJI ke OBS?", "a": "Tidak. Stream My Drone memiliki server RTMP sendiri; dengan Siapkan scene OBS, aplikasi juga memasukkan siaran drone ke OBS tanpa NGINX." },
+    { "q": "Apakah saya perlu OBS untuk siaran drone DJI?", "a": "Tidak. Stream My Drone menyiarkan langsung ke Instagram, TikTok, YouTube, dan platform lain. OBS bersifat opsional untuk scene dan overlay." },
+    { "q": "Apakah cara NGINX lebih buruk?", "a": "Cara itu berhasil dan fleksibel, tetapi Anda harus merawat sendiri server, berkas konfigurasi, dan scene OBS, serta multistream atau video vertikal memerlukan langkah tambahan." },
+    { "q": "Berapa biaya Stream My Drone?", "a": "Gratis. Aplikasi ini gratis dan bersumber terbuka di bawah lisensi MIT." }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "slug": "how-to-stream-a-dji-drone-on-twitch",
+  "platform": "Twitch",
+  "title": "DJI 드론으로 Twitch 방송하는 방법 (RTMP 설정)",
+  "description": "DJI 드론을 Twitch로 생중계하기: 크리에이터 대시보드에서 스트림 키를 복사하고, Stream My Drone에 Twitch를 사용자 지정 RTMP 대상으로 추가해 방송하세요.",
+  "h1": "DJI 드론으로 Twitch 방송하는 방법",
+  "lead": "Twitch <strong>크리에이터 대시보드 → 설정 → 방송</strong>에서 기본 스트림 키를 복사하고, Stream My Drone에 서버 <code>rtmp://live.twitch.tv/app</code>와 그 키로 <strong>사용자 지정 RTMP</strong> 방송 대상을 추가하세요. DJI Fly에서 드론 화면을 앱으로 보내고 방송 시작을 누르면 됩니다. Twitch는 스트림을 받는 즉시 방송을 시작합니다.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Twitch는 사용자 지정 RTMP 대상으로 추가합니다: 서버 rtmp://live.twitch.tv/app와 스트림 키.",
+    "스트림 키는 크리에이터 대시보드 → 설정 → 방송에 있으며, 재설정하기 전까지 바뀌지 않습니다.",
+    "가로 16:9를 쓰세요. Twitch 시청자는 대부분 가로로 봅니다.",
+    "2초 키프레임의 1080p30, 6 Mbps가 Twitch 권장 사항에 맞습니다.",
+    "Twitch는 스트림이 도착하는 즉시 방송을 시작합니다. 별도의 방송 시작 버튼이 없습니다."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Twitch로 방송하기, 단계별로",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "드론 연결", "d": "DJI Fly에서 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP를 열고 Stream My Drone에 표시된 주소를 입력하세요." },
+          { "t": "스트림 키 복사", "d": "twitch.tv에서 크리에이터 대시보드 → 설정 → 방송을 열고 <em>기본 스트림 키</em>를 복사하세요." },
+          { "t": "사용자 지정 RTMP 대상 추가", "d": "Stream My Drone에서 사용자 지정 RTMP를 고르고 이름을 Twitch로 정한 뒤, 서버 URL에 <code>rtmp://live.twitch.tv/app</code>를 입력하고 키를 붙여넣으세요." },
+          { "t": "가로 16:9 선택", "d": "<em>화면과 소리</em>에서 <em>가로 16:9</em>를 골라 1920×1080으로 방송하세요." },
+          { "t": "방송 시작 누르기", "d": "몇 초 안에 채널이 방송을 시작합니다. 제목과 카테고리는 크리에이터 대시보드에서 정하고, 끝낼 때는 앱에서 <em>방송 종료</em>를 누르세요." }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Twitch 설정",
+      "blocks": [
+        { "table": {
+          "head": ["설정", "값"],
+          "rows": [
+            ["서버 URL", "<code>rtmp://live.twitch.tv/app</code>(Twitch가 가장 가까운 서버를 고름)"],
+            ["해상도", "1920×1080, 가로"],
+            ["프레임 레이트", "30 fps"],
+            ["비트레이트", "6 Mbps CBR"],
+            ["키프레임", "2초마다"]
+          ]
+        } },
+        { "p": "Twitch 도움말 페이지에는 지역별 방송 서버도 나와 있습니다. 자동 주소로 연결이 느리다면 가까운 지역 서버를 대신 입력하세요." }
+      ]
+    },
+    {
+      "id": "simulcast",
+      "h2": "Twitch와 다른 플랫폼에 동시에 방송하기",
+      "blocks": [
+        { "p": "Stream My Drone은 같은 화면을 Twitch, YouTube 등에 동시에 보낼 수 있습니다. Twitch의 동시 송출 규정은 해마다 바뀌어 왔고 제휴(Affiliate)와 파트너(Partner)에 따라 다를 수 있으니, 여러 플랫폼에 방송하기 전에 현재 계약 내용을 확인하세요." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "자주 생기는 문제",
+      "blocks": [
+        { "list": [
+          "<strong>연결 실패:</strong> 서버 URL이 정확히 <code>rtmp://live.twitch.tv/app</code>인지, 키에 불필요한 공백이 없는지 확인하세요.",
+          "<strong>시청자 화면이 버퍼링됨:</strong> 업로드가 충분히 안정적이지 않습니다. 다른 업로드를 멈추거나 컴퓨터를 유선으로 연결하세요.",
+          "<strong>키가 유출됨:</strong> 크리에이터 대시보드에서 키를 재설정하고 앱에서 업데이트하세요."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI 드론으로 Twitch 방송을 할 수 있나요?", "a": "네. DJI Fly의 RTMP 스트림을 Stream My Drone으로 보내고, rtmp://live.twitch.tv/app와 스트림 키로 Twitch를 사용자 지정 RTMP 대상으로 추가하세요." },
+    { "q": "Twitch 스트림 키는 어디에 있나요?", "a": "twitch.tv에서 크리에이터 대시보드 → 설정 → 방송 → 기본 스트림 키입니다." },
+    { "q": "Twitch에 세로 영상으로 방송해야 하나요?", "a": "보통은 아닙니다. Twitch는 대부분 가로로 시청하므로 가로 16:9를 고르세요." },
+    { "q": "Twitch 키는 바뀌나요?", "a": "아니요, 재설정할 때만 바뀌므로 한 번만 설정하면 됩니다." },
+    { "q": "Twitch 방송에 OBS가 필요한가요?", "a": "아니요. Stream My Drone이 직접 스트림을 보냅니다. 장면이나 오버레이가 필요할 때만 OBS를 선택적으로 쓰면 됩니다." }
+  ]
+}

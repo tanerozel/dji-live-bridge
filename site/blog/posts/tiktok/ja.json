@@ -1,0 +1,111 @@
+{
+  "slug": "how-to-go-live-on-tiktok-with-a-dji-drone",
+  "platform": "TikTok",
+  "title": "DJI ドローンで TikTok LIVE を配信する方法（2026年版）",
+  "description": "DJI Fly から DJI ドローンの映像を TikTok でライブ配信する方法。TikTok のストリームキーを使う方法と、キーなしで TikTok LIVE Studio と仮想カメラを使う方法、設定と対処法を解説します。",
+  "h1": "DJI ドローンで TikTok LIVE を配信する方法",
+  "lead": "DJI Fly だけでは TikTok に配信できませんが、パソコンへ RTMP を送ることはできます。Stream My Drone はその配信を受け取り、2 つの方法のどちらかで TikTok に届けます。アカウントにあれば <strong>TikTok のサーバー URL とストリームキーで直接</strong>、なければ <strong>TikTok LIVE Studio 経由</strong>です。LIVE Studio ではドローンがカメラとして現れ、ストリームキーは要りません。",
+  "published": "2026-10-02",
+  "updated": "2026-10-21",
+  "summary": [
+    "必要なのは、DJI Fly の Live Streaming Platforms に RTMP がある DJI ドローンと、送信機と同じ Wi-Fi かテザリングにつないだ Mac または Windows パソコンです。",
+    "ストリームキーがある場合：Stream My Drone に TikTok の配信先を追加し、「配信を開始」を押します。",
+    "ストリームキーがない場合：TikTok LIVE Studio でカメラのソースに「Stream My Drone Camera」を選び、そこから配信します。",
+    "TikTok は縦型の映像を前提にしています。アプリは 1080×1920、30 fps で送り、空いたスペースは映像をぼかした複製で埋めます。",
+    "誰が LIVE をできて誰がストリームキーをもらえるかは TikTok が決めます。条件はアカウントや地域によって違います。"
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "必要なもの",
+      "blocks": [
+        { "list": [
+          "DJI Fly の <em>Live Streaming Platforms</em> に <strong>RTMP</strong> がある DJI ドローンと送信機。お使いの DJI Fly のバージョンにあれば、そのドローンで使えます。アプリがドローンと直接やり取りすることはありません。",
+          "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> をインストールした Mac（macOS 13 以降、Apple Silicon または Intel）か Windows 10/11 の PC。",
+          "同じ Wi-Fi ネットワーク、またはスマホのテザリングにつないだ送信機とパソコン。",
+          "LIVE ができる TikTok アカウント。直接配信する方法では RTMP の利用権限（サーバー URL とストリームキー）も、LIVE Studio を使う方法では TikTok LIVE Studio の利用権限も必要です。"
+        ] }
+      ]
+    },
+    {
+      "id": "connect",
+      "h2": "ステップ 1：ドローンの映像をパソコンへ送る",
+      "blocks": [
+        { "steps": [
+          { "t": "Stream My Drone を開く", "d": "「配信」タブに <code>rtmp://192.168.1.20:1935/drone</code> のようなアドレスと QR コードが表示されます。" },
+          { "t": "DJI Fly で RTMP の画面を開く", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP。" },
+          { "t": "アドレスを貼り付けて開始", "d": "映像が届くと、アプリの最初の手順が緑になり、ライブプレビューが表示されます。" }
+        ] },
+        { "note": "手元にドローンがない？ アプリの<em>動画ファイルで試す</em>を使えば、録画したクリップで経路全体をリハーサルできます。" }
+      ]
+    },
+    {
+      "id": "stream-key",
+      "h2": "方法 A：ストリームキーで TikTok LIVE を配信する",
+      "howto": true,
+      "blocks": [
+        { "p": "TikTok にサーバー URL とストリームキーが表示されるなら、この方法を使います。すべてのアカウントにあるわけではありません。見つからなければ方法 B を使ってください。" },
+        { "steps": [
+          { "t": "TikTok からサーバー URL とストリームキーをコピー", "d": "TikTok LIVE Center か TikTok LIVE Studio でストリームキーの画面を開き、<em>サーバー URL</em>（<code>rtmp://push-rtmp-….tiktokcdn.com/game/</code> のような形）と<em>ストリームキー</em>をコピーします。" },
+          { "t": "TikTok の配信先を追加", "d": "Stream My Drone の<em>どこへ配信しますか？</em>で TikTok を選び、両方の値を貼り付けます。キーはファイルではなく、システムの資格情報ストアに保存されます。" },
+          { "t": "映像は縦型のままに", "d": "<em>映像と音声</em>で<em>縦 9:16</em> をオンのままにします。<em>全体を表示</em>は空いたスペースを映像のぼかした複製で埋め、<em>画面いっぱい</em>は代わりに切り抜きます。" },
+          { "t": "「配信を開始」を押す", "d": "ローカルサーバーが動いていて、ドローンの映像が届いていて、配信先が選ばれていると、ボタンが押せるようになります。その後、配信先のカードに<em>配信中</em>と表示されます。" },
+          { "t": "TikTok で配信を確認", "d": "TikTok で配信が受信され、公開されていることを確認します。終わったらアプリで<em>配信を終了</em>を押します。" }
+        ] }
+      ]
+    },
+    {
+      "id": "live-studio",
+      "h2": "方法 B：ストリームキーなしで TikTok LIVE Studio を使う",
+      "blocks": [
+        { "p": "TikTok LIVE Studio は TikTok 公式のデスクトップアプリです。TikTok アカウントでログインするので RTMP の利用権限は要らず、必要なのはカメラだけです。Stream My Drone が <strong>Stream My Drone Camera</strong> というカメラを用意します。" },
+        { "steps": [
+          { "t": "仮想カメラを有効にする", "d": "TikTok LIVE Studio タブで<em>仮想カメラを有効にする</em>を押します。Mac ではアプリをアプリケーションフォルダに入れておく必要があり、macOS が一度だけ、システム設定 → 一般 → ログイン項目と機能拡張 → カメラ機能拡張 で承認を求めます。" },
+          { "t": "カメラを開始する", "d": "カードに<em>開始できます</em>と表示されたら、<em>仮想カメラを開始</em>を押します。" },
+          { "t": "LIVE Studio にカメラを追加", "d": "カメラのソースを追加し、<strong>Stream My Drone Camera</strong> を選びます。" },
+          { "t": "音声を設定する", "d": "そのソースの音声取り込みを<em>なし</em>にして、LIVE Studio でマイクを 1 つ選びます。このカメラは映像だけを運ぶので、音が二重になることはありません。" },
+          { "t": "配信を始める", "d": "TikTok LIVE Studio で Go Live を押します。配信を始める操作は、いつもあなた自身の手に残ります。" }
+        ] },
+        { "img": "virtual-camera.png", "alt": "「仮想カメラを開始」ボタンがある Stream My Drone の TikTok LIVE Studio タブ。" },
+        { "note": "Windows の内蔵仮想カメラは TikTok LIVE Studio でテスト済みです。映像ソースとして「Stream My Drone Camera」を選んでください。OBS のシーンを使う配信向けに、任意の OBS 連携もあります。" }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "TikTok 向けのおすすめ設定",
+      "blocks": [
+        { "table": {
+          "head": ["設定", "値", "理由"],
+          "rows": [
+            ["向き", "縦 9:16、1080×1920", "TikTok はスマホで縦向きに視聴されます。"],
+            ["フレームレート", "30 fps", "なめらかで、アップロード帯域への負担も軽めです。"],
+            ["ビットレート", "6 Mbps CBR", "一定のレートなら受信サーバーが安定して受け付けます。"],
+            ["映像コーデック", "H.264 High、キーフレーム 2 秒", "ライブの受信サーバーが求める形式です。"],
+            ["画角", "全体を表示", "黒帯がなく、端も切れません。"]
+          ]
+        } },
+        { "p": "これらの値はアプリが自動で使います。選ぶのは向きと画角だけです。配信先 1 つあたり、最低 10 Mbps の安定したアップロード帯域を見込んでください。" }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "うまくいかないとき",
+      "blocks": [
+        { "list": [
+          "<strong>プレビューが空のまま：</strong>送信機とパソコンが別のネットワークにある可能性が高いです。両方を同じ Wi-Fi かテザリングにつなぎ、DJI Fly のアドレスを確認してください。",
+          "<strong>RC 2 の DJI Fly が配信を開始しない：</strong>DJI Fly のバージョンによっては、先に送信機にマイクをつなぐ必要があります。",
+          "<strong>TikTok のカードに「接続に失敗」と表示される：</strong>サーバー URL とキーをもう一度コピーしてください。キーは期限切れになったりリセットされたりすることがあります。",
+          "<strong>LIVE Studio にカメラがない：</strong>先に仮想カメラを開始し、LIVE Studio を再起動してカメラの一覧を読み込み直させます。",
+          "<strong>映像が 720p：</strong>送信機はよく 720p で送ってきます。アプリは実際の入力解像度を表示し、ネイティブの 1080p であるかのように見せかけることはしません。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "ストリームキーなしで DJI ドローンから TikTok LIVE を配信できますか？", "a": "はい。TikTok LIVE Studio を使い、カメラのソースに Stream My Drone Camera を選んでください。LIVE Studio には自分のアカウントでログインするので、サーバー URL もストリームキーも要りません。" },
+    { "q": "なぜ TikTok のストリームキーがないのですか？", "a": "TikTok が RTMP のストリームキーを出すのは一部のアカウントだけで、そのルールは地域によって異なり、時期によっても変わります。キーがないときの代わりが TikTok LIVE Studio です。" },
+    { "q": "TikTok と Instagram に同時に配信できますか？", "a": "はい、両方のストリームキーがあればできます。Stream My Drone は映像を一度だけエンコードして、有効にしたすべての配信先へ送ります。1 つの配信先が失敗しても、ほかは止まりません。" },
+    { "q": "Stream My Drone は TikTok アカウントにログインしますか？", "a": "いいえ。プラットフォームにログインすることも、代わりに Go Live を押すこともありません。指定されたアドレスに映像を送るか、LIVE Studio にカメラを提供するだけです。" },
+    { "q": "Stream My Drone は無料ですか？", "a": "はい。MIT ライセンスの無料オープンソースで、DJI や TikTok とは提携していません。" }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "slug": "count-animals-with-a-dji-drone-ai-detection",
+  "slug": "tiere-zaehlen-mit-dji-drohne-ki-erkennung",
   "platform": "AI Vision",
   "title": "Ziegen, Schafe und Rinder mit KI live per DJI-Drohne zählen",
   "description": "Stream My Drone erkennt Ziegen, Schafe, Kühe, Pferde, Esel und Geflügel im Livebild Ihrer Drohne, markiert sie im Stream und zählt sie – alles auf Ihrem eigenen Computer.",
@@ -52,7 +52,7 @@
       "howto": true,
       "blocks": [
         { "steps": [
-          { "t": "Drohne verbinden", "d": "Senden Sie das Livebild wie gewohnt per RTMP aus DJI Fly an die App; die Adresse steht im Tab „Live gehen“. Die Einzelheiten finden Sie in <a href=\"../dji-fly-rtmp-live-streaming-setup/\">der Anleitung zu DJI Fly RTMP</a>." },
+          { "t": "Drohne verbinden", "d": "Senden Sie das Livebild wie gewohnt per RTMP aus DJI Fly an die App; die Adresse steht im Tab „Live gehen“. Die Einzelheiten finden Sie in <a href=\"../dji-fly-rtmp-livestream-einrichten/\">der Anleitung zu DJI Fly RTMP</a>." },
           { "t": "AI Vision einschalten", "d": "Suchen Sie im Tab „Live gehen“ die Karte <strong>AI Vision · Tiererkennung</strong> und schalten Sie <em>Tiererkennung</em> ein." },
           { "t": "Modell laden und vorbereiten lassen", "d": "Beim ersten Mal wird das Modell heruntergeladen und für Ihren Computer vorbereitet. Mit OWLv2 kann das einige Minuten dauern; die Karte zeigt den Fortschritt. Spätere Starts dauern etwa eine Minute." },
           { "t": "Schwelle einstellen", "d": "Ziehen Sie die <em>Konfidenzschwelle</em> für Luftaufnahmen, auf denen Tiere klein sind, auf etwa 0,25–0,35 herunter. Erhöhen Sie sie, wenn Rahmen auf Büschen oder Steinen erscheinen." },

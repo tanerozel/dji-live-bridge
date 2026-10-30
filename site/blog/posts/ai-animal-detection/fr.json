@@ -1,5 +1,5 @@
 {
-  "slug": "count-animals-with-a-dji-drone-ai-detection",
+  "slug": "compter-les-animaux-avec-un-drone-dji-detection-ia",
   "platform": "AI Vision",
   "title": "Compter chèvres, moutons et vaches en direct avec un drone DJI et l'IA",
   "description": "Stream My Drone repère chèvres, moutons, vaches, chevaux, ânes et volailles dans l'image en direct de votre drone, les marque dans le live et les compte, sur votre ordinateur.",
@@ -52,7 +52,7 @@
       "howto": true,
       "blocks": [
         { "steps": [
-          { "t": "Connectez votre drone", "d": "Envoyez l'image en direct de DJI Fly vers l'application en RTMP, comme d'habitude ; l'adresse se trouve dans l'onglet Direct. Les détails sont dans <a href=\"../dji-fly-rtmp-live-streaming-setup/\">le guide RTMP de DJI Fly</a>." },
+          { "t": "Connectez votre drone", "d": "Envoyez l'image en direct de DJI Fly vers l'application en RTMP, comme d'habitude ; l'adresse se trouve dans l'onglet Direct. Les détails sont dans <a href=\"../dji-fly-rtmp-reglages-diffusion-en-direct/\">le guide RTMP de DJI Fly</a>." },
           { "t": "Activez AI Vision", "d": "Dans l'onglet Direct, repérez la carte <strong>AI Vision · Détection d'animaux</strong> et activez <em>Détection d'animaux</em>." },
           { "t": "Laissez le modèle se télécharger et se préparer", "d": "La première fois, le modèle est téléchargé et préparé pour votre ordinateur. Avec OWLv2, cela peut prendre plusieurs minutes ; la carte affiche la progression. Les démarrages suivants prennent environ une minute." },
           { "t": "Réglez le seuil", "d": "Abaissez le <em>Seuil de confiance</em> vers 0,25 à 0,35 pour les prises de vue aériennes, où les animaux sont petits. Remontez-le si des cadres apparaissent sur des buissons ou des rochers." },

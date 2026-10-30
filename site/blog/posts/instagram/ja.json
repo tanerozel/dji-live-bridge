@@ -1,0 +1,81 @@
+{
+  "slug": "how-to-go-live-on-instagram-with-a-dji-drone",
+  "platform": "Instagram",
+  "title": "DJI ドローンで Instagram ライブ配信する方法（手順つき）",
+  "description": "DJI ドローンで Instagram ライブを始める方法。instagram.com でストリーム URL とキーを取得し、DJI Fly の RTMP 配信を Stream My Drone 経由で送って、Go live を押します。",
+  "h1": "DJI ドローンで Instagram ライブ配信する方法",
+  "lead": "Instagram ライブは配信ソフトからの映像を受け付けます。<strong>instagram.com →「作成（+）」→「ライブ動画」</strong>を開き、ストリーム URL とストリームキーを Stream My Drone にコピーします。DJI Fly からドローンの映像をアプリに送って「配信を開始」を押し、最後に Instagram で <strong>Go live</strong> を押します。Instagram は配信のたびに新しいキーを発行します。",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Instagram のストリーム URL とキーは、パソコンの instagram.com で取得します：「作成（+）」→「ライブ動画」。",
+    "キーは使い捨てです。配信のたびに、配信先のカードの「キーを更新」で新しくしてください。",
+    "Instagram は縦型の映像を前提にしています。アプリは 1080×1920、30 fps、キーフレーム 2 秒の H.264 で送ります。",
+    "配信が公開されるのは、Instagram 側で Go live を押してからです。",
+    "同じ映像を TikTok、YouTube、Facebook へ同時に送ることもできます。"
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "必要なもの",
+      "blocks": [
+        { "list": [
+          "DJI Fly の Live Streaming Platforms に RTMP がある DJI ドローン。",
+          "送信機と同じ Wi-Fi かテザリングにつないだ Mac または Windows パソコンの <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>。",
+          "instagram.com の「作成」に<em>ライブ動画</em>が表示される Instagram アカウント。表示されない場合、Instagram はまだそのアカウントにこの機能を提供していません。"
+        ] }
+      ]
+    },
+    {
+      "id": "steps",
+      "h2": "Instagram ライブを始める手順",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "ドローンを接続", "d": "DJI Fly で GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP を開き、Stream My Drone に表示されたアドレスを入力して開始します。アプリにプレビューが表示されます。" },
+          { "t": "Instagram でライブ動画を作成", "d": "instagram.com で「作成（+）」→「ライブ動画」をクリックし、タイトルを付けて公開範囲を選び、先に進みます。" },
+          { "t": "ストリーム URL とキーをコピー", "d": "Instagram に<em>ストリーム URL</em>（<code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code> のような形）と<em>ストリームキー</em>が表示されます。両方を Stream My Drone の Instagram の配信先に貼り付けます。" },
+          { "t": "「配信を開始」を押す", "d": "<em>縦 9:16</em> はオンのままにします。数秒で Instagram の画面にドローンの映像がプレビューとして表示されます。" },
+          { "t": "Instagram で Go live を押す", "d": "ここで初めてフォロワーに配信が見えるようになります。終えるときは Instagram で配信を終了し、アプリで<em>配信を終了</em>を押します。" }
+        ] },
+        { "note": "次回は Instagram で新しいライブ動画を作成し、配信先のカードの<em>キーを更新</em>を使ってください。古いキーはもう使えません。" }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Instagram が求める設定",
+      "blocks": [
+        { "table": {
+          "head": ["設定", "Stream My Drone"],
+          "rows": [
+            ["解像度", "1080×1920（縦 9:16）"],
+            ["フレームレート", "30 fps"],
+            ["映像", "H.264 High、6 Mbps CBR"],
+            ["キーフレーム", "2 秒ごと"],
+            ["プロトコル", "RTMPS（暗号化）"]
+          ]
+        } },
+        { "p": "ドローンは横向きで撮影します。<em>全体を表示</em>は映像全体を残し、上下のスペースを映像のぼかした複製で埋めます。<em>画面いっぱい</em>は左右を切り取ってスマホの画面を埋めます。" }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "よくある問題",
+      "blocks": [
+        { "list": [
+          "<strong>すぐに接続に失敗する：</strong>そのキーはすでに使われています。Instagram で新しいライブ動画を作成してキーを更新してください。",
+          "<strong>Instagram のプレビューが黒いまま：</strong>「配信を開始」のあと数秒待ちます。それでも黒いままなら、アプリのプレビューにドローンが映っているか確認してください。",
+          "<strong>フォロワーにライブが見えない：</strong>Instagram で Go live を押してください。配信を受信していることと、公開していることは別です。",
+          "<strong>「作成」にライブ動画がない：</strong>そのアカウントでは、まだウェブでこの機能が使えません。これは Instagram が決めることです。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI ドローンで Instagram ライブはできますか？", "a": "はい。DJI Fly がパソコンの Stream My Drone へ RTMP を送り、アプリが instagram.com で取得したストリーム URL とキーを使って Instagram へ転送します。" },
+    { "q": "なぜ Instagram は毎回新しいストリームキーを求めるのですか？", "a": "Instagram はライブ動画ごとに新しいキーを発行するからです。配信のたびに、アプリの「キーを更新」でキーを新しくしてください。" },
+    { "q": "Instagram と TikTok に同時に配信できますか？", "a": "はい。両方の配信先を有効にしてください。映像は一度だけエンコードされ、それぞれに送られます。どちらも縦型の映像を前提にしているので、1 つの設定で両方に合います。" },
+    { "q": "OBS は必要ですか？", "a": "いいえ。Stream My Drone が Instagram へ直接配信します。OBS は任意です。" },
+    { "q": "ドローンの音声も入りますか？", "a": "標準では、DJI Fly が送る音声がそのまま渡されます。パソコンのマイクを選んで実況を入れたり、配信をミュートしたりもできます。" }
+  ]
+}

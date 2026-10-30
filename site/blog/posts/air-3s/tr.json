@@ -10,7 +10,7 @@
   "summary": [
     "DJI RC 2 ile DJI Fly kumandanın ekranında çalışır; ayrı bir telefon görüntüyü alıp platforma iletebilir.",
     "RC-N3 ve RC-N2 ile DJI Fly telefonda çalışır. Bilgisayarlı kurulum, alıcıyı uçuş için kullanılan telefondan ayrı tutar.",
-    "Yerel alıcı adresi DJI Fly’a; platform bilgileri Stream My Drone veya Stream My Drone’a girilir.",
+    "Yerel alıcı adresi DJI Fly’a; platform bilgileri telefondaki veya bilgisayardaki Stream My Drone’a girilir.",
     "Kamera kaydı, kumandadaki canlı görüntü ve gönderilen RTMP yayınının kalite ayarları ayrıdır.",
     "Uçuştan önce seçtiğiniz kamera görüntüsünü ve platformun izleyici sayfasını kontrol edin."
   ],
@@ -233,7 +233,7 @@
     },
     {
       "q": "DJI Fly'a hangi adresi yazmalıyım?",
-      "a": "Stream My Drone veya Stream My Drone'un gösterdiği yerel alıcı adresinin tamamını yazın. Platformun sunucu adresini ve yayın anahtarını ise alıcı uygulamadaki hedef ayarlarına girin."
+      "a": "Telefondaki veya bilgisayardaki Stream My Drone'un gösterdiği yerel alıcı adresinin tamamını yazın. Platformun sunucu adresini ve yayın anahtarını ise alıcı uygulamadaki hedef ayarlarına girin."
     },
     {
       "q": "Stream My Drone görüntüyü dikey yayına dönüştürür mü?",

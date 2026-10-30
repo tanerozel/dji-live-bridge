@@ -1,0 +1,80 @@
+{
+  "slug": "transmitir-un-dron-dji-en-varias-plataformas-a-la-vez",
+  "platform": "Multistreaming",
+  "title": "Transmite tu dron DJI en varias plataformas a la vez (multistreaming)",
+  "description": "Envía una sola transmisión en directo de tu dron DJI a TikTok, Instagram, YouTube, Facebook, Twitch y Kick a la vez con Stream My Drone: gratis, en local y sin servicio de restream.",
+  "h1": "Transmite tu dron DJI en varias plataformas a la vez",
+  "lead": "DJI Fly envía una sola transmisión RTMP. Stream My Drone la recibe en tu ordenador, <strong>codifica la imagen una vez y la reenvía a cada destino que actives</strong> —TikTok, Instagram, YouTube, Facebook, Twitch, Kick o cualquier servidor RTMP— sin un servicio de restream de pago. Si un destino falla, los demás siguen funcionando.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Añade un destino por plataforma y activa «Transmitir aquí» en cada uno que quieras usar.",
+    "La imagen se codifica una sola vez, así que más destinos no necesitan más potencia de cálculo, solo más ancho de banda de subida.",
+    "Calcula unos 10 Mbps de subida estable por destino (6 Mbps de vídeo más margen).",
+    "Todos los destinos comparten la misma orientación: vertical para TikTok/Instagram, horizontal para YouTube/Twitch/Kick.",
+    "Todo funciona en local; no hay servidor de restream de terceros ni cuota mensual."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Configura un multistreaming",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Conecta el dron", "d": "En DJI Fly, abre GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP e introduce la dirección que muestra Stream My Drone." },
+          { "t": "Añade cada plataforma", "d": "En <em>¿Dónde quieres transmitir?</em>, usa <em>Añadir otro destino</em> para cada plataforma: TikTok, Instagram, YouTube y Facebook tienen su propio tipo; Twitch, Kick y las demás son RTMP personalizado." },
+          { "t": "Renueva las claves de un solo uso", "d": "Instagram (y Facebook sin clave persistente) necesitan una clave nueva para cada emisión. Usa <em>Actualizar clave</em> en esas tarjetas." },
+          { "t": "Elige la orientación para tu público principal", "d": "Una sola codificación alimenta todos los destinos, así que elige <em>Vertical 9:16</em> u <em>Horizontal 16:9</em> según la plataforma que más te importe." },
+          { "t": "Pulsa INICIAR TRANSMISIÓN", "d": "Cada tarjeta de destino muestra su propio estado —<em>En directo</em>, <em>Conectando</em> o <em>Error de conexión</em>— y un fallo no detiene a los demás. Pulsa el botón para salir en directo en las plataformas que lo necesiten (Instagram, Facebook)." }
+        ] }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Chuleta de plataformas",
+      "blocks": [
+        { "table": {
+          "head": ["Plataforma", "Dónde está la clave", "¿Cambia la clave?", "Mejor orientación"],
+          "rows": [
+            ["<a href=\"../como-hacer-un-directo-en-tiktok-con-un-dron-dji/\">TikTok</a>", "LIVE Center / LIVE Studio (cuentas que cumplan los requisitos)", "Puede cambiar", "Vertical"],
+            ["<a href=\"../como-hacer-un-directo-en-instagram-con-un-dron-dji/\">Instagram</a>", "instagram.com → Crear → Vídeo en directo", "En cada emisión", "Vertical"],
+            ["<a href=\"../como-transmitir-un-dron-dji-en-youtube/\">YouTube</a>", "YouTube Studio → Emitir en directo → Software de streaming", "Solo al restablecerla", "Horizontal o vertical"],
+            ["<a href=\"../como-hacer-un-directo-en-facebook-con-un-dron-dji/\">Facebook</a>", "Vídeo en directo → Software de streaming", "En cada sesión, salvo que sea persistente", "Cualquiera"],
+            ["<a href=\"../como-transmitir-un-dron-dji-en-twitch/\">Twitch</a>", "Panel de control del creador → Configuración → Transmisión", "Solo al restablecerla", "Horizontal"],
+            ["<a href=\"../como-transmitir-un-dron-dji-en-kick/\">Kick</a>", "Dashboard → Settings → Stream URL &amp; Key", "Solo al restablecerla", "Horizontal"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "bandwidth",
+      "h2": "Cuánta subida necesitas",
+      "blocks": [
+        { "table": {
+          "head": ["Destinos", "Vídeo enviado", "Subida estable que debes prever"],
+          "rows": [
+            ["1", "6 Mbps", "10 Mbps"],
+            ["2", "12 Mbps", "20 Mbps"],
+            ["3", "18 Mbps", "30 Mbps"],
+            ["4", "24 Mbps", "40 Mbps"]
+          ]
+        } },
+        { "p": "Con el punto de acceso de un teléfono en el campo, dos destinos suelen ser el límite práctico. Prueba la conexión con <em>Probar con un archivo de vídeo</em> antes de despegar." }
+      ]
+    },
+    {
+      "id": "rules",
+      "h2": "Revisa las normas de las plataformas",
+      "blocks": [
+        { "p": "Algunas plataformas limitan la emisión simultánea para sus partners o en sus condiciones; Twitch, en concreto, ha cambiado sus normas con el tiempo. Stream My Drone solo envía el vídeo que le indicas: nunca inicia sesión en una cuenta ni pulsa por ti el botón para salir en directo." }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "¿Puedo transmitir con mi dron DJI a TikTok y YouTube a la vez?", "a": "Sí. Añade ambos como destinos y pulsa INICIAR TRANSMISIÓN. Como los dos comparten la misma orientación, elige la que mejor encaje con tu público principal." },
+    { "q": "¿Necesito un servicio de restream?", "a": "No. Stream My Drone hace el multistreaming gratis en tu propio ordenador; solo necesita suficiente ancho de banda de subida." },
+    { "q": "¿Qué pasa si se cae una plataforma?", "a": "Solo ese destino muestra Error de conexión. Los demás siguen transmitiendo." },
+    { "q": "¿Cada plataforma extra necesita más CPU?", "a": "Apenas. La imagen se codifica una vez y los mismos datos se envían a cada destino." },
+    { "q": "¿Funciona el multistreaming en modo OBS?", "a": "No. Los destinos múltiples son una función de la transmisión directa; en modo OBS, es OBS quien decide adónde va la transmisión." }
+  ]
+}

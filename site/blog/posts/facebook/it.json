@@ -1,0 +1,75 @@
+{
+  "slug": "come-andare-in-diretta-su-facebook-con-un-drone-dji",
+  "platform": "Facebook",
+  "title": "Come andare in diretta su Facebook con un drone DJI (Live Producer)",
+  "description": "Diretta su Facebook da un drone DJI: prendi URL del server RTMPS e chiave di streaming da Live Producer, manda il flusso di DJI Fly tramite Stream My Drone e vai live.",
+  "h1": "Come andare in diretta su Facebook con un drone DJI",
+  "lead": "Su facebook.com apri <strong>Video in diretta → Software di streaming</strong> (Live Producer di Facebook), copia l'URL del server e la chiave di streaming in una destinazione Facebook di Stream My Drone, manda l'immagine del drone da DJI Fly all'app, premi AVVIA DIRETTA e poi premi <strong>«Vai in diretta»</strong> in Live Producer. Facebook accetta solo RTMPS cifrato, che l'app gestisce da sé.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "L'URL del server e la chiave si prendono da Live Producer: Video in diretta → Software di streaming.",
+    "URL del server: rtmps://live-api-s.facebook.com:443/rtmp/; Facebook richiede l'RTMPS.",
+    "Facebook genera una chiave nuova per ogni sessione, a meno che tu non attivi una chiave di streaming permanente.",
+    "Facebook vuole un fotogramma chiave ogni 2 secondi; Stream My Drone lo invia sempre.",
+    "Puoi pubblicare sul tuo profilo, su una Pagina o in un gruppo, e trasmettere su altre piattaforme nello stesso momento."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "In diretta su Facebook, passo per passo",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Collega il drone", "d": "In DJI Fly apri GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP e inserisci l'indirizzo mostrato da Stream My Drone. L'anteprima compare nell'app." },
+          { "t": "Apri Live Producer", "d": "Su facebook.com scegli Video in diretta, decidi dove pubblicare (il tuo profilo, una Pagina o un gruppo) e seleziona <em>Software di streaming</em>." },
+          { "t": "Copia l'URL del server e la chiave", "d": "Copia l'<em>URL del server</em> (<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>) e la <em>Chiave streaming</em> in una destinazione Facebook di Stream My Drone." },
+          { "t": "Premi AVVIA DIRETTA", "d": "Prima scegli l'orientamento: <em>Orizzontale 16:9</em> è adatto a chi guarda dal computer, <em>Verticale 9:16</em> al feed sul telefono. Dopo pochi secondi Live Producer mostra l'anteprima." },
+          { "t": "Premi «Vai in diretta» su Facebook", "d": "Aggiungi titolo e descrizione in Live Producer e premi «Vai in diretta». Per finire, chiudi lì il video e premi <em>Termina diretta</em> nell'app." }
+        ] }
+      ]
+    },
+    {
+      "id": "persistent-key",
+      "h2": "Usa una chiave di streaming permanente",
+      "blocks": [
+        { "p": "Per impostazione predefinita Facebook crea una chiave di streaming nuova per ogni sessione, quindi dovresti aggiornarla nell'app ogni volta. Live Producer ha un'opzione per <em>usare una chiave di streaming permanente</em>. Attivala, salva la chiave una volta in Stream My Drone e continuerà a funzionare per le dirette successive nello stesso posto." },
+        { "note": "Tratta una chiave permanente come una password: chiunque la abbia può trasmettere sulla tua pagina. Stream My Drone la conserva nell'archivio delle credenziali del sistema e non la scrive mai in un file o in un log." }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Impostazioni per Facebook",
+      "blocks": [
+        { "table": {
+          "head": ["Impostazione", "Valore"],
+          "rows": [
+            ["URL del server", "<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>"],
+            ["Protocollo", "RTMPS (richiesto da Facebook)"],
+            ["Risoluzione", "1920×1080 o 1080×1920"],
+            ["Frame rate", "30 fps"],
+            ["Video", "H.264, 6 Mbps CBR, un fotogramma chiave ogni 2 secondi"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Problemi frequenti",
+      "blocks": [
+        { "list": [
+          "<strong>Connessione non riuscita:</strong> la chiave della sessione è scaduta. Copiane una nuova da Live Producer, oppure passa a una chiave permanente.",
+          "<strong>L'indirizzo inizia con rtmp://:</strong> Facebook non accetta RTMP non cifrato; usa l'indirizzo rtmps:// di Live Producer.",
+          "<strong>Live Producer riceve il flusso ma nessuno lo vede:</strong> devi ancora premere «Vai in diretta» in Live Producer."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Posso andare in diretta su Facebook da un drone DJI?", "a": "Sì. DJI Fly invia RTMP a Stream My Drone sul tuo computer, e l'app lo inoltra a Facebook via RTMPS con la chiave presa da Live Producer." },
+    { "q": "Posso trasmettere su una Pagina o in un gruppo Facebook?", "a": "Sì. Scegli dove pubblicare in Live Producer prima di copiare la chiave; la chiave appartiene a quella destinazione." },
+    { "q": "Perché la mia chiave di streaming Facebook smette di funzionare?", "a": "Facebook genera una chiave per ogni sessione. Attiva la chiave di streaming permanente in Live Producer se trasmetti spesso nello stesso posto." },
+    { "q": "Posso trasmettere su Facebook e Instagram contemporaneamente?", "a": "Sì, come due destinazioni in Stream My Drone. Entrambe ricevono la stessa immagine, quindi scegli l'orientamento adatto al tuo pubblico principale." },
+    { "q": "È gratis?", "a": "Sì. Stream My Drone è gratuita e open source, e non è affiliata a DJI né a Meta." }
+  ]
+}

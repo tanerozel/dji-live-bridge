@@ -1,0 +1,65 @@
+{
+  "slug": "how-to-stream-a-dji-drone-on-kick",
+  "platform": "Kick",
+  "title": "DJI ड्रोन से Kick पर स्ट्रीम कैसे करें (स्ट्रीम URL और की)",
+  "description": "DJI ड्रोन से Kick पर लाइव स्ट्रीम करें: Kick डैशबोर्ड से स्ट्रीम URL और की कॉपी करें, उन्हें Stream My Drone में कस्टम RTMP गंतव्य के रूप में जोड़ें, और लाइव जाएँ।",
+  "h1": "DJI ड्रोन से Kick पर स्ट्रीम कैसे करें",
+  "lead": "Kick क्रिएटर डैशबोर्ड में <strong>Settings → Stream URL &amp; Key</strong> खोलें, दोनों को Stream My Drone में एक <strong>Custom RTMP</strong> गंतव्य में कॉपी करें, DJI Fly से ड्रोन की तस्वीर ऐप को भेजें, और START LIVE दबाएँ। Kick एन्क्रिप्टेड RTMPS पता इस्तेमाल करता है, जिसे ऐप सपोर्ट करता है।",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Kick को Kick डैशबोर्ड के Stream URL और Stream key के साथ Custom RTMP गंतव्य के रूप में जोड़ा जाता है।",
+    "Kick का स्ट्रीम URL एक rtmps:// पता है; उसे हमेशा अपने डैशबोर्ड से ही कॉपी करें।",
+    "की दिखाने से पहले Kick आपसे टू-फ़ैक्टर ऑथेंटिकेशन चालू करने को कह सकता है।",
+    "30 fps और 6 Mbps पर 1920×1080 स्ट्रीम के लिए Horizontal 16:9 इस्तेमाल करें।",
+    "वही तस्वीर एक साथ Kick और दूसरे प्लेटफ़ॉर्म पर जा सकती है।"
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Kick पर स्ट्रीम करें, चरण-दर-चरण",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "ड्रोन जोड़ें", "d": "DJI Fly में GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP खोलें और Stream My Drone में दिख रहा पता डालें।" },
+          { "t": "स्ट्रीम URL और की कॉपी करें", "d": "kick.com पर क्रिएटर डैशबोर्ड → Settings → Stream URL &amp; Key खोलें। <em>Stream URL</em> (यह <code>rtmps://</code> से शुरू होकर <code>/app</code> पर ख़त्म होता है) और <em>Stream key</em> कॉपी करें।" },
+          { "t": "Custom RTMP गंतव्य जोड़ें", "d": "Stream My Drone में Custom RTMP चुनें, उसका नाम Kick रखें और दोनों मान चिपकाएँ।" },
+          { "t": "Horizontal 16:9 चुनें", "d": "<em>Picture and sound</em> के नीचे <em>Horizontal 16:9</em> चुनें।" },
+          { "t": "START LIVE दबाएँ", "d": "Kick को स्ट्रीम मिलते ही चैनल लाइव हो जाता है। डैशबोर्ड में शीर्षक और श्रेणी सेट करें; ख़त्म करने के लिए ऐप में <em>End stream</em> दबाएँ।" }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Kick की सेटिंग्स",
+      "blocks": [
+        { "table": {
+          "head": ["सेटिंग", "मान"],
+          "rows": [
+            ["स्ट्रीम URL", "Kick डैशबोर्ड से, <code>rtmps://…/app</code>"],
+            ["रेज़ोल्यूशन", "1920×1080, हॉरिज़ॉन्टल"],
+            ["फ़्रेम रेट", "30 fps"],
+            ["वीडियो", "H.264, 6 Mbps CBR, हर 2 सेकंड पर कीफ़्रेम"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "आम समस्याएँ",
+      "blocks": [
+        { "list": [
+          "<strong>की छिपी हुई है:</strong> अपने Kick अकाउंट की सेटिंग्स में टू-फ़ैक्टर ऑथेंटिकेशन चालू करें, फिर पेज दोबारा खोलें।",
+          "<strong>कनेक्शन विफल:</strong> स्ट्रीम URL को <code>rtmps://</code>, पोर्ट और <code>/app</code> समेत फिर से कॉपी करें।",
+          "<strong>की ग़लती से साझा हो गई:</strong> Kick पर उसे रीसेट करें और ऐप में अपडेट करें।"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "क्या मैं DJI ड्रोन से Kick पर स्ट्रीम कर सकता हूँ?", "a": "हाँ। DJI Fly की RTMP स्ट्रीम Stream My Drone को भेजें और अपने Kick डैशबोर्ड के स्ट्रीम URL और की के साथ Kick को Custom RTMP गंतव्य के रूप में जोड़ें।" },
+    { "q": "क्या Kick, RTMPS सपोर्ट करता है?", "a": "हाँ, Kick का स्ट्रीम URL एक rtmps:// पता है, और Stream My Drone rtmps:// गंतव्य स्वीकार करता है।" },
+    { "q": "क्या मैं एक साथ Kick और Twitch पर स्ट्रीम कर सकता हूँ?", "a": "Stream My Drone दोनों पर एक साथ भेज सकता है। पहले हर प्लेटफ़ॉर्म के सिमुलकास्टिंग के मौजूदा नियम जाँच लें।" },
+    { "q": "क्या Stream My Drone का Kick से कोई संबंध है?", "a": "नहीं। यह एक स्वतंत्र, मुफ़्त और ओपन सोर्स ऐप है।" }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "slug": "count-animals-with-a-dji-drone-ai-detection",
+  "slug": "contar-animales-con-un-dron-dji-deteccion-ia",
   "platform": "AI Vision",
   "title": "Cuenta cabras, ovejas y vacas en directo desde un dron DJI con IA",
   "description": "Stream My Drone detecta cabras, ovejas, vacas, caballos, burros y aves de corral en la imagen en directo de tu dron, los marca en la transmisión y los cuenta, todo en tu ordenador.",
@@ -52,7 +52,7 @@
       "howto": true,
       "blocks": [
         { "steps": [
-          { "t": "Conecta tu dron", "d": "Envía la imagen en directo de DJI Fly a la app por RTMP como siempre; la dirección está en la pestaña Transmitir. Los detalles están en <a href=\"../dji-fly-rtmp-live-streaming-setup/\">la guía RTMP de DJI Fly</a>." },
+          { "t": "Conecta tu dron", "d": "Envía la imagen en directo de DJI Fly a la app por RTMP como siempre; la dirección está en la pestaña Transmitir. Los detalles están en <a href=\"../dji-fly-rtmp-configuracion-transmision-en-directo/\">la guía RTMP de DJI Fly</a>." },
           { "t": "Activa AI Vision", "d": "En la pestaña Transmitir, busca la tarjeta <strong>AI Vision · Detección de animales</strong> y activa <em>Detección de animales</em>." },
           { "t": "Deja que descargue y prepare el modelo", "d": "La primera vez, el modelo se descarga y se prepara para tu ordenador. Con OWLv2 puede tardar varios minutos; la tarjeta muestra el progreso. Los siguientes arranques tardan alrededor de un minuto." },
           { "t": "Ajusta el umbral", "d": "Baja el <em>Umbral de confianza</em> a 0,25–0,35 aproximadamente para tomas aéreas, donde los animales se ven pequeños. Súbelo si ves recuadros sobre arbustos o rocas." },

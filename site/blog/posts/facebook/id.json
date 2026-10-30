@@ -1,0 +1,75 @@
+{
+  "slug": "cara-live-facebook-dengan-drone-dji",
+  "platform": "Facebook",
+  "title": "Cara live Facebook dengan drone DJI (Live Producer)",
+  "description": "Siaran langsung drone DJI di Facebook: ambil URL server RTMPS dan stream key dari Live Producer, kirim siaran DJI Fly lewat Stream My Drone, lalu mulai live.",
+  "h1": "Cara siaran langsung di Facebook dengan drone DJI",
+  "lead": "Di facebook.com, buka <strong>Video live → Software streaming</strong> (Live Producer milik Facebook), salin URL server dan stream key ke tujuan Facebook di Stream My Drone, kirim gambar drone dari DJI Fly ke aplikasi, tekan MULAI SIARAN, lalu tekan <strong>Go live</strong> di Live Producer. Facebook hanya menerima RTMPS terenkripsi, dan aplikasi sudah menanganinya.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "URL server dan kunci didapat dari Live Producer: Video live → Software streaming.",
+    "URL server: rtmps://live-api-s.facebook.com:443/rtmp/ — Facebook mewajibkan RTMPS.",
+    "Facebook menerbitkan kunci baru untuk setiap sesi, kecuali Anda mengaktifkan stream key permanen.",
+    "Facebook memerlukan keyframe setiap 2 detik; Stream My Drone selalu mengirimnya seperti itu.",
+    "Anda bisa memposting ke profil, Halaman, atau grup, sekaligus siaran ke platform lain."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Live di Facebook, langkah demi langkah",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Hubungkan drone", "d": "Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP dan masukkan alamat yang ditampilkan Stream My Drone. Pratinjau muncul di aplikasi." },
+          { "t": "Buka Live Producer", "d": "Di facebook.com, pilih Video live, tentukan tempat memposting (profil, Halaman, atau grup), lalu pilih <em>Software streaming</em>." },
+          { "t": "Salin URL server dan kuncinya", "d": "Salin <em>URL server</em> (<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>) dan <em>Stream key</em> ke tujuan Facebook di Stream My Drone." },
+          { "t": "Tekan MULAI SIARAN", "d": "Pilih orientasi terlebih dahulu: <em>Horizontal 16:9</em> cocok untuk penonton di komputer, <em>Vertikal 9:16</em> cocok untuk feed di ponsel. Live Producer menampilkan pratinjau setelah beberapa detik." },
+          { "t": "Tekan Go live di Facebook", "d": "Tambahkan judul dan deskripsi di Live Producer lalu tekan Go live. Untuk selesai, akhiri video di sana dan tekan <em>Akhiri siaran</em> di aplikasi." }
+        ] }
+      ]
+    },
+    {
+      "id": "persistent-key",
+      "h2": "Gunakan stream key permanen",
+      "blocks": [
+        { "p": "Secara default, Facebook membuat stream key baru untuk setiap sesi, jadi Anda harus memperbaruinya di aplikasi setiap kali. Live Producer punya opsi untuk <em>memakai stream key permanen</em>. Aktifkan, simpan kuncinya sekali di Stream My Drone, dan kunci itu tetap berlaku untuk siaran berikutnya ke tempat yang sama." },
+        { "note": "Perlakukan kunci permanen seperti kata sandi: siapa pun yang memilikinya bisa siaran ke halaman Anda. Stream My Drone menyimpannya di brankas kredensial sistem dan tidak pernah menulisnya ke berkas atau log." }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Pengaturan Facebook",
+      "blocks": [
+        { "table": {
+          "head": ["Pengaturan", "Nilai"],
+          "rows": [
+            ["URL server", "<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>"],
+            ["Protokol", "RTMPS (wajib untuk Facebook)"],
+            ["Resolusi", "1920×1080 atau 1080×1920"],
+            ["Frame rate", "30 fps"],
+            ["Video", "H.264, 6 Mbps CBR, keyframe setiap 2 detik"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Masalah yang sering terjadi",
+      "blocks": [
+        { "list": [
+          "<strong>Koneksi gagal:</strong> kunci sesi sudah kedaluwarsa. Salin kunci baru dari Live Producer, atau beralih ke kunci permanen.",
+          "<strong>Alamatnya diawali rtmp://:</strong> Facebook tidak menerima RTMP tanpa enkripsi; gunakan alamat rtmps:// dari Live Producer.",
+          "<strong>Live Producer menerima siaran tetapi tidak ada yang melihatnya:</strong> Anda masih harus menekan Go live di Live Producer."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Bisakah saya live di Facebook dari drone DJI?", "a": "Bisa. DJI Fly mengirim RTMP ke Stream My Drone di komputer Anda, lalu aplikasi meneruskannya ke Facebook lewat RTMPS dengan kunci dari Live Producer." },
+    { "q": "Bisakah saya siaran ke Halaman atau grup Facebook?", "a": "Bisa. Pilih tempat memposting di Live Producer sebelum menyalin kunci; kunci itu terikat pada tujuan tersebut." },
+    { "q": "Kenapa stream key Facebook saya berhenti berfungsi?", "a": "Facebook menerbitkan kunci per sesi. Aktifkan stream key permanen di Live Producer jika Anda rutin siaran ke tempat yang sama." },
+    { "q": "Bisakah saya siaran ke Facebook dan Instagram sekaligus?", "a": "Bisa, sebagai dua tujuan di Stream My Drone. Keduanya menerima gambar yang sama, jadi pilih orientasi yang sesuai dengan penonton utama Anda." },
+    { "q": "Apakah gratis?", "a": "Ya. Stream My Drone gratis dan bersumber terbuka, serta tidak berafiliasi dengan DJI maupun Meta." }
+  ]
+}

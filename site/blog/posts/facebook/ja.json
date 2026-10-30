@@ -1,0 +1,75 @@
+{
+  "slug": "how-to-go-live-on-facebook-with-a-dji-drone",
+  "platform": "Facebook",
+  "title": "DJI ドローンで Facebook ライブ配信する方法（Live Producer）",
+  "description": "DJI ドローンの映像を Facebook でライブ配信する方法。Live Producer で RTMPS のサーバー URL とストリームキーを取得し、DJI Fly の配信を Stream My Drone 経由で送って配信を始めます。",
+  "h1": "DJI ドローンで Facebook ライブ配信する方法",
+  "lead": "facebook.com で<strong>「ライブ動画」→「ストリーミングソフトウェア」</strong>（Facebook の Live Producer）を開き、サーバー URL とストリームキーを Stream My Drone の Facebook の配信先にコピーします。DJI Fly からドローンの映像をアプリに送って「配信を開始」を押し、Live Producer で <strong>Go live</strong> を押します。Facebook は暗号化された RTMPS しか受け付けませんが、アプリがそれに対応します。",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "サーバー URL とキーは Live Producer で取得します：「ライブ動画」→「ストリーミングソフトウェア」。",
+    "サーバー URL は rtmps://live-api-s.facebook.com:443/rtmp/。Facebook は RTMPS が必須です。",
+    "固定ストリームキーをオンにしない限り、Facebook はセッションごとに新しいキーを発行します。",
+    "Facebook は 2 秒ごとのキーフレームを求めます。Stream My Drone は常にそのように送ります。",
+    "プロフィール、ページ、グループに投稿でき、同時にほかのプラットフォームへも配信できます。"
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Facebook ライブを始める手順",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "ドローンを接続", "d": "DJI Fly で GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP を開き、Stream My Drone に表示されたアドレスを入力します。アプリにプレビューが表示されます。" },
+          { "t": "Live Producer を開く", "d": "facebook.com で「ライブ動画」を選び、投稿先（プロフィール、ページ、グループ）を選んで、<em>ストリーミングソフトウェア</em>を選択します。" },
+          { "t": "サーバー URL とキーをコピー", "d": "<em>サーバー URL</em>（<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>）と<em>ストリームキー</em>を、Stream My Drone の Facebook の配信先にコピーします。" },
+          { "t": "「配信を開始」を押す", "d": "先に向きを選びます。パソコンで見る視聴者には<em>横 16:9</em>、スマホのフィードには<em>縦 9:16</em> が合います。数秒で Live Producer にプレビューが表示されます。" },
+          { "t": "Facebook で Go live を押す", "d": "Live Producer でタイトルと説明を入力し、Go live を押します。終えるときはそこで動画を終了し、アプリで<em>配信を終了</em>を押します。" }
+        ] }
+      ]
+    },
+    {
+      "id": "persistent-key",
+      "h2": "固定ストリームキーを使う",
+      "blocks": [
+        { "p": "Facebook は標準ではセッションごとに新しいストリームキーを作るので、そのたびにアプリでキーを更新しなければなりません。Live Producer には<em>固定ストリームキーを使用</em>するオプションがあります。これをオンにしてキーを一度 Stream My Drone に保存すれば、同じ投稿先への今後の配信でもそのまま使えます。" },
+        { "note": "固定キーはパスワードと同じように扱ってください。キーを知っている人なら誰でもあなたのページに配信できてしまいます。Stream My Drone はキーをシステムの資格情報ストアに保管し、ファイルやログには一切書き込みません。" }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Facebook の設定",
+      "blocks": [
+        { "table": {
+          "head": ["設定", "値"],
+          "rows": [
+            ["サーバー URL", "<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>"],
+            ["プロトコル", "RTMPS（Facebook の必須要件）"],
+            ["解像度", "1920×1080 または 1080×1920"],
+            ["フレームレート", "30 fps"],
+            ["映像", "H.264、6 Mbps CBR、キーフレーム 2 秒ごと"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "よくある問題",
+      "blocks": [
+        { "list": [
+          "<strong>接続に失敗する：</strong>セッションのキーが期限切れです。Live Producer から新しいキーをコピーするか、固定キーに切り替えてください。",
+          "<strong>アドレスが rtmp:// で始まっている：</strong>Facebook は暗号化なしの RTMP を受け付けません。Live Producer の rtmps:// のアドレスを使ってください。",
+          "<strong>Live Producer は配信を受信しているのに誰にも見えない：</strong>Live Producer で Go live を押す必要があります。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI ドローンで Facebook ライブはできますか？", "a": "はい。DJI Fly がパソコンの Stream My Drone へ RTMP を送り、アプリが Live Producer のキーを使って RTMPS で Facebook へ転送します。" },
+    { "q": "Facebook ページやグループに配信できますか？", "a": "はい。キーをコピーする前に、Live Producer で投稿先を選んでください。キーはその投稿先に結び付いています。" },
+    { "q": "Facebook のストリームキーが使えなくなるのはなぜですか？", "a": "Facebook はセッションごとにキーを発行するからです。同じ投稿先に定期的に配信するなら、Live Producer で固定ストリームキーをオンにしてください。" },
+    { "q": "Facebook と Instagram に同時に配信できますか？", "a": "はい。Stream My Drone で 2 つの配信先として追加してください。どちらにも同じ映像が届くので、メインの視聴者に合った向きを選びましょう。" },
+    { "q": "無料ですか？", "a": "はい。Stream My Drone は無料のオープンソースで、DJI や Meta とは提携していません。" }
+  ]
+}

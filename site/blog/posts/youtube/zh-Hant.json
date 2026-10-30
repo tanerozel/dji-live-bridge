@@ -1,0 +1,133 @@
+{
+  "slug": "how-to-live-stream-a-dji-drone-to-youtube",
+  "platform": "YouTube",
+  "title": "如何把 DJI 空拍機直播到 YouTube（RTMP 教學）",
+  "description": "把 DJI 空拍機直播到 YouTube：開通直播功能，從 YouTube 工作室複製串流金鑰，再透過 Stream My Drone 轉送 DJI Fly 的 RTMP。建議設定與小技巧。",
+  "h1": "如何把 DJI 空拍機直播到 YouTube",
+  "lead": "在 YouTube 工作室選擇<strong>「建立」→「進行直播」→「串流軟體」</strong>，複製串流網址和串流金鑰。在 Stream My Drone 中把它們加為 YouTube 目的地，從 DJI Fly 透過 RTMP 把空拍畫面送到 App，然後按下「開始直播」。YouTube 的金鑰在你重設之前都不會變，所以只要設定一次。",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "第一次直播前，頻道必須先開通直播功能；YouTube 表示這最多可能需要 24 小時。",
+    "串流網址：rtmps://a.rtmps.youtube.com:443/live2，金鑰則從 YouTube 工作室取得。",
+    "傳統的 YouTube 直播請選水平 16:9；直向也可以。",
+    "App 會送出 1080p、30 fps、6 Mbps、H.264、2 秒關鍵影格，符合 YouTube 的建議。",
+    "同一場直播也能同時送到 Facebook、Twitch 或任何 RTMP 伺服器。"
+  ],
+  "sections": [
+    {
+      "id": "enable",
+      "h2": "第一次直播前：開通直播功能",
+      "blocks": [
+        {
+          "p": "開啟 YouTube 工作室，選擇<em>「建立」→「進行直播」</em>。如果頻道從未直播過，YouTube 會要求你用手機號碼驗證並開通直播功能；第一次開通最多可能需要 24 小時。之後開播就是即時的。"
+        }
+      ]
+    },
+    {
+      "id": "steps",
+      "h2": "逐步直播到 YouTube",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "連接空拍機",
+              "d": "在 DJI Fly 中開啟 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，輸入 Stream My Drone 顯示的位址。"
+            },
+            {
+              "t": "從 YouTube 工作室複製金鑰",
+              "d": "「建立」→「進行直播」→「串流軟體」。複製<em>串流網址</em>（<code>rtmps://a.rtmps.youtube.com:443/live2</code>）和<em>串流金鑰</em>。"
+            },
+            {
+              "t": "加入 YouTube 目的地",
+              "d": "在 Stream My Drone 中選擇 YouTube，貼上這兩個值。金鑰會存在系統的憑證保管區。"
+            },
+            {
+              "t": "選擇方向",
+              "d": "一般直播選<em>水平 16:9</em>（1920×1080）；想要手機形狀的串流則選<em>直向 9:16</em>。"
+            },
+            {
+              "t": "按下「開始直播」",
+              "d": "幾秒後，YouTube 工作室就會顯示已收到串流。依你的設定，直播會自動公開，或在你於工作室按下「進行直播」後公開。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "YouTube 設定",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "設定",
+              "數值"
+            ],
+            "rows": [
+              [
+                "串流網址",
+                "<code>rtmps://a.rtmps.youtube.com:443/live2</code>"
+              ],
+              [
+                "解析度",
+                "水平 1920×1080 或直向 1080×1920"
+              ],
+              [
+                "影格率",
+                "30 fps"
+              ],
+              [
+                "位元率",
+                "6 Mbps CBR"
+              ],
+              [
+                "關鍵影格",
+                "每 2 秒一次"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "在 YouTube 工作室中可以選擇延遲模式。<em>一般延遲</em>的畫面最穩定；如果你要邊飛邊回聊天室訊息，<em>低延遲</em>或<em>超低延遲</em>會比較有幫助。"
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "常見問題",
+      "blocks": [
+        {
+          "list": [
+            "<strong>沒有「進行直播」選項：</strong>直播功能還沒開通，或頻道受到直播限制。",
+            "<strong>工作室顯示「沒有資料」：</strong>先檢查 App 的預覽；如果那裡看得到空拍畫面，請重新複製金鑰。",
+            "<strong>觀眾那邊一直緩衝：</strong>上傳速度太慢。每個目的地約需 10 Mbps 的穩定上傳頻寬。"
+          ]
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "DJI 空拍機可以直接直播到 YouTube 嗎？",
+      "a": "DJI Fly 可以直接把 RTMP 推送到 YouTube 的位址，但這樣沒有預覽、無法控制格式，而且只能有一個目的地。先把串流送到 Stream My Drone，就能三者兼得，而且用的是同一組 YouTube 串流金鑰。"
+    },
+    {
+      "q": "直播到 YouTube 需要 50 位訂閱者嗎？",
+      "a": "這個門檻只適用於從 YouTube 手機 App 開播。使用串流軟體（Stream My Drone 就是串流軟體）只需要一個已開通直播功能的頻道。"
+    },
+    {
+      "q": "YouTube 串流金鑰會改變嗎？",
+      "a": "不會。在你於 YouTube 工作室重設之前，它都不會變，所以只要設定一次。"
+    },
+    {
+      "q": "可以直播直向影片到 YouTube 嗎？",
+      "a": "可以。在 App 中選擇直向 9:16；傳統的直播則選水平 16:9。"
+    },
+    {
+      "q": "會使用 RTMPS 嗎？",
+      "a": "會。YouTube 的串流網址以 rtmps:// 開頭，所以串流在傳往 YouTube 的路上是加密的。"
+    }
+  ]
+}

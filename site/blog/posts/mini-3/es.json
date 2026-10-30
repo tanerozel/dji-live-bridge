@@ -1,5 +1,5 @@
 {
-  "slug": "dji-mini-3-live-stream",
+  "slug": "dji-mini-3-transmision-en-directo",
   "platform": "DJI Mini 3",
   "title": "Transmitir en directo con el DJI Mini 3: RC-N1, DJI Fly y ordenador",
   "description": "Configura el directo del DJI Mini 3 con el RC-N1 y DJI Fly hacia Stream My Drone en un ordenador. Límites del DJI RC, vista en directo a 720p y publicación en plataformas.",
@@ -103,7 +103,7 @@
             },
             {
               "t": "Inicia la salida RTMP de DJI Fly",
-              "d": "En la vista de cámara del teléfono, abre ••• → Transmission → Enable Livestreaming o Live Streaming Platforms y elige RTMP. Pega la dirección de recepción e inicia la transmisión. Los textos del menú pueden variar según la versión; consulta la <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guía RTMP de DJI Fly</a> para el recorrido común."
+              "d": "En la vista de cámara del teléfono, abre ••• → Transmission → Enable Livestreaming o Live Streaming Platforms y elige RTMP. Pega la dirección de recepción e inicia la transmisión. Los textos del menú pueden variar según la versión; consulta la <a href=\"../dji-fly-rtmp-configuracion-transmision-en-directo/\">guía RTMP de DJI Fly</a> para el recorrido común."
             },
             {
               "t": "Comprueba el vídeo en el ordenador",
@@ -136,28 +136,28 @@
               [
                 "YouTube",
                 "Las emisiones en directo activadas y una emisión preparada",
-                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Dron a YouTube</a>"
+                "<a href=\"../como-transmitir-un-dron-dji-en-youtube/\">Dron a YouTube</a>"
               ],
               [
                 "Instagram",
                 "Live Producer y datos RTMPS disponibles para tu cuenta",
-                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Dron a Instagram</a>"
+                "<a href=\"../como-hacer-un-directo-en-instagram-con-un-dron-dji/\">Dron a Instagram</a>"
               ],
               [
                 "Facebook",
                 "Un directo en Live Producer con su URL y su clave vigentes",
-                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Dron a Facebook</a>"
+                "<a href=\"../como-hacer-un-directo-en-facebook-con-un-dron-dji/\">Dron a Facebook</a>"
               ],
               [
                 "TikTok",
                 "Credenciales RTMP o permiso para usar LIVE Studio",
-                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Dron a TikTok</a>"
+                "<a href=\"../como-hacer-un-directo-en-tiktok-con-un-dron-dji/\">Dron a TikTok</a>"
               ]
             ]
           }
         },
         {
-          "p": "Revisa el panel de tu propia plataforma antes de planificar un directo público; recibir la señal del dron no desbloquea los requisitos de la cuenta. Para aplicaciones de escritorio que aceptan una webcam, la <a href=\"../use-your-dji-drone-as-a-webcam/\">guía de la cámara virtual</a> explica la ruta como fuente de vídeo. No elimina la necesidad de tener acceso a la plataforma ni de recibir la señal RTMP del Mini 3."
+          "p": "Revisa el panel de tu propia plataforma antes de planificar un directo público; recibir la señal del dron no desbloquea los requisitos de la cuenta. Para aplicaciones de escritorio que aceptan una webcam, la <a href=\"../usar-tu-dron-dji-como-webcam/\">guía de la cámara virtual</a> explica la ruta como fuente de vídeo. No elimina la necesidad de tener acceso a la plataforma ni de recibir la señal RTMP del Mini 3."
         }
       ]
     },
@@ -201,7 +201,7 @@
           "p": "Consultado el 25 de octubre de 2026: <a href=\"https://repair.dji.com/help/content?customId=en-us03400007192&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">guía para principiantes del DJI Mini 3</a> para los directos con el RC-N1 y la restricción del DJI RC; <a href=\"https://www.dji.com/mini-3/faq\">preguntas frecuentes del Mini 3</a> para los controles compatibles y QuickTransfer; <a href=\"https://www.dji.com/mini-3/specs\">especificaciones del Mini 3</a> para la diferencia entre vista en directo y grabación. Vuelve a revisar los menús disponibles tras cada cambio de firmware."
         },
         {
-          "p": "¿Tienes el Pro? Lee la <a href=\"../dji-mini-3-pro-live-stream/\">guía de directo del Mini 3 Pro</a>. Cuando un destino funcione, usa la <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">guía de multistreaming</a> para enviar una misma señal a más plataformas."
+          "p": "¿Tienes el Pro? Lee la <a href=\"../dji-mini-3-pro-transmision-en-directo/\">guía de directo del Mini 3 Pro</a>. Cuando un destino funcione, usa la <a href=\"../transmitir-un-dron-dji-en-varias-plataformas-a-la-vez/\">guía de multistreaming</a> para enviar una misma señal a más plataformas."
         }
       ]
     }

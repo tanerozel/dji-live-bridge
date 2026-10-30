@@ -1,0 +1,65 @@
+{
+  "slug": "how-to-stream-a-dji-drone-on-kick",
+  "platform": "Kick",
+  "title": "DJI ドローンを Kick でライブ配信する方法（ストリーム URL とキー）",
+  "description": "DJI ドローンの映像を Kick でライブ配信する方法。Kick のダッシュボードでストリーム URL とキーをコピーし、Stream My Drone にカスタム RTMP の配信先として追加して配信します。",
+  "h1": "DJI ドローンを Kick で配信する方法",
+  "lead": "Kick のクリエイターダッシュボードで <strong>Settings → Stream URL &amp; Key</strong> を開き、両方を Stream My Drone の<strong>カスタム RTMP</strong> の配信先にコピーします。DJI Fly からドローンの映像をアプリに送って「配信を開始」を押すだけです。Kick は暗号化された RTMPS のアドレスを使いますが、アプリはそれに対応しています。",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Kick は、Kick のダッシュボードにあるストリーム URL とストリームキーで、カスタム RTMP の配信先として追加します。",
+    "Kick のストリーム URL は rtmps:// のアドレスです。必ず自分のダッシュボードからコピーしてください。",
+    "キーを表示する前に、Kick から二段階認証をオンにするよう求められることがあります。",
+    "横 16:9 を使えば、1920×1080、30 fps、6 Mbps で配信されます。",
+    "同じ映像を Kick とほかのプラットフォームへ同時に送れます。"
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Kick に配信する手順",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "ドローンを接続", "d": "DJI Fly で GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP を開き、Stream My Drone に表示されたアドレスを入力します。" },
+          { "t": "ストリーム URL とキーをコピー", "d": "kick.com でクリエイターダッシュボード → Settings → Stream URL &amp; Key を開きます。<em>ストリーム URL</em>（<code>rtmps://</code> で始まり <code>/app</code> で終わるもの）と<em>ストリームキー</em>をコピーします。" },
+          { "t": "カスタム RTMP の配信先を追加", "d": "Stream My Drone でカスタム RTMP を選び、名前を Kick にして、両方の値を貼り付けます。" },
+          { "t": "横 16:9 を選ぶ", "d": "<em>映像と音声</em>で<em>横 16:9</em> を選びます。" },
+          { "t": "「配信を開始」を押す", "d": "Kick が配信を受け取るとチャンネルがライブになります。タイトルとカテゴリーはダッシュボードで設定し、終えるときはアプリで<em>配信を終了</em>を押します。" }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Kick の設定",
+      "blocks": [
+        { "table": {
+          "head": ["設定", "値"],
+          "rows": [
+            ["ストリーム URL", "Kick のダッシュボードから取得、<code>rtmps://…/app</code>"],
+            ["解像度", "1920×1080、横向き"],
+            ["フレームレート", "30 fps"],
+            ["映像", "H.264、6 Mbps CBR、キーフレーム 2 秒ごと"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "よくある問題",
+      "blocks": [
+        { "list": [
+          "<strong>キーが表示されない：</strong>Kick のアカウント設定で二段階認証をオンにしてから、ページを開き直してください。",
+          "<strong>接続に失敗する：</strong><code>rtmps://</code>、ポート番号、<code>/app</code> まで含めて、ストリーム URL をもう一度コピーしてください。",
+          "<strong>キーをうっかり共有してしまった：</strong>Kick でリセットし、アプリで更新してください。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI ドローンを Kick で配信できますか？", "a": "はい。DJI Fly の RTMP 配信を Stream My Drone に送り、Kick のダッシュボードにあるストリーム URL とキーで、Kick をカスタム RTMP の配信先として追加してください。" },
+    { "q": "Kick は RTMPS に対応していますか？", "a": "はい。Kick のストリーム URL は rtmps:// のアドレスで、Stream My Drone は rtmps:// の配信先を受け付けます。" },
+    { "q": "Kick と Twitch に同時に配信できますか？", "a": "Stream My Drone は両方へ同時に送れます。先に各プラットフォームの同時配信に関する現在のルールを確認してください。" },
+    { "q": "Stream My Drone は Kick と提携していますか？", "a": "いいえ。独立した、無料のオープンソースアプリです。" }
+  ]
+}

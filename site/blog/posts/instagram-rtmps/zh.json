@@ -1,0 +1,82 @@
+{
+  "slug": "why-dji-fly-cannot-stream-to-instagram",
+  "platform": "Instagram 问题",
+  "title": "DJI Fly 为什么无法直播到 Instagram？原因和解决方法",
+  "description": "DJI Fly 没有 Instagram 选项，它的 RTMP 客户端也不支持 Instagram 要求的加密 RTMPS。本文讲清原因，并介绍如何照样用 DJI 无人机在 Instagram 开直播。",
+  "h1": "DJI Fly 为什么无法直播到 Instagram（附解决方法）",
+  "lead": "把 Instagram 的推流地址粘贴进 DJI Fly，却毫无反应。原因在技术层面：<strong>Instagram 只接受 RTMPS</strong>，也就是加密连接，而 <strong>DJI Fly 只能发送普通 RTMP</strong>。解决办法是用一个中转程序接收 DJI Fly 的 RTMP，再通过 RTMPS 转发给 Instagram——Stream My Drone 就在你自己的电脑上免费完成这件事。",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Instagram 的推流地址以 <code>rtmps://</code> 开头，使用 443 端口；DJI Fly 的 RTMP 选项无法建立这种连接。",
+    "DJI Fly 的平台列表中没有 Instagram，Instagram 也没有接受普通 RTMP 的设置。",
+    "Instagram 每场直播都会给出新的推流密钥，并且要求竖屏视频。",
+    "解决方法：DJI Fly → RTMP → 电脑上的 Stream My Drone → RTMPS → Instagram，竖屏 1080×1920。",
+    "没有电脑时，Android 应用 Stream My Drone 搭配 DJI RC 2 也能做到同样的事。"
+  ],
+  "sections": [
+    {
+      "id": "why",
+      "h2": "为什么行不通",
+      "blocks": [
+        { "list": [
+          "<strong>加密。</strong>Instagram 的推流地址形如 <code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code>。其中的 <em>s</em> 表示视频必须在加密（TLS）连接中传输。DJI Fly 的 RTMP 客户端只能发送未加密的 RTMP，所以 Instagram 永远不会接受这个连接。",
+          "<strong>没有内置 Instagram 选项。</strong>DJI Fly 在 Live Streaming Platforms 下列出了 RTMP（部分遥控器上还有其他地区的平台），但没有 Instagram。",
+          "<strong>一次性密钥。</strong>Instagram 每场直播都会生成新的推流密钥，因此保存在 DJI Fly 里的密钥只能用一次。",
+          "<strong>竖屏视频。</strong>Instagram 以竖屏观看；横屏的无人机画面需要调整才能好看。"
+        ] },
+        { "p": "这些都不是你的无人机或账号出了问题。两套系统只是使用了同一协议的不同版本。" }
+      ]
+    },
+    {
+      "id": "fix",
+      "h2": "解决方法：通过 Stream My Drone 中转 DJI Fly 的推流",
+      "howto": true,
+      "blocks": [
+        { "p": "Stream My Drone 在你的 Mac 或 PC 上运行一个小型 RTMP 服务器。DJI Fly 通过局域网推流到这里；应用把画面重新编码为 1080×1920 竖屏，再通过 RTMPS 发送到 Instagram。" },
+        { "steps": [
+          { "t": "安装 Stream My Drone", "d": "下载 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS 或 Windows 版</a>。免费，无需安装其他软件。" },
+          { "t": "把无人机画面发到电脑", "d": "让遥控器和电脑连在同一个 Wi-Fi 或热点上。在 DJI Fly 中打开 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，填入应用显示的地址。" },
+          { "t": "在 Instagram 上创建直播", "d": "在 instagram.com 上点击 Create (+) → Live video（创建 → 直播视频），复制推流地址和推流密钥。" },
+          { "t": "在应用中添加 Instagram", "d": "把两者粘贴到一个 Instagram 推流目标中，保持<em>竖屏 9:16</em>开启，然后按“开始直播”。" },
+          { "t": "在 Instagram 上点击 Go live", "d": "Instagram 的窗口会显示无人机画面；在那里点击 Go live，直播才会公开。" }
+        ] },
+        { "note": "Instagram 一端的所有细节，包括每次都会变化的密钥，见 <a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram 指南</a>。" }
+      ]
+    },
+    {
+      "id": "options",
+      "h2": "其他变通方法",
+      "blocks": [
+        { "table": {
+          "head": ["方案", "费用", "须知"],
+          "rows": [
+            ["Stream My Drone（Mac、Windows）", "免费、开源", "在你的电脑上运行；视频不经过第三方服务器；可同时推流到多个平台。"],
+            ["Stream My Drone（Android）", "一次性购买", "使用 DJI RC 2 飞行时可代替电脑；可转发到 RTMPS 推流目标。"],
+            ["云端转推服务", "通常需要订阅", "DJI Fly 推流到该服务，再由它转发到 Instagram；请确认你的套餐允许自定义 RTMP 推流目标。"],
+            ["带 HDMI 的遥控器 + 采集卡 + OBS", "需要购买硬件", "需要带 HDMI 输出的遥控器（例如 DJI RC Pro）和一张采集卡。"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "还是没开播？",
+      "blocks": [
+        { "list": [
+          "<strong>instagram.com 的 Create 下没有 Live video：</strong>Instagram 还没有为该账号开放这个选项。",
+          "<strong>一连接就失败：</strong>这个密钥已经用过了。新建一场直播并更新密钥。",
+          "<strong>Instagram 的预览一直是黑屏：</strong>先确认 Stream My Drone 自己的预览中能看到无人机画面。",
+          "<strong>粉丝什么也看不到：</strong>在 Instagram 上点击 Go live；收到推流并不等于已经发布直播。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI Fly 为什么不能直播到 Instagram？", "a": "Instagram 只接受加密的 RTMPS 连接，而 DJI Fly 发送的是普通 RTMP。Stream My Drone 这样的中转程序可以接收 RTMP 推流，再通过 RTMPS 转发给 Instagram。" },
+    { "q": "能不能直接把 Instagram 地址里的 rtmps:// 改成 rtmp://？", "a": "不能。Instagram 的接收服务器要求加密连接，未加密的 RTMP 连接会被拒绝。" },
+    { "q": "用无人机在 Instagram 开直播需要 OBS 吗？", "a": "不需要。Stream My Drone 会直接把推流发送到 Instagram。只有想使用 OBS 的场景和叠加层时才需要它。" },
+    { "q": "能同时直播到 Instagram 和 TikTok 吗？", "a": "能。在 Stream My Drone 中把两者都添加为推流目标；两者都要求竖屏视频，一个设置就能同时满足。" },
+    { "q": "免费吗？", "a": "Stream My Drone 免费且开源。它与 DJI 和 Instagram 没有任何关联。" }
+  ]
+}

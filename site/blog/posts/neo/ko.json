@@ -1,0 +1,81 @@
+{
+  "slug": "dji-neo-live-stream",
+  "platform": "DJI Neo",
+  "title": "DJI Neo 라이브 방송: Instagram·TikTok·YouTube 설정 (2026)",
+  "description": "DJI Neo로 라이브 방송하는 방법. 어떤 조종 방식(휴대폰, RC-N3, 고글)이 되는지, DJI Fly RTMP 설정, Stream My Drone으로 Instagram·TikTok·YouTube에 방송하는 법을 알려 드립니다.",
+  "h1": "DJI Neo로 라이브 방송하는 방법",
+  "lead": "DJI Neo도 DJI의 큰 드론처럼 <strong>DJI Fly의 RTMP 옵션</strong>으로 방송합니다. 관건은 조종 방식입니다. 휴대폰이 Wi-Fi로 Neo를 직접 조종하면 그 Wi-Fi는 드론이 차지합니다. <strong>RC-N3</strong>(또는 휴대폰에 케이블로 연결한 고글)로 비행하면 휴대폰이 자유롭게 컴퓨터의 <strong>Stream My Drone</strong>으로 스트림을 보낼 수 있고, 앱이 이를 Instagram, TikTok, YouTube 또는 여러 플랫폼으로 동시에 전달합니다.",
+  "published": "2026-10-03",
+  "updated": "2026-10-21",
+  "summary": [
+    "Neo는 휴대폰의 DJI Fly에서 방송합니다: GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP.",
+    "<strong>RC-N3</strong>를 쓰세요. 휴대폰이 케이블로 조종기에 연결되므로 휴대폰 Wi-Fi가 컴퓨터의 네트워크에 연결될 수 있습니다.",
+    "휴대폰 단독 모드에서는 휴대폰 Wi-Fi가 Neo 자체에 연결되어 있어 보통 컴퓨터에 닿지 못합니다.",
+    "고글을 쓴다면 DJI Fly를 실행 중인 휴대폰에 케이블로 연결하고 그곳에서 방송하세요.",
+    "Stream My Drone이 스트림을 Instagram과 TikTok용 세로 1080×1920으로 바꾸고, Instagram에는 RTMPS로 보냅니다."
+  ],
+  "sections": [
+    {
+      "id": "modes",
+      "h2": "어떤 Neo 조종 방식으로 방송할 수 있나요?",
+      "blocks": [
+        { "p": "Neo는 세 가지 방식으로 조종할 수 있고, 그에 따라 스트림이 휴대폰을 떠나는 방법이 정해집니다. 어떤 경우든 방송은 휴대폰의 DJI Fly가 하고, 컴퓨터의 Stream My Drone이 받습니다." },
+        { "table": {
+          "head": ["조종 방식", "컴퓨터로 방송 가능?", "이유"],
+          "rows": [
+            ["휴대폰 단독(Wi-Fi, 짧은 거리)", "대개 안 됨", "휴대폰 Wi-Fi가 Neo에 연결되어 있어 컴퓨터의 네트워크에 있지 않습니다."],
+            ["RC-N3 + 휴대폰", "가능 — 권장", "휴대폰은 케이블로 조종기와 통신하고, Wi-Fi는 컴퓨터와 같은 네트워크에 연결됩니다."],
+            ["고글 + USB-C 케이블로 연결한 휴대폰", "가능", "휴대폰의 DJI Fly가 고글의 실시간 화면을 보여 주고 방송할 수 있습니다."]
+          ]
+        } },
+        { "note": "일부 Android 휴대폰은 Wi-Fi 네트워크에 연결된 상태에서 자체 핫스팟을 켤 수 있습니다. 두 연결을 동시에 지원하는 휴대폰이라면 컴퓨터를 그 핫스팟에 연결해 DJI Fly 스트림을 받을 수 있습니다. 이 방법은 휴대폰의 Wi-Fi 공유 기능에 달려 있습니다." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "RC-N3로 Neo 라이브 방송 설정하기",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "휴대폰을 RC-N3에 연결", "d": "평소처럼 RC-N3로 Neo를 비행하고, 휴대폰은 케이블로 연결한 채 DJI Fly를 열어 두세요." },
+          { "t": "휴대폰과 컴퓨터를 한 네트워크에 연결", "d": "휴대폰 Wi-Fi와 컴퓨터를 같은 Wi-Fi에 연결하세요. 야외에서는 두 번째 휴대폰의 핫스팟이나 여행용 공유기를 켜고 두 기기를 모두 연결하세요." },
+          { "t": "Stream My Drone 열기", "d": "Mac 또는 Windows PC에 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>을 설치하세요. <code>rtmp://192.168.1.20:1935/drone</code> 같은 주소가 표시됩니다." },
+          { "t": "DJI Fly에 주소 입력", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP에서 주소를 입력하고 시작하세요. 앱에 미리보기가 나타납니다." },
+          { "t": "플랫폼을 고르고 방송 시작", "d": "Instagram, TikTok, YouTube 또는 아무 RTMP 서버나 추가하고, Instagram과 TikTok에는 <em>세로 9:16</em>을 유지한 채 방송 시작을 누르세요." }
+        ] },
+        { "img": "go-live.png", "alt": "DJI Fly용 RTMP 주소, 방송 대상, 방송 시작 버튼이 보이는 Stream My Drone의 '방송' 탭." },
+        { "note": "DJI Fly 쪽 설정, 네트워크, 방화벽에 관한 자세한 내용은 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 가이드</a>에 있습니다." }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "Neo 방송 팁",
+      "blocks": [
+        { "list": [
+          "<strong>Android 휴대폰이 더 높은 비트레이트로 방송합니다.</strong> DJI는 Android에 5 또는 3 Mbps, iOS에 2 또는 1 Mbps를 제시합니다.",
+          "<strong>휴대폰 Wi-Fi 신호를 강하게 유지하세요.</strong> 스트림은 휴대폰에서 Wi-Fi를 거쳐 컴퓨터로 갑니다. 공유기나 핫스팟 가까이에 있으세요.",
+          "<strong>SNS용은 세로로.</strong> Neo는 가로로 촬영합니다. <em>전체 화면 표시</em>는 흐린 배경으로 프레임 전체를 살리고, <em>화면 채우기</em>는 잘라냅니다.",
+          "<strong>지상에서 리허설하세요.</strong> Stream My Drone의 <em>동영상 파일로 시험</em>으로 Neo가 이륙하기 전에 플랫폼 쪽을 확인할 수 있습니다."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "작동하지 않을 때",
+      "blocks": [
+        { "list": [
+          "<strong>DJI Fly가 연결하지 못함:</strong> 휴대폰 Wi-Fi가 Neo 자체 Wi-Fi가 아니라 컴퓨터의 네트워크에 연결되어 있는지 확인하세요.",
+          "<strong>RTMP 옵션이 없음:</strong> DJI Fly와 Neo 펌웨어를 업데이트하세요. 이 옵션은 DJI Fly 버전에 따라 다릅니다.",
+          "<strong>화면이 끊김:</strong> 휴대폰이 공유기에서 너무 멀거나, 네트워크가 2.4 GHz와 5 GHz 사이를 오가고 있습니다.",
+          "<strong>Instagram이 스트림을 거부함:</strong> instagram.com에서 새 라이브 방송을 만들고 키를 업데이트하세요. 키는 한 번만 쓸 수 있습니다."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI Neo로 라이브 방송을 할 수 있나요?", "a": "네, DJI Fly의 RTMP로 할 수 있습니다. 컴퓨터로 방송하려면 RC-N3나 휴대폰에 케이블로 연결한 고글로 비행하세요. 그래야 휴대폰 Wi-Fi가 컴퓨터의 네트워크에 연결될 수 있습니다." },
+    { "q": "휴대폰만으로 조종할 때도 Neo를 라이브 방송할 수 있나요?", "a": "휴대폰 단독 조종 모드에서는 휴대폰 Wi-Fi가 Neo에 연결되어 있습니다. Android 휴대폰이 Wi-Fi와 핫스팟 공유를 동시에 지원한다면 컴퓨터가 휴대폰 핫스팟을 통해 스트림을 받을 수 있습니다. 가능 여부는 휴대폰에 따라 다릅니다." },
+    { "q": "DJI Neo로 Instagram이나 TikTok에 방송할 수 있나요?", "a": "DJI Fly에서 바로는 안 됩니다. DJI Fly의 RTMP 스트림을 Stream My Drone으로 보내면, 앱이 Instagram에는 RTMPS로, TikTok에는 세로 1080×1920으로 전달합니다." },
+    { "q": "Neo 2에서도 되나요?", "a": "사용 중인 드론과 조종기에서 DJI Fly의 Live Streaming Platforms 아래에 RTMP가 보이면 됩니다. Stream My Drone은 RTMP 스트림을 받을 뿐 드론과 직접 통신하지 않습니다." }
+  ]
+}

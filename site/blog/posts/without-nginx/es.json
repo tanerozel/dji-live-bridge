@@ -1,0 +1,80 @@
+{
+  "slug": "dron-dji-a-obs-sin-nginx",
+  "platform": "Sin NGINX",
+  "title": "Transmite tu dron DJI sin configurar NGINX ni OBS (2026)",
+  "description": "La forma habitual de meter DJI Fly en OBS es un servidor RTMP de NGINX, un archivo de configuración y una fuente multimedia. Esto es lo que implica, y cómo saltártelo con una sola app.",
+  "h1": "Transmite tu dron DJI sin configurar NGINX ni OBS",
+  "lead": "Busca cómo meter un dron DJI en OBS y la mayoría de las guías empiezan igual: instala un <strong>servidor RTMP de NGINX</strong>, edita su configuración, abre el cortafuegos, apunta DJI Fly hacia él y lleva la transmisión a <strong>OBS</strong> como fuente multimedia. Funciona, pero es un pequeño proyecto de servidor. <strong>Stream My Drone</strong> reúne en una sola app el servidor RTMP, la vista previa, la codificación y las salidas a las plataformas, y aun así puede pasarle la imagen a OBS cuando lo quieras.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "La receta clásica es DJI Fly → NGINX con el módulo RTMP → fuente multimedia de OBS → una plataforma.",
+    "Supone instalar un servidor, editar nginx.conf, permitir el puerto 1935 y montar una escena a mano.",
+    "Para varias plataformas a la vez hace falta un plugin de OBS o un servicio en la nube; un lienzo vertical requiere más configuración.",
+    "Stream My Drone recibe DJI Fly directamente y transmite a varias plataformas, en vertical u horizontal, sin instalar nada más.",
+    "Si de todas formas quieres OBS, <em>Preparar escena de OBS</em> crea por ti una escena DJI LIVE con la señal del dron."
+  ],
+  "sections": [
+    {
+      "id": "diy",
+      "h2": "La receta habitual de NGINX + OBS",
+      "blocks": [
+        { "steps": [
+          { "t": "Instala un servidor RTMP", "d": "NGINX con el módulo RTMP (en Windows, a menudo un paquete ya compilado), u otro servidor RTMP." },
+          { "t": "Edita la configuración", "d": "Añade a nginx.conf un bloque <code>rtmp</code> con una aplicación como <code>live</code> e inicia el servidor." },
+          { "t": "Abre el cortafuegos", "d": "Permite las conexiones entrantes en el puerto 1935 y busca la dirección local del ordenador." },
+          { "t": "Apunta DJI Fly hacia él", "d": "Introduce algo como <code>rtmp://192.168.1.20/live/drone</code> en Live Streaming Platforms → RTMP." },
+          { "t": "Llévalo a OBS", "d": "Añade una fuente multimedia con la misma dirección, ajusta su tamaño en el lienzo y después configura en OBS la URL y la clave de transmisión de tu plataforma." }
+        ] },
+        { "p": "A partir de ahí, cada cambio es manual: una red nueva significa una dirección nueva, una segunda plataforma significa un plugin o un servicio de reenvío, y una transmisión vertical significa un segundo lienzo o un perfil aparte." }
+      ]
+    },
+    {
+      "id": "compare",
+      "h2": "Qué sustituye Stream My Drone",
+      "blocks": [
+        { "table": {
+          "head": ["Tarea", "NGINX + OBS", "Stream My Drone"],
+          "rows": [
+            ["Servidor RTMP para DJI Fly", "Instalar y configurar NGINX", "Integrado; la dirección se muestra con un código QR"],
+            ["Vista previa del dron", "Fuente multimedia de OBS", "Integrada, con resolución y bitrate"],
+            ["Varias plataformas a la vez", "Plugin o servicio en la nube", "Integrado"],
+            ["Instagram (RTMPS)", "OBS puede enviar RTMPS a un destino", "Integrado, junto a los demás"],
+            ["Vertical 1080×1920", "Crear un lienzo vertical", "Un solo interruptor, con relleno difuminado"],
+            ["TikTok sin clave de transmisión", "Cámara virtual de OBS + LIVE Studio", "Cámara virtual integrada"],
+            ["Claves de transmisión", "En los ajustes de OBS", "En el almacén de credenciales del sistema"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "La configuración con una sola app",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Instala Stream My Drone", "d": "Descárgala para <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS o Windows</a>; FFmpeg y el servidor multimedia vienen incluidos." },
+          { "t": "Copia la dirección en DJI Fly", "d": "La app muestra una dirección como <code>rtmp://192.168.1.20:1935/drone</code>. Introdúcela en DJI Fly en GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP." },
+          { "t": "Añade tus plataformas", "d": "Instagram, TikTok, YouTube, Facebook, Twitch, Kick o cualquier servidor RTMP, cada uno con su URL y su clave." },
+          { "t": "Pulsa INICIAR TRANSMISIÓN", "d": "La imagen se codifica una vez y se envía a cada destino activado." }
+        ] },
+        { "img": "go-live.png", "alt": "La pestaña Transmitir de Stream My Drone con la dirección RTMP para DJI Fly, los destinos y el botón INICIAR TRANSMISIÓN." }
+      ]
+    },
+    {
+      "id": "obs",
+      "h2": "Cuando aun así quieres OBS",
+      "blocks": [
+        { "p": "OBS es imbatible en escenas, superposiciones y transiciones. Stream My Drone no sustituye eso: sustituye la parte de NGINX. Activa OBS WebSocket (Herramientas → Configuración del servidor WebSocket), conéctalo en la pestaña Avanzado de la app y pulsa <em>Preparar escena de OBS</em>: la app crea una escena llamada <strong>DJI LIVE</strong> con la señal del dron ya dentro, ajustada a un lienzo horizontal o vertical." },
+        { "img": "advanced.png", "alt": "La pestaña Avanzado de Stream My Drone con la integración opcional con OBS y el botón Preparar escena de OBS." },
+        { "note": "Para llamadas en Zoom, Meet o Teams a través de la cámara virtual de OBS, consulta <a href=\"../usar-tu-dron-dji-como-webcam/\">la guía de la webcam</a>." }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "¿Necesito NGINX para transmitir un dron DJI a OBS?", "a": "No. Stream My Drone incluye su propio servidor RTMP; con Preparar escena de OBS también mete la señal del dron en OBS sin NGINX." },
+    { "q": "¿Necesito OBS para transmitir con un dron DJI?", "a": "No. Stream My Drone transmite directamente a Instagram, TikTok, YouTube y otras plataformas. OBS es opcional para escenas y superposiciones." },
+    { "q": "¿Es peor el método de NGINX?", "a": "Funciona y es flexible, pero tienes que mantener tú mismo un servidor, un archivo de configuración y una escena de OBS, y el multistreaming o el vídeo vertical requieren pasos adicionales." },
+    { "q": "¿Cuánto cuesta Stream My Drone?", "a": "Nada. Es gratuita y de código abierto con licencia MIT." }
+  ]
+}

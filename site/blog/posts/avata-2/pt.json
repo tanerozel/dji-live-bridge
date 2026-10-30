@@ -1,0 +1,80 @@
+{
+  "slug": "dji-avata-2-transmissao-ao-vivo",
+  "platform": "DJI Avata 2",
+  "title": "Live com DJI Avata 2 e Goggles 3: Instagram, TikTok e YouTube",
+  "description": "Como fazer live com imagens FPV do DJI Avata 2: compartilhe a visão dos Goggles 3 com o DJI Fly no celular, transmita por RTMP e entre ao vivo no Instagram, TikTok ou YouTube.",
+  "h1": "Como fazer transmissão ao vivo com o DJI Avata 2",
+  "lead": "O Avata 2 não tem controle com tela, então a transmissão sai pelo seu celular: <strong>os Goggles 3 compartilham a visão ao vivo com o DJI Fly</strong>, e o DJI Fly a envia por <strong>RTMP</strong>. Aponte para o <strong>Stream My Drone</strong> em um computador e a imagem FPV segue para Instagram, TikTok, YouTube ou várias plataformas ao mesmo tempo.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Conecte os DJI Goggles 3 ao celular — um cabo USB-C é o mais confiável — e abra o DJI Fly para ver a imagem ao vivo.",
+    "No DJI Fly: GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, com o endereço que o Stream My Drone mostra.",
+    "O Wi-Fi do celular precisa estar na mesma rede do computador; o cabo deixa o Wi-Fi livre para isso.",
+    "O Stream My Drone adapta a imagem FPV horizontal para vertical 1080×1920 no Instagram e no TikTok.",
+    "Um observador ou uma segunda pessoa deve cuidar da transmissão — o piloto está de óculos."
+  ],
+  "sections": [
+    {
+      "id": "how",
+      "h2": "Como funciona a transmissão com um drone FPV",
+      "blocks": [
+        { "p": "Com o Avata 2, a imagem vai do drone para os óculos. Os DJI Goggles 3 podem compartilhar essa visão ao vivo com o DJI Fly em um celular, por cabo ou por Wi-Fi, e a opção RTMP do DJI Fly transmite o que ele mostra. O mesmo caminho está documentado para o Neo com óculos." },
+        { "table": {
+          "head": ["Ligação entre óculos e celular", "Bom para transmitir?", "Observações"],
+          "rows": [
+            ["Cabo USB-C (OTG)", "Sim — recomendado", "Estável, e o Wi-Fi do celular fica livre para alcançar o computador."],
+            ["Compartilhamento sem fio (Goggles 3)", "Possível", "O compartilhamento também usa a rede sem fio e pode causar interferência; prefira o cabo."]
+          ]
+        } },
+        { "note": "Vimos esse caminho documentado para os DJI Goggles 3. Com outros óculos, confira se o DJI Fly no celular mostra a visão ao vivo e oferece RTMP." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Configure a live do Avata 2",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Ligue os óculos ao celular por cabo", "d": "Conecte a porta USB-C dos DJI Goggles 3 ao celular com um cabo compatível com OTG e abra o DJI Fly; toque em GO FLY e confirme que a visão ao vivo aparece." },
+          { "t": "Coloque o celular e o computador na mesma rede", "d": "Conecte o Wi-Fi do celular e o computador ao mesmo Wi-Fi ou, em campo, a um roteador de viagem ou ao ponto de acesso de outro celular." },
+          { "t": "Abra o Stream My Drone", "d": "Instale o <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> em um Mac ou PC com Windows e anote o endereço que ele mostra, como <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Inicie o RTMP no DJI Fly", "d": "Em GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, digite o endereço e inicie. A prévia aparece no Stream My Drone." },
+          { "t": "Entre ao vivo", "d": "Adicione Instagram, TikTok, YouTube ou qualquer servidor RTMP, escolha vertical ou horizontal e pressione INICIAR TRANSMISSÃO antes de decolar." }
+        ] },
+        { "img": "go-live.png", "alt": "A aba Transmitir do Stream My Drone com o endereço RTMP para o DJI Fly, os destinos e o botão INICIAR TRANSMISSÃO." },
+        { "note": "As configurações gerais do DJI Fly, redes e avisos de firewall estão no <a href=\"../dji-fly-rtmp-configuracao-transmissao-ao-vivo/\">guia RTMP do DJI Fly</a>." }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "Dicas para lives FPV",
+      "blocks": [
+        { "list": [
+          "<strong>Inicie a transmissão antes de decolar.</strong> Depois de colocar os óculos, você não enxerga o computador; confira antes a prévia e os destinos.",
+          "<strong>Deixe outra pessoa acompanhar a transmissão.</strong> Um observador pode acompanhar os cartões dos destinos e encerrar a live se for preciso.",
+          "<strong>FPV na vertical.</strong> <em>Imagem inteira</em> mantém o horizonte completo com um preenchimento desfocado — normalmente melhor para FPV do que <em>Preencher a tela</em>, que corta as laterais.",
+          "<strong>Celulares Android transmitem com taxa de bits maior.</strong> A DJI indica 5 ou 3 Mbps no Android e 2 ou 1 Mbps no iOS — o movimento rápido do FPV precisa de cada bit."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Quando não funciona",
+      "blocks": [
+        { "list": [
+          "<strong>Sem visão ao vivo no DJI Fly:</strong> teste outro cabo USB-C; ele precisa transmitir dados, não só energia.",
+          "<strong>O DJI Fly não consegue conectar ao computador:</strong> o Wi-Fi do celular está em outra rede, ou o computador recebeu um novo endereço. Copie o endereço de novo.",
+          "<strong>A imagem engasga:</strong> use o cabo em vez do compartilhamento sem fio e mantenha o celular perto do roteador.",
+          "<strong>O Instagram rejeita a transmissão:</strong> cada chave do Instagram funciona uma vez só; crie um novo vídeo ao vivo e atualize a chave."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "O DJI Avata 2 faz transmissão ao vivo?", "a": "Sim. Os DJI Goggles 3 compartilham a visão ao vivo com o DJI Fly em um celular, e o DJI Fly a transmite por RTMP para o Stream My Drone, que a envia para as suas plataformas." },
+    { "q": "Preciso de um cabo entre os óculos e o celular?", "a": "Os Goggles 3 também compartilham sem fio, mas o cabo é mais confiável e deixa o Wi-Fi do celular livre para alcançar o computador." },
+    { "q": "Posso fazer live do Avata 2 no Instagram ou no TikTok?", "a": "Sim, pelo Stream My Drone. Ele transforma a imagem FPV horizontal em vertical 1080×1920 e chega ao Instagram por RTMPS, algo que o DJI Fly não faz sozinho." },
+    { "q": "Quem deve cuidar da transmissão enquanto eu piloto?", "a": "Inicie a live antes de decolar e, se possível, deixe um observador de olho no computador. O piloto está de óculos e não consegue ver os cartões dos destinos." }
+  ]
+}

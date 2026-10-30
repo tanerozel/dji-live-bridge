@@ -236,7 +236,7 @@
     },
     {
       "q": "Do I enter the platform’s stream key in DJI Fly?",
-      "a": "For this relay setup, enter the local address shown by Stream My Drone or Stream My Drone in DJI Fly. Put the platform server URL and stream key in the receiving app’s destination settings."
+      "a": "For this relay setup, enter the local address shown by Stream My Drone (phone or computer) in DJI Fly. Put the platform server URL and stream key in the receiving app’s destination settings."
     }
   ],
   "published": "2026-10-25",

@@ -1,0 +1,80 @@
+{
+  "slug": "live-streaming-dji-avata-2",
+  "platform": "DJI Avata 2",
+  "title": "Live streaming DJI Avata 2 dengan Goggles 3: Instagram, TikTok, YouTube",
+  "description": "Cara live streaming rekaman FPV dari DJI Avata 2: bagikan tampilan Goggles 3 ke DJI Fly di ponsel, siarkan lewat RTMP, lalu live di Instagram, TikTok, atau YouTube.",
+  "h1": "Cara live streaming dengan DJI Avata 2",
+  "lead": "Avata 2 tidak punya remote berlayar, jadi siaran keluar lewat ponsel Anda: <strong>Goggles 3 membagikan tampilan langsungnya ke DJI Fly</strong>, lalu DJI Fly mengirimkannya lewat <strong>RTMP</strong>. Arahkan ke <strong>Stream My Drone</strong> di komputer, dan gambar FPV diteruskan ke Instagram, TikTok, YouTube, atau beberapa platform sekaligus.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Sambungkan DJI Goggles 3 ke ponsel — kabel USB-C paling andal — lalu buka DJI Fly untuk melihat tampilan langsung.",
+    "Di DJI Fly: GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, dengan alamat yang ditampilkan Stream My Drone.",
+    "Wi-Fi ponsel harus berada di jaringan yang sama dengan komputer; kabel membuat Wi-Fi tetap bebas untuk itu.",
+    "Stream My Drone mengubah gambar FPV lanskap menjadi vertikal 1080×1920 untuk Instagram dan TikTok.",
+    "Sebaiknya spotter atau orang kedua yang menangani siaran — pilot sedang memakai goggles."
+  ],
+  "sections": [
+    {
+      "id": "how",
+      "h2": "Cara kerja streaming dengan drone FPV",
+      "blocks": [
+        { "p": "Pada Avata 2, gambar berjalan dari drone ke goggles. DJI Goggles 3 bisa membagikan tampilan langsung itu ke DJI Fly di ponsel, lewat kabel atau Wi-Fi, dan opsi RTMP di DJI Fly menyiarkan apa yang ditampilkannya. Jalur yang sama juga terdokumentasi untuk Neo dengan goggles." },
+        { "table": {
+          "head": ["Tautan dari goggles ke ponsel", "Cocok untuk streaming?", "Catatan"],
+          "rows": [
+            ["Kabel USB-C (OTG)", "Ya — disarankan", "Stabil, dan Wi-Fi ponsel tetap bebas untuk menjangkau komputer."],
+            ["Berbagi nirkabel (Goggles 3)", "Bisa", "Fitur berbagi ini sendiri memakai nirkabel dan bisa saling mengganggu; utamakan kabel."]
+          ]
+        } },
+        { "note": "Kami melihat jalur ini terdokumentasi untuk DJI Goggles 3. Dengan goggles lain, periksa apakah DJI Fly di ponsel menampilkan tampilan langsung dan menyediakan RTMP." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Mengatur live streaming Avata 2",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Sambungkan goggles ke ponsel dengan kabel", "d": "Hubungkan port USB-C DJI Goggles 3 ke ponsel dengan kabel yang mendukung OTG dan buka DJI Fly; ketuk GO FLY dan pastikan tampilan langsung muncul." },
+          { "t": "Satukan ponsel dan komputer di satu jaringan", "d": "Sambungkan Wi-Fi ponsel dan komputer ke Wi-Fi yang sama, atau di lapangan ke travel router atau hotspot ponsel lain." },
+          { "t": "Buka Stream My Drone", "d": "Pasang <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> di Mac atau PC Windows dan catat alamat yang ditampilkannya, misalnya <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Mulai RTMP di DJI Fly", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, masukkan alamatnya lalu mulai. Pratinjau muncul di Stream My Drone." },
+          { "t": "Mulai siaran", "d": "Tambahkan Instagram, TikTok, YouTube, atau server RTMP mana pun, pilih vertikal atau horizontal, lalu tekan MULAI SIARAN sebelum lepas landas." }
+        ] },
+        { "img": "go-live.png", "alt": "Tab Siaran di Stream My Drone dengan alamat RTMP untuk DJI Fly, daftar tujuan, dan tombol MULAI SIARAN." },
+        { "note": "Pengaturan umum DJI Fly, jaringan, dan permintaan izin firewall dibahas di <a href=\"../pengaturan-live-streaming-rtmp-dji-fly/\">panduan RTMP DJI Fly</a>." }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "Tips live streaming FPV",
+      "blocks": [
+        { "list": [
+          "<strong>Mulai siaran sebelum lepas landas.</strong> Begitu goggles terpasang, Anda tidak bisa melihat komputer; periksa pratinjau dan tujuan terlebih dahulu.",
+          "<strong>Biarkan orang lain memantau siaran.</strong> Spotter bisa mengikuti kartu tujuan dan mengakhiri siaran bila perlu.",
+          "<strong>FPV vertikal.</strong> <em>Gambar utuh</em> mempertahankan seluruh cakrawala dengan latar buram — biasanya lebih baik untuk FPV daripada <em>Penuhi layar</em>, yang memotong sisi kiri dan kanan.",
+          "<strong>Ponsel Android melakukan streaming dengan bitrate lebih tinggi.</strong> DJI mencantumkan 5 atau 3 Mbps di Android dan 2 atau 1 Mbps di iOS — gerakan FPV yang cepat butuh setiap bit."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Jika tidak berhasil",
+      "blocks": [
+        { "list": [
+          "<strong>Tidak ada tampilan langsung di DJI Fly:</strong> coba kabel USB-C lain; kabelnya harus bisa membawa data, bukan hanya daya.",
+          "<strong>DJI Fly tidak bisa terhubung ke komputer:</strong> Wi-Fi ponsel berada di jaringan lain, atau komputer mendapat alamat baru. Salin lagi alamatnya.",
+          "<strong>Gambar tersendat:</strong> gunakan kabel, bukan berbagi nirkabel, dan dekatkan ponsel ke router.",
+          "<strong>Instagram menolak siaran:</strong> setiap kunci Instagram hanya berlaku sekali; buat video live baru dan perbarui kuncinya."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Bisakah DJI Avata 2 live streaming?", "a": "Bisa. DJI Goggles 3 membagikan tampilan langsung ke DJI Fly di ponsel, lalu DJI Fly menyiarkannya lewat RTMP ke Stream My Drone, yang mengirimkannya ke platform Anda." },
+    { "q": "Apakah saya perlu kabel antara goggles dan ponsel?", "a": "Goggles 3 juga bisa berbagi secara nirkabel, tetapi kabel lebih andal dan membuat Wi-Fi ponsel tetap bebas untuk menjangkau komputer." },
+    { "q": "Bisakah saya siaran Avata 2 ke Instagram atau TikTok?", "a": "Bisa, lewat Stream My Drone. Aplikasi ini mengubah gambar FPV lanskap menjadi vertikal 1080×1920 dan menjangkau Instagram lewat RTMPS, hal yang tidak bisa dilakukan DJI Fly sendiri." },
+    { "q": "Siapa yang sebaiknya menjalankan siaran saat saya terbang?", "a": "Mulai siaran sebelum lepas landas dan, jika memungkinkan, biarkan spotter memantau komputer. Pilot memakai goggles dan tidak bisa melihat kartu tujuan." }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "slug": "dji-lito-1-live-stream",
+  "slug": "dji-lito-1-livestream",
   "platform": "DJI Lito 1",
   "title": "DJI Lito 1 live streamen: Einrichtung mit Handy und Computer",
   "description": "DJI Lito 1 mit RC 2, RC-N3 oder RC-N2 live streamen: RTMP-Einstellungen in DJI Fly, Abläufe mit Handy und Computer, Plattform-Einrichtung und Fehlerbehebung.",
@@ -68,7 +68,7 @@
             },
             {
               "t": "DJI Fly an diese Adresse senden lassen",
-              "d": "Öffnen Sie in DJI Fly GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, tragen Sie die Empfangsadresse ein und starten Sie den Stream. Die <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI-Fly-RTMP-Anleitung</a> erklärt das Menü. Erlauben Sie eingehende Verbindungen im privaten Netzwerk, wenn die Firewall des Computers nachfragt. Prüfen Sie die Vorschau, bevor Sie ein Ziel hinzufügen."
+              "d": "Öffnen Sie in DJI Fly GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, tragen Sie die Empfangsadresse ein und starten Sie den Stream. Die <a href=\"../dji-fly-rtmp-livestream-einrichten/\">DJI-Fly-RTMP-Anleitung</a> erklärt das Menü. Erlauben Sie eingehende Verbindungen im privaten Netzwerk, wenn die Firewall des Computers nachfragt. Prüfen Sie die Vorschau, bevor Sie ein Ziel hinzufügen."
             },
             {
               "t": "Ausgabe und Plattform festlegen",
@@ -100,7 +100,7 @@
             },
             {
               "t": "Empfangsadresse in DJI Fly eintragen",
-              "d": "Verwenden Sie die vollständige lokale Adresse, die Stream My Drone anzeigt. Öffnen Sie in DJI Fly GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP und tragen Sie die Adresse dort ein. Den kompletten Menüweg zeigt die <a href=\"../dji-fly-rtmp-live-streaming-setup/\">Anleitung zur RTMP-Einrichtung in DJI Fly</a>. Schließen Sie ein Mikrofon an, falls DJI Fly danach verlangt."
+              "d": "Verwenden Sie die vollständige lokale Adresse, die Stream My Drone anzeigt. Öffnen Sie in DJI Fly GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP und tragen Sie die Adresse dort ein. Den kompletten Menüweg zeigt die <a href=\"../dji-fly-rtmp-livestream-einrichten/\">Anleitung zur RTMP-Einrichtung in DJI Fly</a>. Schließen Sie ein Mikrofon an, falls DJI Fly danach verlangt."
             },
             {
               "t": "DJI-Fly-Stream starten und Vorschau prüfen",
@@ -132,28 +132,28 @@
               [
                 "YouTube",
                 "Ein Konto mit freigeschaltetem Livestreaming und eine vorbereitete Übertragung",
-                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube einrichten</a>"
+                "<a href=\"../dji-drohne-auf-youtube-live-streamen/\">YouTube einrichten</a>"
               ],
               [
                 "Instagram",
                 "Zugang zu Live Producer und aktuelle RTMPS-Zugangsdaten",
-                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram einrichten</a>"
+                "<a href=\"../mit-dji-drohne-auf-instagram-live-gehen/\">Instagram einrichten</a>"
               ],
               [
                 "Facebook",
                 "Eine Liveübertragung mit Server-URL und Schlüssel",
-                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Facebook einrichten</a>"
+                "<a href=\"../mit-dji-drohne-auf-facebook-live-gehen/\">Facebook einrichten</a>"
               ],
               [
                 "TikTok",
                 "RTMP-Zugang für Ihr Konto oder ein Computer mit Zugang zu LIVE Studio",
-                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok einrichten</a>"
+                "<a href=\"../mit-dji-drohne-auf-tiktok-live-gehen/\">TikTok einrichten</a>"
               ]
             ]
           }
         },
         {
-          "p": "Der Plattformzugang hängt an Ihrem Konto. Dass die App ein Drohnenbild empfängt, verschafft Ihnen weder einen Stream-Schlüssel noch veröffentlicht es eine Übertragung. Für TikTok LIVE Studio bietet die Desktop-App außerdem eine <a href=\"../use-your-dji-drone-as-a-webcam/\">virtuelle Kamera</a>. Den aktuellen Schritt zum Veröffentlichen finden Sie im Dashboard der jeweiligen Plattform."
+          "p": "Der Plattformzugang hängt an Ihrem Konto. Dass die App ein Drohnenbild empfängt, verschafft Ihnen weder einen Stream-Schlüssel noch veröffentlicht es eine Übertragung. Für TikTok LIVE Studio bietet die Desktop-App außerdem eine <a href=\"../dji-drohne-als-webcam-nutzen/\">virtuelle Kamera</a>. Den aktuellen Schritt zum Veröffentlichen finden Sie im Dashboard der jeweiligen Plattform."
         }
       ]
     },
@@ -197,10 +197,10 @@
           "p": "Modell und Fernsteuerungen: <a href=\"https://store.dji.com/ee/product/dji-lito-1?from=events-dji-monthly-picks&amp;set_region=EE\">offizielle Produktseite und FAQ zur Lito 1</a>. Livestream-fähige Drohnen: <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">Livestream-Kompatibilitätsliste von DJI Fly (Chinesisch)</a>. Voraussetzungen für Fernsteuerungen und Menüanleitung: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Stand: 25. Oktober 2026; prüfen Sie das Menü nach Firmware-Updates erneut."
         },
         {
-          "p": "Zum Vergleich das andere Lito-Modell: <a href=\"../dji-lito-x1-live-stream/\">Lito X1 einrichten</a>."
+          "p": "Zum Vergleich das andere Lito-Modell: <a href=\"../dji-lito-x1-livestream/\">Lito X1 einrichten</a>."
         },
         {
-          "p": "Für eine Drohne der Mini-Serie lesen Sie die <a href=\"../dji-mini-5-pro-live-stream/\">Anleitung zur Mini 5 Pro</a>. Um ein eingehendes Bild an mehrere Ziele zu senden, lesen Sie weiter im <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">Multistreaming-Leitfaden</a>."
+          "p": "Für eine Drohne der Mini-Serie lesen Sie die <a href=\"../dji-mini-5-pro-livestream/\">Anleitung zur Mini 5 Pro</a>. Um ein eingehendes Bild an mehrere Ziele zu senden, lesen Sie weiter im <a href=\"../dji-drohne-auf-mehreren-plattformen-gleichzeitig-streamen/\">Multistreaming-Leitfaden</a>."
         }
       ]
     }

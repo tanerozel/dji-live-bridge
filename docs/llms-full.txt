@@ -80,7 +80,7 @@ DJI Flip can send a live flight picture through DJI Fly RTMP with a supported co
 - DJI lists Flip in its livestream compatibility guide and lists RC 2, RC-N3 and RC-N2 as compatible controllers.
 - RC 2 keeps DJI Fly on its built-in screen, leaving a separate phone free to receive the stream.
 - RC-N3 and RC-N2 use a phone for DJI Fly. Use the separate computer receiver described below so DJI Fly stays open.
-- The local receiver address belongs in DJI Fly. Configure platform accounts or stream keys in Stream My Drone or Stream My Drone.
+- The local receiver address belongs in DJI Fly. Configure platform accounts or stream keys in Stream My Drone (phone or computer).
 - Palm control, direct phone control and QuickTransfer serve different purposes; this guide uses controller-based RTMP, and 2.7K vertical recording does not establish a vertical live output.
 
 ### Choose the workflow for your RC 2, RC-N3 or RC-N2
@@ -95,7 +95,7 @@ The DJI livestream guide specifies a 720p livestream limit for RC 2 and a connec
 ### Palm control, direct phone control and QuickTransfer: choose the right workflow
 Flip can fly with palm control or connect directly to a phone, as described in the official Flip FAQ. Those options are useful for capturing a short clip or controlling the aircraft without a conventional controller. They are separate from the controller-based RTMP setup explained here.
 For this live broadcast, connect RC 2, RC-N3 or RC-N2, open DJI Fly’s flight view and use its Live Streaming Platforms → RTMP menu. A direct Wi-Fi connection to Flip, a live camera preview or a completed palm-control recording does not by itself confirm that an RTMP feed has reached your receiver.
-QuickTransfer copies recorded media. Check a moving picture in Stream My Drone or Stream My Drone to verify a live connection. If you want to investigate a phone-only setup, check the controls actually available in your current DJI Fly connection mode; the steps below use a controller and do not establish phone-only RTMP support.
+QuickTransfer copies recorded media. Check a moving picture in Stream My Drone (phone or computer) to verify a live connection. If you want to investigate a phone-only setup, check the controls actually available in your current DJI Fly connection mode; the steps below use a controller and do not establish phone-only RTMP support.
 
 ### Flip with RC 2: use a separate phone without a computer
 1. **Install Stream My Drone on your phone** Get the app from Google Play or the App Store. The phone receives the stream while DJI Fly stays open on the RC 2.
@@ -146,7 +146,7 @@ Compare the Mini 5 Pro and Lito X1 workflows. To send one incoming picture to se
 
 **Can I use the phone already connected to RC-N3 or RC-N2?** That phone runs DJI Fly for flight control. This guide uses Stream My Drone on a separate computer as the receiver, so you can keep DJI Fly open. It does not assume both apps can handle a live flight and relay on one phone.
 
-**Which address goes into DJI Fly?** The full local receiving address displayed by Stream My Drone or Stream My Drone. Put the platform's server URL and stream key into the receiving app's destination settings.
+**Which address goes into DJI Fly?** The full local receiving address displayed by Stream My Drone (phone or computer). Put the platform's server URL and stream key into the receiving app's destination settings.
 
 **Does Flip’s 2.7K vertical recording make the RTMP feed vertical?** The aircraft’s vertical recording setting does not establish the RTMP output format. Check the feed received by your app. Stream My Drone relays the incoming video; use Stream My Drone on a computer when you need vertical output conversion.
 
@@ -162,7 +162,7 @@ DJI Lito X1 can share a live flight through DJI Fly RTMP. With an RC 2, let a se
 - DJI lists Lito X1 in its livestream compatibility guide; check the controller and current DJI Fly version together.
 - RC 2 keeps DJI Fly on its built-in screen, leaving a separate phone free to receive the stream.
 - RC-N3 and RC-N2 use a phone for DJI Fly. Use the separate computer receiver described below so DJI Fly stays open.
-- The local receiver address belongs in DJI Fly. Configure platform accounts or stream keys in Stream My Drone or Stream My Drone.
+- The local receiver address belongs in DJI Fly. Configure platform accounts or stream keys in Stream My Drone (phone or computer).
 - Check the receiver preview first and the platform viewer page second; recording settings do not determine the RTMP output.
 
 ### Choose the workflow for your RC 2, RC-N3 or RC-N2
@@ -221,7 +221,7 @@ For a Mini-series aircraft, see the Mini 5 Pro guide. To send one incoming pictu
 
 **Can I use the phone already connected to RC-N3 or RC-N2?** That phone runs DJI Fly for flight control. This guide uses Stream My Drone on a separate computer as the receiver, so you can keep DJI Fly open. It does not assume both apps can handle a live flight and relay on one phone.
 
-**Which address goes into DJI Fly?** The full local receiving address displayed by Stream My Drone or Stream My Drone. Put the platform's server URL and stream key into the receiving app's destination settings.
+**Which address goes into DJI Fly?** The full local receiving address displayed by Stream My Drone (phone or computer). Put the platform's server URL and stream key into the receiving app's destination settings.
 
 **Does Stream My Drone turn the video into a vertical broadcast?** The mobile app forwards the video it receives. Its preview layout does not re-encode the outgoing picture. Stream My Drone on a computer offers vertical output conversion.
 
@@ -237,7 +237,7 @@ The standard DJI Lito 1 package includes an RC-N3, so start with DJI Fly on the 
 - DJI lists Lito 1 in its livestream compatibility guide; check the controller and current DJI Fly version together.
 - RC 2 keeps DJI Fly on its built-in screen, leaving a separate phone free to receive the stream.
 - RC-N3 and RC-N2 use a phone for DJI Fly. Use the separate computer receiver described below so DJI Fly stays open.
-- The local receiver address belongs in DJI Fly. Configure platform accounts or stream keys in Stream My Drone or Stream My Drone.
+- The local receiver address belongs in DJI Fly. Configure platform accounts or stream keys in Stream My Drone (phone or computer).
 - Check the receiver preview first and the platform viewer page second; recording settings do not determine the RTMP output.
 
 ### Choose the workflow for your RC 2, RC-N3 or RC-N2
@@ -296,7 +296,7 @@ For a Mini-series aircraft, see the Mini 5 Pro guide. To send one incoming pictu
 
 **Can I use the phone already connected to RC-N3 or RC-N2?** That phone runs DJI Fly for flight control. This guide uses Stream My Drone on a separate computer as the receiver, so you can keep DJI Fly open. It does not assume both apps can handle a live flight and relay on one phone.
 
-**Which address goes into DJI Fly?** The full local receiving address displayed by Stream My Drone or Stream My Drone. Put the platform's server URL and stream key into the receiving app's destination settings.
+**Which address goes into DJI Fly?** The full local receiving address displayed by Stream My Drone (phone or computer). Put the platform's server URL and stream key into the receiving app's destination settings.
 
 **Does Stream My Drone turn the video into a vertical broadcast?** The mobile app forwards the video it receives. Its preview layout does not re-encode the outgoing picture. Stream My Drone on a computer offers vertical output conversion.
 
@@ -311,7 +311,7 @@ Your DJI Air 3S can send DJI Fly’s RTMP picture to Stream My Drone on a separa
 
 - DJI RC 2 keeps DJI Fly on its built-in screen; a separate phone can receive and forward the feed.
 - RC-N3 and RC-N2 use a phone for DJI Fly. The desktop workflow keeps the receiver separate from that flight phone.
-- The local receiving address belongs in DJI Fly; platform credentials belong in Stream My Drone or Stream My Drone.
+- The local receiving address belongs in DJI Fly; platform credentials belong in Stream My Drone (phone or computer).
 - Camera recording, the controller’s live view and the outgoing RTMP broadcast have separate quality settings.
 - Test both the selected camera view and the platform’s viewer page before your flight.
 
@@ -379,7 +379,7 @@ Compare the Air 3 streaming guide or Mini 5 Pro guide. To send the same picture 
 
 **Can I use an RC-N2 with Air 3S?** DJI’s current Air 3S FAQ lists RC-N2 alongside RC-N3 and RC 2. Update the devices and confirm pairing first. With RC-N2, keep DJI Fly on the attached phone and use the same computer receiver workflow described for RC-N3.
 
-**Which address goes into DJI Fly?** The full local receiving address displayed by Stream My Drone or Stream My Drone. Put the platform's server URL and stream key into the receiving app's destination settings.
+**Which address goes into DJI Fly?** The full local receiving address displayed by Stream My Drone (phone or computer). Put the platform's server URL and stream key into the receiving app's destination settings.
 
 **Does Stream My Drone turn the video into a vertical broadcast?** The mobile app forwards the video it receives. Its preview layout does not re-encode the outgoing picture. Stream My Drone on a computer offers vertical output conversion.
 
@@ -394,7 +394,7 @@ Your DJI Air 3 can send DJI Fly’s RTMP picture to Stream My Drone on a separat
 
 - DJI RC 2 keeps DJI Fly on its built-in screen; a separate phone can receive and forward the feed.
 - RC-N2 uses a phone for DJI Fly. Use the desktop workflow here to keep the receiving app on another device.
-- The local receiving address belongs in DJI Fly; platform credentials belong in Stream My Drone or Stream My Drone.
+- The local receiving address belongs in DJI Fly; platform credentials belong in Stream My Drone (phone or computer).
 - Camera recording, the controller’s live view and the outgoing RTMP broadcast have separate quality settings.
 - Test both the selected camera view and the platform’s viewer page before your flight.
 
@@ -460,7 +460,7 @@ Compare the Air 3S streaming guide or Mini 5 Pro guide. To send the same picture
 
 **Can I run the receiver on the phone attached to RC-N2?** That phone runs DJI Fly for flight control. This guide uses a separate computer for Stream My Drone so DJI Fly can stay open. It does not assume the phone can run the flight app and relay app together reliably.
 
-**Which address goes into DJI Fly?** The full local receiving address displayed by Stream My Drone or Stream My Drone. Put the platform's server URL and stream key into the receiving app's destination settings.
+**Which address goes into DJI Fly?** The full local receiving address displayed by Stream My Drone (phone or computer). Put the platform's server URL and stream key into the receiving app's destination settings.
 
 **Does Stream My Drone turn the video into a vertical broadcast?** The mobile app forwards the video it receives. Its preview layout does not re-encode the outgoing picture. Stream My Drone on a computer offers vertical output conversion.
 
@@ -541,7 +541,7 @@ For the previous generation, read the Mavic 3, Classic and Pro streaming guide. 
 
 **Does a 6K recording mean a 6K livestream?** No. The file recorded by the camera is separate from the DJI Fly RTMP output. Check the actual input in the receiving app and the stream seen by the platform.
 
-**Where do my YouTube or Instagram credentials go?** In the destination settings of Stream My Drone or Stream My Drone. DJI Fly receives the local RTMP address displayed by that app.
+**Where do my YouTube or Instagram credentials go?** In the destination settings of Stream My Drone (phone or computer). DJI Fly receives the local RTMP address displayed by that app.
 
 **Does rotating the controller screen guarantee a vertical broadcast?** Check the image arriving in the receiver and the platform’s viewer page. The controller screen, camera recording orientation and outgoing video format are separate. Desktop Stream My Drone can convert output to a vertical layout.
 
@@ -621,7 +621,7 @@ For the newer generation, read the Mavic 4 Pro livestream guide. For a smaller s
 
 **Why does an older RC Pro guide show a higher resolution?** DJI Fly capabilities change with software versions. Check the current controller settings and the official livestream guide, then inspect the received video instead of relying on a recording specification or old tutorial.
 
-**Do I enter the platform’s stream key in DJI Fly?** For this relay setup, enter the local address shown by Stream My Drone or Stream My Drone in DJI Fly. Put the platform server URL and stream key in the receiving app’s destination settings.
+**Do I enter the platform’s stream key in DJI Fly?** For this relay setup, enter the local address shown by Stream My Drone (phone or computer) in DJI Fly. Put the platform server URL and stream key in the receiving app’s destination settings.
 
 ## How to live stream a DJI Mini 3 Pro
 Source: https://streammydrone.com/blog/dji-mini-3-pro-live-stream/ (updated 2026-10-25)
@@ -837,7 +837,7 @@ Flying the previous model? Read the Mini 4 Pro live streaming guide. For sending
 
 **Can I use the phone already connected to RC-N3?** That phone runs DJI Fly for flight control. This guide uses Stream My Drone on a separate computer as the receiver, so you can keep DJI Fly open. It does not assume both apps can handle a live flight and relay on one phone.
 
-**Which address goes into DJI Fly?** The full local receiving address displayed by Stream My Drone or Stream My Drone. Put the platform's server URL and stream key into the receiving app's destination settings.
+**Which address goes into DJI Fly?** The full local receiving address displayed by Stream My Drone (phone or computer). Put the platform's server URL and stream key into the receiving app's destination settings.
 
 **Does Stream My Drone turn the video into a vertical broadcast?** The mobile app forwards the video it receives. Its preview layout does not re-encode the outgoing picture. Stream My Drone on a computer offers vertical output conversion.
 
@@ -848,7 +848,7 @@ Source: https://streammydrone.com/blog/dji-mini-4-pro-live-stream/ (updated 2026
 
 The DJI Mini 4 Pro can send its live view from DJI Fly over RTMP. With DJI RC 2, receive it on a separate phone using Stream My Drone, or on a computer using Stream My Drone. With RC-N2, the computer route below keeps DJI Fly open on your flight phone. Then configure YouTube, Instagram, Facebook or another destination in the receiving app.
 
-- DJI Fly sends the local feed; Stream My Drone or Stream My Drone forwards it to your platform.
+- DJI Fly sends the local feed; Stream My Drone (phone or computer) forwards it to your platform.
 - RC 2 works with a separate receiving phone; RC-N2 uses your phone for DJI Fly, with a computer receiving in this guide.
 - The controller’s RTMP output can be lower resolution than its live view or the file recorded on the drone.
 - The mobile app forwards the incoming video; desktop output can convert it to a vertical format.

@@ -1,0 +1,80 @@
+{
+  "slug": "osmo-action-diretta-streaming",
+  "platform": "Osmo Action",
+  "title": "Osmo Action 5 Pro, 6 e 4 in diretta su Instagram e TikTok",
+  "description": "Diretta streaming con DJI Osmo Action 6, 5 Pro, 4 o 3 via RTMP da DJI Mimo su Instagram, TikTok, YouTube e Twitch insieme con Stream My Drone. Configurazione e impostazioni.",
+  "h1": "Come trasmettere in diretta con una Osmo Action su Instagram e TikTok",
+  "lead": "Le action cam Osmo Action trasmettono via <strong>RTMP da DJI Mimo</strong> fino a 1080p, da un casco, un manubrio, un'auto o un treppiede. Da sola, DJI Mimo arriva a Facebook, YouTube o a un indirizzo RTMP; manda quel flusso RTMP a <strong>Stream My Drone</strong> su un computer e la stessa immagine va su <strong>Instagram, TikTok, YouTube, Twitch o Kick</strong> insieme.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Osmo Action 6, 5 Pro, 4 e 3 trasmettono in RTMP da DJI Mimo (1.2.20 o successiva) a 480p, 720p o 1080p, fino a 6 Mbps.",
+    "La fotocamera si collega da sola a una rete Wi-Fi; mettila sulla stessa rete del computer o su un hotspot condiviso con lui.",
+    "Stream My Drone invia il flusso a più piattaforme insieme, Instagram compresa via RTMPS.",
+    "Il verticale 1080×1920 con riempimento sfocato mantiene intera la ripresa d'azione sugli schermi dei telefoni.",
+    "La fotocamera virtuale trasforma la Osmo Action anche in una fotocamera senza fili per OBS, Zoom o TikTok LIVE Studio."
+  ],
+  "sections": [
+    {
+      "id": "setup",
+      "h2": "Configurare la diretta della Osmo Action",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Apri Stream My Drone", "d": "Installa <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> su un Mac o un PC Windows e annota l'indirizzo che mostra, come <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Collega la fotocamera in DJI Mimo", "d": "Aggiorna DJI Mimo e il firmware della fotocamera, collega la Osmo Action e apri l'opzione di diretta." },
+          { "t": "Scegli RTMP e il Wi-Fi", "d": "Seleziona RTMP e il Wi-Fi a cui deve collegarsi la fotocamera: la rete del computer, o l'hotspot di un telefono usato anche dal computer." },
+          { "t": "Inserisci l'indirizzo e avvia", "d": "Digita l'indirizzo di Stream My Drone, scegli 1080p e il bitrate più alto che la rete regge, poi avvia. L'anteprima compare nell'app." },
+          { "t": "Aggiungi le piattaforme e vai in diretta", "d": "Aggiungi Instagram, TikTok, YouTube, Twitch o qualsiasi server RTMP e premi AVVIA DIRETTA." }
+        ] },
+        { "img": "go-live.png", "alt": "La scheda Diretta di Stream My Drone con l'indirizzo RTMP, le destinazioni e il pulsante AVVIA DIRETTA." },
+        { "note": "Le altre fotocamere DJI con diretta RTMP sono elencate nella <a href=\"../dji-osmo-diretta-instagram-tiktok/\">guida alle fotocamere Osmo</a>." }
+      ]
+    },
+    {
+      "id": "ideas",
+      "h2": "Dove una diretta con action cam dà il meglio",
+      "blocks": [
+        { "list": [
+          "<strong>Sport e uscite.</strong> Bici, moto, sci o corsa: un solo punto di vista, in diretta su più piattaforme.",
+          "<strong>Dietro le quinte.</strong> Monta la fotocamera su un set o sulla parete del laboratorio e trasmetti mentre lavori.",
+          "<strong>Una seconda inquadratura.</strong> Con la fotocamera virtuale aggiungi la Osmo Action come sorgente senza fili in OBS accanto alla fotocamera principale: vedi la <a href=\"../usare-il-drone-dji-come-webcam/\">guida alla webcam</a>.",
+          "<strong>Dirette con qualsiasi tempo.</strong> La fotocamera regge pioggia e polvere; il computer resta all'asciutto in auto o in tenda."
+        ] }
+      ]
+    },
+    {
+      "id": "range",
+      "h2": "Portata e rete",
+      "blocks": [
+        { "p": "La fotocamera manda il flusso al computer via Wi-Fi, quindi deve restare a portata di quella rete. Per le riprese in movimento, un hotspot del telefono portato vicino alla fotocamera, con il computer sullo stesso hotspot, tiene corto il collegamento. L'upload verso le piattaforme usa allora i dati mobili dell'hotspot, circa 6 Mbps per destinazione." },
+        { "table": {
+          "head": ["Configurazione", "Ideale per"],
+          "rows": [
+            ["Wi-Fi di casa o del locale", "Inquadrature fisse, laboratori, eventi"],
+            ["Hotspot del telefono vicino a fotocamera e computer", "Riprese all'aperto e brevi riprese in movimento"],
+            ["Router da viaggio in auto o in furgone", "Uscite in cui il computer viaggia con te"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Quando non funziona",
+      "blocks": [
+        { "list": [
+          "<strong>La fotocamera non riesce a connettersi:</strong> non è sulla rete del computer, oppure una rete per ospiti isola i dispositivi.",
+          "<strong>La diretta cade in movimento:</strong> la fotocamera è uscita dalla portata del Wi-Fi; tieni l'hotspot più vicino o abbassa il bitrate.",
+          "<strong>Manca l'opzione di diretta:</strong> aggiorna DJI Mimo alla 1.2.20 o successiva e il firmware della fotocamera.",
+          "<strong>Instagram rifiuta il flusso:</strong> crea un nuovo video in diretta su instagram.com e aggiorna la chiave; ogni chiave funziona una sola volta."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "La Osmo Action 5 Pro può andare in diretta su Instagram?", "a": "Non con la sola DJI Mimo. Trasmetti via RTMP a Stream My Drone, che inoltra l'immagine a Instagram via RTMPS." },
+    { "q": "Quali Osmo Action supportano la diretta RTMP?", "a": "Secondo DJI: Osmo Action 6, 5 Pro, 4 e 3, DJI Action 2 e la prima Osmo Action (al massimo 720p)." },
+    { "q": "Posso trasmettere con una Osmo Action su Twitch e YouTube contemporaneamente?", "a": "Sì. Aggiungi entrambe le destinazioni in Stream My Drone e premi AVVIA DIRETTA." },
+    { "q": "Quanto può essere lontana la fotocamera dal computer?", "a": "Fin dove arriva il Wi-Fi. La fotocamera trasmette al computer su quella rete, quindi tienila a portata o porta con te un hotspot." }
+  ]
+}

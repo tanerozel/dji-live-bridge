@@ -1,0 +1,84 @@
+{
+  "slug": "dji-osmo-live-stream-instagram-tiktok",
+  "platform": "كاميرات DJI Osmo",
+  "title": "بث مباشر من DJI Osmo Action و Pocket إلى Instagram و TikTok",
+  "description": "يستطيع DJI Mimo بث كاميرات Osmo Action و Osmo Pocket و Osmo 360 عبر RTMP. أرسل هذا البث إلى Stream My Drone لتبدأ البث المباشر على Instagram و TikTok و YouTube معًا.",
+  "h1": "بث مباشر من كاميرا DJI Osmo إلى Instagram و TikTok وغيرهما",
+  "lead": "‏Stream My Drone ليس للطائرات فقط. فكاميرات الحركة وكاميرات المثبّت من DJI تبث عبر <strong>RTMP من تطبيق DJI Mimo</strong> — وهذا تمامًا نوع البث الذي يستقبله التطبيق. وجّه Osmo Action أو Osmo Pocket أو Osmo 360 إلى Stream My Drone فيذهب البث إلى <strong>Instagram أو TikTok أو YouTube أو Facebook أو Twitch أو Kick</strong>، إلى عدة منصات معًا، بتنسيق عمودي أو أفقي — أو إلى Zoom و OBS ككاميرا ويب لاسلكية.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "يوفّر DJI Mimo (الإصدار 1.2.20 أو أحدث) البث المباشر عبر RTMP على سلاسل Osmo Action و Osmo Pocket و Osmo 360.",
+    "تنضم الكاميرا بنفسها إلى شبكة Wi-Fi وترسل RTMP؛ فضعها على شبكة الحاسوب الذي يشغّل Stream My Drone نفسها.",
+    "المنصات المدمجة في DJI Mimo هي Facebook و YouTube و RTMP — أما Instagram و TikTok فتصل إليهما عبر Stream My Drone.",
+    "تذكر DJI دقة 480p و720p و1080p بمعدل يصل إلى 6 ميغابت/ثانية؛ اختر 1080p بمعدل 6 ميغابت/ثانية إذا سمحت شبكة Wi-Fi بذلك.",
+    "يمكن أن يتحول البث نفسه إلى كاميرا ويب لاسلكية لـ TikTok LIVE Studio أو OBS أو Zoom أو Meet."
+  ],
+  "sections": [
+    {
+      "id": "devices",
+      "h2": "أي كاميرات DJI تستطيع البث",
+      "blocks": [
+        { "p": "بحسب DJI، تدعم هذه الكاميرات البث المباشر في DJI Mimo، ويكون RTMP أحد المنصات المتاحة:" },
+        { "table": {
+          "head": ["الكاميرا", "الدقة (حسب DJI)", "ملاحظات"],
+          "rows": [
+            ["Osmo Pocket 3, Osmo Pocket 4, Osmo Pocket 4P", "‏480p و720p و1080p بمعدل 30 إطارًا/ثانية", "حتى 6 ميغابت/ثانية بدقة 1080p"],
+            ["Osmo Action 6, Osmo Action 5 Pro, Osmo Action 4, Osmo Action 3", "‏480p و720p و1080p", "حتى 6 ميغابت/ثانية بدقة 1080p"],
+            ["سلسلة Osmo 360", "‏480p و720p و1080p", "في وضع العدسة الواحدة فقط"],
+            ["DJI Pocket 2, DJI Action 2", "‏480p و720p و1080p", "يوفّر Action 2 أيضًا معدل بت متكيّفًا"],
+            ["‏Osmo Action (الجيل الأول)", "‏480p و720p", "لا يوجد بث مباشر بدقة 1080p"]
+          ]
+        } },
+        { "note": "غير مدعومة للبث المباشر في DJI Mimo: مثبّتات الهاتف Osmo Mobile و DJI OM، و Osmo Pocket الأصلي، و Osmo Nano. ومع مثبّت الهاتف، يكون الهاتف نفسه هو الكاميرا." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "البث من كاميرا Osmo عبر Stream My Drone",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "افتح Stream My Drone", "d": "ثبّت <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> على جهاز Mac أو حاسوب Windows. تعمل خطوة <em>وصّل الدرون</em> مع أي كاميرا RTMP، وتعرض عنوانًا مثل <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "صِل الكاميرا في DJI Mimo", "d": "حدّث DJI Mimo إلى الإصدار 1.2.20 أو أحدث، وصِل الكاميرا وافتح خيار البث المباشر فيها." },
+          { "t": "اختر RTMP والشبكة", "d": "اختر RTMP كمنصة، واختر شبكة Wi-Fi التي يجب أن تستخدمها الكاميرا — وهي شبكة الحاسوب نفسها، أو نقطة اتصال هاتف انضم إليها الجهازان." },
+          { "t": "اكتب العنوان والجودة", "d": "اكتب العنوان من Stream My Drone، واختر 1080p وأعلى معدل بت تتحمله شبكة Wi-Fi، وابدأ. تظهر المعاينة في التطبيق خلال ثوانٍ." },
+          { "t": "أضف المنصات وابدأ البث", "d": "أضف Instagram أو TikTok أو YouTube أو أي خادم RTMP، واختر الوضع العمودي أو الأفقي، واضغط «ابدأ البث»." }
+        ] },
+        { "img": "go-live.png", "alt": "تبويب البث المباشر في Stream My Drone مع عنوان RTMP والوجهات وزر «ابدأ البث»." }
+      ]
+    },
+    {
+      "id": "uses",
+      "h2": "ما الذي يضيفه إلى كاميرا Osmo",
+      "blocks": [
+        { "list": [
+          "<strong>‏Instagram و TikTok.</strong> يبث DJI Mimo إلى Facebook أو YouTube أو عنوان RTMP؛ أما Stream My Drone فيصل إلى Instagram عبر RTMPS، وإلى TikTok بمفتاح بث أو عبر TikTok LIVE Studio.",
+          "<strong>عدة منصات في آن واحد.</strong> كاميرا واحدة، والبث نفسه على Instagram و TikTok و YouTube.",
+          "<strong>عمودي للهواتف.</strong> تصبح الصورة الأفقية 1080×1920 مع خلفية مموّهة بدل الأشرطة السوداء.",
+          "<strong>كاميرا ويب لاسلكية.</strong> تعرض الكاميرا الافتراضية المدمجة صورة Osmo في TikTok LIVE Studio أو OBS أو Zoom أو Meet — بلا كابل إلى الحاسوب. راجع <a href=\"../use-your-dji-drone-as-a-webcam/\">دليل كاميرا الويب</a>.",
+          "<strong>معاينة وتسجيل.</strong> شاهد الإدخال الحقيقي على الحاسوب وسجّله أثناء البث."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "عندما لا يعمل البث",
+      "blocks": [
+        { "list": [
+          "<strong>الكاميرا لا تستطيع الاتصال:</strong> يجب أن تكون على شبكة الحاسوب نفسها. شبكات الضيوف كثيرًا ما تعزل الأجهزة؛ استخدم شبكة Wi-Fi عادية أو نقطة اتصال.",
+          "<strong>لا يوجد خيار بث مباشر في DJI Mimo:</strong> حدّث DJI Mimo والبرنامج الثابت للكاميرا؛ فالبث المباشر يتطلب DJI Mimo 1.2.20 أو أحدث.",
+          "<strong>الصورة تتقطع:</strong> اخفض معدل البت في DJI Mimo أو قرّب الكاميرا من الراوتر.",
+          "<strong>‏Osmo 360 لا يبث:</strong> حوّله إلى وضع العدسة الواحدة أولًا."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "هل يمكنني البث المباشر من Osmo Action أو Osmo Pocket إلى Instagram؟", "a": "ليس من DJI Mimo وحده، فهو يوفّر Facebook و YouTube و RTMP فقط. ابثّ إلى Stream My Drone عبر RTMP فيعيد إرسال الصورة إلى Instagram عبر RTMPS." },
+    { "q": "هل يعمل Stream My Drone مع الكاميرات وليس مع الطائرات فقط؟", "a": "نعم. فهو يستقبل بث RTMP قياسيًا، سواء أرسله DJI Fly أو DJI Mimo." },
+    { "q": "أي كاميرات DJI تدعم البث المباشر عبر RTMP؟", "a": "بحسب DJI: Osmo Pocket 3 و4 و4P، و Osmo Action 3 و4 و5 Pro و6، وسلسلة Osmo 360 في وضع العدسة الواحدة، و DJI Pocket 2، و DJI Action 2، و Osmo Action الأول." },
+    { "q": "هل يمكنني استخدام كاميرا Osmo ككاميرا ويب لاسلكية؟", "a": "نعم. شغّل الكاميرا الافتراضية في Stream My Drone واختر Stream My Drone Camera في TikTok LIVE Studio أو OBS أو Zoom أو Meet." },
+    { "q": "هل هو مجاني؟", "a": "نعم. Stream My Drone مجاني ومفتوح المصدر، وهو غير تابع لـ DJI." }
+  ]
+}

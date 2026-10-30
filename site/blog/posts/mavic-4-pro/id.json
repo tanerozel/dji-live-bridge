@@ -1,5 +1,5 @@
 {
-  "slug": "dji-mavic-4-pro-live-stream",
+  "slug": "live-streaming-dji-mavic-4-pro",
   "platform": "DJI Mavic 4 Pro",
   "title": "Live streaming DJI Mavic 4 Pro: panduan RC 2 dan RC Pro 2 (2026)",
   "description": "Siarkan DJI Mavic 4 Pro dengan RC 2 atau RC Pro 2 ke ponsel atau komputer. Cek RTMP di DJI Fly, beda mikrofon kedua remote, batas 720p, dan pengaturan platform.",
@@ -74,7 +74,7 @@
             },
             {
               "t": "Masukkan alamat penerima di DJI Fly",
-              "d": "Salin alamat RTMP lokal lengkap yang ditampilkan Stream My Drone. Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Ikuti label di versi Anda: layar yang meminta kolom alamat dan kunci secara terpisah berbeda dengan layar yang meminta URL RTMP lengkap. Jangan tambahkan kunci YouTube atau Instagram Anda ke alamat penerima lokal. Lihat <a href=\"../dji-fly-rtmp-live-streaming-setup/\">panduan RTMP DJI Fly</a> untuk penjelasan menunya."
+              "d": "Salin alamat RTMP lokal lengkap yang ditampilkan Stream My Drone. Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Ikuti label di versi Anda: layar yang meminta kolom alamat dan kunci secara terpisah berbeda dengan layar yang meminta URL RTMP lengkap. Jangan tambahkan kunci YouTube atau Instagram Anda ke alamat penerima lokal. Lihat <a href=\"../pengaturan-live-streaming-rtmp-dji-fly/\">panduan RTMP DJI Fly</a> untuk penjelasan menunya."
             },
             {
               "t": "Mulai siaran lokal dan periksa suara",
@@ -136,28 +136,28 @@
               [
                 "YouTube",
                 "Akses live sudah aktif dan siaran yang sudah disiapkan",
-                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Pengaturan YouTube</a>"
+                "<a href=\"../cara-live-streaming-drone-dji-ke-youtube/\">Pengaturan YouTube</a>"
               ],
               [
                 "Instagram",
                 "Akses Live Producer dan kredensial RTMPS terbaru",
-                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Pengaturan Instagram</a>"
+                "<a href=\"../cara-live-instagram-dengan-drone-dji/\">Pengaturan Instagram</a>"
               ],
               [
                 "Facebook",
                 "Siaran langsung yang sudah disiapkan beserta URL server dan kuncinya",
-                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Pengaturan Facebook</a>"
+                "<a href=\"../cara-live-facebook-dengan-drone-dji/\">Pengaturan Facebook</a>"
               ],
               [
                 "TikTok",
                 "Akses RTMP di akun Anda, atau akses LIVE Studio di komputer",
-                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Pengaturan TikTok</a>"
+                "<a href=\"../cara-live-tiktok-dengan-drone-dji/\">Pengaturan TikTok</a>"
               ]
             ]
           }
         },
         {
-          "p": "Kelayakan akun ditentukan oleh platform. Kedua aplikasi tidak memberikan stream key dan tidak bisa melewati persyaratan akses. Untuk alur kerja komputer dengan aplikasi studio yang kompatibel, Stream My Drone juga menyediakan <a href=\"../use-your-dji-drone-as-a-webcam/\">kamera virtual</a>. Pratinjau lokal membuktikan siaran sudah diterima; halaman penonton yang berfungsi membuktikan siaran sudah tayang."
+          "p": "Kelayakan akun ditentukan oleh platform. Kedua aplikasi tidak memberikan stream key dan tidak bisa melewati persyaratan akses. Untuk alur kerja komputer dengan aplikasi studio yang kompatibel, Stream My Drone juga menyediakan <a href=\"../jadikan-drone-dji-sebagai-webcam/\">kamera virtual</a>. Pratinjau lokal membuktikan siaran sudah diterima; halaman penonton yang berfungsi membuktikan siaran sudah tayang."
         }
       ]
     },
@@ -203,7 +203,7 @@
           "p": "Diperiksa pada 25 Oktober 2026: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006734&amp;lang=en&amp;re=us&amp;spaceId=34\">Panduan pemasangan drone DJI</a> untuk pilihan remote; <a href=\"https://www.dji.com/rc-pro-2/faq\">FAQ DJI RC Pro 2</a> untuk perangkat keras mikrofon; <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">panduan operasi livestream DJI Fly</a> untuk batasan RTMP; dan <a href=\"https://repair.dji.com/help/content?customId=01700006877&amp;lang=en&amp;paperDocType=ARTICLE&amp;spaceId=17\">mode potret DJI</a> untuk kontrol perekaman vertikal. Ketersediaan firmware dan menu bisa berubah; periksa kombinasi perangkat Anda sendiri."
         },
         {
-          "p": "Untuk generasi sebelumnya, baca <a href=\"../dji-mavic-3-live-stream/\">panduan streaming Mavic 3, Classic, dan Pro</a>. Untuk mengirim siaran yang sama ke beberapa layanan, lanjutkan ke <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">multistreaming dengan drone DJI</a>."
+          "p": "Untuk generasi sebelumnya, baca <a href=\"../live-streaming-dji-mavic-3/\">panduan streaming Mavic 3, Classic, dan Pro</a>. Untuk mengirim siaran yang sama ke beberapa layanan, lanjutkan ke <a href=\"../live-drone-dji-ke-beberapa-platform-sekaligus/\">multistreaming dengan drone DJI</a>."
         }
       ]
     }
@@ -227,7 +227,7 @@
     },
     {
       "q": "Di mana kredensial YouTube atau Instagram saya dimasukkan?",
-      "a": "Di pengaturan tujuan Stream My Drone atau Stream My Drone. DJI Fly menerima alamat RTMP lokal yang ditampilkan aplikasi itu."
+      "a": "Di pengaturan tujuan Stream My Drone (ponsel atau komputer). DJI Fly menerima alamat RTMP lokal yang ditampilkan aplikasi itu."
     },
     {
       "q": "Apakah memutar layar remote menjamin siaran vertikal?",

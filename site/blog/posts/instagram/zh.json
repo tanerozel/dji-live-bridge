@@ -1,0 +1,81 @@
+{
+  "slug": "how-to-go-live-on-instagram-with-a-dji-drone",
+  "platform": "Instagram",
+  "title": "如何用 DJI 无人机在 Instagram 直播（分步教程）",
+  "description": "用 DJI 无人机在 Instagram 开直播：在 instagram.com 获取推流地址和密钥，通过 Stream My Drone 转发 DJI Fly 的 RTMP 推流，最后点击 Go live。",
+  "h1": "如何用 DJI 无人机在 Instagram 直播",
+  "lead": "Instagram Live 可以接收来自推流软件的直播。打开 <strong>instagram.com → Create (+) → Live video</strong>，把推流地址和推流密钥复制到 Stream My Drone，从 DJI Fly 把无人机画面发送到应用，按“开始直播”，最后在 Instagram 上点击 <strong>Go live</strong>。Instagram 每场直播都会给出新的密钥。",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Instagram 的推流地址和密钥要在电脑上的 instagram.com 获取：Create (+) → Live video。",
+    "密钥只能用一次：每次直播前，在推流目标卡片上用“更新密钥”更新它。",
+    "Instagram 需要竖屏视频；应用以 1080×1920、30 fps、H.264、2 秒关键帧发送。",
+    "只有在 Instagram 上点击 Go live 后，直播才会公开。",
+    "你可以把同一画面同时发送到 TikTok、YouTube 或 Facebook。"
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "准备工作",
+      "blocks": [
+        { "list": [
+          "一台 DJI Fly 在 Live Streaming Platforms 下提供 RTMP 的 DJI 无人机。",
+          "Mac 或 Windows 电脑上的 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>，与遥控器连在同一个 Wi-Fi 或热点上。",
+          "一个在 instagram.com 的 Create 下显示 <em>Live video</em> 的 Instagram 账号。如果没有显示，说明 Instagram 还没有为该账号开放这个选项。"
+        ] }
+      ]
+    },
+    {
+      "id": "steps",
+      "h2": "分步在 Instagram 开直播",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "连接无人机", "d": "在 DJI Fly 中打开 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，填入 Stream My Drone 显示的地址并开始。应用中会出现预览。" },
+          { "t": "在 Instagram 上创建直播", "d": "在 instagram.com 上点击 Create (+) → Live video，填写标题，选择观众范围，然后继续。" },
+          { "t": "复制推流地址和密钥", "d": "Instagram 会显示 <em>Stream URL</em>（形如 <code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code>）和 <em>Stream key</em>。把两者粘贴到 Stream My Drone 的一个 Instagram 推流目标中。" },
+          { "t": "按下“开始直播”", "d": "保持<em>竖屏 9:16</em>开启。几秒钟内，Instagram 的窗口就会以预览形式显示无人机画面。" },
+          { "t": "在 Instagram 上点击 Go live", "d": "直到这一步，粉丝才能看到直播。结束时，先在 Instagram 上结束直播，再在应用中按<em>结束直播</em>。" }
+        ] },
+        { "note": "下次直播时，在 Instagram 上新建一场直播，并在推流目标卡片上使用<em>更新密钥</em>：旧密钥已经失效。" }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Instagram 要求的设置",
+      "blocks": [
+        { "table": {
+          "head": ["设置", "Stream My Drone"],
+          "rows": [
+            ["分辨率", "1080×1920（竖屏 9:16）"],
+            ["帧率", "30 fps"],
+            ["视频", "H.264 High，6 Mbps CBR"],
+            ["关键帧", "每 2 秒一个"],
+            ["协议", "RTMPS（加密）"]
+          ]
+        } },
+        { "p": "无人机拍摄的是横屏画面。<em>完整画面</em>保留整个画面，并用它的模糊副本填充上下空白；<em>填满屏幕</em>则裁掉两侧以铺满手机屏幕。" }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "常见问题",
+      "blocks": [
+        { "list": [
+          "<strong>一连接就失败：</strong>这个密钥已经用过了。在 Instagram 上新建一场直播并更新密钥。",
+          "<strong>Instagram 的预览一直是黑屏：</strong>按“开始直播”后等几秒；如果还是黑屏，确认应用的预览中能看到无人机画面。",
+          "<strong>粉丝看不到直播：</strong>在 Instagram 上点击 Go live——收到推流并不等于已经发布直播。",
+          "<strong>Create 下没有 Live video：</strong>该账号在网页端还没有这个选项；这由 Instagram 决定。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "能用 DJI 无人机在 Instagram 直播吗？", "a": "能。DJI Fly 把 RTMP 发送到你电脑上的 Stream My Drone，应用再用 instagram.com 提供的推流地址和密钥把它转发到 Instagram。" },
+    { "q": "为什么 Instagram 每次都要新的推流密钥？", "a": "Instagram 会为每场直播生成新的密钥。每次直播前，请在应用中用“更新密钥”更新它。" },
+    { "q": "能同时直播到 Instagram 和 TikTok 吗？", "a": "能。启用这两个推流目标；画面只编码一次，再分别发送。两者都需要竖屏视频，一个设置就能同时满足。" },
+    { "q": "需要 OBS 吗？", "a": "不需要。Stream My Drone 会直接把推流发送到 Instagram；OBS 是可选的。" },
+    { "q": "会包含无人机的声音吗？", "a": "默认会转发 DJI Fly 发送的音频。你也可以在电脑上选择一个麦克风来解说，或者让直播静音。" }
+  ]
+}

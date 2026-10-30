@@ -1,0 +1,81 @@
+{
+  "slug": "how-to-go-live-on-instagram-with-a-dji-drone",
+  "platform": "Instagram",
+  "title": "如何用 DJI 空拍機開 Instagram 直播（逐步教學）",
+  "description": "用 DJI 空拍機開 Instagram 直播：在 instagram.com 取得串流網址和金鑰，透過 Stream My Drone 轉送 DJI Fly 的 RTMP 串流，最後按下開始直播。",
+  "h1": "如何用 DJI 空拍機開 Instagram 直播",
+  "lead": "Instagram 直播接受來自直播軟體的串流。開啟 <strong>instagram.com →「建立」（+）→「直播視訊」</strong>，把串流網址和串流金鑰複製到 Stream My Drone，從 DJI Fly 把空拍畫面送到 App，按下「開始直播」，最後在 Instagram 上按下<strong>開始直播</strong>。Instagram 每場直播都會給一組新的金鑰。",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Instagram 的串流網址和金鑰要在電腦上的 instagram.com 取得：「建立」（+）→「直播視訊」。",
+    "金鑰只能用一次：每場直播前，請在目的地卡片上用「更新金鑰」換新。",
+    "Instagram 需要直向影片；App 會送出 1080×1920、30 fps、H.264、2 秒關鍵影格。",
+    "直到你在 Instagram 上按下開始直播，直播才會公開。",
+    "同一個畫面可以同時送到 TikTok、YouTube 或 Facebook。"
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "需要準備什麼",
+      "blocks": [
+        { "list": [
+          "一台 DJI Fly App 在 Live Streaming Platforms 底下提供 RTMP 的 DJI 空拍機。",
+          "安裝在 Mac 或 Windows 電腦上的 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>，並和遙控器連上同一個 Wi-Fi 或熱點。",
+          "一個在 instagram.com 的「建立」底下有<em>直播視訊</em>的 Instagram 帳號。如果沒有，代表 Instagram 還沒為這個帳號開放這個選項。"
+        ] }
+      ]
+    },
+    {
+      "id": "steps",
+      "h2": "逐步開 Instagram 直播",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "連接空拍機", "d": "在 DJI Fly 中開啟 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，輸入 Stream My Drone 顯示的位址後開始。App 中就會出現預覽。" },
+          { "t": "在 Instagram 上建立直播", "d": "在 instagram.com 點選「建立」（+）→「直播視訊」，輸入標題、選擇觀眾，然後繼續。" },
+          { "t": "複製串流網址和金鑰", "d": "Instagram 會顯示<em>串流網址</em>（例如 <code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code>）和<em>串流金鑰</em>。把兩者貼到 Stream My Drone 的 Instagram 目的地。" },
+          { "t": "按下「開始直播」", "d": "保持<em>直向 9:16</em>開啟。幾秒內，Instagram 的視窗就會以預覽顯示空拍畫面。" },
+          { "t": "在 Instagram 上按下開始直播", "d": "到這一步，追蹤者才看得到直播。要結束時，先在 Instagram 上結束直播，再在 App 中按下<em>結束直播</em>。" }
+        ] },
+        { "note": "下一次直播時，請在 Instagram 上開一個新的直播，並在目的地卡片上使用<em>更新金鑰</em>：舊的金鑰已經失效。" }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Instagram 要求的設定",
+      "blocks": [
+        { "table": {
+          "head": ["設定", "Stream My Drone"],
+          "rows": [
+            ["解析度", "1080×1920（直向 9:16）"],
+            ["影格率", "30 fps"],
+            ["影像", "H.264 High，6 Mbps CBR"],
+            ["關鍵影格", "每 2 秒一次"],
+            ["通訊協定", "RTMPS（加密）"]
+          ]
+        } },
+        { "p": "空拍機拍的是橫向畫面。<em>完整畫面</em>會保留整個畫面，並以畫面的模糊副本填滿上下空白處；<em>填滿螢幕</em>則會裁掉兩側，填滿手機螢幕。" }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "常見問題",
+      "blocks": [
+        { "list": [
+          "<strong>一開始就連線失敗：</strong>金鑰已經用過了。在 Instagram 上開一個新的直播並更新金鑰。",
+          "<strong>Instagram 的預覽一直是黑的：</strong>按下「開始直播」後等幾秒；如果還是黑的，確認 App 的預覽有顯示空拍畫面。",
+          "<strong>追蹤者看不到直播：</strong>在 Instagram 上按下開始直播，收到串流不等於已經發布直播。",
+          "<strong>「建立」底下沒有直播視訊：</strong>這個帳號在網頁版上還沒有這個選項；這由 Instagram 決定。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "可以用 DJI 空拍機開 Instagram 直播嗎？", "a": "可以。DJI Fly 把 RTMP 送到你電腦上的 Stream My Drone，App 再用 instagram.com 提供的串流網址和金鑰轉送到 Instagram。" },
+    { "q": "為什麼 Instagram 每次都要新的串流金鑰？", "a": "Instagram 會為每場直播產生新的金鑰。每次直播前，請在 App 中用「更新金鑰」換新。" },
+    { "q": "可以同時直播到 Instagram 和 TikTok 嗎？", "a": "可以。啟用兩個目的地；畫面只編碼一次，再分別送出。兩者都需要直向影片，所以同一組設定就適用。" },
+    { "q": "需要 OBS 嗎？", "a": "不需要。Stream My Drone 會直接把串流送到 Instagram；OBS 是選用的。" },
+    { "q": "會包含空拍機的聲音嗎？", "a": "預設會轉送 DJI Fly 送出的音訊。你也可以在電腦上選擇麥克風來旁白，或把串流靜音。" }
+  ]
+}

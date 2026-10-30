@@ -1,0 +1,251 @@
+{
+  "slug": "dji-air-3s-live-stream",
+  "platform": "DJI Air 3S",
+  "title": "DJI Air 3S 空拍機直播：RC 2 與 RC-N3 設定（2026）",
+  "description": "把 DJI Air 3S 直播到 YouTube、Instagram 或 Facebook。選擇遙控器，把 DJI Fly RTMP 接到手機或電腦，並檢查送出的畫面。",
+  "h1": "DJI Air 3S 怎麼直播",
+  "lead": "<strong>DJI Air 3S</strong> 可以把 DJI Fly 的 RTMP 畫面送到另一支手機上的 <strong>Stream My Drone</strong>，或 Mac、Windows 電腦上的 <strong>Stream My Drone</strong>。用哪款遙控器，決定了 DJI Fly 在哪個裝置上執行。請照下方對應的設定操作，起飛前再檢查接收端、構圖和直播目的地。",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "DJI RC 2 在內建螢幕上執行 DJI Fly；另一支手機可以接收並轉送串流。",
+    "RC-N3 和 RC-N2 要用手機執行 DJI Fly。電腦流程讓接收端和飛行用的手機分開。",
+    "DJI Fly 裡只填本機接收位址；平台憑證則在 Stream My Drone（手機或電腦版）中設定。",
+    "相機錄影、遙控器的即時畫面和送出的 RTMP 直播，各有各的畫質設定。",
+    "飛行前，請同時測試選定的相機鏡頭畫面和平台的觀看頁面。"
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Air 3S 的遙控器：RC 2、RC-N3 與 RC-N2",
+      "blocks": [
+        {
+          "p": "DJI 目前的 <a href=\"https://www.dji.com/air-3s/faq\">Air 3S 常見問題</a>列出 DJI RC 2、RC-N3 和 RC-N2。如果你沿用 RC-N2，請先更新飛機、遙控器和 DJI Fly，再確認能否配對。請依實際使用的遙控器選擇流程，而不是看套裝名稱。"
+        },
+        {
+          "table": {
+            "head": [
+              "遙控器",
+              "在哪裡飛",
+              "在哪裡接收串流"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "內建螢幕上的 DJI Fly",
+                "另一支手機上的 Stream My Drone，或電腦上的 Stream My Drone"
+              ],
+              [
+                "DJI RC-N3",
+                "以 USB 連接的手機上的 DJI Fly",
+                "電腦上的 Stream My Drone（本文說明的設定）"
+              ],
+              [
+                "DJI RC-N2",
+                "以 USB 連接的手機上的 DJI Fly",
+                "與 RC-N3 相同，用電腦接收"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "DJI 的<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">直播說明</a>將 RC 2 的直播限制在 720p，且從 DJI Fly v1.16.0 起需要連接麥克風。請確認你的遙控器上實際可用的設定。"
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Air 3S 搭配 RC 2：不用電腦也能直播",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "在手機上安裝 Stream My Drone",
+              "d": "從 <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> 或 <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a> 下載 App。DJI Fly 留在 RC 2 上開著，由這支手機接收串流。"
+            },
+            {
+              "t": "讓 RC 2 和手機連上同一個網路",
+              "d": "兩者都連到同一個可上網的 Wi-Fi。在戶外時，可以由 Android 手機開熱點並同時接收串流。選好網路後再開啟 Stream My Drone；在 iPhone 上，系統詢問時請允許存取區域網路。"
+            },
+            {
+              "t": "把接收位址填入 DJI Fly",
+              "d": "複製 Stream My Drone 顯示的完整本機接收位址。在 DJI Fly 中打開 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP 並輸入位址。選單的詳細步驟請見 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 教學</a>。"
+            },
+            {
+              "t": "開始 DJI Fly 串流並檢查預覽",
+              "d": "在遙控器上開始串流，確認手機收到會動的空拍畫面。如果 DJI Fly 要求麥克風，接上後也一併檢查聲音。測試期間請讓 Stream My Drone 保持開啟。"
+            },
+            {
+              "t": "選擇直播目的地並確認已經開播",
+              "d": "在 Stream My Drone 中加入平台，可以的話用帳號連結，否則填入伺服器網址和串流金鑰。開始轉送後，打開平台的直播後台或觀看頁面。如果平台還需要按「開始直播」，請完成這一步。"
+            }
+          ]
+        },
+        {
+          "note": "手機會直接轉送收到的影像，不會重新編碼。預覽畫面的裁切或模糊背景，並不會讓送出的串流變成 1080×1920 直向影片；需要這種轉換時請使用電腦版。在 iPhone 上，設定期間請讓 App 留在前景；要在背景持續直播，需要靠子母畫面。"
+        }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Air 3S 搭配 RC-N3 或 RC-N2：用電腦接收",
+      "blocks": [
+        {
+          "p": "使用 RC-N3 或 RC-N2 時，讓 DJI Fly 在接著遙控器的手機上保持開啟。在 Mac 或 Windows 電腦上安裝 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>，再讓電腦和飛行用的手機連上同一個區域網路。RC 2 也可以用這個電腦流程。"
+        },
+        {
+          "steps": [
+            {
+              "t": "找到電腦的 RTMP 位址",
+              "d": "打開 Stream My Drone，複製「連接無人機」下方的位址。像 <code>rtmp://192.168.1.20:1935/drone</code> 這樣的位址只是範例，請使用 App 實際顯示的位址。"
+            },
+            {
+              "t": "讓 DJI Fly 送到這個位址",
+              "d": "把位址輸入 DJI Fly 的 RTMP 設定並開始串流。如果電腦的防火牆詢問，請允許私人網路上的連入連線。加入直播目的地之前，先確認預覽畫面。"
+            },
+            {
+              "t": "設定輸出與平台",
+              "d": "一般的 YouTube 或 Facebook 直播選橫向；使用直向版面的帳號則選直向輸出。加入目的地目前的伺服器網址與金鑰，開始輸出，然後在平台上確認直播。"
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "Stream My Drone 電腦版畫面，顯示本機 DJI Fly RTMP 位址、直播平台目的地和「開始直播」按鈕。"
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "你想直播到哪個平台？",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "平台",
+              "需要準備什麼",
+              "詳細教學"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "已啟用直播功能的帳號，以及已建立好的直播",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube 設定</a>"
+              ],
+              [
+                "Instagram",
+                "可使用 Live Producer，以及目前有效的 RTMPS 憑證",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram 設定</a>"
+              ],
+              [
+                "Facebook",
+                "一場直播及其伺服器網址與金鑰",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Facebook 設定</a>"
+              ],
+              [
+                "TikTok",
+                "帳號具備 RTMP 權限，或一台可使用 LIVE Studio 的電腦",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok 設定</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "平台權限取決於你的帳號。App 收到空拍機畫面，並不會因此取得串流金鑰或自動開播。如果要用 TikTok LIVE Studio，電腦版也提供<a href=\"../use-your-dji-drone-as-a-webcam/\">虛擬攝影機</a>。目前的開播步驟請以各平台後台為準。"
+        }
+      ]
+    },
+    {
+      "id": "camera-framing",
+      "h2": "Air 3S 的相機升級對直播有什麼影響",
+      "blocks": [
+        {
+          "p": "DJI 的 <a href=\"https://www.dji.com/air-3s/faq\">Air 3S 常見問題</a>介紹了它的 1 吋主相機，以及兩顆相機都能直向錄影。但相機升級並不會提高 RC 2 的直播上限，也不保證 RTMP 畫面是直向的。請以接收端實際收到的畫面來判斷直播效果。"
+        },
+        {
+          "list": [
+            "<strong>預先演練廣角與長焦畫面。</strong>空拍機還在地上時，在 DJI Fly 中逐一切換相機，觀察接收端的曝光、構圖和鏡頭切換時的過渡。",
+            "<strong>留意光線變化。</strong>拍夕陽或明亮的城市天際線時，除了飛行畫面，也要看接收端收到的畫面。調整到觀眾當下就能好好觀看的畫面，而不是指望事後剪輯。",
+            "<strong>另外測試直向輸出。</strong>檢查收到的畫面尺寸，需要時選擇電腦版的裁切或完整畫面版面，開播前再看一次平台的預覽。"
+          ]
+        },
+        {
+          "note": "如果你是從 Air 3 升級，配對並更新後，請用 Air 3S 重新做一次地面測試。網路有任何變更後，請記下新的接收位址並檢查目的地憑證；上一台空拍機能正常直播，不代表新的設定也沒問題。"
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Air 3S 的直播畫質與行動數據用量",
+      "blocks": [
+        {
+          "p": "空拍機錄下的檔案、遙控器的即時畫面和送到接收端的影片，是彼此獨立的輸出。選擇輸出設定前，請先查看接收端的輸入解析度。放大只會改變畫面尺寸，無法補回原始串流中沒有的細節。平台端的處理也可能再改變畫質並增加延遲。"
+        },
+        {
+          "list": [
+            "<strong>起飛前先測試。</strong>空拍機還在地上時，就先檢查畫面動態、聲音和平台的觀看頁面。",
+            "<strong>估算上傳流量。</strong>持續 5 Mbps 的輸出每小時約用掉 2.25 GB，還不含網路額外負擔。兩個這樣的目的地合計需要約 10 Mbps 上傳頻寬，每小時約 4.5 GB。",
+            "<strong>保持本機連線穩定。</strong>讓手機或電腦靠近熱點。連線穩定比網路標榜的最高速度更重要。",
+            "<strong>確認實際送出的構圖。</strong>手機版的預覽版面只在本機有效；電腦版則請在開播前確認選擇的是裁切還是完整畫面輸出。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Air 3S 直播疑難排解",
+      "blocks": [
+        {
+          "list": [
+            "<strong>RC-N2 無法配對：</strong>確認選擇的是 Air 3S，更新飛機與遙控器韌體和 DJI Fly，再依 DJI 目前的說明重新對頻。先處理好飛機配對，再排查 RTMP 接收端。",
+            "<strong>畫面比錄影檔模糊：</strong>比較接收端的輸入和 DJI Fly 的串流設定。高解析度錄影模式並不會解除遙控器的直播上限。",
+            "<strong>連線失敗：</strong>網路變更後請重新複製 App 顯示的位址。使用沒有訪客隔離的同一個區域網路；在遙控器上填 <code>localhost</code> 指的是遙控器自己。",
+            "<strong>手機上有畫面，觀眾卻看不到：</strong>檢查目的地連線、目前的串流金鑰，以及平台最後的開播步驟。光是有資料在轉送，不代表已經公開直播。",
+            "<strong>在 iPhone 上切換 App 後串流中斷：</strong>回到 Stream My Drone 並確認子母畫面。沒有子母畫面時，iOS 可能會暫停接收端。",
+            "<strong>直播畫面卡頓：</strong>先試一個目的地就好，檢查行動網路上傳是否穩定，並把接收端移到離熱點更近的地方。",
+            "<strong>找不到 RTMP 選單：</strong>先確認飛機已連線和遙控器型號，再檢查韌體與 DJI Fly 是否有更新。接收端無法補上缺少的圖傳選單。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "資料來源與相關機型教學",
+      "blocks": [
+        {
+          "p": "官方機型資訊：<a href=\"https://www.dji.com/air-3s/faq\">DJI Air 3S 常見問題</a>。RTMP 操作流程與遙控器限制：<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App 直播操作指南</a>。韌體與說明書：<a href=\"https://www.dji.com/air-3s/downloads\">DJI Air 3S 下載中心</a>。查核日期為 2026 年 10 月 25 日；可用的選單可能隨韌體改變。"
+        },
+        {
+          "p": "可以比較 <a href=\"../dji-air-3-live-stream/\">Air 3 直播教學</a>或 <a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro 教學</a>。如果想把同一個畫面送到多個目的地，請參考<a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">多平台同時直播教學</a>。"
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "不用電腦也能讓 Air 3S 直播嗎？",
+      "a": "使用 RC 2 時，可以在連上同一個區域網路的另一支手機上使用 Stream My Drone。DJI Fly 在遙控器上執行，手機接收它的 RTMP 串流，直播目的地則在 Stream My Drone 中設定。"
+    },
+    {
+      "q": "Air 3S 可以用 RC-N2 嗎？",
+      "a": "DJI 目前的 Air 3S 常見問題將 RC-N2 與 RC-N3、RC 2 並列。請先更新裝置並確認配對。使用 RC-N2 時，讓 DJI Fly 留在接著的手機上，並採用與 RC-N3 相同的電腦接收流程。"
+    },
+    {
+      "q": "DJI Fly 裡要填哪個位址？",
+      "a": "填 Stream My Drone（手機或電腦版）顯示的完整本機接收位址。平台的伺服器網址和串流金鑰，則填在接收端 App 的目的地設定裡。"
+    },
+    {
+      "q": "Stream My Drone 會把影片轉成直向直播嗎？",
+      "a": "手機版會原樣轉送收到的影片，預覽版面不會重新編碼送出的畫面。電腦上的 Stream My Drone 才提供直向輸出轉換。"
+    },
+    {
+      "q": "為什麼我看得到預覽，觀眾卻看不到？",
+      "a": "預覽只證明本機的空拍機畫面已經送到。請開始輸出到目的地，確認平台有收到，並在平台上完成剩下的開播步驟。"
+    },
+    {
+      "q": "Air 3S 的直向錄影能保證直播也是直向嗎？",
+      "a": "請檢查實際送到接收端的串流。相機的錄影格式和 RTMP 輸出是兩回事。手機版會原樣轉送收到的影片，電腦版則提供輸出轉換和構圖控制。"
+    }
+  ]
+}

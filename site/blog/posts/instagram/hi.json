@@ -1,0 +1,81 @@
+{
+  "slug": "how-to-go-live-on-instagram-with-a-dji-drone",
+  "platform": "Instagram",
+  "title": "DJI ड्रोन से Instagram पर लाइव कैसे जाएँ (चरण-दर-चरण)",
+  "description": "DJI ड्रोन से Instagram पर लाइव जाएँ: instagram.com से स्ट्रीम URL और की लें, DJI Fly की RTMP स्ट्रीम Stream My Drone के ज़रिए भेजें, फिर Instagram पर Go live दबाएँ।",
+  "h1": "DJI ड्रोन से Instagram पर लाइव कैसे जाएँ",
+  "lead": "Instagram Live स्ट्रीमिंग सॉफ़्टवेयर से आने वाली स्ट्रीम स्वीकार करता है। <strong>instagram.com → Create (+) → Live video</strong> खोलें, स्ट्रीम URL और स्ट्रीम की Stream My Drone में कॉपी करें, DJI Fly से ड्रोन की तस्वीर ऐप को भेजें, START LIVE दबाएँ, और आख़िर में Instagram पर <strong>Go live</strong> दबाएँ। Instagram हर प्रसारण के लिए नई की देता है।",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Instagram का स्ट्रीम URL और की कंप्यूटर पर instagram.com से मिलते हैं: Create (+) → Live video।",
+    "की एक ही बार चलती है: हर प्रसारण से पहले गंतव्य कार्ड पर “Update key” से इसे अपडेट करें।",
+    "Instagram वर्टिकल वीडियो चाहता है; ऐप 1080×1920, 30 fps, 2 सेकंड के कीफ़्रेम वाला H.264 भेजता है।",
+    "प्रसारण तभी सार्वजनिक होता है जब आप ख़ुद Instagram पर Go live दबाते हैं।",
+    "आप वही तस्वीर एक साथ TikTok, YouTube या Facebook पर भी भेज सकते हैं।"
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "आपको क्या चाहिए",
+      "blocks": [
+        { "list": [
+          "ऐसा DJI ड्रोन जिसके DJI Fly ऐप में Live Streaming Platforms के नीचे RTMP हो।",
+          "Mac या Windows PC पर <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>, कंट्रोलर वाले Wi-Fi या हॉटस्पॉट पर।",
+          "ऐसा Instagram अकाउंट जिसमें instagram.com पर Create के नीचे <em>Live video</em> दिखता हो। अगर नहीं दिखता, तो Instagram ने उस अकाउंट को अभी यह विकल्प नहीं दिया है।"
+        ] }
+      ]
+    },
+    {
+      "id": "steps",
+      "h2": "Instagram पर लाइव जाएँ, चरण-दर-चरण",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "ड्रोन जोड़ें", "d": "DJI Fly में GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP खोलें, Stream My Drone में दिख रहा पता डालें और शुरू करें। ऐप में प्रीव्यू दिखने लगता है।" },
+          { "t": "Instagram पर लाइव वीडियो बनाएँ", "d": "instagram.com पर Create (+) → Live video पर क्लिक करें, शीर्षक दें, दर्शक चुनें और आगे बढ़ें।" },
+          { "t": "स्ट्रीम URL और की कॉपी करें", "d": "Instagram एक <em>Stream URL</em> (जैसे <code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code>) और एक <em>Stream key</em> दिखाता है। दोनों को Stream My Drone में Instagram गंतव्य में चिपकाएँ।" },
+          { "t": "START LIVE दबाएँ", "d": "<em>Vertical 9:16</em> चालू रहने दें। कुछ ही सेकंड में Instagram की विंडो में ड्रोन की तस्वीर प्रीव्यू के रूप में दिखने लगती है।" },
+          { "t": "Instagram पर Go live दबाएँ", "d": "अब जाकर आपके फ़ॉलोअर्स प्रसारण देखते हैं। ख़त्म करने के लिए उसे Instagram पर बंद करें और ऐप में <em>End stream</em> दबाएँ।" }
+        ] },
+        { "note": "अगली बार Instagram पर नया लाइव वीडियो खोलें और गंतव्य कार्ड पर <em>Update key</em> इस्तेमाल करें: पुरानी की अब काम नहीं करती।" }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Instagram को कौन सी सेटिंग्स चाहिए",
+      "blocks": [
+        { "table": {
+          "head": ["सेटिंग", "Stream My Drone"],
+          "rows": [
+            ["रेज़ोल्यूशन", "1080×1920 (वर्टिकल 9:16)"],
+            ["फ़्रेम रेट", "30 fps"],
+            ["वीडियो", "H.264 High, 6 Mbps CBR"],
+            ["कीफ़्रेम", "हर 2 सेकंड"],
+            ["प्रोटोकॉल", "RTMPS (एन्क्रिप्टेड)"]
+          ]
+        } },
+        { "p": "ड्रोन लैंडस्केप में शूट करता है। <em>Whole picture</em> पूरा फ़्रेम रखता है और ऊपर-नीचे की जगह उसकी धुंधली नकल से भरता है; <em>Fill screen</em> फ़ोन की स्क्रीन भरने के लिए किनारे काट देता है।" }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "आम समस्याएँ",
+      "blocks": [
+        { "list": [
+          "<strong>कनेक्शन तुरंत विफल हो गया:</strong> की पहले ही इस्तेमाल हो चुकी है। Instagram पर नया लाइव वीडियो खोलें और की अपडेट करें।",
+          "<strong>Instagram का प्रीव्यू काला रहता है:</strong> START LIVE के बाद कुछ सेकंड रुकें; फिर भी काला रहे तो जाँचें कि ऐप के प्रीव्यू में ड्रोन दिख रहा है।",
+          "<strong>फ़ॉलोअर्स लाइव नहीं देख पा रहे:</strong> Instagram पर Go live दबाएँ — स्ट्रीम प्राप्त होना और उसे प्रकाशित करना एक बात नहीं है।",
+          "<strong>Create के नीचे Live video नहीं है:</strong> अकाउंट के पास वेब पर अभी यह विकल्प नहीं है; यह Instagram तय करता है।"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "क्या मैं DJI ड्रोन से Instagram पर लाइव जा सकता हूँ?", "a": "हाँ। DJI Fly आपके कंप्यूटर पर Stream My Drone को RTMP भेजता है, और ऐप उसे instagram.com से मिले स्ट्रीम URL और की के साथ Instagram तक पहुँचाता है।" },
+    { "q": "Instagram हर बार नई स्ट्रीम की क्यों माँगता है?", "a": "Instagram हर लाइव वीडियो के लिए नई की जारी करता है। हर प्रसारण से पहले ऐप में Update key से इसे अपडेट करें।" },
+    { "q": "क्या मैं एक साथ Instagram और TikTok पर स्ट्रीम कर सकता हूँ?", "a": "हाँ। दोनों गंतव्य चालू करें; तस्वीर एक बार एनकोड होकर हर एक को भेजी जाती है। दोनों वर्टिकल वीडियो चाहते हैं, इसलिए एक ही सेटिंग दोनों के लिए ठीक है।" },
+    { "q": "क्या मुझे OBS चाहिए?", "a": "नहीं। Stream My Drone स्ट्रीम सीधे Instagram को भेजता है; OBS वैकल्पिक है।" },
+    { "q": "क्या ड्रोन की आवाज़ भी जाती है?", "a": "डिफ़ॉल्ट रूप से DJI Fly जो ऑडियो भेजता है वह आगे जाता है। आप कमेंट्री के लिए कंप्यूटर पर माइक्रोफ़ोन भी चुन सकते हैं, या स्ट्रीम म्यूट कर सकते हैं।" }
+  ]
+}

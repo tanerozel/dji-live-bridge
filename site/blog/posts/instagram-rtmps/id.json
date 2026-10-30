@@ -1,6 +1,6 @@
 {
-  "slug": "why-dji-fly-cannot-stream-to-instagram",
-  "platform": "Instagram problem",
+  "slug": "kenapa-dji-fly-tidak-bisa-live-ke-instagram",
+  "platform": "Masalah Instagram",
   "title": "Kenapa DJI Fly tidak bisa live ke Instagram — dan cara mengatasinya",
   "description": "DJI Fly tidak punya opsi Instagram dan klien RTMP-nya tidak mendukung RTMPS terenkripsi yang diwajibkan Instagram. Ini penyebabnya, dan cara tetap live dari drone DJI.",
   "h1": "Kenapa DJI Fly tidak bisa live streaming ke Instagram (dan solusinya)",
@@ -41,7 +41,7 @@
           { "t": "Tambahkan Instagram di aplikasi", "d": "Tempel keduanya ke tujuan Instagram, biarkan <em>Vertikal 9:16</em> aktif, lalu tekan MULAI SIARAN." },
           { "t": "Tekan Go live di Instagram", "d": "Jendela Instagram menampilkan gambar drone; tekan Go live di sana agar siaran menjadi publik." }
         ] },
-        { "note": "Semua detail di sisi Instagram, termasuk kunci yang berganti setiap kali, ada di <a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">panduan Instagram</a>." }
+        { "note": "Semua detail di sisi Instagram, termasuk kunci yang berganti setiap kali, ada di <a href=\"../cara-live-instagram-dengan-drone-dji/\">panduan Instagram</a>." }
       ]
     },
     {

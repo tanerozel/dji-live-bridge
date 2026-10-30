@@ -1,0 +1,111 @@
+{
+  "slug": "how-to-go-live-on-tiktok-with-a-dji-drone",
+  "platform": "TikTok",
+  "title": "DJI 드론으로 TikTok 라이브 방송하는 방법 (2026 가이드)",
+  "description": "DJI Fly로 DJI 드론을 TikTok에 생중계하는 방법. TikTok 스트림 키로 하거나, 키 없이 TikTok LIVE Studio와 가상 카메라로 하세요. 설정과 문제 해결까지.",
+  "h1": "DJI 드론으로 TikTok 라이브 방송하는 방법",
+  "lead": "DJI Fly는 혼자서는 TikTok에 방송할 수 없지만, 컴퓨터로 RTMP를 보낼 수는 있습니다. Stream My Drone이 그 스트림을 받아 두 가지 방법 중 하나로 TikTok에 보냅니다. 계정에 스트림 키가 있다면 <strong>TikTok 서버 URL과 스트림 키로 직접</strong>, 없다면 드론이 카메라로 나타나 스트림 키가 필요 없는 <strong>TikTok LIVE Studio를 통해서</strong>입니다.",
+  "published": "2026-10-02",
+  "updated": "2026-10-21",
+  "summary": [
+    "DJI Fly의 Live Streaming Platforms에 RTMP가 있는 DJI 드론, 그리고 조종기와 같은 Wi-Fi나 핫스팟에 연결된 Mac 또는 Windows PC가 필요합니다.",
+    "스트림 키가 있다면: Stream My Drone에 TikTok 방송 대상을 추가하고 방송 시작을 누르세요.",
+    "스트림 키가 없다면: TikTok LIVE Studio에서 카메라 소스로 “Stream My Drone Camera”를 고르고 그곳에서 방송하세요.",
+    "TikTok은 세로 영상을 기대합니다. 앱은 1080×1920, 30 fps로 보내며 빈 공간을 화면을 흐리게 복제해 채웁니다.",
+    "누가 LIVE를 할 수 있고 누가 스트림 키를 받는지는 TikTok이 정합니다. 요건은 계정과 지역에 따라 다릅니다."
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "준비물",
+      "blocks": [
+        { "list": [
+          "DJI Fly의 <em>Live Streaming Platforms</em> 아래에 <strong>RTMP</strong>가 보이는 DJI 드론과 조종기. 사용 중인 DJI Fly 버전에 이 옵션이 있으면 드론은 작동합니다. 앱은 드론과 직접 통신하지 않습니다.",
+          "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>을 설치한 Mac(macOS 13 이상, Apple Silicon 또는 Intel)이나 Windows 10/11 PC.",
+          "같은 Wi-Fi 네트워크나 휴대폰 핫스팟에 함께 연결된 조종기와 컴퓨터.",
+          "LIVE를 할 수 있는 TikTok 계정. 직접 송출 방법에는 RTMP 권한(서버 URL과 스트림 키)이, LIVE Studio 방법에는 TikTok LIVE Studio 사용 권한이 추가로 필요합니다."
+        ] }
+      ]
+    },
+    {
+      "id": "connect",
+      "h2": "1단계: 드론 화면을 컴퓨터로 보내기",
+      "blocks": [
+        { "steps": [
+          { "t": "Stream My Drone 열기", "d": "'방송' 탭에 <code>rtmp://192.168.1.20:1935/drone</code> 같은 주소와 QR 코드가 표시됩니다." },
+          { "t": "DJI Fly에서 RTMP 화면 열기", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP." },
+          { "t": "주소를 붙여넣고 시작", "d": "화면이 들어오면 앱의 첫 단계가 초록색으로 바뀌고 실시간 미리보기가 나타납니다." }
+        ] },
+        { "note": "지금 드론이 없나요? 앱의 <em>동영상 파일로 시험</em>으로 녹화된 영상을 써서 전체 경로를 미리 연습해 보세요." }
+      ]
+    },
+    {
+      "id": "stream-key",
+      "h2": "방법 A: 스트림 키로 TikTok 라이브하기",
+      "howto": true,
+      "blocks": [
+        { "p": "TikTok에서 서버 URL과 스트림 키를 볼 수 있다면 이 방법을 쓰세요. 모든 계정이 받는 것은 아닙니다. 찾을 수 없다면 방법 B를 쓰세요." },
+        { "steps": [
+          { "t": "TikTok에서 서버 URL과 스트림 키 복사", "d": "TikTok LIVE Center나 TikTok LIVE Studio에서 스트림 키 화면을 열고 <em>서버 URL</em>(<code>rtmp://push-rtmp-….tiktokcdn.com/game/</code> 같은 형태)과 <em>스트림 키</em>를 복사하세요." },
+          { "t": "TikTok 방송 대상 추가", "d": "Stream My Drone의 <em>어디로 방송할까요?</em>에서 TikTok을 고르고 두 값을 붙여넣으세요. 키는 파일이 아니라 시스템 자격 증명 저장소에 보관됩니다." },
+          { "t": "화면을 세로로 유지", "d": "<em>화면과 소리</em>에서 <em>세로 9:16</em>을 켜 두세요. <em>전체 화면 표시</em>는 빈 공간을 화면을 흐리게 복제해 채우고, <em>화면 채우기</em>는 대신 잘라냅니다." },
+          { "t": "방송 시작 누르기", "d": "로컬 서버가 실행 중이고, 드론 영상이 들어오고, 방송 대상이 선택되면 버튼이 활성화됩니다. 그러면 방송 대상 카드에 <em>방송 중</em>이 표시됩니다." },
+          { "t": "TikTok에서 방송 확인", "d": "TikTok에서 스트림이 수신되고 공개되었는지 확인하세요. 끝나면 앱에서 <em>방송 종료</em>를 누르세요." }
+        ] }
+      ]
+    },
+    {
+      "id": "live-studio",
+      "h2": "방법 B: 스트림 키 없이 TikTok LIVE Studio로",
+      "blocks": [
+        { "p": "TikTok LIVE Studio는 TikTok의 공식 데스크톱 앱입니다. TikTok 계정으로 로그인하므로 RTMP 권한이 필요 없고, 카메라만 있으면 됩니다. Stream My Drone이 <strong>Stream My Drone Camera</strong>라는 카메라를 제공합니다." },
+        { "steps": [
+          { "t": "가상 카메라 활성화", "d": "TikTok LIVE Studio 탭에서 <em>가상 카메라 활성화</em>를 누르세요. Mac에서는 앱이 응용 프로그램 폴더에 있어야 하며, macOS가 시스템 설정 → 일반 → 로그인 항목 및 확장 프로그램 → 카메라 확장 프로그램에서 한 번 승인을 요청합니다." },
+          { "t": "카메라 시작", "d": "카드에 <em>시작할 수 있음</em>이 표시되면 <em>가상 카메라 시작</em>을 누르세요." },
+          { "t": "LIVE Studio에 카메라 추가", "d": "카메라 소스를 추가하고 <strong>Stream My Drone Camera</strong>를 고르세요." },
+          { "t": "소리 설정", "d": "그 소스의 오디오 캡처를 <em>없음</em>으로 설정하고 LIVE Studio에서 마이크를 하나만 고르세요. 카메라는 영상만 전달하므로 소리가 두 번 들리는 일이 없습니다." },
+          { "t": "방송 시작", "d": "TikTok LIVE Studio에서 Go Live를 누르세요. 방송 시작은 언제나 사용자가 직접 합니다." }
+        ] },
+        { "img": "virtual-camera.png", "alt": "가상 카메라 시작 버튼이 있는 Stream My Drone의 TikTok LIVE Studio 탭." },
+        { "note": "Windows의 내장 가상 카메라는 TikTok LIVE Studio에서 테스트했습니다. 비디오 소스로 “Stream My Drone Camera”를 선택하세요. OBS 장면을 쓰는 방송에는 선택 사항인 OBS 연동도 사용할 수 있습니다." }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "TikTok 권장 설정",
+      "blocks": [
+        { "table": {
+          "head": ["설정", "값", "이유"],
+          "rows": [
+            ["방향", "세로 9:16, 1080×1920", "TikTok은 휴대폰에서 세로로 시청합니다."],
+            ["프레임 레이트", "30 fps", "부드럽고 업로드 대역폭 부담이 적습니다."],
+            ["비트레이트", "6 Mbps CBR", "일정한 비트레이트가 수신 서버에 안정적입니다."],
+            ["비디오 코덱", "H.264 High, 2초 키프레임", "라이브 수신 서버가 기대하는 형식입니다."],
+            ["화면 구성", "전체 화면 표시", "검은 띠도, 잘리는 가장자리도 없습니다."]
+          ]
+        } },
+        { "p": "앱이 이 값을 자동으로 사용하므로, 방향과 화면 구성만 고르면 됩니다. 방송 대상 하나당 최소 10 Mbps의 안정적인 업로드를 확보하세요." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "작동하지 않을 때",
+      "blocks": [
+        { "list": [
+          "<strong>미리보기가 비어 있음:</strong> 조종기와 컴퓨터가 서로 다른 네트워크에 있을 가능성이 큽니다. 둘을 같은 Wi-Fi나 핫스팟에 연결하고 DJI Fly의 주소를 확인하세요.",
+          "<strong>RC 2에서 DJI Fly가 방송을 시작하지 않음:</strong> 일부 DJI Fly 버전은 먼저 조종기에 마이크를 연결해야 합니다.",
+          "<strong>TikTok 카드에 '연결 실패'가 표시됨:</strong> 서버 URL과 키를 다시 복사하세요. 키는 만료되거나 재설정될 수 있습니다.",
+          "<strong>LIVE Studio에 카메라가 없음:</strong> 먼저 가상 카메라를 시작한 뒤, LIVE Studio를 다시 실행해 카메라 목록을 새로 읽게 하세요.",
+          "<strong>화면이 720p임:</strong> 조종기는 720p로 보내는 경우가 많습니다. 앱은 실제 입력 해상도를 보여 주며, 원본이 1080p인 척하지 않습니다."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "스트림 키 없이 DJI 드론으로 TikTok 라이브를 할 수 있나요?", "a": "네. TikTok LIVE Studio에서 카메라 소스로 Stream My Drone Camera를 고르세요. LIVE Studio에는 본인 계정으로 로그인하므로 서버 URL이나 스트림 키가 필요 없습니다." },
+    { "q": "왜 저에게는 TikTok 스트림 키가 없나요?", "a": "TikTok은 일부 계정에만 RTMP 스트림 키를 주며, 규칙은 지역마다 다르고 수시로 바뀝니다. 키가 없다면 TikTok LIVE Studio가 대안입니다." },
+    { "q": "TikTok과 Instagram에 동시에 방송할 수 있나요?", "a": "네, 두 곳의 스트림 키가 있으면 됩니다. Stream My Drone은 영상을 한 번 인코딩해 활성화된 모든 방송 대상으로 보내며, 한 대상이 실패해도 나머지는 멈추지 않습니다." },
+    { "q": "Stream My Drone이 제 TikTok 계정에 로그인하나요?", "a": "아니요. 어떤 플랫폼에도 로그인하지 않고, 대신 Go Live를 누르지도 않습니다. 사용자가 준 주소로 영상을 보내거나 LIVE Studio에 카메라를 제공할 뿐입니다." },
+    { "q": "Stream My Drone은 무료인가요?", "a": "네. MIT 라이선스의 무료 오픈 소스이며, DJI나 TikTok과 관련이 없습니다." }
+  ]
+}

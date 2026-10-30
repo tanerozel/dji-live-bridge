@@ -112,7 +112,7 @@
   "faq": [
     { "q": "Can I live stream a Mini 5 Pro without a computer?", "a": "With RC 2, use Stream My Drone on a separate phone connected to the same local network. DJI Fly runs on the controller, the phone receives its RTMP feed, and you configure the destination in Stream My Drone." },
     { "q": "Can I use the phone already connected to RC-N3?", "a": "That phone runs DJI Fly for flight control. This guide uses Stream My Drone on a separate computer as the receiver, so you can keep DJI Fly open. It does not assume both apps can handle a live flight and relay on one phone." },
-    { "q": "Which address goes into DJI Fly?", "a": "The full local receiving address displayed by Stream My Drone or Stream My Drone. Put the platform's server URL and stream key into the receiving app's destination settings." },
+    { "q": "Which address goes into DJI Fly?", "a": "The full local receiving address displayed by Stream My Drone (phone or computer). Put the platform's server URL and stream key into the receiving app's destination settings." },
     { "q": "Does Stream My Drone turn the video into a vertical broadcast?", "a": "The mobile app forwards the video it receives. Its preview layout does not re-encode the outgoing picture. Stream My Drone on a computer offers vertical output conversion." },
     { "q": "Why can I see a preview but my audience cannot watch?", "a": "The preview proves only that the local drone feed has arrived. Start a destination output, confirm that the platform receives it, and complete any remaining Go Live step there." }
   ]

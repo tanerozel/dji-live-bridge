@@ -1,5 +1,5 @@
 {
-  "slug": "dji-mini-5-pro-live-stream",
+  "slug": "dji-mini-5-pro-diretta-streaming",
   "platform": "DJI Mini 5 Pro",
   "title": "DJI Mini 5 Pro in diretta streaming: guida per telefono e computer (2026)",
   "description": "Diretta streaming con DJI Mini 5 Pro e RC 2 o RC-N3: configura l'RTMP di DJI Fly, usa un telefono o un computer e manda il video del drone su YouTube, Instagram o Facebook.",
@@ -38,7 +38,7 @@
         { "steps": [
           { "t": "Installa Stream My Drone sul telefono", "d": "Scarica l'app da <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> o dall'<a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a>. Il telefono riceve il flusso mentre DJI Fly resta aperta sull'RC 2." },
           { "t": "Collega l'RC 2 e il telefono", "d": "Connetti entrambi alla stessa rete Wi-Fi con accesso a internet. All'aperto, un telefono Android può fare da hotspot e ricevere il flusso. Apri Stream My Drone dopo aver scelto la rete; su iPhone, consenti l'accesso alla rete locale quando richiesto." },
-          { "t": "Copia l'indirizzo di ricezione in DJI Fly", "d": "Usa l'indirizzo locale completo mostrato da Stream My Drone. In DJI Fly apri GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP e inserisci lì l'indirizzo. Il percorso completo dei menu è nella <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guida alla configurazione RTMP di DJI Fly</a>. Collega un microfono se DJI Fly lo chiede." },
+          { "t": "Copia l'indirizzo di ricezione in DJI Fly", "d": "Usa l'indirizzo locale completo mostrato da Stream My Drone. In DJI Fly apri GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP e inserisci lì l'indirizzo. Il percorso completo dei menu è nella <a href=\"../dji-fly-rtmp-impostazioni-diretta/\">guida alla configurazione RTMP di DJI Fly</a>. Collega un microfono se DJI Fly lo chiede." },
           { "t": "Avvia il flusso di DJI Fly e controlla l'anteprima", "d": "Avvia lo streaming sul radiocomando, poi verifica che l'immagine del drone in movimento compaia sul telefono. Tieni aperta Stream My Drone mentre controlli la connessione. Così il collegamento video locale è stabilito." },
           { "t": "Scegli una destinazione e verifica la pubblicazione", "d": "Aggiungi una piattaforma in Stream My Drone collegando l'account, dove possibile, oppure con l'URL del server e la chiave di streaming. Avvia l'inoltro, poi apri la dashboard live o la pagina di visione della piattaforma. Completa l'eventuale passaggio Go Live che la piattaforma richiede ancora." }
         ] },
@@ -65,13 +65,13 @@
         { "table": {
           "head": ["Piattaforma", "Cosa preparare", "Guida dettagliata"],
           "rows": [
-            ["YouTube", "Un account con lo streaming live attivo e una diretta già preparata", "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Configurazione YouTube</a>"],
-            ["Instagram", "Accesso a Live Producer e credenziali RTMPS aggiornate", "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Configurazione Instagram</a>"],
-            ["Facebook", "Una diretta con il suo URL del server e la sua chiave", "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Configurazione Facebook</a>"],
-            ["TikTok", "Accesso RTMP sul tuo account, oppure un computer con accesso a LIVE Studio", "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Configurazione TikTok</a>"]
+            ["YouTube", "Un account con lo streaming live attivo e una diretta già preparata", "<a href=\"../come-trasmettere-un-drone-dji-su-youtube/\">Configurazione YouTube</a>"],
+            ["Instagram", "Accesso a Live Producer e credenziali RTMPS aggiornate", "<a href=\"../come-andare-in-diretta-su-instagram-con-un-drone-dji/\">Configurazione Instagram</a>"],
+            ["Facebook", "Una diretta con il suo URL del server e la sua chiave", "<a href=\"../come-andare-in-diretta-su-facebook-con-un-drone-dji/\">Configurazione Facebook</a>"],
+            ["TikTok", "Accesso RTMP sul tuo account, oppure un computer con accesso a LIVE Studio", "<a href=\"../come-andare-in-diretta-su-tiktok-con-un-drone-dji/\">Configurazione TikTok</a>"]
           ]
         } },
-        { "p": "L'accesso alla piattaforma dipende dal tuo account. Ricevere il flusso del drone nell'app non ti dà una chiave di streaming e non pubblica una diretta. Per TikTok LIVE Studio, l'app desktop offre anche una <a href=\"../use-your-dji-drone-as-a-webcam/\">fotocamera virtuale</a>. Controlla nella dashboard di ogni piattaforma qual è il passaggio di pubblicazione attuale." }
+        { "p": "L'accesso alla piattaforma dipende dal tuo account. Ricevere il flusso del drone nell'app non ti dà una chiave di streaming e non pubblica una diretta. Per TikTok LIVE Studio, l'app desktop offre anche una <a href=\"../usare-il-drone-dji-come-webcam/\">fotocamera virtuale</a>. Controlla nella dashboard di ogni piattaforma qual è il passaggio di pubblicazione attuale." }
       ]
     },
     {
@@ -105,7 +105,7 @@
       "h2": "Fonti e guide per altri modelli",
       "blocks": [
         { "p": "Requisiti del radiocomando e limiti RTMP: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;pbc=BCQ9HQ1u&amp;pm=custom&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Elenco dei modelli: <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">guida DJI alla compatibilità (in cinese)</a>. Manuali dei radiocomandi: <a href=\"https://www.dji.com/my/mini-5-pro/downloads\">download del Mini 5 Pro</a>. Verificato il 21 ottobre 2026; i menu disponibili possono cambiare con il firmware." },
-        { "p": "Voli con il modello precedente? Leggi la <a href=\"../dji-mini-4-pro-live-stream/\">guida alla diretta con il Mini 4 Pro</a>. Per mandare un solo flusso a più destinazioni, prosegui con <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">la guida al multistreaming</a>." }
+        { "p": "Voli con il modello precedente? Leggi la <a href=\"../dji-mini-4-pro-diretta-streaming/\">guida alla diretta con il Mini 4 Pro</a>. Per mandare un solo flusso a più destinazioni, prosegui con <a href=\"../trasmettere-un-drone-dji-su-piu-piattaforme-insieme/\">la guida al multistreaming</a>." }
       ]
     }
   ],

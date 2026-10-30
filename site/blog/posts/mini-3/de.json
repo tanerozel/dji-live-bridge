@@ -1,0 +1,235 @@
+{
+  "slug": "dji-mini-3-livestream",
+  "platform": "DJI Mini 3",
+  "title": "DJI Mini 3 live streamen: RC-N1, DJI Fly und Computer (2026)",
+  "description": "DJI Mini 3 über RC-N1 und DJI Fly an Stream My Drone auf dem Computer live streamen: Grenzen der DJI RC, 720p-Live-Ansicht und Veröffentlichen auf der Plattform.",
+  "h1": "So streamen Sie eine DJI Mini 3 live",
+  "lead": "Für die <strong>DJI Mini 3</strong> ist Livestreaming mit <strong>RC-N1 und DJI Fly auf einem Handy</strong> dokumentiert. Senden Sie diesen RTMP-Stream an <strong>Stream My Drone</strong> auf einem separaten Computer und leiten Sie ihn von dort an Ihre Plattform weiter. Wenn Ihre Mini 3 mit der <strong>DJI RC</strong> mit Bildschirm geliefert wurde, prüfen Sie zuerst deren Einschränkung: DJI unterstützt mit dieser Fernsteuerung kein Livestreaming.",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "Der hier beschriebene unterstützte Weg lautet: Mini 3 → RC-N1 mit DJI-Fly-Handy → separater Computer.",
+    "Für die ursprüngliche DJI RC nennt der DJI-Leitfaden zur Mini 3 keinen unterstützten Livestream-Weg; sie ist nicht dasselbe wie die DJI RC 2.",
+    "Die angegebene Live-Ansicht der Mini 3 auf der Fernsteuerung beträgt 720p/30 fps. Die 4K-Aufnahme ist eine separate Ausgabe.",
+    "Die USB-Verbindung für den Flug und die RTMP-Verbindung über das Netzwerk erfüllen unterschiedliche Aufgaben.",
+    "Eine funktionierende Vorschau am Computer ist die erste Prüfung; erst die Zuschauerseite der Plattform bestätigt die Veröffentlichung."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Mini 3 mit RC-N1 oder DJI RC: Welche kann live streamen?",
+      "blocks": [
+        {
+          "p": "Die <a href=\"https://www.dji.com/mini-3/faq\">Mini-3-FAQ</a> von DJI nennen RC-N1 und DJI RC als kompatible Fernsteuerungen. Beim Streaming bieten sie aber nicht dasselbe: Der <a href=\"https://repair.dji.com/help/content?customId=en-us03400007192&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">offizielle Einsteigerleitfaden</a> unterstützt Livestreaming mit der RC-N1 und einem Mobilgerät und schließt die DJI RC aus."
+        },
+        {
+          "table": {
+            "head": [
+              "Ihre Fernsteuerung",
+              "Flugbildschirm",
+              "Vorbereitung für den Livestream"
+            ],
+            "rows": [
+              [
+                "DJI RC-N1",
+                "DJI Fly auf einem per USB verbundenen Handy",
+                "Folgen Sie den Schritten unten für RTMP an den Computer"
+              ],
+              [
+                "DJI RC",
+                "Eingebauter Bildschirm mit DJI Fly",
+                "Der dokumentierte Livestream-Weg in DJI Fly steht nicht zur Verfügung"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "Ein Handy-Hotspot macht die DJI RC nicht streamingfähig. Folgen Sie nicht den Anleitungen für die RC 2 aus den Artikeln zur Mini 4 Pro oder Mini 5 Pro. Bevor Sie eine Fernsteuerung kaufen oder wechseln, prüfen Sie die aktuelle Modellkompatibilität bei DJI und Ihre tatsächliche Ausrüstung."
+        }
+      ]
+    },
+    {
+      "id": "connections",
+      "h2": "Die drei Verbindungen verstehen",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Verbindung",
+              "Zweck",
+              "Was Sie einrichten"
+            ],
+            "rows": [
+              [
+                "Mini 3 ↔ RC-N1",
+                "Flugsteuerung und Kameraansicht der Drohne",
+                "Normale Kopplung von Drohne und Fernsteuerung"
+              ],
+              [
+                "RC-N1 ↔ Handy per USB",
+                "Flugbildschirm und Livestream-Steuerung in DJI Fly",
+                "Ihr kompatibles Handy und das Kabel der Fernsteuerung"
+              ],
+              [
+                "Handy → Computer über das lokale Netzwerk",
+                "Den RTMP-Stream von DJI Fly an Stream My Drone senden",
+                "Die Empfangsadresse, die die Computer-App anzeigt"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "Der Computer erreicht Ihre gewählte Plattform dann über seine Internetverbindung. Verbinden Sie Computer und Flug-Handy mit demselben lokalen Netzwerk; Internetzugang allein reicht nicht, wenn das Netzwerk die Kommunikation zwischen Geräten verhindert. Lassen Sie DJI Fly auf dem Flug-Handy geöffnet und steuern Sie den Empfänger vom Computer aus."
+        },
+        {
+          "note": "QuickTransfer dient zum Übertragen aufgenommener Dateien, wie in den <a href=\"https://www.dji.com/mini-3/faq\">Mini-3-FAQ</a> von DJI beschrieben. Es ist nicht die RTMP-Verbindung für diese Liveübertragung. Auch ein USB-Kabel zum Computer ersetzt nicht die Empfangsadresse unten."
+        }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "RTMP-Stream der Mini 3 einrichten und veröffentlichen",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Apps und Netzwerk vorbereiten",
+              "d": "Verbinden Sie Mini 3, RC-N1 und Flug-Handy wie gewohnt. Installieren Sie <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> auf einem Mac- oder Windows-Computer. Bringen Sie Computer und Flug-Handy in ein gemeinsames lokales Netzwerk mit Internetzugang; testen Sie eine Hotspot-Lösung vor dem Flug."
+            },
+            {
+              "t": "Vollständige RTMP-Adresse des Computers kopieren",
+              "d": "Öffnen Sie Stream My Drone und kopieren Sie die Adresse unter „Drohne verbinden“. <code>rtmp://192.168.1.20:1935/drone</code> ist nur ein Beispiel für das Format. Verwenden Sie die aktuelle Adresse, die Ihre App anzeigt, einschließlich Pfad."
+            },
+            {
+              "t": "RTMP-Ausgabe in DJI Fly starten",
+              "d": "Öffnen Sie in der Kameraansicht auf dem Handy ••• → Transmission → Enable Livestreaming oder Live Streaming Platforms und wählen Sie RTMP. Fügen Sie die Empfangsadresse ein und starten Sie. Die Menütexte können je nach Version abweichen; den allgemeinen Ablauf zeigt die <a href=\"../dji-fly-rtmp-livestream-einrichten/\">DJI-Fly-RTMP-Anleitung</a>."
+            },
+            {
+              "t": "Video am Computer prüfen",
+              "d": "Erlauben Sie die Firewall-Abfrage für private Netzwerke, falls sie erscheint, und prüfen Sie, ob in Stream My Drone bewegtes Video ankommt. Fehlt es, beheben Sie zuerst diese lokale Verbindung, bevor Sie die Plattform einrichten. Lassen Sie auf dem Flug-Handy DJI Fly geöffnet."
+            },
+            {
+              "t": "Plattform hinzufügen und Übertragung prüfen",
+              "d": "Wählen Sie das Ausgabe-Layout am Computer, tragen Sie die aktuelle Server-URL und den Stream-Schlüssel der Plattform als Ziel ein und starten Sie die Ausgabe. Öffnen Sie das Dashboard der Plattform, erledigen Sie einen eventuell nötigen Live-gehen-Schritt und prüfen Sie die Zuschauerseite mit Ton."
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "Stream My Drone mit der lokalen RTMP-Adresse des Computers und den Einstellungen für die Ziele der Liveübertragung."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "YouTube, Instagram, Facebook oder TikTok vorbereiten",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Plattform",
+              "Nötiger Kontozugang",
+              "Nächste Anleitung"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "Livestreaming freigeschaltet und eine Übertragung vorbereitet",
+                "<a href=\"../dji-drohne-auf-youtube-live-streamen/\">Drohne auf YouTube</a>"
+              ],
+              [
+                "Instagram",
+                "Live Producer und RTMPS-Daten für Ihr Konto verfügbar",
+                "<a href=\"../mit-dji-drohne-auf-instagram-live-gehen/\">Drohne auf Instagram</a>"
+              ],
+              [
+                "Facebook",
+                "Eine Übertragung in Live Producer mit aktueller URL und Schlüssel",
+                "<a href=\"../mit-dji-drohne-auf-facebook-live-gehen/\">Drohne auf Facebook</a>"
+              ],
+              [
+                "TikTok",
+                "RTMP-Zugangsdaten oder die Berechtigung, LIVE Studio zu nutzen",
+                "<a href=\"../mit-dji-drohne-auf-tiktok-live-gehen/\">Drohne auf TikTok</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "Prüfen Sie Ihr eigenes Plattform-Dashboard, bevor Sie eine öffentliche Übertragung planen; der Empfang des Drohnenbildes schaltet keine Kontoberechtigung frei. Für Desktop-Anwendungen, die eine Webcam akzeptieren, erklärt die <a href=\"../dji-drohne-als-webcam-nutzen/\">Anleitung zur virtuellen Kamera</a> den Weg als Videoquelle. Plattformzugang und der eingehende RTMP-Stream der Mini 3 bleiben trotzdem nötig."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Welche Bildqualität können Sie von der Mini 3 erwarten?",
+      "blocks": [
+        {
+          "p": "Die <a href=\"https://www.dji.com/mini-3/specs\">technischen Daten der Mini 3</a> nennen DJI-O2-Übertragung mit einer Live-Ansicht von 720p/30 fps auf der Fernsteuerung, daneben die separate 4K-Kameraaufnahme. Eine gespeicherte 4K-Datei belegt keine 4K-RTMP-Übertragung. Prüfen Sie den tatsächlichen Eingang am Empfänger und nutzen Sie die Einstellungen, die Ihre DJI-Fly-Version bietet."
+        },
+        {
+          "list": [
+            "<strong>Hochskalieren hat Grenzen.</strong> Die Ausgabe am Computer kann größere Abmessungen haben, aber keine Details rekonstruieren, die einem Eingang mit niedrigerer Auflösung fehlen.",
+            "<strong>Hochformat-Ausschnitt prüfen.</strong> Die drehbare Kamera der Mini 3 und das endgültige Bildformat der Übertragung sind verschiedene Teile der Einrichtung. Prüfen Sie die tatsächliche Ausgabe am Computer, bevor Sie Video im Hochformat veröffentlichen.",
+            "<strong>Upload-Reserve lassen.</strong> Testen Sie am Flugort und beginnen Sie mit einem Ziel. Zwei Ziele mit je 5 Mbit/s brauchen ohne Overhead zusammen etwa 10 Mbit/s Upload.",
+            "<strong>Daten und Strom einplanen.</strong> Eine durchgehende Ausgabe mit 5 Mbit/s verbraucht ohne Overhead etwa 2,25 GB pro Stunde. Sorgen Sie dafür, dass Flug-Handy und Computer für die geplante Dauer mit Strom versorgt sind."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Häufige Probleme beim Livestream mit der Mini 3",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Livestream-Einstellungen fehlen:</strong> Prüfen Sie, ob Ihre Fernsteuerung die ursprüngliche DJI RC ist. Deren dokumentierte Einschränkung lässt sich in der Empfänger-App nicht beheben. Mit der RC-N1 prüfen Sie DJI-Fly-Updates und die Verbindung zur Drohne.",
+            "<strong>DJI Fly meldet einen Verbindungsfehler:</strong> Kopieren Sie die vollständige aktuelle Empfängeradresse erneut. Prüfen Sie WLAN, Geräte-Isolierung und die Firewall des Computers. <code>localhost</code> zeigt auf das Gerät, das es verwendet, nicht auf Ihren Computer im Netzwerk.",
+            "<strong>Die Vorschau funktioniert, aber die Veröffentlichung scheitert:</strong> Der lokale Stream steht. Prüfen Sie Plattform-URL, aktuellen Schlüssel, Kontozugang und die letzte Veröffentlichungsoption separat.",
+            "<strong>Video stockt im Freien:</strong> Prüfen Sie sowohl das lokale WLAN als auch den Internet-Upload. Bringen Sie den Empfänger näher an die Netzwerkquelle und testen Sie eine einzelne Ausgabe mit niedrigerer Bitrate, sofern die Einstellungen das erlauben.",
+            "<strong>Video, aber kein Ton:</strong> Prüfen Sie die Audioeinstellungen von Eingang und Ziel und hören Sie auf einem Zuschauergerät mit. Bei Nutzung einer virtuellen Kamera richten Sie den Ton separat in der empfangenden Übertragungsanwendung ein."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Offizielle Quellen und nächste Schritte",
+      "blocks": [
+        {
+          "p": "Stand: 25. Oktober 2026. <a href=\"https://repair.dji.com/help/content?customId=en-us03400007192&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI-Einsteigerleitfaden zur Mini 3</a> für Livestreaming mit der RC-N1 und die Einschränkung der DJI RC; <a href=\"https://www.dji.com/mini-3/faq\">Mini-3-FAQ</a> für kompatible Fernsteuerungen und QuickTransfer; <a href=\"https://www.dji.com/mini-3/specs\">technische Daten der Mini 3</a> für den Unterschied zwischen Live-Ansicht und Aufnahme. Prüfen Sie die verfügbaren Menüs nach Firmware-Änderungen erneut."
+        },
+        {
+          "p": "Sie haben die Pro-Version? Lesen Sie die <a href=\"../dji-mini-3-pro-livestream/\">Livestream-Anleitung zur Mini 3 Pro</a>. Sobald ein einzelnes Ziel funktioniert, senden Sie mit dem <a href=\"../dji-drohne-auf-mehreren-plattformen-gleichzeitig-streamen/\">Multistreaming-Leitfaden</a> einen Stream an weitere Plattformen."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Unterstützt die DJI Mini 3 Livestreaming?",
+      "a": "DJI dokumentiert Livestreaming mit der RC-N1 und einem Mobilgerät, auf dem DJI Fly läuft. Diese Anleitung sendet diesen Stream an Stream My Drone auf einem separaten Computer."
+    },
+    {
+      "q": "Funktionieren diese RTMP-Schritte mit dem Mini-3-Set mit DJI RC?",
+      "a": "Nein. Laut DJI-Einsteigerleitfaden zur Mini 3 ist Livestreaming mit der ursprünglichen DJI RC nicht verfügbar. Sie ist nicht dasselbe wie die neuere DJI RC 2."
+    },
+    {
+      "q": "Kann die Mini 3 ihre 4K-Aufnahme live streamen?",
+      "a": "Gehen Sie nicht davon aus, dass der Livestream der gespeicherten Aufnahme entspricht. DJI nennt für die Mini 3 eine Live-Ansicht von 720p/30 fps auf der Fernsteuerung; prüfen Sie den tatsächlichen RTMP-Eingang im Empfänger."
+    },
+    {
+      "q": "Kann ich RTMP durch QuickTransfer ersetzen?",
+      "a": "Nein. QuickTransfer überträgt aufgenommene Dateien auf ein Handy. Diese Einrichtung nutzt die Livestream-Ausgabe von DJI Fly über das lokale Netzwerk."
+    },
+    {
+      "q": "Kann das Flug-Handy gleichzeitig der Empfänger sein?",
+      "a": "Diese Anleitung belässt DJI Fly auf dem Handy an der RC-N1 und empfängt das Video auf einem separaten Computer. Sie geht nicht davon aus, dass Flug- und Weiterleitungs-App zuverlässig auf einem Handy nebeneinander laufen."
+    },
+    {
+      "q": "Wo trage ich den Stream-Schlüssel der Plattform ein?",
+      "a": "In den Zieleinstellungen von Stream My Drone, zusammen mit der Server-URL der Plattform. DJI Fly erhält stattdessen die lokale Adresse des Computers, einschließlich des Pfads, den die App anzeigt."
+    }
+  ]
+}

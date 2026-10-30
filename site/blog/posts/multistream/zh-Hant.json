@@ -1,0 +1,80 @@
+{
+  "slug": "stream-a-dji-drone-to-multiple-platforms-at-once",
+  "platform": "多平台直播",
+  "title": "DJI 空拍機多平台同時直播教學",
+  "description": "用 Stream My Drone，把一路 DJI 空拍機直播同時送到 TikTok、Instagram、YouTube、Facebook、Twitch 和 Kick，免費、在本機執行，不需要轉播服務。",
+  "h1": "把 DJI 空拍機同時直播到多個平台",
+  "lead": "DJI Fly 只送出一路 RTMP 串流。Stream My Drone 在你的電腦上接收它，<strong>把畫面編碼一次，再轉送到你啟用的每一個目的地</strong>：TikTok、Instagram、YouTube、Facebook、Twitch、Kick 或任何 RTMP 伺服器，不需要付費的轉播服務。其中一個目的地失敗，其他的照常運作。",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "每個平台各加一個目的地，並為每個想直播的目的地開啟「在這裡直播」。",
+    "畫面只編碼一次，所以目的地變多不需要更多運算效能，只需要更多上傳頻寬。",
+    "每個目的地請預留約 10 Mbps 的穩定上傳頻寬（6 Mbps 影像加上餘裕）。",
+    "所有目的地共用同一個方向：TikTok／Instagram 用直向，YouTube／Twitch／Kick 用橫向。",
+    "一切都在本機執行；沒有第三方轉播伺服器，也沒有月費。"
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "設定多平台直播",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "連接空拍機", "d": "在 DJI Fly 中開啟 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，輸入 Stream My Drone 顯示的位址。" },
+          { "t": "加入每個平台", "d": "在<em>要直播到哪裡？</em>中，為每個平台使用<em>新增其他目的地</em>：TikTok、Instagram、YouTube 和 Facebook 有各自的類型；Twitch、Kick 和其他平台則是自訂 RTMP。" },
+          { "t": "更新只能用一次的金鑰", "d": "Instagram（以及沒有永久金鑰的 Facebook）每場直播都需要新的金鑰。請在這些卡片上使用<em>更新金鑰</em>。" },
+          { "t": "依主要觀眾選擇方向", "d": "同一次編碼供應所有目的地，所以請依最重要的平台選擇<em>直向 9:16</em>或<em>水平 16:9</em>。" },
+          { "t": "按下「開始直播」", "d": "每張目的地卡片會顯示各自的狀態：<em>直播中</em>、<em>連線中</em>或<em>連線失敗</em>，其中一個失敗不會影響其他。需要的平台（Instagram、Facebook）請再按下開始直播。" }
+        ] }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "各平台速查表",
+      "blocks": [
+        { "table": {
+          "head": ["平台", "金鑰在哪裡", "金鑰會變嗎？", "最佳方向"],
+          "rows": [
+            ["<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok</a>", "LIVE Center／LIVE Studio（符合資格的帳號）", "可能會變", "直向"],
+            ["<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram</a>", "instagram.com →「建立」→「直播視訊」", "每場直播都會變", "直向"],
+            ["<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube</a>", "YouTube 工作室 →「進行直播」→「串流軟體」", "只有重設時才變", "橫向或直向"],
+            ["<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Facebook</a>", "「直播視訊」→「串流軟體」", "每次直播都會變，除非使用永久金鑰", "皆可"],
+            ["<a href=\"../how-to-stream-a-dji-drone-on-twitch/\">Twitch</a>", "創作者後台 → 設定 → 直播", "只有重設時才變", "橫向"],
+            ["<a href=\"../how-to-stream-a-dji-drone-on-kick/\">Kick</a>", "後台 → 設定 → 串流網址與金鑰", "只有重設時才變", "橫向"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "bandwidth",
+      "h2": "需要多少上傳頻寬",
+      "blocks": [
+        { "table": {
+          "head": ["目的地數量", "送出的影像", "應預留的穩定上傳頻寬"],
+          "rows": [
+            ["1", "6 Mbps", "10 Mbps"],
+            ["2", "12 Mbps", "20 Mbps"],
+            ["3", "18 Mbps", "30 Mbps"],
+            ["4", "24 Mbps", "40 Mbps"]
+          ]
+        } },
+        { "p": "在戶外使用手機熱點時，兩個目的地通常就是實際上限。起飛前，請先用<em>用影片檔試試看</em>測試連線。" }
+      ]
+    },
+    {
+      "id": "rules",
+      "h2": "確認各平台的規定",
+      "blocks": [
+        { "p": "有些平台會在合作夥伴條款或使用條款中限制同步直播；Twitch 的規定尤其改過好幾次。Stream My Drone 只會送出你指定的影像，從不登入任何帳號，也從不替你按下開始直播。" }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "可以同時把 DJI 空拍機直播到 TikTok 和 YouTube 嗎？", "a": "可以。把兩者都加為目的地，然後按下「開始直播」。因為兩者共用同一個方向，請選擇最適合主要觀眾的那一個。" },
+    { "q": "需要轉播服務嗎？", "a": "不需要。Stream My Drone 在你自己的電腦上免費進行多平台直播，只需要足夠的上傳頻寬。" },
+    { "q": "如果其中一個平台斷線了怎麼辦？", "a": "只有那個目的地會顯示連線失敗，其他的會繼續直播。" },
+    { "q": "每多一個平台，需要更多 CPU 嗎？", "a": "幾乎不需要。畫面只編碼一次，同一份資料再送到每個目的地。" },
+    { "q": "OBS 模式下可以多平台直播嗎？", "a": "不行。多個目的地是直接直播的功能；在 OBS 模式下，串流要送到哪裡由 OBS 決定。" }
+  ]
+}

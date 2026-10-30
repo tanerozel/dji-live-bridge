@@ -1,0 +1,80 @@
+{
+  "slug": "osmo-action-diffusion-en-direct",
+  "platform": "Osmo Action",
+  "title": "Osmo Action 5 Pro, 6 et 4 en direct sur Instagram et TikTok",
+  "description": "Diffusez une DJI Osmo Action 6, 5 Pro, 4 ou 3 en direct en RTMP depuis DJI Mimo vers Instagram, TikTok, YouTube et Twitch à la fois avec Stream My Drone. Configuration et réglages.",
+  "h1": "Comment diffuser une caméra Osmo Action en direct sur Instagram et TikTok",
+  "lead": "Les caméras Osmo Action diffusent en <strong>RTMP depuis DJI Mimo</strong> jusqu'en 1080p, depuis un casque, un guidon, une voiture ou un trépied. Seul, DJI Mimo rejoint Facebook, YouTube ou une adresse RTMP ; envoyez ce flux RTMP vers <strong>Stream My Drone</strong> sur un ordinateur, et la même image part vers <strong>Instagram, TikTok, YouTube, Twitch ou Kick</strong> à la fois.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Les Osmo Action 6, 5 Pro, 4 et 3 diffusent en RTMP depuis DJI Mimo (1.2.20 ou plus récent) en 480p, 720p ou 1080p, jusqu'à 6 Mbit/s.",
+    "La caméra se connecte elle-même à un réseau Wi-Fi ; mettez-la sur le même réseau que l'ordinateur, ou sur un partage de connexion commun aux deux.",
+    "Stream My Drone envoie le flux vers plusieurs plateformes à la fois, dont Instagram en RTMPS.",
+    "Le vertical 1080×1920 avec fond flouté conserve toute l'action sur les écrans de téléphone.",
+    "La caméra virtuelle fait aussi de l'Osmo Action une caméra sans fil pour OBS, Zoom ou TikTok LIVE Studio."
+  ],
+  "sections": [
+    {
+      "id": "setup",
+      "h2": "Configurer le direct de l'Osmo Action",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Ouvrez Stream My Drone", "d": "Installez <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> sur un Mac ou un PC Windows et notez l'adresse qu'il affiche, du type <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Connectez la caméra dans DJI Mimo", "d": "Mettez à jour DJI Mimo et le firmware de la caméra, connectez l'Osmo Action et ouvrez l'option de direct." },
+          { "t": "Choisissez RTMP et le Wi-Fi", "d": "Sélectionnez RTMP et le Wi-Fi auquel la caméra doit se connecter : le réseau de l'ordinateur, ou le partage de connexion d'un téléphone que l'ordinateur utilise aussi." },
+          { "t": "Saisissez l'adresse et lancez", "d": "Tapez l'adresse indiquée par Stream My Drone, choisissez 1080p et le débit le plus élevé que le réseau supporte, puis lancez. L'aperçu apparaît dans l'application." },
+          { "t": "Ajoutez vos plateformes et passez en direct", "d": "Ajoutez Instagram, TikTok, YouTube, Twitch ou n'importe quel serveur RTMP et appuyez sur DÉMARRER LE DIRECT." }
+        ] },
+        { "img": "go-live.png", "alt": "L'onglet Direct de Stream My Drone avec l'adresse RTMP, les destinations et le bouton DÉMARRER LE DIRECT." },
+        { "note": "Les autres caméras DJI capables de diffuser en RTMP sont listées dans <a href=\"../dji-osmo-direct-instagram-tiktok/\">le guide des caméras Osmo</a>." }
+      ]
+    },
+    {
+      "id": "ideas",
+      "h2": "Là où le direct avec une caméra d'action brille",
+      "blocks": [
+        { "list": [
+          "<strong>Sport et balades.</strong> Vélo, moto, ski ou course à pied : un seul point de vue, en direct sur plusieurs plateformes.",
+          "<strong>Les coulisses.</strong> Fixez la caméra sur un plateau ou au mur d'un atelier et diffusez pendant que vous travaillez.",
+          "<strong>Un deuxième angle.</strong> Utilisez la caméra virtuelle pour ajouter l'Osmo Action comme source sans fil dans OBS, à côté de votre caméra principale ; voir <a href=\"../utiliser-son-drone-dji-comme-webcam/\">le guide webcam</a>.",
+          "<strong>Des directs par tous les temps.</strong> La caméra résiste à la pluie et à la poussière ; l'ordinateur reste au sec dans la voiture ou sous la tente."
+        ] }
+      ]
+    },
+    {
+      "id": "range",
+      "h2": "Portée et réseau",
+      "blocks": [
+        { "p": "La caméra envoie son flux à l'ordinateur par Wi-Fi ; elle doit donc rester à portée de ce réseau. Pour les plans en mouvement, un partage de connexion de téléphone porté près de la caméra, avec l'ordinateur sur le même partage, garde une liaison courte. L'envoi vers les plateformes utilise alors les données mobiles du partage, environ 6 Mbit/s par destination." },
+        { "table": {
+          "head": ["Configuration", "Idéal pour"],
+          "rows": [
+            ["Wi-Fi de la maison ou du lieu", "Plans fixes, ateliers, événements"],
+            ["Partage de connexion près de la caméra et de l'ordinateur", "Tournages en extérieur et courts plans en mouvement"],
+            ["Routeur de voyage dans une voiture ou un van", "Trajets où l'ordinateur voyage avec vous"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Quand ça ne marche pas",
+      "blocks": [
+        { "list": [
+          "<strong>La caméra ne parvient pas à se connecter :</strong> elle n'est pas sur le réseau de l'ordinateur, ou un réseau invité isole les appareils.",
+          "<strong>Le flux coupe en mouvement :</strong> la caméra est sortie de la portée du Wi-Fi ; rapprochez le partage de connexion ou baissez le débit.",
+          "<strong>Pas d'option de direct :</strong> mettez à jour DJI Mimo en 1.2.20 ou plus récent, ainsi que le firmware de la caméra.",
+          "<strong>Instagram refuse le flux :</strong> créez une nouvelle vidéo en direct sur instagram.com et mettez la clé à jour ; chaque clé ne sert qu'une fois."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "L'Osmo Action 5 Pro peut-elle diffuser en direct sur Instagram ?", "a": "Pas avec DJI Mimo seul. Diffusez vers Stream My Drone en RTMP, et il transmet l'image à Instagram en RTMPS." },
+    { "q": "Quelles caméras Osmo Action prennent en charge le direct RTMP ?", "a": "Selon DJI : Osmo Action 6, 5 Pro, 4 et 3, DJI Action 2 et la première Osmo Action (720p au maximum)." },
+    { "q": "Puis-je diffuser une Osmo Action sur Twitch et YouTube en même temps ?", "a": "Oui. Ajoutez les deux destinations dans Stream My Drone et appuyez sur DÉMARRER LE DIRECT." },
+    { "q": "À quelle distance la caméra peut-elle être de l'ordinateur ?", "a": "Aussi loin que porte le Wi-Fi. La caméra diffuse vers l'ordinateur via ce réseau ; gardez-la donc à portée ou emportez un partage de connexion." }
+  ]
+}

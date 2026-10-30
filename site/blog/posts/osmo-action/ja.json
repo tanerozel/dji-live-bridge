@@ -1,0 +1,80 @@
+{
+  "slug": "osmo-action-live-stream",
+  "platform": "Osmo Action",
+  "title": "Osmo Action 5 Pro・6・4 で Instagram と TikTok にライブ配信",
+  "description": "DJI Osmo Action 6、5 Pro、4、3 の映像を DJI Mimo から RTMP で送り、Stream My Drone で Instagram、TikTok、YouTube、Twitch に同時ライブ配信する方法と設定を解説します。",
+  "h1": "Osmo Action カメラで Instagram と TikTok にライブ配信する方法",
+  "lead": "Osmo Action カメラは <strong>DJI Mimo から RTMP</strong> で最大 1080p の配信ができます。ヘルメット、ハンドル、車、三脚、どこに付けても大丈夫です。DJI Mimo だけで届くのは Facebook、YouTube、RTMP アドレスですが、その RTMP 配信をパソコンの <strong>Stream My Drone</strong> に送れば、同じ映像を <strong>Instagram、TikTok、YouTube、Twitch、Kick</strong> へ同時に届けられます。",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Osmo Action 6、5 Pro、4、3 は、DJI Mimo（1.2.20 以降）から 480p、720p、1080p、最大 6 Mbps の RTMP 配信ができます。",
+    "カメラは自分で Wi-Fi ネットワークにつながります。パソコンと同じネットワークか、両方で共有するテザリングにつないでください。",
+    "Stream My Drone は、RTMPS での Instagram を含む複数のプラットフォームへ同時に配信します。",
+    "ぼかしで余白を埋めた縦型 1080×1920 なら、アクション映像全体をスマホの画面に収められます。",
+    "仮想カメラを使えば、Osmo Action を OBS、Zoom、TikTok LIVE Studio 用のワイヤレスカメラにもできます。"
+  ],
+  "sections": [
+    {
+      "id": "setup",
+      "h2": "Osmo Action のライブ配信を設定する",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Stream My Drone を開く", "d": "Mac または Windows パソコンに <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> をインストールし、表示される <code>rtmp://192.168.1.20:1935/drone</code> のようなアドレスを控えます。" },
+          { "t": "DJI Mimo でカメラを接続", "d": "DJI Mimo とカメラのファームウェアを更新し、Osmo Action を接続してライブ配信の項目を開きます。" },
+          { "t": "RTMP と Wi-Fi を選ぶ", "d": "RTMP を選び、カメラがつなぐ Wi-Fi を選びます。パソコンのネットワークか、パソコンも使っているスマホのテザリングにしてください。" },
+          { "t": "アドレスを入力して開始", "d": "Stream My Drone のアドレスを入力し、1080p とネットワークが耐えられる最も高いビットレートを選んで開始します。アプリにプレビューが表示されます。" },
+          { "t": "プラットフォームを追加して配信開始", "d": "Instagram、TikTok、YouTube、Twitch、任意の RTMP サーバーを追加し、「配信を開始」を押します。" }
+        ] },
+        { "img": "go-live.png", "alt": "Stream My Drone の「配信」タブ。RTMP アドレス、配信先、配信を開始ボタンが表示されています。" },
+        { "note": "RTMP のライブ配信に対応したほかの DJI カメラは <a href=\"../dji-osmo-live-stream-instagram-tiktok/\">Osmo カメラのガイド</a>に載っています。" }
+      ]
+    },
+    {
+      "id": "ideas",
+      "h2": "アクションカメラのライブ配信が活きる場面",
+      "blocks": [
+        { "list": [
+          "<strong>スポーツやライド。</strong>サイクリング、バイク、スキー、ランニング。1 つの視点を、複数のプラットフォームでライブに。",
+          "<strong>舞台裏。</strong>カメラを撮影現場や作業場の壁に取り付け、作業しながら配信できます。",
+          "<strong>2 つめのアングル。</strong>仮想カメラを使えば、メインカメラの横に Osmo Action を OBS のワイヤレスソースとして追加できます。<a href=\"../use-your-dji-drone-as-a-webcam/\">Web カメラのガイド</a>をご覧ください。",
+          "<strong>天候に強い配信。</strong>カメラは雨やほこりに耐え、パソコンは車やテントの中で濡れずに済みます。"
+        ] }
+      ]
+    },
+    {
+      "id": "range",
+      "h2": "通信範囲とネットワーク",
+      "blocks": [
+        { "p": "カメラは Wi-Fi でパソコンへ配信を送るので、そのネットワークの範囲内にいる必要があります。動きながら撮るなら、カメラの近くにスマホのテザリングを持ち運び、パソコンも同じテザリングにつなぐと、接続を短く保てます。この場合、プラットフォームへのアップロードにはテザリングのモバイルデータを使い、配信先 1 つあたり約 6 Mbps が必要です。" },
+        { "table": {
+          "head": ["接続方法", "向いている用途"],
+          "rows": [
+            ["自宅や会場の Wi-Fi", "固定アングル、ワークショップ、イベント"],
+            ["カメラとパソコンの近くのスマホのテザリング", "屋外での撮影や短い移動撮影"],
+            ["車やバンに積んだトラベルルーター", "パソコンも一緒に移動するライド"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "うまくいかないとき",
+      "blocks": [
+        { "list": [
+          "<strong>カメラが接続できない：</strong>パソコンのネットワークにつながっていないか、ゲスト用ネットワークがデバイス同士を分離しています。",
+          "<strong>移動中に配信が途切れる：</strong>カメラが Wi-Fi の範囲から出ています。テザリングを近づけるか、ビットレートを下げてください。",
+          "<strong>ライブ配信の項目がない：</strong>DJI Mimo を 1.2.20 以降に、カメラのファームウェアも最新に更新してください。",
+          "<strong>Instagram が配信を受け付けない：</strong>instagram.com で新しいライブ動画を作成してキーを更新します。キーは一度しか使えません。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Osmo Action 5 Pro から Instagram にライブ配信できますか？", "a": "DJI Mimo だけではできません。RTMP で Stream My Drone に配信すれば、映像を RTMPS で Instagram へ転送します。" },
+    { "q": "RTMP のライブ配信に対応している Osmo Action カメラは？", "a": "DJI によると、Osmo Action 6、5 Pro、4、3、DJI Action 2、初代 Osmo Action（最大 720p）です。" },
+    { "q": "Osmo Action で Twitch と YouTube に同時に配信できますか？", "a": "はい。Stream My Drone で両方を配信先に追加し、「配信を開始」を押してください。" },
+    { "q": "カメラはパソコンからどれくらい離れても大丈夫ですか？", "a": "Wi-Fi が届く範囲までです。カメラはそのネットワーク経由でパソコンに配信するので、範囲内にとどまるか、テザリングを持ち運んでください。" }
+  ]
+}

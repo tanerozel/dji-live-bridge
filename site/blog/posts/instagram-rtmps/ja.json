@@ -1,6 +1,6 @@
 {
   "slug": "why-dji-fly-cannot-stream-to-instagram",
-  "platform": "Instagram problem",
+  "platform": "Instagram の問題",
   "title": "DJI Fly から Instagram ライブに配信できない理由と解決方法",
   "description": "DJI Fly には Instagram の項目がなく、その RTMP クライアントは Instagram が求める暗号化された RTMPS に対応していません。その理由と、それでも DJI ドローンで Instagram ライブを行う方法を解説します。",
   "h1": "DJI Fly で Instagram にライブ配信できない理由（と解決策）",

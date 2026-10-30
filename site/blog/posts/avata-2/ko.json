@@ -1,0 +1,80 @@
+{
+  "slug": "dji-avata-2-live-stream",
+  "platform": "DJI Avata 2",
+  "title": "DJI Avata 2 Goggles 3 라이브 방송: Instagram·TikTok·YouTube",
+  "description": "DJI Avata 2의 FPV 영상을 라이브 방송하는 방법. Goggles 3 화면을 휴대폰의 DJI Fly로 공유하고 RTMP로 송출해 Instagram, TikTok, YouTube에 방송하세요.",
+  "h1": "DJI Avata 2로 라이브 방송하는 방법",
+  "lead": "Avata 2에는 화면 달린 조종기가 없어서 스트림은 휴대폰을 거쳐 나갑니다. <strong>Goggles 3가 실시간 화면을 DJI Fly와 공유</strong>하고, DJI Fly가 이를 <strong>RTMP</strong>로 보냅니다. 그 주소를 컴퓨터의 <strong>Stream My Drone</strong>으로 지정하면 FPV 화면이 Instagram, TikTok, YouTube 또는 여러 플랫폼으로 동시에 전달됩니다.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "DJI Goggles 3를 휴대폰에 연결하고(USB-C 케이블이 가장 안정적) DJI Fly를 열어 실시간 화면을 확인하세요.",
+    "DJI Fly에서 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP를 열고 Stream My Drone에 표시된 주소를 입력하세요.",
+    "휴대폰 Wi-Fi는 컴퓨터와 같은 네트워크에 있어야 하며, 케이블을 쓰면 Wi-Fi를 그 용도로 비워 둘 수 있습니다.",
+    "Stream My Drone이 가로 FPV 화면을 Instagram과 TikTok용 세로 1080×1920으로 바꿉니다.",
+    "조종사는 고글을 쓰고 있으니 보조자나 다른 사람이 방송을 맡는 것이 좋습니다."
+  ],
+  "sections": [
+    {
+      "id": "how",
+      "h2": "FPV 드론으로 방송하는 원리",
+      "blocks": [
+        { "p": "Avata 2에서는 화면이 드론에서 고글로 갑니다. DJI Goggles 3는 케이블이나 Wi-Fi로 휴대폰의 DJI Fly와 실시간 화면을 공유할 수 있고, DJI Fly의 RTMP 옵션이 그 화면을 방송합니다. 고글을 쓰는 Neo에도 같은 경로가 문서화되어 있습니다." },
+        { "table": {
+          "head": ["고글과 휴대폰 연결 방식", "방송에 적합?", "참고"],
+          "rows": [
+            ["USB-C 케이블(OTG)", "적합 — 권장", "안정적이며 휴대폰 Wi-Fi를 컴퓨터 연결용으로 비워 둘 수 있습니다."],
+            ["무선 공유(Goggles 3)", "가능", "공유 자체가 무선을 써서 간섭이 생길 수 있습니다. 케이블을 권장합니다."]
+          ]
+        } },
+        { "note": "이 경로는 DJI Goggles 3 기준으로 문서화된 것을 확인했습니다. 다른 고글이라면 휴대폰의 DJI Fly에 실시간 화면이 나오고 RTMP가 제공되는지 확인하세요." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Avata 2 라이브 방송 설정하기",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "고글을 케이블로 휴대폰에 연결", "d": "OTG를 지원하는 케이블로 DJI Goggles 3의 USB-C 포트를 휴대폰에 연결하고 DJI Fly를 여세요. GO FLY를 눌러 실시간 화면이 나오는지 확인하세요." },
+          { "t": "휴대폰과 컴퓨터를 한 네트워크에 연결", "d": "휴대폰 Wi-Fi와 컴퓨터를 같은 Wi-Fi에 연결하세요. 야외에서는 여행용 공유기나 다른 휴대폰의 핫스팟을 쓰세요." },
+          { "t": "Stream My Drone 열기", "d": "Mac 또는 Windows PC에 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>을 설치하고 <code>rtmp://192.168.1.20:1935/drone</code> 같은 표시된 주소를 확인하세요." },
+          { "t": "DJI Fly에서 RTMP 시작", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP에서 주소를 입력하고 시작하세요. Stream My Drone에 미리보기가 나타납니다." },
+          { "t": "방송 시작", "d": "Instagram, TikTok, YouTube 또는 아무 RTMP 서버나 추가하고, 세로나 가로를 고른 뒤 이륙 전에 방송 시작을 누르세요." }
+        ] },
+        { "img": "go-live.png", "alt": "DJI Fly용 RTMP 주소, 방송 대상, 방송 시작 버튼이 보이는 Stream My Drone의 '방송' 탭." },
+        { "note": "일반적인 DJI Fly 설정, 네트워크, 방화벽 알림은 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 가이드</a>에서 다룹니다." }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "FPV 라이브 방송 팁",
+      "blocks": [
+        { "list": [
+          "<strong>이륙 전에 방송을 시작하세요.</strong> 고글을 쓰고 나면 컴퓨터를 볼 수 없습니다. 미리보기와 방송 대상을 먼저 확인하세요.",
+          "<strong>다른 사람에게 방송을 맡기세요.</strong> 보조자가 방송 대상 카드를 지켜보다가 필요하면 방송을 끝낼 수 있습니다.",
+          "<strong>세로 FPV.</strong> <em>전체 화면 표시</em>는 흐린 배경으로 수평선 전체를 살립니다. 양옆을 잘라내는 <em>화면 채우기</em>보다 대개 FPV에 더 잘 맞습니다.",
+          "<strong>Android 휴대폰이 더 높은 비트레이트로 방송합니다.</strong> DJI는 Android에 5 또는 3 Mbps, iOS에 2 또는 1 Mbps를 제시합니다. 빠른 FPV 움직임에는 비트레이트가 많을수록 좋습니다."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "작동하지 않을 때",
+      "blocks": [
+        { "list": [
+          "<strong>DJI Fly에 실시간 화면이 없음:</strong> 다른 USB-C 케이블을 써 보세요. 충전 전용이 아니라 데이터 전송이 되는 케이블이어야 합니다.",
+          "<strong>DJI Fly가 컴퓨터에 연결하지 못함:</strong> 휴대폰 Wi-Fi가 다른 네트워크에 있거나 컴퓨터의 주소가 바뀌었습니다. 주소를 다시 복사하세요.",
+          "<strong>화면이 끊김:</strong> 무선 공유 대신 케이블을 쓰고, 휴대폰을 공유기 가까이에 두세요.",
+          "<strong>Instagram이 스트림을 거부함:</strong> Instagram 키는 한 번만 쓸 수 있습니다. 새 라이브 방송을 만들고 키를 업데이트하세요."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI Avata 2로 라이브 방송을 할 수 있나요?", "a": "네. DJI Goggles 3가 휴대폰의 DJI Fly와 실시간 화면을 공유하고, DJI Fly가 이를 RTMP로 Stream My Drone에 보내면 앱이 플랫폼으로 전달합니다." },
+    { "q": "고글과 휴대폰 사이에 케이블이 필요한가요?", "a": "Goggles 3는 무선으로도 공유할 수 있지만, 케이블이 더 안정적이고 휴대폰 Wi-Fi를 컴퓨터 연결용으로 비워 둘 수 있습니다." },
+    { "q": "Avata 2로 Instagram이나 TikTok에 방송할 수 있나요?", "a": "네, Stream My Drone을 통하면 됩니다. 앱이 가로 FPV 화면을 세로 1080×1920으로 바꾸고, DJI Fly가 스스로는 하지 못하는 RTMPS로 Instagram에 보냅니다." },
+    { "q": "비행하는 동안 방송은 누가 맡아야 하나요?", "a": "이륙 전에 방송을 시작하고, 가능하면 보조자가 컴퓨터를 지켜보게 하세요. 조종사는 고글을 쓰고 있어 방송 대상 카드를 볼 수 없습니다." }
+  ]
+}

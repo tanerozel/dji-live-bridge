@@ -1,0 +1,80 @@
+{
+  "slug": "live-drone-dji-ke-beberapa-platform-sekaligus",
+  "platform": "Multistreaming",
+  "title": "Siaran drone DJI ke beberapa platform sekaligus (multistream)",
+  "description": "Kirim satu live streaming drone DJI ke TikTok, Instagram, YouTube, Facebook, Twitch, dan Kick sekaligus dengan Stream My Drone — gratis, lokal, tanpa layanan restream.",
+  "h1": "Siarkan drone DJI ke beberapa platform sekaligus",
+  "lead": "DJI Fly mengirim satu aliran RTMP. Stream My Drone menerimanya di komputer Anda, <strong>mengenkode gambar sekali lalu meneruskannya ke setiap tujuan yang Anda aktifkan</strong> — TikTok, Instagram, YouTube, Facebook, Twitch, Kick, atau server RTMP mana pun — tanpa layanan restream berbayar. Jika satu tujuan gagal, yang lain tetap berjalan.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Tambahkan satu tujuan per platform dan aktifkan “Siarkan ke sini” untuk setiap tujuan yang Anda inginkan.",
+    "Gambar dienkode sekali, jadi tambahan tujuan tidak memerlukan daya proses lebih — hanya bandwidth unggah lebih besar.",
+    "Siapkan unggahan stabil sekitar 10 Mbps per tujuan (video 6 Mbps ditambah cadangan).",
+    "Semua tujuan memakai satu orientasi yang sama: vertikal untuk TikTok/Instagram, horizontal untuk YouTube/Twitch/Kick.",
+    "Semuanya berjalan secara lokal; tidak ada server restream pihak ketiga dan tidak ada biaya bulanan."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Mengatur multistream",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Hubungkan drone", "d": "Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP dan masukkan alamat yang ditampilkan Stream My Drone." },
+          { "t": "Tambahkan setiap platform", "d": "Di bawah <em>Mau siaran ke mana?</em>, gunakan <em>Tambah tujuan lain</em> untuk setiap platform: TikTok, Instagram, YouTube, dan Facebook punya jenisnya sendiri; Twitch, Kick, dan lainnya memakai RTMP khusus." },
+          { "t": "Perbarui kunci sekali pakai", "d": "Instagram (dan Facebook tanpa kunci permanen) memerlukan kunci baru untuk setiap siaran. Gunakan <em>Perbarui kunci</em> di kartu-kartu tersebut." },
+          { "t": "Pilih orientasi untuk penonton utama Anda", "d": "Satu proses enkode melayani semua tujuan, jadi pilih <em>Vertikal 9:16</em> atau <em>Horizontal 16:9</em> sesuai platform yang paling penting." },
+          { "t": "Tekan MULAI SIARAN", "d": "Setiap kartu tujuan menunjukkan statusnya sendiri — <em>Siaran</em>, <em>Menghubungkan</em>, atau <em>Koneksi gagal</em> — dan satu kegagalan tidak menghentikan yang lain. Tekan Go live di platform yang memerlukannya (Instagram, Facebook)." }
+        ] }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Contekan platform",
+      "blocks": [
+        { "table": {
+          "head": ["Platform", "Letak kuncinya", "Kunci berubah?", "Orientasi terbaik"],
+          "rows": [
+            ["<a href=\"../cara-live-tiktok-dengan-drone-dji/\">TikTok</a>", "LIVE Center / LIVE Studio (akun yang memenuhi syarat)", "Bisa berubah", "Vertikal"],
+            ["<a href=\"../cara-live-instagram-dengan-drone-dji/\">Instagram</a>", "instagram.com → Buat → Video live", "Setiap siaran", "Vertikal"],
+            ["<a href=\"../cara-live-streaming-drone-dji-ke-youtube/\">YouTube</a>", "YouTube Studio → Mulai siaran langsung → Software streaming", "Hanya saat diatur ulang", "Horizontal atau vertikal"],
+            ["<a href=\"../cara-live-facebook-dengan-drone-dji/\">Facebook</a>", "Video live → Software streaming", "Setiap sesi, kecuali kunci permanen", "Keduanya"],
+            ["<a href=\"../cara-streaming-drone-dji-di-twitch/\">Twitch</a>", "Creator Dashboard → Settings → Stream", "Hanya saat diatur ulang", "Horizontal"],
+            ["<a href=\"../cara-streaming-drone-dji-di-kick/\">Kick</a>", "Dasbor → Settings → Stream URL &amp; Key", "Hanya saat diatur ulang", "Horizontal"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "bandwidth",
+      "h2": "Berapa kapasitas unggah yang Anda butuhkan",
+      "blocks": [
+        { "table": {
+          "head": ["Tujuan", "Video yang dikirim", "Unggahan stabil yang perlu disiapkan"],
+          "rows": [
+            ["1", "6 Mbps", "10 Mbps"],
+            ["2", "12 Mbps", "20 Mbps"],
+            ["3", "18 Mbps", "30 Mbps"],
+            ["4", "24 Mbps", "40 Mbps"]
+          ]
+        } },
+        { "p": "Dengan hotspot ponsel di lapangan, dua tujuan biasanya adalah batas praktisnya. Uji koneksi dengan <em>Coba dengan berkas video</em> sebelum lepas landas." }
+      ]
+    },
+    {
+      "id": "rules",
+      "h2": "Periksa aturan platform",
+      "blocks": [
+        { "p": "Beberapa platform membatasi simulcast untuk partner atau dalam ketentuan layanannya; terutama Twitch, yang aturannya sudah beberapa kali berubah. Stream My Drone hanya mengirim video sesuai perintah Anda — aplikasi ini tidak pernah masuk ke akun atau menekan Go live untuk Anda." }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Bisakah saya siaran drone DJI ke TikTok dan YouTube sekaligus?", "a": "Bisa. Tambahkan keduanya sebagai tujuan lalu tekan MULAI SIARAN. Karena keduanya memakai satu orientasi yang sama, pilih yang sesuai dengan penonton utama Anda." },
+    { "q": "Apakah saya perlu layanan restream?", "a": "Tidak. Stream My Drone melakukan multistream di komputer Anda sendiri, secara gratis; yang diperlukan hanya bandwidth unggah yang cukup." },
+    { "q": "Apa yang terjadi jika satu platform terputus?", "a": "Hanya tujuan itu yang menunjukkan Koneksi gagal. Yang lain tetap melakukan streaming." },
+    { "q": "Apakah setiap platform tambahan butuh CPU lebih?", "a": "Hampir tidak. Gambar dienkode sekali dan data yang sama dikirim ke setiap tujuan." },
+    { "q": "Apakah multistream bisa dipakai dalam mode OBS?", "a": "Tidak. Beberapa tujuan sekaligus adalah fitur streaming langsung; dalam mode OBS, OBS yang menentukan ke mana siaran dikirim." }
+  ]
+}

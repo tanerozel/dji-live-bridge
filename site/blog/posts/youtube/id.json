@@ -1,0 +1,75 @@
+{
+  "slug": "cara-live-streaming-drone-dji-ke-youtube",
+  "platform": "YouTube",
+  "title": "Cara live streaming drone DJI ke YouTube (panduan RTMP)",
+  "description": "Live streaming drone DJI ke YouTube: aktifkan fitur live, salin stream key dari YouTube Studio, kirim RTMP dari DJI Fly lewat Stream My Drone. Pengaturan dan tips.",
+  "h1": "Cara live streaming drone DJI ke YouTube",
+  "lead": "Di YouTube Studio, pilih <strong>Buat → Mulai siaran langsung → Software streaming</strong> lalu salin URL stream dan stream key. Tambahkan keduanya sebagai tujuan YouTube di Stream My Drone, kirim gambar drone dari DJI Fly ke aplikasi lewat RTMP, lalu tekan MULAI SIARAN. Kunci YouTube tidak berubah sampai Anda mengatur ulangnya, jadi cukup diatur sekali.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Pertama kali, fitur live streaming harus diaktifkan di channel; menurut YouTube, proses ini bisa memakan waktu hingga 24 jam.",
+    "URL stream: rtmps://a.rtmps.youtube.com:443/live2 — kuncinya didapat dari YouTube Studio.",
+    "Pilih Horizontal 16:9 untuk siaran YouTube klasik; vertikal juga bisa.",
+    "Aplikasi mengirim 1080p pada 30 fps, 6 Mbps, H.264 dengan keyframe tiap 2 detik, sesuai rekomendasi YouTube.",
+    "Siaran yang sama juga bisa dikirim ke Facebook, Twitch, atau server RTMP mana pun sekaligus."
+  ],
+  "sections": [
+    {
+      "id": "enable",
+      "h2": "Sebelum siaran pertama: aktifkan live streaming",
+      "blocks": [
+        { "p": "Buka YouTube Studio dan pilih <em>Buat → Mulai siaran langsung</em>. Jika channel belum pernah siaran, YouTube meminta verifikasi dengan nomor telepon lalu mengaktifkan live streaming; aktivasi pertama bisa memakan waktu hingga 24 jam. Setelah itu, Anda bisa langsung live kapan saja." }
+      ]
+    },
+    {
+      "id": "steps",
+      "h2": "Siaran ke YouTube, langkah demi langkah",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Hubungkan drone", "d": "Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP dan masukkan alamat yang ditampilkan Stream My Drone." },
+          { "t": "Salin kunci dari YouTube Studio", "d": "Buat → Mulai siaran langsung → Software streaming. Salin <em>URL streaming</em> (<code>rtmps://a.rtmps.youtube.com:443/live2</code>) dan <em>Kunci streaming</em>." },
+          { "t": "Tambahkan tujuan YouTube", "d": "Di Stream My Drone, pilih YouTube lalu tempel kedua nilai itu. Kuncinya disimpan di brankas kredensial sistem." },
+          { "t": "Pilih orientasi", "d": "Pilih <em>Horizontal 16:9</em> untuk siaran biasa (1920×1080), atau <em>Vertikal 9:16</em> jika Anda ingin siaran berbentuk layar ponsel." },
+          { "t": "Tekan MULAI SIARAN", "d": "Setelah beberapa detik, YouTube Studio menunjukkan bahwa siaran sudah diterima. Tergantung pengaturan Anda, siaran menjadi publik secara otomatis atau setelah Anda menekan Go live di Studio." }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Pengaturan YouTube",
+      "blocks": [
+        { "table": {
+          "head": ["Pengaturan", "Nilai"],
+          "rows": [
+            ["URL stream", "<code>rtmps://a.rtmps.youtube.com:443/live2</code>"],
+            ["Resolusi", "1920×1080 horizontal atau 1080×1920 vertikal"],
+            ["Frame rate", "30 fps"],
+            ["Bitrate", "6 Mbps CBR"],
+            ["Keyframe", "Setiap 2 detik"]
+          ]
+        } },
+        { "p": "Di YouTube Studio Anda bisa memilih latensi. <em>Normal</em> memberi gambar paling stabil; <em>Rendah</em> atau <em>Sangat rendah</em> membantu jika Anda membalas chat sambil terbang." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Masalah yang sering terjadi",
+      "blocks": [
+        { "list": [
+          "<strong>Tidak ada opsi untuk mulai siaran langsung:</strong> live streaming belum diaktifkan, atau channel sedang terkena pembatasan live streaming.",
+          "<strong>Studio menunjukkan “Tidak ada data”:</strong> periksa dulu pratinjau aplikasi; jika drone terlihat di sana, salin lagi kuncinya.",
+          "<strong>Siaran buffering bagi penonton:</strong> unggahan terlalu lambat. Setiap tujuan memerlukan unggahan stabil sekitar 10 Mbps."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Bisakah drone DJI siaran langsung ke YouTube?", "a": "DJI Fly bisa mendorong RTMP langsung ke alamat YouTube, tetapi Anda tidak mendapat pratinjau, tidak bisa mengatur format, dan hanya punya satu tujuan. Mengirim siaran ke Stream My Drone terlebih dahulu memberi Anda ketiganya, dengan stream key YouTube yang sama." },
+    { "q": "Apakah saya perlu 50 subscriber untuk siaran ke YouTube?", "a": "Batas itu berlaku untuk live dari aplikasi seluler YouTube. Software streaming, seperti Stream My Drone, hanya memerlukan channel dengan fitur live streaming aktif." },
+    { "q": "Apakah stream key YouTube berubah?", "a": "Tidak. Kunci tetap sama sampai Anda mengatur ulangnya di YouTube Studio, jadi cukup diatur sekali." },
+    { "q": "Bisakah saya siaran video vertikal ke YouTube?", "a": "Bisa. Pilih Vertikal 9:16 di aplikasi; untuk siaran klasik, pilih Horizontal 16:9." },
+    { "q": "Apakah memakai RTMPS?", "a": "Ya. URL stream YouTube diawali rtmps://, jadi siaran dienkripsi dalam perjalanannya ke YouTube." }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "slug": "dji-mini-4-pro-live-stream",
+  "platform": "DJI Mini 4 Pro",
+  "title": "DJI Mini 4 Pro 直播教程：RC 2 与 RC-N2 推流设置（2026）",
+  "description": "用 RC 2 或 RC-N2 直播 DJI Mini 4 Pro：手机和电脑两种设置方法、DJI Fly RTMP 推流参数、麦克风要求，以及如何确认平台已开播。",
+  "h1": "如何用 DJI Mini 4 Pro 直播",
+  "lead": "<strong>DJI Mini 4 Pro</strong> 可以通过 DJI Fly 以 RTMP 发送实时画面。使用 <strong>DJI RC 2</strong> 时，可以在另一部手机上用 <strong>Stream My Drone</strong> 接收，也可以在电脑上用 <strong>Stream My Drone</strong> 接收。使用 <strong>RC-N2</strong> 时，下文的电脑方案能让 DJI Fly 一直在你的飞行手机上运行。然后在接收应用中设置 YouTube、Instagram、Facebook 或其他推流目标。",
+  "published": "2026-10-03",
+  "updated": "2026-10-21",
+  "summary": [
+    "DJI Fly 发出本地推流；Stream My Drone（手机或电脑）把它转发到你的平台。",
+    "RC 2 可以配合另一部手机接收；RC-N2 用你的手机运行 DJI Fly，本指南中由电脑负责接收。",
+    "遥控器的 RTMP 输出分辨率可能低于实时画面，也可能低于无人机上录制的文件。",
+    "手机应用直接转发收到的视频；桌面端输出可以转换为竖屏格式。",
+    "开始输出后要查看平台的观看页面：转发和公开发布是两个独立的步骤。"
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "DJI Mini 4 Pro 能直播吗？",
+      "blocks": [
+        { "p": "标配的遥控器有 DJI RC 2 和 RC-N2 两种。DJI Fly 运行在 RC 2 的内置屏幕上，或运行在连接 RC-N2 的手机上。两种方式都能把画面推流到另一台接收设备。" },
+        { "table": {
+          "head": ["遥控器", "DJI Fly 运行在哪里", "直播画质（DJI 官方）", "注意事项"],
+          "rows": [
+            ["DJI RC 2", "遥控器自带的屏幕上", "720p", "从 DJI Fly v1.16.0 起需要连接麦克风"],
+            ["DJI RC-N2", "你的手机上", "1080p 或 720p；Android 5/3 Mbps，iOS 2/1 Mbps", "手机的 Wi-Fi 必须和电脑在同一网络"]
+          ]
+        } },
+        { "note": "根据 <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;pbc=BCQ9HQ1u&amp;pm=custom&amp;re=US&amp;spaceId=34\">DJI 的直播指南</a>，RC 2 最高 720p，并且从 DJI Fly v1.16.0 起需要连接麦克风。RC-N2 手机端可选 1080p 或 720p，Android 为 5/3 Mbps，iOS 为 2/1 Mbps；能否选用取决于图传帧率。" }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "在电脑上设置 Mini 4 Pro 直播",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "让所有设备连上同一网络", "d": "把 DJI RC 2（使用 RC-N2 时则是你的手机）和电脑连到同一个 Wi-Fi，或同一个手机热点。" },
+          { "t": "打开 Stream My Drone", "d": "在 Mac 或 Windows 电脑上安装 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>。<em>连接无人机</em>这一步会显示类似 <code>rtmp://192.168.1.20:1935/drone</code> 的地址。" },
+          { "t": "插上麦克风（仅 DJI RC 2）", "d": "不接麦克风，RC 2 上的 DJI Fly 不会开始推流。" },
+          { "t": "在 DJI Fly 中填入地址", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，输入地址并开始。几秒钟内应用中就会出现预览。" },
+          { "t": "添加平台并开始直播", "d": "用平台当前的推流地址和密钥添加该平台。选择桌面端输出格式，开始输出，然后查看平台后台。如果还有额外的“开始直播”步骤，请先完成，再告诉观众直播已经开始。" }
+        ] },
+        { "img": "go-live.png", "alt": "Stream My Drone 的“开始直播”标签页，显示供 DJI Fly 使用的 RTMP 地址、推流目标和“开始直播”按钮。" },
+        { "note": "只用手机配合 RC 2 的方案，请看下一节。截图和更多网络细节见 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 指南</a>。" }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Mini 4 Pro 搭配 RC 2：不用电脑，用手机直播",
+      "blocks": [
+        { "p": "让 DJI Fly 留在 RC 2 上运行，用另一部手机作为接收端。从 <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> 或 <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a> 安装 Stream My Drone。" },
+        { "steps": [
+          { "t": "选择局域网", "d": "把 RC 2 和手机连到同一个能上网的 Wi-Fi。在户外，可以用一部 Android 手机开热点并接收画面。在 iPhone 上，系统询问时请允许访问本地网络。" },
+          { "t": "从应用中读取接收地址", "d": "连上网络后再打开 Stream My Drone。使用它显示的完整地址，不要照搬教程里的示例 IP 地址。" },
+          { "t": "开始 DJI Fly 推流", "d": "在 DJI Fly → GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP 中填入该地址。如有要求请连接麦克风，开始推流并查看手机上的预览。" },
+          { "t": "在 Stream My Drone 中添加平台", "d": "支持账号连接的就直接连接账号，否则在推流目标设置中填写平台的服务器地址和推流密钥。本地接收地址填在 DJI Fly 里，平台凭据填在这里。" },
+          { "t": "确认观众能看到", "d": "开始转发，然后查看平台后台或观看页面，完成剩余的“开始直播”步骤。仅有预览或传输连接处于活动状态，并不能确认直播已发布。" }
+        ] },
+        { "note": "手机应用直接转发收到的画面，不会重新编码。裁切预览并不会生成 1080×1920 竖屏输出；需要这种转换请使用桌面应用。设置期间请让 iPhone 应用保持在前台；后台推流取决于画中画。" }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "你想直播到哪个平台？",
+      "blocks": [
+        { "table": {
+          "head": ["平台", "需要准备什么", "详细指南"],
+          "rows": [
+            ["YouTube", "已开通直播功能的账号，以及一场已创建好的直播", "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube 设置</a>"],
+            ["Instagram", "Live Producer 的使用权限和当前有效的 RTMPS 凭据", "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram 设置</a>"],
+            ["Facebook", "一场直播及其服务器地址和密钥", "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Facebook 设置</a>"],
+            ["TikTok", "账号具备 RTMP 权限，或有一台能使用 LIVE Studio 的电脑", "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok 设置</a>"]
+          ]
+        } },
+        { "p": "平台权限取决于你的账号。应用能接收无人机画面，并不等于你就有了推流密钥，也不会自动发布直播。针对 TikTok LIVE Studio，桌面应用还提供<a href=\"../use-your-dji-drone-as-a-webcam/\">虚拟摄像头</a>。具体的发布步骤请以各平台后台为准。" }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "让 Mini 4 Pro 直播画面更好",
+      "blocks": [
+        { "list": [
+          "<strong>DJI RC 2 最高只有 720p。</strong>Stream My Drone 会为竖屏平台把它缩放到 1080×1920，并显示真实的输入分辨率，让你清楚自己发出的是什么。",
+          "<strong>使用 RC-N2 时，Android 手机更有优势。</strong>DJI 给出的码率是 Android 5 或 3 Mbps，而 iOS 只有 2 或 1 Mbps，快速运动时差别很明显。",
+          "<strong>缩短传输距离。</strong>画面从遥控器经 Wi-Fi 传到电脑；使用 5 GHz 网络，或把热点放在电脑旁边，可以避免掉线。",
+          "<strong>竖屏还是横屏。</strong>Mini 4 Pro 默认拍摄横屏画面。直播到 Instagram 和 TikTok 时，<em>完整画面</em>保留整个画面并用模糊背景填充；<em>填满屏幕</em>则裁切画面以铺满手机屏幕。"
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "无法直播时怎么办",
+      "blocks": [
+        { "list": [
+          "<strong>RC 2 上的 DJI Fly 无法开始推流：</strong>先插上麦克风。",
+          "<strong>DJI Fly 提示无法连接：</strong>遥控器（或手机）和电脑不在同一网络，或电脑的地址变了。请重新从应用中复制地址。",
+          "<strong>没有 RTMP 选项：</strong>确认遥控器是 RC 2 而不是 DJI RC；更新 DJI Fly 和遥控器固件。接收应用无法补上缺失的 RTMP 菜单。",
+          "<strong>预览正常但平台没有画面：</strong>检查推流目标地址、当前密钥，以及平台后台中最后的发布步骤。"
+        ] }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "资料来源和 Mini 5 Pro 指南",
+      "blocks": [
+        { "p": "官方资料：<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;pbc=BCQ9HQ1u&amp;pm=custom&amp;re=US&amp;spaceId=34\">DJI Fly App 直播操作指南</a>和 <a href=\"https://www.dji.com/mini-4-pro/faq\">DJI Mini 4 Pro 常见问题</a>。查阅于 2026 年 10 月 21 日。菜单和可用设置可能随固件变化。" },
+        { "p": "在找新一代机型？<a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro 直播指南</a>介绍了 RC 2 和 RC-N3、手机接收和电脑方案。" }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI Mini 4 Pro 能直播到 Instagram 吗？", "a": "单靠 DJI Fly 不行，因为 Instagram 需要加密的 RTMPS 连接，而 DJI Fly 发出的是普通 RTMP。把 DJI Fly 的推流发到 Stream My Drone，它会以 1080×1920 竖屏通过 RTMPS 转发到 Instagram。" },
+    { "q": "为什么 DJI RC 2 直播需要麦克风？", "a": "DJI 将连接麦克风列为 DJI Fly v1.16.0 起 RC 2 直播的必要条件。请连接兼容的麦克风，并在开始前确认 DJI Fly 已识别它。" },
+    { "q": "Mini 4 Pro 直播是什么分辨率？", "a": "使用 DJI RC 2 时为 720p。使用 RC-N2 时，DJI Fly 提供 1080p 或 720p，Android 为 5 或 3 Mbps，iOS 为 2 或 1 Mbps。" },
+    { "q": "不用电脑能直播 Mini 4 Pro 吗？", "a": "使用 RC 2 时，可以在同一局域网内的另一部 Android 手机或 iPhone 上使用 Stream My Drone。使用 RC-N2 时，本指南使用电脑上的 Stream My Drone，这样 DJI Fly 可以一直在你的飞行手机上运行。" },
+    { "q": "能同时直播到 Instagram 和 TikTok 吗？", "a": "只要你的账号具备所需的直播权限，就可以把两者都添加为推流目标。每个推流目标都会占用上行带宽。在桌面端画面只编码一次；在手机端，收到的画面会直接转发，不重新编码。" }
+  ]
+}

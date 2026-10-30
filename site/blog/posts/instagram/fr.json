@@ -1,0 +1,81 @@
+{
+  "slug": "faire-un-live-instagram-avec-un-drone-dji",
+  "platform": "Instagram",
+  "title": "Comment passer en direct sur Instagram avec un drone DJI (pas à pas)",
+  "description": "Passez en direct sur Instagram avec un drone DJI : obtenez l'URL et la clé de stream sur instagram.com, envoyez le RTMP de DJI Fly via Stream My Drone, puis lancez le live.",
+  "h1": "Comment passer en direct sur Instagram avec un drone DJI",
+  "lead": "Instagram Live accepte les flux venant d'un logiciel de streaming. Ouvrez <strong>instagram.com → Créer (+) → Vidéo en direct</strong>, copiez l'URL et la clé de stream dans Stream My Drone, envoyez l'image du drone depuis DJI Fly vers l'application, appuyez sur DÉMARRER LE DIRECT, puis appuyez enfin sur <strong>Passer en direct</strong> dans Instagram. Instagram fournit une nouvelle clé à chaque diffusion.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "L'URL et la clé de stream d'Instagram s'obtiennent sur instagram.com depuis un ordinateur : Créer (+) → Vidéo en direct.",
+    "La clé est à usage unique : mettez-la à jour avant chaque diffusion avec « Mettre à jour la clé » sur la carte de la destination.",
+    "Instagram attend une vidéo verticale ; l'application envoie du 1080×1920, 30 images/s, en H.264 avec des images clés toutes les 2 secondes.",
+    "La diffusion ne devient publique qu'après avoir appuyé sur Passer en direct dans Instagram.",
+    "Vous pouvez envoyer la même image vers TikTok, YouTube ou Facebook en même temps."
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "Ce qu'il vous faut",
+      "blocks": [
+        { "list": [
+          "Un drone DJI dont l'application DJI Fly propose RTMP sous Live Streaming Platforms.",
+          "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> sur un Mac ou un PC Windows, sur le même Wi-Fi ou partage de connexion que la radiocommande.",
+          "Un compte Instagram qui affiche <em>Vidéo en direct</em> sous Créer sur instagram.com. Sinon, Instagram n'a pas encore donné l'option à ce compte."
+        ] }
+      ]
+    },
+    {
+      "id": "steps",
+      "h2": "Passer en direct sur Instagram, pas à pas",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Connectez le drone", "d": "Dans DJI Fly, ouvrez GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, saisissez l'adresse affichée par Stream My Drone et lancez. L'aperçu apparaît dans l'application." },
+          { "t": "Créez la vidéo en direct sur Instagram", "d": "Sur instagram.com, cliquez sur Créer (+) → Vidéo en direct, donnez-lui un titre, choisissez l'audience et continuez." },
+          { "t": "Copiez l'URL et la clé de stream", "d": "Instagram affiche une <em>URL de stream</em> (du type <code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code>) et une <em>clé de stream</em>. Collez les deux dans une destination Instagram de Stream My Drone." },
+          { "t": "Appuyez sur DÉMARRER LE DIRECT", "d": "Laissez <em>Vertical 9:16</em> activé. En quelques secondes, la fenêtre d'Instagram affiche l'image du drone en aperçu." },
+          { "t": "Appuyez sur Passer en direct dans Instagram", "d": "C'est seulement maintenant que vos abonnés voient la diffusion. Pour terminer, arrêtez-la sur Instagram et appuyez sur <em>Arrêter le direct</em> dans l'application." }
+        ] },
+        { "note": "La prochaine fois, ouvrez une nouvelle vidéo en direct sur Instagram et utilisez <em>Mettre à jour la clé</em> sur la carte de la destination : l'ancienne clé ne fonctionne plus." }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Les réglages qu'attend Instagram",
+      "blocks": [
+        { "table": {
+          "head": ["Réglage", "Stream My Drone"],
+          "rows": [
+            ["Résolution", "1080×1920 (vertical 9:16)"],
+            ["Fréquence d'images", "30 images/s"],
+            ["Vidéo", "H.264 High, 6 Mbit/s CBR"],
+            ["Images clés", "Toutes les 2 secondes"],
+            ["Protocole", "RTMPS (chiffré)"]
+          ]
+        } },
+        { "p": "Le drone filme en paysage. <em>Image entière</em> conserve tout le cadre et remplit l'espace au-dessus et en dessous avec une copie floutée de l'image ; <em>Remplir l'écran</em> coupe les côtés pour remplir l'écran du téléphone." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Problèmes fréquents",
+      "blocks": [
+        { "list": [
+          "<strong>Échec de connexion immédiat :</strong> la clé a déjà été utilisée. Ouvrez une nouvelle vidéo en direct sur Instagram et mettez la clé à jour.",
+          "<strong>L'aperçu d'Instagram reste noir :</strong> attendez quelques secondes après DÉMARRER LE DIRECT ; s'il reste noir, vérifiez que l'aperçu de l'application affiche bien le drone.",
+          "<strong>Les abonnés ne voient pas le direct :</strong> appuyez sur Passer en direct dans Instagram ; recevoir le flux n'est pas la même chose que le publier.",
+          "<strong>Pas de Vidéo en direct sous Créer :</strong> le compte n'a pas encore l'option sur le web ; c'est Instagram qui en décide."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Puis-je passer en direct sur Instagram avec un drone DJI ?", "a": "Oui. DJI Fly envoie du RTMP à Stream My Drone sur votre ordinateur, et l'application le transmet à Instagram avec l'URL et la clé de stream obtenues sur instagram.com." },
+    { "q": "Pourquoi Instagram demande-t-il une nouvelle clé de stream à chaque fois ?", "a": "Instagram génère une nouvelle clé pour chaque vidéo en direct. Mettez-la à jour dans l'application avec Mettre à jour la clé avant chaque diffusion." },
+    { "q": "Puis-je diffuser sur Instagram et TikTok en même temps ?", "a": "Oui. Activez les deux destinations ; l'image est encodée une seule fois puis envoyée à chacune. Les deux attendent une vidéo verticale, donc un seul réglage convient aux deux." },
+    { "q": "Faut-il OBS ?", "a": "Non. Stream My Drone envoie le flux directement à Instagram ; OBS est facultatif." },
+    { "q": "Le son du drone est-il inclus ?", "a": "Par défaut, le son envoyé par DJI Fly est transmis. Vous pouvez aussi choisir un microphone sur l'ordinateur pour commenter, ou couper le son de la diffusion." }
+  ]
+}

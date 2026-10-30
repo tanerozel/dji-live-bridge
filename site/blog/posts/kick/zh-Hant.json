@@ -1,0 +1,65 @@
+{
+  "slug": "how-to-stream-a-dji-drone-on-kick",
+  "platform": "Kick",
+  "title": "如何在 Kick 直播 DJI 空拍機（串流網址與金鑰）",
+  "description": "在 Kick 直播 DJI 空拍機：從 Kick 後台複製串流網址和金鑰，在 Stream My Drone 中加為自訂 RTMP 目的地，然後開始直播。",
+  "h1": "如何在 Kick 直播 DJI 空拍機",
+  "lead": "在 Kick 創作者後台開啟<strong>設定 → 串流網址與金鑰</strong>，把兩者複製到 Stream My Drone 的<strong>自訂 RTMP</strong> 目的地，從 DJI Fly 把空拍畫面送到 App，然後按下「開始直播」。Kick 使用加密的 RTMPS 位址，App 也支援。",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Kick 以自訂 RTMP 目的地加入，填入 Kick 後台提供的串流網址和串流金鑰。",
+    "Kick 的串流網址是 rtmps:// 位址；請一律從你自己的後台複製。",
+    "Kick 可能會要求你先開啟兩步驟驗證，才會顯示金鑰。",
+    "請使用水平 16:9，輸出 1920×1080、30 fps、6 Mbps 的串流。",
+    "同一個畫面可以同時送到 Kick 和其他平台。"
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "逐步直播到 Kick",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "連接空拍機", "d": "在 DJI Fly 中開啟 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，輸入 Stream My Drone 顯示的位址。" },
+          { "t": "複製串流網址和金鑰", "d": "在 kick.com 開啟創作者後台 → 設定 → 串流網址與金鑰。複製<em>串流網址</em>（以 <code>rtmps://</code> 開頭、以 <code>/app</code> 結尾）和<em>串流金鑰</em>。" },
+          { "t": "新增自訂 RTMP 目的地", "d": "在 Stream My Drone 中選擇自訂 RTMP，命名為 Kick，貼上這兩個值。" },
+          { "t": "選擇水平 16:9", "d": "在<em>畫面與聲音</em>中選擇<em>水平 16:9</em>。" },
+          { "t": "按下「開始直播」", "d": "Kick 收到串流後頻道就會開播。在後台設定標題和分類；要結束時，在 App 中按下<em>結束直播</em>。" }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Kick 設定",
+      "blocks": [
+        { "table": {
+          "head": ["設定", "數值"],
+          "rows": [
+            ["串流網址", "來自 Kick 後台，<code>rtmps://…/app</code>"],
+            ["解析度", "1920×1080，水平"],
+            ["影格率", "30 fps"],
+            ["影像", "H.264，6 Mbps CBR，每 2 秒一個關鍵影格"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "常見問題",
+      "blocks": [
+        { "list": [
+          "<strong>金鑰被隱藏：</strong>在 Kick 帳號設定中開啟兩步驟驗證，然後重新開啟頁面。",
+          "<strong>連線失敗：</strong>重新複製串流網址，包括 <code>rtmps://</code>、埠號和 <code>/app</code>。",
+          "<strong>不小心把金鑰分享出去了：</strong>在 Kick 上重設金鑰，並在 App 中更新。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "可以在 Kick 直播 DJI 空拍機嗎？", "a": "可以。把 DJI Fly 的 RTMP 串流送到 Stream My Drone，並以 Kick 後台提供的串流網址和金鑰，把 Kick 加為自訂 RTMP 目的地。" },
+    { "q": "Kick 支援 RTMPS 嗎？", "a": "支援。Kick 的串流網址是 rtmps:// 位址，而 Stream My Drone 接受 rtmps:// 目的地。" },
+    { "q": "可以同時直播到 Kick 和 Twitch 嗎？", "a": "Stream My Drone 可以同時送到兩者。請先確認各平台目前對同步直播的規定。" },
+    { "q": "Stream My Drone 和 Kick 有關係嗎？", "a": "沒有。它是一個獨立、免費且開源的 App。" }
+  ]
+}

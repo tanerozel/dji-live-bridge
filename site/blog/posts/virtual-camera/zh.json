@@ -1,0 +1,124 @@
+{
+  "slug": "use-your-dji-drone-as-a-webcam",
+  "platform": "虚拟摄像头",
+  "title": "把 DJI 无人机变成电脑摄像头（Mac 和 Windows 虚拟摄像头）",
+  "description": "用 Stream My Drone 虚拟摄像头，把 DJI 无人机变成 TikTok LIVE Studio、OBS、Zoom、Google Meet 或 Teams 的摄像头。包含设置步骤、使用场景和常见问题解决。",
+  "h1": "把 DJI 无人机变成电脑摄像头",
+  "lead": "Stream My Drone 不只是转推。它的<strong>虚拟摄像头</strong>把 DJI Fly 发来的实时画面作为一个名为 <strong>Stream My Drone Camera</strong> 的普通摄像头交给电脑，所以任何带摄像头菜单的应用——TikTok LIVE Studio、OBS、Zoom、Google Meet、Microsoft Teams——都能显示无人机看到的画面。不需要推流密钥，也不需要直播账号。",
+  "published": "2026-10-02",
+  "updated": "2026-10-21",
+  "summary": [
+    "Stream My Drone 会在电脑上添加一个名为 <strong>Stream My Drone Camera</strong> 的摄像头，显示无人机的实时画面。",
+    "任何可以选择摄像头的应用都能使用它：TikTok LIVE Studio、OBS、Zoom、Google Meet、Microsoft Teams 或网页版直播工作室。",
+    "不需要推流密钥，也不需要平台账号——无人机直接变成一个摄像头。",
+    "摄像头为竖屏 1080×1920、30 fps，只有画面没有声音；麦克风在使用摄像头的应用中选择。",
+    "横屏视频通话时，请让无人机画面以横屏 16:9 布局经过 OBS，并使用 OBS Virtual Camera。"
+  ],
+  "sections": [
+    {
+      "id": "what",
+      "h2": "虚拟摄像头能做什么",
+      "blocks": [
+        { "p": "通常，无人机的实时画面会发往直播平台。虚拟摄像头走的是另一条路：DJI Fly 通过 RTMP 把画面发送到你电脑上的 Stream My Drone，应用再把它作为摄像头交给操作系统。在其他所有应用看来，你的无人机就像一个插在电脑上的网络摄像头。" },
+        { "p": "所以其他应用不需要推流密钥、直播账号，也不需要支持 RTMP。只要它有摄像头菜单，就能选到无人机。" },
+        { "list": [
+          "<strong>名称：</strong>Stream My Drone Camera。",
+          "<strong>画面：</strong>竖屏 1080×1920、30 fps。横屏的无人机画面位于画框中央，上下为黑边；不会裁切任何内容。",
+          "<strong>声音：</strong>没有，这是有意设计的。你在使用摄像头的应用中选择麦克风，这样就不会听到两遍声音。",
+          "<strong>系统：</strong>macOS 13 或更新版本（应用必须放在“应用程序”文件夹中），以及 Windows 10/11。"
+        ] }
+      ]
+    },
+    {
+      "id": "uses",
+      "h2": "可以用它做什么",
+      "blocks": [
+        { "p": "举几个例子——任何能接入网络摄像头的软件都能显示无人机的视角。" },
+        { "list": [
+          "<strong>不用推流密钥就能在 TikTok 开直播。</strong>在 TikTok LIVE Studio 中选择这个摄像头，从那里开播。完整步骤见 <a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok 指南</a>。",
+          "<strong>在 OBS 里制作节目。</strong>把摄像头添加为视频源，在航拍画面上叠加文字、标志、地图或你自己的人像摄像头，然后从 OBS 直播或录制。",
+          "<strong>在视频会议中展示现场。</strong>让客户、团队或保险公司通过 Zoom、Google Meet 或 Microsoft Teams 实时查看屋顶、工地、光伏电站或农田，而不是事后再发照片。",
+          "<strong>带大家虚拟参观。</strong>一边从空中带观众看房产、营地、场馆或路线，一边为他们讲解。",
+          "<strong>教学和演示。</strong>在关于地理、农业、测绘或飞行本身的课程、网络研讨会或演示中使用航拍视角。",
+          "<strong>加入网页版直播工作室。</strong>StreamYard、Restream Studio 等网页版工作室通常能像选择其他网络摄像头一样选择它，让无人机成为多机位节目中的一位“嘉宾”。"
+        ] },
+        { "note": "只要 Stream My Drone 保持打开、DJI Fly 正在推流，摄像头就会显示无人机画面。没有画面传来时，摄像头显示黑屏。" }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "如何把无人机变成网络摄像头",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "把应用安装到正确位置", "d": "在 Mac 上，把 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> 拖进“应用程序”文件夹；macOS 只允许从那里加载摄像头扩展。在 Windows 上，安装程序会注册摄像头。" },
+          { "t": "把无人机画面发到电脑", "d": "在 DJI Fly 中打开 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，粘贴应用“开始直播”标签页上显示的地址。遥控器和电脑必须连在同一个 Wi-Fi 或热点上。详细步骤见 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 指南</a>。" },
+          { "t": "启用一次摄像头", "d": "在 TikTok LIVE Studio 标签页中按<em>启用虚拟摄像头 — 仅需一次</em>。macOS 会请求一次批准，位置在“系统设置 → 通用 → 登录项与扩展 → 相机扩展”。" },
+          { "t": "启动摄像头", "d": "当卡片显示<em>可以启动</em>时，按<em>启动虚拟摄像头</em>。" },
+          { "t": "在你的应用中选择它", "d": "在 TikTok LIVE Studio、OBS、Zoom、Meet 或 Teams 中打开摄像头菜单，选择 <strong>Stream My Drone Camera</strong>。麦克风也在那里选择。" }
+        ] },
+        { "img": "virtual-camera.png", "alt": "Stream My Drone 的 TikTok LIVE Studio 标签页，可在此启用并启动虚拟摄像头。" },
+        { "note": "身边没有无人机？“开始直播”标签页上的<em>用视频文件测试</em>会让一段录好的视频走同样的路径，你可以在起飞前就在应用里设置好摄像头。" }
+      ]
+    },
+    {
+      "id": "landscape",
+      "h2": "横屏视频通话：通过 OBS",
+      "blocks": [
+        { "p": "内置摄像头是竖屏的，因为 TikTok LIVE Studio 和以手机为主的平台都是竖屏。Zoom、Meet 和 Teams 是围绕横屏摄像头设计的，因此根据应用和布局不同，它们会在竖长画面两侧加上宽黑边，或者直接裁切，结果无人机画面显得很小。横屏通话请使用可选的 OBS 集成：它会把无人机的完整画面放进 OBS 的 1920×1080 画布。" },
+        { "steps": [
+          { "t": "开启 OBS WebSocket", "d": "在 OBS 中打开 Tools → WebSocket Server Settings，启用服务器（默认端口 4455）。" },
+          { "t": "把 Stream My Drone 连接到 OBS", "d": "在“高级”标签页的<em>可选的 OBS 集成</em>下，填写主机、端口和密码，然后按<em>保存连接</em>。" },
+          { "t": "选择横屏布局", "d": "在“开始直播”标签页的<em>画面与声音</em>下，把方向设为<em>横屏 16:9</em>。" },
+          { "t": "准备场景", "d": "无人机画面传来后，按<em>准备 OBS 场景</em>。应用会创建一个名为 <strong>DJI LIVE</strong> 的场景，把 OBS 画布设为 1920×1080，并让无人机画面适配其中。" },
+          { "t": "启动 OBS Virtual Camera", "d": "在同一张卡片中，按 <em>OBS Virtual Camera</em> 旁边的<em>启动虚拟摄像头</em>，然后在 Zoom、Meet 或 Teams 中选择 <strong>OBS Virtual Camera</strong>。" }
+        ] },
+        { "table": {
+          "head": ["", "Stream My Drone Camera", "OBS Virtual Camera"],
+          "rows": [
+            ["画面形状", "竖屏 1080×1920", "跟随布局：1920×1080 或 1080×1920"],
+            ["需要 OBS", "否", "是，并需启用 WebSocket"],
+            ["叠加层和场景", "否", "是，OBS 提供的一切功能"],
+            ["最适合", "TikTok LIVE Studio、竖屏节目", "Zoom、Meet、Teams、横屏节目"]
+          ]
+        } },
+        { "img": "advanced.png", "alt": "Stream My Drone 的“高级”标签页，显示可选的 OBS 集成、“准备 OBS 场景”按钮和 OBS Virtual Camera。" }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "让画面更干净的小技巧",
+      "blocks": [
+        { "list": [
+          "<strong>只选一个麦克风</strong>，在使用摄像头的应用里选择。无人机摄像头没有声音，所以无需静音。",
+          "<strong>会有一点延迟。</strong>画面要从无人机传到遥控器，再经 Wi-Fi 传到电脑，然后进入摄像头，所以会比实时稍慢一些。用来展示现场没问题，但不适合需要精确同步的场合。",
+          "<strong>使用稳定的网络。</strong>遥控器和电脑之间连接不稳会表现为卡顿。紧挨着电脑的手机热点往往比远处的路由器更好。",
+          "<strong>720p 是正常的。</strong>遥控器通常发送 720p；摄像头会把它缩放进画框，不会假装它是原生 1080p。",
+          "<strong>保持应用打开。</strong>退出 Stream My Drone 会让摄像头停止。"
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "摄像头没有出现时",
+      "blocks": [
+        { "list": [
+          "<strong>摄像头列表里没有它：</strong>先启动虚拟摄像头，然后退出并重新打开要使用它的应用——很多应用只在启动时读取摄像头列表。",
+          "<strong>macOS 一直没有请求批准：</strong>确认 Stream My Drone 是从“应用程序”文件夹运行的，然后在“系统设置 → 通用 → 登录项与扩展 → 相机扩展”中查看。",
+          "<strong>更新后摄像头停止工作：</strong>替换应用后，macOS 会关闭旧的摄像头。再按一次<em>启动虚拟摄像头</em>，它会自己请求激活。如果 macOS 要求，请重启 Mac。",
+          "<strong>画面是黑的：</strong>没有收到无人机视频。检查“开始直播”标签页上的预览和 DJI Fly 中的 RTMP 地址。",
+          "<strong>浏览器里看不到它：</strong>为该网站允许摄像头访问，然后刷新页面。",
+          "<strong>Windows：</strong>内置摄像头已在 TikTok LIVE Studio、OBS 和 Zoom 中测试过。选择“Stream My Drone Camera”作为视频源。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "能把 DJI 无人机当作网络摄像头用吗？", "a": "能。运行 Stream My Drone 并让 DJI Fly 向它推送 RTMP 后，无人机会在任何可选择摄像头的应用中显示为名为 Stream My Drone Camera 的摄像头。" },
+    { "q": "能在 Zoom、Google Meet 和 Microsoft Teams 中使用吗？", "a": "它们可以像选择普通网络摄像头一样选择它。由于内置摄像头是竖屏的，横屏通话通过 OBS 效果更好：用横屏 16:9 布局准备 OBS 场景，然后在通话中选择 OBS Virtual Camera。" },
+    { "q": "需要推流密钥或直播账号吗？", "a": "不需要。虚拟摄像头只在你的电脑上工作，不会向任何平台发送内容。只有 Stream My Drone 自己通过 RTMP 推流时才需要推流密钥。" },
+    { "q": "虚拟摄像头有声音吗？", "a": "没有，只有画面。请在使用摄像头的应用中选择麦克风。" },
+    { "q": "哪些无人机可以用？", "a": "任何 DJI Fly 版本在 Live Streaming Platforms 下提供 RTMP 的 DJI 无人机。应用从不直接与无人机通信，只接收 RTMP 推流。" },
+    { "q": "免费吗？", "a": "免费。Stream My Drone 以 MIT 许可证免费开源，与 DJI、Zoom、Google 或 Microsoft 没有任何关联。" }
+  ]
+}

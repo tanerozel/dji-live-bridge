@@ -1,0 +1,80 @@
+{
+  "slug": "osmo-pocket-3-live-stream",
+  "platform": "Osmo Pocket 3",
+  "title": "Osmo Pocket 3 直播到 Instagram、TikTok、YouTube（2026）",
+  "description": "如何用 Stream My Drone，把 DJI Osmo Pocket 3 從 DJI Mimo 以 RTMP 同時直播到 Instagram、TikTok 和 YouTube，並當成無線網路攝影機使用。",
+  "h1": "Osmo Pocket 3 如何直播到 Instagram 和 TikTok",
+  "lead": "Osmo Pocket 3 能<strong>從 DJI Mimo 透過 RTMP</strong> 直播，最高 1080p。單靠 DJI Mimo，只能直播到 Facebook、YouTube 或某個 RTMP 位址。把這路 RTMP 串流送到你電腦上的 <strong>Stream My Drone</strong>，Pocket 3 也能在 <strong>Instagram 和 TikTok</strong> 開播，還能同時直播到多個平台，或成為 Zoom、OBS 和 TikTok LIVE Studio 的無線網路攝影機。",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "在 DJI Mimo（1.2.20 或更新版本）中，Pocket 3 能以 480p、720p 或 1080p、30 fps、最高 6 Mbps 進行 RTMP 串流。",
+    "Pocket 3 會自己連上 Wi-Fi 網路；請讓它和執行 Stream My Drone 的電腦在同一個網路。",
+    "Stream My Drone 會同時把串流以 RTMPS 轉送到 Instagram，以及轉送到 TikTok 和任何 RTMP 平台。",
+    "為 Instagram 和 TikTok 輸出 1080×1920 直向畫面；收到橫向畫面時，空白處以模糊背景填滿。",
+    "內建的虛擬攝影機能把 Pocket 3 變成無線網路攝影機，不需要用 USB 線接到電腦。"
+  ],
+  "sections": [
+    {
+      "id": "setup",
+      "h2": "設定 Pocket 3 直播",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "開啟 Stream My Drone", "d": "在 Mac 或 Windows 電腦上安裝 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>，記下它顯示的位址，例如 <code>rtmp://192.168.1.20:1935/drone</code>。" },
+          { "t": "把 Pocket 3 連上 DJI Mimo", "d": "更新 DJI Mimo 和 Pocket 3 韌體，連接相機並開啟直播選項。" },
+          { "t": "選擇 RTMP 和 Wi-Fi 網路", "d": "選擇 RTMP 作為平台，並挑選 Pocket 3 要連的 Wi-Fi：與電腦相同的網路，或兩者都已連上的熱點。" },
+          { "t": "輸入位址並開始", "d": "輸入 Stream My Drone 顯示的位址；Wi-Fi 允許的話選擇 1080p、6 Mbps，然後開始。畫面會出現在 App 的預覽中。" },
+          { "t": "在所有平台開播", "d": "加入 Instagram、TikTok、YouTube 或任何 RTMP 伺服器；Instagram 和 TikTok 請保持<em>直向 9:16</em>，然後按下「開始直播」。" }
+        ] },
+        { "img": "go-live.png", "alt": "Stream My Drone 的「開始直播」分頁，顯示 RTMP 位址、直播目的地和「開始直播」按鈕。" },
+        { "note": "能這樣做的 DJI 相機完整清單，請見 <a href=\"../dji-osmo-live-stream-instagram-tiktok/\">Osmo 相機教學</a>。" }
+      ]
+    },
+    {
+      "id": "ideas",
+      "h2": "創作者怎麼用它",
+      "blocks": [
+        { "list": [
+          "<strong>邊走邊聊的直播。</strong>雲台讓你移動時畫面依然穩定；同一路串流可以同時送到 Instagram 和 TikTok。",
+          "<strong>活動與市集。</strong>用一台小相機，就能把講座、音樂會或攤位直播到多個平台。",
+          "<strong>無線桌面攝影機。</strong>把 Pocket 3 架在腳架上，在 Zoom、Meet、OBS 或 TikTok LIVE Studio 中選擇 <strong>Stream My Drone Camera</strong>。Pocket 3 也能當 USB 網路攝影機，但這種方式不需要任何線材。請見<a href=\"../use-your-dji-drone-as-a-webcam/\">網路攝影機教學</a>。",
+          "<strong>邊直播邊錄影。</strong>Stream My Drone 會在串流送出的同時，在電腦上錄下來。"
+        ] }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "最佳設定",
+      "blocks": [
+        { "table": {
+          "head": ["設定", "建議", "原因"],
+          "rows": [
+            ["DJI Mimo 中的解析度", "1080p", "DJI Mimo 直播提供的最高解析度。"],
+            ["DJI Mimo 中的位元率", "6 Mbps", "明顯比 3 Mbps 清晰；只有 Wi-Fi 吃不消時才調低。"],
+            ["Stream My Drone 的輸出", "Instagram 和 TikTok 用直向 9:16", "手機都是直向觀看；1080×1920、30 fps。"],
+            ["網路", "5 GHz Wi-Fi 或附近的熱點", "相機到電腦的連線承載整個串流。"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "無法直播時怎麼辦",
+      "blocks": [
+        { "list": [
+          "<strong>Pocket 3 無法連線：</strong>相機和電腦在不同的網路上，或訪客網路把它們隔離了。",
+          "<strong>沒有直播選項：</strong>把 DJI Mimo 更新到 1.2.20 或更新版本，並更新相機韌體。",
+          "<strong>Instagram 拒絕串流：</strong>每組 Instagram 金鑰只能用一次；請在 instagram.com 建立新的直播並更新金鑰。",
+          "<strong>畫面卡頓：</strong>在 DJI Mimo 中降低位元率，或更靠近路由器。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Osmo Pocket 3 可以直播到 Instagram 嗎？", "a": "只靠 DJI Mimo 不行。透過 RTMP 把它串流到 Stream My Drone，它就會以 1080×1920 直向畫面透過 RTMPS 轉送到 Instagram。" },
+    { "q": "Pocket 3 直播的解析度是多少？", "a": "DJI Mimo 提供 480p、720p 或 1080p、30 fps；1080p 時可選 3 或 6 Mbps。" },
+    { "q": "可以同時把 Pocket 3 直播到 TikTok 和 YouTube 嗎？", "a": "可以。在 Stream My Drone 中加入兩個目的地；畫面只編碼一次，再分別送到每個目的地。" },
+    { "q": "可以把 Pocket 3 當成無線網路攝影機嗎？", "a": "可以。串流送到 Stream My Drone 後，啟動虛擬攝影機，並在你的視訊 App 中選擇 Stream My Drone Camera。" }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "slug": "stream-my-drone-o-restream",
+  "platform": "Comparativa con Restream",
+  "title": "Stream My Drone vs Restream para directos con dron (2026)",
+  "description": "¿Transmitir tu dron DJI a varias plataformas con la nube de Restream o con Stream My Drone en tu ordenador? Precio, marca de agua, Instagram y vídeo vertical.",
+  "h1": "Stream My Drone vs Restream: ¿cuál elegir para tu dron?",
+  "lead": "Los dos llevan la señal de un dron a varias plataformas. <strong>Restream</strong> lo hace en la nube: DJI Fly transmite a los servidores de Restream, que reenvían el vídeo. <strong>Stream My Drone</strong> lo hace en tu propio ordenador: DJI Fly transmite por tu red local a la app, que lo envía a cada plataforma. Cuál es mejor depende de dónde vuelas y de por qué estás dispuesto a pagar.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Restream es un servicio en la nube: sin ordenador en el campo y una sola subida, pero con suscripción para algo más que lo básico.",
+    "Plan gratuito de Restream (octubre de 2026): 2 canales, marca de Restream en la transmisión y sin destinos RTMP personalizados; Standard cuesta 19 $ al mes.",
+    "Stream My Drone es gratuita y de código abierto: sin marca de agua, sin límite de canales y el vídeo se queda en tu propio ordenador.",
+    "Stream My Drone adapta la imagen del dron a vertical de 1080×1920 para Instagram y TikTok y añade una cámara virtual para TikTok LIVE Studio.",
+    "También puedes combinarlos: añade Restream como destino RTMP personalizado en Stream My Drone."
+  ],
+  "sections": [
+    {
+      "id": "how",
+      "h2": "Dos enfoques distintos",
+      "blocks": [
+        { "list": [
+          "<strong>Restream (nube):</strong> DJI Fly → internet → Restream → cada plataforma. El control remoto necesita internet; el ordenador es opcional.",
+          "<strong>Stream My Drone (local):</strong> DJI Fly → wifi local → tu Mac o PC → cada plataforma. El ordenador necesita internet; al control remoto le basta con la red local."
+        ] },
+        { "p": "Esa única diferencia explica casi toda la comparativa: la nube te ahorra ancho de banda de subida y un ordenador; la app local te ahorra una suscripción y mantiene el vídeo en tus manos." }
+      ]
+    },
+    {
+      "id": "compare",
+      "h2": "Cara a cara",
+      "blocks": [
+        { "table": {
+          "head": ["", "Stream My Drone", "Restream"],
+          "rows": [
+            ["Precio", "Gratis, de código abierto", "Plan gratuito; de pago desde 19 $/mes (Standard)"],
+            ["Marca de agua", "Ninguna", "Marca de Restream en el plan gratuito"],
+            ["Destinos", "Tantos como permita tu subida", "2 en el gratuito, 3 en Standard, más en planes superiores"],
+            ["Destinos RTMP personalizados", "Sí", "No en el plan gratuito"],
+            ["Instagram desde DJI Fly", "Sí, la app envía RTMPS", "Depende de cómo conecte Instagram tu plan"],
+            ["Vertical 1080×1920 con relleno difuminado", "Integrado", "No es una función para drones; la transmisión sale tal como se envía"],
+            ["Cámara virtual (TikTok LIVE Studio, OBS, Zoom)", "Integrada", "No"],
+            ["Ordenador en el campo", "Necesario (o Stream My Drone en Android)", "No necesario"],
+            ["Subida utilizada", "Una vez por destino", "Una vez en total"],
+            ["Chat y estadísticas", "No", "Sí"],
+            ["Por dónde pasa el vídeo", "Solo va a tus destinos", "Por los servidores de Restream"]
+          ]
+        } },
+        { "note": "Los planes de Restream proceden de su página de precios en octubre de 2026 y pueden cambiar; consulta la página actual antes de decidir." }
+      ]
+    },
+    {
+      "id": "restream-wins",
+      "h2": "Cuándo es mejor Restream",
+      "blocks": [
+        { "list": [
+          "Quieres transmitir directamente desde el control remoto, sin ordenador ni segundo teléfono.",
+          "Tu subida es lenta y necesitas muchos destinos: la nube hace una sola subida para todos.",
+          "Quieres chat unificado, estadísticas o funciones de equipo para todas las plataformas."
+        ] }
+      ]
+    },
+    {
+      "id": "bridge-wins",
+      "h2": "Cuándo es mejor Stream My Drone",
+      "blocks": [
+        { "list": [
+          "No quieres una factura mensual ni una marca de agua en tu emisión.",
+          "Transmites a Instagram o TikTok y quieres una imagen vertical de verdad, no una franja horizontal.",
+          "Quieres hacer un directo en TikTok sin clave de transmisión, con TikTok LIVE Studio y la cámara virtual integrada.",
+          "Las imágenes son delicadas —la obra de un cliente, una inspección— y no deben pasar por terceros.",
+          "Quieres vista previa, grabación y diagnóstico en una pantalla grande a tu lado."
+        ] },
+        { "p": "Descárgala para <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS o Windows</a>; la configuración está en <a href=\"../dji-fly-rtmp-configuracion-transmision-en-directo/\">la guía RTMP de DJI Fly</a>." }
+      ]
+    },
+    {
+      "id": "both",
+      "h2": "Usar los dos juntos",
+      "howto": true,
+      "blocks": [
+        { "p": "Si ya pagas Restream, quédate con la imagen vertical y la vista previa de Stream My Drone y deja que Restream se encargue del reparto:" },
+        { "steps": [
+          { "t": "Copia los datos RTMP de Restream", "d": "En Restream, busca la URL del servidor RTMP y la clave de transmisión para tu codificador." },
+          { "t": "Añade un destino RTMP personalizado", "d": "En Stream My Drone, añade un destino personalizado con esa URL y esa clave." },
+          { "t": "Sal en directo", "d": "Envía el dron a la app desde DJI Fly y pulsa INICIAR TRANSMISIÓN; Restream lo reenvía a tus canales." }
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "¿Es Stream My Drone una alternativa gratuita a Restream?", "a": "Para transmitir con dron, sí: envía una señal de DJI Fly a varias plataformas sin coste y sin marca de agua. Funciona en tu ordenador en lugar de en la nube, así que la subida del ordenador soporta todos los destinos." },
+    { "q": "¿Añade Restream una marca de agua?", "a": "En el plan gratuito, Restream añade su marca a la transmisión (octubre de 2026). Los planes de pago la eliminan." },
+    { "q": "¿Puedo usar Stream My Drone y Restream juntos?", "a": "Sí. Añade Restream como destino RTMP personalizado en Stream My Drone." },
+    { "q": "¿Cuál funciona sin ordenador?", "a": "Restream, porque DJI Fly puede transmitirle directamente por internet. Con Stream My Drone necesitas un ordenador, o la app de Android Stream My Drone cuando vuelas con un DJI RC 2." }
+  ]
+}

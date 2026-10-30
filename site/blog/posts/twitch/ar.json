@@ -1,0 +1,75 @@
+{
+  "slug": "how-to-stream-a-dji-drone-on-twitch",
+  "platform": "Twitch",
+  "title": "كيف تبث من درون DJI على Twitch (إعداد RTMP)",
+  "description": "بث مباشر بالدرون على Twitch: انسخ مفتاح البث من Creator Dashboard، وأضف Twitch كوجهة RTMP مخصصة في Stream My Drone، وابدأ البث المباشر خلال ثوانٍ.",
+  "h1": "كيف تبث من درون DJI على Twitch",
+  "lead": "انسخ مفتاح البث الأساسي من <strong>Creator Dashboard ← Settings ← Stream</strong> في Twitch، وأضف وجهة <strong>RTMP مخصص</strong> في Stream My Drone بالخادم <code>rtmp://live.twitch.tv/app</code> وذلك المفتاح، وأرسل صورة الدرون من DJI Fly إلى التطبيق، واضغط «ابدأ البث». يبدأ البث على Twitch بمجرد أن يستقبل الصورة.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "يُضاف Twitch كوجهة RTMP مخصص: الخادم rtmp://live.twitch.tv/app مع مفتاح البث الخاص بك.",
+    "مفتاح البث موجود تحت Creator Dashboard ← Settings ← Stream ويبقى كما هو حتى تعيد تعيينه.",
+    "استخدم أفقي 16:9: فمشاهدو Twitch يشاهدون غالبًا بالوضع الأفقي.",
+    "‏6 ميغابت/ثانية بدقة 1080p30 مع إطار مفتاحي كل ثانيتين يوافق إرشادات Twitch.",
+    "يبدأ Twitch البث بمجرد وصول الصورة — لا يوجد زر Go live منفصل."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "البث إلى Twitch خطوة بخطوة",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "وصّل الدرون", "d": "في DJI Fly افتح GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP واكتب العنوان الذي يعرضه Stream My Drone." },
+          { "t": "انسخ مفتاح البث", "d": "على twitch.tv افتح Creator Dashboard ← Settings ← Stream وانسخ <em>Primary Stream key</em>." },
+          { "t": "أضف وجهة RTMP مخصص", "d": "في Stream My Drone اختر RTMP مخصص، وسمّها Twitch، واكتب <code>rtmp://live.twitch.tv/app</code> كعنوان للخادم، والصق المفتاح." },
+          { "t": "اختر أفقي 16:9", "d": "تحت <em>الصورة والصوت</em> اختر <em>أفقي 16:9</em> لبث بدقة 1920×1080." },
+          { "t": "اضغط «ابدأ البث»", "d": "تبدأ قناتك البث خلال ثوانٍ قليلة. اضبط العنوان والفئة في Creator Dashboard، واضغط <em>إنهاء البث</em> في التطبيق للإنهاء." }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "إعدادات Twitch",
+      "blocks": [
+        { "table": {
+          "head": ["الإعداد", "القيمة"],
+          "rows": [
+            ["عنوان الخادم", "<code>rtmp://live.twitch.tv/app</code> (يختار Twitch أقرب خادم)"],
+            ["الدقة", "‏1920×1080، أفقي"],
+            ["معدل الإطارات", "30 إطارًا/ثانية"],
+            ["معدل البت", "‏6 ميغابت/ثانية CBR"],
+            ["الإطارات المفتاحية", "كل ثانيتين"]
+          ]
+        } },
+        { "p": "تُدرج صفحات المساعدة في Twitch أيضًا خادم البث لكل منطقة. وإذا أعطاك العنوان التلقائي اتصالًا بطيئًا، فاكتب بدلًا منه خادمًا إقليميًا قريبًا." }
+      ]
+    },
+    {
+      "id": "simulcast",
+      "h2": "البث إلى Twitch ومنصات أخرى في آن واحد",
+      "blocks": [
+        { "p": "يستطيع Stream My Drone إرسال الصورة نفسها إلى Twitch و YouTube وغيرهما في الوقت نفسه. لكن قواعد Twitch بشأن البث المتزامن تغيرت عبر السنين وقد تختلف بين Affiliates و Partners، لذا راجع اتفاقيتك الحالية قبل البث إلى عدة منصات." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "مشكلات شائعة",
+      "blocks": [
+        { "list": [
+          "<strong>فشل الاتصال:</strong> تأكد من أن عنوان الخادم هو <code>rtmp://live.twitch.tv/app</code> تمامًا، وأن المفتاح لا يحتوي على مسافات زائدة.",
+          "<strong>المشاهدون يرون تحميلًا متكررًا:</strong> سرعة الرفع غير مستقرة بما يكفي. أغلق عمليات الرفع الأخرى أو استخدم اتصالًا سلكيًا للحاسوب.",
+          "<strong>تسرّب المفتاح:</strong> أعد تعيينه في Creator Dashboard وحدّثه في التطبيق."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "هل يمكنني البث من درون DJI على Twitch؟", "a": "نعم. أرسل بث RTMP من DJI Fly إلى Stream My Drone، وأضف Twitch كوجهة RTMP مخصص بالعنوان rtmp://live.twitch.tv/app ومفتاح البث الخاص بك." },
+    { "q": "أين أجد مفتاح البث في Twitch؟", "a": "على twitch.tv: ‏Creator Dashboard ← Settings ← Stream ← Primary Stream key." },
+    { "q": "هل أبث فيديو عموديًا على Twitch؟", "a": "عادةً لا. يُشاهَد Twitch غالبًا بالوضع الأفقي، فاختر أفقي 16:9." },
+    { "q": "هل يتغير مفتاح Twitch؟", "a": "لا، إلا عندما تعيد تعيينه، فتضبطه مرة واحدة فقط." },
+    { "q": "هل أحتاج إلى OBS لـ Twitch؟", "a": "لا. يرسل Stream My Drone البث مباشرةً. و OBS اختياري إن أردت مشاهد أو طبقات إضافية." }
+  ]
+}

@@ -1,0 +1,217 @@
+{
+  "slug": "dji-mini-3-pro-live-stream",
+  "platform": "DJI Mini 3 Pro",
+  "title": "DJI Mini 3 Pro 直播：RC-N1 設定與 DJI RC 限制（2026）",
+  "description": "用 RC-N1、手機上的 DJI Fly 和電腦上的 Stream My Drone，讓 DJI Mini 3 Pro 直播。了解初代 DJI RC 為何無法使用這種 RTMP 做法。",
+  "h1": "DJI Mini 3 Pro 怎麼直播",
+  "lead": "<strong>DJI Mini 3 Pro</strong> 可以透過 DJI Fly 送出相機畫面，但有沒有這個選項取決於遙控器。使用 <strong>RC-N1 搭配手機</strong>時，把 RTMP 送到另一台 Mac 或 Windows 電腦上的 <strong>Stream My Drone</strong>，再發布到你的平台。初代帶螢幕的 <strong>DJI RC 不支援這種直播做法</strong>。",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "使用 RC-N1，在所接的手機上執行 DJI Fly；由另一台電腦接收影像。",
+    "DJI 的 Mini 3 Pro 說明明確指出，初代 DJI RC 無法直播。",
+    "DJI Fly 裡填本機接收位址；平台的伺服器網址和金鑰則填在 Stream My Drone 裡。",
+    "DJI RC、DJI RC 2 和 DJI RC Pro 是不同的產品；彼此的說明不能互相套用。",
+    "先確認接收端的預覽，再到平台上確認實際的直播。"
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "設定 RTMP 前先確認遙控器",
+      "blocks": [
+        {
+          "p": "<a href=\"https://repair.dji.com/help/content?customId=en-us03400006840&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">官方 Mini 3 Pro 新手指南</a>確認可以用 RC-N1 搭配行動裝置直播，並指出 DJI RC 無法使用這項功能。請先看清楚遙控器上的型號名稱。"
+        },
+        {
+          "table": {
+            "head": [
+              "遙控器",
+              "DJI Fly 在哪裡",
+              "本文的做法"
+            ],
+            "rows": [
+              [
+                "DJI RC-N1",
+                "以 USB 連接遙控器的手機",
+                "DJI Fly RTMP → 另一台電腦上的 Stream My Drone"
+              ],
+              [
+                "DJI RC（初代帶螢幕遙控器）",
+                "內建螢幕",
+                "DJI 的機型說明中沒有支援的 DJI Fly 直播做法"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "Mini 4 Pro 和 Mini 5 Pro 搭配 RC 2 的說明，不適用於初代 DJI RC。加裝接收端 App 或連上 Wi-Fi，都無法產生遙控器本身不提供的 RTMP 輸出。DJI 的 <a href=\"https://www.dji.com/rc/faq\">DJI RC 常見問題</a>也指出它不允許安裝第三方 App。"
+        }
+      ]
+    },
+    {
+      "id": "prepare",
+      "h2": "準備飛行手機和另一個接收端",
+      "blocks": [
+        {
+          "p": "飛行期間，讓 RC-N1 的手機專門執行 DJI Fly。在 Mac 或 Windows 電腦上安裝 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>。這樣接收和發布的操作都在電腦上，飛行畫面也能一直保持顯示。"
+        },
+        {
+          "list": [
+            "讓飛行手機和電腦連上同一個可上網的區域網路。共用一台路由器是最簡單的起點；在戶外使用熱點前，請先測試過。",
+            "直播當天之前，先更新 DJI Fly 和飛機、遙控器韌體，再在飛機連線時確認 RTMP 選單。",
+            "在平台帳號中準備好直播活動或目的地，並妥善保管串流金鑰。",
+            "在飛機還在地面上時進行測試。把電腦擺在適當位置，避免管理直播時分心而影響操控。"
+          ]
+        },
+        {
+          "note": "本文不假設 DJI Fly 和 Stream My Drone 能在同一支手機上同時負責飛行和轉播。新款 Mini 教學中「RC 2 加另一支手機」的做法，不能代替 Mini 3 Pro 的 RC-N1 流程。"
+        }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "把 Mini 3 Pro 影像從 DJI Fly 送到電腦",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "複製 Stream My Drone 的接收位址",
+              "d": "打開電腦版 App，複製「連接無人機」下方的完整位址。例如 <code>rtmp://192.168.1.20:1935/drone</code> 只是說明格式；請使用你的網路實際顯示的位址。"
+            },
+            {
+              "t": "打開 DJI Fly 的直播設定",
+              "d": "在接著 RC-N1 的手機上進入相機畫面，打開 ••• → Transmission → Live Streaming Platforms 或 Enable Livestreaming，然後選擇 RTMP。選單名稱可能因 DJI Fly 版本而不同。<a href=\"../dji-fly-rtmp-live-streaming-setup/\">RTMP 設定教學</a>說明了各個位址欄位。"
+            },
+            {
+              "t": "貼上完整的本機位址並開始串流",
+              "d": "使用電腦版 App 的位址，包含路徑。不要把 YouTube 或其他平台的金鑰加到這個本機位址後面。開始 DJI Fly 的串流，必要時允許電腦防火牆的私人網路提示，等待 Stream My Drone 中出現會動的影像。"
+            },
+            {
+              "t": "設定送出的畫面和直播目的地",
+              "d": "依直播需求選擇橫向，或電腦版 App 的直向輸出。在目的地設定中加入平台目前的伺服器網址和串流金鑰。這些憑證填在這裡，和 DJI Fly 裡的本機位址分開。"
+            },
+            {
+              "t": "確認觀眾看到的畫面",
+              "d": "開始輸出到目的地，打開平台的直播後台，完成剩下的「開始直播」步驟。在認定直播已經發布之前，先在觀看頁面檢查畫面動態、構圖和聲音。"
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "Stream My Drone 電腦版 App，顯示本機空拍機接收位址和直播目的地控制項。"
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "選擇你的帳號能直播的平台",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "直播目的地",
+              "飛行前確認",
+              "教學"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "已啟用直播功能，直播也已準備好",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube 設定</a>"
+              ],
+              [
+                "Instagram",
+                "帳號可使用 Live Producer，並有目前有效的 RTMPS 憑證",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram 設定</a>"
+              ],
+              [
+                "Facebook",
+                "Live Producer 提供伺服器網址和串流金鑰",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Facebook 設定</a>"
+              ],
+              [
+                "TikTok",
+                "帳號有串流金鑰，或有權使用 LIVE Studio",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok 設定</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "是否符合資格和開播操作，取決於平台和你的帳號。接收端 App 不會給你直播權限。如果你使用的是允許的電腦直播軟體，且可以接收網路攝影機輸入，Stream My Drone 的<a href=\"../use-your-dji-drone-as-a-webcam/\">虛擬攝影機</a>是另一種輸出選擇；它同樣需要有空拍機畫面送進來。"
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "錄影畫質、直播畫質與直向構圖",
+      "blocks": [
+        {
+          "p": "DJI 的 <a href=\"https://www.dji.com/support/product/mini-3-pro\">Mini 3 Pro 規格與支援</a>列出遙控器即時畫面為 1080p/30fps。這描述的是飛機傳到遙控器的畫面，並不保證每一種 DJI Fly RTMP 設定或網路直播都有這個解析度。請檢查 Stream My Drone 實際收到的輸入；空拍機的高解析度錄影是另一個檔案。"
+        },
+        {
+          "list": [
+            "<strong>從頭到尾檢查直向輸出。</strong>把相機轉成直拍，並不代表平台最終的畫面尺寸就是直向。請確認接收端輸入和電腦版的輸出版面。",
+            "<strong>先從一個目的地開始。</strong>第一場直播穩定後，再加入同時輸出；每個目的地都會佔用上傳頻寬。",
+            "<strong>規劃行動數據。</strong>持續 5 Mbps 的輸出每小時約 2.25 GB，還不含額外負擔。兩路相同的輸出每小時約 4.5 GB。",
+            "<strong>另外測試聲音。</strong>留意目的地的音量表，並從觀眾端聽聽看。不要因為預覽畫面在動，就認定聲音也正常。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Mini 3 Pro 直播疑難排解",
+      "blocks": [
+        {
+          "list": [
+            "<strong>沒有直播選單：</strong>先確認遙控器型號。在初代 DJI RC 上這是預期中的限制，不是 Stream My Drone 少了什麼設定。使用 RC-N1 時，請檢查 DJI Fly 版本和飛機連線。",
+            "<strong>DJI Fly 無法連線：</strong>換了網路後請重新複製接收位址。避免使用有裝置隔離的訪客 Wi-Fi，檢查私人網路的防火牆，也不要用 <code>localhost</code> 指向另一個裝置。",
+            "<strong>有收到畫面，觀眾卻看不到：</strong>檢查目的地網址和金鑰，確認平台有收到影像，並完成平台的發布步驟。",
+            "<strong>串流變得卡頓：</strong>先測試單一輸出，可以的話降低位元率，並同時檢查本機 Wi-Fi 連線和網路上傳。飛機圖傳訊號強，不代表網路那一段也沒問題。",
+            "<strong>直向畫面被裁切或變成橫躺：</strong>比較收到的預覽和選擇的電腦版輸出。在地面上調整構圖，並再確認一次平台的預覽。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "官方資料來源與相關教學",
+      "blocks": [
+        {
+          "p": "查核日期為 2026 年 10 月 25 日：RC-N1 直播做法和 DJI RC 的排除說明參考 <a href=\"https://repair.dji.com/help/content?customId=en-us03400006840&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Mini 3 Pro 新手指南</a>；遙控器限制參考 <a href=\"https://www.dji.com/rc/faq\">DJI RC 常見問題</a>；即時畫面畫質參考 <a href=\"https://www.dji.com/support/product/mini-3-pro\">Mini 3 Pro 支援與規格</a>。選單和帳號功能可能改變，飛行前請確認你安裝的版本。"
+        },
+        {
+          "p": "可以比較 <a href=\"../dji-mini-3-live-stream/\">Mini 3 教學</a>或 <a href=\"../dji-mini-4-pro-live-stream/\">Mini 4 Pro 教學</a>。一路輸出正常後，再參考<a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">多平台同時直播教學</a>加入更多目的地。"
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "DJI Mini 3 Pro 可以直播嗎？",
+      "a": "可以。DJI 說明可以透過 RC-N1，搭配所接手機上的 DJI Fly 直播。本文用另一台執行 Stream My Drone 的電腦接收這個 RTMP 串流。"
+    },
+    {
+      "q": "可以用帶螢幕的 DJI RC 嗎？",
+      "a": "不行。DJI 的 Mini 3 Pro 說明排除了用初代 DJI RC 直播。新款飛機搭配 DJI RC 2 的說明並不適用於它。"
+    },
+    {
+      "q": "可以用同一支手機同時飛行和接收嗎？",
+      "a": "本文讓 DJI Fly 留在 RC-N1 的手機上，接收端則放在另一台電腦。我們不假設同一支手機能穩定地同時執行飛行和轉播 App。"
+    },
+    {
+      "q": "空拍機的錄影解析度會決定直播畫質嗎？",
+      "a": "不會。儲存的相機錄影、遙控器即時畫面和 RTMP 輸入是不同的輸出。請檢查 Stream My Drone 收到的輸入，以及送往平台的預覽。"
+    },
+    {
+      "q": "DJI Fly 裡要填哪個 RTMP 位址？",
+      "a": "填 Stream My Drone 顯示的完整本機接收位址。平台的伺服器網址和串流金鑰，則填在電腦版 App 的目的地設定中。"
+    },
+    {
+      "q": "看到預覽畫面，就代表已經開播了嗎？",
+      "a": "預覽只確認電腦有收到影像。請開始輸出到平台，並在平台自己的觀看頁面確認，包括完成必要的「開始直播」操作。"
+    }
+  ]
+}

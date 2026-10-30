@@ -1,0 +1,80 @@
+{
+  "slug": "osmo-pocket-3-livestream",
+  "platform": "Osmo Pocket 3",
+  "title": "Osmo Pocket 3 Livestream auf Instagram, TikTok und YouTube (2026)",
+  "description": "So streamen Sie die DJI Osmo Pocket 3 per RTMP aus DJI Mimo gleichzeitig auf Instagram, TikTok und YouTube und nutzen sie mit Stream My Drone als kabellose Webcam.",
+  "h1": "So streamen Sie die Osmo Pocket 3 live auf Instagram und TikTok",
+  "lead": "Die Osmo Pocket 3 streamt per <strong>RTMP aus DJI Mimo</strong> mit bis zu 1080p. Allein erreicht DJI Mimo Facebook, YouTube oder eine RTMP-Adresse. Senden Sie diesen RTMP-Stream an <strong>Stream My Drone</strong> auf Ihrem Computer, und die Pocket 3 geht auch auf <strong>Instagram und TikTok</strong> live – auf mehreren Plattformen gleichzeitig – oder wird zur kabellosen Webcam für Zoom, OBS und TikTok LIVE Studio.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "In DJI Mimo (1.2.20 oder neuer) streamt die Pocket 3 RTMP in 480p, 720p oder 1080p mit 30 fps und bis zu 6 Mbit/s.",
+    "Die Pocket 3 verbindet sich selbst mit einem WLAN; bringen Sie sie ins selbe Netz wie den Computer mit Stream My Drone.",
+    "Stream My Drone leitet den Stream gleichzeitig per RTMPS an Instagram, an TikTok und an jede RTMP-Plattform weiter.",
+    "Ausgabe im Hochformat 1080×1920 für Instagram und TikTok, mit unscharfer Füllung, wenn das Bild im Querformat ankommt.",
+    "Die eingebaute virtuelle Kamera macht die Pocket 3 zur kabellosen Webcam – ohne USB-Kabel zum Computer."
+  ],
+  "sections": [
+    {
+      "id": "setup",
+      "h2": "Den Livestream der Pocket 3 einrichten",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Stream My Drone öffnen", "d": "Installieren Sie <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> auf einem Mac oder Windows-PC und notieren Sie die angezeigte Adresse, etwa <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Pocket 3 mit DJI Mimo verbinden", "d": "Aktualisieren Sie DJI Mimo und die Firmware der Pocket 3, verbinden Sie die Kamera und öffnen Sie die Livestream-Option." },
+          { "t": "RTMP und WLAN wählen", "d": "Wählen Sie RTMP als Plattform und das WLAN, mit dem sich die Pocket 3 verbinden soll – dasselbe Netz wie der Computer oder ein Hotspot, mit dem beide verbunden sind." },
+          { "t": "Adresse eingeben und starten", "d": "Tippen Sie die Adresse aus Stream My Drone ein, wählen Sie 1080p mit 6 Mbit/s, wenn Ihr WLAN das zulässt, und starten Sie. Das Bild erscheint in der Vorschau der App." },
+          { "t": "Überall live gehen", "d": "Fügen Sie Instagram, TikTok, YouTube oder einen beliebigen RTMP-Server hinzu, lassen Sie <em>Hochformat 9:16</em> für Instagram und TikTok eingeschaltet und drücken Sie LIVE STARTEN." }
+        ] },
+        { "img": "go-live.png", "alt": "Der Tab „Live gehen“ von Stream My Drone mit der RTMP-Adresse, den Zielen und der Taste LIVE STARTEN." },
+        { "note": "Die vollständige Liste der DJI-Kameras, die das können, steht in <a href=\"../dji-osmo-livestream-instagram-tiktok/\">der Anleitung zu den Osmo-Kameras</a>." }
+      ]
+    },
+    {
+      "id": "ideas",
+      "h2": "Was Creator damit machen",
+      "blocks": [
+        { "list": [
+          "<strong>Lives im Gehen.</strong> Der Gimbal hält das Bild ruhig, während Sie sich bewegen; derselbe Stream erreicht Instagram und TikTok zugleich.",
+          "<strong>Veranstaltungen und Märkte.</strong> Streamen Sie einen Vortrag, ein Konzert oder einen Marktstand mit einer kleinen Kamera auf mehrere Plattformen.",
+          "<strong>Eine kabellose Schreibtischkamera.</strong> Stellen Sie die Pocket 3 auf ein Stativ und wählen Sie <strong>Stream My Drone Camera</strong> in Zoom, Meet, OBS oder TikTok LIVE Studio. Die Pocket 3 kann auch eine USB-Webcam sein; so braucht sie kein Kabel. Siehe <a href=\"../dji-drohne-als-webcam-nutzen/\">die Webcam-Anleitung</a>.",
+          "<strong>Während des Livestreams aufnehmen.</strong> Stream My Drone zeichnet den Stream auf dem Computer auf, während er hinausgeht."
+        ] }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Die besten Einstellungen",
+      "blocks": [
+        { "table": {
+          "head": ["Einstellung", "Empfehlung", "Warum"],
+          "rows": [
+            ["Auflösung in DJI Mimo", "1080p", "Das Höchste, was DJI Mimo für Livestreaming bietet."],
+            ["Bitrate in DJI Mimo", "6 Mbit/s", "Deutlich schärfer als 3 Mbit/s; senken Sie sie nur, wenn das WLAN nicht mitkommt."],
+            ["Ausgabe in Stream My Drone", "Hochformat 9:16 für Instagram und TikTok", "Auf Handys wird hochkant geschaut; 1080×1920 mit 30 fps."],
+            ["Netzwerk", "5-GHz-WLAN oder ein Hotspot in der Nähe", "Die Verbindung der Kamera zum Computer trägt den ganzen Stream."]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Wenn es nicht funktioniert",
+      "blocks": [
+        { "list": [
+          "<strong>Die Pocket 3 kann keine Verbindung herstellen:</strong> Kamera und Computer sind in unterschiedlichen Netzen, oder ein Gastnetz isoliert sie voneinander.",
+          "<strong>Keine Livestream-Option:</strong> Aktualisieren Sie DJI Mimo auf 1.2.20 oder neuer und die Firmware der Kamera.",
+          "<strong>Instagram lehnt den Stream ab:</strong> Jeder Instagram-Schlüssel funktioniert nur einmal; erstellen Sie auf instagram.com ein neues Live-Video und aktualisieren Sie den Schlüssel.",
+          "<strong>Das Bild ruckelt:</strong> Senken Sie die Bitrate in DJI Mimo oder gehen Sie näher an den Router."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Kann die Osmo Pocket 3 auf Instagram live streamen?", "a": "Nicht allein mit DJI Mimo. Streamen Sie per RTMP an Stream My Drone, das den Stream per RTMPS im Hochformat 1080×1920 an Instagram weiterleitet." },
+    { "q": "In welcher Auflösung streamt die Pocket 3 live?", "a": "DJI Mimo bietet 480p, 720p oder 1080p mit 30 fps, bei 1080p mit 3 oder 6 Mbit/s." },
+    { "q": "Kann ich mit der Pocket 3 gleichzeitig auf TikTok und YouTube streamen?", "a": "Ja. Fügen Sie beide Ziele in Stream My Drone hinzu; das Bild wird einmal kodiert und an jedes Ziel gesendet." },
+    { "q": "Kann ich die Pocket 3 als kabellose Webcam nutzen?", "a": "Ja. Sobald der Stream in Stream My Drone ankommt, starten Sie die virtuelle Kamera und wählen in Ihrer Video-App Stream My Drone Camera." }
+  ]
+}

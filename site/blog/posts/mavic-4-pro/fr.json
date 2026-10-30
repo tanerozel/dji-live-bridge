@@ -1,5 +1,5 @@
 {
-  "slug": "dji-mavic-4-pro-live-stream",
+  "slug": "dji-mavic-4-pro-diffusion-en-direct",
   "platform": "DJI Mavic 4 Pro",
   "title": "DJI Mavic 4 Pro en live : guide RC 2 et RC Pro 2 (2026)",
   "description": "Diffusez votre DJI Mavic 4 Pro en direct avec la RC 2 ou la RC Pro 2 vers un téléphone ou un ordinateur : RTMP de DJI Fly, micro, limite de 720p et plateformes.",
@@ -74,7 +74,7 @@
             },
             {
               "t": "Saisissez l'adresse du récepteur dans DJI Fly",
-              "d": "Copiez l'adresse RTMP locale complète affichée par Stream My Drone. Dans DJI Fly, ouvrez GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Suivez les libellés de votre version : un écran qui demande une adresse et une clé dans des champs séparés n'est pas le même qu'un écran qui demande une URL RTMP complète. N'ajoutez pas votre clé YouTube ou Instagram à l'adresse locale du récepteur. Le <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guide RTMP de DJI Fly</a> détaille le parcours des menus."
+              "d": "Copiez l'adresse RTMP locale complète affichée par Stream My Drone. Dans DJI Fly, ouvrez GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Suivez les libellés de votre version : un écran qui demande une adresse et une clé dans des champs séparés n'est pas le même qu'un écran qui demande une URL RTMP complète. N'ajoutez pas votre clé YouTube ou Instagram à l'adresse locale du récepteur. Le <a href=\"../dji-fly-rtmp-reglages-diffusion-en-direct/\">guide RTMP de DJI Fly</a> détaille le parcours des menus."
             },
             {
               "t": "Lancez le flux local et vérifiez le son",
@@ -136,28 +136,28 @@
               [
                 "YouTube",
                 "Le direct activé et une diffusion préparée",
-                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Configuration YouTube</a>"
+                "<a href=\"../diffuser-un-drone-dji-en-direct-sur-youtube/\">Configuration YouTube</a>"
               ],
               [
                 "Instagram",
                 "Un accès à Live Producer et les identifiants RTMPS actuels",
-                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Configuration Instagram</a>"
+                "<a href=\"../faire-un-live-instagram-avec-un-drone-dji/\">Configuration Instagram</a>"
               ],
               [
                 "Facebook",
                 "Une vidéo en direct préparée, avec son URL de serveur et sa clé",
-                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Configuration Facebook</a>"
+                "<a href=\"../faire-un-live-facebook-avec-un-drone-dji/\">Configuration Facebook</a>"
               ],
               [
                 "TikTok",
                 "L'accès RTMP sur votre compte, ou l'accès à LIVE Studio sur un ordinateur",
-                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Configuration TikTok</a>"
+                "<a href=\"../faire-un-live-tiktok-avec-un-drone-dji/\">Configuration TikTok</a>"
               ]
             ]
           }
         },
         {
-          "p": "L'éligibilité du compte dépend de la plateforme. Aucune des deux applications ne fournit de clé de stream ni ne contourne les conditions d'accès. Pour travailler sur ordinateur avec une application de studio compatible, Stream My Drone propose aussi une <a href=\"../use-your-dji-drone-as-a-webcam/\">caméra virtuelle</a>. Un aperçu local prouve la réception ; une page spectateur qui fonctionne confirme la publication."
+          "p": "L'éligibilité du compte dépend de la plateforme. Aucune des deux applications ne fournit de clé de stream ni ne contourne les conditions d'accès. Pour travailler sur ordinateur avec une application de studio compatible, Stream My Drone propose aussi une <a href=\"../utiliser-son-drone-dji-comme-webcam/\">caméra virtuelle</a>. Un aperçu local prouve la réception ; une page spectateur qui fonctionne confirme la publication."
         }
       ]
     },
@@ -203,7 +203,7 @@
           "p": "Vérifié le 25 octobre 2026 : <a href=\"https://repair.dji.com/help/content?customId=en-us03400006734&amp;lang=en&amp;re=us&amp;spaceId=34\">guide d'appairage des appareils de DJI</a> pour le choix des radiocommandes ; <a href=\"https://www.dji.com/rc-pro-2/faq\">FAQ de la DJI RC Pro 2</a> pour le microphone ; <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">guide du live de DJI Fly</a> pour les limites du RTMP ; et <a href=\"https://repair.dji.com/help/content?customId=01700006877&amp;lang=en&amp;paperDocType=ARTICLE&amp;spaceId=17\">mode portrait de DJI</a> pour les commandes de prise de vue verticale. Le firmware et les menus disponibles peuvent changer ; vérifiez votre propre combinaison."
         },
         {
-          "p": "Pour la génération précédente, lisez le <a href=\"../dji-mavic-3-live-stream/\">guide de diffusion des Mavic 3, Classic et Pro</a>. Pour envoyer le même flux vers plusieurs services, poursuivez avec le <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">multistreaming d'un drone DJI</a>."
+          "p": "Pour la génération précédente, lisez le <a href=\"../dji-mavic-3-diffusion-en-direct/\">guide de diffusion des Mavic 3, Classic et Pro</a>. Pour envoyer le même flux vers plusieurs services, poursuivez avec le <a href=\"../diffuser-un-drone-dji-sur-plusieurs-plateformes-a-la-fois/\">multistreaming d'un drone DJI</a>."
         }
       ]
     }

@@ -1,0 +1,75 @@
+{
+  "slug": "how-to-stream-a-dji-drone-on-twitch",
+  "platform": "Twitch",
+  "title": "如何在 Twitch 直播 DJI 空拍機（RTMP 設定）",
+  "description": "在 Twitch 直播 DJI 空拍機：從創作者後台複製串流金鑰，在 Stream My Drone 中把 Twitch 加為自訂 RTMP 目的地，然後開始直播。",
+  "h1": "如何在 Twitch 直播 DJI 空拍機",
+  "lead": "從 Twitch <strong>創作者後台 → 設定 → 直播</strong>複製你的主要串流金鑰，在 Stream My Drone 中新增一個<strong>自訂 RTMP</strong> 目的地，填入伺服器 <code>rtmp://live.twitch.tv/app</code> 和這組金鑰，從 DJI Fly 把空拍畫面送到 App，然後按下「開始直播」。Twitch 一收到串流就會開播。",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Twitch 以自訂 RTMP 目的地加入：伺服器 rtmp://live.twitch.tv/app 加上你的串流金鑰。",
+    "串流金鑰在「創作者後台 → 設定 → 直播」底下，在你重設之前都不會變。",
+    "請使用水平 16:9：Twitch 觀眾大多以橫向觀看。",
+    "1080p30、6 Mbps、2 秒關鍵影格，符合 Twitch 的建議。",
+    "Twitch 一收到串流就開始直播，沒有另外的「開始直播」按鈕。"
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "逐步直播到 Twitch",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "連接空拍機", "d": "在 DJI Fly 中開啟 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，輸入 Stream My Drone 顯示的位址。" },
+          { "t": "複製串流金鑰", "d": "在 twitch.tv 開啟「創作者後台 → 設定 → 直播」，複製<em>主要串流金鑰</em>。" },
+          { "t": "新增自訂 RTMP 目的地", "d": "在 Stream My Drone 中選擇自訂 RTMP，命名為 Twitch，伺服器網址填入 <code>rtmp://live.twitch.tv/app</code>，再貼上金鑰。" },
+          { "t": "選擇水平 16:9", "d": "在<em>畫面與聲音</em>中選擇<em>水平 16:9</em>，輸出 1920×1080 串流。" },
+          { "t": "按下「開始直播」", "d": "幾秒內你的頻道就會開播。在創作者後台設定標題和分類；要結束時，在 App 中按下<em>結束直播</em>。" }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Twitch 設定",
+      "blocks": [
+        { "table": {
+          "head": ["設定", "數值"],
+          "rows": [
+            ["伺服器網址", "<code>rtmp://live.twitch.tv/app</code>（Twitch 會自動選擇最近的伺服器）"],
+            ["解析度", "1920×1080，水平"],
+            ["影格率", "30 fps"],
+            ["位元率", "6 Mbps CBR"],
+            ["關鍵影格", "每 2 秒一次"]
+          ]
+        } },
+        { "p": "Twitch 的說明頁面也列出了各地區的串流伺服器。如果自動位址的連線很慢，請改填附近地區的伺服器。" }
+      ]
+    },
+    {
+      "id": "simulcast",
+      "h2": "同時直播到 Twitch 和其他平台",
+      "blocks": [
+        { "p": "Stream My Drone 可以把同一個畫面同時送到 Twitch、YouTube 和其他平台。Twitch 對同步直播的規定這幾年來改過幾次，對聯盟夥伴和合作夥伴也可能不同，所以在直播到多個平台之前，請先確認你目前的合約內容。" }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "常見問題",
+      "blocks": [
+        { "list": [
+          "<strong>連線失敗：</strong>確認伺服器網址完全是 <code>rtmp://live.twitch.tv/app</code>，而且金鑰沒有多餘的空格。",
+          "<strong>觀眾那邊一直緩衝：</strong>上傳不夠穩定。關閉其他上傳，或讓電腦改用有線網路。",
+          "<strong>金鑰外洩了：</strong>在創作者後台重設金鑰，並在 App 中更新。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "可以在 Twitch 直播 DJI 空拍機嗎？", "a": "可以。把 DJI Fly 的 RTMP 串流送到 Stream My Drone，並以 rtmp://live.twitch.tv/app 和你的串流金鑰，把 Twitch 加為自訂 RTMP 目的地。" },
+    { "q": "Twitch 串流金鑰在哪裡？", "a": "在 twitch.tv：「創作者後台 → 設定 → 直播 → 主要串流金鑰」。" },
+    { "q": "應該在 Twitch 直播直向影片嗎？", "a": "通常不建議。Twitch 大多是橫向觀看，所以請選擇水平 16:9。" },
+    { "q": "Twitch 金鑰會改變嗎？", "a": "不會，只有在你重設時才會改變，所以只要設定一次。" },
+    { "q": "Twitch 直播需要 OBS 嗎？", "a": "不需要。Stream My Drone 會直接送出串流。想要場景或疊加圖層時，才需要選用 OBS。" }
+  ]
+}

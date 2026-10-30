@@ -1,5 +1,5 @@
 {
-  "slug": "dji-flip-live-stream",
+  "slug": "live-streaming-dji-flip",
   "platform": "DJI Flip",
   "title": "Cara live streaming DJI Flip: pengaturan ponsel dan komputer (2026)",
   "description": "Live streaming DJI Flip dengan RC 2, RC-N3 atau RC-N2: pengaturan RTMP di ponsel dan komputer, beda kontrol telapak tangan dan ponsel, bingkai vertikal, dan cek platform.",
@@ -11,7 +11,7 @@
     "DJI mencantumkan Flip dalam panduan kompatibilitas livestream-nya, dengan RC 2, RC-N3, dan RC-N2 sebagai remote yang kompatibel.",
     "RC 2 menjalankan DJI Fly di layar bawaannya, sehingga ponsel terpisah tetap bebas untuk menerima siaran.",
     "RC-N3 dan RC-N2 memakai ponsel untuk DJI Fly. Gunakan komputer terpisah sebagai penerima seperti dijelaskan di bawah agar DJI Fly tetap terbuka.",
-    "Alamat penerima lokal dimasukkan ke DJI Fly. Akun platform atau stream key diatur di Stream My Drone atau Stream My Drone.",
+    "Alamat penerima lokal dimasukkan ke DJI Fly. Akun platform atau stream key diatur di Stream My Drone (ponsel atau komputer).",
     "Kontrol telapak tangan, kontrol langsung lewat ponsel, dan QuickTransfer punya fungsi berbeda; panduan ini memakai RTMP berbasis remote, dan perekaman vertikal 2.7K tidak berarti siaran langsungnya juga vertikal."
   ],
   "sections": [
@@ -64,7 +64,7 @@
           "p": "Untuk siaran langsung ini, sambungkan RC 2, RC-N3, atau RC-N2, buka tampilan terbang DJI Fly, lalu gunakan menu Live Streaming Platforms → RTMP. Koneksi Wi-Fi langsung ke Flip, pratinjau kamera langsung, atau rekaman kontrol telapak tangan yang sudah selesai tidak dengan sendirinya membuktikan bahwa aliran RTMP sudah sampai ke penerima Anda."
         },
         {
-          "note": "QuickTransfer menyalin media yang sudah direkam. Untuk memastikan koneksi langsung, periksa gambar yang bergerak di Stream My Drone atau Stream My Drone. Jika ingin mencoba pengaturan hanya dengan ponsel, periksa kontrol yang benar-benar tersedia di mode koneksi DJI Fly Anda saat ini; langkah di bawah memakai remote dan tidak membuktikan dukungan RTMP hanya dengan ponsel."
+          "note": "QuickTransfer menyalin media yang sudah direkam. Untuk memastikan koneksi langsung, periksa gambar yang bergerak di Stream My Drone (ponsel atau komputer). Jika ingin mencoba pengaturan hanya dengan ponsel, periksa kontrol yang benar-benar tersedia di mode koneksi DJI Fly Anda saat ini; langkah di bawah memakai remote dan tidak membuktikan dukungan RTMP hanya dengan ponsel."
         }
       ]
     },
@@ -85,7 +85,7 @@
             },
             {
               "t": "Salin alamat penerima ke DJI Fly",
-              "d": "Gunakan alamat lokal lengkap yang ditampilkan Stream My Drone. Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Masukkan alamatnya di sana. Penjelasan menu selengkapnya ada di <a href=\"../dji-fly-rtmp-live-streaming-setup/\">panduan pengaturan RTMP DJI Fly</a>. Sambungkan mikrofon jika DJI Fly memintanya."
+              "d": "Gunakan alamat lokal lengkap yang ditampilkan Stream My Drone. Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Masukkan alamatnya di sana. Penjelasan menu selengkapnya ada di <a href=\"../pengaturan-live-streaming-rtmp-dji-fly/\">panduan pengaturan RTMP DJI Fly</a>. Sambungkan mikrofon jika DJI Fly memintanya."
             },
             {
               "t": "Mulai siaran DJI Fly dan periksa pratinjau",
@@ -117,7 +117,7 @@
             },
             {
               "t": "Arahkan DJI Fly ke alamat itu",
-              "d": "Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, masukkan alamat penerima, lalu mulai siaran. <a href=\"../dji-fly-rtmp-live-streaming-setup/\">Panduan RTMP DJI Fly</a> menjelaskan menunya. Izinkan koneksi masuk di jaringan pribadi jika firewall komputer menanyakannya. Periksa pratinjau sebelum menambahkan tujuan."
+              "d": "Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, masukkan alamat penerima, lalu mulai siaran. <a href=\"../pengaturan-live-streaming-rtmp-dji-fly/\">Panduan RTMP DJI Fly</a> menjelaskan menunya. Izinkan koneksi masuk di jaringan pribadi jika firewall komputer menanyakannya. Periksa pratinjau sebelum menambahkan tujuan."
             },
             {
               "t": "Atur keluaran dan platform",
@@ -146,28 +146,28 @@
               [
                 "YouTube",
                 "Akun dengan fitur live streaming aktif dan siaran yang sudah disiapkan",
-                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Pengaturan YouTube</a>"
+                "<a href=\"../cara-live-streaming-drone-dji-ke-youtube/\">Pengaturan YouTube</a>"
               ],
               [
                 "Instagram",
                 "Akses ke Live Producer dan kredensial RTMPS terbaru",
-                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Pengaturan Instagram</a>"
+                "<a href=\"../cara-live-instagram-dengan-drone-dji/\">Pengaturan Instagram</a>"
               ],
               [
                 "Facebook",
                 "Siaran langsung beserta URL server dan kuncinya",
-                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Pengaturan Facebook</a>"
+                "<a href=\"../cara-live-facebook-dengan-drone-dji/\">Pengaturan Facebook</a>"
               ],
               [
                 "TikTok",
                 "Akses RTMP di akun Anda, atau komputer dengan akses ke LIVE Studio",
-                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Pengaturan TikTok</a>"
+                "<a href=\"../cara-live-tiktok-dengan-drone-dji/\">Pengaturan TikTok</a>"
               ]
             ]
           }
         },
         {
-          "p": "Akses platform melekat pada akun Anda. Menerima siaran drone di aplikasi tidak memberi Anda stream key dan tidak menayangkan siaran. Untuk TikTok LIVE Studio, aplikasi desktop juga menyediakan <a href=\"../use-your-dji-drone-as-a-webcam/\">kamera virtual</a>. Periksa dasbor tiap platform untuk langkah penayangan terbaru."
+          "p": "Akses platform melekat pada akun Anda. Menerima siaran drone di aplikasi tidak memberi Anda stream key dan tidak menayangkan siaran. Untuk TikTok LIVE Studio, aplikasi desktop juga menyediakan <a href=\"../jadikan-drone-dji-sebagai-webcam/\">kamera virtual</a>. Periksa dasbor tiap platform untuk langkah penayangan terbaru."
         }
       ]
     },
@@ -218,7 +218,7 @@
           "p": "Menu RTMP, resolusi RC 2, dan persyaratan mikrofon: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Perekaman vertikal: <a href=\"https://repair.dji.com/help/content?customId=01700006877&amp;lang=en&amp;paperDocType=ARTICLE&amp;spaceId=17\">Panduan pengambilan gambar vertikal DJI</a>. Diperiksa pada 25 Oktober 2026; periksa lagi menu terbaru setelah pembaruan firmware."
         },
         {
-          "p": "Bandingkan dengan alur kerja <a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro</a> dan <a href=\"../dji-lito-x1-live-stream/\">Lito X1</a>. Untuk mengirim satu gambar masuk ke beberapa tujuan, lanjutkan ke <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">panduan multistreaming</a>."
+          "p": "Bandingkan dengan alur kerja <a href=\"../live-streaming-dji-mini-5-pro/\">Mini 5 Pro</a> dan <a href=\"../live-streaming-dji-lito-x1/\">Lito X1</a>. Untuk mengirim satu gambar masuk ke beberapa tujuan, lanjutkan ke <a href=\"../live-drone-dji-ke-beberapa-platform-sekaligus/\">panduan multistreaming</a>."
         }
       ]
     }
@@ -234,7 +234,7 @@
     },
     {
       "q": "Alamat apa yang dimasukkan ke DJI Fly?",
-      "a": "Alamat penerima lokal lengkap yang ditampilkan Stream My Drone atau Stream My Drone. URL server dan stream key platform dimasukkan di pengaturan tujuan pada aplikasi penerima."
+      "a": "Alamat penerima lokal lengkap yang ditampilkan Stream My Drone (ponsel atau komputer). URL server dan stream key platform dimasukkan di pengaturan tujuan pada aplikasi penerima."
     },
     {
       "q": "Apakah perekaman vertikal 2.7K pada Flip membuat aliran RTMP menjadi vertikal?",

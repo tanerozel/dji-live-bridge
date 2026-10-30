@@ -1,0 +1,75 @@
+{
+  "slug": "como-transmitir-un-dron-dji-en-twitch",
+  "platform": "Twitch",
+  "title": "Cómo transmitir con un dron DJI en Twitch (configuración RTMP)",
+  "description": "Transmite en directo en Twitch con tu dron DJI: copia tu clave de transmisión del Panel de control del creador, añade Twitch como destino RTMP personalizado en Stream My Drone y emite.",
+  "h1": "Cómo transmitir con un dron DJI en Twitch",
+  "lead": "Copia tu clave de transmisión principal en el <strong>Panel de control del creador → Configuración → Transmisión</strong> de Twitch, añade un destino <strong>RTMP personalizado</strong> en Stream My Drone con el servidor <code>rtmp://live.twitch.tv/app</code> y esa clave, envía la imagen del dron desde DJI Fly a la app y pulsa INICIAR TRANSMISIÓN. Twitch empieza a emitir en cuanto recibe la transmisión.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Twitch se añade como destino RTMP personalizado: servidor rtmp://live.twitch.tv/app más tu clave de transmisión.",
+    "La clave de transmisión está en Panel de control del creador → Configuración → Transmisión y no cambia hasta que la restableces.",
+    "Usa Horizontal 16:9: el público de Twitch mira sobre todo en horizontal.",
+    "6 Mbps a 1080p30 con fotogramas clave cada 2 segundos encaja con las recomendaciones de Twitch.",
+    "Twitch inicia la emisión en cuanto llega la transmisión: no hay un botón aparte para salir en directo."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Transmite a Twitch, paso a paso",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Conecta el dron", "d": "En DJI Fly, abre GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP e introduce la dirección que muestra Stream My Drone." },
+          { "t": "Copia la clave de transmisión", "d": "En twitch.tv, abre Panel de control del creador → Configuración → Transmisión y copia la <em>Clave de transmisión principal</em>." },
+          { "t": "Añade un destino RTMP personalizado", "d": "En Stream My Drone, elige RTMP personalizado, llámalo Twitch, introduce <code>rtmp://live.twitch.tv/app</code> como URL del servidor y pega la clave." },
+          { "t": "Elige Horizontal 16:9", "d": "En <em>Imagen y sonido</em>, elige <em>Horizontal 16:9</em> para una transmisión de 1920×1080." },
+          { "t": "Pulsa INICIAR TRANSMISIÓN", "d": "Tu canal sale en directo en pocos segundos. Pon el título y la categoría en el Panel de control del creador; para terminar, pulsa <em>Finalizar transmisión</em> en la app." }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Ajustes de Twitch",
+      "blocks": [
+        { "table": {
+          "head": ["Ajuste", "Valor"],
+          "rows": [
+            ["URL del servidor", "<code>rtmp://live.twitch.tv/app</code> (Twitch elige el servidor más cercano)"],
+            ["Resolución", "1920×1080, horizontal"],
+            ["Frecuencia de fotogramas", "30 fps"],
+            ["Bitrate", "6 Mbps CBR"],
+            ["Fotogramas clave", "Cada 2 segundos"]
+          ]
+        } },
+        { "p": "Twitch también publica en sus páginas de ayuda el servidor de transmisión de cada región. Si la dirección automática te da una conexión lenta, introduce en su lugar un servidor regional cercano." }
+      ]
+    },
+    {
+      "id": "simulcast",
+      "h2": "Transmitir a Twitch y a otras plataformas a la vez",
+      "blocks": [
+        { "p": "Stream My Drone puede enviar la misma imagen a Twitch, YouTube y otras plataformas al mismo tiempo. Las normas de Twitch sobre la emisión simultánea han cambiado con los años y pueden ser distintas para afiliados y partners, así que revisa tu acuerdo actual antes de transmitir a varias plataformas." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Problemas habituales",
+      "blocks": [
+        { "list": [
+          "<strong>Error de conexión:</strong> comprueba que la URL del servidor es exactamente <code>rtmp://live.twitch.tv/app</code> y que la clave no tiene espacios de más.",
+          "<strong>El público ve la emisión cargando:</strong> la subida no es lo bastante estable. Cierra otras subidas o conecta el ordenador por cable.",
+          "<strong>Se ha filtrado la clave:</strong> restablécela en el Panel de control del creador y actualízala en la app."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "¿Puedo transmitir con un dron DJI en Twitch?", "a": "Sí. Envía la transmisión RTMP de DJI Fly a Stream My Drone y añade Twitch como destino RTMP personalizado con rtmp://live.twitch.tv/app y tu clave de transmisión." },
+    { "q": "¿Dónde encuentro mi clave de transmisión de Twitch?", "a": "En twitch.tv: Panel de control del creador → Configuración → Transmisión → Clave de transmisión principal." },
+    { "q": "¿Debo transmitir vídeo vertical a Twitch?", "a": "Normalmente no. Twitch se ve sobre todo en horizontal, así que elige Horizontal 16:9." },
+    { "q": "¿Cambia la clave de Twitch?", "a": "No, solo cuando la restableces, así que solo la configuras una vez." },
+    { "q": "¿Necesito OBS para Twitch?", "a": "No. Stream My Drone envía la transmisión directamente. OBS es opcional si quieres escenas o superposiciones." }
+  ]
+}

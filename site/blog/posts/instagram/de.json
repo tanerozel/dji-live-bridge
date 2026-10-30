@@ -1,0 +1,81 @@
+{
+  "slug": "mit-dji-drohne-auf-instagram-live-gehen",
+  "platform": "Instagram",
+  "title": "Mit der DJI-Drohne auf Instagram live gehen: Schritt für Schritt",
+  "description": "Mit einer DJI-Drohne auf Instagram live gehen: Stream-URL und Schlüssel auf instagram.com holen, den RTMP-Stream von DJI Fly über Stream My Drone senden und Live gehen drücken.",
+  "h1": "So gehen Sie mit einer DJI-Drohne auf Instagram live",
+  "lead": "Instagram Live nimmt Streams aus Streaming-Software an. Öffnen Sie <strong>instagram.com → Erstellen (+) → Live-Video</strong>, kopieren Sie Stream-URL und Stream-Schlüssel in Stream My Drone, senden Sie das Drohnenbild aus DJI Fly an die App, drücken Sie LIVE STARTEN und zum Schluss auf Instagram <strong>Live gehen</strong>. Instagram vergibt für jede Übertragung einen neuen Schlüssel.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Stream-URL und Schlüssel bekommen Sie auf instagram.com am Computer: Erstellen (+) → Live-Video.",
+    "Der Schlüssel gilt nur einmal: Aktualisieren Sie ihn vor jeder Übertragung mit „Schlüssel aktualisieren“ auf der Zielkarte.",
+    "Instagram erwartet Hochformat; die App sendet 1080×1920, 30 fps, H.264 mit Keyframes alle 2 Sekunden.",
+    "Öffentlich wird die Übertragung erst, wenn Sie auf Instagram selbst Live gehen drücken.",
+    "Sie können dasselbe Bild gleichzeitig an TikTok, YouTube oder Facebook senden."
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "Was Sie brauchen",
+      "blocks": [
+        { "list": [
+          "Eine DJI-Drohne, deren DJI Fly unter Live Streaming Platforms RTMP anbietet.",
+          "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> auf einem Mac oder Windows-PC, im selben WLAN oder Hotspot wie die Fernsteuerung.",
+          "Ein Instagram-Konto, das auf instagram.com unter Erstellen <em>Live-Video</em> anzeigt. Fehlt die Option, hat Instagram sie für dieses Konto noch nicht freigeschaltet."
+        ] }
+      ]
+    },
+    {
+      "id": "steps",
+      "h2": "Schritt für Schritt auf Instagram live gehen",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Drohne verbinden", "d": "Öffnen Sie in DJI Fly GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, geben Sie die Adresse ein, die Stream My Drone anzeigt, und starten Sie. Die Vorschau erscheint in der App." },
+          { "t": "Live-Video auf Instagram erstellen", "d": "Klicken Sie auf instagram.com auf Erstellen (+) → Live-Video, geben Sie einen Titel ein, wählen Sie das Publikum und fahren Sie fort." },
+          { "t": "Stream-URL und Schlüssel kopieren", "d": "Instagram zeigt eine <em>Stream-URL</em> (etwa <code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code>) und einen <em>Stream-Schlüssel</em>. Fügen Sie beides in ein Instagram-Ziel in Stream My Drone ein." },
+          { "t": "LIVE STARTEN drücken", "d": "Lassen Sie <em>Hochformat 9:16</em> eingeschaltet. Nach wenigen Sekunden zeigt das Instagram-Fenster das Drohnenbild als Vorschau." },
+          { "t": "Auf Instagram Live gehen drücken", "d": "Erst jetzt sehen Ihre Follower die Übertragung. Zum Beenden beenden Sie sie auf Instagram und drücken in der App <em>Stream beenden</em>." }
+        ] },
+        { "note": "Beim nächsten Mal öffnen Sie auf Instagram ein neues Live-Video und nutzen <em>Schlüssel aktualisieren</em> auf der Zielkarte: Der alte Schlüssel funktioniert nicht mehr." }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Welche Einstellungen Instagram erwartet",
+      "blocks": [
+        { "table": {
+          "head": ["Einstellung", "Stream My Drone"],
+          "rows": [
+            ["Auflösung", "1080×1920 (Hochformat 9:16)"],
+            ["Bildrate", "30 fps"],
+            ["Video", "H.264 High, 6 Mbit/s CBR"],
+            ["Keyframes", "Alle 2 Sekunden"],
+            ["Protokoll", "RTMPS (verschlüsselt)"]
+          ]
+        } },
+        { "p": "Die Drohne filmt im Querformat. <em>Ganzes Bild</em> behält den vollen Ausschnitt und füllt die Flächen darüber und darunter mit einer unscharfen Kopie; <em>Bildschirm füllen</em> schneidet die Seiten ab, bis der Handybildschirm ausgefüllt ist." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Häufige Probleme",
+      "blocks": [
+        { "list": [
+          "<strong>Verbindung schlägt sofort fehl:</strong> Der Schlüssel wurde schon benutzt. Öffnen Sie auf Instagram ein neues Live-Video und aktualisieren Sie den Schlüssel.",
+          "<strong>Die Vorschau bei Instagram bleibt schwarz:</strong> Warten Sie nach LIVE STARTEN ein paar Sekunden; bleibt sie schwarz, prüfen Sie, ob die Vorschau in der App die Drohne zeigt.",
+          "<strong>Follower sehen das Live-Video nicht:</strong> Drücken Sie auf Instagram Live gehen – den Stream zu empfangen ist nicht dasselbe, wie ihn zu veröffentlichen.",
+          "<strong>Kein Live-Video unter Erstellen:</strong> Das Konto hat die Option im Web noch nicht; das entscheidet Instagram."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Kann ich mit einer DJI-Drohne auf Instagram live gehen?", "a": "Ja. DJI Fly sendet RTMP an Stream My Drone auf Ihrem Computer, und die App leitet es mit Stream-URL und Schlüssel von instagram.com an Instagram weiter." },
+    { "q": "Warum verlangt Instagram jedes Mal einen neuen Stream-Schlüssel?", "a": "Instagram vergibt für jedes Live-Video einen neuen Schlüssel. Aktualisieren Sie ihn vor jeder Übertragung in der App mit Schlüssel aktualisieren." },
+    { "q": "Kann ich gleichzeitig auf Instagram und TikTok streamen?", "a": "Ja. Aktivieren Sie beide Ziele; das Bild wird einmal kodiert und an jedes gesendet. Beide erwarten Hochformat, eine Einstellung passt also für beide." },
+    { "q": "Brauche ich OBS?", "a": "Nein. Stream My Drone sendet den Stream direkt an Instagram; OBS ist optional." },
+    { "q": "Ist der Ton der Drohne dabei?", "a": "Standardmäßig wird der Ton, den DJI Fly sendet, weitergegeben. Sie können auch ein Mikrofon am Computer für Kommentare wählen oder den Stream stummschalten." }
+  ]
+}

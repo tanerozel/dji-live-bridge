@@ -1,0 +1,251 @@
+{
+  "slug": "dji-air-3s-live-stream",
+  "platform": "DJI Air 3S",
+  "title": "DJI Air 3S 라이브 방송: RC 2·RC-N3 설정 방법 (2026)",
+  "description": "DJI Air 3S로 YouTube, Instagram, Facebook에 라이브 방송하는 방법. 조종기를 고르고, DJI Fly RTMP를 휴대폰이나 컴퓨터에 연결하고, 송출 화면을 확인하세요.",
+  "h1": "DJI Air 3S로 라이브 방송하는 방법",
+  "lead": "<strong>DJI Air 3S</strong>는 DJI Fly의 RTMP 화면을 별도 휴대폰의 <strong>Stream My Drone</strong>이나 Mac 또는 Windows PC의 <strong>Stream My Drone</strong>으로 보낼 수 있습니다. 어느 기기에서 DJI Fly를 실행할지는 조종기에 따라 정해집니다. 아래에서 맞는 설정을 따라 한 뒤, 이륙 전에 수신 기기, 화면 구성, 방송 대상을 확인하세요.",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "DJI RC 2는 내장 화면에서 DJI Fly를 실행하므로, 별도 휴대폰이 영상을 받아 전달할 수 있습니다.",
+    "RC-N3와 RC-N2는 휴대폰에서 DJI Fly를 실행합니다. 데스크톱 방식은 수신 기기를 비행용 휴대폰과 분리합니다.",
+    "DJI Fly에는 로컬 수신 주소를, 플랫폼 인증 정보는 Stream My Drone(휴대폰 또는 컴퓨터)에 입력합니다.",
+    "카메라 녹화, 조종기의 라이브 뷰, 송출되는 RTMP 방송은 화질 설정이 각각 따로입니다.",
+    "비행 전에 선택한 카메라 화면과 플랫폼 시청 페이지를 모두 테스트하세요."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Air 3S 조종기: RC 2, RC-N3, RC-N2",
+      "blocks": [
+        {
+          "p": "DJI의 최신 <a href=\"https://www.dji.com/air-3s/faq\">Air 3S FAQ</a>는 DJI RC 2, RC-N3, RC-N2를 안내합니다. 기존 RC-N2를 다시 쓴다면 기체, 조종기, DJI Fly를 업데이트한 뒤 페어링되는지 확인하세요. 구성품 이름이 아니라 실제로 쓰는 조종기에 맞춰 방송 방법을 고르세요."
+        },
+        {
+          "table": {
+            "head": [
+              "조종기",
+              "비행 조종",
+              "스트림 수신"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "내장 화면의 DJI Fly",
+                "별도 휴대폰의 Stream My Drone 또는 컴퓨터의 Stream My Drone"
+              ],
+              [
+                "DJI RC-N3",
+                "USB로 연결한 휴대폰의 DJI Fly",
+                "여기서 설명하는 설정에서는 컴퓨터의 Stream My Drone"
+              ],
+              [
+                "DJI RC-N2",
+                "USB로 연결한 휴대폰의 DJI Fly",
+                "RC-N3와 같은 컴퓨터 수신 방식"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "DJI의 <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">라이브 방송 가이드</a>에 따르면 RC 2의 방송은 720p로 제한되며, DJI Fly v1.16.0부터는 마이크 연결이 필요합니다. 조종기에서 쓸 수 있는 설정을 확인하세요."
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "RC 2와 Air 3S: 컴퓨터 없이 라이브 방송하기",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "휴대폰에 Stream My Drone 설치하기",
+              "d": "<a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> 또는 <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a>에서 앱을 받으세요. DJI Fly는 RC 2에서 계속 열려 있고, 휴대폰이 스트림을 받습니다."
+            },
+            {
+              "t": "RC 2와 휴대폰 연결하기",
+              "d": "두 기기를 인터넷이 되는 같은 Wi-Fi에 연결하세요. 야외에서는 Android 휴대폰이 핫스팟을 켜고 스트림도 받을 수 있습니다. 네트워크를 고른 뒤 Stream My Drone을 여세요. iPhone에서는 로컬 네트워크 접근 권한을 요청하면 허용하세요."
+            },
+            {
+              "t": "수신 주소를 DJI Fly에 입력하기",
+              "d": "Stream My Drone에 표시된 전체 로컬 수신 주소를 복사하세요. DJI Fly에서 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP를 열고 주소를 입력합니다. 메뉴 안내는 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 가이드</a>를 참고하세요."
+            },
+            {
+              "t": "DJI Fly 송출을 시작하고 미리보기 확인하기",
+              "d": "조종기에서 송출을 시작한 뒤, 움직이는 드론 화면이 휴대폰에 도착하는지 확인하세요. DJI Fly가 요구하는 마이크를 연결한 상태에서 소리도 확인하세요. 테스트하는 동안 Stream My Drone을 열어 두세요."
+            },
+            {
+              "t": "방송 대상을 고르고 실제 송출 확인하기",
+              "d": "Stream My Drone에서 플랫폼을 추가하세요. 계정 연결을 지원하면 그것을 쓰고, 아니면 서버 URL과 스트림 키를 입력합니다. 송출을 시작한 뒤 플랫폼의 라이브 대시보드나 시청 페이지를 여세요. 플랫폼에 남은 방송 시작 단계가 있으면 마무리하세요."
+            }
+          ]
+        },
+        {
+          "note": "휴대폰 앱은 들어온 영상을 다시 인코딩하지 않고 그대로 전달합니다. 미리보기의 크롭이나 흐린 배경이 송출 영상을 세로 1080×1920으로 바꾸지는 않습니다. 이 변환이 필요하면 데스크톱 앱을 사용하세요. iPhone에서는 설정하는 동안 앱을 화면에 띄워 두세요. 백그라운드에서 계속 방송하려면 PIP(화면 속 화면)가 필요합니다."
+        }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "RC-N3 또는 RC-N2와 Air 3S: 컴퓨터에서 받기",
+      "blocks": [
+        {
+          "p": "RC-N3나 RC-N2를 쓴다면 조종기에 연결된 휴대폰에서 DJI Fly를 계속 열어 두세요. Mac 또는 Windows PC에 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>을 설치하고, 컴퓨터와 비행용 휴대폰을 같은 로컬 네트워크에 연결하세요. RC 2도 이 데스크톱 방식을 쓸 수 있습니다."
+        },
+        {
+          "steps": [
+            {
+              "t": "컴퓨터의 RTMP 주소 확인하기",
+              "d": "Stream My Drone을 열고 '드론 연결' 아래의 주소를 복사하세요. <code>rtmp://192.168.1.20:1935/drone</code>은 예시일 뿐이니 앱에 표시된 주소를 사용하세요."
+            },
+            {
+              "t": "DJI Fly에서 그 주소로 보내기",
+              "d": "DJI Fly의 RTMP 설정에 주소를 입력하고 송출을 시작하세요. 컴퓨터 방화벽이 묻는다면 개인 네트워크에서 들어오는 연결을 허용하세요. 방송 대상을 추가하기 전에 미리보기를 확인하세요."
+            },
+            {
+              "t": "출력 형식과 플랫폼 설정하기",
+              "d": "일반적인 YouTube나 Facebook 방송이라면 가로를, 세로 레이아웃을 쓰는 계정이라면 세로 출력을 고르세요. 방송 대상의 현재 서버 URL과 키를 추가하고, 송출을 시작한 뒤 플랫폼에서 방송을 확인하세요."
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "로컬 DJI Fly RTMP 주소, 플랫폼 방송 대상, 방송 시작 버튼이 보이는 Stream My Drone 데스크톱 화면."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "어느 플랫폼으로 방송할까요?",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "플랫폼",
+              "준비할 것",
+              "자세한 가이드"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "라이브 스트리밍이 활성화된 계정과 미리 만들어 둔 방송",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube 설정</a>"
+              ],
+              [
+                "Instagram",
+                "Live Producer 이용 권한과 최신 RTMPS 정보",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram 설정</a>"
+              ],
+              [
+                "Facebook",
+                "서버 URL과 키가 있는 라이브 방송",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Facebook 설정</a>"
+              ],
+              [
+                "TikTok",
+                "계정의 RTMP 권한, 또는 LIVE Studio를 쓸 수 있는 컴퓨터",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok 설정</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "플랫폼 이용 권한은 사용자 계정에 달려 있습니다. 앱에서 드론 영상을 받는다고 스트림 키가 생기거나 방송이 공개되지는 않습니다. TikTok LIVE Studio용으로 데스크톱 앱은 <a href=\"../use-your-dji-drone-as-a-webcam/\">가상 카메라</a>도 제공합니다. 현재 방송 공개 절차는 각 플랫폼 대시보드에서 확인하세요."
+        }
+      ]
+    },
+    {
+      "id": "camera-framing",
+      "h2": "Air 3S의 카메라 업그레이드가 방송에 주는 의미",
+      "blocks": [
+        {
+          "p": "DJI의 <a href=\"https://www.dji.com/air-3s/faq\">Air 3S FAQ</a>는 1인치 메인 카메라와 두 카메라 모두에서 가능한 세로 촬영을 소개합니다. 하지만 이 카메라 업그레이드가 RC 2의 라이브 방송 제한을 높이거나 세로 RTMP 화면을 보장하지는 않습니다. 방송 품질은 수신 기기에 도착한 화면으로 판단하세요."
+        },
+        {
+          "list": [
+            "<strong>광각과 망원 화면을 미리 연습하세요.</strong> 드론이 지상에 있을 때 DJI Fly에서 카메라를 하나씩 선택해 보세요. 수신 기기에서 노출, 화면 구성, 화면 전환을 확인하세요.",
+            "<strong>빛의 변화를 확인하세요.</strong> 노을이나 밝은 도심 스카이라인을 찍을 때는 비행 화면뿐 아니라 수신된 화면도 지켜보세요. 나중에 편집할 생각보다는 시청자가 바로 볼 수 있는 화면에 맞춰 조정하세요.",
+            "<strong>세로 송출은 따로 테스트하세요.</strong> 들어오는 영상의 크기를 확인하고, 필요하면 데스크톱의 크롭 또는 전체 화면 레이아웃을 고른 뒤, 방송 전에 플랫폼 미리보기를 확인하세요."
+          ]
+        },
+        {
+          "note": "Air 3에서 바꿨다면 페어링과 업데이트를 마친 뒤 Air 3S로 지상 테스트를 새로 하세요. 네트워크가 바뀌면 수신 주소를 새로 저장하고 방송 대상 인증 정보도 확인하세요. 이전 드론으로 방송이 잘 됐다고 새 구성도 된다는 보장은 없습니다."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Air 3S 방송 화질과 모바일 데이터",
+      "blocks": [
+        {
+          "p": "드론에 녹화되는 파일, 조종기의 라이브 뷰, 수신 기기로 보내는 영상은 서로 다른 출력입니다. 출력 설정을 고르기 전에 수신 기기의 입력 해상도를 확인하세요. 업스케일링은 화면 크기만 바꿀 뿐, 원래 영상에 없는 디테일을 되살리지는 못합니다. 플랫폼 처리 과정에서 화질이 다시 바뀌고 지연이 생길 수도 있습니다."
+        },
+        {
+          "list": [
+            "<strong>이륙 전에 테스트하세요.</strong> 드론이 지상에 있을 때 움직임, 소리, 플랫폼 시청 페이지를 확인하세요.",
+            "<strong>업로드 용량을 계산하세요.</strong> 5 Mbps로 계속 송출하면 네트워크 오버헤드를 빼고도 시간당 약 2.25 GB를 씁니다. 이런 방송 대상이 두 곳이면 합계 약 10 Mbps 업로드와 시간당 4.5 GB가 필요합니다.",
+            "<strong>로컬 연결을 튼튼하게 유지하세요.</strong> 휴대폰이나 컴퓨터를 핫스팟 가까이에 두세요. 네트워크의 최대 광고 속도보다 안정적인 연결이 더 중요합니다.",
+            "<strong>실제로 나가는 화면 구성을 확인하세요.</strong> 모바일에서 미리보기 레이아웃은 로컬에서만 적용됩니다. 데스크톱에서는 방송 전에 선택한 크롭 또는 전체 화면 출력을 확인하세요."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Air 3S 방송 문제 해결",
+      "blocks": [
+        {
+          "list": [
+            "<strong>RC-N2가 페어링되지 않을 때:</strong> Air 3S가 선택되어 있는지 확인하고, 기체와 조종기 펌웨어, DJI Fly를 업데이트한 뒤 DJI의 최신 안내에 따라 다시 연결해 보세요. RTMP 수신 기기를 점검하기 전에 기체 페어링부터 확인하세요.",
+            "<strong>화면이 녹화본보다 흐릿할 때:</strong> 수신 기기의 입력을 DJI Fly 방송 설정과 비교하세요. 고해상도 녹화 모드를 쓴다고 조종기의 라이브 방송 제한이 사라지지는 않습니다.",
+            "<strong>연결이 실패할 때:</strong> 네트워크가 바뀌었다면 앱의 주소를 다시 복사하세요. 게스트 격리가 없는 공유 로컬 네트워크를 사용하세요. 조종기에서 <code>localhost</code>는 조종기 자신을 가리킵니다.",
+            "<strong>휴대폰에는 화면이 나오는데 시청자에게는 아무것도 안 보일 때:</strong> 방송 대상 연결, 현재 스트림 키, 플랫폼의 마지막 방송 공개 단계를 확인하세요. 데이터가 전송되고 있다는 것만으로는 공개 방송이 확인되지 않습니다.",
+            "<strong>iPhone에서 다른 앱으로 전환한 뒤 방송이 멈출 때:</strong> Stream My Drone으로 돌아와 PIP(화면 속 화면)를 확인하세요. PIP가 없으면 iOS가 수신 앱을 일시 중지할 수 있습니다.",
+            "<strong>방송이 끊길 때:</strong> 먼저 방송 대상 하나로 시도하고, 셀룰러 업로드가 안정적인지 확인하며, 수신 기기를 핫스팟 가까이로 옮기세요.",
+            "<strong>RTMP 메뉴가 없을 때:</strong> 먼저 기체 연결과 조종기 모델을 확인한 뒤 펌웨어와 DJI Fly 업데이트를 확인하세요. 수신 앱이 없는 전송 메뉴를 추가할 수는 없습니다."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "출처와 관련 모델 가이드",
+      "blocks": [
+        {
+          "p": "공식 모델 정보: <a href=\"https://www.dji.com/air-3s/faq\">DJI Air 3S FAQ</a>. RTMP 절차와 조종기 제한: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. 펌웨어와 매뉴얼: <a href=\"https://www.dji.com/air-3s/downloads\">DJI Air 3S 다운로드</a>. 2026년 10월 25일에 확인했습니다. 메뉴는 펌웨어에 따라 바뀔 수 있습니다."
+        },
+        {
+          "p": "<a href=\"../dji-air-3-live-stream/\">Air 3 방송 가이드</a>나 <a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro 가이드</a>와 비교해 보세요. 같은 화면을 여러 방송 대상으로 보내려면 <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">멀티스트리밍 가이드</a>를 따라 하세요."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "컴퓨터 없이 Air 3S로 라이브 방송할 수 있나요?",
+      "a": "RC 2라면 같은 로컬 네트워크에 연결된 별도 휴대폰에서 Stream My Drone을 사용하세요. DJI Fly는 조종기에서 실행되고, 휴대폰이 RTMP 영상을 받으며, 방송 대상은 Stream My Drone에서 설정합니다."
+    },
+    {
+      "q": "Air 3S에 RC-N2를 쓸 수 있나요?",
+      "a": "DJI의 최신 Air 3S FAQ는 RC-N3, RC 2와 함께 RC-N2도 안내합니다. 먼저 기기를 업데이트하고 페어링을 확인하세요. RC-N2라면 연결된 휴대폰에서 DJI Fly를 실행하고, RC-N3에서 설명한 것과 같은 컴퓨터 수신 방식을 사용하세요."
+    },
+    {
+      "q": "DJI Fly에는 어떤 주소를 입력하나요?",
+      "a": "Stream My Drone(휴대폰 또는 컴퓨터)에 표시된 전체 로컬 수신 주소입니다. 플랫폼의 서버 URL과 스트림 키는 수신 앱의 방송 대상 설정에 입력하세요."
+    },
+    {
+      "q": "Stream My Drone이 영상을 세로 방송으로 바꿔 주나요?",
+      "a": "모바일 앱은 받은 영상을 그대로 전달하며, 미리보기 레이아웃이 송출 화면을 다시 인코딩하지는 않습니다. 세로 출력 변환은 컴퓨터용 Stream My Drone에서 제공합니다."
+    },
+    {
+      "q": "미리보기는 보이는데 왜 시청자는 볼 수 없나요?",
+      "a": "미리보기는 로컬 드론 영상이 도착했다는 것만 보여 줍니다. 방송 대상 송출을 시작하고, 플랫폼이 영상을 받는지 확인한 뒤, 남은 방송 시작 단계를 마무리하세요."
+    },
+    {
+      "q": "Air 3S의 세로 촬영을 쓰면 세로 라이브 방송이 보장되나요?",
+      "a": "수신 기기에 실제로 도착하는 영상을 확인하세요. 카메라 녹화 형식과 RTMP 출력은 별개입니다. 모바일 앱은 들어온 영상을 그대로 전달하고, 데스크톱 앱은 출력 변환과 화면 구성 기능을 제공합니다."
+    }
+  ]
+}

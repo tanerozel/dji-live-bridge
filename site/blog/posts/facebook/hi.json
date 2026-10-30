@@ -1,0 +1,75 @@
+{
+  "slug": "how-to-go-live-on-facebook-with-a-dji-drone",
+  "platform": "Facebook",
+  "title": "DJI ड्रोन से Facebook पर लाइव कैसे जाएँ (Live Producer)",
+  "description": "DJI ड्रोन से Facebook पर लाइव स्ट्रीम करें: Live Producer से RTMPS सर्वर URL और स्ट्रीम की लें, DJI Fly की स्ट्रीम Stream My Drone के ज़रिए भेजें, और लाइव जाएँ।",
+  "h1": "DJI ड्रोन से Facebook पर लाइव कैसे जाएँ",
+  "lead": "facebook.com पर <strong>Live video → Streaming software</strong> (Facebook का Live Producer) खोलें, सर्वर URL और स्ट्रीम की Stream My Drone में Facebook गंतव्य में कॉपी करें, DJI Fly से ड्रोन की तस्वीर ऐप को भेजें, START LIVE दबाएँ, फिर Live Producer में <strong>Go live</strong> दबाएँ। Facebook सिर्फ़ एन्क्रिप्टेड RTMPS स्वीकार करता है, जिसे ऐप संभाल लेता है।",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "सर्वर URL और की Live Producer से मिलते हैं: Live video → Streaming software।",
+    "सर्वर URL: rtmps://live-api-s.facebook.com:443/rtmp/ — Facebook को RTMPS चाहिए।",
+    "जब तक आप स्थायी स्ट्रीम की चालू न करें, Facebook हर सेशन के लिए नई की देता है।",
+    "Facebook को हर 2 सेकंड पर कीफ़्रेम चाहिए; Stream My Drone हमेशा यही भेजता है।",
+    "आप अपनी प्रोफ़ाइल, किसी Page या ग्रुप में पोस्ट कर सकते हैं, और साथ ही दूसरे प्लेटफ़ॉर्म पर भी स्ट्रीम कर सकते हैं।"
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Facebook पर लाइव जाएँ, चरण-दर-चरण",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "ड्रोन जोड़ें", "d": "DJI Fly में GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP खोलें और Stream My Drone में दिख रहा पता डालें। ऐप में प्रीव्यू दिखने लगता है।" },
+          { "t": "Live Producer खोलें", "d": "facebook.com पर Live video चुनें, तय करें कि कहाँ पोस्ट करना है (आपकी प्रोफ़ाइल, कोई Page या ग्रुप) और <em>Streaming software</em> चुनें।" },
+          { "t": "सर्वर URL और की कॉपी करें", "d": "<em>Server URL</em> (<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>) और <em>Stream key</em> को Stream My Drone में Facebook गंतव्य में कॉपी करें।" },
+          { "t": "START LIVE दबाएँ", "d": "पहले ओरिएंटेशन चुनें: कंप्यूटर पर देखने वालों के लिए <em>Horizontal 16:9</em>, फ़ोन फ़ीड के लिए <em>Vertical 9:16</em>। कुछ सेकंड बाद Live Producer प्रीव्यू दिखाता है।" },
+          { "t": "Facebook पर Go live दबाएँ", "d": "Live Producer में शीर्षक और विवरण जोड़ें और Go live दबाएँ। ख़त्म करने के लिए वहाँ वीडियो बंद करें और ऐप में <em>End stream</em> दबाएँ।" }
+        ] }
+      ]
+    },
+    {
+      "id": "persistent-key",
+      "h2": "स्थायी स्ट्रीम की इस्तेमाल करें",
+      "blocks": [
+        { "p": "डिफ़ॉल्ट रूप से Facebook हर सेशन के लिए नई स्ट्रीम की बनाता है, इसलिए आपको हर बार ऐप में उसे अपडेट करना पड़ेगा। Live Producer में <em>use a persistent stream key</em> का विकल्प है। इसे चालू करें, की एक बार Stream My Drone में सहेजें, और वह उसी जगह के आगे के प्रसारणों के लिए काम करती रहती है।" },
+        { "note": "स्थायी की को पासवर्ड की तरह रखें: जिसके पास यह है, वह आपके पेज पर प्रसारण कर सकता है। Stream My Drone इसे सिस्टम की तिजोरी में रखता है और कभी किसी फ़ाइल या लॉग में नहीं लिखता।" }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Facebook की सेटिंग्स",
+      "blocks": [
+        { "table": {
+          "head": ["सेटिंग", "मान"],
+          "rows": [
+            ["सर्वर URL", "<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>"],
+            ["प्रोटोकॉल", "RTMPS (Facebook के लिए ज़रूरी)"],
+            ["रेज़ोल्यूशन", "1920×1080 या 1080×1920"],
+            ["फ़्रेम रेट", "30 fps"],
+            ["वीडियो", "H.264, 6 Mbps CBR, हर 2 सेकंड पर कीफ़्रेम"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "आम समस्याएँ",
+      "blocks": [
+        { "list": [
+          "<strong>कनेक्शन विफल:</strong> सेशन की की अवधि ख़त्म हो गई। Live Producer से नई की कॉपी करें, या स्थायी की पर जाएँ।",
+          "<strong>पता rtmp:// से शुरू होता है:</strong> Facebook बिना एन्क्रिप्शन वाला RTMP स्वीकार नहीं करता; Live Producer का rtmps:// पता इस्तेमाल करें।",
+          "<strong>Live Producer को स्ट्रीम मिल रही है पर कोई देख नहीं पा रहा:</strong> आपको अब भी Live Producer में Go live दबाना है।"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "क्या मैं DJI ड्रोन से Facebook पर लाइव जा सकता हूँ?", "a": "हाँ। DJI Fly आपके कंप्यूटर पर Stream My Drone को RTMP भेजता है, और ऐप उसे Live Producer की की के साथ RTMPS पर Facebook तक पहुँचाता है।" },
+    { "q": "क्या मैं Facebook Page या ग्रुप पर स्ट्रीम कर सकता हूँ?", "a": "हाँ। की कॉपी करने से पहले Live Producer में चुनें कि कहाँ पोस्ट करना है; की उसी गंतव्य की होती है।" },
+    { "q": "मेरी Facebook स्ट्रीम की काम करना क्यों बंद कर देती है?", "a": "Facebook हर सेशन के लिए की जारी करता है। अगर आप नियमित रूप से एक ही जगह स्ट्रीम करते हैं, तो Live Producer में स्थायी स्ट्रीम की चालू करें।" },
+    { "q": "क्या मैं एक साथ Facebook और Instagram पर स्ट्रीम कर सकता हूँ?", "a": "हाँ, Stream My Drone में दो गंतव्यों के रूप में। दोनों को एक ही तस्वीर मिलती है, इसलिए वह ओरिएंटेशन चुनें जो आपके मुख्य दर्शकों के लिए सही हो।" },
+    { "q": "क्या यह मुफ़्त है?", "a": "हाँ। Stream My Drone मुफ़्त और ओपन सोर्स है, और इसका DJI या Meta से कोई संबंध नहीं है।" }
+  ]
+}

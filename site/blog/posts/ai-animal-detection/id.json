@@ -1,5 +1,5 @@
 {
-  "slug": "count-animals-with-a-dji-drone-ai-detection",
+  "slug": "menghitung-hewan-dengan-drone-dji-deteksi-ai",
   "platform": "AI Vision",
   "title": "Hitung kambing, domba, dan sapi secara langsung dari drone DJI dengan AI",
   "description": "Stream My Drone mengenali kambing, domba, sapi, kuda, keledai, dan unggas di gambar langsung drone, menandainya di siaran, dan menghitungnya, semua di komputer Anda.",
@@ -52,7 +52,7 @@
       "howto": true,
       "blocks": [
         { "steps": [
-          { "t": "Hubungkan drone Anda", "d": "Kirim gambar langsung dari DJI Fly ke aplikasi lewat RTMP seperti biasa; alamatnya ada di tab Siaran. Detailnya ada di <a href=\"../dji-fly-rtmp-live-streaming-setup/\">panduan RTMP DJI Fly</a>." },
+          { "t": "Hubungkan drone Anda", "d": "Kirim gambar langsung dari DJI Fly ke aplikasi lewat RTMP seperti biasa; alamatnya ada di tab Siaran. Detailnya ada di <a href=\"../pengaturan-live-streaming-rtmp-dji-fly/\">panduan RTMP DJI Fly</a>." },
           { "t": "Nyalakan AI Vision", "d": "Di tab Siaran, cari kartu <strong>AI Vision · Deteksi Hewan</strong> lalu aktifkan <em>Deteksi hewan</em>." },
           { "t": "Biarkan model diunduh dan disiapkan", "d": "Pada penggunaan pertama, model diunduh dan disiapkan untuk komputer Anda. Dengan OWLv2 proses ini bisa memakan beberapa menit; kartu menampilkan kemajuannya. Setelah itu, setiap mulai hanya butuh sekitar satu menit." },
           { "t": "Atur ambang batas", "d": "Turunkan <em>Ambang keyakinan</em> ke sekitar 0,25–0,35 untuk gambar dari udara, saat hewan terlihat kecil. Naikkan jika muncul kotak pada semak atau batu." },

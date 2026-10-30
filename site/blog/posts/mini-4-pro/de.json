@@ -1,5 +1,5 @@
 {
-  "slug": "dji-mini-4-pro-live-stream",
+  "slug": "dji-mini-4-pro-livestream",
   "platform": "DJI Mini 4 Pro",
   "title": "DJI Mini 4 Pro Livestream: Einrichtung mit RC 2 und RC-N2 (2026)",
   "description": "Livestream mit der DJI Mini 4 Pro über RC 2 oder RC-N2: Einrichtung mit Handy oder Computer, RTMP-Einstellungen in DJI Fly, Mikrofonpflicht und Prüfung auf der Plattform.",
@@ -8,7 +8,7 @@
   "published": "2026-10-03",
   "updated": "2026-10-21",
   "summary": [
-    "DJI Fly sendet den lokalen Stream; Stream My Drone oder Stream My Drone leitet ihn an Ihre Plattform weiter.",
+    "DJI Fly sendet den lokalen Stream; Stream My Drone (Handy oder Computer) leitet ihn an Ihre Plattform weiter.",
     "Die RC 2 funktioniert mit einem zweiten Handy als Empfänger; bei der RC-N2 läuft DJI Fly auf Ihrem Handy, und in dieser Anleitung empfängt ein Computer.",
     "Die RTMP-Ausgabe der Fernsteuerung kann eine geringere Auflösung haben als das Livebild oder die auf der Drohne aufgezeichnete Datei.",
     "Die mobile App leitet das eingehende Video weiter; die Desktop-Ausgabe kann es ins Hochformat umwandeln.",
@@ -43,7 +43,7 @@
           { "t": "Plattformen hinzufügen und live gehen", "d": "Fügen Sie die Plattform mit ihrer aktuellen Stream-URL und ihrem Schlüssel hinzu. Wählen Sie das Ausgabeformat am Computer, starten Sie die Ausgabe und prüfen Sie das Dashboard der Plattform. Erledigen Sie jeden zusätzlichen Live-Schritt, bevor Sie Ihren Zuschauern sagen, dass die Übertragung läuft." }
         ] },
         { "img": "go-live.png", "alt": "Der Tab „Live gehen“ von Stream My Drone mit der RTMP-Adresse für DJI Fly, den Zielen und der Taste LIVE STARTEN." },
-        { "note": "Für eine Einrichtung nur mit RC 2 und Handy folgen Sie dem nächsten Abschnitt. Screenshots und mehr Details zum Netzwerk finden Sie in der <a href=\"../dji-fly-rtmp-live-streaming-setup/\">Anleitung zu DJI Fly RTMP</a>." }
+        { "note": "Für eine Einrichtung nur mit RC 2 und Handy folgen Sie dem nächsten Abschnitt. Screenshots und mehr Details zum Netzwerk finden Sie in der <a href=\"../dji-fly-rtmp-livestream-einrichten/\">Anleitung zu DJI Fly RTMP</a>." }
       ]
     },
     {
@@ -68,13 +68,13 @@
         { "table": {
           "head": ["Plattform", "Was Sie vorbereiten", "Ausführliche Anleitung"],
           "rows": [
-            ["YouTube", "Ein Konto mit freigeschaltetem Livestreaming und eine vorbereitete Übertragung", "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube einrichten</a>"],
-            ["Instagram", "Zugang zu Live Producer und aktuelle RTMPS-Zugangsdaten", "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram einrichten</a>"],
-            ["Facebook", "Eine Live-Übertragung mit Server-URL und Schlüssel", "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Facebook einrichten</a>"],
-            ["TikTok", "RTMP-Zugang für Ihr Konto oder ein Computer mit Zugang zu LIVE Studio", "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok einrichten</a>"]
+            ["YouTube", "Ein Konto mit freigeschaltetem Livestreaming und eine vorbereitete Übertragung", "<a href=\"../dji-drohne-auf-youtube-live-streamen/\">YouTube einrichten</a>"],
+            ["Instagram", "Zugang zu Live Producer und aktuelle RTMPS-Zugangsdaten", "<a href=\"../mit-dji-drohne-auf-instagram-live-gehen/\">Instagram einrichten</a>"],
+            ["Facebook", "Eine Live-Übertragung mit Server-URL und Schlüssel", "<a href=\"../mit-dji-drohne-auf-facebook-live-gehen/\">Facebook einrichten</a>"],
+            ["TikTok", "RTMP-Zugang für Ihr Konto oder ein Computer mit Zugang zu LIVE Studio", "<a href=\"../mit-dji-drohne-auf-tiktok-live-gehen/\">TikTok einrichten</a>"]
           ]
         } },
-        { "p": "Der Zugang zur Plattform hängt an Ihrem Konto. Dass die App ein Drohnenbild empfängt, verschafft Ihnen weder einen Stream-Schlüssel noch veröffentlicht es eine Übertragung. Für TikTok LIVE Studio bietet die Desktop-App außerdem eine <a href=\"../use-your-dji-drone-as-a-webcam/\">virtuelle Kamera</a>. Den aktuellen Schritt zum Veröffentlichen finden Sie im Dashboard der jeweiligen Plattform." }
+        { "p": "Der Zugang zur Plattform hängt an Ihrem Konto. Dass die App ein Drohnenbild empfängt, verschafft Ihnen weder einen Stream-Schlüssel noch veröffentlicht es eine Übertragung. Für TikTok LIVE Studio bietet die Desktop-App außerdem eine <a href=\"../dji-drohne-als-webcam-nutzen/\">virtuelle Kamera</a>. Den aktuellen Schritt zum Veröffentlichen finden Sie im Dashboard der jeweiligen Plattform." }
       ]
     },
     {
@@ -106,7 +106,7 @@
       "h2": "Quellen und die Anleitung zur Mini 5 Pro",
       "blocks": [
         { "p": "Offizielle Quellen: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;pbc=BCQ9HQ1u&amp;pm=custom&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a> und <a href=\"https://www.dji.com/mini-4-pro/faq\">DJI Mini 4 Pro FAQ</a>. Geprüft am 21. Oktober 2026. Menüs und verfügbare Einstellungen können sich mit der Firmware ändern." },
-        { "p": "Sie suchen das neuere Modell? Die <a href=\"../dji-mini-5-pro-live-stream/\">Anleitung zum Livestream mit der Mini 5 Pro</a> behandelt RC 2 und RC-N3, den Empfang auf dem Handy und den Weg über den Computer." }
+        { "p": "Sie suchen das neuere Modell? Die <a href=\"../dji-mini-5-pro-livestream/\">Anleitung zum Livestream mit der Mini 5 Pro</a> behandelt RC 2 und RC-N3, den Empfang auf dem Handy und den Weg über den Computer." }
       ]
     }
   ],

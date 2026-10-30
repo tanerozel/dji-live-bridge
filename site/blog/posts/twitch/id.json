@@ -1,0 +1,75 @@
+{
+  "slug": "cara-streaming-drone-dji-di-twitch",
+  "platform": "Twitch",
+  "title": "Cara streaming drone DJI di Twitch (pengaturan RTMP)",
+  "description": "Siaran langsung drone DJI di Twitch: salin stream key dari Creator Dashboard, tambahkan Twitch sebagai tujuan RTMP khusus di Stream My Drone, lalu mulai live.",
+  "h1": "Cara streaming drone DJI di Twitch",
+  "lead": "Salin primary stream key Anda dari <strong>Creator Dashboard → Settings → Stream</strong> di Twitch, tambahkan tujuan <strong>RTMP khusus</strong> di Stream My Drone dengan server <code>rtmp://live.twitch.tv/app</code> dan kunci tersebut, kirim gambar drone dari DJI Fly ke aplikasi, lalu tekan MULAI SIARAN. Twitch langsung live begitu menerima siaran.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Twitch ditambahkan sebagai tujuan RTMP khusus: server rtmp://live.twitch.tv/app ditambah stream key Anda.",
+    "Stream key ada di Creator Dashboard → Settings → Stream dan tidak berubah sampai Anda mengatur ulangnya.",
+    "Gunakan Horizontal 16:9: penonton Twitch kebanyakan menonton dalam mode lanskap.",
+    "6 Mbps pada 1080p30 dengan keyframe tiap 2 detik sesuai panduan Twitch.",
+    "Twitch memulai siaran begitu streaming masuk — tidak ada tombol Go live terpisah."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Streaming ke Twitch, langkah demi langkah",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Hubungkan drone", "d": "Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP dan masukkan alamat yang ditampilkan Stream My Drone." },
+          { "t": "Salin stream key", "d": "Di twitch.tv, buka Creator Dashboard → Settings → Stream dan salin <em>Primary Stream key</em>." },
+          { "t": "Tambahkan tujuan RTMP khusus", "d": "Di Stream My Drone, pilih RTMP khusus, beri nama Twitch, masukkan <code>rtmp://live.twitch.tv/app</code> sebagai URL server, lalu tempel kuncinya." },
+          { "t": "Pilih Horizontal 16:9", "d": "Di bawah <em>Gambar dan suara</em>, pilih <em>Horizontal 16:9</em> untuk siaran 1920×1080." },
+          { "t": "Tekan MULAI SIARAN", "d": "Channel Anda live dalam beberapa detik. Atur judul dan kategori di Creator Dashboard; tekan <em>Akhiri siaran</em> di aplikasi untuk selesai." }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Pengaturan Twitch",
+      "blocks": [
+        { "table": {
+          "head": ["Pengaturan", "Nilai"],
+          "rows": [
+            ["URL server", "<code>rtmp://live.twitch.tv/app</code> (Twitch memilih server terdekat)"],
+            ["Resolusi", "1920×1080, horizontal"],
+            ["Frame rate", "30 fps"],
+            ["Bitrate", "6 Mbps CBR"],
+            ["Keyframe", "Setiap 2 detik"]
+          ]
+        } },
+        { "p": "Twitch juga mencantumkan server stream untuk setiap wilayah di halaman bantuannya. Jika alamat otomatis memberi koneksi yang lambat, masukkan server regional terdekat sebagai gantinya." }
+      ]
+    },
+    {
+      "id": "simulcast",
+      "h2": "Streaming ke Twitch dan platform lain sekaligus",
+      "blocks": [
+        { "p": "Stream My Drone bisa mengirim gambar yang sama ke Twitch, YouTube, dan platform lain secara bersamaan. Aturan Twitch soal simulcast sudah beberapa kali berubah dan bisa berbeda untuk Affiliate dan Partner, jadi periksa perjanjian Anda saat ini sebelum siaran ke beberapa platform." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Masalah yang sering terjadi",
+      "blocks": [
+        { "list": [
+          "<strong>Koneksi gagal:</strong> pastikan URL server persis <code>rtmp://live.twitch.tv/app</code> dan kuncinya tidak berisi spasi tambahan.",
+          "<strong>Penonton mengalami buffering:</strong> unggahan kurang stabil. Tutup unggahan lain atau gunakan koneksi kabel untuk komputer.",
+          "<strong>Kuncinya bocor:</strong> atur ulang di Creator Dashboard dan perbarui di aplikasi."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Bisakah saya streaming drone DJI di Twitch?", "a": "Bisa. Kirim aliran RTMP DJI Fly ke Stream My Drone dan tambahkan Twitch sebagai tujuan RTMP khusus dengan rtmp://live.twitch.tv/app dan stream key Anda." },
+    { "q": "Di mana saya menemukan stream key Twitch?", "a": "Di twitch.tv: Creator Dashboard → Settings → Stream → Primary Stream key." },
+    { "q": "Haruskah saya siaran video vertikal ke Twitch?", "a": "Biasanya tidak. Twitch kebanyakan ditonton dalam mode lanskap, jadi pilih Horizontal 16:9." },
+    { "q": "Apakah kunci Twitch berubah?", "a": "Tidak, kecuali Anda mengatur ulangnya, jadi cukup diatur sekali." },
+    { "q": "Apakah saya perlu OBS untuk Twitch?", "a": "Tidak. Stream My Drone mengirim siaran secara langsung. OBS bersifat opsional jika Anda menginginkan scene atau overlay." }
+  ]
+}

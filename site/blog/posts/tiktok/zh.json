@@ -1,0 +1,111 @@
+{
+  "slug": "how-to-go-live-on-tiktok-with-a-dji-drone",
+  "platform": "TikTok",
+  "title": "如何用 DJI 无人机在 TikTok 直播（2026 教程）",
+  "description": "用 DJI Fly 把 DJI 无人机画面直播到 TikTok：有推流密钥时直接推流，没有密钥时通过 TikTok LIVE Studio 和虚拟摄像头开播。附推荐设置和故障排查。",
+  "h1": "如何用 DJI 无人机在 TikTok 直播",
+  "lead": "DJI Fly 本身无法推流到 TikTok，但它可以把 RTMP 发送到电脑。Stream My Drone 接收这路推流，并通过两种方式之一送到 TikTok：如果你的账号有 TikTok 服务器地址和推流密钥，就<strong>直接推流</strong>；或者<strong>通过 TikTok LIVE Studio</strong>，无人机在其中显示为一个摄像头，不需要推流密钥。",
+  "published": "2026-10-02",
+  "updated": "2026-10-21",
+  "summary": [
+    "你需要一台 DJI Fly 在 Live Streaming Platforms 下提供 RTMP 的 DJI 无人机，以及一台与遥控器连在同一 Wi-Fi 或热点上的 Mac 或 Windows 电脑。",
+    "有推流密钥：在 Stream My Drone 中添加 TikTok 推流目标，然后按“开始直播”。",
+    "没有推流密钥：在 TikTok LIVE Studio 中选择“Stream My Drone Camera”作为摄像头源，从那里开播。",
+    "TikTok 需要竖屏视频；应用以 1080×1920、30 fps 发送，空白处用画面的模糊副本填充。",
+    "谁能开 LIVE、谁能拿到推流密钥由 TikTok 决定；具体要求取决于你的账号和地区。"
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "准备工作",
+      "blocks": [
+        { "list": [
+          "一套 DJI Fly 在 <em>Live Streaming Platforms</em> 下显示 <strong>RTMP</strong> 的 DJI 无人机和遥控器。只要你的 DJI Fly 版本有这个选项，无人机就能用——应用从不直接与无人机通信。",
+          "一台安装了 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> 的 Mac（macOS 13 或更新版本，Apple Silicon 或 Intel）或 Windows 10/11 电脑。",
+          "遥控器和电脑连在同一个 Wi-Fi 网络上，或都连在你的手机热点上。",
+          "一个可以开 LIVE 的 TikTok 账号。直接推流方式还需要 RTMP 权限（服务器地址和推流密钥）；LIVE Studio 方式需要能使用 TikTok LIVE Studio。"
+        ] }
+      ]
+    },
+    {
+      "id": "connect",
+      "h2": "第 1 步：把无人机画面发到电脑",
+      "blocks": [
+        { "steps": [
+          { "t": "打开 Stream My Drone", "d": "“开始直播”标签页会显示类似 <code>rtmp://192.168.1.20:1935/drone</code> 的地址和一个二维码。" },
+          { "t": "在 DJI Fly 中打开 RTMP 页面", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP。" },
+          { "t": "粘贴地址并开始", "d": "画面传来后，应用中的第一步会变成绿色，并出现实时预览。" }
+        ] },
+        { "note": "手边没有无人机？使用应用中的<em>用视频文件测试</em>，用一段录好的视频演练整个流程。" }
+      ]
+    },
+    {
+      "id": "stream-key",
+      "h2": "方法 A：用推流密钥在 TikTok 直播",
+      "howto": true,
+      "blocks": [
+        { "p": "如果 TikTok 向你提供了服务器地址和推流密钥，就用这种方法。并不是每个账号都有；如果找不到，请使用方法 B。" },
+        { "steps": [
+          { "t": "从 TikTok 复制服务器地址和推流密钥", "d": "在 TikTok LIVE Center 或 TikTok LIVE Studio 中打开推流密钥页面，复制 <em>Server URL</em>（形如 <code>rtmp://push-rtmp-….tiktokcdn.com/game/</code>）和 <em>Stream key</em>。" },
+          { "t": "添加 TikTok 推流目标", "d": "在 Stream My Drone 的<em>要推流到哪里？</em>下选择 TikTok，粘贴这两项。密钥保存在系统的凭据保管库中，而不是文件里。" },
+          { "t": "保持竖屏画面", "d": "在<em>画面与声音</em>下保持<em>竖屏 9:16</em>开启。<em>完整画面</em>用画面的模糊副本填充空白处；<em>填满屏幕</em>则进行裁切。" },
+          { "t": "按下“开始直播”", "d": "本地服务器运行、无人机画面已到达、并选好推流目标后，按钮才会解锁。之后推流目标卡片会显示<em>直播中</em>。" },
+          { "t": "在 TikTok 上检查直播", "d": "在 TikTok 中确认推流已被接收并已公开。结束时在应用中按<em>结束直播</em>。" }
+        ] }
+      ]
+    },
+    {
+      "id": "live-studio",
+      "h2": "方法 B：不用推流密钥，通过 TikTok LIVE Studio 直播",
+      "blocks": [
+        { "p": "TikTok LIVE Studio 是 TikTok 官方的桌面应用。你用自己的 TikTok 账号登录，因此它不需要 RTMP 权限——只需要一个摄像头。Stream My Drone 就提供一个，名为 <strong>Stream My Drone Camera</strong>。" },
+        { "steps": [
+          { "t": "启用虚拟摄像头", "d": "在 TikTok LIVE Studio 标签页中按<em>启用虚拟摄像头</em>。在 Mac 上，应用必须放在“应用程序”文件夹中，macOS 会请求一次批准，位置在“系统设置 → 通用 → 登录项与扩展 → 相机扩展”。" },
+          { "t": "启动摄像头", "d": "当卡片显示<em>可以启动</em>时，按<em>启动虚拟摄像头</em>。" },
+          { "t": "在 LIVE Studio 中添加摄像头", "d": "添加一个摄像头源，选择 <strong>Stream My Drone Camera</strong>。" },
+          { "t": "设置声音", "d": "把该视频源的音频采集设为<em>无</em>，并在 LIVE Studio 中只选择一个麦克风。这个摄像头只传画面，所以你永远不会听到重复的声音。" },
+          { "t": "开始直播", "d": "在 TikTok LIVE Studio 中按 Go Live。开播始终由你自己掌控。" }
+        ] },
+        { "img": "virtual-camera.png", "alt": "Stream My Drone 的 TikTok LIVE Studio 标签页，带有“启动虚拟摄像头”按钮。" },
+        { "note": "Windows 内置虚拟摄像头已在 TikTok LIVE Studio 中测试过。选择“Stream My Drone Camera”作为视频源。使用 OBS 场景直播时，也可以使用可选的 OBS 集成。" }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "TikTok 推荐设置",
+      "blocks": [
+        { "table": {
+          "head": ["设置", "数值", "原因"],
+          "rows": [
+            ["方向", "竖屏 9:16，1080×1920", "TikTok 观众用手机竖屏观看。"],
+            ["帧率", "30 fps", "流畅，且对上行带宽要求低。"],
+            ["码率", "6 Mbps CBR", "恒定码率让接收服务器更稳定。"],
+            ["视频编码", "H.264 High，2 秒关键帧", "直播接收服务器期望的格式。"],
+            ["构图", "完整画面", "没有黑边，也不会丢失画面边缘。"]
+          ]
+        } },
+        { "p": "应用会自动使用这些数值；你只需选择方向和构图。每个推流目标请预留至少 10 Mbps 的稳定上行带宽。" }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "无法直播时怎么办",
+      "blocks": [
+        { "list": [
+          "<strong>预览一直是空的：</strong>遥控器和电脑很可能不在同一网络。让两者连上同一个 Wi-Fi 或热点，并检查 DJI Fly 中的地址。",
+          "<strong>RC 2 上的 DJI Fly 无法开始推流：</strong>某些 DJI Fly 版本要求先给遥控器连接麦克风。",
+          "<strong>TikTok 卡片显示“连接失败”：</strong>重新复制服务器地址和密钥——密钥可能过期或被重置。",
+          "<strong>LIVE Studio 中找不到摄像头：</strong>先启动虚拟摄像头，再重启 LIVE Studio，让它重新读取摄像头列表。",
+          "<strong>画面是 720p：</strong>遥控器通常发送 720p。应用显示的是真实输入分辨率，不会假装它是原生 1080p。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "没有推流密钥，能用 DJI 无人机在 TikTok 直播吗？", "a": "能。使用 TikTok LIVE Studio，并选择 Stream My Drone Camera 作为摄像头源。你用自己的账号登录 LIVE Studio，因此不需要服务器地址或推流密钥。" },
+    { "q": "为什么我没有 TikTok 推流密钥？", "a": "TikTok 只向部分账号提供 RTMP 推流密钥，规则因地区而异，也会随时间变化。没有密钥时，TikTok LIVE Studio 是替代方案。" },
+    { "q": "能同时直播到 TikTok 和 Instagram 吗？", "a": "能，只要两者都有推流密钥。Stream My Drone 只编码一次画面，再发送到每个已启用的推流目标；一个目标失败不会影响其他目标。" },
+    { "q": "Stream My Drone 会登录我的 TikTok 账号吗？", "a": "不会。它从不登录任何平台，也从不替你按 Go Live；它只把视频发送到你提供的地址，或为 LIVE Studio 提供一个摄像头。" },
+    { "q": "Stream My Drone 免费吗？", "a": "免费。它以 MIT 许可证免费开源，与 DJI 和 TikTok 没有任何关联。" }
+  ]
+}

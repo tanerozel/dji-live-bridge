@@ -1,0 +1,235 @@
+{
+  "slug": "dji-mini-3-live-stream",
+  "platform": "DJI Mini 3",
+  "title": "DJI Mini 3 드론 생중계: RC-N1, DJI Fly, 컴퓨터 설정 (2026)",
+  "description": "RC-N1과 DJI Fly로 DJI Mini 3 영상을 컴퓨터의 Stream My Drone에 보내 생중계하는 방법. DJI RC 제한, 720p 라이브 뷰 화질, 플랫폼 송출을 확인하세요.",
+  "h1": "DJI Mini 3로 라이브 방송하는 방법",
+  "lead": "<strong>DJI Mini 3</strong>는 <strong>RC-N1과 휴대폰의 DJI Fly</strong>로 라이브 방송하는 방법이 공식 문서에 나와 있습니다. 그 RTMP 영상을 별도 컴퓨터의 <strong>Stream My Drone</strong>으로 보낸 뒤 플랫폼으로 전달하세요. Mini 3를 화면 내장 <strong>DJI RC</strong>와 함께 샀다면 먼저 조종기 제한을 확인하세요. DJI는 이 조종기로 라이브 방송하는 것을 지원하지 않습니다.",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "여기서 설명하는 지원 방법은 Mini 3 → DJI Fly 휴대폰을 연결한 RC-N1 → 별도 컴퓨터입니다.",
+    "DJI의 Mini 3 가이드에는 초기 DJI RC로 라이브 방송하는 지원 방법이 없습니다. DJI RC 2와는 다른 제품입니다.",
+    "Mini 3의 조종기 라이브 뷰 사양은 720p/30fps입니다. 4K 녹화 기능은 별개의 출력입니다.",
+    "USB 비행 연결과 네트워크 RTMP 연결은 하는 일이 서로 다릅니다.",
+    "먼저 컴퓨터 미리보기가 작동하는지 확인하고, 플랫폼 시청 페이지로 실제 공개를 확인하세요."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "RC-N1과 DJI RC를 쓰는 Mini 3: 어느 쪽이 라이브 방송을 할 수 있나요?",
+      "blocks": [
+        {
+          "p": "DJI의 <a href=\"https://www.dji.com/mini-3/faq\">Mini 3 FAQ</a>는 RC-N1과 DJI RC를 호환 조종기로 안내합니다. 하지만 두 조종기의 방송 기능은 같지 않습니다. <a href=\"https://repair.dji.com/help/content?customId=en-us03400007192&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">공식 입문 가이드</a>에 따르면 RC-N1과 모바일 기기로는 라이브 방송을 지원하지만, DJI RC는 제외됩니다."
+        },
+        {
+          "table": {
+            "head": [
+              "사용 중인 조종기",
+              "비행 화면",
+              "라이브 방송 준비"
+            ],
+            "rows": [
+              [
+                "DJI RC-N1",
+                "USB로 연결한 휴대폰의 DJI Fly",
+                "아래의 RTMP-컴퓨터 단계를 따르세요"
+              ],
+              [
+                "DJI RC",
+                "DJI Fly가 실행되는 내장 화면",
+                "문서화된 DJI Fly 라이브 방송 방법을 쓸 수 없음"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "휴대폰 핫스팟을 켠다고 DJI RC에 라이브 방송 기능이 생기지는 않습니다. Mini 4 Pro나 Mini 5 Pro 가이드의 RC 2 안내를 따르지 마세요. 조종기를 사거나 바꾸기 전에 DJI의 최신 모델 호환성과 실제 구성을 확인하세요."
+        }
+      ]
+    },
+    {
+      "id": "connections",
+      "h2": "세 가지 연결 이해하기",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "연결",
+              "용도",
+              "설정할 것"
+            ],
+            "rows": [
+              [
+                "Mini 3 ↔ RC-N1",
+                "비행 조종과 기체 카메라 화면",
+                "일반적인 기체·조종기 페어링"
+              ],
+              [
+                "RC-N1 ↔ 휴대폰(USB)",
+                "DJI Fly 비행 화면과 라이브 방송 조작",
+                "호환되는 휴대폰과 조종기 케이블"
+              ],
+              [
+                "휴대폰 → 컴퓨터(로컬 네트워크)",
+                "DJI Fly RTMP 영상을 Stream My Drone으로 보내기",
+                "컴퓨터 앱에 표시된 수신 주소"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "그다음 컴퓨터가 인터넷 연결로 선택한 플랫폼에 접속합니다. 컴퓨터와 비행용 휴대폰을 같은 로컬 네트워크에 연결하세요. 네트워크가 기기 간 통신을 막는다면 인터넷이 된다는 것만으로는 부족합니다. 비행용 휴대폰에서는 DJI Fly를 계속 열어 두고, 수신은 컴퓨터에서 관리하세요."
+        },
+        {
+          "note": "DJI의 <a href=\"https://www.dji.com/mini-3/faq\">Mini 3 FAQ</a>에 설명된 대로 QuickTransfer는 촬영한 파일을 옮기는 기능입니다. 이 라이브 방송에 쓰는 RTMP 연결이 아닙니다. 컴퓨터에 USB 케이블을 연결하는 것도 아래 수신 주소를 대신하지 못합니다."
+        }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Mini 3 RTMP 송출을 설정하고 방송하기",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "앱과 네트워크 준비하기",
+              "d": "Mini 3, RC-N1, 비행용 휴대폰을 평소처럼 연결하세요. Mac 또는 Windows 컴퓨터에 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>을 설치하세요. 컴퓨터와 비행용 휴대폰을 인터넷이 되는 같은 로컬 네트워크에 연결하고, 핫스팟 구성은 비행 전에 테스트하세요."
+            },
+            {
+              "t": "컴퓨터의 전체 RTMP 주소 복사하기",
+              "d": "Stream My Drone을 열고 '드론 연결' 아래의 주소를 복사하세요. <code>rtmp://192.168.1.20:1935/drone</code>은 형식 예시일 뿐입니다. 경로를 포함해 앱에 표시된 현재 주소를 사용하세요."
+            },
+            {
+              "t": "DJI Fly의 RTMP 송출 시작하기",
+              "d": "휴대폰의 카메라 화면에서 ••• → Transmission → Enable Livestreaming 또는 Live Streaming Platforms를 열고 RTMP를 고르세요. 수신 주소를 붙여넣고 시작합니다. 메뉴 문구는 버전마다 다를 수 있으니 공통 안내는 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 가이드</a>를 참고하세요."
+            },
+            {
+              "t": "컴퓨터에서 영상 확인하기",
+              "d": "수신 앱의 개인 네트워크 방화벽 허용 요청이 나타나면 허용한 뒤, Stream My Drone에 움직이는 영상이 보이는지 확인하세요. 영상이 없다면 플랫폼을 설정하기 전에 이 로컬 연결부터 해결하세요. 비행용 휴대폰은 DJI Fly 화면에 그대로 두세요."
+            },
+            {
+              "t": "플랫폼을 추가하고 방송 확인하기",
+              "d": "데스크톱 출력 레이아웃을 고르고, 플랫폼의 현재 서버 URL과 스트림 키를 방송 대상으로 입력한 뒤 송출을 시작하세요. 플랫폼 대시보드를 열어 필요한 방송 시작 단계를 마치고, 시청 페이지에서 소리까지 확인하세요."
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "컴퓨터의 로컬 RTMP 주소와 라이브 방송 대상 설정이 보이는 Stream My Drone 화면."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "YouTube, Instagram, Facebook, TikTok 준비하기",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "플랫폼",
+              "필요한 계정 권한",
+              "다음 가이드"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "라이브 스트리밍 활성화와 미리 만들어 둔 방송",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">드론으로 YouTube 방송</a>"
+              ],
+              [
+                "Instagram",
+                "계정에서 쓸 수 있는 Live Producer와 RTMPS 정보",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">드론으로 Instagram 방송</a>"
+              ],
+              [
+                "Facebook",
+                "현재 URL과 키가 있는 Live Producer 방송",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">드론으로 Facebook 방송</a>"
+              ],
+              [
+                "TikTok",
+                "RTMP 정보 또는 LIVE Studio 사용 권한",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">드론으로 TikTok 방송</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "공개 방송을 계획하기 전에 플랫폼 대시보드를 직접 확인하세요. 드론 영상을 받는다고 계정 자격이 생기지는 않습니다. 웹캠을 입력으로 받는 데스크톱 앱이라면 <a href=\"../use-your-dji-drone-as-a-webcam/\">가상 카메라 가이드</a>에서 영상 소스로 쓰는 방법을 설명합니다. 그래도 플랫폼 권한과 Mini 3에서 들어오는 RTMP 영상은 여전히 필요합니다."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Mini 3에서는 어느 정도 화질을 기대할 수 있나요?",
+      "blocks": [
+        {
+          "p": "DJI의 <a href=\"https://www.dji.com/mini-3/specs\">Mini 3 사양</a>은 DJI O2 전송과 720p/30fps 조종기 라이브 뷰를 안내하며, 4K 카메라 녹화는 별개로 소개합니다. 저장된 4K 파일이 4K RTMP 방송을 증명하지는 않습니다. 수신 기기의 실제 입력을 확인하고, 사용 중인 DJI Fly 버전에서 쓸 수 있는 설정을 사용하세요."
+        },
+        {
+          "list": [
+            "<strong>업스케일링에는 한계가 있습니다.</strong> 데스크톱 출력을 더 큰 크기로 설정할 수는 있지만, 낮은 해상도 입력에 없는 디테일을 복원할 수는 없습니다.",
+            "<strong>세로 화면 구성을 확인하세요.</strong> Mini 3의 회전 카메라와 최종 방송 화면은 서로 다른 부분입니다. 세로 영상을 공개하기 전에 실제 데스크톱 출력을 확인하세요.",
+            "<strong>업로드 여유를 두세요.</strong> 비행 장소에서 테스트하고 방송 대상 하나로 시작하세요. 방송 대상 두 곳에 각각 5 Mbps를 보내면 오버헤드를 빼고도 합계 약 10 Mbps 업로드가 필요합니다.",
+            "<strong>데이터와 전원을 계산하세요.</strong> 5 Mbps 출력 하나를 계속 보내면 오버헤드를 빼고도 시간당 약 2.25 GB를 씁니다. 계획한 방송 시간 동안 비행용 휴대폰과 컴퓨터의 전원을 확보하세요."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Mini 3 라이브 방송에서 자주 생기는 문제",
+      "blocks": [
+        {
+          "list": [
+            "<strong>라이브 방송 설정이 없을 때:</strong> 조종기가 초기 DJI RC인지 확인하세요. 문서화된 제한이므로 수신 앱에서 해결할 수 없습니다. RC-N1이라면 DJI Fly 업데이트와 기체 연결을 확인하세요.",
+            "<strong>DJI Fly에 연결 오류가 표시될 때:</strong> 현재 수신 주소 전체를 다시 복사하세요. Wi-Fi 네트워크, 기기 격리, 컴퓨터 방화벽을 확인하세요. <code>localhost</code>는 네트워크 건너편의 컴퓨터가 아니라 그 주소를 쓰는 기기 자신을 가리킵니다.",
+            "<strong>미리보기는 되는데 방송 공개가 실패할 때:</strong> 로컬 영상은 연결된 상태입니다. 플랫폼 URL, 현재 키, 계정 권한, 마지막 공개 버튼을 따로 확인하세요.",
+            "<strong>야외에서 영상이 멈출 때:</strong> 로컬 Wi-Fi와 인터넷 업로드를 모두 확인하세요. 수신 기기를 네트워크 신호원 가까이로 옮기고, 설정이 허용하면 낮은 비트레이트 출력 하나로 테스트하세요.",
+            "<strong>영상은 나오는데 소리가 없을 때:</strong> 입력과 방송 대상의 오디오 설정을 점검하고, 시청자 기기에서 들어 보세요. 가상 카메라를 쓴다면 받는 쪽 방송 앱에서 소리를 따로 설정하세요."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "공식 출처와 다음 단계",
+      "blocks": [
+        {
+          "p": "2026년 10월 25일 확인: RC-N1 라이브 방송과 DJI RC 제한은 <a href=\"https://repair.dji.com/help/content?customId=en-us03400007192&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Mini 3 입문 가이드</a>, 호환 조종기와 QuickTransfer는 <a href=\"https://www.dji.com/mini-3/faq\">Mini 3 FAQ</a>, 라이브 뷰와 녹화의 차이는 <a href=\"https://www.dji.com/mini-3/specs\">Mini 3 사양</a>을 참고했습니다. 펌웨어가 바뀌면 쓸 수 있는 메뉴를 다시 확인하세요."
+        },
+        {
+          "p": "Pro 모델을 쓰고 있나요? <a href=\"../dji-mini-3-pro-live-stream/\">Mini 3 Pro 라이브 방송 가이드</a>를 읽어 보세요. 방송 대상 하나가 잘 작동하면 <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">멀티스트리밍 가이드</a>로 영상 하나를 더 많은 플랫폼에 보내세요."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "DJI Mini 3는 라이브 방송을 지원하나요?",
+      "a": "DJI는 RC-N1과 DJI Fly를 실행하는 모바일 기기로 라이브 방송하는 방법을 안내합니다. 이 가이드는 그 영상을 별도 컴퓨터의 Stream My Drone으로 보냅니다."
+    },
+    {
+      "q": "DJI RC가 포함된 Mini 3 구성품으로도 이 RTMP 단계를 쓸 수 있나요?",
+      "a": "아니요. DJI의 Mini 3 입문 가이드에 따르면 초기 DJI RC로는 라이브 방송을 할 수 없습니다. 최신 DJI RC 2와는 다른 제품입니다."
+    },
+    {
+      "q": "Mini 3로 4K 카메라 녹화 화질 그대로 방송할 수 있나요?",
+      "a": "라이브 영상이 저장된 녹화본과 같다고 가정하지 마세요. DJI는 Mini 3의 조종기 라이브 뷰를 720p/30fps로 안내합니다. 수신 기기에서 실제 RTMP 입력을 확인하세요."
+    },
+    {
+      "q": "RTMP 대신 QuickTransfer를 쓸 수 있나요?",
+      "a": "아니요. QuickTransfer는 촬영한 파일을 휴대폰으로 옮기는 기능입니다. 이 구성은 로컬 네트워크로 DJI Fly의 라이브 방송 출력을 사용합니다."
+    },
+    {
+      "q": "비행용 휴대폰이 수신 기기도 될 수 있나요?",
+      "a": "이 가이드는 RC-N1 휴대폰에서 DJI Fly를 실행하고, 영상은 별도 컴퓨터에서 받습니다. 비행 앱과 중계 앱이 휴대폰 한 대를 안정적으로 함께 쓸 수 있다고 가정하지 않습니다."
+    },
+    {
+      "q": "플랫폼 스트림 키는 어디에 입력하나요?",
+      "a": "Stream My Drone의 방송 대상 설정에 플랫폼 서버 URL과 함께 입력하세요. DJI Fly에는 그 대신 앱에 표시된 경로를 포함한 컴퓨터의 로컬 주소를 입력합니다."
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "slug": "how-to-go-live-on-tiktok-with-a-dji-drone",
+  "platform": "TikTok",
+  "title": "如何用 DJI 空拍機開 TikTok 直播（2026 教學）",
+  "description": "從 DJI Fly 把 DJI 空拍機直播到 TikTok：有 TikTok 串流金鑰可直接開播，沒有金鑰則透過 TikTok LIVE Studio 和虛擬攝影機。建議設定與問題排除。",
+  "h1": "如何用 DJI 空拍機開 TikTok 直播",
+  "lead": "DJI Fly 本身無法直播到 TikTok，但它可以把 RTMP 送到電腦。Stream My Drone 接收這路串流，再用兩種方式之一送到 TikTok：如果你的帳號有 TikTok 伺服器網址和串流金鑰，就<strong>直接用金鑰開播</strong>；或者<strong>透過 TikTok LIVE Studio</strong>，讓空拍機以攝影機的身分出現，完全不需要串流金鑰。",
+  "published": "2026-10-02",
+  "updated": "2026-10-21",
+  "summary": [
+    "你需要一台 DJI Fly App 在 Live Streaming Platforms 底下提供 RTMP 的 DJI 空拍機，以及一台和遙控器連上同一個 Wi-Fi 或熱點的 Mac 或 Windows 電腦。",
+    "有串流金鑰：在 Stream My Drone 中加入 TikTok 目的地，按下「開始直播」。",
+    "沒有串流金鑰：在 TikTok LIVE Studio 中選擇「Stream My Drone Camera」作為攝影機來源，從那裡開播。",
+    "TikTok 需要直向影片；App 會送出 1080×1920、30 fps，並以畫面的模糊副本填滿空白處。",
+    "誰能開 LIVE、誰能取得串流金鑰，都由 TikTok 決定；條件依帳號和地區而不同。"
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "需要準備什麼",
+      "blocks": [
+        { "list": [
+          "一組 DJI 空拍機和遙控器，且 DJI Fly 在 <em>Live Streaming Platforms</em> 底下顯示 <strong>RTMP</strong>。只要你的 DJI Fly 版本有這個選項，空拍機就能用，App 從不直接和空拍機溝通。",
+          "一台安裝了 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> 的 Mac（macOS 13 或更新版本，Apple Silicon 或 Intel）或 Windows 10/11 電腦。",
+          "遙控器和電腦連上同一個 Wi-Fi 網路，或都連上你的手機熱點。",
+          "一個可以開 LIVE 的 TikTok 帳號。直接開播的方式還需要 RTMP 權限（伺服器網址和串流金鑰）；LIVE Studio 的方式則需要能使用 TikTok LIVE Studio。"
+        ] }
+      ]
+    },
+    {
+      "id": "connect",
+      "h2": "步驟一：把空拍畫面送到電腦",
+      "blocks": [
+        { "steps": [
+          { "t": "開啟 Stream My Drone", "d": "「開始直播」分頁會顯示類似 <code>rtmp://192.168.1.20:1935/drone</code> 的位址和一個 QR 碼。" },
+          { "t": "在 DJI Fly 中開啟 RTMP 畫面", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP。" },
+          { "t": "貼上位址並開始", "d": "收到畫面後，App 中的第一個步驟會變成綠色，並出現即時預覽。" }
+        ] },
+        { "note": "手邊沒有空拍機？用 App 裡的<em>用影片檔試試看</em>，以錄好的片段預演整個流程。" }
+      ]
+    },
+    {
+      "id": "stream-key",
+      "h2": "方法 A：用串流金鑰開 TikTok 直播",
+      "howto": true,
+      "blocks": [
+        { "p": "如果 TikTok 有提供伺服器網址和串流金鑰，就用這個方法。不是每個帳號都有；找不到的話請用方法 B。" },
+        { "steps": [
+          { "t": "從 TikTok 複製伺服器網址和串流金鑰", "d": "在 TikTok LIVE Center 或 TikTok LIVE Studio 中開啟串流金鑰畫面，複製<em>伺服器網址</em>（看起來像 <code>rtmp://push-rtmp-….tiktokcdn.com/game/</code>）和<em>串流金鑰</em>。" },
+          { "t": "加入 TikTok 目的地", "d": "在 Stream My Drone 的<em>要直播到哪裡？</em>中選擇 TikTok，貼上這兩個值。金鑰會存在系統的憑證保管區，而不是存在檔案裡。" },
+          { "t": "保持直向畫面", "d": "在<em>畫面與聲音</em>中保持<em>直向 9:16</em>開啟。<em>完整畫面</em>會以畫面的模糊副本填滿空白處；<em>填滿螢幕</em>則改為裁切。" },
+          { "t": "按下「開始直播」", "d": "本機伺服器啟動、收到空拍影像並選好目的地後，按鈕就會解鎖。接著目的地卡片會顯示<em>直播中</em>。" },
+          { "t": "在 TikTok 上確認直播", "d": "在 TikTok 中確認串流已被接收且為公開狀態。結束時，在 App 中按下<em>結束直播</em>。" }
+        ] }
+      ]
+    },
+    {
+      "id": "live-studio",
+      "h2": "方法 B：不用串流金鑰，透過 TikTok LIVE Studio",
+      "blocks": [
+        { "p": "TikTok LIVE Studio 是 TikTok 官方的桌面 App。你用自己的 TikTok 帳號登入，所以不需要 RTMP 權限，它只需要一台攝影機。Stream My Drone 提供的就是一台名為 <strong>Stream My Drone Camera</strong> 的攝影機。" },
+        { "steps": [
+          { "t": "啟用虛擬攝影機", "d": "在 TikTok LIVE Studio 分頁按下<em>啟用虛擬攝影機</em>。在 Mac 上，App 必須放在「應用程式」資料夾，macOS 會要求你核准一次，位置在「系統設定 → 一般 → 登入項目與延伸功能 → 攝影機延伸功能」。" },
+          { "t": "啟動攝影機", "d": "卡片顯示<em>已可啟動</em>時，按下<em>啟動虛擬攝影機</em>。" },
+          { "t": "在 LIVE Studio 中加入攝影機", "d": "新增一個攝影機來源，選擇 <strong>Stream My Drone Camera</strong>。" },
+          { "t": "設定聲音", "d": "把該來源的音訊擷取設為<em>無</em>，並在 LIVE Studio 中選擇一個麥克風。這台攝影機只傳送影像，所以不會出現兩份聲音。" },
+          { "t": "開始直播", "d": "在 TikTok LIVE Studio 中按下開始直播。何時開播，永遠由你自己決定。" }
+        ] },
+        { "img": "virtual-camera.png", "alt": "Stream My Drone 的 TikTok LIVE Studio 分頁，有「啟動虛擬攝影機」按鈕。" },
+        { "note": "Windows 內建的虛擬攝影機已在 TikTok LIVE Studio 中測試過。請選擇「Stream My Drone Camera」作為影像來源。使用 OBS 場景的直播，也可以改用選用的 OBS 整合。" }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "TikTok 建議設定",
+      "blocks": [
+        { "table": {
+          "head": ["設定", "數值", "原因"],
+          "rows": [
+            ["方向", "直向 9:16，1080×1920", "TikTok 是用手機直向觀看的。"],
+            ["影格率", "30 fps", "流暢，又不太吃上傳頻寬。"],
+            ["位元率", "6 Mbps CBR", "固定位元率讓接收伺服器運作穩定。"],
+            ["影像編碼", "H.264 High，2 秒關鍵影格", "直播接收伺服器要求的格式。"],
+            ["構圖", "完整畫面", "沒有黑邊，邊緣也不會被裁掉。"]
+          ]
+        } },
+        { "p": "App 會自動套用這些數值，你只需要選擇方向和構圖。每個目的地請預留至少 10 Mbps 的穩定上傳頻寬。" }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "無法直播時怎麼辦",
+      "blocks": [
+        { "list": [
+          "<strong>預覽一直是空的：</strong>遙控器和電腦很可能在不同的網路上。讓兩者連上同一個 Wi-Fi 或熱點，並檢查 DJI Fly 中的位址。",
+          "<strong>RC 2 上的 DJI Fly 無法開始串流：</strong>某些 DJI Fly 版本需要先在遙控器上接上麥克風。",
+          "<strong>TikTok 卡片顯示連線失敗：</strong>重新複製伺服器網址和金鑰，金鑰可能已過期或被重設。",
+          "<strong>LIVE Studio 中找不到攝影機：</strong>先啟動虛擬攝影機，再重新啟動 LIVE Studio，讓它重新列出攝影機。",
+          "<strong>畫面是 720p：</strong>遙控器通常送出 720p。App 顯示的是實際輸入解析度，不會假裝它是原生 1080p。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "沒有串流金鑰，也能用 DJI 空拍機開 TikTok 直播嗎？", "a": "可以。使用 TikTok LIVE Studio，選擇 Stream My Drone Camera 作為攝影機來源。你是用自己的帳號登入 LIVE Studio，所以不需要伺服器網址或串流金鑰。" },
+    { "q": "為什麼我沒有 TikTok 串流金鑰？", "a": "TikTok 只把 RTMP 串流金鑰開放給部分帳號，規則依地區而不同，也會隨時間改變。沒有金鑰時，TikTok LIVE Studio 就是替代方案。" },
+    { "q": "可以同時直播到 TikTok 和 Instagram 嗎？", "a": "可以，只要兩邊都有串流金鑰。Stream My Drone 只編碼一次畫面，再送到每個啟用的目的地；其中一個目的地失敗，不會影響其他目的地。" },
+    { "q": "Stream My Drone 會登入我的 TikTok 帳號嗎？", "a": "不會。它從不登入任何平台，也從不替你按下開始直播；它只把影像送到你提供的位址，或提供一台攝影機給 LIVE Studio。" },
+    { "q": "Stream My Drone 是免費的嗎？", "a": "是的。它免費且以 MIT 授權開源，與 DJI 或 TikTok 沒有任何關係。" }
+  ]
+}

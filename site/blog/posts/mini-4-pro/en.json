@@ -8,7 +8,7 @@
   "published": "2026-10-03",
   "updated": "2026-10-21",
   "summary": [
-    "DJI Fly sends the local feed; Stream My Drone or Stream My Drone forwards it to your platform.",
+    "DJI Fly sends the local feed; Stream My Drone (phone or computer) forwards it to your platform.",
     "RC 2 works with a separate receiving phone; RC-N2 uses your phone for DJI Fly, with a computer receiving in this guide.",
     "The controller’s RTMP output can be lower resolution than its live view or the file recorded on the drone.",
     "The mobile app forwards the incoming video; desktop output can convert it to a vertical format.",

@@ -1,0 +1,97 @@
+{
+  "slug": "dji-live-bridge-vs-restream",
+  "platform": "Restream 비교",
+  "title": "드론 라이브 방송, Stream My Drone과 Restream 비교 (2026)",
+  "description": "DJI 드론을 여러 플랫폼에 방송할 때 Restream의 클라우드 중계와 내 컴퓨터의 Stream My Drone 중 무엇이 나을까요? 비용, 워터마크, Instagram, 세로 영상, 상황별 추천을 비교합니다.",
+  "h1": "Stream My Drone vs Restream: 내 드론에는 무엇이 맞을까?",
+  "lead": "둘 다 드론 스트림 하나를 여러 플랫폼에 올려 줍니다. <strong>Restream</strong>은 클라우드에서 처리합니다. DJI Fly가 Restream 서버로 송출하면 서버가 영상을 전달합니다. <strong>Stream My Drone</strong>은 사용자의 컴퓨터에서 처리합니다. DJI Fly가 로컬 네트워크로 앱에 송출하면 앱이 각 플랫폼으로 보냅니다. 어느 쪽이 나은지는 어디서 비행하고 무엇에 돈을 쓰느냐에 달려 있습니다.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Restream은 클라우드 서비스입니다. 현장에 컴퓨터가 필요 없고 업로드는 한 번이지만, 기본 기능 이상은 구독이 필요합니다.",
+    "Restream 무료 요금제(2026년 10월 기준): 채널 2개, 방송에 Restream 브랜딩, 사용자 지정 RTMP 대상 불가. Standard는 월 19달러입니다.",
+    "Stream My Drone은 무료 오픈 소스입니다. 워터마크도, 채널 수 제한도 없고, 영상은 사용자의 컴퓨터에 머뭅니다.",
+    "Stream My Drone은 드론 화면을 Instagram과 TikTok용 세로 1080×1920으로 바꾸고, TikTok LIVE Studio용 가상 카메라도 제공합니다.",
+    "둘을 함께 쓸 수도 있습니다. Stream My Drone에 Restream을 사용자 지정 RTMP 대상으로 추가하면 됩니다."
+  ],
+  "sections": [
+    {
+      "id": "how",
+      "h2": "서로 다른 두 가지 방식",
+      "blocks": [
+        { "list": [
+          "<strong>Restream(클라우드):</strong> DJI Fly → 인터넷 → Restream → 각 플랫폼. 조종기에 인터넷이 필요하고, 컴퓨터는 선택 사항입니다.",
+          "<strong>Stream My Drone(로컬):</strong> DJI Fly → 로컬 Wi-Fi → Mac 또는 PC → 각 플랫폼. 컴퓨터에 인터넷이 필요하고, 조종기는 로컬 네트워크만 있으면 됩니다."
+        ] },
+        { "p": "이 한 가지 차이로 비교의 대부분이 설명됩니다. 클라우드는 업로드 대역폭과 컴퓨터를 아껴 주고, 로컬 앱은 구독료를 아껴 주며 영상을 내 손에 둡니다." }
+      ]
+    },
+    {
+      "id": "compare",
+      "h2": "나란히 비교",
+      "blocks": [
+        { "table": {
+          "head": ["", "Stream My Drone", "Restream"],
+          "rows": [
+            ["가격", "무료, 오픈 소스", "무료 요금제, 유료는 월 19달러부터(Standard)"],
+            ["워터마크", "없음", "무료 요금제에 Restream 브랜딩"],
+            ["방송 대상", "업로드가 허락하는 만큼", "무료 2개, Standard 3개, 상위 요금제는 더 많음"],
+            ["사용자 지정 RTMP 대상", "가능", "무료 요금제에서는 불가"],
+            ["DJI Fly에서 Instagram으로", "가능, 앱이 RTMPS로 보냄", "요금제의 Instagram 연결 방식에 따라 다름"],
+            ["흐린 배경을 채운 세로 1080×1920", "내장", "드론용 기능 아님, 보낸 그대로 송출"],
+            ["가상 카메라(TikTok LIVE Studio, OBS, Zoom)", "내장", "없음"],
+            ["현장의 컴퓨터", "필요(또는 Android용 Stream My Drone)", "필요 없음"],
+            ["업로드 사용량", "방송 대상마다 한 번씩", "전체에 한 번"],
+            ["채팅과 분석", "없음", "있음"],
+            ["영상이 가는 곳", "사용자의 방송 대상으로만", "Restream 서버를 거침"]
+          ]
+        } },
+        { "note": "Restream 요금제는 2026년 10월 요금 페이지 기준이며 바뀔 수 있습니다. 결정하기 전에 최신 페이지를 확인하세요." }
+      ]
+    },
+    {
+      "id": "restream-wins",
+      "h2": "Restream이 더 나은 경우",
+      "blocks": [
+        { "list": [
+          "컴퓨터나 두 번째 휴대폰 없이 조종기에서 바로 방송하고 싶을 때.",
+          "업로드가 느린데 방송 대상이 많이 필요할 때: 클라우드는 업로드 한 번으로 모든 곳에 보냅니다.",
+          "플랫폼을 아우르는 통합 채팅, 분석, 팀 기능이 필요할 때."
+        ] }
+      ]
+    },
+    {
+      "id": "bridge-wins",
+      "h2": "Stream My Drone이 더 나은 경우",
+      "blocks": [
+        { "list": [
+          "월 요금이나 방송 화면의 워터마크를 원하지 않을 때.",
+          "Instagram이나 TikTok으로 방송하면서 가로 띠가 아닌 제대로 된 세로 화면을 원할 때.",
+          "TikTok LIVE Studio와 내장 가상 카메라로 스트림 키 없이 TikTok 라이브를 하고 싶을 때.",
+          "고객 현장이나 점검처럼 민감한 영상이라 제3자를 거치면 안 될 때.",
+          "옆에 둔 큰 화면에서 미리보기, 녹화, 진단을 보고 싶을 때."
+        ] },
+        { "p": "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS 또는 Windows</a>용으로 받으세요. 설정 방법은 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 가이드</a>에 있습니다." }
+      ]
+    },
+    {
+      "id": "both",
+      "h2": "둘을 함께 쓰기",
+      "howto": true,
+      "blocks": [
+        { "p": "이미 Restream 요금을 내고 있다면, 세로 화면과 미리보기는 Stream My Drone에서 쓰고 여러 곳으로 나누는 일은 Restream에 맡기세요." },
+        { "steps": [
+          { "t": "Restream의 RTMP 정보 복사", "d": "Restream에서 인코더용 RTMP 서버 URL과 스트림 키를 찾으세요." },
+          { "t": "사용자 지정 RTMP 대상 추가", "d": "Stream My Drone에서 그 URL과 키로 사용자 지정 방송 대상을 추가하세요." },
+          { "t": "방송 시작", "d": "DJI Fly에서 드론 화면을 앱으로 보내고 방송 시작을 누르세요. Restream이 내 채널들로 전달합니다." }
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Stream My Drone은 Restream의 무료 대안인가요?", "a": "드론 방송에 한해서는 그렇습니다. DJI Fly 스트림 하나를 비용 없이, 워터마크 없이 여러 플랫폼에 보냅니다. 클라우드가 아니라 컴퓨터에서 실행되므로, 모든 방송 대상의 업로드를 컴퓨터가 감당합니다." },
+    { "q": "Restream은 워터마크를 넣나요?", "a": "무료 요금제에서는 방송에 Restream 브랜딩을 넣습니다(2026년 10월 기준). 유료 요금제에서는 없어집니다." },
+    { "q": "Stream My Drone과 Restream을 함께 쓸 수 있나요?", "a": "네. Stream My Drone에 Restream을 사용자 지정 RTMP 대상으로 추가하세요." },
+    { "q": "컴퓨터 없이 되는 것은 어느 쪽인가요?", "a": "Restream입니다. DJI Fly가 인터넷으로 바로 송출할 수 있기 때문입니다. Stream My Drone에는 컴퓨터가 필요하며, DJI RC 2로 비행한다면 Android 앱 Stream My Drone을 쓸 수 있습니다." }
+  ]
+}

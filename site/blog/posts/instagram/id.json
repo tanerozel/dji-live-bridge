@@ -1,0 +1,81 @@
+{
+  "slug": "cara-live-instagram-dengan-drone-dji",
+  "platform": "Instagram",
+  "title": "Cara live Instagram dengan drone DJI (langkah demi langkah)",
+  "description": "Cara live Instagram dari drone DJI: ambil URL stream dan kunci di instagram.com, kirim aliran RTMP DJI Fly lewat Stream My Drone, lalu tekan Go live.",
+  "h1": "Cara siaran langsung di Instagram dengan drone DJI",
+  "lead": "Instagram Live menerima siaran dari software streaming. Buka <strong>instagram.com → Buat (+) → Video live</strong>, salin URL stream dan stream key ke Stream My Drone, kirim gambar drone dari DJI Fly ke aplikasi, tekan MULAI SIARAN, lalu terakhir tekan <strong>Go live</strong> di Instagram. Instagram memberi kunci baru untuk setiap siaran.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "URL stream dan kunci Instagram didapat dari instagram.com di komputer: Buat (+) → Video live.",
+    "Kuncinya sekali pakai: perbarui sebelum setiap siaran dengan “Perbarui kunci” di kartu tujuan.",
+    "Instagram mengharapkan video vertikal; aplikasi mengirim 1080×1920, 30 fps, H.264 dengan keyframe tiap 2 detik.",
+    "Siaran baru menjadi publik setelah Anda menekan Go live di Instagram sendiri.",
+    "Anda bisa mengirim gambar yang sama ke TikTok, YouTube, atau Facebook secara bersamaan."
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "Yang Anda butuhkan",
+      "blocks": [
+        { "list": [
+          "Drone DJI yang aplikasi DJI Fly-nya menyediakan RTMP di bawah Live Streaming Platforms.",
+          "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> di Mac atau PC Windows, di Wi-Fi atau hotspot yang sama dengan remote.",
+          "Akun Instagram yang menampilkan <em>Video live</em> di bawah Buat di instagram.com. Jika tidak ada, berarti Instagram belum memberikan opsi itu untuk akun tersebut."
+        ] }
+      ]
+    },
+    {
+      "id": "steps",
+      "h2": "Live di Instagram, langkah demi langkah",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Hubungkan drone", "d": "Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, masukkan alamat yang ditampilkan Stream My Drone, lalu mulai. Pratinjau muncul di aplikasi." },
+          { "t": "Buat video live di Instagram", "d": "Di instagram.com, klik Buat (+) → Video live, beri judul, pilih penonton, lalu lanjutkan." },
+          { "t": "Salin URL stream dan kuncinya", "d": "Instagram menampilkan <em>Stream URL</em> (seperti <code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code>) dan <em>Stream key</em>. Tempel keduanya ke tujuan Instagram di Stream My Drone." },
+          { "t": "Tekan MULAI SIARAN", "d": "Biarkan <em>Vertikal 9:16</em> aktif. Dalam beberapa detik, jendela Instagram menampilkan gambar drone sebagai pratinjau." },
+          { "t": "Tekan Go live di Instagram", "d": "Baru sekarang pengikut Anda melihat siarannya. Untuk selesai, akhiri siaran di Instagram dan tekan <em>Akhiri siaran</em> di aplikasi." }
+        ] },
+        { "note": "Lain kali, buka video live baru di Instagram dan gunakan <em>Perbarui kunci</em> di kartu tujuan: kunci yang lama sudah tidak berlaku." }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Pengaturan yang diharapkan Instagram",
+      "blocks": [
+        { "table": {
+          "head": ["Pengaturan", "Stream My Drone"],
+          "rows": [
+            ["Resolusi", "1080×1920 (vertikal 9:16)"],
+            ["Frame rate", "30 fps"],
+            ["Video", "H.264 High, 6 Mbps CBR"],
+            ["Keyframe", "Setiap 2 detik"],
+            ["Protokol", "RTMPS (terenkripsi)"]
+          ]
+        } },
+        { "p": "Drone merekam dalam format lanskap. <em>Gambar utuh</em> mempertahankan seluruh bingkai dan mengisi ruang di atas dan bawah dengan salinan yang diburamkan; <em>Penuhi layar</em> memotong sisi kiri dan kanan agar memenuhi layar ponsel." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Masalah yang sering terjadi",
+      "blocks": [
+        { "list": [
+          "<strong>Koneksi langsung gagal:</strong> kuncinya sudah pernah dipakai. Buka video live baru di Instagram dan perbarui kuncinya.",
+          "<strong>Pratinjau Instagram tetap hitam:</strong> tunggu beberapa detik setelah MULAI SIARAN; jika tetap hitam, pastikan pratinjau aplikasi menampilkan drone.",
+          "<strong>Pengikut tidak bisa melihat siaran:</strong> tekan Go live di Instagram — menerima siaran tidak sama dengan menayangkannya.",
+          "<strong>Tidak ada Video live di bawah Buat:</strong> akun belum memiliki opsi itu di web; ini ditentukan oleh Instagram."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Bisakah saya live di Instagram dari drone DJI?", "a": "Bisa. DJI Fly mengirim RTMP ke Stream My Drone di komputer Anda, lalu aplikasi meneruskannya ke Instagram dengan URL stream dan kunci dari instagram.com." },
+    { "q": "Kenapa Instagram meminta stream key baru setiap kali?", "a": "Instagram menerbitkan kunci baru untuk setiap video live. Perbarui di aplikasi dengan Perbarui kunci sebelum setiap siaran." },
+    { "q": "Bisakah saya siaran ke Instagram dan TikTok sekaligus?", "a": "Bisa. Aktifkan kedua tujuan; gambar dienkode sekali lalu dikirim ke masing-masing. Keduanya mengharapkan video vertikal, jadi satu pengaturan cocok untuk keduanya." },
+    { "q": "Apakah saya perlu OBS?", "a": "Tidak. Stream My Drone mengirim siaran langsung ke Instagram; OBS bersifat opsional." },
+    { "q": "Apakah suara drone ikut terkirim?", "a": "Secara default, audio yang dikirim DJI Fly ikut diteruskan. Anda juga bisa memilih mikrofon di komputer untuk komentar, atau membisukan siaran." }
+  ]
+}

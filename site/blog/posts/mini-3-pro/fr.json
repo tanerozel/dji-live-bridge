@@ -1,0 +1,217 @@
+{
+  "slug": "dji-mini-3-pro-diffusion-en-direct",
+  "platform": "DJI Mini 3 Pro",
+  "title": "DJI Mini 3 Pro en direct : réglage RC-N1 et limites de la DJI RC (2026)",
+  "description": "Diffusez un DJI Mini 3 Pro en direct avec la RC-N1, DJI Fly sur votre téléphone et Stream My Drone sur ordinateur. Pourquoi la DJI RC d'origine ne permet pas ce RTMP.",
+  "h1": "Comment diffuser un DJI Mini 3 Pro en direct",
+  "lead": "Votre <strong>DJI Mini 3 Pro</strong> peut envoyer l'image de sa caméra via DJI Fly, mais c'est la radiocommande qui détermine si cette option existe. Avec la <strong>RC-N1 et un téléphone</strong>, envoyez le RTMP vers <strong>Stream My Drone</strong> sur un Mac ou un PC Windows séparé, puis publiez sur votre plateforme. La <strong>DJI RC</strong> d'origine à écran <strong>ne prend pas en charge cette méthode de diffusion</strong>.",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "Utilisez la RC-N1 avec DJI Fly sur le téléphone qui y est branché ; recevez la vidéo sur un ordinateur séparé.",
+    "Le guide du Mini 3 Pro de DJI exclut explicitement le direct avec la DJI RC d'origine.",
+    "L'adresse locale de réception se saisit dans DJI Fly. L'URL du serveur et la clé de la plateforme se saisissent dans Stream My Drone.",
+    "La DJI RC, la DJI RC 2 et la DJI RC Pro sont des produits différents ; ne transposez pas les instructions de l'une à l'autre.",
+    "Vérifiez d'abord l'aperçu du récepteur, puis le direct réel sur votre plateforme."
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "Vérifier la radiocommande avant de configurer le RTMP",
+      "blocks": [
+        {
+          "p": "Le <a href=\"https://repair.dji.com/help/content?customId=en-us03400006840&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">guide de prise en main officiel du Mini 3 Pro</a> confirme le direct avec la RC-N1 et un appareil mobile, et indique qu'il n'est pas disponible avec la DJI RC. Commencez par lire le nom du modèle inscrit sur votre radiocommande."
+        },
+        {
+          "table": {
+            "head": [
+              "Radiocommande",
+              "Emplacement de DJI Fly",
+              "Méthode de ce guide"
+            ],
+            "rows": [
+              [
+                "DJI RC-N1",
+                "Téléphone branché en USB à la radiocommande",
+                "RTMP de DJI Fly → Stream My Drone sur un ordinateur séparé"
+              ],
+              [
+                "DJI RC (radiocommande à écran d'origine)",
+                "Écran intégré",
+                "Aucune méthode de direct DJI Fly prise en charge dans le guide du modèle de DJI"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "Les instructions pour la RC 2 des Mini 4 Pro et Mini 5 Pro ne s'appliquent pas à la DJI RC d'origine. Ajouter une application réceptrice ou rejoindre un Wi-Fi ne peut pas créer une sortie RTMP que la radiocommande ne fournit pas. La <a href=\"https://www.dji.com/rc/faq\">FAQ de la DJI RC</a> précise aussi qu'elle ne permet pas d'installer d'applications tierces."
+        }
+      ]
+    },
+    {
+      "id": "prepare",
+      "h2": "Préparer le téléphone de pilotage et un récepteur séparé",
+      "blocks": [
+        {
+          "p": "Réservez le téléphone de la RC-N1 à DJI Fly pendant le vol. Installez <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> sur votre Mac ou votre PC Windows. Cette configuration laisse le récepteur et les commandes de publication sur l'ordinateur, tandis que l'écran de vol reste visible."
+        },
+        {
+          "list": [
+            "Connectez le téléphone de pilotage et l'ordinateur au même réseau local avec accès à Internet. Un routeur commun est le point de départ le plus simple ; testez tout point d'accès de terrain avant de compter dessus.",
+            "Mettez à jour DJI Fly et le firmware de l'appareil et de la radiocommande avant le jour du direct, puis vérifiez le menu RTMP avec l'appareil connecté.",
+            "Préparez un événement en direct ou une destination dans votre compte de plateforme, et gardez sa clé de stream privée.",
+            "Testez pendant que l'appareil est au sol. Placez l'ordinateur de sorte que la gestion du direct ne vous distraie pas du pilotage."
+          ]
+        },
+        {
+          "note": "Ce guide ne suppose pas que DJI Fly et Stream My Drone puissent gérer ensemble le vol et le relais sur le même téléphone. La méthode RC 2 avec téléphone séparé des guides Mini plus récents ne remplace pas la RC-N1 sur le Mini 3 Pro."
+        }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Envoyer la vidéo du Mini 3 Pro de DJI Fly vers l'ordinateur",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Copiez l'adresse de réception de Stream My Drone",
+              "d": "Ouvrez l'application sur l'ordinateur et copiez l'adresse complète sous Connecter votre drone. Par exemple, <code>rtmp://192.168.1.20:1935/drone</code> illustre le format ; utilisez l'adresse réellement affichée pour votre réseau."
+            },
+            {
+              "t": "Ouvrez les réglages de direct de DJI Fly",
+              "d": "Sur le téléphone branché à la RC-N1, passez en vue caméra et ouvrez ••• → Transmission → Live Streaming Platforms ou Enable Livestreaming, puis choisissez RTMP. Les libellés des menus peuvent varier selon la version de DJI Fly. Le <a href=\"../dji-fly-rtmp-reglages-diffusion-en-direct/\">guide de configuration RTMP</a> explique les champs d'adresse."
+            },
+            {
+              "t": "Collez l'adresse locale complète et lancez le flux",
+              "d": "Utilisez l'adresse de l'application sur ordinateur, chemin compris. N'ajoutez pas votre clé YouTube ou celle d'une autre plateforme à cette adresse locale. Lancez la diffusion dans DJI Fly, acceptez si besoin la demande du pare-feu pour le réseau privé et attendez qu'une vidéo animée apparaisse dans Stream My Drone."
+            },
+            {
+              "t": "Configurez l'image sortante et la destination",
+              "d": "Choisissez le format paysage ou la sortie verticale de l'application pour ordinateur selon le direct. Ajoutez l'URL du serveur et la clé de stream actuelles de la plateforme dans les réglages de destination. Ces identifiants se saisissent ici, séparément de l'adresse locale de DJI Fly."
+            },
+            {
+              "t": "Vérifiez ce que voient les spectateurs",
+              "d": "Démarrez la sortie vers la destination, ouvrez le tableau de bord du direct de la plateforme et effectuez l'éventuelle étape Go Live restante. Vérifiez le mouvement, le cadrage et le son sur la page spectateur avant de considérer le direct comme publié."
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "L'application Stream My Drone sur ordinateur, avec l'adresse locale de réception du drone et les commandes des destinations."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Choisir une plateforme sur laquelle votre compte peut publier",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Destination",
+              "À vérifier avant le vol",
+              "Guide"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "Le direct est activé et votre diffusion est prête",
+                "<a href=\"../diffuser-un-drone-dji-en-direct-sur-youtube/\">Configuration YouTube</a>"
+              ],
+              [
+                "Instagram",
+                "Votre compte propose Live Producer et des identifiants RTMPS à jour",
+                "<a href=\"../faire-un-live-instagram-avec-un-drone-dji/\">Configuration Instagram</a>"
+              ],
+              [
+                "Facebook",
+                "Live Producer vous fournit une URL de serveur et une clé de stream",
+                "<a href=\"../faire-un-live-facebook-avec-un-drone-dji/\">Configuration Facebook</a>"
+              ],
+              [
+                "TikTok",
+                "Votre compte dispose d'une clé de stream ou de l'autorisation d'utiliser LIVE Studio",
+                "<a href=\"../faire-un-live-tiktok-avec-un-drone-dji/\">Configuration TikTok</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "L'éligibilité et les commandes de publication dépendent de la plateforme et de votre compte. Une application réceptrice ne donne pas accès au LIVE. Si vous utilisez une application de bureau autorisée qui accepte une webcam en entrée, la <a href=\"../utiliser-son-drone-dji-comme-webcam/\">caméra virtuelle</a> de Stream My Drone est une autre option de sortie ; elle a toujours besoin d'un flux entrant du drone."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Qualité d'enregistrement, qualité du direct et cadrage portrait",
+      "blocks": [
+        {
+          "p": "Les <a href=\"https://www.dji.com/support/product/mini-3-pro\">caractéristiques et l'assistance du Mini 3 Pro</a> indiquent un retour vidéo 1080p/30 i/s sur la radiocommande. Cela décrit l'image entre l'appareil et la radiocommande, pas une promesse que chaque réglage RTMP de DJI Fly ou chaque direct sur Internet aura cette résolution. Examinez l'entrée réellement reçue par Stream My Drone ; l'enregistrement haute résolution du drone est un fichier à part."
+        },
+        {
+          "list": [
+            "<strong>Vérifiez la sortie portrait de bout en bout.</strong> Faire pivoter la caméra pour un plan vertical ne suffit pas à fixer les dimensions finales de l'image sur la plateforme. Contrôlez l'entrée du récepteur et la mise en page de sortie sur ordinateur.",
+            "<strong>Commencez avec une seule destination.</strong> Ajoutez des sorties simultanées une fois que le premier direct reste stable ; chaque destination consomme du débit montant.",
+            "<strong>Prévoyez les données mobiles.</strong> Une sortie continue à 5 Mbit/s représente environ 2,25 Go par heure, hors surcharge. Deux sorties identiques représentent environ 4,5 Go par heure.",
+            "<strong>Testez le son séparément.</strong> Surveillez les vumètres audio de la destination et écoutez côté spectateur. Un aperçu vidéo animé ne prouve pas que le son fonctionne."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Dépannage des directs avec le Mini 3 Pro",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Il n'y a pas de menu de direct :</strong> identifiez d'abord la radiocommande. Sur la DJI RC d'origine, c'est une limite attendue, pas un réglage manquant dans Stream My Drone. Avec la RC-N1, vérifiez la version de DJI Fly et la connexion à l'appareil.",
+            "<strong>DJI Fly n'arrive pas à se connecter :</strong> recopiez l'adresse du récepteur après un changement de réseau. Évitez les Wi-Fi invités avec isolation des appareils, vérifiez le pare-feu du réseau privé et n'utilisez pas <code>localhost</code> pour désigner un autre appareil.",
+            "<strong>L'image arrive, mais les spectateurs ne voient rien :</strong> vérifiez l'URL et la clé de la destination, contrôlez que la plateforme reçoit la vidéo et terminez son étape de publication.",
+            "<strong>Le direct devient saccadé :</strong> testez une seule sortie, réduisez le débit proposé si c'est possible et vérifiez à la fois la liaison Wi-Fi locale et le débit montant Internet. Une bonne liaison avec l'appareil ne prouve pas à elle seule que le chemin Internet est sain.",
+            "<strong>L'image portrait paraît recadrée ou couchée :</strong> comparez l'aperçu entrant avec la sortie choisie sur ordinateur. Modifiez le cadrage au sol et revérifiez l'aperçu de la plateforme."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Sources officielles et guides associés",
+      "blocks": [
+        {
+          "p": "Vérifié le 25 octobre 2026 : <a href=\"https://repair.dji.com/help/content?customId=en-us03400006840&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">guide de prise en main du DJI Mini 3 Pro</a> pour la méthode de direct avec la RC-N1 et l'exclusion de la DJI RC ; <a href=\"https://www.dji.com/rc/faq\">FAQ de la DJI RC</a> pour les restrictions de la radiocommande ; <a href=\"https://www.dji.com/support/product/mini-3-pro\">assistance et caractéristiques du Mini 3 Pro</a> pour la qualité du retour vidéo. Les menus et les fonctions des comptes peuvent changer : vérifiez votre version installée avant un vol."
+        },
+        {
+          "p": "Comparez avec le <a href=\"../dji-mini-3-diffusion-en-direct/\">guide du Mini 3</a> ou le <a href=\"../dji-mini-4-pro-diffusion-en-direct/\">guide du Mini 4 Pro</a>. Une fois qu'une sortie fonctionne, suivez le <a href=\"../diffuser-un-drone-dji-sur-plusieurs-plateformes-a-la-fois/\">guide du multistreaming</a> pour ajouter des destinations."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Le DJI Mini 3 Pro peut-il diffuser en direct ?",
+      "a": "Oui, DJI documente le direct via la RC-N1 avec DJI Fly sur un téléphone branché. Ce guide reçoit ce flux RTMP sur un ordinateur séparé équipé de Stream My Drone."
+    },
+    {
+      "q": "Puis-je utiliser la DJI RC à écran pour cela ?",
+      "a": "Non. Le guide du Mini 3 Pro de DJI exclut le direct avec la DJI RC d'origine. Les instructions pour la DJI RC 2 des appareils plus récents ne s'y appliquent pas."
+    },
+    {
+      "q": "Puis-je utiliser un seul téléphone pour piloter et recevoir ?",
+      "a": "Ce guide garde DJI Fly sur le téléphone de la RC-N1 et place le récepteur sur un ordinateur séparé. Il ne suppose pas qu'un seul téléphone puisse faire tourner de façon fiable l'application de vol et celle de relais en même temps."
+    },
+    {
+      "q": "La résolution d'enregistrement du drone détermine-t-elle celle du direct ?",
+      "a": "Non. L'enregistrement de la caméra, le retour vidéo de la radiocommande et l'entrée RTMP sont des sorties différentes. Vérifiez l'entrée reçue par Stream My Drone et l'aperçu sortant de la plateforme."
+    },
+    {
+      "q": "Quelle adresse RTMP faut-il saisir dans DJI Fly ?",
+      "a": "L'adresse locale de réception complète affichée par Stream My Drone. L'URL du serveur et la clé de stream de la plateforme se saisissent dans les réglages de destination de l'application sur ordinateur."
+    },
+    {
+      "q": "Un aperçu entrant signifie-t-il que je suis en direct ?",
+      "a": "Il confirme que l'ordinateur reçoit la vidéo. Démarrez la sortie vers la plateforme et vérifiez sa propre page spectateur, y compris l'éventuelle action Go Live requise."
+    }
+  ]
+}

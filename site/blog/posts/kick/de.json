@@ -1,0 +1,65 @@
+{
+  "slug": "dji-drohne-auf-kick-streamen",
+  "platform": "Kick",
+  "title": "DJI-Drohne auf Kick streamen (Stream-URL und Schlüssel)",
+  "description": "Ihre DJI-Drohne live auf Kick streamen: Stream-URL und Schlüssel aus dem Kick-Dashboard kopieren, in Stream My Drone als eigenes RTMP-Ziel hinzufügen und live gehen.",
+  "h1": "So streamen Sie eine DJI-Drohne auf Kick",
+  "lead": "Öffnen Sie im Kick-Creator-Dashboard <strong>Settings → Stream URL &amp; Key</strong>, kopieren Sie beides in ein Ziel <strong>Eigenes RTMP</strong> in Stream My Drone, senden Sie das Drohnenbild aus DJI Fly an die App und drücken Sie LIVE STARTEN. Kick nutzt eine verschlüsselte RTMPS-Adresse, die die App unterstützt.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Kick wird als Ziel Eigenes RTMP mit Stream-URL und Stream-Schlüssel aus dem Kick-Dashboard hinzugefügt.",
+    "Die Stream-URL von Kick ist eine rtmps://-Adresse; kopieren Sie sie immer aus Ihrem eigenen Dashboard.",
+    "Kick verlangt eventuell, dass Sie die Zwei-Faktor-Authentifizierung einschalten, bevor der Schlüssel angezeigt wird.",
+    "Nutzen Sie Querformat 16:9 für einen Stream mit 1920×1080, 30 fps und 6 Mbit/s.",
+    "Dasselbe Bild kann gleichzeitig an Kick und andere Plattformen gehen."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Schritt für Schritt auf Kick streamen",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Drohne verbinden", "d": "Öffnen Sie in DJI Fly GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP und geben Sie die Adresse ein, die Stream My Drone anzeigt." },
+          { "t": "Stream-URL und Schlüssel kopieren", "d": "Öffnen Sie auf kick.com das Creator-Dashboard → Settings → Stream URL &amp; Key. Kopieren Sie die <em>Stream URL</em> (sie beginnt mit <code>rtmps://</code> und endet auf <code>/app</code>) und den <em>Stream Key</em>." },
+          { "t": "Ziel Eigenes RTMP hinzufügen", "d": "Wählen Sie in Stream My Drone Eigenes RTMP, nennen Sie es Kick und fügen Sie beide Werte ein." },
+          { "t": "Querformat 16:9 wählen", "d": "Wählen Sie unter <em>Bild und Ton</em> <em>Querformat 16:9</em>." },
+          { "t": "LIVE STARTEN drücken", "d": "Der Kanal geht live, sobald Kick den Stream empfängt. Titel und Kategorie legen Sie im Dashboard fest; zum Beenden drücken Sie in der App <em>Stream beenden</em>." }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Einstellungen für Kick",
+      "blocks": [
+        { "table": {
+          "head": ["Einstellung", "Wert"],
+          "rows": [
+            ["Stream-URL", "Aus dem Kick-Dashboard, <code>rtmps://…/app</code>"],
+            ["Auflösung", "1920×1080, Querformat"],
+            ["Bildrate", "30 fps"],
+            ["Video", "H.264, 6 Mbit/s CBR, Keyframe alle 2 Sekunden"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Häufige Probleme",
+      "blocks": [
+        { "list": [
+          "<strong>Der Schlüssel ist ausgeblendet:</strong> Schalten Sie in den Kontoeinstellungen von Kick die Zwei-Faktor-Authentifizierung ein und öffnen Sie die Seite erneut.",
+          "<strong>Verbindung fehlgeschlagen:</strong> Kopieren Sie die Stream-URL erneut, samt <code>rtmps://</code>, Port und <code>/app</code>.",
+          "<strong>Der Schlüssel wurde versehentlich geteilt:</strong> Setzen Sie ihn bei Kick zurück und aktualisieren Sie ihn in der App."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Kann ich eine DJI-Drohne auf Kick streamen?", "a": "Ja. Senden Sie den RTMP-Stream von DJI Fly an Stream My Drone und fügen Sie Kick als Ziel Eigenes RTMP mit Stream-URL und Schlüssel aus Ihrem Kick-Dashboard hinzu." },
+    { "q": "Unterstützt Kick RTMPS?", "a": "Ja, die Stream-URL von Kick ist eine rtmps://-Adresse, und Stream My Drone akzeptiert rtmps://-Ziele." },
+    { "q": "Kann ich gleichzeitig auf Kick und Twitch streamen?", "a": "Stream My Drone kann an beide gleichzeitig senden. Prüfen Sie vorher die aktuellen Regeln jeder Plattform zum Simulcasting." },
+    { "q": "Steht Stream My Drone in Verbindung mit Kick?", "a": "Nein. Es ist eine unabhängige, kostenlose und quelloffene App." }
+  ]
+}

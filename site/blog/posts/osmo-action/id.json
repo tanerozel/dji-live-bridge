@@ -1,0 +1,80 @@
+{
+  "slug": "live-streaming-osmo-action",
+  "platform": "Osmo Action",
+  "title": "Live streaming Osmo Action 5 Pro, 6, dan 4 ke Instagram dan TikTok",
+  "description": "Live streaming DJI Osmo Action 6, 5 Pro, 4, atau 3 lewat RTMP dari DJI Mimo ke Instagram, TikTok, YouTube, dan Twitch sekaligus dengan Stream My Drone. Cara dan pengaturan.",
+  "h1": "Cara live streaming kamera Osmo Action ke Instagram dan TikTok",
+  "lead": "Kamera Osmo Action bisa melakukan streaming lewat <strong>RTMP dari DJI Mimo</strong> hingga 1080p — dari helm, setang, mobil, atau tripod. DJI Mimo sendiri hanya menjangkau Facebook, YouTube, atau alamat RTMP; kirim aliran RTMP itu ke <strong>Stream My Drone</strong> di komputer, dan gambar yang sama dikirim ke <strong>Instagram, TikTok, YouTube, Twitch, atau Kick</strong> sekaligus.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Osmo Action 6, 5 Pro, 4, dan 3 menyiarkan RTMP dari DJI Mimo (1.2.20 atau lebih baru) dalam 480p, 720p, atau 1080p, hingga 6 Mbps.",
+    "Kamera tersambung sendiri ke jaringan Wi-Fi; sambungkan ke jaringan yang sama dengan komputer, atau ke hotspot yang dipakai bersama.",
+    "Stream My Drone mengirim siaran ke beberapa platform sekaligus, termasuk Instagram lewat RTMPS.",
+    "Format vertikal 1080×1920 dengan latar buram menjaga seluruh adegan aksi tetap terlihat di layar ponsel.",
+    "Kamera virtual juga menjadikan Osmo Action kamera nirkabel untuk OBS, Zoom, atau TikTok LIVE Studio."
+  ],
+  "sections": [
+    {
+      "id": "setup",
+      "h2": "Mengatur live streaming Osmo Action",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Buka Stream My Drone", "d": "Pasang <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> di Mac atau PC Windows dan catat alamat yang ditampilkannya, misalnya <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Sambungkan kamera di DJI Mimo", "d": "Perbarui DJI Mimo dan firmware kamera, sambungkan Osmo Action, lalu buka opsi livestream." },
+          { "t": "Pilih RTMP dan Wi-Fi", "d": "Pilih RTMP dan Wi-Fi yang akan dipakai kamera — jaringan komputer, atau hotspot ponsel yang juga dipakai komputer." },
+          { "t": "Masukkan alamat dan mulai", "d": "Ketik alamat dari Stream My Drone, pilih 1080p dan bitrate tertinggi yang sanggup ditahan jaringan, lalu mulai. Pratinjau muncul di aplikasi." },
+          { "t": "Tambahkan platform dan mulai siaran", "d": "Tambahkan Instagram, TikTok, YouTube, Twitch, atau server RTMP mana pun, lalu tekan MULAI SIARAN." }
+        ] },
+        { "img": "go-live.png", "alt": "Tab Siaran di Stream My Drone dengan alamat RTMP, daftar tujuan, dan tombol MULAI SIARAN." },
+        { "note": "Kamera DJI lain yang mendukung livestream RTMP tercantum di <a href=\"../live-dji-osmo-instagram-tiktok/\">panduan kamera Osmo</a>." }
+      ]
+    },
+    {
+      "id": "ideas",
+      "h2": "Saat live streaming kamera aksi paling bersinar",
+      "blocks": [
+        { "list": [
+          "<strong>Olahraga dan perjalanan.</strong> Bersepeda, naik motor, bermain ski, atau berlari — satu sudut pandang, live di beberapa platform.",
+          "<strong>Di balik layar.</strong> Pasang kamera di lokasi syuting atau dinding bengkel dan siarkan sambil bekerja.",
+          "<strong>Sudut kedua.</strong> Gunakan kamera virtual untuk menambahkan Osmo Action sebagai sumber nirkabel di OBS di samping kamera utama Anda — lihat <a href=\"../jadikan-drone-dji-sebagai-webcam/\">panduan webcam</a>.",
+          "<strong>Siaran tahan cuaca.</strong> Kamera sanggup menghadapi hujan dan debu; komputer tetap kering di mobil atau tenda."
+        ] }
+      ]
+    },
+    {
+      "id": "range",
+      "h2": "Jangkauan dan jaringan",
+      "blocks": [
+        { "p": "Kamera mengirim siarannya lewat Wi-Fi ke komputer, jadi kamera harus tetap dalam jangkauan jaringan itu. Untuk pengambilan gambar sambil bergerak, hotspot ponsel yang dibawa dekat kamera — dengan komputer di hotspot yang sama — menjaga tautannya tetap pendek. Unggahan ke platform kemudian memakai data seluler hotspot, sekitar 6 Mbps per tujuan." },
+        { "table": {
+          "head": ["Pengaturan", "Cocok untuk"],
+          "rows": [
+            ["Wi-Fi rumah atau tempat acara", "Sudut tetap, bengkel, acara"],
+            ["Hotspot ponsel di dekat kamera dan komputer", "Syuting di luar ruangan dan pengambilan gambar bergerak jarak pendek"],
+            ["Travel router di mobil atau van", "Perjalanan di mana komputer ikut bersama Anda"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Jika tidak berhasil",
+      "blocks": [
+        { "list": [
+          "<strong>Kamera tidak bisa terhubung:</strong> kamera tidak berada di jaringan komputer, atau jaringan tamu mengisolasi perangkat.",
+          "<strong>Siaran putus saat bergerak:</strong> kamera keluar dari jangkauan Wi-Fi; dekatkan hotspot atau turunkan bitrate.",
+          "<strong>Tidak ada opsi livestream:</strong> perbarui DJI Mimo ke 1.2.20 atau lebih baru, serta firmware kamera.",
+          "<strong>Instagram menolak siaran:</strong> buat video live baru di instagram.com dan perbarui kuncinya; setiap kunci hanya berlaku sekali."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Bisakah Osmo Action 5 Pro live streaming ke Instagram?", "a": "Tidak dengan DJI Mimo saja. Siarkan ke Stream My Drone lewat RTMP, lalu aplikasi meneruskan gambarnya ke Instagram lewat RTMPS." },
+    { "q": "Kamera Osmo Action mana yang mendukung livestream RTMP?", "a": "Menurut DJI: Osmo Action 6, 5 Pro, 4, dan 3, DJI Action 2, serta Osmo Action generasi pertama (maksimal 720p)." },
+    { "q": "Bisakah saya siaran Osmo Action ke Twitch dan YouTube sekaligus?", "a": "Bisa. Tambahkan kedua tujuan di Stream My Drone lalu tekan MULAI SIARAN." },
+    { "q": "Seberapa jauh kamera boleh dari komputer?", "a": "Sejauh jangkauan Wi-Fi. Kamera menyiarkan ke komputer lewat jaringan itu, jadi tetap berada dalam jangkauannya atau bawalah hotspot." }
+  ]
+}

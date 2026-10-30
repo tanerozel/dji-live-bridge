@@ -1,0 +1,84 @@
+{
+  "slug": "dji-osmo-live-stream-instagram-tiktok",
+  "platform": "DJI Osmo 相机",
+  "title": "DJI Osmo Action 和 Pocket 直播到 Instagram 与 TikTok",
+  "description": "DJI Mimo 可以让 Osmo Action、Osmo Pocket 和 Osmo 360 相机通过 RTMP 推流。把推流发到 Stream My Drone，即可同时直播到 Instagram、TikTok 和 YouTube。",
+  "h1": "把 DJI Osmo 相机直播到 Instagram、TikTok 等平台",
+  "lead": "Stream My Drone 不只适用于无人机。DJI 的运动相机和云台相机可以<strong>通过 DJI Mimo 应用以 RTMP 推流</strong>——正是本应用接收的那种推流。把 Osmo Action、Osmo Pocket 或 Osmo 360 指向 Stream My Drone，画面就能以竖屏或横屏发往 <strong>Instagram、TikTok、YouTube、Facebook、Twitch 或 Kick</strong>，还可以同时发往多个平台——也可以作为无线网络摄像头接入 Zoom 和 OBS。",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "DJI Mimo（1.2.20 或更新版本）为 Osmo Action、Osmo Pocket 和 Osmo 360 系列提供 RTMP 直播。",
+    "相机自己连接 Wi-Fi 并推送 RTMP；让它和运行 Stream My Drone 的电脑连在同一网络。",
+    "DJI Mimo 自带的平台是 Facebook、YouTube 和 RTMP——Instagram 和 TikTok 需要通过 Stream My Drone 实现。",
+    "DJI 给出的分辨率为 480p、720p 和 1080p，码率最高 6 Mbps；Wi-Fi 允许时请选 1080p 6 Mbps。",
+    "同一路推流还可以变成 TikTok LIVE Studio、OBS、Zoom 或 Meet 的无线网络摄像头。"
+  ],
+  "sections": [
+    {
+      "id": "devices",
+      "h2": "哪些 DJI 相机可以直播",
+      "blocks": [
+        { "p": "根据 DJI 的说明，以下相机支持在 DJI Mimo 中直播，RTMP 是可选平台之一：" },
+        { "table": {
+          "head": ["相机", "分辨率（DJI 官方）", "说明"],
+          "rows": [
+            ["Osmo Pocket 3、Osmo Pocket 4、Osmo Pocket 4P", "480p、720p、1080p，30 fps", "1080p 时最高 6 Mbps"],
+            ["Osmo Action 6、Osmo Action 5 Pro、Osmo Action 4、Osmo Action 3", "480p、720p、1080p", "1080p 时最高 6 Mbps"],
+            ["Osmo 360 系列", "480p、720p、1080p", "仅限单镜头模式"],
+            ["DJI Pocket 2、DJI Action 2", "480p、720p、1080p", "Action 2 还提供自适应码率"],
+            ["Osmo Action（第一代）", "480p、720p", "不支持 1080p 直播"]
+          ]
+        } },
+        { "note": "以下设备不支持在 DJI Mimo 中直播：Osmo Mobile 和 DJI OM 手机云台、初代 Osmo Pocket 以及 Osmo Nano。使用手机云台时，手机本身就是摄像头。" }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "通过 Stream My Drone 直播 Osmo 相机",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "打开 Stream My Drone", "d": "在 Mac 或 Windows 电脑上安装 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>。<em>连接无人机</em>这一步适用于任何 RTMP 相机，会显示类似 <code>rtmp://192.168.1.20:1935/drone</code> 的地址。" },
+          { "t": "在 DJI Mimo 中连接相机", "d": "把 DJI Mimo 更新到 1.2.20 或更新版本，连接相机，打开它的直播选项。" },
+          { "t": "选择 RTMP 和网络", "d": "选择 RTMP 作为平台，并选择相机要使用的 Wi-Fi——与电脑相同的网络，或两者都已连接的手机热点。" },
+          { "t": "填写地址和画质", "d": "输入 Stream My Drone 中的地址，选择 1080p 和你的 Wi-Fi 能承受的最高码率，然后开始。几秒钟内应用中就会出现预览。" },
+          { "t": "添加平台并开始直播", "d": "添加 Instagram、TikTok、YouTube 或任意 RTMP 服务器，选择竖屏或横屏，然后按“开始直播”。" }
+        ] },
+        { "img": "go-live.png", "alt": "Stream My Drone 的“开始直播”标签页，显示 RTMP 地址、推流目标和“开始直播”按钮。" }
+      ]
+    },
+    {
+      "id": "uses",
+      "h2": "它能为 Osmo 相机带来什么",
+      "blocks": [
+        { "list": [
+          "<strong>Instagram 和 TikTok。</strong>DJI Mimo 可以推流到 Facebook、YouTube 或 RTMP 地址；Stream My Drone 则通过 RTMPS 连接 Instagram，并通过推流密钥或 TikTok LIVE Studio 连接 TikTok。",
+          "<strong>同时直播到多个平台。</strong>一台相机，同一场直播同时出现在 Instagram、TikTok 和 YouTube 上。",
+          "<strong>适合手机的竖屏。</strong>横屏画面变成 1080×1920，用模糊背景填充，而不是黑边。",
+          "<strong>无线网络摄像头。</strong>内置的虚拟摄像头可以在 TikTok LIVE Studio、OBS、Zoom 或 Meet 中显示 Osmo 的画面——不用连线到电脑。见<a href=\"../use-your-dji-drone-as-a-webcam/\">网络摄像头指南</a>。",
+          "<strong>预览和录制。</strong>在电脑上查看真实输入，并在直播的同时录制。"
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "无法直播时怎么办",
+      "blocks": [
+        { "list": [
+          "<strong>相机无法连接：</strong>它必须和电脑在同一网络。访客网络通常会隔离设备；请使用普通 Wi-Fi 或热点。",
+          "<strong>DJI Mimo 中没有直播选项：</strong>更新 DJI Mimo 和相机固件；直播需要 DJI Mimo 1.2.20 或更新版本。",
+          "<strong>画面卡顿：</strong>在 DJI Mimo 中降低码率，或让相机更靠近路由器。",
+          "<strong>Osmo 360 无法推流：</strong>先把它切换到单镜头模式。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "能把 Osmo Action 或 Osmo Pocket 直播到 Instagram 吗？", "a": "单靠 DJI Mimo 不行，它只提供 Facebook、YouTube 和 RTMP。通过 RTMP 推流到 Stream My Drone，它会通过 RTMPS 把画面转发到 Instagram。" },
+    { "q": "Stream My Drone 也支持相机，而不只是无人机吗？", "a": "是的。它接收标准的 RTMP 推流，无论发送方是 DJI Fly 还是 DJI Mimo。" },
+    { "q": "哪些 DJI 相机支持 RTMP 直播？", "a": "根据 DJI 的说明：Osmo Pocket 3、4 和 4P，Osmo Action 3、4、5 Pro 和 6，单镜头模式下的 Osmo 360 系列，DJI Pocket 2、DJI Action 2，以及第一代 Osmo Action。" },
+    { "q": "能把 Osmo 相机当作无线网络摄像头用吗？", "a": "能。启动 Stream My Drone 的虚拟摄像头，然后在 TikTok LIVE Studio、OBS、Zoom 或 Meet 中选择 Stream My Drone Camera。" },
+    { "q": "免费吗？", "a": "免费。Stream My Drone 免费且开源，与 DJI 没有任何关联。" }
+  ]
+}

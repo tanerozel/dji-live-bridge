@@ -1,0 +1,86 @@
+{
+  "slug": "dji-fly-rtmp-live-streaming-setup",
+  "platform": "DJI Fly RTMP",
+  "title": "DJI Fly RTMP 直播設定：一步步完整教學",
+  "description": "如何在 DJI Fly 設定 RTMP 直播：設定在哪裡、要輸入哪個位址、遙控器和電腦怎麼連網，以及出問題時怎麼解決。",
+  "h1": "DJI Fly RTMP 直播：完整設定教學",
+  "lead": "DJI Fly 可以把空拍機的即時畫面送到任何 RTMP 位址：<strong>GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP</strong>。把它指向同一個網路上執行 Stream My Drone 的電腦，畫面就能從那裡送往 TikTok、Instagram、YouTube、Facebook、Twitch、Kick，或同時送往好幾個平台。",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "在 DJI Fly 中，RTMP 選項位於 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP。",
+    "DJI Fly 需要類似 rtmp://192.168.1.20:1935/drone 的位址；Stream My Drone 會顯示你電腦的正確位址，並附上 QR 碼。",
+    "遙控器和電腦必須連上同一個 Wi-Fi 或同一支手機的熱點。",
+    "遙控器通常送出 720p H.264 影像與 AAC 音訊；App 會把它轉成乾淨的 1080p 直向或橫向串流。",
+    "訪客 Wi-Fi 常會阻擋裝置互相連線，請改用一般網路或手機熱點。"
+  ],
+  "sections": [
+    {
+      "id": "how-it-works",
+      "h2": "DJI Fly RTMP 直播的運作方式",
+      "blocks": [
+        { "p": "RTMP 是直播平台用來接收影像的通訊協定。DJI Fly 內建 RTMP 用戶端：它會把遙控器從空拍機收到的畫面推送到你輸入的位址。平台對這個串流很挑剔，包括畫面方向、關鍵影格和位元率；而且很多平台每場直播都會給不同的位址，所以把平台位址直接輸入 DJI Fly 通常效果不好。" },
+        { "p": "Stream My Drone 就介於兩者之間。它在你的 Mac 或 PC 上執行一個小型 RTMP 伺服器，在那裡接收 DJI Fly 的串流、顯示預覽，再重新編碼成每個平台需要的格式。一切都留在你的電腦上，影像不會經過別人的伺服器。" }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "在 DJI Fly 中設定 RTMP",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "讓兩台裝置在同一個網路", "d": "把 DJI 遙控器和電腦連上同一個 Wi-Fi，或開啟手機熱點讓兩者都連上。" },
+          { "t": "開啟 Stream My Drone", "d": "<em>連接無人機</em>步驟會顯示類似 <code>rtmp://192.168.1.20:1935/drone</code> 的位址和一個 QR 碼。這組數字就是你的電腦在該網路上的位址。" },
+          { "t": "在 DJI Fly 中開啟 RTMP 畫面", "d": "點選 GO FLY，接著點 •••（三個點），再進入 Transmission → Live Streaming Platforms → RTMP。" },
+          { "t": "輸入位址", "d": "完全照畫面顯示輸入位址；如果你的 DJI Fly 版本支援，也可以掃描 QR 碼。" },
+          { "t": "開始串流", "d": "在 DJI Fly 中開始串流。幾秒內，Stream My Drone 的第一個步驟會變成綠色並出現預覽。" }
+        ] },
+        { "img": "go-live.png", "alt": "Stream My Drone 的「開始直播」分頁：DJI Fly 用的 RTMP 位址、直播目的地和「開始直播」按鈕。" }
+      ]
+    },
+    {
+      "id": "networks",
+      "h2": "該用哪種網路",
+      "blocks": [
+        { "table": {
+          "head": ["設定方式", "可以用嗎？", "說明"],
+          "rows": [
+            ["家裡或辦公室的 Wi-Fi", "可以", "最適合練習。上傳到平台使用的是你家的網路線路。"],
+            ["手機熱點", "可以", "最適合戶外。遙控器和電腦都連上熱點；上傳使用行動數據。"],
+            ["訪客 Wi-Fi", "通常不行", "訪客網路通常會隔離裝置，DJI Fly 因此連不到電腦。"],
+            ["遙控器用行動數據，電腦在別的網路", "不行", "從電腦所在網路以外的地方，無法連到電腦的本機位址。"]
+          ]
+        } },
+        { "p": "從遙控器到電腦的連線承載整個串流，所以請讓電腦靠近路由器或熱點。上傳到平台時，每個目的地大約需要 10 Mbps 的穩定頻寬。" }
+      ]
+    },
+    {
+      "id": "drones",
+      "h2": "哪些空拍機支援 RTMP",
+      "blocks": [
+        { "p": "這取決於空拍機、遙控器和 DJI Fly 版本，與 Stream My Drone 無關。只要 DJI Fly 在 <em>Live Streaming Platforms</em> 底下顯示 <em>RTMP</em>，就能使用：App 接收的是一般的 RTMP 串流，從不直接和空拍機溝通。DJI 會在不同版本間加入或移除這個選項，請以你自己的遙控器為準。" },
+        { "note": "在 DJI RC 2 上，某些 DJI Fly 版本必須先在遙控器上接上麥克風，才會開始串流。" }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "疑難排解",
+      "blocks": [
+        { "list": [
+          "<strong>DJI Fly 顯示無法連線：</strong>確認兩台裝置在同一個網路，而且位址和 App 中顯示的一致，包括 <code>:1935/drone</code>。",
+          "<strong>昨天可以，今天不行：</strong>電腦可能取得了新的網路位址。請重新從 App 複製位址。",
+          "<strong>防火牆跳出詢問：</strong>允許 Stream My Drone 在私人網路上接受連入連線。",
+          "<strong>畫面卡頓：</strong>讓電腦更靠近 Wi-Fi，或改用 5 GHz 網路。在不同頻段之間切換的 Wi-Fi 會造成短暫斷線。",
+          "<strong>預覽顯示 720p：</strong>這就是遙控器送出的解析度。App 顯示的是實際輸入，不會假裝它是原生 1080p。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI Fly 的 RTMP 設定在哪裡？", "a": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP。如果那裡沒有 RTMP，代表你的空拍機、遙控器或 DJI Fly 版本不提供這個功能。" },
+    { "q": "DJI Fly 裡要輸入哪個 RTMP 位址？", "a": "輸入 Stream My Drone 顯示的位址，格式為 rtmp://<電腦位址>:1935/drone。電腦換到其他網路時，位址就會改變。" },
+    { "q": "DJI Fly 可以直接直播到 YouTube 或 Facebook 嗎？", "a": "DJI Fly 可以把 RTMP 推送到任何位址，但平台要求特定設定，有些平台每場直播都需要新的金鑰。先送到 Stream My Drone，你就能看到預覽、使用正確的格式、同時送往多個目的地，並自動處理各平台的特殊要求。" },
+    { "q": "需要網路連線嗎？", "a": "從 DJI Fly 到電腦的連線是本機連線。只有從電腦送往平台的串流需要用到網際網路。" },
+    { "q": "影片會被送到第三方伺服器嗎？", "a": "不會。Stream My Drone 完全在你的電腦上執行，只會把串流送到你加入的目的地。" }
+  ]
+}

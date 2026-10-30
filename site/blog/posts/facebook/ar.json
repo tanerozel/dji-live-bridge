@@ -1,0 +1,75 @@
+{
+  "slug": "how-to-go-live-on-facebook-with-a-dji-drone",
+  "platform": "Facebook",
+  "title": "كيف تبدأ بثًا مباشرًا على Facebook بدرون DJI (Live Producer)",
+  "description": "بث مباشر بالدرون على Facebook: احصل على عنوان خادم RTMPS ومفتاح البث من Live Producer، وأرسل بث DJI Fly عبر Stream My Drone، ثم ابدأ البث المباشر على صفحتك.",
+  "h1": "كيف تبدأ بثًا مباشرًا على Facebook بدرون DJI",
+  "lead": "على facebook.com افتح <strong>Live video ← Streaming software</strong> (أداة Live Producer من Facebook)، وانسخ عنوان الخادم ومفتاح البث إلى وجهة Facebook في Stream My Drone، وأرسل صورة الدرون من DJI Fly إلى التطبيق، واضغط «ابدأ البث»، ثم اضغط <strong>Go live</strong> في Live Producer. لا يقبل Facebook إلا RTMPS المشفّر، والتطبيق يتولى ذلك.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "يأتي عنوان الخادم والمفتاح من Live Producer: ‏Live video ← Streaming software.",
+    "عنوان الخادم: rtmps://live-api-s.facebook.com:443/rtmp/ — يتطلب Facebook بروتوكول RTMPS.",
+    "يُصدر Facebook مفتاحًا جديدًا لكل جلسة، ما لم تفعّل مفتاح بث دائمًا.",
+    "يحتاج Facebook إلى إطار مفتاحي كل ثانيتين؛ و Stream My Drone يرسل ذلك دائمًا.",
+    "يمكنك النشر على ملفك الشخصي أو صفحة أو مجموعة، والبث إلى منصات أخرى في الوقت نفسه."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "البث المباشر على Facebook خطوة بخطوة",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "وصّل الدرون", "d": "في DJI Fly افتح GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP واكتب العنوان الذي يعرضه Stream My Drone. تظهر المعاينة في التطبيق." },
+          { "t": "افتح Live Producer", "d": "على facebook.com اختر Live video، وحدد مكان النشر (ملفك الشخصي أو صفحة أو مجموعة)، واختر <em>Streaming software</em>." },
+          { "t": "انسخ عنوان الخادم والمفتاح", "d": "انسخ <em>Server URL</em> ‏(<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>) و<em>Stream key</em> إلى وجهة Facebook في Stream My Drone." },
+          { "t": "اضغط «ابدأ البث»", "d": "اختر الاتجاه أولًا: <em>أفقي 16:9</em> يناسب المشاهدين على الحواسيب، و<em>عمودي 9:16</em> يناسب الخلاصة على الهاتف. يعرض Live Producer المعاينة بعد ثوانٍ قليلة." },
+          { "t": "اضغط Go live على Facebook", "d": "أضف عنوانًا ووصفًا في Live Producer واضغط Go live. وللإنهاء، أنهِ الفيديو هناك واضغط <em>إنهاء البث</em> في التطبيق." }
+        ] }
+      ]
+    },
+    {
+      "id": "persistent-key",
+      "h2": "استخدم مفتاح بث دائمًا",
+      "blocks": [
+        { "p": "افتراضيًا ينشئ Facebook مفتاح بث جديدًا لكل جلسة، فتضطر إلى تحديثه في التطبيق كل مرة. وفي Live Producer خيار <em>use a persistent stream key</em> (استخدام مفتاح بث دائم). فعّله، واحفظ المفتاح مرة واحدة في Stream My Drone، فيستمر في العمل للبث القادم إلى المكان نفسه." },
+        { "note": "تعامل مع المفتاح الدائم ككلمة مرور: فأي شخص يملكه يستطيع البث إلى صفحتك. يحفظه Stream My Drone في خزنة بيانات الاعتماد في النظام، ولا يكتبه أبدًا في ملف أو سجل." }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "إعدادات Facebook",
+      "blocks": [
+        { "table": {
+          "head": ["الإعداد", "القيمة"],
+          "rows": [
+            ["عنوان الخادم", "<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>"],
+            ["البروتوكول", "‏RTMPS (يتطلبه Facebook)"],
+            ["الدقة", "‏1920×1080 أو 1080×1920"],
+            ["معدل الإطارات", "30 إطارًا/ثانية"],
+            ["الفيديو", "‏H.264، ‏6 ميغابت/ثانية CBR، وإطار مفتاحي كل ثانيتين"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "مشكلات شائعة",
+      "blocks": [
+        { "list": [
+          "<strong>فشل الاتصال:</strong> انتهت صلاحية مفتاح الجلسة. انسخ مفتاحًا جديدًا من Live Producer، أو انتقل إلى مفتاح دائم.",
+          "<strong>العنوان يبدأ بـ rtmp://:</strong> لا يقبل Facebook بروتوكول RTMP غير المشفّر؛ استخدم عنوان rtmps:// من Live Producer.",
+          "<strong>‏Live Producer يستقبل البث لكن لا أحد يراه:</strong> ما زال عليك أن تضغط Go live في Live Producer."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "هل يمكنني البث المباشر على Facebook من درون DJI؟", "a": "نعم. يرسل DJI Fly بث RTMP إلى Stream My Drone على حاسوبك، ويعيد التطبيق إرساله إلى Facebook عبر RTMPS بالمفتاح من Live Producer." },
+    { "q": "هل يمكنني البث إلى صفحة أو مجموعة على Facebook؟", "a": "نعم. اختر مكان النشر في Live Producer قبل نسخ المفتاح؛ فالمفتاح مرتبط بتلك الوجهة." },
+    { "q": "لماذا يتوقف مفتاح البث في Facebook عن العمل؟", "a": "يُصدر Facebook مفتاحًا لكل جلسة. فعّل مفتاح البث الدائم في Live Producer إذا كنت تبث بانتظام إلى المكان نفسه." },
+    { "q": "هل يمكنني البث إلى Facebook و Instagram في الوقت نفسه؟", "a": "نعم، كوجهتين في Stream My Drone. وكلاهما يستقبل الصورة نفسها، فاختر الاتجاه الذي يناسب جمهورك الرئيسي." },
+    { "q": "هل هو مجاني؟", "a": "نعم. Stream My Drone مجاني ومفتوح المصدر، وهو غير تابع لـ DJI ولا لـ Meta." }
+  ]
+}

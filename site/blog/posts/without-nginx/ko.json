@@ -1,0 +1,80 @@
+{
+  "slug": "dji-drone-to-obs-without-nginx",
+  "platform": "NGINX 없이",
+  "title": "NGINX·OBS 설정 없이 DJI 드론 라이브 방송하기 (2026)",
+  "description": "DJI Fly 영상을 OBS로 가져오는 일반적인 방법은 NGINX RTMP 서버, 설정 파일, 미디어 소스입니다. 그 과정에 무엇이 필요한지, 그리고 앱 하나로 건너뛰는 방법을 알려 드립니다.",
+  "h1": "NGINX와 OBS 설정 없이 DJI 드론 방송하기",
+  "lead": "DJI 드론 영상을 OBS로 가져오는 방법을 검색하면 대부분의 가이드가 똑같이 시작합니다. <strong>NGINX RTMP 서버</strong>를 설치하고, 설정을 고치고, 방화벽을 열고, DJI Fly를 그 서버로 향하게 한 뒤, 스트림을 <strong>OBS</strong>에 미디어 소스로 불러옵니다. 작동은 하지만 작은 서버 프로젝트입니다. <strong>Stream My Drone</strong>은 RTMP 서버, 미리보기, 인코딩, 플랫폼 출력을 앱 하나에 담았고, 원할 때는 여전히 OBS로 화면을 넘겨 줄 수 있습니다.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "전통적인 방법은 DJI Fly → RTMP 모듈을 넣은 NGINX → OBS 미디어 소스 → 플랫폼 하나입니다.",
+    "서버를 설치하고, nginx.conf를 고치고, 1935 포트를 허용하고, 장면을 직접 만들어야 합니다.",
+    "여러 플랫폼에 동시에 보내려면 OBS 플러그인이나 클라우드 서비스가, 세로 캔버스에는 추가 설정이 필요합니다.",
+    "Stream My Drone은 DJI Fly 스트림을 직접 받아 세로나 가로로 여러 플랫폼에 방송하며, 따로 설치할 것이 없습니다.",
+    "그래도 OBS를 쓰고 싶다면 <em>OBS 장면 준비</em>가 드론 스트림이 들어간 DJI LIVE 장면을 만들어 줍니다."
+  ],
+  "sections": [
+    {
+      "id": "diy",
+      "h2": "일반적인 NGINX + OBS 방법",
+      "blocks": [
+        { "steps": [
+          { "t": "RTMP 서버 설치", "d": "RTMP 모듈을 넣은 NGINX(Windows에서는 미리 빌드된 패키지를 쓰는 경우가 많음)나 다른 RTMP 서버를 설치합니다." },
+          { "t": "설정 수정", "d": "nginx.conf에 <code>live</code> 같은 애플리케이션을 담은 <code>rtmp</code> 블록을 추가하고 서버를 시작합니다." },
+          { "t": "방화벽 열기", "d": "1935 포트의 수신 연결을 허용하고 컴퓨터의 로컬 주소를 찾습니다." },
+          { "t": "DJI Fly를 서버로 향하게 하기", "d": "Live Streaming Platforms → RTMP에 <code>rtmp://192.168.1.20/live/drone</code> 같은 주소를 입력합니다." },
+          { "t": "OBS로 불러오기", "d": "같은 주소로 미디어 소스를 추가하고 캔버스에 맞게 크기를 조정한 뒤, 플랫폼에 맞게 OBS의 스트림 URL과 키를 설정합니다." }
+        ] },
+        { "p": "그 뒤로는 모든 변경이 수작업입니다. 네트워크가 바뀌면 주소가 바뀌고, 두 번째 플랫폼에는 플러그인이나 중계 서비스가, 세로 방송에는 두 번째 캔버스나 별도 프로필이 필요합니다." }
+      ]
+    },
+    {
+      "id": "compare",
+      "h2": "Stream My Drone이 대신하는 것",
+      "blocks": [
+        { "table": {
+          "head": ["작업", "NGINX + OBS", "Stream My Drone"],
+          "rows": [
+            ["DJI Fly용 RTMP 서버", "NGINX 설치와 설정", "내장, 주소를 QR 코드와 함께 표시"],
+            ["드론 미리보기", "OBS 미디어 소스", "내장, 해상도와 비트레이트 표시"],
+            ["여러 플랫폼에 동시에", "플러그인이나 클라우드 서비스", "내장"],
+            ["Instagram(RTMPS)", "OBS는 한 곳으로 RTMPS 송출 가능", "내장, 다른 대상과 함께"],
+            ["세로 1080×1920", "세로 캔버스 직접 구성", "스위치 하나, 흐린 배경 채움"],
+            ["스트림 키 없이 TikTok", "OBS Virtual Camera + LIVE Studio", "내장 가상 카메라"],
+            ["스트림 키 보관", "OBS 설정 안에", "시스템 자격 증명 저장소에"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "앱 하나로 끝내는 설정",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Stream My Drone 설치", "d": "<a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS 또는 Windows</a>용으로 내려받으세요. FFmpeg와 미디어 서버가 들어 있습니다." },
+          { "t": "DJI Fly에 주소 복사", "d": "앱에 <code>rtmp://192.168.1.20:1935/drone</code> 같은 주소가 표시됩니다. DJI Fly의 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP에 입력하세요." },
+          { "t": "플랫폼 추가", "d": "Instagram, TikTok, YouTube, Facebook, Twitch, Kick 또는 아무 RTMP 서버나 각각의 URL과 키로 추가하세요." },
+          { "t": "방송 시작 누르기", "d": "영상은 한 번 인코딩되어 활성화된 모든 방송 대상으로 보내집니다." }
+        ] },
+        { "img": "go-live.png", "alt": "DJI Fly용 RTMP 주소, 방송 대상, 방송 시작 버튼이 보이는 Stream My Drone의 '방송' 탭." }
+      ]
+    },
+    {
+      "id": "obs",
+      "h2": "그래도 OBS를 쓰고 싶다면",
+      "blocks": [
+        { "p": "장면, 오버레이, 전환 효과에서는 OBS를 따라올 것이 없습니다. Stream My Drone은 그 부분이 아니라 NGINX 부분을 대신합니다. OBS WebSocket을 켜고(도구 → WebSocket 서버 설정) 앱의 '고급' 탭에서 연결한 뒤 <em>OBS 장면 준비</em>를 누르세요. 앱이 드론 스트림이 이미 들어 있고 가로 또는 세로 캔버스에 맞춘 <strong>DJI LIVE</strong>라는 장면을 만듭니다." },
+        { "img": "advanced.png", "alt": "선택 사항인 OBS 연동과 OBS 장면 준비 버튼이 보이는 Stream My Drone의 '고급' 탭." },
+        { "note": "OBS Virtual Camera로 Zoom, Meet, Teams 통화를 하려면 <a href=\"../use-your-dji-drone-as-a-webcam/\">웹캠 가이드</a>를 참고하세요." }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI 드론을 OBS로 방송하려면 NGINX가 필요한가요?", "a": "아니요. Stream My Drone에는 자체 RTMP 서버가 들어 있고, 'OBS 장면 준비'로 NGINX 없이 드론 스트림을 OBS에 넣어 줍니다." },
+    { "q": "DJI 드론을 방송하려면 OBS가 필요한가요?", "a": "아니요. Stream My Drone이 Instagram, TikTok, YouTube 등 플랫폼으로 직접 방송합니다. OBS는 장면과 오버레이가 필요할 때 쓰는 선택 사항입니다." },
+    { "q": "NGINX 방법이 더 나쁜가요?", "a": "작동하고 유연하지만, 서버, 설정 파일, OBS 장면을 직접 관리해야 하며 멀티스트리밍이나 세로 영상에는 추가 단계가 필요합니다." },
+    { "q": "Stream My Drone은 얼마인가요?", "a": "무료입니다. MIT 라이선스의 무료 오픈 소스입니다." }
+  ]
+}

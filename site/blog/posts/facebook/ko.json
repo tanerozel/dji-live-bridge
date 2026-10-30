@@ -1,0 +1,75 @@
+{
+  "slug": "how-to-go-live-on-facebook-with-a-dji-drone",
+  "platform": "Facebook",
+  "title": "DJI 드론으로 Facebook 라이브 방송하는 방법 (Live Producer)",
+  "description": "DJI 드론을 Facebook으로 생중계하기: Live Producer에서 RTMPS 서버 URL과 스트림 키를 받고, DJI Fly의 스트림을 Stream My Drone으로 보내 방송을 시작하세요.",
+  "h1": "DJI 드론으로 Facebook 라이브 방송하는 방법",
+  "lead": "facebook.com에서 <strong>라이브 방송 → 스트리밍 소프트웨어</strong>(Facebook의 Live Producer)를 열고, 서버 URL과 스트림 키를 Stream My Drone의 Facebook 방송 대상에 복사하세요. DJI Fly에서 드론 화면을 앱으로 보내고 방송 시작을 누른 뒤, Live Producer에서 <strong>방송 시작(Go live)</strong>을 누르면 됩니다. Facebook은 암호화된 RTMPS만 받으며, 앱이 이를 처리합니다.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "서버 URL과 키는 Live Producer에서 받습니다: 라이브 방송 → 스트리밍 소프트웨어.",
+    "서버 URL은 rtmps://live-api-s.facebook.com:443/rtmp/이며, Facebook은 RTMPS를 요구합니다.",
+    "영구 스트림 키를 켜지 않으면 Facebook은 세션마다 새 키를 발급합니다.",
+    "Facebook은 2초마다 키프레임이 필요하며, Stream My Drone은 항상 그렇게 보냅니다.",
+    "프로필, 페이지, 그룹에 게시할 수 있고, 다른 플랫폼에도 동시에 방송할 수 있습니다."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Facebook 라이브 방송, 단계별로",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "드론 연결", "d": "DJI Fly에서 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP를 열고 Stream My Drone에 표시된 주소를 입력하세요. 앱에 미리보기가 나타납니다." },
+          { "t": "Live Producer 열기", "d": "facebook.com에서 라이브 방송을 고르고, 게시할 곳(프로필, 페이지, 그룹)을 정한 뒤 <em>스트리밍 소프트웨어</em>를 선택하세요." },
+          { "t": "서버 URL과 키 복사", "d": "<em>서버 URL</em>(<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>)과 <em>스트림 키</em>를 Stream My Drone의 Facebook 방송 대상에 복사하세요." },
+          { "t": "방송 시작 누르기", "d": "먼저 방향을 고르세요. <em>가로 16:9</em>는 컴퓨터 시청자에게, <em>세로 9:16</em>은 휴대폰 피드에 맞습니다. 몇 초 뒤 Live Producer에 미리보기가 나타납니다." },
+          { "t": "Facebook에서 방송 시작(Go live) 누르기", "d": "Live Producer에서 제목과 설명을 추가하고 방송 시작(Go live)을 누르세요. 끝낼 때는 그곳에서 방송을 종료하고 앱에서 <em>방송 종료</em>를 누르세요." }
+        ] }
+      ]
+    },
+    {
+      "id": "persistent-key",
+      "h2": "영구 스트림 키 사용하기",
+      "blocks": [
+        { "p": "Facebook은 기본적으로 세션마다 새 스트림 키를 만들기 때문에, 매번 앱에서 키를 업데이트해야 합니다. Live Producer에는 <em>영구 스트림 키 사용</em> 옵션이 있습니다. 이를 켜고 Stream My Drone에 키를 한 번 저장하면, 같은 곳으로 하는 이후 방송에서도 계속 쓸 수 있습니다." },
+        { "note": "영구 키는 비밀번호처럼 다루세요. 키를 가진 사람은 누구나 내 페이지로 방송할 수 있습니다. Stream My Drone은 키를 시스템 자격 증명 저장소에 보관하며 파일이나 로그에 절대 기록하지 않습니다." }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Facebook 설정",
+      "blocks": [
+        { "table": {
+          "head": ["설정", "값"],
+          "rows": [
+            ["서버 URL", "<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>"],
+            ["프로토콜", "RTMPS(Facebook 필수)"],
+            ["해상도", "1920×1080 또는 1080×1920"],
+            ["프레임 레이트", "30 fps"],
+            ["영상", "H.264, 6 Mbps CBR, 2초마다 키프레임"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "자주 생기는 문제",
+      "blocks": [
+        { "list": [
+          "<strong>연결 실패:</strong> 세션 키가 만료되었습니다. Live Producer에서 새 키를 복사하거나 영구 키로 바꾸세요.",
+          "<strong>주소가 rtmp://로 시작함:</strong> Facebook은 암호화되지 않은 RTMP를 받지 않습니다. Live Producer의 rtmps:// 주소를 쓰세요.",
+          "<strong>Live Producer는 스트림을 받는데 아무도 못 봄:</strong> Live Producer에서 방송 시작(Go live)을 아직 누르지 않았습니다."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI 드론으로 Facebook 라이브를 할 수 있나요?", "a": "네. DJI Fly가 컴퓨터의 Stream My Drone으로 RTMP를 보내면, 앱이 Live Producer의 키로 RTMPS를 통해 Facebook에 전달합니다." },
+    { "q": "Facebook 페이지나 그룹으로 방송할 수 있나요?", "a": "네. 키를 복사하기 전에 Live Producer에서 게시할 곳을 고르세요. 키는 그 게시 대상에 속합니다." },
+    { "q": "Facebook 스트림 키가 왜 작동을 멈추나요?", "a": "Facebook은 세션마다 키를 발급합니다. 같은 곳으로 자주 방송한다면 Live Producer에서 영구 스트림 키를 켜세요." },
+    { "q": "Facebook과 Instagram에 동시에 방송할 수 있나요?", "a": "네, Stream My Drone에서 방송 대상 두 개로 추가하면 됩니다. 둘 다 같은 화면을 받으므로 주요 시청자에게 맞는 방향을 고르세요." },
+    { "q": "무료인가요?", "a": "네. Stream My Drone은 무료 오픈 소스이며, DJI나 Meta와 관련이 없습니다." }
+  ]
+}

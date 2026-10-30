@@ -1,0 +1,80 @@
+{
+  "slug": "stream-a-dji-drone-to-multiple-platforms-at-once",
+  "platform": "멀티 스트리밍",
+  "title": "DJI 드론 영상을 여러 플랫폼에 동시 송출하는 방법 (멀티스트리밍)",
+  "description": "Stream My Drone으로 DJI 드론 라이브 방송 하나를 TikTok, Instagram, YouTube, Facebook, Twitch, Kick에 동시에 보내세요. 무료이며 로컬에서 처리하고 재송출 서비스가 필요 없습니다.",
+  "h1": "DJI 드론 영상을 여러 플랫폼에 동시에 방송하기",
+  "lead": "DJI Fly는 RTMP 스트림 하나를 보냅니다. Stream My Drone이 이를 컴퓨터에서 받아 <strong>영상을 한 번만 인코딩하고 켜 둔 모든 방송 대상으로 전달</strong>합니다. TikTok, Instagram, YouTube, Facebook, Twitch, Kick, 아무 RTMP 서버든 유료 재송출 서비스 없이 가능합니다. 한 대상이 실패해도 나머지는 계속 방송됩니다.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "플랫폼마다 방송 대상을 하나씩 추가하고, 원하는 대상마다 “여기로 방송”을 켜세요.",
+    "영상은 한 번만 인코딩하므로, 대상이 늘어도 처리 성능이 더 필요하지 않습니다. 업로드 대역폭만 더 필요합니다.",
+    "방송 대상 하나당 약 10 Mbps의 안정적인 업로드를 계획하세요(영상 6 Mbps에 여유분 포함).",
+    "모든 방송 대상은 하나의 방향을 공유합니다. TikTok/Instagram은 세로, YouTube/Twitch/Kick은 가로가 좋습니다.",
+    "모든 처리가 로컬에서 이루어집니다. 제3자 재송출 서버도, 월 사용료도 없습니다."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "멀티스트리밍 설정하기",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "드론 연결", "d": "DJI Fly에서 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP를 열고 Stream My Drone에 표시된 주소를 입력하세요." },
+          { "t": "플랫폼마다 추가", "d": "<em>어디로 방송할까요?</em>에서 플랫폼마다 <em>다른 대상 추가</em>를 쓰세요. TikTok, Instagram, YouTube, Facebook은 전용 유형이 있고, Twitch, Kick 등은 사용자 지정 RTMP입니다." },
+          { "t": "일회용 키 새로 고치기", "d": "Instagram(그리고 영구 키를 쓰지 않는 Facebook)은 방송마다 새 키가 필요합니다. 해당 카드에서 <em>키 업데이트</em>를 쓰세요." },
+          { "t": "주요 시청자에 맞는 방향 고르기", "d": "인코딩 하나가 모든 방송 대상에 쓰이므로, 가장 중요한 플랫폼에 맞춰 <em>세로 9:16</em> 또는 <em>가로 16:9</em>를 고르세요." },
+          { "t": "방송 시작 누르기", "d": "방송 대상 카드마다 <em>방송 중</em>, <em>연결 중</em>, <em>연결 실패</em> 같은 자체 상태가 표시되며, 하나가 실패해도 나머지는 멈추지 않습니다. 필요한 플랫폼(Instagram, Facebook)에서는 방송 시작(Go live)을 누르세요." }
+        ] }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "플랫폼별 요약표",
+      "blocks": [
+        { "table": {
+          "head": ["플랫폼", "키 위치", "키가 바뀌나요?", "추천 방향"],
+          "rows": [
+            ["<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok</a>", "LIVE Center / LIVE Studio(자격 있는 계정)", "바뀔 수 있음", "세로"],
+            ["<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram</a>", "instagram.com → 만들기 → 라이브 방송", "방송마다", "세로"],
+            ["<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube</a>", "YouTube 스튜디오 → 라이브 스트리밍 시작 → 스트리밍 소프트웨어", "재설정할 때만", "가로 또는 세로"],
+            ["<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Facebook</a>", "라이브 방송 → 스트리밍 소프트웨어", "영구 키가 아니면 세션마다", "둘 다 가능"],
+            ["<a href=\"../how-to-stream-a-dji-drone-on-twitch/\">Twitch</a>", "크리에이터 대시보드 → 설정 → 방송", "재설정할 때만", "가로"],
+            ["<a href=\"../how-to-stream-a-dji-drone-on-kick/\">Kick</a>", "Dashboard → Settings → Stream URL &amp; Key", "재설정할 때만", "가로"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "bandwidth",
+      "h2": "필요한 업로드 속도",
+      "blocks": [
+        { "table": {
+          "head": ["방송 대상 수", "보내는 영상", "확보할 안정적인 업로드"],
+          "rows": [
+            ["1", "6 Mbps", "10 Mbps"],
+            ["2", "12 Mbps", "20 Mbps"],
+            ["3", "18 Mbps", "30 Mbps"],
+            ["4", "24 Mbps", "40 Mbps"]
+          ]
+        } },
+        { "p": "야외에서 휴대폰 핫스팟을 쓴다면 현실적으로 방송 대상 두 개가 한계인 경우가 많습니다. 이륙하기 전에 <em>동영상 파일로 시험</em>으로 연결을 테스트하세요." }
+      ]
+    },
+    {
+      "id": "rules",
+      "h2": "플랫폼 규정을 확인하세요",
+      "blocks": [
+        { "p": "일부 플랫폼은 파트너 계약이나 이용 약관에서 동시 송출을 제한합니다. 특히 Twitch는 규정을 여러 차례 바꿨습니다. Stream My Drone은 지시한 영상만 보낼 뿐, 계정에 로그인하거나 대신 방송 시작(Go live)을 누르지 않습니다." }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI 드론으로 TikTok과 YouTube에 동시에 방송할 수 있나요?", "a": "네. 둘 다 방송 대상으로 추가하고 방송 시작을 누르세요. 둘이 하나의 방향을 공유하므로 주요 시청자에게 맞는 방향을 고르세요." },
+    { "q": "재송출 서비스가 필요한가요?", "a": "아니요. Stream My Drone이 사용자의 컴퓨터에서 무료로 멀티스트리밍을 합니다. 충분한 업로드 대역폭만 있으면 됩니다." },
+    { "q": "한 플랫폼이 끊기면 어떻게 되나요?", "a": "그 방송 대상에만 '연결 실패'가 표시됩니다. 나머지는 계속 방송됩니다." },
+    { "q": "플랫폼이 늘어날 때마다 CPU가 더 필요한가요?", "a": "거의 아닙니다. 영상은 한 번만 인코딩되고 같은 데이터가 모든 방송 대상으로 보내집니다." },
+    { "q": "OBS 모드에서도 멀티스트리밍이 되나요?", "a": "아니요. 여러 방송 대상은 직접 송출의 기능입니다. OBS 모드에서는 OBS가 스트림이 갈 곳을 정합니다." }
+  ]
+}

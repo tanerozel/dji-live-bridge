@@ -1,0 +1,65 @@
+{
+  "slug": "how-to-stream-a-dji-drone-on-kick",
+  "platform": "Kick",
+  "title": "如何把 DJI 无人机直播到 Kick（推流地址和密钥）",
+  "description": "把 DJI 无人机画面直播到 Kick：从 Kick 后台复制推流地址和密钥，在 Stream My Drone 中添加为自定义 RTMP 推流目标，然后开播。",
+  "h1": "如何把 DJI 无人机直播到 Kick",
+  "lead": "在 Kick 创作者后台打开 <strong>Settings → Stream URL &amp; Key</strong>，把两项都复制到 Stream My Drone 的一个<strong>自定义 RTMP</strong> 推流目标中，从 DJI Fly 把无人机画面发送到应用，然后按“开始直播”。Kick 使用加密的 RTMPS 地址，应用支持这种地址。",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Kick 以自定义 RTMP 推流目标的方式添加，使用 Kick 后台提供的 Stream URL 和 Stream key。",
+    "Kick 的推流地址是 rtmps:// 地址；请始终从你自己的后台复制。",
+    "Kick 可能要求你先开启双重验证，才会显示密钥。",
+    "使用横屏 16:9，输出 1920×1080、30 fps、6 Mbps 的推流。",
+    "同一画面可以同时发往 Kick 和其他平台。"
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "分步直播到 Kick",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "连接无人机", "d": "在 DJI Fly 中打开 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，填入 Stream My Drone 显示的地址。" },
+          { "t": "复制推流地址和密钥", "d": "在 kick.com 上打开创作者后台 → Settings → Stream URL &amp; Key。复制 <em>Stream URL</em>（以 <code>rtmps://</code> 开头、以 <code>/app</code> 结尾）和 <em>Stream key</em>。" },
+          { "t": "添加自定义 RTMP 推流目标", "d": "在 Stream My Drone 中选择自定义 RTMP，命名为 Kick，然后粘贴这两项。" },
+          { "t": "选择横屏 16:9", "d": "在<em>画面与声音</em>下选择<em>横屏 16:9</em>。" },
+          { "t": "按下“开始直播”", "d": "Kick 收到推流后频道就会开播。在后台设置标题和分类；结束时在应用中按<em>结束直播</em>。" }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Kick 设置",
+      "blocks": [
+        { "table": {
+          "head": ["设置", "数值"],
+          "rows": [
+            ["推流地址", "来自 Kick 后台，<code>rtmps://…/app</code>"],
+            ["分辨率", "1920×1080，横屏"],
+            ["帧率", "30 fps"],
+            ["视频", "H.264，6 Mbps CBR，每 2 秒一个关键帧"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "常见问题",
+      "blocks": [
+        { "list": [
+          "<strong>密钥被隐藏：</strong>在 Kick 账号设置中开启双重验证，然后重新打开页面。",
+          "<strong>连接失败：</strong>重新复制推流地址，包括 <code>rtmps://</code>、端口和 <code>/app</code>。",
+          "<strong>不小心泄露了密钥：</strong>在 Kick 上重置它，并在应用中更新。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "能把 DJI 无人机直播到 Kick 吗？", "a": "能。把 DJI Fly 的 RTMP 推流发送到 Stream My Drone，并用 Kick 后台的推流地址和密钥把 Kick 添加为自定义 RTMP 推流目标。" },
+    { "q": "Kick 支持 RTMPS 吗？", "a": "支持。Kick 的推流地址是 rtmps:// 地址，而 Stream My Drone 接受 rtmps:// 推流目标。" },
+    { "q": "能同时直播到 Kick 和 Twitch 吗？", "a": "Stream My Drone 可以同时推流到两者。请先查看各平台当前关于同步直播的规则。" },
+    { "q": "Stream My Drone 和 Kick 有关联吗？", "a": "没有。它是一款独立、免费的开源应用。" }
+  ]
+}

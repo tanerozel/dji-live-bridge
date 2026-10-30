@@ -1,0 +1,75 @@
+{
+  "slug": "diffuser-un-drone-dji-en-direct-sur-youtube",
+  "platform": "YouTube",
+  "title": "Diffuser un drone DJI en direct sur YouTube (guide RTMP)",
+  "description": "Diffusez un drone DJI en direct sur YouTube : activez le direct, copiez la clé de flux dans YouTube Studio et envoyez le RTMP de DJI Fly via Stream My Drone. Réglages et conseils.",
+  "h1": "Comment diffuser un drone DJI en direct sur YouTube",
+  "lead": "Dans YouTube Studio, choisissez <strong>Créer → Passer en direct → Logiciel de diffusion</strong> et copiez l'URL du flux et la clé de flux. Ajoutez-les comme destination YouTube dans Stream My Drone, envoyez l'image du drone depuis DJI Fly vers l'application en RTMP, et appuyez sur DÉMARRER LE DIRECT. La clé YouTube reste la même tant que vous ne la réinitialisez pas : vous ne la configurez qu'une fois.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "La première fois, le direct doit être activé sur la chaîne ; selon YouTube, cela peut prendre jusqu'à 24 heures.",
+    "URL du flux : rtmps://a.rtmps.youtube.com:443/live2 ; la clé vient de YouTube Studio.",
+    "Choisissez Horizontal 16:9 pour une diffusion YouTube classique ; le vertical fonctionne aussi.",
+    "L'application envoie du 1080p à 30 images/s, 6 Mbit/s, en H.264 avec des images clés toutes les 2 secondes, conformément aux recommandations de YouTube.",
+    "La même diffusion peut aussi partir en même temps vers Facebook, Twitch ou n'importe quel serveur RTMP."
+  ],
+  "sections": [
+    {
+      "id": "enable",
+      "h2": "Avant votre premier direct : activer la diffusion en direct",
+      "blocks": [
+        { "p": "Ouvrez YouTube Studio et choisissez <em>Créer → Passer en direct</em>. Si la chaîne n'a jamais diffusé, YouTube vous demande de la valider avec un numéro de téléphone et active le direct ; la première activation peut prendre jusqu'à 24 heures. Ensuite, le passage en direct est immédiat." }
+      ]
+    },
+    {
+      "id": "steps",
+      "h2": "Diffuser sur YouTube, pas à pas",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Connectez le drone", "d": "Dans DJI Fly, ouvrez GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP et saisissez l'adresse affichée par Stream My Drone." },
+          { "t": "Copiez la clé dans YouTube Studio", "d": "Créer → Passer en direct → Logiciel de diffusion. Copiez l'<em>URL du flux</em> (<code>rtmps://a.rtmps.youtube.com:443/live2</code>) et la <em>clé de flux</em>." },
+          { "t": "Ajoutez une destination YouTube", "d": "Dans Stream My Drone, choisissez YouTube et collez les deux valeurs. La clé est enregistrée dans le coffre d'identifiants du système." },
+          { "t": "Choisissez l'orientation", "d": "Prenez <em>Horizontal 16:9</em> pour une diffusion normale (1920×1080), ou <em>Vertical 9:16</em> si vous voulez un flux au format téléphone." },
+          { "t": "Appuyez sur DÉMARRER LE DIRECT", "d": "Après quelques secondes, YouTube Studio indique que le flux est reçu. Selon vos réglages, il devient public automatiquement ou après avoir appuyé sur Passer en direct dans Studio." }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Réglages YouTube",
+      "blocks": [
+        { "table": {
+          "head": ["Réglage", "Valeur"],
+          "rows": [
+            ["URL du flux", "<code>rtmps://a.rtmps.youtube.com:443/live2</code>"],
+            ["Résolution", "1920×1080 horizontal ou 1080×1920 vertical"],
+            ["Fréquence d'images", "30 images/s"],
+            ["Débit", "6 Mbit/s CBR"],
+            ["Images clés", "Toutes les 2 secondes"]
+          ]
+        } },
+        { "p": "Dans YouTube Studio, vous pouvez choisir la latence. <em>Normale</em> donne l'image la plus stable ; <em>Faible</em> ou <em>Très faible</em> aident quand vous répondez au chat en vol." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Problèmes fréquents",
+      "blocks": [
+        { "list": [
+          "<strong>Pas d'option Passer en direct :</strong> le direct n'est pas encore activé, ou la chaîne fait l'objet d'une restriction de diffusion en direct.",
+          "<strong>Studio indique « Aucune donnée » :</strong> vérifiez d'abord l'aperçu de l'application ; si le drone y est visible, copiez à nouveau la clé.",
+          "<strong>Le direct met en mémoire tampon chez les spectateurs :</strong> le débit montant est trop faible. Chaque destination demande environ 10 Mbit/s de débit montant stable."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Un drone DJI peut-il diffuser directement sur YouTube ?", "a": "DJI Fly peut pousser du RTMP directement vers l'adresse de YouTube, mais vous n'avez alors ni aperçu, ni contrôle du format, et une seule destination. Envoyer d'abord le flux à Stream My Drone vous donne les trois, avec la même clé de flux YouTube." },
+    { "q": "Faut-il 50 abonnés pour diffuser sur YouTube ?", "a": "Cette limite concerne le passage en direct depuis l'application mobile YouTube. Un logiciel de diffusion, ce qu'est Stream My Drone, a besoin d'une chaîne où le direct est activé." },
+    { "q": "La clé de flux YouTube change-t-elle ?", "a": "Non. Elle reste la même tant que vous ne la réinitialisez pas dans YouTube Studio ; vous ne la configurez donc qu'une fois." },
+    { "q": "Puis-je diffuser une vidéo verticale sur YouTube ?", "a": "Oui. Choisissez Vertical 9:16 dans l'application ; pour une diffusion classique, choisissez Horizontal 16:9." },
+    { "q": "Le flux utilise-t-il le RTMPS ?", "a": "Oui. L'URL du flux de YouTube commence par rtmps://, le flux est donc chiffré jusqu'à YouTube." }
+  ]
+}

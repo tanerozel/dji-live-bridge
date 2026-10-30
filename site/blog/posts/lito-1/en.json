@@ -11,7 +11,7 @@
     "DJI lists Lito 1 in its livestream compatibility guide; check the controller and current DJI Fly version together.",
     "RC 2 keeps DJI Fly on its built-in screen, leaving a separate phone free to receive the stream.",
     "RC-N3 and RC-N2 use a phone for DJI Fly. Use the separate computer receiver described below so DJI Fly stays open.",
-    "The local receiver address belongs in DJI Fly. Configure platform accounts or stream keys in Stream My Drone or Stream My Drone.",
+    "The local receiver address belongs in DJI Fly. Configure platform accounts or stream keys in Stream My Drone (phone or computer).",
     "Check the receiver preview first and the platform viewer page second; recording settings do not determine the RTMP output."
   ],
   "sections": [
@@ -216,7 +216,7 @@
     },
     {
       "q": "Which address goes into DJI Fly?",
-      "a": "The full local receiving address displayed by Stream My Drone or Stream My Drone. Put the platform's server URL and stream key into the receiving app's destination settings."
+      "a": "The full local receiving address displayed by Stream My Drone (phone or computer). Put the platform's server URL and stream key into the receiving app's destination settings."
     },
     {
       "q": "Does Stream My Drone turn the video into a vertical broadcast?",

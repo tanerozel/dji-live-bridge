@@ -10,7 +10,7 @@
   "summary": [
     "DJI RC 2 keeps DJI Fly on its built-in screen; a separate phone can receive and forward the feed.",
     "RC-N3 and RC-N2 use a phone for DJI Fly. The desktop workflow keeps the receiver separate from that flight phone.",
-    "The local receiving address belongs in DJI Fly; platform credentials belong in Stream My Drone or Stream My Drone.",
+    "The local receiving address belongs in DJI Fly; platform credentials belong in Stream My Drone (phone or computer).",
     "Camera recording, the controller’s live view and the outgoing RTMP broadcast have separate quality settings.",
     "Test both the selected camera view and the platform’s viewer page before your flight."
   ],
@@ -233,7 +233,7 @@
     },
     {
       "q": "Which address goes into DJI Fly?",
-      "a": "The full local receiving address displayed by Stream My Drone or Stream My Drone. Put the platform's server URL and stream key into the receiving app's destination settings."
+      "a": "The full local receiving address displayed by Stream My Drone (phone or computer). Put the platform's server URL and stream key into the receiving app's destination settings."
     },
     {
       "q": "Does Stream My Drone turn the video into a vertical broadcast?",

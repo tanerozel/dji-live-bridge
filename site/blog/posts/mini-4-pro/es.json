@@ -1,5 +1,5 @@
 {
-  "slug": "dji-mini-4-pro-live-stream",
+  "slug": "dji-mini-4-pro-transmision-en-directo",
   "platform": "DJI Mini 4 Pro",
   "title": "Directo con DJI Mini 4 Pro: configuración con RC 2 y RC-N2 (2026)",
   "description": "Transmite en directo con un DJI Mini 4 Pro y RC 2 o RC-N2. Configuración con móvil y ordenador, ajustes RTMP de DJI Fly, requisito de micrófono y comprobaciones en la plataforma.",
@@ -8,7 +8,7 @@
   "published": "2026-10-03",
   "updated": "2026-10-21",
   "summary": [
-    "DJI Fly envía la señal local; Stream My Drone o Stream My Drone la reenvía a tu plataforma.",
+    "DJI Fly envía la señal local; Stream My Drone (en el teléfono o en el ordenador) la reenvía a tu plataforma.",
     "El RC 2 funciona con otro teléfono como receptor; el RC-N2 usa tu teléfono para DJI Fly, y en esta guía recibe un ordenador.",
     "La salida RTMP del control remoto puede tener menos resolución que su vista en directo o que el archivo grabado en el dron.",
     "La app móvil reenvía el vídeo que recibe; la salida de escritorio puede convertirlo a formato vertical.",
@@ -43,7 +43,7 @@
           { "t": "Añade tus plataformas y sal en directo", "d": "Añade la plataforma con su URL de transmisión y su clave actuales. Elige el formato de salida del escritorio, inicia la salida y revisa el panel de la plataforma. Completa cualquier paso adicional de Go Live antes de avisar al público de que la emisión ha empezado." }
         ] },
         { "img": "go-live.png", "alt": "La pestaña Transmitir de Stream My Drone con la dirección RTMP para DJI Fly, los destinos y el botón INICIAR TRANSMISIÓN." },
-        { "note": "Para configurar el RC 2 solo con un teléfono, sigue la sección siguiente. Para ver capturas y más detalles de red, consulta la <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guía RTMP de DJI Fly</a>." }
+        { "note": "Para configurar el RC 2 solo con un teléfono, sigue la sección siguiente. Para ver capturas y más detalles de red, consulta la <a href=\"../dji-fly-rtmp-configuracion-transmision-en-directo/\">guía RTMP de DJI Fly</a>." }
       ]
     },
     {
@@ -68,13 +68,13 @@
         { "table": {
           "head": ["Plataforma", "Qué preparar", "Guía detallada"],
           "rows": [
-            ["YouTube", "Una cuenta con las emisiones en directo activadas y una emisión preparada", "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Configuración de YouTube</a>"],
-            ["Instagram", "Acceso a Live Producer y credenciales RTMPS vigentes", "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Configuración de Instagram</a>"],
-            ["Facebook", "Una emisión en directo con su URL de servidor y su clave", "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Configuración de Facebook</a>"],
-            ["TikTok", "Acceso RTMP en tu cuenta, o un ordenador con acceso a LIVE Studio", "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Configuración de TikTok</a>"]
+            ["YouTube", "Una cuenta con las emisiones en directo activadas y una emisión preparada", "<a href=\"../como-transmitir-un-dron-dji-en-youtube/\">Configuración de YouTube</a>"],
+            ["Instagram", "Acceso a Live Producer y credenciales RTMPS vigentes", "<a href=\"../como-hacer-un-directo-en-instagram-con-un-dron-dji/\">Configuración de Instagram</a>"],
+            ["Facebook", "Una emisión en directo con su URL de servidor y su clave", "<a href=\"../como-hacer-un-directo-en-facebook-con-un-dron-dji/\">Configuración de Facebook</a>"],
+            ["TikTok", "Acceso RTMP en tu cuenta, o un ordenador con acceso a LIVE Studio", "<a href=\"../como-hacer-un-directo-en-tiktok-con-un-dron-dji/\">Configuración de TikTok</a>"]
           ]
         } },
-        { "p": "El acceso a cada plataforma depende de tu cuenta. Recibir la señal del dron en la app no te da una clave de transmisión ni publica una emisión. Para TikTok LIVE Studio, la app de escritorio también ofrece una <a href=\"../use-your-dji-drone-as-a-webcam/\">cámara virtual</a>. Consulta el panel de cada plataforma para ver el paso de publicación actual." }
+        { "p": "El acceso a cada plataforma depende de tu cuenta. Recibir la señal del dron en la app no te da una clave de transmisión ni publica una emisión. Para TikTok LIVE Studio, la app de escritorio también ofrece una <a href=\"../usar-tu-dron-dji-como-webcam/\">cámara virtual</a>. Consulta el panel de cada plataforma para ver el paso de publicación actual." }
       ]
     },
     {
@@ -106,7 +106,7 @@
       "h2": "Fuentes y la guía del Mini 5 Pro",
       "blocks": [
         { "p": "Referencias oficiales: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;pbc=BCQ9HQ1u&amp;pm=custom&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a> y <a href=\"https://www.dji.com/mini-4-pro/faq\">preguntas frecuentes del DJI Mini 4 Pro</a>. Consultado el 21 de octubre de 2026. Los menús y los ajustes disponibles pueden cambiar con el firmware." },
-        { "p": "¿Buscas el modelo más nuevo? La <a href=\"../dji-mini-5-pro-live-stream/\">guía de directo con el Mini 5 Pro</a> cubre el RC 2 y el RC-N3, la recepción en el teléfono y la vía de escritorio." }
+        { "p": "¿Buscas el modelo más nuevo? La <a href=\"../dji-mini-5-pro-transmision-en-directo/\">guía de directo con el Mini 5 Pro</a> cubre el RC 2 y el RC-N3, la recepción en el teléfono y la vía de escritorio." }
       ]
     }
   ],

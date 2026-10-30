@@ -1,0 +1,80 @@
+{
+  "slug": "dji-drone-to-obs-without-nginx",
+  "platform": "免 NGINX",
+  "title": "DJI 空拍機直播免架 NGINX 與 OBS（2026）",
+  "description": "要把 DJI Fly 畫面接進 OBS，常見做法是架 NGINX RTMP 伺服器、改設定檔、加媒體來源。本文說明這套流程要做哪些事，以及只用一個 App 就能省略它的方法。",
+  "h1": "不用架設 NGINX 和 OBS 也能直播 DJI 空拍機",
+  "lead": "搜尋如何把 DJI 空拍機接進 OBS，大多數教學的開頭都一樣：安裝 <strong>NGINX RTMP 伺服器</strong>、修改設定檔、開放防火牆、讓 DJI Fly 指向它，再把串流以媒體來源拉進 <strong>OBS</strong>。這樣做可行，但等於是一個小型的伺服器專案。<strong>Stream My Drone</strong> 把 RTMP 伺服器、預覽、編碼和平台輸出整合在一個 App 裡，需要時仍然能把畫面交給 OBS。",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "傳統做法是 DJI Fly → 加裝 RTMP 模組的 NGINX → OBS 媒體來源 → 單一平台。",
+    "這代表要安裝伺服器、修改 nginx.conf、開放 1935 埠，並手動建立場景。",
+    "同時直播到多個平台需要 OBS 外掛或雲端服務；直向畫布還需要更多設定。",
+    "Stream My Drone 直接接收 DJI Fly，以直向或橫向直播到多個平台，不需要安裝其他東西。",
+    "如果你還是想用 OBS，<em>準備 OBS 場景</em>會替你建立一個含有空拍畫面的 DJI LIVE 場景。"
+  ],
+  "sections": [
+    {
+      "id": "diy",
+      "h2": "常見的 NGINX + OBS 做法",
+      "blocks": [
+        { "steps": [
+          { "t": "安裝 RTMP 伺服器", "d": "加裝 RTMP 模組的 NGINX（在 Windows 上常用預先編譯好的套件），或其他 RTMP 伺服器。" },
+          { "t": "修改設定", "d": "在 nginx.conf 中加入一個 <code>rtmp</code> 區塊，設定一個例如 <code>live</code> 的應用程式，然後啟動伺服器。" },
+          { "t": "開放防火牆", "d": "允許 1935 埠的連入連線，並找出電腦的本機位址。" },
+          { "t": "讓 DJI Fly 指向它", "d": "在 Live Streaming Platforms → RTMP 中輸入類似 <code>rtmp://192.168.1.20/live/drone</code> 的位址。" },
+          { "t": "拉進 OBS", "d": "用同一個位址新增媒體來源，在畫布上調整大小，再為你的平台設定 OBS 的串流網址和金鑰。" }
+        ] },
+        { "p": "之後每次變動都要手動處理：換網路就要換位址，加第二個平台就需要外掛或轉播服務，直向直播則需要第二個畫布或另一個設定檔。" }
+      ]
+    },
+    {
+      "id": "compare",
+      "h2": "Stream My Drone 取代了哪些工作",
+      "blocks": [
+        { "table": {
+          "head": ["工作", "NGINX + OBS", "Stream My Drone"],
+          "rows": [
+            ["給 DJI Fly 用的 RTMP 伺服器", "安裝並設定 NGINX", "內建；位址會連同 QR 碼一起顯示"],
+            ["空拍畫面預覽", "OBS 媒體來源", "內建，並顯示解析度和位元率"],
+            ["同時直播到多個平台", "外掛或雲端服務", "內建"],
+            ["Instagram（RTMPS）", "OBS 可以把 RTMPS 送到一個目的地", "內建，可和其他平台一起直播"],
+            ["1080×1920 直向", "自己建立直向畫布", "一個開關搞定，附模糊背景"],
+            ["不用串流金鑰開 TikTok 直播", "OBS Virtual Camera + LIVE Studio", "內建虛擬攝影機"],
+            ["串流金鑰", "存在 OBS 的設定中", "存在系統的憑證保管區"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "只用一個 App 的設定方式",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "安裝 Stream My Drone", "d": "下載 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS 或 Windows 版</a>；FFmpeg 和媒體伺服器都已內建。" },
+          { "t": "把位址複製到 DJI Fly", "d": "App 會顯示類似 <code>rtmp://192.168.1.20:1935/drone</code> 的位址。在 DJI Fly 的 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP 中輸入它。" },
+          { "t": "加入你的平台", "d": "Instagram、TikTok、YouTube、Facebook、Twitch、Kick 或任何 RTMP 伺服器，各自填入網址和金鑰。" },
+          { "t": "按下「開始直播」", "d": "畫面只編碼一次，再送到每一個啟用的目的地。" }
+        ] },
+        { "img": "go-live.png", "alt": "Stream My Drone 的「開始直播」分頁，顯示 DJI Fly 用的 RTMP 位址、直播目的地和「開始直播」按鈕。" }
+      ]
+    },
+    {
+      "id": "obs",
+      "h2": "還是想用 OBS 的時候",
+      "blocks": [
+        { "p": "說到場景、疊加圖層和轉場，OBS 無人能敵。Stream My Drone 並不取代這些，它取代的是 NGINX 那一段。啟用 OBS WebSocket（工具 → WebSocket 伺服器設定），在 App 的「進階」分頁中連線，然後按下<em>準備 OBS 場景</em>：App 會建立一個名為 <strong>DJI LIVE</strong> 的場景，空拍畫面已經放在裡面，並依水平或直向畫布調整好大小。" },
+        { "img": "advanced.png", "alt": "Stream My Drone 的「進階」分頁，包含選用的 OBS 整合和「準備 OBS 場景」按鈕。" },
+        { "note": "要透過 OBS Virtual Camera 在 Zoom、Meet 或 Teams 中通話，請見<a href=\"../use-your-dji-drone-as-a-webcam/\">網路攝影機教學</a>。" }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "把 DJI 空拍機串流到 OBS 需要 NGINX 嗎？", "a": "不需要。Stream My Drone 內建自己的 RTMP 伺服器；透過「準備 OBS 場景」，它也能在沒有 NGINX 的情況下把空拍畫面放進 OBS。" },
+    { "q": "直播 DJI 空拍機需要 OBS 嗎？", "a": "不需要。Stream My Drone 會直接直播到 Instagram、TikTok、YouTube 和其他平台。OBS 只是想要場景和疊加圖層時的選項。" },
+    { "q": "NGINX 的做法比較差嗎？", "a": "它可行而且很有彈性，但你得自己維護伺服器、設定檔和 OBS 場景，多平台直播或直向影片也需要額外步驟。" },
+    { "q": "Stream My Drone 要多少錢？", "a": "完全免費。它以 MIT 授權免費開源。" }
+  ]
+}

@@ -112,7 +112,7 @@
   "faq": [
     { "q": "Mini 5 Pro ile bilgisayarsız canlı yayın yapabilir miyim?", "a": "RC 2 ile aynı yerel ağa bağlı ayrı bir telefonda Stream My Drone kullanabilirsiniz. DJI Fly kumandada çalışır, telefon RTMP görüntüsünü alır ve hedefi Stream My Drone'da ayarlarsınız." },
     { "q": "RC-N3'e zaten bağlı olan telefonu kullanabilir miyim?", "a": "O telefon uçuş kontrolü için DJI Fly'ı çalıştırır. Bu rehber, DJI Fly açık kalabilsin diye alıcı olarak ayrı bilgisayarda Stream My Drone kullanır. İki uygulamanın uçuşu ve aktarımı tek telefonda birlikte yürütebildiğini varsaymaz." },
-    { "q": "DJI Fly'a hangi adresi yazmalıyım?", "a": "Stream My Drone veya Stream My Drone'un gösterdiği yerel alıcı adresinin tamamını yazın. Platformun sunucu adresini ve yayın anahtarını ise alıcı uygulamadaki hedef ayarlarına girin." },
+    { "q": "DJI Fly'a hangi adresi yazmalıyım?", "a": "Telefondaki veya bilgisayardaki Stream My Drone'un gösterdiği yerel alıcı adresinin tamamını yazın. Platformun sunucu adresini ve yayın anahtarını ise alıcı uygulamadaki hedef ayarlarına girin." },
     { "q": "Stream My Drone görüntüyü dikey yayına dönüştürür mü?", "a": "Mobil uygulama aldığı videoyu iletir. Önizleme düzeni, gönderilen görüntüyü yeniden kodlamaz. Bilgisayardaki Stream My Drone dikey çıkış dönüşümü sunar." },
     { "q": "Önizleme var ama izleyiciler neden yayını göremiyor?", "a": "Önizleme yalnızca yerel drone görüntüsünün ulaştığını gösterir. Bir hedef çıkışı başlatın, platformun görüntüyü aldığını doğrulayın ve varsa oradaki son Yayına Geç adımını tamamlayın." }
   ]

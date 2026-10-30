@@ -1,0 +1,80 @@
+{
+  "slug": "osmo-action-live-stream",
+  "platform": "Osmo Action",
+  "title": "Osmo Action 5 Pro、6、4 直播到 Instagram 和 TikTok",
+  "description": "用 Stream My Drone 把 DJI Osmo Action 6、5 Pro、4 或 3 通过 DJI Mimo 的 RTMP 推流，同时直播到 Instagram、TikTok、YouTube 和 Twitch。附设置步骤和推荐参数。",
+  "h1": "如何把 Osmo Action 相机直播到 Instagram 和 TikTok",
+  "lead": "Osmo Action 相机可以<strong>通过 DJI Mimo 以 RTMP 推流</strong>，最高 1080p——无论装在头盔、车把、汽车还是三脚架上。单靠 DJI Mimo，只能推流到 Facebook、YouTube 或某个 RTMP 地址；把这路 RTMP 推流发到电脑上的 <strong>Stream My Drone</strong>，同一画面就能同时发往 <strong>Instagram、TikTok、YouTube、Twitch 或 Kick</strong>。",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Osmo Action 6、5 Pro、4 和 3 可以通过 DJI Mimo（1.2.20 或更新版本）以 480p、720p 或 1080p 推送 RTMP，码率最高 6 Mbps。",
+    "相机自己连接 Wi-Fi；让它和电脑连在同一网络，或共用同一个热点。",
+    "Stream My Drone 会把推流同时发送到多个平台，包括通过 RTMPS 发送到 Instagram。",
+    "1080×1920 竖屏加模糊背景填充，让完整的运动画面保留在手机屏幕上。",
+    "虚拟摄像头还能把 Osmo Action 变成 OBS、Zoom 或 TikTok LIVE Studio 的无线摄像头。"
+  ],
+  "sections": [
+    {
+      "id": "setup",
+      "h2": "设置 Osmo Action 直播",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "打开 Stream My Drone", "d": "在 Mac 或 Windows 电脑上安装 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>，记下它显示的地址，例如 <code>rtmp://192.168.1.20:1935/drone</code>。" },
+          { "t": "在 DJI Mimo 中连接相机", "d": "更新 DJI Mimo 和相机固件，连接 Osmo Action，打开直播选项。" },
+          { "t": "选择 RTMP 和 Wi-Fi", "d": "选择 RTMP，以及相机要连接的 Wi-Fi——电脑所在的网络，或电脑也在使用的手机热点。" },
+          { "t": "填入地址并开始", "d": "输入 Stream My Drone 中的地址，选择 1080p 和网络能承受的最高码率，然后开始。应用中会出现预览。" },
+          { "t": "添加平台并开始直播", "d": "添加 Instagram、TikTok、YouTube、Twitch 或任意 RTMP 服务器，然后按“开始直播”。" }
+        ] },
+        { "img": "go-live.png", "alt": "Stream My Drone 的“开始直播”标签页，显示 RTMP 地址、推流目标和“开始直播”按钮。" },
+        { "note": "其他支持 RTMP 直播的 DJI 相机，见 <a href=\"../dji-osmo-live-stream-instagram-tiktok/\">Osmo 相机指南</a>。" }
+      ]
+    },
+    {
+      "id": "ideas",
+      "h2": "运动相机直播的用武之地",
+      "blocks": [
+        { "list": [
+          "<strong>运动和骑行。</strong>骑车、摩托、滑雪或跑步——一个第一视角，同时在多个平台直播。",
+          "<strong>幕后花絮。</strong>把相机装在片场或工作室的墙上，边工作边直播。",
+          "<strong>第二机位。</strong>用虚拟摄像头把 Osmo Action 作为无线视频源加入 OBS，和主摄像头一起使用——见<a href=\"../use-your-dji-drone-as-a-webcam/\">网络摄像头指南</a>。",
+          "<strong>不怕天气的直播。</strong>相机能应对雨水和灰尘；电脑则安稳地待在车里或帐篷里。"
+        ] }
+      ]
+    },
+    {
+      "id": "range",
+      "h2": "距离和网络",
+      "blocks": [
+        { "p": "相机通过 Wi-Fi 把推流发送到电脑，所以它必须留在该网络的覆盖范围内。拍摄移动画面时，把手机热点带在相机附近——电脑也连同一个热点——就能让链路保持很短。这时推流到平台会使用热点的移动数据，每个推流目标约 6 Mbps。" },
+        { "table": {
+          "head": ["连接方式", "适合"],
+          "rows": [
+            ["家庭或场馆 Wi-Fi", "固定机位、工作室、活动"],
+            ["相机和电脑附近的手机热点", "户外拍摄和短距离移动拍摄"],
+            ["汽车或房车里的便携路由器", "电脑随你一起移动的骑行或驾车"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "无法直播时怎么办",
+      "blocks": [
+        { "list": [
+          "<strong>相机无法连接：</strong>它不在电脑所在的网络中，或者访客网络隔离了设备。",
+          "<strong>移动时推流中断：</strong>相机超出了 Wi-Fi 覆盖范围；让热点靠近一些，或降低码率。",
+          "<strong>没有直播选项：</strong>把 DJI Mimo 更新到 1.2.20 或更新版本，并更新相机固件。",
+          "<strong>Instagram 拒绝推流：</strong>在 instagram.com 上新建一场直播并更新密钥；每个密钥只能用一次。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Osmo Action 5 Pro 能直播到 Instagram 吗？", "a": "单靠 DJI Mimo 不行。通过 RTMP 推流到 Stream My Drone，它会通过 RTMPS 把画面转发到 Instagram。" },
+    { "q": "哪些 Osmo Action 相机支持 RTMP 直播？", "a": "根据 DJI 的说明：Osmo Action 6、5 Pro、4 和 3，DJI Action 2，以及第一代 Osmo Action（最高 720p）。" },
+    { "q": "能把 Osmo Action 同时直播到 Twitch 和 YouTube 吗？", "a": "能。在 Stream My Drone 中添加这两个推流目标，然后按“开始直播”。" },
+    { "q": "相机离电脑可以有多远？", "a": "Wi-Fi 覆盖多远就能多远。相机通过该网络推流到电脑，所以请留在覆盖范围内，或者随身带一个热点。" }
+  ]
+}

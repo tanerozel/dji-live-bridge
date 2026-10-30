@@ -1,5 +1,5 @@
 {
-  "slug": "dji-mavic-3-live-stream",
+  "slug": "dji-mavic-3-transmissao-ao-vivo",
   "platform": "DJI Mavic 3 Series",
   "title": "Live com DJI Mavic 3, Classic e Pro: guia de controles (2026)",
   "description": "Faça transmissão ao vivo com o DJI Mavic 3, Classic ou Pro usando RC-N1 ou RC Pro. Saiba por que o DJI RC não transmite, além de celular, RTMP no computador e qualidade.",
@@ -79,7 +79,7 @@
             },
             {
               "t": "Digite o endereço do receptor no DJI Fly",
-              "d": "Copie o endereço RTMP local completo que o Stream My Drone mostra. No DJI Fly, abra GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Siga os rótulos da sua versão: uma tela que pede endereço e chave em campos separados é diferente de uma que pede a URL RTMP completa. Não acrescente a sua chave do YouTube ou do Instagram ao endereço do receptor local. Veja o <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guia de RTMP do DJI Fly</a> para o passo a passo do menu."
+              "d": "Copie o endereço RTMP local completo que o Stream My Drone mostra. No DJI Fly, abra GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Siga os rótulos da sua versão: uma tela que pede endereço e chave em campos separados é diferente de uma que pede a URL RTMP completa. Não acrescente a sua chave do YouTube ou do Instagram ao endereço do receptor local. Veja o <a href=\"../dji-fly-rtmp-configuracao-transmissao-ao-vivo/\">guia de RTMP do DJI Fly</a> para o passo a passo do menu."
             },
             {
               "t": "Inicie a transmissão local e confira o som",
@@ -141,28 +141,28 @@
               [
                 "YouTube",
                 "Acesso a transmissões ao vivo ativado e uma transmissão preparada",
-                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Configuração do YouTube</a>"
+                "<a href=\"../como-transmitir-drone-dji-no-youtube/\">Configuração do YouTube</a>"
               ],
               [
                 "Instagram",
                 "Acesso ao Live Producer e as credenciais RTMPS atuais",
-                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Configuração do Instagram</a>"
+                "<a href=\"../como-fazer-live-no-instagram-com-drone-dji/\">Configuração do Instagram</a>"
               ],
               [
                 "Facebook",
                 "Uma transmissão ao vivo preparada, com a URL do servidor e a chave",
-                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Configuração do Facebook</a>"
+                "<a href=\"../como-fazer-live-no-facebook-com-drone-dji/\">Configuração do Facebook</a>"
               ],
               [
                 "TikTok",
                 "Acesso RTMP na sua conta ou acesso ao LIVE Studio em um computador",
-                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Configuração do TikTok</a>"
+                "<a href=\"../como-fazer-live-no-tiktok-com-drone-dji/\">Configuração do TikTok</a>"
               ]
             ]
           }
         },
         {
-          "p": "Quem decide se a conta pode transmitir é a plataforma. Nenhum dos dois apps gera uma chave de transmissão nem contorna exigências de acesso. Para um fluxo no computador com um app de estúdio compatível, o Stream My Drone também oferece uma <a href=\"../use-your-dji-drone-as-a-webcam/\">câmera virtual</a>. A prévia local prova a recepção; uma página de visualização funcionando confirma a publicação."
+          "p": "Quem decide se a conta pode transmitir é a plataforma. Nenhum dos dois apps gera uma chave de transmissão nem contorna exigências de acesso. Para um fluxo no computador com um app de estúdio compatível, o Stream My Drone também oferece uma <a href=\"../usar-seu-drone-dji-como-webcam/\">câmera virtual</a>. A prévia local prova a recepção; uma página de visualização funcionando confirma a publicação."
         }
       ]
     },
@@ -208,7 +208,7 @@
           "p": "Verificado em 25 de outubro de 2026: <a href=\"https://www.dji.com/support/product/mavic-3-pro\">suporte do Mavic 3 Pro</a>, <a href=\"https://www.dji.com/support/product/mavic-3-classic\">suporte do Mavic 3 Classic</a>, <a href=\"https://www.dji.com/mavic-3/specs\">suporte do Mavic 3 original</a> e <a href=\"https://www.dji.com/rc/faq\">FAQ do DJI RC</a> para as diferenças entre modelos e controles; <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">guia de transmissão ao vivo do DJI Fly</a> para o suporte e os limites de transmissão. Confira no firmware do seu drone e do seu controle qual menu está realmente disponível."
         },
         {
-          "p": "Para a geração mais nova, leia o <a href=\"../dji-mavic-4-pro-live-stream/\">guia de transmissão ao vivo do Mavic 4 Pro</a>. Para uma configuração menor com controle de tela, veja o <a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro</a>. Continue com o <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">guia de multistreaming</a> para publicar em vários destinos."
+          "p": "Para a geração mais nova, leia o <a href=\"../dji-mavic-4-pro-transmissao-ao-vivo/\">guia de transmissão ao vivo do Mavic 4 Pro</a>. Para uma configuração menor com controle de tela, veja o <a href=\"../dji-mini-5-pro-transmissao-ao-vivo/\">Mini 5 Pro</a>. Continue com o <a href=\"../transmitir-drone-dji-em-varias-plataformas-ao-mesmo-tempo/\">guia de multistreaming</a> para publicar em vários destinos."
         }
       ]
     }

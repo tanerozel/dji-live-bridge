@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "title": "Anleitungen zum Livestream mit DJI-Drohnen — Stream My Drone Blog",
+    "description": "Anleitungen zum Livestreaming mit DJI Flip, Lito, Air, Mavic und Mini: kompatible Fernsteuerungen, Einrichtung mit Handy und Computer, DJI Fly RTMP, YouTube, Instagram und Facebook."
+  },
+  "h1": "Anleitungen zum Drohnen-Livestream",
+  "lead": "Wählen Sie Ihre Drohne oder Plattform: Fernsteuerungen für Flip, Lito X1 und Lito 1, Air, Mavic und Mini, Abläufe mit Handy und Computer, RTMP-Einstellungen in DJI Fly und Checks, bevor Sie live gehen.",
+  "language": "Sprache",
+  "skip": "Zum Inhalt springen",
+  "home": "Startseite",
+  "blog": "Blog",
+  "download": "Herunterladen",
+  "breadcrumb": "Brotkrumennavigation",
+  "by": "Von",
+  "updated": "Aktualisiert",
+  "keyFacts": "Kurz gesagt",
+  "toc": "Auf dieser Seite",
+  "faq": "Fragen",
+  "related": "Weitere Anleitungen",
+  "cta": {
+    "h": "Probieren Sie es mit Ihrer Drohne aus",
+    "p": "Stream My Drone ist kostenlos und quelloffen, für macOS und Windows. FFmpeg ist integriert, Sie müssen also nichts weiter installieren.",
+    "button": "Stream My Drone herunterladen",
+    "more": "So funktioniert die App"
+  },
+  "guides": {
+    "h2": "Anleitungen",
+    "sub": "Schritt-für-Schritt-Anleitungen für Ihre Drohne, Fernsteuerung und Plattform.",
+    "all": "Alle Anleitungen"
+  }
+}

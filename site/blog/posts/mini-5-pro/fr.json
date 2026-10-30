@@ -1,5 +1,5 @@
 {
-  "slug": "dji-mini-5-pro-live-stream",
+  "slug": "dji-mini-5-pro-diffusion-en-direct",
   "platform": "DJI Mini 5 Pro",
   "title": "DJI Mini 5 Pro en direct : configuration téléphone et ordinateur (2026)",
   "description": "Diffusez un DJI Mini 5 Pro en direct avec la RC 2 ou la RC-N3 : réglez le RTMP de DJI Fly, sur téléphone ou ordinateur, et envoyez le flux vers YouTube, Instagram ou Facebook.",
@@ -38,7 +38,7 @@
         { "steps": [
           { "t": "Installez Stream My Drone sur votre téléphone", "d": "Téléchargez l'application sur <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> ou sur l'<a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a>. Le téléphone reçoit le flux pendant que DJI Fly reste ouvert sur la RC 2." },
           { "t": "Reliez la RC 2 et le téléphone", "d": "Connectez les deux au même Wi-Fi avec accès à Internet. Sur le terrain, un téléphone Android peut à la fois partager sa connexion et recevoir le flux. Ouvrez Stream My Drone après avoir choisi le réseau ; sur iPhone, autorisez l'accès au réseau local quand il est demandé." },
-          { "t": "Copiez l'adresse de réception dans DJI Fly", "d": "Utilisez l'adresse locale complète affichée par Stream My Drone. Dans DJI Fly, ouvrez GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP et saisissez-y l'adresse. Le parcours complet des menus se trouve dans le <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guide de configuration RTMP de DJI Fly</a>. Branchez un microphone si DJI Fly en demande un." },
+          { "t": "Copiez l'adresse de réception dans DJI Fly", "d": "Utilisez l'adresse locale complète affichée par Stream My Drone. Dans DJI Fly, ouvrez GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP et saisissez-y l'adresse. Le parcours complet des menus se trouve dans le <a href=\"../dji-fly-rtmp-reglages-diffusion-en-direct/\">guide de configuration RTMP de DJI Fly</a>. Branchez un microphone si DJI Fly en demande un." },
           { "t": "Lancez le flux DJI Fly et vérifiez l'aperçu", "d": "Démarrez la diffusion sur la radiocommande, puis vérifiez que l'image animée du drone apparaît sur votre téléphone. Gardez Stream My Drone ouvert pendant la vérification. Cela établit la liaison vidéo locale." },
           { "t": "Choisissez une destination et vérifiez la publication", "d": "Ajoutez une plateforme dans Stream My Drone via la connexion au compte quand elle existe, ou avec son URL de serveur et sa clé de stream. Lancez le relais, puis ouvrez le tableau de bord du direct ou la page spectateur de la plateforme. Terminez toute étape « Passer en direct » que la plateforme exige encore." }
         ] },
@@ -65,13 +65,13 @@
         { "table": {
           "head": ["Plateforme", "Ce qu'il faut préparer", "Guide détaillé"],
           "rows": [
-            ["YouTube", "Un compte avec le direct activé et une diffusion préparée", "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Configuration YouTube</a>"],
-            ["Instagram", "Un accès à Live Producer et des identifiants RTMPS à jour", "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Configuration Instagram</a>"],
-            ["Facebook", "Une vidéo en direct avec son URL de serveur et sa clé", "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Configuration Facebook</a>"],
-            ["TikTok", "L'accès RTMP sur votre compte, ou un ordinateur avec accès à LIVE Studio", "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Configuration TikTok</a>"]
+            ["YouTube", "Un compte avec le direct activé et une diffusion préparée", "<a href=\"../diffuser-un-drone-dji-en-direct-sur-youtube/\">Configuration YouTube</a>"],
+            ["Instagram", "Un accès à Live Producer et des identifiants RTMPS à jour", "<a href=\"../faire-un-live-instagram-avec-un-drone-dji/\">Configuration Instagram</a>"],
+            ["Facebook", "Une vidéo en direct avec son URL de serveur et sa clé", "<a href=\"../faire-un-live-facebook-avec-un-drone-dji/\">Configuration Facebook</a>"],
+            ["TikTok", "L'accès RTMP sur votre compte, ou un ordinateur avec accès à LIVE Studio", "<a href=\"../faire-un-live-tiktok-avec-un-drone-dji/\">Configuration TikTok</a>"]
           ]
         } },
-        { "p": "L'accès à une plateforme dépend de votre compte. Recevoir le flux du drone dans l'application ne vous donne pas de clé de stream et ne publie aucune diffusion. Pour TikTok LIVE Studio, l'application de bureau propose aussi une <a href=\"../use-your-dji-drone-as-a-webcam/\">caméra virtuelle</a>. Consultez le tableau de bord de chaque plateforme pour l'étape de publication actuelle." }
+        { "p": "L'accès à une plateforme dépend de votre compte. Recevoir le flux du drone dans l'application ne vous donne pas de clé de stream et ne publie aucune diffusion. Pour TikTok LIVE Studio, l'application de bureau propose aussi une <a href=\"../utiliser-son-drone-dji-comme-webcam/\">caméra virtuelle</a>. Consultez le tableau de bord de chaque plateforme pour l'étape de publication actuelle." }
       ]
     },
     {
@@ -105,14 +105,14 @@
       "h2": "Sources et guides des modèles proches",
       "blocks": [
         { "p": "Exigences des radiocommandes et limites RTMP : <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;pbc=BCQ9HQ1u&amp;pm=custom&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Liste des modèles : <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">guide de compatibilité de DJI (en chinois)</a>. Manuels des radiocommandes : <a href=\"https://www.dji.com/my/mini-5-pro/downloads\">téléchargements du Mini 5 Pro</a>. Vérifié le 21 octobre 2026 ; les menus disponibles peuvent changer avec le firmware." },
-        { "p": "Vous pilotez le modèle précédent ? Lisez le <a href=\"../dji-mini-4-pro-live-stream/\">guide du direct avec le Mini 4 Pro</a>. Pour envoyer un même flux vers plusieurs destinations, poursuivez avec <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">le guide du multistreaming</a>." }
+        { "p": "Vous pilotez le modèle précédent ? Lisez le <a href=\"../dji-mini-4-pro-diffusion-en-direct/\">guide du direct avec le Mini 4 Pro</a>. Pour envoyer un même flux vers plusieurs destinations, poursuivez avec <a href=\"../diffuser-un-drone-dji-sur-plusieurs-plateformes-a-la-fois/\">le guide du multistreaming</a>." }
       ]
     }
   ],
   "faq": [
     { "q": "Peut-on diffuser un Mini 5 Pro en direct sans ordinateur ?", "a": "Avec la RC 2, utilisez Stream My Drone sur un autre téléphone connecté au même réseau local. DJI Fly tourne sur la radiocommande, le téléphone reçoit son flux RTMP et vous configurez la destination dans Stream My Drone." },
     { "q": "Puis-je utiliser le téléphone déjà branché à la RC-N3 ?", "a": "Ce téléphone fait tourner DJI Fly pour piloter. Ce guide utilise Stream My Drone sur un ordinateur séparé comme récepteur, pour que DJI Fly reste ouvert. Il ne suppose pas qu'un seul téléphone puisse gérer à la fois le vol en direct et le relais." },
-    { "q": "Quelle adresse faut-il saisir dans DJI Fly ?", "a": "L'adresse de réception locale complète affichée par Stream My Drone ou Stream My Drone. L'URL du serveur et la clé de stream de la plateforme vont dans les réglages de destination de l'application réceptrice." },
+    { "q": "Quelle adresse faut-il saisir dans DJI Fly ?", "a": "L'adresse de réception locale complète affichée par Stream My Drone (téléphone ou ordinateur). L'URL du serveur et la clé de stream de la plateforme vont dans les réglages de destination de l'application réceptrice." },
     { "q": "Stream My Drone transforme-t-il la vidéo en diffusion verticale ?", "a": "L'application mobile relaie la vidéo qu'elle reçoit. La mise en page de son aperçu ne réencode pas l'image envoyée. Stream My Drone sur ordinateur propose la conversion en sortie verticale." },
     { "q": "Pourquoi je vois l'aperçu alors que mon public ne voit rien ?", "a": "L'aperçu prouve seulement que le flux local du drone est arrivé. Lancez une sortie vers une destination, vérifiez que la plateforme la reçoit et terminez sur place toute étape « Passer en direct » restante." }
   ]

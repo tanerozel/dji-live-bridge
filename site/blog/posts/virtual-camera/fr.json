@@ -1,6 +1,6 @@
 {
-  "slug": "use-your-dji-drone-as-a-webcam",
-  "platform": "Virtual camera",
+  "slug": "utiliser-son-drone-dji-comme-webcam",
+  "platform": "Caméra virtuelle",
   "title": "Utiliser votre drone DJI comme webcam sur Mac et Windows (caméra virtuelle)",
   "description": "Transformez votre drone DJI en webcam pour TikTok LIVE Studio, OBS, Zoom, Google Meet ou Teams grâce à la caméra virtuelle de Stream My Drone. Installation, idées et dépannage.",
   "h1": "Transformez votre drone DJI en webcam pour votre ordinateur",
@@ -35,7 +35,7 @@
       "blocks": [
         { "p": "Quelques idées : tout ce qui accepte une webcam peut montrer la vue de votre drone." },
         { "list": [
-          "<strong>Passer en direct sur TikTok sans clé de stream.</strong> Choisissez la caméra dans TikTok LIVE Studio et diffusez depuis là. Le guide complet est dans <a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">le guide TikTok</a>.",
+          "<strong>Passer en direct sur TikTok sans clé de stream.</strong> Choisissez la caméra dans TikTok LIVE Studio et diffusez depuis là. Le guide complet est dans <a href=\"../faire-un-live-tiktok-avec-un-drone-dji/\">le guide TikTok</a>.",
           "<strong>Monter une émission dans OBS.</strong> Ajoutez la caméra comme source vidéo et placez du texte, un logo, une carte ou votre propre caméra frontale sur l'image aérienne, puis diffusez ou enregistrez depuis OBS.",
           "<strong>Montrer un site pendant un appel vidéo.</strong> Laissez un client, votre équipe ou un assureur voir en direct un toit, un chantier, une centrale solaire ou un champ sur Zoom, Google Meet ou Microsoft Teams, au lieu d'envoyer des photos après coup.",
           "<strong>Proposer une visite virtuelle.</strong> Emmenez vos spectateurs au-dessus d'une propriété, d'un camping, d'un lieu d'événement ou d'un itinéraire tout en commentant.",
@@ -52,7 +52,7 @@
       "blocks": [
         { "steps": [
           { "t": "Installez l'application au bon endroit", "d": "Sur Mac, faites glisser <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> dans le dossier Applications ; macOS n'autorise une extension de caméra que depuis cet emplacement. Sous Windows, le programme d'installation enregistre la caméra." },
-          { "t": "Envoyez l'image du drone vers l'ordinateur", "d": "Dans DJI Fly, ouvrez GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP et collez l'adresse affichée dans l'onglet Direct de l'application. La radiocommande et l'ordinateur doivent être sur le même Wi-Fi ou partage de connexion. Les détails sont dans <a href=\"../dji-fly-rtmp-live-streaming-setup/\">le guide RTMP de DJI Fly</a>." },
+          { "t": "Envoyez l'image du drone vers l'ordinateur", "d": "Dans DJI Fly, ouvrez GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP et collez l'adresse affichée dans l'onglet Direct de l'application. La radiocommande et l'ordinateur doivent être sur le même Wi-Fi ou partage de connexion. Les détails sont dans <a href=\"../dji-fly-rtmp-reglages-diffusion-en-direct/\">le guide RTMP de DJI Fly</a>." },
           { "t": "Activez la caméra une fois", "d": "Dans l'onglet TikTok LIVE Studio, appuyez sur <em>Activer la caméra virtuelle — une seule fois</em>. macOS demande une autorisation une seule fois, dans Réglages Système → Général → Ouverture et extensions → Extensions de caméra." },
           { "t": "Démarrez la caméra", "d": "Quand la carte indique <em>Prête à démarrer</em>, appuyez sur <em>Démarrer la caméra virtuelle</em>." },
           { "t": "Choisissez-la dans votre application", "d": "Dans TikTok LIVE Studio, OBS, Zoom, Meet ou Teams, ouvrez le menu caméra et choisissez <strong>Stream My Drone Camera</strong>. Choisissez aussi votre microphone à cet endroit." }

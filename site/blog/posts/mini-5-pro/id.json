@@ -1,5 +1,5 @@
 {
-  "slug": "dji-mini-5-pro-live-stream",
+  "slug": "live-streaming-dji-mini-5-pro",
   "platform": "DJI Mini 5 Pro",
   "title": "Cara live streaming DJI Mini 5 Pro: lewat ponsel dan komputer (2026)",
   "description": "Live streaming DJI Mini 5 Pro dengan RC 2 atau RC-N3. Atur RTMP di DJI Fly, pakai ponsel atau komputer, lalu kirim siaran drone ke YouTube, Instagram, atau Facebook.",
@@ -38,7 +38,7 @@
         { "steps": [
           { "t": "Pasang Stream My Drone di ponsel Anda", "d": "Unduh aplikasinya dari <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> atau <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a>. Ponsel menerima siaran sementara DJI Fly tetap terbuka di RC 2." },
           { "t": "Hubungkan RC 2 dan ponsel", "d": "Sambungkan keduanya ke Wi-Fi yang sama dengan akses internet. Di lapangan, ponsel Android bisa menjadi hotspot sekaligus menerima siaran. Buka Stream My Drone setelah memilih jaringan; di iPhone, izinkan akses jaringan lokal saat diminta." },
-          { "t": "Salin alamat penerima ke DJI Fly", "d": "Gunakan alamat lokal lengkap yang ditampilkan Stream My Drone. Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Masukkan alamatnya di sana. Penjelasan menu lengkap ada di <a href=\"../dji-fly-rtmp-live-streaming-setup/\">panduan pengaturan RTMP DJI Fly</a>. Sambungkan mikrofon jika DJI Fly memintanya." },
+          { "t": "Salin alamat penerima ke DJI Fly", "d": "Gunakan alamat lokal lengkap yang ditampilkan Stream My Drone. Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP. Masukkan alamatnya di sana. Penjelasan menu lengkap ada di <a href=\"../pengaturan-live-streaming-rtmp-dji-fly/\">panduan pengaturan RTMP DJI Fly</a>. Sambungkan mikrofon jika DJI Fly memintanya." },
           { "t": "Mulai siaran DJI Fly dan periksa pratinjau", "d": "Mulai streaming di remote, lalu pastikan gambar drone yang bergerak muncul di ponsel Anda. Biarkan Stream My Drone tetap terbuka selama memeriksa koneksi. Langkah ini membangun tautan video lokal." },
           { "t": "Pilih tujuan dan pastikan siaran tayang", "d": "Tambahkan platform di Stream My Drone melalui sambungan akun jika tersedia, atau dengan URL server dan stream key-nya. Mulai penerusan, lalu buka dasbor live atau halaman penonton platform tersebut. Selesaikan langkah Go Live yang masih diminta platform." }
         ] },
@@ -65,13 +65,13 @@
         { "table": {
           "head": ["Platform", "Yang perlu disiapkan", "Panduan lengkap"],
           "rows": [
-            ["YouTube", "Akun dengan fitur live streaming aktif dan siaran yang sudah disiapkan", "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Pengaturan YouTube</a>"],
-            ["Instagram", "Akses ke Live Producer dan kredensial RTMPS terbaru", "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Pengaturan Instagram</a>"],
-            ["Facebook", "Siaran langsung beserta URL server dan kuncinya", "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Pengaturan Facebook</a>"],
-            ["TikTok", "Akses RTMP di akun Anda, atau komputer dengan akses ke LIVE Studio", "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Pengaturan TikTok</a>"]
+            ["YouTube", "Akun dengan fitur live streaming aktif dan siaran yang sudah disiapkan", "<a href=\"../cara-live-streaming-drone-dji-ke-youtube/\">Pengaturan YouTube</a>"],
+            ["Instagram", "Akses ke Live Producer dan kredensial RTMPS terbaru", "<a href=\"../cara-live-instagram-dengan-drone-dji/\">Pengaturan Instagram</a>"],
+            ["Facebook", "Siaran langsung beserta URL server dan kuncinya", "<a href=\"../cara-live-facebook-dengan-drone-dji/\">Pengaturan Facebook</a>"],
+            ["TikTok", "Akses RTMP di akun Anda, atau komputer dengan akses ke LIVE Studio", "<a href=\"../cara-live-tiktok-dengan-drone-dji/\">Pengaturan TikTok</a>"]
           ]
         } },
-        { "p": "Akses platform melekat pada akun Anda. Menerima siaran drone di aplikasi tidak memberi Anda stream key dan tidak menayangkan siaran. Untuk TikTok LIVE Studio, aplikasi desktop juga menyediakan <a href=\"../use-your-dji-drone-as-a-webcam/\">kamera virtual</a>. Periksa dasbor tiap platform untuk langkah penayangan terbaru." }
+        { "p": "Akses platform melekat pada akun Anda. Menerima siaran drone di aplikasi tidak memberi Anda stream key dan tidak menayangkan siaran. Untuk TikTok LIVE Studio, aplikasi desktop juga menyediakan <a href=\"../jadikan-drone-dji-sebagai-webcam/\">kamera virtual</a>. Periksa dasbor tiap platform untuk langkah penayangan terbaru." }
       ]
     },
     {
@@ -105,14 +105,14 @@
       "h2": "Sumber dan panduan model terkait",
       "blocks": [
         { "p": "Persyaratan remote dan batas RTMP: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;pbc=BCQ9HQ1u&amp;pm=custom&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Daftar model: <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">panduan kompatibilitas DJI (bahasa Mandarin)</a>. Manual remote: <a href=\"https://www.dji.com/my/mini-5-pro/downloads\">unduhan Mini 5 Pro</a>. Diperiksa pada 21 Oktober 2026; menu yang tersedia bisa berubah seiring firmware." },
-        { "p": "Menerbangkan model sebelumnya? Baca <a href=\"../dji-mini-4-pro-live-stream/\">panduan live streaming Mini 4 Pro</a>. Untuk mengirim satu siaran ke beberapa tujuan, lanjutkan ke <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">panduan multistreaming</a>." }
+        { "p": "Menerbangkan model sebelumnya? Baca <a href=\"../live-streaming-dji-mini-4-pro/\">panduan live streaming Mini 4 Pro</a>. Untuk mengirim satu siaran ke beberapa tujuan, lanjutkan ke <a href=\"../live-drone-dji-ke-beberapa-platform-sekaligus/\">panduan multistreaming</a>." }
       ]
     }
   ],
   "faq": [
     { "q": "Bisakah saya live streaming dengan Mini 5 Pro tanpa komputer?", "a": "Dengan RC 2, gunakan Stream My Drone di ponsel terpisah yang tersambung ke jaringan lokal yang sama. DJI Fly berjalan di remote, ponsel menerima aliran RTMP-nya, dan Anda mengatur tujuan di Stream My Drone." },
     { "q": "Bisakah saya memakai ponsel yang sudah tersambung ke RC-N3?", "a": "Ponsel itu menjalankan DJI Fly untuk mengendalikan penerbangan. Panduan ini memakai Stream My Drone di komputer terpisah sebagai penerima, sehingga DJI Fly tetap bisa terbuka. Panduan ini tidak mengasumsikan kedua aplikasi sanggup menangani penerbangan langsung dan penerusan siaran di satu ponsel." },
-    { "q": "Alamat mana yang dimasukkan ke DJI Fly?", "a": "Alamat penerima lokal lengkap yang ditampilkan Stream My Drone atau Stream My Drone. URL server dan stream key platform dimasukkan ke pengaturan tujuan di aplikasi penerima." },
+    { "q": "Alamat mana yang dimasukkan ke DJI Fly?", "a": "Alamat penerima lokal lengkap yang ditampilkan Stream My Drone (ponsel atau komputer). URL server dan stream key platform dimasukkan ke pengaturan tujuan di aplikasi penerima." },
     { "q": "Apakah Stream My Drone mengubah video menjadi siaran vertikal?", "a": "Aplikasi seluler meneruskan video yang diterimanya. Tata letak pratinjaunya tidak mengenkode ulang gambar yang dikirim. Stream My Drone di komputer menyediakan konversi output vertikal." },
     { "q": "Mengapa saya bisa melihat pratinjau tetapi penonton tidak bisa menonton?", "a": "Pratinjau hanya membuktikan bahwa siaran drone lokal sudah sampai. Mulai output ke tujuan, pastikan platform menerimanya, lalu selesaikan langkah Go Live yang tersisa di sana." }
   ]

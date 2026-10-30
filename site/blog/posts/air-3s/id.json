@@ -1,5 +1,5 @@
 {
-  "slug": "dji-air-3s-live-stream",
+  "slug": "live-streaming-dji-air-3s",
   "platform": "DJI Air 3S",
   "title": "Cara live streaming DJI Air 3S: pengaturan RC 2 dan RC-N3 (2026)",
   "description": "Live streaming DJI Air 3S ke YouTube, Instagram, atau Facebook. Pilih remote, sambungkan RTMP DJI Fly ke ponsel atau komputer, lalu periksa gambar yang disiarkan.",
@@ -10,7 +10,7 @@
   "summary": [
     "DJI RC 2 menjalankan DJI Fly di layar bawaannya; ponsel terpisah bisa menerima dan meneruskan siarannya.",
     "RC-N3 dan RC-N2 memakai ponsel untuk DJI Fly. Alur kerja desktop memisahkan penerima dari ponsel yang dipakai terbang.",
-    "Alamat penerima lokal dimasukkan ke DJI Fly; kredensial platform dimasukkan ke Stream My Drone atau Stream My Drone.",
+    "Alamat penerima lokal dimasukkan ke DJI Fly; kredensial platform dimasukkan ke Stream My Drone (ponsel atau komputer).",
     "Perekaman kamera, tampilan langsung di remote, dan siaran RTMP keluar punya pengaturan kualitas masing-masing.",
     "Uji tampilan kamera yang dipilih dan halaman penonton platform sebelum terbang."
   ],
@@ -70,7 +70,7 @@
             },
             {
               "t": "Salin alamat penerima ke DJI Fly",
-              "d": "Salin alamat penerima lokal lengkap yang ditampilkan Stream My Drone. Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP lalu masukkan alamatnya. Gunakan <a href=\"../dji-fly-rtmp-live-streaming-setup/\">panduan RTMP DJI Fly</a> untuk penjelasan menunya."
+              "d": "Salin alamat penerima lokal lengkap yang ditampilkan Stream My Drone. Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP lalu masukkan alamatnya. Gunakan <a href=\"../pengaturan-live-streaming-rtmp-dji-fly/\">panduan RTMP DJI Fly</a> untuk penjelasan menunya."
             },
             {
               "t": "Mulai siaran DJI Fly dan periksa pratinjau",
@@ -131,28 +131,28 @@
               [
                 "YouTube",
                 "Akun dengan fitur live streaming aktif dan siaran yang sudah disiapkan",
-                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Pengaturan YouTube</a>"
+                "<a href=\"../cara-live-streaming-drone-dji-ke-youtube/\">Pengaturan YouTube</a>"
               ],
               [
                 "Instagram",
                 "Akses ke Live Producer dan kredensial RTMPS terbaru",
-                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Pengaturan Instagram</a>"
+                "<a href=\"../cara-live-instagram-dengan-drone-dji/\">Pengaturan Instagram</a>"
               ],
               [
                 "Facebook",
                 "Siaran langsung beserta URL server dan kuncinya",
-                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Pengaturan Facebook</a>"
+                "<a href=\"../cara-live-facebook-dengan-drone-dji/\">Pengaturan Facebook</a>"
               ],
               [
                 "TikTok",
                 "Akses RTMP di akun Anda, atau komputer dengan akses ke LIVE Studio",
-                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Pengaturan TikTok</a>"
+                "<a href=\"../cara-live-tiktok-dengan-drone-dji/\">Pengaturan TikTok</a>"
               ]
             ]
           }
         },
         {
-          "p": "Akses platform melekat pada akun Anda. Menerima siaran drone di aplikasi tidak memberi Anda stream key dan tidak menayangkan siaran. Untuk TikTok LIVE Studio, aplikasi desktop juga menyediakan <a href=\"../use-your-dji-drone-as-a-webcam/\">kamera virtual</a>. Periksa dasbor tiap platform untuk langkah penayangan terbaru."
+          "p": "Akses platform melekat pada akun Anda. Menerima siaran drone di aplikasi tidak memberi Anda stream key dan tidak menayangkan siaran. Untuk TikTok LIVE Studio, aplikasi desktop juga menyediakan <a href=\"../jadikan-drone-dji-sebagai-webcam/\">kamera virtual</a>. Periksa dasbor tiap platform untuk langkah penayangan terbaru."
         }
       ]
     },
@@ -217,7 +217,7 @@
           "p": "Detail resmi model: <a href=\"https://www.dji.com/air-3s/faq\">FAQ DJI Air 3S</a>. Prosedur RTMP dan batasan remote: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Firmware dan manual: <a href=\"https://www.dji.com/air-3s/downloads\">Unduhan DJI Air 3S</a>. Diperiksa pada 25 Oktober 2026; menu yang tersedia bisa berubah seiring firmware."
         },
         {
-          "p": "Bandingkan dengan <a href=\"../dji-air-3-live-stream/\">panduan streaming Air 3</a> atau <a href=\"../dji-mini-5-pro-live-stream/\">panduan Mini 5 Pro</a>. Untuk mengirim gambar yang sama ke beberapa tujuan, ikuti <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">panduan multistreaming</a>."
+          "p": "Bandingkan dengan <a href=\"../live-streaming-dji-air-3/\">panduan streaming Air 3</a> atau <a href=\"../live-streaming-dji-mini-5-pro/\">panduan Mini 5 Pro</a>. Untuk mengirim gambar yang sama ke beberapa tujuan, ikuti <a href=\"../live-drone-dji-ke-beberapa-platform-sekaligus/\">panduan multistreaming</a>."
         }
       ]
     }
@@ -233,7 +233,7 @@
     },
     {
       "q": "Alamat apa yang dimasukkan ke DJI Fly?",
-      "a": "Alamat penerima lokal lengkap yang ditampilkan Stream My Drone atau Stream My Drone. URL server dan stream key platform dimasukkan di pengaturan tujuan pada aplikasi penerima."
+      "a": "Alamat penerima lokal lengkap yang ditampilkan Stream My Drone (ponsel atau komputer). URL server dan stream key platform dimasukkan di pengaturan tujuan pada aplikasi penerima."
     },
     {
       "q": "Apakah Stream My Drone mengubah video menjadi siaran vertikal?",

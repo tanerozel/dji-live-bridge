@@ -1,0 +1,80 @@
+{
+  "slug": "dji-avata-2-live-stream",
+  "platform": "DJI Avata 2",
+  "title": "DJI Avata 2 + Goggles 3 直播：推流到 Instagram、TikTok、YouTube",
+  "description": "DJI Avata 2 穿越机画面怎么直播：把 Goggles 3 的画面共享到手机上的 DJI Fly，通过 RTMP 推流，再直播到 Instagram、TikTok 或 YouTube。",
+  "h1": "如何用 DJI Avata 2 直播",
+  "lead": "Avata 2 没有带屏遥控器，所以推流要经过你的手机：<strong>Goggles 3 把实时画面共享给 DJI Fly</strong>，再由 DJI Fly 通过 <strong>RTMP</strong> 发出。把它指向电脑上的 <strong>Stream My Drone</strong>，FPV 画面就能发往 Instagram、TikTok、YouTube，或同时发往多个平台。",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "把 DJI Goggles 3 连接到手机——用 USB-C 线最可靠——然后打开 DJI Fly 查看实时画面。",
+    "在 DJI Fly 中：GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，填入 Stream My Drone 显示的地址。",
+    "手机的 Wi-Fi 必须和电脑在同一网络；用线连接眼镜可以让 Wi-Fi 腾出来做这件事。",
+    "Stream My Drone 会为 Instagram 和 TikTok 把横屏 FPV 画面转成 1080×1920 竖屏。",
+    "应由观察员或另一个人负责推流——飞手正戴着眼镜。"
+  ],
+  "sections": [
+    {
+      "id": "how",
+      "h2": "FPV 无人机如何直播",
+      "blocks": [
+        { "p": "使用 Avata 2 时，画面从无人机传到飞行眼镜。DJI Goggles 3 可以通过数据线或 Wi-Fi 把实时画面共享给手机上的 DJI Fly，而 DJI Fly 的 RTMP 选项会把它显示的内容推流出去。Neo 搭配飞行眼镜时也有同样的路径说明。" },
+        { "table": {
+          "head": ["眼镜与手机的连接方式", "适合推流吗？", "说明"],
+          "rows": [
+            ["USB-C 数据线（OTG）", "适合——推荐", "稳定，手机的 Wi-Fi 也能空出来连接电脑。"],
+            ["无线共享（Goggles 3）", "可以", "共享本身就占用无线信道，可能互相干扰；建议用数据线。"]
+          ]
+        } },
+        { "note": "我们看到的这条路径说明针对的是 DJI Goggles 3。使用其他飞行眼镜时，请确认手机上的 DJI Fly 能否显示实时画面并提供 RTMP。" }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "设置 Avata 2 直播",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "用数据线连接眼镜和手机", "d": "用支持 OTG 的数据线把 DJI Goggles 3 的 USB-C 接口连到手机，打开 DJI Fly；点击 GO FLY，确认出现实时画面。" },
+          { "t": "让手机和电脑连上同一网络", "d": "把手机的 Wi-Fi 和电脑连到同一个 Wi-Fi；在户外，可以连到便携路由器或另一部手机的热点。" },
+          { "t": "打开 Stream My Drone", "d": "在 Mac 或 Windows 电脑上安装 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>，记下它显示的地址，例如 <code>rtmp://192.168.1.20:1935/drone</code>。" },
+          { "t": "在 DJI Fly 中开始 RTMP 推流", "d": "GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，填入地址并开始。Stream My Drone 中会出现预览。" },
+          { "t": "开始直播", "d": "添加 Instagram、TikTok、YouTube 或任意 RTMP 服务器，选择竖屏或横屏，并在起飞前按下“开始直播”。" }
+        ] },
+        { "img": "go-live.png", "alt": "Stream My Drone 的“开始直播”标签页，显示供 DJI Fly 使用的 RTMP 地址、推流目标和“开始直播”按钮。" },
+        { "note": "DJI Fly 的通用设置、网络和防火墙提示，见 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 指南</a>。" }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "FPV 直播小技巧",
+      "blocks": [
+        { "list": [
+          "<strong>起飞前开始推流。</strong>戴上眼镜后你就看不到电脑了；请先检查预览和推流目标。",
+          "<strong>让别人帮你盯着直播。</strong>观察员可以留意推流目标卡片，必要时结束直播。",
+          "<strong>竖屏 FPV。</strong><em>完整画面</em>保留完整的地平线并用模糊背景填充——对 FPV 来说通常比裁掉两侧的<em>填满屏幕</em>更好。",
+          "<strong>Android 手机推流码率更高。</strong>DJI 给出的码率是 Android 5 或 3 Mbps，iOS 2 或 1 Mbps——FPV 的高速运动需要每一点码率。"
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "无法直播时怎么办",
+      "blocks": [
+        { "list": [
+          "<strong>DJI Fly 中没有实时画面：</strong>换一根 USB-C 线试试；它必须能传输数据，而不只是充电。",
+          "<strong>DJI Fly 无法连接电脑：</strong>手机的 Wi-Fi 连在别的网络上，或电脑的地址变了。请重新复制地址。",
+          "<strong>画面卡顿：</strong>用数据线代替无线共享，并让手机靠近路由器。",
+          "<strong>Instagram 拒绝推流：</strong>每个 Instagram 密钥只能用一次；新建一场直播并更新密钥。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI Avata 2 能直播吗？", "a": "能。DJI Goggles 3 把实时画面共享给手机上的 DJI Fly，DJI Fly 再通过 RTMP 推流到 Stream My Drone，由它发送到你的各个平台。" },
+    { "q": "眼镜和手机之间需要连数据线吗？", "a": "Goggles 3 也可以无线共享，但数据线更可靠，还能让手机的 Wi-Fi 空出来连接电脑。" },
+    { "q": "能把 Avata 2 直播到 Instagram 或 TikTok 吗？", "a": "能，通过 Stream My Drone。它会把横屏 FPV 画面转成 1080×1920 竖屏，并通过 RTMPS 连接 Instagram，而这是 DJI Fly 自己做不到的。" },
+    { "q": "我飞行时谁来负责推流？", "a": "在起飞前开始推流；如果可以，请一位观察员盯着电脑。飞手戴着眼镜，看不到推流目标卡片。" }
+  ]
+}

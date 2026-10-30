@@ -1,0 +1,252 @@
+{
+  "slug": "dji-flip-live-stream",
+  "platform": "DJI Flip",
+  "title": "DJI Flip 直播教程：手机与电脑推流设置（2026）",
+  "description": "用 RC 2、RC-N3 或 RC-N2 直播 DJI Flip：手机与电脑的 RTMP 推流设置，掌上起降和手机直连的区别，竖屏构图以及平台检查。",
+  "h1": "如何用 DJI Flip 直播",
+  "lead": "<strong>DJI Flip</strong> 搭配支持的遥控器时，可以通过 DJI Fly 的 RTMP 功能发送实时飞行画面。使用 RC 2 时，在另一部手机上用 <strong>Stream My Drone</strong> 接收；使用 RC-N3 或 RC-N2 时，让 DJI Fly 留在飞行用的手机上，在电脑上的 <strong>Stream My Drone</strong> 中接收画面。本文介绍这些基于遥控器的方案，并说明它们与 Flip 的掌上控制、手机直连和竖拍录像有何不同。",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "DJI 在直播兼容性指南中列出了 Flip，并将 RC 2、RC-N3 和 RC-N2 列为兼容的遥控器。",
+    "RC 2 在自带屏幕上运行 DJI Fly，因此另一部手机可以专门用来接收直播流。",
+    "RC-N3 和 RC-N2 需要用手机运行 DJI Fly。请按下文所述用一台电脑接收，让 DJI Fly 保持打开。",
+    "DJI Fly 中填写的是本地接收地址；平台账号或推流密钥则在 Stream My Drone（手机或电脑）中设置。",
+    "掌上控制、手机直连和快传各有用途；本文使用基于遥控器的 RTMP 推流，而 2.7K 竖拍录像并不意味着直播输出也是竖屏。"
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "根据 RC 2、RC-N3 或 RC-N2 选择方案",
+      "blocks": [
+        {
+          "p": "DJI 的 <a href=\"https://repair.dji.com/help/content?customId=01700011789&amp;lang=en&amp;paperDocType=ARTICLE&amp;re=US&amp;spaceId=17\">DJI Flip 新手指南</a>列出了 DJI RC 2、DJI RC-N3 和 DJI RC-N2。<a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">DJI Fly 直播兼容性指南</a>中也包含 Flip。请根据遥控器来选择接收设备，确保运行 DJI Fly 的设备在整个飞行过程中都可用。"
+        },
+        {
+          "table": {
+            "head": [
+              "遥控器",
+              "在哪里飞行",
+              "在哪里接收直播流"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "在自带屏幕上运行 DJI Fly",
+                "另一部手机上的 Stream My Drone，或电脑上的 Stream My Drone"
+              ],
+              [
+                "DJI RC-N3",
+                "在通过 USB 连接的手机上运行 DJI Fly",
+                "另一台 Mac 或 Windows 电脑上的 Stream My Drone"
+              ],
+              [
+                "DJI RC-N2",
+                "在通过 USB 连接的手机上运行 DJI Fly",
+                "与 RC-N3 相同，使用另一台电脑接收"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI 直播指南</a>规定，RC 2 的直播分辨率上限为 720p，且从 DJI Fly v1.16.0 起需要连接麦克风。出发直播前请先确认这些要求。Stream My Drone 要安装在负责接收的手机上，它无法在 RC 2 上运行。"
+        }
+      ]
+    },
+    {
+      "id": "control-modes",
+      "h2": "掌上控制、手机直连与快传：选对方案",
+      "blocks": [
+        {
+          "p": "根据<a href=\"https://www.dji.com/flip/faq\">Flip 官方常见问题</a>，Flip 可以用掌上控制飞行，也可以直接连接手机。这些方式适合拍一段短片，或在没有常规遥控器时操控飞行器，但它们与本文介绍的基于遥控器的 RTMP 设置是两回事。"
+        },
+        {
+          "p": "要进行本文的直播，请连接 RC 2、RC-N3 或 RC-N2，打开 DJI Fly 的飞行界面，然后使用其中的 Live Streaming Platforms → RTMP 菜单。通过 Wi-Fi 直连 Flip、看到实时相机预览，或完成一段掌上控制录像，本身都不能证明 RTMP 画面已经到达接收端。"
+        },
+        {
+          "note": "快传（QuickTransfer）用于复制已录制的素材。要确认直播连接，请在 Stream My Drone（手机或电脑）中看到流畅变化的画面。如果想尝试只用手机的方案，请先查看当前 DJI Fly 连接模式下实际提供的选项；下面的步骤使用遥控器，并不代表支持仅用手机进行 RTMP 推流。"
+        }
+      ]
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Flip 搭配 RC 2：用另一部手机直播，无需电脑",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "在手机上安装 Stream My Drone",
+              "d": "从 <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> 或 <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a> 下载应用。DJI Fly 在 RC 2 上保持打开，由这部手机接收直播流。"
+            },
+            {
+              "t": "连接 RC 2 和手机",
+              "d": "让两者连接到同一个可以上网的 Wi-Fi。在户外时，可以用一部 Android 手机开热点并同时接收直播流。选好网络后再打开 Stream My Drone；在 iPhone 上，按提示允许访问本地网络。"
+            },
+            {
+              "t": "把接收地址填入 DJI Fly",
+              "d": "使用 Stream My Drone 显示的完整本地地址。在 DJI Fly 中打开 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，在那里填入地址。完整的菜单说明见 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 设置教程</a>。如果 DJI Fly 要求连接麦克风，请接上麦克风。"
+            },
+            {
+              "t": "在 DJI Fly 中开始推流并检查预览",
+              "d": "在遥控器上开始推流，确认手机上出现了实时变化的无人机画面。检查连接期间请让 Stream My Drone 保持打开。这一步建立的是本地视频链路。"
+            },
+            {
+              "t": "选择推流目标并确认已开播",
+              "d": "在 Stream My Drone 中添加平台：支持时可直接连接账号，否则填写服务器地址和推流密钥。开始转推后，打开平台的直播控制台或观看页面。如果平台还需要点击“开始直播”之类的步骤，请完成它。"
+            }
+          ]
+        },
+        {
+          "note": "手机会直接转发收到的视频，不会重新编码。预览中的裁切或模糊背景并不会把输出变成 1080×1920 竖屏。需要竖屏转换时，请使用电脑版应用。在 iPhone 上，设置期间请让应用保持在前台；切到后台后能否继续推流取决于画中画。"
+        }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Flip 搭配 RC-N3 或 RC-N2：在电脑上接收画面",
+      "blocks": [
+        {
+          "p": "使用 RC-N3 或 RC-N2 时，让 DJI Fly 在连接遥控器的手机上保持打开。在 Mac 或 Windows 电脑上安装 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>，并让这台电脑和运行 DJI Fly 的手机连接到同一个局域网。RC 2 同样可以使用这种电脑方案。"
+        },
+        {
+          "steps": [
+            {
+              "t": "找到电脑的 RTMP 地址",
+              "d": "打开 Stream My Drone，复制“连接无人机”下方显示的地址。<code>rtmp://192.168.1.20:1935/drone</code> 只是示例，请使用应用中实际显示的地址。"
+            },
+            {
+              "t": "让 DJI Fly 推流到该地址",
+              "d": "在 DJI Fly 中打开 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，填入接收地址并开始推流。菜单说明见 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 教程</a>。如果电脑防火墙询问，请允许专用网络上的传入连接。添加推流目标前，先检查预览。"
+            },
+            {
+              "t": "设置输出和平台",
+              "d": "常规的 YouTube 或 Facebook 直播选择横屏；使用竖屏布局的账号则选择竖屏输出。添加推流目标当前的服务器地址和密钥，开始输出，并在平台上确认直播已经出现。"
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "Stream My Drone 电脑版界面，显示本地 DJI Fly RTMP 地址、平台推流目标和“开始直播”按钮。"
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "你想直播到哪个平台？",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "平台",
+              "需要准备什么",
+              "详细教程"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "已开通直播功能的账号，以及已创建好的直播",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube 设置</a>"
+              ],
+              [
+                "Instagram",
+                "Live Producer 权限和当前有效的 RTMPS 凭据",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram 设置</a>"
+              ],
+              [
+                "Facebook",
+                "一场直播及其服务器地址和密钥",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Facebook 设置</a>"
+              ],
+              [
+                "TikTok",
+                "账号具备 RTMP 权限，或有一台能使用 LIVE Studio 的电脑",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok 设置</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "平台权限取决于你的账号。在应用中收到无人机画面，并不会给你推流密钥，也不会自动开播。针对 TikTok LIVE Studio，电脑版应用还提供<a href=\"../use-your-dji-drone-as-a-webcam/\">虚拟摄像头</a>。请在各平台的控制台中查看当前的开播步骤。"
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Flip 的 2.7K 竖拍录像与直播画面构图",
+      "blocks": [
+        {
+          "p": "DJI 的<a href=\"https://repair.dji.com/help/content?customId=01700006877&amp;lang=en&amp;paperDocType=ARTICLE&amp;spaceId=17\">竖拍指南</a>说明，Flip 竖拍时会裁切画面，最高可录制 2.7K/30fps。这一录像模式并不是 DJI Fly RTMP 推流的规格。飞行器上录制的文件、遥控器预览、接收端输入和平台输出，在分辨率和构图上都可能不同。"
+        },
+        {
+          "p": "使用 RC 2 时，请按 DJI 标明的 720p 直播上限来规划，并在接收端检查收到的画面。手机版 Stream My Drone 只转发画面，选择裁切后的手机预览并不会生成竖屏输出。如需竖屏直播，请使用电脑版 Stream My Drone 的竖屏转换，在平台上检查最终构图，并在主体周围留出足够的裁切空间。放大分辨率无法补回原始画面中没有的细节。"
+        },
+        {
+          "list": [
+            "<strong>起飞前先测试。</strong>无人机还在地面时，检查画面是否在动、声音是否正常，以及平台观看页面是否正常。",
+            "<strong>预留上传带宽。</strong>持续 5 Mbps 的输出每小时约消耗 2.25 GB 流量（不含网络开销）。两个这样的推流目标合计需要约 10 Mbps 上传带宽，每小时约 4.5 GB。",
+            "<strong>保持本地连接稳定。</strong>让手机或电脑靠近热点。连接稳定比网络标称的峰值速度更重要。",
+            "<strong>留意实际输出的构图。</strong>在手机上，预览布局只在本地生效；在电脑上，开播前请检查所选的裁切或完整画面输出。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Flip 直播常见问题排查",
+      "blocks": [
+        {
+          "list": [
+            "<strong>没有 RTMP 菜单：</strong>检查遥控器型号，更新固件和 DJI Fly，并在 Transmission 下查找。接收应用无法补上 DJI Fly 缺少的功能。",
+            "<strong>只看到掌上控制或手机直连选项：</strong>请使用本文基于遥控器的方案，并打开 DJI Fly 的飞行界面。不要把 Wi-Fi 直连的相机预览或快传界面当作 RTMP 直播已连接的证明。",
+            "<strong>连接失败：</strong>网络变化后，重新复制应用中显示的地址。使用没有访客隔离的共享局域网；在遥控器上填 <code>localhost</code> 指向的是遥控器自己。",
+            "<strong>手机上有画面，观众却看不到：</strong>检查推流目标的连接、当前推流密钥，以及平台最后的开播步骤。仅仅在转发数据并不代表直播已经公开。",
+            "<strong>在 iPhone 上切换应用后直播中断：</strong>回到 Stream My Drone 并检查画中画。没有画中画时，iOS 可能会挂起接收端。",
+            "<strong>直播卡顿：</strong>先只推一个目标，检查蜂窝网络上传是否稳定，并让接收设备靠近热点。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "资料来源与相关机型教程",
+      "blocks": [
+        {
+          "p": "遥控器兼容性：<a href=\"https://repair.dji.com/help/content?customId=01700011789&amp;lang=en&amp;paperDocType=ARTICLE&amp;re=US&amp;spaceId=17\">DJI Flip 新手指南</a>。掌上控制与手机控制：<a href=\"https://www.dji.com/flip/faq\">DJI Flip 常见问题</a>。支持直播的飞行器列表：<a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">DJI Fly 直播兼容性指南（中文）</a>。"
+        },
+        {
+          "p": "RTMP 菜单、RC 2 分辨率与麦克风要求：<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App 直播操作指南</a>。竖拍录像：<a href=\"https://repair.dji.com/help/content?customId=01700006877&amp;lang=en&amp;paperDocType=ARTICLE&amp;spaceId=17\">DJI 竖拍指南</a>。核对日期：2026 年 10 月 25 日；固件更新后请重新确认当前菜单。"
+        },
+        {
+          "p": "可对比 <a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro</a> 和 <a href=\"../dji-lito-x1-live-stream/\">Lito X1</a> 的直播方案。如需把同一路画面推送到多个目标，请继续阅读<a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">多平台同时直播教程</a>。"
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "不用电脑能直播 Flip 吗？",
+      "a": "使用 RC 2 时，可以在连接到同一局域网的另一部手机上使用 Stream My Drone。DJI Fly 在遥控器上运行，手机接收它的 RTMP 画面，推流目标则在 Stream My Drone 中设置。"
+    },
+    {
+      "q": "能用已经连接 RC-N3 或 RC-N2 的那部手机吗？",
+      "a": "那部手机要运行 DJI Fly 来控制飞行。本文使用另一台电脑上的 Stream My Drone 作为接收端，这样 DJI Fly 可以一直保持打开。本文不假定一部手机能同时兼顾实时飞行和转推。"
+    },
+    {
+      "q": "DJI Fly 里应该填什么地址？",
+      "a": "填 Stream My Drone（手机或电脑）显示的完整本地接收地址。平台的服务器地址和推流密钥则填在接收应用的推流目标设置中。"
+    },
+    {
+      "q": "Flip 的 2.7K 竖拍录像会让 RTMP 画面变成竖屏吗？",
+      "a": "飞行器的竖拍录像设置并不决定 RTMP 输出格式。请检查应用实际收到的画面。手机版 Stream My Drone 只转发收到的视频；需要竖屏输出转换时，请使用电脑上的 Stream My Drone。"
+    },
+    {
+      "q": "为什么我能看到预览，观众却看不到？",
+      "a": "预览只能证明本地的无人机画面已经到达。请开始向推流目标输出，确认平台已收到画面，并在平台上完成剩余的开播步骤。"
+    },
+    {
+      "q": "只用掌上控制或手机直连，能按本文操作吗？",
+      "a": "本文使用 RC 2、RC-N3 或 RC-N2 以及 DJI Fly 的 RTMP 菜单。Flip 支持掌上控制和手机直连，但单靠这些模式无法验证同样的 RTMP 流程。快传用于传输已录制的文件；直播时请在接收端确认看到实时变化的画面。"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "slug": "dji-neo-live-stream",
+  "slug": "dji-neo-diffusion-en-direct",
   "platform": "DJI Neo",
   "title": "DJI Neo en direct : configuration Instagram, TikTok et YouTube (2026)",
   "description": "Comment diffuser un DJI Neo en direct : quel mode de pilotage fonctionne (téléphone, RC-N3, casque), le RTMP dans DJI Fly, et le live sur Instagram, TikTok ou YouTube.",
@@ -44,7 +44,7 @@
           { "t": "Choisissez vos plateformes et passez en direct", "d": "Ajoutez Instagram, TikTok, YouTube ou n'importe quel serveur RTMP, gardez <em>Vertical 9:16</em> pour Instagram et TikTok, et appuyez sur DÉMARRER LE DIRECT." }
         ] },
         { "img": "go-live.png", "alt": "L'onglet Direct de Stream My Drone avec l'adresse RTMP pour DJI Fly, les destinations et le bouton DÉMARRER LE DIRECT." },
-        { "note": "Plus de détails sur la partie DJI Fly, les réseaux et les pare-feu dans <a href=\"../dji-fly-rtmp-live-streaming-setup/\">le guide RTMP de DJI Fly</a>." }
+        { "note": "Plus de détails sur la partie DJI Fly, les réseaux et les pare-feu dans <a href=\"../dji-fly-rtmp-reglages-diffusion-en-direct/\">le guide RTMP de DJI Fly</a>." }
       ]
     },
     {

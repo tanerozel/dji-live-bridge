@@ -1,0 +1,234 @@
+{
+  "slug": "dji-lito-1-live-stream",
+  "platform": "DJI Lito 1",
+  "title": "DJI Lito 1 直播教學：手機與電腦設定（2026）",
+  "description": "用 RC 2、RC-N3 或 RC-N2 讓 DJI Lito 1 直播：DJI Fly RTMP 設定、手機與電腦操作流程、直播平台設定，以及實用的疑難排解。",
+  "h1": "DJI Lito 1 怎麼直播",
+  "lead": "標準版 <strong>DJI Lito 1</strong> 套裝附的是 RC-N3，所以先從接在遙控器上的手機執行 DJI Fly，再用另一台電腦上的 <strong>Stream My Drone</strong> 接收開始。如果你已經有相容的 RC 2，也可以改由第二支執行 <strong>Stream My Drone</strong> 的手機接收畫面。本文說明這兩種做法，從本機 RTMP 位址一路到觀眾看得到的直播。",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "summary": [
+    "DJI 的直播相容性說明列出了 Lito 1；請同時確認遙控器型號和目前的 DJI Fly 版本。",
+    "RC 2 在內建螢幕上執行 DJI Fly，另一支手機就能空出來接收串流。",
+    "RC-N3 和 RC-N2 要用手機執行 DJI Fly。請照下方說明改用電腦接收，讓 DJI Fly 保持開啟。",
+    "DJI Fly 裡只填本機接收位址。平台帳號或串流金鑰請在 Stream My Drone（手機或電腦版）中設定。",
+    "先檢查接收端的預覽，再檢查平台的觀看頁面；錄影設定並不決定 RTMP 輸出。"
+  ],
+  "sections": [
+    {
+      "id": "controllers",
+      "h2": "依 RC 2、RC-N3 或 RC-N2 選擇操作流程",
+      "blocks": [
+        {
+          "p": "DJI 的<a href=\"https://store.dji.com/ee/product/dji-lito-1?from=events-dji-monthly-picks&amp;set_region=EE\">官方 Lito 1 產品常見問題</a>列出 DJI RC 2、DJI RC-N3 和 DJI RC-N2。<a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">DJI Fly 直播相容性說明</a>也列出了 Lito 1。請依遙控器上實際標示的型號選擇下方的做法；機型名稱相同，並不代表每款遙控器都能互換。"
+        },
+        {
+          "table": {
+            "head": [
+              "遙控器",
+              "在哪裡飛",
+              "在哪裡接收串流"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "內建螢幕上的 DJI Fly",
+                "另一支手機上的 Stream My Drone，或電腦上的 Stream My Drone"
+              ],
+              [
+                "DJI RC-N3",
+                "以 USB 連接的手機上的 DJI Fly",
+                "另一台 Mac 或 Windows 電腦上的 Stream My Drone"
+              ],
+              [
+                "DJI RC-N2",
+                "以 USB 連接的手機上的 DJI Fly",
+                "與 RC-N3 相同，用另一台電腦接收"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI 直播說明</a>指出 RC 2 的直播上限為 720p，且從 DJI Fly v1.16.0 起需要連接麥克風。出門直播前請先確認這些條件。Stream My Drone 要安裝在接收用的手機上，無法在 RC 2 上執行。"
+        }
+      ]
+    },
+    {
+      "id": "computer-setup",
+      "h2": "Lito 1 搭配 RC-N3 或 RC-N2：用電腦接收畫面",
+      "blocks": [
+        {
+          "p": "使用 RC-N3 或 RC-N2 時，讓 DJI Fly 在接著遙控器的手機上保持開啟。在 Mac 或 Windows 電腦上安裝 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>，並讓電腦和執行 DJI Fly 的手機連上同一個區域網路。RC 2 也可以用這個電腦流程。"
+        },
+        {
+          "steps": [
+            {
+              "t": "找到電腦的 RTMP 位址",
+              "d": "打開 Stream My Drone，複製「連接無人機」下方的位址。像 <code>rtmp://192.168.1.20:1935/drone</code> 這樣的位址只是範例，請使用 App 實際顯示的位址。"
+            },
+            {
+              "t": "讓 DJI Fly 送到這個位址",
+              "d": "在 DJI Fly 中打開 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，輸入接收位址並開始串流。選單說明請見 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 教學</a>。如果電腦的防火牆詢問，請允許私人網路上的連入連線。加入直播目的地之前，先確認預覽畫面。"
+            },
+            {
+              "t": "設定輸出與平台",
+              "d": "一般的 YouTube 或 Facebook 直播選橫向；使用直向版面的帳號則選直向輸出。加入目的地目前的伺服器網址與金鑰，開始輸出，然後在平台上確認直播。"
+            }
+          ]
+        },
+        {
+          "img": "go-live.png",
+          "alt": "Stream My Drone 電腦版畫面，顯示本機 DJI Fly RTMP 位址、直播平台目的地和「開始直播」按鈕。"
+        }
+      ],
+      "howto": true
+    },
+    {
+      "id": "phone-setup",
+      "h2": "Lito 1 搭配 RC 2：用另一支手機直播，不需要電腦",
+      "howto": false,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "在手機上安裝 Stream My Drone",
+              "d": "從 <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> 或 <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">App Store</a> 下載 App。DJI Fly 留在 RC 2 上開著，由這支手機接收串流。"
+            },
+            {
+              "t": "讓 RC 2 和手機連上同一個網路",
+              "d": "兩者都連到同一個可上網的 Wi-Fi。在戶外時，可以由 Android 手機開熱點並同時接收串流。選好網路後再開啟 Stream My Drone；在 iPhone 上，系統詢問時請允許存取區域網路。"
+            },
+            {
+              "t": "把接收位址填入 DJI Fly",
+              "d": "使用 Stream My Drone 顯示的完整本機位址。在 DJI Fly 中打開 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，在那裡輸入位址。完整的選單說明請見 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 設定教學</a>。如果 DJI Fly 要求麥克風，請接上麥克風。"
+            },
+            {
+              "t": "開始 DJI Fly 串流並檢查預覽",
+              "d": "在遙控器上開始串流，確認手機上出現會動的空拍畫面。檢查連線時請讓 Stream My Drone 保持開啟。這一步確認的是本機影像連線。"
+            },
+            {
+              "t": "選擇直播目的地並確認已經開播",
+              "d": "在 Stream My Drone 中加入平台，可以的話用帳號連結，否則填入伺服器網址和串流金鑰。開始轉送後，打開平台的直播後台或觀看頁面。如果平台還需要按「開始直播」，請完成這一步。"
+            }
+          ]
+        },
+        {
+          "note": "手機會直接轉送收到的影像，不會重新編碼。預覽畫面的裁切或模糊背景，並不會讓送出的串流變成 1080×1920 直向影片；需要這種轉換時請使用電腦版。在 iPhone 上，設定期間請讓 App 留在前景；要在背景持續直播，需要靠子母畫面。"
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "你想直播到哪個平台？",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "平台",
+              "需要準備什麼",
+              "詳細教學"
+            ],
+            "rows": [
+              [
+                "YouTube",
+                "已啟用直播功能的帳號，以及已建立好的直播",
+                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube 設定</a>"
+              ],
+              [
+                "Instagram",
+                "可使用 Live Producer，以及目前有效的 RTMPS 憑證",
+                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram 設定</a>"
+              ],
+              [
+                "Facebook",
+                "一場直播及其伺服器網址與金鑰",
+                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Facebook 設定</a>"
+              ],
+              [
+                "TikTok",
+                "帳號具備 RTMP 權限，或一台可使用 LIVE Studio 的電腦",
+                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok 設定</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "平台權限取決於你的帳號。App 收到空拍機畫面，並不會因此取得串流金鑰或自動開播。如果要用 TikTok LIVE Studio，電腦版也提供<a href=\"../use-your-dji-drone-as-a-webcam/\">虛擬攝影機</a>。目前的開播步驟請以各平台後台為準。"
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Lito 1 的錄影畫質、即時畫面與 RTMP 輸出",
+      "blocks": [
+        {
+          "p": "DJI 的<a href=\"https://store.dji.com/ee/product/dji-lito-1?from=events-dji-monthly-picks&amp;set_region=EE\">Lito 1 產品頁面</a>提到 4K 錄影和 O4 即時圖傳。這些規格描述的是流程中不同的環節。飛機上錄下的影片、遙控器上的畫面、RTMP 輸入和平台輸出，解析度都可能不同。請以接收端顯示的輸入為準；在電腦上放大畫面並不能補回原本沒有的細節。"
+        },
+        {
+          "list": [
+            "<strong>起飛前先測試。</strong>空拍機還在地上時，就先檢查畫面動態、聲音和平台的觀看頁面。",
+            "<strong>估算上傳流量。</strong>持續 5 Mbps 的輸出每小時約用掉 2.25 GB，還不含網路額外負擔。兩個這樣的目的地合計需要約 10 Mbps 上傳頻寬，每小時約 4.5 GB。",
+            "<strong>保持本機連線穩定。</strong>讓手機或電腦靠近熱點。連線穩定比網路標榜的最高速度更重要。",
+            "<strong>確認實際送出的構圖。</strong>手機版的預覽版面只在本機有效；電腦版則請在開播前確認選擇的是裁切還是完整畫面輸出。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Lito 1 直播疑難排解",
+      "blocks": [
+        {
+          "list": [
+            "<strong>找不到 RTMP 選單：</strong>確認遙控器型號，更新韌體和 DJI Fly，並到 Transmission 底下找找看。接收端 App 無法補上 DJI Fly 缺少的功能。",
+            "<strong>連線失敗：</strong>網路變更後請重新複製 App 顯示的位址。使用沒有訪客隔離的同一個區域網路；在遙控器上填 <code>localhost</code> 指的是遙控器自己。",
+            "<strong>手機上有畫面，觀眾卻看不到：</strong>檢查目的地連線、目前的串流金鑰，以及平台最後的開播步驟。光是有資料在轉送，不代表已經公開直播。",
+            "<strong>在 iPhone 上切換 App 後串流中斷：</strong>回到 Stream My Drone 並確認子母畫面。沒有子母畫面時，iOS 可能會暫停接收端。",
+            "<strong>直播畫面卡頓：</strong>先試一個目的地就好，檢查行動網路上傳是否穩定，並把接收端移到離熱點更近的地方。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "資料來源與相關機型教學",
+      "blocks": [
+        {
+          "p": "機型與遙控器資訊：<a href=\"https://store.dji.com/ee/product/dji-lito-1?from=events-dji-monthly-picks&amp;set_region=EE\">官方 Lito 1 產品頁面與常見問題</a>。支援直播的機型清單：<a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">DJI Fly 直播相容性說明（簡體中文）</a>。遙控器要求與選單說明：<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App 直播操作指南</a>。查核日期為 2026 年 10 月 25 日；韌體更新後請再確認一次目前的選單。"
+        },
+        {
+          "p": "比較另一款 Lito 機型：<a href=\"../dji-lito-x1-live-stream/\">Lito X1 設定</a>。"
+        },
+        {
+          "p": "Mini 系列機型請見 <a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro 教學</a>。如果想把同一個畫面送到多個目的地，請接著看<a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">多平台同時直播教學</a>。"
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "不用電腦也能讓 Lito 1 直播嗎？",
+      "a": "使用 RC 2 時，可以在連上同一個區域網路的另一支手機上使用 Stream My Drone。DJI Fly 在遙控器上執行，手機接收它的 RTMP 串流，直播目的地則在 Stream My Drone 中設定。"
+    },
+    {
+      "q": "可以用已經接在 RC-N3 或 RC-N2 上的那支手機嗎？",
+      "a": "那支手機要執行 DJI Fly 來操控飛行。本文用另一台電腦上的 Stream My Drone 當接收端，讓 DJI Fly 可以一直開著。我們不假設同一支手機能同時應付飛行和轉播兩個 App。"
+    },
+    {
+      "q": "DJI Fly 裡要填哪個位址？",
+      "a": "填 Stream My Drone（手機或電腦版）顯示的完整本機接收位址。平台的伺服器網址和串流金鑰，則填在接收端 App 的目的地設定裡。"
+    },
+    {
+      "q": "Stream My Drone 會把影片轉成直向直播嗎？",
+      "a": "手機版會原樣轉送收到的影片，預覽版面不會重新編碼送出的畫面。電腦上的 Stream My Drone 才提供直向輸出轉換。"
+    },
+    {
+      "q": "為什麼我看得到預覽，觀眾卻看不到？",
+      "a": "預覽只證明本機的空拍機畫面已經送到。請開始輸出到目的地，確認平台有收到，並在平台上完成剩下的開播步驟。"
+    },
+    {
+      "q": "Lito 1 直播可以用 QuickTransfer 嗎？",
+      "a": "QuickTransfer 傳輸的是已錄好的檔案。要分享即時飛行畫面，請使用 DJI Fly 的 RTMP 選單和 App 顯示的接收位址。先確認接收端有收到會動的影像，再開始輸出到平台。"
+    }
+  ]
+}

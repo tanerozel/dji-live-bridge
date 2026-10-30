@@ -1,5 +1,5 @@
 {
-  "slug": "dji-mini-4-pro-live-stream",
+  "slug": "dji-mini-4-pro-diretta-streaming",
   "platform": "DJI Mini 4 Pro",
   "title": "DJI Mini 4 Pro in diretta streaming: configurazione con RC 2 e RC-N2 (2026)",
   "description": "Diretta streaming con DJI Mini 4 Pro e RC 2 o RC-N2: configurazione da telefono o computer, impostazioni RTMP di DJI Fly, microfono obbligatorio e controlli sulla piattaforma.",
@@ -43,7 +43,7 @@
           { "t": "Aggiungi le piattaforme e vai in diretta", "d": "Aggiungi la piattaforma con l'URL e la chiave di streaming attuali. Scegli il formato di uscita dell'app desktop, avvia l'uscita e controlla la dashboard della piattaforma. Completa l'eventuale passaggio Go Live prima di annunciare al pubblico che la diretta è iniziata." }
         ] },
         { "img": "go-live.png", "alt": "La scheda Diretta di Stream My Drone con l'indirizzo RTMP per DJI Fly, le destinazioni e il pulsante AVVIA DIRETTA." },
-        { "note": "Per una configurazione con RC 2 e solo telefono, segui la sezione successiva. Per schermate e più dettagli sulla rete, vedi la <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guida RTMP di DJI Fly</a>." }
+        { "note": "Per una configurazione con RC 2 e solo telefono, segui la sezione successiva. Per schermate e più dettagli sulla rete, vedi la <a href=\"../dji-fly-rtmp-impostazioni-diretta/\">guida RTMP di DJI Fly</a>." }
       ]
     },
     {
@@ -68,13 +68,13 @@
         { "table": {
           "head": ["Piattaforma", "Cosa preparare", "Guida dettagliata"],
           "rows": [
-            ["YouTube", "Un account con lo streaming live attivo e una diretta già preparata", "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Configurazione YouTube</a>"],
-            ["Instagram", "Accesso a Live Producer e credenziali RTMPS aggiornate", "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Configurazione Instagram</a>"],
-            ["Facebook", "Una diretta con il suo URL del server e la sua chiave", "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Configurazione Facebook</a>"],
-            ["TikTok", "Accesso RTMP sul tuo account, oppure un computer con accesso a LIVE Studio", "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Configurazione TikTok</a>"]
+            ["YouTube", "Un account con lo streaming live attivo e una diretta già preparata", "<a href=\"../come-trasmettere-un-drone-dji-su-youtube/\">Configurazione YouTube</a>"],
+            ["Instagram", "Accesso a Live Producer e credenziali RTMPS aggiornate", "<a href=\"../come-andare-in-diretta-su-instagram-con-un-drone-dji/\">Configurazione Instagram</a>"],
+            ["Facebook", "Una diretta con il suo URL del server e la sua chiave", "<a href=\"../come-andare-in-diretta-su-facebook-con-un-drone-dji/\">Configurazione Facebook</a>"],
+            ["TikTok", "Accesso RTMP sul tuo account, oppure un computer con accesso a LIVE Studio", "<a href=\"../come-andare-in-diretta-su-tiktok-con-un-drone-dji/\">Configurazione TikTok</a>"]
           ]
         } },
-        { "p": "L'accesso alla piattaforma dipende dal tuo account. Ricevere il flusso del drone nell'app non ti dà una chiave di streaming e non pubblica una diretta. Per TikTok LIVE Studio, l'app desktop offre anche una <a href=\"../use-your-dji-drone-as-a-webcam/\">fotocamera virtuale</a>. Controlla nella dashboard di ogni piattaforma qual è il passaggio di pubblicazione attuale." }
+        { "p": "L'accesso alla piattaforma dipende dal tuo account. Ricevere il flusso del drone nell'app non ti dà una chiave di streaming e non pubblica una diretta. Per TikTok LIVE Studio, l'app desktop offre anche una <a href=\"../usare-il-drone-dji-come-webcam/\">fotocamera virtuale</a>. Controlla nella dashboard di ogni piattaforma qual è il passaggio di pubblicazione attuale." }
       ]
     },
     {
@@ -106,7 +106,7 @@
       "h2": "Fonti e la guida al Mini 5 Pro",
       "blocks": [
         { "p": "Riferimenti ufficiali: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;pbc=BCQ9HQ1u&amp;pm=custom&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a> e <a href=\"https://www.dji.com/mini-4-pro/faq\">FAQ del DJI Mini 4 Pro</a>. Verificato il 21 ottobre 2026. Menu e impostazioni disponibili possono cambiare con il firmware." },
-        { "p": "Cerchi il modello più recente? La <a href=\"../dji-mini-5-pro-live-stream/\">guida alla diretta con il Mini 5 Pro</a> copre RC 2 e RC-N3, la ricezione sul telefono e la strada del computer." }
+        { "p": "Cerchi il modello più recente? La <a href=\"../dji-mini-5-pro-diretta-streaming/\">guida alla diretta con il Mini 5 Pro</a> copre RC 2 e RC-N3, la ricezione sul telefono e la strada del computer." }
       ]
     }
   ],

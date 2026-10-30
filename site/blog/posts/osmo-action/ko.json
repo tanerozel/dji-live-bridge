@@ -1,0 +1,80 @@
+{
+  "slug": "osmo-action-live-stream",
+  "platform": "Osmo Action",
+  "title": "Osmo Action 5 Pro·6·4로 Instagram·TikTok 라이브 방송하기",
+  "description": "Stream My Drone으로 DJI Osmo Action 6, 5 Pro, 4, 3을 DJI Mimo의 RTMP로 Instagram, TikTok, YouTube, Twitch에 동시에 라이브 방송하세요. 설정 방법과 추천 설정.",
+  "h1": "Osmo Action 카메라로 Instagram과 TikTok에 라이브 방송하는 방법",
+  "lead": "Osmo Action 카메라는 헬멧, 핸들바, 자동차, 삼각대 어디에서든 <strong>DJI Mimo에서 RTMP로</strong> 최대 1080p로 방송합니다. DJI Mimo만으로는 Facebook, YouTube, RTMP 주소로만 보낼 수 있습니다. 그 RTMP 스트림을 컴퓨터의 <strong>Stream My Drone</strong>으로 보내면 같은 화면이 <strong>Instagram, TikTok, YouTube, Twitch, Kick</strong>에 동시에 나갑니다.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Osmo Action 6, 5 Pro, 4, 3은 DJI Mimo(1.2.20 이상)에서 480p, 720p, 1080p, 최대 6 Mbps로 RTMP 방송을 합니다.",
+    "카메라가 직접 Wi-Fi 네트워크에 연결합니다. 컴퓨터와 같은 네트워크나 두 기기가 함께 쓰는 핫스팟에 연결하세요.",
+    "Stream My Drone이 Instagram(RTMPS)을 포함해 여러 플랫폼에 동시에 스트림을 보냅니다.",
+    "흐린 배경을 채운 세로 1080×1920으로 휴대폰 화면에서도 액션 장면 전체가 보입니다.",
+    "가상 카메라를 쓰면 Osmo Action을 OBS, Zoom, TikTok LIVE Studio용 무선 카메라로도 쓸 수 있습니다."
+  ],
+  "sections": [
+    {
+      "id": "setup",
+      "h2": "Osmo Action 라이브 방송 설정하기",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Stream My Drone 열기", "d": "Mac 또는 Windows PC에 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>을 설치하고 <code>rtmp://192.168.1.20:1935/drone</code> 같은 표시된 주소를 확인하세요." },
+          { "t": "DJI Mimo에서 카메라 연결", "d": "DJI Mimo와 카메라 펌웨어를 업데이트하고, Osmo Action을 연결한 뒤 라이브 방송 옵션을 여세요." },
+          { "t": "RTMP와 Wi-Fi 선택", "d": "RTMP를 고르고 카메라가 연결할 Wi-Fi를 선택하세요. 컴퓨터의 네트워크나 컴퓨터도 쓰는 휴대폰 핫스팟이어야 합니다." },
+          { "t": "주소를 입력하고 시작", "d": "Stream My Drone의 주소를 입력하고, 1080p와 네트워크가 감당할 수 있는 가장 높은 비트레이트를 고른 뒤 시작하세요. 앱에 미리보기가 나타납니다." },
+          { "t": "플랫폼을 추가하고 방송 시작", "d": "Instagram, TikTok, YouTube, Twitch 또는 아무 RTMP 서버나 추가하고 방송 시작을 누르세요." }
+        ] },
+        { "img": "go-live.png", "alt": "RTMP 주소, 방송 대상, 방송 시작 버튼이 보이는 Stream My Drone의 '방송' 탭." },
+        { "note": "RTMP 라이브 방송을 지원하는 다른 DJI 카메라는 <a href=\"../dji-osmo-live-stream-instagram-tiktok/\">Osmo 카메라 가이드</a>에 정리되어 있습니다." }
+      ]
+    },
+    {
+      "id": "ideas",
+      "h2": "액션 카메라 라이브 방송이 빛나는 곳",
+      "blocks": [
+        { "list": [
+          "<strong>스포츠와 라이딩.</strong> 자전거, 오토바이, 스키, 달리기를 1인칭 시점 그대로 여러 플랫폼에 생중계하세요.",
+          "<strong>비하인드 신.</strong> 촬영장이나 작업실 벽에 카메라를 달고 일하는 동안 방송하세요.",
+          "<strong>두 번째 앵글.</strong> 가상 카메라로 Osmo Action을 메인 카메라 옆에 OBS 무선 소스로 추가하세요. <a href=\"../use-your-dji-drone-as-a-webcam/\">웹캠 가이드</a>를 참고하세요.",
+          "<strong>날씨에 강한 방송.</strong> 카메라는 비와 먼지를 견디고, 컴퓨터는 차나 텐트 안에서 젖지 않습니다."
+        ] }
+      ]
+    },
+    {
+      "id": "range",
+      "h2": "거리와 네트워크",
+      "blocks": [
+        { "p": "카메라는 Wi-Fi로 컴퓨터에 스트림을 보내므로 그 네트워크가 닿는 범위 안에 있어야 합니다. 움직이며 촬영할 때는 카메라 가까이에 휴대폰 핫스팟을 들고 다니고 컴퓨터도 같은 핫스팟에 연결하면 연결 거리가 짧아집니다. 이때 플랫폼으로의 업로드는 핫스팟의 모바일 데이터를 쓰며, 방송 대상 하나당 약 6 Mbps가 필요합니다." },
+        { "table": {
+          "head": ["환경", "적합한 용도"],
+          "rows": [
+            ["집이나 행사장 Wi-Fi", "고정 앵글, 작업실, 행사"],
+            ["카메라와 컴퓨터 근처의 휴대폰 핫스팟", "야외 촬영과 짧은 이동 촬영"],
+            ["자동차나 밴의 여행용 공유기", "컴퓨터가 함께 이동하는 라이딩"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "작동하지 않을 때",
+      "blocks": [
+        { "list": [
+          "<strong>카메라가 연결하지 못함:</strong> 카메라가 컴퓨터의 네트워크에 있지 않거나, 게스트 네트워크가 기기를 격리하고 있습니다.",
+          "<strong>이동 중 스트림이 끊김:</strong> 카메라가 Wi-Fi 범위를 벗어났습니다. 핫스팟을 더 가까이 두거나 비트레이트를 낮추세요.",
+          "<strong>라이브 방송 옵션이 없음:</strong> DJI Mimo를 1.2.20 이상으로, 카메라 펌웨어도 최신으로 업데이트하세요.",
+          "<strong>Instagram이 스트림을 거부함:</strong> instagram.com에서 새 라이브 방송을 만들고 키를 업데이트하세요. 키는 한 번만 쓸 수 있습니다."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Osmo Action 5 Pro로 Instagram 라이브를 할 수 있나요?", "a": "DJI Mimo만으로는 안 됩니다. RTMP로 Stream My Drone에 송출하면 앱이 RTMPS로 Instagram에 전달합니다." },
+    { "q": "RTMP 라이브 방송을 지원하는 Osmo Action 카메라는 무엇인가요?", "a": "DJI에 따르면 Osmo Action 6, 5 Pro, 4, 3, DJI Action 2, 1세대 Osmo Action(최대 720p)입니다." },
+    { "q": "Osmo Action으로 Twitch와 YouTube에 동시에 방송할 수 있나요?", "a": "네. Stream My Drone에 두 방송 대상을 추가하고 방송 시작을 누르세요." },
+    { "q": "카메라와 컴퓨터는 얼마나 떨어져 있어도 되나요?", "a": "Wi-Fi가 닿는 만큼입니다. 카메라가 그 네트워크로 컴퓨터에 송출하므로 범위 안에 두거나 핫스팟을 들고 다니세요." }
+  ]
+}

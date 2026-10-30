@@ -1,5 +1,5 @@
 {
-  "slug": "count-animals-with-a-dji-drone-ai-detection",
+  "slug": "contare-animali-con-drone-dji-rilevamento-ia",
   "platform": "AI Vision",
   "title": "Contare capre, pecore e bovini in diretta da un drone DJI con l'AI",
   "description": "Stream My Drone riconosce capre, pecore, mucche, cavalli, asini e pollame nell'immagine dal vivo del drone, li segna nella diretta e li conta, tutto sul tuo computer.",
@@ -52,7 +52,7 @@
       "howto": true,
       "blocks": [
         { "steps": [
-          { "t": "Collega il drone", "d": "Manda come al solito l'immagine dal vivo da DJI Fly all'app via RTMP; l'indirizzo è nella scheda Diretta. I dettagli sono nella <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guida RTMP di DJI Fly</a>." },
+          { "t": "Collega il drone", "d": "Manda come al solito l'immagine dal vivo da DJI Fly all'app via RTMP; l'indirizzo è nella scheda Diretta. I dettagli sono nella <a href=\"../dji-fly-rtmp-impostazioni-diretta/\">guida RTMP di DJI Fly</a>." },
           { "t": "Attiva AI Vision", "d": "Nella scheda Diretta, trova la scheda <strong>AI Vision · Rilevamento animali</strong> e attiva <em>Rilevamento animali</em>." },
           { "t": "Lascia che scarichi e prepari il modello", "d": "La prima volta il modello viene scaricato e preparato per il tuo computer. Con OWLv2 può volerci qualche minuto; la scheda mostra l'avanzamento. Gli avvii successivi richiedono circa un minuto." },
           { "t": "Imposta la soglia", "d": "Abbassa la <em>Soglia di confidenza</em> a circa 0,25–0,35 per le riprese dall'alto, dove gli animali sono piccoli. Alzala se vedi riquadri su cespugli o rocce." },

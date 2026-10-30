@@ -1,5 +1,5 @@
 {
-  "slug": "dji-air-3s-live-stream",
+  "slug": "dji-air-3s-diffusion-en-direct",
   "platform": "DJI Air 3S",
   "title": "Diffuser le DJI Air 3S en direct : réglages RC 2 et RC-N3 (2026)",
   "description": "Diffusez un DJI Air 3S en direct sur YouTube, Instagram ou Facebook : choix de la radiocommande, RTMP de DJI Fly vers un téléphone ou un ordinateur et contrôle de l'image.",
@@ -70,7 +70,7 @@
             },
             {
               "t": "Copiez l'adresse de réception dans DJI Fly",
-              "d": "Copiez l'adresse locale de réception complète affichée par Stream My Drone. Dans DJI Fly, ouvrez GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP et saisissez-la. Le <a href=\"../dji-fly-rtmp-live-streaming-setup/\">guide RTMP de DJI Fly</a> détaille le parcours des menus."
+              "d": "Copiez l'adresse locale de réception complète affichée par Stream My Drone. Dans DJI Fly, ouvrez GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP et saisissez-la. Le <a href=\"../dji-fly-rtmp-reglages-diffusion-en-direct/\">guide RTMP de DJI Fly</a> détaille le parcours des menus."
             },
             {
               "t": "Lancez le flux DJI Fly et vérifiez l'aperçu",
@@ -131,28 +131,28 @@
               [
                 "YouTube",
                 "Un compte avec le direct activé et une diffusion préparée",
-                "<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">Configuration YouTube</a>"
+                "<a href=\"../diffuser-un-drone-dji-en-direct-sur-youtube/\">Configuration YouTube</a>"
               ],
               [
                 "Instagram",
                 "Un accès à Live Producer et des identifiants RTMPS à jour",
-                "<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Configuration Instagram</a>"
+                "<a href=\"../faire-un-live-instagram-avec-un-drone-dji/\">Configuration Instagram</a>"
               ],
               [
                 "Facebook",
                 "Une vidéo en direct avec son URL de serveur et sa clé",
-                "<a href=\"../how-to-go-live-on-facebook-with-a-dji-drone/\">Configuration Facebook</a>"
+                "<a href=\"../faire-un-live-facebook-avec-un-drone-dji/\">Configuration Facebook</a>"
               ],
               [
                 "TikTok",
                 "L'accès RTMP sur votre compte, ou un ordinateur avec accès à LIVE Studio",
-                "<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">Configuration TikTok</a>"
+                "<a href=\"../faire-un-live-tiktok-avec-un-drone-dji/\">Configuration TikTok</a>"
               ]
             ]
           }
         },
         {
-          "p": "L'accès aux plateformes dépend de votre compte. Recevoir le flux du drone dans l'application ne fournit pas de clé de stream et ne publie pas de direct. Pour TikTok LIVE Studio, l'application pour ordinateur propose aussi une <a href=\"../use-your-dji-drone-as-a-webcam/\">caméra virtuelle</a>. Consultez le tableau de bord de chaque plateforme pour connaître l'étape de publication actuelle."
+          "p": "L'accès aux plateformes dépend de votre compte. Recevoir le flux du drone dans l'application ne fournit pas de clé de stream et ne publie pas de direct. Pour TikTok LIVE Studio, l'application pour ordinateur propose aussi une <a href=\"../utiliser-son-drone-dji-comme-webcam/\">caméra virtuelle</a>. Consultez le tableau de bord de chaque plateforme pour connaître l'étape de publication actuelle."
         }
       ]
     },
@@ -217,7 +217,7 @@
           "p": "Caractéristiques officielles : <a href=\"https://www.dji.com/air-3s/faq\">FAQ du DJI Air 3S</a>. Procédure RTMP et limites des radiocommandes : <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Firmware et manuels : <a href=\"https://www.dji.com/air-3s/downloads\">téléchargements du DJI Air 3S</a>. Vérifié le 25 octobre 2026 ; les menus disponibles peuvent changer avec le firmware."
         },
         {
-          "p": "Comparez avec le <a href=\"../dji-air-3-live-stream/\">guide de diffusion de l'Air 3</a> ou le <a href=\"../dji-mini-5-pro-live-stream/\">guide du Mini 5 Pro</a>. Pour envoyer la même image vers plusieurs destinations, suivez le <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">guide du multistreaming</a>."
+          "p": "Comparez avec le <a href=\"../dji-air-3-diffusion-en-direct/\">guide de diffusion de l'Air 3</a> ou le <a href=\"../dji-mini-5-pro-diffusion-en-direct/\">guide du Mini 5 Pro</a>. Pour envoyer la même image vers plusieurs destinations, suivez le <a href=\"../diffuser-un-drone-dji-sur-plusieurs-plateformes-a-la-fois/\">guide du multistreaming</a>."
         }
       ]
     }

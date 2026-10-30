@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "title": "DJI 无人机直播教程 — Stream My Drone 博客",
+    "description": "DJI Flip、Lito、Air、Mavic 和 Mini 无人机直播教程：遥控器兼容性、手机与电脑设置、DJI Fly RTMP 推流，以及直播到 YouTube、Instagram 和 Facebook。"
+  },
+  "h1": "无人机直播教程",
+  "lead": "按无人机或平台选择教程：Flip、Lito X1 与 Lito 1、Air、Mavic 和 Mini 的遥控器设置，手机与电脑的推流流程，DJI Fly RTMP 设置，以及开播前的检查清单。",
+  "language": "语言",
+  "skip": "跳到正文",
+  "home": "首页",
+  "blog": "博客",
+  "download": "下载",
+  "breadcrumb": "面包屑导航",
+  "by": "作者",
+  "updated": "更新于",
+  "keyFacts": "要点速览",
+  "toc": "本页目录",
+  "faq": "常见问题",
+  "related": "更多教程",
+  "cta": {
+    "h": "用你的无人机试试看",
+    "p": "Stream My Drone 免费、开源，支持 macOS 和 Windows。已内置 FFmpeg，无需安装其他软件。",
+    "button": "下载 Stream My Drone",
+    "more": "了解应用的工作原理"
+  },
+  "guides": {
+    "h2": "教程",
+    "sub": "针对你的无人机、遥控器和直播平台的分步说明。",
+    "all": "全部教程"
+  }
+}

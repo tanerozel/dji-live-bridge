@@ -1,0 +1,80 @@
+{
+  "slug": "transmitir-drone-dji-em-varias-plataformas-ao-mesmo-tempo",
+  "platform": "Multistream",
+  "title": "Transmita um drone DJI em várias plataformas ao mesmo tempo (multistream)",
+  "description": "Envie a live de um drone DJI para TikTok, Instagram, YouTube, Facebook, Twitch e Kick ao mesmo tempo com o Stream My Drone — grátis, local, sem serviço de retransmissão.",
+  "h1": "Transmita um drone DJI em várias plataformas ao mesmo tempo",
+  "lead": "O DJI Fly envia uma única transmissão RTMP. O Stream My Drone a recebe no seu computador, <strong>codifica a imagem uma vez e a repassa para cada destino que você ativar</strong> — TikTok, Instagram, YouTube, Facebook, Twitch, Kick ou qualquer servidor RTMP — sem um serviço de retransmissão pago. Se um destino falha, os outros continuam no ar.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Adicione um destino por plataforma e ative “Transmitir aqui” em cada um que você quiser.",
+    "A imagem é codificada uma vez, então mais destinos não exigem mais processamento — só mais banda de upload.",
+    "Conte com cerca de 10 Mbps estáveis de upload por destino (6 Mbps de vídeo mais uma folga).",
+    "Todos os destinos compartilham a mesma orientação: vertical para TikTok/Instagram, horizontal para YouTube/Twitch/Kick.",
+    "Tudo roda localmente; não há servidor de retransmissão de terceiros nem mensalidade."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Configure um multistream",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Conecte o drone", "d": "No DJI Fly, abra GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP e digite o endereço que o Stream My Drone mostra." },
+          { "t": "Adicione cada plataforma", "d": "Em <em>Para onde você quer transmitir?</em>, use <em>Adicionar outro destino</em> para cada plataforma: TikTok, Instagram, YouTube e Facebook têm um tipo próprio; Twitch, Kick e outras entram como RTMP personalizado." },
+          { "t": "Renove as chaves de uso único", "d": "O Instagram (e o Facebook sem chave permanente) exige uma chave nova a cada live. Use <em>Atualizar chave</em> nesses cartões." },
+          { "t": "Escolha a orientação do seu público principal", "d": "Uma única codificação alimenta todos os destinos, então escolha <em>Vertical 9:16</em> ou <em>Horizontal 16:9</em> pensando na plataforma que mais importa." },
+          { "t": "Pressione INICIAR TRANSMISSÃO", "d": "Cada cartão de destino mostra o próprio estado — <em>Ao vivo</em>, <em>Conectando</em> ou <em>Falha na conexão</em> — e uma falha não derruba os demais. Entre ao vivo nas plataformas que exigem esse passo (Instagram, Facebook)." }
+        ] }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Resumo rápido por plataforma",
+      "blocks": [
+        { "table": {
+          "head": ["Plataforma", "Onde fica a chave", "A chave muda?", "Melhor orientação"],
+          "rows": [
+            ["<a href=\"../como-fazer-live-no-tiktok-com-drone-dji/\">TikTok</a>", "LIVE Center / LIVE Studio (contas elegíveis)", "Pode mudar", "Vertical"],
+            ["<a href=\"../como-fazer-live-no-instagram-com-drone-dji/\">Instagram</a>", "instagram.com → Criar → Vídeo ao vivo", "A cada live", "Vertical"],
+            ["<a href=\"../como-transmitir-drone-dji-no-youtube/\">YouTube</a>", "YouTube Studio → Transmitir ao vivo → Software de streaming", "Só quando redefinida", "Horizontal ou vertical"],
+            ["<a href=\"../como-fazer-live-no-facebook-com-drone-dji/\">Facebook</a>", "Vídeo ao vivo → Software de streaming", "A cada sessão, a menos que seja permanente", "Qualquer uma"],
+            ["<a href=\"../como-transmitir-drone-dji-na-twitch/\">Twitch</a>", "Painel do Criador → Configurações → Transmissão", "Só quando redefinida", "Horizontal"],
+            ["<a href=\"../como-transmitir-drone-dji-no-kick/\">Kick</a>", "Painel → Settings → Stream URL &amp; Key", "Só quando redefinida", "Horizontal"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "bandwidth",
+      "h2": "Quanto upload você precisa",
+      "blocks": [
+        { "table": {
+          "head": ["Destinos", "Vídeo enviado", "Upload estável a prever"],
+          "rows": [
+            ["1", "6 Mbps", "10 Mbps"],
+            ["2", "12 Mbps", "20 Mbps"],
+            ["3", "18 Mbps", "30 Mbps"],
+            ["4", "24 Mbps", "40 Mbps"]
+          ]
+        } },
+        { "p": "Em um ponto de acesso de celular em campo, dois destinos costumam ser o limite prático. Teste a conexão com <em>Testar com um arquivo de vídeo</em> antes de decolar." }
+      ]
+    },
+    {
+      "id": "rules",
+      "h2": "Confira as regras das plataformas",
+      "blocks": [
+        { "p": "Algumas plataformas limitam a transmissão simultânea para parceiros ou nos seus termos de uso; a Twitch, em especial, mudou as regras ao longo do tempo. O Stream My Drone só envia o vídeo que você mandar — ele nunca entra em uma conta nem inicia a live por você." }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Posso transmitir meu drone DJI no TikTok e no YouTube ao mesmo tempo?", "a": "Sim. Adicione os dois como destinos e pressione INICIAR TRANSMISSÃO. Como os dois compartilham a mesma orientação, escolha a que combina com o seu público principal." },
+    { "q": "Preciso de um serviço de retransmissão?", "a": "Não. O Stream My Drone faz o multistream no seu próprio computador, de graça; ele só precisa de banda de upload suficiente." },
+    { "q": "O que acontece se uma plataforma cair?", "a": "Só aquele destino mostra Falha na conexão. Os outros continuam transmitindo." },
+    { "q": "Cada plataforma extra exige mais CPU?", "a": "Quase nada. A imagem é codificada uma vez e os mesmos dados são enviados para todos os destinos." },
+    { "q": "O multistream funciona no modo OBS?", "a": "Não. Vários destinos são um recurso da transmissão direta; no modo OBS, é o OBS que decide para onde a transmissão vai." }
+  ]
+}

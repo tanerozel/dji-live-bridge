@@ -1,0 +1,75 @@
+{
+  "slug": "how-to-go-live-on-facebook-with-a-dji-drone",
+  "platform": "Facebook",
+  "title": "如何用 DJI 空拍機開 Facebook 直播（Live Producer）",
+  "description": "用 DJI 空拍機開 Facebook 直播：從 Live Producer 取得 RTMPS 伺服器網址和串流金鑰，透過 Stream My Drone 轉送 DJI Fly 的串流，然後開播。",
+  "h1": "如何用 DJI 空拍機開 Facebook 直播",
+  "lead": "在 facebook.com 開啟<strong>「直播視訊」→「串流軟體」</strong>（Facebook 的 Live Producer），把伺服器網址和串流金鑰複製到 Stream My Drone 的 Facebook 目的地，從 DJI Fly 把空拍畫面送到 App，按下「開始直播」，再到 Live Producer 按下<strong>開始直播</strong>。Facebook 只接受加密的 RTMPS，這部分由 App 處理。",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "伺服器網址和金鑰來自 Live Producer：「直播視訊」→「串流軟體」。",
+    "伺服器網址：rtmps://live-api-s.facebook.com:443/rtmp/。Facebook 要求使用 RTMPS。",
+    "除非你開啟永久串流金鑰，否則 Facebook 每次直播都會給新的金鑰。",
+    "Facebook 需要每 2 秒一個關鍵影格；Stream My Drone 一律這樣送出。",
+    "你可以發布到個人檔案、粉絲專頁或社團，並同時直播到其他平台。"
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "逐步開 Facebook 直播",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "連接空拍機", "d": "在 DJI Fly 中開啟 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，輸入 Stream My Drone 顯示的位址。App 中就會出現預覽。" },
+          { "t": "開啟 Live Producer", "d": "在 facebook.com 選擇「直播視訊」，挑選要發布的位置（個人檔案、粉絲專頁或社團），然後選擇<em>串流軟體</em>。" },
+          { "t": "複製伺服器網址和金鑰", "d": "把<em>伺服器網址</em>（<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>）和<em>串流金鑰</em>複製到 Stream My Drone 的 Facebook 目的地。" },
+          { "t": "按下「開始直播」", "d": "先選擇方向：<em>水平 16:9</em>適合用電腦觀看的觀眾，<em>直向 9:16</em>適合手機動態。幾秒後，Live Producer 就會顯示預覽。" },
+          { "t": "在 Facebook 上按下開始直播", "d": "在 Live Producer 中加上標題和說明，然後按下開始直播。要結束時，先在那裡結束影片，再在 App 中按下<em>結束直播</em>。" }
+        ] }
+      ]
+    },
+    {
+      "id": "persistent-key",
+      "h2": "使用永久串流金鑰",
+      "blocks": [
+        { "p": "Facebook 預設每次直播都會產生新的串流金鑰，所以你每次都得在 App 中更新。Live Producer 有一個<em>使用永久串流金鑰</em>的選項。開啟它，在 Stream My Drone 中儲存一次金鑰，之後直播到同一個位置時就能一直使用。" },
+        { "note": "請把永久金鑰當成密碼看待：任何拿到它的人都能直播到你的粉絲專頁。Stream My Drone 會把它存在系統的憑證保管區，從不寫進檔案或記錄檔。" }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Facebook 設定",
+      "blocks": [
+        { "table": {
+          "head": ["設定", "數值"],
+          "rows": [
+            ["伺服器網址", "<code>rtmps://live-api-s.facebook.com:443/rtmp/</code>"],
+            ["通訊協定", "RTMPS（Facebook 要求）"],
+            ["解析度", "1920×1080 或 1080×1920"],
+            ["影格率", "30 fps"],
+            ["影像", "H.264，6 Mbps CBR，每 2 秒一個關鍵影格"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "常見問題",
+      "blocks": [
+        { "list": [
+          "<strong>連線失敗：</strong>這次直播的金鑰已過期。從 Live Producer 複製新的金鑰，或改用永久金鑰。",
+          "<strong>位址以 rtmp:// 開頭：</strong>Facebook 不接受未加密的 RTMP；請使用 Live Producer 提供的 rtmps:// 位址。",
+          "<strong>Live Producer 收到串流，卻沒人看得到：</strong>你還需要在 Live Producer 中按下開始直播。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "可以用 DJI 空拍機開 Facebook 直播嗎？", "a": "可以。DJI Fly 把 RTMP 送到你電腦上的 Stream My Drone，App 再用 Live Producer 提供的金鑰，透過 RTMPS 轉送到 Facebook。" },
+    { "q": "可以直播到 Facebook 粉絲專頁或社團嗎？", "a": "可以。複製金鑰之前，先在 Live Producer 中選好發布位置；金鑰屬於那個目的地。" },
+    { "q": "為什麼我的 Facebook 串流金鑰會失效？", "a": "Facebook 每次直播都會給一組金鑰。如果你常常直播到同一個位置，請在 Live Producer 中開啟永久串流金鑰。" },
+    { "q": "可以同時直播到 Facebook 和 Instagram 嗎？", "a": "可以，在 Stream My Drone 中設為兩個目的地即可。兩邊收到的是同一個畫面，所以請選擇最適合主要觀眾的方向。" },
+    { "q": "要付費嗎？", "a": "不用。Stream My Drone 免費且開源，與 DJI 或 Meta 沒有任何關係。" }
+  ]
+}

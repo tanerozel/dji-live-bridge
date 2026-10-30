@@ -1,0 +1,84 @@
+{
+  "slug": "dji-osmo-livestream-instagram-tiktok",
+  "platform": "DJI-Osmo-Kameras",
+  "title": "DJI Osmo Action und Pocket live auf Instagram und TikTok streamen",
+  "description": "DJI Mimo kann Osmo Action, Osmo Pocket und Osmo 360 per RTMP streamen. Senden Sie das an Stream My Drone und gehen Sie gleichzeitig auf Instagram, TikTok und YouTube live.",
+  "h1": "Streamen Sie Ihre DJI-Osmo-Kamera live auf Instagram, TikTok und mehr",
+  "lead": "Stream My Drone ist nicht nur für Drohnen da. DJIs Action- und Gimbal-Kameras streamen per <strong>RTMP aus der App DJI Mimo</strong> – genau die Art Stream, die die App empfängt. Richten Sie eine Osmo Action, Osmo Pocket oder Osmo 360 auf Stream My Drone, und das Bild geht an <strong>Instagram, TikTok, YouTube, Facebook, Twitch oder Kick</strong>, an mehrere gleichzeitig, im Hoch- oder Querformat – oder als kabellose Webcam in Zoom und OBS.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "DJI Mimo (Version 1.2.20 oder neuer) bietet RTMP-Livestreaming für die Serien Osmo Action, Osmo Pocket und Osmo 360.",
+    "Die Kamera verbindet sich selbst mit einem WLAN und sendet RTMP; bringen Sie sie ins selbe Netz wie den Computer mit Stream My Drone.",
+    "Die eigenen Plattformen von DJI Mimo sind Facebook, YouTube und RTMP – Instagram und TikTok erreichen Sie über Stream My Drone.",
+    "DJI nennt 480p, 720p und 1080p mit bis zu 6 Mbit/s; wählen Sie 1080p mit 6 Mbit/s, wenn das WLAN es zulässt.",
+    "Derselbe Stream kann zur kabellosen Webcam für TikTok LIVE Studio, OBS, Zoom oder Meet werden."
+  ],
+  "sections": [
+    {
+      "id": "devices",
+      "h2": "Welche DJI-Kameras streamen können",
+      "blocks": [
+        { "p": "Laut DJI unterstützen diese Kameras Livestreaming in DJI Mimo, mit RTMP als einer der Plattformen:" },
+        { "table": {
+          "head": ["Kamera", "Auflösungen (DJI)", "Hinweise"],
+          "rows": [
+            ["Osmo Pocket 3, Osmo Pocket 4, Osmo Pocket 4P", "480p, 720p, 1080p mit 30 fps", "Bis zu 6 Mbit/s bei 1080p"],
+            ["Osmo Action 6, Osmo Action 5 Pro, Osmo Action 4, Osmo Action 3", "480p, 720p, 1080p", "Bis zu 6 Mbit/s bei 1080p"],
+            ["Osmo-360-Serie", "480p, 720p, 1080p", "Nur im Ein-Objektiv-Modus"],
+            ["DJI Pocket 2, DJI Action 2", "480p, 720p, 1080p", "Die Action 2 bietet zusätzlich eine adaptive Bitrate"],
+            ["Osmo Action (erste Generation)", "480p, 720p", "Kein Livestream in 1080p"]
+          ]
+        } },
+        { "note": "Kein Livestreaming in DJI Mimo unterstützen: die Handy-Gimbals Osmo Mobile und DJI OM, die ursprüngliche Osmo Pocket und die Osmo Nano. Bei einem Handy-Gimbal ist das Handy selbst die Kamera." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Eine Osmo-Kamera über Stream My Drone streamen",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Stream My Drone öffnen", "d": "Installieren Sie <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> auf einem Mac oder Windows-PC. Der Schritt <em>Drohne verbinden</em> funktioniert mit jeder RTMP-Kamera und zeigt eine Adresse wie <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Kamera in DJI Mimo verbinden", "d": "Aktualisieren Sie DJI Mimo auf 1.2.20 oder neuer, verbinden Sie die Kamera und öffnen Sie die Livestream-Option." },
+          { "t": "RTMP und Netzwerk wählen", "d": "Wählen Sie RTMP als Plattform und das WLAN, das die Kamera nutzen soll – dasselbe wie der Computer oder einen Handy-Hotspot, mit dem beide verbunden sind." },
+          { "t": "Adresse und Qualität eingeben", "d": "Tippen Sie die Adresse aus Stream My Drone ein, wählen Sie 1080p und die höchste Bitrate, die Ihr WLAN schafft, und starten Sie. Die Vorschau erscheint nach wenigen Sekunden in der App." },
+          { "t": "Plattformen hinzufügen und live gehen", "d": "Fügen Sie Instagram, TikTok, YouTube oder einen beliebigen RTMP-Server hinzu, wählen Sie Hoch- oder Querformat und drücken Sie LIVE STARTEN." }
+        ] },
+        { "img": "go-live.png", "alt": "Der Tab „Live gehen“ von Stream My Drone mit der RTMP-Adresse, den Zielen und der Taste LIVE STARTEN." }
+      ]
+    },
+    {
+      "id": "uses",
+      "h2": "Was es einer Osmo-Kamera hinzufügt",
+      "blocks": [
+        { "list": [
+          "<strong>Instagram und TikTok.</strong> DJI Mimo streamt an Facebook, YouTube oder eine RTMP-Adresse; Stream My Drone erreicht Instagram per RTMPS und TikTok mit einem Stream-Schlüssel oder über TikTok LIVE Studio.",
+          "<strong>Mehrere Plattformen gleichzeitig.</strong> Eine Kamera, dieselbe Übertragung auf Instagram, TikTok und YouTube.",
+          "<strong>Hochformat für Handys.</strong> Aus einem Querformat-Bild wird 1080×1920 mit unscharfer Füllung statt schwarzer Balken.",
+          "<strong>Eine kabellose Webcam.</strong> Die eingebaute virtuelle Kamera zeigt das Bild der Osmo in TikTok LIVE Studio, OBS, Zoom oder Meet – ohne Kabel zum Computer. Siehe <a href=\"../dji-drohne-als-webcam-nutzen/\">die Webcam-Anleitung</a>.",
+          "<strong>Vorschau und Aufnahme.</strong> Sehen Sie den echten Eingang am Computer und nehmen Sie ihn während des Streams auf."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Wenn es nicht funktioniert",
+      "blocks": [
+        { "list": [
+          "<strong>Die Kamera kann keine Verbindung herstellen:</strong> Sie muss im selben Netz wie der Computer sein. Gastnetze isolieren Geräte oft; nutzen Sie ein normales WLAN oder einen Hotspot.",
+          "<strong>Keine Livestream-Option in DJI Mimo:</strong> Aktualisieren Sie DJI Mimo und die Firmware der Kamera; Livestreaming braucht DJI Mimo 1.2.20 oder neuer.",
+          "<strong>Das Bild ruckelt:</strong> Senken Sie die Bitrate in DJI Mimo oder bringen Sie die Kamera näher an den Router.",
+          "<strong>Die Osmo 360 streamt nicht:</strong> Schalten Sie sie zuerst in den Ein-Objektiv-Modus."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Kann ich mit einer Osmo Action oder Osmo Pocket auf Instagram live streamen?", "a": "Nicht allein mit DJI Mimo, das Facebook, YouTube und RTMP anbietet. Streamen Sie per RTMP an Stream My Drone, und die App leitet das Bild per RTMPS an Instagram weiter." },
+    { "q": "Funktioniert Stream My Drone auch mit Kameras, nicht nur mit Drohnen?", "a": "Ja. Die App empfängt einen normalen RTMP-Stream, egal ob DJI Fly oder DJI Mimo ihn sendet." },
+    { "q": "Welche DJI-Kameras unterstützen RTMP-Livestreaming?", "a": "Laut DJI: Osmo Pocket 3, 4 und 4P, Osmo Action 3, 4, 5 Pro und 6, die Osmo-360-Serie im Ein-Objektiv-Modus, DJI Pocket 2, DJI Action 2 und die erste Osmo Action." },
+    { "q": "Kann ich eine Osmo-Kamera als kabellose Webcam nutzen?", "a": "Ja. Starten Sie die virtuelle Kamera von Stream My Drone und wählen Sie Stream My Drone Camera in TikTok LIVE Studio, OBS, Zoom oder Meet." },
+    { "q": "Ist es kostenlos?", "a": "Ja. Stream My Drone ist kostenlos und quelloffen und steht in keiner Verbindung zu DJI." }
+  ]
+}

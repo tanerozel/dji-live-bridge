@@ -1,0 +1,124 @@
+{
+  "slug": "use-your-dji-drone-as-a-webcam",
+  "platform": "虛擬攝影機",
+  "title": "把 DJI 空拍機變成 Mac 與 Windows 的網路攝影機",
+  "description": "用 Stream My Drone 虛擬攝影機，把 DJI 空拍機變成 TikTok LIVE Studio、OBS、Zoom、Google Meet 或 Teams 的網路攝影機。設定步驟、應用點子與問題排除。",
+  "h1": "把 DJI 空拍機變成電腦的網路攝影機",
+  "lead": "Stream My Drone 不只能轉播。它的<strong>虛擬攝影機</strong>會把 DJI Fly 傳來的即時畫面，以一台名為 <strong>Stream My Drone Camera</strong> 的普通攝影機交給你的電腦，因此任何有攝影機選單的 App，例如 TikTok LIVE Studio、OBS、Zoom、Google Meet、Microsoft Teams，都能顯示空拍機看到的畫面。不需要串流金鑰，也不需要直播帳號。",
+  "published": "2026-10-02",
+  "updated": "2026-10-21",
+  "summary": [
+    "Stream My Drone 會在你的電腦上新增一台名為 <strong>Stream My Drone Camera</strong> 的攝影機，顯示空拍機的即時畫面。",
+    "任何能選擇攝影機的 App 都能使用它：TikTok LIVE Studio、OBS、Zoom、Google Meet、Microsoft Teams 或網頁版直播工作室。",
+    "不需要串流金鑰或平台帳號，空拍機就直接變成一台攝影機。",
+    "這台攝影機是直向的 1080×1920、30 fps，只有影像；麥克風要在使用它的 App 中選擇。",
+    "要進行橫向視訊通話，請以水平 16:9 版面把空拍畫面送進 OBS，並使用 OBS Virtual Camera。"
+  ],
+  "sections": [
+    {
+      "id": "what",
+      "h2": "虛擬攝影機能做什麼",
+      "blocks": [
+        { "p": "通常，空拍機的即時畫面會送到直播平台。虛擬攝影機走的是另一條路：DJI Fly 透過 RTMP 把畫面送到你電腦上的 Stream My Drone，App 再把它以攝影機的形式交給作業系統。對其他所有 App 來說，你的空拍機就像一台插在電腦上的網路攝影機。" },
+        { "p": "因此其他 App 不需要串流金鑰、直播帳號或 RTMP 支援。只要它有攝影機選單，空拍機就能出現在裡面。" },
+        { "list": [
+          "<strong>名稱：</strong>Stream My Drone Camera。",
+          "<strong>畫面：</strong>直向 1080×1920、30 fps。橫向的空拍畫面會置中，上下為黑邊，不會裁切任何部分。",
+          "<strong>聲音：</strong>刻意不帶聲音。你在使用攝影機的 App 中選擇麥克風，就不會聽到兩次聲音。",
+          "<strong>系統：</strong>macOS 13 或更新版本（App 必須放在「應用程式」資料夾），以及 Windows 10/11。"
+        ] }
+      ]
+    },
+    {
+      "id": "uses",
+      "h2": "可以拿來做什麼",
+      "blocks": [
+        { "p": "這裡有幾個點子，任何接受網路攝影機的軟體都能顯示空拍機的畫面。" },
+        { "list": [
+          "<strong>不用串流金鑰也能開 TikTok 直播。</strong>在 TikTok LIVE Studio 中選擇這台攝影機，從那裡開播。完整步驟請見 <a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok 教學</a>。",
+          "<strong>在 OBS 中製作節目。</strong>把攝影機加為影像來源，在空拍畫面上疊加文字、標誌、地圖或你自己的鏡頭，再從 OBS 直播或錄影。",
+          "<strong>在視訊會議中展示現場。</strong>讓客戶、團隊或保險公司透過 Zoom、Google Meet 或 Microsoft Teams 即時查看屋頂、工地、太陽能電廠或農田，而不是事後再傳照片。",
+          "<strong>帶大家虛擬導覽。</strong>從空中帶觀眾看一塊地產、露營地、活動場地或一條路線，同時親自解說。",
+          "<strong>教學與簡報。</strong>在地理、農業、測量或飛行本身相關的課程、線上研討會或簡報中使用空拍畫面。",
+          "<strong>加入網頁版直播工作室。</strong>StreamYard 或 Restream Studio 等網頁版工作室，通常都能像選擇其他網路攝影機一樣選擇這台攝影機，讓空拍機成為多機位節目中的一位來賓。"
+        ] },
+        { "note": "只要 Stream My Drone 開著、DJI Fly 持續傳送，攝影機就會顯示空拍畫面。沒有收到畫面時，攝影機會是黑畫面。" }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "如何把空拍機變成網路攝影機",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "把 App 安裝在正確位置", "d": "在 Mac 上，把 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> 拖進「應用程式」資料夾；macOS 只允許從那裡啟用攝影機延伸功能。在 Windows 上，安裝程式會自動註冊攝影機。" },
+          { "t": "把空拍畫面送到電腦", "d": "在 DJI Fly 中開啟 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，貼上 App「開始直播」分頁顯示的位址。遙控器和電腦必須連上同一個 Wi-Fi 或熱點。詳細說明請見 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 指南</a>。" },
+          { "t": "啟用攝影機（只需一次）", "d": "在 TikTok LIVE Studio 分頁按下<em>啟用虛擬攝影機（只需一次）</em>。macOS 會要求你核准一次，位置在「系統設定 → 一般 → 登入項目與延伸功能 → 攝影機延伸功能」。" },
+          { "t": "啟動攝影機", "d": "卡片顯示<em>已可啟動</em>時，按下<em>啟動虛擬攝影機</em>。" },
+          { "t": "在你的 App 中選擇它", "d": "在 TikTok LIVE Studio、OBS、Zoom、Meet 或 Teams 中打開攝影機選單，選擇 <strong>Stream My Drone Camera</strong>，並在那裡一併選擇你的麥克風。" }
+        ] },
+        { "img": "virtual-camera.png", "alt": "Stream My Drone 的 TikTok LIVE Studio 分頁，在這裡啟用並啟動虛擬攝影機。" },
+        { "note": "身邊沒有空拍機？「開始直播」分頁上的<em>用影片檔試試看</em>會讓錄好的片段走同一條路徑，讓你在起飛前就先在 App 中設定好攝影機。" }
+      ]
+    },
+    {
+      "id": "landscape",
+      "h2": "橫向視訊通話：透過 OBS",
+      "blocks": [
+        { "p": "內建攝影機是直向的，因為 TikTok LIVE Studio 和以手機為主的平台都是直向。Zoom、Meet 和 Teams 則是為橫向攝影機設計的，依 App 和版面不同，它們會在高瘦的畫面兩側加上寬黑邊，或直接裁切，空拍畫面就變得很小。要進行橫向通話，請使用選用的 OBS 整合：它會把空拍機的完整畫面放進 OBS 的 1920×1080 畫布。" },
+        { "steps": [
+          { "t": "開啟 OBS WebSocket", "d": "在 OBS 中開啟「工具 → WebSocket 伺服器設定」並啟用伺服器（預設埠號為 4455）。" },
+          { "t": "讓 Stream My Drone 連上 OBS", "d": "在「進階」分頁的<em>選用的 OBS 整合</em>中，輸入主機、埠號和密碼，然後按下<em>儲存連線</em>。" },
+          { "t": "選擇水平版面", "d": "在「開始直播」分頁的<em>畫面與聲音</em>中，把方向設為<em>水平 16:9</em>。" },
+          { "t": "準備場景", "d": "收到空拍影像後，按下<em>準備 OBS 場景</em>。App 會建立名為 <strong>DJI LIVE</strong> 的場景，把 OBS 畫布設為 1920×1080，並讓空拍畫面符合畫布大小。" },
+          { "t": "啟動 OBS Virtual Camera", "d": "在同一張卡片中，按下 <em>OBS Virtual Camera</em> 旁的<em>啟動虛擬攝影機</em>，然後在 Zoom、Meet 或 Teams 中選擇 <strong>OBS Virtual Camera</strong>。" }
+        ] },
+        { "table": {
+          "head": ["", "Stream My Drone Camera", "OBS Virtual Camera"],
+          "rows": [
+            ["畫面形狀", "直向 1080×1920", "依版面而定：1920×1080 或 1080×1920"],
+            ["需要 OBS", "不需要", "需要，並啟用 WebSocket"],
+            ["疊加圖層與場景", "沒有", "有，OBS 提供的一切都能用"],
+            ["最適合", "TikTok LIVE Studio、直向節目", "Zoom、Meet、Teams、橫向節目"]
+          ]
+        } },
+        { "img": "advanced.png", "alt": "Stream My Drone 的「進階」分頁，包含選用的 OBS 整合、「準備 OBS 場景」按鈕和 OBS Virtual Camera。" }
+      ]
+    },
+    {
+      "id": "tips",
+      "h2": "讓畫面乾淨俐落的小技巧",
+      "blocks": [
+        { "list": [
+          "<strong>只選一個麥克風</strong>，在使用攝影機的 App 中選擇。空拍攝影機沒有聲音，所以沒有東西需要靜音。",
+          "<strong>會有一點延遲。</strong>畫面從空拍機傳到遙控器，再經 Wi-Fi 到電腦，最後進入攝影機，所以會比實際時間慢一些。用來展示地點沒問題，但不適合需要精準同步的用途。",
+          "<strong>使用穩定的網路。</strong>遙控器和電腦之間的連線不穩，畫面就會卡頓。放在電腦旁邊的手機熱點，往往比遠處的路由器更好。",
+          "<strong>720p 是正常的。</strong>遙控器通常送出 720p；攝影機會把它縮放進畫面，不會假裝它是原生 1080p。",
+          "<strong>讓 App 保持開啟。</strong>結束 Stream My Drone，攝影機就會停止。"
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "攝影機沒有出現時",
+      "blocks": [
+        { "list": [
+          "<strong>攝影機清單中沒有它：</strong>先啟動虛擬攝影機，再結束並重新開啟要使用它的 App。很多 App 只在啟動時讀取攝影機清單。",
+          "<strong>macOS 從來沒有要求核准：</strong>確認 Stream My Drone 是從「應用程式」資料夾執行，再到「系統設定 → 一般 → 登入項目與延伸功能 → 攝影機延伸功能」查看。",
+          "<strong>更新後就停止運作：</strong>替換 App 會讓 macOS 關閉舊的攝影機。再按一次<em>啟動虛擬攝影機</em>，它會自行要求啟用。如果 macOS 要求，請重新啟動 Mac。",
+          "<strong>畫面是黑的：</strong>沒有收到空拍影像。請檢查「開始直播」分頁上的預覽，以及 DJI Fly 中的 RTMP 位址。",
+          "<strong>瀏覽器裡看不到：</strong>允許該網站存取攝影機，然後重新整理頁面。",
+          "<strong>Windows：</strong>內建攝影機已在 TikTok LIVE Studio、OBS 和 Zoom 中測試過。請選擇「Stream My Drone Camera」作為影像來源。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "可以把 DJI 空拍機當成網路攝影機嗎？", "a": "可以。只要 Stream My Drone 正在執行，且 DJI Fly 把 RTMP 送給它，空拍機就會以 Stream My Drone Camera 這個名稱，出現在任何可以選擇攝影機的 App 中。" },
+    { "q": "可以在 Zoom、Google Meet 和 Microsoft Teams 中使用嗎？", "a": "它們可以像選擇其他網路攝影機一樣選擇這台攝影機。由於內建攝影機是直向的，橫向通話透過 OBS 會更好看：以水平 16:9 版面準備 OBS 場景，並在通話中選擇 OBS Virtual Camera。" },
+    { "q": "需要串流金鑰或直播帳號嗎？", "a": "不需要。虛擬攝影機只在你的電腦上運作，不會把任何東西送到平台。只有 Stream My Drone 自己透過 RTMP 直播時，才需要串流金鑰。" },
+    { "q": "虛擬攝影機有聲音嗎？", "a": "沒有，它只傳送影像。請在使用攝影機的 App 中選擇你的麥克風。" },
+    { "q": "哪些空拍機可以用？", "a": "任何 DJI Fly 版本在 Live Streaming Platforms 底下提供 RTMP 的 DJI 空拍機。App 從不直接和空拍機溝通，只接收 RTMP 串流。" },
+    { "q": "要付費嗎？", "a": "不用。Stream My Drone 免費且以 MIT 授權開源，與 DJI、Zoom、Google 或 Microsoft 沒有任何關係。" }
+  ]
+}

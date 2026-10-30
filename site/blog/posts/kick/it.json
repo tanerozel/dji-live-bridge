@@ -1,0 +1,65 @@
+{
+  "slug": "come-trasmettere-un-drone-dji-su-kick",
+  "platform": "Kick",
+  "title": "Come trasmettere un drone DJI su Kick (URL e chiave di streaming)",
+  "description": "Diretta su Kick da un drone DJI: copia URL e chiave di streaming dalla dashboard di Kick, aggiungili come destinazione RTMP personalizzata in Stream My Drone e vai live.",
+  "h1": "Come trasmettere un drone DJI su Kick",
+  "lead": "Nella dashboard creator di Kick apri <strong>Settings → Stream URL &amp; Key</strong>, copia entrambi i valori in una destinazione <strong>RTMP personalizzato</strong> di Stream My Drone, manda l'immagine del drone da DJI Fly all'app e premi AVVIA DIRETTA. Kick usa un indirizzo RTMPS cifrato, che l'app supporta.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Kick si aggiunge come destinazione RTMP personalizzato con lo Stream URL e la Stream key della dashboard di Kick.",
+    "L'URL di streaming di Kick è un indirizzo rtmps://; copialo sempre dalla tua dashboard.",
+    "Kick potrebbe chiederti di attivare l'autenticazione a due fattori prima di mostrarti la chiave.",
+    "Usa Orizzontale 16:9 per una diretta a 1920×1080, 30 fps e 6 Mbps.",
+    "La stessa immagine può andare su Kick e su altre piattaforme insieme."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Diretta su Kick, passo per passo",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Collega il drone", "d": "In DJI Fly apri GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP e inserisci l'indirizzo mostrato da Stream My Drone." },
+          { "t": "Copia l'URL e la chiave di streaming", "d": "Su kick.com apri la dashboard creator → Settings → Stream URL &amp; Key. Copia lo <em>Stream URL</em> (inizia con <code>rtmps://</code> e finisce con <code>/app</code>) e la <em>Stream key</em>." },
+          { "t": "Aggiungi una destinazione RTMP personalizzato", "d": "In Stream My Drone scegli RTMP personalizzato, chiamalo Kick e incolla i due valori." },
+          { "t": "Scegli Orizzontale 16:9", "d": "Sotto <em>Immagine e audio</em> scegli <em>Orizzontale 16:9</em>." },
+          { "t": "Premi AVVIA DIRETTA", "d": "Il canale va in diretta quando Kick riceve il flusso. Imposta titolo e categoria nella dashboard; per finire premi <em>Termina diretta</em> nell'app." }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Impostazioni per Kick",
+      "blocks": [
+        { "table": {
+          "head": ["Impostazione", "Valore"],
+          "rows": [
+            ["URL di streaming", "Dalla dashboard di Kick, <code>rtmps://…/app</code>"],
+            ["Risoluzione", "1920×1080, orizzontale"],
+            ["Frame rate", "30 fps"],
+            ["Video", "H.264, 6 Mbps CBR, un fotogramma chiave ogni 2 secondi"]
+          ]
+        } }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Problemi frequenti",
+      "blocks": [
+        { "list": [
+          "<strong>La chiave è nascosta:</strong> attiva l'autenticazione a due fattori nelle impostazioni del tuo account Kick, poi riapri la pagina.",
+          "<strong>Connessione non riuscita:</strong> copia di nuovo l'URL di streaming, compresi <code>rtmps://</code>, la porta e <code>/app</code>.",
+          "<strong>Hai condiviso la chiave per errore:</strong> reimpostala su Kick e aggiornala nell'app."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Posso trasmettere un drone DJI su Kick?", "a": "Sì. Manda il flusso RTMP di DJI Fly a Stream My Drone e aggiungi Kick come destinazione RTMP personalizzato con l'URL e la chiave di streaming della tua dashboard Kick." },
+    { "q": "Kick supporta l'RTMPS?", "a": "Sì, l'URL di streaming di Kick è un indirizzo rtmps://, e Stream My Drone accetta destinazioni rtmps://." },
+    { "q": "Posso trasmettere su Kick e Twitch contemporaneamente?", "a": "Stream My Drone può inviare a entrambe insieme. Prima controlla le regole attuali di ogni piattaforma sul simulcast." },
+    { "q": "Stream My Drone è affiliata a Kick?", "a": "No. È un'app indipendente, gratuita e open source." }
+  ]
+}

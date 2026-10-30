@@ -1,0 +1,75 @@
+{
+  "slug": "dji-drohne-auf-youtube-live-streamen",
+  "platform": "YouTube",
+  "title": "DJI-Drohne live auf YouTube streamen (RTMP-Anleitung)",
+  "description": "Ihre DJI-Drohne live auf YouTube streamen: Livestreaming aktivieren, Stream-Schlüssel aus YouTube Studio kopieren, RTMP von DJI Fly über Stream My Drone senden. Einstellungen und Tipps.",
+  "h1": "So streamen Sie eine DJI-Drohne live auf YouTube",
+  "lead": "Wählen Sie in YouTube Studio <strong>Erstellen → Livestream starten → Streaming-Software</strong> und kopieren Sie Stream-URL und Stream-Schlüssel. Fügen Sie beides in Stream My Drone als YouTube-Ziel hinzu, senden Sie das Drohnenbild per RTMP aus DJI Fly an die App und drücken Sie LIVE STARTEN. Der YouTube-Schlüssel bleibt gleich, bis Sie ihn zurücksetzen – Sie richten ihn also nur einmal ein.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Beim ersten Mal muss Livestreaming für den Kanal aktiviert werden; laut YouTube kann das bis zu 24 Stunden dauern.",
+    "Stream-URL: rtmps://a.rtmps.youtube.com:443/live2 – der Schlüssel kommt aus YouTube Studio.",
+    "Wählen Sie Querformat 16:9 für eine klassische YouTube-Übertragung; Hochformat geht auch.",
+    "Die App sendet 1080p mit 30 fps, 6 Mbit/s, H.264 mit Keyframes alle 2 Sekunden – passend zu den Empfehlungen von YouTube.",
+    "Dieselbe Übertragung kann gleichzeitig an Facebook, Twitch oder jeden RTMP-Server gehen."
+  ],
+  "sections": [
+    {
+      "id": "enable",
+      "h2": "Vor dem ersten Stream: Livestreaming aktivieren",
+      "blocks": [
+        { "p": "Öffnen Sie YouTube Studio und wählen Sie <em>Erstellen → Livestream starten</em>. Hat der Kanal noch nie gestreamt, bittet YouTube Sie, ihn per Telefonnummer zu bestätigen, und aktiviert dann das Livestreaming; die erste Aktivierung kann bis zu 24 Stunden dauern. Danach geht es sofort live." }
+      ]
+    },
+    {
+      "id": "steps",
+      "h2": "Schritt für Schritt auf YouTube streamen",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Drohne verbinden", "d": "Öffnen Sie in DJI Fly GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP und geben Sie die Adresse ein, die Stream My Drone anzeigt." },
+          { "t": "Schlüssel aus YouTube Studio kopieren", "d": "Erstellen → Livestream starten → Streaming-Software. Kopieren Sie die <em>Stream-URL</em> (<code>rtmps://a.rtmps.youtube.com:443/live2</code>) und den <em>Stream-Schlüssel</em>." },
+          { "t": "YouTube-Ziel hinzufügen", "d": "Wählen Sie in Stream My Drone YouTube und fügen Sie beide Werte ein. Der Schlüssel wird im Anmeldedaten-Tresor des Systems gespeichert." },
+          { "t": "Ausrichtung wählen", "d": "Wählen Sie <em>Querformat 16:9</em> für eine normale Übertragung (1920×1080) oder <em>Hochformat 9:16</em>, wenn Sie einen Stream im Handyformat möchten." },
+          { "t": "LIVE STARTEN drücken", "d": "Nach wenigen Sekunden zeigt YouTube Studio den Stream als empfangen an. Je nach Einstellung wird er automatisch öffentlich oder erst, wenn Sie in Studio auf „Livestream starten“ drücken." }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Einstellungen für YouTube",
+      "blocks": [
+        { "table": {
+          "head": ["Einstellung", "Wert"],
+          "rows": [
+            ["Stream-URL", "<code>rtmps://a.rtmps.youtube.com:443/live2</code>"],
+            ["Auflösung", "1920×1080 im Querformat oder 1080×1920 im Hochformat"],
+            ["Bildrate", "30 fps"],
+            ["Bitrate", "6 Mbit/s CBR"],
+            ["Keyframes", "Alle 2 Sekunden"]
+          ]
+        } },
+        { "p": "In YouTube Studio können Sie die Latenz wählen. <em>Normal</em> liefert das stabilste Bild; <em>Niedrig</em> oder <em>Extrem niedrig</em> helfen, wenn Sie während des Flugs im Chat antworten." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Häufige Probleme",
+      "blocks": [
+        { "list": [
+          "<strong>Keine Option „Livestream starten“:</strong> Livestreaming ist noch nicht aktiviert, oder für den Kanal gilt eine Livestream-Einschränkung.",
+          "<strong>Studio meldet „Keine Daten“:</strong> Prüfen Sie zuerst die Vorschau in der App; ist die Drohne dort zu sehen, kopieren Sie den Schlüssel erneut.",
+          "<strong>Der Stream puffert bei den Zuschauern:</strong> Der Upload ist zu langsam. Jedes Ziel braucht etwa 10 Mbit/s stabilen Upload."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Kann eine DJI-Drohne direkt auf YouTube streamen?", "a": "DJI Fly kann RTMP direkt an die YouTube-Adresse senden, aber dann haben Sie keine Vorschau, keine Kontrolle über das Format und nur ein Ziel. Wenn Sie den Stream zuerst an Stream My Drone senden, bekommen Sie alle drei – mit demselben YouTube-Stream-Schlüssel." },
+    { "q": "Brauche ich 50 Abonnenten, um auf YouTube zu streamen?", "a": "Diese Grenze gilt für Livestreams aus der YouTube-App auf dem Handy. Streaming-Software – und das ist Stream My Drone – braucht nur einen Kanal mit aktiviertem Livestreaming." },
+    { "q": "Ändert sich der YouTube-Stream-Schlüssel?", "a": "Nein. Er bleibt gleich, bis Sie ihn in YouTube Studio zurücksetzen, Sie richten ihn also nur einmal ein." },
+    { "q": "Kann ich Hochformat-Video auf YouTube streamen?", "a": "Ja. Wählen Sie in der App Hochformat 9:16; für eine klassische Übertragung wählen Sie Querformat 16:9." },
+    { "q": "Wird RTMPS verwendet?", "a": "Ja. Die Stream-URL von YouTube beginnt mit rtmps://, der Stream ist auf dem Weg zu YouTube also verschlüsselt." }
+  ]
+}

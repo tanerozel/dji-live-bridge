@@ -1,0 +1,84 @@
+{
+  "slug": "live-dji-osmo-instagram-tiktok",
+  "platform": "Kamera DJI Osmo",
+  "title": "Live streaming DJI Osmo Action dan Pocket ke Instagram dan TikTok",
+  "description": "DJI Mimo bisa menyiarkan kamera Osmo Action, Osmo Pocket, dan Osmo 360 lewat RTMP. Kirim ke Stream My Drone untuk live di Instagram, TikTok, dan YouTube sekaligus.",
+  "h1": "Siaran langsung dari kamera DJI Osmo ke Instagram, TikTok, dan lainnya",
+  "lead": "Stream My Drone bukan hanya untuk drone. Kamera aksi dan kamera gimbal DJI bisa melakukan streaming lewat <strong>RTMP dari aplikasi DJI Mimo</strong> — jenis siaran yang persis diterima aplikasi ini. Arahkan Osmo Action, Osmo Pocket, atau Osmo 360 ke Stream My Drone, dan siarannya diteruskan ke <strong>Instagram, TikTok, YouTube, Facebook, Twitch, atau Kick</strong>, beberapa sekaligus, dalam format vertikal atau horizontal — atau ke Zoom dan OBS sebagai webcam nirkabel.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "DJI Mimo (versi 1.2.20 atau lebih baru) menyediakan livestream RTMP untuk seri Osmo Action, Osmo Pocket, dan Osmo 360.",
+    "Kamera tersambung sendiri ke jaringan Wi-Fi dan mendorong RTMP; sambungkan ke jaringan yang sama dengan komputer yang menjalankan Stream My Drone.",
+    "Platform bawaan DJI Mimo adalah Facebook, YouTube, dan RTMP — Instagram dan TikTok dijangkau lewat Stream My Drone.",
+    "DJI mencantumkan 480p, 720p, dan 1080p hingga 6 Mbps; pilih 1080p 6 Mbps jika Wi-Fi memungkinkan.",
+    "Siaran yang sama bisa menjadi webcam nirkabel untuk TikTok LIVE Studio, OBS, Zoom, atau Meet."
+  ],
+  "sections": [
+    {
+      "id": "devices",
+      "h2": "Kamera DJI mana yang bisa streaming",
+      "blocks": [
+        { "p": "Menurut DJI, kamera-kamera berikut mendukung livestream di DJI Mimo, dengan RTMP sebagai salah satu platformnya:" },
+        { "table": {
+          "head": ["Kamera", "Resolusi (DJI)", "Catatan"],
+          "rows": [
+            ["Osmo Pocket 3, Osmo Pocket 4, Osmo Pocket 4P", "480p, 720p, 1080p pada 30 fps", "Hingga 6 Mbps pada 1080p"],
+            ["Osmo Action 6, Osmo Action 5 Pro, Osmo Action 4, Osmo Action 3", "480p, 720p, 1080p", "Hingga 6 Mbps pada 1080p"],
+            ["Seri Osmo 360", "480p, 720p, 1080p", "Hanya mode lensa tunggal"],
+            ["DJI Pocket 2, DJI Action 2", "480p, 720p, 1080p", "Action 2 juga menawarkan bitrate adaptif"],
+            ["Osmo Action (generasi pertama)", "480p, 720p", "Tidak ada livestream 1080p"]
+          ]
+        } },
+        { "note": "Tidak didukung untuk livestream di DJI Mimo: gimbal ponsel Osmo Mobile dan DJI OM, Osmo Pocket generasi pertama, serta Osmo Nano. Dengan gimbal ponsel, ponsel itu sendiri yang menjadi kamera." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Siarkan kamera Osmo lewat Stream My Drone",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Buka Stream My Drone", "d": "Pasang <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> di Mac atau PC Windows. Langkah <em>Hubungkan drone Anda</em> berlaku untuk kamera RTMP apa pun dan menampilkan alamat seperti <code>rtmp://192.168.1.20:1935/drone</code>." },
+          { "t": "Sambungkan kamera di DJI Mimo", "d": "Perbarui DJI Mimo ke 1.2.20 atau lebih baru, sambungkan kamera, lalu buka opsi livestream-nya." },
+          { "t": "Pilih RTMP dan jaringannya", "d": "Pilih RTMP sebagai platform dan pilih jaringan Wi-Fi yang akan dipakai kamera — jaringan yang sama dengan komputer, atau hotspot ponsel yang dipakai keduanya." },
+          { "t": "Masukkan alamat dan kualitas", "d": "Ketik alamat dari Stream My Drone, pilih 1080p dan bitrate tertinggi yang sanggup ditangani Wi-Fi Anda, lalu mulai. Pratinjau muncul di aplikasi dalam hitungan detik." },
+          { "t": "Tambahkan platform dan mulai siaran", "d": "Tambahkan Instagram, TikTok, YouTube, atau server RTMP mana pun, pilih vertikal atau horizontal, lalu tekan MULAI SIARAN." }
+        ] },
+        { "img": "go-live.png", "alt": "Tab Siaran di Stream My Drone dengan alamat RTMP, daftar tujuan, dan tombol MULAI SIARAN." }
+      ]
+    },
+    {
+      "id": "uses",
+      "h2": "Apa yang ditambahkannya pada kamera Osmo",
+      "blocks": [
+        { "list": [
+          "<strong>Instagram dan TikTok.</strong> DJI Mimo menyiarkan ke Facebook, YouTube, atau alamat RTMP; Stream My Drone menjangkau Instagram lewat RTMPS dan TikTok dengan stream key atau lewat TikTok LIVE Studio.",
+          "<strong>Beberapa platform sekaligus.</strong> Satu kamera, siaran yang sama di Instagram, TikTok, dan YouTube.",
+          "<strong>Vertikal untuk ponsel.</strong> Gambar lanskap menjadi 1080×1920 dengan latar buram, bukan bilah hitam.",
+          "<strong>Webcam nirkabel.</strong> Kamera virtual bawaan menampilkan gambar Osmo di TikTok LIVE Studio, OBS, Zoom, atau Meet — tanpa kabel ke komputer. Lihat <a href=\"../jadikan-drone-dji-sebagai-webcam/\">panduan webcam</a>.",
+          "<strong>Pratinjau dan perekaman.</strong> Lihat input sebenarnya di komputer dan rekam sambil melakukan streaming."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Jika tidak berhasil",
+      "blocks": [
+        { "list": [
+          "<strong>Kamera tidak bisa terhubung:</strong> kamera harus berada di jaringan yang sama dengan komputer. Jaringan tamu sering mengisolasi perangkat; gunakan Wi-Fi biasa atau hotspot.",
+          "<strong>Tidak ada opsi livestream di DJI Mimo:</strong> perbarui DJI Mimo dan firmware kamera; livestream memerlukan DJI Mimo 1.2.20 atau lebih baru.",
+          "<strong>Gambar tersendat:</strong> turunkan bitrate di DJI Mimo atau dekatkan kamera ke router.",
+          "<strong>Osmo 360 tidak mau streaming:</strong> alihkan dulu ke mode lensa tunggal."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Bisakah saya live streaming Osmo Action atau Osmo Pocket ke Instagram?", "a": "Tidak dengan DJI Mimo saja, yang hanya menyediakan Facebook, YouTube, dan RTMP. Siarkan ke Stream My Drone lewat RTMP, lalu aplikasi meneruskan gambarnya ke Instagram lewat RTMPS." },
+    { "q": "Apakah Stream My Drone bisa dipakai untuk kamera, bukan hanya drone?", "a": "Bisa. Aplikasi ini menerima aliran RTMP standar, baik yang dikirim DJI Fly maupun DJI Mimo." },
+    { "q": "Kamera DJI mana yang mendukung livestream RTMP?", "a": "Menurut DJI: Osmo Pocket 3, 4, dan 4P, Osmo Action 3, 4, 5 Pro, dan 6, seri Osmo 360 dalam mode lensa tunggal, DJI Pocket 2, DJI Action 2, dan Osmo Action generasi pertama." },
+    { "q": "Bisakah kamera Osmo dipakai sebagai webcam nirkabel?", "a": "Bisa. Mulai kamera virtual Stream My Drone dan pilih Stream My Drone Camera di TikTok LIVE Studio, OBS, Zoom, atau Meet." },
+    { "q": "Apakah gratis?", "a": "Ya. Stream My Drone gratis dan bersumber terbuka, serta tidak berafiliasi dengan DJI." }
+  ]
+}

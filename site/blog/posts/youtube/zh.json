@@ -1,0 +1,75 @@
+{
+  "slug": "how-to-live-stream-a-dji-drone-to-youtube",
+  "platform": "YouTube",
+  "title": "如何把 DJI 无人机直播到 YouTube（RTMP 推流教程）",
+  "description": "把 DJI 无人机画面直播到 YouTube：开通直播功能，从 YouTube Studio 复制推流密钥，通过 Stream My Drone 转发 DJI Fly 的 RTMP 推流。附推荐设置和技巧。",
+  "h1": "如何把 DJI 无人机直播到 YouTube",
+  "lead": "在 YouTube Studio 中选择 <strong>Create → Go live → Streaming software</strong>（创建 → 开始直播 → 直播软件），复制推流地址和推流密钥。把它们添加为 Stream My Drone 中的 YouTube 推流目标，通过 RTMP 从 DJI Fly 把无人机画面发送到应用，然后按“开始直播”。YouTube 的密钥在你重置之前一直不变，所以只需设置一次。",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "第一次使用时，必须为频道开通直播功能；YouTube 表示这最多可能需要 24 小时。",
+    "推流地址：rtmps://a.rtmps.youtube.com:443/live2——密钥来自 YouTube Studio。",
+    "传统的 YouTube 直播选横屏 16:9；竖屏也可以。",
+    "应用以 1080p、30 fps、6 Mbps、H.264、2 秒关键帧发送，符合 YouTube 的推荐设置。",
+    "同一场直播还可以同时发往 Facebook、Twitch 或任意 RTMP 服务器。"
+  ],
+  "sections": [
+    {
+      "id": "enable",
+      "h2": "第一次直播前：开通直播功能",
+      "blocks": [
+        { "p": "打开 YouTube Studio，选择 <em>Create → Go live</em>。如果频道从未直播过，YouTube 会要求你用手机号验证并开通直播功能；首次开通最多可能需要 24 小时。之后就能随时立即开播。" }
+      ]
+    },
+    {
+      "id": "steps",
+      "h2": "分步直播到 YouTube",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "连接无人机", "d": "在 DJI Fly 中打开 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，填入 Stream My Drone 显示的地址。" },
+          { "t": "从 YouTube Studio 复制密钥", "d": "Create → Go live → Streaming software。复制 <em>Stream URL</em>（<code>rtmps://a.rtmps.youtube.com:443/live2</code>）和 <em>Stream key</em>。" },
+          { "t": "添加 YouTube 推流目标", "d": "在 Stream My Drone 中选择 YouTube，粘贴这两项。密钥保存在系统的凭据保管库中。" },
+          { "t": "选择画面方向", "d": "普通直播选<em>横屏 16:9</em>（1920×1080）；想要手机形状的直播则选<em>竖屏 9:16</em>。" },
+          { "t": "按下“开始直播”", "d": "几秒钟后，YouTube Studio 会显示已收到推流。根据你的设置，直播会自动公开，或在你于 Studio 中点击 Go live 后公开。" }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "YouTube 设置",
+      "blocks": [
+        { "table": {
+          "head": ["设置", "数值"],
+          "rows": [
+            ["推流地址", "<code>rtmps://a.rtmps.youtube.com:443/live2</code>"],
+            ["分辨率", "横屏 1920×1080 或竖屏 1080×1920"],
+            ["帧率", "30 fps"],
+            ["码率", "6 Mbps CBR"],
+            ["关键帧", "每 2 秒一个"]
+          ]
+        } },
+        { "p": "你可以在 YouTube Studio 中选择延迟模式。<em>正常延迟</em>画面最稳定；如果要边飞边回复聊天，<em>低延迟</em>或<em>超低延迟</em>更合适。" }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "常见问题",
+      "blocks": [
+        { "list": [
+          "<strong>没有 Go live 选项：</strong>直播功能还没开通，或频道受到直播限制。",
+          "<strong>Studio 显示“没有数据”：</strong>先检查应用的预览；如果那里能看到无人机画面，请重新复制密钥。",
+          "<strong>观众看直播时一直缓冲：</strong>上行速度太慢。每个推流目标需要约 10 Mbps 的稳定上行带宽。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "DJI 无人机能直接推流到 YouTube 吗？", "a": "DJI Fly 可以直接把 RTMP 推送到 YouTube 的地址，但这样你没有预览、无法控制格式，也只能推流到一个目标。先把推流发送到 Stream My Drone，就能三者兼得，用的还是同一个 YouTube 推流密钥。" },
+    { "q": "直播到 YouTube 需要 50 个订阅者吗？", "a": "这个限制只针对用 YouTube 手机应用开播。使用推流软件（Stream My Drone 就是这类软件）只需要一个已开通直播功能的频道。" },
+    { "q": "YouTube 推流密钥会变吗？", "a": "不会。在你于 YouTube Studio 中重置之前它一直不变，所以只需设置一次。" },
+    { "q": "能把竖屏视频直播到 YouTube 吗？", "a": "能。在应用中选择竖屏 9:16；传统直播则选择横屏 16:9。" },
+    { "q": "它使用 RTMPS 吗？", "a": "是的。YouTube 的推流地址以 rtmps:// 开头，所以推流在发往 YouTube 的途中是加密的。" }
+  ]
+}

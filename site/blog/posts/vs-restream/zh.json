@@ -1,0 +1,97 @@
+{
+  "slug": "dji-live-bridge-vs-restream",
+  "platform": "与 Restream 对比",
+  "title": "Stream My Drone 与 Restream 对比：无人机直播选哪个（2026）",
+  "description": "把 DJI 无人机同时直播到多个平台，选 Restream 云端转推，还是在自己电脑上运行的 Stream My Drone？从费用、水印、Instagram、竖屏视频等方面比较各自的优势。",
+  "h1": "Stream My Drone 与 Restream：无人机直播该选哪个？",
+  "lead": "两者都能把一路无人机画面送到多个平台。<strong>Restream</strong> 在云端完成：DJI Fly 推流到 Restream 的服务器，再由服务器转发视频。<strong>Stream My Drone</strong> 在你自己的电脑上完成：DJI Fly 通过局域网推流到应用，再由应用发送到各个平台。哪个更好，取决于你在哪里飞，以及你愿意为什么付费。",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Restream 是云服务：现场不需要电脑，只占一份上行，但想要基础功能以外的东西就得订阅。",
+    "Restream 免费套餐（2026 年 10 月）：2 个频道，直播画面带 Restream 品牌标识，不支持自定义 RTMP 推流目标；Standard 套餐每月 19 美元。",
+    "Stream My Drone 免费开源：没有水印，不限频道数，视频留在你自己的电脑上。",
+    "Stream My Drone 会为 Instagram 和 TikTok 把无人机画面转成 1080×1920 竖屏，并为 TikTok LIVE Studio 提供虚拟摄像头。",
+    "你也可以把两者结合起来：在 Stream My Drone 中把 Restream 添加为自定义 RTMP 推流目标。"
+  ],
+  "sections": [
+    {
+      "id": "how",
+      "h2": "两种不同的思路",
+      "blocks": [
+        { "list": [
+          "<strong>Restream（云端）：</strong>DJI Fly → 互联网 → Restream → 各个平台。遥控器需要联网；电脑可有可无。",
+          "<strong>Stream My Drone（本地）：</strong>DJI Fly → 本地 Wi-Fi → 你的 Mac 或 PC → 各个平台。电脑需要联网；遥控器只需要局域网。"
+        ] },
+        { "p": "这一个区别就解释了大部分对比结果：云端为你省下上行带宽和一台电脑，本地应用为你省下订阅费，并让视频掌握在你自己手里。" }
+      ]
+    },
+    {
+      "id": "compare",
+      "h2": "逐项对比",
+      "blocks": [
+        { "table": {
+          "head": ["", "Stream My Drone", "Restream"],
+          "rows": [
+            ["价格", "免费、开源", "有免费套餐；付费版每月 19 美元起（Standard）"],
+            ["水印", "无", "免费套餐带 Restream 品牌标识"],
+            ["推流目标数", "上行带宽允许多少就有多少", "免费版 2 个，Standard 3 个，更高套餐更多"],
+            ["自定义 RTMP 推流目标", "支持", "免费套餐不支持"],
+            ["从 DJI Fly 直播到 Instagram", "支持，应用发送 RTMPS", "取决于你的套餐如何连接 Instagram"],
+            ["1080×1920 竖屏加模糊背景填充", "内置", "没有针对无人机的功能；推流按原样发出"],
+            ["虚拟摄像头（TikTok LIVE Studio、OBS、Zoom）", "内置", "无"],
+            ["现场需要电脑", "需要（或使用 Android 版 Stream My Drone）", "不需要"],
+            ["上行带宽占用", "每个推流目标一份", "总共一份"],
+            ["聊天和数据分析", "无", "有"],
+            ["视频去向", "只发往你的推流目标", "经过 Restream 的服务器"]
+          ]
+        } },
+        { "note": "Restream 的套餐信息取自其 2026 年 10 月的定价页面，可能会变化；做决定前请查看最新页面。" }
+      ]
+    },
+    {
+      "id": "restream-wins",
+      "h2": "什么时候 Restream 更合适",
+      "blocks": [
+        { "list": [
+          "你想直接从遥控器直播，不带电脑，也不用第二部手机。",
+          "你的上行带宽很慢，又需要很多推流目标：云端只需一份上行就能分发给所有目标。",
+          "你想要跨平台的聊天汇总、数据分析或团队协作功能。"
+        ] }
+      ]
+    },
+    {
+      "id": "bridge-wins",
+      "h2": "什么时候 Stream My Drone 更合适",
+      "blocks": [
+        { "list": [
+          "你不想每月付费，也不想直播画面上有水印。",
+          "你直播到 Instagram 或 TikTok，想要真正的竖屏画面，而不是一条横向窄带。",
+          "你想不用推流密钥就在 TikTok 开播，通过 TikTok LIVE Studio 和内置的虚拟摄像头实现。",
+          "拍摄内容比较敏感——客户现场、巡检作业——不应经过第三方。",
+          "你想在身边的大屏幕上看到预览、录制和诊断信息。"
+        ] },
+        { "p": "下载 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS 或 Windows 版</a>；设置方法见 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 指南</a>。" }
+      ]
+    },
+    {
+      "id": "both",
+      "h2": "两者结合使用",
+      "howto": true,
+      "blocks": [
+        { "p": "如果你已经在为 Restream 付费，可以保留 Stream My Drone 的竖屏画面和预览，让 Restream 负责分发：" },
+        { "steps": [
+          { "t": "复制 Restream 的 RTMP 信息", "d": "在 Restream 中找到供编码器使用的 RTMP 服务器地址和推流密钥。" },
+          { "t": "添加自定义 RTMP 推流目标", "d": "在 Stream My Drone 中用这个地址和密钥添加一个自定义推流目标。" },
+          { "t": "开始直播", "d": "从 DJI Fly 把无人机画面发送到应用，然后按“开始直播”；Restream 会把它转发到你的各个频道。" }
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Stream My Drone 是 Restream 的免费替代品吗？", "a": "对于无人机直播来说，是的：它能免费、无水印地把一路 DJI Fly 画面发送到多个平台。它在你的电脑上运行而不是在云端，所以每个推流目标都占用电脑的上行带宽。" },
+    { "q": "Restream 会加水印吗？", "a": "免费套餐会在直播画面上加上 Restream 的品牌标识（2026 年 10 月）。付费套餐可以去掉。" },
+    { "q": "能同时使用 Stream My Drone 和 Restream 吗？", "a": "能。在 Stream My Drone 中把 Restream 添加为自定义 RTMP 推流目标即可。" },
+    { "q": "哪个不需要电脑？", "a": "Restream，因为 DJI Fly 可以直接通过互联网推流给它。使用 Stream My Drone 需要一台电脑；如果你用 DJI RC 2 飞行，也可以用 Android 应用 Stream My Drone 代替。" }
+  ]
+}

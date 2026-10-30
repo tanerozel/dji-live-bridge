@@ -1,0 +1,75 @@
+{
+  "slug": "how-to-stream-a-dji-drone-on-twitch",
+  "platform": "Twitch",
+  "title": "DJI ड्रोन से Twitch पर स्ट्रीम कैसे करें (RTMP सेटअप)",
+  "description": "DJI ड्रोन से Twitch पर लाइव स्ट्रीम करें: Creator Dashboard से अपनी स्ट्रीम की कॉपी करें, Stream My Drone में Twitch को कस्टम RTMP गंतव्य के रूप में जोड़ें और लाइव जाएँ।",
+  "h1": "DJI ड्रोन से Twitch पर स्ट्रीम कैसे करें",
+  "lead": "Twitch के <strong>Creator Dashboard → Settings → Stream</strong> से अपनी प्राइमरी स्ट्रीम की कॉपी करें, Stream My Drone में सर्वर <code>rtmp://live.twitch.tv/app</code> और उस की के साथ एक <strong>Custom RTMP</strong> गंतव्य जोड़ें, DJI Fly से ड्रोन की तस्वीर ऐप को भेजें, और START LIVE दबाएँ। स्ट्रीम मिलते ही Twitch लाइव हो जाता है।",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Twitch को Custom RTMP गंतव्य के रूप में जोड़ा जाता है: सर्वर rtmp://live.twitch.tv/app और आपकी स्ट्रीम की।",
+    "स्ट्रीम की Creator Dashboard → Settings → Stream में है और रीसेट करने तक वही रहती है।",
+    "Horizontal 16:9 इस्तेमाल करें: Twitch के दर्शक ज़्यादातर लैंडस्केप में देखते हैं।",
+    "2 सेकंड के कीफ़्रेम के साथ 1080p30 पर 6 Mbps, Twitch के दिशानिर्देशों में फ़िट बैठता है।",
+    "स्ट्रीम पहुँचते ही Twitch प्रसारण शुरू कर देता है — अलग से Go live बटन नहीं है।"
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Twitch पर स्ट्रीम करें, चरण-दर-चरण",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "ड्रोन जोड़ें", "d": "DJI Fly में GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP खोलें और Stream My Drone में दिख रहा पता डालें।" },
+          { "t": "स्ट्रीम की कॉपी करें", "d": "twitch.tv पर Creator Dashboard → Settings → Stream खोलें और <em>Primary Stream key</em> कॉपी करें।" },
+          { "t": "Custom RTMP गंतव्य जोड़ें", "d": "Stream My Drone में Custom RTMP चुनें, उसका नाम Twitch रखें, सर्वर URL में <code>rtmp://live.twitch.tv/app</code> डालें और की चिपकाएँ।" },
+          { "t": "Horizontal 16:9 चुनें", "d": "1920×1080 स्ट्रीम के लिए <em>Picture and sound</em> के नीचे <em>Horizontal 16:9</em> चुनें।" },
+          { "t": "START LIVE दबाएँ", "d": "कुछ ही सेकंड में आपका चैनल लाइव हो जाता है। Creator Dashboard में शीर्षक और श्रेणी सेट करें; ख़त्म करने के लिए ऐप में <em>End stream</em> दबाएँ।" }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Twitch की सेटिंग्स",
+      "blocks": [
+        { "table": {
+          "head": ["सेटिंग", "मान"],
+          "rows": [
+            ["सर्वर URL", "<code>rtmp://live.twitch.tv/app</code> (Twitch सबसे नज़दीकी सर्वर चुनता है)"],
+            ["रेज़ोल्यूशन", "1920×1080, हॉरिज़ॉन्टल"],
+            ["फ़्रेम रेट", "30 fps"],
+            ["बिटरेट", "6 Mbps CBR"],
+            ["कीफ़्रेम", "हर 2 सेकंड"]
+          ]
+        } },
+        { "p": "Twitch अपने सहायता पेजों में हर क्षेत्र का स्ट्रीम सर्वर भी बताता है। अगर अपने-आप चुने गए पते से कनेक्शन धीमा हो, तो उसकी जगह पास का कोई क्षेत्रीय सर्वर डालें।" }
+      ]
+    },
+    {
+      "id": "simulcast",
+      "h2": "एक साथ Twitch और दूसरे प्लेटफ़ॉर्म पर स्ट्रीमिंग",
+      "blocks": [
+        { "p": "Stream My Drone वही तस्वीर एक साथ Twitch, YouTube और दूसरे प्लेटफ़ॉर्म पर भेज सकता है। सिमुलकास्टिंग को लेकर Twitch के नियम सालों में बदलते रहे हैं और Affiliates व Partners के लिए अलग हो सकते हैं, इसलिए कई प्लेटफ़ॉर्म पर स्ट्रीम करने से पहले अपना मौजूदा समझौता जाँच लें।" }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "आम समस्याएँ",
+      "blocks": [
+        { "list": [
+          "<strong>कनेक्शन विफल:</strong> जाँचें कि सर्वर URL ठीक <code>rtmp://live.twitch.tv/app</code> है और की में कोई अतिरिक्त स्पेस नहीं है।",
+          "<strong>दर्शकों को बफ़रिंग दिखती है:</strong> अपलोड पर्याप्त स्थिर नहीं है। दूसरे अपलोड बंद करें या कंप्यूटर के लिए वायर्ड कनेक्शन इस्तेमाल करें।",
+          "<strong>की लीक हो गई:</strong> Creator Dashboard में उसे रीसेट करें और ऐप में अपडेट करें।"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "क्या मैं DJI ड्रोन से Twitch पर स्ट्रीम कर सकता हूँ?", "a": "हाँ। DJI Fly की RTMP स्ट्रीम Stream My Drone को भेजें और Twitch को rtmp://live.twitch.tv/app और अपनी स्ट्रीम की के साथ Custom RTMP गंतव्य के रूप में जोड़ें।" },
+    { "q": "मेरी Twitch स्ट्रीम की कहाँ मिलेगी?", "a": "twitch.tv पर: Creator Dashboard → Settings → Stream → Primary Stream key।" },
+    { "q": "क्या मुझे Twitch पर वर्टिकल वीडियो स्ट्रीम करना चाहिए?", "a": "आम तौर पर नहीं। Twitch ज़्यादातर लैंडस्केप में देखा जाता है, इसलिए Horizontal 16:9 चुनें।" },
+    { "q": "क्या Twitch की बदलती है?", "a": "नहीं, सिर्फ़ तब जब आप उसे रीसेट करें, इसलिए सेटअप एक ही बार करना होता है।" },
+    { "q": "क्या Twitch के लिए OBS चाहिए?", "a": "नहीं। Stream My Drone स्ट्रीम सीधे भेजता है। सीन या ओवरले चाहिए तो OBS वैकल्पिक है।" }
+  ]
+}

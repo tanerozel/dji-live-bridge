@@ -1,0 +1,75 @@
+{
+  "slug": "how-to-stream-a-dji-drone-on-twitch",
+  "platform": "Twitch",
+  "title": "如何把 DJI 无人机直播到 Twitch（RTMP 推流设置）",
+  "description": "把 DJI 无人机画面直播到 Twitch：从 Creator Dashboard 复制推流密钥，在 Stream My Drone 中把 Twitch 添加为自定义 RTMP 推流目标，然后开播。",
+  "h1": "如何把 DJI 无人机直播到 Twitch",
+  "lead": "从 Twitch 的 <strong>Creator Dashboard → Settings → Stream</strong> 复制主推流密钥，在 Stream My Drone 中添加一个<strong>自定义 RTMP</strong> 推流目标，填入服务器 <code>rtmp://live.twitch.tv/app</code> 和这个密钥，从 DJI Fly 把无人机画面发送到应用，然后按“开始直播”。Twitch 一收到推流就会开播。",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "Twitch 以自定义 RTMP 推流目标的方式添加：服务器 rtmp://live.twitch.tv/app 加上你的推流密钥。",
+    "推流密钥位于 Creator Dashboard → Settings → Stream，在你重置之前一直不变。",
+    "使用横屏 16:9：Twitch 观众大多以横屏观看。",
+    "1080p30、6 Mbps、2 秒关键帧符合 Twitch 的建议。",
+    "Twitch 一收到推流就开始直播——没有单独的 Go live 按钮。"
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "分步直播到 Twitch",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "连接无人机", "d": "在 DJI Fly 中打开 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，填入 Stream My Drone 显示的地址。" },
+          { "t": "复制推流密钥", "d": "在 twitch.tv 上打开 Creator Dashboard → Settings → Stream，复制 <em>Primary Stream key</em>（主推流密钥）。" },
+          { "t": "添加自定义 RTMP 推流目标", "d": "在 Stream My Drone 中选择自定义 RTMP，命名为 Twitch，服务器地址填 <code>rtmp://live.twitch.tv/app</code>，再粘贴密钥。" },
+          { "t": "选择横屏 16:9", "d": "在<em>画面与声音</em>下选择<em>横屏 16:9</em>，输出 1920×1080 的推流。" },
+          { "t": "按下“开始直播”", "d": "几秒钟内你的频道就会开播。在 Creator Dashboard 中设置标题和分类；结束时在应用中按<em>结束直播</em>。" }
+        ] }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Twitch 设置",
+      "blocks": [
+        { "table": {
+          "head": ["设置", "数值"],
+          "rows": [
+            ["服务器地址", "<code>rtmp://live.twitch.tv/app</code>（Twitch 会自动选择最近的服务器）"],
+            ["分辨率", "1920×1080，横屏"],
+            ["帧率", "30 fps"],
+            ["码率", "6 Mbps CBR"],
+            ["关键帧", "每 2 秒一个"]
+          ]
+        } },
+        { "p": "Twitch 的帮助页面也列出了各地区的推流服务器。如果自动地址连接较慢，可以改填附近的地区服务器。" }
+      ]
+    },
+    {
+      "id": "simulcast",
+      "h2": "同时直播到 Twitch 和其他平台",
+      "blocks": [
+        { "p": "Stream My Drone 可以把同一画面同时发送到 Twitch、YouTube 等平台。Twitch 关于同步直播的规则这些年有过变化，对 Affiliate 和 Partner 也可能不同，所以在多平台直播之前，请查看你当前的协议。" }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "常见问题",
+      "blocks": [
+        { "list": [
+          "<strong>连接失败：</strong>确认服务器地址正好是 <code>rtmp://live.twitch.tv/app</code>，并且密钥没有多余的空格。",
+          "<strong>观众看到缓冲：</strong>上行不够稳定。关闭其他上传任务，或让电脑使用有线网络。",
+          "<strong>密钥泄露了：</strong>在 Creator Dashboard 中重置它，并在应用中更新。"
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "能把 DJI 无人机直播到 Twitch 吗？", "a": "能。把 DJI Fly 的 RTMP 推流发送到 Stream My Drone，并用 rtmp://live.twitch.tv/app 和你的推流密钥把 Twitch 添加为自定义 RTMP 推流目标。" },
+    { "q": "在哪里找到我的 Twitch 推流密钥？", "a": "在 twitch.tv 上：Creator Dashboard → Settings → Stream → Primary Stream key。" },
+    { "q": "应该向 Twitch 推竖屏视频吗？", "a": "通常不应该。Twitch 大多以横屏观看，所以请选择横屏 16:9。" },
+    { "q": "Twitch 密钥会变吗？", "a": "不会，只有你重置时才会变，所以只需设置一次。" },
+    { "q": "直播 Twitch 需要 OBS 吗？", "a": "不需要。Stream My Drone 会直接发送推流。如果你想要场景或叠加层，OBS 是可选的。" }
+  ]
+}

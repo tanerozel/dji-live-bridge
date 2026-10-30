@@ -1,6 +1,6 @@
 {
-  "slug": "why-dji-fly-cannot-stream-to-instagram",
-  "platform": "Instagram problem",
+  "slug": "warum-dji-fly-nicht-zu-instagram-streamen-kann",
+  "platform": "Instagram-Problem",
   "title": "Warum DJI Fly nicht auf Instagram Live streamen kann – und die Lösung",
   "description": "DJI Fly hat keine Instagram-Option, und sein RTMP-Client beherrscht das verschlüsselte RTMPS nicht, das Instagram verlangt. Warum das so ist und wie Sie trotzdem live gehen.",
   "h1": "Warum DJI Fly nicht auf Instagram live streamen kann (und die Lösung)",
@@ -41,7 +41,7 @@
           { "t": "Instagram in der App hinzufügen", "d": "Fügen Sie beides in ein Instagram-Ziel ein, lassen Sie <em>Hochformat 9:16</em> eingeschaltet und drücken Sie LIVE STARTEN." },
           { "t": "Auf Instagram live gehen", "d": "Das Instagram-Fenster zeigt das Drohnenbild; drücken Sie dort auf „Live gehen“, um die Übertragung öffentlich zu machen." }
         ] },
-        { "note": "Alle Einzelheiten auf der Instagram-Seite, einschließlich des Schlüssels, der sich jedes Mal ändert, stehen in <a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">der Instagram-Anleitung</a>." }
+        { "note": "Alle Einzelheiten auf der Instagram-Seite, einschließlich des Schlüssels, der sich jedes Mal ändert, stehen in <a href=\"../mit-dji-drohne-auf-instagram-live-gehen/\">der Instagram-Anleitung</a>." }
       ]
     },
     {

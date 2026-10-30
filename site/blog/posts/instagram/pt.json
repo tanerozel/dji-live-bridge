@@ -1,0 +1,81 @@
+{
+  "slug": "como-fazer-live-no-instagram-com-drone-dji",
+  "platform": "Instagram",
+  "title": "Como fazer live no Instagram com drone DJI (passo a passo)",
+  "description": "Faça live no Instagram com seu drone DJI: pegue a URL e a chave de transmissão no instagram.com, envie o RTMP do DJI Fly pelo Stream My Drone e toque em “Iniciar live”.",
+  "h1": "Como fazer live no Instagram com um drone DJI",
+  "lead": "O Instagram Live aceita transmissões de softwares de streaming. Abra <strong>instagram.com → Criar (+) → Vídeo ao vivo</strong>, copie a URL e a chave de transmissão para o Stream My Drone, envie a imagem do drone do DJI Fly para o app, pressione INICIAR TRANSMISSÃO e, por fim, pressione <strong>“Iniciar live”</strong> no Instagram. O Instagram gera uma chave nova a cada transmissão.",
+  "published": "2026-10-02",
+  "updated": "2026-10-02",
+  "summary": [
+    "A URL e a chave de transmissão do Instagram vêm do instagram.com em um computador: Criar (+) → Vídeo ao vivo.",
+    "A chave é de uso único: atualize-a antes de cada live com “Atualizar chave” no cartão do destino.",
+    "O Instagram espera vídeo vertical; o app envia 1080×1920, 30 fps, H.264 com quadros-chave a cada 2 segundos.",
+    "A transmissão só fica pública depois que você pressiona “Iniciar live” no próprio Instagram.",
+    "Você pode enviar a mesma imagem para TikTok, YouTube ou Facebook ao mesmo tempo."
+  ],
+  "sections": [
+    {
+      "id": "requirements",
+      "h2": "O que você precisa",
+      "blocks": [
+        { "list": [
+          "Um drone DJI cujo app DJI Fly ofereça RTMP em Live Streaming Platforms.",
+          "O <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a> em um Mac ou PC com Windows, no mesmo Wi-Fi ou ponto de acesso do controle.",
+          "Uma conta do Instagram que mostre <em>Vídeo ao vivo</em> em Criar no instagram.com. Se não mostrar, o Instagram ainda não liberou a opção para essa conta."
+        ] }
+      ]
+    },
+    {
+      "id": "steps",
+      "h2": "Live no Instagram, passo a passo",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Conecte o drone", "d": "No DJI Fly, abra GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, digite o endereço que o Stream My Drone mostra e inicie. A prévia aparece no app." },
+          { "t": "Crie o vídeo ao vivo no Instagram", "d": "No instagram.com, clique em Criar (+) → Vídeo ao vivo, dê um título, escolha o público e continue." },
+          { "t": "Copie a URL e a chave de transmissão", "d": "O Instagram mostra uma <em>URL de transmissão</em> (como <code>rtmps://edgetee-upload-….fbcdn.net:443/rtmp/</code>) e uma <em>chave de transmissão</em>. Cole as duas em um destino do Instagram no Stream My Drone." },
+          { "t": "Pressione INICIAR TRANSMISSÃO", "d": "Deixe <em>Vertical 9:16</em> ativado. Em poucos segundos, a janela do Instagram mostra a imagem do drone como prévia." },
+          { "t": "Pressione “Iniciar live” no Instagram", "d": "Só agora os seus seguidores veem a transmissão. Para terminar, encerre no Instagram e pressione <em>Encerrar transmissão</em> no app." }
+        ] },
+        { "note": "Na próxima vez, abra um novo vídeo ao vivo no Instagram e use <em>Atualizar chave</em> no cartão do destino: a chave antiga não funciona mais." }
+      ]
+    },
+    {
+      "id": "settings",
+      "h2": "Configurações que o Instagram espera",
+      "blocks": [
+        { "table": {
+          "head": ["Configuração", "Stream My Drone"],
+          "rows": [
+            ["Resolução", "1080×1920 (vertical 9:16)"],
+            ["Taxa de quadros", "30 fps"],
+            ["Vídeo", "H.264 High, 6 Mbps CBR"],
+            ["Quadros-chave", "A cada 2 segundos"],
+            ["Protocolo", "RTMPS (criptografado)"]
+          ]
+        } },
+        { "p": "O drone filma na horizontal. <em>Imagem inteira</em> mantém o quadro completo e preenche o espaço em cima e embaixo com uma cópia desfocada dele; <em>Preencher a tela</em> corta as laterais para ocupar a tela do celular." }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Problemas comuns",
+      "blocks": [
+        { "list": [
+          "<strong>A conexão falha na hora:</strong> a chave já foi usada. Abra um novo vídeo ao vivo no Instagram e atualize a chave.",
+          "<strong>A prévia do Instagram fica preta:</strong> espere alguns segundos depois de INICIAR TRANSMISSÃO; se continuar preta, confira se a prévia do app mostra o drone.",
+          "<strong>Os seguidores não conseguem ver a live:</strong> pressione “Iniciar live” no Instagram — receber a transmissão não é o mesmo que publicá-la.",
+          "<strong>Não aparece Vídeo ao vivo em Criar:</strong> a conta ainda não tem a opção na web; quem decide isso é o Instagram."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Posso fazer live no Instagram com um drone DJI?", "a": "Sim. O DJI Fly envia RTMP para o Stream My Drone no seu computador, e o app repassa ao Instagram com a URL e a chave de transmissão do instagram.com." },
+    { "q": "Por que o Instagram pede uma chave de transmissão nova toda vez?", "a": "O Instagram gera uma chave nova para cada vídeo ao vivo. Atualize-a no app com “Atualizar chave” antes de cada live." },
+    { "q": "Posso transmitir no Instagram e no TikTok ao mesmo tempo?", "a": "Sim. Ative os dois destinos; a imagem é codificada uma vez e enviada para cada um. Os dois esperam vídeo vertical, então uma única configuração serve para ambos." },
+    { "q": "Preciso do OBS?", "a": "Não. O Stream My Drone envia a transmissão direto para o Instagram; o OBS é opcional." },
+    { "q": "O som do drone vai junto?", "a": "Por padrão, o áudio que o DJI Fly envia é repassado. Você também pode escolher um microfone no computador para narrar, ou deixar a transmissão sem som." }
+  ]
+}

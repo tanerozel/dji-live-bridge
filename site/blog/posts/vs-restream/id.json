@@ -1,0 +1,97 @@
+{
+  "slug": "stream-my-drone-atau-restream",
+  "platform": "Perbandingan dengan Restream",
+  "title": "Stream My Drone vs Restream untuk live streaming drone (2026)",
+  "description": "Siaran drone DJI ke beberapa platform: relay cloud Restream atau Stream My Drone di komputer sendiri? Biaya, watermark, Instagram, video vertikal, dan kapan masing-masing unggul.",
+  "h1": "Stream My Drone vs Restream: mana yang cocok untuk drone Anda?",
+  "lead": "Keduanya membawa satu siaran drone ke beberapa platform. <strong>Restream</strong> melakukannya di cloud: DJI Fly menyiarkan ke server Restream, yang meneruskan videonya. <strong>Stream My Drone</strong> melakukannya di komputer Anda sendiri: DJI Fly menyiarkan lewat jaringan lokal ke aplikasi, yang lalu mengirimkannya ke setiap platform. Mana yang lebih baik bergantung pada tempat Anda terbang dan apa yang Anda bayar.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "Restream adalah layanan cloud: tanpa komputer di lapangan, satu unggahan, tetapi berlangganan untuk fitur di luar yang dasar.",
+    "Paket gratis Restream (Oktober 2026): 2 channel, branding Restream di siaran, tanpa tujuan RTMP kustom; paket Standard $19 per bulan.",
+    "Stream My Drone gratis dan bersumber terbuka: tanpa watermark, tanpa batas channel, video tetap di komputer Anda sendiri.",
+    "Stream My Drone mengubah gambar drone menjadi vertikal 1080×1920 untuk Instagram dan TikTok serta menambahkan kamera virtual untuk TikTok LIVE Studio.",
+    "Anda juga bisa menggabungkan keduanya: tambahkan Restream sebagai tujuan RTMP kustom di Stream My Drone."
+  ],
+  "sections": [
+    {
+      "id": "how",
+      "h2": "Dua pendekatan yang berbeda",
+      "blocks": [
+        { "list": [
+          "<strong>Restream (cloud):</strong> DJI Fly → internet → Restream → setiap platform. Remote memerlukan internet; komputer opsional.",
+          "<strong>Stream My Drone (lokal):</strong> DJI Fly → Wi-Fi lokal → Mac atau PC Anda → setiap platform. Komputer memerlukan internet; remote hanya perlu jaringan lokal."
+        ] },
+        { "p": "Satu perbedaan itu menjelaskan sebagian besar perbandingannya: cloud menghemat bandwidth unggah dan komputer Anda, sedangkan aplikasi lokal menghemat biaya langganan dan menjaga video tetap di tangan Anda." }
+      ]
+    },
+    {
+      "id": "compare",
+      "h2": "Perbandingan berdampingan",
+      "blocks": [
+        { "table": {
+          "head": ["", "Stream My Drone", "Restream"],
+          "rows": [
+            ["Harga", "Gratis, sumber terbuka", "Ada paket gratis; berbayar mulai $19/bulan (Standard)"],
+            ["Watermark", "Tidak ada", "Branding Restream di paket gratis"],
+            ["Tujuan", "Sebanyak yang sanggup ditangani unggahan Anda", "2 di paket gratis, 3 di Standard, lebih banyak di paket lebih tinggi"],
+            ["Tujuan RTMP kustom", "Ya", "Tidak di paket gratis"],
+            ["Instagram dari DJI Fly", "Ya, aplikasi mengirim RTMPS", "Bergantung pada cara paket Anda menghubungkan Instagram"],
+            ["Vertikal 1080×1920 dengan latar buram", "Bawaan", "Bukan fitur khusus drone; siaran dikirim apa adanya"],
+            ["Kamera virtual (TikTok LIVE Studio, OBS, Zoom)", "Bawaan", "Tidak"],
+            ["Komputer di lapangan", "Diperlukan (atau Stream My Drone di Android)", "Tidak diperlukan"],
+            ["Unggahan yang terpakai", "Sekali per tujuan", "Sekali secara total"],
+            ["Chat dan analitik", "Tidak", "Ya"],
+            ["Ke mana video dikirim", "Hanya ke tujuan Anda", "Melewati server Restream"]
+          ]
+        } },
+        { "note": "Paket Restream diambil dari halaman harganya pada Oktober 2026 dan bisa berubah; periksa halaman terbaru sebelum memutuskan." }
+      ]
+    },
+    {
+      "id": "restream-wins",
+      "h2": "Saat Restream adalah pilihan yang lebih baik",
+      "blocks": [
+        { "list": [
+          "Anda ingin siaran langsung dari remote tanpa komputer atau ponsel kedua.",
+          "Unggahan Anda lambat dan Anda butuh banyak tujuan: cloud mengirim satu unggahan ke semuanya.",
+          "Anda menginginkan chat gabungan, analitik, atau fitur tim lintas platform."
+        ] }
+      ]
+    },
+    {
+      "id": "bridge-wins",
+      "h2": "Saat Stream My Drone adalah pilihan yang lebih baik",
+      "blocks": [
+        { "list": [
+          "Anda tidak mau tagihan bulanan atau watermark di siaran Anda.",
+          "Anda siaran ke Instagram atau TikTok dan menginginkan gambar vertikal yang layak, bukan potongan lanskap yang tipis.",
+          "Anda ingin live di TikTok tanpa stream key, lewat TikTok LIVE Studio dan kamera virtual bawaan.",
+          "Rekamannya sensitif — lokasi klien, sebuah inspeksi — dan tidak boleh melewati pihak ketiga.",
+          "Anda menginginkan pratinjau, perekaman, dan diagnostik di layar besar di samping Anda."
+        ] },
+        { "p": "Unduh untuk <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">macOS atau Windows</a>; cara pengaturannya ada di <a href=\"../pengaturan-live-streaming-rtmp-dji-fly/\">panduan RTMP DJI Fly</a>." }
+      ]
+    },
+    {
+      "id": "both",
+      "h2": "Memakai keduanya bersama-sama",
+      "howto": true,
+      "blocks": [
+        { "p": "Jika Anda sudah membayar Restream, pertahankan gambar vertikal dan pratinjau dari Stream My Drone, lalu biarkan Restream yang menyebarkannya:" },
+        { "steps": [
+          { "t": "Salin detail RTMP Restream", "d": "Di Restream, cari URL server RTMP dan stream key untuk encoder Anda." },
+          { "t": "Tambahkan tujuan RTMP khusus", "d": "Di Stream My Drone, tambahkan tujuan kustom dengan URL dan kunci tersebut." },
+          { "t": "Mulai siaran", "d": "Kirim drone ke aplikasi dari DJI Fly lalu tekan MULAI SIARAN; Restream meneruskannya ke channel-channel Anda." }
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Apakah Stream My Drone alternatif gratis untuk Restream?", "a": "Untuk streaming drone, ya: aplikasi ini mengirim satu siaran DJI Fly ke beberapa platform tanpa biaya dan tanpa watermark. Ia berjalan di komputer Anda, bukan di cloud, jadi unggahan komputer yang menanggung setiap tujuan." },
+    { "q": "Apakah Restream menambahkan watermark?", "a": "Di paket gratis, Restream menambahkan branding-nya ke siaran (Oktober 2026). Paket berbayar menghilangkannya." },
+    { "q": "Bisakah saya memakai Stream My Drone dan Restream bersamaan?", "a": "Bisa. Tambahkan Restream sebagai tujuan RTMP kustom di Stream My Drone." },
+    { "q": "Mana yang bisa dipakai tanpa komputer?", "a": "Restream, karena DJI Fly bisa menyiarkan langsung ke sana lewat internet. Untuk Stream My Drone, Anda memerlukan komputer, atau aplikasi Android Stream My Drone saat terbang dengan DJI RC 2." }
+  ]
+}

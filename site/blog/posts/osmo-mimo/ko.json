@@ -1,0 +1,84 @@
+{
+  "slug": "dji-osmo-live-stream-instagram-tiktok",
+  "platform": "DJI Osmo 카메라",
+  "title": "DJI Osmo Action·Pocket으로 Instagram·TikTok 라이브 방송하기",
+  "description": "DJI Mimo는 Osmo Action, Osmo Pocket, Osmo 360 카메라를 RTMP로 송출할 수 있습니다. 이를 Stream My Drone으로 보내 Instagram, TikTok, YouTube에 동시에 방송하세요.",
+  "h1": "DJI Osmo 카메라로 Instagram, TikTok 등에 라이브 방송하기",
+  "lead": "Stream My Drone은 드론 전용이 아닙니다. DJI의 액션 카메라와 짐벌 카메라는 <strong>DJI Mimo 앱에서 RTMP로</strong> 방송하는데, 바로 이 앱이 받는 종류의 스트림입니다. Osmo Action, Osmo Pocket, Osmo 360을 Stream My Drone으로 향하게 하면 <strong>Instagram, TikTok, YouTube, Facebook, Twitch, Kick</strong> 중 여러 곳으로 동시에, 세로나 가로 형식으로 방송할 수 있습니다. 무선 웹캠으로 Zoom이나 OBS에 넣을 수도 있습니다.",
+  "published": "2026-10-03",
+  "updated": "2026-10-03",
+  "summary": [
+    "DJI Mimo(버전 1.2.20 이상)는 Osmo Action, Osmo Pocket, Osmo 360 시리즈에서 RTMP 라이브 방송을 제공합니다.",
+    "카메라가 직접 Wi-Fi 네트워크에 연결해 RTMP를 보냅니다. Stream My Drone을 실행하는 컴퓨터와 같은 네트워크에 연결하세요.",
+    "DJI Mimo 자체 플랫폼은 Facebook, YouTube, RTMP뿐입니다. Instagram과 TikTok은 Stream My Drone을 통해 방송합니다.",
+    "DJI는 최대 6 Mbps로 480p, 720p, 1080p를 제시합니다. Wi-Fi가 받쳐 준다면 1080p 6 Mbps를 고르세요.",
+    "같은 스트림을 TikTok LIVE Studio, OBS, Zoom, Meet용 무선 웹캠으로도 쓸 수 있습니다."
+  ],
+  "sections": [
+    {
+      "id": "devices",
+      "h2": "방송할 수 있는 DJI 카메라",
+      "blocks": [
+        { "p": "DJI에 따르면 다음 카메라가 DJI Mimo에서 라이브 방송을 지원하며, RTMP도 플랫폼 중 하나입니다." },
+        { "table": {
+          "head": ["카메라", "해상도(DJI 기준)", "참고"],
+          "rows": [
+            ["Osmo Pocket 3, Osmo Pocket 4, Osmo Pocket 4P", "480p, 720p, 1080p, 30 fps", "1080p에서 최대 6 Mbps"],
+            ["Osmo Action 6, Osmo Action 5 Pro, Osmo Action 4, Osmo Action 3", "480p, 720p, 1080p", "1080p에서 최대 6 Mbps"],
+            ["Osmo 360 시리즈", "480p, 720p, 1080p", "단일 렌즈 모드에서만"],
+            ["DJI Pocket 2, DJI Action 2", "480p, 720p, 1080p", "Action 2는 적응형 비트레이트도 제공"],
+            ["Osmo Action(1세대)", "480p, 720p", "1080p 라이브 방송 없음"]
+          ]
+        } },
+        { "note": "DJI Mimo에서 라이브 방송을 지원하지 않는 기기: Osmo Mobile과 DJI OM 스마트폰 짐벌, 초대 Osmo Pocket, Osmo Nano. 스마트폰 짐벌에서는 휴대폰 자체가 카메라입니다." }
+      ]
+    },
+    {
+      "id": "setup",
+      "h2": "Stream My Drone으로 Osmo 카메라 방송하기",
+      "howto": true,
+      "blocks": [
+        { "steps": [
+          { "t": "Stream My Drone 열기", "d": "Mac 또는 Windows PC에 <a href=\"https://github.com/tanerozel/dji-live-bridge/releases/latest\">Stream My Drone</a>을 설치하세요. <em>드론 연결</em> 단계는 모든 RTMP 카메라에 쓸 수 있으며 <code>rtmp://192.168.1.20:1935/drone</code> 같은 주소를 보여 줍니다." },
+          { "t": "DJI Mimo에서 카메라 연결", "d": "DJI Mimo를 1.2.20 이상으로 업데이트하고 카메라를 연결한 뒤 라이브 방송 옵션을 여세요." },
+          { "t": "RTMP와 네트워크 선택", "d": "플랫폼으로 RTMP를 고르고 카메라가 쓸 Wi-Fi 네트워크를 선택하세요. 컴퓨터와 같은 네트워크나 두 기기가 모두 연결된 휴대폰 핫스팟이어야 합니다." },
+          { "t": "주소와 화질 입력", "d": "Stream My Drone의 주소를 입력하고, 1080p와 Wi-Fi가 감당할 수 있는 가장 높은 비트레이트를 고른 뒤 시작하세요. 몇 초 안에 앱에 미리보기가 나타납니다." },
+          { "t": "플랫폼을 추가하고 방송 시작", "d": "Instagram, TikTok, YouTube 또는 아무 RTMP 서버나 추가하고, 세로나 가로를 고른 뒤 방송 시작을 누르세요." }
+        ] },
+        { "img": "go-live.png", "alt": "RTMP 주소, 방송 대상, 방송 시작 버튼이 보이는 Stream My Drone의 '방송' 탭." }
+      ]
+    },
+    {
+      "id": "uses",
+      "h2": "Osmo 카메라에 더해지는 기능",
+      "blocks": [
+        { "list": [
+          "<strong>Instagram과 TikTok.</strong> DJI Mimo는 Facebook, YouTube, RTMP 주소로만 방송합니다. Stream My Drone은 Instagram에는 RTMPS로, TikTok에는 스트림 키나 TikTok LIVE Studio를 통해 방송합니다.",
+          "<strong>여러 플랫폼에 동시에.</strong> 카메라 하나로 같은 방송을 Instagram, TikTok, YouTube에 내보냅니다.",
+          "<strong>휴대폰용 세로 화면.</strong> 가로 화면이 검은 띠 대신 흐린 배경을 채운 1080×1920이 됩니다.",
+          "<strong>무선 웹캠.</strong> 내장 가상 카메라가 Osmo의 화면을 TikTok LIVE Studio, OBS, Zoom, Meet에 보여 줍니다. 컴퓨터에 케이블을 연결할 필요가 없습니다. <a href=\"../use-your-dji-drone-as-a-webcam/\">웹캠 가이드</a>를 참고하세요.",
+          "<strong>미리보기와 녹화.</strong> 컴퓨터에서 실제 입력을 보면서, 방송하는 동안 녹화할 수 있습니다."
+        ] }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "작동하지 않을 때",
+      "blocks": [
+        { "list": [
+          "<strong>카메라가 연결하지 못함:</strong> 카메라가 컴퓨터와 같은 네트워크에 있어야 합니다. 게스트 네트워크는 기기를 격리하는 경우가 많으니 일반 Wi-Fi나 핫스팟을 쓰세요.",
+          "<strong>DJI Mimo에 라이브 방송 옵션이 없음:</strong> DJI Mimo와 카메라 펌웨어를 업데이트하세요. 라이브 방송에는 DJI Mimo 1.2.20 이상이 필요합니다.",
+          "<strong>화면이 끊김:</strong> DJI Mimo에서 비트레이트를 낮추거나 카메라를 공유기 가까이로 옮기세요.",
+          "<strong>Osmo 360이 방송되지 않음:</strong> 먼저 단일 렌즈 모드로 바꾸세요."
+        ] }
+      ]
+    }
+  ],
+  "faq": [
+    { "q": "Osmo Action이나 Osmo Pocket으로 Instagram 라이브를 할 수 있나요?", "a": "Facebook, YouTube, RTMP만 제공하는 DJI Mimo만으로는 안 됩니다. RTMP로 Stream My Drone에 송출하면 앱이 RTMPS로 Instagram에 전달합니다." },
+    { "q": "Stream My Drone은 드론뿐 아니라 카메라에도 쓸 수 있나요?", "a": "네. DJI Fly가 보내든 DJI Mimo가 보내든 표준 RTMP 스트림을 받습니다." },
+    { "q": "RTMP 라이브 방송을 지원하는 DJI 카메라는 무엇인가요?", "a": "DJI에 따르면 Osmo Pocket 3, 4, 4P, Osmo Action 3, 4, 5 Pro, 6, 단일 렌즈 모드의 Osmo 360 시리즈, DJI Pocket 2, DJI Action 2, 1세대 Osmo Action입니다." },
+    { "q": "Osmo 카메라를 무선 웹캠으로 쓸 수 있나요?", "a": "네. Stream My Drone의 가상 카메라를 시작하고 TikTok LIVE Studio, OBS, Zoom, Meet에서 Stream My Drone Camera를 고르세요." },
+    { "q": "무료인가요?", "a": "네. Stream My Drone은 무료 오픈 소스이며 DJI와 관련이 없습니다." }
+  ]
+}
