@@ -44,8 +44,8 @@ android {
         applicationId = "com.streammydrone.app"
         minSdk = 28
         targetSdk = 36
-        versionCode = 2
-        versionName = "1.1"
+        versionCode = 3
+        versionName = "1.2"
         // Test-only, public-SDK RFCOMM control diagnostic; excluded from the release APK.
         testInstrumentationRunner = "com.streammydrone.app.hfpcontrolprobe.HfpControlProbeInstrumentation"
 
@@ -75,15 +75,15 @@ android {
     }
 
     buildTypes {
-        // "Connect account" for YouTube and Facebook works only for the test users listed with Google
-        // and Meta until Google's OAuth verification and Meta's App Review pass, so release builds
-        // offer manual stream keys only. Set these to true in release once both reviews are approved.
+        // Google's OAuth verification passed, so YouTube's "connect account" ships in release. Facebook's
+        // works only for the test users listed with Meta until its App Review passes, so release builds
+        // offer a manual Facebook stream key only. Set it to true in release once Meta approves.
         debug {
             buildConfigField("boolean", "YOUTUBE_ACCOUNT_CONNECTION", "true")
             buildConfigField("boolean", "FACEBOOK_ACCOUNT_CONNECTION", "true")
         }
         release {
-            buildConfigField("boolean", "YOUTUBE_ACCOUNT_CONNECTION", "false")
+            buildConfigField("boolean", "YOUTUBE_ACCOUNT_CONNECTION", "true")
             buildConfigField("boolean", "FACEBOOK_ACCOUNT_CONNECTION", "false")
             isMinifyEnabled = true
             isShrinkResources = true
