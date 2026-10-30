@@ -1,6 +1,6 @@
 # Google Play store listing - English (United States)
 
-Last updated: 2026-09-28
+Last updated: 2026-10-30
 
 ## App name
 
@@ -26,10 +26,14 @@ Stream My Drone turns your Android phone into a local RTMP bridge. It receives t
 HOW IT WORKS
 1. Connect your phone and DJI controller to the same trusted Wi-Fi network, or use your phone's hotspot.
 2. Enter the RTMP address shown by the app in DJI Fly.
-3. Add your destination server address and stream key.
+3. Connect your YouTube or Instagram account, or add a server address and stream key for any other platform.
 4. Preview the feed, choose your platforms, and tap Go live.
 
 KEY FEATURES
+• Connect your YouTube account once: each broadcast is created with your title and visibility, with no stream key to copy
+• Connect Instagram inside the app: the stream key is prepared for every broadcast
+• Talk over your broadcast with your phone's microphone; your voice replaces the drone's sound
+• Virtual Bluetooth microphone for DJI RC 2, so DJI Fly recognises a microphone
 • Send one live feed to multiple destinations at the same time
 • Profiles for YouTube, Instagram, TikTok, Facebook, Twitch, Kick, and custom RTMP servers
 • Secure RTMPS support with certificate and hostname validation
@@ -41,10 +45,11 @@ KEY FEATURES
 • Light, dark, midnight blue, sand, and system themes
 
 PRIVACY AND SECURITY
-Stream keys are encrypted on the device using Android Keystore. They are not written to logs, cloud backups, or our servers. Stream My Drone does not run a developer-operated relay server; video is sent from your phone directly to the destinations you configure. RTMP is unencrypted, so use RTMPS whenever your platform supports it.
+Stream keys are encrypted on the device using Android Keystore. They are not written to logs, cloud backups, or our servers. Stream My Drone does not run a developer-operated relay server; video is sent from your phone directly to the destinations you configure. RTMP is unencrypted, so use RTMPS whenever your platform supports it. Account connections are optional; the app talks directly to Google, YouTube and Instagram, and no account data reaches a developer server.
 
 BEFORE YOU BUY
 • Live drone use requires a compatible DJI controller or app with Custom RTMP publishing
+• Instagram connection needs an account with access to Instagram Live Producer
 • Each platform may require account eligibility and may issue a new stream key for each broadcast
 • Upload bandwidth is used separately for every active destination
 • Use only a trusted local network for the DJI-to-phone connection
@@ -86,30 +91,22 @@ Additional prepared alternatives:
 - `phone-screenshots/05-reconnecting.jpg`
 - `phone-screenshots/06-ready-hotspot.jpg`
 
-Promotional screenshots (preferred for upload): `1080 x 1920 px` JPEG, no alpha, with a
+Promotional screenshots (uploaded 2026-10-30): `1080 x 1920 px` JPEG, no alpha, with a
 headline above a device frame. Generated from `store-assets/promo-screenshots/source/`
 (`template.html` holds the captions for every language; re-render with `./render.sh`).
+The raw shots in `source/raw/` are 1080x2400 emulator captures of a debug build (FLAG_SECURE
+removed only for that build) cropped to 1080x2280, with the drone clip published over RTMP
+and the destinations pointed at a local MediaMTX.
 
 1. `promo-screenshots/en-US/01-live-hero.jpg` - Take your drone live
 2. `promo-screenshots/en-US/02-connect-drone.jpg` - Connect in seconds
-3. `promo-screenshots/en-US/03-preview.jpg` - Check it before you go live
-4. `promo-screenshots/en-US/04-multistream.jpg` - One feed, many platforms
-5. `promo-screenshots/en-US/05-reconnect.jpg` - Rides out network drops
-6. `promo-screenshots/en-US/06-hotspot.jpg` - No Wi-Fi? Use your hotspot
+3. `promo-screenshots/en-US/03-youtube.jpg` - YouTube in one tap
+4. `promo-screenshots/en-US/04-instagram.jpg` - Instagram, no key to copy
+5. `promo-screenshots/en-US/05-phone-mic.jpg` - Talk over your broadcast
+6. `promo-screenshots/en-US/06-multistream.jpg` - One feed, many platforms
+7. `promo-screenshots/en-US/07-preview.jpg` - Check it before you go live
+8. `promo-screenshots/en-US/08-reconnect.jpg` - Rides out network drops
 
 The same set with Turkish captions is in `promo-screenshots/tr-TR/` for the `tr-TR` listing.
-
-Optional later replacement:
-
-- Retake a clean reconnecting-state screenshot without title text embedded in the test video.
-- Add a technical-details or destination-profile screenshot to make the set less repetitive.
-
-## Listing review notes
-
-- Do not use DJI or streaming-platform logos in a way that implies partnership or endorsement.
-- Keep third-party platform logos limited to the real in-app interface; do not add them to the
-  feature graphic or decorative marketing overlays.
-- Keep the independent-product disclaimer in the full description.
-- Do not claim that every DJI drone/controller supports Custom RTMP.
-- Do not claim that every streaming account is eligible to go live.
-- Add localized store listings separately; do not replace the `en-US` default listing.
+Play's upload panel finishes several files in random order and the last tile cannot be
+dragged, so upload the files one at a time, in order.

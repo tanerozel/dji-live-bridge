@@ -56,6 +56,16 @@ SHA-1** kullanılmalı. Bu, upload key ile aynı olmak zorunda değildir. Debug,
 Play imzaları farklıysa aynı Cloud projesinde her paket/imza çifti için ayrı Android istemcisi
 oluştur. Özel anahtar, keystore parolası veya client secret repoya eklenmez.
 
+30 Ekim 2026'da Play App Signing anahtarı için ayrı bir Android istemcisi oluşturuldu
+(**Stream My Drone (Google Play)**):
+
+```text
+66:FE:33:BA:B3:E3:53:13:4D:CF:A7:FD:F1:38:C1:15:4E:B7:74:D2
+```
+
+Upload key ile imzalanıp Play dışında kurulan release APK'larında YouTube bağlantısı bu yüzden
+çalışmaz; o imza için de istemci gerekirse ayrıca eklenmelidir.
+
 ## Kanal ve fiziksel cihaz testi
 
 - Test hesabının YouTube kanalı olmalı; doğrulaması ve canlı yayın yetkisi açık olmalı.

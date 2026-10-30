@@ -1,6 +1,6 @@
 # Stream My Drone - Google Play release checklist
 
-Last updated: 2026-09-28
+Last updated: 2026-10-30
 
 This file records the Android release decisions and progress. Never add passwords,
 private keys, recovery codes, or other credentials to this file.
@@ -74,3 +74,21 @@ private keys, recovery codes, or other credentials to this file.
 - [ ] Review the Play pre-launch report
 - [ ] Complete a long RC 2 to phone to real RTMPS destination field test
 - [ ] Promote to production only after the release checks pass
+
+## 1.2 (versionCode 3) update - 2026-10-30
+
+Play has only `0.1.0` / versionCode `1`; `1.1` (2) was never uploaded.
+
+- [x] YouTube "connect account" enabled in release (Google OAuth verification approved,
+  Audience In production)
+- [x] Android OAuth client for the Play App Signing SHA-1 (see `YOUTUBE_SETUP.md`)
+- [x] Privacy policy describes the microphone and Bluetooth (Nearby devices) use
+- [x] en-US and tr-TR store listing: 8 new screenshots, feature graphic, full description
+  (saved as a draft in Play Console)
+- [ ] Other 13 listing languages: full description still lists the 1.1 features
+- [ ] Signed AAB with `scripts/build-release.sh` (keystore passwords entered locally)
+- [ ] Foreground service declaration: `dataSync`, `microphone`, `connectedDevice`
+- [ ] Data safety: audio (voice), and email/user IDs for the optional YouTube connection
+- [ ] Internal testing on the S23 from Play: YouTube connect, Instagram connect, phone mic,
+  virtual microphone
+- [ ] Release notes, then promote to production
