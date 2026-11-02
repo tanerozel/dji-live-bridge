@@ -83,12 +83,22 @@ Play has only `0.1.0` / versionCode `1`; `1.1` (2) was never uploaded.
   Audience In production)
 - [x] Android OAuth client for the Play App Signing SHA-1 (see `YOUTUBE_SETUP.md`)
 - [x] Privacy policy describes the microphone and Bluetooth (Nearby devices) use
-- [x] en-US and tr-TR store listing: 8 new screenshots, feature graphic, full description
-  (saved as a draft in Play Console)
-- [ ] Other 13 listing languages: full description still lists the 1.1 features
-- [ ] Signed AAB with `scripts/build-release.sh` (keystore passwords entered locally)
-- [ ] Foreground service declaration: `dataSync`, `microphone`, `connectedDevice`
-- [ ] Data safety: audio (voice), and email/user IDs for the optional YouTube connection
+- [x] All 15 store listing languages: full description, 8 screenshots and a localized feature
+  graphic. tr-TR screenshots show the Turkish UI; the other 13 show the English UI with
+  localized captions. Queued for review 2026-11-02 (AI-generated assets: none).
+- [x] Signed AAB with `scripts/build-release.sh` (keystore passwords entered locally);
+  certificate SHA-256 matches the registered key
+- [x] Internal testing release `3 (1.2)` with release notes in 15 languages (2026-10-30).
+  Tester link: https://play.google.com/apps/internaltest/4701396283667690224
+- [x] Foreground service declaration (2026-11-02), unlisted demo videos on YouTube:
+  - `connectedDevice`: continuous data transfer to an external device,
+    https://www.youtube.com/watch?v=N3gVTbMXLLg (virtual microphone with DJI RC 2)
+  - `dataSync`: network and local processing "Other" (earlier declaration, kept)
+  - `microphone`: background audio input, https://www.youtube.com/watch?v=WQU24_BRZYY
+- [x] Data safety (2026-11-02): videos, voice recordings and other user-generated content
+  (broadcast title) are collected, processed ephemerally, not shared (user-initiated),
+  for app functionality; not all data is encrypted in transit (plain RTMP); no accounts.
+  The store page still shows "No data collected".
 - [ ] Internal testing on the S23 from Play: YouTube connect, Instagram connect, phone mic,
   virtual microphone
-- [ ] Release notes, then promote to production
+- [ ] Promote `3 (1.2)` to production and send all changes for review
