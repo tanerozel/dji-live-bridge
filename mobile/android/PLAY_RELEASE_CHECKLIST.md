@@ -99,6 +99,9 @@ Play has only `0.1.0` / versionCode `1`; `1.1` (2) was never uploaded.
   (broadcast title) are collected, processed ephemerally, not shared (user-initiated),
   for app functionality; not all data is encrypted in transit (plain RTMP); no accounts.
   The store page still shows "No data collected".
-- [ ] Internal testing on the S23 from Play: YouTube connect, Instagram connect, phone mic,
-  virtual microphone
-- [ ] Promote `3 (1.2)` to production and send all changes for review
+- [x] Internal testing on the S23 from Play (owner confirmed 2026-11-02)
+- [x] `3 (1.2)` promoted to production (full rollout) and sent for review on 2026-11-02 together
+  with the listing, data safety and FGS changes. Managed publishing is off, so it goes live
+  when approved. 6 devices without a microphone or Bluetooth (~0%) lose updates.
+- [ ] Facebook "connect account" stays off in release (manual key only) until Meta's App Review
+  and Business Verification pass; then flip `FACEBOOK_ACCOUNT_CONNECTION` and ship 1.3
