@@ -9,7 +9,7 @@
   "skip": "Ir para o conteúdo",
   "home": "Início",
   "blog": "Blog",
-  "download": "Baixar",
+  "download": "Baixar o app",
   "breadcrumb": "Trilha de navegação",
   "by": "Por",
   "updated": "Atualizado em",
@@ -18,14 +18,39 @@
   "faq": "Perguntas",
   "related": "Mais guias",
   "cta": {
-    "h": "Experimente com o seu drone",
-    "p": "O Stream My Drone é gratuito e de código aberto, para macOS e Windows. O FFmpeg já vem embutido, então não há mais nada para instalar.",
-    "button": "Baixar o Stream My Drone",
+    "h": "Transmita seu drone ao vivo pelo celular",
+    "p": "O Stream My Drone para Android e iPhone recebe a imagem do DJI Fly e envia para YouTube, Instagram, Facebook, TikTok, Twitch, Kick ou seu próprio servidor, vários ao mesmo tempo. Compra única, sem assinatura.",
+    "button": "App gratuito para Mac e Windows",
     "more": "Como o app funciona"
   },
   "guides": {
     "h2": "Guias",
     "sub": "Instruções passo a passo para o seu drone, controle e plataforma.",
     "all": "Todos os guias"
+  },
+  "app": {
+    "badge": "Android e iPhone",
+    "h": "Entre ao vivo pelo celular, sem computador",
+    "p": "O Stream My Drone roda em um celular ao lado do seu controle: recebe a imagem do DJI Fly pelo Wi-Fi e envia direto para suas plataformas. Sem notebook, sem cabos, sem servidor.",
+    "points": [
+      "Digite um endereço no DJI Fly e a imagem aparece em segundos",
+      "YouTube, Instagram, Facebook, TikTok, Twitch, Kick e RTMP personalizado, vários ao mesmo tempo",
+      "Os destinos se reconectam sozinhos após uma queda rápida da rede"
+    ],
+    "price": "Compra única · sem assinatura",
+    "galleryH": "Veja no seu celular",
+    "gallerySub": "Da conexão com o DJI Fly à transmissão em várias plataformas, tudo em uma tela.",
+    "barSub": "Entre ao vivo pelo celular",
+    "barButton": "Baixar o app",
+    "shots": {
+      "live": "Stream My Drone ao vivo em um celular: a imagem do drone, a taxa de bits e as plataformas ativas.",
+      "connect": "Conectando o drone: o endereço RTMP para digitar no DJI Fly, com botão de copiar.",
+      "youtube": "Conectando uma conta do YouTube no Stream My Drone com login do Google.",
+      "instagram": "Conectando o Instagram no Stream My Drone, sem chave de transmissão para copiar.",
+      "mic": "O botão do microfone do celular: sua voz entra na transmissão.",
+      "multistream": "Ao vivo em várias plataformas ao mesmo tempo com um só título.",
+      "preview": "A imagem do drone com resolução e taxa de bits, conferida antes de entrar ao vivo.",
+      "reconnect": "Destinos se reconectando sozinhos após uma queda rápida da rede."
+    }
   }
 }

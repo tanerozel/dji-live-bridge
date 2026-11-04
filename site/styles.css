@@ -171,3 +171,78 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 .post-card{display:block;color:var(--text)}
 .post-card:hover{text-decoration:none;border-color:var(--accent)}
 .post-card h3{color:var(--text)}
+
+/* The mobile app on blog pages: a promo near the top, a screenshot gallery in
+   the middle, a closing box and, on a phone, a bar fixed to the bottom. The
+   promo keeps the dark navy of the store screenshots in both colour schemes. */
+.promo,.promo-end{--promo-text:#fff;--promo-muted:rgba(235,242,255,.78);--promo-accent:#22d3ee;
+  display:grid;grid-template-columns:1fr 220px;gap:28px;align-items:center;margin-top:28px;padding:28px;
+  border:0;border-radius:20px;color:var(--promo-text);overflow:hidden;
+  background:radial-gradient(120% 140% at 100% 0%,#173a7a 0%,rgba(23,58,122,0) 55%),linear-gradient(160deg,#0b1631 0%,#0f2350 100%);
+  box-shadow:0 12px 32px rgba(11,22,49,.25)}
+.promo h2,.article .promo h2,.promo-end h2{margin:12px 0 0;color:var(--promo-text);font-size:clamp(22px,3vw,28px);line-height:1.2}
+.promo p,.promo-end p{color:var(--promo-muted)}
+.promo-text>p{margin-top:10px;font-size:16px}
+.promo-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;
+  background:rgba(34,211,238,.14);color:var(--promo-accent);font-size:13px;font-weight:600;letter-spacing:.02em}
+.promo-badge .btn-icon{width:15px;height:15px}
+.promo-points{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px}
+.promo-points li{position:relative;padding-inline-start:26px}
+.promo-points li::before{content:"";position:absolute;inset-inline-start:0;top:3px;width:17px;height:17px;border-radius:50%;
+  background:var(--promo-accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%230b1631' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round' d='m6 12.5 4 4 8-9'/%3E%3C/svg%3E") center/12px no-repeat}
+.store-buttons{justify-content:flex-start;margin-top:22px;gap:10px}
+.btn.store{background:#fff;border-color:#fff;color:#0b1631;font-weight:600}
+.btn.store:hover{background:#e8eef9}
+.on-ios .store-buttons [data-store=ios]{order:-1}
+.promo-price{margin-top:12px;font-size:13.5px;font-weight:600;color:var(--promo-accent)!important}
+.promo-phones{display:flex;justify-content:center;align-items:center}
+.promo-phones img{display:block;width:100%;max-width:220px;height:auto;border-radius:22px;
+  box-shadow:0 18px 40px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.08)}
+.promo.fan{grid-template-columns:1fr 1.05fr}
+.promo.fan .promo-phones img{width:33%;max-width:190px}
+.promo.fan .promo-phones img:nth-child(1){transform:translateX(18%) rotate(-7deg) scale(.88)}
+.promo.fan .promo-phones img:nth-child(2){position:relative;z-index:1}
+.promo.fan .promo-phones img:nth-child(3){transform:translateX(-18%) rotate(7deg) scale(.88)}
+[dir=rtl] .promo.fan .promo-phones{flex-direction:row-reverse}
+.blog-index .promo{margin-top:30px}
+.promo-end{margin-top:44px}
+.promo-end .promo-text>p{margin-top:10px}
+.promo-more{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:16px;font-size:14px}
+.promo-more a{color:var(--promo-muted)}
+.promo-more a:hover{color:#fff}
+
+.gallery{margin-top:30px;padding:22px 0 4px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.gallery-h{display:grid;gap:4px}
+.gallery-h strong{font-size:19px}
+.gallery-h span{color:var(--muted);font-size:15px}
+.gallery-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.gallery-row img{display:block;width:100%;height:auto;border-radius:16px;background:#0b1631;box-shadow:var(--shadow)}
+.gallery .store-buttons{margin:18px 0 18px}
+.gallery .btn.store{border-color:var(--border-strong)}
+
+.appbar{display:none}
+@media (max-width:720px){
+  .promo,.promo-end,.promo.fan{grid-template-columns:1fr;padding:22px 20px;gap:22px}
+  .promo .promo-phones img,.promo-end .promo-phones img{max-width:200px}
+  .promo.fan .promo-phones img{width:36%;max-width:none}
+  .store-buttons .btn{flex:1 1 200px}
+  .gallery-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin-inline:-20px;padding:0 20px 8px;scroll-padding-inline:20px;scrollbar-width:none}
+  .gallery-row::-webkit-scrollbar{display:none}
+  .gallery-row img{flex:0 0 auto;width:46%;min-width:0;scroll-snap-align:start}
+  .appbar{position:fixed;inset-inline:0;bottom:0;z-index:30;display:flex;align-items:center;gap:12px;
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(11,22,49,.94);color:#fff;
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 -6px 20px rgba(0,0,0,.2)}
+  .appbar img{width:40px;height:40px;border-radius:10px}
+  .appbar p{display:grid;flex:1;min-width:0;line-height:1.25}
+  .appbar strong{font-size:14.5px}
+  .appbar span{font-size:12.5px;color:rgba(235,242,255,.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .appbar .btn{flex-shrink:0;white-space:nowrap}
+  body:has(.appbar){padding-bottom:calc(68px + env(safe-area-inset-bottom))}
+}
+@media (min-width:721px){
+  .article .promo,.article .promo-end{grid-template-columns:1fr 170px;gap:24px}
+  .store-buttons .btn{padding:9px 14px;font-size:14.5px}
+}
+/* A long URL in a step must wrap instead of widening the page on a phone. */
+.steps li>div{min-width:0}
+.steps code{overflow-wrap:anywhere}

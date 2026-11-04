@@ -9,7 +9,7 @@
   "skip": "본문으로 건너뛰기",
   "home": "홈",
   "blog": "블로그",
-  "download": "다운로드",
+  "download": "앱 받기",
   "breadcrumb": "현재 위치",
   "by": "작성자",
   "updated": "업데이트",
@@ -18,14 +18,39 @@
   "faq": "자주 묻는 질문",
   "related": "다른 가이드",
   "cta": {
-    "h": "내 드론으로 직접 해 보세요",
-    "p": "Stream My Drone은 macOS와 Windows용 무료 오픈 소스 앱입니다. FFmpeg가 들어 있어 따로 설치할 것이 없습니다.",
-    "button": "Stream My Drone 다운로드",
+    "h": "휴대폰으로 드론을 라이브 방송하세요",
+    "p": "Android·iPhone용 Stream My Drone은 DJI Fly 화면을 받아 YouTube, Instagram, Facebook, TikTok, Twitch, Kick 또는 직접 운영하는 서버로 여러 곳에 동시에 보냅니다. 한 번 구매, 구독 없음.",
+    "button": "무료 Mac·Windows 앱",
     "more": "앱 작동 방식"
   },
   "guides": {
     "h2": "가이드",
     "sub": "드론, 조종기, 플랫폼별 단계별 안내입니다.",
     "all": "모든 가이드"
+  },
+  "app": {
+    "badge": "Android·iPhone",
+    "h": "컴퓨터 없이 휴대폰으로 바로 방송",
+    "p": "Stream My Drone은 조종기 옆의 휴대폰에서 실행됩니다. Wi-Fi로 DJI Fly 화면을 받아 플랫폼으로 바로 보냅니다. 노트북도, 케이블도, 서버도 필요 없습니다.",
+    "points": [
+      "DJI Fly에 주소 하나만 입력하면 몇 초 만에 화면이 나타납니다",
+      "YouTube, Instagram, Facebook, TikTok, Twitch, Kick, 사용자 지정 RTMP에 동시 송출",
+      "잠깐 네트워크가 끊겨도 송출 대상이 자동으로 다시 연결됩니다"
+    ],
+    "price": "한 번 구매 · 구독 없음",
+    "galleryH": "휴대폰에서 보는 모습",
+    "gallerySub": "DJI Fly 연결부터 여러 플랫폼 동시 방송까지 한 화면에서.",
+    "barSub": "휴대폰으로 바로 방송",
+    "barButton": "앱 받기",
+    "shots": {
+      "live": "휴대폰에서 방송 중인 Stream My Drone: 드론 화면, 비트레이트, 켜진 플랫폼.",
+      "connect": "드론 연결: DJI Fly에 입력할 RTMP 주소와 복사 버튼.",
+      "youtube": "Stream My Drone에서 Google 로그인으로 YouTube 계정 연결.",
+      "instagram": "Stream My Drone에서 Instagram 연결, 복사할 스트림 키 없음.",
+      "mic": "휴대폰 마이크 스위치: 내 목소리가 방송에 나갑니다.",
+      "multistream": "하나의 방송 제목으로 여러 플랫폼에 동시 송출.",
+      "preview": "방송 전에 해상도와 비트레이트를 확인하는 드론 화면.",
+      "reconnect": "짧은 네트워크 끊김 후 자동으로 다시 연결되는 송출 대상."
+    }
   }
 }

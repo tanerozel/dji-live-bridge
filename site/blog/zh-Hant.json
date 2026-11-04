@@ -9,7 +9,7 @@
   "skip": "跳到內容",
   "home": "首頁",
   "blog": "部落格",
-  "download": "下載",
+  "download": "取得 App",
   "breadcrumb": "導覽路徑",
   "by": "作者",
   "updated": "更新於",
@@ -18,14 +18,39 @@
   "faq": "常見問題",
   "related": "更多教學",
   "cta": {
-    "h": "用你的空拍機試試看",
-    "p": "Stream My Drone 免費且開源，支援 macOS 與 Windows。已內建 FFmpeg，不必另外安裝任何東西。",
-    "button": "下載 Stream My Drone",
+    "h": "用手機讓無人機直播",
+    "p": "Android 與 iPhone 版 Stream My Drone 接收 DJI Fly 畫面，並同時推送到 YouTube、Instagram、Facebook、TikTok、Twitch、Kick 或你自己的伺服器。一次性購買，無訂閱。",
+    "button": "免費的 Mac 與 Windows 版",
     "more": "App 的運作方式"
   },
   "guides": {
     "h2": "教學",
     "sub": "依你的空拍機、遙控器和直播平台，一步步完成設定。",
     "all": "所有教學"
+  },
+  "app": {
+    "badge": "Android 與 iPhone",
+    "h": "不需電腦，用手機直接開播",
+    "p": "Stream My Drone 在遙控器旁的一支手機上執行：透過 Wi-Fi 接收 DJI Fly 畫面，直接推送到你的平台。不需筆電、線材或伺服器。",
+    "points": [
+      "在 DJI Fly 輸入一個位址，幾秒內就能看到畫面",
+      "YouTube、Instagram、Facebook、TikTok、Twitch、Kick 與自訂 RTMP，可同時推流",
+      "網路短暫中斷後，各平台會自動重新連線"
+    ],
+    "price": "一次性購買 · 無訂閱",
+    "galleryH": "在手機上的樣子",
+    "gallerySub": "從連接 DJI Fly 到多平台同時直播，一個畫面全部搞定。",
+    "barSub": "用手機直接開播",
+    "barButton": "取得 App",
+    "shots": {
+      "live": "手機上正在直播的 Stream My Drone：無人機畫面、位元率與已開啟的平台。",
+      "connect": "連接無人機：要輸入到 DJI Fly 的 RTMP 位址，附複製按鈕。",
+      "youtube": "在 Stream My Drone 中以 Google 登入連結 YouTube 帳號。",
+      "instagram": "在 Stream My Drone 中連結 Instagram，不必複製串流金鑰。",
+      "mic": "手機麥克風開關：你的聲音會進入直播。",
+      "multistream": "以同一個直播標題同時在多個平台開播。",
+      "preview": "開播前檢查無人機畫面的解析度與位元率。",
+      "reconnect": "網路短暫中斷後自動重新連線的平台。"
+    }
   }
 }

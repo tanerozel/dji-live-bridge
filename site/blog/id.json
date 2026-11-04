@@ -9,7 +9,7 @@
   "skip": "Lompat ke konten",
   "home": "Beranda",
   "blog": "Blog",
-  "download": "Unduh",
+  "download": "Dapatkan aplikasinya",
   "breadcrumb": "Jejak navigasi",
   "by": "Oleh",
   "updated": "Diperbarui",
@@ -18,14 +18,39 @@
   "faq": "Pertanyaan",
   "related": "Panduan lainnya",
   "cta": {
-    "h": "Coba dengan drone Anda",
-    "p": "Stream My Drone gratis dan bersumber terbuka, untuk macOS dan Windows. FFmpeg sudah ada di dalamnya, jadi tidak ada lagi yang perlu dipasang.",
-    "button": "Unduh Stream My Drone",
+    "h": "Siarkan drone Anda langsung dari ponsel",
+    "p": "Stream My Drone untuk Android dan iPhone menerima gambar DJI Fly lalu mengirimkannya ke YouTube, Instagram, Facebook, TikTok, Twitch, Kick, atau server Anda sendiri, ke beberapa sekaligus. Sekali beli, tanpa langganan.",
+    "button": "Aplikasi Mac dan Windows gratis",
     "more": "Cara kerja aplikasi"
   },
   "guides": {
     "h2": "Panduan",
     "sub": "Petunjuk langkah demi langkah untuk drone, remote, dan platform Anda.",
     "all": "Semua panduan"
+  },
+  "app": {
+    "badge": "Android dan iPhone",
+    "h": "Siaran langsung dari ponsel, tanpa komputer",
+    "p": "Stream My Drone berjalan di ponsel di samping remote Anda: menerima gambar DJI Fly lewat Wi-Fi dan mengirimkannya langsung ke platform Anda. Tanpa laptop, kabel, atau server.",
+    "points": [
+      "Ketik satu alamat di DJI Fly dan gambar muncul dalam hitungan detik",
+      "YouTube, Instagram, Facebook, TikTok, Twitch, Kick, dan RTMP kustom, beberapa sekaligus",
+      "Tujuan tersambung lagi dengan sendirinya setelah jaringan putus sebentar"
+    ],
+    "price": "Sekali beli · tanpa langganan",
+    "galleryH": "Tampilannya di ponsel Anda",
+    "gallerySub": "Dari koneksi DJI Fly hingga siaran di beberapa platform, semuanya di satu layar.",
+    "barSub": "Siaran langsung dari ponsel",
+    "barButton": "Dapatkan aplikasinya",
+    "shots": {
+      "live": "Stream My Drone sedang siaran di ponsel: gambar drone, bitrate, dan platform yang aktif.",
+      "connect": "Menyambungkan drone: alamat RTMP untuk diketik di DJI Fly, dengan tombol salin.",
+      "youtube": "Menyambungkan akun YouTube di Stream My Drone dengan masuk lewat Google.",
+      "instagram": "Menyambungkan Instagram di Stream My Drone, tanpa kunci streaming yang perlu disalin.",
+      "mic": "Sakelar mikrofon ponsel: suara Anda ikut tersiar.",
+      "multistream": "Siaran langsung ke beberapa platform sekaligus dengan satu judul.",
+      "preview": "Gambar drone dengan resolusi dan bitrate, diperiksa sebelum siaran.",
+      "reconnect": "Tujuan yang tersambung lagi sendiri setelah jaringan putus sebentar."
+    }
   }
 }

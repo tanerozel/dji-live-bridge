@@ -10,7 +10,7 @@
 //
 // Run: npm run build:site
 
-import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, readdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, readdirSync, cpSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -64,6 +64,7 @@ const BUTTON_ICONS = {
   github: '<path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.64 1.22 3.28.93.1-.73.39-1.22.72-1.5-2.5-.28-5.13-1.25-5.13-5.57 0-1.23.44-2.23 1.16-3.01-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.09 1.15A10.77 10.77 0 0 1 12 6.16c.96 0 1.92.13 2.82.38 2.14-1.45 3.08-1.15 3.08-1.15.61 1.55.23 2.7.11 2.98.72.78 1.16 1.78 1.16 3.01 0 4.33-2.64 5.29-5.15 5.57.41.35.76 1.03.76 2.08v3.1c0 .3.2.65.78.54A11.25 11.25 0 0 0 12 .75Z"/>',
   download: '<path d="M11 2h2v11l4-4 1.4 1.4L12 16.8l-6.4-6.4L7 9l4 4ZM3 16h2v4h14v-4h2v6H3Z"/>',
   globe: '<g fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></g>',
+  phone: '<path d="M7 1h10a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2Zm0 3v15h10V4Zm4 16v1.5h2V20Z"/>',
 };
 const buttonIcon = (name) =>
   `<svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">${BUTTON_ICONS[name]}</svg>`;
@@ -98,6 +99,30 @@ const IMAGES = {
   "virtual-camera.png": [1600, 576],
   "advanced.png": [1600, 1111],
 };
+
+// The mobile app is what the blog sells: every blog page shows the localized
+// Play Store screenshots from site/img/app/<lang>/ (made by
+// scripts/build-site-images.sh) and links to both stores.
+const APP_SHOT_SIZE = [540, 960];
+const APP_SHARE_SIZE = [1024, 500];
+// Which screenshots a post shows, most relevant first: the first is the promo
+// at the top, the next four the gallery further down.
+const DEFAULT_SHOTS = ["live", "connect", "preview", "multistream", "mic"];
+const POST_SHOTS = {
+  youtube: ["youtube", "live", "multistream", "connect", "reconnect"],
+  instagram: ["instagram", "live", "multistream", "connect", "preview"],
+  "instagram-rtmps": ["instagram", "live", "connect", "multistream", "reconnect"],
+  facebook: ["live", "multistream", "connect", "reconnect", "preview"],
+  tiktok: ["live", "multistream", "connect", "preview", "mic"],
+  twitch: ["live", "multistream", "connect", "reconnect", "mic"],
+  kick: ["live", "multistream", "connect", "reconnect", "mic"],
+  multistream: ["multistream", "live", "youtube", "instagram", "reconnect"],
+  "vs-restream": ["multistream", "live", "reconnect", "connect", "youtube"],
+  "dji-fly-rtmp": ["connect", "preview", "live", "multistream", "reconnect"],
+  "without-nginx": ["connect", "live", "multistream", "reconnect", "preview"],
+};
+// The closing box shows the first of these the post has not shown yet.
+const END_SHOTS = ["multistream", "live", "reconnect", "mic", "preview", "connect", "youtube", "instagram"];
 
 const hasBlog = (code) => BLOG.some(({ locale }) => locale.code === code);
 const blogUrl = (code) => (code === "en" ? `${BASE}/blog/` : `${BASE}/${code}/blog/`);
@@ -470,14 +495,16 @@ ${links}
 <meta property="og:site_name" content="Stream My Drone">
 <meta property="og:title" content="${escapeHtml(title)}">
 <meta property="og:description" content="${escapeHtml(stripTags(description))}">
-<meta property="og:image" content="${BASE}/img/go-live.png">
+<meta property="og:image" content="${shareImage(locale.code)}">
+<meta property="og:image:width" content="${APP_SHARE_SIZE[0]}">
+<meta property="og:image:height" content="${APP_SHARE_SIZE[1]}">
 <meta property="og:url" content="${url}">
 <meta property="og:type" content="${type}">
 <meta property="og:locale" content="${locale.og}">${article}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${escapeHtml(title)}">
 <meta name="twitter:description" content="${escapeHtml(stripTags(description))}">
-<meta name="twitter:image" content="${BASE}/img/go-live.png">
+<meta name="twitter:image" content="${shareImage(locale.code)}">
 ${jsonld.map((data) => `<script type="application/ld+json">${JSON.stringify(data)}</script>`).join("\n")}
 <style>
 ${css}</style>`;
@@ -494,10 +521,75 @@ function blogHeader(locale, labels, menuLinks, asset) {
       <a href="${urlFor(locale.code)}">${labels.home}</a>
       <a href="${blogUrl(locale.code)}">${labels.blog}</a>
       ${menu}
-      <a class="btn small" href="${RELEASES}">${buttonIcon("download")}${labels.download}</a>
+      <a class="btn small primary" href="#app">${buttonIcon("phone")}${labels.download}</a>
     </nav>
   </div>
 </header>`;
+}
+
+// --- mobile app blocks on blog pages -----------------------------------------
+
+const shareImage = (code) => `${BASE}/img/app/${code}/share.jpg`;
+const postShots = (post) => POST_SHOTS[post.id] || DEFAULT_SHOTS;
+
+function appShot(code, labels, asset, name, extra = "") {
+  const [width, height] = APP_SHOT_SIZE;
+  return `<img src="${asset}img/app/${code}/${name}.webp" alt="${escapeHtml(labels.app.shots[name])}" width="${width}" height="${height}" loading="lazy" decoding="async"${extra}>`;
+}
+
+// data-store lets the small script at the end of the page send a phone
+// straight to its own store; without it both buttons simply work.
+function storeButtons(code) {
+  const home = homeContent[code];
+  return `<div class="cta store-buttons"><a class="btn store" href="${PLAY}" data-store="play">${buttonIcon("play")}${home.android.cta}</a><a class="btn store" href="${APP_STORE}" data-store="ios">${buttonIcon("apple")}${home.android.ctaIos}</a></div>`;
+}
+
+// The promo near the top of every blog page; #app is what the header button
+// and the bar at the bottom of a phone screen jump to.
+function appPromo(code, labels, asset, shots) {
+  const { app } = labels;
+  const phones = shots.map((name) => appShot(code, labels, asset, name)).join("");
+  return `<aside class="promo${shots.length > 1 ? " fan" : ""}" id="app" aria-labelledby="app-title">
+<div class="promo-text">
+<span class="promo-badge">${buttonIcon("phone")}${app.badge}</span>
+<h2 id="app-title">${app.h}</h2>
+<p>${app.p}</p>
+<ul class="promo-points">${app.points.map((point) => `<li>${point}</li>`).join("")}</ul>
+${storeButtons(code)}
+<p class="promo-price">${app.price}</p>
+</div>
+<div class="promo-phones">${phones}</div>
+</aside>`;
+}
+
+function appGallery(code, labels, asset, shots) {
+  return `<div class="gallery">
+<p class="gallery-h"><strong>${labels.app.galleryH}</strong><span>${labels.app.gallerySub}</span></p>
+<div class="gallery-row">${shots.map((name) => appShot(code, labels, asset, name)).join("")}</div>
+${storeButtons(code)}
+</div>`;
+}
+
+function appCtaBox(locale, labels, asset, shot) {
+  return `<div class="cta-box promo-end">
+<div class="promo-text">
+<h2>${labels.cta.h}</h2>
+<p>${labels.cta.p}</p>
+${storeButtons(locale.code)}
+<p class="promo-more"><a href="${RELEASES}">${labels.cta.button} →</a><a href="${urlFor(locale.code)}">${labels.cta.more} →</a></p>
+</div>
+<div class="promo-phones">${appShot(locale.code, labels, asset, shot)}</div>
+</div>`;
+}
+
+// Fixed to the bottom of a phone screen (hidden on wider ones by the CSS).
+function appBar(labels, asset) {
+  return `<div class="appbar">
+<img src="${asset}img/icon.png" alt="" width="40" height="40">
+<p><strong>Stream My Drone</strong><span>${labels.app.barSub}</span></p>
+<a class="btn primary small" href="#app" data-store="auto">${labels.app.barButton}</a>
+</div>
+<script>(function(){var u=navigator.userAgent,s=/android/i.test(u)?"play":/iphone|ipad|ipod/i.test(u)||(/macintosh/i.test(u)&&navigator.maxTouchPoints>1)?"ios":"";if(!s)return;var h={play:${JSON.stringify(PLAY)},ios:${JSON.stringify(APP_STORE)}};document.querySelectorAll('a[data-store="auto"]').forEach(function(a){a.href=h[s]});document.documentElement.classList.add("on-"+s)})();</script>`;
 }
 
 function breadcrumbs(locale, labels, trail) {
@@ -559,10 +651,16 @@ function postPage(locale, labels, post, content) {
   }));
   const crumbs = breadcrumbs(locale, labels, [{ name: content.platform, url }]);
 
+  const shots = postShots(post);
+  // The screenshot gallery goes after the second section, where a reader has
+  // seen what the workflow needs and before the long troubleshooting part.
+  const galleryAfter = Math.min(1, content.sections.length - 1);
   const sections = content.sections
     .map(
-      (section) =>
-        `<h2 id="${section.id}">${section.h2}</h2>\n${section.blocks.map((block) => renderBlock(block, asset)).join("\n")}`,
+      (section, index) =>
+        `<h2 id="${section.id}">${section.h2}</h2>\n${section.blocks.map((block) => renderBlock(block, asset)).join("\n")}${
+          index === galleryAfter ? `\n${appGallery(locale.code, labels, asset, shots.slice(1, 5))}` : ""
+        }`,
     )
     .join("\n\n");
   const toc = [...content.sections.map((section) => ({ id: section.id, h2: section.h2 })), { id: "faq", h2: labels.faq }]
@@ -583,7 +681,7 @@ function postPage(locale, labels, post, content) {
     dateModified: content.updated,
     url,
     mainEntityOfPage: url,
-    image: `${BASE}/img/go-live.png`,
+    image: shareImage(locale.code),
     author,
     publisher: author,
     isPartOf: { "@type": "Blog", name: stripTags(labels.meta.title), url: blogUrl(locale.code) },
@@ -642,6 +740,8 @@ ${crumbs.html}
 <p class="byline">${labels.by} <a href="https://github.com/tanerozel" rel="author">Taner Özel</a> · ${labels.updated} <time datetime="${content.updated}">${formatDate(locale, content.updated)}</time></p>
 <p class="answer">${content.lead}</p>
 
+${appPromo(locale.code, labels, asset, shots.slice(0, 1))}
+
 <div class="keyfacts">
 <h2 id="summary">${labels.keyFacts}</h2>
 <ul>${content.summary.map((item) => `<li>${item}</li>`).join("")}</ul>
@@ -656,11 +756,7 @@ ${sections}
 ${faq}
 </div>
 
-<div class="cta-box">
-<h2>${labels.cta.h}</h2>
-<p>${labels.cta.p}</p>
-<div class="cta"><a class="btn primary" href="${RELEASES}">${buttonIcon("download")}${labels.cta.button}</a><a class="btn" href="${urlFor(locale.code)}">${buttonIcon("globe")}${labels.cta.more}</a></div>
-</div>
+${appCtaBox(locale, labels, asset, END_SHOTS.find((name) => !shots.includes(name)))}
 
 <h2 id="related">${labels.related}</h2>
 ${postCards(locale.code, others)}
@@ -668,6 +764,8 @@ ${postCards(locale.code, others)}
 </main>
 
 ${footer(homeContent[locale.code])}
+
+${appBar(labels, asset)}
 
 </body>
 </html>
@@ -723,11 +821,15 @@ ${blogHeader(locale, labels, languages, asset)}
 ${crumbs.html}
 <h1>${labels.h1}</h1>
 <p class="lead">${labels.lead}</p>
+${appPromo(locale.code, labels, asset, ["connect", "live", "multistream"])}
 ${postCards(locale.code, posts)}
+${appCtaBox(locale, labels, asset, "multistream")}
 </div>
 </main>
 
 ${footer(homeContent[locale.code])}
+
+${appBar(labels, asset)}
 
 </body>
 </html>
@@ -995,6 +1097,16 @@ for (const post of POSTS) {
     slugs.add(`${code}/${content.slug}`);
   }
 }
+// The phone screenshots and share images, in every blog language.
+for (const { locale } of BLOG) {
+  if (!existsSync(join(root, "site/img/app", locale.code, "share.jpg"))) {
+    console.error(`site/img/app/${locale.code} is missing: run scripts/build-site-images.sh`);
+    process.exit(1);
+  }
+}
+rmSync(join(root, "docs/img/app"), { recursive: true, force: true });
+cpSync(join(root, "site/img/app"), join(root, "docs/img/app"), { recursive: true });
+
 let blogPages = 0;
 for (const { locale, labels } of BLOG) {
   mkdirSync(join(root, blogDir(locale.code)), { recursive: true });

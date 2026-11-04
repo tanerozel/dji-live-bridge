@@ -38,7 +38,9 @@
 <meta property="og:site_name" content="Stream My Drone">
 <meta property="og:title" content="DJI Mini 3 でライブ配信：RC-N1・DJI Fly・パソコンの設定（2026年）">
 <meta property="og:description" content="DJI Mini 3 を RC-N1 と DJI Fly からパソコンの Stream My Drone へ送ってライブ配信する方法。DJI RC の制限、720p のライブビュー画質、配信先での公開を確認します。">
-<meta property="og:image" content="https://streammydrone.com/img/go-live.png">
+<meta property="og:image" content="https://streammydrone.com/img/app/ja/share.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
 <meta property="og:url" content="https://streammydrone.com/ja/blog/dji-mini-3-live-stream/">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ja_JP">
@@ -48,8 +50,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="DJI Mini 3 でライブ配信：RC-N1・DJI Fly・パソコンの設定（2026年）">
 <meta name="twitter:description" content="DJI Mini 3 を RC-N1 と DJI Fly からパソコンの Stream My Drone へ送ってライブ配信する方法。DJI RC の制限、720p のライブビュー画質、配信先での公開を確認します。">
-<meta name="twitter:image" content="https://streammydrone.com/img/go-live.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"DJI Mini 3 でライブ配信する方法","description":"DJI Mini 3 を RC-N1 と DJI Fly からパソコンの Stream My Drone へ送ってライブ配信する方法。DJI RC の制限、720p のライブビュー画質、配信先での公開を確認します。","inLanguage":"ja","datePublished":"2026-10-25","dateModified":"2026-10-25","url":"https://streammydrone.com/ja/blog/dji-mini-3-live-stream/","mainEntityOfPage":"https://streammydrone.com/ja/blog/dji-mini-3-live-stream/","image":"https://streammydrone.com/img/go-live.png","author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"},"publisher":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"},"isPartOf":{"@type":"Blog","name":"DJI ドローン ライブ配信ガイド — Stream My Drone ブログ","url":"https://streammydrone.com/ja/blog/"},"about":{"@type":"SoftwareApplication","name":"Stream My Drone","url":"https://streammydrone.com/ja/"}}</script>
+<meta name="twitter:image" content="https://streammydrone.com/img/app/ja/share.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"DJI Mini 3 でライブ配信する方法","description":"DJI Mini 3 を RC-N1 と DJI Fly からパソコンの Stream My Drone へ送ってライブ配信する方法。DJI RC の制限、720p のライブビュー画質、配信先での公開を確認します。","inLanguage":"ja","datePublished":"2026-10-25","dateModified":"2026-10-25","url":"https://streammydrone.com/ja/blog/dji-mini-3-live-stream/","mainEntityOfPage":"https://streammydrone.com/ja/blog/dji-mini-3-live-stream/","image":"https://streammydrone.com/img/app/ja/share.jpg","author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"},"publisher":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"},"isPartOf":{"@type":"Blog","name":"DJI ドローン ライブ配信ガイド — Stream My Drone ブログ","url":"https://streammydrone.com/ja/blog/"},"about":{"@type":"SoftwareApplication","name":"Stream My Drone","url":"https://streammydrone.com/ja/"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"Mini 3 の RTMP 配信を設定して公開する","inLanguage":"ja","tool":[{"@type":"HowToTool","name":"Stream My Drone"},{"@type":"HowToTool","name":"DJI Fly"}],"step":[{"@type":"HowToStep","position":1,"name":"アプリとネットワークを準備する","text":"Mini 3、RC-N1、操縦用スマートフォンをいつもどおり接続します。Mac または Windows パソコンに Stream My Drone を入れます。パソコンと操縦用スマートフォンを、インターネットにつながる共有のローカルネットワークに接続します。テザリングを使う場合は飛行前にテストしてください。","url":"https://streammydrone.com/ja/blog/dji-mini-3-live-stream/#computer-setup"},{"@type":"HowToStep","position":2,"name":"パソコンの RTMP アドレスを省略せずにコピーする","text":"Stream My Drone を開き、「ドローンを接続」の下にあるアドレスをコピーします。rtmp://192.168.1.20:1935/drone は形式の例にすぎません。アプリに表示されている現在のアドレスを、パスまで含めて使ってください。","url":"https://streammydrone.com/ja/blog/dji-mini-3-live-stream/#computer-setup"},{"@type":"HowToStep","position":3,"name":"DJI Fly の RTMP 出力を始める","text":"スマートフォンのカメラビューで ••• → Transmission → Enable Livestreaming または Live Streaming Platforms を開き、RTMP を選びます。受信アドレスを貼り付けて開始します。メニューの表記はバージョンによって異なることがあります。共通の手順は DJI Fly RTMP ガイドをご覧ください。","url":"https://streammydrone.com/ja/blog/dji-mini-3-live-stream/#computer-setup"},{"@type":"HowToStep","position":4,"name":"パソコンで映像を確認する","text":"受信側でプライベートネットワークのファイアウォールの確認が表示されたら許可し、Stream My Drone に動く映像が表示されることを確認します。映像が届かない場合は、配信先を設定する前にこのローカル接続を直してください。操縦用スマートフォンは DJI Fly の画面のままにしておきます。","url":"https://streammydrone.com/ja/blog/dji-mini-3-live-stream/#computer-setup"},{"@type":"HowToStep","position":5,"name":"配信先を追加して配信を確認する","text":"パソコンでの出力レイアウトを選び、配信先の最新のサーバー URL とストリームキーを配信先として入力して出力を始めます。配信先のダッシュボードを開き、必要な「ライブ開始」の操作を済ませ、視聴ページで音声も含めて確認します。","url":"https://streammydrone.com/ja/blog/dji-mini-3-live-stream/#computer-setup"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"ja","mainEntity":[{"@type":"Question","name":"DJI Mini 3 はライブ配信に対応していますか？","acceptedAnswer":{"@type":"Answer","text":"DJI は、RC-N1 と DJI Fly を動かすモバイル端末でのライブ配信を案内しています。このガイドでは、その映像を別のパソコンの Stream My Drone に送ります。"}},{"@type":"Question","name":"DJI RC 付きの Mini 3 セットでもこの RTMP の手順を使えますか？","acceptedAnswer":{"@type":"Answer","text":"いいえ。DJI の Mini 3 入門ガイドでは、初代 DJI RC ではライブ配信を利用できないとされています。新しい DJI RC 2 とは別の製品です。"}},{"@type":"Question","name":"Mini 3 で 4K のカメラ映像を配信できますか？","acceptedAnswer":{"@type":"Answer","text":"ライブ映像が保存される録画と同じだと考えないでください。DJI は Mini 3 の送信機のライブビューを 720p/30fps としています。受信側で実際の RTMP 入力を確認してください。"}},{"@type":"Question","name":"RTMP の代わりに QuickTransfer を使えますか？","acceptedAnswer":{"@type":"Answer","text":"いいえ。QuickTransfer は撮影したファイルをスマートフォンへ移す機能です。この構成では、ローカルネットワーク経由で DJI Fly のライブ配信出力を使います。"}},{"@type":"Question","name":"操縦用スマートフォンを受信側にもできますか？","acceptedAnswer":{"@type":"Answer","text":"このガイドでは、DJI Fly を RC-N1 のスマートフォンに置いたまま、別のパソコンで映像を受信します。操縦アプリと中継アプリが 1 台のスマートフォンで安定して共存できることは前提にしていません。"}},{"@type":"Question","name":"配信先のストリームキーはどこに入力しますか？","acceptedAnswer":{"@type":"Answer","text":"Stream My Drone の配信先設定に、配信先のサーバー URL とあわせて入力します。DJI Fly には、代わりにアプリに表示されるパソコンのローカルアドレスをパスまで含めて入力します。"}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://streammydrone.com/ja/"},{"@type":"ListItem","position":2,"name":"ブログ","item":"https://streammydrone.com/ja/blog/"},{"@type":"ListItem","position":3,"name":"DJI Mini 3","item":"https://streammydrone.com/ja/blog/dji-mini-3-live-stream/"}]}</script>
@@ -227,6 +229,81 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 .post-card{display:block;color:var(--text)}
 .post-card:hover{text-decoration:none;border-color:var(--accent)}
 .post-card h3{color:var(--text)}
+
+/* The mobile app on blog pages: a promo near the top, a screenshot gallery in
+   the middle, a closing box and, on a phone, a bar fixed to the bottom. The
+   promo keeps the dark navy of the store screenshots in both colour schemes. */
+.promo,.promo-end{--promo-text:#fff;--promo-muted:rgba(235,242,255,.78);--promo-accent:#22d3ee;
+  display:grid;grid-template-columns:1fr 220px;gap:28px;align-items:center;margin-top:28px;padding:28px;
+  border:0;border-radius:20px;color:var(--promo-text);overflow:hidden;
+  background:radial-gradient(120% 140% at 100% 0%,#173a7a 0%,rgba(23,58,122,0) 55%),linear-gradient(160deg,#0b1631 0%,#0f2350 100%);
+  box-shadow:0 12px 32px rgba(11,22,49,.25)}
+.promo h2,.article .promo h2,.promo-end h2{margin:12px 0 0;color:var(--promo-text);font-size:clamp(22px,3vw,28px);line-height:1.2}
+.promo p,.promo-end p{color:var(--promo-muted)}
+.promo-text>p{margin-top:10px;font-size:16px}
+.promo-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;
+  background:rgba(34,211,238,.14);color:var(--promo-accent);font-size:13px;font-weight:600;letter-spacing:.02em}
+.promo-badge .btn-icon{width:15px;height:15px}
+.promo-points{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px}
+.promo-points li{position:relative;padding-inline-start:26px}
+.promo-points li::before{content:"";position:absolute;inset-inline-start:0;top:3px;width:17px;height:17px;border-radius:50%;
+  background:var(--promo-accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%230b1631' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round' d='m6 12.5 4 4 8-9'/%3E%3C/svg%3E") center/12px no-repeat}
+.store-buttons{justify-content:flex-start;margin-top:22px;gap:10px}
+.btn.store{background:#fff;border-color:#fff;color:#0b1631;font-weight:600}
+.btn.store:hover{background:#e8eef9}
+.on-ios .store-buttons [data-store=ios]{order:-1}
+.promo-price{margin-top:12px;font-size:13.5px;font-weight:600;color:var(--promo-accent)!important}
+.promo-phones{display:flex;justify-content:center;align-items:center}
+.promo-phones img{display:block;width:100%;max-width:220px;height:auto;border-radius:22px;
+  box-shadow:0 18px 40px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.08)}
+.promo.fan{grid-template-columns:1fr 1.05fr}
+.promo.fan .promo-phones img{width:33%;max-width:190px}
+.promo.fan .promo-phones img:nth-child(1){transform:translateX(18%) rotate(-7deg) scale(.88)}
+.promo.fan .promo-phones img:nth-child(2){position:relative;z-index:1}
+.promo.fan .promo-phones img:nth-child(3){transform:translateX(-18%) rotate(7deg) scale(.88)}
+[dir=rtl] .promo.fan .promo-phones{flex-direction:row-reverse}
+.blog-index .promo{margin-top:30px}
+.promo-end{margin-top:44px}
+.promo-end .promo-text>p{margin-top:10px}
+.promo-more{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:16px;font-size:14px}
+.promo-more a{color:var(--promo-muted)}
+.promo-more a:hover{color:#fff}
+
+.gallery{margin-top:30px;padding:22px 0 4px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.gallery-h{display:grid;gap:4px}
+.gallery-h strong{font-size:19px}
+.gallery-h span{color:var(--muted);font-size:15px}
+.gallery-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.gallery-row img{display:block;width:100%;height:auto;border-radius:16px;background:#0b1631;box-shadow:var(--shadow)}
+.gallery .store-buttons{margin:18px 0 18px}
+.gallery .btn.store{border-color:var(--border-strong)}
+
+.appbar{display:none}
+@media (max-width:720px){
+  .promo,.promo-end,.promo.fan{grid-template-columns:1fr;padding:22px 20px;gap:22px}
+  .promo .promo-phones img,.promo-end .promo-phones img{max-width:200px}
+  .promo.fan .promo-phones img{width:36%;max-width:none}
+  .store-buttons .btn{flex:1 1 200px}
+  .gallery-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin-inline:-20px;padding:0 20px 8px;scroll-padding-inline:20px;scrollbar-width:none}
+  .gallery-row::-webkit-scrollbar{display:none}
+  .gallery-row img{flex:0 0 auto;width:46%;min-width:0;scroll-snap-align:start}
+  .appbar{position:fixed;inset-inline:0;bottom:0;z-index:30;display:flex;align-items:center;gap:12px;
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(11,22,49,.94);color:#fff;
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 -6px 20px rgba(0,0,0,.2)}
+  .appbar img{width:40px;height:40px;border-radius:10px}
+  .appbar p{display:grid;flex:1;min-width:0;line-height:1.25}
+  .appbar strong{font-size:14.5px}
+  .appbar span{font-size:12.5px;color:rgba(235,242,255,.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .appbar .btn{flex-shrink:0;white-space:nowrap}
+  body:has(.appbar){padding-bottom:calc(68px + env(safe-area-inset-bottom))}
+}
+@media (min-width:721px){
+  .article .promo,.article .promo-end{grid-template-columns:1fr 170px;gap:24px}
+  .store-buttons .btn{padding:9px 14px;font-size:14.5px}
+}
+/* A long URL in a step must wrap instead of widening the page on a phone. */
+.steps li>div{min-width:0}
+.steps code{overflow-wrap:anywhere}
 </style>
 </head>
 <body>
@@ -243,7 +320,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
         <summary aria-label="言語"><span aria-hidden="true">🌐</span><span class="langname">日本語</span></summary>
         <div class="sheet"><a href="https://streammydrone.com/blog/dji-mini-3-live-stream/" hreflang="en" lang="en">English</a><a href="https://streammydrone.com/tr/blog/dji-mini-3-canli-yayin/" hreflang="tr" lang="tr">Türkçe</a><a href="https://streammydrone.com/es/blog/dji-mini-3-transmision-en-directo/" hreflang="es" lang="es">Español</a><a href="https://streammydrone.com/zh/blog/dji-mini-3-live-stream/" hreflang="zh-Hans" lang="zh-Hans">中文（简体）</a><a href="https://streammydrone.com/zh-Hant/blog/dji-mini-3-live-stream/" hreflang="zh-Hant" lang="zh-Hant">中文（繁體）</a><a href="https://streammydrone.com/ar/blog/dji-mini-3-live-stream/" hreflang="ar" lang="ar">العربية</a><a href="https://streammydrone.com/hi/blog/dji-mini-3-live-stream/" hreflang="hi" lang="hi">हिन्दी</a><a href="https://streammydrone.com/pt/blog/dji-mini-3-transmissao-ao-vivo/" hreflang="pt" lang="pt">Português</a><a href="https://streammydrone.com/ru/blog/dji-mini-3-live-stream/" hreflang="ru" lang="ru">Русский</a><a href="https://streammydrone.com/fr/blog/dji-mini-3-diffusion-en-direct/" hreflang="fr" lang="fr">Français</a><a href="https://streammydrone.com/de/blog/dji-mini-3-livestream/" hreflang="de" lang="de">Deutsch</a><a href="https://streammydrone.com/ja/blog/dji-mini-3-live-stream/" hreflang="ja" lang="ja" aria-current="true">日本語</a><a href="https://streammydrone.com/ko/blog/dji-mini-3-live-stream/" hreflang="ko" lang="ko">한국어</a><a href="https://streammydrone.com/id/blog/live-streaming-dji-mini-3/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="https://streammydrone.com/it/blog/dji-mini-3-diretta-streaming/" hreflang="it" lang="it">Italiano</a></div>
       </details>
-      <a class="btn small" href="https://github.com/tanerozel/dji-live-bridge/releases/latest"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M11 2h2v11l4-4 1.4 1.4L12 16.8l-6.4-6.4L7 9l4 4ZM3 16h2v4h14v-4h2v6H3Z"/></svg>ダウンロード</a>
+      <a class="btn small primary" href="#app"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M7 1h10a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2Zm0 3v15h10V4Zm4 16v1.5h2V20Z"/></svg>アプリを入手</a>
     </nav>
   </div>
 </header>
@@ -254,6 +331,18 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 <h1>DJI Mini 3 でライブ配信する方法</h1>
 <p class="byline">著者 <a href="https://github.com/tanerozel" rel="author">Taner Özel</a> · 更新日 <time datetime="2026-10-25">2026年10月25日</time></p>
 <p class="answer"><strong>DJI Mini 3</strong> には、<strong>RC-N1 とスマートフォンの DJI Fly</strong> を使う公式のライブ配信機能があります。その RTMP 映像を別のパソコンの <strong>Stream My Drone</strong> に送り、そこから配信先へ転送します。お使いの Mini 3 に画面付きの <strong>DJI RC</strong> が付属している場合は、まず送信機の制限を確認してください。DJI はこの送信機でのライブ配信に対応していません。</p>
+
+<aside class="promo" id="app" aria-labelledby="app-title">
+<div class="promo-text">
+<span class="promo-badge"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M7 1h10a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2Zm0 3v15h10V4Zm4 16v1.5h2V20Z"/></svg>Android・iPhone</span>
+<h2 id="app-title">パソコンなしで、スマホから配信</h2>
+<p>Stream My Drone は送信機の横に置いたスマホで動きます。Wi-Fi で DJI Fly の映像を受け取り、そのまま配信先へ送ります。ノートパソコンもケーブルもサーバーも不要です。</p>
+<ul class="promo-points"><li>DJI Fly にアドレスを 1 つ入力するだけで、数秒で映像が届きます</li><li>YouTube、Instagram、Facebook、TikTok、Twitch、Kick、カスタム RTMP に複数同時配信</li><li>ネットワークが一瞬切れても、配信先が自動で再接続します</li></ul>
+<div class="cta store-buttons"><a class="btn store" href="https://play.google.com/store/apps/details?id=com.streammydrone.app" data-store="play"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="#34a853" d="m3 2 11 10L3 22Z"/><path fill="#4285f4" d="m3 2 14 8-3 2Z"/><path fill="#fbbc04" d="m17 10 4 2-4 2-3-2Z"/><path fill="#ea4335" d="m3 22 11-10 3 2Z"/></svg>Google Play で手に入れよう</a><a class="btn store" href="https://apps.apple.com/us/app/stream-my-drone/id6818233095" data-store="ios"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>App Storeからダウンロード</a></div>
+<p class="promo-price">買い切り · サブスクリプションなし</p>
+</div>
+<div class="promo-phones"><img src="../../../img/app/ja/live.webp" alt="スマホで配信中の Stream My Drone：ドローン映像、ビットレート、有効な配信先。" width="540" height="960" loading="lazy" decoding="async"></div>
+</aside>
 
 <div class="keyfacts">
 <h2 id="summary">要点</h2>
@@ -271,6 +360,11 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 <div class="table"><table><thead><tr><th scope="col">接続</th><th scope="col">役割</th><th scope="col">設定するもの</th></tr></thead><tbody><tr><th scope="row">Mini 3 ↔ RC-N1</th><td>操縦と機体のカメラ映像</td><td>通常の機体と送信機のペアリング</td></tr><tr><th scope="row">RC-N1 ↔ スマートフォン（USB）</th><td>DJI Fly の操縦画面とライブ配信の操作</td><td>対応するスマートフォンと送信機のケーブル</td></tr><tr><th scope="row">スマートフォン → パソコン（ローカルネットワーク経由）</th><td>DJI Fly の RTMP 映像を Stream My Drone に送る</td><td>パソコンのアプリに表示される受信アドレス</td></tr></tbody></table></div>
 <p>パソコンは、インターネット接続を使って選んだ配信先に映像を送ります。パソコンと操縦用スマートフォンを同じローカルネットワークに接続してください。インターネットにつながっていても、そのネットワークが端末どうしの通信を遮断していると使えません。DJI Fly は操縦用スマートフォンで開いたままにし、受信側はパソコンで操作します。</p>
 <p class="callout">DJI の <a href="https://www.dji.com/mini-3/faq">Mini 3 FAQ</a> にあるとおり、QuickTransfer は撮影したファイルを移すための機能です。このライブ配信で使う RTMP 接続ではありません。パソコンへの USB ケーブル接続も、以下の受信アドレスの代わりにはなりません。</p>
+<div class="gallery">
+<p class="gallery-h"><strong>スマホでの画面</strong><span>DJI Fly との接続から複数プラットフォームへの配信まで、ひとつの画面で。</span></p>
+<div class="gallery-row"><img src="../../../img/app/ja/connect.webp" alt="ドローンの接続：DJI Fly に入力する RTMP アドレスとコピーボタン。" width="540" height="960" loading="lazy" decoding="async"><img src="../../../img/app/ja/preview.webp" alt="配信前に解像度とビットレートを確認できるドローン映像。" width="540" height="960" loading="lazy" decoding="async"><img src="../../../img/app/ja/multistream.webp" alt="ひとつのタイトルで複数のプラットフォームに同時配信。" width="540" height="960" loading="lazy" decoding="async"><img src="../../../img/app/ja/mic.webp" alt="スマホのマイクのスイッチ：あなたの声が配信に乗ります。" width="540" height="960" loading="lazy" decoding="async"></div>
+<div class="cta store-buttons"><a class="btn store" href="https://play.google.com/store/apps/details?id=com.streammydrone.app" data-store="play"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="#34a853" d="m3 2 11 10L3 22Z"/><path fill="#4285f4" d="m3 2 14 8-3 2Z"/><path fill="#fbbc04" d="m17 10 4 2-4 2-3-2Z"/><path fill="#ea4335" d="m3 22 11-10 3 2Z"/></svg>Google Play で手に入れよう</a><a class="btn store" href="https://apps.apple.com/us/app/stream-my-drone/id6818233095" data-store="ios"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>App Storeからダウンロード</a></div>
+</div>
 
 <h2 id="computer-setup">Mini 3 の RTMP 配信を設定して公開する</h2>
 <ol class="steps"><li><div><strong>アプリとネットワークを準備する</strong><span>Mini 3、RC-N1、操縦用スマートフォンをいつもどおり接続します。Mac または Windows パソコンに <a href="https://github.com/tanerozel/dji-live-bridge/releases/latest">Stream My Drone</a> を入れます。パソコンと操縦用スマートフォンを、インターネットにつながる共有のローカルネットワークに接続します。テザリングを使う場合は飛行前にテストしてください。</span></div></li><li><div><strong>パソコンの RTMP アドレスを省略せずにコピーする</strong><span>Stream My Drone を開き、「ドローンを接続」の下にあるアドレスをコピーします。<code>rtmp://192.168.1.20:1935/drone</code> は形式の例にすぎません。アプリに表示されている現在のアドレスを、パスまで含めて使ってください。</span></div></li><li><div><strong>DJI Fly の RTMP 出力を始める</strong><span>スマートフォンのカメラビューで ••• → Transmission → Enable Livestreaming または Live Streaming Platforms を開き、RTMP を選びます。受信アドレスを貼り付けて開始します。メニューの表記はバージョンによって異なることがあります。共通の手順は <a href="../dji-fly-rtmp-live-streaming-setup/">DJI Fly RTMP ガイド</a>をご覧ください。</span></div></li><li><div><strong>パソコンで映像を確認する</strong><span>受信側でプライベートネットワークのファイアウォールの確認が表示されたら許可し、Stream My Drone に動く映像が表示されることを確認します。映像が届かない場合は、配信先を設定する前にこのローカル接続を直してください。操縦用スマートフォンは DJI Fly の画面のままにしておきます。</span></div></li><li><div><strong>配信先を追加して配信を確認する</strong><span>パソコンでの出力レイアウトを選び、配信先の最新のサーバー URL とストリームキーを配信先として入力して出力を始めます。配信先のダッシュボードを開き、必要な「ライブ開始」の操作を済ませ、視聴ページで音声も含めて確認します。</span></div></li></ol>
@@ -301,10 +395,14 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 <details><summary>配信先のストリームキーはどこに入力しますか？</summary><p>Stream My Drone の配信先設定に、配信先のサーバー URL とあわせて入力します。DJI Fly には、代わりにアプリに表示されるパソコンのローカルアドレスをパスまで含めて入力します。</p></details>
 </div>
 
-<div class="cta-box">
-<h2>お手持ちのドローンで試す</h2>
-<p>Stream My Drone は macOS と Windows 向けの無料・オープンソースアプリです。FFmpeg を内蔵しているので、ほかに入れるものはありません。</p>
-<div class="cta"><a class="btn primary" href="https://github.com/tanerozel/dji-live-bridge/releases/latest"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M11 2h2v11l4-4 1.4 1.4L12 16.8l-6.4-6.4L7 9l4 4ZM3 16h2v4h14v-4h2v6H3Z"/></svg>Stream My Drone をダウンロード</a><a class="btn" href="https://streammydrone.com/ja/"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></g></svg>アプリのしくみ</a></div>
+<div class="cta-box promo-end">
+<div class="promo-text">
+<h2>スマホからドローンをライブ配信</h2>
+<p>Android・iPhone 版 Stream My Drone は DJI Fly の映像を受け取り、YouTube、Instagram、Facebook、TikTok、Twitch、Kick や独自のサーバーへ、複数同時に送ります。買い切り、サブスクリプションなし。</p>
+<div class="cta store-buttons"><a class="btn store" href="https://play.google.com/store/apps/details?id=com.streammydrone.app" data-store="play"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="#34a853" d="m3 2 11 10L3 22Z"/><path fill="#4285f4" d="m3 2 14 8-3 2Z"/><path fill="#fbbc04" d="m17 10 4 2-4 2-3-2Z"/><path fill="#ea4335" d="m3 22 11-10 3 2Z"/></svg>Google Play で手に入れよう</a><a class="btn store" href="https://apps.apple.com/us/app/stream-my-drone/id6818233095" data-store="ios"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>App Storeからダウンロード</a></div>
+<p class="promo-more"><a href="https://github.com/tanerozel/dji-live-bridge/releases/latest">無料の Mac・Windows 版 →</a><a href="https://streammydrone.com/ja/">アプリのしくみ →</a></p>
+</div>
+<div class="promo-phones"><img src="../../../img/app/ja/reconnect.webp" alt="短いネットワーク切断のあと自動で再接続する配信先。" width="540" height="960" loading="lazy" decoding="async"></div>
 </div>
 
 <h2 id="related">ほかのガイド</h2>
@@ -355,6 +453,13 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
     <p class="note">MIT ライセンスで公開しています。同梱の FFmpeg は LGPL で、GPL の部品を含まずソースからビルドしたものです。Stream My Drone は独立したプロジェクトで、DJI、Instagram、TikTok、Apple とは関係がありません。DJI、Instagram、TikTok はそれぞれの所有者の商標です。 Google Play は Google LLC の商標です。</p>
   </div>
 </footer>
+
+<div class="appbar">
+<img src="../../../img/icon.png" alt="" width="40" height="40">
+<p><strong>Stream My Drone</strong><span>スマホからライブ配信</span></p>
+<a class="btn primary small" href="#app" data-store="auto">アプリを入手</a>
+</div>
+<script>(function(){var u=navigator.userAgent,s=/android/i.test(u)?"play":/iphone|ipad|ipod/i.test(u)||(/macintosh/i.test(u)&&navigator.maxTouchPoints>1)?"ios":"";if(!s)return;var h={play:"https://play.google.com/store/apps/details?id=com.streammydrone.app",ios:"https://apps.apple.com/us/app/stream-my-drone/id6818233095"};document.querySelectorAll('a[data-store="auto"]').forEach(function(a){a.href=h[s]});document.documentElement.classList.add("on-"+s)})();</script>
 
 </body>
 </html>

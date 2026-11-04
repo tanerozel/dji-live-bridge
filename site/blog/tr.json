@@ -9,7 +9,7 @@
   "skip": "İçeriğe geç",
   "home": "Ana sayfa",
   "blog": "Blog",
-  "download": "İndir",
+  "download": "Uygulamayı edinin",
   "breadcrumb": "Sayfa yolu",
   "by": "Yazan:",
   "updated": "Güncelleme:",
@@ -18,14 +18,39 @@
   "faq": "Sorular",
   "related": "Diğer rehberler",
   "cta": {
-    "h": "Kendi drone'unuzla deneyin",
-    "p": "Stream My Drone ücretsiz ve açık kaynaklıdır; macOS ve Windows için. FFmpeg uygulamanın içinde gelir, ayrıca bir şey kurmanız gerekmez.",
-    "button": "Stream My Drone'u indir",
+    "h": "Drone'unuzu telefonunuzdan canlı yayına taşıyın",
+    "p": "Android ve iPhone için Stream My Drone, DJI Fly görüntüsünü alır ve YouTube, Instagram, Facebook, TikTok, Twitch, Kick veya kendi sunucunuza, aynı anda birden fazlasına gönderir. Tek seferlik satın alma, abonelik yok.",
+    "button": "Ücretsiz Mac ve Windows uygulaması",
     "more": "Uygulama nasıl çalışır"
   },
   "guides": {
     "h2": "Rehberler",
     "sub": "Drone, kumanda ve platformunuza göre adım adım anlatım.",
     "all": "Tüm rehberler"
+  },
+  "app": {
+    "badge": "Android ve iPhone",
+    "h": "Bilgisayar gerekmeden telefonunuzdan canlı yayın yapın",
+    "p": "Stream My Drone, kumandanızın yanındaki bir telefonda çalışır: DJI Fly görüntüsünü Wi-Fi üzerinden alır ve doğrudan platformlarınıza gönderir. Dizüstü bilgisayar, kablo veya sunucu gerekmez.",
+    "points": [
+      "DJI Fly'a tek bir adres yazın, görüntü saniyeler içinde gelsin",
+      "YouTube, Instagram, Facebook, TikTok, Twitch, Kick ve özel RTMP, aynı anda birden fazlası",
+      "Kısa bir ağ kesintisinden sonra hedefler kendiliğinden yeniden bağlanır"
+    ],
+    "price": "Tek seferlik satın alma · abonelik yok",
+    "galleryH": "Telefonunuzda nasıl görünür",
+    "gallerySub": "DJI Fly bağlantısından birden fazla platformdaki yayına kadar her şey tek ekranda.",
+    "barSub": "Telefonunuzdan canlı yayın yapın",
+    "barButton": "Uygulamayı edinin",
+    "shots": {
+      "live": "Telefonda canlı yayındaki Stream My Drone: drone görüntüsü, bit hızı ve etkin platformlar.",
+      "connect": "Drone'u bağlama: DJI Fly'a yazılacak RTMP adresi ve kopyalama düğmesi.",
+      "youtube": "Stream My Drone'da Google ile oturum açarak YouTube hesabı bağlama.",
+      "instagram": "Stream My Drone'da Instagram'ı bağlama; kopyalanacak yayın anahtarı yok.",
+      "mic": "Telefon mikrofonu düğmesi: sesiniz yayına çıkar.",
+      "multistream": "Tek bir yayın başlığıyla aynı anda birden fazla platformda canlı yayın.",
+      "preview": "Yayına başlamadan önce çözünürlük ve bit hızıyla kontrol edilen drone görüntüsü.",
+      "reconnect": "Kısa bir ağ kesintisinden sonra kendiliğinden yeniden bağlanan hedefler."
+    }
   }
 }

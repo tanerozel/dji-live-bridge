@@ -9,7 +9,7 @@
   "skip": "本文へ移動",
   "home": "ホーム",
   "blog": "ブログ",
-  "download": "ダウンロード",
+  "download": "アプリを入手",
   "breadcrumb": "パンくずリスト",
   "by": "著者",
   "updated": "更新日",
@@ -18,14 +18,39 @@
   "faq": "よくある質問",
   "related": "ほかのガイド",
   "cta": {
-    "h": "お手持ちのドローンで試す",
-    "p": "Stream My Drone は macOS と Windows 向けの無料・オープンソースアプリです。FFmpeg を内蔵しているので、ほかに入れるものはありません。",
-    "button": "Stream My Drone をダウンロード",
+    "h": "スマホからドローンをライブ配信",
+    "p": "Android・iPhone 版 Stream My Drone は DJI Fly の映像を受け取り、YouTube、Instagram、Facebook、TikTok、Twitch、Kick や独自のサーバーへ、複数同時に送ります。買い切り、サブスクリプションなし。",
+    "button": "無料の Mac・Windows 版",
     "more": "アプリのしくみ"
   },
   "guides": {
     "h2": "ガイド",
     "sub": "ドローン、送信機、配信プラットフォームごとの手順を一つずつ説明します。",
     "all": "すべてのガイド"
+  },
+  "app": {
+    "badge": "Android・iPhone",
+    "h": "パソコンなしで、スマホから配信",
+    "p": "Stream My Drone は送信機の横に置いたスマホで動きます。Wi-Fi で DJI Fly の映像を受け取り、そのまま配信先へ送ります。ノートパソコンもケーブルもサーバーも不要です。",
+    "points": [
+      "DJI Fly にアドレスを 1 つ入力するだけで、数秒で映像が届きます",
+      "YouTube、Instagram、Facebook、TikTok、Twitch、Kick、カスタム RTMP に複数同時配信",
+      "ネットワークが一瞬切れても、配信先が自動で再接続します"
+    ],
+    "price": "買い切り · サブスクリプションなし",
+    "galleryH": "スマホでの画面",
+    "gallerySub": "DJI Fly との接続から複数プラットフォームへの配信まで、ひとつの画面で。",
+    "barSub": "スマホからライブ配信",
+    "barButton": "アプリを入手",
+    "shots": {
+      "live": "スマホで配信中の Stream My Drone：ドローン映像、ビットレート、有効な配信先。",
+      "connect": "ドローンの接続：DJI Fly に入力する RTMP アドレスとコピーボタン。",
+      "youtube": "Stream My Drone で Google ログインにより YouTube アカウントを接続。",
+      "instagram": "Stream My Drone で Instagram を接続。ストリームキーのコピーは不要。",
+      "mic": "スマホのマイクのスイッチ：あなたの声が配信に乗ります。",
+      "multistream": "ひとつのタイトルで複数のプラットフォームに同時配信。",
+      "preview": "配信前に解像度とビットレートを確認できるドローン映像。",
+      "reconnect": "短いネットワーク切断のあと自動で再接続する配信先。"
+    }
   }
 }

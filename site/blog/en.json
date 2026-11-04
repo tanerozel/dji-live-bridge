@@ -9,7 +9,7 @@
   "skip": "Skip to content",
   "home": "Home",
   "blog": "Blog",
-  "download": "Download",
+  "download": "Get the app",
   "breadcrumb": "Breadcrumb",
   "by": "By",
   "updated": "Updated",
@@ -18,14 +18,39 @@
   "faq": "Questions",
   "related": "More guides",
   "cta": {
-    "h": "Try it with your drone",
-    "p": "Stream My Drone is free and open source, for macOS and Windows. FFmpeg is built in, so there is nothing else to install.",
-    "button": "Download Stream My Drone",
+    "h": "Take your drone live from your phone",
+    "p": "Stream My Drone for Android and iPhone receives the DJI Fly picture and sends it to YouTube, Instagram, Facebook, TikTok, Twitch, Kick or your own server, several at once. One-time purchase, no subscription.",
+    "button": "Free Mac & Windows app",
     "more": "How the app works"
   },
   "guides": {
     "h2": "Guides",
     "sub": "Step-by-step instructions for your drone, controller and platform.",
     "all": "All guides"
+  },
+  "app": {
+    "badge": "Android & iPhone",
+    "h": "Go live from your phone, no computer needed",
+    "p": "Stream My Drone runs on a phone next to your controller: it receives the DJI Fly picture over Wi-Fi and sends it straight to your platforms. No laptop, no cables, no server.",
+    "points": [
+      "Type one address into DJI Fly and the picture appears in seconds",
+      "YouTube, Instagram, Facebook, TikTok, Twitch, Kick and custom RTMP, several at once",
+      "Destinations reconnect on their own after a short network drop"
+    ],
+    "price": "One-time purchase · no subscription",
+    "galleryH": "See it on your phone",
+    "gallerySub": "From the DJI Fly connection to a broadcast on several platforms, all on one screen.",
+    "barSub": "Go live from your phone",
+    "barButton": "Get the app",
+    "shots": {
+      "live": "Stream My Drone live on a phone: the drone picture, bitrate and the active platforms.",
+      "connect": "Connecting the drone: the RTMP address to type into DJI Fly, with a copy button.",
+      "youtube": "Connecting a YouTube account in Stream My Drone with a Google sign-in.",
+      "instagram": "Connecting Instagram in Stream My Drone, with no stream key to copy.",
+      "mic": "The phone microphone switch: your voice goes out on the broadcast.",
+      "multistream": "Going live to several platforms at once with one broadcast title.",
+      "preview": "The drone picture with resolution and bitrate, checked before going live.",
+      "reconnect": "Destinations reconnecting on their own after a short network drop."
+    }
   }
 }
