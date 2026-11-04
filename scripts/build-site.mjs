@@ -21,6 +21,17 @@ const RELEASES = `${REPO}/releases/latest`;
 // The mobile apps, published on their own as "Stream My Drone".
 const PLAY = "https://play.google.com/store/apps/details?id=com.streammydrone.app";
 const APP_STORE = "https://apps.apple.com/us/app/stream-my-drone/id6818233095";
+const YOUTUBE_CHANNEL = "https://www.youtube.com/channel/UCs8Ofh5G_EP0AXcDSzDlePg";
+// Who publishes the site, for search engines and AI answers ("which app is this, who makes it").
+const ORGANIZATION = {
+  "@type": "Organization",
+  "@id": `${BASE}/#organization`,
+  name: "Stream My Drone",
+  url: `${BASE}/`,
+  logo: `${BASE}/img/icon.png`,
+  founder: { "@type": "Person", name: "Taner Özel", url: "https://github.com/tanerozel" },
+  sameAs: [YOUTUBE_CHANNEL, REPO, PLAY, APP_STORE],
+};
 // The 1-minute setup video (DJI RC 2 + Android phone) on the @StreamMyDrone
 // YouTube channel, one per language: id, title as on YouTube, length in
 // seconds, and the publish date when it is not 2026-11-04. A language without
@@ -198,7 +209,22 @@ function head(locale, content) {
     isAccessibleForFree: true,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     author: { "@type": "Person", name: "Taner Özel", url: "https://github.com/tanerozel" },
+    publisher: { "@id": ORGANIZATION["@id"] },
+    dateModified: siteUpdated(),
   };
+
+  const site = [
+    { "@context": "https://schema.org", ...ORGANIZATION },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": `${url}#website`,
+      name: "Stream My Drone",
+      url,
+      inLanguage: locale.hreflang,
+      publisher: { "@id": ORGANIZATION["@id"] },
+    },
+  ];
 
   const android = {
     "@context": "https://schema.org",
@@ -271,6 +297,7 @@ ${LOCALES.filter((other) => other.code !== locale.code)
 <meta name="twitter:title" content="${escapeHtml(content.meta.ogTitle)}">
 <meta name="twitter:description" content="${escapeHtml(stripTags(content.meta.ogDescription))}">
 <meta name="twitter:image" content="${shareImage(locale.code)}">
+${site.map((data) => `<script type="application/ld+json">${JSON.stringify(data)}</script>`).join("\n")}
 <script type="application/ld+json">${JSON.stringify(software)}</script>
 <script type="application/ld+json">${JSON.stringify(android)}</script>
 <script type="application/ld+json">${JSON.stringify(faq)}</script>${
@@ -949,6 +976,12 @@ ${appBar(labels, asset)}
 `;
 }
 
+// The home pages change with the newest guide or setup video; a fixed date keeps CI's rebuild identical.
+function siteUpdated() {
+  const videoDates = Object.values(SETUP_VIDEOS).map((video) => video[3] ?? SETUP_VIDEO_DATE);
+  return [...POSTS.map((post) => post.byLang.en.updated), ...videoDates].sort().at(-1);
+}
+
 // Every blog URL with the languages it exists in, for the sitemap and llms.txt.
 function blogEntries() {
   const entries = [];
@@ -978,6 +1011,7 @@ function sitemap() {
     <loc>${urlFor(locale.code)}</loc>
 ${alternates}
     <xhtml:link rel="alternate" hreflang="x-default" href="${BASE}/"/>
+    <lastmod>${siteUpdated()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>${locale.code === "en" ? "1.0" : "0.8"}</priority>
   </url>`;
@@ -1284,6 +1318,8 @@ writeFileSync(join(root, "docs/.nojekyll"), "");
 writeFileSync(join(root, "docs/sitemap.xml"), sitemap());
 writeFileSync(join(root, "docs/robots.txt"), robots());
 writeFileSync(join(root, "docs/ai.txt"), aiTxt());
+mkdirSync(join(root, "docs/.well-known"), { recursive: true });
+writeFileSync(join(root, "docs/.well-known/ai.txt"), aiTxt());
 writeFileSync(join(root, "docs/llms.txt"), llms(english));
 writeFileSync(join(root, "docs/llms-full.txt"), llmsFull(english));
 
