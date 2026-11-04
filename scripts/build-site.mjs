@@ -1010,10 +1010,43 @@ ${blog}
 `;
 }
 
+// Content-Signal: Cloudflare's Content Signals Policy (contentsignals.org). Crawlers that
+// do not know it ignore the line (RFC 9309), so it costs nothing.
+const CONTENT_SIGNAL = "Content-Signal: search=yes, ai-input=yes, ai-train=yes";
+
+// AI crawlers already match `*`; naming them only makes the welcome explicit. A crawler with
+// its own group ignores `*`, so the group repeats the same rules.
+const AI_BOTS = [
+  "GPTBot",
+  "OAI-SearchBot",
+  "ChatGPT-User",
+  "ClaudeBot",
+  "Claude-SearchBot",
+  "Claude-User",
+  "Google-Extended",
+  "PerplexityBot",
+  "Perplexity-User",
+  "Applebot-Extended",
+  "meta-externalagent",
+  "CCBot",
+];
+
 const robots = () => `User-agent: *
+${CONTENT_SIGNAL}
+Allow: /
+
+# AI search and assistant crawlers are welcome.
+${AI_BOTS.map((bot) => `User-agent: ${bot}`).join("\n")}
+${CONTENT_SIGNAL}
 Allow: /
 
 Sitemap: ${BASE}/sitemap.xml
+`;
+
+// Spawning's ai.txt (site.spawning.ai): the same permission for AI use, for tools that look for it.
+const aiTxt = () => `# Stream My Drone: text and images may be used by AI systems, with a link back.
+User-Agent: *
+Allow: /
 `;
 
 // llmstxt.org format: a short, factual map of the project for language models,
@@ -1250,7 +1283,8 @@ writeFileSync(join(root, "docs/CNAME"), "streammydrone.com\n");
 writeFileSync(join(root, "docs/.nojekyll"), "");
 writeFileSync(join(root, "docs/sitemap.xml"), sitemap());
 writeFileSync(join(root, "docs/robots.txt"), robots());
+writeFileSync(join(root, "docs/ai.txt"), aiTxt());
 writeFileSync(join(root, "docs/llms.txt"), llms(english));
 writeFileSync(join(root, "docs/llms-full.txt"), llmsFull(english));
 
-console.log(`built ${LOCALES.length} pages, ${blogPages} blog pages, sitemap.xml, robots.txt, llms.txt, llms-full.txt`);
+console.log(`built ${LOCALES.length} pages, ${blogPages} blog pages, sitemap.xml, robots.txt, ai.txt, llms.txt, llms-full.txt`);

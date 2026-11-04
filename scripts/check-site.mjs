@@ -288,9 +288,16 @@ if (!existsSync(sitemapFile)) {
 
 const robotsFile = join(root, "docs/robots.txt");
 if (!existsSync(robotsFile)) fail("robots.txt", "missing");
-else if (!readFileSync(robotsFile, "utf8").includes(`${BASE}/sitemap.xml`)) {
-  fail("robots.txt", "does not point at the sitemap");
+else {
+  const robotsTxt = readFileSync(robotsFile, "utf8");
+  if (!robotsTxt.includes(`${BASE}/sitemap.xml`)) fail("robots.txt", "does not point at the sitemap");
+  if (/^Disallow:\s*\/\s*$/m.test(robotsTxt)) fail("robots.txt", "blocks the whole site");
+  for (const bot of ["GPTBot", "ClaudeBot", "Google-Extended", "PerplexityBot"]) {
+    if (!robotsTxt.includes(`User-agent: ${bot}`)) fail("robots.txt", `no explicit rule for ${bot}`);
+  }
+  if (!robotsTxt.includes("Content-Signal:")) fail("robots.txt", "no Content-Signal line");
 }
+if (!existsSync(join(root, "docs/ai.txt"))) fail("ai.txt", "missing");
 
 for (const name of ["llms.txt", "llms-full.txt"]) {
   const file = join(root, "docs", name);
