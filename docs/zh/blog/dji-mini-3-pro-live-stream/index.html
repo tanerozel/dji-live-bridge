@@ -337,6 +337,16 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
   .hero-app .store-buttons .btn{flex:1 1 200px}
   .video-frame,.hero-shot{width:min(280px,82%)}
 }
+.post-video{margin:24px 0 0;display:grid;justify-items:center;gap:10px}
+.post-video .video-frame{width:min(300px,80%)}
+.post-video figcaption{font-size:14px;color:var(--muted);text-align:center;max-width:46ch}
+.mic-callout{margin-top:18px;font-size:15.5px}
+/* In the narrow promo frame the label would wrap: a round play button only
+   (the text stays for screen readers). */
+.promo .video-play{inset:auto;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;padding:0;
+  border-radius:50%;background:#ff0033;font-size:0;gap:0}
+.promo .video:hover .video-play{transform:translate(-50%,-50%) scale(1.06)}
+.promo .video-play svg{width:30px;height:30px;padding:0;background:none}
 </style>
 </head>
 <body>
@@ -376,6 +386,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 </div>
 <div class="promo-phones"><div class="video-frame"><a class="video" href="https://www.youtube.com/shorts/u6ebI5-Fzj4" data-video="u6ebI5-Fzj4" data-title="大疆无人机直播教程：不用电脑直播到 YouTube（DJI RC 2 + DJI Fly RTMP）"><img src="../../../img/video/zh.webp" alt="设置视频截图：DJI RC 2 和运行 Stream My Drone 的手机。" width="540" height="960" loading="lazy"><span class="video-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7Z"/></svg>观看 1 分钟设置视频</span></a></div></div>
 </aside>
+<p class="callout mic-callout">RC 2 上 DJI Fly 要求接麦克风、无法开始直播？ <a href="https://streammydrone.com/zh/blog/dji-rc-2-livestream-no-microphone-fix/">不买麦克风也能解决 →</a></p>
 
 <div class="keyfacts">
 <h2 id="summary">要点速览</h2>
@@ -440,6 +451,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 
 <h2 id="related">更多教程</h2>
 <div class="grid">
+      <a class="card post-card" href="https://streammydrone.com/zh/blog/dji-rc-2-livestream-no-microphone-fix/"><h3>DJI RC 2 不接麦克风无法直播？“No built-in mic in current device”的解决方法</h3><p>DJI Fly 1.16 起，RC 2 不接麦克风就无法开始直播。本文说明原因、可行的办法（USB-C 麦克风、AirPods），以及用一部 Android 手机、无需额外设备的解决方案。</p></a>
       <a class="card post-card" href="https://streammydrone.com/zh/blog/dji-flip-live-stream/"><h3>如何用 DJI Flip 直播</h3><p>用 RC 2、RC-N3 或 RC-N2 直播 DJI Flip：手机与电脑的 RTMP 推流设置，掌上起降和手机直连的区别，竖屏构图以及平台检查。</p></a>
       <a class="card post-card" href="https://streammydrone.com/zh/blog/dji-lito-x1-live-stream/"><h3>如何用 DJI Lito X1 直播</h3><p>用 RC 2、RC-N3 或 RC-N2 直播 DJI Lito X1：DJI Fly RTMP 推流设置、手机与电脑方案、平台设置以及实用的故障排查。</p></a>
       <a class="card post-card" href="https://streammydrone.com/zh/blog/dji-lito-1-live-stream/"><h3>如何用 DJI Lito 1 直播</h3><p>用 RC 2、RC-N3 或 RC-N2 直播 DJI Lito 1：DJI Fly RTMP 推流设置、手机与电脑方案、平台设置以及实用的故障排查。</p></a>

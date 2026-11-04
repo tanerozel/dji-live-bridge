@@ -337,6 +337,16 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
   .hero-app .store-buttons .btn{flex:1 1 200px}
   .video-frame,.hero-shot{width:min(280px,82%)}
 }
+.post-video{margin:24px 0 0;display:grid;justify-items:center;gap:10px}
+.post-video .video-frame{width:min(300px,80%)}
+.post-video figcaption{font-size:14px;color:var(--muted);text-align:center;max-width:46ch}
+.mic-callout{margin-top:18px;font-size:15.5px}
+/* In the narrow promo frame the label would wrap: a round play button only
+   (the text stays for screen readers). */
+.promo .video-play{inset:auto;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;padding:0;
+  border-radius:50%;background:#ff0033;font-size:0;gap:0}
+.promo .video:hover .video-play{transform:translate(-50%,-50%) scale(1.06)}
+.promo .video-play svg{width:30px;height:30px;padding:0;background:none}
 </style>
 </head>
 <body>
@@ -376,6 +386,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 </div>
 <div class="promo-phones"><div class="video-frame"><a class="video" href="https://www.youtube.com/shorts/kAyZTpOIDjs" data-video="kAyZTpOIDjs" data-title="بث مباشر من الدرون DJI على يوتيوب بدون كمبيوتر (DJI RC 2 + DJI Fly RTMP)"><img src="../../../img/video/ar.webp" alt="وحدة تحكم DJI RC 2 وهاتف يعمل عليه Stream My Drone، من فيديو الإعداد." width="540" height="960" loading="lazy"><span class="video-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7Z"/></svg>شاهد الإعداد في دقيقة واحدة</span></a></div></div>
 </aside>
+<p class="callout mic-callout">هل يطلب DJI Fly ميكروفونًا في RC 2 ولا يبدأ البث؟ <a href="https://streammydrone.com/ar/blog/dji-rc-2-livestream-no-microphone-fix/">حلّها دون شراء ميكروفون →</a></p>
 
 <div class="keyfacts">
 <h2 id="summary">باختصار</h2>
@@ -445,6 +456,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 
 <h2 id="related">أدلة أخرى</h2>
 <div class="grid">
+      <a class="card post-card" href="https://streammydrone.com/ar/blog/dji-rc-2-livestream-no-microphone-fix/"><h3>وحدة DJI RC 2 لا تبث مباشرةً بدون ميكروفون؟ طريقة حل “No built-in mic in current device”</h3><p>لا يبدأ DJI Fly 1.16 بث RC 2 المباشر بدون ميكروفون. لماذا يحدث ذلك، وما الذي ينجح (ميكروفون USB-C وAirPods)، وحل بلا أجهزة إضافية باستخدام هاتف Android.</p></a>
       <a class="card post-card" href="https://streammydrone.com/ar/blog/dji-flip-live-stream/"><h3>كيف تبث مباشرةً من درون DJI Flip</h3><p>بث مباشر من DJI Flip عبر RC 2 أو RC-N3 أو RC-N2: إعداد RTMP على الهاتف والحاسوب، والفرق بين التحكم بالكف والتحكم بالهاتف، والتأطير العمودي وفحوصات المنصات.</p></a>
       <a class="card post-card" href="https://streammydrone.com/ar/blog/dji-lito-x1-live-stream/"><h3>كيف تبث مباشرةً من درون DJI Lito X1</h3><p>بث مباشر من DJI Lito X1 عبر RC 2 أو RC-N3 أو RC-N2: إعدادات RTMP في DJI Fly، وطريقتا الهاتف والحاسوب، وإعداد المنصات وحلول عملية للمشكلات الشائعة.</p></a>
       <a class="card post-card" href="https://streammydrone.com/ar/blog/dji-lito-1-live-stream/"><h3>كيف تبث مباشرةً من درون DJI Lito 1</h3><p>كيف تبث مباشرةً من DJI Lito 1 مع RC-N3 أو RC-N2 أو RC 2: ضبط RTMP في DJI Fly، والاستقبال على الحاسوب أو هاتف ثانٍ، وإعداد المنصات وحل المشكلات الشائعة.</p></a>

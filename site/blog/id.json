@@ -52,5 +52,9 @@
       "preview": "Gambar drone dengan resolusi dan bitrate, diperiksa sebelum siaran.",
       "reconnect": "Tujuan yang tersambung lagi sendiri setelah jaringan putus sebentar."
     }
+  },
+  "micCallout": {
+    "text": "DJI Fly meminta mikrofon di RC 2 dan tidak mau memulai siaran?",
+    "link": "Atasi tanpa membeli mikrofon"
   }
 }

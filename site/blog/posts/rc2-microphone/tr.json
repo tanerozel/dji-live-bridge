@@ -1,0 +1,237 @@
+{
+  "slug": "dji-rc-2-canli-yayin-mikrofon-hatasi-cozumu",
+  "platform": "DJI RC 2 mikrofon",
+  "title": "DJI RC 2 “No built-in mic” canlı yayın hatası: mikrofonsuz çözüm",
+  "description": "DJI Fly 1.16, RC 2'de mikrofon takılmadan canlı yayını başlatmıyor. Nedeni, işe yarayan yollar (USB-C mikrofon, AirPods) ve Android telefonla donanımsız çözüm.",
+  "h1": "DJI RC 2 mikrofonsuz canlı yayın yapmıyor mu? “No built-in mic in current device” hatası nasıl çözülür",
+  "lead": "DJI Fly 1.16.0'dan beri <strong>DJI RC 2</strong>, RC Pro ve DJI Smart Controller, bir mikrofon bağlanmadan RTMP canlı yayını başlatmıyor; bunun yerine <em>“No built-in mic in current device”</em> uyarısı çıkıyor. Kumandaya USB-C mikrofon veya kulaklık takabilir ya da Android telefonda <strong>Stream My Drone</strong>'u <strong>sanal Bluetooth mikrofon</strong> olarak kullanabilirsiniz: DJI Fly bir mikrofon görür ve yayını başlatır, ek bir şey almanız gerekmez.",
+  "published": "2026-11-05",
+  "updated": "2026-11-05",
+  "summary": [
+    "Uyarı, RC 2, RC Pro ve DJI Smart Controller'da dahili mikrofon olmadığı ve DJI Fly 1.16.0 ve sonrası RTMP yayından önce mikrofon istediği için çıkar.",
+    "Tamam'a basmak uyarıyı geçmez: DJI Fly RTMP ekranına geri döner ve yayın başlamaz.",
+    "DJI'ın önerdiği çözüm kablolu mikrofondur: alt USB-C girişine USB-C mikrofon veya kulaklık, USB-C–3,5 mm dönüştürücü ya da DJI Mic alıcısı.",
+    "Ek donanım olmadan: Android için Stream My Drone, RC 2'ye Bluetooth mikrofon olarak bağlanır ve uyarı kalkar. Ses göndermez; yayında konuşmak için uygulamadaki telefon mikrofonunu açın.",
+    "Sanal mikrofon için Android telefon gerekir. iOS, bir uygulamanın Bluetooth mikrofon gibi davranmasına izin vermez; iPhone'la yine kablolu mikrofon gerekir."
+  ],
+  "sections": [
+    {
+      "id": "error",
+      "h2": "“No built-in mic in current device” ne demek?",
+      "blocks": [
+        {
+          "p": "RC 2'de DJI Fly'ın RTMP ekranında Canlı yayını başlat'a dokunduğunuzda, cihazda dahili mikrofon olmadığını söyleyen ve önce kablolu bir mikrofon bağlamanızı isteyen bir kutu çıkar. <a href=\"https://forum.dji.com/thread-331633-1-1.html\">DJI forumundaki</a> pilotlar da aynı sonucu anlatıyor: Tamam'a basmak sizi yalnızca RTMP adresi ve yayın anahtarı alanlarına geri götürüyor. Bu durum DJI Fly 1.16.0 ile başladı; önceki sürümler sessiz görüntü yayınlayabiliyordu. <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly canlı yayın kılavuzu</a> da bu sürümden itibaren mikrofon bağlanması gerektiğini doğruluyor."
+        },
+        {
+          "table": {
+            "head": [
+              "Kumanda",
+              "Dahili mikrofon",
+              "DJI Fly 1.16+ ile RTMP canlı yayın"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "Yok (<a href=\"https://www.dji.com/rc-2/faq\">DJI SSS</a>)",
+                "Bağlı mikrofon gerekir"
+              ],
+              [
+                "DJI RC Pro",
+                "Yok",
+                "Bağlı mikrofon gerekir"
+              ],
+              [
+                "DJI Smart Controller",
+                "Yok",
+                "Bağlı mikrofon gerekir"
+              ],
+              [
+                "DJI RC Pro 2",
+                "Var",
+                "Bu uyarıdan etkilenmez"
+              ],
+              [
+                "Telefonla DJI RC-N2 veya RC-N3",
+                "Telefonun mikrofonu",
+                "Bu uyarıdan etkilenmez"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "Hangi mikrofonu kullanırsanız kullanın, RC 2 en fazla 720p yayın yapar. Bu sınır mikrofon uyarısından ayrıdır."
+        }
+      ]
+    },
+    {
+      "id": "why",
+      "h2": "DJI Fly canlı yayın için neden mikrofon istiyor?",
+      "blocks": [
+        {
+          "p": "DJI destek ekibi bu değişikliği Mart 2025'te <a href=\"https://forum.dji.com/thread-331633-1-1.html\">DJI forumunda</a> açıkladı: ses izi olmayan bir RTMP yayını oynatıcıya daha az zaman referansı verir; bu da gecikmeye ve ses-görüntü senkronunun bozulmasına yol açabilir. Bu yüzden DJI Fly 1.16.0'dan itibaren dahili mikrofonu olmayan kumandalara bir mikrofon bağlanması gerekiyor ve yayın her zaman bir ses izi taşıyor."
+        },
+        {
+          "p": "2024'teki <a href=\"https://forum.dji.com/thread-309239-1-1.html\">bir forum bildirimi</a> de aynı yönü gösteriyor: mikrofonsuz RC 2 yayını yayın platformlarında zaman kodu hatalarına yol açmış, USB-C mikrofon takılınca hatalar kaybolmuş. Yani şart konuşmak isteyip istemediğinizle değil, ses iziyle ilgili."
+        }
+      ]
+    },
+    {
+      "id": "options",
+      "h2": "Mikrofon uyarısını kaldırmanın yolları",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Seçenek",
+              "Ne gerekir",
+              "Sonuç"
+            ],
+            "rows": [
+              [
+                "USB-C mikrofon veya kulaklık",
+                "RC 2'nin alt USB-C girişine bir mikrofon",
+                "DJI'ın önerdiği yol; sesiniz kumandadan yayına gider"
+              ],
+              [
+                "USB-C–3,5 mm dönüştürücü",
+                "Dönüştürücü ve mikrofonlu bir kulaklık",
+                "Aynı sonuç; DJI destekleniyor diyor"
+              ],
+              [
+                "DJI Mic veya Mic 2 alıcısı",
+                "USB-C girişine takılan alıcı",
+                "Daha iyi sesle çalışır; en pahalı seçenek"
+              ],
+              [
+                "Bluetooth kulaklık (AirPods)",
+                "Kumandayla eşlenmiş kulaklık",
+                "Karışık sonuçlar: bazı pilotlar yayın yapabiliyor, bazıları birkaç saniye sonra “Livestream error” alıyor ya da bağlanamıyor"
+              ],
+              [
+                "Stream My Drone sanal mikrofonu",
+                "Stream My Drone yüklü bir Android telefon",
+                "Ek donanım olmadan uyarıyı kaldırır; kumandadan ses gitmez"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "Drone yayınını zaten Stream My Drone ile bir telefonda alıyorsanız, son seçenek zaten elinizde olan telefonu kullanır ve kumandanın USB-C girişi boş kalır."
+        }
+      ]
+    },
+    {
+      "id": "virtual-microphone",
+      "h2": "Sanal Bluetooth mikrofonla çözüm (Android)",
+      "howto": {},
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Stream My Drone'u bir Android telefona kurun",
+              "d": "<a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a>'den indirin (Android 9 veya üzeri; sanal mikrofon için uygulamanın 1.2 veya üzeri sürümü gerekir). Aynı telefon DJI Fly yayınını alır ve platformlarınıza gönderir."
+            },
+            {
+              "t": "Telefonu RC 2 ile bir kez eşleyin",
+              "d": "RC 2'de ve telefonda Bluetooth'u açın, ardından telefonun Bluetooth ayarlarından ikisini eşleyin. Test ettiğimiz RC 2, listede <code>QCOM-BTD</code> adıyla göründü."
+            },
+            {
+              "t": "Stream My Drone'dan bağlanın",
+              "d": "Uygulamada ••• → Sanal Bluetooth Mikrofon'u açın, Yakındaki cihazlar iznini verin, RC 2'yi seçin ve RC 2’ye bağlan'a dokunun. Bağlanınca ana ekranda bir mikrofon etiketi görünür. Bağlantı, Bağlantıyı kes'e dokunana kadar açık kalır."
+            },
+            {
+              "t": "DJI Fly'da yayını başlatın",
+              "d": "RC 2'yi telefonun hotspot'una veya aynı Wi-Fi ağına bağlayın. DJI Fly'da GO FLY → ••• → Aktarım → Canlı Yayın Platformları → RTMP'yi açın, Stream My Drone'un gösterdiği adresi girin ve Canlı yayını başlat'a dokunun. Mikrofon uyarısı artık çıkmaz. Menü ayrıntıları: <a href=\"../dji-fly-rtmp-canli-yayin-ayarlari/\">DJI Fly RTMP ayarları</a>."
+            },
+            {
+              "t": "Görüntüyü kontrol edin ve yayına geçin",
+              "d": "Drone görüntüsü Stream My Drone'da belirir. Platformlarınızı seçip yayına geçin; YouTube tek dokunuşla bağlanır. Platform tarafı için <a href=\"../drone-ile-youtube-canli-yayin-nasil-yapilir/\">YouTube rehberine</a> bakın."
+            }
+          ]
+        },
+        {
+          "video": "DJI RC 2 ve Android telefonla 1 dakikalık kurulum, sanal mikrofon adımı dahil."
+        },
+        {
+          "note": "Ekim ve Kasım 2026'da DJI RC 2 ve Samsung Galaxy S23 ile test edildi. DJI bu kontrolü sonraki bir DJI Fly sürümünde değiştirebilir; bir güncellemeden sonra uyarı geri gelirse yayını başlatmadan önce Stream My Drone'dan yeniden bağlanın."
+        }
+      ]
+    },
+    {
+      "id": "sound",
+      "h2": "Yayında ses olacak mı?",
+      "blocks": [
+        {
+          "p": "Sanal mikrofon yalnızca DJI Fly'ın kontrolünü geçer; ses taşımaz, bu yüzden kumanda sessizlik gönderir. İzleyicilerle konuşmak için Stream My Drone'da Canlı yayını başlat düğmesinin yanındaki mikrofon düğmesine dokunun: telefonun kendi mikrofonu, siz kapatana kadar tüm platformlarda DJI Fly'ın sesinin yerine geçer. Sessiz yayın için kapalı bırakın."
+        }
+      ]
+    },
+    {
+      "id": "other-setups",
+      "h2": "iPhone, RC Pro ve diğer kurulumlar",
+      "blocks": [
+        {
+          "list": [
+            "<strong>iPhone:</strong> iOS, bir uygulamanın iPhone'u başka bir cihaza Bluetooth mikrofon olarak tanıtmasına izin vermez; sanal mikrofon yalnızca Android'de çalışır. iPhone ile RC 2'ye bir USB-C mikrofon takın ve yayını almak ve iletmek için <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">iPhone için Stream My Drone</a>'u kullanın.",
+            "<strong>DJI RC Pro ve Smart Controller:</strong> aynı uyarıyı gösterirler ama sanal mikrofonu bunlarla henüz test etmedik. Bunlarda USB-C mikrofon güvenli seçimdir.",
+            "<strong>RC-N2 ve RC-N3:</strong> DJI Fly, kendi mikrofonu olan bir telefonda çalışır; bu uyarı sorun değildir. DJI Fly'ı o telefonda tutun, yayını ikinci bir telefonda veya bilgisayarda alın.",
+            "<strong>İkinci telefon yoksa:</strong> RC 2'ye bir USB-C mikrofon takıp DJI Fly'dan doğrudan platforma yayın yapın."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Sorun giderme",
+      "blocks": [
+        {
+          "list": [
+            "<strong>RC 2 listede yok:</strong> önce telefonun Bluetooth ayarlarından eşleyin. Uygulama yalnızca eşlenmiş cihazları listeler, tarama yapmaz.",
+            "<strong>Uyarı hâlâ çıkıyor:</strong> uygulamada bağlantının bağlandı olarak görünmesini bekleyin, sonra Canlı yayını başlat'a dokunmadan önce DJI Fly'ın RTMP ekranından çıkıp yeniden girin.",
+            "<strong>Birkaç saniye sonra “Livestream error”:</strong> bu, mikrofon uyarısından farklı bir sorundur. RC 2 ile telefonun aynı ağda olduğunu ve RTMP adresinin uygulamadakiyle aynı olduğunu kontrol edin.",
+            "<strong>Bağlantı kopuyor:</strong> uygulama bağlantıyı bir bildirimle arka planda açık tutar. Bluetooth kapandıysa uygulamadan yeniden bağlanın.",
+            "<strong>Görüntü uygulamada var, platformda yok:</strong> yerel yayın çalışıyor demektir. Stream My Drone'da platform bağlantısını veya yayın anahtarını kontrol edin."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Kaynaklar",
+      "blocks": [
+        {
+          "p": "Mikrofon şartı ve RC 2'nin 720p sınırı: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. RC 2'de mikrofon olmaması: <a href=\"https://www.dji.com/rc-2/faq\">DJI RC 2 SSS</a>. DJI forumundaki kullanıcı bildirimleri ve DJI'ın açıklaması: <a href=\"https://forum.dji.com/thread-331633-1-1.html\">Not allowing me to livestream without a connected mic</a> ve <a href=\"https://forum.dji.com/thread-309239-1-1.html\">RC2 controller corrupt rtmp streaming without microphone</a>. 5 Kasım 2026'da kontrol edildi."
+        },
+        {
+          "p": "İlgili rehberler: <a href=\"../dji-fly-rtmp-canli-yayin-ayarlari/\">DJI Fly RTMP ayarları</a> ve <a href=\"../drone-ile-ayni-anda-birden-fazla-platformda-canli-yayin/\">aynı anda birden fazla platformda yayın</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "DJI RC 2 ile mikrofonsuz canlı yayın yapılabilir mi?",
+      "a": "DJI Fly 1.16.0 ve sonrasıyla hayır: uygulama mikrofon ister ve biri bağlanana kadar RTMP yayınını başlatmaz. USB-C mikrofon veya kulaklık işe yarar; Android için Stream My Drone ise sanal Bluetooth mikrofon olarak davranır, böylece ek donanım gerekmez."
+    },
+    {
+      "q": "DJI Fly neden “No built-in mic in current device” diyor?",
+      "a": "RC 2, RC Pro ve DJI Smart Controller'ın kendi mikrofonu yok. DJI Fly 1.16.0'dan beri RTMP canlı yayından önce bir ses kaynağı istiyor; DJI'a göre ses izi olmayan yayınlarda gecikme ve senkron sorunları olabiliyor."
+    },
+    {
+      "q": "AirPods DJI RC 2 mikrofon hatasını çözer mi?",
+      "a": "Bazen. DJI forumundaki pilotlar AirPods eşleyince uyarının kalktığını, ama bazılarının yayının birkaç saniyesinde “Livestream error” aldığını, bazılarının da kulaklığını hiç bağlayamadığını anlatıyor. DJI'ın desteklediği seçenek kablolu USB-C mikrofondur."
+    },
+    {
+      "q": "Stream My Drone'un sanal mikrofonu sesimi gönderir mi?",
+      "a": "Hayır. Yalnızca DJI Fly'ın bir mikrofon görmesini sağlar. Anlatım için Stream My Drone'daki telefon mikrofonu düğmesini açın; yayında DJI Fly'ın sesinin yerine sizin sesiniz gider."
+    },
+    {
+      "q": "Sanal mikrofon iPhone'da çalışır mı?",
+      "a": "Hayır, Android gerekir. iOS, bir uygulamanın başka bir cihaz için Bluetooth mikrofon gibi davranmasına izin vermez. iPhone kullananlar RC 2'ye kablolu mikrofon takarak yayını yine Stream My Drone ile alıp iletebilir."
+    },
+    {
+      "q": "Mikrofon şartı hangi DJI Fly sürümüyle geldi?",
+      "a": "DJI Fly 1.16.0. DJI'ın canlı yayın kılavuzuna göre bu sürümden itibaren RC 2, RC Pro ve DJI Smart Controller'ın canlı yayını başlatmak için bağlı bir mikrofona ihtiyacı var."
+    }
+  ]
+}

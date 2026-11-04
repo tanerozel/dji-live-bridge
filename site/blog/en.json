@@ -52,5 +52,9 @@
       "preview": "The drone picture with resolution and bitrate, checked before going live.",
       "reconnect": "Destinations reconnecting on their own after a short network drop."
     }
+  },
+  "micCallout": {
+    "text": "DJI Fly asks for a microphone on your RC 2 and won’t start the stream?",
+    "link": "Fix it without buying a mic"
   }
 }

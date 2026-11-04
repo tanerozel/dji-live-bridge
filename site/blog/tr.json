@@ -52,5 +52,9 @@
       "preview": "Yayına başlamadan önce çözünürlük ve bit hızıyla kontrol edilen drone görüntüsü.",
       "reconnect": "Kısa bir ağ kesintisinden sonra kendiliğinden yeniden bağlanan hedefler."
     }
+  },
+  "micCallout": {
+    "text": "DJI Fly, RC 2'de mikrofon isteyip yayını başlatmıyor mu?",
+    "link": "Mikrofon almadan çözün"
   }
 }

@@ -1,0 +1,237 @@
+{
+  "slug": "dji-rc-2-transmision-en-directo-sin-microfono",
+  "platform": "Micrófono DJI RC 2",
+  "title": "Error “No built-in mic” del DJI RC 2: emitir en directo sin micrófono",
+  "description": "DJI Fly 1.16 no inicia la transmisión del RC 2 sin micrófono. Por qué pasa, qué funciona (micrófono USB-C, AirPods) y una solución sin hardware con un móvil Android.",
+  "h1": "¿El DJI RC 2 no transmite en directo sin micrófono? Cómo solucionar “No built-in mic in current device”",
+  "lead": "Desde DJI Fly 1.16.0, el <strong>DJI RC 2</strong>, el RC Pro y el DJI Smart Controller no inician una transmisión RTMP hasta que se conecta un micrófono; en su lugar muestran <em>“No built-in mic in current device”</em>. Puedes conectar un micrófono o auriculares USB-C al control remoto, o usar <strong>Stream My Drone</strong> en un móvil Android como <strong>micrófono Bluetooth virtual</strong>: DJI Fly ve un micrófono e inicia la transmisión, sin comprar nada más.",
+  "published": "2026-11-05",
+  "updated": "2026-11-05",
+  "summary": [
+    "El aviso aparece porque el RC 2, el RC Pro y el DJI Smart Controller no tienen micrófono integrado, y DJI Fly 1.16.0 o posterior exige uno antes de transmitir por RTMP.",
+    "Pulsar OK no lo omite: DJI Fly vuelve a la pantalla RTMP y la transmisión no empieza.",
+    "La solución de DJI es un micrófono con cable: micrófono o auriculares USB-C, un adaptador de USB-C a 3,5 mm o un receptor DJI Mic en el puerto USB-C inferior.",
+    "Sin hardware extra, Stream My Drone para Android se conecta al RC 2 como micrófono Bluetooth y el aviso desaparece. No envía sonido; activa el micrófono del móvil en la app para hablar en la emisión.",
+    "El micrófono virtual necesita un móvil Android. iOS no permite que una app actúe como micrófono Bluetooth, así que con un iPhone sigue haciendo falta un micrófono con cable."
+  ],
+  "sections": [
+    {
+      "id": "error",
+      "h2": "Qué significa “No built-in mic in current device”",
+      "blocks": [
+        {
+          "p": "Cuando pulsas Start Livestream en la pantalla RTMP de DJI Fly con un RC 2, aparece un cuadro que dice que el dispositivo no tiene micrófono integrado y pide conectar primero un micrófono con cable. Los pilotos del <a href=\"https://forum.dji.com/thread-331633-1-1.html\">foro de DJI</a> describen lo mismo: pulsar OK solo vuelve a los campos de dirección RTMP y clave de transmisión. Empezó con DJI Fly 1.16.0; las versiones anteriores transmitían vídeo sin audio. La <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">guía de transmisión de DJI Fly</a> confirma que desde esa versión hay que conectar un micrófono."
+        },
+        {
+          "table": {
+            "head": [
+              "Control remoto",
+              "Micrófono integrado",
+              "Transmisión RTMP en DJI Fly 1.16+"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "No (<a href=\"https://www.dji.com/rc-2/faq\">FAQ de DJI</a>)",
+                "Necesita un micrófono conectado"
+              ],
+              [
+                "DJI RC Pro",
+                "No",
+                "Necesita un micrófono conectado"
+              ],
+              [
+                "DJI Smart Controller",
+                "No",
+                "Necesita un micrófono conectado"
+              ],
+              [
+                "DJI RC Pro 2",
+                "Sí",
+                "No le afecta este aviso"
+              ],
+              [
+                "DJI RC-N2 o RC-N3 con un móvil",
+                "El micrófono del móvil",
+                "No le afecta este aviso"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "Uses el micrófono que uses, el RC 2 transmite como máximo a 720p. Ese límite no tiene que ver con el aviso del micrófono."
+        }
+      ]
+    },
+    {
+      "id": "why",
+      "h2": "Por qué DJI Fly exige un micrófono para transmitir",
+      "blocks": [
+        {
+          "p": "El soporte de DJI explicó el cambio en el <a href=\"https://forum.dji.com/thread-331633-1-1.html\">foro de DJI</a> en marzo de 2025: una transmisión RTMP sin pista de audio da al reproductor menos referencias de tiempo, lo que puede añadir retraso y empeorar la sincronización de audio y vídeo. Por eso, desde DJI Fly 1.16.0, un control sin micrófono integrado necesita uno conectado y la transmisión siempre lleva una pista de audio."
+        },
+        {
+          "p": "Un <a href=\"https://forum.dji.com/thread-309239-1-1.html\">informe del foro de 2024</a> apunta en la misma dirección: una transmisión del RC 2 sin micrófono provocaba errores de código de tiempo en las plataformas, y desaparecían al conectar un micrófono USB-C. El requisito tiene que ver con la pista de audio, no con si quieres hablar."
+        }
+      ]
+    },
+    {
+      "id": "options",
+      "h2": "Formas de quitar el aviso del micrófono",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Opción",
+              "Qué necesitas",
+              "Resultado"
+            ],
+            "rows": [
+              [
+                "Micrófono o auriculares USB-C",
+                "Un micrófono en el puerto USB-C inferior del RC 2",
+                "La vía que recomienda DJI; tu voz sale desde el control"
+              ],
+              [
+                "Adaptador de USB-C a 3,5 mm",
+                "El adaptador y unos auriculares con micrófono",
+                "Mismo resultado; DJI lo indica como compatible"
+              ],
+              [
+                "Receptor DJI Mic o Mic 2",
+                "El receptor en el puerto USB-C",
+                "Funciona con mejor sonido; la opción más cara"
+              ],
+              [
+                "Auriculares Bluetooth (AirPods)",
+                "Auriculares emparejados con el control",
+                "Resultados dispares: algunos pilotos transmiten, otros ven “Livestream error” a los pocos segundos o no logran conectarlos"
+              ],
+              [
+                "Micrófono virtual de Stream My Drone",
+                "Un móvil Android con Stream My Drone",
+                "Quita el aviso sin hardware extra; el control no envía sonido"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "Si ya recibes la señal del dron en un móvil con Stream My Drone, la última opción usa el móvil que ya tienes en la mano, y el puerto USB-C del control queda libre."
+        }
+      ]
+    },
+    {
+      "id": "virtual-microphone",
+      "h2": "Solución con un micrófono Bluetooth virtual (Android)",
+      "howto": {},
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Instala Stream My Drone en un móvil Android",
+              "d": "Descárgalo de <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> (Android 9 o posterior; el micrófono virtual requiere la versión 1.2 de la app o posterior). El mismo móvil recibe la señal de DJI Fly y la envía a tus plataformas."
+            },
+            {
+              "t": "Empareja el móvil con el RC 2 una vez",
+              "d": "Activa el Bluetooth en el RC 2 y en el móvil, y emparéjalos desde los ajustes de Bluetooth del móvil. En el RC 2 que probamos, el control aparecía como <code>QCOM-BTD</code>."
+            },
+            {
+              "t": "Conéctate desde Stream My Drone",
+              "d": "En la app abre ••• → Micrófono Bluetooth virtual, permite Dispositivos cercanos, elige el RC 2 y pulsa Conectar con RC 2. Al conectarse aparece una etiqueta de micrófono en la pantalla principal. La conexión sigue abierta hasta que pulses Desconectar."
+            },
+            {
+              "t": "Inicia la transmisión en DJI Fly",
+              "d": "Conecta el RC 2 al punto de acceso del móvil o a la misma Wi-Fi. En DJI Fly abre GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, introduce la dirección que muestra Stream My Drone y pulsa Start Livestream. El aviso del micrófono ya no aparece. Detalles del menú: <a href=\"../dji-fly-rtmp-configuracion-transmision-en-directo/\">configuración RTMP de DJI Fly</a>."
+            },
+            {
+              "t": "Comprueba la imagen y emite en directo",
+              "d": "La imagen del dron aparece en Stream My Drone. Elige tus plataformas y pulsa Transmitir en directo; YouTube se conecta con un toque. La <a href=\"../como-transmitir-un-dron-dji-en-youtube/\">guía de YouTube</a> explica la parte de la plataforma."
+            }
+          ]
+        },
+        {
+          "video": "La configuración en 1 minuto con un DJI RC 2 y un móvil Android, incluido el paso del micrófono virtual."
+        },
+        {
+          "note": "Probado con un DJI RC 2 y un Samsung Galaxy S23 en octubre y noviembre de 2026. DJI puede cambiar esta comprobación en una versión posterior de DJI Fly; si el aviso vuelve tras una actualización, conéctate de nuevo desde Stream My Drone antes de iniciar la transmisión."
+        }
+      ]
+    },
+    {
+      "id": "sound",
+      "h2": "¿La emisión tendrá sonido?",
+      "blocks": [
+        {
+          "p": "El micrófono virtual solo supera la comprobación de DJI Fly. No transporta sonido, así que el control envía silencio. Para hablar con tu audiencia, pulsa el botón de micrófono junto a Transmitir en directo en Stream My Drone: el micrófono del móvil sustituye el audio de DJI Fly en todas las plataformas hasta que lo apagues. Déjalo apagado para una emisión sin sonido."
+        }
+      ]
+    },
+    {
+      "id": "other-setups",
+      "h2": "iPhone, RC Pro y otras configuraciones",
+      "blocks": [
+        {
+          "list": [
+            "<strong>iPhone:</strong> iOS no permite que una app presente el iPhone como micrófono Bluetooth ante otro dispositivo, así que el micrófono virtual es solo para Android. Con un iPhone, conecta un micrófono USB-C al RC 2 y usa <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">Stream My Drone para iPhone</a> para recibir y reenviar la señal.",
+            "<strong>DJI RC Pro y Smart Controller:</strong> muestran el mismo aviso, pero aún no hemos probado el micrófono virtual con ellos. Ahí lo seguro es un micrófono USB-C.",
+            "<strong>RC-N2 y RC-N3:</strong> DJI Fly funciona en un móvil que tiene su propio micrófono, así que este aviso no es el problema. Deja DJI Fly en ese móvil y recibe la señal en un segundo móvil o en un ordenador.",
+            "<strong>Sin segundo móvil:</strong> transmite directamente desde DJI Fly a la plataforma con un micrófono USB-C en el RC 2."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Solución de problemas",
+      "blocks": [
+        {
+          "list": [
+            "<strong>El RC 2 no aparece en la lista:</strong> emparéjalo primero en los ajustes de Bluetooth del móvil. La app solo muestra dispositivos emparejados; no busca.",
+            "<strong>El aviso sigue apareciendo:</strong> espera a que la app muestre la conexión como conectada y luego sal y vuelve a entrar en la pantalla RTMP de DJI Fly antes de pulsar Start Livestream.",
+            "<strong>“Livestream error” a los pocos segundos:</strong> es un problema distinto del aviso del micrófono. Comprueba que el RC 2 y el móvil estén en la misma red y que la dirección RTMP coincida con la de la app.",
+            "<strong>La conexión se corta:</strong> la app la mantiene abierta en segundo plano con una notificación. Si se apagó el Bluetooth, vuelve a conectarte desde la app.",
+            "<strong>Imagen en la app, nada en la plataforma:</strong> la señal local funciona. Revisa la conexión de la plataforma o la clave de transmisión en Stream My Drone."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Fuentes",
+      "blocks": [
+        {
+          "p": "Requisito del micrófono y límite de 720p del RC 2: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. El RC 2 no tiene micrófono: <a href=\"https://www.dji.com/rc-2/faq\">FAQ del DJI RC 2</a>. Informes de usuarios y la explicación de DJI en el foro de DJI: <a href=\"https://forum.dji.com/thread-331633-1-1.html\">Not allowing me to livestream without a connected mic</a> y <a href=\"https://forum.dji.com/thread-309239-1-1.html\">RC2 controller corrupt rtmp streaming without microphone</a>. Consultado el 5 de noviembre de 2026."
+        },
+        {
+          "p": "Guías relacionadas: <a href=\"../dji-fly-rtmp-configuracion-transmision-en-directo/\">configuración RTMP de DJI Fly</a> y <a href=\"../transmitir-un-dron-dji-en-varias-plataformas-a-la-vez/\">transmitir a varias plataformas a la vez</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "¿Se puede transmitir en directo con un DJI RC 2 sin micrófono?",
+      "a": "No con DJI Fly 1.16.0 o posterior: la app pide un micrófono y no inicia la transmisión RTMP hasta que haya uno conectado. Sirve un micrófono o auriculares USB-C, y Stream My Drone para Android puede actuar como micrófono Bluetooth virtual, sin hardware extra."
+    },
+    {
+      "q": "¿Por qué DJI Fly dice “No built-in mic in current device”?",
+      "a": "El RC 2, el RC Pro y el DJI Smart Controller no tienen micrófono propio. Desde la versión 1.16.0, DJI Fly exige una fuente de audio antes de transmitir por RTMP, porque según DJI las emisiones sin pista de audio pueden sufrir retraso y problemas de sincronización."
+    },
+    {
+      "q": "¿Los AirPods solucionan el error de micrófono del DJI RC 2?",
+      "a": "A veces. Pilotos del foro de DJI cuentan que emparejar unos AirPods quita el aviso, pero algunos reciben “Livestream error” a los pocos segundos y otros no consiguen conectar sus auriculares. La opción que DJI admite es un micrófono USB-C con cable."
+    },
+    {
+      "q": "¿El micrófono virtual de Stream My Drone envía mi voz?",
+      "a": "No. Solo hace que DJI Fly vea un micrófono. Para comentar, activa el botón de micrófono del móvil en Stream My Drone; sustituye el audio de DJI Fly por tu voz en la emisión."
+    },
+    {
+      "q": "¿El micrófono virtual funciona en iPhone?",
+      "a": "No, necesita Android. iOS no permite que una app actúe como micrófono Bluetooth para otro dispositivo. En iPhone puedes seguir recibiendo y reenviando la señal con Stream My Drone, con un micrófono con cable en el RC 2."
+    },
+    {
+      "q": "¿Qué versión de DJI Fly añadió el requisito del micrófono?",
+      "a": "DJI Fly 1.16.0. La guía de transmisión de DJI indica que desde esa versión el RC 2, el RC Pro y el DJI Smart Controller necesitan un micrófono conectado para iniciar la transmisión."
+    }
+  ]
+}

@@ -1,0 +1,237 @@
+{
+  "slug": "dji-rc-2-livestream-no-microphone-fix",
+  "platform": "DJI RC 2 麥克風",
+  "title": "DJI RC 2 直播出現「No built-in mic」：不用麥克風也能解決",
+  "description": "DJI Fly 1.16 起，RC 2 不接麥克風就無法開始直播。本文說明原因、可行的做法（USB-C 麥克風、AirPods），以及用一支 Android 手機、不需額外設備的解決方式。",
+  "h1": "DJI RC 2 不接麥克風無法直播？「No built-in mic in current device」的解決方法",
+  "lead": "從 DJI Fly 1.16.0 開始，<strong>DJI RC 2</strong>、RC Pro 與 DJI 帶屏遙控器在接上麥克風之前不會開始 RTMP 直播，而是顯示<em>「No built-in mic in current device」</em>。你可以在遙控器插上 USB-C 麥克風或耳機，也可以把 Android 手機上的 <strong>Stream My Drone</strong> 當成<strong>虛擬藍牙麥克風</strong>：DJI Fly 偵測到麥克風後就會開始推流，不必另外購買任何東西。",
+  "published": "2026-11-05",
+  "updated": "2026-11-05",
+  "summary": [
+    "出現這個提示，是因為 RC 2、RC Pro 與 DJI 帶屏遙控器沒有內建麥克風，而 DJI Fly 1.16.0 以上版本在 RTMP 直播前要求接上麥克風。",
+    "按「OK」無法略過：DJI Fly 會回到 RTMP 畫面，直播不會開始。",
+    "DJI 的做法是有線麥克風：在底部 USB-C 連接埠插入 USB-C 麥克風或耳機、USB-C 轉 3.5 mm 轉接頭，或 DJI Mic 接收器。",
+    "不加設備的話，Android 版 Stream My Drone 會以藍牙麥克風身分連上 RC 2，提示隨即消失。它不傳送聲音；想在直播中說話，在 App 裡開啟手機麥克風即可。",
+    "虛擬麥克風需要 Android 手機。iOS 不允許 App 扮演藍牙麥克風，所以使用 iPhone 時仍需要有線麥克風。"
+  ],
+  "sections": [
+    {
+      "id": "error",
+      "h2": "「No built-in mic in current device」是什麼意思",
+      "blocks": [
+        {
+          "p": "用 RC 2 在 DJI Fly 的 RTMP 畫面按下 Start Livestream 時，會跳出視窗說明裝置沒有內建麥克風，並要求先連接有線麥克風。<a href=\"https://forum.dji.com/thread-331633-1-1.html\">DJI 論壇</a>上的飛手也描述了相同情況：按「OK」只會回到 RTMP 位址與串流金鑰的輸入欄位。這項變化從 DJI Fly 1.16.0 開始，先前的版本可以不帶聲音直播畫面。<a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;spaceId=34&amp;re=CN&amp;lang=zh-CN\">DJI Fly 直播操作指南</a>也確認，從該版本起必須插入麥克風。"
+        },
+        {
+          "table": {
+            "head": [
+              "遙控器",
+              "內建麥克風",
+              "DJI Fly 1.16 以上的 RTMP 直播"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "無（<a href=\"https://www.dji.com/rc-2/faq\">DJI 常見問題</a>）",
+                "需要接上麥克風"
+              ],
+              [
+                "DJI RC Pro",
+                "無",
+                "需要接上麥克風"
+              ],
+              [
+                "DJI 帶屏遙控器",
+                "無",
+                "需要接上麥克風"
+              ],
+              [
+                "DJI RC Pro 2",
+                "有",
+                "不受此提示影響"
+              ],
+              [
+                "搭配手機的 DJI RC-N2 或 RC-N3",
+                "手機的麥克風",
+                "不受此提示影響"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "無論使用哪種麥克風，RC 2 直播最高都是 720p。這個上限與麥克風提示無關。"
+        }
+      ]
+    },
+    {
+      "id": "why",
+      "h2": "DJI Fly 為什麼要求接麥克風才能直播",
+      "blocks": [
+        {
+          "p": "DJI 客服在 2025 年 3 月於 <a href=\"https://forum.dji.com/thread-331633-1-1.html\">DJI 論壇</a>說明了這項改動：沒有音軌的 RTMP 串流給播放器的時間參考較少，可能增加延遲並影響影音同步。因此從 DJI Fly 1.16.0 起，沒有內建麥克風的遙控器必須接上麥克風，直播串流中一律帶有音軌。"
+        },
+        {
+          "p": "2024 年的一篇<a href=\"https://forum.dji.com/thread-309239-1-1.html\">論壇回報</a>也印證了這點：不接麥克風的 RC 2 直播在串流平台上出現時間碼錯誤，接上 USB-C 麥克風後錯誤就消失了。這項要求針對的是音軌，與你想不想說話無關。"
+        }
+      ]
+    },
+    {
+      "id": "options",
+      "h2": "去除麥克風提示的幾種方法",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "方法",
+              "需要什麼",
+              "效果"
+            ],
+            "rows": [
+              [
+                "USB-C 麥克風或耳機",
+                "插在 RC 2 底部 USB-C 連接埠的麥克風",
+                "DJI 建議的方式；聲音由遙控器送出"
+              ],
+              [
+                "USB-C 轉 3.5 mm 轉接頭",
+                "轉接頭加一副附麥克風的耳機",
+                "效果相同；DJI 列為支援方式"
+              ],
+              [
+                "DJI Mic 或 Mic 2 接收器",
+                "插在 USB-C 連接埠的接收器",
+                "可用且音質更好；最貴的方案"
+              ],
+              [
+                "藍牙耳機（AirPods）",
+                "與遙控器配對的耳機",
+                "回報不一：有人能直播，有人幾秒後出現「Livestream error」，也有人連不上"
+              ],
+              [
+                "Stream My Drone 虛擬麥克風",
+                "安裝 Stream My Drone 的 Android 手機",
+                "不需額外設備即可去除提示；遙控器不傳送聲音"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "如果你本來就用 Stream My Drone 在手機上接收空拍機畫面，最後這個方法用的就是你手上那支手機，遙控器的 USB-C 連接埠也能空出來。"
+        }
+      ]
+    },
+    {
+      "id": "virtual-microphone",
+      "h2": "用虛擬藍牙麥克風解決（Android）",
+      "howto": {},
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "在 Android 手機安裝 Stream My Drone",
+              "d": "從 <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> 下載（Android 9 以上；虛擬麥克風需要 App 1.2 或更新版本）。同一支手機負責接收 DJI Fly 的直播串流並推送到你的平台。"
+            },
+            {
+              "t": "將手機與 RC 2 配對一次",
+              "d": "在 RC 2 與手機上都開啟藍牙，然後在手機的藍牙設定中完成配對。我們測試的那台 RC 2 顯示的名稱是 <code>QCOM-BTD</code>。"
+            },
+            {
+              "t": "在 Stream My Drone 中連線",
+              "d": "在 App 中開啟 ••• → 虛擬藍牙麥克風，允許「鄰近裝置」權限，選擇 RC 2，點「連接 RC 2」。連線後主畫面會出現麥克風標示。在你點「中斷連線」之前，連線會一直維持。"
+            },
+            {
+              "t": "在 DJI Fly 中開始推流",
+              "d": "讓 RC 2 連上手機熱點或同一個 Wi-Fi。在 DJI Fly 開啟 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP，輸入 Stream My Drone 顯示的位址，點 Start Livestream。麥克風提示不會再出現。選單細節請見 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 設定</a>。"
+            },
+            {
+              "t": "確認畫面並開播",
+              "d": "空拍機畫面會出現在 Stream My Drone 中。選好平台後點「開始直播」；YouTube 一鍵就能連接。平台端的設定請見 <a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube 指南</a>。"
+            }
+          ]
+        },
+        {
+          "video": "用 DJI RC 2 與一支 Android 手機完成的 1 分鐘設定，包含虛擬麥克風這一步。"
+        },
+        {
+          "note": "已於 2026 年 10 月與 11 月使用 DJI RC 2 與 Samsung Galaxy S23 測試。DJI 可能在之後的 DJI Fly 版本修改這項檢查；如果更新後提示又出現，請在開始推流前從 Stream My Drone 重新連線。"
+        }
+      ]
+    },
+    {
+      "id": "sound",
+      "h2": "直播會有聲音嗎？",
+      "blocks": [
+        {
+          "p": "虛擬麥克風只是讓 DJI Fly 通過檢查，並不傳送聲音，所以遙控器送出的是靜音。想和觀眾說話，就在 Stream My Drone 中點「開始直播」旁的麥克風按鈕：在你關閉之前，手機本身的麥克風會在所有平台上取代 DJI Fly 的聲音。不需要聲音就保持關閉。"
+        }
+      ]
+    },
+    {
+      "id": "other-setups",
+      "h2": "iPhone、RC Pro 與其他組合",
+      "blocks": [
+        {
+          "list": [
+            "<strong>iPhone：</strong>iOS 不允許 App 將 iPhone 作為藍牙麥克風提供給其他裝置，因此虛擬麥克風只支援 Android。使用 iPhone 時，請在 RC 2 插上 USB-C 麥克風，再用 <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">iPhone 版 Stream My Drone</a> 接收並轉送直播串流。",
+            "<strong>DJI RC Pro 與帶屏遙控器：</strong>它們也會出現相同提示，但我們還沒有用它們測試過虛擬麥克風。穩妥的做法是使用 USB-C 麥克風。",
+            "<strong>RC-N2 與 RC-N3：</strong>DJI Fly 執行在本身有麥克風的手機上，所以這個提示不是問題。讓 DJI Fly 留在那支手機上，用第二支手機或電腦接收直播串流。",
+            "<strong>沒有第二支手機：</strong>在 RC 2 插上 USB-C 麥克風，直接從 DJI Fly 推流到平台。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "疑難排解",
+      "blocks": [
+        {
+          "list": [
+            "<strong>清單中沒有 RC 2：</strong>請先在手機的藍牙設定中配對。App 只會列出已配對的裝置，不會掃描。",
+            "<strong>提示仍然出現：</strong>等 App 顯示已連線後，離開並重新開啟 DJI Fly 的 RTMP 畫面，再點 Start Livestream。",
+            "<strong>幾秒後出現「Livestream error」：</strong>這是與麥克風提示不同的問題。請確認 RC 2 與手機在同一個網路，且 RTMP 位址與 App 顯示的一致。",
+            "<strong>連線中斷：</strong>App 會透過通知在背景維持連線。如果藍牙曾被關閉，請在 App 中重新連線。",
+            "<strong>App 裡有畫面，平台上沒有：</strong>本機直播串流正常。請在 Stream My Drone 中檢查平台連線或串流金鑰。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "資料來源",
+      "blocks": [
+        {
+          "p": "麥克風要求與 RC 2 的 720p 上限：<a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;spaceId=34&amp;re=CN&amp;lang=zh-CN\">DJI Fly App 直播操作指南</a>。RC 2 沒有麥克風：<a href=\"https://www.dji.com/rc-2/faq\">DJI RC 2 常見問題</a>。DJI 論壇上的使用者回報與 DJI 的說明：<a href=\"https://forum.dji.com/thread-331633-1-1.html\">Not allowing me to livestream without a connected mic</a> 與 <a href=\"https://forum.dji.com/thread-309239-1-1.html\">RC2 controller corrupt rtmp streaming without microphone</a>。於 2026 年 11 月 5 日核對。"
+        },
+        {
+          "p": "相關指南：<a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 設定</a>與<a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">同時推流到多個平台</a>。"
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "DJI RC 2 不接麥克風可以直播嗎？",
+      "a": "DJI Fly 1.16.0 以上版本不行：App 會要求麥克風，在接上之前不會開始 RTMP 推流。USB-C 麥克風或耳機可以解決；Android 版 Stream My Drone 也能扮演虛擬藍牙麥克風，不需額外設備。"
+    },
+    {
+      "q": "DJI Fly 為什麼顯示「No built-in mic in current device」？",
+      "a": "RC 2、RC Pro 與 DJI 帶屏遙控器沒有自己的麥克風。從 1.16.0 版起，DJI Fly 在 RTMP 直播前要求有音訊來源，因為依 DJI 說明，沒有音軌的直播串流可能出現延遲與影音不同步。"
+    },
+    {
+      "q": "AirPods 能解決 DJI RC 2 的麥克風提示嗎？",
+      "a": "有時可以。DJI 論壇上有飛手回報，配對 AirPods 後提示消失，但有人幾秒後出現「Livestream error」，也有人根本連不上耳機。DJI 支援的方式是有線 USB-C 麥克風。"
+    },
+    {
+      "q": "Stream My Drone 的虛擬麥克風會傳送我的聲音嗎？",
+      "a": "不會。它只讓 DJI Fly 偵測到麥克風。需要旁白時，在 Stream My Drone 中開啟手機麥克風按鈕，直播中 DJI Fly 的聲音就會換成你的聲音。"
+    },
+    {
+      "q": "虛擬麥克風能在 iPhone 上使用嗎？",
+      "a": "不能，需要 Android。iOS 不允許 App 為其他裝置扮演藍牙麥克風。iPhone 使用者在 RC 2 接上有線麥克風後，仍可用 Stream My Drone 接收並轉送直播串流。"
+    },
+    {
+      "q": "哪個 DJI Fly 版本開始要求麥克風？",
+      "a": "DJI Fly 1.16.0。DJI 直播操作指南說明，從這個版本起，RC 2、RC Pro 與 DJI 帶屏遙控器需要接上麥克風才能開始直播。"
+    }
+  ]
+}

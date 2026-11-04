@@ -1,0 +1,237 @@
+{
+  "slug": "dji-rc-2-livestream-no-microphone-fix",
+  "platform": "DJI RC 2 마이크",
+  "title": "DJI RC 2 “No built-in mic” 라이브 오류: 마이크 없이 해결",
+  "description": "DJI Fly 1.16은 마이크 없이 RC 2 라이브 방송을 시작하지 않습니다. 원인, 효과 있는 방법(USB-C 마이크, AirPods), Android 휴대폰으로 장비 없이 해결하는 방법.",
+  "h1": "DJI RC 2가 마이크 없이 라이브 방송이 안 되나요? “No built-in mic in current device” 해결법",
+  "lead": "DJI Fly 1.16.0부터 <strong>DJI RC 2</strong>, RC Pro, DJI 스마트 컨트롤러는 마이크를 연결하기 전에는 RTMP 라이브 방송을 시작하지 않고 <em>“No built-in mic in current device”</em>를 표시합니다. 조종기에 USB-C 마이크나 헤드셋을 꽂거나, Android 휴대폰의 <strong>Stream My Drone</strong>을 <strong>가상 Bluetooth 마이크</strong>로 쓰면 됩니다. DJI Fly가 마이크를 인식해 방송을 시작하며, 따로 살 것이 없습니다.",
+  "published": "2026-11-05",
+  "updated": "2026-11-05",
+  "summary": [
+    "RC 2, RC Pro, DJI 스마트 컨트롤러에는 내장 마이크가 없고, DJI Fly 1.16.0 이상은 RTMP 방송 전에 마이크를 요구하기 때문에 이 메시지가 나옵니다.",
+    "확인(OK)을 눌러도 넘어가지 않습니다. DJI Fly가 RTMP 화면으로 돌아가고 방송은 시작되지 않습니다.",
+    "DJI의 해결책은 유선 마이크입니다. 아래쪽 USB-C 포트에 USB-C 마이크나 헤드셋, USB-C–3.5mm 어댑터, 또는 DJI Mic 수신기를 연결합니다.",
+    "추가 장비 없이도 Android용 Stream My Drone이 Bluetooth 마이크로 RC 2에 연결되면 메시지가 사라집니다. 소리는 보내지 않으며, 방송에서 말하려면 앱에서 휴대폰 마이크를 켜면 됩니다.",
+    "가상 마이크에는 Android 휴대폰이 필요합니다. iOS는 앱이 Bluetooth 마이크 역할을 하도록 허용하지 않으므로 iPhone에서는 유선 마이크가 필요합니다."
+  ],
+  "sections": [
+    {
+      "id": "error",
+      "h2": "“No built-in mic in current device”의 의미",
+      "blocks": [
+        {
+          "p": "RC 2에서 DJI Fly의 RTMP 화면에 있는 Start Livestream을 누르면, 기기에 내장 마이크가 없으니 먼저 유선 마이크를 연결하라는 창이 뜹니다. <a href=\"https://forum.dji.com/thread-331633-1-1.html\">DJI 포럼</a>의 조종사들도 같은 결과를 이야기합니다. 확인을 눌러도 RTMP 주소와 스트림 키 입력란으로 돌아갈 뿐입니다. DJI Fly 1.16.0부터 시작된 현상이며, 이전 버전은 소리 없이 영상을 방송할 수 있었습니다. <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly 라이브 방송 가이드</a>도 이 버전부터 마이크를 연결해야 한다고 밝히고 있습니다."
+        },
+        {
+          "table": {
+            "head": [
+              "조종기",
+              "내장 마이크",
+              "DJI Fly 1.16 이상 RTMP 방송"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "없음 (<a href=\"https://www.dji.com/rc-2/faq\">DJI FAQ</a>)",
+                "마이크 연결 필요"
+              ],
+              [
+                "DJI RC Pro",
+                "없음",
+                "마이크 연결 필요"
+              ],
+              [
+                "DJI 스마트 컨트롤러",
+                "없음",
+                "마이크 연결 필요"
+              ],
+              [
+                "DJI RC Pro 2",
+                "있음",
+                "이 메시지 해당 없음"
+              ],
+              [
+                "휴대폰을 쓰는 DJI RC-N2 또는 RC-N3",
+                "휴대폰 마이크",
+                "이 메시지 해당 없음"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "어떤 마이크를 쓰든 RC 2는 최대 720p로 방송합니다. 이 제한은 마이크 메시지와는 별개입니다."
+        }
+      ]
+    },
+    {
+      "id": "why",
+      "h2": "DJI Fly가 라이브 방송에 마이크를 요구하는 이유",
+      "blocks": [
+        {
+          "p": "DJI 지원팀은 2025년 3월 <a href=\"https://forum.dji.com/thread-331633-1-1.html\">DJI 포럼</a>에서 이 변경을 설명했습니다. 오디오 트랙이 없는 RTMP 방송은 플레이어에 시간 기준을 덜 주기 때문에 지연이 늘고 영상과 소리의 싱크가 어긋날 수 있다는 것입니다. 그래서 DJI Fly 1.16.0부터는 내장 마이크가 없는 조종기에 마이크를 연결해야 하며, 방송에는 항상 오디오 트랙이 들어갑니다."
+        },
+        {
+          "p": "2024년의 <a href=\"https://forum.dji.com/thread-309239-1-1.html\">포럼 보고</a>도 같은 방향을 가리킵니다. 마이크 없이 RC 2로 방송하자 스트리밍 플랫폼에서 타임코드 오류가 났고, USB-C 마이크를 연결하자 사라졌다는 내용입니다. 이 조건은 말을 하려는지가 아니라 오디오 트랙에 관한 것입니다."
+        }
+      ]
+    },
+    {
+      "id": "options",
+      "h2": "마이크 메시지를 없애는 방법",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "방법",
+              "필요한 것",
+              "결과"
+            ],
+            "rows": [
+              [
+                "USB-C 마이크 또는 헤드셋",
+                "RC 2 아래쪽 USB-C 포트에 마이크",
+                "DJI가 권장하는 방법. 목소리가 조종기에서 나감"
+              ],
+              [
+                "USB-C–3.5mm 어댑터",
+                "어댑터와 마이크 달린 헤드셋",
+                "같은 결과. DJI도 지원한다고 안내"
+              ],
+              [
+                "DJI Mic 또는 Mic 2 수신기",
+                "USB-C 포트에 수신기",
+                "음질이 좋음. 가장 비싼 방법"
+              ],
+              [
+                "Bluetooth 이어폰 (AirPods)",
+                "조종기와 페어링한 이어폰",
+                "결과가 엇갈림. 방송되는 경우도 있지만 몇 초 뒤 “Livestream error”가 나거나 연결이 안 되는 경우도 있음"
+              ],
+              [
+                "Stream My Drone 가상 마이크",
+                "Stream My Drone을 설치한 Android 휴대폰",
+                "추가 장비 없이 메시지가 사라짐. 조종기에서 소리는 나가지 않음"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "이미 Stream My Drone으로 휴대폰에서 드론 영상을 받고 있다면, 마지막 방법은 어차피 손에 든 휴대폰을 쓰는 것이고 조종기의 USB-C 포트도 비어 있게 됩니다."
+        }
+      ]
+    },
+    {
+      "id": "virtual-microphone",
+      "h2": "가상 Bluetooth 마이크로 해결하기 (Android)",
+      "howto": {},
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Android 휴대폰에 Stream My Drone 설치",
+              "d": "<a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a>에서 받으세요 (Android 9 이상, 가상 마이크는 앱 버전 1.2 이상 필요). 같은 휴대폰이 DJI Fly 영상을 받아 플랫폼으로 보냅니다."
+            },
+            {
+              "t": "휴대폰과 RC 2를 한 번 페어링",
+              "d": "RC 2와 휴대폰에서 Bluetooth를 켜고 휴대폰의 Bluetooth 설정에서 둘을 페어링합니다. 테스트한 RC 2는 <code>QCOM-BTD</code>라는 이름으로 보였습니다."
+            },
+            {
+              "t": "Stream My Drone에서 연결",
+              "d": "앱에서 ••• → 가상 Bluetooth 마이크를 열고 근처 기기 권한을 허용한 뒤 RC 2를 고르고 RC 2에 연결을 누릅니다. 연결되면 메인 화면에 마이크 표시가 나타납니다. 연결 해제를 누를 때까지 연결이 유지됩니다."
+            },
+            {
+              "t": "DJI Fly에서 방송 시작",
+              "d": "RC 2를 휴대폰 핫스팟이나 같은 Wi-Fi에 연결합니다. DJI Fly에서 GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP를 열고 Stream My Drone에 표시된 주소를 입력한 뒤 Start Livestream을 누릅니다. 마이크 메시지가 더 이상 나오지 않습니다. 메뉴 설명: <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 설정</a>."
+            },
+            {
+              "t": "화면을 확인하고 방송 시작",
+              "d": "Stream My Drone에 드론 영상이 나타납니다. 플랫폼을 고르고 방송 시작을 누르세요. YouTube는 한 번의 탭으로 연결됩니다. 플랫폼 쪽 설정은 <a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube 가이드</a>를 참고하세요."
+            }
+          ]
+        },
+        {
+          "video": "DJI RC 2와 Android 휴대폰으로 하는 1분 설정, 가상 마이크 단계 포함."
+        },
+        {
+          "note": "2026년 10월과 11월에 DJI RC 2와 Samsung Galaxy S23으로 테스트했습니다. DJI가 이후 DJI Fly 버전에서 이 검사를 바꿀 수 있습니다. 업데이트 후 메시지가 다시 나오면 방송을 시작하기 전에 Stream My Drone에서 다시 연결하세요."
+        }
+      ]
+    },
+    {
+      "id": "sound",
+      "h2": "방송에 소리가 나오나요?",
+      "blocks": [
+        {
+          "p": "가상 마이크는 DJI Fly의 검사만 통과시킬 뿐 소리는 전달하지 않으므로 조종기는 무음을 보냅니다. 시청자에게 말하려면 Stream My Drone에서 방송 시작 옆의 마이크 버튼을 누르세요. 끌 때까지 휴대폰 마이크가 모든 플랫폼에서 DJI Fly의 소리를 대신합니다. 무음 방송이라면 꺼 두면 됩니다."
+        }
+      ]
+    },
+    {
+      "id": "other-setups",
+      "h2": "iPhone, RC Pro 및 기타 구성",
+      "blocks": [
+        {
+          "list": [
+            "<strong>iPhone:</strong> iOS는 앱이 iPhone을 다른 기기에 Bluetooth 마이크로 보이게 하는 것을 허용하지 않으므로 가상 마이크는 Android 전용입니다. iPhone이라면 RC 2에 USB-C 마이크를 꽂고 <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">iPhone용 Stream My Drone</a>으로 영상을 받아 전달하세요.",
+            "<strong>DJI RC Pro와 스마트 컨트롤러:</strong> 같은 메시지가 나오지만 가상 마이크는 아직 테스트하지 않았습니다. 이 경우 USB-C 마이크가 안전합니다.",
+            "<strong>RC-N2와 RC-N3:</strong> DJI Fly가 자체 마이크가 있는 휴대폰에서 실행되므로 이 메시지는 문제가 되지 않습니다. DJI Fly는 그 휴대폰에 두고 두 번째 휴대폰이나 컴퓨터에서 영상을 받으세요.",
+            "<strong>두 번째 휴대폰이 없다면:</strong> RC 2에 USB-C 마이크를 꽂고 DJI Fly에서 플랫폼으로 바로 방송하세요."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "문제 해결",
+      "blocks": [
+        {
+          "list": [
+            "<strong>RC 2가 목록에 없음:</strong> 먼저 휴대폰의 Bluetooth 설정에서 페어링하세요. 앱은 페어링된 기기만 보여 주며 검색은 하지 않습니다.",
+            "<strong>메시지가 계속 나옴:</strong> 앱에 연결됨으로 표시될 때까지 기다린 뒤, DJI Fly의 RTMP 화면을 나갔다가 다시 열고 Start Livestream을 누르세요.",
+            "<strong>몇 초 뒤 “Livestream error”:</strong> 마이크 메시지와는 다른 문제입니다. RC 2와 휴대폰이 같은 네트워크에 있는지, RTMP 주소가 앱의 주소와 같은지 확인하세요.",
+            "<strong>연결이 끊김:</strong> 앱은 알림과 함께 백그라운드에서 연결을 유지합니다. Bluetooth가 꺼졌었다면 앱에서 다시 연결하세요.",
+            "<strong>앱에는 영상이 있는데 플랫폼에는 없음:</strong> 로컬 영상은 정상입니다. Stream My Drone에서 플랫폼 연결이나 스트림 키를 확인하세요."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "출처",
+      "blocks": [
+        {
+          "p": "마이크 조건과 RC 2의 720p 제한: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. RC 2에 마이크가 없다는 점: <a href=\"https://www.dji.com/rc-2/faq\">DJI RC 2 FAQ</a>. DJI 포럼의 사용자 보고와 DJI의 설명: <a href=\"https://forum.dji.com/thread-331633-1-1.html\">Not allowing me to livestream without a connected mic</a>, <a href=\"https://forum.dji.com/thread-309239-1-1.html\">RC2 controller corrupt rtmp streaming without microphone</a>. 2026년 11월 5일 확인."
+        },
+        {
+          "p": "관련 가이드: <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 설정</a>, <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">여러 플랫폼에 동시 방송</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "DJI RC 2로 마이크 없이 라이브 방송할 수 있나요?",
+      "a": "DJI Fly 1.16.0 이상에서는 안 됩니다. 앱이 마이크를 요구하며 연결될 때까지 RTMP 방송을 시작하지 않습니다. USB-C 마이크나 헤드셋으로 해결되고, Android용 Stream My Drone을 가상 Bluetooth 마이크로 쓰면 추가 장비가 필요 없습니다."
+    },
+    {
+      "q": "DJI Fly가 “No built-in mic in current device”라고 하는 이유는?",
+      "a": "RC 2, RC Pro, DJI 스마트 컨트롤러에는 자체 마이크가 없습니다. 버전 1.16.0부터 DJI Fly는 RTMP 방송 전에 오디오 소스를 요구하는데, DJI에 따르면 오디오 트랙이 없는 방송은 지연과 싱크 문제가 생길 수 있기 때문입니다."
+    },
+    {
+      "q": "AirPods로 DJI RC 2 마이크 오류가 해결되나요?",
+      "a": "가끔은 됩니다. DJI 포럼에서는 AirPods를 페어링하자 메시지가 사라졌지만 몇 초 뒤 “Livestream error”가 났다는 사람도, 이어폰을 아예 연결하지 못했다는 사람도 있습니다. DJI가 지원하는 방법은 유선 USB-C 마이크입니다."
+    },
+    {
+      "q": "Stream My Drone 가상 마이크가 제 목소리를 보내나요?",
+      "a": "아니요. DJI Fly가 마이크를 인식하게만 합니다. 해설을 하려면 Stream My Drone에서 휴대폰 마이크 버튼을 켜세요. 방송에서 DJI Fly의 소리 대신 목소리가 나갑니다."
+    },
+    {
+      "q": "가상 마이크는 iPhone에서도 되나요?",
+      "a": "아니요, Android가 필요합니다. iOS는 앱이 다른 기기의 Bluetooth 마이크 역할을 하도록 허용하지 않습니다. iPhone 사용자도 RC 2에 유선 마이크를 꽂으면 Stream My Drone으로 영상을 받아 전달할 수 있습니다."
+    },
+    {
+      "q": "마이크 요구 사항은 어느 DJI Fly 버전부터인가요?",
+      "a": "DJI Fly 1.16.0부터입니다. DJI 라이브 방송 가이드에 따르면 이 버전부터 RC 2, RC Pro, DJI 스마트 컨트롤러는 라이브 방송을 시작하려면 마이크를 연결해야 합니다."
+    }
+  ]
+}

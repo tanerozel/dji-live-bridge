@@ -52,5 +52,9 @@
       "preview": "La imagen del dron con resolución y tasa de bits, revisada antes de emitir.",
       "reconnect": "Destinos que se reconectan solos tras un corte breve de la red."
     }
+  },
+  "micCallout": {
+    "text": "¿DJI Fly pide un micrófono en tu RC 2 y no inicia la transmisión?",
+    "link": "Soluciónalo sin comprar un micrófono"
   }
 }

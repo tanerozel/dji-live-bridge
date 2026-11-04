@@ -337,6 +337,16 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
   .hero-app .store-buttons .btn{flex:1 1 200px}
   .video-frame,.hero-shot{width:min(280px,82%)}
 }
+.post-video{margin:24px 0 0;display:grid;justify-items:center;gap:10px}
+.post-video .video-frame{width:min(300px,80%)}
+.post-video figcaption{font-size:14px;color:var(--muted);text-align:center;max-width:46ch}
+.mic-callout{margin-top:18px;font-size:15.5px}
+/* In the narrow promo frame the label would wrap: a round play button only
+   (the text stays for screen readers). */
+.promo .video-play{inset:auto;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;padding:0;
+  border-radius:50%;background:#ff0033;font-size:0;gap:0}
+.promo .video:hover .video-play{transform:translate(-50%,-50%) scale(1.06)}
+.promo .video-play svg{width:30px;height:30px;padding:0;background:none}
 </style>
 </head>
 <body>
@@ -423,6 +433,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 
 <h2 id="related">Diğer rehberler</h2>
 <div class="grid">
+      <a class="card post-card" href="https://streammydrone.com/tr/blog/dji-rc-2-canli-yayin-mikrofon-hatasi-cozumu/"><h3>DJI RC 2 mikrofonsuz canlı yayın yapmıyor mu? “No built-in mic in current device” hatası nasıl çözülür</h3><p>DJI Fly 1.16, RC 2'de mikrofon takılmadan canlı yayını başlatmıyor. Nedeni, işe yarayan yollar (USB-C mikrofon, AirPods) ve Android telefonla donanımsız çözüm.</p></a>
       <a class="card post-card" href="https://streammydrone.com/tr/blog/dji-flip-canli-yayin/"><h3>DJI Flip ile canlı yayın nasıl yapılır?</h3><p>DJI Flip ile RC 2, RC-N3 veya RC-N2 üzerinden canlı yayın: telefon ve bilgisayar RTMP kurulumu, avuç içi ve telefon kontrolü, dikey kadraj ve platform kontrolleri.</p></a>
       <a class="card post-card" href="https://streammydrone.com/tr/blog/dji-lito-x1-canli-yayin/"><h3>DJI Lito X1 ile canlı yayın nasıl yapılır?</h3><p>DJI Lito X1 ile RC 2, RC-N3 veya RC-N2 üzerinden canlı yayın: DJI Fly RTMP ayarları, telefon ve bilgisayar kurulumu, platform adımları ve sorun giderme.</p></a>
       <a class="card post-card" href="https://streammydrone.com/tr/blog/dji-lito-1-canli-yayin/"><h3>DJI Lito 1 ile canlı yayın nasıl yapılır?</h3><p>DJI Lito 1 ile RC 2, RC-N3 veya RC-N2 üzerinden canlı yayın: DJI Fly RTMP ayarları, telefon ve bilgisayar kurulumu, platform adımları ve sorun giderme.</p></a>

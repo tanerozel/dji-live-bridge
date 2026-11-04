@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2HCY063P0W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-2HCY063P0W');
+</script>
+<title>Erreur “No built-in mic” sur DJI RC 2 : le direct sans micro</title>
+<meta name="description" content="DJI Fly 1.16 ne lance plus le direct de la RC 2 sans micro. Pourquoi, ce qui marche (micro USB-C, AirPods) et une solution sans matériel avec un téléphone Android.">
+<meta name="author" content="Taner Özel">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#161618" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://streammydrone.com/fr/blog/dji-rc-2-diffusion-en-direct-sans-micro/">
+<link rel="alternate" hreflang="en" href="https://streammydrone.com/blog/dji-rc-2-livestream-no-microphone-fix/">
+<link rel="alternate" hreflang="tr" href="https://streammydrone.com/tr/blog/dji-rc-2-canli-yayin-mikrofon-hatasi-cozumu/">
+<link rel="alternate" hreflang="es" href="https://streammydrone.com/es/blog/dji-rc-2-transmision-en-directo-sin-microfono/">
+<link rel="alternate" hreflang="zh-Hans" href="https://streammydrone.com/zh/blog/dji-rc-2-livestream-no-microphone-fix/">
+<link rel="alternate" hreflang="zh-Hant" href="https://streammydrone.com/zh-Hant/blog/dji-rc-2-livestream-no-microphone-fix/">
+<link rel="alternate" hreflang="ar" href="https://streammydrone.com/ar/blog/dji-rc-2-livestream-no-microphone-fix/">
+<link rel="alternate" hreflang="hi" href="https://streammydrone.com/hi/blog/dji-rc-2-livestream-no-microphone-fix/">
+<link rel="alternate" hreflang="pt" href="https://streammydrone.com/pt/blog/dji-rc-2-transmissao-ao-vivo-sem-microfone/">
+<link rel="alternate" hreflang="ru" href="https://streammydrone.com/ru/blog/dji-rc-2-livestream-no-microphone-fix/">
+<link rel="alternate" hreflang="fr" href="https://streammydrone.com/fr/blog/dji-rc-2-diffusion-en-direct-sans-micro/">
+<link rel="alternate" hreflang="de" href="https://streammydrone.com/de/blog/dji-rc-2-livestream-ohne-mikrofon/">
+<link rel="alternate" hreflang="ja" href="https://streammydrone.com/ja/blog/dji-rc-2-livestream-no-microphone-fix/">
+<link rel="alternate" hreflang="ko" href="https://streammydrone.com/ko/blog/dji-rc-2-livestream-no-microphone-fix/">
+<link rel="alternate" hreflang="id" href="https://streammydrone.com/id/blog/dji-rc-2-live-streaming-tanpa-mikrofon/">
+<link rel="alternate" hreflang="it" href="https://streammydrone.com/it/blog/dji-rc-2-diretta-senza-microfono/">
+<link rel="alternate" hreflang="x-default" href="https://streammydrone.com/blog/dji-rc-2-livestream-no-microphone-fix/">
+<link rel="icon" href="../../../img/icon.png">
+<link rel="apple-touch-icon" href="../../../img/icon.png">
+<meta property="og:site_name" content="Stream My Drone">
+<meta property="og:title" content="Erreur “No built-in mic” sur DJI RC 2 : le direct sans micro">
+<meta property="og:description" content="DJI Fly 1.16 ne lance plus le direct de la RC 2 sans micro. Pourquoi, ce qui marche (micro USB-C, AirPods) et une solution sans matériel avec un téléphone Android.">
+<meta property="og:image" content="https://streammydrone.com/img/app/fr/share.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta property="og:url" content="https://streammydrone.com/fr/blog/dji-rc-2-diffusion-en-direct-sans-micro/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="article:published_time" content="2026-11-05">
+<meta property="article:modified_time" content="2026-11-05">
+<meta property="article:author" content="Taner Özel">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Erreur “No built-in mic” sur DJI RC 2 : le direct sans micro">
+<meta name="twitter:description" content="DJI Fly 1.16 ne lance plus le direct de la RC 2 sans micro. Pourquoi, ce qui marche (micro USB-C, AirPods) et une solution sans matériel avec un téléphone Android.">
+<meta name="twitter:image" content="https://streammydrone.com/img/app/fr/share.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"La DJI RC 2 refuse le direct sans micro ? Corriger “No built-in mic in current device”","description":"DJI Fly 1.16 ne lance plus le direct de la RC 2 sans micro. Pourquoi, ce qui marche (micro USB-C, AirPods) et une solution sans matériel avec un téléphone Android.","inLanguage":"fr","datePublished":"2026-11-05","dateModified":"2026-11-05","url":"https://streammydrone.com/fr/blog/dji-rc-2-diffusion-en-direct-sans-micro/","mainEntityOfPage":"https://streammydrone.com/fr/blog/dji-rc-2-diffusion-en-direct-sans-micro/","image":"https://streammydrone.com/img/app/fr/share.jpg","author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"},"publisher":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"},"isPartOf":{"@type":"Blog","name":"Guides de diffusion en direct pour drones DJI — blog Stream My Drone","url":"https://streammydrone.com/fr/blog/"},"about":{"@type":"SoftwareApplication","name":"Stream My Drone","url":"https://streammydrone.com/fr/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"La solution du micro Bluetooth virtuel (Android)","inLanguage":"fr","tool":[{"@type":"HowToTool","name":"Stream My Drone"},{"@type":"HowToTool","name":"DJI Fly"}],"step":[{"@type":"HowToStep","position":1,"name":"Installez Stream My Drone sur un téléphone Android","text":"Téléchargez-le sur Google Play (Android 9 ou plus récent ; le micro virtuel demande la version 1.2 de l'app ou plus). Le même téléphone reçoit le flux de DJI Fly et l'envoie vers vos plateformes.","url":"https://streammydrone.com/fr/blog/dji-rc-2-diffusion-en-direct-sans-micro/#virtual-microphone"},{"@type":"HowToStep","position":2,"name":"Appairez le téléphone avec la RC 2 une fois","text":"Activez le Bluetooth sur la RC 2 et sur le téléphone, puis appairez-les depuis les réglages Bluetooth du téléphone. Sur la RC 2 que nous avons testée, la radiocommande apparaissait sous le nom QCOM-BTD.","url":"https://streammydrone.com/fr/blog/dji-rc-2-diffusion-en-direct-sans-micro/#virtual-microphone"},{"@type":"HowToStep","position":3,"name":"Connectez-vous depuis Stream My Drone","text":"Dans l'app, ouvrez ••• → Microphone Bluetooth virtuel, autorisez Appareils à proximité, choisissez la RC 2 et touchez Se connecter à RC 2. Une fois connecté, une étiquette micro apparaît sur l'écran principal. La connexion reste ouverte jusqu'à ce que vous touchiez Déconnecter.","url":"https://streammydrone.com/fr/blog/dji-rc-2-diffusion-en-direct-sans-micro/#virtual-microphone"},{"@type":"HowToStep","position":4,"name":"Lancez le direct dans DJI Fly","text":"Connectez la RC 2 au point d'accès du téléphone ou au même Wi-Fi. Dans DJI Fly, ouvrez GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, saisissez l'adresse affichée par Stream My Drone et touchez Start Livestream. Le message du micro n'apparaît plus. Détails du menu : réglages RTMP de DJI Fly.","url":"https://streammydrone.com/fr/blog/dji-rc-2-diffusion-en-direct-sans-micro/#virtual-microphone"},{"@type":"HowToStep","position":5,"name":"Vérifiez l'image et passez en direct","text":"L'image du drone apparaît dans Stream My Drone. Choisissez vos plateformes et touchez Passer en direct ; YouTube se connecte en une touche. Le guide YouTube détaille le côté plateforme.","url":"https://streammydrone.com/fr/blog/dji-rc-2-diffusion-en-direct-sans-micro/#virtual-microphone"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"fr","mainEntity":[{"@type":"Question","name":"Peut-on faire un direct avec une DJI RC 2 sans micro ?","acceptedAnswer":{"@type":"Answer","text":"Pas avec DJI Fly 1.16.0 ou plus récent : l'app demande un micro et ne lance pas le flux RTMP tant qu'aucun n'est branché. Un micro ou un casque USB-C fonctionne, et Stream My Drone pour Android peut servir de micro Bluetooth virtuel, sans matériel en plus."}},{"@type":"Question","name":"Pourquoi DJI Fly affiche-t-il “No built-in mic in current device” ?","acceptedAnswer":{"@type":"Answer","text":"La RC 2, la RC Pro et la DJI Smart Controller n'ont pas de micro. Depuis la version 1.16.0, DJI Fly exige une source audio avant le direct RTMP, car selon DJI un flux sans piste audio peut souffrir de retard et de problèmes de synchronisation."}},{"@type":"Question","name":"Les AirPods corrigent-ils l'erreur de micro de la DJI RC 2 ?","acceptedAnswer":{"@type":"Answer","text":"Parfois. Des pilotes du forum DJI racontent qu'appairer des AirPods fait disparaître le message, mais certains reçoivent ensuite “Livestream error” au bout de quelques secondes et d'autres n'arrivent pas à connecter leurs écouteurs. L'option prise en charge par DJI est un micro USB-C filaire."}},{"@type":"Question","name":"Le micro virtuel de Stream My Drone envoie-t-il ma voix ?","acceptedAnswer":{"@type":"Answer","text":"Non. Il fait seulement voir un micro à DJI Fly. Pour commenter, activez le bouton micro du téléphone dans Stream My Drone ; il remplace le son de DJI Fly par votre voix dans le direct."}},{"@type":"Question","name":"Le micro virtuel fonctionne-t-il sur iPhone ?","acceptedAnswer":{"@type":"Answer","text":"Non, il faut Android. iOS n'autorise pas une app à se comporter comme un micro Bluetooth pour un autre appareil. Sur iPhone, vous pouvez toujours recevoir et relayer le flux avec Stream My Drone, avec un micro filaire sur la RC 2."}},{"@type":"Question","name":"Quelle version de DJI Fly a ajouté l'exigence du micro ?","acceptedAnswer":{"@type":"Answer","text":"DJI Fly 1.16.0. Le guide de diffusion de DJI indique qu'à partir de cette version, la RC 2, la RC Pro et la DJI Smart Controller ont besoin d'un micro branché pour lancer un direct."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://streammydrone.com/fr/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://streammydrone.com/fr/blog/"},{"@type":"ListItem","position":3,"name":"Micro DJI RC 2","item":"https://streammydrone.com/fr/blog/dji-rc-2-diffusion-en-direct-sans-micro/"}]}</script>
+<style>
+
+:root{
+  color-scheme:light;
+  --bg:#f5f5f7; --surface:#fff; --surface-2:#f2f2f5; --border:#e3e3e8; --border-strong:#d2d2d7;
+  --text:#1d1d1f; --muted:#6e6e73; --faint:#8e8e93;
+  --accent:#0a84ff; --accent-hover:#0071e3; --accent-soft:#eaf3ff;
+  --green:#34c759; --green-text:#1f8a3b; --green-soft:#eaf8ee;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.06);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    color-scheme:dark;
+    --bg:#161618; --surface:#1f1f22; --surface-2:#27272b; --border:#2e2e33; --border-strong:#3e3e45;
+    --text:#f2f2f5; --muted:#a1a1a8; --faint:#76767e;
+    --accent:#0a84ff; --accent-hover:#339aff; --accent-soft:rgba(10,132,255,.16);
+    --green:#30d158; --green-text:#5ee08a; --green-soft:rgba(48,209,88,.15);
+    --shadow:0 1px 2px rgba(0,0,0,.3);
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,ui-sans-serif,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;line-height:1.55}
+h1,h2,h3,p{margin:0}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.92em;background:var(--surface-2);
+  padding:2px 6px;border-radius:6px}
+.wrap{width:min(1080px,100%);margin:0 auto;padding:0 20px}
+
+header{position:sticky;top:0;z-index:10;backdrop-filter:saturate(180%) blur(14px);
+  background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--border)}
+.bar{display:flex;align-items:center;gap:14px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--text)}
+.brand img{width:30px;height:30px;border-radius:8px}
+nav{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:14px}
+nav a{color:var(--muted)}
+nav a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;
+  padding:11px 20px;font-size:15px;font-weight:600;border:1px solid var(--border-strong);
+  background:var(--surface);color:var(--text);cursor:pointer;text-decoration:none}
+.btn:hover{text-decoration:none;background:var(--surface-2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{background:var(--accent-hover)}
+.btn.small{padding:7px 14px;font-size:14px}
+.btn-icon{flex-shrink:0;fill:currentColor}
+
+.hero{padding:72px 0 40px;text-align:center}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;
+  background:var(--green-soft);color:var(--green-text);font-size:13px;font-weight:600}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+h1{margin:18px auto 0;max-width:15ch;font-size:clamp(30px,5vw,52px);line-height:1.1;letter-spacing:-.02em}
+.lead{margin:18px auto 0;max-width:640px;font-size:clamp(16px,2vw,19px);color:var(--muted)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:28px}
+.meta{margin-top:14px;font-size:13px;color:var(--faint)}
+.shot{margin:44px auto 0;border:1px solid var(--border);border-radius:16px;overflow:hidden;
+  box-shadow:var(--shadow);background:var(--surface)}
+.shot img{display:block;width:100%;height:auto}
+.caption{margin-top:12px;font-size:13px;color:var(--faint);text-align:center}
+
+section{padding:56px 0;border-top:1px solid var(--border)}
+h2{font-size:clamp(23px,3vw,30px);letter-spacing:-.01em}
+.sub{margin-top:10px;color:var(--muted);max-width:640px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:30px}
+.card{padding:20px;border:1px solid var(--border);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
+.card h3{font-size:16px;margin-bottom:8px}
+.card p{color:var(--muted);font-size:14.5px}
+.steps{counter-reset:step;display:grid;gap:14px;margin-top:30px;padding:0;list-style:none}
+.steps li{counter-increment:step;display:grid;grid-template-columns:34px 1fr;gap:14px;align-items:start;
+  padding:18px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
+.steps li::before{content:counter(step);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;
+  background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:15px}
+.steps li>div>strong{display:block;margin-bottom:3px}
+.steps span{color:var(--muted);font-size:14.5px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;margin-top:30px}
+.split .shot{margin:0}
+.split.top{align-items:start}
+.split .shot.phone{width:min(280px,100%);border-radius:28px;justify-self:center}
+ul.plain{margin:16px 0 0;padding-left:20px;color:var(--muted);font-size:15px}
+ul.plain li{margin:7px 0}
+.faq{display:grid;gap:12px;margin-top:26px}
+.faq details{border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:16px 18px}
+.faq details[open]{background:var(--surface)}
+.faq summary{cursor:pointer;font-weight:600;font-size:15.5px}
+.faq details p{margin-top:10px;color:var(--muted);font-size:14.5px}
+.langs{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.lang{padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);
+  font-size:13.5px;color:var(--muted)}
+footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted);font-size:14px}
+.foot-links{display:flex;flex-wrap:wrap;gap:16px;margin:14px 0 20px}
+.note{font-size:13px;color:var(--faint)}
+@media (max-width:820px){.split{grid-template-columns:1fr}header nav>a:not(.btn){display:none}}
+
+/* Language menu: a crawlable list of links, collapsed on small screens. */
+.langmenu{position:relative;display:inline-flex;flex-direction:column;align-self:center}
+.langmenu>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+  padding:7px 12px;border:1px solid var(--border-strong);border-radius:10px;background:var(--surface);
+  color:var(--text);font-size:14px;font-weight:600}
+.langmenu>summary::-webkit-details-marker{display:none}
+.langmenu[open]>summary{background:var(--surface-2)}
+.langmenu:not([open]) .sheet{display:none}
+.langmenu .sheet{position:absolute;right:0;top:calc(100% + 8px);z-index:20;display:grid;
+  grid-template-columns:repeat(2,minmax(150px,1fr));gap:2px;padding:8px;border:1px solid var(--border);
+  border-radius:12px;background:var(--surface);box-shadow:var(--shadow);max-height:60vh;overflow:auto}
+.langmenu .sheet a{padding:8px 10px;border-radius:8px;color:var(--text);font-size:14px;white-space:nowrap}
+.langmenu .sheet a:hover{background:var(--surface-2);text-decoration:none}
+.langmenu .sheet a[aria-current=true]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.langs a{padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);
+  font-size:13.5px;color:var(--muted)}
+.langs a:hover{color:var(--text);text-decoration:none}
+.langs a[aria-current=true]{border-color:var(--accent);color:var(--accent)}
+/* Hidden until focused. Pushing it off-screen with a negative offset would
+   widen the page by that offset in right-to-left languages, so it is clipped
+   in place instead. */
+.skip{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap}
+.skip:focus{position:fixed;width:auto;height:auto;margin:0;clip-path:none;
+  inset-inline-start:20px;top:10px;z-index:30;padding:10px 14px;background:var(--surface);
+  color:var(--text);border:1px solid var(--border-strong);border-radius:10px}
+[dir=rtl] .steps li{grid-template-columns:34px 1fr}
+[dir=rtl] .langmenu .sheet{right:auto;left:0}
+[dir=rtl] ul.plain{padding-left:0;padding-right:20px}
+
+/* Below ~520px the header runs out of room: the brand, the language menu and
+   the GitHub button together force the page wider than the screen, which cuts
+   every section off on the right. The language name and the GitHub button go
+   (the hero repeats that link anyway); the globe stays as the affordance. */
+@media (max-width:520px){
+  .bar{gap:10px}
+  .langname{display:none}
+  .langmenu>summary{padding:7px 11px;font-size:16px}
+  header nav>.btn.small{display:none}
+  .langmenu .sheet{grid-template-columns:1fr;min-width:190px}
+}
+
+/* Blog. Articles keep a reading width; the header and footer stay site-wide. */
+.article,.blog-index{padding-top:36px;padding-bottom:64px}
+.article{max-width:760px}
+.article h1,.blog-index h1{margin:14px 0 0;max-width:none;font-size:clamp(28px,4.4vw,42px)}
+.blog-index .lead{margin:16px 0 0}
+.article h2{margin-top:44px;scroll-margin-top:80px}
+.article>p,.article .callout{margin-top:14px;font-size:16.5px}
+.article .steps{margin-top:18px}
+.article .shot{margin:22px 0 0}
+.article ul.plain{font-size:16px}
+.crumbs{display:flex;flex-wrap:wrap;gap:8px;font-size:13.5px;color:var(--faint)}
+.crumbs a{color:var(--muted)}
+.byline{margin-top:12px;font-size:14px;color:var(--faint)}
+.byline a{color:var(--muted)}
+.answer{margin-top:20px;font-size:18px;line-height:1.6}
+.keyfacts{margin-top:26px;padding:18px 20px;border:1px solid var(--border);border-radius:14px;background:var(--surface)}
+.keyfacts h2{margin:0;font-size:16px}
+.keyfacts ul{margin:10px 0 0;padding-inline-start:20px;color:var(--muted);font-size:15px}
+.keyfacts li{margin:6px 0}
+.crumbs,.toc{margin-left:0}
+.toc{display:block;margin-top:22px;font-size:14.5px}
+.toc ol{margin:8px 0 0;padding-inline-start:20px;color:var(--muted)}
+.toc li{margin:4px 0}
+.callout{padding:14px 16px;border-inline-start:3px solid var(--accent);border-radius:8px;background:var(--accent-soft)}
+.table{margin-top:18px;overflow-x:auto;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+.table table{width:100%;border-collapse:collapse;font-size:14.5px}
+.table th,.table td{padding:10px 14px;text-align:start;vertical-align:top;border-bottom:1px solid var(--border)}
+.table tr:last-child th,.table tr:last-child td{border-bottom:0}
+.table thead th{background:var(--surface-2);font-size:13px;color:var(--muted)}
+.table code{word-break:break-all}
+.article .faq{margin-top:18px}
+.cta-box{margin-top:44px;padding:24px;border:1px solid var(--border);border-radius:16px;background:var(--surface);box-shadow:var(--shadow)}
+.cta-box h2{margin:0}
+.cta-box p{margin-top:8px;color:var(--muted)}
+.cta-box .cta{justify-content:flex-start;margin-top:18px}
+.post-card{display:block;color:var(--text)}
+.post-card:hover{text-decoration:none;border-color:var(--accent)}
+.post-card h3{color:var(--text)}
+
+/* The mobile app on blog pages: a promo near the top, a screenshot gallery in
+   the middle, a closing box and, on a phone, a bar fixed to the bottom. The
+   promo keeps the dark navy of the store screenshots in both colour schemes. */
+.promo,.promo-end{--promo-text:#fff;--promo-muted:rgba(235,242,255,.78);--promo-accent:#22d3ee;
+  display:grid;grid-template-columns:1fr 220px;gap:28px;align-items:center;margin-top:28px;padding:28px;
+  border:0;border-radius:20px;color:var(--promo-text);overflow:hidden;
+  background:radial-gradient(120% 140% at 100% 0%,#173a7a 0%,rgba(23,58,122,0) 55%),linear-gradient(160deg,#0b1631 0%,#0f2350 100%);
+  box-shadow:0 12px 32px rgba(11,22,49,.25)}
+.promo h2,.article .promo h2,.promo-end h2{margin:12px 0 0;color:var(--promo-text);font-size:clamp(22px,3vw,28px);line-height:1.2}
+.promo p,.promo-end p{color:var(--promo-muted)}
+.promo-text>p{margin-top:10px;font-size:16px}
+.promo-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;
+  background:rgba(34,211,238,.14);color:var(--promo-accent);font-size:13px;font-weight:600;letter-spacing:.02em}
+.promo-badge .btn-icon{width:15px;height:15px}
+.promo-points{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:15px}
+.promo-points li{position:relative;padding-inline-start:26px}
+.promo-points li::before{content:"";position:absolute;inset-inline-start:0;top:3px;width:17px;height:17px;border-radius:50%;
+  background:var(--promo-accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%230b1631' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round' d='m6 12.5 4 4 8-9'/%3E%3C/svg%3E") center/12px no-repeat}
+.store-buttons{justify-content:flex-start;margin-top:22px;gap:10px}
+.btn.store{background:#fff;border-color:#fff;color:#0b1631;font-weight:600}
+.btn.store:hover{background:#e8eef9}
+.on-ios .store-buttons [data-store=ios]{order:-1}
+.promo-price{margin-top:12px;font-size:13.5px;font-weight:600;color:var(--promo-accent)!important}
+.promo-phones{display:flex;justify-content:center;align-items:center}
+.promo-phones img{display:block;width:100%;max-width:220px;height:auto;border-radius:22px;
+  box-shadow:0 18px 40px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.08)}
+.promo.fan{grid-template-columns:1fr 1.05fr}
+.promo.fan .promo-phones img{width:33%;max-width:190px}
+.promo.fan .promo-phones img:nth-child(1){transform:translateX(18%) rotate(-7deg) scale(.88)}
+.promo.fan .promo-phones img:nth-child(2){position:relative;z-index:1}
+.promo.fan .promo-phones img:nth-child(3){transform:translateX(-18%) rotate(7deg) scale(.88)}
+[dir=rtl] .promo.fan .promo-phones{flex-direction:row-reverse}
+.blog-index .promo{margin-top:30px}
+.promo-end{margin-top:44px}
+.promo-end .promo-text>p{margin-top:10px}
+.promo-more{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:16px;font-size:14px}
+.promo-more a{color:var(--promo-muted)}
+.promo-more a:hover{color:#fff}
+
+.gallery{margin-top:30px;padding:22px 0 4px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.gallery-h{display:grid;gap:4px}
+.gallery-h strong{font-size:19px}
+.gallery-h span{color:var(--muted);font-size:15px}
+.gallery-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.gallery-row img{display:block;width:100%;height:auto;border-radius:16px;background:#0b1631;box-shadow:var(--shadow)}
+.gallery .store-buttons{margin:18px 0 18px}
+.gallery .btn.store{border-color:var(--border-strong)}
+
+.appbar{display:none}
+@media (max-width:720px){
+  .promo,.promo-end,.promo.fan{grid-template-columns:1fr;padding:22px 20px;gap:22px}
+  .promo .promo-phones img,.promo-end .promo-phones img{max-width:200px}
+  .promo.fan .promo-phones img{width:36%;max-width:none}
+  .store-buttons .btn{flex:1 1 200px}
+  .gallery-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin-inline:-20px;padding:0 20px 8px;scroll-padding-inline:20px;scrollbar-width:none}
+  .gallery-row::-webkit-scrollbar{display:none}
+  .gallery-row img{flex:0 0 auto;width:46%;min-width:0;scroll-snap-align:start}
+  .appbar{position:fixed;inset-inline:0;bottom:0;z-index:30;display:flex;align-items:center;gap:12px;
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(11,22,49,.94);color:#fff;
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 -6px 20px rgba(0,0,0,.2)}
+  .appbar img{width:40px;height:40px;border-radius:10px}
+  .appbar p{display:grid;flex:1;min-width:0;line-height:1.25}
+  .appbar strong{font-size:14.5px}
+  .appbar span{font-size:12.5px;color:rgba(235,242,255,.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .appbar .btn{flex-shrink:0;white-space:nowrap}
+  body:has(.appbar){padding-bottom:calc(68px + env(safe-area-inset-bottom))}
+}
+@media (min-width:721px){
+  .article .promo,.article .promo-end{grid-template-columns:1fr 170px;gap:24px}
+  .store-buttons .btn{padding:9px 14px;font-size:14.5px}
+}
+/* A long URL in a step must wrap instead of widening the page on a phone. */
+.steps li>div{min-width:0}
+.steps code{overflow-wrap:anywhere}
+
+/* Home page: the phone app first (text beside the setup video), the computer
+   app as its own section further down. */
+.hero-app{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center;
+  padding:56px 20px 48px;text-align:start}
+.hero-app h1{margin:18px 0 0;max-width:17ch}
+.hero-app .lead{margin:18px 0 0}
+.hero-app .store-buttons{margin-top:26px}
+.hero-app .store-buttons .btn{padding:13px 22px;font-size:16px}
+.hero-app .meta a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.hero-app .meta a:hover{color:var(--text)}
+.hero-media{display:flex;justify-content:center}
+.hero-shot{display:block;width:min(320px,100%);height:auto;border-radius:28px;box-shadow:0 24px 50px rgba(11,22,49,.35)}
+.video-frame{position:relative;width:min(320px,100%);aspect-ratio:9/16;border-radius:30px;overflow:hidden;
+  background:#0b1631;border:7px solid #0b0b0d;box-shadow:0 24px 50px rgba(11,22,49,.35),0 0 0 1px rgba(255,255,255,.06)}
+.promo .video-frame{width:100%;max-width:220px;border-width:5px;border-radius:24px}
+.video-frame .video,.video-frame iframe{position:absolute;inset:0;display:block;width:100%;height:100%;border:0}
+.video-frame .video img{display:block;width:100%;height:100%;object-fit:cover}
+.video-play{position:absolute;inset-inline:12px;bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 14px;border-radius:999px;background:rgba(255,255,255,.95);color:#0b1631;font-size:14.5px;font-weight:700;
+  box-shadow:0 8px 20px rgba(0,0,0,.3);transition:transform .15s}
+.video-play svg{flex-shrink:0;width:22px;height:22px;padding:4px;border-radius:50%;background:#ff0033;color:#fff}
+.video:hover .video-play{transform:scale(1.03)}
+.video:hover{text-decoration:none}
+.home-gallery{margin-top:28px}
+.desktop-hero{padding:0 20px;text-align:center}
+.desktop-hero h2{margin:16px auto 0;max-width:22ch}
+.desktop-hero .shot{margin-top:36px}
+@media (max-width:820px){
+  .hero-app{grid-template-columns:1fr;gap:32px;padding:36px 20px 40px}
+  .hero-app .store-buttons .btn{flex:1 1 200px}
+  .video-frame,.hero-shot{width:min(280px,82%)}
+}
+.post-video{margin:24px 0 0;display:grid;justify-items:center;gap:10px}
+.post-video .video-frame{width:min(300px,80%)}
+.post-video figcaption{font-size:14px;color:var(--muted);text-align:center;max-width:46ch}
+.mic-callout{margin-top:18px;font-size:15.5px}
+/* In the narrow promo frame the label would wrap: a round play button only
+   (the text stays for screen readers). */
+.promo .video-play{inset:auto;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;padding:0;
+  border-radius:50%;background:#ff0033;font-size:0;gap:0}
+.promo .video:hover .video-play{transform:translate(-50%,-50%) scale(1.06)}
+.promo .video-play svg{width:30px;height:30px;padding:0;background:none}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Aller au contenu</a>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="https://streammydrone.com/fr/"><img src="../../../img/icon.png" alt="" width="30" height="30">Stream My Drone</a>
+    <nav>
+      <a href="https://streammydrone.com/fr/">Accueil</a>
+      <a href="https://streammydrone.com/fr/blog/">Blog</a>
+      <details class="langmenu">
+        <summary aria-label="Langue"><span aria-hidden="true">🌐</span><span class="langname">Français</span></summary>
+        <div class="sheet"><a href="https://streammydrone.com/blog/dji-rc-2-livestream-no-microphone-fix/" hreflang="en" lang="en">English</a><a href="https://streammydrone.com/tr/blog/dji-rc-2-canli-yayin-mikrofon-hatasi-cozumu/" hreflang="tr" lang="tr">Türkçe</a><a href="https://streammydrone.com/es/blog/dji-rc-2-transmision-en-directo-sin-microfono/" hreflang="es" lang="es">Español</a><a href="https://streammydrone.com/zh/blog/dji-rc-2-livestream-no-microphone-fix/" hreflang="zh-Hans" lang="zh-Hans">中文（简体）</a><a href="https://streammydrone.com/zh-Hant/blog/dji-rc-2-livestream-no-microphone-fix/" hreflang="zh-Hant" lang="zh-Hant">中文（繁體）</a><a href="https://streammydrone.com/ar/blog/dji-rc-2-livestream-no-microphone-fix/" hreflang="ar" lang="ar">العربية</a><a href="https://streammydrone.com/hi/blog/dji-rc-2-livestream-no-microphone-fix/" hreflang="hi" lang="hi">हिन्दी</a><a href="https://streammydrone.com/pt/blog/dji-rc-2-transmissao-ao-vivo-sem-microfone/" hreflang="pt" lang="pt">Português</a><a href="https://streammydrone.com/ru/blog/dji-rc-2-livestream-no-microphone-fix/" hreflang="ru" lang="ru">Русский</a><a href="https://streammydrone.com/fr/blog/dji-rc-2-diffusion-en-direct-sans-micro/" hreflang="fr" lang="fr" aria-current="true">Français</a><a href="https://streammydrone.com/de/blog/dji-rc-2-livestream-ohne-mikrofon/" hreflang="de" lang="de">Deutsch</a><a href="https://streammydrone.com/ja/blog/dji-rc-2-livestream-no-microphone-fix/" hreflang="ja" lang="ja">日本語</a><a href="https://streammydrone.com/ko/blog/dji-rc-2-livestream-no-microphone-fix/" hreflang="ko" lang="ko">한국어</a><a href="https://streammydrone.com/id/blog/dji-rc-2-live-streaming-tanpa-mikrofon/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="https://streammydrone.com/it/blog/dji-rc-2-diretta-senza-microfono/" hreflang="it" lang="it">Italiano</a></div>
+      </details>
+      <a class="btn small primary" href="#app"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M7 1h10a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2Zm0 3v15h10V4Zm4 16v1.5h2V20Z"/></svg>Obtenir l'app</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<article class="wrap article">
+<nav class="crumbs" aria-label="Fil d'Ariane"><a href="https://streammydrone.com/fr/">Accueil</a><span aria-hidden="true">›</span><a href="https://streammydrone.com/fr/blog/">Blog</a><span aria-hidden="true">›</span><span aria-current="page">Micro DJI RC 2</span></nav>
+<h1>La DJI RC 2 refuse le direct sans micro ? Corriger “No built-in mic in current device”</h1>
+<p class="byline">Par <a href="https://github.com/tanerozel" rel="author">Taner Özel</a> · Mis à jour <time datetime="2026-11-05">5 novembre 2026</time></p>
+<p class="answer">Depuis DJI Fly 1.16.0, la <strong>DJI RC 2</strong>, la RC Pro et la DJI Smart Controller ne lancent plus de direct RTMP tant qu'aucun micro n'est branché ; elles affichent <em>“No built-in mic in current device”</em>. Vous pouvez brancher un micro ou un casque USB-C sur la radiocommande, ou utiliser <strong>Stream My Drone</strong> sur un téléphone Android comme <strong>micro Bluetooth virtuel</strong> : DJI Fly voit un micro et lance le direct, sans rien acheter de plus.</p>
+
+<aside class="promo" id="app" aria-labelledby="app-title">
+<div class="promo-text">
+<span class="promo-badge"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M7 1h10a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2Zm0 3v15h10V4Zm4 16v1.5h2V20Z"/></svg>Android et iPhone</span>
+<h2 id="app-title">Passez en direct depuis votre téléphone, sans ordinateur</h2>
+<p>Stream My Drone fonctionne sur un téléphone à côté de votre radiocommande : il reçoit l'image de DJI Fly en Wi-Fi et l'envoie directement vers vos plateformes. Ni ordinateur portable, ni câbles, ni serveur.</p>
+<ul class="promo-points"><li>Saisissez une adresse dans DJI Fly et l'image apparaît en quelques secondes</li><li>YouTube, Instagram, Facebook, TikTok, Twitch, Kick et RTMP personnalisé, plusieurs à la fois</li><li>Les destinations se reconnectent seules après une courte coupure réseau</li></ul>
+<div class="cta store-buttons"><a class="btn store" href="https://play.google.com/store/apps/details?id=com.streammydrone.app" data-store="play"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="#34a853" d="m3 2 11 10L3 22Z"/><path fill="#4285f4" d="m3 2 14 8-3 2Z"/><path fill="#fbbc04" d="m17 10 4 2-4 2-3-2Z"/><path fill="#ea4335" d="m3 22 11-10 3 2Z"/></svg>Disponible sur Google Play</a><a class="btn store" href="https://apps.apple.com/us/app/stream-my-drone/id6818233095" data-store="ios"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>Télécharger sur l’App Store</a></div>
+<p class="promo-price">Achat unique · sans abonnement</p>
+</div>
+<div class="promo-phones"><div class="video-frame"><a class="video" href="https://www.youtube.com/shorts/sF1sWzlpCiA" data-video="sF1sWzlpCiA" data-title="DJI Live Stream : diffuser son drone en direct sur YouTube sans PC (DJI RC 2 + DJI Fly RTMP)"><img src="../../../img/video/fr.webp" alt="Une DJI RC 2 et un téléphone avec Stream My Drone, tirés de la vidéo d'installation." width="540" height="960" loading="lazy"><span class="video-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7Z"/></svg>Voir l'installation en 1 minute</span></a></div></div>
+</aside>
+
+<div class="keyfacts">
+<h2 id="summary">En bref</h2>
+<ul><li>Le message apparaît parce que la RC 2, la RC Pro et la DJI Smart Controller n'ont pas de micro intégré, et DJI Fly 1.16.0 ou plus récent en exige un avant le direct RTMP.</li><li>Appuyer sur OK ne le contourne pas : DJI Fly revient à l'écran RTMP et le direct ne démarre pas.</li><li>La solution de DJI est un micro filaire : micro ou casque USB-C, adaptateur USB-C vers 3,5 mm ou récepteur DJI Mic sur le port USB-C du bas.</li><li>Sans matériel en plus, Stream My Drone pour Android se connecte à la RC 2 comme micro Bluetooth et le message disparaît. Il n'envoie aucun son ; activez le micro du téléphone dans l'app pour parler pendant le direct.</li><li>Le micro virtuel nécessite un téléphone Android. iOS ne permet pas à une app de jouer le rôle de micro Bluetooth ; avec un iPhone, il faut toujours un micro filaire.</li></ul>
+</div>
+
+<nav class="toc" aria-labelledby="toc-title"><strong id="toc-title">Sur cette page</strong><ol><li><a href="#error">Que signifie “No built-in mic in current device” ?</a></li><li><a href="#why">Pourquoi DJI Fly exige un micro pour le direct</a></li><li><a href="#options">Les moyens de faire disparaître le message du micro</a></li><li><a href="#virtual-microphone">La solution du micro Bluetooth virtuel (Android)</a></li><li><a href="#sound">Le direct aura-t-il du son ?</a></li><li><a href="#other-setups">iPhone, RC Pro et autres configurations</a></li><li><a href="#troubleshooting">Dépannage</a></li><li><a href="#sources">Sources</a></li><li><a href="#faq">Questions</a></li></ol></nav>
+
+<h2 id="error">Que signifie “No built-in mic in current device” ?</h2>
+<p>Quand vous appuyez sur Start Livestream dans l'écran RTMP de DJI Fly avec une RC 2, une fenêtre indique que l'appareil n'a pas de micro intégré et demande de brancher d'abord un micro filaire. Les pilotes du <a href="https://forum.dji.com/thread-331633-1-1.html">forum DJI</a> décrivent la même chose : OK ne fait que revenir aux champs adresse RTMP et clé de stream. Cela a commencé avec DJI Fly 1.16.0 ; les versions précédentes diffusaient la vidéo sans son. Le <a href="https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34">guide de diffusion de DJI Fly</a> confirme qu'un micro doit être branché à partir de cette version.</p>
+<div class="table"><table><thead><tr><th scope="col">Radiocommande</th><th scope="col">Micro intégré</th><th scope="col">Direct RTMP avec DJI Fly 1.16+</th></tr></thead><tbody><tr><th scope="row">DJI RC 2</th><td>Non (<a href="https://www.dji.com/rc-2/faq">FAQ DJI</a>)</td><td>Exige un micro branché</td></tr><tr><th scope="row">DJI RC Pro</th><td>Non</td><td>Exige un micro branché</td></tr><tr><th scope="row">DJI Smart Controller</th><td>Non</td><td>Exige un micro branché</td></tr><tr><th scope="row">DJI RC Pro 2</th><td>Oui</td><td>Pas concernée par ce message</td></tr><tr><th scope="row">DJI RC-N2 ou RC-N3 avec un téléphone</th><td>Le micro du téléphone</td><td>Pas concernée par ce message</td></tr></tbody></table></div>
+<p class="callout">Quel que soit le micro, la RC 2 diffuse au maximum en 720p. Cette limite n'a rien à voir avec le message du micro.</p>
+
+<h2 id="why">Pourquoi DJI Fly exige un micro pour le direct</h2>
+<p>Le support DJI a expliqué ce changement sur le <a href="https://forum.dji.com/thread-331633-1-1.html">forum DJI</a> en mars 2025 : un flux RTMP sans piste audio donne moins de repères temporels au lecteur, ce qui peut ajouter du retard et nuire à la synchronisation son-image. Depuis DJI Fly 1.16.0, une radiocommande sans micro intégré doit donc en avoir un de branché, et le flux contient toujours une piste audio.</p>
+<p>Un <a href="https://forum.dji.com/thread-309239-1-1.html">signalement de 2024 sur le forum</a> va dans le même sens : un direct RC 2 sans micro provoquait des erreurs de timecode sur les plateformes, qui disparaissaient une fois un micro USB-C branché. L'exigence porte sur la piste audio, pas sur le fait de vouloir parler.</p>
+<div class="gallery">
+<p class="gallery-h"><strong>Sur votre téléphone</strong><span>De la connexion à DJI Fly jusqu'au direct sur plusieurs plateformes, sur un seul écran.</span></p>
+<div class="gallery-row"><img src="../../../img/app/fr/connect.webp" alt="Connexion du drone : l'adresse RTMP à saisir dans DJI Fly, avec un bouton de copie." width="540" height="960" loading="lazy" decoding="async"><img src="../../../img/app/fr/live.webp" alt="Stream My Drone en direct sur un téléphone : l'image du drone, le débit et les plateformes actives." width="540" height="960" loading="lazy" decoding="async"><img src="../../../img/app/fr/preview.webp" alt="L'image du drone avec sa résolution et son débit, vérifiée avant le direct." width="540" height="960" loading="lazy" decoding="async"><img src="../../../img/app/fr/multistream.webp" alt="Direct sur plusieurs plateformes à la fois avec un seul titre." width="540" height="960" loading="lazy" decoding="async"></div>
+<div class="cta store-buttons"><a class="btn store" href="https://play.google.com/store/apps/details?id=com.streammydrone.app" data-store="play"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="#34a853" d="m3 2 11 10L3 22Z"/><path fill="#4285f4" d="m3 2 14 8-3 2Z"/><path fill="#fbbc04" d="m17 10 4 2-4 2-3-2Z"/><path fill="#ea4335" d="m3 22 11-10 3 2Z"/></svg>Disponible sur Google Play</a><a class="btn store" href="https://apps.apple.com/us/app/stream-my-drone/id6818233095" data-store="ios"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>Télécharger sur l’App Store</a></div>
+</div>
+
+<h2 id="options">Les moyens de faire disparaître le message du micro</h2>
+<div class="table"><table><thead><tr><th scope="col">Option</th><th scope="col">Ce qu'il faut</th><th scope="col">Résultat</th></tr></thead><tbody><tr><th scope="row">Micro ou casque USB-C</th><td>Un micro sur le port USB-C du bas de la RC 2</td><td>La voie recommandée par DJI ; votre voix part de la radiocommande</td></tr><tr><th scope="row">Adaptateur USB-C vers 3,5 mm</th><td>L'adaptateur et un casque avec micro</td><td>Même résultat ; DJI l'indique comme compatible</td></tr><tr><th scope="row">Récepteur DJI Mic ou Mic 2</th><td>Le récepteur sur le port USB-C</td><td>Fonctionne avec un meilleur son ; l'option la plus chère</td></tr><tr><th scope="row">Écouteurs Bluetooth (AirPods)</th><td>Écouteurs appairés à la radiocommande</td><td>Retours mitigés : certains pilotes diffusent, d'autres voient “Livestream error” après quelques secondes ou n'arrivent pas à les connecter</td></tr><tr><th scope="row">Micro virtuel de Stream My Drone</th><td>Un téléphone Android avec Stream My Drone</td><td>Supprime le message sans matériel ; aucun son ne part de la radiocommande</td></tr></tbody></table></div>
+<p>Si vous recevez déjà le flux du drone sur un téléphone avec Stream My Drone, la dernière option utilise le téléphone que vous avez déjà en main, et le port USB-C de la radiocommande reste libre.</p>
+
+<h2 id="virtual-microphone">La solution du micro Bluetooth virtuel (Android)</h2>
+<ol class="steps"><li><div><strong>Installez Stream My Drone sur un téléphone Android</strong><span>Téléchargez-le sur <a href="https://play.google.com/store/apps/details?id=com.streammydrone.app">Google Play</a> (Android 9 ou plus récent ; le micro virtuel demande la version 1.2 de l'app ou plus). Le même téléphone reçoit le flux de DJI Fly et l'envoie vers vos plateformes.</span></div></li><li><div><strong>Appairez le téléphone avec la RC 2 une fois</strong><span>Activez le Bluetooth sur la RC 2 et sur le téléphone, puis appairez-les depuis les réglages Bluetooth du téléphone. Sur la RC 2 que nous avons testée, la radiocommande apparaissait sous le nom <code>QCOM-BTD</code>.</span></div></li><li><div><strong>Connectez-vous depuis Stream My Drone</strong><span>Dans l'app, ouvrez ••• → Microphone Bluetooth virtuel, autorisez Appareils à proximité, choisissez la RC 2 et touchez Se connecter à RC 2. Une fois connecté, une étiquette micro apparaît sur l'écran principal. La connexion reste ouverte jusqu'à ce que vous touchiez Déconnecter.</span></div></li><li><div><strong>Lancez le direct dans DJI Fly</strong><span>Connectez la RC 2 au point d'accès du téléphone ou au même Wi-Fi. Dans DJI Fly, ouvrez GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, saisissez l'adresse affichée par Stream My Drone et touchez Start Livestream. Le message du micro n'apparaît plus. Détails du menu : <a href="../dji-fly-rtmp-reglages-diffusion-en-direct/">réglages RTMP de DJI Fly</a>.</span></div></li><li><div><strong>Vérifiez l'image et passez en direct</strong><span>L'image du drone apparaît dans Stream My Drone. Choisissez vos plateformes et touchez Passer en direct ; YouTube se connecte en une touche. Le <a href="../diffuser-un-drone-dji-en-direct-sur-youtube/">guide YouTube</a> détaille le côté plateforme.</span></div></li></ol>
+<figure class="post-video"><div class="video-frame"><a class="video" href="https://www.youtube.com/shorts/sF1sWzlpCiA" data-video="sF1sWzlpCiA" data-title="DJI Live Stream : diffuser son drone en direct sur YouTube sans PC (DJI RC 2 + DJI Fly RTMP)"><img src="../../../img/video/fr.webp" alt="Une DJI RC 2 et un téléphone avec Stream My Drone, tirés de la vidéo d'installation." width="540" height="960" loading="lazy"><span class="video-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7Z"/></svg>Voir l'installation en 1 minute</span></a></div><figcaption>L'installation en 1 minute avec une DJI RC 2 et un téléphone Android, étape du micro virtuel comprise.</figcaption></figure>
+<p class="callout">Testé avec une DJI RC 2 et un Samsung Galaxy S23 en octobre et novembre 2026. DJI peut modifier cette vérification dans une future version de DJI Fly ; si le message revient après une mise à jour, reconnectez-vous depuis Stream My Drone avant de lancer le direct.</p>
+
+<h2 id="sound">Le direct aura-t-il du son ?</h2>
+<p>Le micro virtuel sert seulement à passer la vérification de DJI Fly. Il ne transporte aucun son : la radiocommande envoie du silence. Pour parler à vos spectateurs, touchez le bouton micro à côté de Passer en direct dans Stream My Drone : le micro du téléphone remplace le son de DJI Fly sur toutes les plateformes jusqu'à ce que vous le coupiez. Laissez-le éteint pour un direct muet.</p>
+
+<h2 id="other-setups">iPhone, RC Pro et autres configurations</h2>
+<ul class="plain"><li><strong>iPhone :</strong> iOS ne permet pas à une app de présenter l'iPhone comme micro Bluetooth à un autre appareil ; le micro virtuel est donc réservé à Android. Avec un iPhone, branchez un micro USB-C sur la RC 2 et utilisez <a href="https://apps.apple.com/us/app/stream-my-drone/id6818233095">Stream My Drone pour iPhone</a> pour recevoir et relayer le flux.</li><li><strong>DJI RC Pro et Smart Controller :</strong> elles affichent le même message, mais nous n'avons pas encore testé le micro virtuel avec elles. Un micro USB-C reste le choix sûr.</li><li><strong>RC-N2 et RC-N3 :</strong> DJI Fly tourne sur un téléphone qui a son propre micro, ce message n'est donc pas le problème. Gardez DJI Fly sur ce téléphone et recevez le flux sur un second téléphone ou un ordinateur.</li><li><strong>Sans second téléphone :</strong> diffusez directement de DJI Fly vers la plateforme avec un micro USB-C sur la RC 2.</li></ul>
+
+<h2 id="troubleshooting">Dépannage</h2>
+<ul class="plain"><li><strong>La RC 2 n'est pas dans la liste :</strong> appairez-la d'abord dans les réglages Bluetooth du téléphone. L'app n'affiche que les appareils appairés ; elle ne recherche pas.</li><li><strong>Le message apparaît toujours :</strong> attendez que l'app indique la connexion comme connectée, puis quittez et rouvrez l'écran RTMP de DJI Fly avant de toucher Start Livestream.</li><li><strong>“Livestream error” après quelques secondes :</strong> c'est un autre problème que le message du micro. Vérifiez que la RC 2 et le téléphone sont sur le même réseau et que l'adresse RTMP correspond à celle de l'app.</li><li><strong>La connexion se coupe :</strong> l'app la garde ouverte en arrière-plan avec une notification. Si le Bluetooth a été coupé, reconnectez-vous depuis l'app.</li><li><strong>Image dans l'app, rien sur la plateforme :</strong> le flux local fonctionne. Vérifiez la connexion à la plateforme ou la clé de stream dans Stream My Drone.</li></ul>
+
+<h2 id="sources">Sources</h2>
+<p>Exigence du micro et limite 720p de la RC 2 : <a href="https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34">DJI Fly App Livestream Operation Guides</a>. Pas de micro dans la RC 2 : <a href="https://www.dji.com/rc-2/faq">FAQ DJI RC 2</a>. Témoignages et explication de DJI sur le forum DJI : <a href="https://forum.dji.com/thread-331633-1-1.html">Not allowing me to livestream without a connected mic</a> et <a href="https://forum.dji.com/thread-309239-1-1.html">RC2 controller corrupt rtmp streaming without microphone</a>. Vérifié le 5 novembre 2026.</p>
+<p>Guides liés : <a href="../dji-fly-rtmp-reglages-diffusion-en-direct/">réglages RTMP de DJI Fly</a> et <a href="../diffuser-un-drone-dji-sur-plusieurs-plateformes-a-la-fois/">diffuser sur plusieurs plateformes à la fois</a>.</p>
+
+<h2 id="faq">Questions</h2>
+<div class="faq">
+<details><summary>Peut-on faire un direct avec une DJI RC 2 sans micro ?</summary><p>Pas avec DJI Fly 1.16.0 ou plus récent : l'app demande un micro et ne lance pas le flux RTMP tant qu'aucun n'est branché. Un micro ou un casque USB-C fonctionne, et Stream My Drone pour Android peut servir de micro Bluetooth virtuel, sans matériel en plus.</p></details>
+<details><summary>Pourquoi DJI Fly affiche-t-il “No built-in mic in current device” ?</summary><p>La RC 2, la RC Pro et la DJI Smart Controller n'ont pas de micro. Depuis la version 1.16.0, DJI Fly exige une source audio avant le direct RTMP, car selon DJI un flux sans piste audio peut souffrir de retard et de problèmes de synchronisation.</p></details>
+<details><summary>Les AirPods corrigent-ils l'erreur de micro de la DJI RC 2 ?</summary><p>Parfois. Des pilotes du forum DJI racontent qu'appairer des AirPods fait disparaître le message, mais certains reçoivent ensuite “Livestream error” au bout de quelques secondes et d'autres n'arrivent pas à connecter leurs écouteurs. L'option prise en charge par DJI est un micro USB-C filaire.</p></details>
+<details><summary>Le micro virtuel de Stream My Drone envoie-t-il ma voix ?</summary><p>Non. Il fait seulement voir un micro à DJI Fly. Pour commenter, activez le bouton micro du téléphone dans Stream My Drone ; il remplace le son de DJI Fly par votre voix dans le direct.</p></details>
+<details><summary>Le micro virtuel fonctionne-t-il sur iPhone ?</summary><p>Non, il faut Android. iOS n'autorise pas une app à se comporter comme un micro Bluetooth pour un autre appareil. Sur iPhone, vous pouvez toujours recevoir et relayer le flux avec Stream My Drone, avec un micro filaire sur la RC 2.</p></details>
+<details><summary>Quelle version de DJI Fly a ajouté l'exigence du micro ?</summary><p>DJI Fly 1.16.0. Le guide de diffusion de DJI indique qu'à partir de cette version, la RC 2, la RC Pro et la DJI Smart Controller ont besoin d'un micro branché pour lancer un direct.</p></details>
+</div>
+
+<div class="cta-box promo-end">
+<div class="promo-text">
+<h2>Diffusez votre drone en direct depuis votre téléphone</h2>
+<p>Stream My Drone pour Android et iPhone reçoit l'image de DJI Fly et l'envoie vers YouTube, Instagram, Facebook, TikTok, Twitch, Kick ou votre propre serveur, à plusieurs en même temps. Achat unique, sans abonnement.</p>
+<div class="cta store-buttons"><a class="btn store" href="https://play.google.com/store/apps/details?id=com.streammydrone.app" data-store="play"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="#34a853" d="m3 2 11 10L3 22Z"/><path fill="#4285f4" d="m3 2 14 8-3 2Z"/><path fill="#fbbc04" d="m17 10 4 2-4 2-3-2Z"/><path fill="#ea4335" d="m3 22 11-10 3 2Z"/></svg>Disponible sur Google Play</a><a class="btn store" href="https://apps.apple.com/us/app/stream-my-drone/id6818233095" data-store="ios"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>Télécharger sur l’App Store</a></div>
+<p class="promo-more"><a href="https://github.com/tanerozel/dji-live-bridge/releases/latest">App Mac et Windows gratuite →</a><a href="https://streammydrone.com/fr/">Comment fonctionne l'application →</a></p>
+</div>
+<div class="promo-phones"><img src="../../../img/app/fr/reconnect.webp" alt="Des destinations qui se reconnectent seules après une courte coupure réseau." width="540" height="960" loading="lazy" decoding="async"></div>
+</div>
+
+<h2 id="related">Autres guides</h2>
+<div class="grid">
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/dji-flip-diffusion-en-direct/"><h3>Comment diffuser un DJI Flip en direct</h3><p>Diffusez le DJI Flip en direct avec la RC 2, la RC-N3 ou la RC-N2 : RTMP sur téléphone et ordinateur, contrôle à la paume ou par téléphone, cadrage vertical et plateformes.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/dji-lito-x1-diffusion-en-direct/"><h3>Comment diffuser un DJI Lito X1 en direct</h3><p>Diffusez un DJI Lito X1 en direct avec la RC 2, la RC-N3 ou la RC-N2 : réglages RTMP de DJI Fly, méthodes téléphone et ordinateur, plateformes et dépannage concret.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/dji-lito-1-diffusion-en-direct/"><h3>Comment diffuser un DJI Lito 1 en direct</h3><p>Diffusez un DJI Lito 1 en direct avec la RC 2, la RC-N3 ou la RC-N2 : réglages RTMP de DJI Fly, méthodes téléphone et ordinateur, plateformes et dépannage concret.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/dji-air-3s-diffusion-en-direct/"><h3>Comment diffuser un DJI Air 3S en direct</h3><p>Diffusez un DJI Air 3S en direct sur YouTube, Instagram ou Facebook : choix de la radiocommande, RTMP de DJI Fly vers un téléphone ou un ordinateur et contrôle de l'image.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/dji-air-3-diffusion-en-direct/"><h3>Comment diffuser un DJI Air 3 en direct</h3><p>Diffusez un DJI Air 3 en direct sur YouTube, Instagram ou Facebook : choix de la radiocommande, RTMP de DJI Fly vers un téléphone ou un ordinateur et contrôle de l'image.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/dji-mavic-4-pro-diffusion-en-direct/"><h3>Comment diffuser un DJI Mavic 4 Pro en direct</h3><p>Diffusez votre DJI Mavic 4 Pro en direct avec la RC 2 ou la RC Pro 2 vers un téléphone ou un ordinateur : RTMP de DJI Fly, micro, limite de 720p et plateformes.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/dji-mavic-3-diffusion-en-direct/"><h3>Comment diffuser un DJI Mavic 3, Classic ou Pro en direct</h3><p>Diffusez un DJI Mavic 3, Classic ou Pro en direct avec la RC-N1 ou la RC Pro : pourquoi la DJI RC ne diffuse pas, réception sur téléphone, RTMP sur ordinateur et qualité.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/dji-mini-3-pro-diffusion-en-direct/"><h3>Comment diffuser un DJI Mini 3 Pro en direct</h3><p>Diffusez un DJI Mini 3 Pro en direct avec la RC-N1, DJI Fly sur votre téléphone et Stream My Drone sur ordinateur. Pourquoi la DJI RC d'origine ne permet pas ce RTMP.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/dji-mini-3-diffusion-en-direct/"><h3>Comment diffuser un DJI Mini 3 en direct</h3><p>Configurez la diffusion en direct du DJI Mini 3 avec la RC-N1 et DJI Fly vers Stream My Drone sur ordinateur : limites de la DJI RC, retour vidéo 720p et publication.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/dji-mini-5-pro-diffusion-en-direct/"><h3>Comment diffuser un DJI Mini 5 Pro en direct</h3><p>Diffusez un DJI Mini 5 Pro en direct avec la RC 2 ou la RC-N3 : réglez le RTMP de DJI Fly, sur téléphone ou ordinateur, et envoyez le flux vers YouTube, Instagram ou Facebook.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/dji-mini-4-pro-diffusion-en-direct/"><h3>Comment diffuser un DJI Mini 4 Pro en direct</h3><p>Diffusez un DJI Mini 4 Pro en direct avec la RC 2 ou la RC-N2 : configuration sur téléphone et ordinateur, réglages RTMP de DJI Fly, microphone requis et vérifications.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/compter-les-animaux-avec-un-drone-dji-detection-ia/"><h3>Repérez et comptez les animaux en direct depuis votre drone DJI</h3><p>Stream My Drone repère chèvres, moutons, vaches, chevaux, ânes et volailles dans l'image en direct de votre drone, les marque dans le live et les compte, sur votre ordinateur.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/dji-fly-rtmp-reglages-diffusion-en-direct/"><h3>Direct RTMP avec DJI Fly : la configuration complète</h3><p>Configurer le direct RTMP dans DJI Fly : où trouver le réglage, quelle adresse saisir, comment relier radiocommande et ordinateur au même réseau, et que faire en cas de problème.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/pourquoi-dji-fly-ne-diffuse-pas-sur-instagram/"><h3>Pourquoi DJI Fly ne peut pas diffuser en direct sur Instagram (et la solution)</h3><p>DJI Fly n'a pas d'option Instagram et son client RTMP ne gère pas le RTMPS chiffré qu'exige Instagram. Pourquoi, et comment passer quand même en live avec un drone DJI.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/utiliser-son-drone-dji-comme-webcam/"><h3>Transformez votre drone DJI en webcam pour votre ordinateur</h3><p>Transformez votre drone DJI en webcam pour TikTok LIVE Studio, OBS, Zoom, Google Meet ou Teams grâce à la caméra virtuelle de Stream My Drone. Installation, idées et dépannage.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/dji-neo-diffusion-en-direct/"><h3>Comment diffuser un DJI Neo en direct</h3><p>Comment diffuser un DJI Neo en direct : quel mode de pilotage fonctionne (téléphone, RC-N3, casque), le RTMP dans DJI Fly, et le live sur Instagram, TikTok ou YouTube.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/dji-avata-2-diffusion-en-direct/"><h3>Comment diffuser un DJI Avata 2 en direct</h3><p>Comment diffuser en direct les images FPV d'un DJI Avata 2 : partagez la vue des Goggles 3 avec DJI Fly sur votre téléphone, diffusez en RTMP et passez en live sur Instagram ou TikTok.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/dji-osmo-direct-instagram-tiktok/"><h3>Diffusez votre caméra DJI Osmo en direct sur Instagram, TikTok et ailleurs</h3><p>DJI Mimo peut diffuser les caméras Osmo Action, Osmo Pocket et Osmo 360 en RTMP. Envoyez ce flux à Stream My Drone pour passer en live sur Instagram, TikTok et YouTube à la fois.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/osmo-pocket-3-diffusion-en-direct/"><h3>Comment diffuser une Osmo Pocket 3 en direct sur Instagram et TikTok</h3><p>Comment diffuser une DJI Osmo Pocket 3 en direct en RTMP depuis DJI Mimo vers Instagram, TikTok et YouTube à la fois, et l'utiliser comme webcam sans fil avec Stream My Drone.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/osmo-action-diffusion-en-direct/"><h3>Comment diffuser une caméra Osmo Action en direct sur Instagram et TikTok</h3><p>Diffusez une DJI Osmo Action 6, 5 Pro, 4 ou 3 en direct en RTMP depuis DJI Mimo vers Instagram, TikTok, YouTube et Twitch à la fois avec Stream My Drone. Configuration et réglages.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/faire-un-live-tiktok-avec-un-drone-dji/"><h3>Comment passer en live sur TikTok avec un drone DJI</h3><p>Diffusez un drone DJI en direct sur TikTok depuis DJI Fly : avec une clé de stream TikTok, ou sans clé grâce à TikTok LIVE Studio et une caméra virtuelle. Réglages et dépannage.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/faire-un-live-instagram-avec-un-drone-dji/"><h3>Comment passer en direct sur Instagram avec un drone DJI</h3><p>Passez en direct sur Instagram avec un drone DJI : obtenez l'URL et la clé de stream sur instagram.com, envoyez le RTMP de DJI Fly via Stream My Drone, puis lancez le live.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/diffuser-un-drone-dji-en-direct-sur-youtube/"><h3>Comment diffuser un drone DJI en direct sur YouTube</h3><p>Diffusez un drone DJI en direct sur YouTube : activez le direct, copiez la clé de flux dans YouTube Studio et envoyez le RTMP de DJI Fly via Stream My Drone. Réglages et conseils.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/faire-un-live-facebook-avec-un-drone-dji/"><h3>Comment passer en direct sur Facebook avec un drone DJI</h3><p>Diffusez un drone DJI en direct sur Facebook : obtenez l'URL du serveur RTMPS et la clé de flux dans Live Producer, envoyez le flux de DJI Fly via Stream My Drone et lancez le live.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/diffuser-un-drone-dji-sur-twitch/"><h3>Comment streamer un drone DJI sur Twitch</h3><p>Diffusez un drone DJI en direct sur Twitch : copiez votre clé de stream dans le tableau de bord des créateurs, ajoutez Twitch en RTMP personnalisé dans Stream My Drone et lancez-vous.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/diffuser-un-drone-dji-sur-kick/"><h3>Comment streamer un drone DJI sur Kick</h3><p>Diffusez un drone DJI en direct sur Kick : copiez l'URL et la clé de stream depuis le tableau de bord Kick, ajoutez-les en RTMP personnalisé dans Stream My Drone et lancez le live.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/diffuser-un-drone-dji-sur-plusieurs-plateformes-a-la-fois/"><h3>Diffuser un drone DJI sur plusieurs plateformes à la fois</h3><p>Envoyez un même direct de drone DJI vers TikTok, Instagram, YouTube, Facebook, Twitch et Kick en même temps avec Stream My Drone : gratuit, local, sans service de rediffusion.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/stream-my-drone-ou-restream/"><h3>Stream My Drone ou Restream : lequel choisir pour votre drone ?</h3><p>Diffuser un drone DJI sur plusieurs plateformes : relais cloud Restream ou Stream My Drone sur votre ordinateur ? Coût, filigrane, Instagram, vidéo verticale et qui l'emporte quand.</p></a>
+      <a class="card post-card" href="https://streammydrone.com/fr/blog/drone-dji-vers-obs-sans-nginx/"><h3>Diffuser un drone DJI sans configurer NGINX ni OBS</h3><p>La méthode habituelle pour faire entrer DJI Fly dans OBS passe par un serveur RTMP NGINX, un fichier de config et une source média. Ce que cela implique, et comment s'en passer.</p></a>
+    </div>
+</article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <strong style="color:var(--text)">Taner Özel</strong> — développeur et mainteneur
+    <div class="foot-links">
+      <a href="mailto:tanerozel47@gmail.com">tanerozel47@gmail.com</a>
+      <a href="https://github.com/tanerozel">GitHub</a>
+      <a href="https://www.linkedin.com/in/tanerozel">LinkedIn</a>
+      <a href="https://github.com/tanerozel/dji-live-bridge/issues">Signaler un problème</a>
+      <a href="https://streammydrone.com/privacy-policy.html">Politique de confidentialité</a>
+      <a href="https://streammydrone.com/llms.txt">llms.txt</a>
+    </div>
+    <p class="note">Publié sous licence MIT ; le FFmpeg intégré est sous LGPL, compilé depuis les sources sans composant GPL. Stream My Drone est un projet indépendant, sans lien avec DJI, Instagram, TikTok ni Apple. DJI, Instagram et TikTok sont des marques de leurs propriétaires respectifs. Google Play est une marque de Google LLC.</p>
+  </div>
+</footer>
+
+<div class="appbar">
+<img src="../../../img/icon.png" alt="" width="40" height="40">
+<p><strong>Stream My Drone</strong><span>Le direct depuis votre téléphone</span></p>
+<a class="btn primary small" href="#app" data-store="auto">Obtenir l'app</a>
+</div>
+<script>(function(){
+var u=navigator.userAgent,s=/android/i.test(u)?"play":/iphone|ipad|ipod/i.test(u)||(/macintosh/i.test(u)&&navigator.maxTouchPoints>1)?"ios":"";
+var h={play:"https://play.google.com/store/apps/details?id=com.streammydrone.app",ios:"https://apps.apple.com/us/app/stream-my-drone/id6818233095"};
+var ev=function(n,p){if(window.gtag)gtag("event",n,p)};
+if(s){document.querySelectorAll('a[data-store="auto"]').forEach(function(a){a.href=h[s]});document.documentElement.classList.add("on-"+s)}
+document.querySelectorAll("a[data-store]").forEach(function(a){a.addEventListener("click",function(){ev("store_click",{store:a.href.indexOf("apple.com")>0?"ios":a.href.indexOf("google.com")>0?"play":"page"})})});
+document.querySelectorAll("a.video[data-video]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();var f=document.createElement("iframe");f.src="https://www.youtube-nocookie.com/embed/"+a.dataset.video+"?autoplay=1&playsinline=1&rel=0";f.title=a.dataset.title;f.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";f.allowFullscreen=true;a.replaceWith(f);ev("setup_video_play",{video_id:a.dataset.video})})});
+})();</script>
+
+</body>
+</html>

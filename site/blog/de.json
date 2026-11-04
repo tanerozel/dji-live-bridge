@@ -52,5 +52,9 @@
       "preview": "Das Drohnenbild mit Auflösung und Bitrate, vor dem Livegang geprüft.",
       "reconnect": "Ziele, die sich nach einem kurzen Netzabbruch von selbst neu verbinden."
     }
+  },
+  "micCallout": {
+    "text": "DJI Fly verlangt an Ihrer RC 2 ein Mikrofon und startet den Stream nicht?",
+    "link": "So geht es ohne Mikrofonkauf"
   }
 }

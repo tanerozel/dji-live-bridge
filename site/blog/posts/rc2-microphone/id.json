@@ -1,0 +1,237 @@
+{
+  "slug": "dji-rc-2-live-streaming-tanpa-mikrofon",
+  "platform": "Mikrofon DJI RC 2",
+  "title": "Error “No built-in mic” DJI RC 2: live streaming tanpa mikrofon",
+  "description": "DJI Fly 1.16 tidak mau memulai live RC 2 tanpa mikrofon. Penyebabnya, apa yang berhasil (mikrofon USB-C, AirPods) dan solusi tanpa perangkat tambahan dengan ponsel Android.",
+  "h1": "DJI RC 2 tidak bisa live tanpa mikrofon? Cara mengatasi “No built-in mic in current device”",
+  "lead": "Sejak DJI Fly 1.16.0, <strong>DJI RC 2</strong>, RC Pro, dan DJI Smart Controller tidak mau memulai live streaming RTMP sebelum mikrofon tersambung; yang muncul justru <em>“No built-in mic in current device”</em>. Anda bisa memasang mikrofon atau headset USB-C ke remote, atau memakai <strong>Stream My Drone</strong> di ponsel Android sebagai <strong>mikrofon Bluetooth virtual</strong>: DJI Fly mengenali mikrofon dan memulai siaran, tanpa perlu membeli apa pun.",
+  "published": "2026-11-05",
+  "updated": "2026-11-05",
+  "summary": [
+    "Pesan ini muncul karena RC 2, RC Pro, dan DJI Smart Controller tidak punya mikrofon bawaan, dan DJI Fly 1.16.0 ke atas mewajibkan mikrofon sebelum siaran RTMP.",
+    "Menekan OK tidak melewatinya: DJI Fly kembali ke layar RTMP dan siaran tidak dimulai.",
+    "Solusi dari DJI adalah mikrofon berkabel: mikrofon atau headset USB-C, adaptor USB-C ke 3,5 mm, atau receiver DJI Mic di port USB-C bawah.",
+    "Tanpa perangkat tambahan, Stream My Drone untuk Android tersambung ke RC 2 sebagai mikrofon Bluetooth dan pesannya hilang. Aplikasi tidak mengirim suara; nyalakan mikrofon ponsel di aplikasi jika ingin berbicara saat siaran.",
+    "Mikrofon virtual memerlukan ponsel Android. iOS tidak mengizinkan aplikasi bertindak sebagai mikrofon Bluetooth, jadi dengan iPhone Anda tetap perlu mikrofon berkabel."
+  ],
+  "sections": [
+    {
+      "id": "error",
+      "h2": "Arti “No built-in mic in current device”",
+      "blocks": [
+        {
+          "p": "Saat Anda mengetuk Start Livestream di layar RTMP DJI Fly dengan RC 2, muncul kotak yang menyatakan perangkat tidak punya mikrofon bawaan dan meminta Anda menyambungkan mikrofon berkabel dulu. Para pilot di <a href=\"https://forum.dji.com/thread-331633-1-1.html\">forum DJI</a> melaporkan hal yang sama: mengetuk OK hanya kembali ke kolom alamat RTMP dan kunci streaming. Ini dimulai sejak DJI Fly 1.16.0; versi sebelumnya bisa menyiarkan video tanpa audio. <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">Panduan live streaming DJI Fly</a> menegaskan bahwa sejak versi itu mikrofon harus tersambung."
+        },
+        {
+          "table": {
+            "head": [
+              "Remote",
+              "Mikrofon bawaan",
+              "Live RTMP di DJI Fly 1.16+"
+            ],
+            "rows": [
+              [
+                "DJI RC 2",
+                "Tidak ada (<a href=\"https://www.dji.com/rc-2/faq\">FAQ DJI</a>)",
+                "Perlu mikrofon tersambung"
+              ],
+              [
+                "DJI RC Pro",
+                "Tidak ada",
+                "Perlu mikrofon tersambung"
+              ],
+              [
+                "DJI Smart Controller",
+                "Tidak ada",
+                "Perlu mikrofon tersambung"
+              ],
+              [
+                "DJI RC Pro 2",
+                "Ada",
+                "Tidak terkena pesan ini"
+              ],
+              [
+                "DJI RC-N2 atau RC-N3 dengan ponsel",
+                "Mikrofon ponsel",
+                "Tidak terkena pesan ini"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "Mikrofon apa pun yang dipakai, RC 2 menyiarkan paling tinggi 720p. Batas itu terpisah dari pesan mikrofon."
+        }
+      ]
+    },
+    {
+      "id": "why",
+      "h2": "Mengapa DJI Fly mewajibkan mikrofon untuk live streaming",
+      "blocks": [
+        {
+          "p": "Tim dukungan DJI menjelaskan perubahan ini di <a href=\"https://forum.dji.com/thread-331633-1-1.html\">forum DJI</a> pada Maret 2025: siaran RTMP tanpa trek audio memberi pemutar lebih sedikit acuan waktu, sehingga bisa menambah jeda dan mengganggu sinkronisasi audio-video. Karena itu, sejak DJI Fly 1.16.0, remote tanpa mikrofon bawaan harus disambungkan ke mikrofon, dan siaran selalu membawa trek audio."
+        },
+        {
+          "p": "Sebuah <a href=\"https://forum.dji.com/thread-309239-1-1.html\">laporan forum dari 2024</a> menunjukkan arah yang sama: siaran RC 2 tanpa mikrofon menimbulkan error timecode di platform streaming, dan error itu hilang setelah mikrofon USB-C dipasang. Syarat ini soal trek audio, bukan soal apakah Anda ingin berbicara."
+        }
+      ]
+    },
+    {
+      "id": "options",
+      "h2": "Cara menghilangkan pesan mikrofon",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Pilihan",
+              "Yang dibutuhkan",
+              "Hasil"
+            ],
+            "rows": [
+              [
+                "Mikrofon atau headset USB-C",
+                "Mikrofon di port USB-C bawah RC 2",
+                "Cara yang disarankan DJI; suara Anda keluar dari remote"
+              ],
+              [
+                "Adaptor USB-C ke 3,5 mm",
+                "Adaptor dan headset bermikrofon",
+                "Hasil sama; DJI menyebutnya didukung"
+              ],
+              [
+                "Receiver DJI Mic atau Mic 2",
+                "Receiver di port USB-C",
+                "Berfungsi dengan suara lebih baik; pilihan termahal"
+              ],
+              [
+                "Earbud Bluetooth (AirPods)",
+                "Earbud yang dipasangkan dengan remote",
+                "Hasil beragam: sebagian pilot bisa siaran, sebagian mendapat “Livestream error” setelah beberapa detik atau tidak bisa menyambungkan"
+              ],
+              [
+                "Mikrofon virtual Stream My Drone",
+                "Ponsel Android dengan Stream My Drone",
+                "Menghilangkan pesan tanpa perangkat tambahan; remote tidak mengirim suara"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "Jika Anda sudah menerima siaran drone di ponsel dengan Stream My Drone, pilihan terakhir memakai ponsel yang memang sudah di tangan Anda, dan port USB-C remote tetap kosong."
+        }
+      ]
+    },
+    {
+      "id": "virtual-microphone",
+      "h2": "Atasi dengan mikrofon Bluetooth virtual (Android)",
+      "howto": {},
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Pasang Stream My Drone di ponsel Android",
+              "d": "Unduh dari <a href=\"https://play.google.com/store/apps/details?id=com.streammydrone.app\">Google Play</a> (Android 9 ke atas; mikrofon virtual memerlukan aplikasi versi 1.2 ke atas). Ponsel yang sama menerima siaran DJI Fly dan mengirimkannya ke platform Anda."
+            },
+            {
+              "t": "Pasangkan ponsel dengan RC 2 sekali",
+              "d": "Nyalakan Bluetooth di RC 2 dan di ponsel, lalu pasangkan keduanya dari pengaturan Bluetooth ponsel. Pada RC 2 yang kami uji, remote muncul dengan nama <code>QCOM-BTD</code>."
+            },
+            {
+              "t": "Sambungkan dari Stream My Drone",
+              "d": "Di aplikasi, buka ••• → Mikrofon Bluetooth virtual, izinkan Perangkat di sekitar, pilih RC 2, lalu ketuk Hubungkan ke RC 2. Setelah tersambung, label mikrofon muncul di layar utama. Koneksi tetap terbuka sampai Anda mengetuk Putuskan."
+            },
+            {
+              "t": "Mulai siaran di DJI Fly",
+              "d": "Sambungkan RC 2 ke hotspot ponsel atau Wi-Fi yang sama. Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP, masukkan alamat yang ditampilkan Stream My Drone, lalu ketuk Start Livestream. Pesan mikrofon tidak muncul lagi. Detail menu: <a href=\"../pengaturan-live-streaming-rtmp-dji-fly/\">pengaturan RTMP DJI Fly</a>."
+            },
+            {
+              "t": "Periksa gambar dan mulai siaran",
+              "d": "Gambar drone muncul di Stream My Drone. Pilih platform Anda lalu ketuk Mulai siaran; YouTube tersambung dengan satu ketukan. <a href=\"../cara-live-streaming-drone-dji-ke-youtube/\">Panduan YouTube</a> menjelaskan sisi platformnya."
+            }
+          ]
+        },
+        {
+          "video": "Penyiapan 1 menit dengan DJI RC 2 dan ponsel Android, termasuk langkah mikrofon virtual."
+        },
+        {
+          "note": "Diuji dengan DJI RC 2 dan Samsung Galaxy S23 pada Oktober dan November 2026. DJI bisa mengubah pemeriksaan ini di versi DJI Fly berikutnya; jika pesan muncul lagi setelah pembaruan, sambungkan ulang dari Stream My Drone sebelum memulai siaran."
+        }
+      ]
+    },
+    {
+      "id": "sound",
+      "h2": "Apakah siaran akan bersuara?",
+      "blocks": [
+        {
+          "p": "Mikrofon virtual hanya memenuhi pemeriksaan DJI Fly. Ia tidak membawa suara, jadi remote mengirim keheningan. Untuk berbicara kepada penonton, ketuk tombol mikrofon di samping Mulai siaran di Stream My Drone: mikrofon ponsel menggantikan audio DJI Fly di semua platform sampai Anda mematikannya. Biarkan mati untuk siaran tanpa suara."
+        }
+      ]
+    },
+    {
+      "id": "other-setups",
+      "h2": "iPhone, RC Pro, dan pengaturan lain",
+      "blocks": [
+        {
+          "list": [
+            "<strong>iPhone:</strong> iOS tidak mengizinkan aplikasi menampilkan iPhone sebagai mikrofon Bluetooth ke perangkat lain, jadi mikrofon virtual hanya untuk Android. Dengan iPhone, pasang mikrofon USB-C ke RC 2 dan gunakan <a href=\"https://apps.apple.com/us/app/stream-my-drone/id6818233095\">Stream My Drone untuk iPhone</a> untuk menerima dan meneruskan siaran.",
+            "<strong>DJI RC Pro dan Smart Controller:</strong> keduanya menampilkan pesan yang sama, tetapi kami belum menguji mikrofon virtual dengan keduanya. Mikrofon USB-C adalah pilihan aman di sana.",
+            "<strong>RC-N2 dan RC-N3:</strong> DJI Fly berjalan di ponsel yang punya mikrofon sendiri, jadi pesan ini bukan masalahnya. Biarkan DJI Fly di ponsel itu dan terima siaran di ponsel kedua atau komputer.",
+            "<strong>Tanpa ponsel kedua:</strong> siarkan langsung dari DJI Fly ke platform dengan mikrofon USB-C di RC 2."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Pemecahan masalah",
+      "blocks": [
+        {
+          "list": [
+            "<strong>RC 2 tidak ada di daftar:</strong> pasangkan dulu di pengaturan Bluetooth ponsel. Aplikasi hanya menampilkan perangkat yang sudah dipasangkan; ia tidak memindai.",
+            "<strong>Pesan masih muncul:</strong> tunggu sampai aplikasi menunjukkan koneksi tersambung, lalu keluar dan buka lagi layar RTMP DJI Fly sebelum mengetuk Start Livestream.",
+            "<strong>“Livestream error” setelah beberapa detik:</strong> ini masalah yang berbeda dari pesan mikrofon. Pastikan RC 2 dan ponsel berada di jaringan yang sama dan alamat RTMP sama dengan yang ada di aplikasi.",
+            "<strong>Koneksi terputus:</strong> aplikasi menjaganya tetap terbuka di latar belakang dengan notifikasi. Jika Bluetooth sempat mati, sambungkan lagi dari aplikasi.",
+            "<strong>Gambar ada di aplikasi, tidak ada di platform:</strong> siaran lokal sudah berjalan. Periksa koneksi platform atau kunci streaming di Stream My Drone."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Sumber",
+      "blocks": [
+        {
+          "p": "Syarat mikrofon dan batas 720p RC 2: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. RC 2 tidak punya mikrofon: <a href=\"https://www.dji.com/rc-2/faq\">FAQ DJI RC 2</a>. Laporan pengguna dan penjelasan DJI di forum DJI: <a href=\"https://forum.dji.com/thread-331633-1-1.html\">Not allowing me to livestream without a connected mic</a> dan <a href=\"https://forum.dji.com/thread-309239-1-1.html\">RC2 controller corrupt rtmp streaming without microphone</a>. Diperiksa pada 5 November 2026."
+        },
+        {
+          "p": "Panduan terkait: <a href=\"../pengaturan-live-streaming-rtmp-dji-fly/\">pengaturan RTMP DJI Fly</a> dan <a href=\"../live-drone-dji-ke-beberapa-platform-sekaligus/\">siaran ke beberapa platform sekaligus</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Bisakah live streaming dari DJI RC 2 tanpa mikrofon?",
+      "a": "Tidak dengan DJI Fly 1.16.0 ke atas: aplikasi meminta mikrofon dan tidak memulai siaran RTMP sebelum ada yang tersambung. Mikrofon atau headset USB-C bisa dipakai, dan Stream My Drone untuk Android bisa berperan sebagai mikrofon Bluetooth virtual, tanpa perangkat tambahan."
+    },
+    {
+      "q": "Mengapa DJI Fly menampilkan “No built-in mic in current device”?",
+      "a": "RC 2, RC Pro, dan DJI Smart Controller tidak punya mikrofon sendiri. Sejak versi 1.16.0, DJI Fly mewajibkan sumber audio sebelum live streaming RTMP, karena menurut DJI siaran tanpa trek audio bisa mengalami jeda dan masalah sinkronisasi."
+    },
+    {
+      "q": "Apakah AirPods mengatasi error mikrofon DJI RC 2?",
+      "a": "Kadang-kadang. Pilot di forum DJI melaporkan bahwa memasangkan AirPods menghilangkan pesan, tetapi sebagian lalu mendapat “Livestream error” beberapa detik kemudian dan sebagian lagi tidak bisa menyambungkan earbud sama sekali. Pilihan yang didukung DJI adalah mikrofon USB-C berkabel."
+    },
+    {
+      "q": "Apakah mikrofon virtual Stream My Drone mengirim suara saya?",
+      "a": "Tidak. Ia hanya membuat DJI Fly mengenali mikrofon. Untuk narasi, nyalakan tombol mikrofon ponsel di Stream My Drone; suara Anda menggantikan audio DJI Fly di siaran."
+    },
+    {
+      "q": "Apakah mikrofon virtual berfungsi di iPhone?",
+      "a": "Tidak, perlu Android. iOS tidak mengizinkan aplikasi bertindak sebagai mikrofon Bluetooth untuk perangkat lain. Pengguna iPhone tetap bisa menerima dan meneruskan siaran dengan Stream My Drone, memakai mikrofon berkabel di RC 2."
+    },
+    {
+      "q": "Versi DJI Fly mana yang menambahkan syarat mikrofon?",
+      "a": "DJI Fly 1.16.0. Panduan live streaming DJI menyebutkan bahwa sejak versi ini RC 2, RC Pro, dan DJI Smart Controller memerlukan mikrofon tersambung untuk memulai live streaming."
+    }
+  ]
+}

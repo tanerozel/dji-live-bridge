@@ -52,5 +52,9 @@
       "preview": "L'immagine del drone con risoluzione e bitrate, controllata prima della diretta.",
       "reconnect": "Destinazioni che si riconnettono da sole dopo una breve interruzione di rete."
     }
+  },
+  "micCallout": {
+    "text": "DJI Fly chiede un microfono sulla tua RC 2 e non avvia la diretta?",
+    "link": "Risolvi senza comprare un microfono"
   }
 }

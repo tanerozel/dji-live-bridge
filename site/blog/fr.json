@@ -52,5 +52,9 @@
       "preview": "L'image du drone avec sa résolution et son débit, vérifiée avant le direct.",
       "reconnect": "Des destinations qui se reconnectent seules après une courte coupure réseau."
     }
+  },
+  "micCallout": {
+    "text": "DJI Fly réclame un micro sur votre RC 2 et ne lance pas le direct ?",
+    "link": "Corrigez-le sans acheter de micro"
   }
 }

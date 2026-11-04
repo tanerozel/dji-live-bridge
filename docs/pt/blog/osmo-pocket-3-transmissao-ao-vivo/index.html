@@ -337,6 +337,16 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
   .hero-app .store-buttons .btn{flex:1 1 200px}
   .video-frame,.hero-shot{width:min(280px,82%)}
 }
+.post-video{margin:24px 0 0;display:grid;justify-items:center;gap:10px}
+.post-video .video-frame{width:min(300px,80%)}
+.post-video figcaption{font-size:14px;color:var(--muted);text-align:center;max-width:46ch}
+.mic-callout{margin-top:18px;font-size:15.5px}
+/* In the narrow promo frame the label would wrap: a round play button only
+   (the text stays for screen readers). */
+.promo .video-play{inset:auto;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;padding:0;
+  border-radius:50%;background:#ff0033;font-size:0;gap:0}
+.promo .video:hover .video-play{transform:translate(-50%,-50%) scale(1.06)}
+.promo .video-play svg{width:30px;height:30px;padding:0;background:none}
 </style>
 </head>
 <body>
@@ -423,6 +433,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 
 <h2 id="related">Mais guias</h2>
 <div class="grid">
+      <a class="card post-card" href="https://streammydrone.com/pt/blog/dji-rc-2-transmissao-ao-vivo-sem-microfone/"><h3>DJI RC 2 não faz live sem microfone? Como resolver “No built-in mic in current device”</h3><p>O DJI Fly 1.16 não inicia a live do RC 2 sem microfone. Por que acontece, o que funciona (microfone USB-C, AirPods) e uma solução sem hardware com um celular Android.</p></a>
       <a class="card post-card" href="https://streammydrone.com/pt/blog/dji-flip-transmissao-ao-vivo/"><h3>Como fazer uma transmissão ao vivo com o DJI Flip</h3><p>Transmita ao vivo com o DJI Flip usando RC 2, RC-N3 ou RC-N2: RTMP no celular e no computador, diferença para o controle pela palma e pelo celular, enquadramento vertical.</p></a>
       <a class="card post-card" href="https://streammydrone.com/pt/blog/dji-lito-x1-transmissao-ao-vivo/"><h3>Como fazer uma transmissão ao vivo com o DJI Lito X1</h3><p>Faça live com o DJI Lito X1 usando RC 2, RC-N3 ou RC-N2: ajustes RTMP no DJI Fly, fluxos no celular e no computador, configuração das plataformas e soluções práticas.</p></a>
       <a class="card post-card" href="https://streammydrone.com/pt/blog/dji-lito-1-transmissao-ao-vivo/"><h3>Como fazer uma transmissão ao vivo com o DJI Lito 1</h3><p>Transmissão ao vivo com o DJI Lito 1 usando RC 2, RC-N3 ou RC-N2: ajustes RTMP no DJI Fly, live pelo celular ou pelo computador, plataformas e solução de problemas.</p></a>

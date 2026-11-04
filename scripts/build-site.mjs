@@ -147,7 +147,11 @@ const POST_SHOTS = {
   "vs-restream": ["multistream", "live", "reconnect", "connect", "youtube"],
   "dji-fly-rtmp": ["connect", "preview", "live", "multistream", "reconnect"],
   "without-nginx": ["connect", "live", "multistream", "reconnect", "preview"],
+  "rc2-microphone": ["mic", "connect", "live", "preview", "multistream"],
 };
+// Posts that mention the RC 2 point to the guide for DJI Fly's microphone
+// requirement on that controller, which the Android app works around.
+const MIC_POST = "rc2-microphone";
 // The closing box shows the first of these the post has not shown yet.
 const END_SHOTS = ["multistream", "live", "reconnect", "mic", "preview", "connect", "youtube", "instagram"];
 
@@ -647,6 +651,13 @@ ${storeButtons(code)}
 </aside>`;
 }
 
+function micCallout(locale, labels, post) {
+  const target = POSTS.find((other) => other.id === MIC_POST);
+  if (!target || post.id === MIC_POST || !target.byLang[locale.code]) return "";
+  if (!JSON.stringify(post.byLang.en).includes("RC 2")) return "";
+  return `<p class="callout mic-callout">${labels.micCallout.text} <a href="${postUrl(locale.code, target.byLang[locale.code])}">${labels.micCallout.link} →</a></p>\n`;
+}
+
 function appGallery(code, labels, asset, shots) {
   return `<div class="gallery">
 <p class="gallery-h"><strong>${labels.app.galleryH}</strong><span>${labels.app.gallerySub}</span></p>
@@ -715,8 +726,14 @@ function breadcrumbs(locale, labels, trail) {
 }
 
 // A section is a heading and a list of blocks; each block has exactly one key.
-function renderBlock(block, asset) {
+function renderBlock(block, asset, code) {
   if (block.p) return `<p>${block.p}</p>`;
+  // { "video": "<caption>" }: the language's setup video, with a caption.
+  if (block.video) {
+    if (!setupVideo(code)) return "";
+    const home = homeContent[code];
+    return `<figure class="post-video">${videoFrame(code, asset, home.hero.videoPlay, home.hero.posterAlt, false)}<figcaption>${block.video}</figcaption></figure>`;
+  }
   if (block.note) return `<p class="callout">${block.note}</p>`;
   if (block.list) return `<ul class="plain">${block.list.map((item) => `<li>${item}</li>`).join("")}</ul>`;
   if (block.steps) {
@@ -754,7 +771,7 @@ function postPage(locale, labels, post, content) {
   const sections = content.sections
     .map(
       (section, index) =>
-        `<h2 id="${section.id}">${section.h2}</h2>\n${section.blocks.map((block) => renderBlock(block, asset)).join("\n")}${
+        `<h2 id="${section.id}">${section.h2}</h2>\n${section.blocks.map((block) => renderBlock(block, asset, locale.code)).join("\n")}${
           index === galleryAfter ? `\n${appGallery(locale.code, labels, asset, shots.slice(1, 5))}` : ""
         }`,
     )
@@ -837,7 +854,7 @@ ${crumbs.html}
 <p class="answer">${content.lead}</p>
 
 ${appPromo(locale.code, labels, asset, shots.slice(0, 1), true)}
-
+${micCallout(locale, labels, post)}
 <div class="keyfacts">
 <h2 id="summary">${labels.keyFacts}</h2>
 <ul>${content.summary.map((item) => `<li>${item}</li>`).join("")}</ul>

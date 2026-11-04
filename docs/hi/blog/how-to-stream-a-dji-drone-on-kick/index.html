@@ -337,6 +337,16 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
   .hero-app .store-buttons .btn{flex:1 1 200px}
   .video-frame,.hero-shot{width:min(280px,82%)}
 }
+.post-video{margin:24px 0 0;display:grid;justify-items:center;gap:10px}
+.post-video .video-frame{width:min(300px,80%)}
+.post-video figcaption{font-size:14px;color:var(--muted);text-align:center;max-width:46ch}
+.mic-callout{margin-top:18px;font-size:15.5px}
+/* In the narrow promo frame the label would wrap: a round play button only
+   (the text stays for screen readers). */
+.promo .video-play{inset:auto;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;padding:0;
+  border-radius:50%;background:#ff0033;font-size:0;gap:0}
+.promo .video:hover .video-play{transform:translate(-50%,-50%) scale(1.06)}
+.promo .video-play svg{width:30px;height:30px;padding:0;background:none}
 </style>
 </head>
 <body>
@@ -418,6 +428,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 
 <h2 id="related">और गाइड</h2>
 <div class="grid">
+      <a class="card post-card" href="https://streammydrone.com/hi/blog/dji-rc-2-livestream-no-microphone-fix/"><h3>DJI RC 2 बिना माइक्रोफ़ोन के लाइवस्ट्रीम नहीं करता? “No built-in mic in current device” कैसे ठीक करें</h3><p>DJI Fly 1.16 बिना माइक्रोफ़ोन के RC 2 की लाइवस्ट्रीम शुरू नहीं करता। ऐसा क्यों होता है, क्या काम करता है (USB-C माइक, AirPods) और Android फ़ोन से बिना हार्डवेयर का हल।</p></a>
       <a class="card post-card" href="https://streammydrone.com/hi/blog/dji-flip-live-stream/"><h3>DJI Flip से लाइव स्ट्रीम कैसे करें</h3><p>RC 2, RC-N3 या RC-N2 के साथ DJI Flip से लाइव स्ट्रीम करें: फ़ोन और कंप्यूटर पर RTMP सेटअप, पाम और फ़ोन कंट्रोल का अंतर, वर्टिकल फ़्रेमिंग और प्लेटफ़ॉर्म जाँच।</p></a>
       <a class="card post-card" href="https://streammydrone.com/hi/blog/dji-lito-x1-live-stream/"><h3>DJI Lito X1 से लाइव स्ट्रीम कैसे करें</h3><p>RC 2, RC-N3 या RC-N2 के साथ DJI Lito X1 से लाइव स्ट्रीम करें: DJI Fly RTMP सेटिंग, फ़ोन और कंप्यूटर के तरीके, प्लेटफ़ॉर्म सेटअप और काम की समस्या-समाधान टिप्स।</p></a>
       <a class="card post-card" href="https://streammydrone.com/hi/blog/dji-lito-1-live-stream/"><h3>DJI Lito 1 से लाइव स्ट्रीम कैसे करें</h3><p>RC 2, RC-N3 या RC-N2 के साथ DJI Lito 1 से लाइव स्ट्रीम करें: DJI Fly RTMP सेटिंग, फ़ोन और कंप्यूटर के तरीके, प्लेटफ़ॉर्म सेटअप और काम की समस्या-समाधान टिप्स।</p></a>

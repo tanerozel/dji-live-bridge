@@ -337,6 +337,16 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
   .hero-app .store-buttons .btn{flex:1 1 200px}
   .video-frame,.hero-shot{width:min(280px,82%)}
 }
+.post-video{margin:24px 0 0;display:grid;justify-items:center;gap:10px}
+.post-video .video-frame{width:min(300px,80%)}
+.post-video figcaption{font-size:14px;color:var(--muted);text-align:center;max-width:46ch}
+.mic-callout{margin-top:18px;font-size:15.5px}
+/* In the narrow promo frame the label would wrap: a round play button only
+   (the text stays for screen readers). */
+.promo .video-play{inset:auto;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;padding:0;
+  border-radius:50%;background:#ff0033;font-size:0;gap:0}
+.promo .video:hover .video-play{transform:translate(-50%,-50%) scale(1.06)}
+.promo .video-play svg{width:30px;height:30px;padding:0;background:none}
 </style>
 </head>
 <body>
@@ -376,6 +386,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 </div>
 <div class="promo-phones"><div class="video-frame"><a class="video" href="https://www.youtube.com/shorts/qFly4GtKiWU" data-video="qFly4GtKiWU" data-title="DJI 드론 라이브 스트리밍 방법 | PC 없이 유튜브 생중계 (DJI RC 2 + DJI Fly RTMP)"><img src="../../../img/video/ko.webp" alt="설정 영상의 한 장면: DJI RC 2와 Stream My Drone을 실행한 휴대폰." width="540" height="960" loading="lazy"><span class="video-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7Z"/></svg>1분 설정 영상 보기</span></a></div></div>
 </aside>
+<p class="callout mic-callout">RC 2에서 DJI Fly가 마이크를 요구하며 방송을 시작하지 않나요? <a href="https://streammydrone.com/ko/blog/dji-rc-2-livestream-no-microphone-fix/">마이크 없이 해결하기 →</a></p>
 
 <div class="keyfacts">
 <h2 id="summary">요약</h2>
@@ -429,6 +440,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 
 <h2 id="related">다른 가이드</h2>
 <div class="grid">
+      <a class="card post-card" href="https://streammydrone.com/ko/blog/dji-rc-2-livestream-no-microphone-fix/"><h3>DJI RC 2가 마이크 없이 라이브 방송이 안 되나요? “No built-in mic in current device” 해결법</h3><p>DJI Fly 1.16은 마이크 없이 RC 2 라이브 방송을 시작하지 않습니다. 원인, 효과 있는 방법(USB-C 마이크, AirPods), Android 휴대폰으로 장비 없이 해결하는 방법.</p></a>
       <a class="card post-card" href="https://streammydrone.com/ko/blog/dji-flip-live-stream/"><h3>DJI Flip으로 라이브 방송하는 방법</h3><p>RC 2, RC-N3, RC-N2로 DJI Flip을 라이브 방송하는 방법. 휴대폰과 컴퓨터 RTMP 설정, 손바닥·휴대폰 조종과의 차이, 세로 화면 구성, 플랫폼 점검을 정리했습니다.</p></a>
       <a class="card post-card" href="https://streammydrone.com/ko/blog/dji-lito-x1-live-stream/"><h3>DJI Lito X1으로 라이브 방송하는 방법</h3><p>RC 2, RC-N3, RC-N2로 DJI Lito X1을 라이브 방송하는 방법. DJI Fly RTMP 설정, 휴대폰·컴퓨터 방송 방법, 플랫폼 설정과 실전 문제 해결을 정리했습니다.</p></a>
       <a class="card post-card" href="https://streammydrone.com/ko/blog/dji-lito-1-live-stream/"><h3>DJI Lito 1로 라이브 방송하는 방법</h3><p>RC 2, RC-N3, RC-N2로 DJI Lito 1을 라이브 방송하는 방법. DJI Fly RTMP 설정부터 휴대폰·컴퓨터 방송, 플랫폼 설정, 문제 해결까지 한 번에 정리했습니다.</p></a>

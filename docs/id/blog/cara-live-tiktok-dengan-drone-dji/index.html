@@ -337,6 +337,16 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
   .hero-app .store-buttons .btn{flex:1 1 200px}
   .video-frame,.hero-shot{width:min(280px,82%)}
 }
+.post-video{margin:24px 0 0;display:grid;justify-items:center;gap:10px}
+.post-video .video-frame{width:min(300px,80%)}
+.post-video figcaption{font-size:14px;color:var(--muted);text-align:center;max-width:46ch}
+.mic-callout{margin-top:18px;font-size:15.5px}
+/* In the narrow promo frame the label would wrap: a round play button only
+   (the text stays for screen readers). */
+.promo .video-play{inset:auto;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;padding:0;
+  border-radius:50%;background:#ff0033;font-size:0;gap:0}
+.promo .video:hover .video-play{transform:translate(-50%,-50%) scale(1.06)}
+.promo .video-play svg{width:30px;height:30px;padding:0;background:none}
 </style>
 </head>
 <body>
@@ -376,6 +386,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 </div>
 <div class="promo-phones"><div class="video-frame"><a class="video" href="https://www.youtube.com/shorts/gCkpUxZHwZ0" data-video="gCkpUxZHwZ0" data-title="Cara Live Streaming Drone DJI ke YouTube tanpa PC (DJI RC 2 + DJI Fly RTMP)"><img src="../../../img/video/id.webp" alt="DJI RC 2 dan ponsel yang menjalankan Stream My Drone, dari video penyiapan." width="540" height="960" loading="lazy"><span class="video-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7Z"/></svg>Tonton penyiapan 1 menit</span></a></div></div>
 </aside>
+<p class="callout mic-callout">DJI Fly meminta mikrofon di RC 2 dan tidak mau memulai siaran? <a href="https://streammydrone.com/id/blog/dji-rc-2-live-streaming-tanpa-mikrofon/">Atasi tanpa membeli mikrofon →</a></p>
 
 <div class="keyfacts">
 <h2 id="summary">Ringkasnya</h2>
@@ -434,6 +445,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 
 <h2 id="related">Panduan lainnya</h2>
 <div class="grid">
+      <a class="card post-card" href="https://streammydrone.com/id/blog/dji-rc-2-live-streaming-tanpa-mikrofon/"><h3>DJI RC 2 tidak bisa live tanpa mikrofon? Cara mengatasi “No built-in mic in current device”</h3><p>DJI Fly 1.16 tidak mau memulai live RC 2 tanpa mikrofon. Penyebabnya, apa yang berhasil (mikrofon USB-C, AirPods) dan solusi tanpa perangkat tambahan dengan ponsel Android.</p></a>
       <a class="card post-card" href="https://streammydrone.com/id/blog/live-streaming-dji-flip/"><h3>Cara live streaming dengan DJI Flip</h3><p>Live streaming DJI Flip dengan RC 2, RC-N3 atau RC-N2: pengaturan RTMP di ponsel dan komputer, beda kontrol telapak tangan dan ponsel, bingkai vertikal, dan cek platform.</p></a>
       <a class="card post-card" href="https://streammydrone.com/id/blog/live-streaming-dji-lito-x1/"><h3>Cara live streaming dengan DJI Lito X1</h3><p>Cara live streaming DJI Lito X1 dengan RC 2, RC-N3 atau RC-N2: pengaturan RTMP di DJI Fly, alur ponsel dan komputer, pengaturan platform, serta solusi masalah umum.</p></a>
       <a class="card post-card" href="https://streammydrone.com/id/blog/live-streaming-dji-lito-1/"><h3>Cara live streaming dengan DJI Lito 1</h3><p>Panduan siaran langsung DJI Lito 1 dengan RC 2, RC-N3 atau RC-N2: pengaturan RTMP di DJI Fly, alur kerja ponsel dan komputer, pengaturan platform, dan solusi masalah.</p></a>
