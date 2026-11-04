@@ -21,6 +21,33 @@ const RELEASES = `${REPO}/releases/latest`;
 // The mobile apps, published on their own as "Stream My Drone".
 const PLAY = "https://play.google.com/store/apps/details?id=com.streammydrone.app";
 const APP_STORE = "https://apps.apple.com/us/app/stream-my-drone/id6818233095";
+// The 1-minute setup video (DJI RC 2 + Android phone) on the @StreamMyDrone
+// YouTube channel, one per language: id, title as on YouTube, length in
+// seconds, and the publish date when it is not 2026-11-04. A language without
+// one shows a phone screenshot instead; a new video needs its poster from
+// scripts/build-site-images.sh.
+const SETUP_VIDEO_DATE = "2026-11-04";
+const SETUP_VIDEOS = {
+  en: ["u2Knty4SAL0", "How to Live Stream a DJI Drone to YouTube – No Computer (DJI RC 2 + DJI Fly RTMP)", 61, "2026-11-05"],
+  ar: ["kAyZTpOIDjs", "بث مباشر من الدرون DJI على يوتيوب بدون كمبيوتر (DJI RC 2 + DJI Fly RTMP)", 67, "2026-11-05"],
+  de: ["kqowcn2gpaM", "DJI Drohne Livestream auf YouTube – ohne PC (DJI RC 2 + DJI Fly RTMP)", 64, "2026-11-05"],
+  es: ["DbzbuCCEe6s", "Cómo transmitir en vivo con dron DJI a YouTube sin PC (DJI RC 2 + DJI Fly RTMP)", 70, "2026-11-05"],
+  fr: ["sF1sWzlpCiA", "DJI Live Stream : diffuser son drone en direct sur YouTube sans PC (DJI RC 2 + DJI Fly RTMP)", 64, "2026-11-05"],
+  hi: ["hQ0BEY0EAMw", "Drone se Live Kaise Kare? DJI ड्रोन लाइव स्ट्रीम YouTube पर, बिना कंप्यूटर (DJI RC 2)", 65, "2026-11-05"],
+  tr: ["34k-AjVjFyw", "Drone ile Canlı Yayın Nasıl Yapılır? DJI Drone'dan YouTube'a Bilgisayarsız (DJI RC 2)", 61],
+  ja: ["tKgVg-YVSF0", "DJIドローンのライブ配信のやり方｜PCなしでYouTubeへ（DJI RC 2 + DJI Fly RTMP）", 67],
+  it: ["_h9aSUOw4ig", "DJI Fly Live Stream: diretta YouTube dal drone DJI senza PC (DJI RC 2 + RTMP)", 66],
+  pt: ["wtV2WIiJbiU", "Como fazer transmissão ao vivo com drone DJI no YouTube sem PC (DJI RC 2 + DJI Fly RTMP)", 68],
+  ru: ["9NuggZa0pPM", "Трансляция с дрона DJI на YouTube без компьютера (DJI RC 2 + DJI Fly RTMP)", 63],
+  id: ["gCkpUxZHwZ0", "Cara Live Streaming Drone DJI ke YouTube tanpa PC (DJI RC 2 + DJI Fly RTMP)", 64],
+  ko: ["qFly4GtKiWU", "DJI 드론 라이브 스트리밍 방법 | PC 없이 유튜브 생중계 (DJI RC 2 + DJI Fly RTMP)", 64],
+  zh: ["u6ebI5-Fzj4", "大疆无人机直播教程：不用电脑直播到 YouTube（DJI RC 2 + DJI Fly RTMP）", 62],
+  "zh-Hant": ["M4zjTqQlHx8", "DJI 無人機直播教學：不用電腦直播到 YouTube（DJI RC 2 + DJI Fly RTMP）", 64],
+};
+const setupVideo = (code) => {
+  const entry = SETUP_VIDEOS[code];
+  return entry && { id: entry[0], title: entry[1], seconds: entry[2], date: entry[3] || SETUP_VIDEO_DATE };
+};
 // Google Analytics 4. Empty string removes the tag from every page.
 const ANALYTICS_ID = "G-2HCY063P0W";
 
@@ -173,14 +200,28 @@ function head(locale, content) {
     "@context": "https://schema.org",
     "@type": "MobileApplication",
     name: "Stream My Drone",
-    description: stripTags(content.android.sub),
+    description: stripTags(content.hero.mobileLead),
     applicationCategory: "MultimediaApplication",
-    operatingSystem: "Android 9 or newer",
+    operatingSystem: "Android 9 or newer, iOS 17 or newer",
     url: PLAY,
-    installUrl: PLAY,
+    installUrl: [PLAY, APP_STORE],
     inLanguage: locale.hreflang,
-    image: `${BASE}/img/android-live.jpg`,
+    image: shareImage(locale.code),
     author: { "@type": "Person", name: "Taner Özel", url: "https://github.com/tanerozel" },
+  };
+
+  const video = setupVideo(locale.code);
+  const videoData = video && {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: video.title,
+    description: stripTags(content.hero.mobileLead),
+    inLanguage: locale.hreflang,
+    thumbnailUrl: `${BASE}/img/video/${locale.code}.webp`,
+    uploadDate: video.date,
+    duration: `PT${Math.floor(video.seconds / 60)}M${video.seconds % 60}S`,
+    embedUrl: `https://www.youtube.com/embed/${video.id}`,
+    url: `https://www.youtube.com/shorts/${video.id}`,
   };
 
   const faq = {
@@ -212,8 +253,10 @@ ${alternates}
 <meta property="og:site_name" content="Stream My Drone">
 <meta property="og:title" content="${escapeHtml(content.meta.ogTitle)}">
 <meta property="og:description" content="${escapeHtml(stripTags(content.meta.ogDescription))}">
-<meta property="og:image" content="${BASE}/img/go-live.png">
-<meta property="og:image:alt" content="${escapeHtml(stripTags(content.hero.shotAlt))}">
+<meta property="og:image" content="${shareImage(locale.code)}">
+<meta property="og:image:width" content="${APP_SHARE_SIZE[0]}">
+<meta property="og:image:height" content="${APP_SHARE_SIZE[1]}">
+<meta property="og:image:alt" content="${escapeHtml(stripTags(content.hero.mobilePill))}">
 <meta property="og:url" content="${url}">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="${locale.og}">
@@ -223,10 +266,12 @@ ${LOCALES.filter((other) => other.code !== locale.code)
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${escapeHtml(content.meta.ogTitle)}">
 <meta name="twitter:description" content="${escapeHtml(stripTags(content.meta.ogDescription))}">
-<meta name="twitter:image" content="${BASE}/img/go-live.png">
+<meta name="twitter:image" content="${shareImage(locale.code)}">
 <script type="application/ld+json">${JSON.stringify(software)}</script>
 <script type="application/ld+json">${JSON.stringify(android)}</script>
-<script type="application/ld+json">${JSON.stringify(faq)}</script>
+<script type="application/ld+json">${JSON.stringify(faq)}</script>${
+  videoData ? `\n<script type="application/ld+json">${JSON.stringify(videoData)}</script>` : ""
+}
 <style>
 ${css}</style>`;
 }
@@ -286,35 +331,72 @@ ${head(locale, content)}
   <div class="wrap bar">
     <a class="brand" href="${urlFor(locale.code)}"><img src="${asset}img/icon.png" alt="" width="30" height="30">Stream My Drone</a>
     <nav>
-      <a href="#features">${content.nav.features}</a>
-      <a href="#how">${content.nav.how}</a>
       <a href="#android">${content.nav.android}</a>
+      <a href="#desktop">macOS · Windows</a>
+      <a href="#features">${content.nav.features}</a>
       <a href="#tiktok">${content.nav.tiktok}</a>
       <a href="#faq">${content.nav.faq}</a>
       <a href="${blogHomeFor(locale.code)}">${content.nav.blog}</a>
       ${menu}
-      <a class="btn small" href="${REPO}">${buttonIcon("github")}GitHub</a>
+      <a class="btn small primary" href="#app">${buttonIcon("phone")}${blogLabels(locale.code).download}</a>
     </nav>
   </div>
 </header>
 
 <main id="main">
 
-<div class="wrap hero">
-  <span class="pill"><span class="dot"></span>${content.hero.pill}</span>
-  <h1>${content.hero.h1}</h1>
-  <p class="lead">${content.hero.lead}</p>
-  <div class="cta">
-    <a class="btn primary" href="${PLAY}">${buttonIcon("play")}${content.hero.ctaAndroid}</a>
-    <a class="btn primary" href="${APP_STORE}">${buttonIcon("apple")}${content.hero.ctaIos}</a>
-    <a class="btn" href="${RELEASES}">${buttonIcon("apple")}${content.hero.ctaMac}</a>
-    <a class="btn" href="${RELEASES}">${buttonIcon("windows")}${content.hero.ctaWin}</a>
-    <a class="btn" href="${REPO}">${buttonIcon("github")}${content.hero.ctaSource}</a>
+<div class="wrap hero hero-app" id="app">
+  <div class="hero-text">
+    <span class="pill"><span class="dot"></span>${content.hero.mobilePill}</span>
+    <h1>${content.hero.h1}</h1>
+    <p class="lead">${content.hero.mobileLead}</p>
+    ${storeButtons(locale.code, "primary")}
+    <p class="meta"><a href="#desktop">${content.hero.desktopLink} →</a></p>
   </div>
-  <p class="meta">${content.hero.meta}</p>
-  <div class="shot"><img src="${asset}img/go-live.png" alt="${escapeHtml(stripTags(content.hero.shotAlt))}" width="1600" height="1260" fetchpriority="high"></div>
-  <p class="caption">${content.hero.caption}</p>
+  ${heroMedia(locale, content, asset)}
 </div>
+
+<section id="android">
+  <div class="wrap">
+    <h2>${content.android.h2}</h2>
+    <p class="sub">${content.android.sub}</p>
+    <div class="split top">
+      <div>
+        <ul class="plain">
+          ${androidItems}
+        </ul>
+        <p class="note" style="margin-top:16px">${content.android.note}</p>
+        <div class="cta" style="justify-content:flex-start;margin-top:22px">
+          <a class="btn primary" href="${PLAY}" data-store="play">${buttonIcon("play")}${content.android.cta}</a>
+        </div>
+        <p class="note" style="margin-top:22px">${content.android.iosNote}</p>
+        <div class="cta" style="justify-content:flex-start;margin-top:12px">
+          <a class="btn" href="${APP_STORE}" data-store="ios">${buttonIcon("apple")}${content.android.ctaIos}</a>
+        </div>
+      </div>
+      <div class="shot phone"><img src="${asset}img/app/${locale.code}/multistream.webp" alt="${escapeHtml(blogLabels(locale.code).app.shots.multistream)}" width="${APP_SHOT_SIZE[0]}" height="${APP_SHOT_SIZE[1]}" loading="lazy"></div>
+    </div>
+    <div class="gallery-row home-gallery">${["connect", "youtube", "instagram", "reconnect"]
+      .map((name) => appShot(locale.code, blogLabels(locale.code), asset, name))
+      .join("")}</div>
+  </div>
+</section>
+
+<section id="desktop">
+  <div class="wrap hero desktop-hero">
+    <span class="pill"><span class="dot"></span>${content.hero.pill}</span>
+    <h2>${content.desktop.h2}</h2>
+    <p class="lead">${content.hero.lead}</p>
+    <div class="cta">
+      <a class="btn primary" href="${RELEASES}">${buttonIcon("apple")}${content.hero.ctaMac}</a>
+      <a class="btn" href="${RELEASES}">${buttonIcon("windows")}${content.hero.ctaWin}</a>
+      <a class="btn" href="${REPO}">${buttonIcon("github")}${content.hero.ctaSource}</a>
+    </div>
+    <p class="meta">${content.hero.meta}</p>
+    <div class="shot"><img src="${asset}img/go-live.png" alt="${escapeHtml(stripTags(content.hero.shotAlt))}" width="1600" height="1260" loading="lazy"></div>
+    <p class="caption">${content.hero.caption}</p>
+  </div>
+</section>
 
 <section id="features">
   <div class="wrap">
@@ -333,29 +415,6 @@ ${head(locale, content)}
     <ol class="steps">
       ${howSteps}
     </ol>
-  </div>
-</section>
-
-<section id="android">
-  <div class="wrap">
-    <h2>${content.android.h2}</h2>
-    <p class="sub">${content.android.sub}</p>
-    <div class="split top">
-      <div>
-        <ul class="plain">
-          ${androidItems}
-        </ul>
-        <p class="note" style="margin-top:16px">${content.android.note}</p>
-        <div class="cta" style="justify-content:flex-start;margin-top:22px">
-          <a class="btn primary" href="${PLAY}">${buttonIcon("play")}${content.android.cta}</a>
-        </div>
-        <p class="note" style="margin-top:22px">${content.android.iosNote}</p>
-        <div class="cta" style="justify-content:flex-start;margin-top:12px">
-          <a class="btn" href="${APP_STORE}">${buttonIcon("apple")}${content.android.ctaIos}</a>
-        </div>
-      </div>
-      <div class="shot phone"><img src="${asset}img/android-live.jpg" alt="${escapeHtml(stripTags(content.android.shotAlt))}" width="600" height="1211" loading="lazy"></div>
-    </div>
   </div>
 </section>
 
@@ -412,6 +471,8 @@ ${guidesSection(locale)}
 </main>
 
 ${footer(content)}
+
+${appBar(blogLabels(locale.code), asset)}
 
 </body>
 </html>
@@ -537,18 +598,42 @@ function appShot(code, labels, asset, name, extra = "") {
   return `<img src="${asset}img/app/${code}/${name}.webp" alt="${escapeHtml(labels.app.shots[name])}" width="${width}" height="${height}" loading="lazy" decoding="async"${extra}>`;
 }
 
+// Every language has a blog, so its labels (the app texts, the screenshot
+// alt texts) serve the home page too.
+const blogLabels = (code) => BLOG.find(({ locale }) => locale.code === code).labels;
+
 // data-store lets the small script at the end of the page send a phone
 // straight to its own store; without it both buttons simply work.
-function storeButtons(code) {
+function storeButtons(code, style = "store") {
   const home = homeContent[code];
-  return `<div class="cta store-buttons"><a class="btn store" href="${PLAY}" data-store="play">${buttonIcon("play")}${home.android.cta}</a><a class="btn store" href="${APP_STORE}" data-store="ios">${buttonIcon("apple")}${home.android.ctaIos}</a></div>`;
+  return `<div class="cta store-buttons"><a class="btn ${style}" href="${PLAY}" data-store="play">${buttonIcon("play")}${home.android.cta}</a><a class="btn ${style}" href="${APP_STORE}" data-store="ios">${buttonIcon("apple")}${home.android.ctaIos}</a></div>`;
+}
+
+// The setup video as a poster that links to YouTube. The page script swaps it
+// for a youtube-nocookie player on click, so nothing loads from YouTube until
+// someone asks for the video, and without JavaScript the link still works.
+function videoFrame(code, asset, label, alt, priority) {
+  const video = setupVideo(code);
+  return `<div class="video-frame"><a class="video" href="https://www.youtube.com/shorts/${video.id}" data-video="${video.id}" data-title="${escapeHtml(video.title)}"><img src="${asset}img/video/${code}.webp" alt="${escapeHtml(alt)}" width="${APP_SHOT_SIZE[0]}" height="${APP_SHOT_SIZE[1]}"${priority ? ' fetchpriority="high"' : ' loading="lazy"'}><span class="video-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7Z"/></svg>${label}</span></a></div>`;
+}
+
+function heroMedia(locale, content, asset) {
+  if (setupVideo(locale.code)) {
+    return `<div class="hero-media">${videoFrame(locale.code, asset, content.hero.videoPlay, content.hero.posterAlt, true)}</div>`;
+  }
+  const [width, height] = APP_SHOT_SIZE;
+  return `<div class="hero-media"><img class="hero-shot" src="${asset}img/app/${locale.code}/live.webp" alt="${escapeHtml(blogLabels(locale.code).app.shots.live)}" width="${width}" height="${height}" fetchpriority="high"></div>`;
 }
 
 // The promo near the top of every blog page; #app is what the header button
 // and the bar at the bottom of a phone screen jump to.
-function appPromo(code, labels, asset, shots) {
+function appPromo(code, labels, asset, shots, withVideo = false) {
   const { app } = labels;
-  const phones = shots.map((name) => appShot(code, labels, asset, name)).join("");
+  const home = homeContent[code];
+  const phones =
+    withVideo && setupVideo(code)
+      ? videoFrame(code, asset, home.hero.videoPlay, home.hero.posterAlt, false)
+      : shots.map((name) => appShot(code, labels, asset, name)).join("");
   return `<aside class="promo${shots.length > 1 ? " fan" : ""}" id="app" aria-labelledby="app-title">
 <div class="promo-text">
 <span class="promo-badge">${buttonIcon("phone")}${app.badge}</span>
@@ -589,8 +674,19 @@ function appBar(labels, asset) {
 <p><strong>Stream My Drone</strong><span>${labels.app.barSub}</span></p>
 <a class="btn primary small" href="#app" data-store="auto">${labels.app.barButton}</a>
 </div>
-<script>(function(){var u=navigator.userAgent,s=/android/i.test(u)?"play":/iphone|ipad|ipod/i.test(u)||(/macintosh/i.test(u)&&navigator.maxTouchPoints>1)?"ios":"";if(!s)return;var h={play:${JSON.stringify(PLAY)},ios:${JSON.stringify(APP_STORE)}};document.querySelectorAll('a[data-store="auto"]').forEach(function(a){a.href=h[s]});document.documentElement.classList.add("on-"+s)})();</script>`;
+${PAGE_SCRIPT}`;
 }
+
+// Sends a phone's "Get the app" straight to its own store, plays the setup
+// video in place, and counts store clicks and video plays in Analytics.
+const PAGE_SCRIPT = `<script>(function(){
+var u=navigator.userAgent,s=/android/i.test(u)?"play":/iphone|ipad|ipod/i.test(u)||(/macintosh/i.test(u)&&navigator.maxTouchPoints>1)?"ios":"";
+var h={play:${JSON.stringify(PLAY)},ios:${JSON.stringify(APP_STORE)}};
+var ev=function(n,p){if(window.gtag)gtag("event",n,p)};
+if(s){document.querySelectorAll('a[data-store="auto"]').forEach(function(a){a.href=h[s]});document.documentElement.classList.add("on-"+s)}
+document.querySelectorAll("a[data-store]").forEach(function(a){a.addEventListener("click",function(){ev("store_click",{store:a.href.indexOf("apple.com")>0?"ios":a.href.indexOf("google.com")>0?"play":"page"})})});
+document.querySelectorAll("a.video[data-video]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();var f=document.createElement("iframe");f.src="https://www.youtube-nocookie.com/embed/"+a.dataset.video+"?autoplay=1&playsinline=1&rel=0";f.title=a.dataset.title;f.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";f.allowFullscreen=true;a.replaceWith(f);ev("setup_video_play",{video_id:a.dataset.video})})});
+})();</script>`;
 
 function breadcrumbs(locale, labels, trail) {
   const items = [
@@ -740,7 +836,7 @@ ${crumbs.html}
 <p class="byline">${labels.by} <a href="https://github.com/tanerozel" rel="author">Taner Özel</a> · ${labels.updated} <time datetime="${content.updated}">${formatDate(locale, content.updated)}</time></p>
 <p class="answer">${content.lead}</p>
 
-${appPromo(locale.code, labels, asset, shots.slice(0, 1))}
+${appPromo(locale.code, labels, asset, shots.slice(0, 1), true)}
 
 <div class="keyfacts">
 <h2 id="summary">${labels.keyFacts}</h2>
@@ -1104,8 +1200,16 @@ for (const { locale } of BLOG) {
     process.exit(1);
   }
 }
-rmSync(join(root, "docs/img/app"), { recursive: true, force: true });
-cpSync(join(root, "site/img/app"), join(root, "docs/img/app"), { recursive: true });
+for (const code of Object.keys(SETUP_VIDEOS)) {
+  if (!existsSync(join(root, "site/img/video", `${code}.webp`))) {
+    console.error(`site/img/video/${code}.webp is missing: run scripts/build-site-images.sh`);
+    process.exit(1);
+  }
+}
+for (const folder of ["app", "video"]) {
+  rmSync(join(root, "docs/img", folder), { recursive: true, force: true });
+  cpSync(join(root, "site/img", folder), join(root, "docs/img", folder), { recursive: true });
+}
 
 let blogPages = 0;
 for (const { locale, labels } of BLOG) {

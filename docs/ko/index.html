@@ -39,8 +39,10 @@
 <meta property="og:site_name" content="Stream My Drone">
 <meta property="og:title" content="Stream My Drone">
 <meta property="og:description" content="DJI 드론 영상을 Instagram, TikTok, 모든 RTMP 대상으로 동시에 방송하세요. 무료 오픈 소스이며 서명과 공증을 마쳤습니다.">
-<meta property="og:image" content="https://streammydrone.com/img/go-live.png">
-<meta property="og:image:alt" content="'방송' 탭: 드론을 연결하고 방송 대상을 고른 뒤 방송 시작을 누릅니다.">
+<meta property="og:image" content="https://streammydrone.com/img/app/ko/share.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta property="og:image:alt" content="Android·iPhone · 한 번 구매">
 <meta property="og:url" content="https://streammydrone.com/ko/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ko_KR">
@@ -61,10 +63,11 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Stream My Drone">
 <meta name="twitter:description" content="DJI 드론 영상을 Instagram, TikTok, 모든 RTMP 대상으로 동시에 방송하세요. 무료 오픈 소스이며 서명과 공증을 마쳤습니다.">
-<meta name="twitter:image" content="https://streammydrone.com/img/go-live.png">
+<meta name="twitter:image" content="https://streammydrone.com/img/app/ko/share.jpg">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Stream My Drone","description":"DJI Fly의 RTMP 스트림을 받아 Instagram, TikTok, 모든 RTMP 대상으로 동시에 내보내는 무료 앱. TikTok LIVE Studio용 가상 카메라로도 쓸 수 있어 스트림 키가 필요 없습니다. macOS와 Windows 지원.","applicationCategory":"MultimediaApplication","operatingSystem":"macOS 13 or newer, Windows 10/11","softwareVersion":"0.2.8","url":"https://streammydrone.com/ko/","downloadUrl":"https://github.com/tanerozel/dji-live-bridge/releases/latest","inLanguage":"ko","image":"https://streammydrone.com/img/go-live.png","license":"https://opensource.org/licenses/MIT","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"MobileApplication","name":"Stream My Drone","description":"현장에 컴퓨터가 없나요? Stream My Drone은 Android 버전입니다. 휴대폰이 DJI Fly의 스트림을 받아 여러 플랫폼으로 바로 보냅니다.","applicationCategory":"MultimediaApplication","operatingSystem":"Android 9 or newer","url":"https://play.google.com/store/apps/details?id=com.streammydrone.app","installUrl":"https://play.google.com/store/apps/details?id=com.streammydrone.app","inLanguage":"ko","image":"https://streammydrone.com/img/android-live.jpg","author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"MobileApplication","name":"Stream My Drone","description":"Stream My Drone은 휴대폰에서 DJI Fly 화면을 받아 YouTube, Instagram, Facebook, TikTok, Twitch, Kick 또는 직접 운영하는 RTMP 서버로 여러 곳에 동시에 보냅니다. 컴퓨터도, 케이블도, 서버도 필요 없습니다.","applicationCategory":"MultimediaApplication","operatingSystem":"Android 9 or newer, iOS 17 or newer","url":"https://play.google.com/store/apps/details?id=com.streammydrone.app","installUrl":["https://play.google.com/store/apps/details?id=com.streammydrone.app","https://apps.apple.com/us/app/stream-my-drone/id6818233095"],"inLanguage":"ko","image":"https://streammydrone.com/img/app/ko/share.jpg","author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"ko","mainEntity":[{"@type":"Question","name":"어떤 드론에서 쓸 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"해당 기체의 DJI Fly 버전이 '라이브 방송 플랫폼'에서 RTMP를 제공하면 모두 쓸 수 있습니다. 앱은 일반적인 RTMP 스트림을 받을 뿐이라 드론과 직접 통신하지 않습니다. RC 2에서는 조종기에 마이크가 연결되어 있지 않으면 DJI Fly가 송출 시작을 거부할 수 있습니다."}},{"@type":"Question","name":"FFmpeg를 따로 설치해야 하나요?","acceptedAnswer":{"@type":"Answer","text":"아닙니다. 앱은 GPL 구성 요소 없이 소스에서 직접 빌드한 FFmpeg(LGPL, H.264는 Apple VideoToolbox)를 가지고 있어 설치할 것도, 계속 최신으로 유지할 것도 없습니다. 라이선스 전문과 정확한 빌드 옵션은 앱 안 Contents/Resources/licenses에 있습니다."}},{"@type":"Question","name":"OBS가 필요한가요?","acceptedAnswer":{"@type":"Answer","text":"아닙니다. OBS는 선택 사항이며 장면, 필터, 녹화 기능을 쓰고 싶을 때만 쓸모가 있습니다. 직접 RTMP 송출과 가상 카메라는 OBS 없이 동작합니다."}},{"@type":"Question","name":"Intel Mac에서도 되나요?","acceptedAnswer":{"@type":"Answer","text":"됩니다. 모든 릴리스에는 다운로드가 두 개 있습니다. 하나는 Apple Silicon용, 하나는 Intel용이며 둘 다 서명과 공증을 마쳤고 각각 FFmpeg를 품고 있습니다. 사용하는 Mac에 맞는 파일을 고르세요."}},{"@type":"Question","name":"Windows에서도 되나요?","acceptedAnswer":{"@type":"Answer","text":"네. Windows 10/11을 지원합니다. 송출, 미리보기, 녹화, 진단, 내장 가상 카메라 기능은 모두 테스트되었습니다. 설치 프로그램은 TikTok LIVE Studio, OBS, Zoom에서 사용할 수 있는 “Stream My Drone Camera” 장치를 등록합니다. 설치 프로그램에 코드 서명이 없어 Windows SmartScreen 경고가 표시될 수 있습니다."}},{"@type":"Question","name":"동물을 감지하고 셀 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"네. 방송 탭에서 AI Vision을 켜면 방송과 가상 카메라 화면에서 동물마다 라벨이 붙은 상자가 표시되고 카운터가 수를 셉니다. 모든 처리는 컴퓨터에서 이루어집니다. 염소, 당나귀, 가금류 인식에는 Mac이 필요하며, Windows에서는 양, 소, 말, 개, 고양이, 새, 곰을 인식합니다."}},{"@type":"Question","name":"스트림 키는 어디에 저장되나요?","acceptedAnswer":{"@type":"Answer","text":"시스템 자격 증명 저장소에 대상마다 하나씩 저장됩니다. 방송을 시작할 때 루프백 인터페이스를 통해 로컬 미디어 서버로 전달되고, 중지하면 제거됩니다. 설정 파일이나 프로세스 인자, 로그에는 절대 나타나지 않습니다."}},{"@type":"Question","name":"Instagram은 왜 매번 새 키를 요구하나요?","acceptedAnswer":{"@type":"Answer","text":"Instagram 자체 동작입니다. 방송할 때마다 새 스트림 키를 발급합니다. 시작하기 전에 대상 카드의 '키 업데이트'를 사용하고, Instagram 쪽에서 '라이브 시작'을 눌러야 방송이 공개된다는 점도 잊지 마세요."}},{"@type":"Question","name":"화면이 왜 720p인가요?","acceptedAnswer":{"@type":"Answer","text":"DJI 조종기는 RTMP로 720p를 보내는 경우가 많습니다. 앱은 실제 입력 해상도를 그대로 보여 주며, 확대한 출력을 원래 1080p인 것처럼 꾸미지 않습니다."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"DJI 드론 라이브 스트리밍 방법 | PC 없이 유튜브 생중계 (DJI RC 2 + DJI Fly RTMP)","description":"Stream My Drone은 휴대폰에서 DJI Fly 화면을 받아 YouTube, Instagram, Facebook, TikTok, Twitch, Kick 또는 직접 운영하는 RTMP 서버로 여러 곳에 동시에 보냅니다. 컴퓨터도, 케이블도, 서버도 필요 없습니다.","inLanguage":"ko","thumbnailUrl":"https://streammydrone.com/img/video/ko.webp","uploadDate":"2026-11-04","duration":"PT1M4S","embedUrl":"https://www.youtube.com/embed/qFly4GtKiWU","url":"https://www.youtube.com/shorts/qFly4GtKiWU"}</script>
 <style>
 
 :root{
@@ -314,6 +317,39 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 /* A long URL in a step must wrap instead of widening the page on a phone. */
 .steps li>div{min-width:0}
 .steps code{overflow-wrap:anywhere}
+
+/* Home page: the phone app first (text beside the setup video), the computer
+   app as its own section further down. */
+.hero-app{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center;
+  padding:56px 20px 48px;text-align:start}
+.hero-app h1{margin:18px 0 0;max-width:17ch}
+.hero-app .lead{margin:18px 0 0}
+.hero-app .store-buttons{margin-top:26px}
+.hero-app .store-buttons .btn{padding:13px 22px;font-size:16px}
+.hero-app .meta a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.hero-app .meta a:hover{color:var(--text)}
+.hero-media{display:flex;justify-content:center}
+.hero-shot{display:block;width:min(320px,100%);height:auto;border-radius:28px;box-shadow:0 24px 50px rgba(11,22,49,.35)}
+.video-frame{position:relative;width:min(320px,100%);aspect-ratio:9/16;border-radius:30px;overflow:hidden;
+  background:#0b1631;border:7px solid #0b0b0d;box-shadow:0 24px 50px rgba(11,22,49,.35),0 0 0 1px rgba(255,255,255,.06)}
+.promo .video-frame{width:100%;max-width:220px;border-width:5px;border-radius:24px}
+.video-frame .video,.video-frame iframe{position:absolute;inset:0;display:block;width:100%;height:100%;border:0}
+.video-frame .video img{display:block;width:100%;height:100%;object-fit:cover}
+.video-play{position:absolute;inset-inline:12px;bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 14px;border-radius:999px;background:rgba(255,255,255,.95);color:#0b1631;font-size:14.5px;font-weight:700;
+  box-shadow:0 8px 20px rgba(0,0,0,.3);transition:transform .15s}
+.video-play svg{flex-shrink:0;width:22px;height:22px;padding:4px;border-radius:50%;background:#ff0033;color:#fff}
+.video:hover .video-play{transform:scale(1.03)}
+.video:hover{text-decoration:none}
+.home-gallery{margin-top:28px}
+.desktop-hero{padding:0 20px;text-align:center}
+.desktop-hero h2{margin:16px auto 0;max-width:22ch}
+.desktop-hero .shot{margin-top:36px}
+@media (max-width:820px){
+  .hero-app{grid-template-columns:1fr;gap:32px;padding:36px 20px 40px}
+  .hero-app .store-buttons .btn{flex:1 1 200px}
+  .video-frame,.hero-shot{width:min(280px,82%)}
+}
 </style>
 </head>
 <body>
@@ -324,9 +360,9 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
   <div class="wrap bar">
     <a class="brand" href="https://streammydrone.com/ko/"><img src="../img/icon.png" alt="" width="30" height="30">Stream My Drone</a>
     <nav>
-      <a href="#features">기능</a>
-      <a href="#how">작동 방식</a>
       <a href="#android">Android</a>
+      <a href="#desktop">macOS · Windows</a>
+      <a href="#features">기능</a>
       <a href="#tiktok">TikTok</a>
       <a href="#faq">자주 묻는 질문</a>
       <a href="https://streammydrone.com/ko/blog/">블로그</a>
@@ -334,28 +370,66 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
         <summary aria-label="언어"><span aria-hidden="true">🌐</span><span class="langname">한국어</span></summary>
         <div class="sheet"><a href="https://streammydrone.com/" hreflang="en" lang="en">English</a><a href="https://streammydrone.com/tr/" hreflang="tr" lang="tr">Türkçe</a><a href="https://streammydrone.com/es/" hreflang="es" lang="es">Español</a><a href="https://streammydrone.com/zh/" hreflang="zh-Hans" lang="zh-Hans">中文（简体）</a><a href="https://streammydrone.com/zh-Hant/" hreflang="zh-Hant" lang="zh-Hant">中文（繁體）</a><a href="https://streammydrone.com/ar/" hreflang="ar" lang="ar">العربية</a><a href="https://streammydrone.com/hi/" hreflang="hi" lang="hi">हिन्दी</a><a href="https://streammydrone.com/pt/" hreflang="pt" lang="pt">Português</a><a href="https://streammydrone.com/ru/" hreflang="ru" lang="ru">Русский</a><a href="https://streammydrone.com/fr/" hreflang="fr" lang="fr">Français</a><a href="https://streammydrone.com/de/" hreflang="de" lang="de">Deutsch</a><a href="https://streammydrone.com/ja/" hreflang="ja" lang="ja">日本語</a><a href="https://streammydrone.com/ko/" hreflang="ko" lang="ko" aria-current="true">한국어</a><a href="https://streammydrone.com/id/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="https://streammydrone.com/it/" hreflang="it" lang="it">Italiano</a></div>
       </details>
-      <a class="btn small" href="https://github.com/tanerozel/dji-live-bridge"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.64 1.22 3.28.93.1-.73.39-1.22.72-1.5-2.5-.28-5.13-1.25-5.13-5.57 0-1.23.44-2.23 1.16-3.01-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.09 1.15A10.77 10.77 0 0 1 12 6.16c.96 0 1.92.13 2.82.38 2.14-1.45 3.08-1.15 3.08-1.15.61 1.55.23 2.7.11 2.98.72.78 1.16 1.78 1.16 3.01 0 4.33-2.64 5.29-5.15 5.57.41.35.76 1.03.76 2.08v3.1c0 .3.2.65.78.54A11.25 11.25 0 0 0 12 .75Z"/></svg>GitHub</a>
+      <a class="btn small primary" href="#app"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M7 1h10a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2Zm0 3v15h10V4Zm4 16v1.5h2V20Z"/></svg>앱 받기</a>
     </nav>
   </div>
 </header>
 
 <main id="main">
 
-<div class="wrap hero">
-  <span class="pill"><span class="dot"></span>무료 · Apple 서명 및 공증 완료</span>
-  <h1>DJI 드론 영상을 Instagram, TikTok, YouTube, Facebook과 사용자 지정 RTMP 대상으로 방송하세요</h1>
-  <p class="lead">Stream My Drone은 컴퓨터의 DJI Fly에서 오는 RTMP 스트림을 받아 여러 플랫폼으로 동시에 보냅니다. TikTok LIVE Studio용 가상 카메라로 바꿀 수도 있으며, 그쪽에서는 스트림 키가 필요 없습니다.</p>
-  <div class="cta">
-    <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.streammydrone.app"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="#34a853" d="m3 2 11 10L3 22Z"/><path fill="#4285f4" d="m3 2 14 8-3 2Z"/><path fill="#fbbc04" d="m17 10 4 2-4 2-3-2Z"/><path fill="#ea4335" d="m3 22 11-10 3 2Z"/></svg>Google Play의 Android 앱</a>
-    <a class="btn primary" href="https://apps.apple.com/us/app/stream-my-drone/id6818233095"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>iOS – App Store</a>
-    <a class="btn" href="https://github.com/tanerozel/dji-live-bridge/releases/latest"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>macOS용 다운로드</a>
-    <a class="btn" href="https://github.com/tanerozel/dji-live-bridge/releases/latest"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M2 4.5 10.5 3v8.25H2Zm10-1.75L22 1v10.25H12ZM2 12.75h8.5V21L2 19.5Zm10 0h10V23l-10-1.75Z"/></svg>Windows</a>
-    <a class="btn" href="https://github.com/tanerozel/dji-live-bridge"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.64 1.22 3.28.93.1-.73.39-1.22.72-1.5-2.5-.28-5.13-1.25-5.13-5.57 0-1.23.44-2.23 1.16-3.01-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.09 1.15A10.77 10.77 0 0 1 12 6.16c.96 0 1.92.13 2.82.38 2.14-1.45 3.08-1.15 3.08-1.15.61 1.55.23 2.7.11 2.98.72.78 1.16 1.78 1.16 3.01 0 4.33-2.64 5.29-5.15 5.57.41.35.76 1.03.76 2.08v3.1c0 .3.2.65.78.54A11.25 11.25 0 0 0 12 .75Z"/></svg>GitHub 소스 코드</a>
+<div class="wrap hero hero-app" id="app">
+  <div class="hero-text">
+    <span class="pill"><span class="dot"></span>Android·iPhone · 한 번 구매</span>
+    <h1>DJI 드론 영상을 Instagram, TikTok, YouTube, Facebook과 사용자 지정 RTMP 대상으로 방송하세요</h1>
+    <p class="lead">Stream My Drone은 휴대폰에서 DJI Fly 화면을 받아 YouTube, Instagram, Facebook, TikTok, Twitch, Kick 또는 직접 운영하는 RTMP 서버로 여러 곳에 동시에 보냅니다. 컴퓨터도, 케이블도, 서버도 필요 없습니다.</p>
+    <div class="cta store-buttons"><a class="btn primary" href="https://play.google.com/store/apps/details?id=com.streammydrone.app" data-store="play"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="#34a853" d="m3 2 11 10L3 22Z"/><path fill="#4285f4" d="m3 2 14 8-3 2Z"/><path fill="#fbbc04" d="m17 10 4 2-4 2-3-2Z"/><path fill="#ea4335" d="m3 22 11-10 3 2Z"/></svg>Google Play에서 다운로드</a><a class="btn primary" href="https://apps.apple.com/us/app/stream-my-drone/id6818233095" data-store="ios"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>App Store에서 다운로드</a></div>
+    <p class="meta"><a href="#desktop">컴퓨터로 방송하나요? Mac·Windows 앱은 무료입니다 →</a></p>
   </div>
-  <p class="meta">Apple Silicon 및 Intel Mac · macOS 13 이상 · Windows 10/11 · 따로 설치할 것 없음</p>
-  <div class="shot"><img src="../img/go-live.png" alt="'방송' 탭: 드론을 연결하고 방송 대상을 고른 뒤 방송 시작을 누릅니다." width="1600" height="1260" fetchpriority="high"></div>
-  <p class="caption">화면 하나로 끝납니다. 드론을 연결하고, 방송 대상을 추가하고, 방송 시작을 누릅니다.</p>
+  <div class="hero-media"><div class="video-frame"><a class="video" href="https://www.youtube.com/shorts/qFly4GtKiWU" data-video="qFly4GtKiWU" data-title="DJI 드론 라이브 스트리밍 방법 | PC 없이 유튜브 생중계 (DJI RC 2 + DJI Fly RTMP)"><img src="../img/video/ko.webp" alt="설정 영상의 한 장면: DJI RC 2와 Stream My Drone을 실행한 휴대폰." width="540" height="960" fetchpriority="high"><span class="video-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7Z"/></svg>1분 설정 영상 보기</span></a></div></div>
 </div>
+
+<section id="android">
+  <div class="wrap">
+    <h2>Android 앱으로 휴대폰에서 바로 방송</h2>
+    <p class="sub">현장에 컴퓨터가 없나요? Stream My Drone은 Android 버전입니다. 휴대폰이 DJI Fly의 스트림을 받아 여러 플랫폼으로 바로 보냅니다.</p>
+    <div class="split top">
+      <div>
+        <ul class="plain">
+          <li>여러 플랫폼에 동시 송출: Instagram, TikTok, YouTube, Facebook, Twitch, Kick 및 모든 사용자 지정 RTMP·RTMPS 서버.</li>
+          <li>방송을 시작하기 전에 해상도, 비트레이트, 연결 정보와 함께 드론 화면을 실시간 미리보기.</li>
+          <li>짧은 네트워크 끊김 뒤에는 송출 대상이 알아서 다시 연결되고, 다른 앱을 쓰는 동안에도 방송이 계속됩니다.</li>
+          <li>같은 Wi-Fi나 휴대폰 자체 핫스팟으로 사용할 수 있습니다. 스트림 키는 Android Keystore로 암호화됩니다.</li>
+        </ul>
+        <p class="note" style="margin-top:16px">Google Play에서 한 번 구매, 구독 없음. Android 9 이상. 휴대폰은 DJI Fly가 보낸 화면을 그대로 전달하므로 가상 카메라와 세로 1080×1920 변환은 데스크톱 앱 기능입니다.</p>
+        <div class="cta" style="justify-content:flex-start;margin-top:22px">
+          <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.streammydrone.app" data-store="play"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="#34a853" d="m3 2 11 10L3 22Z"/><path fill="#4285f4" d="m3 2 14 8-3 2Z"/><path fill="#fbbc04" d="m17 10 4 2-4 2-3-2Z"/><path fill="#ea4335" d="m3 22 11-10 3 2Z"/></svg>Google Play에서 다운로드</a>
+        </div>
+        <p class="note" style="margin-top:22px">Stream My Drone의 iOS 버전도 App Store에서 이용할 수 있습니다.</p>
+        <div class="cta" style="justify-content:flex-start;margin-top:12px">
+          <a class="btn" href="https://apps.apple.com/us/app/stream-my-drone/id6818233095" data-store="ios"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>App Store에서 다운로드</a>
+        </div>
+      </div>
+      <div class="shot phone"><img src="../img/app/ko/multistream.webp" alt="하나의 방송 제목으로 여러 플랫폼에 동시 송출." width="540" height="960" loading="lazy"></div>
+    </div>
+    <div class="gallery-row home-gallery"><img src="../img/app/ko/connect.webp" alt="드론 연결: DJI Fly에 입력할 RTMP 주소와 복사 버튼." width="540" height="960" loading="lazy" decoding="async"><img src="../img/app/ko/youtube.webp" alt="Stream My Drone에서 Google 로그인으로 YouTube 계정 연결." width="540" height="960" loading="lazy" decoding="async"><img src="../img/app/ko/instagram.webp" alt="Stream My Drone에서 Instagram 연결, 복사할 스트림 키 없음." width="540" height="960" loading="lazy" decoding="async"><img src="../img/app/ko/reconnect.webp" alt="짧은 네트워크 끊김 후 자동으로 다시 연결되는 송출 대상." width="540" height="960" loading="lazy" decoding="async"></div>
+  </div>
+</section>
+
+<section id="desktop">
+  <div class="wrap hero desktop-hero">
+    <span class="pill"><span class="dot"></span>무료 · Apple 서명 및 공증 완료</span>
+    <h2>컴퓨터에서? Mac·Windows용 무료</h2>
+    <p class="lead">Stream My Drone은 컴퓨터의 DJI Fly에서 오는 RTMP 스트림을 받아 여러 플랫폼으로 동시에 보냅니다. TikTok LIVE Studio용 가상 카메라로 바꿀 수도 있으며, 그쪽에서는 스트림 키가 필요 없습니다.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/tanerozel/dji-live-bridge/releases/latest"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>macOS용 다운로드</a>
+      <a class="btn" href="https://github.com/tanerozel/dji-live-bridge/releases/latest"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M2 4.5 10.5 3v8.25H2Zm10-1.75L22 1v10.25H12ZM2 12.75h8.5V21L2 19.5Zm10 0h10V23l-10-1.75Z"/></svg>Windows</a>
+      <a class="btn" href="https://github.com/tanerozel/dji-live-bridge"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.64 1.22 3.28.93.1-.73.39-1.22.72-1.5-2.5-.28-5.13-1.25-5.13-5.57 0-1.23.44-2.23 1.16-3.01-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.09 1.15A10.77 10.77 0 0 1 12 6.16c.96 0 1.92.13 2.82.38 2.14-1.45 3.08-1.15 3.08-1.15.61 1.55.23 2.7.11 2.98.72.78 1.16 1.78 1.16 3.01 0 4.33-2.64 5.29-5.15 5.57.41.35.76 1.03.76 2.08v3.1c0 .3.2.65.78.54A11.25 11.25 0 0 0 12 .75Z"/></svg>GitHub 소스 코드</a>
+    </div>
+    <p class="meta">Apple Silicon 및 Intel Mac · macOS 13 이상 · Windows 10/11 · 따로 설치할 것 없음</p>
+    <div class="shot"><img src="../img/go-live.png" alt="'방송' 탭: 드론을 연결하고 방송 대상을 고른 뒤 방송 시작을 누릅니다." width="1600" height="1260" loading="lazy"></div>
+    <p class="caption">화면 하나로 끝납니다. 드론을 연결하고, 방송 대상을 추가하고, 방송 시작을 누릅니다.</p>
+  </div>
+</section>
 
 <section id="features">
   <div class="wrap">
@@ -384,32 +458,6 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <li><div><strong>어디로 방송할지 고르기</strong><span>해당 플랫폼이 준 서버 주소와 스트림 키로 Instagram, TikTok 또는 아무 RTMP 서버나 추가하세요. 키는 시스템 자격 증명 저장소에 보관됩니다.</span></div></li>
       <li><div><strong>방송 시작 누르기</strong><span>로컬 서버가 실행 중이고, 드론 영상이 들어오고, 방송 대상이 선택되면 버튼이 열립니다. 그다음에는 경과 시간, 대상별 상태, 보낸 데이터량이 보입니다.</span></div></li>
     </ol>
-  </div>
-</section>
-
-<section id="android">
-  <div class="wrap">
-    <h2>Android 앱으로 휴대폰에서 바로 방송</h2>
-    <p class="sub">현장에 컴퓨터가 없나요? Stream My Drone은 Android 버전입니다. 휴대폰이 DJI Fly의 스트림을 받아 여러 플랫폼으로 바로 보냅니다.</p>
-    <div class="split top">
-      <div>
-        <ul class="plain">
-          <li>여러 플랫폼에 동시 송출: Instagram, TikTok, YouTube, Facebook, Twitch, Kick 및 모든 사용자 지정 RTMP·RTMPS 서버.</li>
-          <li>방송을 시작하기 전에 해상도, 비트레이트, 연결 정보와 함께 드론 화면을 실시간 미리보기.</li>
-          <li>짧은 네트워크 끊김 뒤에는 송출 대상이 알아서 다시 연결되고, 다른 앱을 쓰는 동안에도 방송이 계속됩니다.</li>
-          <li>같은 Wi-Fi나 휴대폰 자체 핫스팟으로 사용할 수 있습니다. 스트림 키는 Android Keystore로 암호화됩니다.</li>
-        </ul>
-        <p class="note" style="margin-top:16px">Google Play에서 한 번 구매, 구독 없음. Android 9 이상. 휴대폰은 DJI Fly가 보낸 화면을 그대로 전달하므로 가상 카메라와 세로 1080×1920 변환은 데스크톱 앱 기능입니다.</p>
-        <div class="cta" style="justify-content:flex-start;margin-top:22px">
-          <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.streammydrone.app"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="#34a853" d="m3 2 11 10L3 22Z"/><path fill="#4285f4" d="m3 2 14 8-3 2Z"/><path fill="#fbbc04" d="m17 10 4 2-4 2-3-2Z"/><path fill="#ea4335" d="m3 22 11-10 3 2Z"/></svg>Google Play에서 다운로드</a>
-        </div>
-        <p class="note" style="margin-top:22px">Stream My Drone의 iOS 버전도 App Store에서 이용할 수 있습니다.</p>
-        <div class="cta" style="justify-content:flex-start;margin-top:12px">
-          <a class="btn" href="https://apps.apple.com/us/app/stream-my-drone/id6818233095"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>App Store에서 다운로드</a>
-        </div>
-      </div>
-      <div class="shot phone"><img src="../img/android-live.jpg" alt="Android 휴대폰의 Stream My Drone이 Instagram으로 라이브 중이며, 드론 화면, 비트레이트, 플랫폼 스위치가 보입니다." width="600" height="1211" loading="lazy"></div>
-    </div>
   </div>
 </section>
 
@@ -544,6 +592,20 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
     <p class="note">MIT 라이선스로 배포합니다. 함께 들어 있는 FFmpeg는 LGPL이며 GPL 구성 요소 없이 소스에서 빌드했습니다. Stream My Drone은 독립적인 프로젝트로 DJI, Instagram, TikTok, Apple과 제휴 관계가 없습니다. DJI, Instagram, TikTok은 각 소유자의 상표입니다. Google Play는 Google LLC의 상표입니다.</p>
   </div>
 </footer>
+
+<div class="appbar">
+<img src="../img/icon.png" alt="" width="40" height="40">
+<p><strong>Stream My Drone</strong><span>휴대폰으로 바로 방송</span></p>
+<a class="btn primary small" href="#app" data-store="auto">앱 받기</a>
+</div>
+<script>(function(){
+var u=navigator.userAgent,s=/android/i.test(u)?"play":/iphone|ipad|ipod/i.test(u)||(/macintosh/i.test(u)&&navigator.maxTouchPoints>1)?"ios":"";
+var h={play:"https://play.google.com/store/apps/details?id=com.streammydrone.app",ios:"https://apps.apple.com/us/app/stream-my-drone/id6818233095"};
+var ev=function(n,p){if(window.gtag)gtag("event",n,p)};
+if(s){document.querySelectorAll('a[data-store="auto"]').forEach(function(a){a.href=h[s]});document.documentElement.classList.add("on-"+s)}
+document.querySelectorAll("a[data-store]").forEach(function(a){a.addEventListener("click",function(){ev("store_click",{store:a.href.indexOf("apple.com")>0?"ios":a.href.indexOf("google.com")>0?"play":"page"})})});
+document.querySelectorAll("a.video[data-video]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();var f=document.createElement("iframe");f.src="https://www.youtube-nocookie.com/embed/"+a.dataset.video+"?autoplay=1&playsinline=1&rel=0";f.title=a.dataset.title;f.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";f.allowFullscreen=true;a.replaceWith(f);ev("setup_video_play",{video_id:a.dataset.video})})});
+})();</script>
 
 </body>
 </html>

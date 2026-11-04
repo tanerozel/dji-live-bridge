@@ -304,6 +304,39 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 /* A long URL in a step must wrap instead of widening the page on a phone. */
 .steps li>div{min-width:0}
 .steps code{overflow-wrap:anywhere}
+
+/* Home page: the phone app first (text beside the setup video), the computer
+   app as its own section further down. */
+.hero-app{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center;
+  padding:56px 20px 48px;text-align:start}
+.hero-app h1{margin:18px 0 0;max-width:17ch}
+.hero-app .lead{margin:18px 0 0}
+.hero-app .store-buttons{margin-top:26px}
+.hero-app .store-buttons .btn{padding:13px 22px;font-size:16px}
+.hero-app .meta a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.hero-app .meta a:hover{color:var(--text)}
+.hero-media{display:flex;justify-content:center}
+.hero-shot{display:block;width:min(320px,100%);height:auto;border-radius:28px;box-shadow:0 24px 50px rgba(11,22,49,.35)}
+.video-frame{position:relative;width:min(320px,100%);aspect-ratio:9/16;border-radius:30px;overflow:hidden;
+  background:#0b1631;border:7px solid #0b0b0d;box-shadow:0 24px 50px rgba(11,22,49,.35),0 0 0 1px rgba(255,255,255,.06)}
+.promo .video-frame{width:100%;max-width:220px;border-width:5px;border-radius:24px}
+.video-frame .video,.video-frame iframe{position:absolute;inset:0;display:block;width:100%;height:100%;border:0}
+.video-frame .video img{display:block;width:100%;height:100%;object-fit:cover}
+.video-play{position:absolute;inset-inline:12px;bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 14px;border-radius:999px;background:rgba(255,255,255,.95);color:#0b1631;font-size:14.5px;font-weight:700;
+  box-shadow:0 8px 20px rgba(0,0,0,.3);transition:transform .15s}
+.video-play svg{flex-shrink:0;width:22px;height:22px;padding:4px;border-radius:50%;background:#ff0033;color:#fff}
+.video:hover .video-play{transform:scale(1.03)}
+.video:hover{text-decoration:none}
+.home-gallery{margin-top:28px}
+.desktop-hero{padding:0 20px;text-align:center}
+.desktop-hero h2{margin:16px auto 0;max-width:22ch}
+.desktop-hero .shot{margin-top:36px}
+@media (max-width:820px){
+  .hero-app{grid-template-columns:1fr;gap:32px;padding:36px 20px 40px}
+  .hero-app .store-buttons .btn{flex:1 1 200px}
+  .video-frame,.hero-shot{width:min(280px,82%)}
+}
 </style>
 </head>
 <body>
@@ -341,7 +374,7 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 <div class="cta store-buttons"><a class="btn store" href="https://play.google.com/store/apps/details?id=com.streammydrone.app" data-store="play"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="#34a853" d="m3 2 11 10L3 22Z"/><path fill="#4285f4" d="m3 2 14 8-3 2Z"/><path fill="#fbbc04" d="m17 10 4 2-4 2-3-2Z"/><path fill="#ea4335" d="m3 22 11-10 3 2Z"/></svg>Jetzt bei Google Play</a><a class="btn store" href="https://apps.apple.com/us/app/stream-my-drone/id6818233095" data-store="ios"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>Im App Store laden</a></div>
 <p class="promo-price">Einmalkauf · kein Abo</p>
 </div>
-<div class="promo-phones"><img src="../../../img/app/de/live.webp" alt="Stream My Drone live auf einem Handy: das Drohnenbild, die Bitrate und die aktiven Plattformen." width="540" height="960" loading="lazy" decoding="async"></div>
+<div class="promo-phones"><div class="video-frame"><a class="video" href="https://www.youtube.com/shorts/kqowcn2gpaM" data-video="kqowcn2gpaM" data-title="DJI Drohne Livestream auf YouTube – ohne PC (DJI RC 2 + DJI Fly RTMP)"><img src="../../../img/video/de.webp" alt="Eine DJI RC 2 und ein Handy mit Stream My Drone, aus dem Einrichtungsvideo." width="540" height="960" loading="lazy"><span class="video-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7Z"/></svg>Die Einrichtung in 1 Minute ansehen</span></a></div></div>
 </aside>
 
 <div class="keyfacts">
@@ -458,7 +491,14 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 <p><strong>Stream My Drone</strong><span>Live direkt vom Handy</span></p>
 <a class="btn primary small" href="#app" data-store="auto">App holen</a>
 </div>
-<script>(function(){var u=navigator.userAgent,s=/android/i.test(u)?"play":/iphone|ipad|ipod/i.test(u)||(/macintosh/i.test(u)&&navigator.maxTouchPoints>1)?"ios":"";if(!s)return;var h={play:"https://play.google.com/store/apps/details?id=com.streammydrone.app",ios:"https://apps.apple.com/us/app/stream-my-drone/id6818233095"};document.querySelectorAll('a[data-store="auto"]').forEach(function(a){a.href=h[s]});document.documentElement.classList.add("on-"+s)})();</script>
+<script>(function(){
+var u=navigator.userAgent,s=/android/i.test(u)?"play":/iphone|ipad|ipod/i.test(u)||(/macintosh/i.test(u)&&navigator.maxTouchPoints>1)?"ios":"";
+var h={play:"https://play.google.com/store/apps/details?id=com.streammydrone.app",ios:"https://apps.apple.com/us/app/stream-my-drone/id6818233095"};
+var ev=function(n,p){if(window.gtag)gtag("event",n,p)};
+if(s){document.querySelectorAll('a[data-store="auto"]').forEach(function(a){a.href=h[s]});document.documentElement.classList.add("on-"+s)}
+document.querySelectorAll("a[data-store]").forEach(function(a){a.addEventListener("click",function(){ev("store_click",{store:a.href.indexOf("apple.com")>0?"ios":a.href.indexOf("google.com")>0?"play":"page"})})});
+document.querySelectorAll("a.video[data-video]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();var f=document.createElement("iframe");f.src="https://www.youtube-nocookie.com/embed/"+a.dataset.video+"?autoplay=1&playsinline=1&rel=0";f.title=a.dataset.title;f.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";f.allowFullscreen=true;a.replaceWith(f);ev("setup_video_play",{video_id:a.dataset.video})})});
+})();</script>
 
 </body>
 </html>

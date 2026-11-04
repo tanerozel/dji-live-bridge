@@ -99,8 +99,14 @@ for (const locale of LOCALES) {
   const headings = html.match(/<h1[^>]*>/g) || [];
   if (headings.length !== 1) fail(where, `${headings.length} <h1> elements, expected 1`);
 
+  // A page with the setup video also describes it (VideoObject).
+  const hasVideo = /<a class="video" [^>]*data-video="/.test(html);
   const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
-  if (blocks.length !== 3) fail(where, `${blocks.length} JSON-LD blocks, expected 3`);
+  const expectedBlocks = hasVideo ? 4 : 3;
+  if (blocks.length !== expectedBlocks) fail(where, `${blocks.length} JSON-LD blocks, expected ${expectedBlocks}`);
+  if (hasVideo && !blocks.some(([, body]) => body.includes('"@type":"VideoObject"'))) {
+    fail(where, "shows the setup video without VideoObject structured data");
+  }
   for (const [, body] of blocks) {
     try {
       const data = JSON.parse(body);

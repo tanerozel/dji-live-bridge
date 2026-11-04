@@ -39,4 +39,18 @@ for pair in $pairs; do
   sips -s format jpeg -s formatOptions 82 "$graphic" --out "$out/$code/share.jpg" >/dev/null
 done
 
-du -sh "$out"
+# Posters for the setup videos on YouTube (SETUP_VIDEOS in build-site.mjs): the
+# frame at 2 s, with the title card, the RC 2 and the phone. The rendered
+# videos are not in git (marketing/promo-video/out), so a missing video keeps
+# whatever poster is already committed under site/img/video/.
+videos="$root/marketing/promo-video/out/ml"
+mkdir -p "$root/site/img/video"
+for pair in $pairs; do
+  code="${pair%%:*}"
+  video="$videos/stream-my-drone-setup-$code.mp4"
+  [ -f "$video" ] || { echo "no setup video for $code, poster kept" >&2; continue; }
+  ffmpeg -loglevel error -y -ss 2 -i "$video" -frames:v 1 -vf scale=540:960 "$tmp/poster.png"
+  cwebp -quiet -q 78 -metadata none "$tmp/poster.png" -o "$root/site/img/video/$code.webp"
+done
+
+du -sh "$out" "$root/site/img/video"

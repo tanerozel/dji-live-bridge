@@ -27,7 +27,15 @@
     "ctaSource": "GitHub のソースコード",
     "meta": "Apple Silicon と Intel の Mac · macOS 13 以降 · Windows 10/11 · ほかに入れるものはありません",
     "shotAlt": "「配信」タブ：ドローンを接続し、配信先を選び、配信を開始を押します。",
-    "caption": "画面はひとつ。ドローンを接続し、配信先を追加し、配信を開始を押すだけ。"
+    "caption": "画面はひとつ。ドローンを接続し、配信先を追加し、配信を開始を押すだけ。",
+    "mobilePill": "Android・iPhone · 買い切り",
+    "mobileLead": "Stream My Drone はスマホで DJI Fly の映像を受け取り、YouTube、Instagram、Facebook、TikTok、Twitch、Kick や独自の RTMP サーバーへ複数同時に送ります。パソコンもケーブルもサーバーも不要です。",
+    "desktopLink": "パソコンで配信するなら Mac・Windows 版は無料",
+    "videoPlay": "1 分でわかる設定動画を見る",
+    "posterAlt": "設定動画より：DJI RC 2 と Stream My Drone を動かすスマホ。"
+  },
+  "desktop": {
+    "h2": "パソコンなら Mac・Windows 版が無料"
   },
   "features": {
     "h2": "できること",

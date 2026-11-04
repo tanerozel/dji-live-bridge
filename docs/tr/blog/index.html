@@ -299,6 +299,39 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 /* A long URL in a step must wrap instead of widening the page on a phone. */
 .steps li>div{min-width:0}
 .steps code{overflow-wrap:anywhere}
+
+/* Home page: the phone app first (text beside the setup video), the computer
+   app as its own section further down. */
+.hero-app{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center;
+  padding:56px 20px 48px;text-align:start}
+.hero-app h1{margin:18px 0 0;max-width:17ch}
+.hero-app .lead{margin:18px 0 0}
+.hero-app .store-buttons{margin-top:26px}
+.hero-app .store-buttons .btn{padding:13px 22px;font-size:16px}
+.hero-app .meta a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.hero-app .meta a:hover{color:var(--text)}
+.hero-media{display:flex;justify-content:center}
+.hero-shot{display:block;width:min(320px,100%);height:auto;border-radius:28px;box-shadow:0 24px 50px rgba(11,22,49,.35)}
+.video-frame{position:relative;width:min(320px,100%);aspect-ratio:9/16;border-radius:30px;overflow:hidden;
+  background:#0b1631;border:7px solid #0b0b0d;box-shadow:0 24px 50px rgba(11,22,49,.35),0 0 0 1px rgba(255,255,255,.06)}
+.promo .video-frame{width:100%;max-width:220px;border-width:5px;border-radius:24px}
+.video-frame .video,.video-frame iframe{position:absolute;inset:0;display:block;width:100%;height:100%;border:0}
+.video-frame .video img{display:block;width:100%;height:100%;object-fit:cover}
+.video-play{position:absolute;inset-inline:12px;bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 14px;border-radius:999px;background:rgba(255,255,255,.95);color:#0b1631;font-size:14.5px;font-weight:700;
+  box-shadow:0 8px 20px rgba(0,0,0,.3);transition:transform .15s}
+.video-play svg{flex-shrink:0;width:22px;height:22px;padding:4px;border-radius:50%;background:#ff0033;color:#fff}
+.video:hover .video-play{transform:scale(1.03)}
+.video:hover{text-decoration:none}
+.home-gallery{margin-top:28px}
+.desktop-hero{padding:0 20px;text-align:center}
+.desktop-hero h2{margin:16px auto 0;max-width:22ch}
+.desktop-hero .shot{margin-top:36px}
+@media (max-width:820px){
+  .hero-app{grid-template-columns:1fr;gap:32px;padding:36px 20px 40px}
+  .hero-app .store-buttons .btn{flex:1 1 200px}
+  .video-frame,.hero-shot{width:min(280px,82%)}
+}
 </style>
 </head>
 <body>
@@ -399,7 +432,14 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 <p><strong>Stream My Drone</strong><span>Telefonunuzdan canlı yayın yapın</span></p>
 <a class="btn primary small" href="#app" data-store="auto">Uygulamayı edinin</a>
 </div>
-<script>(function(){var u=navigator.userAgent,s=/android/i.test(u)?"play":/iphone|ipad|ipod/i.test(u)||(/macintosh/i.test(u)&&navigator.maxTouchPoints>1)?"ios":"";if(!s)return;var h={play:"https://play.google.com/store/apps/details?id=com.streammydrone.app",ios:"https://apps.apple.com/us/app/stream-my-drone/id6818233095"};document.querySelectorAll('a[data-store="auto"]').forEach(function(a){a.href=h[s]});document.documentElement.classList.add("on-"+s)})();</script>
+<script>(function(){
+var u=navigator.userAgent,s=/android/i.test(u)?"play":/iphone|ipad|ipod/i.test(u)||(/macintosh/i.test(u)&&navigator.maxTouchPoints>1)?"ios":"";
+var h={play:"https://play.google.com/store/apps/details?id=com.streammydrone.app",ios:"https://apps.apple.com/us/app/stream-my-drone/id6818233095"};
+var ev=function(n,p){if(window.gtag)gtag("event",n,p)};
+if(s){document.querySelectorAll('a[data-store="auto"]').forEach(function(a){a.href=h[s]});document.documentElement.classList.add("on-"+s)}
+document.querySelectorAll("a[data-store]").forEach(function(a){a.addEventListener("click",function(){ev("store_click",{store:a.href.indexOf("apple.com")>0?"ios":a.href.indexOf("google.com")>0?"play":"page"})})});
+document.querySelectorAll("a.video[data-video]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();var f=document.createElement("iframe");f.src="https://www.youtube-nocookie.com/embed/"+a.dataset.video+"?autoplay=1&playsinline=1&rel=0";f.title=a.dataset.title;f.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";f.allowFullscreen=true;a.replaceWith(f);ev("setup_video_play",{video_id:a.dataset.video})})});
+})();</script>
 
 </body>
 </html>

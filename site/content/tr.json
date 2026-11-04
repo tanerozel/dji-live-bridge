@@ -27,7 +27,15 @@
     "ctaSource": "GitHub'da kaynak kodu",
     "meta": "Apple Silicon ve Intel Mac'ler · macOS 13 veya üzeri · Windows 10/11 · başka hiçbir şey kurmanız gerekmez",
     "shotAlt": "Canlı yayın sekmesi: drone'u bağlayın, hedefleri seçin, sonra YAYINI BAŞLAT'a basın.",
-    "caption": "Tek ekran: drone'u bağlayın, hedef ekleyin, YAYINI BAŞLAT'a basın."
+    "caption": "Tek ekran: drone'u bağlayın, hedef ekleyin, YAYINI BAŞLAT'a basın.",
+    "mobilePill": "Android ve iPhone · tek seferlik satın alma",
+    "mobileLead": "Stream My Drone, DJI Fly görüntüsünü telefonunuza alır ve YouTube, Instagram, Facebook, TikTok, Twitch, Kick veya kendi RTMP sunucunuza, aynı anda birden fazlasına gönderir. Bilgisayar, kablo veya sunucu gerekmez.",
+    "desktopLink": "Bilgisayarda mı yayın yapıyorsunuz? Mac ve Windows uygulaması ücretsiz",
+    "videoPlay": "1 dakikalık kurulumu izleyin",
+    "posterAlt": "Kurulum videosundan: DJI RC 2 ve Stream My Drone çalışan bir telefon."
+  },
+  "desktop": {
+    "h2": "Bilgisayarda mı? Mac ve Windows için ücretsiz"
   },
   "features": {
     "h2": "Neler yapar",

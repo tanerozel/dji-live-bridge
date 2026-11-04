@@ -27,7 +27,15 @@
     "ctaSource": "GitHub 소스 코드",
     "meta": "Apple Silicon 및 Intel Mac · macOS 13 이상 · Windows 10/11 · 따로 설치할 것 없음",
     "shotAlt": "'방송' 탭: 드론을 연결하고 방송 대상을 고른 뒤 방송 시작을 누릅니다.",
-    "caption": "화면 하나로 끝납니다. 드론을 연결하고, 방송 대상을 추가하고, 방송 시작을 누릅니다."
+    "caption": "화면 하나로 끝납니다. 드론을 연결하고, 방송 대상을 추가하고, 방송 시작을 누릅니다.",
+    "mobilePill": "Android·iPhone · 한 번 구매",
+    "mobileLead": "Stream My Drone은 휴대폰에서 DJI Fly 화면을 받아 YouTube, Instagram, Facebook, TikTok, Twitch, Kick 또는 직접 운영하는 RTMP 서버로 여러 곳에 동시에 보냅니다. 컴퓨터도, 케이블도, 서버도 필요 없습니다.",
+    "desktopLink": "컴퓨터로 방송하나요? Mac·Windows 앱은 무료입니다",
+    "videoPlay": "1분 설정 영상 보기",
+    "posterAlt": "설정 영상의 한 장면: DJI RC 2와 Stream My Drone을 실행한 휴대폰."
+  },
+  "desktop": {
+    "h2": "컴퓨터에서? Mac·Windows용 무료"
   },
   "features": {
     "h2": "무엇을 하는 앱인가",

@@ -27,7 +27,15 @@
     "ctaSource": "Source on GitHub",
     "meta": "Apple Silicon and Intel Macs · macOS 13 or newer · Windows 10/11 · nothing else to install",
     "shotAlt": "The Go live tab: connect your drone, choose destinations, then press START LIVE.",
-    "caption": "One screen: connect the drone, add destinations, press START LIVE."
+    "caption": "One screen: connect the drone, add destinations, press START LIVE.",
+    "mobilePill": "Android & iPhone · one-time purchase",
+    "mobileLead": "Stream My Drone receives the DJI Fly picture on your phone and sends it to YouTube, Instagram, Facebook, TikTok, Twitch, Kick or your own RTMP server, several at once. No computer, no cables, no server.",
+    "desktopLink": "On a computer? The Mac and Windows app is free",
+    "videoPlay": "Watch the 1-minute setup",
+    "posterAlt": "A DJI RC 2 and a phone running Stream My Drone, from the setup video."
+  },
+  "desktop": {
+    "h2": "On a computer? Free for Mac and Windows"
   },
   "features": {
     "h2": "What it does",

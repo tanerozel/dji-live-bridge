@@ -27,7 +27,15 @@
     "ctaSource": "Codice su GitHub",
     "meta": "Mac con Apple Silicon e Intel · macOS 13 o successivo · Windows 10/11 · nient'altro da installare",
     "shotAlt": "La scheda Diretta: collega il drone, scegli le destinazioni e premi AVVIA DIRETTA.",
-    "caption": "Una sola schermata: collega il drone, aggiungi le destinazioni, premi AVVIA DIRETTA."
+    "caption": "Una sola schermata: collega il drone, aggiungi le destinazioni, premi AVVIA DIRETTA.",
+    "mobilePill": "Android e iPhone · acquisto unico",
+    "mobileLead": "Stream My Drone riceve l'immagine di DJI Fly sul tuo telefono e la invia a YouTube, Instagram, Facebook, TikTok, Twitch, Kick o al tuo server RTMP, a più destinazioni insieme. Niente computer, cavi o server.",
+    "desktopLink": "Usi un computer? L'app per Mac e Windows è gratuita",
+    "videoPlay": "Guarda la configurazione in 1 minuto",
+    "posterAlt": "Un DJI RC 2 e un telefono con Stream My Drone, dal video di configurazione."
+  },
+  "desktop": {
+    "h2": "Su computer? Gratis per Mac e Windows"
   },
   "features": {
     "h2": "Che cosa fa",

@@ -39,8 +39,10 @@
 <meta property="og:site_name" content="Stream My Drone">
 <meta property="og:title" content="Stream My Drone">
 <meta property="og:description" content="Transmita ao vivo do seu drone DJI para Instagram, TikTok e qualquer destino RTMP ao mesmo tempo. Gratuito, de código aberto, assinado e autenticado.">
-<meta property="og:image" content="https://streammydrone.com/img/go-live.png">
-<meta property="og:image:alt" content="A aba Transmitir: conecte o drone, escolha os destinos e pressione INICIAR TRANSMISSÃO.">
+<meta property="og:image" content="https://streammydrone.com/img/app/pt/share.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta property="og:image:alt" content="Android e iPhone · compra única">
 <meta property="og:url" content="https://streammydrone.com/pt/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
@@ -61,10 +63,11 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Stream My Drone">
 <meta name="twitter:description" content="Transmita ao vivo do seu drone DJI para Instagram, TikTok e qualquer destino RTMP ao mesmo tempo. Gratuito, de código aberto, assinado e autenticado.">
-<meta name="twitter:image" content="https://streammydrone.com/img/go-live.png">
+<meta name="twitter:image" content="https://streammydrone.com/img/app/pt/share.jpg">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Stream My Drone","description":"App gratuito que recebe a transmissão RTMP do DJI Fly e envia ao vivo para Instagram, TikTok e qualquer destino RTMP ao mesmo tempo, ou vira câmera virtual.","applicationCategory":"MultimediaApplication","operatingSystem":"macOS 13 or newer, Windows 10/11","softwareVersion":"0.2.8","url":"https://streammydrone.com/pt/","downloadUrl":"https://github.com/tanerozel/dji-live-bridge/releases/latest","inLanguage":"pt","image":"https://streammydrone.com/img/go-live.png","license":"https://opensource.org/licenses/MIT","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"MobileApplication","name":"Stream My Drone","description":"Sem computador em campo? Stream My Drone é a versão para Android: seu celular recebe o sinal do DJI Fly e o envia direto para as suas plataformas.","applicationCategory":"MultimediaApplication","operatingSystem":"Android 9 or newer","url":"https://play.google.com/store/apps/details?id=com.streammydrone.app","installUrl":"https://play.google.com/store/apps/details?id=com.streammydrone.app","inLanguage":"pt","image":"https://streammydrone.com/img/android-live.jpg","author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"MobileApplication","name":"Stream My Drone","description":"O Stream My Drone recebe a imagem do DJI Fly no seu celular e envia para YouTube, Instagram, Facebook, TikTok, Twitch, Kick ou seu próprio servidor RTMP, vários ao mesmo tempo. Sem computador, sem cabos, sem servidor.","applicationCategory":"MultimediaApplication","operatingSystem":"Android 9 or newer, iOS 17 or newer","url":"https://play.google.com/store/apps/details?id=com.streammydrone.app","installUrl":["https://play.google.com/store/apps/details?id=com.streammydrone.app","https://apps.apple.com/us/app/stream-my-drone/id6818233095"],"inLanguage":"pt","image":"https://streammydrone.com/img/app/pt/share.jpg","author":{"@type":"Person","name":"Taner Özel","url":"https://github.com/tanerozel"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"pt","mainEntity":[{"@type":"Question","name":"Quais drones funcionam?","acceptedAnswer":{"@type":"Answer","text":"Qualquer drone cuja versão do DJI Fly ofereça RTMP em Plataformas de transmissão. O aplicativo recebe uma transmissão RTMP comum, então não conversa com o drone em si. No RC 2, o DJI Fly pode se recusar a iniciar a transmissão se não houver um microfone conectado ao controle."}},{"@type":"Question","name":"Preciso instalar o FFmpeg?","acceptedAnswer":{"@type":"Answer","text":"Não. O aplicativo traz o próprio FFmpeg, compilado a partir do código-fonte sem nenhum componente GPL (LGPL, Apple VideoToolbox para H.264), então não há nada para instalar nem para manter atualizado. Os textos das licenças e os parâmetros exatos de compilação estão dentro do aplicativo, em Contents/Resources/licenses."}},{"@type":"Question","name":"Preciso do OBS?","acceptedAnswer":{"@type":"Answer","text":"Não. O OBS é opcional e só serve se você quiser as cenas, os filtros ou a gravação dele. O RTMP direto e a câmera virtual funcionam sem ele."}},{"@type":"Question","name":"Funciona em um Mac com Intel?","acceptedAnswer":{"@type":"Answer","text":"Sim. Cada versão sai com dois downloads: um para Apple Silicon e outro para Intel, os dois assinados e autenticados, cada um com o próprio FFmpeg embutido. Escolha o arquivo que corresponde ao seu Mac."}},{"@type":"Question","name":"Funciona no Windows?","acceptedAnswer":{"@type":"Answer","text":"Sim. Windows 10/11 é compatível. A transmissão, a prévia, a gravação, o diagnóstico e a câmera virtual integrada foram todos testados. O instalador registra um dispositivo “Stream My Drone Camera” para TikTok LIVE Studio, OBS e Zoom. O instalador não tem assinatura de código, por isso o Windows SmartScreen pode exibir um alerta."}},{"@type":"Question","name":"Ele consegue detectar e contar animais?","acceptedAnswer":{"@type":"Answer","text":"Sim. Ative o AI Vision na aba Transmitir: cada animal recebe uma caixa com etiqueta na transmissão e na câmera virtual, e um contador faz a contagem. Tudo funciona no seu computador. Cabras, burros e aves exigem um Mac; no Windows ele reconhece ovelhas, vacas, cavalos, cães, gatos, pássaros e ursos."}},{"@type":"Question","name":"Para onde vão minhas chaves de transmissão?","acceptedAnswer":{"@type":"Answer","text":"Para o cofre do sistema, uma entrada por destino. Elas são entregues ao servidor de mídia local pela interface de loopback quando você entra ao vivo e removidas quando você para. Nunca aparecem no arquivo de configuração, nos argumentos de processo ou nos logs."}},{"@type":"Question","name":"Por que o Instagram pede uma chave nova toda vez?","acceptedAnswer":{"@type":"Answer","text":"É o comportamento do próprio Instagram: ele gera uma chave de transmissão nova a cada transmissão. Use “Atualizar chave” no cartão do destino antes de começar e lembre-se de pressionar “Iniciar live” no Instagram para deixar a transmissão pública."}},{"@type":"Question","name":"Por que minha imagem está em 720p?","acceptedAnswer":{"@type":"Answer","text":"O controle da DJI costuma enviar 720p por RTMP. O aplicativo mostra a resolução real de entrada e não finge que a saída ampliada é um 1080p nativo."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"Como fazer transmissão ao vivo com drone DJI no YouTube sem PC (DJI RC 2 + DJI Fly RTMP)","description":"O Stream My Drone recebe a imagem do DJI Fly no seu celular e envia para YouTube, Instagram, Facebook, TikTok, Twitch, Kick ou seu próprio servidor RTMP, vários ao mesmo tempo. Sem computador, sem cabos, sem servidor.","inLanguage":"pt","thumbnailUrl":"https://streammydrone.com/img/video/pt.webp","uploadDate":"2026-11-04","duration":"PT1M8S","embedUrl":"https://www.youtube.com/embed/wtV2WIiJbiU","url":"https://www.youtube.com/shorts/wtV2WIiJbiU"}</script>
 <style>
 
 :root{
@@ -314,6 +317,39 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
 /* A long URL in a step must wrap instead of widening the page on a phone. */
 .steps li>div{min-width:0}
 .steps code{overflow-wrap:anywhere}
+
+/* Home page: the phone app first (text beside the setup video), the computer
+   app as its own section further down. */
+.hero-app{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center;
+  padding:56px 20px 48px;text-align:start}
+.hero-app h1{margin:18px 0 0;max-width:17ch}
+.hero-app .lead{margin:18px 0 0}
+.hero-app .store-buttons{margin-top:26px}
+.hero-app .store-buttons .btn{padding:13px 22px;font-size:16px}
+.hero-app .meta a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.hero-app .meta a:hover{color:var(--text)}
+.hero-media{display:flex;justify-content:center}
+.hero-shot{display:block;width:min(320px,100%);height:auto;border-radius:28px;box-shadow:0 24px 50px rgba(11,22,49,.35)}
+.video-frame{position:relative;width:min(320px,100%);aspect-ratio:9/16;border-radius:30px;overflow:hidden;
+  background:#0b1631;border:7px solid #0b0b0d;box-shadow:0 24px 50px rgba(11,22,49,.35),0 0 0 1px rgba(255,255,255,.06)}
+.promo .video-frame{width:100%;max-width:220px;border-width:5px;border-radius:24px}
+.video-frame .video,.video-frame iframe{position:absolute;inset:0;display:block;width:100%;height:100%;border:0}
+.video-frame .video img{display:block;width:100%;height:100%;object-fit:cover}
+.video-play{position:absolute;inset-inline:12px;bottom:14px;display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 14px;border-radius:999px;background:rgba(255,255,255,.95);color:#0b1631;font-size:14.5px;font-weight:700;
+  box-shadow:0 8px 20px rgba(0,0,0,.3);transition:transform .15s}
+.video-play svg{flex-shrink:0;width:22px;height:22px;padding:4px;border-radius:50%;background:#ff0033;color:#fff}
+.video:hover .video-play{transform:scale(1.03)}
+.video:hover{text-decoration:none}
+.home-gallery{margin-top:28px}
+.desktop-hero{padding:0 20px;text-align:center}
+.desktop-hero h2{margin:16px auto 0;max-width:22ch}
+.desktop-hero .shot{margin-top:36px}
+@media (max-width:820px){
+  .hero-app{grid-template-columns:1fr;gap:32px;padding:36px 20px 40px}
+  .hero-app .store-buttons .btn{flex:1 1 200px}
+  .video-frame,.hero-shot{width:min(280px,82%)}
+}
 </style>
 </head>
 <body>
@@ -324,9 +360,9 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
   <div class="wrap bar">
     <a class="brand" href="https://streammydrone.com/pt/"><img src="../img/icon.png" alt="" width="30" height="30">Stream My Drone</a>
     <nav>
-      <a href="#features">Recursos</a>
-      <a href="#how">Como funciona</a>
       <a href="#android">Android</a>
+      <a href="#desktop">macOS · Windows</a>
+      <a href="#features">Recursos</a>
       <a href="#tiktok">TikTok</a>
       <a href="#faq">Perguntas</a>
       <a href="https://streammydrone.com/pt/blog/">Blog</a>
@@ -334,28 +370,66 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
         <summary aria-label="Idioma"><span aria-hidden="true">🌐</span><span class="langname">Português</span></summary>
         <div class="sheet"><a href="https://streammydrone.com/" hreflang="en" lang="en">English</a><a href="https://streammydrone.com/tr/" hreflang="tr" lang="tr">Türkçe</a><a href="https://streammydrone.com/es/" hreflang="es" lang="es">Español</a><a href="https://streammydrone.com/zh/" hreflang="zh-Hans" lang="zh-Hans">中文（简体）</a><a href="https://streammydrone.com/zh-Hant/" hreflang="zh-Hant" lang="zh-Hant">中文（繁體）</a><a href="https://streammydrone.com/ar/" hreflang="ar" lang="ar">العربية</a><a href="https://streammydrone.com/hi/" hreflang="hi" lang="hi">हिन्दी</a><a href="https://streammydrone.com/pt/" hreflang="pt" lang="pt" aria-current="true">Português</a><a href="https://streammydrone.com/ru/" hreflang="ru" lang="ru">Русский</a><a href="https://streammydrone.com/fr/" hreflang="fr" lang="fr">Français</a><a href="https://streammydrone.com/de/" hreflang="de" lang="de">Deutsch</a><a href="https://streammydrone.com/ja/" hreflang="ja" lang="ja">日本語</a><a href="https://streammydrone.com/ko/" hreflang="ko" lang="ko">한국어</a><a href="https://streammydrone.com/id/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="https://streammydrone.com/it/" hreflang="it" lang="it">Italiano</a></div>
       </details>
-      <a class="btn small" href="https://github.com/tanerozel/dji-live-bridge"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.64 1.22 3.28.93.1-.73.39-1.22.72-1.5-2.5-.28-5.13-1.25-5.13-5.57 0-1.23.44-2.23 1.16-3.01-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.09 1.15A10.77 10.77 0 0 1 12 6.16c.96 0 1.92.13 2.82.38 2.14-1.45 3.08-1.15 3.08-1.15.61 1.55.23 2.7.11 2.98.72.78 1.16 1.78 1.16 3.01 0 4.33-2.64 5.29-5.15 5.57.41.35.76 1.03.76 2.08v3.1c0 .3.2.65.78.54A11.25 11.25 0 0 0 12 .75Z"/></svg>GitHub</a>
+      <a class="btn small primary" href="#app"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M7 1h10a2 2 0 0 1 2 2v18a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2Zm0 3v15h10V4Zm4 16v1.5h2V20Z"/></svg>Baixar o app</a>
     </nav>
   </div>
 </header>
 
 <main id="main">
 
-<div class="wrap hero">
-  <span class="pill"><span class="dot"></span>Gratuito · Assinado e autenticado pela Apple</span>
-  <h1>Transmita ao vivo do seu drone DJI para Instagram, TikTok, YouTube, Facebook e destinos RTMP personalizados</h1>
-  <p class="lead">O Stream My Drone recebe a transmissão RTMP que o DJI Fly envia para o seu computador e a repassa para várias plataformas ao mesmo tempo — ou a transforma em uma câmera virtual para o TikTok LIVE Studio, onde nenhuma chave de transmissão é necessária.</p>
-  <div class="cta">
-    <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.streammydrone.app"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="#34a853" d="m3 2 11 10L3 22Z"/><path fill="#4285f4" d="m3 2 14 8-3 2Z"/><path fill="#fbbc04" d="m17 10 4 2-4 2-3-2Z"/><path fill="#ea4335" d="m3 22 11-10 3 2Z"/></svg>Android no Google Play</a>
-    <a class="btn primary" href="https://apps.apple.com/us/app/stream-my-drone/id6818233095"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>iOS – App Store</a>
-    <a class="btn" href="https://github.com/tanerozel/dji-live-bridge/releases/latest"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>Baixar para macOS</a>
-    <a class="btn" href="https://github.com/tanerozel/dji-live-bridge/releases/latest"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M2 4.5 10.5 3v8.25H2Zm10-1.75L22 1v10.25H12ZM2 12.75h8.5V21L2 19.5Zm10 0h10V23l-10-1.75Z"/></svg>Windows</a>
-    <a class="btn" href="https://github.com/tanerozel/dji-live-bridge"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.64 1.22 3.28.93.1-.73.39-1.22.72-1.5-2.5-.28-5.13-1.25-5.13-5.57 0-1.23.44-2.23 1.16-3.01-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.09 1.15A10.77 10.77 0 0 1 12 6.16c.96 0 1.92.13 2.82.38 2.14-1.45 3.08-1.15 3.08-1.15.61 1.55.23 2.7.11 2.98.72.78 1.16 1.78 1.16 3.01 0 4.33-2.64 5.29-5.15 5.57.41.35.76 1.03.76 2.08v3.1c0 .3.2.65.78.54A11.25 11.25 0 0 0 12 .75Z"/></svg>Código no GitHub</a>
+<div class="wrap hero hero-app" id="app">
+  <div class="hero-text">
+    <span class="pill"><span class="dot"></span>Android e iPhone · compra única</span>
+    <h1>Transmita ao vivo do seu drone DJI para Instagram, TikTok, YouTube, Facebook e destinos RTMP personalizados</h1>
+    <p class="lead">O Stream My Drone recebe a imagem do DJI Fly no seu celular e envia para YouTube, Instagram, Facebook, TikTok, Twitch, Kick ou seu próprio servidor RTMP, vários ao mesmo tempo. Sem computador, sem cabos, sem servidor.</p>
+    <div class="cta store-buttons"><a class="btn primary" href="https://play.google.com/store/apps/details?id=com.streammydrone.app" data-store="play"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="#34a853" d="m3 2 11 10L3 22Z"/><path fill="#4285f4" d="m3 2 14 8-3 2Z"/><path fill="#fbbc04" d="m17 10 4 2-4 2-3-2Z"/><path fill="#ea4335" d="m3 22 11-10 3 2Z"/></svg>Disponível no Google Play</a><a class="btn primary" href="https://apps.apple.com/us/app/stream-my-drone/id6818233095" data-store="ios"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>Baixar na App Store</a></div>
+    <p class="meta"><a href="#desktop">Usa um computador? O app para Mac e Windows é gratuito →</a></p>
   </div>
-  <p class="meta">Macs com Apple Silicon e Intel · macOS 13 ou mais recente · Windows 10/11 · nada mais para instalar</p>
-  <div class="shot"><img src="../img/go-live.png" alt="A aba Transmitir: conecte o drone, escolha os destinos e pressione INICIAR TRANSMISSÃO." width="1600" height="1260" fetchpriority="high"></div>
-  <p class="caption">Uma tela só: conecte o drone, adicione destinos, pressione INICIAR TRANSMISSÃO.</p>
+  <div class="hero-media"><div class="video-frame"><a class="video" href="https://www.youtube.com/shorts/wtV2WIiJbiU" data-video="wtV2WIiJbiU" data-title="Como fazer transmissão ao vivo com drone DJI no YouTube sem PC (DJI RC 2 + DJI Fly RTMP)"><img src="../img/video/pt.webp" alt="Um DJI RC 2 e um celular com o Stream My Drone, do vídeo de configuração." width="540" height="960" fetchpriority="high"><span class="video-play"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 5v14l11-7Z"/></svg>Veja a configuração em 1 minuto</span></a></div></div>
 </div>
+
+<section id="android">
+  <div class="wrap">
+    <h2>Transmita do celular com o app para Android</h2>
+    <p class="sub">Sem computador em campo? Stream My Drone é a versão para Android: seu celular recebe o sinal do DJI Fly e o envia direto para as suas plataformas.</p>
+    <div class="split top">
+      <div>
+        <ul class="plain">
+          <li>Várias plataformas ao mesmo tempo: Instagram, TikTok, YouTube, Facebook, Twitch, Kick e qualquer servidor RTMP ou RTMPS personalizado.</li>
+          <li>Prévia ao vivo da imagem do drone, com resolução, taxa de bits e detalhes da conexão antes de entrar ao vivo.</li>
+          <li>Um destino se reconecta sozinho depois de uma queda rápida de rede, e a transmissão continua enquanto você usa outro app.</li>
+          <li>Funciona na mesma rede Wi-Fi ou no ponto de acesso do próprio celular. As chaves de transmissão são criptografadas com o Android Keystore.</li>
+        </ul>
+        <p class="note" style="margin-top:16px">Compra única no Google Play, sem assinatura. Android 9 ou mais recente. O celular repassa a imagem do jeito que o DJI Fly envia, então a câmera virtual e a conversão vertical 1080×1920 continuam sendo recursos do app para computador.</p>
+        <div class="cta" style="justify-content:flex-start;margin-top:22px">
+          <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.streammydrone.app" data-store="play"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="#34a853" d="m3 2 11 10L3 22Z"/><path fill="#4285f4" d="m3 2 14 8-3 2Z"/><path fill="#fbbc04" d="m17 10 4 2-4 2-3-2Z"/><path fill="#ea4335" d="m3 22 11-10 3 2Z"/></svg>Disponível no Google Play</a>
+        </div>
+        <p class="note" style="margin-top:22px">O Stream My Drone também está disponível para iOS na App Store.</p>
+        <div class="cta" style="justify-content:flex-start;margin-top:12px">
+          <a class="btn" href="https://apps.apple.com/us/app/stream-my-drone/id6818233095" data-store="ios"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>Baixar na App Store</a>
+        </div>
+      </div>
+      <div class="shot phone"><img src="../img/app/pt/multistream.webp" alt="Ao vivo em várias plataformas ao mesmo tempo com um só título." width="540" height="960" loading="lazy"></div>
+    </div>
+    <div class="gallery-row home-gallery"><img src="../img/app/pt/connect.webp" alt="Conectando o drone: o endereço RTMP para digitar no DJI Fly, com botão de copiar." width="540" height="960" loading="lazy" decoding="async"><img src="../img/app/pt/youtube.webp" alt="Conectando uma conta do YouTube no Stream My Drone com login do Google." width="540" height="960" loading="lazy" decoding="async"><img src="../img/app/pt/instagram.webp" alt="Conectando o Instagram no Stream My Drone, sem chave de transmissão para copiar." width="540" height="960" loading="lazy" decoding="async"><img src="../img/app/pt/reconnect.webp" alt="Destinos se reconectando sozinhos após uma queda rápida da rede." width="540" height="960" loading="lazy" decoding="async"></div>
+  </div>
+</section>
+
+<section id="desktop">
+  <div class="wrap hero desktop-hero">
+    <span class="pill"><span class="dot"></span>Gratuito · Assinado e autenticado pela Apple</span>
+    <h2>No computador? Grátis para Mac e Windows</h2>
+    <p class="lead">O Stream My Drone recebe a transmissão RTMP que o DJI Fly envia para o seu computador e a repassa para várias plataformas ao mesmo tempo — ou a transforma em uma câmera virtual para o TikTok LIVE Studio, onde nenhuma chave de transmissão é necessária.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/tanerozel/dji-live-bridge/releases/latest"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>Baixar para macOS</a>
+      <a class="btn" href="https://github.com/tanerozel/dji-live-bridge/releases/latest"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M2 4.5 10.5 3v8.25H2Zm10-1.75L22 1v10.25H12ZM2 12.75h8.5V21L2 19.5Zm10 0h10V23l-10-1.75Z"/></svg>Windows</a>
+      <a class="btn" href="https://github.com/tanerozel/dji-live-bridge"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.73 1.16 1.73 1.16 1 1.72 2.64 1.22 3.28.93.1-.73.39-1.22.72-1.5-2.5-.28-5.13-1.25-5.13-5.57 0-1.23.44-2.23 1.16-3.01-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.09 1.15A10.77 10.77 0 0 1 12 6.16c.96 0 1.92.13 2.82.38 2.14-1.45 3.08-1.15 3.08-1.15.61 1.55.23 2.7.11 2.98.72.78 1.16 1.78 1.16 3.01 0 4.33-2.64 5.29-5.15 5.57.41.35.76 1.03.76 2.08v3.1c0 .3.2.65.78.54A11.25 11.25 0 0 0 12 .75Z"/></svg>Código no GitHub</a>
+    </div>
+    <p class="meta">Macs com Apple Silicon e Intel · macOS 13 ou mais recente · Windows 10/11 · nada mais para instalar</p>
+    <div class="shot"><img src="../img/go-live.png" alt="A aba Transmitir: conecte o drone, escolha os destinos e pressione INICIAR TRANSMISSÃO." width="1600" height="1260" loading="lazy"></div>
+    <p class="caption">Uma tela só: conecte o drone, adicione destinos, pressione INICIAR TRANSMISSÃO.</p>
+  </div>
+</section>
 
 <section id="features">
   <div class="wrap">
@@ -384,32 +458,6 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
       <li><div><strong>Escolha para onde transmitir</strong><span>Adicione Instagram, TikTok ou qualquer servidor RTMP com a URL do servidor e a chave de transmissão daquela plataforma. As chaves ficam guardadas no cofre do sistema.</span></div></li>
       <li><div><strong>Pressione INICIAR TRANSMISSÃO</strong><span>O botão libera quando o servidor local está funcionando, o vídeo do drone está chegando e há um destino selecionado. A partir daí você vê o tempo decorrido, o estado de cada destino e os dados enviados.</span></div></li>
     </ol>
-  </div>
-</section>
-
-<section id="android">
-  <div class="wrap">
-    <h2>Transmita do celular com o app para Android</h2>
-    <p class="sub">Sem computador em campo? Stream My Drone é a versão para Android: seu celular recebe o sinal do DJI Fly e o envia direto para as suas plataformas.</p>
-    <div class="split top">
-      <div>
-        <ul class="plain">
-          <li>Várias plataformas ao mesmo tempo: Instagram, TikTok, YouTube, Facebook, Twitch, Kick e qualquer servidor RTMP ou RTMPS personalizado.</li>
-          <li>Prévia ao vivo da imagem do drone, com resolução, taxa de bits e detalhes da conexão antes de entrar ao vivo.</li>
-          <li>Um destino se reconecta sozinho depois de uma queda rápida de rede, e a transmissão continua enquanto você usa outro app.</li>
-          <li>Funciona na mesma rede Wi-Fi ou no ponto de acesso do próprio celular. As chaves de transmissão são criptografadas com o Android Keystore.</li>
-        </ul>
-        <p class="note" style="margin-top:16px">Compra única no Google Play, sem assinatura. Android 9 ou mais recente. O celular repassa a imagem do jeito que o DJI Fly envia, então a câmera virtual e a conversão vertical 1080×1920 continuam sendo recursos do app para computador.</p>
-        <div class="cta" style="justify-content:flex-start;margin-top:22px">
-          <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.streammydrone.app"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="#34a853" d="m3 2 11 10L3 22Z"/><path fill="#4285f4" d="m3 2 14 8-3 2Z"/><path fill="#fbbc04" d="m17 10 4 2-4 2-3-2Z"/><path fill="#ea4335" d="m3 22 11-10 3 2Z"/></svg>Disponível no Google Play</a>
-        </div>
-        <p class="note" style="margin-top:22px">O Stream My Drone também está disponível para iOS na App Store.</p>
-        <div class="cta" style="justify-content:flex-start;margin-top:12px">
-          <a class="btn" href="https://apps.apple.com/us/app/stream-my-drone/id6818233095"><svg class="btn-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M17.05 12.54c.03 3.02 2.65 4.03 2.68 4.04-.02.07-.42 1.44-1.38 2.85-.83 1.21-1.69 2.42-3.04 2.45-1.33.03-1.76-.79-3.28-.79-1.52 0-2 .76-3.26.82-1.3.05-2.3-1.31-3.13-2.52-1.7-2.47-3-6.98-1.26-10.02.86-1.51 2.4-2.47 4.06-2.5 1.27-.03 2.47.87 3.24.87.78 0 2.23-1.08 3.76-.92.64.03 2.44.26 3.59 1.95-.09.06-2.14 1.24-2.12 3.77ZM14.55 5.17c.69-.84 1.16-2 1.03-3.17-.99.04-2.19.66-2.9 1.5-.63.73-1.19 1.91-1.04 3.04 1.1.09 2.22-.56 2.91-1.37Z"/></svg>Baixar na App Store</a>
-        </div>
-      </div>
-      <div class="shot phone"><img src="../img/android-live.jpg" alt="Stream My Drone em um celular Android, ao vivo no Instagram, com a imagem do drone, a taxa de bits e os botões das plataformas." width="600" height="1211" loading="lazy"></div>
-    </div>
   </div>
 </section>
 
@@ -544,6 +592,20 @@ footer{padding:44px 0 60px;border-top:1px solid var(--border);color:var(--muted)
     <p class="note">Publicado sob a licença MIT; o FFmpeg embutido é LGPL, compilado a partir do código-fonte sem componentes GPL. O Stream My Drone é um projeto independente e não tem vínculo com DJI, Instagram, TikTok ou Apple. DJI, Instagram e TikTok são marcas de seus respectivos proprietários. Google Play é uma marca comercial da Google LLC.</p>
   </div>
 </footer>
+
+<div class="appbar">
+<img src="../img/icon.png" alt="" width="40" height="40">
+<p><strong>Stream My Drone</strong><span>Entre ao vivo pelo celular</span></p>
+<a class="btn primary small" href="#app" data-store="auto">Baixar o app</a>
+</div>
+<script>(function(){
+var u=navigator.userAgent,s=/android/i.test(u)?"play":/iphone|ipad|ipod/i.test(u)||(/macintosh/i.test(u)&&navigator.maxTouchPoints>1)?"ios":"";
+var h={play:"https://play.google.com/store/apps/details?id=com.streammydrone.app",ios:"https://apps.apple.com/us/app/stream-my-drone/id6818233095"};
+var ev=function(n,p){if(window.gtag)gtag("event",n,p)};
+if(s){document.querySelectorAll('a[data-store="auto"]').forEach(function(a){a.href=h[s]});document.documentElement.classList.add("on-"+s)}
+document.querySelectorAll("a[data-store]").forEach(function(a){a.addEventListener("click",function(){ev("store_click",{store:a.href.indexOf("apple.com")>0?"ios":a.href.indexOf("google.com")>0?"play":"page"})})});
+document.querySelectorAll("a.video[data-video]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();var f=document.createElement("iframe");f.src="https://www.youtube-nocookie.com/embed/"+a.dataset.video+"?autoplay=1&playsinline=1&rel=0";f.title=a.dataset.title;f.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";f.allowFullscreen=true;a.replaceWith(f);ev("setup_video_play",{video_id:a.dataset.video})})});
+})();</script>
 
 </body>
 </html>

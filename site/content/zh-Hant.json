@@ -27,7 +27,15 @@
     "ctaSource": "GitHub 上的原始碼",
     "meta": "Apple Silicon 與 Intel Mac · macOS 13 或更新版本 · Windows 10/11 · 不必安裝其他東西",
     "shotAlt": "「開始直播」分頁：連接無人機、選擇直播目的地，然後按下開始直播。",
-    "caption": "一個畫面：連接無人機、加入直播目的地、按下開始直播。"
+    "caption": "一個畫面：連接無人機、加入直播目的地、按下開始直播。",
+    "mobilePill": "Android 與 iPhone · 一次性購買",
+    "mobileLead": "Stream My Drone 在手機上接收 DJI Fly 畫面，並同時推送到 YouTube、Instagram、Facebook、TikTok、Twitch、Kick 或你自己的 RTMP 伺服器。不需電腦、線材或伺服器。",
+    "desktopLink": "用電腦直播？Mac 與 Windows 版免費",
+    "videoPlay": "觀看 1 分鐘設定影片",
+    "posterAlt": "設定影片截圖：DJI RC 2 與執行 Stream My Drone 的手機。"
+  },
+  "desktop": {
+    "h2": "用電腦？Mac 與 Windows 版免費"
   },
   "features": {
     "h2": "它能做什麼",

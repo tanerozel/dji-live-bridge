@@ -27,7 +27,15 @@
     "ctaSource": "Kode sumber di GitHub",
     "meta": "Mac Apple Silicon dan Intel · macOS 13 atau lebih baru · Windows 10/11 · tidak ada yang perlu dipasang lagi",
     "shotAlt": "Tab Siaran: hubungkan drone, pilih tujuan, lalu tekan MULAI SIARAN.",
-    "caption": "Satu layar: hubungkan drone, tambahkan tujuan, tekan MULAI SIARAN."
+    "caption": "Satu layar: hubungkan drone, tambahkan tujuan, tekan MULAI SIARAN.",
+    "mobilePill": "Android dan iPhone · sekali beli",
+    "mobileLead": "Stream My Drone menerima gambar DJI Fly di ponsel Anda lalu mengirimkannya ke YouTube, Instagram, Facebook, TikTok, Twitch, Kick, atau server RTMP Anda sendiri, ke beberapa sekaligus. Tanpa komputer, kabel, atau server.",
+    "desktopLink": "Pakai komputer? Aplikasi Mac dan Windows gratis",
+    "videoPlay": "Tonton penyiapan 1 menit",
+    "posterAlt": "DJI RC 2 dan ponsel yang menjalankan Stream My Drone, dari video penyiapan."
+  },
+  "desktop": {
+    "h2": "Di komputer? Gratis untuk Mac dan Windows"
   },
   "features": {
     "h2": "Apa yang dikerjakannya",

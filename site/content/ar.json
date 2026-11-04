@@ -27,7 +27,15 @@
     "ctaSource": "الشيفرة المصدرية على GitHub",
     "meta": "أجهزة Mac بمعالج Apple Silicon و Intel · نظام macOS 13 أو أحدث · Windows 10/11 · لا شيء آخر تحتاج إلى تثبيته",
     "shotAlt": "تبويب البث المباشر: وصّل الدرون، واختر الوجهات، ثم اضغط «ابدأ البث».",
-    "caption": "شاشة واحدة: وصّل الدرون، وأضف الوجهات، واضغط «ابدأ البث»."
+    "caption": "شاشة واحدة: وصّل الدرون، وأضف الوجهات، واضغط «ابدأ البث».",
+    "mobilePill": "Android وiPhone · شراء لمرة واحدة",
+    "mobileLead": "يستقبل Stream My Drone صورة DJI Fly على هاتفك ويرسلها إلى YouTube وInstagram وFacebook وTikTok وTwitch وKick أو خادم RTMP الخاص بك، إلى عدة منصات معًا. بلا حاسوب ولا كابلات ولا خادم.",
+    "desktopLink": "تبثّ من حاسوب؟ تطبيق Mac وWindows مجاني",
+    "videoPlay": "شاهد الإعداد في دقيقة واحدة",
+    "posterAlt": "وحدة تحكم DJI RC 2 وهاتف يعمل عليه Stream My Drone، من فيديو الإعداد."
+  },
+  "desktop": {
+    "h2": "على حاسوب؟ مجاني لأجهزة Mac وWindows"
   },
   "features": {
     "h2": "ماذا يفعل التطبيق",

@@ -27,7 +27,15 @@
     "ctaSource": "GitHub पर सोर्स कोड",
     "meta": "Apple Silicon और Intel Mac · macOS 13 या नया · Windows 10/11 · और कुछ इंस्टॉल नहीं करना",
     "shotAlt": "लाइव टैब: ड्रोन जोड़ें, गंतव्य चुनें, फिर लाइव शुरू करें दबाएँ।",
-    "caption": "एक ही स्क्रीन: ड्रोन जोड़ें, गंतव्य जोड़ें, लाइव शुरू करें दबाएँ।"
+    "caption": "एक ही स्क्रीन: ड्रोन जोड़ें, गंतव्य जोड़ें, लाइव शुरू करें दबाएँ।",
+    "mobilePill": "Android और iPhone · एक बार की ख़रीद",
+    "mobileLead": "Stream My Drone आपके फ़ोन पर DJI Fly की तस्वीर लेता है और उसे YouTube, Instagram, Facebook, TikTok, Twitch, Kick या आपके अपने RTMP सर्वर पर, एक साथ कई जगह भेजता है। न कंप्यूटर, न केबल, न सर्वर।",
+    "desktopLink": "कंप्यूटर से स्ट्रीम करते हैं? Mac और Windows ऐप मुफ़्त है",
+    "videoPlay": "1 मिनट का सेटअप देखें",
+    "posterAlt": "सेटअप वीडियो से: DJI RC 2 और Stream My Drone चलाता हुआ फ़ोन।"
+  },
+  "desktop": {
+    "h2": "कंप्यूटर पर? Mac और Windows के लिए मुफ़्त"
   },
   "features": {
     "h2": "यह क्या करता है",
