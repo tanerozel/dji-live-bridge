@@ -21,7 +21,10 @@ const RELEASES = `${REPO}/releases/latest`;
 // The mobile apps, published on their own as "Stream My Drone".
 const PLAY = "https://play.google.com/store/apps/details?id=com.streammydrone.app";
 const APP_STORE = "https://apps.apple.com/us/app/stream-my-drone/id6818233095";
-const YOUTUBE_CHANNEL = "https://www.youtube.com/channel/UCs8Ofh5G_EP0AXcDSzDlePg";
+const YOUTUBE_CHANNEL = "https://www.youtube.com/@StreamMyDrone";
+const INSTAGRAM = "https://www.instagram.com/streammydrone/";
+// The Facebook Page has no username yet, so it is only reachable by its id.
+const FACEBOOK = "https://www.facebook.com/profile.php?id=61596094988340";
 // Who publishes the site, for search engines and AI answers ("which app is this, who makes it").
 const ORGANIZATION = {
   "@type": "Organization",
@@ -30,7 +33,7 @@ const ORGANIZATION = {
   url: `${BASE}/`,
   logo: `${BASE}/img/icon.png`,
   founder: { "@type": "Person", name: "Taner Özel", url: "https://github.com/tanerozel" },
-  sameAs: [YOUTUBE_CHANNEL, REPO, PLAY, APP_STORE],
+  sameAs: [YOUTUBE_CHANNEL, INSTAGRAM, FACEBOOK, REPO, PLAY, APP_STORE],
 };
 // The 1-minute setup video (DJI RC 2 + Android phone) on the @StreamMyDrone
 // YouTube channel, one per language: id, title as on YouTube, length in
@@ -519,6 +522,9 @@ function footer(content) {
       <a href="mailto:tanerozel47@gmail.com">tanerozel47@gmail.com</a>
       <a href="https://github.com/tanerozel">GitHub</a>
       <a href="https://www.linkedin.com/in/tanerozel">LinkedIn</a>
+      <a href="${YOUTUBE_CHANNEL}">YouTube</a>
+      <a href="${INSTAGRAM}">Instagram</a>
+      <a href="${FACEBOOK}">Facebook</a>
       <a href="${REPO}/issues">${content.footer.issue}</a>
       <a href="${BASE}/privacy-policy.html">${content.footer.privacy}</a>
       <a href="${BASE}/llms.txt">llms.txt</a>
