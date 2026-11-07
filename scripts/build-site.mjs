@@ -248,7 +248,8 @@ function head(locale, content) {
     description: stripTags(content.hero.mobileLead),
     inLanguage: locale.hreflang,
     thumbnailUrl: `${BASE}/img/video/${locale.code}.webp`,
-    uploadDate: video.date,
+    // Google wants a full ISO 8601 datetime with a time zone here, not a bare date.
+    uploadDate: `${video.date}T00:00:00+00:00`,
     duration: `PT${Math.floor(video.seconds / 60)}M${video.seconds % 60}S`,
     embedUrl: `https://www.youtube.com/embed/${video.id}`,
     url: `https://www.youtube.com/shorts/${video.id}`,

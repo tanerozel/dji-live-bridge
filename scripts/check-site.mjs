@@ -108,6 +108,12 @@ for (const locale of LOCALES) {
     fail(where, "shows the setup video without VideoObject structured data");
   }
   for (const [, body] of blocks) {
+    const match = body.match(/"uploadDate":"([^"]*)"/);
+    if (match && !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(Z|[+-]\d{2}:\d{2})$/.test(match[1])) {
+      fail(where, `VideoObject uploadDate "${match[1]}" needs a time and a time zone`);
+    }
+  }
+  for (const [, body] of blocks) {
     try {
       const data = JSON.parse(body);
       const questions = readJson(`site/content/${locale.code}.json`).faq.items.length;
