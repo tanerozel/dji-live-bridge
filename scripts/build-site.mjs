@@ -25,6 +25,7 @@ const YOUTUBE_CHANNEL = "https://www.youtube.com/@StreamMyDrone";
 const INSTAGRAM = "https://www.instagram.com/streammydrone/";
 // The Facebook Page has no username yet, so it is only reachable by its id.
 const FACEBOOK = "https://www.facebook.com/profile.php?id=61596094988340";
+const LINKEDIN = "https://www.linkedin.com/company/streammydrone/";
 // Who publishes the site, for search engines and AI answers ("which app is this, who makes it").
 const ORGANIZATION = {
   "@type": "Organization",
@@ -33,7 +34,7 @@ const ORGANIZATION = {
   url: `${BASE}/`,
   logo: `${BASE}/img/icon.png`,
   founder: { "@type": "Person", name: "Taner Özel", url: "https://github.com/tanerozel" },
-  sameAs: [YOUTUBE_CHANNEL, INSTAGRAM, FACEBOOK, REPO, PLAY, APP_STORE],
+  sameAs: [YOUTUBE_CHANNEL, INSTAGRAM, FACEBOOK, LINKEDIN, REPO, PLAY, APP_STORE],
 };
 // The 1-minute setup video (DJI RC 2 + Android phone) on the @StreamMyDrone
 // YouTube channel, one per language: id, title as on YouTube, length in
@@ -517,14 +518,18 @@ ${appBar(blogLabels(locale.code), asset)}
 function footer(content) {
   return `<footer>
   <div class="wrap">
+    <div class="foot-links">
+      <strong style="color:var(--text)">Stream My Drone</strong>
+      <a href="${YOUTUBE_CHANNEL}">YouTube</a>
+      <a href="${INSTAGRAM}">Instagram</a>
+      <a href="${FACEBOOK}">Facebook</a>
+      <a href="${LINKEDIN}">LinkedIn</a>
+    </div>
     <strong style="color:var(--text)">Taner Özel</strong> — ${content.footer.role}
     <div class="foot-links">
       <a href="mailto:tanerozel47@gmail.com">tanerozel47@gmail.com</a>
       <a href="https://github.com/tanerozel">GitHub</a>
       <a href="https://www.linkedin.com/in/tanerozel">LinkedIn</a>
-      <a href="${YOUTUBE_CHANNEL}">YouTube</a>
-      <a href="${INSTAGRAM}">Instagram</a>
-      <a href="${FACEBOOK}">Facebook</a>
       <a href="${REPO}/issues">${content.footer.issue}</a>
       <a href="${BASE}/privacy-policy.html">${content.footer.privacy}</a>
       <a href="${BASE}/llms.txt">llms.txt</a>
