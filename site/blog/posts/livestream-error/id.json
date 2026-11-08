@@ -1,0 +1,153 @@
+{
+  "slug": "solusi-error-live-streaming-dji-fly",
+  "platform": "Error live streaming DJI Fly",
+  "title": "Error live streaming DJI Fly: kenapa tidak mau mulai dan cara mengatasinya",
+  "description": "DJI Fly menampilkan “Livestream error” atau “Starting livestream failed”? 8 penyebab sebenarnya (RTMPS, stream key, akun, mikrofon, jaringan) dan solusi masing-masing.",
+  "h1": "“Livestream error” di DJI Fly: penyebab dan cara mengatasi masing-masing",
+  "lead": "Saat DJI Fly menampilkan <em>“Livestream error”</em> atau <em>“Starting livestream failed”</em>, penyebabnya hampir selalu satu dari empat: platform mewajibkan <strong>RTMPS</strong> (Instagram, Facebook), <strong>alamat atau stream key</strong> salah, <strong>akun</strong> belum boleh live, atau remote <strong>tidak bisa menjangkau server</strong>. Tes tercepat: kirim dulu ke <strong>Stream My Drone</strong> di ponsel atau komputer pada Wi-Fi yang sama. Jika gambar sampai di sana, DJI Fly beres dan masalahnya ada di sisi platform.",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "DJI Fly hanya mengirim RTMP tanpa enkripsi. Instagram dan Facebook hanya menerima RTMPS, jadi siaran langsung ke sana gagal; dukungan DJI mengonfirmasinya di forum.",
+    "Alamat RTMP adalah URL server, sebuah “/”, lalu stream key, tanpa spasi. Garis miring yang hilang atau key lama adalah kegagalan YouTube paling umum.",
+    "Akun harus boleh live: channel YouTube baru butuh hingga 24 jam setelah live streaming diaktifkan, dan TikTok hanya memberi stream key ke sebagian akun.",
+    "DJI RC generasi pertama sama sekali tidak bisa live. RC 2, RC Pro, dan DJI Smart Controller butuh mikrofon sejak DJI Fly 1.16.0.",
+    "Siaran yang mulai lalu putus adalah masalah jaringan: sinyal seluler lemah, Wi-Fi tamu, atau router yang berpindah antara 2,4 dan 5 GHz."
+  ],
+  "sections": [
+    {
+      "id": "checklist",
+      "h2": "Atasi error live streaming DJI Fly dalam 6 pengecekan",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Cek format alamat",
+              "d": "DJI Fly butuh satu baris: URL server, garis miring, lalu stream key, tanpa spasi. Untuk YouTube: <code>rtmp://a.rtmp.youtube.com/live2/</code> diikuti key Anda. Salin ulang key-nya; key lama atau yang sudah di-reset gagal tanpa pesan jelas."
+            },
+            {
+              "t": "Cek apakah platform menerima RTMP",
+              "d": "YouTube, Twitch, dan Kick menerima RTMP. Instagram dan Facebook mewajibkan RTMPS terenkripsi yang tidak bisa dikirim DJI Fly, jadi siaran langsung ke sana selalu gagal. Kirim DJI Fly ke aplikasi penerima yang meneruskan lewat RTMPS."
+            },
+            {
+              "t": "Cek apakah akun boleh live",
+              "d": "Di YouTube, aktifkan live streaming di YouTube Studio lalu tunggu (hingga 24 jam pertama kali). Menurut DJI, tanpa izin live platform tidak memberi stream key yang valid."
+            },
+            {
+              "t": "Cek remote",
+              "d": "DJI RC generasi pertama tidak mendukung live streaming. Di DJI RC 2, RC Pro, dan DJI Smart Controller, DJI Fly 1.16.0 ke atas meminta mikrofon tersambung sebelum siaran dimulai."
+            },
+            {
+              "t": "Cek koneksi",
+              "d": "Untuk siaran langsung, remote atau ponsel butuh internet (4G/5G atau Wi-Fi). Dengan penerima lokal, kedua perangkat harus di jaringan yang sama, bukan Wi-Fi tamu."
+            },
+            {
+              "t": "Tes dengan penerima lokal",
+              "d": "Arahkan DJI Fly ke Stream My Drone di ponsel atau komputer (<code>rtmp://&lt;alamat dari aplikasi&gt;:1935/drone</code>). Jika gambar muncul, DJI Fly berfungsi; sisanya ada di platform, key, atau akun."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "causes",
+      "h2": "Error, penyebab, dan solusi sekilas",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Yang terlihat", "Kemungkinan penyebab", "Solusi"],
+            "rows": [
+              ["Langsung gagal dengan alamat <code>rtmps://</code> atau “invalid RTMP URL”", "DJI Fly hanya mengirim RTMP", "Teruskan lewat aplikasi penerima yang mendukung RTMPS"],
+              ["Langsung gagal di YouTube", "Key salah, “/” hilang, atau ada spasi", "Salin ulang URL dan key lalu gabungkan dengan “/”"],
+              ["Gagal di channel YouTube baru", "Live streaming belum aktif", "Aktifkan di YouTube Studio dan tunggu hingga 24 jam"],
+              ["Pernah jalan sekali di Instagram, lalu tidak", "Key Instagram sekali pakai dan wajib RTMPS", "Ambil key baru tiap siaran, teruskan lewat RTMPS"],
+              ["“No built-in mic in current device”", "RC 2, RC Pro, atau Smart Controller dengan DJI Fly 1.16+", "Pasang mikrofon atau pakai mikrofon Bluetooth virtual"],
+              ["Tidak ada opsi RTMP di menu", "DJI RC generasi pertama atau DJI Fly di bawah 1.4.12", "Pakai remote yang didukung, perbarui DJI Fly"],
+              ["Mulai lalu putus setelah beberapa detik", "Upload lemah, Wi-Fi tamu, atau perpindahan band", "Pakai 5 GHz atau hotspot ponsel, mendekat"],
+              ["Hitung mundur selesai, platform kosong", "Go live belum ditekan (Instagram, Facebook) atau key salah", "Tekan Go live di platform, cek key"]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "local-test",
+      "h2": "Kenapa tes lokal paling cepat menemukan masalah",
+      "blocks": [
+        {
+          "p": "Siaran dari DJI Fly melewati tiga bagian: remote, jaringan, dan platform. Penerima lokal membelah masalah menjadi dua. Stream My Drone menampilkan alamat RTMP untuk DJI Fly dan, beberapa detik setelah Start Livestream, menampilkan gambar beserta resolusi dan bitrate-nya."
+        },
+        {
+          "list": [
+            "<strong>Gambar sampai:</strong> DJI Fly, remote, dan jaringan lokal berfungsi. Tambahkan platform di aplikasi; aplikasi menangani RTMPS, key baru Instagram, dan sambung ulang otomatis.",
+            "<strong>Tidak ada yang sampai:</strong> remote tidak menjangkau penerima. Pastikan keduanya di Wi-Fi atau hotspot yang sama dan alamatnya persis sama, termasuk <code>:1935/drone</code>.",
+            "<strong>Gambar sampai lalu putus tiap beberapa detik:</strong> masalahnya Wi-Fi. Router dengan satu nama untuk 2,4 dan 5 GHz bisa terus berpindah band; hotspot ponsel menghindarinya."
+          ]
+        },
+        {
+          "note": "Menu langkah demi langkah: <a href=\"../pengaturan-live-streaming-rtmp-dji-fly/\">pengaturan RTMP DJI Fly</a>. Instagram: <a href=\"../kenapa-dji-fly-tidak-bisa-live-ke-instagram/\">kenapa DJI Fly tidak bisa live ke Instagram</a>."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Kenapa siaran hanya 720p atau bitrate tidak bisa diubah",
+      "blocks": [
+        {
+          "p": "Ini batasan, bukan error. DJI menyebut DJI RC 2 dan DJI RC Pro 2 hanya bisa live 720p karena perangkat kerasnya, dan DJI RC Pro hanya 720p sejak DJI Fly 1.18.0. Dengan ponsel di RC-N1, RC-N2, atau RC-N3 Anda bisa memilih 1080p atau 720p. Bitrate ditentukan oleh frame rate transmisi: 5 atau 3 Mbps di Android, 2 atau 1 Mbps di iOS, dan tidak bisa diatur manual."
+        }
+      ]
+    },
+    {
+      "id": "audio",
+      "h2": "Tidak ada suara atau suara berderak",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Siaran tanpa suara:</strong> DJI Fly mengirim mikrofon remote atau ponsel. Remote tanpa mikrofon, atau mikrofon virtual, mengirim keheningan.",
+            "<strong>Suara berderak atau pecah:</strong> coba mikrofon lain atau port USB-C lain. Jika tetap, ganti audio DJI Fly: tombol mikrofon ponsel di Stream My Drone mengirim suara Anda ke semua platform."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Sumber",
+      "blocks": [
+        {
+          "p": "Format alamat, izin akun, mikrofon, resolusi, dan bitrate: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. RTMPS dan Facebook: <a href=\"https://forum.dji.com/thread-287241-1-1.html\">forum DJI: masalah live Facebook</a> dan <a href=\"https://forum.dji.com/thread-294984-1-1.html\">error live di YouTube atau Facebook</a>. “Starting livestream failed”: <a href=\"https://github.com/dji-sdk/Mobile-SDK-Android/issues/1120\">DJI Mobile SDK, issue 1120</a>. Dicek pada 8 November 2026."
+        },
+        {
+          "p": "Terkait: <a href=\"../dji-rc-2-live-streaming-tanpa-mikrofon/\">solusi mikrofon RC 2</a>, <a href=\"../drone-dji-apa-saja-yang-bisa-live-streaming/\">drone DJI apa saja yang bisa live</a>, dan <a href=\"../cara-live-streaming-dengan-drone/\">panduan lengkap live streaming drone</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Kenapa DJI Fly menampilkan “Livestream error”?",
+      "a": "Paling sering karena platform mewajibkan RTMPS (Instagram, Facebook), alamat atau key salah, akun belum boleh live, atau remote tidak terhubung ke server. Tes dulu dengan penerima lokal untuk melihat sisi mana yang gagal."
+    },
+    {
+      "q": "Bisakah DJI Fly live langsung ke Facebook atau Instagram?",
+      "a": "Tidak. Keduanya hanya menerima RTMPS terenkripsi, sedangkan DJI Fly mengirim RTMP tanpa enkripsi. Kirim stream DJI Fly ke Stream My Drone di ponsel atau komputer, yang meneruskannya lewat RTMPS."
+    },
+    {
+      "q": "Apa alamat RTMP YouTube yang benar di DJI Fly?",
+      "a": "rtmp://a.rtmp.youtube.com/live2/ diikuti stream key dari YouTube Studio, tanpa spasi. Panduan DJI menggabungkan alamat server dan key dengan garis miring."
+    },
+    {
+      "q": "Kenapa live streaming drone DJI saya putus setelah beberapa detik?",
+      "a": "Biasanya karena jaringan: sinyal seluler lemah, Wi-Fi tamu, atau router yang terus berpindah antara 2,4 dan 5 GHz. Gunakan hotspot ponsel atau Wi-Fi 5 GHz dan dekatkan perangkat."
+    },
+    {
+      "q": "Bisakah live streaming dengan DJI RC generasi pertama?",
+      "a": "Tidak. DJI menyatakan live streaming tidak didukung dengan DJI RC. Didukung pada RC-N1, RC-N2, dan RC-N3 dengan ponsel, serta DJI RC 2, RC Pro, RC Pro 2, dan Smart Controller."
+    },
+    {
+      "q": "Bisakah menaikkan bitrate live di DJI Fly?",
+      "a": "Tidak. DJI menetapkannya sesuai frame rate transmisi: 5 atau 3 Mbps di Android dan 2 atau 1 Mbps di iOS. RC 2 dan RC Pro 2 juga hanya live 720p."
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "slug": "which-dji-drones-can-live-stream",
+  "platform": "توافق البث في DJI",
+  "title": "ما طائرات DJI التي تستطيع البث المباشر؟ قائمة الطرازات وأجهزة التحكم (2026)",
+  "description": "كل طائرات DJI التي تبث مباشرة في DJI Fly، من Mini 2 وMini 4K إلى Mavic 4 Pro وAvata 360، وأجهزة التحكم التي تعمل، وقيود دقة 720p والميكروفون.",
+  "h1": "ما طائرات DJI التي تستطيع البث المباشر؟ القائمة الكاملة للطرازات وأجهزة التحكم",
+  "lead": "تدرج DJI <strong>البث المباشر في DJI Fly</strong> لسلسلة Mini (من Mavic Mini إلى Mini 5 Pro، ومنها Mini 4K وMini 2 SE)، وسلسلة Air (من Mavic Air 2 إلى Air 3S)، وMavic 3 وMavic 4 Pro، وNeo وNeo 2، وFlip، وAvata وAvata 2 وAvata 360، وDJI FPV، وLito. لكن ما يحسم الأمر عمليًا هو <strong>جهاز التحكم</strong>: <strong>DJI RC</strong> الأصلي لا يبث، و<strong>RC 2</strong> لا يبث إلا بدقة 720p.",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "يدعم DJI Fly البث المباشر منذ الإصدار 1.4.12. ويسرد دليل DJI نفسه 26 طائرة من سلاسل Mini وAir وMavic وNeo وFlip وAvata وFPV وLito.",
+    "أجهزة التحكم بالهاتف (RC-N1 وRC-N2 وRC-N3) تبث RTMP بدقة 1080p أو 720p، ومعدل البت 5 أو 3 ميغابت/ث على Android و2 أو 1 على iOS.",
+    "لا يبث DJI RC 2 وRC Pro 2 إلا بدقة 720p بسبب العتاد، ولا يبث RC Pro إلا بدقة 720p بعد DJI Fly 1.18.0.",
+    "لا يدعم DJI RC الأصلي البث المباشر. ويحتاج RC 2 وRC Pro وSmart Controller إلى ميكروفون منذ DJI Fly 1.16.0.",
+    "يبث Avata 360 الصورة العادية فقط لا وضع 360°. وتبث النظارات عبر هاتف يشغّل DJI Fly."
+  ],
+  "sections": [
+    {
+      "id": "drones",
+      "h2": "طائرات DJI التي تدعم البث المباشر",
+      "blocks": [
+        {
+          "table": {
+            "head": ["السلسلة", "الطرازات التي تبث في DJI Fly", "الدليل"],
+            "rows": [
+              ["Mini", "Mini 5 Pro وMini 4 Pro وMini 4K وMini 3 Pro وMini 3 وMini 2 SE وMini 2 وMini SE وMavic Mini", "<a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro</a>، <a href=\"../dji-mini-4-pro-live-stream/\">Mini 4 Pro</a>، <a href=\"../dji-mini-3-pro-live-stream/\">Mini 3 Pro</a>، <a href=\"../dji-mini-3-live-stream/\">Mini 3</a>"],
+              ["Air", "Air 3S وAir 3 وAir 2S وMavic Air 2", "<a href=\"../dji-air-3s-live-stream/\">Air 3S</a>، <a href=\"../dji-air-3-live-stream/\">Air 3</a>"],
+              ["Mavic", "Mavic 4 Pro وMavic 3 Pro وMavic 3 وMavic 3 Classic", "<a href=\"../dji-mavic-4-pro-live-stream/\">Mavic 4 Pro</a>، <a href=\"../dji-mavic-3-live-stream/\">Mavic 3</a>"],
+              ["Neo", "Neo 2 وNeo", "<a href=\"../dji-neo-live-stream/\">Neo</a>"],
+              ["Flip", "Flip", "<a href=\"../dji-flip-live-stream/\">Flip</a>"],
+              ["Avata وFPV", "Avata 360 وAvata 2 وAvata وDJI FPV", "<a href=\"../dji-avata-2-live-stream/\">Avata 2</a>"],
+              ["Lito", "Lito 1 وLito X1", "<a href=\"../dji-lito-1-live-stream/\">Lito 1</a>، <a href=\"../dji-lito-x1-live-stream/\">Lito X1</a>"]
+            ]
+          }
+        },
+        {
+          "note": "المصدر: قائمة الطائرات في دليل البث المباشر لتطبيق DJI Fly، تم التحقق منها في 8 نوفمبر 2026. تضيف DJI طرازات مع تحديثات التطبيق، والقول الفصل لقائمة DJI Fly لديك."
+        }
+      ]
+    },
+    {
+      "id": "controllers",
+      "h2": "أجهزة التحكم التي تستطيع البث",
+      "blocks": [
+        {
+          "table": {
+            "head": ["جهاز التحكم", "البث", "الدقة", "ملاحظات"],
+            "rows": [
+              ["RC-N1 وRC-N2 وRC-N3 (مع هاتف)", "نعم", "1080p أو 720p", "5 أو 3 ميغابت/ث على Android، و2 أو 1 على iOS"],
+              ["DJI RC 2", "نعم", "720p فقط", "يحتاج ميكروفونًا منذ DJI Fly 1.16.0"],
+              ["DJI RC Pro", "نعم", "720p بعد DJI Fly 1.18.0", "يحتاج ميكروفونًا منذ DJI Fly 1.16.0"],
+              ["DJI RC Pro 2", "نعم", "720p فقط", "ميكروفون مدمج"],
+              ["DJI Smart Controller", "نعم", "لم تذكرها DJI", "يحتاج ميكروفونًا منذ DJI Fly 1.16.0"],
+              ["DJI RC (الأصلي)", "لا", "—", "DJI: البث غير مدعوم مع DJI RC"],
+              ["نظارات DJI", "عبر الهاتف", "ما يرسله الهاتف", "صِل النظارة بهاتف يشغّل DJI Fly"]
+            ]
+          }
+        },
+        {
+          "p": "جهاز التحكم أهم من الطائرة. فطائرة Mini 3 Pro أو Mavic 3 المباعة مع DJI RC ذي الشاشة تطير لكنها لا تبث، بينما تبث الطائرة نفسها مع RC-N1 وهاتف. وقيد 720p يخص الصورة المباشرة فقط، أما الفيديو المسجّل على الدرون فيحتفظ بدقته الكاملة."
+        }
+      ]
+    },
+    {
+      "id": "check",
+      "h2": "كيف تتحقق من طائرتك",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "حدّث DJI Fly والبرامج الثابتة",
+              "d": "يحتاج البث إلى DJI Fly 1.4.12 أو أحدث، وتحصل الطائرات الجديدة عليه في إصدارات لاحقة. حدّث التطبيق وجهاز التحكم والطائرة."
+            },
+            {
+              "t": "صِل الطائرة وجهاز التحكم",
+              "d": "شغّلهما وانتظر حتى يعرض DJI Fly زر GO FLY. يجب وصل جهاز التحكم بالهاتف بكابل."
+            },
+            {
+              "t": "افتح قائمة البث",
+              "d": "اضغط GO FLY → ••• → Transmission → Live Streaming Platforms. إذا ظهر RTMP فإن مجموعتك تستطيع البث."
+            },
+            {
+              "t": "أرسل بثًا تجريبيًا",
+              "d": "أدخل العنوان الذي يعرضه Stream My Drone على هاتف أو حاسوب واضغط Start Livestream. تظهر الصورة بدقتها ومعدل بتها الحقيقيين في التطبيق خلال ثوانٍ."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other-apps",
+      "h2": "طائرات وكاميرات خارج DJI Fly",
+      "blocks": [
+        {
+          "list": [
+            "<strong>طائرات DJI GO 4 الأقدم</strong> (Mavic 2 وMavic Pro وPhantom 4): لتطبيق DJI GO 4 قائمة بث خاصة فيها خيار RTMP مخصص.",
+            "<strong>طائرات المؤسسات</strong> (Matrice وMavic 3 Enterprise): تبث من DJI Pilot 2 على RC Plus، ولا يتناول هذا الدليل ذلك المسار.",
+            "<strong>كاميرات Osmo</strong> (Pocket 3 وAction): تبث من DJI Mimo؛ راجع دليلَي <a href=\"../osmo-pocket-3-live-stream/\">Pocket 3</a> و<a href=\"../osmo-action-live-stream/\">Osmo Action</a>."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "المصادر",
+      "blocks": [
+        {
+          "p": "قائمة الطائرات وملاحظات أجهزة التحكم وAvata 360 والنظارات: <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">دليل البث في DJI Fly (بالصينية)</a>. الإصدار والدقة ومعدل البت والميكروفون: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. تم التحقق في 8 نوفمبر 2026."
+        },
+        {
+          "p": "التالي: <a href=\"../how-to-live-stream-from-a-drone/\">الدليل الكامل للبث المباشر من الدرون</a>، وإذا لم يبدأ البث: <a href=\"../dji-fly-livestream-error-fix/\">حلول خطأ البث في DJI Fly</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "هل يستطيع DJI Mini 4K البث المباشر؟",
+      "a": "نعم. تدرج DJI طائرة Mini 4K ضمن الطائرات التي تبث في DJI Fly. وهي تستخدم جهاز تحكم بالهاتف، لذا يمكنك اختيار 1080p أو 720p في DJI Fly."
+    },
+    {
+      "q": "هل يستطيع DJI Mini 2 SE وMini 2 البث المباشر؟",
+      "a": "نعم. كلاهما في قائمة DJI، وكذلك Mini SE وMavic Mini الأصلي. حدّث DJI Fly أولًا، فالبث يحتاج إلى الإصدار 1.4.12 أو أحدث."
+    },
+    {
+      "q": "لماذا لا يستطيع DJI RC الخاص بي البث؟",
+      "a": "تذكر DJI أن البث غير مدعوم مع DJI RC الأصلي. استخدم الطائرة نفسها مع RC-N1 أو RC-N2 أو RC-N3 وهاتف، أو مع DJI RC 2 إن كانت الطائرة تدعمه."
+    },
+    {
+      "q": "لماذا لا يبث DJI RC 2 إلا بدقة 720p؟",
+      "a": "تقول DJI إن RC 2 وRC Pro 2 لا يدعمان البث إلا بدقة 720p بسبب العتاد. ولا يتأثر التسجيل على الطائرة."
+    },
+    {
+      "q": "هل يستطيع Avata 360 البث بزاوية 360°؟",
+      "a": "لا. تذكر DJI أن Avata 360 لا يدعم البث في وضع 360°، وإنما يبث صورة نقل الفيديو العادية."
+    },
+    {
+      "q": "هل يستطيع DJI Air 2S البث المباشر؟",
+      "a": "نعم. Air 2S وMavic Air 2 في قائمة DJI للطائرات التي تبث في DJI Fly عبر خيار RTMP."
+    }
+  ]
+}

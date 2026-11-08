@@ -1,0 +1,143 @@
+{
+  "slug": "welche-dji-drohnen-koennen-live-streamen",
+  "platform": "DJI-Livestream-Kompatibilität",
+  "title": "Welche DJI-Drohnen können live streamen? Modelle und Fernsteuerungen (2026)",
+  "description": "Alle DJI-Drohnen, die in DJI Fly live streamen, von Mini 2 und Mini 4K bis Mavic 4 Pro und Avata 360, welche Fernsteuerungen gehen und die Grenzen bei 720p und Mikrofon.",
+  "h1": "Welche DJI-Drohnen können live streamen? Die vollständige Liste der Modelle und Fernsteuerungen",
+  "lead": "DJI listet <strong>Livestreaming in DJI Fly</strong> für die Mini-Serie (Mavic Mini bis Mini 5 Pro, inklusive Mini 4K und Mini 2 SE), die Air-Serie (Mavic Air 2 bis Air 3S), Mavic 3 und Mavic 4 Pro, Neo und Neo 2, Flip, Avata, Avata 2, Avata 360, DJI FPV und Lito. In der Praxis entscheidet die <strong>Fernsteuerung</strong>: Die ursprüngliche <strong>DJI RC</strong> kann nicht streamen, und die <strong>RC 2</strong> streamt nur 720p.",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "DJI Fly kann seit Version 1.4.12 live streamen. DJIs eigene Anleitung nennt 26 Drohnen aus den Serien Mini, Air, Mavic, Neo, Flip, Avata, FPV und Lito.",
+    "Handy-Fernsteuerungen (RC-N1, RC-N2, RC-N3) streamen RTMP in 1080p oder 720p; die Bitrate beträgt 5 oder 3 Mbit/s unter Android und 2 oder 1 Mbit/s unter iOS.",
+    "DJI RC 2 und RC Pro 2 streamen wegen ihrer Hardware nur 720p; die RC Pro ab DJI Fly 1.18.0 ebenfalls nur 720p.",
+    "Die ursprüngliche DJI RC unterstützt kein Livestreaming. RC 2, RC Pro und Smart Controller brauchen ab DJI Fly 1.16.0 ein Mikrofon.",
+    "Die Avata 360 streamt nur die normale Übertragungsansicht, nicht den 360°-Modus. Brillen streamen über ein Handy mit DJI Fly."
+  ],
+  "sections": [
+    {
+      "id": "drones",
+      "h2": "DJI-Drohnen mit Livestreaming",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Serie", "Modelle mit Livestreaming in DJI Fly", "Anleitung"],
+            "rows": [
+              ["Mini", "Mini 5 Pro, Mini 4 Pro, Mini 4K, Mini 3 Pro, Mini 3, Mini 2 SE, Mini 2, Mini SE, Mavic Mini", "<a href=\"../dji-mini-5-pro-livestream/\">Mini 5 Pro</a>, <a href=\"../dji-mini-4-pro-livestream/\">Mini 4 Pro</a>, <a href=\"../dji-mini-3-pro-livestream/\">Mini 3 Pro</a>, <a href=\"../dji-mini-3-livestream/\">Mini 3</a>"],
+              ["Air", "Air 3S, Air 3, Air 2S, Mavic Air 2", "<a href=\"../dji-air-3s-livestream/\">Air 3S</a>, <a href=\"../dji-air-3-livestream/\">Air 3</a>"],
+              ["Mavic", "Mavic 4 Pro, Mavic 3 Pro, Mavic 3, Mavic 3 Classic", "<a href=\"../dji-mavic-4-pro-livestream/\">Mavic 4 Pro</a>, <a href=\"../dji-mavic-3-livestream/\">Mavic 3</a>"],
+              ["Neo", "Neo 2, Neo", "<a href=\"../dji-neo-livestream/\">Neo</a>"],
+              ["Flip", "Flip", "<a href=\"../dji-flip-livestream/\">Flip</a>"],
+              ["Avata und FPV", "Avata 360, Avata 2, Avata, DJI FPV", "<a href=\"../dji-avata-2-livestream/\">Avata 2</a>"],
+              ["Lito", "Lito 1, Lito X1", "<a href=\"../dji-lito-1-livestream/\">Lito 1</a>, <a href=\"../dji-lito-x1-livestream/\">Lito X1</a>"]
+            ]
+          }
+        },
+        {
+          "note": "Quelle: die Fluggeräteliste in DJIs Livestream-Anleitung für DJI Fly, geprüft am 8. November 2026. DJI ergänzt Modelle mit App-Updates; maßgeblich ist das Menü in Ihrem DJI Fly."
+        }
+      ]
+    },
+    {
+      "id": "controllers",
+      "h2": "Welche Fernsteuerungen live streamen können",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Fernsteuerung", "Livestream", "Auflösung", "Hinweise"],
+            "rows": [
+              ["RC-N1, RC-N2, RC-N3 (mit Handy)", "Ja", "1080p oder 720p", "5 oder 3 Mbit/s unter Android, 2 oder 1 Mbit/s unter iOS"],
+              ["DJI RC 2", "Ja", "Nur 720p", "Braucht ab DJI Fly 1.16.0 ein Mikrofon"],
+              ["DJI RC Pro", "Ja", "720p ab DJI Fly 1.18.0", "Braucht ab DJI Fly 1.16.0 ein Mikrofon"],
+              ["DJI RC Pro 2", "Ja", "Nur 720p", "Eingebautes Mikrofon"],
+              ["DJI Smart Controller", "Ja", "Von DJI nicht angegeben", "Braucht ab DJI Fly 1.16.0 ein Mikrofon"],
+              ["DJI RC (ursprünglich)", "Nein", "—", "DJI: Livestreaming wird mit der DJI RC nicht unterstützt"],
+              ["DJI-Brillen", "Über ein Handy", "Was das Handy sendet", "Brille mit einem Handy mit DJI Fly verbinden"]
+            ]
+          }
+        },
+        {
+          "p": "Die Fernsteuerung zählt mehr als die Drohne. Eine Mini 3 Pro oder Mavic 3 mit der DJI RC mit Bildschirm fliegt, streamt aber nicht; dieselbe Drohne mit RC-N1 und Handy streamt. Die 720p-Grenze gilt nur für das Livebild: Das auf der Drohne aufgezeichnete Video behält die volle Auflösung."
+        }
+      ]
+    },
+    {
+      "id": "check",
+      "h2": "So prüfen Sie Ihre eigene Drohne",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "DJI Fly und Firmware aktualisieren",
+              "d": "Livestreaming braucht DJI Fly 1.4.12 oder neuer, neue Drohnen bekommen es mit späteren Versionen. Aktualisieren Sie App, Fernsteuerung und Drohne."
+            },
+            {
+              "t": "Drohne und Fernsteuerung verbinden",
+              "d": "Schalten Sie beide ein und warten Sie, bis DJI Fly GO FLY zeigt. Eine Handy-Fernsteuerung muss per Kabel mit dem Handy verbunden sein."
+            },
+            {
+              "t": "Streaming-Menü öffnen",
+              "d": "Tippen Sie auf GO FLY → ••• → Transmission → Live Streaming Platforms. Steht dort RTMP, kann Ihre Kombination streamen."
+            },
+            {
+              "t": "Teststream senden",
+              "d": "Geben Sie die Adresse ein, die Stream My Drone auf einem Handy oder Computer zeigt, und tippen Sie auf Start Livestream. Das Bild mit echter Auflösung und Bitrate erscheint nach Sekunden in der App."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other-apps",
+      "h2": "Drohnen und Kameras außerhalb von DJI Fly",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Ältere DJI-GO-4-Drohnen</strong> (Mavic 2, Mavic Pro, Phantom 4): DJI GO 4 hat ein eigenes Livestream-Menü mit benutzerdefinierter RTMP-Option.",
+            "<strong>Enterprise-Drohnen</strong> (Matrice, Mavic 3 Enterprise): Sie streamen aus DJI Pilot 2 auf der RC Plus; dieser Ablauf wird hier nicht behandelt.",
+            "<strong>Osmo-Kameras</strong> (Pocket 3, Action): Sie streamen aus DJI Mimo; siehe die Anleitungen für <a href=\"../osmo-pocket-3-livestream/\">Pocket 3</a> und <a href=\"../osmo-action-livestream/\">Osmo Action</a>."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Quellen",
+      "blocks": [
+        {
+          "p": "Fluggeräteliste, Hinweise zu Fernsteuerungen, Avata 360 und Brillen: <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">DJI-Fly-Livestream-Anleitung (Chinesisch)</a>. Version, Auflösung, Bitrate und Mikrofon: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Geprüft am 8. November 2026."
+        },
+        {
+          "p": "Als Nächstes: die <a href=\"../mit-einer-drohne-live-streamen/\">komplette Anleitung zum Drohnen-Livestream</a> und, wenn er nicht startet, die <a href=\"../dji-fly-livestream-fehler-loesung/\">Lösungen für DJI-Fly-Livestream-Fehler</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Kann die DJI Mini 4K live streamen?",
+      "a": "Ja. DJI führt die Mini 4K unter den Drohnen mit Livestreaming in DJI Fly. Sie nutzt eine Handy-Fernsteuerung, daher wählen Sie in DJI Fly 1080p oder 720p."
+    },
+    {
+      "q": "Können DJI Mini 2 SE und Mini 2 live streamen?",
+      "a": "Ja. Beide stehen auf DJIs Liste, ebenso die Mini SE und die ursprüngliche Mavic Mini. Aktualisieren Sie zuerst DJI Fly; Livestreaming braucht Version 1.4.12 oder neuer."
+    },
+    {
+      "q": "Warum kann meine DJI RC nicht streamen?",
+      "a": "Laut DJI wird Livestreaming mit der ursprünglichen DJI RC nicht unterstützt. Nutzen Sie dieselbe Drohne mit RC-N1, RC-N2 oder RC-N3 und Handy oder mit einer DJI RC 2, falls die Drohne sie unterstützt."
+    },
+    {
+      "q": "Warum streamt die DJI RC 2 nur 720p?",
+      "a": "DJI zufolge unterstützen RC 2 und RC Pro 2 wegen ihrer Hardware nur 720p im Livestream. Die Aufnahme auf der Drohne ist davon nicht betroffen."
+    },
+    {
+      "q": "Kann die Avata 360 in 360° live streamen?",
+      "a": "Nein. Laut DJI unterstützt die Avata 360 kein Livestreaming im 360°-Modus; sie streamt die normale Videoübertragungsansicht."
+    },
+    {
+      "q": "Kann die DJI Air 2S live streamen?",
+      "a": "Ja. Air 2S und Mavic Air 2 stehen auf DJIs Liste der Drohnen mit Livestreaming in DJI Fly über die RTMP-Option."
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "slug": "live-stream-a-wedding-with-a-drone",
+  "platform": "Wedding drone live stream",
+  "title": "How to live stream a wedding with a drone: plan, gear and setup",
+  "description": "Live stream a wedding with a DJI drone for guests who can’t be there: the plan, gear list, private YouTube link, phone or laptop setup, and the safety rules to follow.",
+  "h1": "How to live stream a wedding with a drone",
+  "lead": "To live stream a wedding with a drone, fly a DJI drone with RTMP, send DJI Fly’s picture to <strong>Stream My Drone</strong> on a phone or laptop, and broadcast it as an <strong>unlisted YouTube stream</strong> whose link you share with guests who cannot attend. Use the drone for the outdoor moments only (arrival, outdoor ceremony, group photo), keep it away from the guests, and let a second person run the stream.",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "A drone adds the wide outdoor shots; it does not replace a ground camera for the vows, the speeches or anything indoors.",
+    "Two people work best: a pilot who only flies, and an operator who watches the stream and the chat.",
+    "An unlisted YouTube stream is the simplest private option: only people with the link can watch, and the recording stays on the channel afterwards.",
+    "Plan around 20–30 minutes of real flight per battery and bring at least three batteries, a power bank and a phone hotspot with 6–10 Mbps upload.",
+    "Ask the couple and the venue, follow your country’s drone rules and never fly over the guests."
+  ],
+  "sections": [
+    {
+      "id": "plan",
+      "h2": "Plan a wedding drone live stream in 6 steps",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Get permission",
+              "d": "Agree with the couple which moments go live, ask the venue whether drones are allowed, and check your country’s drone rules for the location."
+            },
+            {
+              "t": "Split the roles",
+              "d": "The pilot flies and looks only at the drone. A second person runs Stream My Drone, watches the picture and answers the chat."
+            },
+            {
+              "t": "Create a private stream",
+              "d": "In YouTube Studio, create a stream with the visibility set to Unlisted and copy the stream URL and key into Stream My Drone. Send the link to guests a day before."
+            },
+            {
+              "t": "Test the network at the venue",
+              "d": "Check mobile upload where you will stand. Turn on the operator’s phone hotspot, join the controller to it, and send a two-minute test stream."
+            },
+            {
+              "t": "Go live for the key moments",
+              "d": "Start the stream a few minutes early and fly only for the planned shots. Between flights the stream can stay on with the drone landed."
+            },
+            {
+              "t": "Share the replay",
+              "d": "After the event the unlisted stream becomes a video on the channel. The drone’s own recording is sharper and can be edited into the wedding film."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gear",
+      "h2": "Gear list",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Item", "Why"],
+            "rows": [
+              ["DJI drone with RTMP in DJI Fly", "Mini 4 Pro, Mini 5 Pro, Air 3S or similar; see the <a href=\"../which-dji-drones-can-live-stream/\">compatibility list</a>"],
+              ["Controller that can stream", "RC 2 or a phone controller; the original DJI RC cannot stream"],
+              ["Operator phone or laptop", "Runs Stream My Drone and provides the hotspot"],
+              ["3 or more batteries", "About 20–30 minutes of real flight each, less in wind or cold"],
+              ["Power bank and cables", "Hotspot plus streaming drains a phone in a couple of hours"],
+              ["USB-C microphone (RC 2)", "DJI Fly 1.16+ will not stream from an RC 2 without one"]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "setups",
+      "h2": "Three setups, from simple to full production",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Setup", "What you need", "Result"],
+            "rows": [
+              ["Phone only", "DJI RC 2 and the operator’s phone with Stream My Drone", "The drone picture goes to YouTube, plus Instagram or Facebook if you like; no laptop"],
+              ["Laptop with OBS", "Stream My Drone on a Mac or Windows laptop, used as a virtual camera in OBS", "Switch between the drone and ground cameras, add titles and the ceremony sound"],
+              ["Event production", "A video switcher with HDMI cameras and the drone as one source", "Full multi-camera broadcast for a professional team"]
+            ]
+          }
+        },
+        {
+          "p": "For most weddings the phone-only setup is enough for the outdoor part. The laptop setup adds what a drone cannot give: the vows in close-up with clean sound. The <a href=\"../use-your-dji-drone-as-a-webcam/\">virtual camera guide</a> shows how the drone appears in OBS."
+        }
+      ]
+    },
+    {
+      "id": "shots",
+      "h2": "Moments that work well from the air",
+      "blocks": [
+        {
+          "list": [
+            "The arrival of the couple and the guests’ cars, from a safe distance.",
+            "A slow reveal of the venue and the landscape before the ceremony starts.",
+            "The outdoor ceremony as a wide shot, high enough that the drone is not heard.",
+            "The group photo from above, with everyone looking up.",
+            "The couple’s walk or first dance outdoors at sunset."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "h2": "Safety and etiquette",
+      "blocks": [
+        {
+          "list": [
+            "Never fly over the guests. Keep a clear distance from people, trees and power lines.",
+            "Avoid flying indoors: without satellite positioning the drone drifts, and a hall is full of people.",
+            "Keep the drone high or landed during the vows; its sound carries.",
+            "Follow your country’s drone rules: registration, line of sight and permits for events.",
+            "Some guests do not want to appear online. Keep the link private and tell people the event is streamed."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "audio",
+      "h2": "Sound on the stream",
+      "blocks": [
+        {
+          "p": "The drone has no useful microphone; DJI Fly sends the controller’s microphone. In Stream My Drone on a phone, the operator can switch on the phone microphone to add commentary. For the vows and speeches, use the laptop setup with an external microphone or the venue’s sound system."
+        },
+        {
+          "note": "Setup details: <a href=\"../how-to-live-stream-from-a-drone/\">how to live stream from a drone</a>, <a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube setup</a> and <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">streaming to several platforms</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Can you live stream a wedding with a drone?",
+      "a": "Yes. A DJI drone with RTMP in DJI Fly sends its picture to Stream My Drone on a phone or laptop, which broadcasts it to YouTube, Instagram or Facebook. Use it for the outdoor moments and a ground camera for the vows."
+    },
+    {
+      "q": "How do guests who can’t attend watch privately?",
+      "a": "Create an unlisted YouTube stream and share its link. Only people with the link can watch, and the stream stays available as a video afterwards."
+    },
+    {
+      "q": "Is it allowed to fly a drone at a wedding?",
+      "a": "It depends on your country’s drone rules and the venue. Ask the venue, follow local registration and permit rules, and never fly over people."
+    },
+    {
+      "q": "How long can a drone stream a wedding?",
+      "a": "One battery gives about 20–30 minutes of real flight. Bring three or more and fly only for the planned moments; the stream itself can keep running between flights."
+    },
+    {
+      "q": "Do I need a laptop to stream a wedding with a drone?",
+      "a": "No. With a DJI RC 2, a phone running Stream My Drone is enough. A laptop with OBS helps when you want to mix the drone with ground cameras and ceremony sound."
+    },
+    {
+      "q": "What internet do I need at the venue?",
+      "a": "About 6–10 Mbps of steady upload for each platform. A 4G or 5G phone hotspot usually works; test it at the venue beforehand."
+    }
+  ]
+}

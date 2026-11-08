@@ -1,0 +1,197 @@
+{
+  "slug": "live-streaming-pernikahan-dengan-drone",
+  "platform": "Live pernikahan dengan drone",
+  "title": "Live streaming pernikahan dengan drone: rencana, perlengkapan, penyiapan",
+  "description": "Siarkan pernikahan dengan drone DJI untuk tamu yang tidak bisa hadir: rencana, daftar perlengkapan, link YouTube privat, penyiapan dengan ponsel atau laptop, dan aturan keselamatan.",
+  "h1": "Cara live streaming pernikahan dengan drone",
+  "lead": "Untuk live streaming pernikahan dengan drone, terbangkan drone DJI yang punya RTMP, kirim gambar DJI Fly ke <strong>Stream My Drone</strong> di ponsel atau laptop, lalu siarkan sebagai <strong>live YouTube tidak publik</strong> yang link-nya dibagikan ke tamu yang tidak bisa hadir. Pakai drone hanya untuk momen di luar ruangan (kedatangan, akad atau upacara di luar, foto bersama), jauhkan dari tamu, dan serahkan siaran ke orang kedua.",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "Drone menambah gambar luas di luar ruangan; drone tidak menggantikan kamera di darat untuk janji nikah, sambutan, atau bagian dalam ruangan.",
+    "Paling baik dua orang: pilot yang hanya menerbangkan, dan operator yang memantau siaran dan chat.",
+    "Live YouTube tidak publik adalah opsi privat paling mudah: hanya pemegang link yang bisa menonton, dan rekamannya tetap di channel sesudahnya.",
+    "Hitung sekitar 20–30 menit terbang nyata per baterai dan bawa minimal tiga baterai, power bank, serta hotspot ponsel dengan upload 6–10 Mbps.",
+    "Minta izin pasangan dan pengelola tempat, patuhi aturan drone di negara Anda, dan jangan pernah terbang di atas tamu."
+  ],
+  "sections": [
+    {
+      "id": "plan",
+      "h2": "Rencanakan live pernikahan dengan drone dalam 6 langkah",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Minta izin",
+              "d": "Sepakati dengan pasangan momen mana yang disiarkan, tanyakan ke pengelola tempat apakah drone diizinkan, dan cek aturan drone di negara Anda untuk lokasi itu."
+            },
+            {
+              "t": "Bagi peran",
+              "d": "Pilot menerbangkan dan hanya melihat drone. Orang kedua menjalankan Stream My Drone, memantau gambar, dan menjawab chat."
+            },
+            {
+              "t": "Buat siaran privat",
+              "d": "Di YouTube Studio, buat siaran dengan visibilitas Tidak publik, lalu salin URL dan key ke Stream My Drone. Kirim link ke tamu sehari sebelumnya."
+            },
+            {
+              "t": "Tes jaringan di lokasi",
+              "d": "Ukur upload seluler di tempat Anda berdiri. Nyalakan hotspot di ponsel operator, sambungkan remote, lalu kirim siaran uji dua menit."
+            },
+            {
+              "t": "Live di momen penting",
+              "d": "Mulai siaran beberapa menit lebih awal dan terbang hanya untuk gambar yang direncanakan. Di antara penerbangan, siaran bisa tetap jalan dengan drone mendarat."
+            },
+            {
+              "t": "Bagikan rekamannya",
+              "d": "Setelah acara, siaran tidak publik tetap ada sebagai video di channel. Rekaman drone sendiri lebih tajam dan bisa diedit ke film pernikahan."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gear",
+      "h2": "Daftar perlengkapan",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Perlengkapan",
+              "Alasan"
+            ],
+            "rows": [
+              [
+                "Drone DJI dengan RTMP di DJI Fly",
+                "Mini 4 Pro, Mini 5 Pro, Air 3S, atau sejenis; lihat <a href=\"../drone-dji-apa-saja-yang-bisa-live-streaming/\">daftar kompatibilitas</a>"
+              ],
+              [
+                "Remote yang bisa live",
+                "RC 2 atau remote berponsel; DJI RC generasi pertama tidak bisa live"
+              ],
+              [
+                "Ponsel atau laptop operator",
+                "Menjalankan Stream My Drone dan menyediakan hotspot"
+              ],
+              [
+                "3 baterai atau lebih",
+                "Masing-masing sekitar 20–30 menit terbang nyata, lebih sedikit saat berangin atau dingin"
+              ],
+              [
+                "Power bank dan kabel",
+                "Hotspot dan siaran menguras ponsel dalam beberapa jam"
+              ],
+              [
+                "Mikrofon USB-C (RC 2)",
+                "DJI Fly 1.16+ tidak mau live dari RC 2 tanpa mikrofon"
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "setups",
+      "h2": "Tiga penyiapan, dari sederhana hingga produksi penuh",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Penyiapan",
+              "Yang dibutuhkan",
+              "Hasil"
+            ],
+            "rows": [
+              [
+                "Hanya ponsel",
+                "DJI RC 2 dan ponsel operator dengan Stream My Drone",
+                "Gambar drone ke YouTube, dan bila mau ke Instagram atau Facebook; tanpa laptop"
+              ],
+              [
+                "Laptop dengan OBS",
+                "Stream My Drone di laptop Mac atau Windows, sebagai kamera virtual di OBS",
+                "Berpindah antara drone dan kamera darat, tambah teks dan suara acara"
+              ],
+              [
+                "Produksi acara",
+                "Video switcher dengan kamera HDMI dan drone sebagai salah satu sumber",
+                "Siaran multikamera penuh untuk tim profesional"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "Untuk sebagian besar pernikahan, penyiapan hanya ponsel cukup untuk bagian luar ruangan. Laptop menambah yang tidak bisa diberikan drone: janji nikah dari dekat dengan suara jernih. <a href=\"../jadikan-drone-dji-sebagai-webcam/\">Panduan kamera virtual</a> menunjukkan bagaimana drone tampil di OBS."
+        }
+      ]
+    },
+    {
+      "id": "shots",
+      "h2": "Momen yang bagus dari udara",
+      "blocks": [
+        {
+          "list": [
+            "Kedatangan pasangan dan iring-iringan mobil tamu, dari jarak aman.",
+            "Pengenalan lokasi dan pemandangan secara perlahan sebelum acara dimulai.",
+            "Upacara di luar ruangan dalam gambar lebar, cukup tinggi agar suara drone tidak terdengar.",
+            "Foto bersama dari atas, semua menengadah.",
+            "Jalan berdua atau dansa pertama pasangan di luar saat matahari terbenam."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "h2": "Keselamatan dan etika",
+      "blocks": [
+        {
+          "list": [
+            "Jangan pernah terbang di atas tamu. Jaga jarak dari orang, pohon, dan kabel listrik.",
+            "Hindari terbang di dalam ruangan: tanpa posisi satelit drone melayang, dan gedung penuh orang.",
+            "Saat janji nikah, jaga drone tetap tinggi atau mendarat; suaranya terdengar jauh.",
+            "Patuhi aturan drone di negara Anda: registrasi, jarak pandang, dan izin untuk acara.",
+            "Sebagian tamu tidak ingin tampil di internet. Jaga link tetap privat dan beri tahu bahwa acara disiarkan."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "audio",
+      "h2": "Suara di siaran",
+      "blocks": [
+        {
+          "p": "Drone tidak punya mikrofon yang berguna; DJI Fly mengirim mikrofon remote. Di Stream My Drone pada ponsel, operator bisa menyalakan mikrofon ponsel untuk memberi komentar. Untuk janji nikah dan sambutan, pakai penyiapan laptop dengan mikrofon eksternal atau sound system tempat acara."
+        },
+        {
+          "note": "Detail: <a href=\"../cara-live-streaming-dengan-drone/\">cara live streaming dengan drone</a>, <a href=\"../cara-live-streaming-drone-dji-ke-youtube/\">pengaturan YouTube</a>, dan <a href=\"../live-drone-dji-ke-beberapa-platform-sekaligus/\">live ke beberapa platform</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Bisakah pernikahan disiarkan langsung dengan drone?",
+      "a": "Bisa. Drone DJI dengan RTMP di DJI Fly mengirim gambarnya ke Stream My Drone di ponsel atau laptop, yang menyiarkannya ke YouTube, Instagram, atau Facebook. Gunakan untuk momen luar ruangan dan kamera darat untuk janji nikah."
+    },
+    {
+      "q": "Bagaimana tamu yang tidak hadir menonton secara privat?",
+      "a": "Buat live YouTube tidak publik dan bagikan link-nya. Hanya pemegang link yang bisa menonton, dan siarannya tetap tersedia sebagai video sesudahnya."
+    },
+    {
+      "q": "Bolehkah menerbangkan drone di pernikahan?",
+      "a": "Tergantung aturan drone di negara Anda dan pengelola tempat. Tanyakan ke pengelola, patuhi aturan registrasi dan izin, dan jangan pernah terbang di atas orang."
+    },
+    {
+      "q": "Berapa lama drone bisa menyiarkan pernikahan?",
+      "a": "Satu baterai memberi sekitar 20–30 menit terbang nyata. Bawa tiga atau lebih dan terbang hanya di momen yang direncanakan; siaran bisa tetap berjalan di antara penerbangan."
+    },
+    {
+      "q": "Perlukah laptop untuk live pernikahan dengan drone?",
+      "a": "Tidak. Dengan DJI RC 2, cukup ponsel yang menjalankan Stream My Drone. Laptop dengan OBS membantu bila Anda ingin menggabungkan drone dengan kamera darat dan suara acara."
+    },
+    {
+      "q": "Internet seperti apa yang dibutuhkan di lokasi?",
+      "a": "Sekitar 6–10 Mbps upload stabil per platform. Hotspot ponsel 4G atau 5G biasanya cukup; tes dulu di lokasi."
+    }
+  ]
+}

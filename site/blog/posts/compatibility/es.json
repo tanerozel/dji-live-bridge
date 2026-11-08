@@ -1,0 +1,215 @@
+{
+  "slug": "que-drones-dji-pueden-transmitir-en-directo",
+  "platform": "Compatibilidad de directos DJI",
+  "title": "¿Qué drones DJI pueden transmitir en directo? Modelos y mandos (2026)",
+  "description": "Todos los drones DJI que transmiten en directo con DJI Fly, del Mini 2 y Mini 4K al Mavic 4 Pro y Avata 360, qué mandos sirven y los límites de 720p y micrófono.",
+  "h1": "¿Qué drones DJI pueden transmitir en directo? Lista completa de modelos y mandos",
+  "lead": "DJI incluye la <strong>transmisión en directo en DJI Fly</strong> en la serie Mini (de Mavic Mini a Mini 5 Pro, con Mini 4K y Mini 2 SE), la serie Air (de Mavic Air 2 a Air 3S), Mavic 3 y Mavic 4 Pro, Neo y Neo 2, Flip, Avata, Avata 2, Avata 360, DJI FPV y Lito. En la práctica lo que decide es el <strong>mando</strong>: el <strong>DJI RC</strong> original no puede transmitir y el <strong>RC 2</strong> solo emite en 720p.",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "DJI Fly tiene transmisiones desde la versión 1.4.12. La guía de DJI enumera 26 drones de las series Mini, Air, Mavic, Neo, Flip, Avata, FPV y Lito.",
+    "Los mandos con móvil (RC-N1, RC-N2, RC-N3) transmiten RTMP a 1080p o 720p; el bitrate es de 5 o 3 Mbps en Android y 2 o 1 Mbps en iOS.",
+    "El DJI RC 2 y el RC Pro 2 solo transmiten en 720p por su hardware; el RC Pro solo en 720p desde DJI Fly 1.18.0.",
+    "El DJI RC original no admite transmisiones. El RC 2, el RC Pro y el Smart Controller necesitan micrófono desde DJI Fly 1.16.0.",
+    "El Avata 360 solo transmite la vista normal, no el modo 360°. Las gafas transmiten a través de un móvil con DJI Fly."
+  ],
+  "sections": [
+    {
+      "id": "drones",
+      "h2": "Drones DJI que admiten transmisión en directo",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Serie",
+              "Modelos con transmisión en DJI Fly",
+              "Guía"
+            ],
+            "rows": [
+              [
+                "Mini",
+                "Mini 5 Pro, Mini 4 Pro, Mini 4K, Mini 3 Pro, Mini 3, Mini 2 SE, Mini 2, Mini SE, Mavic Mini",
+                "<a href=\"../dji-mini-5-pro-transmision-en-directo/\">Mini 5 Pro</a>, <a href=\"../dji-mini-4-pro-transmision-en-directo/\">Mini 4 Pro</a>, <a href=\"../dji-mini-3-pro-transmision-en-directo/\">Mini 3 Pro</a>, <a href=\"../dji-mini-3-transmision-en-directo/\">Mini 3</a>"
+              ],
+              [
+                "Air",
+                "Air 3S, Air 3, Air 2S, Mavic Air 2",
+                "<a href=\"../dji-air-3s-transmision-en-directo/\">Air 3S</a>, <a href=\"../dji-air-3-transmision-en-directo/\">Air 3</a>"
+              ],
+              [
+                "Mavic",
+                "Mavic 4 Pro, Mavic 3 Pro, Mavic 3, Mavic 3 Classic",
+                "<a href=\"../dji-mavic-4-pro-transmision-en-directo/\">Mavic 4 Pro</a>, <a href=\"../dji-mavic-3-transmision-en-directo/\">Mavic 3</a>"
+              ],
+              [
+                "Neo",
+                "Neo 2, Neo",
+                "<a href=\"../dji-neo-transmision-en-directo/\">Neo</a>"
+              ],
+              [
+                "Flip",
+                "Flip",
+                "<a href=\"../dji-flip-transmision-en-directo/\">Flip</a>"
+              ],
+              [
+                "Avata y FPV",
+                "Avata 360, Avata 2, Avata, DJI FPV",
+                "<a href=\"../dji-avata-2-transmision-en-directo/\">Avata 2</a>"
+              ],
+              [
+                "Lito",
+                "Lito 1, Lito X1",
+                "<a href=\"../dji-lito-1-transmision-en-directo/\">Lito 1</a>, <a href=\"../dji-lito-x1-transmision-en-directo/\">Lito X1</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "Fuente: la lista de aeronaves de la guía de transmisión de DJI Fly, consultada el 8 de noviembre de 2026. DJI añade modelos con las actualizaciones; el menú de tu DJI Fly tiene la última palabra."
+        }
+      ]
+    },
+    {
+      "id": "controllers",
+      "h2": "Qué mandos pueden transmitir",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Mando",
+              "Transmisión",
+              "Resolución",
+              "Notas"
+            ],
+            "rows": [
+              [
+                "RC-N1, RC-N2, RC-N3 (con móvil)",
+                "Sí",
+                "1080p o 720p",
+                "5 o 3 Mbps en Android, 2 o 1 Mbps en iOS"
+              ],
+              [
+                "DJI RC 2",
+                "Sí",
+                "Solo 720p",
+                "Necesita micrófono desde DJI Fly 1.16.0"
+              ],
+              [
+                "DJI RC Pro",
+                "Sí",
+                "720p desde DJI Fly 1.18.0",
+                "Necesita micrófono desde DJI Fly 1.16.0"
+              ],
+              [
+                "DJI RC Pro 2",
+                "Sí",
+                "Solo 720p",
+                "Tiene micrófono integrado"
+              ],
+              [
+                "DJI Smart Controller",
+                "Sí",
+                "DJI no lo indica",
+                "Necesita micrófono desde DJI Fly 1.16.0"
+              ],
+              [
+                "DJI RC (original)",
+                "No",
+                "—",
+                "DJI: el DJI RC no admite transmisiones"
+              ],
+              [
+                "Gafas DJI",
+                "A través de un móvil",
+                "Lo que envía el móvil",
+                "Conecta las gafas a un móvil con DJI Fly"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "El mando importa más que el dron. Un Mini 3 Pro o un Mavic 3 vendido con el DJI RC con pantalla vuela pero no transmite; el mismo dron con un RC-N1 y un móvil sí. El límite de 720p afecta solo a la imagen en directo: el vídeo grabado en el dron mantiene su resolución completa."
+        }
+      ]
+    },
+    {
+      "id": "check",
+      "h2": "Cómo comprobar tu propio dron",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Actualiza DJI Fly y el firmware",
+              "d": "Las transmisiones necesitan DJI Fly 1.4.12 o posterior, y los drones nuevos las reciben en versiones posteriores. Actualiza la app, el mando y el dron."
+            },
+            {
+              "t": "Conecta el dron y el mando",
+              "d": "Enciende ambos y espera a que DJI Fly muestre GO FLY. Un mando con móvil debe estar conectado al móvil por cable."
+            },
+            {
+              "t": "Abre el menú de transmisión",
+              "d": "Pulsa GO FLY → ••• → Transmission → Live Streaming Platforms. Si aparece RTMP, tu combinación puede transmitir."
+            },
+            {
+              "t": "Envía una prueba",
+              "d": "Escribe la dirección que muestra Stream My Drone en un móvil u ordenador y pulsa Start Livestream. La imagen con su resolución y bitrate reales aparece en la app en segundos."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other-apps",
+      "h2": "Drones y cámaras fuera de DJI Fly",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Drones antiguos con DJI GO 4</strong> (Mavic 2, Mavic Pro, Phantom 4): DJI GO 4 tiene su propio menú de transmisión con opción RTMP personalizada.",
+            "<strong>Drones profesionales</strong> (Matrice, Mavic 3 Enterprise): transmiten desde DJI Pilot 2 en el RC Plus; ese flujo no se trata aquí.",
+            "<strong>Cámaras Osmo</strong> (Pocket 3, Action): transmiten desde DJI Mimo; consulta las guías de <a href=\"../osmo-pocket-3-transmision-en-directo/\">Pocket 3</a> y <a href=\"../osmo-action-transmision-en-directo/\">Osmo Action</a>."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Fuentes",
+      "blocks": [
+        {
+          "p": "Lista de aeronaves, notas de mandos, Avata 360 y gafas: <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">guía de transmisión de DJI Fly (chino)</a>. Versión, resolución, bitrate y micrófono: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Consultado el 8 de noviembre de 2026."
+        },
+        {
+          "p": "Siguiente paso: la <a href=\"../como-hacer-una-transmision-en-directo-con-un-dron/\">guía completa de directos con dron</a> y, si no arranca, las <a href=\"../error-de-transmision-en-directo-dji-fly-solucion/\">soluciones al error de transmisión de DJI Fly</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "¿El DJI Mini 4K puede transmitir en directo?",
+      "a": "Sí. DJI incluye el Mini 4K entre los drones con transmisión en DJI Fly. Usa un mando con móvil, así que puedes elegir 1080p o 720p en DJI Fly."
+    },
+    {
+      "q": "¿El DJI Mini 2 SE y el Mini 2 pueden transmitir?",
+      "a": "Sí. Ambos están en la lista de DJI, igual que el Mini SE y el Mavic Mini original. Actualiza antes DJI Fly; la transmisión necesita la versión 1.4.12 o posterior."
+    },
+    {
+      "q": "¿Por qué mi DJI RC no puede transmitir?",
+      "a": "DJI indica que el DJI RC original no admite transmisiones. Usa el mismo dron con un RC-N1, RC-N2 o RC-N3 y un móvil, o con un DJI RC 2 si el dron lo admite."
+    },
+    {
+      "q": "¿Por qué el DJI RC 2 solo emite en 720p?",
+      "a": "DJI dice que el RC 2 y el RC Pro 2 solo admiten 720p en directo por su hardware. La grabación en el dron no se ve afectada."
+    },
+    {
+      "q": "¿El Avata 360 puede transmitir en 360°?",
+      "a": "No. DJI indica que el Avata 360 no admite transmisión en modo 360°; emite la vista normal de la transmisión de vídeo."
+    },
+    {
+      "q": "¿El DJI Air 2S puede transmitir en directo?",
+      "a": "Sí. El Air 2S y el Mavic Air 2 están en la lista de DJI de drones con transmisión en DJI Fly mediante la opción RTMP."
+    }
+  ]
+}

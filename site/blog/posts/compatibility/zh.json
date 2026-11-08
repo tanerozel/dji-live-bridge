@@ -1,0 +1,215 @@
+{
+  "slug": "which-dji-drones-can-live-stream",
+  "platform": "大疆直播兼容性",
+  "title": "哪些大疆无人机可以直播？机型和遥控器清单（2026）",
+  "description": "所有能在 DJI Fly 中直播的大疆无人机，从 Mini 2、Mini 4K 到 Mavic 4 Pro、Avata 360；哪些遥控器可用，以及 720p 和麦克风方面的限制。并附检查自己机型的方法。",
+  "h1": "哪些大疆无人机可以直播？完整的机型和遥控器清单",
+  "lead": "大疆列出的 <strong>DJI Fly 直播</strong>机型包括：Mini 系列（从御 Mavic Mini 到 Mini 5 Pro，含 Mini 4K 和 Mini 2 SE）、Air 系列（从御 Mavic Air 2 到 Air 3S）、Mavic 3 和 Mavic 4 Pro、Neo 和 Neo 2、Flip、Avata、Avata 2、Avata 360、DJI FPV 和 Lito。实际起决定作用的是<strong>遥控器</strong>：初代 <strong>DJI RC</strong> 不能直播，<strong>RC 2</strong> 只能直播 720p。",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "DJI Fly 从 1.4.12 版本起支持直播。大疆官方指南列出了 Mini、Air、Mavic、Neo、Flip、Avata、FPV 和 Lito 系列共 26 款机型。",
+    "手机遥控器（RC-N1、RC-N2、RC-N3）以 1080p 或 720p 推送 RTMP；码率在安卓上为 5 或 3 Mbps，在 iOS 上为 2 或 1 Mbps。",
+    "DJI RC 2 和 RC Pro 2 受硬件限制只能直播 720p；RC Pro 在 DJI Fly 1.18.0 之后也只能 720p。",
+    "初代 DJI RC 不支持直播。RC 2、RC Pro 和带屏遥控器从 DJI Fly 1.16.0 起需要麦克风。",
+    "Avata 360 只能直播普通图传画面，不支持全景直播。飞行眼镜通过运行 DJI Fly 的手机直播。"
+  ],
+  "sections": [
+    {
+      "id": "drones",
+      "h2": "支持直播的大疆无人机",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "系列",
+              "支持 DJI Fly 直播的机型",
+              "教程"
+            ],
+            "rows": [
+              [
+                "Mini",
+                "Mini 5 Pro、Mini 4 Pro、Mini 4K、Mini 3 Pro、Mini 3、Mini 2 SE、Mini 2、Mini SE、御 Mavic Mini",
+                "<a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro</a>、<a href=\"../dji-mini-4-pro-live-stream/\">Mini 4 Pro</a>、<a href=\"../dji-mini-3-pro-live-stream/\">Mini 3 Pro</a>、<a href=\"../dji-mini-3-live-stream/\">Mini 3</a>"
+              ],
+              [
+                "Air",
+                "Air 3S、Air 3、Air 2S、御 Mavic Air 2",
+                "<a href=\"../dji-air-3s-live-stream/\">Air 3S</a>、<a href=\"../dji-air-3-live-stream/\">Air 3</a>"
+              ],
+              [
+                "Mavic",
+                "Mavic 4 Pro、Mavic 3 Pro、Mavic 3、Mavic 3 Classic",
+                "<a href=\"../dji-mavic-4-pro-live-stream/\">Mavic 4 Pro</a>、<a href=\"../dji-mavic-3-live-stream/\">Mavic 3</a>"
+              ],
+              [
+                "Neo",
+                "Neo 2、Neo",
+                "<a href=\"../dji-neo-live-stream/\">Neo</a>"
+              ],
+              [
+                "Flip",
+                "Flip",
+                "<a href=\"../dji-flip-live-stream/\">Flip</a>"
+              ],
+              [
+                "Avata 与 FPV",
+                "Avata 360、Avata 2、Avata、DJI FPV",
+                "<a href=\"../dji-avata-2-live-stream/\">Avata 2</a>"
+              ],
+              [
+                "Lito",
+                "Lito 1、Lito X1",
+                "<a href=\"../dji-lito-1-live-stream/\">Lito 1</a>、<a href=\"../dji-lito-x1-live-stream/\">Lito X1</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "来源：大疆 DJI Fly 直播操作指南中的适用机型列表，核对日期 2026 年 11 月 8 日。大疆会随 App 更新增加机型，最终以你自己 DJI Fly 里的菜单为准。"
+        }
+      ]
+    },
+    {
+      "id": "controllers",
+      "h2": "哪些遥控器可以直播",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "遥控器",
+              "直播",
+              "分辨率",
+              "说明"
+            ],
+            "rows": [
+              [
+                "RC-N1、RC-N2、RC-N3（配手机）",
+                "支持",
+                "1080p 或 720p",
+                "安卓 5 或 3 Mbps，iOS 2 或 1 Mbps"
+              ],
+              [
+                "DJI RC 2",
+                "支持",
+                "仅 720p",
+                "DJI Fly 1.16.0 起需要麦克风"
+              ],
+              [
+                "DJI RC Pro",
+                "支持",
+                "DJI Fly 1.18.0 后 720p",
+                "DJI Fly 1.16.0 起需要麦克风"
+              ],
+              [
+                "DJI RC Pro 2",
+                "支持",
+                "仅 720p",
+                "内置麦克风"
+              ],
+              [
+                "DJI 带屏遥控器",
+                "支持",
+                "大疆未说明",
+                "DJI Fly 1.16.0 起需要麦克风"
+              ],
+              [
+                "DJI RC（初代）",
+                "不支持",
+                "—",
+                "大疆：搭配 DJI RC 时不支持直播"
+              ],
+              [
+                "大疆飞行眼镜",
+                "通过手机",
+                "取决于手机推流",
+                "将眼镜连接到运行 DJI Fly 的手机"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "遥控器比无人机更关键。随带屏 DJI RC 出售的 Mini 3 Pro 或 Mavic 3 能飞但不能直播；同一架无人机换成 RC-N1 加手机就能直播。720p 限制只针对直播画面，录在无人机上的视频仍是完整分辨率。"
+        }
+      ]
+    },
+    {
+      "id": "check",
+      "h2": "如何检查自己的无人机",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "更新 DJI Fly 和固件",
+              "d": "直播需要 DJI Fly 1.4.12 或更高版本，新机型会在之后的版本中获得支持。更新 App、遥控器和飞行器。"
+            },
+            {
+              "t": "连接无人机和遥控器",
+              "d": "两者都开机，等 DJI Fly 出现 GO FLY。手机遥控器需要用线连接手机。"
+            },
+            {
+              "t": "打开直播菜单",
+              "d": "点击 GO FLY → ••• → Transmission → Live Streaming Platforms。列表里有 RTMP，就说明你的组合可以直播。"
+            },
+            {
+              "t": "发送测试推流",
+              "d": "填入手机或电脑上 Stream My Drone 显示的地址，点击 Start Livestream。几秒后画面就会带着真实的分辨率和码率出现在 App 中。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other-apps",
+      "h2": "DJI Fly 以外的无人机和相机",
+      "blocks": [
+        {
+          "list": [
+            "<strong>使用 DJI GO 4 的老机型</strong>（御 Mavic 2、御 Mavic Pro、Phantom 4）：DJI GO 4 有自己的直播菜单，带自定义 RTMP 选项。",
+            "<strong>行业无人机</strong>（Matrice、Mavic 3 行业版）：通过 RC Plus 上的 DJI Pilot 2 直播，本文不涉及这一流程。",
+            "<strong>Osmo 相机</strong>（Pocket 3、Action）：通过 DJI Mimo 直播，请看 <a href=\"../osmo-pocket-3-live-stream/\">Pocket 3</a> 和 <a href=\"../osmo-action-live-stream/\">Osmo Action</a> 教程。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "资料来源",
+      "blocks": [
+        {
+          "p": "机型列表、遥控器说明、Avata 360 与飞行眼镜说明：<a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">DJI Fly App 直播操作指南</a>。版本、分辨率、码率和麦克风：<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>。核对日期：2026 年 11 月 8 日。"
+        },
+        {
+          "p": "下一步：<a href=\"../how-to-live-stream-from-a-drone/\">无人机直播完整教程</a>；如果无法开播，请看 <a href=\"../dji-fly-livestream-error-fix/\">DJI Fly 直播失败的解决办法</a>。"
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "DJI Mini 4K 能直播吗？",
+      "a": "能。大疆把 Mini 4K 列为支持 DJI Fly 直播的机型。它使用手机遥控器，所以可以在 DJI Fly 里选择 1080p 或 720p。"
+    },
+    {
+      "q": "DJI Mini 2 SE 和 Mini 2 能直播吗？",
+      "a": "能。两者都在大疆的列表中，Mini SE 和初代御 Mavic Mini 也一样。请先更新 DJI Fly，直播需要 1.4.12 或更高版本。"
+    },
+    {
+      "q": "为什么我的 DJI RC 不能直播？",
+      "a": "大疆说明初代 DJI RC 不支持直播。可以把同一架无人机换成 RC-N1、RC-N2 或 RC-N3 加手机，或者在机型支持时使用 DJI RC 2。"
+    },
+    {
+      "q": "为什么 DJI RC 2 只能直播 720p？",
+      "a": "大疆表示 RC 2 和 RC Pro 2 受硬件限制只支持 720p 直播。无人机上的录像不受影响。"
+    },
+    {
+      "q": "Avata 360 能全景直播吗？",
+      "a": "不能。大疆说明 Avata 360 不支持全景直播，只支持直播图传画面。"
+    },
+    {
+      "q": "DJI Air 2S 能直播吗？",
+      "a": "能。Air 2S 和御 Mavic Air 2 都在大疆支持 DJI Fly RTMP 直播的机型列表中。"
+    }
+  ]
+}

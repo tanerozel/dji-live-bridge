@@ -1,0 +1,153 @@
+{
+  "slug": "dji-fly-livestream-error-fix",
+  "platform": "DJI Fly livestream error",
+  "title": "DJI Fly livestream error: why it won’t start and how to fix it",
+  "description": "DJI Fly says “Livestream error” or “Starting livestream failed”? The 8 real causes (RTMPS, stream key, account, microphone, network) and how to fix each one.",
+  "h1": "DJI Fly “Livestream error”: the causes and how to fix each one",
+  "lead": "When DJI Fly shows <em>“Livestream error”</em> or <em>“Starting livestream failed”</em>, the cause is almost always one of four things: the platform requires <strong>RTMPS</strong> (Instagram, Facebook), the <strong>address or stream key</strong> is wrong, the <strong>account</strong> may not go live yet, or the controller <strong>cannot reach the server</strong>. The fastest test is to stream to <strong>Stream My Drone</strong> on a phone or computer on the same Wi-Fi: if the picture arrives there, DJI Fly is fine and the problem is on the platform side.",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "DJI Fly only sends plain RTMP. Instagram and Facebook accept only RTMPS, so a direct stream to them fails; DJI support confirms this on its forum.",
+    "The RTMP address is the server URL, a “/” and the stream key, with no spaces. A missing slash or an old key is the most common YouTube failure.",
+    "The account must be allowed to go live: a new YouTube channel needs up to 24 hours after enabling live streaming, and TikTok gives stream keys only to some accounts.",
+    "The original DJI RC does not support livestreaming at all. The RC 2, RC Pro and DJI Smart Controller need a microphone from DJI Fly 1.16.0.",
+    "Streams that start and then drop are a network problem: weak mobile signal, guest Wi-Fi, or a router switching between 2.4 and 5 GHz."
+  ],
+  "sections": [
+    {
+      "id": "checklist",
+      "h2": "Fix a DJI Fly livestream error in 6 checks",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Check the address format",
+              "d": "DJI Fly needs one line: server URL, a slash, then the stream key, with no spaces. For YouTube that is <code>rtmp://a.rtmp.youtube.com/live2/</code> followed by your key. Copy the key again; an old or reset key fails silently."
+            },
+            {
+              "t": "Check that the platform accepts plain RTMP",
+              "d": "YouTube, Twitch and Kick accept RTMP. Instagram and Facebook require encrypted RTMPS, which DJI Fly cannot send, so a direct stream to them always fails. Send DJI Fly to a receiver app that forwards over RTMPS instead."
+            },
+            {
+              "t": "Check that the account may go live",
+              "d": "On YouTube, enable live streaming in YouTube Studio and wait (up to 24 hours the first time). DJI notes that without livestream permission the platform gives no valid stream key."
+            },
+            {
+              "t": "Check the controller",
+              "d": "The original DJI RC does not support livestreaming. On the DJI RC 2, RC Pro and DJI Smart Controller, DJI Fly 1.16.0 and newer need a connected microphone before the stream starts."
+            },
+            {
+              "t": "Check the connection",
+              "d": "For a direct stream, the controller or phone needs working internet (4G/5G or Wi-Fi). For a local receiver, both devices must be on the same network, not on guest Wi-Fi."
+            },
+            {
+              "t": "Test with a local receiver",
+              "d": "Point DJI Fly at Stream My Drone on a phone or computer (<code>rtmp://&lt;address shown in the app&gt;:1935/drone</code>). If the picture appears, DJI Fly works and the remaining problem is the platform, key or account."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "causes",
+      "h2": "Error, cause and fix at a glance",
+      "blocks": [
+        {
+          "table": {
+            "head": ["What you see", "Likely cause", "Fix"],
+            "rows": [
+              ["Fails at once with an <code>rtmps://</code> address, or “invalid RTMP URL”", "DJI Fly sends only RTMP", "Relay through a receiver app that speaks RTMPS"],
+              ["Fails at once on YouTube", "Wrong key, missing “/”, or a space in the address", "Copy the URL and key again and join them with “/”"],
+              ["Fails on a new YouTube channel", "Live streaming not yet enabled", "Enable it in YouTube Studio and wait up to 24 hours"],
+              ["Worked once on Instagram, fails the next time", "Instagram’s key is single-use, and it needs RTMPS", "Get a new key per broadcast and relay over RTMPS"],
+              ["“No built-in mic in current device”", "RC 2, RC Pro or Smart Controller with DJI Fly 1.16+", "Plug in a microphone, or use a virtual Bluetooth mic"],
+              ["No RTMP option in the menu", "Original DJI RC, or DJI Fly older than 1.4.12", "Use a supported controller, update DJI Fly"],
+              ["Starts, then drops after seconds", "Weak upload, guest Wi-Fi or Wi-Fi band switching", "Use 5 GHz or a phone hotspot, move closer"],
+              ["Countdown ends, platform shows nothing", "Go live not pressed (Instagram, Facebook) or wrong key", "Press Go live on the platform, check the key"]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "local-test",
+      "h2": "Why a local test finds the problem fastest",
+      "blocks": [
+        {
+          "p": "A livestream from DJI Fly passes through three parts: the controller, the network and the platform. A local receiver splits the problem in half. Stream My Drone shows the RTMP address to type into DJI Fly; within a few seconds of Start Livestream it shows the picture with its resolution and bitrate."
+        },
+        {
+          "list": [
+            "<strong>Picture arrives:</strong> DJI Fly, the controller and the local network work. Add the platform in the app; it handles RTMPS, Instagram’s new key per broadcast and automatic reconnection.",
+            "<strong>Nothing arrives:</strong> the controller cannot reach the receiver. Check that both are on the same Wi-Fi or hotspot and that the address matches exactly, including <code>:1935/drone</code>.",
+            "<strong>Picture arrives and drops every few seconds:</strong> the Wi-Fi is the problem. Routers that use one name for 2.4 and 5 GHz can switch bands repeatedly; a phone hotspot avoids it."
+          ]
+        },
+        {
+          "note": "Full menu walkthrough: <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP setup</a>. Instagram details: <a href=\"../why-dji-fly-cannot-stream-to-instagram/\">why DJI Fly can’t stream to Instagram</a>."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Why the stream is only 720p or the bitrate won’t change",
+      "blocks": [
+        {
+          "p": "These are limits, not errors. DJI states that the DJI RC 2 and DJI RC Pro 2 stream only 720p because of their hardware, and the DJI RC Pro streams only 720p after DJI Fly 1.18.0. With a phone on an RC-N1, RC-N2 or RC-N3 you can choose 1080p or 720p. The bitrate is fixed by the video transmission frame rate: 5 or 3 Mbps on Android, 2 or 1 Mbps on iOS, and it cannot be set by hand."
+        }
+      ]
+    },
+    {
+      "id": "audio",
+      "h2": "No sound or crackling sound",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Silent stream:</strong> DJI Fly sends the controller’s or phone’s microphone. A controller without a microphone, or a virtual microphone, sends silence.",
+            "<strong>Crackling or distorted sound:</strong> try another microphone or another USB-C port. If it continues, replace DJI Fly’s audio: Stream My Drone’s phone microphone switch sends your voice instead on every platform."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Sources",
+      "blocks": [
+        {
+          "p": "Address format, account permission, microphone requirement, resolution and bitrate limits: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. RTMPS and Facebook: <a href=\"https://forum.dji.com/thread-287241-1-1.html\">DJI forum: Facebook live streaming issue</a> and <a href=\"https://forum.dji.com/thread-294984-1-1.html\">Error on live via YouTube or Facebook</a>. “Starting livestream failed”: <a href=\"https://github.com/dji-sdk/Mobile-SDK-Android/issues/1120\">DJI Mobile SDK issue 1120</a>. Checked on November 8, 2026."
+        },
+        {
+          "p": "Related: <a href=\"../dji-rc-2-livestream-no-microphone-fix/\">RC 2 microphone fix</a>, <a href=\"../which-dji-drones-can-live-stream/\">which DJI drones can live stream</a> and the <a href=\"../how-to-live-stream-from-a-drone/\">complete drone live streaming guide</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Why does DJI Fly say “Livestream error”?",
+      "a": "Most often the platform requires RTMPS (Instagram, Facebook), the address or stream key is wrong, the account may not go live yet, or the controller has no connection to the server. Test with a local receiver first to see which side fails."
+    },
+    {
+      "q": "Can DJI Fly stream to Facebook or Instagram directly?",
+      "a": "No. Both accept only encrypted RTMPS, and DJI Fly sends plain RTMP. Send DJI Fly’s stream to Stream My Drone on a phone or computer, which forwards it to them over RTMPS."
+    },
+    {
+      "q": "What is the correct RTMP address for YouTube in DJI Fly?",
+      "a": "rtmp://a.rtmp.youtube.com/live2/ followed by your stream key from YouTube Studio, with no spaces. DJI’s guide joins the server address and the key with a slash."
+    },
+    {
+      "q": "Why does my DJI drone livestream stop after a few seconds?",
+      "a": "Usually the network: a weak mobile signal, guest Wi-Fi, or a router that keeps switching between 2.4 and 5 GHz. Use a phone hotspot or 5 GHz Wi-Fi and keep the devices close to it."
+    },
+    {
+      "q": "Can I livestream with the original DJI RC?",
+      "a": "No. DJI states that livestreaming is not supported with the DJI RC. It is supported with the RC-N1, RC-N2 and RC-N3 with a phone, and with the DJI RC 2, RC Pro, RC Pro 2 and Smart Controller."
+    },
+    {
+      "q": "Can I raise the livestream bitrate in DJI Fly?",
+      "a": "No. DJI fixes it by the transmission frame rate: 5 or 3 Mbps on Android and 2 or 1 Mbps on iOS. The RC 2 and RC Pro 2 also stream only 720p."
+    }
+  ]
+}

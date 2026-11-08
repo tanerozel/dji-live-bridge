@@ -163,6 +163,8 @@ const POST_SHOTS = {
   "dji-fly-rtmp": ["connect", "preview", "live", "multistream", "reconnect"],
   "without-nginx": ["connect", "live", "multistream", "reconnect", "preview"],
   "rc2-microphone": ["mic", "connect", "live", "preview", "multistream"],
+  "livestream-error": ["connect", "preview", "reconnect", "live", "mic"],
+  wedding: ["live", "multistream", "youtube", "mic", "preview"],
 };
 // Posts that mention the RC 2 point to the guide for DJI Fly's microphone
 // requirement on that controller, which the Android app works around.

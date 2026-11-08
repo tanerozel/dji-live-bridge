@@ -1,0 +1,189 @@
+{
+  "slug": "dji-fly-livestream-error-fix",
+  "platform": "DJI Fly 直播错误",
+  "title": "DJI Fly 直播失败：无法开播的原因和解决办法",
+  "description": "DJI Fly 提示“Livestream error”或“Starting livestream failed”？RTMPS、推流密钥、账号、麦克风、网络等 8 个真实原因，以及每个原因的解决办法。并说明为什么只有 720p。",
+  "h1": "DJI Fly 提示“Livestream error”：原因和逐一解决办法",
+  "lead": "DJI Fly 提示 <em>“Livestream error”</em> 或 <em>“Starting livestream failed”</em> 时，原因几乎总是以下四种之一：平台要求 <strong>RTMPS</strong>（Instagram、Facebook）、<strong>推流地址或密钥</strong>有误、<strong>账号</strong>还不能直播，或者遥控器<strong>连不上服务器</strong>。最快的排查方法是先推流到同一 Wi-Fi 下手机或电脑上的 <strong>Stream My Drone</strong>：画面能到达，说明 DJI Fly 没问题，问题出在平台一侧。",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "DJI Fly 只能发送未加密的 RTMP。Instagram 和 Facebook 只接受 RTMPS，所以直接推流会失败；大疆客服在论坛上也确认了这一点。",
+    "RTMP 地址由服务器地址、“/”和推流密钥组成，中间不能有空格。漏掉斜杠或用了旧密钥是 YouTube 推流失败最常见的原因。",
+    "账号必须有直播权限：新 YouTube 频道开通直播后最多要等 24 小时，TikTok 也只给部分账号推流密钥。",
+    "初代 DJI RC 完全不支持直播。RC 2、RC Pro 和 DJI 带屏遥控器从 DJI Fly 1.16.0 起需要连接麦克风。",
+    "开播几秒后就断，是网络问题：手机信号弱、访客 Wi-Fi，或路由器在 2.4 GHz 和 5 GHz 之间来回切换。"
+  ],
+  "sections": [
+    {
+      "id": "checklist",
+      "h2": "6 项检查解决 DJI Fly 直播失败",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "检查地址格式",
+              "d": "DJI Fly 需要一整行：服务器地址、一个斜杠、推流密钥，中间不能有空格。YouTube 就是 <code>rtmp://a.rtmp.youtube.com/live2/</code> 加上你的密钥。请重新复制密钥，旧密钥或已重置的密钥会直接失败且没有明确提示。"
+            },
+            {
+              "t": "检查平台是否接受 RTMP",
+              "d": "YouTube、Twitch 和 Kick 接受 RTMP。Instagram 和 Facebook 要求加密的 RTMPS，DJI Fly 发不了，所以直接推流一定失败。请把 DJI Fly 推到能用 RTMPS 转发的接收 App。"
+            },
+            {
+              "t": "检查账号能否直播",
+              "d": "在 YouTube Studio 中开通直播并等待（第一次最多 24 小时）。大疆说明，没有直播权限的账号拿不到有效的推流密钥。"
+            },
+            {
+              "t": "检查遥控器",
+              "d": "初代 DJI RC 不支持直播。在 DJI RC 2、RC Pro 和 DJI 带屏遥控器上，DJI Fly 1.16.0 及以上版本要求开播前先连接麦克风。"
+            },
+            {
+              "t": "检查网络连接",
+              "d": "直接推流到平台时，遥控器或手机需要联网（4G/5G 或 Wi-Fi）。推到本地接收端时，两台设备必须在同一网络，不能用访客 Wi-Fi。"
+            },
+            {
+              "t": "用本地接收端测试",
+              "d": "把 DJI Fly 推到手机或电脑上的 Stream My Drone（<code>rtmp://&lt;App 显示的地址&gt;:1935/drone</code>）。画面出现就说明 DJI Fly 正常，剩下的问题在平台、密钥或账号。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "causes",
+      "h2": "错误、原因和解决办法一览",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "你看到的情况",
+              "可能原因",
+              "解决办法"
+            ],
+            "rows": [
+              [
+                "用 <code>rtmps://</code> 地址立即失败，或提示“invalid RTMP URL”",
+                "DJI Fly 只能发 RTMP",
+                "通过支持 RTMPS 的接收 App 转发"
+              ],
+              [
+                "推 YouTube 立即失败",
+                "密钥错误、缺少“/”或地址里有空格",
+                "重新复制地址和密钥，用“/”连接"
+              ],
+              [
+                "新 YouTube 频道推流失败",
+                "直播功能尚未开通",
+                "在 YouTube Studio 开通，最多等待 24 小时"
+              ],
+              [
+                "Instagram 成功过一次，之后都失败",
+                "Instagram 密钥一次性有效，且要求 RTMPS",
+                "每次直播换新密钥，用 RTMPS 转发"
+              ],
+              [
+                "“No built-in mic in current device”",
+                "DJI Fly 1.16+ 下的 RC 2、RC Pro 或带屏遥控器",
+                "接上麦克风或使用虚拟蓝牙麦克风"
+              ],
+              [
+                "菜单里没有 RTMP",
+                "初代 DJI RC，或 DJI Fly 低于 1.4.12",
+                "换用支持的遥控器，更新 DJI Fly"
+              ],
+              [
+                "开播几秒后断流",
+                "上传太弱、访客 Wi-Fi 或频段切换",
+                "改用 5 GHz 或手机热点，靠近一些"
+              ],
+              [
+                "倒计时结束，平台上没有画面",
+                "没有点“开始直播”（Instagram、Facebook）或密钥错误",
+                "在平台上点开始直播，检查密钥"
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "local-test",
+      "h2": "为什么本地测试最快找到问题",
+      "blocks": [
+        {
+          "p": "DJI Fly 的直播要经过三段：遥控器、网络和平台。本地接收端能把问题一分为二。Stream My Drone 会显示要填进 DJI Fly 的 RTMP 地址，点 Start Livestream 后几秒就显示画面以及分辨率和码率。"
+        },
+        {
+          "list": [
+            "<strong>画面到了：</strong>DJI Fly、遥控器和本地网络都正常。在 App 里添加平台，RTMPS、Instagram 每次更换的密钥和自动重连都由 App 处理。",
+            "<strong>什么都没收到：</strong>遥控器连不到接收端。检查两者是否在同一 Wi-Fi 或热点下，地址是否完全一致，包括 <code>:1935/drone</code>。",
+            "<strong>画面到了但每隔几秒就断：</strong>问题在 Wi-Fi。2.4 GHz 和 5 GHz 共用一个名称的路由器会反复切换频段，用手机热点就不会。"
+          ]
+        },
+        {
+          "note": "菜单逐步说明：<a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 设置</a>。Instagram：<a href=\"../why-dji-fly-cannot-stream-to-instagram/\">DJI Fly 为什么无法直播到 Instagram</a>。"
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "为什么直播只有 720p，码率也改不了",
+      "blocks": [
+        {
+          "p": "这是限制，不是错误。大疆说明 DJI RC 2 和 DJI RC Pro 2 受硬件限制只支持 720p 直播，DJI RC Pro 在 DJI Fly 1.18.0 之后也只支持 720p。RC-N1、RC-N2 或 RC-N3 接手机时可选 1080p 或 720p。码率由图传帧率决定：安卓 5 或 3 Mbps，iOS 2 或 1 Mbps，无法手动设置。"
+        }
+      ]
+    },
+    {
+      "id": "audio",
+      "h2": "没有声音或有杂音",
+      "blocks": [
+        {
+          "list": [
+            "<strong>直播没声音：</strong>DJI Fly 发送的是遥控器或手机的麦克风。没有麦克风的遥控器或虚拟麦克风会发送静音。",
+            "<strong>声音有杂音或失真：</strong>换一个麦克风或 USB-C 接口试试。如果还是不行，就替换 DJI Fly 的声音：打开 Stream My Drone 的手机麦克风按钮，所有平台都会改为播出你的声音。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "资料来源",
+      "blocks": [
+        {
+          "p": "地址格式、账号权限、麦克风、分辨率和码率：<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>。RTMPS 与 Facebook：<a href=\"https://forum.dji.com/thread-287241-1-1.html\">大疆论坛：Facebook 直播问题</a>、<a href=\"https://forum.dji.com/thread-294984-1-1.html\">YouTube 或 Facebook 直播报错</a>。“Starting livestream failed”：<a href=\"https://github.com/dji-sdk/Mobile-SDK-Android/issues/1120\">DJI Mobile SDK issue 1120</a>。核对日期：2026 年 11 月 8 日。"
+        },
+        {
+          "p": "相关文章：<a href=\"../dji-rc-2-livestream-no-microphone-fix/\">RC 2 麦克风问题解决方法</a>、<a href=\"../which-dji-drones-can-live-stream/\">哪些大疆无人机可以直播</a>、<a href=\"../how-to-live-stream-from-a-drone/\">无人机直播完整教程</a>。"
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "DJI Fly 为什么提示“Livestream error”？",
+      "a": "多数情况是平台要求 RTMPS（Instagram、Facebook）、地址或密钥有误、账号还不能直播，或遥控器连不上服务器。先用本地接收端测试，看看是哪一侧出了问题。"
+    },
+    {
+      "q": "DJI Fly 能直接推流到 Facebook 或 Instagram 吗？",
+      "a": "不能。两者只接受加密的 RTMPS，而 DJI Fly 发送的是未加密的 RTMP。把 DJI Fly 的推流发到手机或电脑上的 Stream My Drone，由它用 RTMPS 转发。"
+    },
+    {
+      "q": "DJI Fly 里 YouTube 的 RTMP 地址怎么填？",
+      "a": "rtmp://a.rtmp.youtube.com/live2/ 后面接上 YouTube Studio 里的推流密钥，不要有空格。大疆的指南用斜杠连接服务器地址和密钥。"
+    },
+    {
+      "q": "大疆无人机直播为什么几秒后就断？",
+      "a": "通常是网络问题：手机信号弱、访客 Wi-Fi，或路由器在 2.4 GHz 和 5 GHz 之间反复切换。改用手机热点或 5 GHz Wi-Fi，并让设备靠近它。"
+    },
+    {
+      "q": "初代 DJI RC 能直播吗？",
+      "a": "不能。大疆说明搭配 DJI RC 时不支持直播。搭配手机的 RC-N1、RC-N2、RC-N3，以及 DJI RC 2、RC Pro、RC Pro 2 和带屏遥控器都支持。"
+    },
+    {
+      "q": "能在 DJI Fly 里提高直播码率吗？",
+      "a": "不能。大疆按图传帧率固定码率：安卓 5 或 3 Mbps，iOS 2 或 1 Mbps。另外 RC 2 和 RC Pro 2 只能直播 720p。"
+    }
+  ]
+}

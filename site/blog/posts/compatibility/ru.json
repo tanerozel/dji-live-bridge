@@ -1,0 +1,143 @@
+{
+  "slug": "which-dji-drones-can-live-stream",
+  "platform": "Совместимость трансляций DJI",
+  "title": "Какие дроны DJI умеют вести трансляции? Список моделей и пультов (2026)",
+  "description": "Все дроны DJI, которые ведут трансляции в DJI Fly, от Mini 2 и Mini 4K до Mavic 4 Pro и Avata 360, какие пульты подходят и ограничения по 720p и микрофону.",
+  "h1": "Какие дроны DJI умеют вести трансляции? Полный список моделей и пультов",
+  "lead": "DJI указывает <strong>трансляции в DJI Fly</strong> для серии Mini (от Mavic Mini до Mini 5 Pro, включая Mini 4K и Mini 2 SE), серии Air (от Mavic Air 2 до Air 3S), Mavic 3 и Mavic 4 Pro, Neo и Neo 2, Flip, Avata, Avata 2, Avata 360, DJI FPV и Lito. На практике всё решает <strong>пульт</strong>: первый <strong>DJI RC</strong> транслировать не умеет, а <strong>RC 2</strong> даёт только 720p.",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "Трансляции есть в DJI Fly с версии 1.4.12. В руководстве DJI перечислены 26 дронов серий Mini, Air, Mavic, Neo, Flip, Avata, FPV и Lito.",
+    "Пульты под телефон (RC-N1, RC-N2, RC-N3) транслируют RTMP в 1080p или 720p; битрейт — 5 или 3 Мбит/с на Android и 2 или 1 Мбит/с на iOS.",
+    "DJI RC 2 и RC Pro 2 из-за железа транслируют только 720p; RC Pro — только 720p после DJI Fly 1.18.0.",
+    "Первый DJI RC не поддерживает трансляции. RC 2, RC Pro и Smart Controller с DJI Fly 1.16.0 требуют микрофон.",
+    "Avata 360 транслирует только обычную картинку, без режима 360°. Очки транслируют через телефон с DJI Fly."
+  ],
+  "sections": [
+    {
+      "id": "drones",
+      "h2": "Дроны DJI с поддержкой трансляций",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Серия", "Модели с трансляцией в DJI Fly", "Руководство"],
+            "rows": [
+              ["Mini", "Mini 5 Pro, Mini 4 Pro, Mini 4K, Mini 3 Pro, Mini 3, Mini 2 SE, Mini 2, Mini SE, Mavic Mini", "<a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro</a>, <a href=\"../dji-mini-4-pro-live-stream/\">Mini 4 Pro</a>, <a href=\"../dji-mini-3-pro-live-stream/\">Mini 3 Pro</a>, <a href=\"../dji-mini-3-live-stream/\">Mini 3</a>"],
+              ["Air", "Air 3S, Air 3, Air 2S, Mavic Air 2", "<a href=\"../dji-air-3s-live-stream/\">Air 3S</a>, <a href=\"../dji-air-3-live-stream/\">Air 3</a>"],
+              ["Mavic", "Mavic 4 Pro, Mavic 3 Pro, Mavic 3, Mavic 3 Classic", "<a href=\"../dji-mavic-4-pro-live-stream/\">Mavic 4 Pro</a>, <a href=\"../dji-mavic-3-live-stream/\">Mavic 3</a>"],
+              ["Neo", "Neo 2, Neo", "<a href=\"../dji-neo-live-stream/\">Neo</a>"],
+              ["Flip", "Flip", "<a href=\"../dji-flip-live-stream/\">Flip</a>"],
+              ["Avata и FPV", "Avata 360, Avata 2, Avata, DJI FPV", "<a href=\"../dji-avata-2-live-stream/\">Avata 2</a>"],
+              ["Lito", "Lito 1, Lito X1", "<a href=\"../dji-lito-1-live-stream/\">Lito 1</a>, <a href=\"../dji-lito-x1-live-stream/\">Lito X1</a>"]
+            ]
+          }
+        },
+        {
+          "note": "Источник: список дронов в руководстве DJI по трансляциям в DJI Fly, проверено 8 ноября 2026 года. DJI добавляет модели с обновлениями; последнее слово за меню вашего DJI Fly."
+        }
+      ]
+    },
+    {
+      "id": "controllers",
+      "h2": "Какие пульты умеют транслировать",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Пульт", "Трансляция", "Разрешение", "Примечания"],
+            "rows": [
+              ["RC-N1, RC-N2, RC-N3 (с телефоном)", "Да", "1080p или 720p", "5 или 3 Мбит/с на Android, 2 или 1 Мбит/с на iOS"],
+              ["DJI RC 2", "Да", "Только 720p", "Нужен микрофон с DJI Fly 1.16.0"],
+              ["DJI RC Pro", "Да", "720p после DJI Fly 1.18.0", "Нужен микрофон с DJI Fly 1.16.0"],
+              ["DJI RC Pro 2", "Да", "Только 720p", "Встроенный микрофон"],
+              ["DJI Smart Controller", "Да", "DJI не указывает", "Нужен микрофон с DJI Fly 1.16.0"],
+              ["DJI RC (первый)", "Нет", "—", "DJI: трансляции с DJI RC не поддерживаются"],
+              ["Очки DJI", "Через телефон", "То, что отправляет телефон", "Подключите очки к телефону с DJI Fly"]
+            ]
+          }
+        },
+        {
+          "p": "Пульт важнее дрона. Mini 3 Pro или Mavic 3 в комплекте с экранным DJI RC летает, но не транслирует; тот же дрон с RC-N1 и телефоном транслирует. Ограничение 720p касается только эфира: видео, записанное на дрон, сохраняет полное разрешение."
+        }
+      ]
+    },
+    {
+      "id": "check",
+      "h2": "Как проверить свой дрон",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Обновите DJI Fly и прошивку",
+              "d": "Для трансляций нужен DJI Fly 1.4.12 или новее, а новые дроны получают их в более поздних версиях. Обновите приложение, пульт и дрон."
+            },
+            {
+              "t": "Подключите дрон и пульт",
+              "d": "Включите оба и дождитесь, пока DJI Fly покажет GO FLY. Пульт под телефон должен быть соединён с телефоном кабелем."
+            },
+            {
+              "t": "Откройте меню трансляций",
+              "d": "Нажмите GO FLY → ••• → Transmission → Live Streaming Platforms. Если там есть RTMP, ваша связка умеет транслировать."
+            },
+            {
+              "t": "Отправьте тест",
+              "d": "Введите адрес, который показывает Stream My Drone на телефоне или компьютере, и нажмите Start Livestream. Картинка с реальным разрешением и битрейтом появится в приложении через несколько секунд."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other-apps",
+      "h2": "Дроны и камеры вне DJI Fly",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Старые дроны на DJI GO 4</strong> (Mavic 2, Mavic Pro, Phantom 4): в DJI GO 4 есть собственное меню трансляций с пользовательским RTMP.",
+            "<strong>Промышленные дроны</strong> (Matrice, Mavic 3 Enterprise): транслируют из DJI Pilot 2 на RC Plus; этот сценарий здесь не рассматривается.",
+            "<strong>Камеры Osmo</strong> (Pocket 3, Action): транслируют из DJI Mimo; см. руководства по <a href=\"../osmo-pocket-3-live-stream/\">Pocket 3</a> и <a href=\"../osmo-action-live-stream/\">Osmo Action</a>."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Источники",
+      "blocks": [
+        {
+          "p": "Список дронов, примечания о пультах, Avata 360 и очках: <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">руководство DJI Fly по трансляциям (на китайском)</a>. Версия, разрешение, битрейт и микрофон: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Проверено 8 ноября 2026 года."
+        },
+        {
+          "p": "Дальше: <a href=\"../how-to-live-stream-from-a-drone/\">полное руководство по трансляции с дрона</a> и, если эфир не стартует, <a href=\"../dji-fly-livestream-error-fix/\">решения ошибок трансляции DJI Fly</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Может ли DJI Mini 4K вести трансляцию?",
+      "a": "Да. DJI указывает Mini 4K среди дронов с трансляцией в DJI Fly. Он работает с пультом под телефон, поэтому в DJI Fly можно выбрать 1080p или 720p."
+    },
+    {
+      "q": "Могут ли DJI Mini 2 SE и Mini 2 вести трансляцию?",
+      "a": "Да. Оба есть в списке DJI, как и Mini SE и первый Mavic Mini. Сначала обновите DJI Fly: трансляциям нужна версия 1.4.12 или новее."
+    },
+    {
+      "q": "Почему мой DJI RC не транслирует?",
+      "a": "DJI указывает, что трансляции с первым DJI RC не поддерживаются. Используйте тот же дрон с RC-N1, RC-N2 или RC-N3 и телефоном либо с DJI RC 2, если дрон его поддерживает."
+    },
+    {
+      "q": "Почему DJI RC 2 транслирует только 720p?",
+      "a": "По словам DJI, RC 2 и RC Pro 2 из-за железа поддерживают трансляцию только в 720p. На запись на дроне это не влияет."
+    },
+    {
+      "q": "Может ли Avata 360 транслировать в 360°?",
+      "a": "Нет. DJI указывает, что Avata 360 не поддерживает трансляцию в режиме 360°; он передаёт обычную картинку видеосвязи."
+    },
+    {
+      "q": "Может ли DJI Air 2S вести трансляцию?",
+      "a": "Да. Air 2S и Mavic Air 2 есть в списке DJI дронов с трансляцией в DJI Fly через RTMP."
+    }
+  ]
+}

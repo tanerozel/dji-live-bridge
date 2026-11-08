@@ -1,0 +1,153 @@
+{
+  "slug": "dji-fly-canli-yayin-hatasi-cozumu",
+  "platform": "DJI Fly canlı yayın hatası",
+  "title": "DJI Fly canlı yayın hatası: yayın neden başlamıyor, nasıl çözülür?",
+  "description": "DJI Fly “Livestream error” veya “Starting livestream failed” mı diyor? 8 gerçek neden (RTMPS, yayın anahtarı, hesap, mikrofon, ağ) ve her birinin çözümü.",
+  "h1": "DJI Fly “Livestream error” hatası: nedenleri ve çözümleri",
+  "lead": "DJI Fly <em>“Livestream error”</em> veya <em>“Starting livestream failed”</em> gösteriyorsa neden neredeyse her zaman dört şeyden biridir: platform <strong>RTMPS</strong> istiyordur (Instagram, Facebook), <strong>adres veya yayın anahtarı</strong> yanlıştır, <strong>hesap</strong> henüz canlı yayın açamıyordur ya da kumanda <strong>sunucuya ulaşamıyordur</strong>. En hızlı test, yayını önce aynı Wi-Fi'daki bir telefon veya bilgisayarda <strong>Stream My Drone</strong>'a göndermektir: görüntü oraya geliyorsa DJI Fly sağlamdır, sorun platform tarafındadır.",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "DJI Fly yalnızca şifresiz RTMP gönderir. Instagram ve Facebook sadece RTMPS kabul ettiği için onlara doğrudan yayın başarısız olur; DJI destek ekibi bunu forumunda doğruluyor.",
+    "RTMP adresi; sunucu adresi, bir “/” ve yayın anahtarından oluşur, boşluk olmaz. Eksik eğik çizgi veya eski anahtar en sık görülen YouTube hatasıdır.",
+    "Hesabın canlı yayın açma izni olmalı: yeni bir YouTube kanalında canlı yayını etkinleştirdikten sonra 24 saate kadar beklemek gerekir, TikTok da yayın anahtarını yalnızca bazı hesaplara verir.",
+    "İlk DJI RC hiç canlı yayın yapamaz. RC 2, RC Pro ve DJI Smart Controller, DJI Fly 1.16.0'dan beri mikrofon ister.",
+    "Başlayıp birkaç saniye sonra kopan yayınlar ağ sorunudur: zayıf mobil çekim, misafir Wi-Fi ya da 2,4 ile 5 GHz arasında geçiş yapan modem."
+  ],
+  "sections": [
+    {
+      "id": "checklist",
+      "h2": "6 kontrolde DJI Fly canlı yayın hatasını çözün",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Adres biçimini kontrol edin",
+              "d": "DJI Fly tek satır ister: sunucu adresi, eğik çizgi, ardından yayın anahtarı; arada boşluk olmaz. YouTube için bu <code>rtmp://a.rtmp.youtube.com/live2/</code> ve arkasından anahtarınızdır. Anahtarı yeniden kopyalayın; eski veya sıfırlanmış anahtar sessizce başarısız olur."
+            },
+            {
+              "t": "Platformun şifresiz RTMP kabul ettiğini kontrol edin",
+              "d": "YouTube, Twitch ve Kick RTMP kabul eder. Instagram ve Facebook ise DJI Fly'ın gönderemediği şifreli RTMPS ister, bu yüzden onlara doğrudan yayın her zaman başarısız olur. DJI Fly'ı, yayını RTMPS ile ileten bir alıcı uygulamaya gönderin."
+            },
+            {
+              "t": "Hesabın canlı yayın açabildiğini kontrol edin",
+              "d": "YouTube'da YouTube Studio'dan canlı yayını etkinleştirin ve bekleyin (ilk seferde 24 saate kadar). DJI'a göre canlı yayın izni olmayan hesaba platform geçerli bir yayın anahtarı vermez."
+            },
+            {
+              "t": "Kumandayı kontrol edin",
+              "d": "İlk DJI RC canlı yayını desteklemez. DJI RC 2, RC Pro ve DJI Smart Controller'da DJI Fly 1.16.0 ve sonrası, yayın başlamadan önce bağlı bir mikrofon ister."
+            },
+            {
+              "t": "Bağlantıyı kontrol edin",
+              "d": "Doğrudan yayında kumandanın veya telefonun internete bağlı olması gerekir (4.5G/5G veya Wi-Fi). Yerel alıcıya yayında iki cihaz aynı ağda olmalı, misafir Wi-Fi'da olmamalı."
+            },
+            {
+              "t": "Yerel bir alıcıyla test edin",
+              "d": "DJI Fly'ı bir telefon veya bilgisayardaki Stream My Drone'a yönlendirin (<code>rtmp://&lt;uygulamadaki adres&gt;:1935/drone</code>). Görüntü geliyorsa DJI Fly çalışıyordur; kalan sorun platform, anahtar veya hesaptadır."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "causes",
+      "h2": "Bir bakışta: hata, neden ve çözüm",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Gördüğünüz", "Muhtemel neden", "Çözüm"],
+            "rows": [
+              ["<code>rtmps://</code> adresle hemen başarısız oluyor ya da “invalid RTMP URL”", "DJI Fly yalnızca RTMP gönderir", "RTMPS konuşan bir alıcı uygulama üzerinden iletin"],
+              ["YouTube'da hemen başarısız oluyor", "Yanlış anahtar, eksik “/” veya adreste boşluk", "Adresi ve anahtarı yeniden kopyalayıp “/” ile birleştirin"],
+              ["Yeni YouTube kanalında başarısız oluyor", "Canlı yayın henüz etkin değil", "YouTube Studio'dan etkinleştirip 24 saate kadar bekleyin"],
+              ["Instagram'da bir kez çalıştı, sonra olmuyor", "Instagram anahtarı tek kullanımlık ve RTMPS ister", "Her yayında yeni anahtar alın, RTMPS ile iletin"],
+              ["“No built-in mic in current device”", "DJI Fly 1.16+ ile RC 2, RC Pro veya Smart Controller", "Mikrofon takın ya da sanal Bluetooth mikrofon kullanın"],
+              ["Menüde RTMP seçeneği yok", "İlk DJI RC veya 1.4.12'den eski DJI Fly", "Desteklenen bir kumanda kullanın, DJI Fly'ı güncelleyin"],
+              ["Başlıyor, birkaç saniye sonra kopuyor", "Zayıf yükleme, misafir Wi-Fi veya bant değişimi", "5 GHz veya telefon hotspot'u kullanın, yaklaşın"],
+              ["Geri sayım bitiyor, platformda bir şey yok", "Canlı yayına geç'e basılmadı (Instagram, Facebook) veya yanlış anahtar", "Platformda Canlı yayına geç'e basın, anahtarı kontrol edin"]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "local-test",
+      "h2": "Yerel test sorunu neden en hızlı bulur?",
+      "blocks": [
+        {
+          "p": "DJI Fly'dan çıkan yayın üç parçadan geçer: kumanda, ağ ve platform. Yerel bir alıcı sorunu ikiye böler. Stream My Drone, DJI Fly'a yazılacak RTMP adresini gösterir; Canlı yayını başlat'tan birkaç saniye sonra görüntüyü çözünürlüğü ve bit hızıyla birlikte gösterir."
+        },
+        {
+          "list": [
+            "<strong>Görüntü geliyor:</strong> DJI Fly, kumanda ve yerel ağ çalışıyor. Platformu uygulamaya ekleyin; RTMPS'i, Instagram'ın her yayında yenilenen anahtarını ve otomatik yeniden bağlanmayı uygulama halleder.",
+            "<strong>Hiçbir şey gelmiyor:</strong> kumanda alıcıya ulaşamıyor. İkisinin aynı Wi-Fi'da veya hotspot'ta olduğunu ve adresin <code>:1935/drone</code> dahil birebir aynı olduğunu kontrol edin.",
+            "<strong>Görüntü geliyor ama birkaç saniyede bir kopuyor:</strong> sorun Wi-Fi'da. 2,4 ve 5 GHz için tek ad kullanan modemler bantlar arasında sürekli geçiş yapabilir; telefon hotspot'u bunu önler."
+          ]
+        },
+        {
+          "note": "Menülerin ayrıntılı anlatımı: <a href=\"../dji-fly-rtmp-canli-yayin-ayarlari/\">DJI Fly RTMP ayarları</a>. Instagram ayrıntıları: <a href=\"../dji-fly-instagram-canli-yayin-neden-calismiyor/\">DJI Fly neden Instagram'a yayın yapamıyor</a>."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Yayın neden yalnızca 720p, bit hızı neden değişmiyor?",
+      "blocks": [
+        {
+          "p": "Bunlar hata değil, sınır. DJI'a göre DJI RC 2 ve DJI RC Pro 2 donanımları nedeniyle yalnızca 720p yayın yapar; DJI RC Pro ise DJI Fly 1.18.0'dan sonra yalnızca 720p yayınlar. RC-N1, RC-N2 veya RC-N3'e bağlı telefonda 1080p veya 720p seçebilirsiniz. Bit hızı görüntü aktarım kare hızına bağlı olarak sabittir: Android'de 5 veya 3 Mbps, iOS'ta 2 veya 1 Mbps; elle değiştirilemez."
+        }
+      ]
+    },
+    {
+      "id": "audio",
+      "h2": "Ses yok ya da cızırtılı",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Sessiz yayın:</strong> DJI Fly kumandanın veya telefonun mikrofonunu gönderir. Mikrofonu olmayan kumanda ya da sanal mikrofon sessizlik gönderir.",
+            "<strong>Cızırtılı veya bozuk ses:</strong> başka bir mikrofon ya da başka bir USB-C girişi deneyin. Sürerse DJI Fly'ın sesini değiştirin: Stream My Drone'daki telefon mikrofonu düğmesi, tüm platformlarda bunun yerine sizin sesinizi gönderir."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Kaynaklar",
+      "blocks": [
+        {
+          "p": "Adres biçimi, hesap izni, mikrofon şartı, çözünürlük ve bit hızı sınırları: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. RTMPS ve Facebook: <a href=\"https://forum.dji.com/thread-287241-1-1.html\">DJI forumu: Facebook canlı yayın sorunu</a> ve <a href=\"https://forum.dji.com/thread-294984-1-1.html\">YouTube veya Facebook'ta canlı yayın hatası</a>. “Starting livestream failed”: <a href=\"https://github.com/dji-sdk/Mobile-SDK-Android/issues/1120\">DJI Mobile SDK, kayıt 1120</a>. 8 Kasım 2026'da kontrol edildi."
+        },
+        {
+          "p": "İlgili yazılar: <a href=\"../dji-rc-2-canli-yayin-mikrofon-hatasi-cozumu/\">RC 2 mikrofon hatası çözümü</a>, <a href=\"../hangi-dji-dronelar-canli-yayin-yapabilir/\">hangi DJI drone'lar canlı yayın yapabilir</a> ve <a href=\"../drone-ile-canli-yayin-nasil-yapilir/\">drone ile canlı yayın rehberi</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "DJI Fly neden “Livestream error” diyor?",
+      "a": "Çoğu zaman platform RTMPS istiyordur (Instagram, Facebook), adres veya yayın anahtarı yanlıştır, hesap henüz canlı yayın açamıyordur ya da kumandanın sunucuya bağlantısı yoktur. Hangi tarafın sorunlu olduğunu görmek için önce yerel bir alıcıyla test edin."
+    },
+    {
+      "q": "DJI Fly doğrudan Facebook veya Instagram'a yayın yapabilir mi?",
+      "a": "Hayır. İkisi de yalnızca şifreli RTMPS kabul eder, DJI Fly ise şifresiz RTMP gönderir. DJI Fly yayınını telefon veya bilgisayardaki Stream My Drone'a gönderin; uygulama onu RTMPS ile iletir."
+    },
+    {
+      "q": "DJI Fly'da YouTube için doğru RTMP adresi nedir?",
+      "a": "rtmp://a.rtmp.youtube.com/live2/ ve arkasından YouTube Studio'daki yayın anahtarınız; boşluk olmadan. DJI'ın kılavuzu sunucu adresini ve anahtarı eğik çizgiyle birleştirir."
+    },
+    {
+      "q": "Drone canlı yayınım neden birkaç saniye sonra kesiliyor?",
+      "a": "Genellikle ağdan: zayıf mobil çekim, misafir Wi-Fi ya da 2,4 ve 5 GHz arasında sürekli geçiş yapan modem. Telefon hotspot'u veya 5 GHz Wi-Fi kullanın ve cihazları ona yakın tutun."
+    },
+    {
+      "q": "İlk DJI RC ile canlı yayın yapılır mı?",
+      "a": "Hayır. DJI, DJI RC ile canlı yayının desteklenmediğini belirtiyor. Telefonla RC-N1, RC-N2 ve RC-N3'te, ayrıca DJI RC 2, RC Pro, RC Pro 2 ve Smart Controller'da desteklenir."
+    },
+    {
+      "q": "DJI Fly'da canlı yayın bit hızını artırabilir miyim?",
+      "a": "Hayır. DJI bunu aktarım kare hızına göre sabitler: Android'de 5 veya 3 Mbps, iOS'ta 2 veya 1 Mbps. RC 2 ve RC Pro 2 ayrıca yalnızca 720p yayın yapar."
+    }
+  ]
+}

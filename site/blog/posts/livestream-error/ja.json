@@ -1,0 +1,153 @@
+{
+  "slug": "dji-fly-livestream-error-fix",
+  "platform": "DJI Fly ライブ配信エラー",
+  "title": "DJI Fly のライブ配信エラー：配信が始まらない原因と直し方",
+  "description": "DJI Fly に「Livestream error」や「Starting livestream failed」と出る？ RTMPS、ストリームキー、アカウント、マイク、ネットワークなど8つの本当の原因と、それぞれの直し方。",
+  "h1": "DJI Fly の「Livestream error」：原因とそれぞれの直し方",
+  "lead": "DJI Fly に <em>「Livestream error」</em> や <em>「Starting livestream failed」</em> と出る原因は、ほぼ次の4つのどれかです。プラットフォームが <strong>RTMPS</strong> を要求している（Instagram、Facebook）、<strong>アドレスかストリームキー</strong>が間違っている、<strong>アカウント</strong>がまだライブ配信できない、送信機が<strong>サーバーに届いていない</strong>。いちばん早い確認方法は、まず同じ Wi-Fi のスマホかパソコンの <strong>Stream My Drone</strong> に送ってみることです。映像が届けば DJI Fly は正常で、問題はプラットフォーム側にあります。",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "DJI Fly が送れるのは暗号化なしの RTMP だけです。Instagram と Facebook は RTMPS しか受け付けないため、直接配信は失敗します。DJI サポートもフォーラムで認めています。",
+    "RTMP アドレスはサーバー URL＋「/」＋ストリームキーで、スペースは入れません。スラッシュの抜けや古いキーが YouTube で最も多い失敗です。",
+    "アカウントがライブ配信できる状態である必要があります。新しい YouTube チャンネルは有効化から最大24時間かかり、TikTok は一部のアカウントにしかキーを出しません。",
+    "初代 DJI RC はライブ配信に対応していません。RC 2、RC Pro、DJI スマート送信機は DJI Fly 1.16.0 以降マイクが必要です。",
+    "始まってすぐ切れるのはネットワークの問題です。弱いモバイル電波、ゲスト Wi-Fi、2.4 GHz と 5 GHz を切り替えるルーターが原因になります。"
+  ],
+  "sections": [
+    {
+      "id": "checklist",
+      "h2": "DJI Fly のライブ配信エラーを6つの確認で直す",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "アドレスの形式を確認する",
+              "d": "DJI Fly にはサーバー URL、スラッシュ、ストリームキーを1行でスペースなしに入力します。YouTube なら <code>rtmp://a.rtmp.youtube.com/live2/</code> の後ろにキーです。キーはコピーし直してください。古いキーやリセットしたキーは何も言わずに失敗します。"
+            },
+            {
+              "t": "プラットフォームが RTMP を受け付けるか確認する",
+              "d": "YouTube、Twitch、Kick は RTMP を受け付けます。Instagram と Facebook は DJI Fly が送れない暗号化 RTMPS が必須なので、直接配信は必ず失敗します。RTMPS で転送する受信アプリに DJI Fly から送りましょう。"
+            },
+            {
+              "t": "アカウントがライブ配信できるか確認する",
+              "d": "YouTube では YouTube Studio でライブ配信を有効にして待ちます（初回は最大24時間）。DJI によると、ライブ権限がないとプラットフォームは有効なキーを発行しません。"
+            },
+            {
+              "t": "送信機を確認する",
+              "d": "初代 DJI RC はライブ配信に対応していません。DJI RC 2、RC Pro、DJI スマート送信機では、DJI Fly 1.16.0 以降、配信開始前にマイクの接続が必要です。"
+            },
+            {
+              "t": "接続を確認する",
+              "d": "直接配信なら、送信機かスマホがインターネット（4G/5G または Wi-Fi）につながっている必要があります。ローカル受信なら、2台が同じネットワークにあり、ゲスト Wi-Fi ではないことが条件です。"
+            },
+            {
+              "t": "ローカル受信でテストする",
+              "d": "DJI Fly の送り先をスマホかパソコンの Stream My Drone（<code>rtmp://&lt;アプリに表示されたアドレス&gt;:1935/drone</code>）にします。映像が出れば DJI Fly は正常で、残りはプラットフォーム、キー、アカウントの問題です。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "causes",
+      "h2": "エラー・原因・対処の早見表",
+      "blocks": [
+        {
+          "table": {
+            "head": ["症状", "考えられる原因", "対処"],
+            "rows": [
+              ["<code>rtmps://</code> のアドレスですぐ失敗、または「invalid RTMP URL」", "DJI Fly は RTMP しか送れない", "RTMPS に対応した受信アプリ経由で転送"],
+              ["YouTube ですぐ失敗", "キーの誤り、「/」の抜け、アドレス内のスペース", "URL とキーをコピーし直し「/」でつなぐ"],
+              ["新しい YouTube チャンネルで失敗", "ライブ配信がまだ有効になっていない", "YouTube Studio で有効化し最大24時間待つ"],
+              ["Instagram で一度は成功、次から失敗", "Instagram のキーは使い捨てで RTMPS が必須", "配信ごとに新しいキー、RTMPS で転送"],
+              ["「No built-in mic in current device」", "DJI Fly 1.16+ の RC 2、RC Pro、スマート送信機", "マイクを挿すか、仮想 Bluetooth マイクを使う"],
+              ["メニューに RTMP がない", "初代 DJI RC、または 1.4.12 より古い DJI Fly", "対応送信機を使い DJI Fly を更新"],
+              ["始まって数秒で切れる", "上りが弱い、ゲスト Wi-Fi、帯域の切り替え", "5 GHz かテザリングを使い、近づく"],
+              ["カウントダウン後、プラットフォームに何も出ない", "「ライブ配信を開始」を押していない（Instagram、Facebook）かキーの誤り", "プラットフォームで開始を押し、キーを確認"]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "local-test",
+      "h2": "ローカルテストがいちばん早く原因を見つける理由",
+      "blocks": [
+        {
+          "p": "DJI Fly の配信は、送信機、ネットワーク、プラットフォームの3つを通ります。ローカル受信は問題を半分に切り分けます。Stream My Drone は DJI Fly に入れる RTMP アドレスを表示し、Start Livestream の数秒後に解像度とビットレート付きで映像を表示します。"
+        },
+        {
+          "list": [
+            "<strong>映像が届く：</strong>DJI Fly、送信機、ローカルネットワークは正常です。アプリで配信先を追加すれば、RTMPS、Instagram の毎回新しいキー、自動再接続はアプリが処理します。",
+            "<strong>何も届かない：</strong>送信機が受信端末に届いていません。同じ Wi-Fi かテザリングにいるか、アドレスが <code>:1935/drone</code> まで完全に一致しているか確認します。",
+            "<strong>映像は届くが数秒ごとに途切れる：</strong>原因は Wi-Fi です。2.4 GHz と 5 GHz に同じ名前を使うルーターは帯域を何度も切り替えます。スマホのテザリングなら起きません。"
+          ]
+        },
+        {
+          "note": "メニューの詳しい手順：<a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly の RTMP 設定</a>。Instagram について：<a href=\"../why-dji-fly-cannot-stream-to-instagram/\">DJI Fly が Instagram に配信できない理由</a>。"
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "配信が 720p のまま、ビットレートが変えられない理由",
+      "blocks": [
+        {
+          "p": "これはエラーではなく仕様上の制限です。DJI によると、DJI RC 2 と DJI RC Pro 2 はハードウェアの制約で 720p のみ、DJI RC Pro は DJI Fly 1.18.0 以降 720p のみです。RC-N1、RC-N2、RC-N3 にスマホをつなげば 1080p か 720p を選べます。ビットレートは映像伝送のフレームレートで決まり、Android で 5 または 3 Mbps、iOS で 2 または 1 Mbps。手動では変更できません。"
+        }
+      ]
+    },
+    {
+      "id": "audio",
+      "h2": "音が出ない、音がバリバリする",
+      "blocks": [
+        {
+          "list": [
+            "<strong>無音の配信：</strong>DJI Fly は送信機かスマホのマイクの音を送ります。マイクのない送信機や仮想マイクは無音を送ります。",
+            "<strong>音がバリバリ・ひずむ：</strong>別のマイクか別の USB-C 端子を試してください。直らなければ DJI Fly の音を置き換えましょう。Stream My Drone のスマホマイクボタンで、すべてのプラットフォームにあなたの声を送れます。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "出典",
+      "blocks": [
+        {
+          "p": "アドレス形式、アカウント権限、マイク、解像度、ビットレート：<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>。RTMPS と Facebook：<a href=\"https://forum.dji.com/thread-287241-1-1.html\">DJI フォーラム：Facebook ライブの問題</a>、<a href=\"https://forum.dji.com/thread-294984-1-1.html\">YouTube や Facebook でのライブエラー</a>。「Starting livestream failed」：<a href=\"https://github.com/dji-sdk/Mobile-SDK-Android/issues/1120\">DJI Mobile SDK issue 1120</a>。2026年11月8日に確認。"
+        },
+        {
+          "p": "関連記事：<a href=\"../dji-rc-2-livestream-no-microphone-fix/\">RC 2 のマイク問題の解決方法</a>、<a href=\"../which-dji-drones-can-live-stream/\">ライブ配信できる DJI ドローン</a>、<a href=\"../how-to-live-stream-from-a-drone/\">ドローンでライブ配信する方法</a>。"
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "DJI Fly に「Livestream error」と出るのはなぜですか？",
+      "a": "多くの場合、プラットフォームが RTMPS を要求している（Instagram、Facebook）、アドレスかキーが間違っている、アカウントがまだライブ配信できない、送信機がサーバーにつながっていない、のどれかです。まずローカル受信でどちら側が失敗しているか確認しましょう。"
+    },
+    {
+      "q": "DJI Fly から Facebook や Instagram に直接配信できますか？",
+      "a": "できません。どちらも暗号化された RTMPS しか受け付けず、DJI Fly は暗号化なしの RTMP を送ります。DJI Fly の映像をスマホかパソコンの Stream My Drone に送れば、RTMPS で転送します。"
+    },
+    {
+      "q": "DJI Fly に入れる YouTube の正しい RTMP アドレスは？",
+      "a": "rtmp://a.rtmp.youtube.com/live2/ の後ろに YouTube Studio のストリームキーを続け、スペースは入れません。DJI のガイドではサーバーアドレスとキーをスラッシュでつなぎます。"
+    },
+    {
+      "q": "DJI ドローンのライブ配信が数秒で切れるのはなぜですか？",
+      "a": "たいていはネットワークです。弱いモバイル電波、ゲスト Wi-Fi、2.4 GHz と 5 GHz を何度も切り替えるルーターが原因です。スマホのテザリングか 5 GHz の Wi-Fi を使い、端末を近くに置きましょう。"
+    },
+    {
+      "q": "初代 DJI RC でライブ配信できますか？",
+      "a": "できません。DJI は DJI RC ではライブ配信に対応していないとしています。スマホを使う RC-N1、RC-N2、RC-N3、そして DJI RC 2、RC Pro、RC Pro 2、スマート送信機で対応しています。"
+    },
+    {
+      "q": "DJI Fly でライブ配信のビットレートを上げられますか？",
+      "a": "上げられません。DJI は伝送フレームレートに合わせて固定しており、Android で 5 または 3 Mbps、iOS で 2 または 1 Mbps です。さらに RC 2 と RC Pro 2 は 720p のみです。"
+    }
+  ]
+}

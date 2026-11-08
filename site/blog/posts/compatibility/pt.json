@@ -1,0 +1,215 @@
+{
+  "slug": "quais-drones-dji-fazem-transmissao-ao-vivo",
+  "platform": "Compatibilidade de live DJI",
+  "title": "Quais drones DJI fazem transmissão ao vivo? Modelos e controles (2026)",
+  "description": "Todos os drones DJI que transmitem ao vivo pelo DJI Fly, do Mini 2 e Mini 4K ao Mavic 4 Pro e Avata 360, quais controles funcionam e os limites de 720p e microfone.",
+  "h1": "Quais drones DJI fazem transmissão ao vivo? Lista completa de modelos e controles",
+  "lead": "A DJI lista a <strong>transmissão ao vivo no DJI Fly</strong> para a série Mini (do Mavic Mini ao Mini 5 Pro, incluindo Mini 4K e Mini 2 SE), a série Air (do Mavic Air 2 ao Air 3S), Mavic 3 e Mavic 4 Pro, Neo e Neo 2, Flip, Avata, Avata 2, Avata 360, DJI FPV e Lito. Na prática quem decide é o <strong>controle</strong>: o <strong>DJI RC</strong> original não transmite e o <strong>RC 2</strong> só transmite em 720p.",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "O DJI Fly tem transmissão ao vivo desde a versão 1.4.12. O guia da DJI lista 26 drones das séries Mini, Air, Mavic, Neo, Flip, Avata, FPV e Lito.",
+    "Controles com celular (RC-N1, RC-N2, RC-N3) transmitem RTMP em 1080p ou 720p; o bitrate é 5 ou 3 Mbps no Android e 2 ou 1 Mbps no iOS.",
+    "O DJI RC 2 e o RC Pro 2 só transmitem em 720p por causa do hardware; o RC Pro só em 720p a partir do DJI Fly 1.18.0.",
+    "O DJI RC original não transmite. RC 2, RC Pro e Smart Controller precisam de microfone desde o DJI Fly 1.16.0.",
+    "O Avata 360 só transmite a visão normal, não o modo 360°. Os óculos transmitem por um celular com o DJI Fly."
+  ],
+  "sections": [
+    {
+      "id": "drones",
+      "h2": "Drones DJI que fazem transmissão ao vivo",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Série",
+              "Modelos com transmissão no DJI Fly",
+              "Guia"
+            ],
+            "rows": [
+              [
+                "Mini",
+                "Mini 5 Pro, Mini 4 Pro, Mini 4K, Mini 3 Pro, Mini 3, Mini 2 SE, Mini 2, Mini SE, Mavic Mini",
+                "<a href=\"../dji-mini-5-pro-transmissao-ao-vivo/\">Mini 5 Pro</a>, <a href=\"../dji-mini-4-pro-transmissao-ao-vivo/\">Mini 4 Pro</a>, <a href=\"../dji-mini-3-pro-transmissao-ao-vivo/\">Mini 3 Pro</a>, <a href=\"../dji-mini-3-transmissao-ao-vivo/\">Mini 3</a>"
+              ],
+              [
+                "Air",
+                "Air 3S, Air 3, Air 2S, Mavic Air 2",
+                "<a href=\"../dji-air-3s-transmissao-ao-vivo/\">Air 3S</a>, <a href=\"../dji-air-3-transmissao-ao-vivo/\">Air 3</a>"
+              ],
+              [
+                "Mavic",
+                "Mavic 4 Pro, Mavic 3 Pro, Mavic 3, Mavic 3 Classic",
+                "<a href=\"../dji-mavic-4-pro-transmissao-ao-vivo/\">Mavic 4 Pro</a>, <a href=\"../dji-mavic-3-transmissao-ao-vivo/\">Mavic 3</a>"
+              ],
+              [
+                "Neo",
+                "Neo 2, Neo",
+                "<a href=\"../dji-neo-transmissao-ao-vivo/\">Neo</a>"
+              ],
+              [
+                "Flip",
+                "Flip",
+                "<a href=\"../dji-flip-transmissao-ao-vivo/\">Flip</a>"
+              ],
+              [
+                "Avata e FPV",
+                "Avata 360, Avata 2, Avata, DJI FPV",
+                "<a href=\"../dji-avata-2-transmissao-ao-vivo/\">Avata 2</a>"
+              ],
+              [
+                "Lito",
+                "Lito 1, Lito X1",
+                "<a href=\"../dji-lito-1-transmissao-ao-vivo/\">Lito 1</a>, <a href=\"../dji-lito-x1-transmissao-ao-vivo/\">Lito X1</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "Fonte: a lista de aeronaves do guia de transmissão do DJI Fly, verificada em 8 de novembro de 2026. A DJI adiciona modelos com as atualizações; o menu do seu DJI Fly tem a palavra final."
+        }
+      ]
+    },
+    {
+      "id": "controllers",
+      "h2": "Quais controles transmitem",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Controle",
+              "Transmissão",
+              "Resolução",
+              "Observações"
+            ],
+            "rows": [
+              [
+                "RC-N1, RC-N2, RC-N3 (com celular)",
+                "Sim",
+                "1080p ou 720p",
+                "5 ou 3 Mbps no Android, 2 ou 1 Mbps no iOS"
+              ],
+              [
+                "DJI RC 2",
+                "Sim",
+                "Só 720p",
+                "Precisa de microfone desde o DJI Fly 1.16.0"
+              ],
+              [
+                "DJI RC Pro",
+                "Sim",
+                "720p a partir do DJI Fly 1.18.0",
+                "Precisa de microfone desde o DJI Fly 1.16.0"
+              ],
+              [
+                "DJI RC Pro 2",
+                "Sim",
+                "Só 720p",
+                "Tem microfone embutido"
+              ],
+              [
+                "DJI Smart Controller",
+                "Sim",
+                "A DJI não informa",
+                "Precisa de microfone desde o DJI Fly 1.16.0"
+              ],
+              [
+                "DJI RC (original)",
+                "Não",
+                "—",
+                "DJI: o DJI RC não suporta transmissão"
+              ],
+              [
+                "Óculos DJI",
+                "Pelo celular",
+                "O que o celular envia",
+                "Conecte os óculos a um celular com DJI Fly"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "O controle importa mais que o drone. Um Mini 3 Pro ou Mavic 3 vendido com o DJI RC de tela voa, mas não transmite; o mesmo drone com RC-N1 e celular transmite. O limite de 720p vale só para a imagem ao vivo: o vídeo gravado no drone mantém a resolução total."
+        }
+      ]
+    },
+    {
+      "id": "check",
+      "h2": "Como conferir o seu drone",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Atualize o DJI Fly e o firmware",
+              "d": "A transmissão precisa do DJI Fly 1.4.12 ou mais recente, e drones novos ganham suporte em versões posteriores. Atualize o app, o controle e o drone."
+            },
+            {
+              "t": "Conecte drone e controle",
+              "d": "Ligue os dois e espere o DJI Fly mostrar GO FLY. Um controle com celular precisa estar ligado ao celular por cabo."
+            },
+            {
+              "t": "Abra o menu de transmissão",
+              "d": "Toque em GO FLY → ••• → Transmission → Live Streaming Platforms. Se RTMP aparecer, a sua combinação transmite."
+            },
+            {
+              "t": "Faça um teste",
+              "d": "Digite o endereço que o Stream My Drone mostra em um celular ou computador e toque em Start Livestream. A imagem com resolução e bitrate reais aparece no app em segundos."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other-apps",
+      "h2": "Drones e câmeras fora do DJI Fly",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Drones antigos com DJI GO 4</strong> (Mavic 2, Mavic Pro, Phantom 4): o DJI GO 4 tem o próprio menu de transmissão com opção de RTMP personalizado.",
+            "<strong>Drones corporativos</strong> (Matrice, Mavic 3 Enterprise): transmitem pelo DJI Pilot 2 no RC Plus; esse fluxo não é tratado aqui.",
+            "<strong>Câmeras Osmo</strong> (Pocket 3, Action): transmitem pelo DJI Mimo; veja os guias do <a href=\"../osmo-pocket-3-transmissao-ao-vivo/\">Pocket 3</a> e da <a href=\"../osmo-action-transmissao-ao-vivo/\">Osmo Action</a>."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Fontes",
+      "blocks": [
+        {
+          "p": "Lista de aeronaves, observações de controles, Avata 360 e óculos: <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">guia de transmissão do DJI Fly (chinês)</a>. Versão, resolução, bitrate e microfone: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Verificado em 8 de novembro de 2026."
+        },
+        {
+          "p": "Próximo passo: o <a href=\"../como-fazer-transmissao-ao-vivo-com-drone/\">guia completo de transmissão com drone</a> e, se não começar, as <a href=\"../erro-de-transmissao-ao-vivo-dji-fly-solucao/\">soluções para o erro de transmissão do DJI Fly</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "O DJI Mini 4K faz transmissão ao vivo?",
+      "a": "Sim. A DJI inclui o Mini 4K entre os drones com transmissão no DJI Fly. Ele usa controle com celular, então dá para escolher 1080p ou 720p no DJI Fly."
+    },
+    {
+      "q": "O DJI Mini 2 SE e o Mini 2 transmitem ao vivo?",
+      "a": "Sim. Os dois estão na lista da DJI, assim como o Mini SE e o Mavic Mini original. Atualize o DJI Fly antes; a transmissão precisa da versão 1.4.12 ou mais recente."
+    },
+    {
+      "q": "Por que o meu DJI RC não transmite?",
+      "a": "A DJI informa que o DJI RC original não suporta transmissão ao vivo. Use o mesmo drone com RC-N1, RC-N2 ou RC-N3 e celular, ou com um DJI RC 2 se o drone for compatível."
+    },
+    {
+      "q": "Por que o DJI RC 2 só transmite em 720p?",
+      "a": "A DJI diz que o RC 2 e o RC Pro 2 só suportam 720p ao vivo por causa do hardware. A gravação no drone não é afetada."
+    },
+    {
+      "q": "O Avata 360 transmite em 360°?",
+      "a": "Não. A DJI informa que o Avata 360 não suporta transmissão no modo 360°; ele transmite a visão normal da transmissão de vídeo."
+    },
+    {
+      "q": "O DJI Air 2S faz transmissão ao vivo?",
+      "a": "Sim. O Air 2S e o Mavic Air 2 estão na lista da DJI de drones com transmissão no DJI Fly pela opção RTMP."
+    }
+  ]
+}

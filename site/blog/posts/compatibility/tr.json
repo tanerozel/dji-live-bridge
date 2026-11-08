@@ -1,0 +1,143 @@
+{
+  "slug": "hangi-dji-dronelar-canli-yayin-yapabilir",
+  "platform": "DJI canlı yayın uyumluluğu",
+  "title": "Hangi DJI drone'lar canlı yayın yapabilir? Model ve kumanda listesi (2026)",
+  "description": "DJI Fly'da canlı yayın yapabilen tüm DJI drone'lar: Mini 2 ve Mini 4K'dan Mavic 4 Pro ve Avata 360'a; hangi kumandalar çalışır, 720p ve mikrofon sınırları.",
+  "h1": "Hangi DJI drone'lar canlı yayın yapabilir? Tam model ve kumanda listesi",
+  "lead": "DJI, <strong>DJI Fly'da canlı yayını</strong> şu seriler için listeliyor: Mini serisi (Mavic Mini'den Mini 5 Pro'ya, Mini 4K ve Mini 2 SE dahil), Air serisi (Mavic Air 2'den Air 3S'e), Mavic 3 ve Mavic 4 Pro, Neo ve Neo 2, Flip, Avata, Avata 2, Avata 360, DJI FPV ve Lito. Pratikte belirleyici olan <strong>kumandadır</strong>: ilk <strong>DJI RC</strong> yayın yapamaz, <strong>RC 2</strong> ise yalnızca 720p yayınlar.",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "DJI Fly'da canlı yayın 1.4.12 sürümünden beri var. DJI'ın kendi kılavuzu Mini, Air, Mavic, Neo, Flip, Avata, FPV ve Lito serilerinden 26 drone listeliyor.",
+    "Telefonlu kumandalar (RC-N1, RC-N2, RC-N3) 1080p veya 720p RTMP yayın yapar; bit hızı Android'de 5 veya 3 Mbps, iOS'ta 2 veya 1 Mbps'tır.",
+    "DJI RC 2 ve RC Pro 2 donanımları nedeniyle yalnızca 720p yayınlar; RC Pro, DJI Fly 1.18.0'dan sonra yalnızca 720p yayınlar.",
+    "İlk DJI RC canlı yayını desteklemez. RC 2, RC Pro ve Smart Controller DJI Fly 1.16.0'dan beri mikrofon ister.",
+    "Avata 360 yalnızca normal aktarım görüntüsünü yayınlar, 360° modunu değil. Gözlükler, DJI Fly çalışan bir telefon üzerinden yayın yapar."
+  ],
+  "sections": [
+    {
+      "id": "drones",
+      "h2": "Canlı yayın destekleyen DJI drone'lar",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Seri", "DJI Fly'da canlı yayın yapabilen modeller", "Rehber"],
+            "rows": [
+              ["Mini", "Mini 5 Pro, Mini 4 Pro, Mini 4K, Mini 3 Pro, Mini 3, Mini 2 SE, Mini 2, Mini SE, Mavic Mini", "<a href=\"../dji-mini-5-pro-canli-yayin/\">Mini 5 Pro</a>, <a href=\"../dji-mini-4-pro-canli-yayin/\">Mini 4 Pro</a>, <a href=\"../dji-mini-3-pro-canli-yayin/\">Mini 3 Pro</a>, <a href=\"../dji-mini-3-canli-yayin/\">Mini 3</a>"],
+              ["Air", "Air 3S, Air 3, Air 2S, Mavic Air 2", "<a href=\"../dji-air-3s-canli-yayin/\">Air 3S</a>, <a href=\"../dji-air-3-canli-yayin/\">Air 3</a>"],
+              ["Mavic", "Mavic 4 Pro, Mavic 3 Pro, Mavic 3, Mavic 3 Classic", "<a href=\"../dji-mavic-4-pro-canli-yayin/\">Mavic 4 Pro</a>, <a href=\"../dji-mavic-3-canli-yayin/\">Mavic 3</a>"],
+              ["Neo", "Neo 2, Neo", "<a href=\"../dji-neo-canli-yayin/\">Neo</a>"],
+              ["Flip", "Flip", "<a href=\"../dji-flip-canli-yayin/\">Flip</a>"],
+              ["Avata ve FPV", "Avata 360, Avata 2, Avata, DJI FPV", "<a href=\"../dji-avata-2-canli-yayin/\">Avata 2</a>"],
+              ["Lito", "Lito 1, Lito X1", "<a href=\"../dji-lito-1-canli-yayin/\">Lito 1</a>, <a href=\"../dji-lito-x1-canli-yayin/\">Lito X1</a>"]
+            ]
+          }
+        },
+        {
+          "note": "Kaynak: DJI'ın DJI Fly canlı yayın kılavuzundaki model listesi, 8 Kasım 2026'da kontrol edildi. DJI uygulama güncellemeleriyle yeni modeller ekliyor; son sözü kendi DJI Fly'ınızdaki menü söyler."
+        }
+      ]
+    },
+    {
+      "id": "controllers",
+      "h2": "Hangi kumandalar canlı yayın yapabilir?",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Kumanda", "Canlı yayın", "Çözünürlük", "Notlar"],
+            "rows": [
+              ["RC-N1, RC-N2, RC-N3 (telefonla)", "Evet", "1080p veya 720p", "Android'de 5 veya 3 Mbps, iOS'ta 2 veya 1 Mbps"],
+              ["DJI RC 2", "Evet", "Yalnızca 720p", "DJI Fly 1.16.0'dan beri mikrofon ister"],
+              ["DJI RC Pro", "Evet", "DJI Fly 1.18.0'dan sonra 720p", "DJI Fly 1.16.0'dan beri mikrofon ister"],
+              ["DJI RC Pro 2", "Evet", "Yalnızca 720p", "Dahili mikrofonu var"],
+              ["DJI Smart Controller", "Evet", "DJI belirtmiyor", "DJI Fly 1.16.0'dan beri mikrofon ister"],
+              ["DJI RC (ilk model)", "Hayır", "—", "DJI: DJI RC ile canlı yayın desteklenmez"],
+              ["DJI gözlükleri", "Telefon üzerinden", "Telefonun gönderdiği", "Gözlüğü DJI Fly çalışan bir telefona bağlayın"]
+            ]
+          }
+        },
+        {
+          "p": "Kumanda, drone'dan daha önemlidir. Ekranlı DJI RC ile satılan bir Mini 3 Pro veya Mavic 3 uçar ama yayın yapamaz; aynı drone telefonlu RC-N1 ile yayın yapar. 720p sınırı yalnızca canlı görüntü içindir: drone'a kaydedilen video tam çözünürlüğünü korur."
+        }
+      ]
+    },
+    {
+      "id": "check",
+      "h2": "Kendi drone'unuzu nasıl kontrol edersiniz?",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "DJI Fly'ı ve yazılımları güncelleyin",
+              "d": "Canlı yayın için DJI Fly 1.4.12 veya üstü gerekir; yeni drone'lar desteği daha sonraki sürümlerle alır. Uygulamayı, kumandayı ve drone'u güncelleyin."
+            },
+            {
+              "t": "Drone'u ve kumandayı bağlayın",
+              "d": "İkisini de açın ve DJI Fly'da GO FLY görünene kadar bekleyin. Telefonlu kumanda telefona kabloyla bağlı olmalı."
+            },
+            {
+              "t": "Yayın menüsünü açın",
+              "d": "GO FLY → ••• → Aktarım → Canlı Yayın Platformları'na dokunun. RTMP listede varsa kombinasyonunuz yayın yapabilir."
+            },
+            {
+              "t": "Deneme yayını gönderin",
+              "d": "Telefon veya bilgisayardaki Stream My Drone'un gösterdiği adresi girip Canlı yayını başlat'a dokunun. Gerçek çözünürlük ve bit hızıyla görüntü birkaç saniyede uygulamada belirir."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other-apps",
+      "h2": "DJI Fly dışındaki drone'lar ve kameralar",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Eski DJI GO 4 drone'ları</strong> (Mavic 2, Mavic Pro, Phantom 4): DJI GO 4'ün özel RTMP seçeneği olan kendi canlı yayın menüsü var.",
+            "<strong>Kurumsal drone'lar</strong> (Matrice, Mavic 3 Enterprise): RC Plus üzerindeki DJI Pilot 2'den yayın yapar; bu iş akışı burada anlatılmıyor.",
+            "<strong>Osmo kameralar</strong> (Pocket 3, Action): DJI Mimo'dan yayın yapar; <a href=\"../osmo-pocket-3-canli-yayin/\">Pocket 3</a> ve <a href=\"../osmo-action-canli-yayin/\">Osmo Action</a> rehberlerine bakın."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Kaynaklar",
+      "blocks": [
+        {
+          "p": "Model listesi, kumanda notları, Avata 360 ve gözlük notları: <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">DJI Fly canlı yayın kılavuzu (Çince)</a>. Sürüm, çözünürlük, bit hızı ve mikrofon şartları: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. 8 Kasım 2026'da kontrol edildi."
+        },
+        {
+          "p": "Sonraki adım: <a href=\"../drone-ile-canli-yayin-nasil-yapilir/\">drone ile canlı yayın rehberi</a>; yayın başlamıyorsa <a href=\"../dji-fly-canli-yayin-hatasi-cozumu/\">DJI Fly canlı yayın hatası çözümleri</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "DJI Mini 4K canlı yayın yapabilir mi?",
+      "a": "Evet. DJI, Mini 4K'yı DJI Fly'da canlı yayın yapabilen drone'lar arasında listeliyor. Telefonlu kumanda kullandığı için DJI Fly'da 1080p veya 720p seçebilirsiniz."
+    },
+    {
+      "q": "DJI Mini 2 SE ve Mini 2 canlı yayın yapabilir mi?",
+      "a": "Evet. İkisi de DJI'ın listesinde; Mini SE ve ilk Mavic Mini de öyle. Önce DJI Fly'ı güncelleyin; canlı yayın için 1.4.12 veya üstü gerekir."
+    },
+    {
+      "q": "DJI RC'm neden canlı yayın yapamıyor?",
+      "a": "DJI, ilk DJI RC ile canlı yayının desteklenmediğini belirtiyor. Aynı drone'u telefonla birlikte RC-N1, RC-N2 veya RC-N3 ile ya da drone destekliyorsa DJI RC 2 ile kullanın."
+    },
+    {
+      "q": "DJI RC 2 neden yalnızca 720p yayın yapıyor?",
+      "a": "DJI'a göre RC 2 ve RC Pro 2 donanımları nedeniyle yalnızca 720p canlı yayını destekliyor. Drone'daki kayıt bundan etkilenmez."
+    },
+    {
+      "q": "Avata 360 360° canlı yayın yapabilir mi?",
+      "a": "Hayır. DJI, Avata 360'ın 360° modunda canlı yayını desteklemediğini belirtiyor; normal görüntü aktarımını yayınlar."
+    },
+    {
+      "q": "DJI Air 2S canlı yayın yapabilir mi?",
+      "a": "Evet. Air 2S ve Mavic Air 2, DJI Fly'da RTMP seçeneğiyle canlı yayın yapabilen drone'lar listesinde."
+    }
+  ]
+}

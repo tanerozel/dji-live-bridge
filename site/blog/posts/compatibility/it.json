@@ -1,0 +1,215 @@
+{
+  "slug": "quali-droni-dji-possono-fare-dirette",
+  "platform": "Compatibilità dirette DJI",
+  "title": "Quali droni DJI possono fare dirette? Modelli e radiocomandi (2026)",
+  "description": "Tutti i droni DJI che fanno dirette in DJI Fly, da Mini 2 e Mini 4K a Mavic 4 Pro e Avata 360, quali radiocomandi funzionano e i limiti di 720p e microfono.",
+  "h1": "Quali droni DJI possono fare dirette? L’elenco completo di modelli e radiocomandi",
+  "lead": "DJI elenca la <strong>diretta in DJI Fly</strong> per la serie Mini (da Mavic Mini a Mini 5 Pro, compresi Mini 4K e Mini 2 SE), la serie Air (da Mavic Air 2 ad Air 3S), Mavic 3 e Mavic 4 Pro, Neo e Neo 2, Flip, Avata, Avata 2, Avata 360, DJI FPV e Lito. In pratica decide il <strong>radiocomando</strong>: il <strong>DJI RC</strong> originale non trasmette e l’<strong>RC 2</strong> trasmette solo a 720p.",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "DJI Fly ha le dirette dalla versione 1.4.12. La guida di DJI elenca 26 droni delle serie Mini, Air, Mavic, Neo, Flip, Avata, FPV e Lito.",
+    "I radiocomandi con smartphone (RC-N1, RC-N2, RC-N3) trasmettono RTMP a 1080p o 720p; il bitrate è 5 o 3 Mbps su Android e 2 o 1 Mbps su iOS.",
+    "DJI RC 2 e RC Pro 2 trasmettono solo a 720p per l’hardware; l’RC Pro solo a 720p da DJI Fly 1.18.0.",
+    "Il DJI RC originale non supporta le dirette. RC 2, RC Pro e Smart Controller richiedono un microfono da DJI Fly 1.16.0.",
+    "L’Avata 360 trasmette solo la vista normale, non la modalità 360°. I visori trasmettono tramite uno smartphone con DJI Fly."
+  ],
+  "sections": [
+    {
+      "id": "drones",
+      "h2": "Droni DJI che supportano la diretta",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Serie",
+              "Modelli con diretta in DJI Fly",
+              "Guida"
+            ],
+            "rows": [
+              [
+                "Mini",
+                "Mini 5 Pro, Mini 4 Pro, Mini 4K, Mini 3 Pro, Mini 3, Mini 2 SE, Mini 2, Mini SE, Mavic Mini",
+                "<a href=\"../dji-mini-5-pro-diretta-streaming/\">Mini 5 Pro</a>, <a href=\"../dji-mini-4-pro-diretta-streaming/\">Mini 4 Pro</a>, <a href=\"../dji-mini-3-pro-diretta-streaming/\">Mini 3 Pro</a>, <a href=\"../dji-mini-3-diretta-streaming/\">Mini 3</a>"
+              ],
+              [
+                "Air",
+                "Air 3S, Air 3, Air 2S, Mavic Air 2",
+                "<a href=\"../dji-air-3s-diretta-streaming/\">Air 3S</a>, <a href=\"../dji-air-3-diretta-streaming/\">Air 3</a>"
+              ],
+              [
+                "Mavic",
+                "Mavic 4 Pro, Mavic 3 Pro, Mavic 3, Mavic 3 Classic",
+                "<a href=\"../dji-mavic-4-pro-diretta-streaming/\">Mavic 4 Pro</a>, <a href=\"../dji-mavic-3-diretta-streaming/\">Mavic 3</a>"
+              ],
+              [
+                "Neo",
+                "Neo 2, Neo",
+                "<a href=\"../dji-neo-diretta-streaming/\">Neo</a>"
+              ],
+              [
+                "Flip",
+                "Flip",
+                "<a href=\"../dji-flip-diretta-streaming/\">Flip</a>"
+              ],
+              [
+                "Avata e FPV",
+                "Avata 360, Avata 2, Avata, DJI FPV",
+                "<a href=\"../dji-avata-2-diretta-streaming/\">Avata 2</a>"
+              ],
+              [
+                "Lito",
+                "Lito 1, Lito X1",
+                "<a href=\"../dji-lito-1-diretta-streaming/\">Lito 1</a>, <a href=\"../dji-lito-x1-diretta-streaming/\">Lito X1</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "Fonte: l’elenco degli aeromobili nella guida alle dirette di DJI Fly, verificato l’8 novembre 2026. DJI aggiunge modelli con gli aggiornamenti; fa fede il menu del tuo DJI Fly."
+        }
+      ]
+    },
+    {
+      "id": "controllers",
+      "h2": "Quali radiocomandi possono trasmettere",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "Radiocomando",
+              "Diretta",
+              "Risoluzione",
+              "Note"
+            ],
+            "rows": [
+              [
+                "RC-N1, RC-N2, RC-N3 (con smartphone)",
+                "Sì",
+                "1080p o 720p",
+                "5 o 3 Mbps su Android, 2 o 1 Mbps su iOS"
+              ],
+              [
+                "DJI RC 2",
+                "Sì",
+                "Solo 720p",
+                "Microfono richiesto da DJI Fly 1.16.0"
+              ],
+              [
+                "DJI RC Pro",
+                "Sì",
+                "720p da DJI Fly 1.18.0",
+                "Microfono richiesto da DJI Fly 1.16.0"
+              ],
+              [
+                "DJI RC Pro 2",
+                "Sì",
+                "Solo 720p",
+                "Microfono integrato"
+              ],
+              [
+                "DJI Smart Controller",
+                "Sì",
+                "Non indicata da DJI",
+                "Microfono richiesto da DJI Fly 1.16.0"
+              ],
+              [
+                "DJI RC (originale)",
+                "No",
+                "—",
+                "DJI: le dirette non sono supportate con il DJI RC"
+              ],
+              [
+                "Visori DJI",
+                "Tramite smartphone",
+                "Ciò che invia lo smartphone",
+                "Collega il visore a uno smartphone con DJI Fly"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "Il radiocomando conta più del drone. Un Mini 3 Pro o un Mavic 3 venduto con il DJI RC con schermo vola ma non trasmette; lo stesso drone con un RC-N1 e uno smartphone sì. Il limite di 720p vale solo per l’immagine in diretta: il video registrato sul drone mantiene la piena risoluzione."
+        }
+      ]
+    },
+    {
+      "id": "check",
+      "h2": "Come controllare il tuo drone",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Aggiorna DJI Fly e il firmware",
+              "d": "Le dirette richiedono DJI Fly 1.4.12 o successivo, e i droni nuovi le ricevono con versioni successive. Aggiorna app, radiocomando e drone."
+            },
+            {
+              "t": "Collega drone e radiocomando",
+              "d": "Accendi entrambi e attendi che DJI Fly mostri GO FLY. Un radiocomando con smartphone deve essere collegato allo smartphone via cavo."
+            },
+            {
+              "t": "Apri il menu delle dirette",
+              "d": "Tocca GO FLY → ••• → Transmission → Live Streaming Platforms. Se compare RTMP, la tua combinazione può trasmettere."
+            },
+            {
+              "t": "Invia una prova",
+              "d": "Inserisci l’indirizzo mostrato da Stream My Drone su smartphone o computer e tocca Start Livestream. L’immagine con risoluzione e bitrate reali compare nell’app in pochi secondi."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other-apps",
+      "h2": "Droni e fotocamere fuori da DJI Fly",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Vecchi droni DJI GO 4</strong> (Mavic 2, Mavic Pro, Phantom 4): DJI GO 4 ha un proprio menu delle dirette con opzione RTMP personalizzata.",
+            "<strong>Droni professionali</strong> (Matrice, Mavic 3 Enterprise): trasmettono da DJI Pilot 2 sull’RC Plus; quel flusso non è trattato qui.",
+            "<strong>Fotocamere Osmo</strong> (Pocket 3, Action): trasmettono da DJI Mimo; vedi le guide per <a href=\"../osmo-pocket-3-diretta-streaming/\">Pocket 3</a> e <a href=\"../osmo-action-diretta-streaming/\">Osmo Action</a>."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Fonti",
+      "blocks": [
+        {
+          "p": "Elenco degli aeromobili, note sui radiocomandi, Avata 360 e visori: <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">guida alle dirette di DJI Fly (cinese)</a>. Versione, risoluzione, bitrate e microfono: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Verificato l’8 novembre 2026."
+        },
+        {
+          "p": "Prossimo passo: la <a href=\"../come-fare-una-diretta-con-un-drone/\">guida completa alle dirette con il drone</a> e, se non parte, le <a href=\"../errore-diretta-dji-fly-soluzione/\">soluzioni all’errore della diretta DJI Fly</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Il DJI Mini 4K può fare dirette?",
+      "a": "Sì. DJI elenca il Mini 4K tra i droni con diretta in DJI Fly. Usa un radiocomando con smartphone, quindi puoi scegliere 1080p o 720p in DJI Fly."
+    },
+    {
+      "q": "DJI Mini 2 SE e Mini 2 possono fare dirette?",
+      "a": "Sì. Sono entrambi nell’elenco di DJI, come il Mini SE e il Mavic Mini originale. Aggiorna prima DJI Fly; la diretta richiede la versione 1.4.12 o successiva."
+    },
+    {
+      "q": "Perché il mio DJI RC non può trasmettere?",
+      "a": "DJI indica che le dirette non sono supportate con il DJI RC originale. Usa lo stesso drone con RC-N1, RC-N2 o RC-N3 e uno smartphone, o con un DJI RC 2 se il drone lo supporta."
+    },
+    {
+      "q": "Perché il DJI RC 2 trasmette solo a 720p?",
+      "a": "Secondo DJI, RC 2 e RC Pro 2 supportano solo dirette a 720p per via dell’hardware. La registrazione sul drone non ne risente."
+    },
+    {
+      "q": "L’Avata 360 può trasmettere in 360°?",
+      "a": "No. DJI indica che l’Avata 360 non supporta la diretta in modalità 360°; trasmette la normale vista della trasmissione video."
+    },
+    {
+      "q": "Il DJI Air 2S può fare dirette?",
+      "a": "Sì. Air 2S e Mavic Air 2 sono nell’elenco DJI dei droni con diretta in DJI Fly tramite l’opzione RTMP."
+    }
+  ]
+}

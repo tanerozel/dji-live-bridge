@@ -1,0 +1,215 @@
+{
+  "slug": "which-dji-drones-can-live-stream",
+  "platform": "DJI ライブ配信対応機種",
+  "title": "ライブ配信できる DJI ドローンは？機種と送信機の一覧（2026年版）",
+  "description": "DJI Fly でライブ配信できる DJI ドローンを Mini 2、Mini 4K から Mavic 4 Pro、Avata 360 まで一覧に。使える送信機と、720p やマイクの制限もまとめました。自分の機体の確認方法も紹介。",
+  "h1": "ライブ配信できる DJI ドローンは？機種と送信機の完全一覧",
+  "lead": "DJI は <strong>DJI Fly でのライブ配信</strong>対応機として、Mini シリーズ（Mavic Mini から Mini 5 Pro まで。Mini 4K と Mini 2 SE を含む）、Air シリーズ（Mavic Air 2 から Air 3S まで）、Mavic 3 と Mavic 4 Pro、Neo と Neo 2、Flip、Avata、Avata 2、Avata 360、DJI FPV、Lito を挙げています。実際に決め手になるのは<strong>送信機</strong>です。初代 <strong>DJI RC</strong> は配信できず、<strong>RC 2</strong> は 720p のみです。",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "DJI Fly のライブ配信はバージョン 1.4.12 から使えます。DJI のガイドには Mini、Air、Mavic、Neo、Flip、Avata、FPV、Lito の各シリーズから26機種が載っています。",
+    "スマホを使う送信機（RC-N1、RC-N2、RC-N3）は RTMP で 1080p か 720p を配信し、ビットレートは Android で 5 または 3 Mbps、iOS で 2 または 1 Mbps です。",
+    "DJI RC 2 と RC Pro 2 はハードウェアの制約で 720p のみ。RC Pro は DJI Fly 1.18.0 以降 720p のみです。",
+    "初代 DJI RC はライブ配信に対応していません。RC 2、RC Pro、スマート送信機は DJI Fly 1.16.0 以降マイクが必要です。",
+    "Avata 360 は通常の映像のみ配信でき、360° モードは配信できません。ゴーグルは DJI Fly を動かすスマホ経由で配信します。"
+  ],
+  "sections": [
+    {
+      "id": "drones",
+      "h2": "ライブ配信に対応する DJI ドローン",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "シリーズ",
+              "DJI Fly でライブ配信できる機種",
+              "ガイド"
+            ],
+            "rows": [
+              [
+                "Mini",
+                "Mini 5 Pro、Mini 4 Pro、Mini 4K、Mini 3 Pro、Mini 3、Mini 2 SE、Mini 2、Mini SE、Mavic Mini",
+                "<a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro</a>、<a href=\"../dji-mini-4-pro-live-stream/\">Mini 4 Pro</a>、<a href=\"../dji-mini-3-pro-live-stream/\">Mini 3 Pro</a>、<a href=\"../dji-mini-3-live-stream/\">Mini 3</a>"
+              ],
+              [
+                "Air",
+                "Air 3S、Air 3、Air 2S、Mavic Air 2",
+                "<a href=\"../dji-air-3s-live-stream/\">Air 3S</a>、<a href=\"../dji-air-3-live-stream/\">Air 3</a>"
+              ],
+              [
+                "Mavic",
+                "Mavic 4 Pro、Mavic 3 Pro、Mavic 3、Mavic 3 Classic",
+                "<a href=\"../dji-mavic-4-pro-live-stream/\">Mavic 4 Pro</a>、<a href=\"../dji-mavic-3-live-stream/\">Mavic 3</a>"
+              ],
+              [
+                "Neo",
+                "Neo 2、Neo",
+                "<a href=\"../dji-neo-live-stream/\">Neo</a>"
+              ],
+              [
+                "Flip",
+                "Flip",
+                "<a href=\"../dji-flip-live-stream/\">Flip</a>"
+              ],
+              [
+                "Avata・FPV",
+                "Avata 360、Avata 2、Avata、DJI FPV",
+                "<a href=\"../dji-avata-2-live-stream/\">Avata 2</a>"
+              ],
+              [
+                "Lito",
+                "Lito 1、Lito X1",
+                "<a href=\"../dji-lito-1-live-stream/\">Lito 1</a>、<a href=\"../dji-lito-x1-live-stream/\">Lito X1</a>"
+              ]
+            ]
+          }
+        },
+        {
+          "note": "出典：DJI の DJI Fly ライブ配信ガイドに載っている機種一覧（2026年11月8日確認）。DJI はアプリの更新で対応機種を追加します。最終的にはお使いの DJI Fly のメニューで確認してください。"
+        }
+      ]
+    },
+    {
+      "id": "controllers",
+      "h2": "ライブ配信できる送信機",
+      "blocks": [
+        {
+          "table": {
+            "head": [
+              "送信機",
+              "ライブ配信",
+              "解像度",
+              "備考"
+            ],
+            "rows": [
+              [
+                "RC-N1、RC-N2、RC-N3（スマホ使用）",
+                "可",
+                "1080p または 720p",
+                "Android で 5 または 3 Mbps、iOS で 2 または 1 Mbps"
+              ],
+              [
+                "DJI RC 2",
+                "可",
+                "720p のみ",
+                "DJI Fly 1.16.0 以降マイクが必要"
+              ],
+              [
+                "DJI RC Pro",
+                "可",
+                "DJI Fly 1.18.0 以降 720p",
+                "DJI Fly 1.16.0 以降マイクが必要"
+              ],
+              [
+                "DJI RC Pro 2",
+                "可",
+                "720p のみ",
+                "マイク内蔵"
+              ],
+              [
+                "DJI スマート送信機",
+                "可",
+                "DJI の記載なし",
+                "DJI Fly 1.16.0 以降マイクが必要"
+              ],
+              [
+                "DJI RC（初代）",
+                "不可",
+                "—",
+                "DJI：DJI RC ではライブ配信に非対応"
+              ],
+              [
+                "DJI ゴーグル",
+                "スマホ経由",
+                "スマホが送る解像度",
+                "ゴーグルを DJI Fly のスマホに接続"
+              ]
+            ]
+          }
+        },
+        {
+          "p": "ドローンよりも送信機のほうが重要です。画面付きの DJI RC とセットの Mini 3 Pro や Mavic 3 は飛ばせても配信できませんが、同じ機体を RC-N1 とスマホで使えば配信できます。720p の制限はライブ映像だけで、ドローンに録画される映像はフル解像度のままです。"
+        }
+      ]
+    },
+    {
+      "id": "check",
+      "h2": "自分のドローンを確認する方法",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "DJI Fly とファームウェアを更新する",
+              "d": "ライブ配信には DJI Fly 1.4.12 以降が必要で、新しい機体は後のバージョンで対応します。アプリ、送信機、機体を更新しましょう。"
+            },
+            {
+              "t": "ドローンと送信機を接続する",
+              "d": "両方の電源を入れ、DJI Fly に GO FLY が出るまで待ちます。スマホを使う送信機はケーブルでスマホと接続します。"
+            },
+            {
+              "t": "配信メニューを開く",
+              "d": "GO FLY → ••• → Transmission → Live Streaming Platforms をタップします。RTMP があれば、その組み合わせで配信できます。"
+            },
+            {
+              "t": "テスト配信を送る",
+              "d": "スマホかパソコンの Stream My Drone に表示されたアドレスを入力し、Start Livestream をタップします。実際の解像度とビットレート付きの映像が数秒でアプリに表示されます。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other-apps",
+      "h2": "DJI Fly 以外のドローンとカメラ",
+      "blocks": [
+        {
+          "list": [
+            "<strong>DJI GO 4 の旧機種</strong>（Mavic 2、Mavic Pro、Phantom 4）：DJI GO 4 にはカスタム RTMP を含む独自のライブ配信メニューがあります。",
+            "<strong>産業用ドローン</strong>（Matrice、Mavic 3 Enterprise）：RC Plus の DJI Pilot 2 から配信します。この流れはここでは扱いません。",
+            "<strong>Osmo カメラ</strong>（Pocket 3、Action）：DJI Mimo から配信します。<a href=\"../osmo-pocket-3-live-stream/\">Pocket 3</a> と <a href=\"../osmo-action-live-stream/\">Osmo Action</a> のガイドを参照してください。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "出典",
+      "blocks": [
+        {
+          "p": "機種一覧、送信機の注記、Avata 360 とゴーグルの注記：<a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">DJI Fly ライブ配信ガイド（中国語）</a>。バージョン、解像度、ビットレート、マイク：<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>。2026年11月8日に確認。"
+        },
+        {
+          "p": "次に読む：<a href=\"../how-to-live-stream-from-a-drone/\">ドローンでライブ配信する方法</a>。配信が始まらないときは <a href=\"../dji-fly-livestream-error-fix/\">DJI Fly のライブ配信エラーの直し方</a>。"
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "DJI Mini 4K はライブ配信できますか？",
+      "a": "できます。DJI は Mini 4K を DJI Fly でライブ配信できる機種に挙げています。スマホを使う送信機なので、DJI Fly で 1080p か 720p を選べます。"
+    },
+    {
+      "q": "DJI Mini 2 SE や Mini 2 はライブ配信できますか？",
+      "a": "できます。どちらも DJI の一覧に載っており、Mini SE と初代 Mavic Mini も同様です。先に DJI Fly を更新してください。ライブ配信には 1.4.12 以降が必要です。"
+    },
+    {
+      "q": "DJI RC で配信できないのはなぜですか？",
+      "a": "DJI は初代 DJI RC ではライブ配信に対応していないとしています。同じ機体を RC-N1、RC-N2、RC-N3 とスマホで使うか、機体が対応していれば DJI RC 2 を使いましょう。"
+    },
+    {
+      "q": "DJI RC 2 が 720p しか配信できないのはなぜですか？",
+      "a": "DJI によると、RC 2 と RC Pro 2 はハードウェアの制約で 720p のライブ配信のみ対応です。ドローンへの録画には影響しません。"
+    },
+    {
+      "q": "Avata 360 は 360° でライブ配信できますか？",
+      "a": "できません。DJI は Avata 360 が 360° モードのライブ配信に対応しておらず、通常の映像伝送画面のみ配信するとしています。"
+    },
+    {
+      "q": "DJI Air 2S はライブ配信できますか？",
+      "a": "できます。Air 2S と Mavic Air 2 は、RTMP で DJI Fly からライブ配信できる DJI の機種一覧に入っています。"
+    }
+  ]
+}

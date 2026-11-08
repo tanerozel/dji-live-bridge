@@ -1,0 +1,143 @@
+{
+  "slug": "drone-dji-apa-saja-yang-bisa-live-streaming",
+  "platform": "Kompatibilitas live DJI",
+  "title": "Drone DJI apa saja yang bisa live streaming? Daftar model dan remote (2026)",
+  "description": "Semua drone DJI yang bisa live streaming di DJI Fly, dari Mini 2 dan Mini 4K hingga Mavic 4 Pro dan Avata 360, remote yang bisa dipakai, serta batas 720p dan mikrofon.",
+  "h1": "Drone DJI apa saja yang bisa live streaming? Daftar lengkap model dan remote",
+  "lead": "DJI mencantumkan <strong>live streaming di DJI Fly</strong> untuk seri Mini (Mavic Mini hingga Mini 5 Pro, termasuk Mini 4K dan Mini 2 SE), seri Air (Mavic Air 2 hingga Air 3S), Mavic 3 dan Mavic 4 Pro, Neo dan Neo 2, Flip, Avata, Avata 2, Avata 360, DJI FPV, dan Lito. Dalam praktiknya yang menentukan adalah <strong>remote</strong>: <strong>DJI RC</strong> generasi pertama tidak bisa live, dan <strong>RC 2</strong> hanya 720p.",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "DJI Fly punya live streaming sejak versi 1.4.12. Panduan DJI sendiri mencantumkan 26 drone dari seri Mini, Air, Mavic, Neo, Flip, Avata, FPV, dan Lito.",
+    "Remote berponsel (RC-N1, RC-N2, RC-N3) mengirim RTMP 1080p atau 720p; bitrate 5 atau 3 Mbps di Android dan 2 atau 1 Mbps di iOS.",
+    "DJI RC 2 dan RC Pro 2 hanya live 720p karena perangkat kerasnya; RC Pro hanya 720p sejak DJI Fly 1.18.0.",
+    "DJI RC generasi pertama tidak mendukung live streaming. RC 2, RC Pro, dan Smart Controller butuh mikrofon sejak DJI Fly 1.16.0.",
+    "Avata 360 hanya menyiarkan tampilan normal, bukan mode 360°. Goggles live lewat ponsel yang menjalankan DJI Fly."
+  ],
+  "sections": [
+    {
+      "id": "drones",
+      "h2": "Drone DJI yang mendukung live streaming",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Seri", "Model dengan live streaming di DJI Fly", "Panduan"],
+            "rows": [
+              ["Mini", "Mini 5 Pro, Mini 4 Pro, Mini 4K, Mini 3 Pro, Mini 3, Mini 2 SE, Mini 2, Mini SE, Mavic Mini", "<a href=\"../live-streaming-dji-mini-5-pro/\">Mini 5 Pro</a>, <a href=\"../live-streaming-dji-mini-4-pro/\">Mini 4 Pro</a>, <a href=\"../live-streaming-dji-mini-3-pro/\">Mini 3 Pro</a>, <a href=\"../live-streaming-dji-mini-3/\">Mini 3</a>"],
+              ["Air", "Air 3S, Air 3, Air 2S, Mavic Air 2", "<a href=\"../live-streaming-dji-air-3s/\">Air 3S</a>, <a href=\"../live-streaming-dji-air-3/\">Air 3</a>"],
+              ["Mavic", "Mavic 4 Pro, Mavic 3 Pro, Mavic 3, Mavic 3 Classic", "<a href=\"../live-streaming-dji-mavic-4-pro/\">Mavic 4 Pro</a>, <a href=\"../live-streaming-dji-mavic-3/\">Mavic 3</a>"],
+              ["Neo", "Neo 2, Neo", "<a href=\"../live-streaming-dji-neo/\">Neo</a>"],
+              ["Flip", "Flip", "<a href=\"../live-streaming-dji-flip/\">Flip</a>"],
+              ["Avata dan FPV", "Avata 360, Avata 2, Avata, DJI FPV", "<a href=\"../live-streaming-dji-avata-2/\">Avata 2</a>"],
+              ["Lito", "Lito 1, Lito X1", "<a href=\"../live-streaming-dji-lito-1/\">Lito 1</a>, <a href=\"../live-streaming-dji-lito-x1/\">Lito X1</a>"]
+            ]
+          }
+        },
+        {
+          "note": "Sumber: daftar pesawat di panduan live streaming DJI Fly, dicek pada 8 November 2026. DJI menambah model lewat pembaruan aplikasi; menu di DJI Fly Anda sendiri yang menjadi penentu."
+        }
+      ]
+    },
+    {
+      "id": "controllers",
+      "h2": "Remote mana yang bisa live streaming",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Remote", "Live", "Resolusi", "Catatan"],
+            "rows": [
+              ["RC-N1, RC-N2, RC-N3 (dengan ponsel)", "Ya", "1080p atau 720p", "5 atau 3 Mbps di Android, 2 atau 1 Mbps di iOS"],
+              ["DJI RC 2", "Ya", "Hanya 720p", "Butuh mikrofon sejak DJI Fly 1.16.0"],
+              ["DJI RC Pro", "Ya", "720p sejak DJI Fly 1.18.0", "Butuh mikrofon sejak DJI Fly 1.16.0"],
+              ["DJI RC Pro 2", "Ya", "Hanya 720p", "Punya mikrofon bawaan"],
+              ["DJI Smart Controller", "Ya", "Tidak disebut DJI", "Butuh mikrofon sejak DJI Fly 1.16.0"],
+              ["DJI RC (generasi pertama)", "Tidak", "—", "DJI: live streaming tidak didukung dengan DJI RC"],
+              ["Goggles DJI", "Lewat ponsel", "Sesuai yang dikirim ponsel", "Hubungkan goggles ke ponsel yang menjalankan DJI Fly"]
+            ]
+          }
+        },
+        {
+          "p": "Remote lebih menentukan daripada drone. Mini 3 Pro atau Mavic 3 yang dijual dengan DJI RC berlayar bisa terbang tapi tidak bisa live; drone yang sama dengan RC-N1 dan ponsel bisa. Batas 720p hanya berlaku untuk gambar live: video yang direkam di drone tetap beresolusi penuh."
+        }
+      ]
+    },
+    {
+      "id": "check",
+      "h2": "Cara mengecek drone Anda sendiri",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Perbarui DJI Fly dan firmware",
+              "d": "Live streaming butuh DJI Fly 1.4.12 atau lebih baru, dan drone baru mendapatkannya di versi berikutnya. Perbarui aplikasi, remote, dan drone."
+            },
+            {
+              "t": "Hubungkan drone dan remote",
+              "d": "Nyalakan keduanya dan tunggu sampai DJI Fly menampilkan GO FLY. Remote berponsel harus tersambung ke ponsel dengan kabel."
+            },
+            {
+              "t": "Buka menu live streaming",
+              "d": "Ketuk GO FLY → ••• → Transmission → Live Streaming Platforms. Jika ada RTMP, kombinasi Anda bisa live."
+            },
+            {
+              "t": "Kirim tes",
+              "d": "Masukkan alamat yang ditampilkan Stream My Drone di ponsel atau komputer lalu ketuk Start Livestream. Gambar dengan resolusi dan bitrate sebenarnya muncul di aplikasi dalam hitungan detik."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other-apps",
+      "h2": "Drone dan kamera di luar DJI Fly",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Drone lama dengan DJI GO 4</strong> (Mavic 2, Mavic Pro, Phantom 4): DJI GO 4 punya menu live sendiri dengan opsi RTMP kustom.",
+            "<strong>Drone enterprise</strong> (Matrice, Mavic 3 Enterprise): live dari DJI Pilot 2 di RC Plus; alur ini tidak dibahas di sini.",
+            "<strong>Kamera Osmo</strong> (Pocket 3, Action): live dari DJI Mimo; lihat panduan <a href=\"../live-streaming-osmo-pocket-3/\">Pocket 3</a> dan <a href=\"../live-streaming-osmo-action/\">Osmo Action</a>."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Sumber",
+      "blocks": [
+        {
+          "p": "Daftar pesawat, catatan remote, Avata 360, dan goggles: <a href=\"https://repair.dji.com/help/content?customId=zh-cn03400006727&amp;documentType=artical&amp;lang=zh-CN&amp;paperDocType=paper&amp;re=CN&amp;spaceId=34\">panduan live streaming DJI Fly (Mandarin)</a>. Versi, resolusi, bitrate, dan mikrofon: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Dicek pada 8 November 2026."
+        },
+        {
+          "p": "Selanjutnya: <a href=\"../cara-live-streaming-dengan-drone/\">panduan lengkap live streaming drone</a> dan, jika tidak mau mulai, <a href=\"../solusi-error-live-streaming-dji-fly/\">solusi error live streaming DJI Fly</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Bisakah DJI Mini 4K live streaming?",
+      "a": "Bisa. DJI mencantumkan Mini 4K di antara drone dengan live streaming di DJI Fly. Drone ini memakai remote berponsel, jadi Anda bisa memilih 1080p atau 720p di DJI Fly."
+    },
+    {
+      "q": "Bisakah DJI Mini 2 SE dan Mini 2 live streaming?",
+      "a": "Bisa. Keduanya ada di daftar DJI, begitu juga Mini SE dan Mavic Mini generasi pertama. Perbarui DJI Fly dulu; live streaming butuh versi 1.4.12 atau lebih baru."
+    },
+    {
+      "q": "Kenapa DJI RC saya tidak bisa live?",
+      "a": "DJI menyatakan live streaming tidak didukung dengan DJI RC generasi pertama. Gunakan drone yang sama dengan RC-N1, RC-N2, atau RC-N3 dan ponsel, atau dengan DJI RC 2 jika drone mendukungnya."
+    },
+    {
+      "q": "Kenapa DJI RC 2 hanya live 720p?",
+      "a": "Menurut DJI, RC 2 dan RC Pro 2 hanya mendukung live 720p karena perangkat kerasnya. Rekaman di drone tidak terpengaruh."
+    },
+    {
+      "q": "Bisakah Avata 360 live dalam 360°?",
+      "a": "Tidak. DJI menyatakan Avata 360 tidak mendukung live dalam mode 360°; drone ini menyiarkan tampilan transmisi video biasa."
+    },
+    {
+      "q": "Bisakah DJI Air 2S live streaming?",
+      "a": "Bisa. Air 2S dan Mavic Air 2 ada di daftar DJI drone dengan live streaming di DJI Fly melalui opsi RTMP."
+    }
+  ]
+}

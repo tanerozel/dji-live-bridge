@@ -1,0 +1,160 @@
+{
+  "slug": "dugunde-drone-ile-canli-yayin",
+  "platform": "Düğünde drone ile canlı yayın",
+  "title": "Düğünde drone ile canlı yayın nasıl yapılır? Plan, ekipman ve kurulum",
+  "description": "Gelemeyen misafirler için düğünü DJI drone ile canlı yayınlayın: plan, ekipman listesi, gizli YouTube linki, telefon veya laptop kurulumu ve uyulması gereken güvenlik kuralları.",
+  "h1": "Düğünde drone ile canlı yayın nasıl yapılır?",
+  "lead": "Düğünü drone ile canlı yayınlamak için RTMP destekleyen bir DJI drone uçurun, DJI Fly görüntüsünü telefon veya laptoptaki <strong>Stream My Drone</strong>'a gönderin ve yayını, linkini gelemeyen misafirlerle paylaştığınız <strong>liste dışı bir YouTube yayını</strong> olarak yapın. Drone'u yalnızca dış mekân anları için kullanın (gelin alma, açık hava töreni, toplu fotoğraf), misafirlerin üzerinden uçurmayın ve yayını ikinci bir kişiye bırakın.",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "Drone geniş dış mekân çekimlerini ekler; nikâh, konuşmalar ve iç mekân için yer kamerasının yerini tutmaz.",
+    "En iyisi iki kişi: yalnızca uçuran bir pilot ve yayını ve sohbeti izleyen bir operatör.",
+    "Liste dışı YouTube yayını en kolay gizli seçenektir: yalnızca linki olanlar izler, kayıt sonrasında kanalda kalır.",
+    "Batarya başına yaklaşık 20–30 dakika gerçek uçuş hesaplayın; en az üç batarya, bir powerbank ve 6–10 Mbps yüklemeli bir telefon hotspot'u götürün.",
+    "Çiftten ve mekândan izin alın, Türkiye'de SHGM'nin İHA kurallarına uyun ve asla misafirlerin üzerinden uçmayın."
+  ],
+  "sections": [
+    {
+      "id": "plan",
+      "h2": "6 adımda düğün drone yayını planı",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "İzin alın",
+              "d": "Hangi anların yayınlanacağını çiftle konuşun, mekâna drone'a izin verilip verilmediğini sorun ve o konum için SHGM'nin İHA kurallarını kontrol edin."
+            },
+            {
+              "t": "Görevleri paylaştırın",
+              "d": "Pilot uçurur ve yalnızca drone'a bakar. İkinci kişi Stream My Drone'u yönetir, görüntüyü izler ve sohbete cevap verir."
+            },
+            {
+              "t": "Gizli bir yayın oluşturun",
+              "d": "YouTube Studio'da görünürlüğü Liste dışı olan bir yayın oluşturun, yayın adresini ve anahtarını Stream My Drone'a kopyalayın. Linki misafirlere bir gün önce gönderin."
+            },
+            {
+              "t": "Mekânda ağı test edin",
+              "d": "Duracağınız yerde mobil yükleme hızını ölçün. Operatörün telefonunda hotspot'u açın, kumandayı ona bağlayın ve iki dakikalık bir deneme yayını yapın."
+            },
+            {
+              "t": "Önemli anlarda canlıya geçin",
+              "d": "Yayını birkaç dakika önce başlatın ve yalnızca planlanan çekimler için uçun. Uçuşlar arasında drone yerdeyken yayın açık kalabilir."
+            },
+            {
+              "t": "Tekrarını paylaşın",
+              "d": "Etkinlik bitince liste dışı yayın kanalda video olarak kalır. Drone'un kendi kaydı daha nettir ve düğün filmine kurgulanabilir."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gear",
+      "h2": "Ekipman listesi",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Ekipman", "Neden"],
+            "rows": [
+              ["DJI Fly'da RTMP olan bir DJI drone", "Mini 4 Pro, Mini 5 Pro, Air 3S veya benzeri; <a href=\"../hangi-dji-dronelar-canli-yayin-yapabilir/\">uyumluluk listesine</a> bakın"],
+              ["Yayın yapabilen kumanda", "RC 2 veya telefonlu kumanda; ilk DJI RC yayın yapamaz"],
+              ["Operatör telefonu veya laptop", "Stream My Drone'u çalıştırır ve hotspot sağlar"],
+              ["En az 3 batarya", "Her biri yaklaşık 20–30 dakika gerçek uçuş; rüzgârda ve soğukta daha az"],
+              ["Powerbank ve kablolar", "Hotspot ve yayın telefonu birkaç saatte bitirir"],
+              ["USB-C mikrofon (RC 2)", "DJI Fly 1.16+ mikrofonsuz RC 2'den yayın başlatmaz"]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "setups",
+      "h2": "Basitten profesyonele üç kurulum",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Kurulum", "Gerekenler", "Sonuç"],
+            "rows": [
+              ["Yalnızca telefon", "DJI RC 2 ve operatörün telefonunda Stream My Drone", "Drone görüntüsü YouTube'a, isterseniz Instagram veya Facebook'a da gider; laptop gerekmez"],
+              ["OBS'li laptop", "Mac veya Windows laptopta Stream My Drone, OBS'te sanal kamera olarak", "Drone ve yer kameraları arasında geçiş, yazı ve tören sesi eklenir"],
+              ["Etkinlik prodüksiyonu", "HDMI kameralı bir görüntü mikseri ve kaynaklardan biri olarak drone", "Profesyonel ekip için çok kameralı tam yayın"]
+            ]
+          }
+        },
+        {
+          "p": "Çoğu düğünde dış mekân kısmı için yalnızca telefonlu kurulum yeterlidir. Laptoplu kurulum, drone'un veremediğini ekler: nikânın yakın çekimi ve temiz sesi. Drone'un OBS'te nasıl göründüğünü <a href=\"../drone-u-bilgisayarin-harici-kamerasi-yapin/\">sanal kamera rehberi</a> anlatıyor."
+        }
+      ]
+    },
+    {
+      "id": "shots",
+      "h2": "Havadan iyi görünen anlar",
+      "blocks": [
+        {
+          "list": [
+            "Gelin alma ve gelin arabası konvoyu, güvenli bir mesafeden.",
+            "Tören başlamadan önce mekânın ve manzaranın yavaş bir açılış çekimi.",
+            "Açık hava nikâhı, drone'un sesi duyulmayacak kadar yüksekten geniş çekim.",
+            "Herkesin yukarı baktığı, tepeden toplu fotoğraf.",
+            "Gün batımında dış mekânda çiftin yürüyüşü, ilk dansı veya halay."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "h2": "Güvenlik ve görgü kuralları",
+      "blocks": [
+        {
+          "list": [
+            "Asla misafirlerin üzerinden uçmayın. İnsanlardan, ağaçlardan ve elektrik hatlarından mesafe bırakın.",
+            "İç mekânda uçmaktan kaçının: uydu konumlaması olmadan drone sürüklenir ve salon insanlarla doludur.",
+            "Nikâh sırasında drone'u yüksekte tutun veya indirin; sesi uzağa gider.",
+            "SHGM'nin İHA kurallarına uyun: kayıt, görüş hattı ve etkinlikler için gereken izinler.",
+            "Bazı misafirler internette görünmek istemez. Linki gizli tutun ve etkinliğin yayınlandığını söyleyin."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "audio",
+      "h2": "Yayındaki ses",
+      "blocks": [
+        {
+          "p": "Drone'un işe yarar bir mikrofonu yoktur; DJI Fly kumandanın mikrofonunu gönderir. Telefondaki Stream My Drone'da operatör, anlatım eklemek için telefon mikrofonunu açabilir. Nikâh ve konuşmalar için harici mikrofonlu veya mekânın ses sistemine bağlı laptop kurulumunu kullanın."
+        },
+        {
+          "note": "Kurulum ayrıntıları: <a href=\"../drone-ile-canli-yayin-nasil-yapilir/\">drone ile canlı yayın nasıl yapılır</a>, <a href=\"../drone-ile-youtube-canli-yayin-nasil-yapilir/\">YouTube kurulumu</a> ve <a href=\"../drone-ile-ayni-anda-birden-fazla-platformda-canli-yayin/\">birden fazla platformda yayın</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Düğün drone ile canlı yayınlanabilir mi?",
+      "a": "Evet. DJI Fly'da RTMP olan bir DJI drone, görüntüsünü telefon veya laptoptaki Stream My Drone'a gönderir; uygulama onu YouTube, Instagram veya Facebook'a yayınlar. Drone'u dış mekân anları, nikâh için yer kamerasını kullanın."
+    },
+    {
+      "q": "Gelemeyen misafirler yayını gizli olarak nasıl izler?",
+      "a": "Liste dışı bir YouTube yayını oluşturup linkini paylaşın. Yalnızca linki olanlar izleyebilir ve yayın sonrasında video olarak kalır."
+    },
+    {
+      "q": "Düğünde drone uçurmak serbest mi?",
+      "a": "Türkiye'de SHGM'nin İHA kurallarına ve mekânın iznine bağlıdır. Mekâna sorun, kayıt ve izin kurallarına uyun ve asla insanların üzerinden uçmayın."
+    },
+    {
+      "q": "Drone düğünü ne kadar süre yayınlayabilir?",
+      "a": "Bir batarya yaklaşık 20–30 dakika gerçek uçuş sağlar. Üç veya daha fazla batarya götürün ve yalnızca planlanan anlarda uçun; uçuşlar arasında yayın açık kalabilir."
+    },
+    {
+      "q": "Düğünü drone ile yayınlamak için laptop gerekir mi?",
+      "a": "Hayır. DJI RC 2 ile Stream My Drone çalışan bir telefon yeterlidir. Drone'u yer kameraları ve tören sesiyle karıştırmak istediğinizde OBS'li bir laptop işe yarar."
+    },
+    {
+      "q": "Mekânda ne kadar internet gerekir?",
+      "a": "Her platform için yaklaşık 6–10 Mbps sabit yükleme hızı. 4.5G veya 5G telefon hotspot'u genellikle yeterlidir; önceden mekânda test edin."
+    }
+  ]
+}

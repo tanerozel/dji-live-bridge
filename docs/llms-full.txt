@@ -168,6 +168,199 @@ The live picture is limited by what the controller sends; the video recorded on 
 
 **Is drone live streaming free?** DJI Fly’s RTMP and the platforms are free. Stream My Drone for Mac and Windows is free; the Android and iPhone apps are a one-time purchase with no subscription.
 
+## DJI Fly “Livestream error”: the causes and how to fix each one
+Source: https://streammydrone.com/blog/dji-fly-livestream-error-fix/ (updated 2026-11-08)
+
+When DJI Fly shows “Livestream error” or “Starting livestream failed”, the cause is almost always one of four things: the platform requires RTMPS (Instagram, Facebook), the address or stream key is wrong, the account may not go live yet, or the controller cannot reach the server. The fastest test is to stream to Stream My Drone on a phone or computer on the same Wi-Fi: if the picture arrives there, DJI Fly is fine and the problem is on the platform side.
+
+- DJI Fly only sends plain RTMP. Instagram and Facebook accept only RTMPS, so a direct stream to them fails; DJI support confirms this on its forum.
+- The RTMP address is the server URL, a “/” and the stream key, with no spaces. A missing slash or an old key is the most common YouTube failure.
+- The account must be allowed to go live: a new YouTube channel needs up to 24 hours after enabling live streaming, and TikTok gives stream keys only to some accounts.
+- The original DJI RC does not support livestreaming at all. The RC 2, RC Pro and DJI Smart Controller need a microphone from DJI Fly 1.16.0.
+- Streams that start and then drop are a network problem: weak mobile signal, guest Wi-Fi, or a router switching between 2.4 and 5 GHz.
+
+### Fix a DJI Fly livestream error in 6 checks
+1. **Check the address format** DJI Fly needs one line: server URL, a slash, then the stream key, with no spaces. For YouTube that is rtmp://a.rtmp.youtube.com/live2/ followed by your key. Copy the key again; an old or reset key fails silently.
+2. **Check that the platform accepts plain RTMP** YouTube, Twitch and Kick accept RTMP. Instagram and Facebook require encrypted RTMPS, which DJI Fly cannot send, so a direct stream to them always fails. Send DJI Fly to a receiver app that forwards over RTMPS instead.
+3. **Check that the account may go live** On YouTube, enable live streaming in YouTube Studio and wait (up to 24 hours the first time). DJI notes that without livestream permission the platform gives no valid stream key.
+4. **Check the controller** The original DJI RC does not support livestreaming. On the DJI RC 2, RC Pro and DJI Smart Controller, DJI Fly 1.16.0 and newer need a connected microphone before the stream starts.
+5. **Check the connection** For a direct stream, the controller or phone needs working internet (4G/5G or Wi-Fi). For a local receiver, both devices must be on the same network, not on guest Wi-Fi.
+6. **Test with a local receiver** Point DJI Fly at Stream My Drone on a phone or computer (rtmp://&lt;address shown in the app&gt;:1935/drone). If the picture appears, DJI Fly works and the remaining problem is the platform, key or account.
+
+### Error, cause and fix at a glance
+| What you see | Likely cause | Fix |
+| --- | --- | --- |
+| Fails at once with an rtmps:// address, or “invalid RTMP URL” | DJI Fly sends only RTMP | Relay through a receiver app that speaks RTMPS |
+| Fails at once on YouTube | Wrong key, missing “/”, or a space in the address | Copy the URL and key again and join them with “/” |
+| Fails on a new YouTube channel | Live streaming not yet enabled | Enable it in YouTube Studio and wait up to 24 hours |
+| Worked once on Instagram, fails the next time | Instagram’s key is single-use, and it needs RTMPS | Get a new key per broadcast and relay over RTMPS |
+| “No built-in mic in current device” | RC 2, RC Pro or Smart Controller with DJI Fly 1.16+ | Plug in a microphone, or use a virtual Bluetooth mic |
+| No RTMP option in the menu | Original DJI RC, or DJI Fly older than 1.4.12 | Use a supported controller, update DJI Fly |
+| Starts, then drops after seconds | Weak upload, guest Wi-Fi or Wi-Fi band switching | Use 5 GHz or a phone hotspot, move closer |
+| Countdown ends, platform shows nothing | Go live not pressed (Instagram, Facebook) or wrong key | Press Go live on the platform, check the key |
+
+### Why a local test finds the problem fastest
+A livestream from DJI Fly passes through three parts: the controller, the network and the platform. A local receiver splits the problem in half. Stream My Drone shows the RTMP address to type into DJI Fly; within a few seconds of Start Livestream it shows the picture with its resolution and bitrate.
+- Picture arrives: DJI Fly, the controller and the local network work. Add the platform in the app; it handles RTMPS, Instagram’s new key per broadcast and automatic reconnection.
+- Nothing arrives: the controller cannot reach the receiver. Check that both are on the same Wi-Fi or hotspot and that the address matches exactly, including :1935/drone.
+- Picture arrives and drops every few seconds: the Wi-Fi is the problem. Routers that use one name for 2.4 and 5 GHz can switch bands repeatedly; a phone hotspot avoids it.
+Full menu walkthrough: DJI Fly RTMP setup. Instagram details: why DJI Fly can’t stream to Instagram.
+
+### Why the stream is only 720p or the bitrate won’t change
+These are limits, not errors. DJI states that the DJI RC 2 and DJI RC Pro 2 stream only 720p because of their hardware, and the DJI RC Pro streams only 720p after DJI Fly 1.18.0. With a phone on an RC-N1, RC-N2 or RC-N3 you can choose 1080p or 720p. The bitrate is fixed by the video transmission frame rate: 5 or 3 Mbps on Android, 2 or 1 Mbps on iOS, and it cannot be set by hand.
+
+### No sound or crackling sound
+- Silent stream: DJI Fly sends the controller’s or phone’s microphone. A controller without a microphone, or a virtual microphone, sends silence.
+- Crackling or distorted sound: try another microphone or another USB-C port. If it continues, replace DJI Fly’s audio: Stream My Drone’s phone microphone switch sends your voice instead on every platform.
+
+### Sources
+Address format, account permission, microphone requirement, resolution and bitrate limits: DJI Fly App Livestream Operation Guides. RTMPS and Facebook: DJI forum: Facebook live streaming issue and Error on live via YouTube or Facebook. “Starting livestream failed”: DJI Mobile SDK issue 1120. Checked on November 8, 2026.
+Related: RC 2 microphone fix, which DJI drones can live stream and the complete drone live streaming guide.
+
+### FAQ
+**Why does DJI Fly say “Livestream error”?** Most often the platform requires RTMPS (Instagram, Facebook), the address or stream key is wrong, the account may not go live yet, or the controller has no connection to the server. Test with a local receiver first to see which side fails.
+
+**Can DJI Fly stream to Facebook or Instagram directly?** No. Both accept only encrypted RTMPS, and DJI Fly sends plain RTMP. Send DJI Fly’s stream to Stream My Drone on a phone or computer, which forwards it to them over RTMPS.
+
+**What is the correct RTMP address for YouTube in DJI Fly?** rtmp://a.rtmp.youtube.com/live2/ followed by your stream key from YouTube Studio, with no spaces. DJI’s guide joins the server address and the key with a slash.
+
+**Why does my DJI drone livestream stop after a few seconds?** Usually the network: a weak mobile signal, guest Wi-Fi, or a router that keeps switching between 2.4 and 5 GHz. Use a phone hotspot or 5 GHz Wi-Fi and keep the devices close to it.
+
+**Can I livestream with the original DJI RC?** No. DJI states that livestreaming is not supported with the DJI RC. It is supported with the RC-N1, RC-N2 and RC-N3 with a phone, and with the DJI RC 2, RC Pro, RC Pro 2 and Smart Controller.
+
+**Can I raise the livestream bitrate in DJI Fly?** No. DJI fixes it by the transmission frame rate: 5 or 3 Mbps on Android and 2 or 1 Mbps on iOS. The RC 2 and RC Pro 2 also stream only 720p.
+
+## Which DJI drones can live stream? The full model and controller list
+Source: https://streammydrone.com/blog/which-dji-drones-can-live-stream/ (updated 2026-11-08)
+
+DJI lists livestreaming in DJI Fly for the Mini series (Mavic Mini to Mini 5 Pro, including Mini 4K and Mini 2 SE), the Air series (Mavic Air 2 to Air 3S), Mavic 3 and Mavic 4 Pro, Neo and Neo 2, Flip, Avata, Avata 2, Avata 360, DJI FPV and Lito. What decides it in practice is the controller: the original DJI RC cannot stream, and the RC 2 streams only 720p.
+
+- DJI Fly has had livestreaming since version 1.4.12. DJI’s own guide lists 26 drones across the Mini, Air, Mavic, Neo, Flip, Avata, FPV and Lito series.
+- Phone controllers (RC-N1, RC-N2, RC-N3) stream RTMP at 1080p or 720p; the bitrate is 5 or 3 Mbps on Android and 2 or 1 Mbps on iOS.
+- The DJI RC 2 and RC Pro 2 stream only 720p because of their hardware; the RC Pro streams only 720p after DJI Fly 1.18.0.
+- The original DJI RC does not support livestreaming. The RC 2, RC Pro and Smart Controller need a microphone from DJI Fly 1.16.0.
+- Avata 360 streams the normal transmission view only, not 360° mode. Goggles stream through a phone running DJI Fly.
+
+### DJI drones that support live streaming
+| Series | Models with livestreaming in DJI Fly | Guide |
+| --- | --- | --- |
+| Mini | Mini 5 Pro, Mini 4 Pro, Mini 4K, Mini 3 Pro, Mini 3, Mini 2 SE, Mini 2, Mini SE, Mavic Mini | Mini 5 Pro, Mini 4 Pro, Mini 3 Pro, Mini 3 |
+| Air | Air 3S, Air 3, Air 2S, Mavic Air 2 | Air 3S, Air 3 |
+| Mavic | Mavic 4 Pro, Mavic 3 Pro, Mavic 3, Mavic 3 Classic | Mavic 4 Pro, Mavic 3 |
+| Neo | Neo 2, Neo | Neo |
+| Flip | Flip | Flip |
+| Avata and FPV | Avata 360, Avata 2, Avata, DJI FPV | Avata 2 |
+| Lito | Lito 1, Lito X1 | Lito 1, Lito X1 |
+Source: the aircraft list in DJI’s DJI Fly livestream guide, checked on November 8, 2026. DJI adds models with app updates; the menu in your own DJI Fly is the final word.
+
+### Which controllers can live stream
+| Controller | Livestream | Resolution | Notes |
+| --- | --- | --- | --- |
+| RC-N1, RC-N2, RC-N3 (with a phone) | Yes | 1080p or 720p | 5 or 3 Mbps on Android, 2 or 1 Mbps on iOS |
+| DJI RC 2 | Yes | 720p only | Needs a microphone from DJI Fly 1.16.0 |
+| DJI RC Pro | Yes | 720p after DJI Fly 1.18.0 | Needs a microphone from DJI Fly 1.16.0 |
+| DJI RC Pro 2 | Yes | 720p only | Has a built-in microphone |
+| DJI Smart Controller | Yes | Not stated by DJI | Needs a microphone from DJI Fly 1.16.0 |
+| DJI RC (original) | No | — | DJI: livestreaming is not supported with the DJI RC |
+| DJI goggles | Through a phone | What the phone sends | Connect the goggles to a phone running DJI Fly |
+The controller matters more than the drone. A Mini 3 Pro or Mavic 3 sold with the screen DJI RC can fly but not stream; the same drone on an RC-N1 with a phone streams. The 720p limit applies to the live picture only: the video recorded on the drone keeps its full resolution.
+
+### How to check your own drone
+1. **Update DJI Fly and the firmware** Livestreaming needs DJI Fly 1.4.12 or newer, and newer drones get it with later versions. Update the app, the controller and the aircraft.
+2. **Connect the drone and controller** Turn both on and wait until DJI Fly shows GO FLY. A phone controller must be connected to the phone by cable.
+3. **Open the streaming menu** Tap GO FLY → ••• → Transmission → Live Streaming Platforms. If RTMP is listed, your combination can stream.
+4. **Send a test stream** Enter the address Stream My Drone shows on a phone or computer and tap Start Livestream. The picture with its real resolution and bitrate appears in the app within seconds.
+
+### Drones and cameras outside DJI Fly
+- Older DJI GO 4 drones (Mavic 2, Mavic Pro, Phantom 4): DJI GO 4 has its own livestream menu with a custom RTMP option.
+- Enterprise drones (Matrice, Mavic 3 Enterprise): they stream from DJI Pilot 2 on the RC Plus; that workflow is not covered here.
+- Osmo cameras (Pocket 3, Action): they stream from DJI Mimo; see the Pocket 3 and Osmo Action guides.
+
+### Sources
+Aircraft list, controller notes, Avata 360 and goggles notes: DJI Fly livestream guide (Chinese). Version, resolution, bitrate and microphone requirements: DJI Fly App Livestream Operation Guides. Checked on November 8, 2026.
+Next: the complete drone live streaming guide and, if the stream will not start, DJI Fly livestream error fixes.
+
+### FAQ
+**Can the DJI Mini 4K live stream?** Yes. DJI lists the Mini 4K among the drones with livestreaming in DJI Fly. It uses a phone controller, so you can choose 1080p or 720p in DJI Fly.
+
+**Can the DJI Mini 2 SE and Mini 2 live stream?** Yes. Both are on DJI’s list, as are the Mini SE and the original Mavic Mini. Update DJI Fly first; livestreaming needs version 1.4.12 or newer.
+
+**Why can’t my DJI RC live stream?** DJI states that livestreaming is not supported with the original DJI RC. Use the same drone with an RC-N1, RC-N2 or RC-N3 and a phone, or with a DJI RC 2 if the drone supports it.
+
+**Why does the DJI RC 2 stream only 720p?** DJI says the RC 2 and RC Pro 2 support only 720p livestreaming because of their hardware. The recording on the drone is not affected.
+
+**Can the Avata 360 livestream in 360°?** No. DJI states that the Avata 360 does not support livestreaming in 360° mode; it streams the normal video transmission view.
+
+**Can the DJI Air 2S live stream?** Yes. The Air 2S and the Mavic Air 2 are on DJI’s list of drones with livestreaming in DJI Fly, through the RTMP option.
+
+## How to live stream a wedding with a drone
+Source: https://streammydrone.com/blog/live-stream-a-wedding-with-a-drone/ (updated 2026-11-08)
+
+To live stream a wedding with a drone, fly a DJI drone with RTMP, send DJI Fly’s picture to Stream My Drone on a phone or laptop, and broadcast it as an unlisted YouTube stream whose link you share with guests who cannot attend. Use the drone for the outdoor moments only (arrival, outdoor ceremony, group photo), keep it away from the guests, and let a second person run the stream.
+
+- A drone adds the wide outdoor shots; it does not replace a ground camera for the vows, the speeches or anything indoors.
+- Two people work best: a pilot who only flies, and an operator who watches the stream and the chat.
+- An unlisted YouTube stream is the simplest private option: only people with the link can watch, and the recording stays on the channel afterwards.
+- Plan around 20–30 minutes of real flight per battery and bring at least three batteries, a power bank and a phone hotspot with 6–10 Mbps upload.
+- Ask the couple and the venue, follow your country’s drone rules and never fly over the guests.
+
+### Plan a wedding drone live stream in 6 steps
+1. **Get permission** Agree with the couple which moments go live, ask the venue whether drones are allowed, and check your country’s drone rules for the location.
+2. **Split the roles** The pilot flies and looks only at the drone. A second person runs Stream My Drone, watches the picture and answers the chat.
+3. **Create a private stream** In YouTube Studio, create a stream with the visibility set to Unlisted and copy the stream URL and key into Stream My Drone. Send the link to guests a day before.
+4. **Test the network at the venue** Check mobile upload where you will stand. Turn on the operator’s phone hotspot, join the controller to it, and send a two-minute test stream.
+5. **Go live for the key moments** Start the stream a few minutes early and fly only for the planned shots. Between flights the stream can stay on with the drone landed.
+6. **Share the replay** After the event the unlisted stream becomes a video on the channel. The drone’s own recording is sharper and can be edited into the wedding film.
+
+### Gear list
+| Item | Why |
+| --- | --- |
+| DJI drone with RTMP in DJI Fly | Mini 4 Pro, Mini 5 Pro, Air 3S or similar; see the compatibility list |
+| Controller that can stream | RC 2 or a phone controller; the original DJI RC cannot stream |
+| Operator phone or laptop | Runs Stream My Drone and provides the hotspot |
+| 3 or more batteries | About 20–30 minutes of real flight each, less in wind or cold |
+| Power bank and cables | Hotspot plus streaming drains a phone in a couple of hours |
+| USB-C microphone (RC 2) | DJI Fly 1.16+ will not stream from an RC 2 without one |
+
+### Three setups, from simple to full production
+| Setup | What you need | Result |
+| --- | --- | --- |
+| Phone only | DJI RC 2 and the operator’s phone with Stream My Drone | The drone picture goes to YouTube, plus Instagram or Facebook if you like; no laptop |
+| Laptop with OBS | Stream My Drone on a Mac or Windows laptop, used as a virtual camera in OBS | Switch between the drone and ground cameras, add titles and the ceremony sound |
+| Event production | A video switcher with HDMI cameras and the drone as one source | Full multi-camera broadcast for a professional team |
+For most weddings the phone-only setup is enough for the outdoor part. The laptop setup adds what a drone cannot give: the vows in close-up with clean sound. The virtual camera guide shows how the drone appears in OBS.
+
+### Moments that work well from the air
+- The arrival of the couple and the guests’ cars, from a safe distance.
+- A slow reveal of the venue and the landscape before the ceremony starts.
+- The outdoor ceremony as a wide shot, high enough that the drone is not heard.
+- The group photo from above, with everyone looking up.
+- The couple’s walk or first dance outdoors at sunset.
+
+### Safety and etiquette
+- Never fly over the guests. Keep a clear distance from people, trees and power lines.
+- Avoid flying indoors: without satellite positioning the drone drifts, and a hall is full of people.
+- Keep the drone high or landed during the vows; its sound carries.
+- Follow your country’s drone rules: registration, line of sight and permits for events.
+- Some guests do not want to appear online. Keep the link private and tell people the event is streamed.
+
+### Sound on the stream
+The drone has no useful microphone; DJI Fly sends the controller’s microphone. In Stream My Drone on a phone, the operator can switch on the phone microphone to add commentary. For the vows and speeches, use the laptop setup with an external microphone or the venue’s sound system.
+Setup details: how to live stream from a drone, YouTube setup and streaming to several platforms.
+
+### FAQ
+**Can you live stream a wedding with a drone?** Yes. A DJI drone with RTMP in DJI Fly sends its picture to Stream My Drone on a phone or laptop, which broadcasts it to YouTube, Instagram or Facebook. Use it for the outdoor moments and a ground camera for the vows.
+
+**How do guests who can’t attend watch privately?** Create an unlisted YouTube stream and share its link. Only people with the link can watch, and the stream stays available as a video afterwards.
+
+**Is it allowed to fly a drone at a wedding?** It depends on your country’s drone rules and the venue. Ask the venue, follow local registration and permit rules, and never fly over people.
+
+**How long can a drone stream a wedding?** One battery gives about 20–30 minutes of real flight. Bring three or more and fly only for the planned moments; the stream itself can keep running between flights.
+
+**Do I need a laptop to stream a wedding with a drone?** No. With a DJI RC 2, a phone running Stream My Drone is enough. A laptop with OBS helps when you want to mix the drone with ground cameras and ceremony sound.
+
+**What internet do I need at the venue?** About 6–10 Mbps of steady upload for each platform. A 4G or 5G phone hotspot usually works; test it at the venue beforehand.
+
 ## DJI RC 2 won’t livestream without a microphone? How to fix “No built-in mic in current device”
 Source: https://streammydrone.com/blog/dji-rc-2-livestream-no-microphone-fix/ (updated 2026-11-05)
 
