@@ -1,0 +1,218 @@
+{
+  "slug": "come-fare-una-diretta-con-un-drone",
+  "platform": "Diretta con il drone",
+  "title": "Come fare una diretta con un drone: guida passo passo (2026)",
+  "description": "Come fare una diretta con un drone su YouTube, Instagram, TikTok o Facebook: cosa serve, i 4 metodi, DJI Fly RTMP in 5 passaggi, velocità di internet e soluzioni.",
+  "h1": "Come fare una diretta streaming con un drone (passo passo, 2026)",
+  "lead": "Per fare una diretta con un drone, attiva l’<strong>RTMP</strong> nell’app del drone (in DJI Fly: <strong>GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP</strong>) e invia l’immagine a un ricevitore come <strong>Stream My Drone</strong> su uno smartphone o un computer collegato allo stesso Wi-Fi. Il ricevitore la inoltra a YouTube, Instagram, TikTok, Facebook, Twitch o Kick, anche a più piattaforme insieme.",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "Ti serve un drone la cui app offra la diretta RTMP (la maggior parte dei DJI attuali in DJI Fly), un secondo dispositivo che riceva il flusso e un upload stabile.",
+    "DJI Fly può inviare RTMP direttamente a una piattaforma, ma solo RTMP non cifrato: Instagram e Facebook richiedono RTMPS, e non hai anteprima né più destinazioni.",
+    "Un’app ricevitore su smartphone o computer aggiunge anteprima, RTMPS, più piattaforme insieme e riconnessione automatica dopo brevi cadute.",
+    "Il radiocomando di solito invia 720p (DJI RC 2) o fino a 1080p (RC-N2 o RC-N3 con uno smartphone Android); calcola 6–10 Mbps di upload stabile per piattaforma.",
+    "Con il DJI RC 2, DJI Fly 1.16 e successive chiedono un microfono prima della diretta; un microfono USB-C o il microfono virtuale dell’app Android risolvono."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Come fare una diretta con un drone in 5 passaggi",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Controlla che l’app del drone offra l’RTMP",
+              "d": "In DJI Fly apri GO FLY → ••• → Transmission → Live Streaming Platforms. Se compare RTMP, drone, radiocomando e versione dell’app possono trasmettere. I DJI più vecchi usano DJI GO 4, che ha un’opzione RTMP personalizzata simile."
+            },
+            {
+              "t": "Installa un ricevitore su un secondo dispositivo",
+              "d": "Installa Stream My Drone su uno smartphone Android, un iPhone, un Mac o un PC Windows. Con un radiocomando con schermo come il DJI RC 2, qualsiasi smartphone può ricevere. Con un RC-N2 o RC-N3, DJI Fly gira già sul tuo smartphone, quindi ricevi su un secondo smartphone o su un computer."
+            },
+            {
+              "t": "Metti i due dispositivi sulla stessa rete",
+              "d": "Collega il radiocomando (o lo smartphone con DJI Fly) e il ricevitore allo stesso Wi-Fi, oppure attiva l’hotspot dello smartphone ricevitore. Le reti Wi-Fi ospiti di solito impediscono ai dispositivi di vedersi."
+            },
+            {
+              "t": "Inserisci l’indirizzo RTMP in DJI Fly",
+              "d": "Stream My Drone mostra un indirizzo come <code>rtmp://192.168.1.20:1935/drone</code>. Digitalo nella schermata RTMP di DJI Fly e tocca Start Livestream; l’immagine del drone compare nell’app in pochi secondi."
+            },
+            {
+              "t": "Aggiungi le piattaforme e vai in diretta",
+              "d": "Aggiungi YouTube, Instagram, TikTok, Facebook, Twitch, Kick o un server RTMP personalizzato con URL e chiave di streaming, attiva quelli che vuoi e avvia la trasmissione. Su Instagram e Facebook premi anche Vai in diretta sulla piattaforma stessa."
+            }
+          ]
+        },
+        {
+          "video": "La configurazione in 1 minuto: un DJI RC 2, la schermata RTMP di DJI Fly e Stream My Drone su uno smartphone."
+        },
+        {
+          "note": "I nomi dei menu cambiano un po’ tra le versioni di DJI Fly. La guida completa con le schermate è nelle <a href=\"../dji-fly-rtmp-impostazioni-diretta/\">impostazioni RTMP di DJI Fly</a>."
+        }
+      ]
+    },
+    {
+      "id": "requirements",
+      "h2": "Cosa serve per fare una diretta con un drone",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Drone e radiocomando con RTMP:</strong> la maggior parte dei droni DJI Fly attuali, come Mini 3, Mini 4 Pro, Mini 5 Pro, Air 3, Air 3S, Mavic 3, Mavic 4 Pro, Neo, Flip e Avata 2 (con Goggles 3 e uno smartphone).",
+            "<strong>Un dispositivo ricevitore:</strong> uno smartphone Android (Android 9 o successivo), un iPhone, un Mac o un PC Windows 10/11.",
+            "<strong>Internet con upload stabile:</strong> il Wi-Fi di casa per fare pratica, un hotspot 4G o 5G sul campo.",
+            "<strong>Un account abilitato alle dirette:</strong> YouTube deve prima attivare lo streaming live sul canale (fino a 24 ore) e TikTok dà la chiave di streaming solo ad alcuni account.",
+            "<strong>Con un DJI RC 2:</strong> un microfono USB-C o il microfono Bluetooth virtuale dell’app Android, perché DJI Fly 1.16+ non parte senza.",
+            "<strong>Energia:</strong> la diretta scarica radiocomando e smartphone più in fretta del solo volo; porta un power bank."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "methods",
+      "h2": "4 modi per fare una diretta con un drone",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Metodo", "Come funziona", "Ideale per", "Limiti"],
+            "rows": [
+              ["DJI Fly direttamente alla piattaforma", "URL RTMP e chiave della piattaforma inseriti in DJI Fly", "Un test veloce su YouTube o Twitch", "Una sola piattaforma, niente anteprima, solo RTMP non cifrato (niente Instagram né Facebook)"],
+              ["DJI Fly → app sullo smartphone", "Stream My Drone su uno smartphone riceve l’RTMP e lo inoltra", "Dirette sul campo senza portatile", "Inoltra l’immagine come la invia DJI Fly; nessuna conversione in verticale"],
+              ["DJI Fly → app sul computer", "Stream My Drone su Mac o Windows ricodifica il flusso", "Verticale 1080×1920 per TikTok e Instagram, webcam virtuale, OBS", "Serve un computer sulla stessa rete"],
+              ["Uscita HDMI + scheda di acquisizione", "Un radiocomando con porta HDMI (DJI RC Pro, DJI Smart Controller) entra in OBS tramite una scheda di acquisizione", "Eventi e produzione in studio", "Hardware in più; RC 2, RC-N2 e RC-N3 non hanno HDMI"]
+            ]
+          }
+        },
+        {
+          "p": "Il metodo 1 basta per un test veloce su YouTube. Per Instagram, Facebook, video verticale o più piattaforme insieme, metti in mezzo un’app ricevitore. Il flusso resta anche sui tuoi dispositivi: l’immagine va dritta alle piattaforme, senza passare da un server di restream."
+        }
+      ]
+    },
+    {
+      "id": "drones",
+      "h2": "Quali droni possono fare dirette?",
+      "blocks": [
+        {
+          "p": "Qualsiasi drone la cui app mostri RTMP in Live Streaming Platforms. Il ricevitore non parla mai con il drone; prende ciò che invia DJI Fly. Da un modello all’altro cambia il radiocomando e quindi il dispositivo su cui gira DJI Fly."
+        },
+        {
+          "table": {
+            "head": ["Drone", "Configurazione tipica", "Guida"],
+            "rows": [
+              ["DJI Mini 4 Pro", "RC 2 con uno smartphone ricevitore, oppure RC-N2 con un computer", "<a href=\"../dji-mini-4-pro-diretta-streaming/\">Guida Mini 4 Pro</a>"],
+              ["DJI Mini 5 Pro", "RC 2 con uno smartphone ricevitore, oppure radiocomando con smartphone e un computer", "<a href=\"../dji-mini-5-pro-diretta-streaming/\">Guida Mini 5 Pro</a>"],
+              ["DJI Air 3S", "RC 2 o RC-N3", "<a href=\"../dji-air-3s-diretta-streaming/\">Guida Air 3S</a>"],
+              ["DJI Mavic 4 Pro", "RC 2 o RC Pro 2", "<a href=\"../dji-mavic-4-pro-diretta-streaming/\">Guida Mavic 4 Pro</a>"],
+              ["DJI Neo", "RC-N3, oppure visore collegato via cavo allo smartphone", "<a href=\"../dji-neo-diretta-streaming/\">Guida Neo</a>"],
+              ["DJI Avata 2", "Goggles 3 collegati via cavo allo smartphone con DJI Fly", "<a href=\"../dji-avata-2-diretta-streaming/\">Guida Avata 2</a>"]
+            ]
+          }
+        },
+        {
+          "note": "DJI aggiunge e toglie l’opzione RTMP a seconda della versione di DJI Fly e della regione. Se non la vedi in Live Streaming Platforms, aggiorna DJI Fly e ricontrolla."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Note per piattaforma: YouTube, Instagram, TikTok, Facebook",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Piattaforma", "Dove si trova la chiave", "Attenzione a"],
+            "rows": [
+              ["YouTube", "YouTube Studio → Crea → Trasmetti dal vivo → Software di streaming", "La prima attivazione può richiedere fino a 24 ore; la chiave non cambia. <a href=\"../come-trasmettere-un-drone-dji-su-youtube/\">Guida YouTube</a>"],
+              ["Instagram", "instagram.com → Crea (+) → Video in diretta", "Richiede RTMPS e video verticale, dà una chiave nuova a ogni diretta e diventa pubblica solo dopo Vai in diretta. <a href=\"../come-andare-in-diretta-su-instagram-con-un-drone-dji/\">Guida Instagram</a>"],
+              ["TikTok", "Solo sugli account a cui TikTok dà la chiave", "Senza chiave, usa TikTok LIVE Studio con il drone come webcam virtuale su un computer. <a href=\"../come-andare-in-diretta-su-tiktok-con-un-drone-dji/\">Guida TikTok</a>"],
+              ["Facebook", "Video in diretta → Software di streaming (Live Producer)", "Accetta solo RTMPS; premi Vai in diretta in Live Producer"],
+              ["Twitch e Kick", "Dashboard del creator: URL del server e chiave", "Orizzontale 16:9; la diretta parte appena arriva il flusso"]
+            ]
+          }
+        },
+        {
+          "p": "Per raggiungere più piattaforme con un solo volo, aggiungile tutte come destinazioni e attivale; i passaggi sono nella <a href=\"../trasmettere-un-drone-dji-su-piu-piattaforme-insieme/\">guida al multistream</a>."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Velocità di internet e qualità dell’immagine",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Voce", "Consiglio"],
+            "rows": [
+              ["Upload per piattaforma", "6–10 Mbps stabili (6 Mbps di video più margine)"],
+              ["Uscita del radiocomando", "720p sul DJI RC 2; 1080p o 720p su RC-N2 e RC-N3 (5 o 3 Mbps su Android, 2 o 1 Mbps su iOS)"],
+              ["Orientamento", "Verticale 9:16 per TikTok e Instagram; orizzontale 16:9 per YouTube, Facebook, Twitch e Kick"],
+              ["Keyframe", "Ogni 2 secondi; l’app ricevitore lo imposta per te"],
+              ["Rete locale", "Wi-Fi a 5 GHz o hotspot dello smartphone; evita il Wi-Fi ospiti e i router che cambiano banda"]
+            ]
+          }
+        },
+        {
+          "p": "L’immagine in diretta è limitata da ciò che invia il radiocomando; il video registrato sulla scheda del drone mantiene la qualità piena. Caricalo dopo se vuoi un replay più nitido."
+        }
+      ]
+    },
+    {
+      "id": "safety",
+      "h2": "Vola in sicurezza durante la diretta",
+      "blocks": [
+        {
+          "list": [
+            "Prepara la diretta prima del decollo o affidala a una seconda persona. Gli occhi del pilota stanno sul drone, non sulla chat.",
+            "Rispetta le regole sui droni del tuo paese: registrazione, volo a vista, limiti di quota e niente voli sopra assembramenti. Le persone riprese in diretta potrebbero dover dare il consenso.",
+            "Non mostrare mai la chiave di streaming sullo schermo; chi ce l’ha può trasmettere sul tuo canale.",
+            "Tieni d’occhio le batterie di radiocomando e smartphone; hotspot e diretta insieme svuotano uno smartphone in fretta."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Risoluzione dei problemi",
+      "blocks": [
+        {
+          "list": [
+            "<strong>DJI Fly non si collega:</strong> i due dispositivi devono essere sulla stessa rete e l’indirizzo deve essere identico, <code>:1935/drone</code> compreso. Il Wi-Fi ospiti spesso lo blocca.",
+            "<strong>“No built-in mic in current device” sul RC 2:</strong> collega un microfono o usa l’app Android come microfono virtuale; vedi la <a href=\"../dji-rc-2-diretta-senza-microfono/\">soluzione per il microfono del RC 2</a>.",
+            "<strong>Instagram o Facebook rifiutano DJI Fly:</strong> richiedono RTMPS, che DJI Fly non invia. <a href=\"../perche-dji-fly-non-trasmette-su-instagram/\">Perché, e come risolvere</a>.",
+            "<strong>L’immagine scatta o cade:</strong> avvicinati al router o all’hotspot, usa i 5 GHz ed evita che il router cambi banda.",
+            "<strong>Immagine nell’app, niente sulla piattaforma:</strong> controlla la chiave di streaming e premi Vai in diretta su Instagram o Facebook."
+          ]
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Si può fare una diretta con un drone?",
+      "a": "Sì. La maggior parte dei droni DJI attuali invia l’immagine dal vivo via RTMP da DJI Fly. Puoi mandarla direttamente a una piattaforma o a un’app ricevitore su smartphone o computer, che la inoltra a YouTube, Instagram, TikTok, Facebook e altre insieme."
+    },
+    {
+      "q": "Posso fare una diretta con il drone senza computer?",
+      "a": "Sì. Con un radiocomando con schermo come il DJI RC 2, usa Stream My Drone su uno smartphone e collega il radiocomando al suo hotspot. Con un RC-N2 o RC-N3, DJI Fly usa già il tuo smartphone, quindi il ricevitore deve girare su un secondo smartphone."
+    },
+    {
+      "q": "Un drone DJI può trasmettere direttamente su YouTube?",
+      "a": "Sì. DJI Fly può inviare RTMP all’URL e alla chiave di YouTube. Hai una sola destinazione e nessuna anteprima; un’app ricevitore aggiunge anteprima, più piattaforme e riconnessione automatica."
+    },
+    {
+      "q": "Perché non riesco a trasmettere il drone su Instagram da DJI Fly?",
+      "a": "Instagram accetta solo RTMPS cifrato e dà una chiave nuova a ogni diretta, mentre DJI Fly invia RTMP non cifrato. Manda il flusso di DJI Fly a Stream My Drone, che lo inoltra a Instagram via RTMPS."
+    },
+    {
+      "q": "Quanta velocità di internet serve per una diretta con il drone?",
+      "a": "Circa 6–10 Mbps di upload stabile per ogni piattaforma. Un hotspot 4G o 5G con buon segnale di solito basta per una o due piattaforme."
+    },
+    {
+      "q": "In che risoluzione trasmette un drone?",
+      "a": "Dipende dal radiocomando: 720p sul DJI RC 2, fino a 1080p su RC-N2 o RC-N3 con uno smartphone Android. Il video registrato sul drone resta a piena risoluzione."
+    },
+    {
+      "q": "Fare una diretta con un drone è gratis?",
+      "a": "L’RTMP di DJI Fly e le piattaforme sono gratuiti. Stream My Drone per Mac e Windows è gratis; le app per Android e iPhone sono un acquisto unico senza abbonamento."
+    }
+  ]
+}

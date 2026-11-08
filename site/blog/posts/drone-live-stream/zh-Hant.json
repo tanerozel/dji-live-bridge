@@ -1,0 +1,218 @@
+{
+  "slug": "how-to-live-stream-from-a-drone",
+  "platform": "空拍機直播",
+  "title": "空拍機怎麼直播：步驟教學（2026）",
+  "description": "空拍機如何直播到 YouTube、Instagram、TikTok 或 Facebook：需要準備什麼、4 種方法、5 步完成 DJI Fly RTMP 設定、需要多少網速，以及常見問題的解決方法，適用於 DJI RC 2、RC-N2 和 RC-N3。",
+  "h1": "空拍機怎麼直播？（5 步教學，2026）",
+  "lead": "用空拍機直播，先在空拍機 App 中開啟 <strong>RTMP</strong>（DJI Fly：<strong>GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP</strong>），再把畫面送到同一個 Wi-Fi 下手機或電腦上的接收端，例如 <strong>Stream My Drone</strong>。接收端會把畫面轉送到 YouTube、Instagram、TikTok、Facebook、Twitch 或 Kick，也能同時送到多個平台。",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "需要：App 支援 RTMP 直播的空拍機（DJI Fly 中大多數新款 DJI 機型）、一台負責接收串流的第二台裝置，以及穩定的上傳頻寬。",
+    "DJI Fly 可以直接送 RTMP 到一個平台，但只有未加密的 RTMP：Instagram 和 Facebook 要求 RTMPS，而且沒有預覽，也只能送一個目的地。",
+    "在手機或電腦加上接收 App，就能預覽、使用 RTMPS、同時直播到多個平台，並在短暫斷線後自動重新連線。",
+    "遙控器通常輸出 720p（DJI RC 2），RC-N2 或 RC-N3 搭配 Android 手機最高 1080p；每個平台請預留 6–10 Mbps 的穩定上傳。",
+    "使用 DJI RC 2 時，DJI Fly 1.16 以上版本要求先接上麥克風才能直播；USB-C 麥克風或 Android App 的虛擬麥克風都能解決。"
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "5 步完成空拍機直播",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "確認空拍機 App 支援 RTMP",
+              "d": "在 DJI Fly 開啟 GO FLY → ••• → Transmission → Live Streaming Platforms。清單中有 RTMP，就表示你的空拍機、遙控器和 App 版本都能直播。較舊的 DJI 空拍機使用 DJI GO 4，也有類似的自訂 RTMP 選項。"
+            },
+            {
+              "t": "在第二台裝置安裝接收端",
+              "d": "在 Android 手機、iPhone、Mac 或 Windows 電腦上安裝 Stream My Drone。使用 DJI RC 2 這類帶螢幕遙控器時，任何手機都能接收。使用 RC-N2 或 RC-N3 時，DJI Fly 已經在你的手機上執行，所以要用第二支手機或電腦接收。"
+            },
+            {
+              "t": "讓兩台裝置連上同一個網路",
+              "d": "把遙控器（或執行 DJI Fly 的手機）和接收端連到同一個 Wi-Fi，或開啟接收手機的熱點。訪客 Wi-Fi 通常會阻擋裝置彼此連線。"
+            },
+            {
+              "t": "在 DJI Fly 輸入 RTMP 位址",
+              "d": "Stream My Drone 會顯示類似 <code>rtmp://192.168.1.20:1935/drone</code> 的位址。在 DJI Fly 的 RTMP 頁面輸入並點選 Start Livestream，幾秒內空拍畫面就會出現在 App 中。"
+            },
+            {
+              "t": "加入平台並開始直播",
+              "d": "用串流網址和金鑰加入 YouTube、Instagram、TikTok、Facebook、Twitch、Kick 或自訂 RTMP 伺服器，開啟需要的目的地後開始直播。Instagram 和 Facebook 還要在平台頁面上按下「開始直播」。"
+            }
+          ]
+        },
+        {
+          "video": "1 分鐘設定示範：DJI RC 2、DJI Fly 的 RTMP 頁面，以及手機上的 Stream My Drone。"
+        },
+        {
+          "note": "不同版本 DJI Fly 的選單名稱略有不同。附截圖的完整步驟請看 <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 設定教學</a>。"
+        }
+      ]
+    },
+    {
+      "id": "requirements",
+      "h2": "空拍機直播需要準備什麼",
+      "blocks": [
+        {
+          "list": [
+            "<strong>支援 RTMP 的空拍機和遙控器：</strong>大多數新款 DJI Fly 機型，例如 Mini 3、Mini 4 Pro、Mini 5 Pro、Air 3、Air 3S、Mavic 3、Mavic 4 Pro、Neo、Flip 和 Avata 2（需 Goggles 3 和手機）。",
+            "<strong>接收裝置：</strong>Android 手機（Android 9 以上）、iPhone、Mac 或 Windows 10/11 電腦。",
+            "<strong>上傳穩定的網路：</strong>在家練習用 Wi-Fi，戶外用 4G 或 5G 手機熱點。",
+            "<strong>可以直播的平台帳號：</strong>YouTube 要先為頻道開通直播（最多 24 小時），TikTok 只提供串流金鑰給部分帳號。",
+            "<strong>使用 DJI RC 2 時：</strong>準備 USB-C 麥克風，或使用 Android App 的虛擬藍牙麥克風，因為 DJI Fly 1.16+ 沒有麥克風就不會開始直播。",
+            "<strong>電力：</strong>直播比單純飛行更耗遙控器和手機的電，記得帶行動電源。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "methods",
+      "h2": "空拍機直播的 4 種方法",
+      "blocks": [
+        {
+          "table": {
+            "head": ["方法", "運作方式", "適合", "限制"],
+            "rows": [
+              ["DJI Fly 直接送到平台", "在 DJI Fly 輸入平台的 RTMP 網址和金鑰", "在 YouTube 或 Twitch 快速測試", "只能送一個平台，沒有預覽，只有未加密 RTMP（無法送 Instagram 和 Facebook）"],
+              ["DJI Fly → 手機 App", "手機上的 Stream My Drone 接收 RTMP 並轉送", "不帶筆電的戶外直播", "照 DJI Fly 送出的畫面原樣轉送，不轉成直式"],
+              ["DJI Fly → 電腦 App", "Mac 或 Windows 上的 Stream My Drone 重新編碼", "TikTok 和 Instagram 直式 1080×1920、虛擬攝影機、OBS", "需要一台在同一網路中的電腦"],
+              ["HDMI 輸出 + 擷取卡", "有 HDMI 埠的遙控器（DJI RC Pro、DJI 帶螢幕遙控器）透過擷取卡接入 OBS", "活動與攝影棚製作", "需要額外硬體；RC 2、RC-N2 和 RC-N3 沒有 HDMI"]
+            ]
+          }
+        },
+        {
+          "p": "只想在 YouTube 快速試一下，方法 1 就夠了。要送 Instagram、Facebook、直式畫面或多個平台，就在中間加一個接收 App。串流也一直留在你自己的裝置上：畫面直接送往各平台，不經過轉播伺服器。"
+        }
+      ]
+    },
+    {
+      "id": "drones",
+      "h2": "哪些空拍機可以直播？",
+      "blocks": [
+        {
+          "p": "只要 App 的 Live Streaming Platforms 中有 RTMP 的空拍機都可以。接收端不會直接和空拍機溝通，只接收 DJI Fly 送來的內容。不同機型之間不同的是遙控器，也因此決定 DJI Fly 在哪台裝置上執行。"
+        },
+        {
+          "table": {
+            "head": ["空拍機", "常見組合", "教學"],
+            "rows": [
+              ["DJI Mini 4 Pro", "RC 2 + 接收手機，或 RC-N2 + 電腦", "<a href=\"../dji-mini-4-pro-live-stream/\">Mini 4 Pro 教學</a>"],
+              ["DJI Mini 5 Pro", "RC 2 + 接收手機，或手機遙控器 + 電腦", "<a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro 教學</a>"],
+              ["DJI Air 3S", "RC 2 或 RC-N3", "<a href=\"../dji-air-3s-live-stream/\">Air 3S 教學</a>"],
+              ["DJI Mavic 4 Pro", "RC 2 或 RC Pro 2", "<a href=\"../dji-mavic-4-pro-live-stream/\">Mavic 4 Pro 教學</a>"],
+              ["DJI Neo", "RC-N3，或用線連接手機的飛行眼鏡", "<a href=\"../dji-neo-live-stream/\">Neo 教學</a>"],
+              ["DJI Avata 2", "Goggles 3 用線連接執行 DJI Fly 的手機", "<a href=\"../dji-avata-2-live-stream/\">Avata 2 教學</a>"]
+            ]
+          }
+        },
+        {
+          "note": "DJI 會依 DJI Fly 版本和地區增加或移除 RTMP 選項。如果在 Live Streaming Platforms 裡找不到，請更新 DJI Fly 後再確認一次。"
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "各平台注意事項：YouTube、Instagram、TikTok、Facebook",
+      "blocks": [
+        {
+          "table": {
+            "head": ["平台", "串流金鑰在哪裡", "注意"],
+            "rows": [
+              ["YouTube", "YouTube 工作室 → 建立 → 開始直播 → 串流軟體", "第一次開通直播最多需要 24 小時；金鑰不會變。<a href=\"../how-to-live-stream-a-dji-drone-to-youtube/\">YouTube 教學</a>"],
+              ["Instagram", "instagram.com →「建立」（+）→「直播視訊」", "需要 RTMPS 和直式畫面，每次直播都給新金鑰，按下「開始直播」後才會公開。<a href=\"../how-to-go-live-on-instagram-with-a-dji-drone/\">Instagram 教學</a>"],
+              ["TikTok", "只有 TikTok 發給金鑰的帳號才有", "沒有金鑰時，在電腦上把空拍機當成虛擬攝影機，用 TikTok LIVE Studio 直播。<a href=\"../how-to-go-live-on-tiktok-with-a-dji-drone/\">TikTok 教學</a>"],
+              ["Facebook", "「直播視訊」→「串流軟體」（Live Producer）", "只接受 RTMPS；在 Live Producer 按下「開始直播」"],
+              ["Twitch 和 Kick", "創作者後台：伺服器網址和串流金鑰", "橫式 16:9；串流一到就開播"]
+            ]
+          }
+        },
+        {
+          "p": "一次飛行同時送到多個平台：把每個平台加為目的地並全部開啟，步驟請看 <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">多平台直播教學</a>。"
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "網速與畫質",
+      "blocks": [
+        {
+          "table": {
+            "head": ["項目", "建議"],
+            "rows": [
+              ["每個平台的上傳", "穩定 6–10 Mbps（6 Mbps 影像加餘裕）"],
+              ["遙控器輸出", "DJI RC 2 為 720p；RC-N2 和 RC-N3 為 1080p 或 720p（Android 5 或 3 Mbps，iOS 2 或 1 Mbps）"],
+              ["方向", "TikTok 和 Instagram 用直式 9:16；YouTube、Facebook、Twitch 和 Kick 用橫式 16:9"],
+              ["關鍵影格", "每 2 秒一個；接收 App 會自動設定"],
+              ["區域網路", "5 GHz Wi-Fi 或手機熱點；避開訪客 Wi-Fi 和會切換頻段的路由器"]
+            ]
+          }
+        },
+        {
+          "p": "直播畫質受遙控器輸出限制，但錄在空拍機記憶卡上的影片保有完整畫質。想要更清晰的重播，可以之後再上傳錄影。"
+        }
+      ]
+    },
+    {
+      "id": "safety",
+      "h2": "直播時安全飛行",
+      "blocks": [
+        {
+          "list": [
+            "起飛前就設定好直播，或交給第二個人處理。飛手的眼睛要看空拍機，不是聊天室。",
+            "遵守所在地的空拍機法規：註冊、目視範圍內飛行、高度限制、不在人群上空飛行。直播中出現的人可能需要同意。",
+            "絕對不要在畫面上露出串流金鑰；拿到金鑰的人都能在你的頻道直播。",
+            "注意遙控器和手機電量；熱點加直播會很快把手機電量用完。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "疑難排解",
+      "blocks": [
+        {
+          "list": [
+            "<strong>DJI Fly 連不上：</strong>兩台裝置必須在同一個網路，位址也要完全一樣，包括 <code>:1935/drone</code>。訪客 Wi-Fi 常會擋住。",
+            "<strong>RC 2 顯示 “No built-in mic in current device”：</strong>接上麥克風，或把 Android App 當作虛擬麥克風；請看 <a href=\"../dji-rc-2-livestream-no-microphone-fix/\">RC 2 麥克風問題解法</a>。",
+            "<strong>Instagram 或 Facebook 不接受 DJI Fly：</strong>它們需要 RTMPS，而 DJI Fly 不支援。<a href=\"../why-dji-fly-cannot-stream-to-instagram/\">原因與解決方法</a>。",
+            "<strong>畫面卡頓或中斷：</strong>靠近路由器或熱點，使用 5 GHz，並避免路由器切換頻段。",
+            "<strong>App 有畫面，平台沒有：</strong>檢查串流金鑰，並在 Instagram 或 Facebook 按下「開始直播」。"
+          ]
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "空拍機可以直播嗎？",
+      "a": "可以。大多數新款 DJI 空拍機都能在 DJI Fly 透過 RTMP 送出即時畫面。可以直接送到一個平台，或送到手機、電腦上的接收 App，再由它同時轉送到 YouTube、Instagram、TikTok、Facebook 等平台。"
+    },
+    {
+      "q": "不用電腦能用空拍機直播嗎？",
+      "a": "可以。使用 DJI RC 2 這類帶螢幕遙控器時，在手機上執行 Stream My Drone，讓遙控器連上這支手機的熱點。使用 RC-N2 或 RC-N3 時，DJI Fly 已經用了你的手機，所以接收端要在第二支手機上執行。"
+    },
+    {
+      "q": "DJI 空拍機能直接直播到 YouTube 嗎？",
+      "a": "可以。DJI Fly 能把 RTMP 送到 YouTube 的串流網址和金鑰。但只有一個目的地，也沒有預覽；加上接收 App 就有預覽、多平台和自動重新連線。"
+    },
+    {
+      "q": "為什麼 DJI Fly 無法直播到 Instagram？",
+      "a": "Instagram 只接受加密的 RTMPS，而且每次直播都給新金鑰，而 DJI Fly 送出的是未加密的 RTMP。把 DJI Fly 的串流送到 Stream My Drone，它會用 RTMPS 轉送到 Instagram。"
+    },
+    {
+      "q": "空拍機直播需要多少網速？",
+      "a": "每個平台大約需要 6–10 Mbps 的穩定上傳。訊號好的 4G 或 5G 熱點通常足夠送一到兩個平台。"
+    },
+    {
+      "q": "空拍機直播是什麼解析度？",
+      "a": "取決於遙控器：DJI RC 2 為 720p，RC-N2 或 RC-N3 搭配 Android 手機最高 1080p。錄在空拍機上的影片仍是完整解析度。"
+    },
+    {
+      "q": "空拍機直播要錢嗎？",
+      "a": "DJI Fly 的 RTMP 功能和各平台都是免費的。Stream My Drone 的 Mac 和 Windows 版免費；Android 和 iPhone 版是一次買斷，不用訂閱。"
+    }
+  ]
+}

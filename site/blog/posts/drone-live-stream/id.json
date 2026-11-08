@@ -1,0 +1,218 @@
+{
+  "slug": "cara-live-streaming-dengan-drone",
+  "platform": "Live streaming drone",
+  "title": "Cara live streaming dengan drone: panduan langkah demi langkah (2026)",
+  "description": "Cara live streaming dengan drone ke YouTube, Instagram, TikTok, atau Facebook: yang dibutuhkan, 4 metode, DJI Fly RTMP dalam 5 langkah, kecepatan internet, dan solusinya.",
+  "h1": "Cara live streaming dengan drone (langkah demi langkah, 2026)",
+  "lead": "Untuk live streaming dengan drone, aktifkan <strong>RTMP</strong> di aplikasi drone (di DJI Fly: <strong>GO FLY → ••• → Transmission → Live Streaming Platforms → RTMP</strong>) lalu kirim gambarnya ke penerima seperti <strong>Stream My Drone</strong> di ponsel atau komputer yang terhubung ke Wi-Fi yang sama. Penerima meneruskannya ke YouTube, Instagram, TikTok, Facebook, Twitch, atau Kick, bahkan ke beberapa sekaligus.",
+  "published": "2026-11-08",
+  "updated": "2026-11-08",
+  "summary": [
+    "Anda butuh drone yang aplikasinya punya live streaming RTMP (sebagian besar drone DJI terbaru di DJI Fly), perangkat kedua untuk menerima stream, dan upload internet yang stabil.",
+    "DJI Fly bisa mengirim RTMP langsung ke satu platform, tetapi hanya RTMP tanpa enkripsi: Instagram dan Facebook mewajibkan RTMPS, dan tidak ada pratinjau maupun tujuan lebih dari satu.",
+    "Aplikasi penerima di ponsel atau komputer menambahkan pratinjau, RTMPS, beberapa platform sekaligus, dan sambung ulang otomatis setelah gangguan singkat.",
+    "Remote biasanya mengirim 720p (DJI RC 2) atau hingga 1080p (RC-N2 atau RC-N3 dengan ponsel Android); siapkan upload stabil 6–10 Mbps per platform.",
+    "Di DJI RC 2, DJI Fly 1.16 ke atas meminta mikrofon sebelum streaming; mikrofon USB-C atau mikrofon virtual di aplikasi Android mengatasinya."
+  ],
+  "sections": [
+    {
+      "id": "steps",
+      "h2": "Cara live streaming dengan drone dalam 5 langkah",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Pastikan aplikasi drone Anda punya RTMP",
+              "d": "Di DJI Fly, buka GO FLY → ••• → Transmission → Live Streaming Platforms. Jika ada RTMP, drone, remote, dan versi aplikasi Anda bisa streaming. Drone DJI lama memakai DJI GO 4, yang punya opsi RTMP kustom serupa."
+            },
+            {
+              "t": "Pasang penerima di perangkat kedua",
+              "d": "Pasang Stream My Drone di ponsel Android, iPhone, Mac, atau PC Windows. Dengan remote berlayar seperti DJI RC 2, ponsel apa pun bisa menjadi penerima. Dengan RC-N2 atau RC-N3, DJI Fly sudah berjalan di ponsel Anda, jadi terima di ponsel kedua atau komputer."
+            },
+            {
+              "t": "Hubungkan kedua perangkat ke jaringan yang sama",
+              "d": "Sambungkan remote (atau ponsel yang menjalankan DJI Fly) dan penerima ke Wi-Fi yang sama, atau nyalakan hotspot di ponsel penerima. Wi-Fi tamu biasanya mencegah perangkat saling terhubung."
+            },
+            {
+              "t": "Masukkan alamat RTMP di DJI Fly",
+              "d": "Stream My Drone menampilkan alamat seperti <code>rtmp://192.168.1.20:1935/drone</code>. Ketik di layar RTMP DJI Fly lalu ketuk Start Livestream; gambar drone muncul di aplikasi dalam beberapa detik."
+            },
+            {
+              "t": "Tambahkan platform dan mulai live",
+              "d": "Tambahkan YouTube, Instagram, TikTok, Facebook, Twitch, Kick, atau server RTMP kustom dengan URL dan stream key-nya, aktifkan yang Anda mau, lalu mulai siaran. Di Instagram dan Facebook, ketuk juga Go live di halaman platform itu sendiri."
+            }
+          ]
+        },
+        {
+          "video": "Penyiapan 1 menit: DJI RC 2, layar RTMP DJI Fly, dan Stream My Drone di ponsel."
+        },
+        {
+          "note": "Nama menu sedikit berbeda antar versi DJI Fly. Panduan lengkap dengan gambar ada di <a href=\"../pengaturan-live-streaming-rtmp-dji-fly/\">pengaturan RTMP DJI Fly</a>."
+        }
+      ]
+    },
+    {
+      "id": "requirements",
+      "h2": "Yang dibutuhkan untuk live streaming dengan drone",
+      "blocks": [
+        {
+          "list": [
+            "<strong>Drone dan remote dengan RTMP:</strong> sebagian besar drone DJI Fly terbaru, seperti Mini 3, Mini 4 Pro, Mini 5 Pro, Air 3, Air 3S, Mavic 3, Mavic 4 Pro, Neo, Flip, dan Avata 2 (dengan Goggles 3 dan ponsel).",
+            "<strong>Perangkat penerima:</strong> ponsel Android (Android 9 atau lebih baru), iPhone, Mac, atau PC Windows 10/11.",
+            "<strong>Internet dengan upload stabil:</strong> Wi-Fi rumah untuk latihan, hotspot 4G atau 5G di lapangan.",
+            "<strong>Akun platform yang boleh live:</strong> YouTube harus mengaktifkan live streaming di channel dulu (hingga 24 jam), dan TikTok hanya memberi stream key ke sebagian akun.",
+            "<strong>Dengan DJI RC 2:</strong> mikrofon USB-C atau mikrofon Bluetooth virtual di aplikasi Android, karena DJI Fly 1.16+ tidak mau mulai tanpanya.",
+            "<strong>Daya:</strong> streaming menguras remote dan ponsel lebih cepat daripada terbang saja; bawa power bank."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "methods",
+      "h2": "4 cara live streaming dengan drone",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Metode", "Cara kerja", "Cocok untuk", "Batasan"],
+            "rows": [
+              ["DJI Fly langsung ke platform", "URL RTMP dan key platform diketik di DJI Fly", "Uji cepat di YouTube atau Twitch", "Satu platform, tanpa pratinjau, hanya RTMP tanpa enkripsi (tidak bisa Instagram atau Facebook)"],
+              ["DJI Fly → aplikasi ponsel", "Stream My Drone di ponsel menerima RTMP dan meneruskannya", "Streaming di lapangan tanpa laptop", "Meneruskan gambar apa adanya dari DJI Fly; tidak diubah ke vertikal"],
+              ["DJI Fly → aplikasi komputer", "Stream My Drone di Mac atau Windows meng-encode ulang stream", "Vertikal 1080×1920 untuk TikTok dan Instagram, kamera virtual, OBS", "Butuh komputer di jaringan yang sama"],
+              ["Output HDMI + capture card", "Remote dengan port HDMI (DJI RC Pro, DJI Smart Controller) masuk ke OBS lewat capture card", "Acara dan produksi studio", "Perangkat tambahan; RC 2, RC-N2, dan RC-N3 tidak punya HDMI"]
+            ]
+          }
+        },
+        {
+          "p": "Metode 1 cukup untuk uji cepat di YouTube. Untuk Instagram, Facebook, video vertikal, atau beberapa platform sekaligus, pasang aplikasi penerima di tengah. Stream juga tetap di perangkat Anda: gambar langsung ke platform tanpa lewat server restream."
+        }
+      ]
+    },
+    {
+      "id": "drones",
+      "h2": "Drone apa saja yang bisa live streaming?",
+      "blocks": [
+        {
+          "p": "Semua drone yang aplikasinya menampilkan RTMP di Live Streaming Platforms. Penerima tidak pernah berkomunikasi dengan drone; ia mengambil apa pun yang dikirim DJI Fly. Yang berbeda antar model adalah remote-nya, dan karena itu perangkat tempat DJI Fly berjalan."
+        },
+        {
+          "table": {
+            "head": ["Drone", "Penyiapan umum", "Panduan"],
+            "rows": [
+              ["DJI Mini 4 Pro", "RC 2 dengan ponsel penerima, atau RC-N2 dengan komputer", "<a href=\"../live-streaming-dji-mini-4-pro/\">Panduan Mini 4 Pro</a>"],
+              ["DJI Mini 5 Pro", "RC 2 dengan ponsel penerima, atau remote berponsel dengan komputer", "<a href=\"../live-streaming-dji-mini-5-pro/\">Panduan Mini 5 Pro</a>"],
+              ["DJI Air 3S", "RC 2 atau RC-N3", "<a href=\"../live-streaming-dji-air-3s/\">Panduan Air 3S</a>"],
+              ["DJI Mavic 4 Pro", "RC 2 atau RC Pro 2", "<a href=\"../live-streaming-dji-mavic-4-pro/\">Panduan Mavic 4 Pro</a>"],
+              ["DJI Neo", "RC-N3, atau goggles yang dicolok kabel ke ponsel", "<a href=\"../live-streaming-dji-neo/\">Panduan Neo</a>"],
+              ["DJI Avata 2", "Goggles 3 dicolok kabel ke ponsel yang menjalankan DJI Fly", "<a href=\"../live-streaming-dji-avata-2/\">Panduan Avata 2</a>"]
+            ]
+          }
+        },
+        {
+          "note": "DJI menambah dan menghapus opsi RTMP tergantung versi DJI Fly dan wilayah. Jika tidak ada di Live Streaming Platforms, perbarui DJI Fly lalu cek lagi."
+        }
+      ]
+    },
+    {
+      "id": "platforms",
+      "h2": "Catatan per platform: YouTube, Instagram, TikTok, Facebook",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Platform", "Letak stream key", "Perhatikan"],
+            "rows": [
+              ["YouTube", "YouTube Studio → Buat → Live sekarang → Software streaming", "Aktivasi pertama bisa makan waktu hingga 24 jam; key tidak berubah. <a href=\"../cara-live-streaming-drone-dji-ke-youtube/\">Panduan YouTube</a>"],
+              ["Instagram", "instagram.com → Buat (+) → Video live", "Wajib RTMPS dan video vertikal, key baru tiap siaran, dan baru publik setelah Go live. <a href=\"../cara-live-instagram-dengan-drone-dji/\">Panduan Instagram</a>"],
+              ["TikTok", "Hanya di akun yang diberi stream key oleh TikTok", "Tanpa key, pakai TikTok LIVE Studio dengan drone sebagai kamera virtual di komputer. <a href=\"../cara-live-tiktok-dengan-drone-dji/\">Panduan TikTok</a>"],
+              ["Facebook", "Video live → Software streaming (Live Producer)", "Hanya menerima RTMPS; ketuk Go live di Live Producer"],
+              ["Twitch dan Kick", "Dashboard kreator: URL server dan stream key", "Horizontal 16:9; siaran langsung tayang begitu stream masuk"]
+            ]
+          }
+        },
+        {
+          "p": "Untuk menjangkau beberapa platform dalam satu penerbangan, tambahkan masing-masing sebagai tujuan dan aktifkan semuanya; langkahnya ada di <a href=\"../live-drone-dji-ke-beberapa-platform-sekaligus/\">panduan multistream</a>."
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "h2": "Kecepatan internet dan kualitas gambar",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Pengaturan", "Rekomendasi"],
+            "rows": [
+              ["Upload per platform", "Stabil 6–10 Mbps (video 6 Mbps plus cadangan)"],
+              ["Output remote", "720p di DJI RC 2; 1080p atau 720p di RC-N2 dan RC-N3 (5 atau 3 Mbps di Android, 2 atau 1 Mbps di iOS)"],
+              ["Orientasi", "Vertikal 9:16 untuk TikTok dan Instagram; horizontal 16:9 untuk YouTube, Facebook, Twitch, dan Kick"],
+              ["Keyframe", "Setiap 2 detik; aplikasi penerima mengaturnya untuk Anda"],
+              ["Jaringan lokal", "Wi-Fi 5 GHz atau hotspot ponsel; hindari Wi-Fi tamu dan router yang berpindah band"]
+            ]
+          }
+        },
+        {
+          "p": "Gambar live dibatasi oleh apa yang dikirim remote; video yang direkam di kartu drone tetap berkualitas penuh. Unggah rekaman itu nanti jika ingin tayangan ulang yang lebih tajam."
+        }
+      ]
+    },
+    {
+      "id": "safety",
+      "h2": "Terbang dengan aman saat streaming",
+      "blocks": [
+        {
+          "list": [
+            "Siapkan stream sebelum lepas landas, atau serahkan ke orang kedua. Mata pilot harus pada drone, bukan pada chat.",
+            "Patuhi aturan drone di negara Anda: registrasi, jarak pandang, batas ketinggian, dan tidak terbang di atas kerumunan. Orang yang tampil saat live mungkin perlu memberi izin.",
+            "Jangan pernah menampilkan stream key di layar; siapa pun yang memilikinya bisa siaran di channel Anda.",
+            "Pantau baterai remote dan ponsel; hotspot dan streaming bersamaan cepat menguras ponsel."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "troubleshooting",
+      "h2": "Mengatasi masalah",
+      "blocks": [
+        {
+          "list": [
+            "<strong>DJI Fly tidak bisa terhubung:</strong> kedua perangkat harus di jaringan yang sama dan alamatnya harus persis sama, termasuk <code>:1935/drone</code>. Wi-Fi tamu sering memblokirnya.",
+            "<strong>“No built-in mic in current device” di RC 2:</strong> pasang mikrofon atau pakai aplikasi Android sebagai mikrofon virtual; lihat <a href=\"../dji-rc-2-live-streaming-tanpa-mikrofon/\">solusi mikrofon RC 2</a>.",
+            "<strong>Instagram atau Facebook menolak DJI Fly:</strong> keduanya butuh RTMPS, yang tidak dikirim DJI Fly. <a href=\"../kenapa-dji-fly-tidak-bisa-live-ke-instagram/\">Penyebab dan solusinya</a>.",
+            "<strong>Gambar patah-patah atau terputus:</strong> mendekatlah ke router atau hotspot, gunakan 5 GHz, dan cegah router berpindah band.",
+            "<strong>Gambar ada di aplikasi, tidak ada di platform:</strong> periksa stream key, dan ketuk Go live di Instagram atau Facebook."
+          ]
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Apakah drone bisa live streaming?",
+      "a": "Bisa. Sebagian besar drone DJI terbaru mengirim gambar live lewat RTMP dari DJI Fly. Kirim langsung ke satu platform, atau ke aplikasi penerima di ponsel atau komputer yang meneruskannya ke YouTube, Instagram, TikTok, Facebook, dan lainnya sekaligus."
+    },
+    {
+      "q": "Bisakah live streaming drone tanpa komputer?",
+      "a": "Bisa. Dengan remote berlayar seperti DJI RC 2, jalankan Stream My Drone di ponsel dan sambungkan remote ke hotspot ponsel itu. Dengan RC-N2 atau RC-N3, DJI Fly sudah memakai ponsel Anda, jadi penerima harus berjalan di ponsel kedua."
+    },
+    {
+      "q": "Bisakah drone DJI live langsung ke YouTube?",
+      "a": "Bisa. DJI Fly dapat mengirim RTMP ke URL dan stream key YouTube. Anda hanya dapat satu tujuan dan tanpa pratinjau; aplikasi penerima menambahkan pratinjau, beberapa platform, dan sambung ulang otomatis."
+    },
+    {
+      "q": "Kenapa drone tidak bisa live ke Instagram dari DJI Fly?",
+      "a": "Instagram hanya menerima RTMPS terenkripsi dan memberi key baru setiap siaran, sedangkan DJI Fly mengirim RTMP tanpa enkripsi. Kirim stream DJI Fly ke Stream My Drone, yang meneruskannya ke Instagram lewat RTMPS."
+    },
+    {
+      "q": "Berapa kecepatan internet untuk live streaming drone?",
+      "a": "Sekitar 6–10 Mbps upload stabil untuk setiap platform. Hotspot 4G atau 5G dengan sinyal bagus biasanya cukup untuk satu atau dua platform."
+    },
+    {
+      "q": "Live streaming drone resolusinya berapa?",
+      "a": "Tergantung remote: 720p di DJI RC 2, hingga 1080p di RC-N2 atau RC-N3 dengan ponsel Android. Video yang direkam di drone tetap beresolusi penuh."
+    },
+    {
+      "q": "Apakah live streaming dengan drone gratis?",
+      "a": "RTMP di DJI Fly dan platformnya gratis. Stream My Drone untuk Mac dan Windows gratis; aplikasi Android dan iPhone dibeli sekali tanpa langganan."
+    }
+  ]
+}
