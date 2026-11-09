@@ -4,7 +4,10 @@
       "mcp__claude-in-chrome__tabs_context_mcp",
       "ClaudeInChromeDomain(www.facebook.com)",
       "ClaudeInChromeDomain(www.instagram.com)",
-      "ClaudeInChromeDomain(www.linkedin.com)"
+      "ClaudeInChromeDomain(www.linkedin.com)",
+      "ClaudeInChromeDomain(www.youtube.com)",
+      "ClaudeInChromeDomain(mail.google.com)",
+      "mcp__claude-in-chrome__tabs_create_mcp"
     ]
   }
 }
