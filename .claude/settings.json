@@ -7,7 +7,11 @@
       "ClaudeInChromeDomain(www.linkedin.com)",
       "ClaudeInChromeDomain(www.youtube.com)",
       "ClaudeInChromeDomain(mail.google.com)",
-      "mcp__claude-in-chrome__tabs_create_mcp"
+      "mcp__claude-in-chrome__tabs_create_mcp",
+      "ClaudeInChromeDomain(search.google.com)",
+      "ClaudeInChromeDomain(appstoreconnect.apple.com)",
+      "ClaudeInChromeDomain(developer.apple.com)",
+      "ClaudeInChromeDomain(www.icloud.com)"
     ]
   }
 }
