@@ -26,15 +26,14 @@ struct DestinationEditorView: View {
     }
 }
 
-/// "Connect account" for YouTube and Facebook works only for the test users listed with Google and
-/// Meta until Google's OAuth verification and Meta's App Review pass, so release builds offer manual
-/// stream keys only. Set these to true in release once both reviews are approved.
+/// "Connect account" for Facebook works only for the test users listed with Meta until Meta's App
+/// Review and Business Verification pass, so release builds offer a manual Facebook stream key only.
+/// Google's OAuth verification is approved, so YouTube connects in every build.
 enum AccountConnection {
-    #if DEBUG
     static let youtube = true
+    #if DEBUG
     static let facebook = true
     #else
-    static let youtube = false
     static let facebook = false
     #endif
 }

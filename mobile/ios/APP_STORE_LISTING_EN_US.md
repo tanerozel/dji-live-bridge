@@ -90,7 +90,7 @@ rtmp,rtmps,live,broadcast,multistream,restream,aerial,quadcopter,fpv,go live,str
 Notes:
 
 ```text
-Stream My Drone receives the live RTMP feed that the DJI Fly app on a DJI remote controller (for example the DJI RC 2) sends over the local network, and forwards it to RTMP/RTMPS servers the user sets up. It needs no account and collects no data.
+Stream My Drone receives the live RTMP feed that the DJI Fly app on a DJI remote controller (for example the DJI RC 2) sends over the local network, and forwards it to RTMP/RTMPS servers the user sets up. It needs no account of its own and collects no data.
 
 TESTING WITHOUT A DRONE
 1. Open the app and tap "Skip" on the short guide.
@@ -105,6 +105,35 @@ The local network permission is used only to accept the incoming RTMP connection
 
 PLATFORM NAMES AND ICONS
 Platform names and icons are shown only so users can recognise which destination a saved stream key belongs to. The app is not affiliated with DJI or any of these platforms, as stated in the description.
+
+OPTIONAL PLATFORM SIGN-IN (since 1.2)
+The app itself has no account. For convenience, YouTube and Instagram can be connected instead of pasting a stream key:
+- YouTube: "Connect account" uses Google Sign-In (scope youtube.force-ssl, verified by Google) to create the live broadcast and stream on the user's own channel. The Google token stays in the device Keychain and is sent only to Google.
+- Instagram: the user signs in on Instagram's own web page (Live Producer) inside the app; the app reads the stream key from that page and stores it only in the device Keychain.
+Both are optional; "Enter stream key manually" works for every platform. Nothing is sent to the developer.
+
+MICROPHONE AND BLUETOOTH
+The microphone is used only after the user turns on "Phone microphone"; the voice replaces the drone's sound in the broadcast and is not recorded or sent anywhere else. Bluetooth is only checked for availability in the connection diagnostics.
+```
+
+### What's New in 1.2
+
+```text
+- Connect your YouTube channel: sign in with Google and the app creates the live broadcast for you, no stream key needed.
+- Instagram connects in a few taps and prepares the live for you.
+- Phone microphone: talk over your drone's picture during a live stream.
+- Clearer platform list and connection buttons.
+- Fixes and improvements.
+```
+
+Turkish (tr):
+
+```text
+- YouTube kanalını bağla: Google ile giriş yap, canlı yayını uygulama oluştursun, yayın anahtarı gerekmez.
+- Instagram birkaç dokunuşla bağlanır ve canlı yayını senin için hazırlar.
+- Telefon mikrofonu: canlı yayında dronun görüntüsünün üzerine konuş.
+- Daha anlaşılır platform listesi ve bağlantı düğmeleri.
+- Düzeltmeler ve iyileştirmeler.
 ```
 
 ### Reply to Guideline 2.1 "Information Needed" (2026-10-02)
