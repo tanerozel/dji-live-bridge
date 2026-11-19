@@ -230,6 +230,82 @@ Related: RC 2 microphone fix, which DJI drones can live stream and the complete 
 
 **Can I raise the livestream bitrate in DJI Fly?** No. DJI fixes it by the transmission frame rate: 5 or 3 Mbps on Android and 2 or 1 Mbps on iOS. The RC 2 and RC Pro 2 also stream only 720p.
 
+## Why is my DJI drone live stream only 720p or blurry?
+Source: https://streammydrone.com/blog/dji-drone-live-stream-720p-quality/ (updated 2026-11-19)
+
+The camera records up to 4K or more, but the live stream is limited by DJI Fly, not by the camera. DJI states that the DJI RC 2 and RC Pro 2 stream only 720p, and the bitrate is fixed at 5 or 3 Mbps on Android and 2 or 1 Mbps on iPhone. You cannot raise these limits, but you can choose the best options, protect the network and check what actually arrives.
+
+- The live stream is a separate, much smaller video than the recording on the aircraft. Its resolution and bitrate are set by DJI Fly and the controller.
+- DJI RC 2 and DJI RC Pro 2 stream only 720p because of their hardware; the DJI RC Pro streams only 720p from DJI Fly 1.18.0. Mavic 4 Pro uses these controllers, so its stream is 720p.
+- DJI Fly offers 5 or 3 Mbps on Android and 2 or 1 Mbps on iOS. The bitrate cannot be set by hand, so an Android phone on an RC-N controller gives the sharpest stream.
+- Blur and blocks during fast flight come from the low bitrate, not from a fault. Slower, smoother moves look much better at 5 Mbps or less.
+- No app can add detail that DJI Fly did not send. Stream My Drone on a phone forwards the video unchanged, so it adds no extra loss, and it shows the bitrate that arrives.
+
+### Livestream resolution and bitrate by controller
+DJI’s livestream guide gives two limits. Resolution is 1080p or 720p, except on the controllers it names as 720p only. Bitrate depends on the device running DJI Fly: 5 or 3 Mbps on Android, 2 or 1 Mbps on iOS. DJI says the available bitrates are determined by the video transmission frame rate and cannot be adjusted.
+| Controller | Livestream resolution | Livestream bitrate |
+| --- | --- | --- |
+| RC-N1, RC-N2 or RC-N3 with an Android phone | 1080p or 720p | 5 or 3 Mbps |
+| RC-N1, RC-N2 or RC-N3 with an iPhone | 1080p or 720p | 2 or 1 Mbps |
+| DJI RC 2 | 720p only (hardware limit) | The options DJI Fly shows |
+| DJI RC Pro 2 | 720p only (hardware limit) | The options DJI Fly shows |
+| DJI RC Pro | 720p only from DJI Fly 1.18.0 | The options DJI Fly shows |
+| DJI RC (original) | No livestreaming | — |
+What this means for popular drones: Mavic 4 Pro flies with the RC 2 or RC Pro 2, so its stream is 720p. Mini 5 Pro, Mini 4 Pro and Air 3S stream 720p with the RC 2, but can offer 1080p with an RC-N controller and a phone.
+Model by model: Mavic 4 Pro, Mini 5 Pro, Mini 4 Pro, Air 3S, or the full list of DJI drones that can live stream.
+
+### Get the sharpest stream DJI Fly allows in 6 steps
+1. **Choose the highest options in DJI Fly** In the RTMP livestream screen, set Livestream Resolution to 1080p if it is offered and Livestream Bitrate to the higher value. Check again after a DJI Fly update; options can change.
+2. **Prefer Android on an RC-N controller** With an RC-N1, RC-N2 or RC-N3, an Android phone offers up to 5 Mbps and an iPhone up to 2 Mbps. If you have both, fly with the Android phone and receive on the other device.
+3. **Keep the receiver close to a strong network** Use 5 GHz Wi-Fi or a phone hotspot, keep the controller and the receiver near it, and avoid guest Wi-Fi. Dropped packets show up as frozen or smeared frames.
+4. **Check what actually arrives** Stream My Drone shows the bitrate it receives from DJI Fly and counts freezes; on Mac and Windows it also shows the resolution. If you see about 5,000 kbps without freezes, you already get the best DJI Fly can send on that setup.
+5. **Make sure your upload is enough** The receiver uploads the stream again to each platform. Plan at least the stream bitrate per destination plus a safe margin, so two 5 Mbps destinations need well over 10 Mbps of upload.
+6. **Fly for the bitrate** At 5 Mbps or less, fast turns, low passes over trees, water and crowds turn into blocks. Slow, steady moves and higher altitude keep the picture clean for viewers.
+
+### Where live stream quality is lost
+Keep three videos apart: the file recorded on the aircraft, the live view on the controller and the RTMP stream DJI Fly sends. Only the last one reaches your viewers, and it passes through several steps on the way.
+- DJI Fly encoding: the biggest step. A 4K recording becomes a 720p or 1080p stream at 1 to 5 Mbps.
+- Controller to receiver: on weak or busy Wi-Fi, lost data appears as frozen frames or grey smears, not as lower resolution.
+- Receiver to platform: if the upload is slower than the stream, the platform shows buffering or drops the stream.
+- Platform processing: YouTube, Instagram and others encode the stream again into lower qualities for viewers on slow connections.
+- Viewer’s player: players often start on a low quality and pick one by the viewer’s connection. Check your own broadcast at the highest quality setting before judging it.
+
+### Can an app make the stream sharper?
+No app can add detail that is not in the stream DJI Fly sends. What a receiver app can do is not make it worse and show you the numbers.
+- Stream My Drone on a phone forwards DJI Fly’s video unchanged to every platform, without encoding it again, so there is no extra loss.
+- Stream My Drone on Mac or Windows encodes the picture again so it can produce the layout you choose, for example a 9:16 vertical frame. A 1080p output from a 720p input is larger, not more detailed.
+- Both show the bitrate they receive and the computer version also the resolution, so you can tell whether a soft picture comes from DJI Fly, the Wi-Fi or the platform.
+
+### Can I live stream 4K from a DJI drone?
+Not through DJI Fly’s livestream: its options stop at 1080p, and at 720p on the RC 2, RC Pro 2 and RC Pro. The aircraft still records its full-quality video while you stream, so the usual approach is to stream live for the moment and publish the 4K recording afterwards as a replay or highlight.
+
+### How much mobile data a drone live stream uses
+| Stream bitrate | Data per hour, one destination | Two destinations |
+| --- | --- | --- |
+| 1 Mbps | about 0.45 GB | about 0.9 GB |
+| 2 Mbps | about 0.9 GB | about 1.8 GB |
+| 3 Mbps | about 1.35 GB | about 2.7 GB |
+| 5 Mbps | about 2.25 GB | about 4.5 GB |
+These are video figures before network overhead and audio. When you stream from a phone to several platforms at once, each destination is a separate upload, so data and upload speed add up per destination.
+Several platforms at once: multistream guide.
+
+### Sources
+Resolution, 720p-only controllers, bitrate options and the DJI RC: DJI Fly App Livestream Operation Guides. Mavic 4 Pro controllers: DJI aircraft linking guide. Checked on November 19, 2026.
+Related: DJI Fly livestream error fixes, DJI Fly RTMP setup and the complete drone live streaming guide.
+
+### FAQ
+**Why is my DJI live stream only 720p?** DJI states that the DJI RC 2 and DJI RC Pro 2 support only 720p for livestreaming because of their hardware, and the DJI RC Pro streams only 720p from DJI Fly 1.18.0. 1080p is offered only on other setups, such as an RC-N controller with a phone.
+
+**Can I change the livestream bitrate in DJI Fly?** Only between the two options DJI Fly offers: 5 or 3 Mbps on Android and 2 or 1 Mbps on iOS. DJI says they are determined by the video transmission frame rate and cannot be adjusted otherwise.
+
+**Does the Mavic 4 Pro live stream in 1080p?** DJI documents the DJI RC 2 and DJI RC Pro 2 as the Mavic 4 Pro’s controllers, and both stream only 720p. Its recordings stay at full quality on the aircraft.
+
+**Why does my drone live stream look blocky when I fly fast?** A livestream of 5 Mbps or less has too little data for fast motion over detailed scenes such as trees, water or crowds. Fly slower and smoother, and check that the Wi-Fi is not dropping data.
+
+**Is iPhone or Android better for DJI Fly live streaming?** With an RC-N controller, Android: DJI Fly offers 5 or 3 Mbps on Android and 2 or 1 Mbps on iOS. The receiving phone can be either, because it forwards what DJI Fly sends.
+
+**Can I live stream 4K from a DJI drone?** Not with DJI Fly’s livestream, which offers at most 1080p. Stream live, and publish the 4K recording from the aircraft afterwards.
+
 ## Which DJI drones can live stream? The full model and controller list
 Source: https://streammydrone.com/blog/which-dji-drones-can-live-stream/ (updated 2026-11-08)
 

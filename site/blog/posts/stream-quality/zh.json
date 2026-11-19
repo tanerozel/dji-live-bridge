@@ -1,0 +1,186 @@
+{
+  "slug": "dji-drone-live-stream-720p-quality",
+  "platform": "DJI 直播画质",
+  "title": "DJI 无人机直播为什么只有 720p？画质上限与解决办法",
+  "description": "DJI Fly 在 RC 2 和 RC Pro 2 上只能 720p 直播，码率在安卓上最高 5 Mbps、iPhone 上最高 2 Mbps。哪些因素决定画质，以及如何获得最清晰的直播画面。",
+  "h1": "DJI 无人机直播为什么只有 720p 或画面模糊？",
+  "lead": "相机可以录制 4K 甚至更高，但限制直播画质的是 <strong>DJI Fly</strong>，而不是相机。DJI 表示 <strong>DJI RC 2</strong> 和 <strong>RC Pro 2</strong> 只支持 <strong>720p</strong> 直播，码率固定为<strong>安卓 5 或 3 Mbps</strong>、<strong>iPhone 2 或 1 Mbps</strong>。这些上限无法提高，但您可以选最好的选项、保护网络，并确认实际收到的画面。",
+  "published": "2026-11-19",
+  "updated": "2026-11-19",
+  "summary": [
+    "直播是一路独立的视频，比飞行器上的录像小得多。它的分辨率和码率由 DJI Fly 和遥控器决定。",
+    "DJI RC 2 和 DJI RC Pro 2 因硬件限制只支持 720p 直播；DJI RC Pro 从 DJI Fly 1.18.0 起只支持 720p。Mavic 4 Pro 使用这两款遥控器，所以直播是 720p。",
+    "DJI Fly 在安卓上提供 5 或 3 Mbps，在 iOS 上提供 2 或 1 Mbps。码率不能手动设置，所以 RC-N 遥控器连接安卓手机的画面最清晰。",
+    "快速飞行时的模糊和马赛克来自低码率，并不是故障。在 5 Mbps 或更低码率下，缓慢平稳的动作效果好得多。",
+    "任何应用都无法补出 DJI Fly 没有发送的细节。手机上的 Stream My Drone 原样转发视频，不会额外损失画质，并显示收到的码率。"
+  ],
+  "sections": [
+    {
+      "id": "limits",
+      "h2": "不同遥控器的直播分辨率与码率",
+      "blocks": [
+        {
+          "p": "DJI 的直播指南给出两个限制。分辨率为 1080p 或 720p，但标明只支持 720p 的遥控器除外。码率取决于运行 DJI Fly 的设备：安卓 5 或 3 Mbps，iOS 2 或 1 Mbps。DJI 说明可选码率由图传帧率决定，无法调节。"
+        },
+        {
+          "table": {
+            "head": ["遥控器", "直播分辨率", "直播码率"],
+            "rows": [
+              ["RC-N1、RC-N2 或 RC-N3 + 安卓手机", "1080p 或 720p", "5 或 3 Mbps"],
+              ["RC-N1、RC-N2 或 RC-N3 + iPhone", "1080p 或 720p", "2 或 1 Mbps"],
+              ["DJI RC 2", "仅 720p（硬件限制）", "以 DJI Fly 显示的选项为准"],
+              ["DJI RC Pro 2", "仅 720p（硬件限制）", "以 DJI Fly 显示的选项为准"],
+              ["DJI RC Pro", "DJI Fly 1.18.0 起仅 720p", "以 DJI Fly 显示的选项为准"],
+              ["DJI RC（初代）", "不支持直播", "—"]
+            ]
+          }
+        },
+        {
+          "p": "对热门机型意味着什么：<strong>Mavic 4 Pro</strong> 搭配 RC 2 或 RC Pro 2 飞行，所以直播是 720p。<strong>Mini 5 Pro</strong>、<strong>Mini 4 Pro</strong> 和 <strong>Air 3S</strong> 用 RC 2 时是 720p，但用 RC-N 遥控器加手机时可以选择 1080p。"
+        },
+        {
+          "note": "按机型查看：<a href=\"../dji-mavic-4-pro-live-stream/\">Mavic 4 Pro</a>、<a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro</a>、<a href=\"../dji-mini-4-pro-live-stream/\">Mini 4 Pro</a>、<a href=\"../dji-air-3s-live-stream/\">Air 3S</a>，或<a href=\"../which-dji-drones-can-live-stream/\">支持直播的 DJI 无人机完整列表</a>。"
+        }
+      ]
+    },
+    {
+      "id": "sharpest",
+      "h2": "6 步获得 DJI Fly 允许的最清晰直播",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "在 DJI Fly 中选择最高选项",
+              "d": "在 RTMP 直播界面，如有 1080p 就把 Livestream Resolution 设为 1080p，并把 Livestream Bitrate 设为较高的值。更新 DJI Fly 后请再次检查，选项可能会变化。"
+            },
+            {
+              "t": "RC-N 遥控器优先用安卓手机",
+              "d": "使用 RC-N1、RC-N2 或 RC-N3 时，安卓手机最高 5 Mbps，iPhone 最高 2 Mbps。如果两种都有，用安卓手机飞行，用另一台设备接收。"
+            },
+            {
+              "t": "让接收设备靠近稳定的网络",
+              "d": "使用 5 GHz Wi-Fi 或手机热点，让遥控器和接收设备靠近它，避免访客 Wi-Fi。丢失的数据会表现为画面卡住或拖影。"
+            },
+            {
+              "t": "确认实际收到的画面",
+              "d": "Stream My Drone 显示从 DJI Fly 收到的码率并统计卡顿次数；在 Mac 和 Windows 上还会显示分辨率。如果看到约 5,000 kbps 且没有卡顿，您已经拿到了该配置下 DJI Fly 能发送的最佳画面。"
+            },
+            {
+              "t": "确保上行带宽足够",
+              "d": "接收设备会把直播重新上传到每个平台。每个目的地至少要预留直播码率再加安全余量；两个 5 Mbps 的目的地需要明显高于 10 Mbps 的上行。"
+            },
+            {
+              "t": "按码率调整飞行方式",
+              "d": "在 5 Mbps 或更低码率下，快速转向以及低空掠过树木、水面和人群都会出现马赛克。缓慢平稳的动作和更高的高度能让观众看到干净的画面。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "where-lost",
+      "h2": "直播画质在哪里损失",
+      "blocks": [
+        {
+          "p": "请区分三路视频：飞行器上录制的文件、遥控器上的实时画面，以及 DJI Fly 发送的 RTMP 直播流。只有最后一路会到达观众，而且途中要经过好几个环节。"
+        },
+        {
+          "list": [
+            "<strong>DJI Fly 编码：</strong>损失最大的一步。4K 录像变成 1 到 5 Mbps 的 720p 或 1080p 直播。",
+            "<strong>遥控器到接收设备：</strong>在信号弱或拥挤的 Wi-Fi 上，丢失的数据表现为画面卡住或灰色拖影，而不是分辨率降低。",
+            "<strong>接收设备到平台：</strong>如果上行速度低于直播码率，平台会缓冲或中断直播。",
+            "<strong>平台处理：</strong>YouTube、Instagram 等平台会为网络较慢的观众把直播重新编码成更低的清晰度。",
+            "<strong>观众的播放器：</strong>播放器常常从低清晰度开始，并根据网络选择清晰度。评价直播前，请先用最高清晰度观看自己的直播。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "app",
+      "h2": "应用能让直播更清晰吗？",
+      "blocks": [
+        {
+          "p": "任何应用都无法补出 DJI Fly 直播流中没有的细节。接收应用能做的是不让画质变差，并把数据显示给您。"
+        },
+        {
+          "list": [
+            "<strong>手机上的 Stream My Drone</strong> 不重新编码，把 DJI Fly 的视频原样转发到每个平台，不会额外损失画质。",
+            "<strong>Mac 或 Windows 上的 Stream My Drone</strong> 会重新编码画面，以生成您选择的版式，例如 9:16 竖屏。把 720p 输入输出成 1080p 只是更大，并不会更清晰。",
+            "两者都显示收到的码率，电脑版还显示分辨率，帮您判断画面发虚是来自 DJI Fly、Wi-Fi 还是平台。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4k",
+      "h2": "DJI 无人机能 4K 直播吗？",
+      "blocks": [
+        {
+          "p": "通过 DJI Fly 直播不行：选项最高到 1080p，在 RC 2、RC Pro 2 和 RC Pro 上最高 720p。直播时飞行器仍以全画质录像，所以常见做法是先直播当下，之后再把 4K 录像作为回放或精彩片段发布。"
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "h2": "无人机直播会用掉多少移动数据",
+      "blocks": [
+        {
+          "table": {
+            "head": ["直播码率", "每小时流量（1 个目的地）", "2 个目的地"],
+            "rows": [
+              ["1 Mbps", "约 0.45 GB", "约 0.9 GB"],
+              ["2 Mbps", "约 0.9 GB", "约 1.8 GB"],
+              ["3 Mbps", "约 1.35 GB", "约 2.7 GB"],
+              ["5 Mbps", "约 2.25 GB", "约 4.5 GB"]
+            ]
+          }
+        },
+        {
+          "p": "以上为视频本身的数据量，不含网络开销和音频。用手机同时推流到多个平台时，每个目的地都是一路单独上传，流量和上行速度按目的地数量累加。"
+        },
+        {
+          "note": "同时推流到多个平台：<a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">多平台直播指南</a>。"
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "资料来源",
+      "blocks": [
+        {
+          "p": "分辨率、仅支持 720p 的遥控器、码率选项和 DJI RC：<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>。Mavic 4 Pro 遥控器：<a href=\"https://repair.dji.com/help/content?customId=en-us03400006734&amp;lang=en&amp;re=us&amp;spaceId=34\">DJI 对频指南</a>。2026 年 11 月 19 日核实。"
+        },
+        {
+          "p": "相关文章：<a href=\"../dji-fly-livestream-error-fix/\">DJI Fly 直播错误的解决方法</a>、<a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 设置</a>和<a href=\"../how-to-live-stream-from-a-drone/\">无人机直播完整指南</a>。"
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "为什么我的 DJI 直播只有 720p？",
+      "a": "DJI 表示 DJI RC 2 和 DJI RC Pro 2 因硬件限制只支持 720p 直播，DJI RC Pro 从 DJI Fly 1.18.0 起只支持 720p。只有在其他配置下才能选 1080p，例如 RC-N 遥控器加手机。"
+    },
+    {
+      "q": "能在 DJI Fly 里修改直播码率吗？",
+      "a": "只能在 DJI Fly 提供的两个选项之间选择：安卓 5 或 3 Mbps，iOS 2 或 1 Mbps。DJI 表示这些选项由图传帧率决定，无法用其他方式调节。"
+    },
+    {
+      "q": "Mavic 4 Pro 能 1080p 直播吗？",
+      "a": "DJI 给出的 Mavic 4 Pro 遥控器是 DJI RC 2 和 DJI RC Pro 2，两者都只能 720p 直播。录像仍以全画质保存在飞行器上。"
+    },
+    {
+      "q": "为什么快速飞行时无人机直播会出现马赛克？",
+      "a": "5 Mbps 或更低的直播码率不足以承载在树木、水面、人群等细节丰富的场景上快速运动的画面。飞得更慢更平稳，并检查 Wi-Fi 是否在丢数据。"
+    },
+    {
+      "q": "DJI Fly 直播用 iPhone 好还是安卓好？",
+      "a": "使用 RC-N 遥控器时安卓更好：DJI Fly 在安卓上提供 5 或 3 Mbps，在 iOS 上提供 2 或 1 Mbps。接收直播的手机用哪种都可以，因为它只是转发 DJI Fly 发来的内容。"
+    },
+    {
+      "q": "DJI 无人机能 4K 直播吗？",
+      "a": "不能用 DJI Fly 直播实现，它最高只有 1080p。先直播，之后再发布飞行器上的 4K 录像。"
+    }
+  ]
+}

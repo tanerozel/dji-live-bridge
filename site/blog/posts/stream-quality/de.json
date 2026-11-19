@@ -1,0 +1,186 @@
+{
+  "slug": "dji-drohne-livestream-720p-qualitaet",
+  "platform": "DJI-Livestream-Qualität",
+  "title": "Warum ist mein DJI-Drohnen-Livestream nur 720p? Grenzen und Lösungen",
+  "description": "DJI Fly streamt mit RC 2 und RC Pro 2 nur in 720p, bei höchstens 5 Mbit/s (Android) bzw. 2 Mbit/s (iPhone). So holen Sie das schärfste Bild heraus.",
+  "h1": "Warum ist mein DJI-Drohnen-Livestream nur 720p oder unscharf?",
+  "lead": "Die Kamera nimmt in 4K oder mehr auf, doch den Livestream begrenzt <strong>DJI Fly</strong>, nicht die Kamera. Laut DJI streamen die <strong>DJI RC 2</strong> und <strong>RC Pro 2</strong> nur in <strong>720p</strong>, und die Bitrate ist fest auf <strong>5 oder 3 Mbit/s unter Android</strong> und <strong>2 oder 1 Mbit/s auf dem iPhone</strong>. Diese Grenzen lassen sich nicht anheben, aber Sie können die besten Optionen wählen, das Netzwerk absichern und prüfen, was wirklich ankommt.",
+  "published": "2026-11-19",
+  "updated": "2026-11-19",
+  "summary": [
+    "Der Livestream ist ein eigenes, viel kleineres Video als die Aufnahme im Fluggerät. Auflösung und Bitrate legen DJI Fly und die Fernsteuerung fest.",
+    "DJI RC 2 und DJI RC Pro 2 streamen wegen ihrer Hardware nur in 720p; die DJI RC Pro streamt ab DJI Fly 1.18.0 nur in 720p. Die Mavic 4 Pro nutzt diese Fernsteuerungen, ihr Stream ist also 720p.",
+    "DJI Fly bietet 5 oder 3 Mbit/s unter Android und 2 oder 1 Mbit/s unter iOS. Die Bitrate lässt sich nicht von Hand einstellen, daher liefert ein Android-Handy an einer RC-N-Fernsteuerung das schärfste Bild.",
+    "Unschärfe und Blöcke bei schnellem Flug kommen von der niedrigen Bitrate, nicht von einem Defekt. Langsame, ruhige Bewegungen sehen bei 5 Mbit/s oder weniger deutlich besser aus.",
+    "Keine App kann Details hinzufügen, die DJI Fly nicht gesendet hat. Stream My Drone auf dem Handy leitet das Video unverändert weiter, verliert also nichts zusätzlich, und zeigt die ankommende Bitrate."
+  ],
+  "sections": [
+    {
+      "id": "limits",
+      "h2": "Livestream-Auflösung und Bitrate nach Fernsteuerung",
+      "blocks": [
+        {
+          "p": "DJIs Livestream-Anleitung nennt zwei Grenzen. Die Auflösung ist 1080p oder 720p, außer bei den Fernsteuerungen, die DJI als reine 720p-Geräte nennt. Die Bitrate hängt vom Gerät ab, auf dem DJI Fly läuft: 5 oder 3 Mbit/s unter Android, 2 oder 1 Mbit/s unter iOS. Laut DJI bestimmt die Bildrate der Videoübertragung die verfügbaren Bitraten, und sie lassen sich nicht anpassen."
+        },
+        {
+          "table": {
+            "head": ["Fernsteuerung", "Livestream-Auflösung", "Livestream-Bitrate"],
+            "rows": [
+              ["RC-N1, RC-N2 oder RC-N3 mit Android-Handy", "1080p oder 720p", "5 oder 3 Mbit/s"],
+              ["RC-N1, RC-N2 oder RC-N3 mit iPhone", "1080p oder 720p", "2 oder 1 Mbit/s"],
+              ["DJI RC 2", "Nur 720p (Hardware-Grenze)", "Die Optionen, die DJI Fly anzeigt"],
+              ["DJI RC Pro 2", "Nur 720p (Hardware-Grenze)", "Die Optionen, die DJI Fly anzeigt"],
+              ["DJI RC Pro", "Nur 720p ab DJI Fly 1.18.0", "Die Optionen, die DJI Fly anzeigt"],
+              ["DJI RC (erstes Modell)", "Kein Livestream", "—"]
+            ]
+          }
+        },
+        {
+          "p": "Was das für beliebte Drohnen heißt: Die <strong>Mavic 4 Pro</strong> fliegt mit RC 2 oder RC Pro 2, ihr Stream ist also 720p. <strong>Mini 5 Pro</strong>, <strong>Mini 4 Pro</strong> und <strong>Air 3S</strong> streamen mit der RC 2 in 720p, können mit einer RC-N-Fernsteuerung und einem Handy aber 1080p anbieten."
+        },
+        {
+          "note": "Modell für Modell: <a href=\"../dji-mavic-4-pro-livestream/\">Mavic 4 Pro</a>, <a href=\"../dji-mini-5-pro-livestream/\">Mini 5 Pro</a>, <a href=\"../dji-mini-4-pro-livestream/\">Mini 4 Pro</a>, <a href=\"../dji-air-3s-livestream/\">Air 3S</a> oder die vollständige <a href=\"../welche-dji-drohnen-koennen-live-streamen/\">Liste der livestreamfähigen DJI-Drohnen</a>."
+        }
+      ]
+    },
+    {
+      "id": "sharpest",
+      "h2": "Das schärfste Bild, das DJI Fly erlaubt, in 6 Schritten",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "Die höchsten Optionen in DJI Fly wählen",
+              "d": "Stellen Sie im RTMP-Livestream-Bildschirm Livestream Resolution auf 1080p, wenn angeboten, und Livestream Bitrate auf den höheren Wert. Prüfen Sie nach einem DJI-Fly-Update erneut; die Optionen können sich ändern."
+            },
+            {
+              "t": "An einer RC-N-Fernsteuerung Android bevorzugen",
+              "d": "Mit RC-N1, RC-N2 oder RC-N3 bietet ein Android-Handy bis zu 5 Mbit/s, ein iPhone bis zu 2 Mbit/s. Haben Sie beides, fliegen Sie mit dem Android-Handy und empfangen auf dem anderen Gerät."
+            },
+            {
+              "t": "Den Empfänger nah an einem starken Netz halten",
+              "d": "Nutzen Sie 5-GHz-WLAN oder einen Handy-Hotspot, halten Sie Fernsteuerung und Empfänger in der Nähe und meiden Sie Gast-WLAN. Verlorene Daten erscheinen als eingefrorene oder verschmierte Bilder."
+            },
+            {
+              "t": "Prüfen, was wirklich ankommt",
+              "d": "Stream My Drone zeigt die von DJI Fly empfangene Bitrate und zählt Aussetzer; auf Mac und Windows zeigt es auch die Auflösung. Sehen Sie etwa 5.000 kbit/s ohne Aussetzer, bekommen Sie bereits das Beste, was DJI Fly mit diesem Setup senden kann."
+            },
+            {
+              "t": "Für genug Upload sorgen",
+              "d": "Der Empfänger lädt den Stream für jede Plattform erneut hoch. Planen Sie pro Ziel mindestens die Stream-Bitrate plus eine sichere Reserve; zwei Ziele mit 5 Mbit/s brauchen deutlich mehr als 10 Mbit/s Upload."
+            },
+            {
+              "t": "Passend zur Bitrate fliegen",
+              "d": "Bei 5 Mbit/s oder weniger werden schnelle Drehungen und tiefe Überflüge über Bäume, Wasser und Menschenmengen zu Blöcken. Langsame, ruhige Bewegungen und mehr Höhe halten das Bild für Zuschauer sauber."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "where-lost",
+      "h2": "Wo die Livestream-Qualität verloren geht",
+      "blocks": [
+        {
+          "p": "Unterscheiden Sie drei Videos: die Datei, die im Fluggerät aufgezeichnet wird, das Livebild auf der Fernsteuerung und den RTMP-Stream, den DJI Fly sendet. Nur der letzte erreicht Ihre Zuschauer, und er durchläuft unterwegs mehrere Stationen."
+        },
+        {
+          "list": [
+            "<strong>Kodierung in DJI Fly:</strong> der größte Schritt. Aus einer 4K-Aufnahme wird ein 720p- oder 1080p-Stream mit 1 bis 5 Mbit/s.",
+            "<strong>Fernsteuerung zum Empfänger:</strong> In schwachem oder vollem WLAN zeigen sich verlorene Daten als eingefrorene Bilder oder graue Schlieren, nicht als geringere Auflösung.",
+            "<strong>Empfänger zur Plattform:</strong> Ist der Upload langsamer als der Stream, puffert die Plattform oder bricht den Stream ab.",
+            "<strong>Verarbeitung der Plattform:</strong> YouTube, Instagram und andere kodieren den Stream erneut in niedrigere Qualitäten für Zuschauer mit langsamer Verbindung.",
+            "<strong>Player der Zuschauer:</strong> Player starten oft mit niedriger Qualität und wählen nach der Verbindung. Sehen Sie Ihre Übertragung in der höchsten Qualitätsstufe an, bevor Sie sie beurteilen."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "app",
+      "h2": "Kann eine App den Stream schärfer machen?",
+      "blocks": [
+        {
+          "p": "Keine App kann Details hinzufügen, die nicht im Stream von DJI Fly stecken. Eine Empfänger-App kann ihn nur nicht verschlechtern und Ihnen die Zahlen zeigen."
+        },
+        {
+          "list": [
+            "<strong>Stream My Drone auf dem Handy</strong> leitet das Video von DJI Fly unverändert und ohne erneute Kodierung an jede Plattform weiter; es entsteht kein zusätzlicher Verlust.",
+            "<strong>Stream My Drone auf Mac oder Windows</strong> kodiert das Bild neu, um das gewählte Layout zu erzeugen, etwa ein vertikales 9:16-Bild. Eine 1080p-Ausgabe aus einem 720p-Eingang ist größer, nicht detailreicher.",
+            "Beide zeigen die empfangene Bitrate, die Computerversion auch die Auflösung. So erkennen Sie, ob ein weiches Bild von DJI Fly, vom WLAN oder von der Plattform kommt."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4k",
+      "h2": "Kann ich mit einer DJI-Drohne in 4K live streamen?",
+      "blocks": [
+        {
+          "p": "Nicht über den Livestream von DJI Fly: Seine Optionen enden bei 1080p und bei 720p auf RC 2, RC Pro 2 und RC Pro. Das Fluggerät zeichnet während des Streams weiter in voller Qualität auf. Üblich ist daher, den Moment live zu zeigen und die 4K-Aufnahme danach als Wiederholung oder Highlight zu veröffentlichen."
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "h2": "Wie viel mobile Daten ein Drohnen-Livestream verbraucht",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Stream-Bitrate", "Daten pro Stunde, ein Ziel", "Zwei Ziele"],
+            "rows": [
+              ["1 Mbit/s", "etwa 0,45 GB", "etwa 0,9 GB"],
+              ["2 Mbit/s", "etwa 0,9 GB", "etwa 1,8 GB"],
+              ["3 Mbit/s", "etwa 1,35 GB", "etwa 2,7 GB"],
+              ["5 Mbit/s", "etwa 2,25 GB", "etwa 4,5 GB"]
+            ]
+          }
+        },
+        {
+          "p": "Das sind Videowerte ohne Netzwerk-Overhead und Ton. Streamen Sie vom Handy auf mehrere Plattformen gleichzeitig, ist jedes Ziel ein eigener Upload; Datenmenge und Upload-Geschwindigkeit addieren sich pro Ziel."
+        },
+        {
+          "note": "Mehrere Plattformen gleichzeitig: <a href=\"../dji-drohne-auf-mehreren-plattformen-gleichzeitig-streamen/\">Multistream-Anleitung</a>."
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Quellen",
+      "blocks": [
+        {
+          "p": "Auflösung, reine 720p-Fernsteuerungen, Bitrate-Optionen und DJI RC: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Fernsteuerungen der Mavic 4 Pro: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006734&amp;lang=en&amp;re=us&amp;spaceId=34\">DJI-Anleitung zur Kopplung</a>. Geprüft am 19. November 2026."
+        },
+        {
+          "p": "Verwandt: <a href=\"../dji-fly-livestream-fehler-loesung/\">DJI-Fly-Livestream-Fehler beheben</a>, <a href=\"../dji-fly-rtmp-livestream-einrichten/\">DJI Fly RTMP einrichten</a> und die <a href=\"../mit-einer-drohne-live-streamen/\">vollständige Anleitung zum Drohnen-Livestream</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Warum ist mein DJI-Livestream nur 720p?",
+      "a": "Laut DJI unterstützen DJI RC 2 und DJI RC Pro 2 wegen ihrer Hardware nur 720p im Livestream, und die DJI RC Pro streamt ab DJI Fly 1.18.0 nur 720p. 1080p gibt es nur bei anderen Setups, etwa einer RC-N-Fernsteuerung mit Handy."
+    },
+    {
+      "q": "Kann ich die Livestream-Bitrate in DJI Fly ändern?",
+      "a": "Nur zwischen den zwei Optionen, die DJI Fly anbietet: 5 oder 3 Mbit/s unter Android und 2 oder 1 Mbit/s unter iOS. Laut DJI bestimmt sie die Bildrate der Videoübertragung, anders lassen sie sich nicht einstellen."
+    },
+    {
+      "q": "Streamt die Mavic 4 Pro in 1080p?",
+      "a": "DJI nennt DJI RC 2 und DJI RC Pro 2 als Fernsteuerungen der Mavic 4 Pro, und beide streamen nur in 720p. Die Aufnahmen bleiben im Fluggerät in voller Qualität."
+    },
+    {
+      "q": "Warum wirkt mein Drohnen-Stream bei schnellem Flug blockig?",
+      "a": "Ein Livestream mit 5 Mbit/s oder weniger hat zu wenig Daten für schnelle Bewegung über detailreichen Motiven wie Bäumen, Wasser oder Menschenmengen. Fliegen Sie langsamer und ruhiger und prüfen Sie, ob das WLAN Daten verliert."
+    },
+    {
+      "q": "Ist iPhone oder Android besser für den DJI-Fly-Livestream?",
+      "a": "Mit einer RC-N-Fernsteuerung Android: DJI Fly bietet unter Android 5 oder 3 Mbit/s und unter iOS 2 oder 1 Mbit/s. Das empfangende Handy kann beides sein, denn es leitet weiter, was DJI Fly sendet."
+    },
+    {
+      "q": "Kann ich mit einer DJI-Drohne in 4K live streamen?",
+      "a": "Nicht mit dem Livestream von DJI Fly, der höchstens 1080p bietet. Streamen Sie live und veröffentlichen Sie die 4K-Aufnahme aus dem Fluggerät danach."
+    }
+  ]
+}

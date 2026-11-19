@@ -1,0 +1,186 @@
+{
+  "slug": "dji-drone-live-stream-720p-quality",
+  "platform": "DJI 라이브 방송 화질",
+  "title": "DJI 드론 라이브 방송이 720p밖에 안 나오는 이유: 화질 한계와 해결법",
+  "description": "DJI Fly는 RC 2와 RC Pro 2에서 720p로 방송하고, 비트레이트는 안드로이드 최대 5Mbps, 아이폰 최대 2Mbps입니다. 화질을 결정하는 요소와 가장 선명하게 방송하는 방법을 정리했습니다.",
+  "h1": "DJI 드론 라이브 방송이 720p밖에 안 나오거나 흐릿한 이유는?",
+  "lead": "카메라는 4K 이상으로 녹화하지만, 라이브 방송을 제한하는 것은 카메라가 아니라 <strong>DJI Fly</strong>입니다. DJI에 따르면 <strong>DJI RC 2</strong>와 <strong>RC Pro 2</strong>는 <strong>720p</strong>로만 방송하며, 비트레이트는 <strong>안드로이드 5 또는 3Mbps</strong>, <strong>아이폰 2 또는 1Mbps</strong>로 고정입니다. 이 한계는 올릴 수 없지만, 가장 좋은 옵션을 고르고 네트워크를 지키고 실제로 도착하는 영상을 확인할 수는 있습니다.",
+  "published": "2026-11-19",
+  "updated": "2026-11-19",
+  "summary": [
+    "라이브 방송은 기체에 녹화되는 영상과 별개인, 훨씬 작은 영상입니다. 해상도와 비트레이트는 DJI Fly와 조종기가 정합니다.",
+    "DJI RC 2와 DJI RC Pro 2는 하드웨어 한계로 720p만 방송하고, DJI RC Pro는 DJI Fly 1.18.0부터 720p만 방송합니다. Mavic 4 Pro는 이 조종기를 쓰므로 방송은 720p입니다.",
+    "DJI Fly는 안드로이드에서 5 또는 3Mbps, iOS에서 2 또는 1Mbps를 제공합니다. 비트레이트는 직접 설정할 수 없으므로 RC-N 조종기에 안드로이드 폰을 연결하는 것이 가장 선명합니다.",
+    "빠르게 비행할 때 생기는 흐림과 블록은 고장이 아니라 낮은 비트레이트 때문입니다. 5Mbps 이하에서는 느리고 부드러운 움직임이 훨씬 보기 좋습니다.",
+    "DJI Fly가 보내지 않은 디테일을 앱이 더할 수는 없습니다. 휴대폰용 Stream My Drone은 영상을 그대로 전달해 추가 손실이 없고, 들어오는 비트레이트를 보여줍니다."
+  ],
+  "sections": [
+    {
+      "id": "limits",
+      "h2": "조종기별 라이브 방송 해상도와 비트레이트",
+      "blocks": [
+        {
+          "p": "DJI의 라이브 방송 가이드에는 두 가지 한계가 있습니다. 해상도는 1080p 또는 720p이며, 720p 전용으로 명시된 조종기는 예외입니다. 비트레이트는 DJI Fly가 실행되는 기기에 따라 안드로이드 5 또는 3Mbps, iOS 2 또는 1Mbps입니다. DJI는 선택 가능한 비트레이트가 영상 전송 프레임 레이트로 정해지며 조정할 수 없다고 설명합니다."
+        },
+        {
+          "table": {
+            "head": ["조종기", "라이브 방송 해상도", "라이브 방송 비트레이트"],
+            "rows": [
+              ["RC-N1, RC-N2, RC-N3 + 안드로이드 폰", "1080p 또는 720p", "5 또는 3Mbps"],
+              ["RC-N1, RC-N2, RC-N3 + 아이폰", "1080p 또는 720p", "2 또는 1Mbps"],
+              ["DJI RC 2", "720p 전용(하드웨어 한계)", "DJI Fly에 표시되는 옵션"],
+              ["DJI RC Pro 2", "720p 전용(하드웨어 한계)", "DJI Fly에 표시되는 옵션"],
+              ["DJI RC Pro", "DJI Fly 1.18.0부터 720p 전용", "DJI Fly에 표시되는 옵션"],
+              ["DJI RC(1세대)", "라이브 방송 미지원", "—"]
+            ]
+          }
+        },
+        {
+          "p": "인기 기종에서의 의미: <strong>Mavic 4 Pro</strong>는 RC 2 또는 RC Pro 2로 비행하므로 방송은 720p입니다. <strong>Mini 5 Pro</strong>, <strong>Mini 4 Pro</strong>, <strong>Air 3S</strong>는 RC 2에서는 720p지만, RC-N 조종기와 휴대폰으로는 1080p를 선택할 수 있습니다."
+        },
+        {
+          "note": "기종별 가이드: <a href=\"../dji-mavic-4-pro-live-stream/\">Mavic 4 Pro</a>, <a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro</a>, <a href=\"../dji-mini-4-pro-live-stream/\">Mini 4 Pro</a>, <a href=\"../dji-air-3s-live-stream/\">Air 3S</a> 또는 <a href=\"../which-dji-drones-can-live-stream/\">라이브 방송이 가능한 DJI 드론 전체 목록</a>."
+        }
+      ]
+    },
+    {
+      "id": "sharpest",
+      "h2": "DJI Fly가 허용하는 가장 선명한 방송을 위한 6단계",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "DJI Fly에서 가장 높은 옵션 선택",
+              "d": "RTMP 라이브 방송 화면에서 Livestream Resolution이 있으면 1080p로, Livestream Bitrate는 높은 값으로 설정하세요. DJI Fly를 업데이트한 뒤에는 다시 확인하세요. 옵션이 바뀔 수 있습니다."
+            },
+            {
+              "t": "RC-N 조종기에는 안드로이드 사용",
+              "d": "RC-N1, RC-N2, RC-N3에서 안드로이드 폰은 최대 5Mbps, 아이폰은 최대 2Mbps입니다. 둘 다 있다면 안드로이드로 비행하고 다른 기기로 수신하세요."
+            },
+            {
+              "t": "수신 기기를 강한 네트워크 가까이에 두기",
+              "d": "5GHz Wi-Fi나 휴대폰 핫스팟을 쓰고, 조종기와 수신 기기를 가까이 두며, 게스트 Wi-Fi는 피하세요. 데이터가 빠지면 화면이 멈추거나 번져 보입니다."
+            },
+            {
+              "t": "실제로 도착하는 영상 확인",
+              "d": "Stream My Drone은 DJI Fly에서 받은 비트레이트를 보여주고 끊김 횟수를 셉니다. Mac과 Windows에서는 해상도도 보여줍니다. 끊김 없이 약 5,000kbps가 보이면 그 구성에서 DJI Fly가 보낼 수 있는 최선을 이미 받고 있는 것입니다."
+            },
+            {
+              "t": "업로드 속도가 충분한지 확인",
+              "d": "수신 기기는 플랫폼마다 방송을 다시 업로드합니다. 목적지마다 최소한 방송 비트레이트에 여유분을 더해 계획하세요. 5Mbps 목적지 두 곳이면 업로드가 10Mbps를 넉넉히 넘어야 합니다."
+            },
+            {
+              "t": "비트레이트에 맞춰 비행",
+              "d": "5Mbps 이하에서는 빠른 선회나 나무, 물, 인파 위 저공비행이 블록으로 깨집니다. 느리고 안정적인 움직임과 높은 고도가 시청자에게 깨끗한 화면을 보여줍니다."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "where-lost",
+      "h2": "라이브 방송 화질은 어디서 떨어질까",
+      "blocks": [
+        {
+          "p": "세 가지 영상을 구분하세요. 기체에 녹화되는 파일, 조종기의 라이브 화면, DJI Fly가 보내는 RTMP 방송입니다. 시청자에게 닿는 것은 마지막 하나뿐이며, 가는 길에 여러 단계를 거칩니다."
+        },
+        {
+          "list": [
+            "<strong>DJI Fly 인코딩:</strong> 가장 큰 단계입니다. 4K 녹화가 1~5Mbps의 720p 또는 1080p 방송이 됩니다.",
+            "<strong>조종기에서 수신 기기까지:</strong> 약하거나 붐비는 Wi-Fi에서는 빠진 데이터가 해상도 저하가 아니라 멈춘 화면이나 회색 얼룩으로 나타납니다.",
+            "<strong>수신 기기에서 플랫폼까지:</strong> 업로드가 방송보다 느리면 플랫폼이 버퍼링하거나 방송을 끊습니다.",
+            "<strong>플랫폼 처리:</strong> YouTube, Instagram 등은 느린 회선의 시청자를 위해 방송을 더 낮은 화질로 다시 인코딩합니다.",
+            "<strong>시청자 플레이어:</strong> 플레이어는 흔히 낮은 화질로 시작해 회선에 맞춰 화질을 고릅니다. 평가하기 전에 최고 화질로 내 방송을 확인하세요."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "app",
+      "h2": "앱으로 방송을 더 선명하게 만들 수 있을까?",
+      "blocks": [
+        {
+          "p": "DJI Fly가 보낸 방송에 없는 디테일을 앱이 더할 수는 없습니다. 수신 앱이 할 수 있는 것은 화질을 떨어뜨리지 않고 수치를 보여주는 것입니다."
+        },
+        {
+          "list": [
+            "<strong>휴대폰용 Stream My Drone</strong>은 DJI Fly 영상을 다시 인코딩하지 않고 그대로 각 플랫폼에 전달하므로 추가 손실이 없습니다.",
+            "<strong>Mac·Windows용 Stream My Drone</strong>은 선택한 레이아웃(예: 9:16 세로 화면)을 만들기 위해 영상을 다시 인코딩합니다. 720p 입력을 1080p로 출력해도 커질 뿐 더 선명해지지는 않습니다.",
+            "둘 다 수신 비트레이트를 보여주고, 컴퓨터 버전은 해상도도 보여줍니다. 흐린 화면이 DJI Fly, Wi-Fi, 플랫폼 중 어디서 왔는지 알 수 있습니다."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4k",
+      "h2": "DJI 드론으로 4K 라이브 방송이 가능할까?",
+      "blocks": [
+        {
+          "p": "DJI Fly 라이브 방송으로는 불가능합니다. 옵션은 1080p까지이고, RC 2, RC Pro 2, RC Pro에서는 720p까지입니다. 방송 중에도 기체는 최고 화질로 계속 녹화하므로, 순간은 라이브로 전하고 4K 녹화는 나중에 다시보기나 하이라이트로 올리는 것이 일반적입니다."
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "h2": "드론 라이브 방송이 쓰는 모바일 데이터",
+      "blocks": [
+        {
+          "table": {
+            "head": ["방송 비트레이트", "시간당 데이터, 목적지 1곳", "목적지 2곳"],
+            "rows": [
+              ["1Mbps", "약 0.45GB", "약 0.9GB"],
+              ["2Mbps", "약 0.9GB", "약 1.8GB"],
+              ["3Mbps", "약 1.35GB", "약 2.7GB"],
+              ["5Mbps", "약 2.25GB", "약 4.5GB"]
+            ]
+          }
+        },
+        {
+          "p": "네트워크 오버헤드와 오디오를 뺀 영상 수치입니다. 휴대폰에서 여러 플랫폼에 동시에 방송하면 목적지마다 별도로 업로드하므로, 데이터와 업로드 속도가 목적지 수만큼 늘어납니다."
+        },
+        {
+          "note": "여러 플랫폼에 동시에: <a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">멀티스트리밍 가이드</a>."
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "출처",
+      "blocks": [
+        {
+          "p": "해상도, 720p 전용 조종기, 비트레이트 옵션, DJI RC: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Mavic 4 Pro 조종기: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006734&amp;lang=en&amp;re=us&amp;spaceId=34\">DJI 연동 가이드</a>. 2026년 11월 19일 확인."
+        },
+        {
+          "p": "관련 글: <a href=\"../dji-fly-livestream-error-fix/\">DJI Fly 라이브 방송 오류 해결</a>, <a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI Fly RTMP 설정</a>, <a href=\"../how-to-live-stream-from-a-drone/\">드론 라이브 방송 완벽 가이드</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "DJI 라이브 방송이 720p밖에 안 나오는 이유는?",
+      "a": "DJI에 따르면 DJI RC 2와 DJI RC Pro 2는 하드웨어 한계로 라이브 방송에서 720p만 지원하고, DJI RC Pro는 DJI Fly 1.18.0부터 720p만 지원합니다. 1080p는 RC-N 조종기와 휴대폰 같은 다른 구성에서만 선택할 수 있습니다."
+    },
+    {
+      "q": "DJI Fly에서 라이브 방송 비트레이트를 바꿀 수 있나요?",
+      "a": "DJI Fly가 제공하는 두 가지 옵션 사이에서만 가능합니다. 안드로이드는 5 또는 3Mbps, iOS는 2 또는 1Mbps입니다. DJI는 이것이 영상 전송 프레임 레이트로 정해지며 다른 방법으로는 조정할 수 없다고 합니다."
+    },
+    {
+      "q": "Mavic 4 Pro는 1080p로 라이브 방송할 수 있나요?",
+      "a": "DJI는 Mavic 4 Pro의 조종기로 DJI RC 2와 DJI RC Pro 2를 안내하며, 둘 다 720p로만 방송합니다. 녹화는 기체에 최고 화질로 남습니다."
+    },
+    {
+      "q": "빠르게 비행하면 드론 방송이 깍두기처럼 깨지는 이유는?",
+      "a": "5Mbps 이하의 라이브 방송은 나무, 물, 인파처럼 디테일이 많은 장면 위를 빠르게 움직이기에는 데이터가 부족합니다. 더 느리고 부드럽게 비행하고, Wi-Fi에서 데이터가 빠지지 않는지 확인하세요."
+    },
+    {
+      "q": "DJI Fly 라이브 방송에는 아이폰과 안드로이드 중 무엇이 좋나요?",
+      "a": "RC-N 조종기라면 안드로이드입니다. DJI Fly는 안드로이드에서 5 또는 3Mbps, iOS에서 2 또는 1Mbps를 제공합니다. 수신하는 휴대폰은 어느 쪽이든 괜찮습니다. DJI Fly가 보낸 것을 그대로 전달하기 때문입니다."
+    },
+    {
+      "q": "DJI 드론으로 4K 라이브 방송이 가능할까?",
+      "a": "최대 1080p인 DJI Fly 라이브 방송으로는 불가능합니다. 라이브로 방송하고, 기체의 4K 녹화는 나중에 올리세요."
+    }
+  ]
+}

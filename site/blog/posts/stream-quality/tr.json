@@ -1,0 +1,186 @@
+{
+  "slug": "dji-drone-canli-yayin-720p-kalite",
+  "platform": "DJI canlı yayın kalitesi",
+  "title": "DJI drone canlı yayınım neden sadece 720p? Kalite sınırları ve çözümler",
+  "description": "DJI Fly, RC 2 ve RC Pro 2'de 720p yayın yapar; bit hızı Android'de en fazla 5, iPhone'da 2 Mbps'dir. Kaliteyi neyin belirlediği ve en net yayını nasıl alacağınız.",
+  "h1": "DJI drone canlı yayınım neden sadece 720p ya da bulanık?",
+  "lead": "Kamera 4K ve üzerinde kayıt yapar, ama canlı yayını kamera değil <strong>DJI Fly</strong> sınırlar. DJI'a göre <strong>DJI RC 2</strong> ve <strong>RC Pro 2</strong> yalnızca <strong>720p</strong> yayın yapar; bit hızı <strong>Android'de 5 veya 3 Mbps</strong>, <strong>iPhone'da 2 veya 1 Mbps</strong> ile sabittir. Bu sınırları yükseltemezsiniz, ama en iyi seçenekleri seçebilir, ağı koruyabilir ve gerçekte ne ulaştığını kontrol edebilirsiniz.",
+  "published": "2026-11-19",
+  "updated": "2026-11-19",
+  "summary": [
+    "Canlı yayın, hava aracındaki kayıttan ayrı ve çok daha küçük bir videodur. Çözünürlüğünü ve bit hızını DJI Fly ve kumanda belirler.",
+    "DJI RC 2 ve DJI RC Pro 2 donanım nedeniyle yalnızca 720p yayın yapar; DJI RC Pro, DJI Fly 1.18.0'dan itibaren yalnızca 720p yayınlar. Mavic 4 Pro bu kumandaları kullandığı için yayını 720p'dir.",
+    "DJI Fly, Android'de 5 veya 3 Mbps, iOS'ta 2 veya 1 Mbps sunar. Bit hızı elle ayarlanamaz; bu yüzden en net yayını RC-N kumandaya takılı bir Android telefon verir.",
+    "Hızlı uçuşta görülen bulanıklık ve bloklar arızadan değil, düşük bit hızından kaynaklanır. 5 Mbps ve altında yavaş, yumuşak hareketler çok daha iyi görünür.",
+    "Hiçbir uygulama DJI Fly'ın göndermediği detayı ekleyemez. Telefondaki Stream My Drone videoyu değiştirmeden iletir, ek kayıp yaratmaz ve gelen bit hızını gösterir."
+  ],
+  "sections": [
+    {
+      "id": "limits",
+      "h2": "Kumandaya göre canlı yayın çözünürlüğü ve bit hızı",
+      "blocks": [
+        {
+          "p": "DJI'ın canlı yayın rehberi iki sınır verir. Çözünürlük 1080p veya 720p'dir; yalnızca 720p olarak belirttiği kumandalar hariç. Bit hızı DJI Fly'ın çalıştığı cihaza bağlıdır: Android'de 5 veya 3 Mbps, iOS'ta 2 veya 1 Mbps. DJI'a göre seçilebilen bit hızlarını görüntü aktarım kare hızı belirler ve bunlar ayarlanamaz."
+        },
+        {
+          "table": {
+            "head": ["Kumanda", "Canlı yayın çözünürlüğü", "Canlı yayın bit hızı"],
+            "rows": [
+              ["Android telefonlu RC-N1, RC-N2 veya RC-N3", "1080p veya 720p", "5 veya 3 Mbps"],
+              ["iPhone'lu RC-N1, RC-N2 veya RC-N3", "1080p veya 720p", "2 veya 1 Mbps"],
+              ["DJI RC 2", "Yalnızca 720p (donanım sınırı)", "DJI Fly'ın gösterdiği seçenekler"],
+              ["DJI RC Pro 2", "Yalnızca 720p (donanım sınırı)", "DJI Fly'ın gösterdiği seçenekler"],
+              ["DJI RC Pro", "DJI Fly 1.18.0'dan itibaren yalnızca 720p", "DJI Fly'ın gösterdiği seçenekler"],
+              ["DJI RC (ilk model)", "Canlı yayın yok", "—"]
+            ]
+          }
+        },
+        {
+          "p": "Popüler dronelar için anlamı: <strong>Mavic 4 Pro</strong> RC 2 veya RC Pro 2 ile uçar, bu yüzden yayını 720p'dir. <strong>Mini 5 Pro</strong>, <strong>Mini 4 Pro</strong> ve <strong>Air 3S</strong> RC 2 ile 720p yayınlar, RC-N kumanda ve telefonla 1080p sunabilir."
+        },
+        {
+          "note": "Model model: <a href=\"../dji-mavic-4-pro-canli-yayin/\">Mavic 4 Pro</a>, <a href=\"../dji-mini-5-pro-canli-yayin/\">Mini 5 Pro</a>, <a href=\"../dji-mini-4-pro-canli-yayin/\">Mini 4 Pro</a>, <a href=\"../dji-air-3s-canli-yayin/\">Air 3S</a> veya <a href=\"../hangi-dji-dronelar-canli-yayin-yapabilir/\">canlı yayın yapabilen DJI dronelarının tam listesi</a>."
+        }
+      ]
+    },
+    {
+      "id": "sharpest",
+      "h2": "DJI Fly'ın izin verdiği en net yayını 6 adımda alın",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "DJI Fly'da en yüksek seçenekleri seçin",
+              "d": "RTMP canlı yayın ekranında, sunuluyorsa Livestream Resolution'ı 1080p'ye, Livestream Bitrate'i yüksek değere ayarlayın. DJI Fly güncellemesinden sonra tekrar kontrol edin; seçenekler değişebilir."
+            },
+            {
+              "t": "RC-N kumandada Android'i tercih edin",
+              "d": "RC-N1, RC-N2 veya RC-N3 ile Android telefon en fazla 5 Mbps, iPhone en fazla 2 Mbps sunar. İkisi de varsa Android telefonla uçun, yayını diğer cihazda alın."
+            },
+            {
+              "t": "Alıcıyı güçlü bir ağa yakın tutun",
+              "d": "5 GHz Wi-Fi veya telefon hotspot'u kullanın, kumandayı ve alıcıyı ona yakın tutun, misafir Wi-Fi'dan kaçının. Kaybolan veri donmuş veya lekeli kareler olarak görünür."
+            },
+            {
+              "t": "Gerçekte ne ulaştığını kontrol edin",
+              "d": "Stream My Drone, DJI Fly'dan aldığı bit hızını gösterir ve donmaları sayar; Mac ve Windows'ta çözünürlüğü de gösterir. Donma olmadan yaklaşık 5.000 kbps görüyorsanız, o kurulumda DJI Fly'ın gönderebileceğinin en iyisini zaten alıyorsunuz."
+            },
+            {
+              "t": "Yükleme hızınızın yettiğinden emin olun",
+              "d": "Alıcı yayını her platforma yeniden yükler. Her hedef için en az yayın bit hızı kadar, artı güvenli bir pay planlayın; iki adet 5 Mbps hedef 10 Mbps'nin epey üzerinde yükleme ister."
+            },
+            {
+              "t": "Bit hızına göre uçun",
+              "d": "5 Mbps ve altında hızlı dönüşler, ağaçların, suyun ve kalabalığın üzerinden alçak geçişler bloklara dönüşür. Yavaş, sabit hareketler ve daha yüksek irtifa görüntüyü izleyici için temiz tutar."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "where-lost",
+      "h2": "Canlı yayın kalitesi nerede kaybolur?",
+      "blocks": [
+        {
+          "p": "Üç videoyu birbirinden ayırın: hava aracına kaydedilen dosya, kumandadaki canlı görüntü ve DJI Fly'ın gönderdiği RTMP yayını. İzleyiciye yalnızca sonuncusu ulaşır ve yolda birkaç aşamadan geçer."
+        },
+        {
+          "list": [
+            "<strong>DJI Fly sıkıştırması:</strong> en büyük adım. 4K kayıt, 1 ile 5 Mbps arasında 720p veya 1080p bir yayına dönüşür.",
+            "<strong>Kumandadan alıcıya:</strong> zayıf veya kalabalık Wi-Fi'da kaybolan veri, düşük çözünürlük olarak değil donmuş kareler veya gri lekeler olarak görünür.",
+            "<strong>Alıcıdan platforma:</strong> yükleme hızı yayından yavaşsa platform takılır veya yayını keser.",
+            "<strong>Platform işlemesi:</strong> YouTube, Instagram ve diğerleri yavaş bağlantılı izleyiciler için yayını yeniden daha düşük kalitelere sıkıştırır.",
+            "<strong>İzleyicinin oynatıcısı:</strong> oynatıcılar çoğu zaman düşük kalitede başlar ve izleyicinin bağlantısına göre seçim yapar. Yayınınızı değerlendirmeden önce en yüksek kalite ayarında izleyin."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "app",
+      "h2": "Bir uygulama yayını daha net yapabilir mi?",
+      "blocks": [
+        {
+          "p": "Hiçbir uygulama DJI Fly'ın gönderdiği yayında olmayan detayı ekleyemez. Bir alıcı uygulamanın yapabileceği, görüntüyü kötüleştirmemek ve size rakamları göstermektir."
+        },
+        {
+          "list": [
+            "<strong>Telefondaki Stream My Drone</strong>, DJI Fly'ın videosunu yeniden sıkıştırmadan, değiştirmeden her platforma iletir; ek kayıp olmaz.",
+            "<strong>Mac veya Windows'taki Stream My Drone</strong>, seçtiğiniz düzeni (örneğin 9:16 dikey kare) üretebilmek için görüntüyü yeniden sıkıştırır. 720p girişten alınan 1080p çıkış daha büyüktür, daha detaylı değildir.",
+            "İkisi de aldıkları bit hızını, bilgisayar sürümü ayrıca çözünürlüğü gösterir; böylece bulanık görüntünün DJI Fly'dan mı, Wi-Fi'dan mı yoksa platformdan mı geldiğini anlarsınız."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4k",
+      "h2": "DJI drone ile 4K canlı yayın yapabilir miyim?",
+      "blocks": [
+        {
+          "p": "DJI Fly'ın canlı yayınıyla hayır: seçenekleri 1080p'de, RC 2, RC Pro 2 ve RC Pro'da 720p'de biter. Yayın sırasında hava aracı tam kalitede kaydetmeye devam eder; bu yüzden yaygın yöntem anı canlı yayınlamak, 4K kaydı ise sonradan tekrar veya öne çıkanlar olarak paylaşmaktır."
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "h2": "Drone canlı yayını ne kadar mobil veri harcar?",
+      "blocks": [
+        {
+          "table": {
+            "head": ["Yayın bit hızı", "Saatlik veri, tek hedef", "İki hedef"],
+            "rows": [
+              ["1 Mbps", "yaklaşık 0,45 GB", "yaklaşık 0,9 GB"],
+              ["2 Mbps", "yaklaşık 0,9 GB", "yaklaşık 1,8 GB"],
+              ["3 Mbps", "yaklaşık 1,35 GB", "yaklaşık 2,7 GB"],
+              ["5 Mbps", "yaklaşık 2,25 GB", "yaklaşık 4,5 GB"]
+            ]
+          }
+        },
+        {
+          "p": "Bunlar ağ yükü ve ses hariç video rakamlarıdır. Telefondan aynı anda birkaç platforma yayın yaptığınızda her hedef ayrı bir yüklemedir; veri ve yükleme hızı hedef başına toplanır."
+        },
+        {
+          "note": "Aynı anda birkaç platform: <a href=\"../drone-ile-ayni-anda-birden-fazla-platformda-canli-yayin/\">çoklu yayın rehberi</a>."
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "Kaynaklar",
+      "blocks": [
+        {
+          "p": "Çözünürlük, yalnızca 720p kumandalar, bit hızı seçenekleri ve DJI RC: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>. Mavic 4 Pro kumandaları: <a href=\"https://repair.dji.com/help/content?customId=en-us03400006734&amp;lang=en&amp;re=us&amp;spaceId=34\">DJI hava aracı eşleştirme rehberi</a>. 19 Kasım 2026'da kontrol edildi."
+        },
+        {
+          "p": "İlgili: <a href=\"../dji-fly-canli-yayin-hatasi-cozumu/\">DJI Fly canlı yayın hatası çözümleri</a>, <a href=\"../dji-fly-rtmp-canli-yayin-ayarlari/\">DJI Fly RTMP kurulumu</a> ve <a href=\"../drone-ile-canli-yayin-nasil-yapilir/\">eksiksiz drone canlı yayın rehberi</a>."
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "DJI canlı yayınım neden sadece 720p?",
+      "a": "DJI'a göre DJI RC 2 ve DJI RC Pro 2 donanımları nedeniyle canlı yayında yalnızca 720p destekler; DJI RC Pro ise DJI Fly 1.18.0'dan itibaren yalnızca 720p yayınlar. 1080p yalnızca diğer kurulumlarda, örneğin RC-N kumanda ve telefonla sunulur."
+    },
+    {
+      "q": "DJI Fly'da canlı yayın bit hızını değiştirebilir miyim?",
+      "a": "Yalnızca DJI Fly'ın sunduğu iki seçenek arasında: Android'de 5 veya 3 Mbps, iOS'ta 2 veya 1 Mbps. DJI'a göre bunları görüntü aktarım kare hızı belirler ve başka şekilde ayarlanamaz."
+    },
+    {
+      "q": "Mavic 4 Pro 1080p canlı yayın yapar mı?",
+      "a": "DJI, Mavic 4 Pro'nun kumandaları olarak DJI RC 2 ve DJI RC Pro 2'yi belirtir ve ikisi de yalnızca 720p yayın yapar. Kayıtları ise hava aracında tam kalitede kalır."
+    },
+    {
+      "q": "Hızlı uçunca drone yayınım neden bloklu görünüyor?",
+      "a": "5 Mbps ve altındaki bir canlı yayında ağaç, su veya kalabalık gibi detaylı sahnelerde hızlı hareket için yeterli veri yoktur. Daha yavaş ve yumuşak uçun, Wi-Fi'ın veri kaybetmediğini kontrol edin."
+    },
+    {
+      "q": "DJI Fly canlı yayını için iPhone mu Android mi daha iyi?",
+      "a": "RC-N kumandayla Android: DJI Fly Android'de 5 veya 3 Mbps, iOS'ta 2 veya 1 Mbps sunar. Yayını alan telefon ikisinden biri olabilir, çünkü DJI Fly'ın gönderdiğini iletir."
+    },
+    {
+      "q": "DJI drone ile 4K canlı yayın yapabilir miyim?",
+      "a": "DJI Fly'ın canlı yayınıyla hayır; en fazla 1080p sunar. Canlı yayını yapın, hava aracındaki 4K kaydı sonradan paylaşın."
+    }
+  ]
+}

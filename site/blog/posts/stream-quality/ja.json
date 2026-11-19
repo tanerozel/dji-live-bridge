@@ -1,0 +1,186 @@
+{
+  "slug": "dji-drone-live-stream-720p-quality",
+  "platform": "DJIライブ配信の画質",
+  "title": "DJIドローンのライブ配信が720pしか出ないのはなぜ？画質の上限と対策",
+  "description": "DJI FlyはRC 2とRC Pro 2では720pで配信し、ビットレートはAndroidで最大5 Mbps、iPhoneで最大2 Mbpsです。画質を決める要素と、いちばん鮮明に配信する方法を解説します。",
+  "h1": "DJIドローンのライブ配信が720pしか出ない・ぼやけるのはなぜ？",
+  "lead": "カメラは4K以上で記録できますが、ライブ配信の画質を決めるのはカメラではなく<strong>DJI Fly</strong>です。DJIによると<strong>DJI RC 2</strong>と<strong>RC Pro 2</strong>は<strong>720p</strong>のみで配信し、ビットレートは<strong>Androidで5または3 Mbps</strong>、<strong>iPhoneで2または1 Mbps</strong>に固定されています。上限は上げられませんが、最良の設定を選び、ネットワークを安定させ、実際に届いている映像を確認することはできます。",
+  "published": "2026-11-19",
+  "updated": "2026-11-19",
+  "summary": [
+    "ライブ配信は機体の録画とは別の、ずっと小さな映像です。解像度とビットレートはDJI Flyと送信機で決まります。",
+    "DJI RC 2とDJI RC Pro 2はハードウェアの制限で720pのみ、DJI RC ProはDJI Fly 1.18.0以降720pのみです。Mavic 4 Proはこれらの送信機を使うため、配信は720pになります。",
+    "DJI FlyはAndroidで5または3 Mbps、iOSで2または1 Mbpsを提供します。ビットレートは手動で変えられないため、RC-N送信機にAndroidスマホをつなぐのがいちばん鮮明です。",
+    "速く飛んだときのぼやけやブロックノイズは故障ではなく、低いビットレートが原因です。5 Mbps以下ではゆっくり滑らかな動きのほうがずっときれいに見えます。",
+    "DJI Flyが送っていない細部をアプリが足すことはできません。スマホ版Stream My Droneは映像をそのまま転送するので余計な劣化がなく、受信ビットレートを表示します。"
+  ],
+  "sections": [
+    {
+      "id": "limits",
+      "h2": "送信機別のライブ配信解像度とビットレート",
+      "blocks": [
+        {
+          "p": "DJIのライブ配信ガイドには2つの上限があります。解像度は1080pまたは720pで、720pのみと明記された送信機は例外です。ビットレートはDJI Flyを動かす端末で決まり、Androidは5または3 Mbps、iOSは2または1 Mbpsです。DJIは、選べるビットレートは映像伝送のフレームレートで決まり、調整できないとしています。"
+        },
+        {
+          "table": {
+            "head": ["送信機", "ライブ配信の解像度", "ライブ配信のビットレート"],
+            "rows": [
+              ["RC-N1、RC-N2、RC-N3 + Androidスマホ", "1080pまたは720p", "5または3 Mbps"],
+              ["RC-N1、RC-N2、RC-N3 + iPhone", "1080pまたは720p", "2または1 Mbps"],
+              ["DJI RC 2", "720pのみ（ハードウェアの制限）", "DJI Flyに表示される選択肢"],
+              ["DJI RC Pro 2", "720pのみ（ハードウェアの制限）", "DJI Flyに表示される選択肢"],
+              ["DJI RC Pro", "DJI Fly 1.18.0以降は720pのみ", "DJI Flyに表示される選択肢"],
+              ["DJI RC（初代）", "ライブ配信非対応", "—"]
+            ]
+          }
+        },
+        {
+          "p": "人気機種での意味：<strong>Mavic 4 Pro</strong>はRC 2またはRC Pro 2で飛ぶため、配信は720pです。<strong>Mini 5 Pro</strong>、<strong>Mini 4 Pro</strong>、<strong>Air 3S</strong>はRC 2では720pですが、RC-N送信機とスマホなら1080pを選べる場合があります。"
+        },
+        {
+          "note": "機種別ガイド：<a href=\"../dji-mavic-4-pro-live-stream/\">Mavic 4 Pro</a>、<a href=\"../dji-mini-5-pro-live-stream/\">Mini 5 Pro</a>、<a href=\"../dji-mini-4-pro-live-stream/\">Mini 4 Pro</a>、<a href=\"../dji-air-3s-live-stream/\">Air 3S</a>、または<a href=\"../which-dji-drones-can-live-stream/\">ライブ配信できるDJIドローン一覧</a>。"
+        }
+      ]
+    },
+    {
+      "id": "sharpest",
+      "h2": "DJI Flyで出せるいちばん鮮明な配信にする6つの手順",
+      "howto": true,
+      "blocks": [
+        {
+          "steps": [
+            {
+              "t": "DJI Flyで最も高い設定を選ぶ",
+              "d": "RTMPライブ配信画面で、表示されていればLivestream Resolutionを1080pに、Livestream Bitrateを高いほうに設定します。DJI Flyを更新したら再確認してください。選択肢が変わることがあります。"
+            },
+            {
+              "t": "RC-N送信機ではAndroidを選ぶ",
+              "d": "RC-N1、RC-N2、RC-N3では、Androidスマホは最大5 Mbps、iPhoneは最大2 Mbpsです。両方あるなら、Androidで飛ばしてもう一方の端末で受信しましょう。"
+            },
+            {
+              "t": "受信側を強いネットワークの近くに置く",
+              "d": "5 GHz Wi-Fiかスマホのテザリングを使い、送信機と受信端末をその近くに置き、ゲストWi-Fiは避けます。データが欠けると映像が止まったりにじんだりします。"
+            },
+            {
+              "t": "実際に届いているものを確認する",
+              "d": "Stream My DroneはDJI Flyから受け取ったビットレートを表示し、フリーズの回数を数えます。MacとWindowsでは解像度も表示します。フリーズなしで約5,000 kbpsなら、その構成でDJI Flyが送れる最良の映像がすでに届いています。"
+            },
+            {
+              "t": "上り回線が足りているか確かめる",
+              "d": "受信側は配信先ごとに映像をアップロードし直します。配信先ごとに少なくとも配信ビットレート分と余裕を見込みましょう。5 Mbpsを2か所に送るなら、上りは10 Mbpsを大きく超える必要があります。"
+            },
+            {
+              "t": "ビットレートに合わせて飛ばす",
+              "d": "5 Mbps以下では、素早い旋回や木・水面・人混みの上の低空飛行はブロックノイズになります。ゆっくり安定した動きと高めの高度で、視聴者にきれいな映像を届けられます。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "where-lost",
+      "h2": "ライブ配信の画質はどこで落ちるのか",
+      "blocks": [
+        {
+          "p": "3つの映像を区別しましょう。機体に記録されるファイル、送信機のライブビュー、そしてDJI Flyが送るRTMP配信です。視聴者に届くのは最後の1つだけで、途中でいくつもの段階を通ります。"
+        },
+        {
+          "list": [
+            "<strong>DJI Flyのエンコード：</strong>最大の段階です。4Kの録画が1〜5 Mbpsの720pまたは1080p配信になります。",
+            "<strong>送信機から受信側まで：</strong>弱い・混雑したWi-Fiでは、欠けたデータは解像度の低下ではなく、止まった映像や灰色のにじみとして現れます。",
+            "<strong>受信側から配信サービスまで：</strong>上り回線が配信より遅いと、サービス側でバッファリングが起きたり配信が切れたりします。",
+            "<strong>配信サービスの処理：</strong>YouTubeやInstagramなどは、回線の遅い視聴者向けに配信を低い画質へ再エンコードします。",
+            "<strong>視聴者のプレーヤー：</strong>プレーヤーは低画質で始まり、回線に合わせて画質を選ぶことがよくあります。評価する前に、最高画質で自分の配信を確認しましょう。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "app",
+      "h2": "アプリで配信をもっと鮮明にできる？",
+      "blocks": [
+        {
+          "p": "DJI Flyの配信に含まれていない細部を、アプリが足すことはできません。受信アプリにできるのは、画質を落とさないことと数値を見せることです。"
+        },
+        {
+          "list": [
+            "<strong>スマホ版Stream My Drone</strong>は、DJI Flyの映像を再エンコードせずそのまま各配信先へ転送するので、余計な劣化はありません。",
+            "<strong>Mac・Windows版Stream My Drone</strong>は、選んだレイアウト（例：9:16の縦型）を作るために映像を再エンコードします。720pの入力から1080pで出力しても、大きくなるだけで細かくはなりません。",
+            "どちらも受信ビットレートを表示し、パソコン版は解像度も表示します。映像が甘い原因がDJI Fly、Wi-Fi、配信サービスのどれなのかがわかります。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4k",
+      "h2": "DJIドローンで4Kライブ配信はできる？",
+      "blocks": [
+        {
+          "p": "DJI Flyのライブ配信ではできません。選択肢は1080pまでで、RC 2、RC Pro 2、RC Proでは720pまでです。配信中も機体はフル画質で録画を続けるので、その瞬間はライブで届け、4Kの録画はあとからアーカイブやハイライトとして公開するのが一般的です。"
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "h2": "ドローンのライブ配信で使うモバイルデータ量",
+      "blocks": [
+        {
+          "table": {
+            "head": ["配信ビットレート", "1時間あたり（配信先1か所）", "配信先2か所"],
+            "rows": [
+              ["1 Mbps", "約0.45 GB", "約0.9 GB"],
+              ["2 Mbps", "約0.9 GB", "約1.8 GB"],
+              ["3 Mbps", "約1.35 GB", "約2.7 GB"],
+              ["5 Mbps", "約2.25 GB", "約4.5 GB"]
+            ]
+          }
+        },
+        {
+          "p": "通信のオーバーヘッドと音声を含まない映像だけの数値です。スマホから複数の配信先へ同時に送る場合、配信先ごとに別のアップロードになるため、データ量と上り速度は配信先の数だけ増えます。"
+        },
+        {
+          "note": "複数の配信先へ同時に：<a href=\"../stream-a-dji-drone-to-multiple-platforms-at-once/\">マルチ配信ガイド</a>。"
+        }
+      ]
+    },
+    {
+      "id": "sources",
+      "h2": "出典",
+      "blocks": [
+        {
+          "p": "解像度、720pのみの送信機、ビットレートの選択肢、DJI RC：<a href=\"https://repair.dji.com/help/content?customId=en-us03400006727&amp;documentType=artical&amp;lang=en&amp;paperDocType=paper&amp;re=US&amp;spaceId=34\">DJI Fly App Livestream Operation Guides</a>。Mavic 4 Proの送信機：<a href=\"https://repair.dji.com/help/content?customId=en-us03400006734&amp;lang=en&amp;re=us&amp;spaceId=34\">DJIのリンク設定ガイド</a>。2026年11月19日に確認。"
+        },
+        {
+          "p": "関連：<a href=\"../dji-fly-livestream-error-fix/\">DJI Flyのライブ配信エラーの直し方</a>、<a href=\"../dji-fly-rtmp-live-streaming-setup/\">DJI FlyのRTMP設定</a>、<a href=\"../how-to-live-stream-from-a-drone/\">ドローンライブ配信の完全ガイド</a>。"
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "DJIのライブ配信が720pしか出ないのはなぜ？",
+      "a": "DJIによると、DJI RC 2とDJI RC Pro 2はハードウェアの制限でライブ配信は720pのみ、DJI RC ProはDJI Fly 1.18.0以降720pのみです。1080pはRC-N送信機とスマホなど、ほかの構成でのみ選べます。"
+    },
+    {
+      "q": "DJI Flyでライブ配信のビットレートは変えられる？",
+      "a": "DJI Flyが示す2つの選択肢の間だけです。Androidは5または3 Mbps、iOSは2または1 Mbpsです。DJIは、これらは映像伝送のフレームレートで決まり、それ以外には調整できないとしています。"
+    },
+    {
+      "q": "Mavic 4 Proは1080pでライブ配信できる？",
+      "a": "DJIはMavic 4 Proの送信機としてDJI RC 2とDJI RC Pro 2を挙げており、どちらも720pのみで配信します。録画は機体にフル画質で残ります。"
+    },
+    {
+      "q": "速く飛ぶとドローンの配信がブロック状になるのはなぜ？",
+      "a": "5 Mbps以下の配信では、木や水面、人混みなど細かい被写体の上を速く動くとデータが足りません。ゆっくり滑らかに飛び、Wi-Fiでデータが欠けていないか確認しましょう。"
+    },
+    {
+      "q": "DJI Flyのライブ配信はiPhoneとAndroidのどちらがいい？",
+      "a": "RC-N送信機ならAndroidです。DJI FlyはAndroidで5または3 Mbps、iOSで2または1 Mbpsです。受信するスマホはどちらでも構いません。DJI Flyが送ったものを転送するだけだからです。"
+    },
+    {
+      "q": "DJIドローンで4Kライブ配信はできる？",
+      "a": "DJI Flyのライブ配信は最大1080pなのでできません。ライブで配信し、機体の4K録画はあとで公開しましょう。"
+    }
+  ]
+}
