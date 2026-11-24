@@ -301,6 +301,9 @@
     <string name="weak_link_title">A imagem continua travando</string>
     <string name="weak_link_tip">Geralmente o problema é o Wi-Fi entre o controle e este celular. Conecte o controle ao ponto de acesso deste celular (5 GHz, se disponível) e mantenha os dois próximos. Se a tela do controle também travar, o sinal do drone está fraco.</string>
     <string name="weak_link_tip_hotspot">Geralmente o problema é o Wi-Fi entre o controle e este celular. Mantenha os dois próximos, sem nada entre eles, e configure o ponto de acesso para 5 GHz, se disponível. Se a tela do controle também travar, o sinal do drone está fraco.</string>
+    <string name="weak_link_tip_weak_wifi">O sinal Wi-Fi deste celular está fraco (%1$d dBm). Aproxime-se do roteador, ou ative o ponto de acesso deste celular e conecte o controle a ele.</string>
+    <string name="wifi_roaming_title">O Wi-Fi deste celular troca de banda o tempo todo</string>
+    <string name="wifi_roaming_tip">Ele alterna entre 2,4 e 5 GHz, e cada troca pode travar a imagem. Ative o ponto de acesso deste celular e conecte o controle a ele, ou dê um nome próprio à rede de 5 GHz do roteador.</string>
 
     <!-- YouTube account connection (Android). -->
     <string name="youtube_connect">Conectar conta do YouTube</string>

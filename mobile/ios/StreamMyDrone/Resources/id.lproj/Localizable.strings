@@ -386,8 +386,11 @@
 "vmic_turn_on_bluetooth" = "Nyalakan Bluetooth";
 "weak_link_tip" = "Biasanya penyebabnya Wi-Fi antara remote dan ponsel ini. Hubungkan remote ke hotspot ponsel ini (5 GHz jika tersedia) dan dekatkan keduanya. Jika layar remote juga macet, sinyal drone lemah.";
 "weak_link_tip_hotspot" = "Biasanya penyebabnya Wi-Fi antara remote dan ponsel ini. Dekatkan keduanya tanpa penghalang di antaranya, dan atur hotspot ke 5 GHz jika tersedia. Jika layar remote juga macet, sinyal drone lemah.";
+"weak_link_tip_weak_wifi" = "Sinyal Wi-Fi ponsel ini lemah (%1$ld dBm). Mendekatlah ke router, atau nyalakan hotspot ponsel ini lalu sambungkan remote ke sana.";
 "weak_link_title" = "Gambar sering macet";
 "where_to_stream" = "Mau siaran ke mana?";
+"wifi_roaming_tip" = "Ponsel berpindah-pindah antara 2,4 dan 5 GHz, dan setiap perpindahan bisa membuat gambar macet sesaat. Nyalakan hotspot ponsel ini lalu sambungkan remote ke sana, atau beri jaringan 5 GHz router nama tersendiri.";
+"wifi_roaming_title" = "Wi-Fi ponsel ini terus berpindah band";
 "youtube_audience" = "Audiens";
 "youtube_auto_hint" = "YouTube mulai otomatis saat menerima video. Periksa siaran Anda di YouTube.";
 "youtube_channel" = "Channel";

@@ -301,6 +301,9 @@
     <string name="weak_link_title">L\'immagine si blocca spesso</string>
     <string name="weak_link_tip">Di solito dipende dal Wi-Fi tra radiocomando e telefono. Collega il radiocomando all\'hotspot di questo telefono (a 5 GHz, se disponibile) e tienili vicini. Se si blocca anche lo schermo del radiocomando, il segnale del drone è debole.</string>
     <string name="weak_link_tip_hotspot">Di solito dipende dal Wi-Fi tra radiocomando e telefono. Tienili vicini, senza ostacoli in mezzo, e imposta l\'hotspot a 5 GHz, se disponibile. Se si blocca anche lo schermo del radiocomando, il segnale del drone è debole.</string>
+    <string name="weak_link_tip_weak_wifi">Il segnale Wi-Fi di questo telefono è debole (%1$d dBm). Avvicinati al router, oppure attiva l\'hotspot di questo telefono e collegaci il radiocomando.</string>
+    <string name="wifi_roaming_title">Il Wi-Fi di questo telefono cambia banda di continuo</string>
+    <string name="wifi_roaming_tip">Passa da 2,4 a 5 GHz e viceversa, e ogni cambio può bloccare l\'immagine. Attiva l\'hotspot di questo telefono e collegaci il radiocomando, oppure dai un nome a parte alla rete a 5 GHz del router.</string>
 
     <!-- YouTube account connection (Android). -->
     <string name="youtube_connect">Collega account YouTube</string>

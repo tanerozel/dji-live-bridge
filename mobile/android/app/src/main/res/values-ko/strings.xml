@@ -291,6 +291,9 @@
     <string name="weak_link_title">영상이 자꾸 멈춥니다</string>
     <string name="weak_link_tip">원인은 대개 조종기와 이 휴대폰 사이의 Wi-Fi입니다. 조종기를 이 휴대폰의 핫스팟(가능하면 5 GHz)에 연결하고 두 기기를 가까이 두세요. 조종기 화면도 멈춘다면 드론 신호가 약하다는 뜻입니다.</string>
     <string name="weak_link_tip_hotspot">원인은 대개 조종기와 이 휴대폰 사이의 Wi-Fi입니다. 두 기기를 장애물 없이 가까이 두고, 가능하면 핫스팟을 5 GHz로 설정하세요. 조종기 화면도 멈춘다면 드론 신호가 약하다는 뜻입니다.</string>
+    <string name="weak_link_tip_weak_wifi">이 휴대폰의 Wi-Fi 신호가 약합니다(%1$d dBm). 공유기에 더 가까이 가거나, 이 휴대폰의 핫스팟을 켜고 조종기를 연결하세요.</string>
+    <string name="wifi_roaming_title">이 휴대폰의 Wi-Fi가 대역을 계속 바꿉니다</string>
+    <string name="wifi_roaming_tip">2.4 GHz와 5 GHz 사이를 오가며, 바뀔 때마다 영상이 잠깐 멈출 수 있습니다. 이 휴대폰의 핫스팟을 켜고 조종기를 연결하거나, 공유기의 5 GHz 네트워크에 별도의 이름을 지정하세요.</string>
 
     <!-- YouTube account connection (Android). -->
     <string name="youtube_connect">YouTube 계정 연결</string>

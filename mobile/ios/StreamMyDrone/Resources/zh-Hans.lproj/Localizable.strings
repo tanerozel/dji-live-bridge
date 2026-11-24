@@ -386,8 +386,11 @@
 "vmic_turn_on_bluetooth" = "打开蓝牙";
 "weak_link_tip" = "通常是遥控器和这部手机之间的 Wi-Fi 造成的。请把遥控器连到这部手机的热点（可以的话选 5 GHz），并让两者靠近。如果遥控器屏幕也卡顿，说明无人机信号弱。";
 "weak_link_tip_hotspot" = "通常是遥控器和这部手机之间的 Wi-Fi 造成的。请让两者靠近且中间无遮挡，可以的话把热点设为 5 GHz。如果遥控器屏幕也卡顿，说明无人机信号弱。";
+"weak_link_tip_weak_wifi" = "这部手机的 Wi-Fi 信号弱（%1$ld dBm）。请靠近路由器，或者打开这部手机的热点并让遥控器连接它。";
 "weak_link_title" = "画面频繁卡顿";
 "where_to_stream" = "要推流到哪里？";
+"wifi_roaming_tip" = "它在 2.4 GHz 和 5 GHz 之间来回切换，每次切换都可能让画面卡顿一下。请打开这部手机的热点并让遥控器连接它，或者给路由器的 5 GHz 网络单独起一个名称。";
+"wifi_roaming_title" = "这部手机的 Wi-Fi 频繁切换频段";
 "youtube_audience" = "受众";
 "youtube_auto_hint" = "收到视频后 YouTube 会自动开始直播。请在 YouTube 上检查直播。";
 "youtube_channel" = "频道";

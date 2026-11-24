@@ -386,8 +386,11 @@
 "vmic_turn_on_bluetooth" = "Turn on Bluetooth";
 "weak_link_tip" = "Usually it's the Wi-Fi between the controller and this phone. Connect the controller to this phone's hotspot (5 GHz if offered) and keep the two close. If the controller's screen freezes too, the drone's signal is weak.";
 "weak_link_tip_hotspot" = "Usually it's the Wi-Fi between the controller and this phone. Keep the two close with nothing in between, and set the hotspot to 5 GHz if offered. If the controller's screen freezes too, the drone's signal is weak.";
+"weak_link_tip_weak_wifi" = "This phone's Wi-Fi signal is weak (%1$ld dBm). Move closer to the router, or turn on this phone's hotspot and connect the controller to it.";
 "weak_link_title" = "The picture keeps freezing";
 "where_to_stream" = "Where do you want to stream?";
+"wifi_roaming_tip" = "It moves between 2.4 and 5 GHz, and each switch can freeze the picture. Turn on this phone's hotspot and connect the controller to it, or give the router's 5 GHz network its own name.";
+"wifi_roaming_title" = "This phone's Wi-Fi keeps switching bands";
 "youtube_audience" = "Audience";
 "youtube_auto_hint" = "YouTube starts automatically when it receives video. Check your broadcast on YouTube.";
 "youtube_channel" = "Channel";

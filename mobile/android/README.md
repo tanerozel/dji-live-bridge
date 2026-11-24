@@ -374,6 +374,13 @@ The broadcast survives what a field session throws at it:
 
 - The core fans every frame out to the platform outputs as one shared buffer. A platform that
   falls behind loses only its own frames, and ending one leaves the others running.
+- Each platform gets the drone's frames 3 seconds after their place on the drone's timeline, at
+  the pace they were filmed (`Pacer` in relay-core). A Wi-Fi pause of up to 3 seconds between
+  DJI Fly and the phone then never reaches the platform: in a Mac test with a 2.5-second pause,
+  the largest gap the platform saw fell from 2.53 s to 0.07 s. The phone's own picture is not
+  delayed. The reference point follows the earliest arrivals, so a late first frame or a drifting
+  drone clock cannot leave a smaller cushion for long. "End broadcast" still sends the held
+  seconds (for up to 4 seconds), so the pilot's last words on the phone microphone are not cut.
 - If the drone drops (DJI Fly usually reconnects within seconds after a Wi-Fi hiccup), each
   platform connection stays open for up to 20 seconds. The new source's codec headers go out at
   its first keyframe, and the platform's timeline continues across the gap.
@@ -402,6 +409,10 @@ Short drops can be traced:
 - After three pauses or reconnects within a minute, a note over the picture says what usually
   causes them. The advice differs for a shared Wi-Fi and for the phone's own hotspot. It is not
   shown for a test video.
+- The phone's Wi-Fi is sampled every 2 seconds while the picture comes over a shared Wi-Fi
+  (`WifiWatch`). Two band switches (2.4 ↔ 5 GHz) within 5 minutes show a note before the freezes
+  start: use the phone's hotspot, or give the router's 5 GHz its own name. With freezes and a
+  signal at or below −70 dBm for 30 seconds, the freeze note gives that signal instead.
 - `adb logcat -s DJIBridge` prints a line for each pause, each reconnect, each time the
   preview had to wait for a keyframe, and each change of a platform's state (for example
   `forwarding -> congested`) with the frames skipped for it so far. A platform that warns about

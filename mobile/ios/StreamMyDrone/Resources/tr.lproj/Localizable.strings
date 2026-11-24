@@ -386,8 +386,11 @@
 "vmic_turn_on_bluetooth" = "Bluetooth’u aç";
 "weak_link_tip" = "Genelde sebep kumanda ile bu telefon arasındaki Wi-Fi'dır. Kumandayı bu telefonun hotspot'una bağla (varsa 5 GHz) ve ikisini yakın tut. Kumandanın ekranı da takılıyorsa drone'un sinyali zayıftır.";
 "weak_link_tip_hotspot" = "Genelde sebep kumanda ile bu telefon arasındaki Wi-Fi'dır. İkisini arada engel olmadan yakın tut, varsa hotspot'u 5 GHz'e al. Kumandanın ekranı da takılıyorsa drone'un sinyali zayıftır.";
+"weak_link_tip_weak_wifi" = "Bu telefonun Wi-Fi sinyali zayıf (%1$ld dBm). Modeme yaklaş ya da bu telefonun hotspot'unu açıp kumandayı ona bağla.";
 "weak_link_title" = "Görüntü sürekli takılıyor";
 "where_to_stream" = "Nereye yayın yapacaksın?";
+"wifi_roaming_tip" = "2,4 ile 5 GHz arasında gidip geliyor ve her geçiş görüntüyü bir an dondurabilir. Bu telefonun hotspot'unu aç ve kumandayı ona bağla ya da modemin 5 GHz ağına ayrı bir ad ver.";
+"wifi_roaming_title" = "Bu telefonun Wi-Fi'ı sürekli bant değiştiriyor";
 "youtube_audience" = "Kitle";
 "youtube_auto_hint" = "Görüntü ulaştığında YouTube yayını otomatik başlatır. Yayınını YouTube üzerinden kontrol et.";
 "youtube_channel" = "Kanal";

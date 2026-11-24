@@ -1,6 +1,7 @@
 package com.streammydrone.app
 
 import android.os.Build
+import android.os.SystemClock
 import com.streammydrone.app.virtualmicrophone.VirtualMicrophoneControlPhase
 import com.streammydrone.app.virtualmicrophone.VirtualMicrophoneControlState
 import com.streammydrone.app.virtualmicrophone.VirtualMicrophoneSheet
@@ -142,8 +143,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /** Which sheet is open over the picture. */
 private enum class DroneSheet { PLATFORMS, DETAILS, VIRTUAL_MICROPHONE }
@@ -1076,8 +1079,9 @@ private fun Message(
     val holding = serviceState.isLive && snapshot.outputStatus == "holding" &&
         (phase == BridgePhase.WAITING_FOR_DRONE || phase == BridgePhase.DRONE_CONNECTED)
     // A test video starting and stopping counts as reconnects; only a flight says anything.
-    val weakLink = showPicture && serviceState.testVideoName == null &&
-        snapshot.recentInterruptions >= WEAK_LINK_INTERRUPTIONS
+    val flying = showPicture && serviceState.testVideoName == null
+    val weakLink = flying && snapshot.recentInterruptions >= WEAK_LINK_INTERRUPTIONS
+    val wifi = rememberWifiAdvice(active = flying && lan?.kind == LanKind.WIFI)
     when {
         notice != null -> Banner(
             key = notice,
@@ -1107,6 +1111,20 @@ private fun Message(
             icon = Icons.Rounded.ErrorOutline,
             accent = DangerColor,
         )
+        wifi.roaming -> Banner(
+            key = "wifi_roaming",
+            title = stringResource(R.string.wifi_roaming_title),
+            message = stringResource(R.string.wifi_roaming_tip),
+            icon = Icons.Rounded.WifiOff,
+            accent = WarningColor,
+        )
+        weakLink && wifi.weakSignalDbm != null -> Banner(
+            key = "weak_wifi",
+            title = stringResource(R.string.weak_link_title),
+            message = stringResource(R.string.weak_link_tip_weak_wifi, wifi.weakSignalDbm),
+            icon = Icons.Rounded.WifiOff,
+            accent = WarningColor,
+        )
         weakLink -> Banner(
             key = "weak_link",
             title = stringResource(R.string.weak_link_title),
@@ -1120,6 +1138,29 @@ private fun Message(
             Banner(key = tip, title = null, message = tip, icon = Icons.Rounded.Lightbulb, accent = WarningColor)
         }
     }
+}
+
+private data class WifiAdvice(val roaming: Boolean = false, val weakSignalDbm: Int? = null)
+
+/** What the phone's Wi-Fi says about freezes, sampled while the picture comes over it. */
+@Composable
+private fun rememberWifiAdvice(active: Boolean): WifiAdvice {
+    val context = LocalContext.current
+    val watch = remember { WifiWatch() }
+    val advice by produceState(WifiAdvice(), active) {
+        if (!active) {
+            value = WifiAdvice()
+            return@produceState
+        }
+        while (true) {
+            val link = withContext(Dispatchers.IO) { currentWifiLink(context) }
+            val now = SystemClock.elapsedRealtime()
+            watch.add(now, link)
+            value = WifiAdvice(watch.isRoaming(), watch.weakSignalDbm(now))
+            delay(WIFI_SAMPLE_MS)
+        }
+    }
+    return advice
 }
 
 /** A note over the picture that can be closed; a different message shows again. */
@@ -1967,3 +2008,4 @@ private const val DIM_ALPHA = 0.55f
 
 /** Pauses and reconnects of the drone's stream within a minute before the screen says why. */
 private const val WEAK_LINK_INTERRUPTIONS = 3
+private const val WIFI_SAMPLE_MS = 2_000L

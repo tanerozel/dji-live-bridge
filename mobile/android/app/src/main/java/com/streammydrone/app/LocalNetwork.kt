@@ -53,6 +53,48 @@ fun currentWifiLink(context: Context): WifiLink? = runCatching {
 /** What Android reports as the signal of a Wi-Fi that is not connected. */
 private const val NO_SIGNAL_DBM = -127
 
+/** 2 for 2.4 GHz, 5 for 5 GHz, 6 for 6 GHz. */
+internal fun wifiBand(frequencyMhz: Int): Int = when {
+    frequencyMhz < 3_000 -> 2
+    frequencyMhz < 5_925 -> 5
+    else -> 6
+}
+
+/**
+ * The phone's recent Wi-Fi samples, to name the cause of a freezing picture. A router that
+ * gives 2.4 and 5 GHz one name makes the phone switch bands at the edge of 5 GHz coverage, and
+ * every switch pauses the picture for a moment (seen on 2026-09-25: 7 switches in 15 minutes).
+ */
+internal class WifiWatch {
+    private val samples = ArrayDeque<Pair<Long, WifiLink>>()
+
+    /** Adds a sample taken at [nowMs] (monotonic). A missing link is skipped: mid-switch, Android reports none. */
+    fun add(nowMs: Long, link: WifiLink?) {
+        if (link != null) samples.addLast(nowMs to link)
+        while (samples.firstOrNull()?.let { nowMs - it.first > ROAMING_WINDOW_MS } == true) samples.removeFirst()
+    }
+
+    /** Whether the phone changed bands often enough lately to explain freezes. */
+    fun isRoaming(): Boolean =
+        samples.zipWithNext().count { (a, b) -> wifiBand(a.second.frequencyMhz) != wifiBand(b.second.frequencyMhz) } >=
+            ROAMING_SWITCHES
+
+    /** The current signal in dBm when it stayed weak for the last [WEAK_PERIOD_MS]; otherwise null. */
+    fun weakSignalDbm(nowMs: Long): Int? {
+        val recent = samples.filter { nowMs - it.first <= WEAK_PERIOD_MS }
+        val covered = recent.firstOrNull()?.let { nowMs - it.first >= WEAK_PERIOD_MS * 2 / 3 } == true
+        if (!covered || recent.any { it.second.rssiDbm > WEAK_SIGNAL_DBM }) return null
+        return recent.last().second.rssiDbm
+    }
+
+    private companion object {
+        const val ROAMING_WINDOW_MS = 5 * 60_000L
+        const val ROAMING_SWITCHES = 2
+        const val WEAK_PERIOD_MS = 30_000L
+        const val WEAK_SIGNAL_DBM = -70
+    }
+}
+
 internal fun lanKind(interfaceName: String): LanKind? {
     val name = interfaceName.lowercase()
     return when {

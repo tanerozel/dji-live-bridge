@@ -38,6 +38,20 @@ const CONGESTION_SECONDS: f64 = 1.5;
 const MIN_CONGESTION_BYTES: usize = 512 * 1024;
 /// A platform connection whose unsent output has not shrunk for this long is treated as dead.
 const OUTPUT_STALL_TIMEOUT: Duration = Duration::from_secs(10);
+/// Every platform gets the drone's frames this long after their place on the drone's timeline,
+/// at the pace they were filmed. A pause in what DJI Fly sends (Wi-Fi roaming, a weak link) up
+/// to this long is then absorbed here and never reaches the platform as a gap.
+const OUTPUT_DELAY: Duration = Duration::from_secs(3);
+/// Arrival jitter the pacer tolerates before it moves its reference point.
+const PACER_TOLERANCE: Duration = Duration::from_millis(500);
+/// When every frame in this window came late, the reference moves so the full delay is back.
+const PACER_WINDOW: Duration = Duration::from_secs(10);
+/// A frame this far from the reference belongs to a timeline that jumped: start over at it.
+const PACER_JUMP: Duration = Duration::from_secs(20);
+/// Beyond this much held payload frames leave at once, whatever their time.
+const PACER_MAX_BYTES: usize = 32 * 1024 * 1024;
+/// On "End broadcast" the held frames are still sent for at most this long.
+const PACER_DRAIN_LIMIT: Duration = Duration::from_secs(4);
 /// How often the ingest rebuilds the status snapshot the app polls.
 const SNAPSHOT_INTERVAL: Duration = Duration::from_millis(250);
 /// Nice values for the media threads (Android's THREAD_PRIORITY_URGENT_DISPLAY is -8).
@@ -1186,6 +1200,163 @@ impl OutputClock {
     }
 }
 
+/// Holds a platform's frames for [OUTPUT_DELAY] after the time the drone's timeline gives them,
+/// and lets them go in the order they came. Frames that arrive late because the Wi-Fi paused
+/// still leave on time, so the platform sees a steady stream instead of a gap and a burst.
+///
+/// The reference point maps a source timestamp to the moment it was expected to arrive. It
+/// follows the earliest arrivals: a frame that comes clearly early moves it back at once, and
+/// a window in which every frame came late moves it forward, so the full delay returns after
+/// the drone's clock and the phone's drift apart. A new source or a jump in the timeline starts
+/// it over.
+struct Pacer {
+    delay: Duration,
+    frames: VecDeque<(Instant, OutboundFrame)>,
+    bytes: usize,
+    /// (source, wall time, source timestamp) of the reference point.
+    anchor: Option<(u64, Instant, u32)>,
+    window_start: Option<Instant>,
+    /// The smallest lateness seen in the current window.
+    window_lateness: Duration,
+}
+
+impl Pacer {
+    fn new(delay: Duration) -> Self {
+        Self {
+            delay,
+            frames: VecDeque::new(),
+            bytes: 0,
+            anchor: None,
+            window_start: None,
+            window_lateness: Duration::MAX,
+        }
+    }
+
+    fn is_empty(&self) -> bool {
+        self.frames.is_empty()
+    }
+
+    /// When the first held frame is due.
+    fn next_due(&self) -> Option<Instant> {
+        self.frames.front().map(|(due, _)| *due)
+    }
+
+    fn push(&mut self, frame: OutboundFrame, now: Instant) {
+        let due = self.expected(&frame, now) + self.delay;
+        self.bytes += frame.payload.len();
+        self.frames.push_back((due, frame));
+    }
+
+    /// The first held frame if its time has come (or too much is held).
+    fn pop_due(&mut self, now: Instant) -> Option<OutboundFrame> {
+        let (due, _) = self.frames.front()?;
+        if *due > now && self.bytes <= PACER_MAX_BYTES {
+            return None;
+        }
+        let (_, frame) = self.frames.pop_front()?;
+        self.bytes -= frame.payload.len();
+        Some(frame)
+    }
+
+    /// Every held frame, oldest first, without waiting.
+    fn take_all(&mut self) -> impl Iterator<Item = OutboundFrame> + '_ {
+        self.bytes = 0;
+        self.frames.drain(..).map(|(_, frame)| frame)
+    }
+
+    /// When `frame` should have arrived if nothing delayed it; moves the reference as needed.
+    fn expected(&mut self, frame: &OutboundFrame, now: Instant) -> Instant {
+        let Some((source, at, timestamp)) = self.anchor else {
+            return self.restart(frame, now);
+        };
+        if source != frame.source {
+            return self.restart(frame, now);
+        }
+        let offset_ms = i64::from(frame.timestamp.wrapping_sub(timestamp) as i32);
+        let offset = Duration::from_millis(offset_ms.unsigned_abs());
+        let expected = if offset_ms >= 0 {
+            at.checked_add(offset)
+        } else {
+            at.checked_sub(offset)
+        };
+        let Some(expected) = expected else {
+            return self.restart(frame, now);
+        };
+        if expected > now + PACER_TOLERANCE {
+            // Earlier than the reference allows: the reference itself came late.
+            if expected > now + PACER_JUMP {
+                return self.restart(frame, now);
+            }
+            let early = expected - now;
+            self.anchor = Some((source, at.checked_sub(early).unwrap_or(now), timestamp));
+            self.window_start = Some(now);
+            self.window_lateness = Duration::MAX;
+            return now;
+        }
+        let lateness = now.saturating_duration_since(expected);
+        if lateness > PACER_JUMP {
+            return self.restart(frame, now);
+        }
+        self.window_lateness = self.window_lateness.min(lateness);
+        let window_start = *self.window_start.get_or_insert(now);
+        if now.duration_since(window_start) >= PACER_WINDOW {
+            let shift = self.window_lateness;
+            self.window_start = Some(now);
+            self.window_lateness = Duration::MAX;
+            if shift > PACER_TOLERANCE {
+                self.anchor = Some((source, at + shift, timestamp));
+                return expected + shift;
+            }
+        }
+        expected
+    }
+
+    fn restart(&mut self, frame: &OutboundFrame, now: Instant) -> Instant {
+        self.anchor = Some((frame.source, now, frame.timestamp));
+        self.window_start = Some(now);
+        self.window_lateness = Duration::MAX;
+        now
+    }
+}
+
+/// Waits up to `wait` for frames from the ingest, holds them in `pacer`, and returns the next
+/// one whose time has come. `Timeout` means none is due yet; `Disconnected` that nothing more
+/// will come and nothing is held.
+fn next_paced_frame(
+    receiver: &Receiver<OutboundFrame>,
+    pacer: &mut Pacer,
+    wait: Duration,
+) -> Result<OutboundFrame, mpsc::RecvTimeoutError> {
+    if let Some(frame) = pacer.pop_due(Instant::now()) {
+        return Ok(frame);
+    }
+    let now = Instant::now();
+    let wait = pacer
+        .next_due()
+        .map_or(wait, |due| due.saturating_duration_since(now).min(wait));
+    match receiver.recv_timeout(wait) {
+        Ok(frame) => {
+            pacer.push(frame, Instant::now());
+            while let Ok(frame) = receiver.try_recv() {
+                pacer.push(frame, Instant::now());
+            }
+        }
+        Err(mpsc::RecvTimeoutError::Timeout) => {}
+        Err(mpsc::RecvTimeoutError::Disconnected) if pacer.is_empty() => {
+            return Err(mpsc::RecvTimeoutError::Disconnected);
+        }
+        Err(mpsc::RecvTimeoutError::Disconnected) => {
+            // Nothing more will come: wait for the next held frame without spinning.
+            if let Some(due) = pacer.next_due() {
+                thread::sleep(due.saturating_duration_since(Instant::now()).min(wait));
+            }
+        }
+    }
+    pacer
+        .pop_due(Instant::now())
+        .ok_or(mpsc::RecvTimeoutError::Timeout)
+}
+
 fn run_outbound(
     output: Arc<Output>,
     destination: Destination,
@@ -1209,6 +1380,7 @@ fn run_outbound(
     let mut skipping_video = false;
     let mut rate = RateMeter::new();
     let mut stall = StallWatch::default();
+    let mut pacer = Pacer::new(OUTPUT_DELAY);
 
     while !stop.load(Ordering::Acquire) {
         if output.overflowed.swap(false, Ordering::AcqRel) && client.is_some() {
@@ -1216,11 +1388,15 @@ fn run_outbound(
             skipping_video = true;
         }
 
-        let frame = match receiver.recv_timeout(Duration::from_millis(50)) {
+        let frame = match next_paced_frame(&receiver, &mut pacer, Duration::from_millis(50)) {
             Ok(frame) => frame,
             Err(mpsc::RecvTimeoutError::Timeout) => {
                 if client.is_some() {
-                    if holding_since.is_none() && !SOURCE_ACTIVE.load(Ordering::Relaxed) {
+                    // Held frames still go out before the platform waits for the drone.
+                    if holding_since.is_none()
+                        && pacer.is_empty()
+                        && !SOURCE_ACTIVE.load(Ordering::Relaxed)
+                    {
                         holding_since = Some(Instant::now());
                         output.set_status("holding");
                     }
@@ -1416,6 +1592,37 @@ fn run_outbound(
         }
     }
     if let Some(mut active_client) = client.take() {
+        // The last seconds (the pilot's goodbye on the phone microphone) are still held here.
+        if !waiting_for_keyframe && !resume_pending {
+            while let Ok(frame) = receiver.try_recv() {
+                pacer.push(frame, Instant::now());
+            }
+            let deadline = Instant::now() + PACER_DRAIN_LIMIT;
+            for frame in pacer.take_all() {
+                if Instant::now() >= deadline || frame.source != source {
+                    break;
+                }
+                if skipping_video && frame.frame_type == FrameType::Video {
+                    continue;
+                }
+                let Some(timestamp) = clock.map(frame.timestamp) else {
+                    continue;
+                };
+                if send_output_frame(
+                    &mut active_client,
+                    frame.frame_type,
+                    timestamp,
+                    &frame.payload,
+                )
+                .is_err()
+                {
+                    break;
+                }
+                output
+                    .outbound_bytes
+                    .fetch_add(frame.payload.len() as u64, Ordering::Relaxed);
+            }
+        }
         flush_outbound_client(&mut active_client);
     }
     output.set_status("stopped");
@@ -1853,6 +2060,205 @@ mod tests {
         assert_eq!(rate.congestion_limit(), MIN_CONGESTION_BYTES);
         rate.bytes_per_second = 1_000_000.0;
         assert_eq!(rate.congestion_limit(), 1_500_000);
+    }
+
+    fn paced(source: u64, timestamp: u32) -> OutboundFrame {
+        OutboundFrame {
+            source,
+            frame_type: FrameType::Video,
+            timestamp,
+            payload: Arc::from(&[0x27, 0x01, 0x00][..]),
+        }
+    }
+
+    fn ms(value: u64) -> Duration {
+        Duration::from_millis(value)
+    }
+
+    /// Feeds `arrivals` (arrival ms, source timestamp) and returns when each frame left, in ms.
+    fn pace(arrivals: &[(u64, u32)]) -> Vec<(u32, u64)> {
+        let start = Instant::now();
+        let mut pacer = Pacer::new(OUTPUT_DELAY);
+        let mut left = Vec::new();
+        let mut next = 0;
+        let end = arrivals.last().map_or(0, |(at, _)| *at) + 10_000;
+        for tick in 0..=end {
+            let now = start + ms(tick);
+            while next < arrivals.len() && arrivals[next].0 == tick {
+                pacer.push(paced(1, arrivals[next].1), now);
+                next += 1;
+            }
+            while let Some(frame) = pacer.pop_due(now) {
+                left.push((frame.timestamp, tick));
+            }
+        }
+        left
+    }
+
+    #[test]
+    fn steady_frames_leave_after_the_delay_at_their_own_pace() {
+        let arrivals: Vec<_> = (0..10).map(|i| (i * 33, 1_000 + i as u32 * 33)).collect();
+        let left = pace(&arrivals);
+        assert_eq!(left.len(), 10);
+        for (i, (timestamp, at)) in left.iter().enumerate() {
+            assert_eq!(*timestamp, 1_000 + i as u32 * 33);
+            assert_eq!(*at, 3_000 + i as u64 * 33);
+        }
+    }
+
+    #[test]
+    fn a_wifi_pause_shorter_than_the_delay_never_reaches_the_platform() {
+        // 30 fps; frames filmed during a 2.5 s pause arrive together when it ends.
+        let mut arrivals = Vec::new();
+        for i in 0..300u64 {
+            let filmed = i * 33;
+            let arrived = if (2_000..4_500).contains(&filmed) {
+                4_500
+            } else {
+                filmed
+            };
+            arrivals.push((arrived, filmed as u32));
+        }
+        let left = pace(&arrivals);
+        assert_eq!(left.len(), 300);
+        // Every frame leaves exactly the delay after it was filmed: no gap, no burst.
+        for (timestamp, at) in &left {
+            assert_eq!(*at, u64::from(*timestamp) + 3_000);
+        }
+    }
+
+    #[test]
+    fn a_longer_pause_only_delays_what_it_held_back() {
+        let mut arrivals = Vec::new();
+        for i in 0..400u64 {
+            let filmed = i * 33;
+            // A 5 s pause, longer than the delay.
+            let arrived = if (2_000..7_000).contains(&filmed) {
+                7_000
+            } else {
+                filmed
+            };
+            arrivals.push((arrived, filmed as u32));
+        }
+        let left = pace(&arrivals);
+        assert_eq!(left.len(), 400);
+        // Held-back frames leave as soon as they arrive; afterwards the full delay is back.
+        assert!(left
+            .iter()
+            .filter(|(timestamp, _)| (2_000..4_000).contains(timestamp))
+            .all(|(_, at)| *at == 7_000));
+        assert!(left
+            .iter()
+            .filter(|(timestamp, _)| *timestamp >= 7_000)
+            .all(|(timestamp, at)| *at == u64::from(*timestamp) + 3_000));
+    }
+
+    #[test]
+    fn frames_leave_in_the_order_they_came() {
+        // Audio slightly behind video on the timeline: no reordering.
+        let left = pace(&[(0, 1_000), (0, 990), (33, 1_033), (33, 1_023)]);
+        let order: Vec<_> = left.iter().map(|(timestamp, _)| *timestamp).collect();
+        assert_eq!(order, vec![1_000, 990, 1_033, 1_023]);
+    }
+
+    #[test]
+    fn a_late_reference_frame_does_not_add_to_the_delay() {
+        // The first frame (filmed at 0) came 1 s late; the ones after it were on time.
+        let mut arrivals = vec![(1_000, 0)];
+        arrivals.extend((31..90).map(|i| (i * 33, i as u32 * 33)));
+        let left = pace(&arrivals);
+        // Measured from the frames that came on time: 3 s, not 4 s.
+        let (timestamp, at) = *left.last().unwrap();
+        assert_eq!(at, u64::from(timestamp) + 3_000);
+    }
+
+    #[test]
+    fn a_clock_that_falls_behind_gets_its_full_delay_back() {
+        // From 1 s on, every frame arrives 1.5 s later than its timestamp says.
+        let mut arrivals: Vec<_> = (0..30).map(|i| (i * 33, i as u32 * 33)).collect();
+        arrivals.extend((30..800).map(|i| (i * 33 + 1_500, i as u32 * 33)));
+        let left = pace(&arrivals);
+        assert_eq!(left.len(), 800);
+        let (timestamp, at) = *left.last().unwrap();
+        let arrived = arrivals.last().unwrap().0;
+        assert_eq!(timestamp, 799 * 33);
+        assert_eq!(at - arrived, 3_000);
+    }
+
+    #[test]
+    fn a_new_source_or_a_jump_starts_over() {
+        let start = Instant::now();
+        let mut pacer = Pacer::new(OUTPUT_DELAY);
+        pacer.push(paced(1, 50_000), start);
+        // The drone reconnected and its clock started over.
+        pacer.push(paced(2, 10), start + ms(100));
+        // Within one source, a timestamp a minute ahead.
+        pacer.push(paced(2, 60_010), start + ms(200));
+        assert_eq!(
+            pacer.pop_due(start + ms(3_000)).map(|f| f.timestamp),
+            Some(50_000)
+        );
+        assert_eq!(
+            pacer.pop_due(start + ms(3_100)).map(|f| f.timestamp),
+            Some(10)
+        );
+        assert!(pacer.pop_due(start + ms(3_199)).is_none());
+        assert_eq!(
+            pacer.pop_due(start + ms(3_200)).map(|f| f.timestamp),
+            Some(60_010)
+        );
+        assert!(pacer.is_empty());
+    }
+
+    #[test]
+    fn too_much_held_payload_leaves_at_once() {
+        let start = Instant::now();
+        let mut pacer = Pacer::new(OUTPUT_DELAY);
+        let big: Arc<[u8]> = vec![0u8; PACER_MAX_BYTES].into();
+        let frame = |timestamp| OutboundFrame {
+            source: 1,
+            frame_type: FrameType::Video,
+            timestamp,
+            payload: Arc::clone(&big),
+        };
+        pacer.push(frame(0), start);
+        assert!(pacer.pop_due(start).is_none());
+        pacer.push(frame(33), start);
+        assert!(pacer.pop_due(start).is_some());
+        assert!(pacer.pop_due(start).is_none());
+    }
+
+    #[test]
+    fn the_receiver_hands_out_frames_only_when_due() {
+        let (sender, receiver) = mpsc::sync_channel(8);
+        let mut pacer = Pacer::new(ms(100));
+        sender.send(paced(1, 0)).unwrap();
+        assert_eq!(
+            next_paced_frame(&receiver, &mut pacer, ms(10)).err(),
+            Some(mpsc::RecvTimeoutError::Timeout)
+        );
+        let started = Instant::now();
+        let frame = loop {
+            match next_paced_frame(&receiver, &mut pacer, ms(50)) {
+                Ok(frame) => break frame,
+                Err(error) => assert_eq!(error, mpsc::RecvTimeoutError::Timeout),
+            }
+        };
+        assert_eq!(frame.timestamp, 0);
+        assert!(started.elapsed() >= ms(60));
+        // Held frames still come out after the ingest has gone; then it says so.
+        sender.send(paced(1, 10)).unwrap();
+        drop(sender);
+        let frame = loop {
+            if let Ok(frame) = next_paced_frame(&receiver, &mut pacer, ms(50)) {
+                break frame;
+            }
+        };
+        assert_eq!(frame.timestamp, 10);
+        assert_eq!(
+            next_paced_frame(&receiver, &mut pacer, ms(50)).err(),
+            Some(mpsc::RecvTimeoutError::Disconnected)
+        );
     }
 
     #[test]

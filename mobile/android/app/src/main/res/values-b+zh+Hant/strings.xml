@@ -291,6 +291,9 @@
     <string name="weak_link_title">畫面經常停格</string>
     <string name="weak_link_tip">問題通常出在遙控器與這支手機之間的 Wi‑Fi。請將遙控器連到這支手機的熱點（可以的話用 5 GHz），並讓兩者靠近。若遙控器的畫面也會停格，表示無人機的訊號太弱。</string>
     <string name="weak_link_tip_hotspot">問題通常出在遙控器與這支手機之間的 Wi‑Fi。請讓兩者靠近、中間不要有遮擋，可以的話把熱點設為 5 GHz。若遙控器的畫面也會停格，表示無人機的訊號太弱。</string>
+    <string name="weak_link_tip_weak_wifi">這支手機的 Wi‑Fi 訊號很弱（%1$d dBm）。請靠近路由器，或開啟這支手機的熱點並讓遙控器連上它。</string>
+    <string name="wifi_roaming_title">這支手機的 Wi‑Fi 頻繁切換頻段</string>
+    <string name="wifi_roaming_tip">它在 2.4 GHz 與 5 GHz 之間來回切換，每次切換都可能讓畫面停格一下。請開啟這支手機的熱點並讓遙控器連上它，或為路由器的 5 GHz 網路另取一個名稱。</string>
 
     <!-- YouTube account connection (Android). -->
     <string name="youtube_connect">連結 YouTube 帳戶</string>

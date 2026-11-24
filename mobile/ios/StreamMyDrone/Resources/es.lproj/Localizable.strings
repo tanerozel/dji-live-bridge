@@ -386,8 +386,11 @@
 "vmic_turn_on_bluetooth" = "Activar Bluetooth";
 "weak_link_tip" = "Suele ser la conexión Wi-Fi entre el control y este teléfono. Conecta el control al punto de acceso de este teléfono (5 GHz si está disponible) y mantenlos cerca. Si la pantalla del control también se congela, la señal del dron es débil.";
 "weak_link_tip_hotspot" = "Suele ser la conexión Wi-Fi entre el control y este teléfono. Mantenlos cerca y sin obstáculos entre ellos, y pon el punto de acceso en 5 GHz si está disponible. Si la pantalla del control también se congela, la señal del dron es débil.";
+"weak_link_tip_weak_wifi" = "La señal Wi-Fi de este teléfono es débil (%1$ld dBm). Acércate al router, o activa el punto de acceso de este teléfono y conecta el control a él.";
 "weak_link_title" = "La imagen se congela a menudo";
 "where_to_stream" = "¿Dónde quieres transmitir?";
+"wifi_roaming_tip" = "Pasa de 2,4 a 5 GHz y viceversa, y cada cambio puede congelar la imagen. Activa el punto de acceso de este teléfono y conecta el control a él, o ponle un nombre propio a la red de 5 GHz del router.";
+"wifi_roaming_title" = "El Wi-Fi de este teléfono cambia de banda constantemente";
 "youtube_audience" = "Audiencia";
 "youtube_auto_hint" = "YouTube comienza automáticamente al recibir vídeo. Comprueba tu directo en YouTube.";
 "youtube_channel" = "Canal";

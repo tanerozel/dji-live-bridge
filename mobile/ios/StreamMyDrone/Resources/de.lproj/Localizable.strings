@@ -386,8 +386,11 @@
 "vmic_turn_on_bluetooth" = "Bluetooth einschalten";
 "weak_link_tip" = "Meist liegt es am WLAN zwischen Fernsteuerung und diesem Handy. Verbinde die Fernsteuerung mit dem Hotspot dieses Handys (5 GHz, falls verfügbar) und halte beide nah beieinander. Friert auch der Bildschirm der Fernsteuerung ein, ist das Signal der Drohne schwach.";
 "weak_link_tip_hotspot" = "Meist liegt es am WLAN zwischen Fernsteuerung und diesem Handy. Halte beide nah beieinander, ohne Hindernisse dazwischen, und stelle den Hotspot auf 5 GHz, falls verfügbar. Friert auch der Bildschirm der Fernsteuerung ein, ist das Signal der Drohne schwach.";
+"weak_link_tip_weak_wifi" = "Das WLAN-Signal dieses Handys ist schwach (%1$ld dBm). Geh näher an den Router, oder schalte den Hotspot dieses Handys ein und verbinde die Fernsteuerung damit.";
 "weak_link_title" = "Das Bild friert immer wieder ein";
 "where_to_stream" = "Wohin möchtest du streamen?";
+"wifi_roaming_tip" = "Es springt zwischen 2,4 und 5 GHz, und jeder Wechsel kann das Bild kurz einfrieren. Schalte den Hotspot dieses Handys ein und verbinde die Fernsteuerung damit, oder gib dem 5-GHz-WLAN des Routers einen eigenen Namen.";
+"wifi_roaming_title" = "Das WLAN dieses Handys wechselt ständig das Band";
 "youtube_audience" = "Zielgruppe";
 "youtube_auto_hint" = "YouTube startet automatisch, sobald Video ankommt. Prüfe deinen Livestream auf YouTube.";
 "youtube_channel" = "Kanal";

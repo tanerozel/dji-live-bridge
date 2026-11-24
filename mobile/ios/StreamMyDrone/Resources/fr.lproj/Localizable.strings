@@ -386,8 +386,11 @@
 "vmic_turn_on_bluetooth" = "Activer le Bluetooth";
 "weak_link_tip" = "En général, c'est le Wi-Fi entre la radiocommande et ce téléphone. Connectez-la au partage de connexion de ce téléphone (5 GHz si disponible) et rapprochez les deux. Si l'écran de la radiocommande se fige aussi, le signal du drone est faible.";
 "weak_link_tip_hotspot" = "En général, c'est le Wi-Fi entre la radiocommande et ce téléphone. Rapprochez les deux, sans obstacle entre eux, et réglez le partage de connexion sur 5 GHz si disponible. Si l'écran de la radiocommande se fige aussi, le signal du drone est faible.";
+"weak_link_tip_weak_wifi" = "Le signal Wi-Fi de ce téléphone est faible (%1$ld dBm). Rapprochez-vous du routeur, ou activez le partage de connexion de ce téléphone et connectez-y la radiocommande.";
 "weak_link_title" = "L'image se fige souvent";
 "where_to_stream" = "Où voulez-vous diffuser ?";
+"wifi_roaming_tip" = "Il passe de 2,4 à 5 GHz et inversement, et chaque changement peut figer l'image. Activez le partage de connexion de ce téléphone et connectez-y la radiocommande, ou donnez un nom distinct au réseau 5 GHz du routeur.";
+"wifi_roaming_title" = "Le Wi-Fi de ce téléphone change sans cesse de bande";
 "youtube_audience" = "Audience";
 "youtube_auto_hint" = "YouTube démarre automatiquement à la réception de la vidéo. Vérifiez votre direct sur YouTube.";
 "youtube_channel" = "Chaîne";

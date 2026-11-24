@@ -18,8 +18,9 @@ Video and audio are copied, never decoded or re-encoded on their way to the plat
 
 - **The relay.** Ingest on `:1935/drone` (DJI Fly's librtmp habits included), publisher takeover
   on `releaseStream`, the 20-second hold when the drone drops, one output per platform with its
-  own retries, congestion skip-to-keyframe and stall detection, the GOP-cached preview tap, the
-  stall and reconnect counters. All of it is the same Rust code.
+  own retries, congestion skip-to-keyframe and stall detection, the 3-second output pacing that
+  hides short Wi-Fi pauses from the platforms, the GOP-cached preview tap, the stall and reconnect
+  counters. All of it is the same Rust code.
 - **The screen.** One dark camera-style screen: device card and state card at the top, picture
   size / bitrate / network chips, the connect card with the DJI Fly address until the picture
   comes, a switch per platform ("1/4 active"), Preview / Go live / More, one closable note at a
