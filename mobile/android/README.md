@@ -309,8 +309,8 @@ text/background pairs meet WCAG AA contrast.
 
 The connect card prefers the Wi-Fi client address, then the phone's own hotspot, and never offers
 mobile-data, VPN or 464XLAT addresses, which the RC 2 cannot reach. The address refreshes every few
-seconds while the app is visible. The key screen sets `FLAG_SECURE` while it is open, so stream
-keys stay out of screenshots, screen recordings and the recents thumbnail. The launcher, themed and
+seconds while the app is visible. The key screens do not set `FLAG_SECURE`, so they can be screen
+recorded (store review videos need this); the stream key stays masked unless the user shows it. The launcher, themed and
 notification icons are vector versions of the desktop icon (`src-tauri/icons/source.svg`).
 
 ## Languages

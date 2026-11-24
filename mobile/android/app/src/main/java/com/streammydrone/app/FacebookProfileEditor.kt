@@ -181,7 +181,6 @@ internal fun FacebookProfileEditor(
         editor.error = onSave(FacebookConnection(user.id, user.name, page?.id ?: user.id, page?.name ?: user.name, page != null, title, privacy))
     }
 
-    SecureWindowEffect()
     BackHandler(onBack = ::dismiss)
     val user = editor.user
     val onPage = user != null && editor.targetId != user.id

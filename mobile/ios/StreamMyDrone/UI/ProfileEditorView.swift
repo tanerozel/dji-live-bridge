@@ -1,9 +1,8 @@
 import SwiftUI
 
 /**
- * The stream key screen for one platform. iOS cannot keep a screen out of screenshots the way
- * Android's FLAG_SECURE does, so the key stays masked unless the user shows it, and the whole
- * screen is covered while the screen is recorded or mirrored and in the app switcher.
+ * The stream key screen for one platform. The key stays masked unless the user shows it, and the
+ * screen is covered in the app switcher. Screen recording is allowed (needed for store review videos).
  */
 struct ProfileEditorView: View {
     @Environment(AppModel.self) private var model
@@ -23,7 +22,6 @@ struct ProfileEditorView: View {
     @State private var editorError: UiText?
     @State private var showDiscard = false
     @State private var showDelete = false
-    @State private var captured = UIScreen.main.isCaptured
     @FocusState private var focus: Field?
 
     private enum Field { case server, key }
@@ -151,10 +149,7 @@ struct ProfileEditorView: View {
         }
         .foregroundStyle(palette.text)
         .background(palette.background.ignoresSafeArea())
-        .overlay { if captured || scenePhase != .active { privacyCover } }
-        .onReceive(NotificationCenter.default.publisher(for: UIScreen.capturedDidChangeNotification)) { _ in
-            captured = UIScreen.main.isCaptured
-        }
+        .overlay { if scenePhase != .active { privacyCover } }
         .interactiveDismissDisabled(hasChanges)
         .onAppear {
             // Most visits are only for a key, so the keyboard opens straight on it. Platforms

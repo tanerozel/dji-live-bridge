@@ -1,8 +1,6 @@
 package com.streammydrone.app
 
-import android.view.WindowManager
 import androidx.activity.compose.BackHandler
-import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,7 +40,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -65,12 +62,10 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.DialogProperties
-import androidx.compose.ui.window.SecureFlagPolicy
 
 /**
- * The stream key screen for one platform. The window is FLAG_SECURE while it is open so the key
- * cannot end up in screenshots, screen recordings or the recents thumbnail.
+ * The stream key screen for one platform. The key stays masked unless the user shows it; the
+ * screen itself may be recorded (needed for store review videos).
  */
 @Composable
 internal fun DestinationProfileEditor(
@@ -136,7 +131,6 @@ internal fun DestinationProfileEditor(
         if (editorError == null) state.clearSecret()
     }
 
-    SecureWindowEffect()
     BackHandler(onBack = ::requestDismiss)
     // Most visits are only for a key, so the keyboard opens straight on it. Platforms without a
     // published address start on the address instead; their field is always shown.
@@ -382,12 +376,9 @@ internal fun DestinationProfileEditor(
         }
     }
 
-    val secureDialogProperties = DialogProperties(securePolicy = SecureFlagPolicy.SecureOn)
-
     if (showDiscardConfirmation) {
         AlertDialog(
             onDismissRequest = { showDiscardConfirmation = false },
-            properties = secureDialogProperties,
             containerColor = colors.card,
             title = { Text(stringResource(R.string.discard_title)) },
             text = { Text(stringResource(R.string.discard_message)) },
@@ -411,7 +402,6 @@ internal fun DestinationProfileEditor(
     if (showDeleteConfirmation && profile != null && onDelete != null) {
         AlertDialog(
             onDismissRequest = { showDeleteConfirmation = false },
-            properties = secureDialogProperties,
             containerColor = colors.card,
             title = { Text(stringResource(R.string.delete_platform_title, kind.displayName())) },
             text = { Text(stringResource(R.string.delete_platform_message)) },
@@ -429,15 +419,6 @@ internal fun DestinationProfileEditor(
                 TextButton(onClick = { showDeleteConfirmation = false }) { Text(stringResource(R.string.cancel)) }
             },
         )
-    }
-}
-
-@Composable
-internal fun SecureWindowEffect() {
-    val window = LocalActivity.current?.window
-    DisposableEffect(window) {
-        window?.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
-        onDispose { window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE) }
     }
 }
 

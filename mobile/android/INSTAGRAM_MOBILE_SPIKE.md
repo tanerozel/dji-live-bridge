@@ -45,7 +45,7 @@ iptal eder. Elle kaydetme yedeği aynı uygulama oturumunda harici tarayıcı ak
   Instagram sayfasıdır; script yalnız bağlantı bilgilerini döndürür.
 - WebView Javascript/DOM depolaması Instagram için açıktır; dosya/content erişimi, karma içerik,
   üçüncü taraf cookie'leri, kamera/mikrofon izni ve web hata ayıklaması kapalıdır. TLS hatası
-  atlanmaz. HTTP önbelleği kullanılmaz. Modal ve anahtar editörü FLAG_SECURE ile korunur.
+  atlanmaz. HTTP önbelleği kullanılmaz. Modal ve anahtar editörü artık FLAG_SECURE kullanmaz (mağaza inceleme videoları için ekran kaydı gerekir); anahtar maskeli kalır.
 - Instagram'ın web oturumu WebView'ın uygulama içi verilerinde kalabilir; native profil dosyasına
   kopyalanmaz. **Oturumu temizle** yerel web cookie/depolamasını temizler. Aktif Instagram aktarımı
   sırasında bu işlem ve bağlantıyı değiştirme kapalıdır. Temizleme bir Instagram API yetkisi iptali

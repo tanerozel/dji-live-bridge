@@ -56,7 +56,7 @@ broadcast still need verification on a physical iPhone/iPad.
 | RTMPS | System CAs exported to a temporary PEM for OpenSSL | OpenSSL does the handshake, then the chain is evaluated with `SecTrustEvaluateWithError` for the host name, before any RTMP byte is sent (see `vendor/librtmp2/PATCHES.md`) |
 | Preview | MediaCodec onto a SurfaceView | VideoToolbox in real-time mode onto an `AVSampleBufferDisplayLayer`, frames shown on arrival, late frames skipped |
 | In the background | Foreground service with a notification | Picture in Picture while live (below) |
-| Key screen privacy | `FLAG_SECURE` | The key stays masked; the screen is covered while recorded or mirrored and in the app switcher |
+| Key screen privacy | Key masked; screen recording allowed (store review videos) | Key masked; the screen is covered in the app switcher; screen recording allowed |
 | Language | Android 13+ per-app language | In-app picker, applied at once; "Phone's language" also follows iOS Settings → Stream My Drone → Language |
 | Phone Wi-Fi in details | Signal, band and link speed | Not available to apps on iOS; only "this phone's hotspot" is shown |
 | Phone microphone on the broadcast | `AudioRecord` + MediaCodec AAC, foreground service with the `microphone` type | `AVAudioEngine` + `AVAudioConverter` AAC (`Media/PhoneMicrophone.swift`); the audio session becomes play-and-record while it is on. Both feed relay-core's `phone_audio` |

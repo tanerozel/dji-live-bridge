@@ -198,7 +198,6 @@ internal fun YouTubeProfileEditor(
         }
     }
 
-    SecureWindowEffect()
     BackHandler(onBack = ::dismiss)
     val connected = editor.email != null && editor.channels.isNotEmpty()
     val channel = editor.channels.firstOrNull { it.id == editor.channelId }
